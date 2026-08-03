@@ -1,90 +1,95 @@
 # RGO Bonus Filter
 
-An EU5 mod that filters the building list of a location down to buildings which
-gain production efficiency from raw materials available in the province — the
-ones the game badges with the shovel icon. Combined with the sort control that
-vanilla already provides on `production_efficiency`, it answers "what is worth
-building *here*" without scrolling past everything that is not.
+An EU5 mod that adds a **Local Raw Materials** filter to the building list of a
+location, keeping only the buildings that gain production efficiency from raw
+materials produced in the province — the ones the game badges with the shovel.
+Combined with the `production_efficiency` sort the panel already has, it answers
+"what is worth building *here*" without scrolling past everything that is not.
 
-Requires the [Community Mod Framework](https://steamcommunity.com/workshop/)
-(`community_mod_framework` 2.\*), which provides the settings menu the mod
-registers into.
+Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-## Status
+> Not yet run in game. Every file has been syntax checked and the generated
+> predicate cross-checked against the game data it came from, but nothing here
+> has been loaded by EU5 itself.
 
-Scaffolding and game logic are in place. The interface half is not yet written —
-see [Remaining work](#remaining-work).
+## How it works
 
-| Piece | State |
-| --- | --- |
-| `metadata.json`, folder layout, CMF dependency | done |
-| CMF registration hook | done |
-| Mod Menu settings | done |
-| Filter state + scripted GUI bridges | done |
-| English / Russian localization | done |
-| Target panel and filter format identified | done |
-| The filter itself | **blocked** — see [Remaining work](#remaining-work) |
+The filter appears as a normal chip in the funnel menu of the buildings panel,
+next to vanilla's own building filters. **No vanilla file is replaced**, so the
+mod does not collide with other interface mods.
+
+Three pieces make that possible.
+
+**The filter.** `in_game/gui/filters/bag_rgo_filters.txt` declares one filter
+with `scope = building_type` and `tag = building`. Any list that asks for the
+`building` tag picks it up, which includes `LocationProductionView` — the
+"Buildings of <town>" panel. Filtering has to happen here rather than by hiding
+rows: the list body is a `fixedgridbox` with a fixed row height, so a hidden row
+would still occupy its cell and leave a hole.
+
+**The predicate.** The game answers "does this building gain from local raw
+materials" with `BuildingType.HasPossibleRGOBonus`, but that is a GUI data
+function and filter triggers run script, with no script counterpart anywhere in
+`common/scripted_triggers/`. So `tools/generate_rgo_filter.py` reconstructs it
+from the game files: it reads every production method each building type
+offers, takes the goods those methods consume, and keeps the ones flagged
+`category = raw_material`. The result is one trigger per raw material listing
+the building types that consume it, written to
+`in_game/common/scripted_triggers/bag_rgo_generated_triggers.txt`.
+
+**The location.** A filter is handed the building type as `root` and the country
+as `scope:target` — never the location on screen. A scripted widget
+(`in_game/gui/bag_rgo/bag_rgo_location_probe.gui`) watches
+`LocationProductionView.GetSelectedLocation` and parks it on the player country
+through a scripted GUI, so the trigger can reach it. Scripted widgets are
+injected by the engine and need no vanilla file, and the state re-arms itself
+rather than firing every frame.
+
+## Regenerating the predicate
+
+Needed after a game patch that touches building types, production methods or
+goods:
+
+```
+python3 tools/generate_rgo_filter.py "<EU5>/game/in_game/common"
+```
+
+As of 1.3.10 that covers 465 building types, 317 of which consume at least one
+of the 52 raw material goods, over 678 building/material pairs.
+
+## Settings
+
+Under **Filter → Range** in the Mod Menu:
+
+- **This Location Only** — count only raw materials produced in this very
+  location. Off by default, matching the game's own shovel badge, which counts
+  the whole province.
+
+CMM keeps setting values in a variable map that script triggers cannot read, so
+`cmm_sync_bool_alias` mirrors this one onto a plain country variable, refreshed
+from `cmf_on_callback` whenever the setting changes.
 
 ## Layout
 
 ```
-.metadata/metadata.json              mod descriptor
-in_game/common/on_action/            hooks into cmf_on_mod_registration
-in_game/common/scripted_effects/     registration, filter on/off
-in_game/common/scripted_guis/        toggle + state queries for the GUI
-in_game/gui/filters/                 declarative list filters (empty for now)
-main_menu/localization/<lang>/       localization
-docs/RESEARCH.md                     notes on the EU5 mod format and CMF
+.metadata/metadata.json                    mod descriptor
+in_game/common/on_action/                  CMF registration and callback hooks
+in_game/common/scripted_effects/           registration, setting alias sync
+in_game/common/scripted_guis/              location probe bridges
+in_game/common/scripted_triggers/          filter entry point + generated predicate
+in_game/gui/filters/                       the filter itself
+in_game/gui/bag_rgo/                       probe widget
+in_game/gui/scripted_widgets/              probe registration
+main_menu/localization/<lang>/             English and Russian
+tools/generate_rgo_filter.py               predicate generator
+docs/RESEARCH.md                           notes on the EU5 mod format and CMF
 ```
 
-## How it is meant to work
+## Known gaps
 
-The target panel is `location_production_lateralview.gui` (`LocationProductionView`),
-the "Buildings of <town>" list. Its list already declares
-`WithFilterTags('building')`, so a filter file dropped into
-`in_game/gui/filters/` shows up in its existing funnel menu as a chip, next to
-vanilla's own building filters. Sorting is untouched — the panel already offers
-a `production_efficiency` sort key that orders both ways.
-
-That is deliberately not a GUI override. The list body is a `fixedgridbox` with
-a fixed row height, so hiding rows from the interface would leave holes in the
-list; only a real filter removes items. It also keeps the mod compatible with
-every other UI mod, since no vanilla file is replaced.
-
-## Remaining work
-
-The filter needs a `trigger` that answers "does this building type gain
-efficiency from raw materials in this province". The game answers that question
-in the interface — `BuildingType.HasPossibleRGOBonus(country, location)` drives
-the shovel badge and `Building.IsUsingRGOBonus(country, location)` colours it —
-but those are GUI data functions, and filter triggers run *script*. Nothing in
-`common/scripted_triggers/` exposes the same thing.
-
-Two ways forward, and which one applies is not yet decided:
-
-1. **A script trigger exists.** Then the filter is one small file and the mod is
-   essentially done. Settling this needs the engine's trigger list, which
-   `script_docs` dumps to `logs/triggers.log`.
-2. **No script trigger exists.** Then the predicate gets generated from game
-   data: read which production methods each building type offers and which goods
-   they consume, cross them with the raw materials a province can produce, and
-   emit a generated scripted trigger. Glorp UI ships generated files
-   (`glorpui_generated_trait_scripted_triggers.txt`) for much the same reason.
-   This needs `common/building_types/`, `common/production_methods/` and
-   `common/goods/` from the game folder.
-
-One wrinkle either way: filter triggers get the building type as `root` and the
-country as `scope:target` — never the location. The viewed location has to be
-parked in a country variable first by a zero sized probe widget with
-`trigger_on_create = yes`, the trick Glorp UI already uses to feed Construction
-Manager's own R.G.O. filter. `bag_rgo_filter_toggle` and its siblings are the
-scripted GUI side of that plumbing.
-
-## Settings
-
-Registered under **Buildings → Local Resource Filter** in the Mod Menu:
-
-- **Enabled By Default** — start with the filter on each time the list opens.
-- **Only Active Bonuses** — keep only buildings already using the local
-  materials, instead of every building that could.
-
+- The predicate matches the shovel badge's *potential* reading: a building
+  passes if any of its production methods could use a local raw material. It
+  does not check whether the method currently selected is the one that does.
+- Buildings whose production methods come from `possible_production_methods`
+  resolve against `common/production_methods/`; anything a DLC adds elsewhere is
+  invisible to the generator until it is pointed at those files too.

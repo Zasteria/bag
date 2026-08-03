@@ -8,10 +8,26 @@ cmf_on_mod_registration = {
 	}
 }
 
+# Fires after a Mod Menu setting changes, so the alias the filter reads stays
+# in step with the setting.
+# Scope: country
+cmf_on_callback = {
+	on_actions = {
+		bag_rgo_on_callback
+	}
+}
+
 # Register the mod and its CMM settings.
 # Scope: country
 bag_rgo_on_registration = {
 	effect = {
 		bag_rgo_register = yes
+	}
+}
+
+# Scope: country
+bag_rgo_on_callback = {
+	effect = {
+		bag_rgo_sync_settings = yes
 	}
 }

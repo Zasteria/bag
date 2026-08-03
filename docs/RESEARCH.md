@@ -133,6 +133,57 @@ Not every filter key is script defined — `hide_estate_only_buildings` is
 referenced by `SearchBar.EnableFilterByKey` in three panels but appears nowhere
 in `gui/filters/`, so some are built into the engine.
 
+## Building types, production methods and goods
+
+`common/building_types/*.txt` defines each building type. Production methods
+come from either of two fields, and a type can use both:
+
+- `unique_production_methods = { <name> = { ... } }` — written inline
+- `possible_production_methods = { <name> ... }` — names resolved against
+  `common/production_methods/`
+
+A production method lists its goods inputs as bare `<goods> = <amount>` pairs
+alongside `produced`, `output`, `category` and `debug_max_profit`. Everything
+numeric except `output` is a goods input:
+
+```
+saltpeter_guild_demands = {
+	pottery = 0.1961
+	livestock = 0.9804
+	produced = saltpeter
+	output = 1
+	category = guild_input
+}
+```
+
+`common/goods/*.txt` marks each good `category = raw_material` or `produced`,
+defaulting to `raw_material` when omitted. A location's RGO good is its
+`raw_material` scope link, and `province = { any_location_in_province = { ... } }`
+walks the province from a location — the two pieces needed to ask whether the
+province produces something a building type consumes. That reconstruction
+matches the game: `saltpeter_guild` consumes `livestock`, and the tooltip in the
+buildings panel credits "Livestock in the province" for its efficiency bonus.
+
+Building types also carry `location_potential`, a trigger with the location as
+root, which is how vanilla gates where a type may be built at all —
+`saltpeter_guild` wants `livestock` and `clay` in the market.
+
+## Scripted widgets
+
+`in_game/gui/scripted_widgets/*.txt` maps `<gui path> = <widget name>`, one per
+line, and the engine instantiates those widgets into the running interface. That
+is how a mod adds behaviour without copying a vanilla `.gui`. CMF registers four
+of them this way.
+
+Global view objects such as `LocationProductionView` stay readable from any
+widget, so a scripted widget can observe a panel it is not part of.
+
+CMF's change detectors are the pattern to copy. `cmm_window_open_gate.gui` uses
+`state = { trigger_when = "[...]" on_start = ... }`, which fires when the
+condition turns true and re-arms once it goes false again — no polling, and no
+`trigger_on_create` juggling. `cmf_country_transfer.gui` shows the older variant
+built on `GetVariableSystem` plus `TriggerAnimation`.
+
 ## Sorting
 
 Sorting is already data driven. `sort_by_key_button` entries name a sort key,

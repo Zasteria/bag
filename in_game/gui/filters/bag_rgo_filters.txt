@@ -1,0 +1,13 @@
+﻿# Shown wherever a building list asks for the `building` filter tag, which
+# includes the buildings panel of a location (LocationProductionView).
+# Localization lives under search_filter_bag_rgo_local_bonus_name / _desc.
+
+bag_rgo_local_bonus = {
+	scope = building_type
+	tag = building
+	group = 20
+	exclusive_group = no
+	trigger = {
+		bag_rgo_has_local_bonus = yes
+	}
+}

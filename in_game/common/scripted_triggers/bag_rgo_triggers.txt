@@ -1,0 +1,30 @@
+﻿# Entry point for the list filter. Root is the building type being tested and
+# scope:target is the country doing the filtering, which is where the probe
+# widget parked the location currently on screen.
+#
+# By default the whole province counts, matching the shovel badge the game
+# draws in the location panel — the bonus comes from raw materials anywhere in
+# the province. The Mod Menu can narrow it to the location itself.
+#
+# Scope: building_type
+bag_rgo_has_local_bonus = {
+	scope:target = {
+		has_variable = bag_rgo_view_location
+		var:bag_rgo_view_location = {
+			OR = {
+				AND = {
+					scope:target = { has_variable = bag_rgo_location_only }
+					bag_rgo_location_feeds_root = yes
+				}
+				AND = {
+					scope:target = { NOT = { has_variable = bag_rgo_location_only } }
+					province = {
+						any_location_in_province = {
+							bag_rgo_location_feeds_root = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
