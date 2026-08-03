@@ -9,7 +9,7 @@ production method's goods inputs with the goods flagged as raw materials, and
 emit scripted triggers a filter can call.
 
 Usage:
-    python3 tools/generate_rgo_filter.py <game>/in_game/common
+    python3 rgo_bonus_filter/tools/generate_rgo_filter.py <game>/in_game/common
 
 where the common directory holds goods/, production_methods/ and
 building_types/. Writes in_game/common/scripted_triggers/.
@@ -24,9 +24,9 @@ from pathlib import Path
 # Keys inside a production method that carry a number but are not a goods input.
 NON_INPUT_NUMERIC_KEYS = {"output"}
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+MOD_ROOT = Path(__file__).resolve().parent.parent
 OUT_PATH = (
-    REPO_ROOT / "in_game" / "common" / "scripted_triggers" / "bag_rgo_generated_triggers.txt"
+    MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "bag_rgo_generated_triggers.txt"
 )
 
 TOKEN_RE = re.compile(r'"[^"]*"|[{}=]|[^\s{}=]+')
@@ -248,7 +248,7 @@ def main() -> int:
     print("  with a raw input:      %d" % matched)
     print("raw materials in use:    %d" % len(by_good))
     print("pairs:                   %d" % sum(len(v) for v in by_good.values()))
-    print("wrote %s" % OUT_PATH.relative_to(REPO_ROOT))
+    print("wrote %s" % OUT_PATH.relative_to(MOD_ROOT.parent))
     return 0
 
 
