@@ -1,13 +1,14 @@
-﻿# Entry point for the list filter. Root is the building type being tested, and
-# that is all the filter gets — a building_type scoped filter is not handed
-# scope:target, so everything else has to come from global variables. The probe
-# widget parks the location currently on screen in one of them.
+﻿# Filter entry points. Neither panel hands its filter more than the object
+# being tested — a building_type filter gets only `root`, and a location filter
+# gets `root` plus `scope:target` — so everything else comes from global
+# variables that the probe widgets in the two panels write.
 #
-# The location itself always counts. The rest of its province is added too
-# unless the Mod Menu narrowed the search, matching the shovel badge the game
-# draws in the location panel — the bonus comes from raw materials anywhere in
-# the province.
-#
+# In both cases the location itself always counts, and the rest of its province
+# is added unless the Mod Menu narrowed the search. That matches the shovel
+# badge the game draws: the bonus comes from raw materials anywhere in the
+# province.
+
+# Buildings panel of one location: which building types gain here.
 # Scope: building_type
 bag_rgo_has_local_bonus = {
 	has_global_variable = bag_rgo_view_location
@@ -26,11 +27,19 @@ bag_rgo_has_local_bonus = {
 	}
 }
 
-# Diagnostic backing the one remaining "debug" filter. Passes every building
-# type once the probe has stored a location, so an empty list means the probe
-# never ran. Remove it, and its entry in gui/filters, once the real filter is
-# confirmed working.
-# Scope: building_type
-bag_rgo_debug_location_known = {
-	has_global_variable = bag_rgo_view_location
+# Build panel of one building type: which locations it would gain in.
+# Scope: location
+bag_rgo_location_suits_build_type = {
+	has_global_variable = bag_rgo_build_type
+	OR = {
+		bag_rgo_location_feeds_build_type = yes
+		AND = {
+			NOT = { has_global_variable = bag_rgo_location_only }
+			province = {
+				any_location_in_province = {
+					bag_rgo_location_feeds_build_type = yes
+				}
+			}
+		}
+	}
 }

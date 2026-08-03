@@ -1,11 +1,11 @@
-﻿# The filter runs on a building type and is handed nothing else — a
-# building_type scoped filter does not get scope:target, whatever the comment in
-# vanilla's 58_building_type.txt says; reading it there logs an error on every
-# pass and the trigger fails. So the viewed location goes into a global
-# variable, which any scope can reach.
+﻿# A filter is handed the object it tests and little else, so the two panels
+# park what their filter is missing in global variables, which any scope can
+# reach. Each pair below is one probe: a query that tells the probe whether the
+# stored value is already current, and the write that updates it.
+#
+# The buildings panel of a location parks the location it is showing; the build
+# panel parks the building type being placed.
 
-# True while the stored location already matches the one passed in, which is
-# what keeps the probe from firing on every frame.
 # Scope: country
 bag_rgo_view_location_is_current = {
 	scope = country
@@ -17,7 +17,6 @@ bag_rgo_view_location_is_current = {
 	effect = { }
 }
 
-# Park the location the buildings panel is showing.
 # Scope: country
 bag_rgo_store_view_location = {
 	scope = country
@@ -27,5 +26,28 @@ bag_rgo_store_view_location = {
 
 	effect = {
 		set_global_variable = { name = bag_rgo_view_location value = scope:bag_rgo_loc }
+	}
+}
+
+# Scope: country
+bag_rgo_build_type_is_current = {
+	scope = country
+
+	is_shown = {
+		has_global_variable = bag_rgo_build_type
+		global_var:bag_rgo_build_type = scope:bag_rgo_type
+	}
+	effect = { }
+}
+
+# Scope: country
+bag_rgo_store_build_type = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = {
+		set_global_variable = { name = bag_rgo_build_type value = scope:bag_rgo_type }
 	}
 }

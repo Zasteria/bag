@@ -1,10 +1,16 @@
 # RGO Bonus Filter
 
-An EU5 mod that adds a **Local Raw Materials** filter to the building list of a
-location, keeping only the buildings that gain production efficiency from raw
-materials produced in the province — the ones the game badges with the shovel.
-Combined with the `production_efficiency` sort the panel already has, it answers
-"what is worth building *here*" without scrolling past everything that is not.
+An EU5 mod that cuts the noise out of both building lists, leaving only what
+gains production efficiency from raw materials in the province — the buildings
+the game badges with the shovel. Two filters, one per direction:
+
+- **Local Raw Materials**, in a location's buildings panel — what is worth
+  building *here*.
+- **Local Raw Materials For This Building**, in the build panel — *where* in the
+  realm to put a building you have already picked.
+
+Both sit next to the sorts the panels already have, so sorting by production
+efficiency or income turns either one into a ranked shortlist.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
@@ -18,11 +24,13 @@ next to vanilla's own building filters.
 
 Three pieces make that possible.
 
-**The filter.** `in_game/gui/filters/bag_rgo_filters.txt` declares one filter
-with `scope = building_type` and `tag = building`. Any list that asks for the
-`building` tag picks it up, which includes `LocationProductionView` — the
-"Buildings of <town>" panel. Filtering has to happen here rather than by hiding
-rows: the list body is a `fixedgridbox` with a fixed row height, so a hidden row
+**The filters.** `in_game/gui/filters/bag_rgo_filters.txt` declares two, both
+tagged `building`: one `scope = building_type` for `LocationProductionView`, the
+buildings panel of a location, and one `scope = location` for
+`BuildInLocationLateralView`, the panel that picks where to build. Both panels
+request the same tag, so both filters are offered in both — each is only
+meaningful in its own. Filtering has to happen here rather than by hiding rows:
+the list bodies are `fixedgridbox`es with fixed row heights, so a hidden row
 would still occupy its cell and leave a hole.
 
 **The predicate.** The game answers "does this building gain from local raw
@@ -38,19 +46,31 @@ make more efficient. The result is one trigger per raw material listing the
 building types that consume it, written to
 `in_game/common/scripted_triggers/bag_rgo_generated_triggers.txt`.
 
-**The location.** A `building_type` filter is handed `root` and nothing else —
-not even `scope:target`, whatever vanilla's `58_building_type.txt` comment
-claims. So a probe widget parks the location on screen in a global variable
-through a scripted GUI, and the trigger reads it from there. The state re-arms
-itself rather than firing every frame.
+**The missing half of the context.** Each filter is handed the object it tests
+and little else. A `building_type` filter gets `root` alone — not even
+`scope:target`, whatever vanilla's `58_building_type.txt` comment claims — so it
+never learns which location is on screen. A `location` filter never learns which
+building type is being placed. Both gaps are filled the same way: a probe widget
+parks the missing half in a global variable through a scripted GUI, and the
+trigger reads it back. Each probe re-arms itself rather than firing every frame.
 
-That probe is the one thing costing a vanilla file. `LocationProductionView`
-only resolves inside its own panel — from a scripted widget it comes back null
-and logs an error every frame — so the probe lives in
-`in_game/gui/location_production_lateralview.gui`, a copy of the vanilla panel
-with **17 lines inserted and nothing else changed**. Glorp UI does not override
-this file, but any other mod that does will collide, and the copy is pinned to
-the 1.3.10 version of the panel: re-copy it after a patch that touches it.
+Those probes are what cost vanilla files. A view object only resolves inside its
+own panel — from a scripted widget it comes back null and logs an error every
+frame — so each probe lives in a copy of the panel it watches:
+
+| File | Probe stores |
+| --- | --- |
+| `in_game/gui/location_production_lateralview.gui` | the location being viewed |
+| `in_game/gui/build_location_lateralview.gui` | the building type being placed |
+
+Both are the vanilla panels with **17 lines inserted and nothing else changed**.
+They are pinned to 1.3.10: re-copy after a patch that touches either.
+
+Glorp UI restyles the build panel through its own separate file, redefining
+`types` rather than replacing the panel, so it does not clash with these copies
+— but **load this mod before Glorp UI**. Our copies carry vanilla's `types`
+definitions, and whichever loads last wins, so putting this mod after Glorp
+would undo its restyling of that panel.
 
 ## Regenerating the predicate
 

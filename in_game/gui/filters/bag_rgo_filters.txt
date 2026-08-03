@@ -1,5 +1,7 @@
-﻿# Shown wherever a building list asks for the `building` filter tag, which
-# includes the buildings panel of a location (LocationProductionView).
+﻿# Both panels that list buildings ask for the `building` filter tag, so both
+# filters below are offered in both. Each is only meaningful in its own panel:
+# the building_type one narrows a location's building list, the location one
+# narrows the list of places to put a chosen building.
 # Localization lives under search_filter_<key>_name / _desc.
 
 bag_rgo_local_bonus = {
@@ -12,13 +14,12 @@ bag_rgo_local_bonus = {
 	}
 }
 
-# Diagnostic — remove once the filter above is confirmed working.
-bag_rgo_debug_location = {
-	scope = building_type
+bag_rgo_build_local_bonus = {
+	scope = location
 	tag = building
-	group = 10
+	group = 9
 	exclusive_group = no
 	trigger = {
-		bag_rgo_debug_location_known = yes
+		bag_rgo_location_suits_build_type = yes
 	}
 }

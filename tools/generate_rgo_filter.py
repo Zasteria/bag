@@ -197,18 +197,29 @@ def render(by_good: dict[str, list[str]]) -> str:
         out.append("}")
         out.append("")
 
-    out.append("# True when this location's raw material feeds the building type in root.")
-    out.append("# Scope: location, root: building_type")
-    out.append("bag_rgo_location_feeds_root = {")
-    out.append("\tOR = {")
-    for good in by_good:
-        out.append("\t\tAND = {")
-        out.append("\t\t\traw_material = goods:%s" % good)
-        out.append("\t\t\troot = { bag_rgo_consumes_%s = yes }" % good)
-        out.append("\t\t}")
-    out.append("\t}")
-    out.append("}")
-    out.append("")
+    # Two entry points, because the two panels come at the question from
+    # opposite ends. The buildings panel of a location filters building types
+    # against a fixed location, so the type arrives as root. The build panel
+    # filters locations against a fixed building type, so the type comes from
+    # the global variable its probe writes.
+    for name, holder in (
+        ("bag_rgo_location_feeds_root", "root"),
+        ("bag_rgo_location_feeds_build_type", "global_var:bag_rgo_build_type"),
+    ):
+        out.append("# True when this location's raw material feeds %s." % (
+            "the building type in root" if holder == "root" else "the building type being built"
+        ))
+        out.append("# Scope: location")
+        out.append("%s = {" % name)
+        out.append("\tOR = {")
+        for good in by_good:
+            out.append("\t\tAND = {")
+            out.append("\t\t\traw_material = goods:%s" % good)
+            out.append("\t\t\t%s = { bag_rgo_consumes_%s = yes }" % (holder, good))
+            out.append("\t\t}")
+        out.append("\t}")
+        out.append("}")
+        out.append("")
     return "\n".join(out)
 
 

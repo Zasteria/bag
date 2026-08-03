@@ -540,7 +540,7 @@ bag_rgo_consumes_wool = {
 }
 
 # True when this location's raw material feeds the building type in root.
-# Scope: location, root: building_type
+# Scope: location
 bag_rgo_location_feeds_root = {
 	OR = {
 		AND = {
@@ -702,6 +702,173 @@ bag_rgo_location_feeds_root = {
 		AND = {
 			raw_material = goods:wool
 			root = { bag_rgo_consumes_wool = yes }
+		}
+	}
+}
+
+# True when this location's raw material feeds the building type being built.
+# Scope: location
+bag_rgo_location_feeds_build_type = {
+	OR = {
+		AND = {
+			raw_material = goods:alum
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_alum = yes }
+		}
+		AND = {
+			raw_material = goods:amber
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_amber = yes }
+		}
+		AND = {
+			raw_material = goods:beeswax
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_beeswax = yes }
+		}
+		AND = {
+			raw_material = goods:clay
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_clay = yes }
+		}
+		AND = {
+			raw_material = goods:coal
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_coal = yes }
+		}
+		AND = {
+			raw_material = goods:copper
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_copper = yes }
+		}
+		AND = {
+			raw_material = goods:cotton
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_cotton = yes }
+		}
+		AND = {
+			raw_material = goods:dyes
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_dyes = yes }
+		}
+		AND = {
+			raw_material = goods:elephants
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_elephants = yes }
+		}
+		AND = {
+			raw_material = goods:fiber_crops
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_fiber_crops = yes }
+		}
+		AND = {
+			raw_material = goods:fruit
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_fruit = yes }
+		}
+		AND = {
+			raw_material = goods:fur
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_fur = yes }
+		}
+		AND = {
+			raw_material = goods:gems
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_gems = yes }
+		}
+		AND = {
+			raw_material = goods:goods_gold
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_goods_gold = yes }
+		}
+		AND = {
+			raw_material = goods:horses
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_horses = yes }
+		}
+		AND = {
+			raw_material = goods:iron
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_iron = yes }
+		}
+		AND = {
+			raw_material = goods:ivory
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_ivory = yes }
+		}
+		AND = {
+			raw_material = goods:lead
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_lead = yes }
+		}
+		AND = {
+			raw_material = goods:livestock
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_livestock = yes }
+		}
+		AND = {
+			raw_material = goods:lumber
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_lumber = yes }
+		}
+		AND = {
+			raw_material = goods:maize
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_maize = yes }
+		}
+		AND = {
+			raw_material = goods:marble
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_marble = yes }
+		}
+		AND = {
+			raw_material = goods:mercury
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_mercury = yes }
+		}
+		AND = {
+			raw_material = goods:millet
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_millet = yes }
+		}
+		AND = {
+			raw_material = goods:pearls
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_pearls = yes }
+		}
+		AND = {
+			raw_material = goods:pepper
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_pepper = yes }
+		}
+		AND = {
+			raw_material = goods:potato
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_potato = yes }
+		}
+		AND = {
+			raw_material = goods:rice
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_rice = yes }
+		}
+		AND = {
+			raw_material = goods:salt
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_salt = yes }
+		}
+		AND = {
+			raw_material = goods:saltpeter
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_saltpeter = yes }
+		}
+		AND = {
+			raw_material = goods:sand
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_sand = yes }
+		}
+		AND = {
+			raw_material = goods:silk
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_silk = yes }
+		}
+		AND = {
+			raw_material = goods:silver
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_silver = yes }
+		}
+		AND = {
+			raw_material = goods:stone
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_stone = yes }
+		}
+		AND = {
+			raw_material = goods:sugar
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_sugar = yes }
+		}
+		AND = {
+			raw_material = goods:tin
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_tin = yes }
+		}
+		AND = {
+			raw_material = goods:wheat
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_wheat = yes }
+		}
+		AND = {
+			raw_material = goods:wild_game
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_wild_game = yes }
+		}
+		AND = {
+			raw_material = goods:wine
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_wine = yes }
+		}
+		AND = {
+			raw_material = goods:wool
+			global_var:bag_rgo_build_type = { bag_rgo_consumes_wool = yes }
 		}
 	}
 }
