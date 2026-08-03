@@ -107,6 +107,18 @@ def goods_inputs(method_entries) -> set[str]:
     return inputs
 
 
+def method_produces(method_entries) -> bool:
+    """Whether a production method outputs a good rather than only upkeep.
+
+    The game only badges a building with the shovel when it is producing —
+    `And(BuildingType.IsProducing, BuildingType.HasPossibleRGOBonus(...))`. A
+    monastery consumes clay through a maintenance method and gives nothing back,
+    so it has no production efficiency for a raw material to improve. Methods
+    carrying `produced` are the ones that count.
+    """
+    return any(key == "produced" for key, _ in method_entries)
+
+
 def raw_material_goods(goods_dir: Path) -> set[str]:
     """Goods whose category is raw_material — the ones an RGO can produce.
 
@@ -121,17 +133,26 @@ def raw_material_goods(goods_dir: Path) -> set[str]:
 
 
 def shared_methods(methods_dir: Path) -> dict[str, set[str]]:
-    return {name: goods_inputs(entries) for name, entries in load_dir(methods_dir).items()}
+    """Named production methods, skipping the ones that only cost upkeep."""
+    return {
+        name: goods_inputs(entries)
+        for name, entries in load_dir(methods_dir).items()
+        if method_produces(entries)
+    }
 
 
 def building_inputs(building_dir: Path, shared: dict[str, set[str]]) -> dict[str, set[str]]:
-    """Every goods input each building type could ever consume."""
+    """Goods each building type consumes while actually producing something.
+
+    Building types with no producing method at all fall out with an empty set,
+    which is what keeps upkeep-only buildings out of the filter.
+    """
     result = {}
     for name, entries in load_dir(building_dir).items():
         inputs = set()
         for block in find(entries, "unique_production_methods"):
             for _, method in block:
-                if isinstance(method, list):
+                if isinstance(method, list) and method_produces(method):
                     inputs |= goods_inputs(method)
         for block in find(entries, "possible_production_methods"):
             for key, value in block:

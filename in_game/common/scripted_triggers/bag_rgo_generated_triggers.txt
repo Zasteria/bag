@@ -36,33 +36,6 @@ bag_rgo_consumes_beeswax = {
 	OR = {
 		this = building_type:beer_workshop
 		this = building_type:brewery
-		this = building_type:commerce_center
-		this = building_type:confucian_academy
-		this = building_type:debere_meshwae
-		this = building_type:delhi_tomb
-		this = building_type:grand_marketplace
-		this = building_type:great_temple_of_tenochtitlan
-		this = building_type:gurgaddi
-		this = building_type:herrenchiemsee_abbey
-		this = building_type:jesuit_college
-		this = building_type:medical_school
-		this = building_type:merchants_quarters
-		this = building_type:miaphysite_monastery
-		this = building_type:monastery
-		this = building_type:novodevichy_convent
-		this = building_type:opera_house
-		this = building_type:order_headquarters
-		this = building_type:orthodox_monastery
-		this = building_type:ranganathaswamy_temple_building
-		this = building_type:sufi_mosque
-		this = building_type:temple
-		this = building_type:tibetan_great_monastery
-		this = building_type:university
-		this = building_type:usa_academy_of_arts_and_sciences
-		this = building_type:usa_philosophical_society
-		this = building_type:venkateswara_temple
-		this = building_type:wali_songo_shrine
-		this = building_type:wat_chaiwatthanaram_temple_building
 		this = building_type:winery
 		this = building_type:winery_manufactory
 	}
@@ -71,26 +44,17 @@ bag_rgo_consumes_beeswax = {
 # Scope: building_type
 bag_rgo_consumes_clay = {
 	OR = {
-		this = building_type:debere_meshwae
 		this = building_type:farming_village
 		this = building_type:fishing_village
-		this = building_type:khmer_baray
 		this = building_type:market_village
 		this = building_type:mason
-		this = building_type:miaphysite_monastery
-		this = building_type:monastery
-		this = building_type:orthodox_monastery
-		this = building_type:polders
 		this = building_type:porcelain_guild
 		this = building_type:porcelain_manufactory
 		this = building_type:pottery_guild
 		this = building_type:pottery_manufactory
 		this = building_type:pottery_mill
 		this = building_type:pottery_workshop
-		this = building_type:ruined_great_wall_of_china
 		this = building_type:salt_collector
-		this = building_type:sofa_stockade
-		this = building_type:woodhenge_of_cahokia
 	}
 }
 
@@ -103,7 +67,6 @@ bag_rgo_consumes_coal = {
 		this = building_type:glassworks
 		this = building_type:iron_foundry
 		this = building_type:iron_mill
-		this = building_type:local_smelters
 		this = building_type:porcelain_guild
 		this = building_type:porcelain_manufactory
 		this = building_type:steel_mill
@@ -120,23 +83,11 @@ bag_rgo_consumes_copper = {
 		this = building_type:cannon_foundry
 		this = building_type:cannon_maker
 		this = building_type:cannon_workshop
-		this = building_type:delhi_tomb
-		this = building_type:fortress_church
-		this = building_type:fortress_granary
-		this = building_type:great_temple_of_tenochtitlan
 		this = building_type:gun_smith
 		this = building_type:guns_workshop
 		this = building_type:hand_cannon_guild
 		this = building_type:jewelry_guild
-		this = building_type:medical_school
-		this = building_type:minting_office
-		this = building_type:ranganathaswamy_temple_building
-		this = building_type:seljuk_mint
-		this = building_type:temple
-		this = building_type:tibetan_great_monastery
 		this = building_type:tools_guild
-		this = building_type:venkateswara_temple
-		this = building_type:wat_chaiwatthanaram_temple_building
 	}
 }
 
@@ -154,8 +105,6 @@ bag_rgo_consumes_cotton = {
 # Scope: building_type
 bag_rgo_consumes_dyes = {
 	OR = {
-		this = building_type:art_school
-		this = building_type:arts_academy
 		this = building_type:cloth_manufactory
 		this = building_type:fine_cloth_guild
 		this = building_type:fine_cloth_manufactory
@@ -165,11 +114,8 @@ bag_rgo_consumes_dyes = {
 		this = building_type:furniture_manufactory
 		this = building_type:furniture_mill
 		this = building_type:furniture_workshop
-		this = building_type:imperial_academy_of_arts
 		this = building_type:lacquerware_guild
 		this = building_type:lacquerware_manufactory
-		this = building_type:llotja_seda
-		this = building_type:royal_academy_of_arts
 		this = building_type:scriptorium
 		this = building_type:textile_mill
 	}
@@ -186,15 +132,10 @@ bag_rgo_consumes_elephants = {
 bag_rgo_consumes_fiber_crops = {
 	OR = {
 		this = building_type:apothecary
-		this = building_type:charite_of_berlin
 		this = building_type:cloth_guild
 		this = building_type:cloth_manufactory
 		this = building_type:cloth_workshop
-		this = building_type:darussifa
-		this = building_type:hospital
-		this = building_type:lazaretto
 		this = building_type:lucca_silk_production_guild
-		this = building_type:magistrato_alla_sanita
 		this = building_type:naval_supplies_guild
 		this = building_type:naval_supplies_manufactory
 		this = building_type:naval_supplies_mill
@@ -203,7 +144,6 @@ bag_rgo_consumes_fiber_crops = {
 		this = building_type:paper_manufactory
 		this = building_type:paper_mill
 		this = building_type:paper_workshop
-		this = building_type:pest_house
 		this = building_type:rural_clothmaker
 		this = building_type:shoen
 		this = building_type:textile_mill
@@ -223,17 +163,14 @@ bag_rgo_consumes_fruit = {
 # Scope: building_type
 bag_rgo_consumes_fur = {
 	OR = {
-		this = building_type:bolshoi_theater
 		this = building_type:fine_cloth_guild
 		this = building_type:fine_cloth_workshop
-		this = building_type:overseas_trading_post
 	}
 }
 
 # Scope: building_type
 bag_rgo_consumes_gems = {
 	OR = {
-		this = building_type:bajang_ratu
 		this = building_type:jewelry_guild
 		this = building_type:pounamou_carver
 		this = building_type:weapon_guild
@@ -243,57 +180,7 @@ bag_rgo_consumes_gems = {
 # Scope: building_type
 bag_rgo_consumes_goods_gold = {
 	OR = {
-		this = building_type:alhambra
-		this = building_type:ambras_castle
-		this = building_type:bajang_ratu
-		this = building_type:banking_office
-		this = building_type:belvedere_palace
-		this = building_type:berlin_palace
-		this = building_type:camara_comptos
-		this = building_type:caravan_stop
-		this = building_type:central_bank
-		this = building_type:chancery
-		this = building_type:city_of_victory
-		this = building_type:counting_house
-		this = building_type:doges_palace
-		this = building_type:el_escorial_palace
-		this = building_type:forbidden_city
-		this = building_type:general_archive_of_simancas
-		this = building_type:grand_palace
-		this = building_type:great_enclosure
-		this = building_type:great_hill_complex
-		this = building_type:great_valley_complex
-		this = building_type:hanseatic_town_hall
-		this = building_type:husuni_kubwa
-		this = building_type:imperial_city_of_hue
-		this = building_type:italian_administration_center
 		this = building_type:jewelry_guild
-		this = building_type:lieutenancy
-		this = building_type:local_governor
-		this = building_type:minting_office
-		this = building_type:munich_residenz_baroque_expansion
-		this = building_type:munich_residenz_founding
-		this = building_type:munich_residenz_renaissance_expansion
-		this = building_type:naval_governor
-		this = building_type:piazza_san_marco
-		this = building_type:quirinal_palace
-		this = building_type:republican_assembly
-		this = building_type:riksbank
-		this = building_type:rock_of_monaco
-		this = building_type:royal_court
-		this = building_type:royal_garden
-		this = building_type:royal_society
-		this = building_type:sanssouci
-		this = building_type:schonbrunn_palace
-		this = building_type:sco_palace_of_holyroodhouse
-		this = building_type:supreme_court
-		this = building_type:uffizi
-		this = building_type:usa_national_bank
-		this = building_type:usa_national_mint
-		this = building_type:versailles
-		this = building_type:viceroyalty
-		this = building_type:wisselbank
-		this = building_type:zwinger
 	}
 }
 
@@ -301,19 +188,7 @@ bag_rgo_consumes_goods_gold = {
 bag_rgo_consumes_horses = {
 	OR = {
 		this = building_type:eng_royal_forest
-		this = building_type:hippodrome
 		this = building_type:horse_breeders
-		this = building_type:jurchen_barracks
-		this = building_type:kurultai
-		this = building_type:moscow_artillery_yard
-	}
-}
-
-# Scope: building_type
-bag_rgo_consumes_incense = {
-	OR = {
-		this = building_type:pest_house
-		this = building_type:sufi_lodge
 	}
 }
 
@@ -341,28 +216,9 @@ bag_rgo_consumes_iron = {
 # Scope: building_type
 bag_rgo_consumes_ivory = {
 	OR = {
-		this = building_type:ambras_castle
 		this = building_type:apothecary
-		this = building_type:belvedere_palace
-		this = building_type:city_of_victory
-		this = building_type:doges_palace
-		this = building_type:el_escorial_palace
 		this = building_type:fishing_village
-		this = building_type:forbidden_city
-		this = building_type:general_archive_of_simancas
-		this = building_type:great_enclosure
-		this = building_type:great_hill_complex
-		this = building_type:great_valley_complex
-		this = building_type:husuni_kubwa
-		this = building_type:imperial_city_of_hue
 		this = building_type:jewelry_guild
-		this = building_type:munich_residenz_baroque_expansion
-		this = building_type:piazza_san_marco
-		this = building_type:quirinal_palace
-		this = building_type:sanssouci
-		this = building_type:schonbrunn_palace
-		this = building_type:sco_palace_of_holyroodhouse
-		this = building_type:versailles
 	}
 }
 
@@ -394,7 +250,6 @@ bag_rgo_consumes_livestock = {
 		this = building_type:putrefaction_works
 		this = building_type:saltpeter_guild
 		this = building_type:saltpeter_workshop
-		this = building_type:sevilla_bullfighting_school
 		this = building_type:tannery
 		this = building_type:tannery_manufactory
 		this = building_type:tannery_mill
@@ -406,44 +261,23 @@ bag_rgo_consumes_livestock = {
 bag_rgo_consumes_lumber = {
 	OR = {
 		this = building_type:ablaq_palace
-		this = building_type:amsterdam_admiralty
-		this = building_type:aqueduct_system
-		this = building_type:barcelona_royal_shipyard
 		this = building_type:beer_workshop
-		this = building_type:black_market
-		this = building_type:brethren_marsh
 		this = building_type:brewery
 		this = building_type:brewery_manufactory
 		this = building_type:brewery_mill
-		this = building_type:bridge_infrastructure
 		this = building_type:cannon_maker
 		this = building_type:charcoal_maker
-		this = building_type:chi_macau_port
-		this = building_type:chi_missionary_building
 		this = building_type:clay_pit
-		this = building_type:clearing_house
-		this = building_type:coastal_settlements
-		this = building_type:copenhagen_dockyard
 		this = building_type:cotton_plantation
-		this = building_type:customs_house
-		this = building_type:debere_meshwae
-		this = building_type:dock
-		this = building_type:dry_dock
-		this = building_type:dutch_trade_outpost
 		this = building_type:dyes_guild
 		this = building_type:dyes_mill
 		this = building_type:dyes_workshop
 		this = building_type:dyesworks
-		this = building_type:eghabho_nore_mansion
-		this = building_type:entrepot
 		this = building_type:fiber_crops_farm
 		this = building_type:firearms_manufactory
 		this = building_type:fishing_village
-		this = building_type:fondaco
 		this = building_type:forest_village
-		this = building_type:friesland_admiralty
 		this = building_type:fruit_orchard
-		this = building_type:fulani_cattle_rearing_pen
 		this = building_type:furniture_guild
 		this = building_type:furniture_manufactory
 		this = building_type:furniture_mill
@@ -452,90 +286,41 @@ bag_rgo_consumes_lumber = {
 		this = building_type:glass_mill
 		this = building_type:glass_workshop
 		this = building_type:glassworks
-		this = building_type:grand_shipyard
-		this = building_type:great_enclosure
-		this = building_type:great_hill_complex
-		this = building_type:great_valley_complex
 		this = building_type:gun_smith
-		this = building_type:hanseatic_kontor
-		this = building_type:hanseatic_shipwright_guild
-		this = building_type:hanseatic_town_hall
-		this = building_type:imperial_halic_shipyards
 		this = building_type:improved_charcoal_maker
-		this = building_type:jewish_district
-		this = building_type:khmer_baray
-		this = building_type:kilwan_shipwrights
 		this = building_type:lacquerware_guild
 		this = building_type:lacquerware_manufactory
-		this = building_type:local_smelters
 		this = building_type:market_village
-		this = building_type:market_warehouse
-		this = building_type:miaphysite_monastery
-		this = building_type:missionary_building
-		this = building_type:monastery
-		this = building_type:naval_base
 		this = building_type:naval_supplies_guild
 		this = building_type:naval_supplies_manufactory
 		this = building_type:naval_supplies_mill
 		this = building_type:naval_supplies_workshop
-		this = building_type:north_sea_shipyards
-		this = building_type:order_headquarters
-		this = building_type:ori_portuguese_quarters
-		this = building_type:orthodox_monastery
-		this = building_type:ostrog
 		this = building_type:paper_guild
 		this = building_type:paper_manufactory
 		this = building_type:paper_mill
 		this = building_type:paper_workshop
-		this = building_type:phanariot_district
-		this = building_type:pirate_tavern
-		this = building_type:pomor_outpost
-		this = building_type:porto_pisano
 		this = building_type:pottery_guild
 		this = building_type:pottery_manufactory
 		this = building_type:pottery_mill
 		this = building_type:pottery_workshop
-		this = building_type:pound_lock_canal_infrastructure
 		this = building_type:printing_manufactory
 		this = building_type:printing_mill
 		this = building_type:printing_press_shop
-		this = building_type:protected_harbor
-		this = building_type:rahdar
-		this = building_type:repaired_great_wall_of_china
-		this = building_type:ribeira_das_naus
-		this = building_type:rotterdam_admiralty
-		this = building_type:royal_atarazanas_seville
-		this = building_type:ruined_great_wall_of_china
 		this = building_type:sand_pit
 		this = building_type:schwaz_mine
 		this = building_type:scriptorium
-		this = building_type:settlement_building
 		this = building_type:sheep_farms
-		this = building_type:shipyard
 		this = building_type:shoen
-		this = building_type:sie_sienese_port
-		this = building_type:smuggler_cove
-		this = building_type:stock_exchange
-		this = building_type:stockade
 		this = building_type:stone_quarry
 		this = building_type:sugar_plantation
-		this = building_type:supreme_court
 		this = building_type:tar_kiln
 		this = building_type:tobacco_plantation
-		this = building_type:trading_hub
-		this = building_type:trans_saharan_trade_outposts
-		this = building_type:venetian_arsenal
 		this = building_type:weapon_factory
 		this = building_type:weapon_guild
 		this = building_type:weapon_manufactory
 		this = building_type:weapon_workshop
-		this = building_type:west_friesland_admiralty
-		this = building_type:wharf
-		this = building_type:windmill
 		this = building_type:winery
 		this = building_type:winery_manufactory
-		this = building_type:woodhenge_of_cahokia
-		this = building_type:zeeland_admiralty
 	}
 }
 
@@ -544,8 +329,6 @@ bag_rgo_consumes_maize = {
 	OR = {
 		this = building_type:beer_workshop
 		this = building_type:brewery
-		this = building_type:fortress_granary
-		this = building_type:tambo
 	}
 }
 
@@ -553,54 +336,6 @@ bag_rgo_consumes_maize = {
 bag_rgo_consumes_marble = {
 	OR = {
 		this = building_type:ablaq_palace
-		this = building_type:alhambra
-		this = building_type:ambras_castle
-		this = building_type:art_school
-		this = building_type:arts_academy
-		this = building_type:belvedere_palace
-		this = building_type:berlin_palace
-		this = building_type:city_of_victory
-		this = building_type:doges_palace
-		this = building_type:el_escorial_palace
-		this = building_type:forbidden_city
-		this = building_type:general_archive_of_simancas
-		this = building_type:grand_apartment
-		this = building_type:grand_palace
-		this = building_type:hanseatic_town_hall
-		this = building_type:husuni_kubwa
-		this = building_type:imperial_academy_of_arts
-		this = building_type:imperial_city_of_hue
-		this = building_type:modern_council_hall
-		this = building_type:munich_residenz_baroque_expansion
-		this = building_type:munich_residenz_founding
-		this = building_type:munich_residenz_renaissance_expansion
-		this = building_type:piazza_san_marco
-		this = building_type:quirinal_palace
-		this = building_type:republican_assembly
-		this = building_type:rock_of_monaco
-		this = building_type:royal_academy_of_arts
-		this = building_type:royal_court
-		this = building_type:royal_garden
-		this = building_type:royal_society
-		this = building_type:sanssouci
-		this = building_type:schonbrunn_palace
-		this = building_type:sco_palace_of_holyroodhouse
-		this = building_type:uffizi
-		this = building_type:venetian_palaces
-		this = building_type:versailles
-		this = building_type:zwinger
-	}
-}
-
-# Scope: building_type
-bag_rgo_consumes_medicaments = {
-	OR = {
-		this = building_type:brothel
-		this = building_type:charite_of_berlin
-		this = building_type:darussifa
-		this = building_type:hospital
-		this = building_type:lazaretto
-		this = building_type:magistrato_alla_sanita
 	}
 }
 
@@ -608,11 +343,6 @@ bag_rgo_consumes_medicaments = {
 bag_rgo_consumes_mercury = {
 	OR = {
 		this = building_type:apothecary
-		this = building_type:charite_of_berlin
-		this = building_type:darussifa
-		this = building_type:hospital
-		this = building_type:magistrato_alla_sanita
-		this = building_type:mercury_patio
 	}
 }
 
@@ -623,7 +353,6 @@ bag_rgo_consumes_millet = {
 		this = building_type:brewery
 		this = building_type:distiller_manufactory
 		this = building_type:distiller_mill
-		this = building_type:fortress_granary
 		this = building_type:market_village
 	}
 }
@@ -649,7 +378,6 @@ bag_rgo_consumes_potato = {
 		this = building_type:distiller_mill
 		this = building_type:distillers_guild
 		this = building_type:distillers_workshop
-		this = building_type:fortress_granary
 	}
 }
 
@@ -662,7 +390,6 @@ bag_rgo_consumes_rice = {
 		this = building_type:distiller_mill
 		this = building_type:distillers_guild
 		this = building_type:distillers_workshop
-		this = building_type:fortress_granary
 		this = building_type:winery
 		this = building_type:winery_manufactory
 	}
@@ -671,19 +398,7 @@ bag_rgo_consumes_rice = {
 # Scope: building_type
 bag_rgo_consumes_salt = {
 	OR = {
-		this = building_type:caravan_stop
-		this = building_type:clearing_house
-		this = building_type:commerce_center
-		this = building_type:customs_house
-		this = building_type:entrepot
 		this = building_type:fishing_village
-		this = building_type:grand_marketplace
-		this = building_type:market_warehouse
-		this = building_type:marketplace
-		this = building_type:merchants_quarters
-		this = building_type:stock_exchange
-		this = building_type:terraces
-		this = building_type:trading_hub
 	}
 }
 
@@ -710,7 +425,6 @@ bag_rgo_consumes_sand = {
 		this = building_type:glass_mill
 		this = building_type:glass_workshop
 		this = building_type:glassworks
-		this = building_type:phanariot_district
 		this = building_type:rural_glassmaker
 		this = building_type:shoen
 		this = building_type:tannery
@@ -727,113 +441,29 @@ bag_rgo_consumes_silk = {
 		this = building_type:fine_cloth_manufactory
 		this = building_type:fine_cloth_mill
 		this = building_type:fine_cloth_workshop
-		this = building_type:llotja_seda
 	}
 }
 
 # Scope: building_type
 bag_rgo_consumes_silver = {
 	OR = {
-		this = building_type:alhambra
-		this = building_type:banking_office
-		this = building_type:berlin_palace
-		this = building_type:grand_palace
 		this = building_type:jewelry_guild
-		this = building_type:minting_office
-		this = building_type:munich_residenz_founding
-		this = building_type:munich_residenz_renaissance_expansion
-		this = building_type:riksbank
-		this = building_type:rock_of_monaco
-		this = building_type:seljuk_mint
-		this = building_type:uffizi
-		this = building_type:usa_national_mint
-		this = building_type:wisselbank
-		this = building_type:zwinger
 	}
 }
 
 # Scope: building_type
 bag_rgo_consumes_stone = {
 	OR = {
-		this = building_type:amsterdam_admiralty
-		this = building_type:bailiff
-		this = building_type:bajang_ratu
-		this = building_type:barcelona_royal_shipyard
-		this = building_type:bastion
-		this = building_type:bey_fortress
-		this = building_type:black_market
-		this = building_type:bodrum_castle
-		this = building_type:bridge_infrastructure
 		this = building_type:cannon_maker
 		this = building_type:cannon_workshop
-		this = building_type:castel_sant_angelo
-		this = building_type:castle
-		this = building_type:chi_macau_port
-		this = building_type:chi_missionary_building
-		this = building_type:city_walls
-		this = building_type:clearing_house
-		this = building_type:coastal_fort
-		this = building_type:coastal_settlements
-		this = building_type:customs_house
-		this = building_type:debere_meshwae
-		this = building_type:dun_fort
-		this = building_type:entrepot
-		this = building_type:fortezza_di_sant_andrea
-		this = building_type:fortress
-		this = building_type:fortress_church
-		this = building_type:friesland_admiralty
-		this = building_type:fulani_cattle_rearing_pen
-		this = building_type:german_mountain_toll_castle
-		this = building_type:german_river_toll_castle
 		this = building_type:glass_mill
 		this = building_type:glassworks
-		this = building_type:hanseatic_shipwright_guild
-		this = building_type:hexamilion_wall
-		this = building_type:hsa_burgtor
-		this = building_type:imperial_halic_shipyards
-		this = building_type:incamisana
-		this = building_type:kastellet
-		this = building_type:khmer_baray
-		this = building_type:korean_gunnery_coastal_defense
-		this = building_type:korean_gunnery_land_defense
-		this = building_type:kronborg
 		this = building_type:market_village
 		this = building_type:mason
-		this = building_type:miaphysite_monastery
-		this = building_type:missionary_building
-		this = building_type:monastery
-		this = building_type:naval_battery
-		this = building_type:oma_falaj
-		this = building_type:oma_nizwa_fort
-		this = building_type:order_commandery
-		this = building_type:order_stronghold
-		this = building_type:orthodox_monastery
-		this = building_type:peel_towers
-		this = building_type:pound_lock_canal_infrastructure
-		this = building_type:protected_harbor
-		this = building_type:pukara_building
-		this = building_type:red_fort
-		this = building_type:repaired_great_wall_of_china
-		this = building_type:ribeira_das_naus
-		this = building_type:rotterdam_admiralty
-		this = building_type:royal_atarazanas_seville
 		this = building_type:schwaz_mine
-		this = building_type:settlement_building
-		this = building_type:sie_sienese_port
 		this = building_type:slave_center
-		this = building_type:star_fort
-		this = building_type:stock_exchange
-		this = building_type:theodosian_walls
 		this = building_type:tools_guild
-		this = building_type:tower_of_belem
-		this = building_type:trading_hub
-		this = building_type:walls_of_benin
-		this = building_type:walls_of_lucca
-		this = building_type:walls_of_ston
 		this = building_type:weapon_guild
-		this = building_type:west_friesland_admiralty
-		this = building_type:zazzau_walls
-		this = building_type:zeeland_admiralty
 	}
 }
 
@@ -853,12 +483,9 @@ bag_rgo_consumes_tin = {
 		this = building_type:cannon_foundry
 		this = building_type:cannon_maker
 		this = building_type:cannon_workshop
-		this = building_type:fortress_church
-		this = building_type:fortress_granary
 		this = building_type:gun_smith
 		this = building_type:guns_workshop
 		this = building_type:hand_cannon_guild
-		this = building_type:minting_office
 		this = building_type:tools_guild
 	}
 }
@@ -874,7 +501,6 @@ bag_rgo_consumes_wheat = {
 		this = building_type:distiller_mill
 		this = building_type:distillers_guild
 		this = building_type:distillers_workshop
-		this = building_type:fortress_granary
 		this = building_type:horse_breeders
 	}
 }
@@ -883,12 +509,7 @@ bag_rgo_consumes_wheat = {
 bag_rgo_consumes_wild_game = {
 	OR = {
 		this = building_type:apothecary
-		this = building_type:chi_missionary_building
-		this = building_type:coastal_settlements
 		this = building_type:forest_village
-		this = building_type:fulani_cattle_rearing_pen
-		this = building_type:missionary_building
-		this = building_type:settlement_building
 		this = building_type:tannery
 		this = building_type:tannery_manufactory
 		this = building_type:tannery_mill
@@ -899,39 +520,21 @@ bag_rgo_consumes_wild_game = {
 # Scope: building_type
 bag_rgo_consumes_wine = {
 	OR = {
-		this = building_type:debere_meshwae
 		this = building_type:distillers_guild
 		this = building_type:distillers_workshop
 		this = building_type:eng_royal_forest
-		this = building_type:globe_theatre
-		this = building_type:gurgaddi
-		this = building_type:miaphysite_monastery
-		this = building_type:monastery
-		this = building_type:novodevichy_convent
-		this = building_type:opera_house
-		this = building_type:orthodox_monastery
-		this = building_type:sufi_mosque
-		this = building_type:teatro_san_cassiano
-		this = building_type:theater
-		this = building_type:wali_songo_shrine
 	}
 }
 
 # Scope: building_type
 bag_rgo_consumes_wool = {
 	OR = {
-		this = building_type:chi_missionary_building
 		this = building_type:cloth_guild
 		this = building_type:cloth_manufactory
 		this = building_type:cloth_workshop
-		this = building_type:coastal_settlements
 		this = building_type:fine_cloth_guild
 		this = building_type:fine_cloth_workshop
-		this = building_type:fulani_cattle_rearing_pen
-		this = building_type:missionary_building
 		this = building_type:rural_clothmaker
-		this = building_type:settlement_building
-		this = building_type:tambo
 		this = building_type:textile_mill
 	}
 }
@@ -1001,10 +604,6 @@ bag_rgo_location_feeds_root = {
 			root = { bag_rgo_consumes_horses = yes }
 		}
 		AND = {
-			raw_material = goods:incense
-			root = { bag_rgo_consumes_incense = yes }
-		}
-		AND = {
 			raw_material = goods:iron
 			root = { bag_rgo_consumes_iron = yes }
 		}
@@ -1031,10 +630,6 @@ bag_rgo_location_feeds_root = {
 		AND = {
 			raw_material = goods:marble
 			root = { bag_rgo_consumes_marble = yes }
-		}
-		AND = {
-			raw_material = goods:medicaments
-			root = { bag_rgo_consumes_medicaments = yes }
 		}
 		AND = {
 			raw_material = goods:mercury

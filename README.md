@@ -8,10 +8,8 @@ Combined with the `production_efficiency` sort the panel already has, it answers
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Loaded in game and partly verified: the mod registers, the filter shows up in
-> the panel's funnel menu, and the generated predicate matches correctly when
-> tested on its own. The probe feeding it the location is the piece that has just
-> moved into the panel and has not been confirmed working yet.
+> Working in game: the filter narrows the buildings panel to the ones gaining
+> from local raw materials. Only lightly tested so far.
 
 ## How it works
 
@@ -33,8 +31,11 @@ function and filter triggers run script, with no script counterpart anywhere in
 `common/scripted_triggers/`. So `tools/generate_rgo_filter.py` reconstructs it
 from the game files: it reads every production method each building type
 offers, takes the goods those methods consume, and keeps the ones flagged
-`category = raw_material`. The result is one trigger per raw material listing
-the building types that consume it, written to
+`category = raw_material`. Only methods that actually output a good count — the
+game badges a building on `And(BuildingType.IsProducing, HasPossibleRGOBonus)`,
+and a monastery burning clay for upkeep produces nothing for a raw material to
+make more efficient. The result is one trigger per raw material listing the
+building types that consume it, written to
 `in_game/common/scripted_triggers/bag_rgo_generated_triggers.txt`.
 
 **The location.** A `building_type` filter is handed `root` and nothing else —
@@ -60,8 +61,8 @@ goods:
 python3 tools/generate_rgo_filter.py "<EU5>/game/in_game/common"
 ```
 
-As of 1.3.10 that covers 465 building types, 317 of which consume at least one
-of the 52 raw material goods, over 678 building/material pairs.
+As of 1.3.10 that reads 465 building types, of which 110 consume a raw material
+while producing something, over 293 building/material pairs across 40 materials.
 
 ## Settings
 
@@ -95,8 +96,8 @@ docs/RESEARCH.md                           notes on the EU5 mod format and CMF
 ## Known gaps
 
 - The predicate matches the shovel badge's *potential* reading: a building
-  passes if any of its production methods could use a local raw material. It
-  does not check whether the method currently selected is the one that does.
+  passes if any of its producing methods could use a local raw material. It does
+  not check whether the method currently selected is the one that does.
 - Buildings whose production methods come from `possible_production_methods`
   resolve against `common/production_methods/`; anything a DLC adds elsewhere is
   invisible to the generator until it is pointed at those files too.
