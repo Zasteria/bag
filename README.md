@@ -8,9 +8,10 @@ Combined with the `production_efficiency` sort the panel already has, it answers
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Not yet run in game. Every file has been syntax checked and the generated
-> predicate cross-checked against the game data it came from, but nothing here
-> has been loaded by EU5 itself.
+> Loaded in game and partly verified: the mod registers, the filter shows up in
+> the panel's funnel menu, and the generated predicate matches correctly when
+> tested on its own. The probe feeding it the location is the piece that has just
+> moved into the panel and has not been confirmed working yet.
 
 ## How it works
 
@@ -71,8 +72,9 @@ Under **Filter → Range** in the Mod Menu:
   the whole province.
 
 CMM keeps setting values in a variable map that script triggers cannot read, so
-`cmm_sync_bool_alias` mirrors this one onto a plain country variable, refreshed
-from `cmf_on_callback` whenever the setting changes.
+`cmm_sync_bool_alias` mirrors this one onto a plain global variable, refreshed
+from `cmf_on_callback` whenever the setting changes. It is registered global
+rather than per country because the filter trigger can reach nothing else.
 
 ## Layout
 
