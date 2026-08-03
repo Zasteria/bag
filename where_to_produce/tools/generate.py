@@ -43,6 +43,7 @@ TRIGGERS_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_gene
 VALUES_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_method_values.txt"
 GOODS_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_goods_values.txt"
 DISPATCH_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_dispatch.txt"
+CATALOGUE_OUT = MOD_ROOT / "in_game" / "common" / "scripted_effects" / "wtp_generated_catalogue.txt"
 AVAIL_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_generated_availability.txt"
 
 BOM = "﻿"
@@ -201,6 +202,23 @@ def render_dispatch(game: Game) -> str:
     return "\n".join(out)
 
 
+def render_catalogue(game: Game) -> str:
+    """The goods the picker offers, as a global list the window can iterate.
+
+    Only goods something could actually produce with a local bonus; the rest
+    would be dead entries in the grid.
+    """
+    out = [BOM + HEADER, "#",
+           "# Fill the goods picker. Scope: any", "",
+           "wtp_build_goods_catalogue = {",
+           "\tclear_global_variable_list = wtp_goods"]
+    for good in game.goods_produced:
+        out.append("\tadd_to_global_variable_list = { name = wtp_goods target = goods:%s }" % good)
+    out.append("}")
+    out.append("")
+    return "\n".join(out)
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(__doc__)
@@ -227,7 +245,8 @@ def main() -> int:
                        (VALUES_OUT, render_values(game, ids)),
                        (AVAIL_OUT, avail),
                        (GOODS_OUT, values),
-                       (DISPATCH_OUT, render_dispatch(game))):
+                       (DISPATCH_OUT, render_dispatch(game)),
+                       (CATALOGUE_OUT, render_catalogue(game))):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
@@ -235,7 +254,7 @@ def main() -> int:
     print("raw materials referenced: %d" % len(used_goods))
     print("methods scored:           %d" % len(scored))
     print("goods reachable:          %d" % len(game.goods_produced))
-    for path in (TRIGGERS_OUT, VALUES_OUT, AVAIL_OUT, GOODS_OUT, DISPATCH_OUT):
+    for path in (TRIGGERS_OUT, VALUES_OUT, AVAIL_OUT, GOODS_OUT, DISPATCH_OUT, CATALOGUE_OUT):
         print("wrote %s" % path.relative_to(MOD_ROOT.parent))
     return 0
 

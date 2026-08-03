@@ -1,0 +1,157 @@
+﻿# The shortlist window. Opened from the action bar button CMF registers, so no
+# vanilla file is touched: the button flips the wtp_window_open global and this
+# widget watches it.
+#
+# Styling is deliberately plain for now — the numbers are the point, and every
+# type used here is a base widget rather than a vanilla skin, so nothing depends
+# on another mod's restyling.
+widget = {
+	name = "wtp_window"
+	layer = topbar
+	size = { 100% 100% }
+	alwaystransparent = yes
+	datacontext = "[GetPlayer]"
+	visible = "[And(Country.IsValid, GetGlobalVariable('wtp_window_open').IsSet)]"
+
+	widget = {
+		size = { 620 560 }
+		parentanchor = center
+		alwaystransparent = no
+
+		background = { using = bg_paper_card }
+
+		vbox = {
+			margin = { 10 10 }
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			spacing = 6
+
+			# Title, and the way out.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				text_single = {
+					text = "WTP_WINDOW_TITLE"
+					default_format = "@bold!"
+				}
+				expand = {}
+				button = {
+					size = { 24 24 }
+					text = "X"
+					onclick = "[GetScriptedGui('wtp_close_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+
+			# Which good to plan for. Only goods something can actually produce
+			# with a local bonus are listed.
+			text_single = { text = "WTP_PICK_GOOD" }
+
+			fixedgridbox = {
+				layoutpolicy_horizontal = expanding
+				maximumsize = { -1 120 }
+				addcolumn = 34
+				addrow = 34
+				datamodel = "[GetGlobalList('wtp_goods')]"
+
+				item = {
+					widget = {
+						size = { 32 32 }
+						datacontext = "[Scope.GetGoods]"
+
+						button = {
+							size = { 32 32 }
+							onclick = "[GetScriptedGui('wtp_pick_good').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_goods_pick', Goods.MakeScope).End)]"
+							tooltipwidget = { using = Goods_tooltip }
+
+							icon = {
+								size = { 28 28 }
+								parentanchor = center
+								texture = "[GetGoodsIcon(Goods.Self)]"
+							}
+						}
+
+						# Marks the good currently being planned.
+						icon = {
+							size = { 32 32 }
+							parentanchor = center
+							texture = "gfx/interface/component_tiles/tile_frame_selected.dds"
+							visible = "[GetScriptedGui('wtp_good_is_selected').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_goods_pick', Goods.MakeScope).End)]"
+						}
+					}
+				}
+			}
+
+			# Column headings, matching the rows below.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				text_single = { size = { 240 20 } text = "WTP_COL_PROVINCE" default_format = "@bold!" }
+				text_single = { size = { 90 20 } text = "WTP_COL_OUTPUT" default_format = "@bold!" align = right }
+				text_single = { size = { 110 20 } text = "WTP_COL_BONUS" default_format = "@bold!" align = right }
+				text_single = { size = { 110 20 } text = "WTP_COL_CEILING" default_format = "@bold!" align = right }
+			}
+
+			text_single = {
+				text = "WTP_NO_SELECTION"
+				visible = "[Not(GetScriptedGui('wtp_has_selection').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			}
+
+			# The shortlist. Which ordering is shown follows the Mod Menu setting;
+			# both were built in the same pass, so switching costs nothing.
+			scrollarea = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				blockoverride "scrollarea_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						datamodel = "[DataModelFirst(GetGlobalList('wtp_by_output'), GetGlobalVariable('wtp_shortlist_size').GetValue)]"
+						visible = "[Not(GetGlobalVariable('wtp_sort_by_coverage').IsSet)]"
+						item = { wtp_shortlist_row = {} }
+					}
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 2
+
+						datamodel = "[DataModelFirst(GetGlobalList('wtp_by_coverage'), GetGlobalVariable('wtp_shortlist_size').GetValue)]"
+						visible = "[GetGlobalVariable('wtp_sort_by_coverage').IsSet]"
+						item = { wtp_shortlist_row = {} }
+					}
+				}
+			}
+		}
+	}
+}
+
+types WhereToProduceTypes {
+	# One province of the shortlist. The three figures were computed in script
+	# and parked on the province, because the interface cannot evaluate a script
+	# value itself.
+	type wtp_shortlist_row = hbox {
+		layoutpolicy_horizontal = expanding
+		spacing = 4
+		datacontext = "[Scope.GetProvince]"
+
+		text_single = {
+			size = { 240 22 }
+			text = "[Province.GetName]"
+		}
+		text_single = {
+			size = { 90 22 }
+			align = right
+			raw_text = "[Province.MakeScope.GetVariable('wtp_row_output').GetValue|2]"
+		}
+		text_single = {
+			size = { 110 22 }
+			align = right
+			raw_text = "[Province.MakeScope.GetVariable('wtp_row_bonus').GetValue|2]%"
+		}
+		text_single = {
+			size = { 110 22 }
+			align = right
+			raw_text = "[Province.MakeScope.GetVariable('wtp_row_ceiling').GetValue|2]%"
+		}
+	}
+}

@@ -39,6 +39,13 @@ wtp_rebuild_shortlist = {
 					}
 				}
 				add_to_global_variable_list = { name = wtp_pool target = this }
+
+				# The window cannot evaluate a script value, so the three numbers
+				# it shows are parked on the province here and read back as plain
+				# variables.
+				set_variable = { name = wtp_row_output value = wtp_current_output }
+				set_variable = { name = wtp_row_bonus value = wtp_current_bonus }
+				set_variable = { name = wtp_row_ceiling value = wtp_current_ceiling }
 			}
 		}
 	}

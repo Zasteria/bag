@@ -1,0 +1,78 @@
+﻿# Registration with the Community Mod Framework: the action bar button that
+# opens the window, and the two Mod Menu settings.
+# Scope: country
+wtp_register = {
+	cmf_register_mod = { mod_id = wtp }
+
+	wtp_build_goods_catalogue = yes
+
+	cmf_add_action_bar_element = { element = wtp_open }
+
+	# How many rows the window shows. The shortlist itself is always built ten
+	# deep, so changing this needs no recalculation.
+	cmm_register_global_numeric_setting = {
+		mod_id = wtp
+		setting_id = shortlist_size
+		tab_id = shortlist
+		group_id = display
+		default_value = 3
+		min_value = 1
+		max_value = 10
+		step = 1
+	}
+
+	# 1 = by output, 2 = by how much of the recipe local materials cover.
+	cmm_register_global_dropdown_setting = {
+		mod_id = wtp
+		setting_id = sort_by
+		tab_id = shortlist
+		group_id = display
+		default_index = 1
+		option_count = 2
+	}
+
+	wtp_sync_settings = yes
+}
+
+# CMM keeps setting values in a variable map that neither a script value nor the
+# window can read, so both settings are mirrored onto plain globals.
+# Scope: country
+wtp_sync_settings = {
+	cmm_sync_setting_alias = {
+		setting = wtp__shortlist_size
+		alias = wtp_shortlist_size
+	}
+	cmm_sync_dropdown_option_alias = {
+		setting = wtp__sort_by
+		index = 2
+		alias = wtp_sort_by_coverage
+	}
+}
+
+# The action bar button and the settings arrive through the same callback.
+# Scope: country
+wtp_handle_callback = {
+	wtp_sync_settings = yes
+
+	if = {
+		limit = { var:cmf_callback = flag:wtp_open }
+		wtp_toggle_window = yes
+	}
+
+	# A different good, or a different sort, changes what the window should show.
+	if = {
+		limit = { var:cmf_callback = flag:wtp__sort_by }
+		wtp_rebuild_shortlist = yes
+	}
+}
+
+# Scope: country
+wtp_toggle_window = {
+	if = {
+		limit = { has_global_variable = wtp_window_open }
+		remove_global_variable = wtp_window_open
+	}
+	else = {
+		set_global_variable = { name = wtp_window_open value = 1 }
+	}
+}

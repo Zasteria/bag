@@ -1,0 +1,49 @@
+﻿# Bridges the window calls into script.
+
+# Plan for a good. The picker passes it as scope:wtp_goods_pick.
+# Scope: country
+wtp_pick_good = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = {
+		set_global_variable = { name = wtp_good value = scope:wtp_goods_pick }
+		wtp_rebuild_shortlist = yes
+	}
+}
+
+# True for the good currently being planned, so the picker can mark it.
+# Scope: country
+wtp_good_is_selected = {
+	scope = country
+
+	is_shown = {
+		has_global_variable = wtp_good
+		global_var:wtp_good = scope:wtp_goods_pick
+	}
+	effect = { }
+}
+
+# True once a good has been chosen; the shortlist is empty before that.
+# Scope: country
+wtp_has_selection = {
+	scope = country
+
+	is_shown = { has_global_variable = wtp_good }
+	effect = { }
+}
+
+# Close the window.
+# Scope: country
+wtp_close_window = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = {
+		remove_global_variable = wtp_window_open
+	}
+}

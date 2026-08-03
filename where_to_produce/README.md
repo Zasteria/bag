@@ -10,8 +10,9 @@ appear.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Work in progress. The data layer and the ranking are written; the window and
-> the Mod Menu wiring are not. Nothing has been loaded by the game yet.
+> Complete but unverified. Every piece is written — data, ranking, window,
+> settings — and checked for syntax and cross-references, but the game has not
+> loaded it once. Expect the first run to need fixes.
 
 ## The formula
 
@@ -72,12 +73,30 @@ Two columns, sort by either:
 The two disagree often, which is the point: iron gives a tools guild output 1.0,
 stone tools only 0.25, and both can sit at the same 10%.
 
+## Using it
+
+The Community Mod Framework puts a **Where To Produce** button on its action
+bar. The window lists every good something in the game could produce with a
+local bonus; pick one and the shortlist fills in.
+
+Four columns: the province, what the best available recipe there yields, the
+bonus it actually gets, and the most that recipe could ever get. The last one
+matters — 2.86% against a ceiling of 5.24% is more than half of everything that
+recipe will ever give, while 6% elsewhere might be nowhere near its own limit.
+
+Under **Shortlist → Display** in the Mod Menu: how many provinces to show, and
+whether to rank by output or by local coverage.
+
 ## Layout
 
 ```
 .metadata/metadata.json                        mod descriptor
 in_game/common/scripted_triggers/              generated: is this raw material in the province
 in_game/common/script_values/                  generated: what a method scores here
+in_game/common/scripted_effects/               registration, the ranking pass
+in_game/common/scripted_guis/                  what the window calls into
+in_game/common/on_action/                      CMF registration and callback hooks
+in_game/gui/wtp_window.gui                     the window, injected as a scripted widget
 main_menu/localization/                        English and Russian
 tools/eu5data.py                               reads the game files and holds the formula
 tools/generate.py                              writes the script layer
