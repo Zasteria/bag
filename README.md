@@ -14,13 +14,13 @@ efficiency or income turns either one into a ranked shortlist.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Working in game: the filter narrows the buildings panel to the ones gaining
-> from local raw materials. Only lightly tested so far.
+> The buildings panel filter is working in game, lightly tested. The build panel
+> filter is new and unverified.
 
 ## How it works
 
-The filter appears as a normal chip in the funnel menu of the buildings panel,
-next to vanilla's own building filters.
+Each filter appears as a normal chip in its panel's funnel menu, next to
+vanilla's own building filters.
 
 Three pieces make that possible.
 
@@ -103,11 +103,13 @@ rather than per country because the filter trigger can reach nothing else.
 .metadata/metadata.json                    mod descriptor
 in_game/common/on_action/                  CMF registration and callback hooks
 in_game/common/scripted_effects/           registration, setting alias sync
-in_game/common/scripted_guis/              location probe bridges
-in_game/common/scripted_triggers/          filter entry point + generated predicate
-in_game/gui/filters/                       the filter itself
+in_game/common/scripted_guis/              probe bridges for both panels
+in_game/common/scripted_triggers/          filter entry points + generated predicate
+in_game/gui/filters/                       the two filters
 in_game/gui/location_production_lateralview.gui
-                                           vanilla panel + the probe widget
+                                           vanilla panel + location probe
+in_game/gui/build_location_lateralview.gui
+                                           vanilla panel + building type probe
 main_menu/localization/<lang>/             English and Russian
 tools/generate_rgo_filter.py               predicate generator
 docs/RESEARCH.md                           notes on the EU5 mod format and CMF
