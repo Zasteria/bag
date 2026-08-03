@@ -42,6 +42,7 @@ MOD_ROOT = Path(__file__).resolve().parent.parent
 TRIGGERS_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_generated_rgo_triggers.txt"
 VALUES_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_method_values.txt"
 GOODS_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_goods_values.txt"
+DISPATCH_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_dispatch.txt"
 AVAIL_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_generated_availability.txt"
 
 BOM = "﻿"
@@ -71,15 +72,14 @@ def resolve_ids(game: Game) -> dict[tuple[str, str], str]:
 
 def render_triggers(goods: list[str]) -> str:
     out = [BOM + HEADER, "#",
-           "# True when some location in this location's province works that raw material.",
-           "# The bonus is province wide, which is what the game's own tooltip reports.",
-           "# Scope: location", ""]
+           "# True when some location in this province works that raw material.",
+           "# The bonus is province wide, which is what the game's own tooltip reports,",
+           "# and the shortlist ranks provinces, so everything here is province scoped.",
+           "# Scope: province", ""]
     for good in goods:
         out.append("wtp_province_has_%s = {" % good)
-        out.append("\tprovince = {")
-        out.append("\t\tany_location_in_province = {")
-        out.append("\t\t\traw_material = goods:%s" % good)
-        out.append("\t\t}")
+        out.append("\tany_location_in_province = {")
+        out.append("\t\traw_material = goods:%s" % good)
         out.append("\t}")
         out.append("}")
         out.append("")
@@ -92,7 +92,7 @@ def render_values(game: Game, ids: dict[tuple[str, str], str]) -> str:
            "# location, its ceiling, and what it outputs. Every input counts towards",
            "# the divisor, produced goods included -- that is why a ceiling can sit",
            "# well below %g%%." % RGO_MAX_BONUS,
-           "# Scope: location", ""]
+           "# Scope: province", ""]
 
     emitted: set[str] = set()
     for method in sorted(game.methods, key=lambda m: (m.produced, -m.output, m.building, m.key)):
@@ -131,12 +131,12 @@ def render_goods(game: Game, ids: dict[tuple[str, str], str]) -> tuple[str, str]
     """
     avail = [BOM + HEADER, "#",
              "# True when any raw material of that recipe is worked in the province.",
-             "# Scope: location", ""]
+             "# Scope: province", ""]
     values = [BOM + HEADER, "#",
               "# Per good: what the best recipe on offer in this province would give.",
               "# Zero when nothing producing it would gain anything here, which is what",
               "# keeps such provinces off the shortlist.",
-              "# Scope: location", ""]
+              "# Scope: province", ""]
 
     for good in game.goods_produced:
         chain = []
@@ -179,6 +179,28 @@ def render_goods(game: Game, ids: dict[tuple[str, str], str]) -> tuple[str, str]
     return "\n".join(avail), "\n".join(values)
 
 
+def render_dispatch(game: Game) -> str:
+    """Resolve the three per-good chains against whichever good is selected.
+
+    `order_by` takes one script value, so the good the player picked has to be
+    reachable from a single name. It is parked in the `wtp_good` global as a
+    goods scope, and these fan out to the matching chain.
+    """
+    out = [BOM + HEADER, "#",
+           "# Scope: province. Zero while no good is selected, which also leaves",
+           "# every province out of the shortlist.", ""]
+    for label in ("output", "bonus", "ceiling"):
+        out.append("wtp_current_%s = {" % label)
+        out.append("\tvalue = 0")
+        for index, good in enumerate(game.goods_produced):
+            keyword = "if" if index == 0 else "else_if"
+            out.append("\t%s = { limit = { global_var:wtp_good = goods:%s } value = wtp_best_%s_%s }" % (
+                keyword, good, label, good))
+        out.append("}")
+        out.append("")
+    return "\n".join(out)
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(__doc__)
@@ -204,7 +226,8 @@ def main() -> int:
     for path, text in ((TRIGGERS_OUT, render_triggers(used_goods)),
                        (VALUES_OUT, render_values(game, ids)),
                        (AVAIL_OUT, avail),
-                       (GOODS_OUT, values)):
+                       (GOODS_OUT, values),
+                       (DISPATCH_OUT, render_dispatch(game))):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
@@ -212,7 +235,7 @@ def main() -> int:
     print("raw materials referenced: %d" % len(used_goods))
     print("methods scored:           %d" % len(scored))
     print("goods reachable:          %d" % len(game.goods_produced))
-    for path in (TRIGGERS_OUT, VALUES_OUT, AVAIL_OUT, GOODS_OUT):
+    for path in (TRIGGERS_OUT, VALUES_OUT, AVAIL_OUT, GOODS_OUT, DISPATCH_OUT):
         print("wrote %s" % path.relative_to(MOD_ROOT.parent))
     return 0
 

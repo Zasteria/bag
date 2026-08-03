@@ -4,7 +4,7 @@
 # location, its ceiling, and what it outputs. Every input counts towards
 # the divisor, produced goods included -- that is why a ceiling can sit
 # well below 10%.
-# Scope: location
+# Scope: province
 
 # brewery_mill_maintenance in brewery_mill -- produces beer, output 4, ceiling 9.51%
 wtp_bonus_brewery_mill_maintenance = {

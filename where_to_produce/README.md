@@ -10,8 +10,8 @@ appear.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Work in progress. The data layer is done, generated into script and checked
-> against the game; the window is not built yet.
+> Work in progress. The data layer and the ranking are written; the window and
+> the Mod Menu wiring are not. Nothing has been loaded by the game yet.
 
 ## The formula
 
@@ -45,6 +45,21 @@ So 2.86% out of a possible 5.24% is more than half of everything that method
 will ever get, while 6% somewhere else might be nowhere near its own ceiling.
 The shortlist reports the ceiling alongside the actual figure for exactly this
 reason.
+
+## How the shortlist is built
+
+Provinces, not locations: the bonus is province wide, so ten locations of one
+province would score identically and crowd everything else out.
+
+`wtp_rebuild_shortlist` walks `every_owned_location`, steps up to its province,
+and collects each one that could produce the chosen good at all. Then
+`ordered_in_global_list` takes the best ten twice over — once ordered by what
+the recipe yields, once by how much of it the local raw materials cover — and
+the window shows the first N of whichever column is being sorted on.
+
+The good the player picked sits in the `wtp_good` global as a goods scope.
+`order_by` accepts a single script value, so the generated `wtp_current_output`
+and `wtp_current_bonus` fan out from that one name to the chain for that good.
 
 ## Ranking
 

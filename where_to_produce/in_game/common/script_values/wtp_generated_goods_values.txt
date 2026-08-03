@@ -3,7 +3,7 @@
 # Per good: what the best recipe on offer in this province would give.
 # Zero when nothing producing it would gain anything here, which is what
 # keeps such provinces off the shortlist.
-# Scope: location
+# Scope: province
 
 # ---- beer: recipes by descending output ----
 wtp_best_output_beer = {

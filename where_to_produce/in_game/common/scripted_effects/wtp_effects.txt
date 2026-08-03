@@ -1,0 +1,70 @@
+﻿# Building the shortlist for the good the player picked.
+#
+# Everything lives in global variables. The window reads them back, and the
+# generated script values reach the selection through `wtp_good` without
+# anything having to be passed down a scope chain.
+
+# Choose the good to plan for and rebuild the shortlist around it.
+# Scope: country
+# Args: good (key)
+wtp_select_good = {
+	set_global_variable = { name = wtp_good value = goods:$good$ }
+	wtp_rebuild_shortlist = yes
+}
+
+# Collect every owned province that could produce the chosen good at all, then
+# take the best of them twice over — once by what the recipe yields, once by how
+# much of it the local raw materials cover. The window shows whichever the
+# player is sorting by.
+#
+# Provinces rather than locations: the bonus is province wide, so ten locations
+# of one province would all score the same and crowd everything else out.
+#
+# Scope: country
+wtp_rebuild_shortlist = {
+	clear_global_variable_list = wtp_pool
+	clear_global_variable_list = wtp_by_output
+	clear_global_variable_list = wtp_by_coverage
+
+	every_owned_location = {
+		province = {
+			if = {
+				limit = {
+					wtp_current_output > 0
+					NOT = {
+						is_target_in_global_variable_list = {
+							name = wtp_pool
+							target = this
+						}
+					}
+				}
+				add_to_global_variable_list = { name = wtp_pool target = this }
+			}
+		}
+	}
+
+	# Ten is the ceiling the Mod Menu can offer; the window shows the first N.
+	ordered_in_global_list = {
+		variable = wtp_pool
+		order_by = { value = wtp_current_output }
+		max = 10
+		check_range_bounds = no
+		add_to_global_variable_list = { name = wtp_by_output target = this }
+	}
+
+	ordered_in_global_list = {
+		variable = wtp_pool
+		order_by = { value = wtp_current_bonus }
+		max = 10
+		check_range_bounds = no
+		add_to_global_variable_list = { name = wtp_by_coverage target = this }
+	}
+}
+
+# Forget the current plan. Scope: country
+wtp_clear_shortlist = {
+	clear_global_variable_list = wtp_pool
+	clear_global_variable_list = wtp_by_output
+	clear_global_variable_list = wtp_by_coverage
+	remove_global_variable = wtp_good
+}
