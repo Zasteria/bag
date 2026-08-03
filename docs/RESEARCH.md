@@ -117,13 +117,14 @@ filter, the entire item pass it." That is how one `building` tag serves filters
 scoped to `building_type` (`58_building_type.txt`), `building`
 (`42_building.txt`) and `location` (`05_location.txt`) at once.
 
-For building scoped filters, `root` is the building or building type and
-`scope:target` is the country. **The location is not passed in**, which is the
-awkward part for anything province dependent — the viewed location has to be
-parked in a country variable by a scripted GUI probe first. Glorp UI does
-exactly that for Construction Manager's own R.G.O. filter, storing the viewed
-building type through `cm_rgob_store_selected_type` from a zero sized widget
-with `trigger_on_create = yes`.
+For building scoped filters, `root` is the building or building type. **The
+location is not passed in**, which is the awkward part for anything province
+dependent — the viewed location has to be parked in a global variable by a
+scripted GUI probe first. Glorp UI does much the same for Construction Manager's
+own R.G.O. filter, storing the viewed building type through
+`cm_rgob_store_selected_type` from a zero sized widget with
+`trigger_on_create = yes`. What else a filter can read depends on its scope; see
+[Filter scopes](#filter-scopes-what-a-trigger-actually-gets).
 
 Filters are the right tool rather than hiding rows from the GUI: the list body
 is a `fixedgridbox` with a fixed row height, so a hidden row still occupies its
