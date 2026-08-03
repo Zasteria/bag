@@ -15,8 +15,7 @@ Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 ## How it works
 
 The filter appears as a normal chip in the funnel menu of the buildings panel,
-next to vanilla's own building filters. **No vanilla file is replaced**, so the
-mod does not collide with other interface mods.
+next to vanilla's own building filters.
 
 Three pieces make that possible.
 
@@ -37,13 +36,19 @@ offers, takes the goods those methods consume, and keeps the ones flagged
 the building types that consume it, written to
 `in_game/common/scripted_triggers/bag_rgo_generated_triggers.txt`.
 
-**The location.** A filter is handed the building type as `root` and the country
-as `scope:target` — never the location on screen. A scripted widget
-(`in_game/gui/bag_rgo/bag_rgo_location_probe.gui`) watches
-`LocationProductionView.GetSelectedLocation` and parks it on the player country
-through a scripted GUI, so the trigger can reach it. Scripted widgets are
-injected by the engine and need no vanilla file, and the state re-arms itself
-rather than firing every frame.
+**The location.** A `building_type` filter is handed `root` and nothing else —
+not even `scope:target`, whatever vanilla's `58_building_type.txt` comment
+claims. So a probe widget parks the location on screen in a global variable
+through a scripted GUI, and the trigger reads it from there. The state re-arms
+itself rather than firing every frame.
+
+That probe is the one thing costing a vanilla file. `LocationProductionView`
+only resolves inside its own panel — from a scripted widget it comes back null
+and logs an error every frame — so the probe lives in
+`in_game/gui/location_production_lateralview.gui`, a copy of the vanilla panel
+with **17 lines inserted and nothing else changed**. Glorp UI does not override
+this file, but any other mod that does will collide, and the copy is pinned to
+the 1.3.10 version of the panel: re-copy it after a patch that touches it.
 
 ## Regenerating the predicate
 
@@ -78,8 +83,8 @@ in_game/common/scripted_effects/           registration, setting alias sync
 in_game/common/scripted_guis/              location probe bridges
 in_game/common/scripted_triggers/          filter entry point + generated predicate
 in_game/gui/filters/                       the filter itself
-in_game/gui/bag_rgo/                       probe widget
-in_game/gui/scripted_widgets/              probe registration
+in_game/gui/location_production_lateralview.gui
+                                           vanilla panel + the probe widget
 main_menu/localization/<lang>/             English and Russian
 tools/generate_rgo_filter.py               predicate generator
 docs/RESEARCH.md                           notes on the EU5 mod format and CMF

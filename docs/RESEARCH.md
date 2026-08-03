@@ -293,3 +293,28 @@ gating that child on `Location.IsValid` keeps it quiet.
 Square brackets in a localization value are data function syntax, so a display
 name like `[debug] location known` renders as `ERROR:` — brackets have to stay
 out of plain text.
+
+## View objects are panel scoped
+
+`LocationProductionView`, and by the look of it the other `*View` objects, only
+resolve inside the widget tree of their own panel. Vanilla never reads
+`LocationProductionView.GetSelectedLocation` outside
+`location_production_lateralview.gui`; other files only call the global
+`ShowLocationProductionView(...)` to open it.
+
+Reading one from a scripted widget fails, and fails loudly — a zero sized always
+present widget doing so logs on every frame:
+
+```
+FetchData failed for 'Location.IsValid' - gui/bag_rgo/bag_rgo_location_probe.gui:22
+Promote 'AddScope' returned nullptr, in 'GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_rgo_loc', Location.MakeScope).End'
+```
+
+The `datacontext` silently yields nothing, so every expression depending on it
+fails. Scripted widgets themselves work fine — the file loads and its states run
+— but anything panel scoped has to be injected into that panel's own file.
+
+`error.log` names the file and line for GUI failures, which makes it the fastest
+way to tell "the widget never loaded" from "the widget loaded and its
+expressions fail". Script side failures show up there too; a filter trigger that
+merely returns false logs nothing at all.
