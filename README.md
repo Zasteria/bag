@@ -22,7 +22,8 @@ see [Remaining work](#remaining-work).
 | Mod Menu settings | done |
 | Filter state + scripted GUI bridges | done |
 | English / Russian localization | done |
-| Filter button and row visibility in the building list | **not started** |
+| Target panel and filter format identified | done |
+| The filter itself | **blocked** — see [Remaining work](#remaining-work) |
 
 ## Layout
 
@@ -38,17 +39,46 @@ docs/RESEARCH.md                     notes on the EU5 mod format and CMF
 
 ## How it is meant to work
 
-The location building list already knows which buildings benefit from local raw
-materials — `BuildingType.HasPossibleRGOBonus(country, location)` drives the
-shovel badge, and `Building.IsUsingRGOBonus(country, location)` decides whether
-it is drawn green (bonus in use) or yellow (available but the current production
-method does not take it).
+The target panel is `location_production_lateralview.gui` (`LocationProductionView`),
+the "Buildings of <town>" list. Its list already declares
+`WithFilterTags('building')`, so a filter file dropped into
+`in_game/gui/filters/` shows up in its existing funnel menu as a chip, next to
+vanilla's own building filters. Sorting is untouched — the panel already offers
+a `production_efficiency` sort key that orders both ways.
 
-The filter reuses those predicates. A toggle button in the list header calls the
-`bag_rgo_filter_toggle` scripted GUI, which flips the `bag_rgo_filter_active`
-country variable; rows then hide themselves while that variable is set and the
-building fails the predicate. Sorting is untouched — vanilla's
-`production_efficiency` sort key already orders ascending and descending.
+That is deliberately not a GUI override. The list body is a `fixedgridbox` with
+a fixed row height, so hiding rows from the interface would leave holes in the
+list; only a real filter removes items. It also keeps the mod compatible with
+every other UI mod, since no vanilla file is replaced.
+
+## Remaining work
+
+The filter needs a `trigger` that answers "does this building type gain
+efficiency from raw materials in this province". The game answers that question
+in the interface — `BuildingType.HasPossibleRGOBonus(country, location)` drives
+the shovel badge and `Building.IsUsingRGOBonus(country, location)` colours it —
+but those are GUI data functions, and filter triggers run *script*. Nothing in
+`common/scripted_triggers/` exposes the same thing.
+
+Two ways forward, and which one applies is not yet decided:
+
+1. **A script trigger exists.** Then the filter is one small file and the mod is
+   essentially done. Settling this needs the engine's trigger list, which
+   `script_docs` dumps to `logs/triggers.log`.
+2. **No script trigger exists.** Then the predicate gets generated from game
+   data: read which production methods each building type offers and which goods
+   they consume, cross them with the raw materials a province can produce, and
+   emit a generated scripted trigger. Glorp UI ships generated files
+   (`glorpui_generated_trait_scripted_triggers.txt`) for much the same reason.
+   This needs `common/building_types/`, `common/production_methods/` and
+   `common/goods/` from the game folder.
+
+One wrinkle either way: filter triggers get the building type as `root` and the
+country as `scope:target` — never the location. The viewed location has to be
+parked in a country variable first by a zero sized probe widget with
+`trigger_on_create = yes`, the trick Glorp UI already uses to feed Construction
+Manager's own R.G.O. filter. `bag_rgo_filter_toggle` and its siblings are the
+scripted GUI side of that plumbing.
 
 ## Settings
 
@@ -58,19 +88,3 @@ Registered under **Buildings → Local Resource Filter** in the Mod Menu:
 - **Only Active Bonuses** — keep only buildings already using the local
   materials, instead of every building that could.
 
-## Remaining work
-
-Writing the interface layer needs the vanilla `.gui` source for the location
-building window, which is not in this repository:
-
-1. Confirm which vanilla file owns the window and copy the widget type for a
-   building row into `in_game/gui/`.
-2. Add the toggle button next to the existing search field and sort buttons.
-3. Gate each row on the filter state and the RGO predicate.
-4. Decide between that override and a declarative entry in
-   `in_game/gui/filters/` — cheaper and conflict-free, but only workable if a
-   script-side trigger for the RGO bonus exists, since filter `trigger` blocks
-   run script rather than GUI functions.
-
-Overriding a vanilla `.gui` wholesale is what makes UI mods collide, so prefer
-the declarative filter if the trigger turns out to exist.

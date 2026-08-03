@@ -62,39 +62,76 @@ take the owning country and the location:
 | --- | --- | --- |
 | `HasPossibleRGOBonus(country, location)` | `BuildingType` | The building *could* gain efficiency from raw materials present in the province |
 | `IsUsingRGOBonus(country, location)` | `Building` | Its current production method actually consumes them |
+| `HasBuildingRGOBonus(production_method)` | `Building` | Same, asked per production method |
 | `ProductionEfficiencyInfo(country, location)` | `BuildingType` | String pair list used for the tooltip breakdown |
+| `GetBuildingProductionEfficiencyInfo(production_method)` | `Building` | Per method variant of the same breakdown |
 
 `location_window.gui` drives the badge with them — the icon is visible on
 `And(BuildingType.IsProducing, BuildingType.HasPossibleRGOBonus(...))`, and it
 is tinted green through `IsUsingRGOBonus` or yellow otherwise, with tooltip
 strings `RGO_BONUS`, `PROD_METHOD_BONUS_ACTIVE` and `PROD_METHOD_BONUS_POTENTIAL`.
+`building_view.gui` uses the per method pair to mark which production method
+would pick the bonus up.
 
-This is the exact predicate a "local raw materials only" filter needs.
+These are GUI data functions. There is no script-side counterpart in
+`common/scripted_triggers/`, so a filter `trigger` cannot call them directly.
+
+## Which window is which
+
+Three different panels list buildings, and they are easy to mix up:
+
+| File | View object | Lists |
+| --- | --- | --- |
+| `location_production_lateralview.gui` | `LocationProductionView` | Buildings of one location — the "Buildings of <town>" panel |
+| `production_lateralview.gui` | `ProductionView` | Buildings across the whole country (macrobuilder) |
+| `build_location_lateralview.gui` | `BuildInLocationLateralView` | Locations to build one chosen building type in |
+| `location_window.gui` | `LocationView` | The location panel itself, where the RGO badge is drawn |
+
+`location_production_lateralview.gui` is the one to target for a
+"only what is efficient here" filter. Its list is
+`LocationProductionView.GetBuildingsSortSearch.WithFilterTags('building')`, its
+items are `BuildingItem`, and its sort keys are `name`, `profit`, `income`,
+`production_efficiency` and `level`. Glorp UI does not override this file.
 
 ## List filters
 
-`in_game/gui/filters/*.txt` defines filters declaratively:
+`in_game/gui/filters/*.txt` defines filters declaratively, and
+`filters/readme.txt` documents the schema. The fields that matter:
 
-```
-glorpui_character_has_architectural_visionary = {
-	scope = character
-	group = 0
-	exclusive_group = no
-	tag = ruler
-	trigger = { has_trait = architectural_visionary }
-}
-```
+| Field | Meaning |
+| --- | --- |
+| `scope` | Object type the filter runs on; `root` is that object |
+| `trigger` | Script trigger deciding whether the object passes |
+| `tag` | Pipe separated list; a view exposes filters whose tags intersect its `WithFilterTags(...)` call |
+| `group` | Groups filters under one UI background |
+| `exclusive_group` | Radio button behaviour inside the group |
+| `invert` | Exclude by default, include when ticked |
+| `enabled_at_start` | Initial tick state |
+| `hidden_in_searchbar` | Filter works and appears in the side menu, but shows no chip — for panels with a dedicated button |
+| `range` | `min` / `max` / `step` / `format`, exposes `scope:min_value` and `scope:max_value` to the trigger |
 
-A list opts into a filter set by tag on its data context, e.g.
-`ProductionView.GetBuildingsSortSearch.WithFilterTags('building')` in
-`production_lateralview.gui` and
-`BuildInLocationLateralView.GetItemsSortSearch.WithFilterTags('building')` in
-the build-in-location view. Filters whose `tag` matches show up as removable
-chips above the list — the vanilla "hide estate-only buildings" chip is one.
+Localization keys are `search_filter_<key>_name`, `_desc` and `_format`.
 
-The catch: `trigger` is *script*, not GUI, so it can only use script triggers.
-Whether a script-side equivalent of `HasPossibleRGOBonus` exists still has to be
-checked against the vanilla files.
+Sub-items matter: "For lists with sub-items, if one of the sub-items pass the
+filter, the entire item pass it." That is how one `building` tag serves filters
+scoped to `building_type` (`58_building_type.txt`), `building`
+(`42_building.txt`) and `location` (`05_location.txt`) at once.
+
+For building scoped filters, `root` is the building or building type and
+`scope:target` is the country. **The location is not passed in**, which is the
+awkward part for anything province dependent — the viewed location has to be
+parked in a country variable by a scripted GUI probe first. Glorp UI does
+exactly that for Construction Manager's own R.G.O. filter, storing the viewed
+building type through `cm_rgob_store_selected_type` from a zero sized widget
+with `trigger_on_create = yes`.
+
+Filters are the right tool rather than hiding rows from the GUI: the list body
+is a `fixedgridbox` with a fixed row height, so a hidden row still occupies its
+cell and leaves a gap.
+
+Not every filter key is script defined — `hide_estate_only_buildings` is
+referenced by `SearchBar.EnableFilterByKey` in three panels but appears nowhere
+in `gui/filters/`, so some are built into the engine.
 
 ## Sorting
 
@@ -103,6 +140,10 @@ and `production_efficiency` is one of the keys vanilla exposes on building
 lists, with `gfx/interface/icons/sort/efficiency.dds` as its icon. Ascending /
 descending toggling is built into the button. So the sorting half of a
 "most efficient buildings here" workflow needs no new code — only the filter.
+
+There is no built-in sort key for the RGO bonus itself. Sweeping every
+`sort_by_key_button` in vanilla turns up `rgo_profit` and `rgo_income`, which
+are about raw material output, not about a building picking the bonus up.
 
 ## Community Mod Framework
 
