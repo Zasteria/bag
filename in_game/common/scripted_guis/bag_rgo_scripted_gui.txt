@@ -1,0 +1,42 @@
+﻿# Flip the location building filter. Bound to the filter button in the
+# location building list.
+# Scope: country
+bag_rgo_filter_toggle = {
+	scope = country
+
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+
+	effect = {
+		if = {
+			limit = { has_variable = bag_rgo_filter_active }
+			bag_rgo_filter_disable = yes
+		}
+		else = {
+			bag_rgo_filter_enable = yes
+		}
+	}
+}
+
+# True while the filter is on. Read by the GUI to tint the button and to hide
+# building rows without a local raw material bonus.
+# Scope: country
+bag_rgo_filter_is_active = {
+	scope = country
+
+	is_shown = { has_variable = bag_rgo_filter_active }
+	effect = { }
+}
+
+# True when the player asked to count only bonuses the building is actually
+# using, rather than every bonus it could potentially benefit from.
+# Scope: country
+bag_rgo_filter_requires_active_bonus = {
+	scope = country
+
+	is_shown = {
+		has_variable = bag_rgo__require_active_bonus
+		var:bag_rgo__require_active_bonus = 1
+	}
+	effect = { }
+}

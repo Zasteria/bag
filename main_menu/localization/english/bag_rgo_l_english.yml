@@ -1,0 +1,11 @@
+﻿l_english:
+ bag_rgo_name: "RGO Bonus Filter"
+ bag_rgo_desc: "Filters the location building list down to buildings that gain production efficiency from locally available raw materials."
+ bag_rgo__buildings_name: "Buildings"
+ bag_rgo__buildings__filter_name: "Local Resource Filter"
+ bag_rgo__default_on_name: "Enabled By Default"
+ bag_rgo__default_on_desc: "Start with the filter switched on every time the location building list is opened."
+ bag_rgo__require_active_bonus_name: "Only Active Bonuses"
+ bag_rgo__require_active_bonus_desc: "Keep only buildings whose current production method already uses the local raw materials, instead of every building that could benefit from them."
+ BAG_RGO_FILTER_BUTTON: "Local Resources"
+ BAG_RGO_FILTER_TOOLTIP: "Show only buildings that gain #P production efficiency#! from raw materials available in this province."

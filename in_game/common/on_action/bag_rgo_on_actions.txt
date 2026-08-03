@@ -1,0 +1,17 @@
+﻿# CMF extension point. Fires on new games, on save load and after a country
+# transfer, once per human country. Appending a leaf on_action here is the
+# supported way to opt into the framework without touching CMF's own files.
+# Scope: country
+cmf_on_mod_registration = {
+	on_actions = {
+		bag_rgo_on_registration
+	}
+}
+
+# Register the mod and its CMM settings.
+# Scope: country
+bag_rgo_on_registration = {
+	effect = {
+		bag_rgo_register = yes
+	}
+}

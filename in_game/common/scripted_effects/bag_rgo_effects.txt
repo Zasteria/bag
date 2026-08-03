@@ -1,0 +1,35 @@
+﻿# Mark the mod active for cross-mod detection and register its CMM settings.
+# Settings keys are derived by CMM as <mod_id>__<setting_id>, so the entries
+# below resolve to bag_rgo__default_on and bag_rgo__require_active_bonus.
+# Scope: country
+bag_rgo_register = {
+	cmf_register_mod = { mod_id = bag_rgo }
+
+	cmm_register_bool_setting = {
+		mod_id = bag_rgo
+		setting_id = default_on
+		tab_id = buildings
+		group_id = filter
+		default_value = 0
+	}
+
+	cmm_register_bool_setting = {
+		mod_id = bag_rgo
+		setting_id = require_active_bonus
+		tab_id = buildings
+		group_id = filter
+		default_value = 0
+	}
+}
+
+# Turn the location building filter on.
+# Scope: country
+bag_rgo_filter_enable = {
+	set_variable = { name = bag_rgo_filter_active value = 1 }
+}
+
+# Turn the location building filter off.
+# Scope: country
+bag_rgo_filter_disable = {
+	remove_variable = bag_rgo_filter_active
+}
