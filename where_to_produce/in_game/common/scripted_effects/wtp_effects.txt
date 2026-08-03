@@ -50,11 +50,10 @@ wtp_rebuild_shortlist = {
 		}
 	}
 
-	# Ten is the ceiling the Mod Menu can offer; the window shows the first N.
 	ordered_in_global_list = {
 		variable = wtp_pool
 		order_by = { value = wtp_current_output }
-		max = 10
+		max = wtp_row_limit
 		check_range_bounds = no
 		add_to_global_variable_list = { name = wtp_by_output target = this }
 	}
@@ -62,7 +61,7 @@ wtp_rebuild_shortlist = {
 	ordered_in_global_list = {
 		variable = wtp_pool
 		order_by = { value = wtp_current_bonus }
-		max = 10
+		max = wtp_row_limit
 		check_range_bounds = no
 		add_to_global_variable_list = { name = wtp_by_coverage target = this }
 	}

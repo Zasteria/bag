@@ -40,7 +40,7 @@ wtp_register = {
 wtp_sync_settings = {
 	cmm_sync_setting_alias = {
 		setting = wtp__shortlist_size
-		alias = wtp_shortlist_size
+		alias = wtp_rows
 	}
 	cmm_sync_dropdown_option_alias = {
 		setting = wtp__sort_by
@@ -59,9 +59,14 @@ wtp_handle_callback = {
 		wtp_toggle_window = yes
 	}
 
-	# A different good, or a different sort, changes what the window should show.
+	# Both settings change what the shortlist should contain or how deep it goes.
 	if = {
-		limit = { var:cmf_callback = flag:wtp__sort_by }
+		limit = {
+			OR = {
+				var:cmf_callback = flag:wtp__sort_by
+				var:cmf_callback = flag:wtp__shortlist_size
+			}
+		}
 		wtp_rebuild_shortlist = yes
 	}
 }

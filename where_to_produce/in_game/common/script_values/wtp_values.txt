@@ -1,0 +1,13 @@
+﻿# How many provinces the shortlist keeps. `max` on an ordered iterator takes a
+# script value, so the Mod Menu setting reaches it through here rather than
+# through a cast in the window.
+# Scope: any
+wtp_row_limit = {
+	value = 3
+	if = {
+		limit = { has_global_variable = wtp_rows }
+		value = global_var:wtp_rows
+	}
+	min = 1
+	max = 10
+}

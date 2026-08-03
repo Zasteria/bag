@@ -2,9 +2,9 @@
 # vanilla file is touched: the button flips the wtp_window_open global and this
 # widget watches it.
 #
-# Styling is deliberately plain for now — the numbers are the point, and every
-# type used here is a base widget rather than a vanilla skin, so nothing depends
-# on another mod's restyling.
+# The panel carries `using = bg_paper_card` on the widget itself. Wrapping it in
+# a `background = {}` block does nothing — vanilla applies these skins directly,
+# which is why the first version drew its text straight onto the map.
 widget = {
 	name = "wtp_window"
 	layer = topbar
@@ -14,19 +14,17 @@ widget = {
 	visible = "[And(Country.IsValid, GetGlobalVariable('wtp_window_open').IsSet)]"
 
 	widget = {
-		size = { 620 560 }
+		size = { 640 580 }
 		parentanchor = center
 		alwaystransparent = no
-
-		background = { using = bg_paper_card }
+		using = bg_paper_card
 
 		vbox = {
-			margin = { 10 10 }
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = expanding
-			spacing = 6
+			margin = { 14 12 }
+			spacing = 8
 
-			# Title, and the way out.
 			hbox = {
 				layoutpolicy_horizontal = expanding
 				text_single = {
@@ -34,44 +32,42 @@ widget = {
 					default_format = "@bold!"
 				}
 				expand = {}
-				button = {
-					size = { 24 24 }
-					text = "X"
+				button_close_alt = {
 					onclick = "[GetScriptedGui('wtp_close_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
 
-			# Which good to plan for. Only goods something can actually produce
-			# with a local bonus are listed.
 			text_single = { text = "WTP_PICK_GOOD" }
 
+			# Only goods something can actually produce with a local bonus.
 			fixedgridbox = {
 				layoutpolicy_horizontal = expanding
-				maximumsize = { -1 120 }
-				addcolumn = 34
-				addrow = 34
+				maximumsize = { -1 148 }
+				addcolumn = 36
+				addrow = 36
 				datamodel = "[GetGlobalList('wtp_goods')]"
 
 				item = {
 					widget = {
-						size = { 32 32 }
+						size = { 34 34 }
 						datacontext = "[Scope.GetGoods]"
 
 						button = {
-							size = { 32 32 }
+							size = { 34 34 }
+							using = bg_paper_card
 							onclick = "[GetScriptedGui('wtp_pick_good').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_goods_pick', Goods.MakeScope).End)]"
 							tooltipwidget = { using = Goods_tooltip }
 
 							icon = {
-								size = { 28 28 }
+								size = { 26 26 }
 								parentanchor = center
 								texture = "[GetGoodsIcon(Goods.Self)]"
 							}
 						}
 
-						# Marks the good currently being planned.
+						# Ring around the good currently being planned.
 						icon = {
-							size = { 32 32 }
+							size = { 34 34 }
 							parentanchor = center
 							texture = "gfx/interface/component_tiles/tile_frame_selected.dds"
 							visible = "[GetScriptedGui('wtp_good_is_selected').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_goods_pick', Goods.MakeScope).End)]"
@@ -80,46 +76,45 @@ widget = {
 				}
 			}
 
-			# Column headings, matching the rows below.
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 4
-				text_single = { size = { 240 20 } text = "WTP_COL_PROVINCE" default_format = "@bold!" }
-				text_single = { size = { 90 20 } text = "WTP_COL_OUTPUT" default_format = "@bold!" align = right }
-				text_single = { size = { 110 20 } text = "WTP_COL_BONUS" default_format = "@bold!" align = right }
-				text_single = { size = { 110 20 } text = "WTP_COL_CEILING" default_format = "@bold!" align = right }
-			}
-
 			text_single = {
 				text = "WTP_NO_SELECTION"
 				visible = "[Not(GetScriptedGui('wtp_has_selection').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
 			}
 
-			# The shortlist. Which ordering is shown follows the Mod Menu setting;
-			# both were built in the same pass, so switching costs nothing.
-			scrollarea = {
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 4
+				visible = "[GetScriptedGui('wtp_has_selection').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				text_single = { size = { 250 20 } text = "WTP_COL_PROVINCE" default_format = "@bold!" }
+				text_single = { size = { 90 20 } text = "WTP_COL_OUTPUT" default_format = "@bold!" align = right }
+				text_single = { size = { 110 20 } text = "WTP_COL_BONUS" default_format = "@bold!" align = right }
+				text_single = { size = { 110 20 } text = "WTP_COL_CEILING" default_format = "@bold!" align = right }
+			}
+
+			# Both orderings were built in the same pass, so the Mod Menu setting
+			# only picks which one to draw.
+			vbox = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
+				spacing = 2
 
-				blockoverride "scrollarea_content" {
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 2
-
-						datamodel = "[DataModelFirst(GetGlobalList('wtp_by_output'), GetGlobalVariable('wtp_shortlist_size').GetValue)]"
-						visible = "[Not(GetGlobalVariable('wtp_sort_by_coverage').IsSet)]"
-						item = { wtp_shortlist_row = {} }
-					}
-
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						spacing = 2
-
-						datamodel = "[DataModelFirst(GetGlobalList('wtp_by_coverage'), GetGlobalVariable('wtp_shortlist_size').GetValue)]"
-						visible = "[GetGlobalVariable('wtp_sort_by_coverage').IsSet]"
-						item = { wtp_shortlist_row = {} }
-					}
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 2
+					visible = "[Not(GetGlobalVariable('wtp_sort_by_coverage').IsSet)]"
+					datamodel = "[GetGlobalList('wtp_by_output')]"
+					item = { wtp_shortlist_row = {} }
 				}
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 2
+					visible = "[GetGlobalVariable('wtp_sort_by_coverage').IsSet]"
+					datamodel = "[GetGlobalList('wtp_by_coverage')]"
+					item = { wtp_shortlist_row = {} }
+				}
+
+				expand = {}
 			}
 		}
 	}
@@ -135,7 +130,7 @@ types WhereToProduceTypes {
 		datacontext = "[Scope.GetProvince]"
 
 		text_single = {
-			size = { 240 22 }
+			size = { 250 22 }
 			text = "[Province.GetName]"
 		}
 		text_single = {

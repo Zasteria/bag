@@ -10,9 +10,8 @@ appear.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Complete but unverified. Every piece is written — data, ranking, window,
-> settings — and checked for syntax and cross-references, but the game has not
-> loaded it once. Expect the first run to need fixes.
+> Loads and runs. The mod registers, the action bar button works and the window
+> opens. Styling and the shortlist itself are still being shaken out.
 
 ## The formula
 
@@ -86,6 +85,27 @@ recipe will ever give, while 6% elsewhere might be nowhere near its own limit.
 
 Under **Shortlist → Display** in the Mod Menu: how many provinces to show, and
 whether to rank by output or by local coverage.
+
+## Notes for anyone extending this
+
+An action bar element registered through `cmf_add_action_bar_element` is drawn
+entirely from localization keyed on the element name:
+
+| Key | Holds |
+| --- | --- |
+| `<element>_icon` | text drawn in the button, so a texticon such as `@good!` |
+| `<element>_color` | one of CMF's palette names — `blue`, `bone`, `gold`, … |
+| `<element>_name` | tooltip title |
+| `<element>_tooltip` | tooltip body |
+
+`_color` is not cosmetic. CMF draws one button variant per colour and gates each
+on the key matching, so an element without it is invisible in the bottom bars.
+The top variant is a tab and skips that gate, which is why a missing `_color`
+looks like "only works in one position".
+
+Skins like `bg_paper_card` go on the widget as `using = bg_paper_card`. Wrapping
+them in a `background = { }` block does nothing, and the panel draws its text
+straight onto the map.
 
 ## Layout
 
