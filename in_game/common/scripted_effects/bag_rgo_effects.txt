@@ -3,7 +3,10 @@
 bag_rgo_register = {
 	cmf_register_mod = { mod_id = bag_rgo }
 
-	cmm_register_bool_setting = {
+	# Registered global rather than per country so cmm_sync_bool_alias mirrors it
+	# onto a global variable. The filter trigger runs in building_type scope and
+	# can reach nothing else.
+	cmm_register_global_bool_setting = {
 		mod_id = bag_rgo
 		setting_id = location_only
 		tab_id = filter
@@ -16,7 +19,7 @@ bag_rgo_register = {
 
 # CMM keeps setting values in the `cmm` variable map, which a filter trigger
 # cannot read. Mirror the one setting the filter cares about onto a plain
-# country variable: set when on, absent when off.
+# global variable: set when on, absent when off.
 # Scope: country
 bag_rgo_sync_settings = {
 	cmm_sync_bool_alias = {

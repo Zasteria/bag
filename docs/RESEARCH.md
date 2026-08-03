@@ -267,3 +267,28 @@ Registering any CMM setting marks the mod active automatically;
 - `in_game/gui/vanilla/*_vanilla_types.gui` holds copies of vanilla widget types
   so several mods can restyle the same window without overwriting each other's
   copy of the vanilla file.
+
+## Filter scopes: what a trigger actually gets
+
+`58_building_type.txt` opens with "root is the building_type / scope:target is
+the country to filter". The second half does not hold: no vanilla
+`building_type` filter ever reads `scope:target`, and one that does matches
+nothing and logs an error on every pass of the list. Only the `building` and
+`location` scoped files use it (`building_can_be_upgraded_by = scope:target`,
+`owner = scope:target`), so treat it as available there and absent here.
+
+A `building_type` filter therefore sees `root` and global variables, nothing
+else. Anything else a filter needs — the location on screen, a user setting —
+has to be parked in a global variable first. CMM settings registered with
+`cmm_register_global_bool_setting` land in the global half of the `cmm` map, and
+`cmm_sync_bool_alias` then mirrors them onto a plain global variable a trigger
+can read.
+
+Evaluating a view's data in a always-present widget needs a guard: reading
+`LocationProductionView.GetSelectedLocation` while no buildings panel is open
+logs an error every frame. Taking it as a `datacontext` on a child widget and
+gating that child on `Location.IsValid` keeps it quiet.
+
+Square brackets in a localization value are data function syntax, so a display
+name like `[debug] location known` renders as `ERROR:` — brackets have to stay
+out of plain text.

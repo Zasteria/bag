@@ -1,7 +1,8 @@
-﻿# The filter runs on a building type and is handed the country, never the
-# location being looked at. These two bridge that gap: a probe widget watches
-# the buildings panel and parks the viewed location on the player country,
-# where the filter trigger can reach it through scope:target.
+﻿# The filter runs on a building type and is handed nothing else — a
+# building_type scoped filter does not get scope:target, whatever the comment in
+# vanilla's 58_building_type.txt says; reading it there logs an error on every
+# pass and the trigger fails. So the viewed location goes into a global
+# variable, which any scope can reach.
 
 # True while the stored location already matches the one passed in, which is
 # what keeps the probe from firing on every frame.
@@ -10,8 +11,8 @@ bag_rgo_view_location_is_current = {
 	scope = country
 
 	is_shown = {
-		has_variable = bag_rgo_view_location
-		var:bag_rgo_view_location = scope:bag_rgo_loc
+		has_global_variable = bag_rgo_view_location
+		global_var:bag_rgo_view_location = scope:bag_rgo_loc
 	}
 	effect = { }
 }
@@ -25,6 +26,6 @@ bag_rgo_store_view_location = {
 	is_valid = { always = yes }
 
 	effect = {
-		set_variable = { name = bag_rgo_view_location value = scope:bag_rgo_loc }
+		set_global_variable = { name = bag_rgo_view_location value = scope:bag_rgo_loc }
 	}
 }

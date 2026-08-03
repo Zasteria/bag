@@ -12,9 +12,7 @@ bag_rgo_local_bonus = {
 	}
 }
 
-# Diagnostics — remove once the filter above is confirmed working.
-# See the matching triggers in common/scripted_triggers/bag_rgo_triggers.txt.
-
+# Diagnostic — remove once the filter above is confirmed working.
 bag_rgo_debug_location = {
 	scope = building_type
 	tag = building
@@ -22,15 +20,5 @@ bag_rgo_debug_location = {
 	exclusive_group = no
 	trigger = {
 		bag_rgo_debug_location_known = yes
-	}
-}
-
-bag_rgo_debug_clay = {
-	scope = building_type
-	tag = building
-	group = 10
-	exclusive_group = no
-	trigger = {
-		bag_rgo_debug_consumes_clay = yes
 	}
 }
