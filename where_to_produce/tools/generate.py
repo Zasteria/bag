@@ -36,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from eu5data import RGO_MAX_BONUS, Game, Method, load_game  # noqa: E402
+from eu5data import CATEGORY_GROUPS, RGO_MAX_BONUS, Game, Method, load_game  # noqa: E402
 
 MOD_ROOT = Path(__file__).resolve().parent.parent
 TRIGGERS_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_generated_rgo_triggers.txt"
@@ -209,11 +209,20 @@ def render_catalogue(game: Game) -> str:
     would be dead entries in the grid.
     """
     out = [BOM + HEADER, "#",
-           "# Fill the goods picker. Scope: any", "",
-           "wtp_build_goods_catalogue = {",
-           "\tclear_global_variable_list = wtp_goods"]
-    for good in game.goods_produced:
-        out.append("\tadd_to_global_variable_list = { name = wtp_goods target = goods:%s }" % good)
+           "# Fill the goods picker, one list per group. The groups follow the",
+           "# category of the building that makes the good, which is what the",
+           "# player already sorts the world by.",
+           "# Scope: any", "",
+           "wtp_build_goods_catalogue = {"]
+    groups = game.goods_by_group()
+    for name, _ in CATEGORY_GROUPS:
+        out.append("\tclear_global_variable_list = wtp_goods_%s" % name)
+    for name, _ in CATEGORY_GROUPS:
+        out.append("")
+        out.append("\t# %s: %d" % (name, len(groups[name])))
+        for good in groups[name]:
+            out.append("\tadd_to_global_variable_list = { name = wtp_goods_%s target = goods:%s }" % (
+                name, good))
     out.append("}")
     out.append("")
     return "\n".join(out)

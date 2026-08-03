@@ -102,12 +102,24 @@ def scalar(entries, name):
     return None
 
 
+# The four groups the goods picker offers, keyed on the category of the building
+# that makes the good. A good is filed under the category of its best yielding
+# recipe, which settles the nine that several categories can produce.
+CATEGORY_GROUPS = (
+    ("rgo", "rgo_building_category"),
+    ("basic", "basic_industry_category"),
+    ("consumer", "consumer_goods_category"),
+    ("weapons", "weapons_industry_category"),
+)
+
+
 @dataclass
 class Method:
     """One production method, as offered by one building type."""
 
     key: str
     building: str
+    building_category: str
     produced: str
     output: float
     inputs: dict[str, float] = field(default_factory=dict)
@@ -137,6 +149,25 @@ class Method:
 class Game:
     raw_goods: set[str]
     methods: list[Method]
+
+    def group_of(self, good: str) -> str:
+        """Which picker group a good belongs in, or "" if none fits."""
+        known = {category: name for name, category in CATEGORY_GROUPS}
+        for method in self.producing(good):
+            if method.building_category in known:
+                return known[method.building_category]
+        # Plantation and village buildings carry categories of their own. What
+        # they make -- cotton, sugar, livestock, fish -- is raw material, so it
+        # belongs with the rest of it rather than in no group at all.
+        return "rgo"
+
+    def goods_by_group(self) -> dict[str, list[str]]:
+        groups: dict[str, list[str]] = {name: [] for name, _ in CATEGORY_GROUPS}
+        for good in self.goods_produced:
+            group = self.group_of(good)
+            if group:
+                groups[group].append(good)
+        return groups
 
     def producing(self, good: str) -> list[Method]:
         """Methods that output `good` and could gain something locally, best first."""
@@ -206,6 +237,7 @@ def load_game(common: Path) -> Game:
             methods.append(Method(
                 key=name,
                 building=building,
+                building_category=scalar(entries, "category") or "",
                 produced=produced,
                 output=float(output) if output and NUMBER_RE.match(output) else 0.0,
                 inputs=_inputs(body, goods),
