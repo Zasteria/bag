@@ -1,19 +1,89 @@
-﻿# Registration with the Community Mod Framework: the action bar button that
-# opens the window, and the two Mod Menu settings.
+﻿# The whole interface lives in the Community Mod Framework's Mod Menu: four
+# goods pickers, the list of recipes that make the chosen good, and the
+# shortlist of provinces for the recipe that is ticked. Nothing of our own is
+# drawn, so it looks like the rest of the menu and no vanilla file is touched.
+#
 # Scope: country
 wtp_register = {
 	cmf_register_mod = { mod_id = wtp }
 
-	wtp_build_goods_catalogue = yes
+	# One picker per category, the way the game already groups goods. Option
+	# counts follow the generated catalogue.
+	cmm_register_global_dropdown_setting = {
+		mod_id = wtp
+		setting_id = pick_rgo
+		tab_id = plan
+		group_id = goods
+		default_index = 0
+		option_count = 21
+	}
+	cmm_register_global_dropdown_setting = {
+		mod_id = wtp
+		setting_id = pick_basic
+		tab_id = plan
+		group_id = goods
+		default_index = 0
+		option_count = 9
+	}
+	cmm_register_global_dropdown_setting = {
+		mod_id = wtp
+		setting_id = pick_consumer
+		tab_id = plan
+		group_id = goods
+		default_index = 0
+		option_count = 13
+	}
+	cmm_register_global_dropdown_setting = {
+		mod_id = wtp
+		setting_id = pick_weapons
+		tab_id = plan
+		group_id = goods
+		default_index = 0
+		option_count = 4
+	}
 
-	cmf_add_action_bar_element = { element = wtp_open }
+	# The recipes that make the chosen good. One tick decides which of them the
+	# shortlist is built for; the column beside it is the most that recipe could
+	# ever gain from local raw materials.
+	cmm_register_global_settings_list = {
+		mod_id = wtp
+		setting_id = recipes
+		tab_id = plan
+		item_count = 12
+		is_ordered = 0
+	}
+	cmm_register_list_bool_field = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = pick
+		default_value = 0
+	}
+	cmm_register_list_data_field = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = ceiling
+		default_value = 0
+	}
 
-	# How many rows the window shows. The shortlist itself is always built ten
-	# deep, so changing this needs no recalculation.
+	# The answer: provinces, best first, with the bonus the recipe gets in each.
+	cmm_register_global_settings_list = {
+		mod_id = wtp
+		setting_id = provinces
+		tab_id = plan
+		item_count = 10
+		is_ordered = 0
+	}
+	cmm_register_list_data_field = {
+		mod_id = wtp
+		setting_id = provinces
+		field_id = bonus
+		default_value = 0
+	}
+
 	cmm_register_global_numeric_setting = {
 		mod_id = wtp
 		setting_id = shortlist_size
-		tab_id = shortlist
+		tab_id = plan
 		group_id = display
 		default_value = 3
 		min_value = 1
@@ -21,63 +91,58 @@ wtp_register = {
 		step = 1
 	}
 
-	# 1 = by output, 2 = by how much of the recipe local materials cover.
-	cmm_register_global_dropdown_setting = {
-		mod_id = wtp
-		setting_id = sort_by
-		tab_id = shortlist
-		group_id = display
-		default_index = 1
-		option_count = 2
-	}
-
 	wtp_sync_settings = yes
 }
 
-# CMM keeps setting values in a variable map that neither a script value nor the
-# window can read, so both settings are mirrored onto plain globals.
+# CMM keeps its values in a variable map that neither a script value nor an
+# ordered iterator can read, so everything the ranking needs is mirrored onto
+# plain globals.
 # Scope: country
 wtp_sync_settings = {
-	cmm_sync_setting_alias = {
-		setting = wtp__shortlist_size
-		alias = wtp_rows
-	}
-	cmm_sync_dropdown_option_alias = {
-		setting = wtp__sort_by
-		index = 2
-		alias = wtp_sort_by_coverage
-	}
+	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
+	cmm_sync_setting_alias = { setting = wtp__pick_rgo alias = wtp_pick_rgo }
+	cmm_sync_setting_alias = { setting = wtp__pick_basic alias = wtp_pick_basic }
+	cmm_sync_setting_alias = { setting = wtp__pick_consumer alias = wtp_pick_consumer }
+	cmm_sync_setting_alias = { setting = wtp__pick_weapons alias = wtp_pick_weapons }
 }
 
-# The action bar button and the settings arrive through the same callback.
+# Everything arrives through one callback: var:cmf_callback names what changed.
 # Scope: country
 wtp_handle_callback = {
 	wtp_sync_settings = yes
 
+	# A different good means a different set of recipes, and the old shortlist
+	# no longer means anything.
 	if = {
-		limit = { var:cmf_callback = flag:wtp_open }
-		wtp_toggle_window = yes
+		limit = { var:cmf_callback = flag:wtp__pick_rgo }
+		wtp_apply_pick_rgo = yes
+		wtp_on_good_changed = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:wtp__pick_basic }
+		wtp_apply_pick_basic = yes
+		wtp_on_good_changed = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:wtp__pick_consumer }
+		wtp_apply_pick_consumer = yes
+		wtp_on_good_changed = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:wtp__pick_weapons }
+		wtp_apply_pick_weapons = yes
+		wtp_on_good_changed = yes
 	}
 
-	# Both settings change what the shortlist should contain or how deep it goes.
+	# A tick against a recipe, or a different depth, only rebuilds the shortlist.
 	if = {
 		limit = {
 			OR = {
-				var:cmf_callback = flag:wtp__sort_by
+				var:cmf_callback = flag:wtp__recipes
 				var:cmf_callback = flag:wtp__shortlist_size
 			}
 		}
+		wtp_read_picked_recipe = yes
 		wtp_rebuild_shortlist = yes
-	}
-}
-
-# Scope: country
-wtp_toggle_window = {
-	if = {
-		limit = { has_global_variable = wtp_window_open }
-		remove_global_variable = wtp_window_open
-	}
-	else = {
-		set_global_variable = { name = wtp_window_open value = 1 }
 	}
 }

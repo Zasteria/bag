@@ -1,1 +1,0 @@
-﻿gui/wtp_window.gui = wtp_window

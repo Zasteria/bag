@@ -1,21 +1,60 @@
-﻿# Building the shortlist for the good the player picked.
+﻿# Building the shortlist.
 #
-# Everything lives in global variables. The window reads them back, and the
-# generated script values reach the selection through `wtp_good` without
-# anything having to be passed down a scope chain.
+# The player picks a good, ticks one of the recipes that make it, and gets the
+# provinces where that recipe would gain most from local raw materials. With the
+# recipe fixed its output is the same everywhere, so the bonus is the only thing
+# left to rank on — which is also why the ceiling belongs beside the recipe
+# rather than in the province rows, where it used to describe a different recipe
+# on every line.
 
-# Choose the good to plan for and rebuild the shortlist around it.
+# A different good: refill the recipe list and drop the old answer.
 # Scope: country
-# Args: good (key)
-wtp_select_good = {
-	set_global_variable = { name = wtp_good value = goods:$good$ }
-	wtp_rebuild_shortlist = yes
+wtp_on_good_changed = {
+	remove_global_variable = wtp_recipe
+
+	cmm_begin_global_settings_list = {
+		mod_id = wtp
+		setting_id = recipes
+		tab_id = plan
+		is_ordered = 0
+	}
+	wtp_fill_recipes = yes
+	cmm_finish_global_settings_list = {
+		mod_id = wtp
+		setting_id = recipes
+	}
+
+	wtp_label_recipe_ceilings = yes
+	wtp_clear_shortlist = yes
 }
 
-# Collect every owned province that could produce the chosen good at all, then
-# take the best of them twice over — once by what the recipe yields, once by how
-# much of it the local raw materials cover. The window shows whichever the
-# player is sorting by.
+# Which recipe is ticked. CMM stores the tick per row, so the pick is read back
+# by walking the list.
+# Scope: country
+wtp_read_picked_recipe = {
+	remove_global_variable = wtp_recipe
+
+	cmm_for_each_list_item = {
+		setting = wtp__recipes
+		effect = wtp_read_one_recipe_row
+	}
+}
+
+# Called once per recipe row by cmm_for_each_list_item, which hands the row over
+# as scope:cmm_list_current_item and its attached scope as
+# scope:cmm_list_current_item_value.
+# Scope: country
+wtp_read_one_recipe_row = {
+	if = {
+		limit = {
+			"variable_map(cmm|scope:cmm_list_current_item)" >= 1
+		}
+		set_global_variable = { name = wtp_recipe value = scope:cmm_list_current_item_value }
+	}
+}
+
+# Collect every owned province where the ticked recipe would gain something,
+# then keep the best of them.
 #
 # Provinces rather than locations: the bonus is province wide, so ten locations
 # of one province would all score the same and crowd everything else out.
@@ -23,54 +62,107 @@ wtp_select_good = {
 # Scope: country
 wtp_rebuild_shortlist = {
 	clear_global_variable_list = wtp_pool
-	clear_global_variable_list = wtp_by_output
-	clear_global_variable_list = wtp_by_coverage
 
-	every_owned_location = {
-		province = {
-			if = {
-				limit = {
-					wtp_current_output > 0
-					NOT = {
-						is_target_in_global_variable_list = {
-							name = wtp_pool
-							target = this
+	if = {
+		limit = { has_global_variable = wtp_recipe }
+
+		every_owned_location = {
+			province = {
+				if = {
+					limit = {
+						wtp_selected_bonus > 0
+						NOT = {
+							is_target_in_global_variable_list = {
+								name = wtp_pool
+								target = this
+							}
 						}
 					}
+					add_to_global_variable_list = { name = wtp_pool target = this }
 				}
-				add_to_global_variable_list = { name = wtp_pool target = this }
-
-				# The window cannot evaluate a script value, so the three numbers
-				# it shows are parked on the province here and read back as plain
-				# variables.
-				set_variable = { name = wtp_row_output value = wtp_current_output }
-				set_variable = { name = wtp_row_bonus value = wtp_current_bonus }
-				set_variable = { name = wtp_row_ceiling value = wtp_current_ceiling }
 			}
 		}
-	}
 
-	ordered_in_global_list = {
-		variable = wtp_pool
-		order_by = { value = wtp_current_output }
-		max = wtp_row_limit
-		check_range_bounds = no
-		add_to_global_variable_list = { name = wtp_by_output target = this }
-	}
+		cmm_begin_global_settings_list = {
+			mod_id = wtp
+			setting_id = provinces
+			tab_id = plan
+			is_ordered = 0
+		}
+		ordered_in_global_list = {
+			variable = wtp_pool
+			order_by = { value = wtp_selected_bonus }
+			max = wtp_row_limit
+			check_range_bounds = no
+			root = {
+				cmm_add_global_settings_list_item = {
+					mod_id = wtp
+					setting_id = provinces
+					value = prev
+					name = wtp_province_row
+				}
+			}
+		}
+		cmm_finish_global_settings_list = {
+			mod_id = wtp
+			setting_id = provinces
+		}
 
-	ordered_in_global_list = {
-		variable = wtp_pool
-		order_by = { value = wtp_current_bonus }
-		max = wtp_row_limit
-		check_range_bounds = no
-		add_to_global_variable_list = { name = wtp_by_coverage target = this }
+		wtp_label_province_bonuses = yes
 	}
 }
 
-# Forget the current plan. Scope: country
+# Fill the percentage column beside each province.
+# Scope: country
+wtp_label_province_bonuses = {
+	cmm_for_each_list_item = {
+		setting = wtp__provinces
+		effect = wtp_label_one_province_row
+	}
+}
+
+# Scope: country
+wtp_label_one_province_row = {
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = provinces
+		field_id = bonus
+		item = scope:cmm_list_current_item
+		value = scope:cmm_list_current_item_value.wtp_selected_bonus
+	}
+}
+
+# Fill the ceiling column beside each recipe.
+# Scope: country
+wtp_label_recipe_ceilings = {
+	cmm_for_each_list_item = {
+		setting = wtp__recipes
+		effect = wtp_label_one_recipe_row
+	}
+}
+
+# Scope: country
+wtp_label_one_recipe_row = {
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = ceiling
+		item = scope:cmm_list_current_item
+		value = wtp_row_ceiling
+	}
+}
+
+# Forget the current answer. Scope: country
 wtp_clear_shortlist = {
 	clear_global_variable_list = wtp_pool
-	clear_global_variable_list = wtp_by_output
-	clear_global_variable_list = wtp_by_coverage
-	remove_global_variable = wtp_good
+	cmm_begin_global_settings_list = {
+		mod_id = wtp
+		setting_id = provinces
+		tab_id = plan
+		is_ordered = 0
+	}
+	cmm_finish_global_settings_list = {
+		mod_id = wtp
+		setting_id = provinces
+	}
 }
