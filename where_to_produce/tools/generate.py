@@ -46,7 +46,7 @@ DISPATCH_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generate
 CATALOGUE_OUT = MOD_ROOT / "in_game" / "common" / "scripted_effects" / "wtp_generated_catalogue.txt"
 AVAIL_OUT = MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "wtp_generated_availability.txt"
 MENU_OUT = MOD_ROOT / "in_game" / "common" / "scripted_effects" / "wtp_generated_menu.txt"
-LOC_OUT = MOD_ROOT / "main_menu" / "localization" / "english" / "wtp_generated_l_english.yml"
+LOC_LANGUAGES = ("english", "russian")
 SELECTED_OUT = MOD_ROOT / "in_game" / "common" / "script_values" / "wtp_generated_selected.txt"
 
 BOM = "﻿"
@@ -352,7 +352,7 @@ def main() -> int:
                        (CATALOGUE_OUT, render_catalogue(game)),
                        (MENU_OUT, menu),
                        (SELECTED_OUT, render_selected(game, ids)),
-                       (LOC_OUT, "\ufeff" + menu_loc)):
+                       ):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
@@ -360,8 +360,14 @@ def main() -> int:
     print("raw materials referenced: %d" % len(used_goods))
     print("methods scored:           %d" % len(scored))
     print("goods reachable:          %d" % len(game.goods_produced))
+    for language in LOC_LANGUAGES:
+        path = MOD_ROOT / "main_menu" / "localization" / language / ("wtp_generated_l_%s.yml" % language)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\ufeff" + menu_loc.replace("l_english:", "l_%s:" % language, 1),
+                        encoding="utf-8")
+
     for path in (TRIGGERS_OUT, VALUES_OUT, AVAIL_OUT, GOODS_OUT, DISPATCH_OUT,
-                 CATALOGUE_OUT, MENU_OUT, SELECTED_OUT, LOC_OUT):
+                 CATALOGUE_OUT, MENU_OUT, SELECTED_OUT):
         print("wrote %s" % path.relative_to(MOD_ROOT.parent))
     return 0
 
