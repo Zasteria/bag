@@ -5,9 +5,10 @@
 # replaced. LocationProductionView is a global view object and stays readable
 # from anywhere in the hierarchy.
 #
-# The state re-arms itself: once the location is stored,
-# bag_rgo_view_location_is_current turns true and trigger_when goes quiet until
-# the panel moves to a different location.
+# Change detection copies CMF's country transfer monitor: the id of the viewed
+# location is rendered through a localization key and compared against the last
+# one seen, held in the variable system. When they differ the location is parked
+# on the player country and the stored id catches up, which re-arms the state.
 widget = {
 	name = "bag_rgo_location_probe"
 	size = { 0 0 }
@@ -16,14 +17,8 @@ widget = {
 
 	state = {
 		name = bag_rgo_capture_location
-		trigger_when = "[And(
-			LocationProductionView.GetSelectedLocation.IsValid,
-			Not(GetScriptedGui('bag_rgo_view_location_is_current').IsShown(
-				GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_rgo_loc', LocationProductionView.GetSelectedLocation.MakeScope).End
-			))
-		)]"
-		on_start = "[GetScriptedGui('bag_rgo_store_view_location').Execute(
-			GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_rgo_loc', LocationProductionView.GetSelectedLocation.MakeScope).End
-		)]"
+		trigger_when = "[And(LocationProductionView.GetSelectedLocation.IsValid, Not(EqualTo_string(Localize('BAG_RGO_VIEWED_LOCATION'), GetVariableSystem.Get('bag_rgo_seen_location'))))]"
+		on_start = "[GetScriptedGui('bag_rgo_store_view_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_rgo_loc', LocationProductionView.GetSelectedLocation.MakeScope).End)]"
+		on_start = "[GetVariableSystem.Set('bag_rgo_seen_location', Localize('BAG_RGO_VIEWED_LOCATION'))]"
 	}
 }

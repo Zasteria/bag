@@ -2,9 +2,10 @@
 # scope:target is the country doing the filtering, which is where the probe
 # widget parked the location currently on screen.
 #
-# By default the whole province counts, matching the shovel badge the game
+# The location itself always counts. The rest of its province is added too
+# unless the Mod Menu narrowed the search, matching the shovel badge the game
 # draws in the location panel — the bonus comes from raw materials anywhere in
-# the province. The Mod Menu can narrow it to the location itself.
+# the province.
 #
 # Scope: building_type
 bag_rgo_has_local_bonus = {
@@ -12,10 +13,7 @@ bag_rgo_has_local_bonus = {
 		has_variable = bag_rgo_view_location
 		var:bag_rgo_view_location = {
 			OR = {
-				AND = {
-					scope:target = { has_variable = bag_rgo_location_only }
-					bag_rgo_location_feeds_root = yes
-				}
+				bag_rgo_location_feeds_root = yes
 				AND = {
 					scope:target = { NOT = { has_variable = bag_rgo_location_only } }
 					province = {
@@ -27,4 +25,25 @@ bag_rgo_has_local_bonus = {
 			}
 		}
 	}
+}
+
+# Diagnostics. These back the two "[debug]" filters and exist to split a filter
+# that returns nothing into a specific cause. Remove both, along with their
+# entries in gui/filters, once the real filter is confirmed working.
+
+# Passes every building type once the probe has stored a location. An empty list
+# under this filter means the probe never ran.
+# Scope: building_type
+bag_rgo_debug_location_known = {
+	scope:target = {
+		has_variable = bag_rgo_view_location
+	}
+}
+
+# Passes the building types that consume clay, with no location involved. An
+# empty list under this filter means the generated triggers are not matching the
+# building type, i.e. the filter's root is not what it is assumed to be.
+# Scope: building_type
+bag_rgo_debug_consumes_clay = {
+	bag_rgo_consumes_clay = yes
 }

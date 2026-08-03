@@ -1,6 +1,11 @@
 ﻿l_russian:
+ BAG_RGO_VIEWED_LOCATION: "[LocationProductionView.GetSelectedLocation.GetId]"
  search_filter_bag_rgo_local_bonus_name: "Местное сырьё"
  search_filter_bag_rgo_local_bonus_desc: "Только сооружения, получающие #P производственную эффективность#! от сырья, добываемого в этой провинции, — те, что отмечены лопаткой."
+ search_filter_bag_rgo_debug_location_name: "[отладка] локация определена"
+ search_filter_bag_rgo_debug_location_desc: "Пропускает все сооружения, если зонд успел записать текущую локацию. Пустой список означает, что зонд не отработал."
+ search_filter_bag_rgo_debug_clay_name: "[отладка] потребляет глину"
+ search_filter_bag_rgo_debug_clay_desc: "Пропускает сооружения, потребляющие глину, безо всякой привязки к локации. Пустой список означает, что не срабатывают сгенерированные триггеры."
  bag_rgo_name: "Фильтр по бонусу сырья"
  bag_rgo_desc: "Добавляет в список сооружений фильтр по зданиям, получающим производственную эффективность от местного сырья."
  bag_rgo__filter_name: "Фильтр"

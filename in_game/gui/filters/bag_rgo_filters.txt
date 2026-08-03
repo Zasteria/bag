@@ -1,13 +1,36 @@
 ﻿# Shown wherever a building list asks for the `building` filter tag, which
 # includes the buildings panel of a location (LocationProductionView).
-# Localization lives under search_filter_bag_rgo_local_bonus_name / _desc.
+# Localization lives under search_filter_<key>_name / _desc.
 
 bag_rgo_local_bonus = {
 	scope = building_type
 	tag = building
-	group = 20
+	group = 9
 	exclusive_group = no
 	trigger = {
 		bag_rgo_has_local_bonus = yes
+	}
+}
+
+# Diagnostics — remove once the filter above is confirmed working.
+# See the matching triggers in common/scripted_triggers/bag_rgo_triggers.txt.
+
+bag_rgo_debug_location = {
+	scope = building_type
+	tag = building
+	group = 10
+	exclusive_group = no
+	trigger = {
+		bag_rgo_debug_location_known = yes
+	}
+}
+
+bag_rgo_debug_clay = {
+	scope = building_type
+	tag = building
+	group = 10
+	exclusive_group = no
+	trigger = {
+		bag_rgo_debug_consumes_clay = yes
 	}
 }

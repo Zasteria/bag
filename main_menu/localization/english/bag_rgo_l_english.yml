@@ -1,6 +1,11 @@
 ﻿l_english:
+ BAG_RGO_VIEWED_LOCATION: "[LocationProductionView.GetSelectedLocation.GetId]"
  search_filter_bag_rgo_local_bonus_name: "Local Raw Materials"
  search_filter_bag_rgo_local_bonus_desc: "Only buildings that gain #P production efficiency#! from raw materials produced in this province — the ones marked with the shovel."
+ search_filter_bag_rgo_debug_location_name: "[debug] location known"
+ search_filter_bag_rgo_debug_location_desc: "Passes every building once the probe has stored the current location. An empty list means the probe never ran."
+ search_filter_bag_rgo_debug_clay_name: "[debug] consumes clay"
+ search_filter_bag_rgo_debug_clay_desc: "Passes buildings that consume clay, with no location involved. An empty list means the generated triggers are not matching."
  bag_rgo_name: "RGO Bonus Filter"
  bag_rgo_desc: "Adds a building list filter for buildings that gain production efficiency from locally available raw materials."
  bag_rgo__filter_name: "Filter"
