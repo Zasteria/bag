@@ -151,27 +151,38 @@ class Game:
         return sorted({m.produced for m in self.methods if m.raw_inputs(self.raw_goods)})
 
 
-def _inputs(entries) -> dict[str, float]:
+def _inputs(entries, goods: set[str]) -> dict[str, float]:
+    """Goods amounts a method consumes.
+
+    Matched against the goods catalogue rather than "any numeric key": methods
+    also carry bookkeeping numbers, and `debug_max_profit = -1` on the
+    plantations is numeric enough to have turned four recipes' input weight
+    negative before this was keyed on real goods.
+    """
     out = {}
     for key, value in entries:
         if key is None or isinstance(value, list) or key in NON_INPUT_KEYS:
             continue
-        if NUMBER_RE.match(value):
+        if key in goods and NUMBER_RE.match(value):
             out[key] = float(value)
     return out
 
 
-def _raw_goods(goods_dir: Path) -> set[str]:
-    """Goods an RGO can produce. `category` defaults to raw_material when absent."""
-    raw = set()
+def _goods(goods_dir: Path) -> tuple[set[str], set[str]]:
+    """All goods, and the subset an RGO can produce.
+
+    `category` defaults to raw_material when absent, per goods/readme.txt.
+    """
+    every, raw = set(), set()
     for name, entries in load_dir(goods_dir).items():
+        every.add(name)
         if all(c == "raw_material" for c in find(entries, "category")):
             raw.add(name)
-    return raw
+    return every, raw
 
 
 def load_game(common: Path) -> Game:
-    raw = _raw_goods(common / "goods")
+    goods, raw = _goods(common / "goods")
     shared = load_dir(common / "production_methods")
 
     methods: list[Method] = []
@@ -197,6 +208,6 @@ def load_game(common: Path) -> Game:
                 building=building,
                 produced=produced,
                 output=float(output) if output and NUMBER_RE.match(output) else 0.0,
-                inputs=_inputs(body),
+                inputs=_inputs(body, goods),
             ))
     return Game(raw_goods=raw, methods=methods)
