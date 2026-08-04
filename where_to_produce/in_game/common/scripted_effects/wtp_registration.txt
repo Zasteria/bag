@@ -92,11 +92,15 @@ wtp_register = {
 	}
 
 	wtp_sync_settings = yes
+	wtp_apply_pickers = yes
 
 	# A save that already had a good chosen should come back with its lists.
 	if = {
 		limit = { has_global_variable = wtp_good }
+		set_global_variable = { name = wtp_shown_good value = global_var:wtp_good }
 		wtp_on_good_changed = yes
+		wtp_read_picked_recipe = yes
+		wtp_rebuild_shortlist = yes
 	}
 }
 
@@ -112,55 +116,36 @@ wtp_sync_settings = {
 	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
 }
 
-# Everything arrives through one callback: var:cmf_callback names what changed.
+# Everything arrives through one callback. Rather than matching var:cmf_callback
+# against each key -- which silently matches nothing if CMF words the key even
+# slightly differently -- every callback re-reads the pickers and rebuilds what
+# has actually changed. The work is small and it cannot fail quietly.
 # Scope: country
 wtp_handle_callback = {
 	wtp_sync_settings = yes
+	wtp_apply_pickers = yes
 
-	# A different good means a different set of recipes, and the old shortlist
-	# no longer means anything.
+	# The recipe list follows the good, and the shortlist follows the tick.
 	if = {
 		limit = {
-			var:cmf_callback = flag:wtp__pick_rgo
-			global_var:wtp_pick_rgo > 1
-		}
-		wtp_apply_pick_rgo = yes
-		wtp_on_good_changed = yes
-	}
-	if = {
-		limit = {
-			var:cmf_callback = flag:wtp__pick_basic
-			global_var:wtp_pick_basic > 1
-		}
-		wtp_apply_pick_basic = yes
-		wtp_on_good_changed = yes
-	}
-	if = {
-		limit = {
-			var:cmf_callback = flag:wtp__pick_consumer
-			global_var:wtp_pick_consumer > 1
-		}
-		wtp_apply_pick_consumer = yes
-		wtp_on_good_changed = yes
-	}
-	if = {
-		limit = {
-			var:cmf_callback = flag:wtp__pick_weapons
-			global_var:wtp_pick_weapons > 1
-		}
-		wtp_apply_pick_weapons = yes
-		wtp_on_good_changed = yes
-	}
-
-	# A tick against a recipe, or a different depth, only rebuilds the shortlist.
-	if = {
-		limit = {
+			has_global_variable = wtp_good
 			OR = {
-				var:cmf_callback = flag:wtp__recipes
-				var:cmf_callback = flag:wtp__shortlist_size
+				NOT = { has_global_variable = wtp_shown_good }
+				NOT = { global_var:wtp_shown_good = global_var:wtp_good }
 			}
 		}
-		wtp_read_picked_recipe = yes
-		wtp_rebuild_shortlist = yes
+		set_global_variable = { name = wtp_shown_good value = global_var:wtp_good }
+		wtp_on_good_changed = yes
 	}
+
+	wtp_read_picked_recipe = yes
+	wtp_rebuild_shortlist = yes
+}
+
+# Whichever picker is off "nothing chosen" names the good. Scope: country
+wtp_apply_pickers = {
+	if = { limit = { global_var:wtp_pick_rgo > 1 } wtp_apply_pick_rgo = yes }
+	if = { limit = { global_var:wtp_pick_basic > 1 } wtp_apply_pick_basic = yes }
+	if = { limit = { global_var:wtp_pick_consumer > 1 } wtp_apply_pick_consumer = yes }
+	if = { limit = { global_var:wtp_pick_weapons > 1 } wtp_apply_pick_weapons = yes }
 }
