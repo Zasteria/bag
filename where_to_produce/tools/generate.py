@@ -26,7 +26,7 @@ raw input present — because that is what says whether a figure is poor or is
 everything the recipe can give.
 
 Usage:
-    python3 where_to_produce/tools/generate.py <EU5>/game/in_game/common
+    python3 where_to_produce/tools/generate.py <EU5>/game/in_game/common [<CMF>/in_game/common/scripted_effects]
 """
 
 from __future__ import annotations
@@ -232,6 +232,24 @@ def render_catalogue(game: Game) -> str:
     return "\n".join(out)
 
 
+def check_cmm_arguments(cmf_effects: Path) -> None:
+    """Warn when a cmm_ call uses an argument name CMF does not declare."""
+    declared = "".join(p.read_text(encoding="utf-8-sig") for p in cmf_effects.glob("*.txt"))
+    ours = "".join(p.read_text(encoding="utf-8-sig")
+                   for p in (MOD_ROOT / "in_game" / "common" / "scripted_effects").glob("*.txt"))
+    for call in re.finditer(r"(cmm_[a-z_]+) = \{([^{}]*)\}", ours):
+        name, body = call.group(1), call.group(2)
+        decl = re.search(r"^%s = \{(.*?)^\}" % re.escape(name), declared, re.S | re.M)
+        if decl is None:
+            print("unknown CMM effect: %s" % name, file=sys.stderr)
+            continue
+        allowed = set(re.findall(r"\$(\w+)\$", decl.group(1)))
+        extra = set(re.findall(r"^\s*(\w+)\s*=", body, re.M)) - allowed
+        if extra:
+            print("%s called with %s; CMF declares %s"
+                  % (name, sorted(extra), sorted(allowed)), file=sys.stderr)
+
+
 def render_menu(game: Game, ids) -> tuple[str, str]:
     """The Mod Menu side: goods pickers, the recipe list, and the dispatch.
 
@@ -327,7 +345,7 @@ def render_selected(game: Game, ids) -> str:
 
 
 def main() -> int:
-    if len(sys.argv) != 2:
+    if len(sys.argv) not in (2, 3):
         print(__doc__)
         return 2
     common = Path(sys.argv[1])
@@ -362,6 +380,12 @@ def main() -> int:
         path.write_text(text, encoding="utf-8")
 
     scored = {ids[(m.building, m.key)] for m in game.methods if m.raw_inputs(game.raw_goods)}
+    # A macro called with an argument CMF does not declare fails silently at
+    # load and takes the rest of its effect with it -- which is how one `step`
+    # instead of `step_value` emptied both lists.
+    if len(sys.argv) > 2:
+        check_cmm_arguments(Path(sys.argv[2]))
+
     counts = {name: len(rows) + 1 for name, rows in game.goods_by_group().items()}
     registration = (MOD_ROOT / "in_game" / "common" / "scripted_effects"
                     / "wtp_registration.txt").read_text(encoding="utf-8-sig")

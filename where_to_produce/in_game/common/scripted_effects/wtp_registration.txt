@@ -88,7 +88,7 @@ wtp_register = {
 		default_value = 3
 		min_value = 1
 		max_value = 10
-		step = 1
+		step_value = 1
 	}
 
 	wtp_sync_settings = yes
@@ -105,11 +105,11 @@ wtp_register = {
 # plain globals.
 # Scope: country
 wtp_sync_settings = {
-	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
 	cmm_sync_setting_alias = { setting = wtp__pick_rgo alias = wtp_pick_rgo }
 	cmm_sync_setting_alias = { setting = wtp__pick_basic alias = wtp_pick_basic }
 	cmm_sync_setting_alias = { setting = wtp__pick_consumer alias = wtp_pick_consumer }
 	cmm_sync_setting_alias = { setting = wtp__pick_weapons alias = wtp_pick_weapons }
+	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
 }
 
 # Everything arrives through one callback: var:cmf_callback names what changed.
