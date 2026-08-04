@@ -1,0 +1,45 @@
+﻿# A CMM list setting is invisible until the mod supplies this.
+#
+# Registering a list marks it as having a scripted GUI (`_cmm_mark_setting_has_sgui`
+# inside `_cmm_register_list_setting_internal`), and the row is then drawn only when
+# `CMMGuiIsShown('<mod>__<setting>_on_changed')` is true. With no such scripted GUI
+# the whole widget is hidden -- header, rows and all -- which is exactly what an
+# empty list looks like from the outside, and nothing is written to any log.
+#
+# It is also the only route a click on a list reaches script by: unlike bool,
+# dropdown, numeric and slider settings, lists have no CMM auto-apply. The widget
+# marks the pending change and calls this, and `cmm_apply_list_change` commits it.
+
+# Ticking a recipe. Scope: country
+wtp__recipes_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = wtp__recipes
+		}
+		wtp_read_picked_recipe = yes
+		wtp_sync_recipe_ticks = yes
+		wtp_rebuild_shortlist = yes
+	}
+}
+
+# The shortlist has nothing to click, but it is a list setting all the same and
+# stays hidden without its callback. Scope: country
+wtp__provinces_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = wtp__provinces
+		}
+	}
+}

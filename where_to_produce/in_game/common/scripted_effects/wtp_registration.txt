@@ -3,6 +3,9 @@
 # shortlist of provinces for the recipe that is ticked. Nothing of our own is
 # drawn, so it looks like the rest of the menu and no vanilla file is touched.
 #
+# Both lists are registered at their full height and never rebuilt; the rows are
+# written in place and the unused ones hidden. See wtp_effects.txt for why.
+#
 # Scope: country
 wtp_register = {
 	cmf_register_mod = { mod_id = wtp }
@@ -44,12 +47,13 @@ wtp_register = {
 
 	# The recipes that make the chosen good. One tick decides which of them the
 	# shortlist is built for; the column beside it is the most that recipe could
-	# ever gain from local raw materials.
+	# ever gain from local raw materials. Twenty rows is the widest any good
+	# needs — liquor — and the generator says so if a patch changes that.
 	cmm_register_global_settings_list = {
 		mod_id = wtp
 		setting_id = recipes
 		tab_id = plan
-		item_count = 12
+		item_count = 20
 		is_ordered = 0
 	}
 	cmm_register_list_bool_field = {
@@ -64,6 +68,7 @@ wtp_register = {
 		field_id = ceiling
 		default_value = 0
 	}
+	cmm_set_list_field_format = { mod_id = wtp setting_id = recipes field_id = ceiling }
 
 	# The answer: provinces, best first, with the bonus the recipe gets in each.
 	cmm_register_global_settings_list = {
@@ -79,6 +84,7 @@ wtp_register = {
 		field_id = bonus
 		default_value = 0
 	}
+	cmm_set_list_field_format = { mod_id = wtp setting_id = provinces field_id = bonus }
 
 	cmm_register_global_numeric_setting = {
 		mod_id = wtp
@@ -92,16 +98,18 @@ wtp_register = {
 	}
 
 	wtp_sync_settings = yes
+	set_global_variable = { name = wtp_shown_rows value = global_var:wtp_rows }
 	wtp_apply_pickers = yes
 
-	# A save that already had a good chosen should come back with its lists.
+	# Both rebuilds clear their list first, so this is also what leaves the menu
+	# empty and tidy when nothing has been chosen yet.
 	if = {
 		limit = { has_global_variable = wtp_good }
 		set_global_variable = { name = wtp_shown_good value = global_var:wtp_good }
-		wtp_on_good_changed = yes
-		wtp_read_picked_recipe = yes
-		wtp_rebuild_shortlist = yes
 	}
+	wtp_fill_recipes = yes
+	wtp_sync_recipe_ticks = yes
+	wtp_rebuild_shortlist = yes
 }
 
 # CMM keeps its values in a variable map that neither a script value nor an
@@ -116,16 +124,18 @@ wtp_sync_settings = {
 	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
 }
 
-# Everything arrives through one callback. Rather than matching var:cmf_callback
-# against each key -- which silently matches nothing if CMF words the key even
-# slightly differently -- every callback re-reads the pickers and rebuilds what
-# has actually changed. The work is small and it cannot fail quietly.
+# The pickers and the row count arrive here; ticking a recipe does not, because
+# CMM has no auto-apply for list settings and routes those through the
+# `wtp__recipes_on_changed` scripted GUI instead.
+#
+# Every mod's callback leaf runs on every callback, ours included, so the two
+# things worth rebuilding are compared against what is currently on screen
+# rather than rebuilt on the off chance.
 # Scope: country
 wtp_handle_callback = {
 	wtp_sync_settings = yes
 	wtp_apply_pickers = yes
 
-	# The recipe list follows the good, and the shortlist follows the tick.
 	if = {
 		limit = {
 			has_global_variable = wtp_good
@@ -135,11 +145,20 @@ wtp_handle_callback = {
 			}
 		}
 		set_global_variable = { name = wtp_shown_good value = global_var:wtp_good }
-		wtp_on_good_changed = yes
+		wtp_fill_recipes = yes
+		wtp_sync_recipe_ticks = yes
+		wtp_rebuild_shortlist = yes
 	}
-
-	wtp_read_picked_recipe = yes
-	wtp_rebuild_shortlist = yes
+	else_if = {
+		limit = {
+			OR = {
+				NOT = { has_global_variable = wtp_shown_rows }
+				NOT = { global_var:wtp_shown_rows = global_var:wtp_rows }
+			}
+		}
+		set_global_variable = { name = wtp_shown_rows value = global_var:wtp_rows }
+		wtp_rebuild_shortlist = yes
+	}
 }
 
 # Whichever picker is off "nothing chosen" names the good. Scope: country

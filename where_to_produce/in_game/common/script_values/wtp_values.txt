@@ -11,12 +11,3 @@ wtp_row_limit = {
 	min = 1
 	max = 10
 }
-
-# Ceiling of the recipe on the row being labelled. Scope: any
-wtp_row_ceiling = {
-	value = 0
-	if = {
-		limit = { exists = scope:wtp_row_recipe }
-		value = wtp_selected_ceiling
-	}
-}

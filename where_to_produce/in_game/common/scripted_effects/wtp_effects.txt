@@ -6,49 +6,238 @@
 # left to rank on — which is also why the ceiling belongs beside the recipe
 # rather than in the province rows, where it used to describe a different recipe
 # on every line.
+#
+# Both lists are registered once, at their full height, and rows are then written
+# in place. CMM's other way of doing it — `cmm_begin_settings_list`, a run of
+# `cmm_add_settings_list_item`, `cmm_finish_settings_list` — builds a list exactly
+# once: every one of those effects is gated on `cmm_list_initialized_<setting>`,
+# which registration itself sets. A second pass adds nothing and reports nothing.
+#
+# Writing in place means addressing a row by its ordinal, and an ordinal has to
+# be a literal: `item = var:wtp_row_cursor` is pasted into the macro verbatim and
+# lands in the log as
+#
+#     More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'
+#
+# Hence the switch below, which is how CMF itself turns a counter into a literal.
 
-# A different good: refill the recipe list and drop the old answer.
+# The recipes for the chosen good, in the order the generator lists them.
 # Scope: country
-wtp_on_good_changed = {
-	remove_global_variable = wtp_recipe
+wtp_fill_recipes = {
+	wtp_reset_recipe_rows = yes
+	wtp_collect_recipes = yes
 
-	cmm_begin_global_settings_list = {
-		mod_id = wtp
-		setting_id = recipes
-		tab_id = plan
-		is_ordered = 0
-	}
-	wtp_fill_recipes = yes
-	cmm_finish_global_settings_list = {
-		mod_id = wtp
-		setting_id = recipes
+	# A recipe held over from the previous good is no longer on offer.
+	if = {
+		limit = {
+			has_global_variable = wtp_recipe
+			NOT = {
+				is_target_in_global_variable_list = {
+					name = wtp_pending_recipes
+					target = global_var:wtp_recipe
+				}
+			}
+		}
+		remove_global_variable = wtp_recipe
 	}
 
-	wtp_label_recipe_ceilings = yes
-	wtp_clear_shortlist = yes
+	set_variable = { name = wtp_row_cursor value = 0 }
+	every_in_global_list = {
+		variable = wtp_pending_recipes
+		save_scope_as = wtp_pending_recipe
+		root = {
+			change_variable = { name = wtp_row_cursor add = 1 }
+			wtp_place_recipe_row = yes
+		}
+	}
 }
 
-# Which recipe is ticked. CMM can hand back the rows whose bool field is set as
-# a plain variable list, which is how Construction Manager reads its own lists --
-# no walking rows and poking at the settings map.
+# Scope: country
+wtp_place_recipe_row = {
+	switch = {
+		trigger = var:wtp_row_cursor
+		1 = { wtp_set_recipe_row = { n = 1 } }
+		2 = { wtp_set_recipe_row = { n = 2 } }
+		3 = { wtp_set_recipe_row = { n = 3 } }
+		4 = { wtp_set_recipe_row = { n = 4 } }
+		5 = { wtp_set_recipe_row = { n = 5 } }
+		6 = { wtp_set_recipe_row = { n = 6 } }
+		7 = { wtp_set_recipe_row = { n = 7 } }
+		8 = { wtp_set_recipe_row = { n = 8 } }
+		9 = { wtp_set_recipe_row = { n = 9 } }
+		10 = { wtp_set_recipe_row = { n = 10 } }
+		11 = { wtp_set_recipe_row = { n = 11 } }
+		12 = { wtp_set_recipe_row = { n = 12 } }
+		13 = { wtp_set_recipe_row = { n = 13 } }
+		14 = { wtp_set_recipe_row = { n = 14 } }
+		15 = { wtp_set_recipe_row = { n = 15 } }
+		16 = { wtp_set_recipe_row = { n = 16 } }
+		17 = { wtp_set_recipe_row = { n = 17 } }
+		18 = { wtp_set_recipe_row = { n = 18 } }
+		19 = { wtp_set_recipe_row = { n = 19 } }
+		20 = { wtp_set_recipe_row = { n = 20 } }
+	}
+}
+
+# One recipe row. The flag standing for the recipe is also its localization key,
+# so the same value names the row and identifies it to the ranking.
+# Scope: country
+# Args: n (number) -- row ordinal
+wtp_set_recipe_row = {
+	set_variable = { name = wtp__recipes_i$n$_name value = scope:wtp_pending_recipe }
+	cmm_set_list_item_value = {
+		mod_id = wtp
+		setting_id = recipes
+		item = $n$
+		value = scope:wtp_pending_recipe
+	}
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = ceiling
+		item = $n$
+		value = wtp_pending_ceiling
+	}
+	cmm_show_list_item = { mod_id = wtp setting_id = recipes item = $n$ }
+}
+
+# Scope: country
+wtp_reset_recipe_rows = {
+	cmm_for_each_list_item = {
+		setting = wtp__recipes
+		effect = wtp_reset_recipe_row
+	}
+}
+
+# Called per row by cmm_for_each_list_item, which substitutes the ordinal as a
+# literal. Scope: country
+# Args: setting (key), i (number)
+wtp_reset_recipe_row = {
+	cmm_hide_list_item = { mod_id = wtp setting_id = recipes item = $i$ }
+	cmm_set_list_item_value = {
+		mod_id = wtp
+		setting_id = recipes
+		item = $i$
+		value = flag:wtp_empty_row
+	}
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = pick
+		item = $i$
+		value = 0
+	}
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = recipes
+		field_id = ceiling
+		item = $i$
+		value = 0
+	}
+	set_variable = { name = wtp__recipes_i$i$_name value = flag:wtp_empty_row }
+
+	# Accept the setting param cmm_for_each_list_item passes.
+	if = {
+		limit = { always = no }
+		cmf_suppress = { v = $setting$_$i$ }
+	}
+}
+
+# Which recipe is ticked.
+#
+# Before the click exactly one row was ticked, so a tick that is not the recipe
+# already stored is the one just made; that is what makes the column behave as a
+# radio button rather than a set of independent boxes.
+#
+# The rows a shorter good leaves over are hidden, not removed, and a right click
+# on the column header ticks every row in the list — hidden ones included. Those
+# all carry the placeholder value, so skipping it is what keeps the header click
+# from selecting a recipe that is not on the screen.
 # Scope: country
 wtp_read_picked_recipe = {
-	remove_global_variable = wtp_recipe
 	clear_variable_list = wtp_picked_recipes
-
 	cmm_build_list_bool_list = {
 		setting = wtp__recipes
 		field_slot = 1
 		list_name = wtp_picked_recipes
 	}
 
-	# One tick decides the answer; if several are set the first one wins.
+	if = { limit = { has_global_variable = wtp_new_recipe } remove_global_variable = wtp_new_recipe }
+	set_variable = { name = wtp_tick_count value = 0 }
+
 	every_in_list = {
 		variable = wtp_picked_recipes
-		limit = { NOT = { exists = global_var:wtp_recipe } }
+		save_scope_as = wtp_tick
 		root = {
-			set_global_variable = { name = wtp_recipe value = prev }
+			if = {
+				limit = { NOT = { scope:wtp_tick = flag:wtp_empty_row } }
+				change_variable = { name = wtp_tick_count add = 1 }
+				if = {
+					limit = {
+						NOT = { has_global_variable = wtp_new_recipe }
+						OR = {
+							NOT = { has_global_variable = wtp_recipe }
+							NOT = { global_var:wtp_recipe = scope:wtp_tick }
+						}
+					}
+					set_global_variable = { name = wtp_new_recipe value = scope:wtp_tick }
+				}
+			}
 		}
+	}
+
+	if = {
+		limit = { has_global_variable = wtp_new_recipe }
+		set_global_variable = { name = wtp_recipe value = global_var:wtp_new_recipe }
+		remove_global_variable = wtp_new_recipe
+	}
+	else_if = {
+		limit = {
+			var:wtp_tick_count = 0
+			has_global_variable = wtp_recipe
+		}
+		remove_global_variable = wtp_recipe
+	}
+}
+
+# Leave exactly the chosen recipe ticked. Scope: country
+wtp_sync_recipe_ticks = {
+	cmm_for_each_list_item = {
+		setting = wtp__recipes
+		effect = wtp_sync_recipe_tick
+	}
+}
+
+# Scope: country
+# Args: setting (key), i (number)
+wtp_sync_recipe_tick = {
+	if = {
+		limit = {
+			has_global_variable = wtp_recipe
+			exists = scope:cmm_list_current_item_value
+			global_var:wtp_recipe = scope:cmm_list_current_item_value
+		}
+		cmm_set_list_data_value = {
+			mod_id = wtp
+			setting_id = recipes
+			field_id = pick
+			item = $i$
+			value = 1
+		}
+	}
+	else = {
+		cmm_set_list_data_value = {
+			mod_id = wtp
+			setting_id = recipes
+			field_id = pick
+			item = $i$
+			value = 0
+		}
+	}
+
+	if = {
+		limit = { always = no }
+		cmf_suppress = { v = $setting$_$i$ }
 	}
 }
 
@@ -60,6 +249,7 @@ wtp_read_picked_recipe = {
 #
 # Scope: country
 wtp_rebuild_shortlist = {
+	wtp_reset_province_rows = yes
 	clear_global_variable_list = wtp_pool
 
 	if = {
@@ -82,96 +272,93 @@ wtp_rebuild_shortlist = {
 			}
 		}
 
-		cmm_begin_global_settings_list = {
-			mod_id = wtp
-			setting_id = provinces
-			tab_id = plan
-			is_ordered = 0
-		}
+		set_variable = { name = wtp_row_cursor value = 0 }
 		ordered_in_global_list = {
 			variable = wtp_pool
 			order_by = { value = wtp_selected_bonus }
 			max = wtp_row_limit
 			check_range_bounds = no
+			save_scope_as = wtp_row_province
 			root = {
-				cmm_add_global_settings_list_item = {
-					mod_id = wtp
-					setting_id = provinces
-					value = prev
-					name = wtp_province_row
-				}
+				change_variable = { name = wtp_row_cursor add = 1 }
+				wtp_place_province_row = yes
 			}
 		}
-		cmm_finish_global_settings_list = {
-			mod_id = wtp
-			setting_id = provinces
-		}
-
-		wtp_label_province_bonuses = yes
 	}
 }
 
-# Fill the percentage column beside each province. cmm_set_list_data_value wants
-# a literal row number, so the rows are walked by ordinal and each reads the
-# province stored against it.
 # Scope: country
-wtp_label_province_bonuses = {
-	cmm_build_list_ordered_values = {
+wtp_place_province_row = {
+	switch = {
+		trigger = var:wtp_row_cursor
+		1 = { wtp_set_province_row = { n = 1 } }
+		2 = { wtp_set_province_row = { n = 2 } }
+		3 = { wtp_set_province_row = { n = 3 } }
+		4 = { wtp_set_province_row = { n = 4 } }
+		5 = { wtp_set_province_row = { n = 5 } }
+		6 = { wtp_set_province_row = { n = 6 } }
+		7 = { wtp_set_province_row = { n = 7 } }
+		8 = { wtp_set_province_row = { n = 8 } }
+		9 = { wtp_set_province_row = { n = 9 } }
+		10 = { wtp_set_province_row = { n = 10 } }
+	}
+}
+
+# One province row. A province has no localization key to point the row label at,
+# so the province itself is parked in a global and the label — a fixed key per
+# ordinal — reads it back through a data function.
+# Scope: country
+# Args: n (number) -- row ordinal
+wtp_set_province_row = {
+	set_global_variable = { name = wtp_prov_row_$n$ value = scope:wtp_row_province }
+	cmm_set_list_item_value = {
+		mod_id = wtp
+		setting_id = provinces
+		item = $n$
+		value = scope:wtp_row_province
+	}
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = provinces
+		field_id = bonus
+		item = $n$
+		value = scope:wtp_row_province.wtp_selected_bonus
+	}
+	cmm_show_list_item = { mod_id = wtp setting_id = provinces item = $n$ }
+}
+
+# Scope: country
+wtp_reset_province_rows = {
+	cmm_for_each_list_item = {
 		setting = wtp__provinces
-		list_name = wtp_province_rows
-	}
-	set_variable = { name = wtp_row_cursor value = 0 }
-	every_in_list = {
-		variable = wtp_province_rows
-		save_scope_as = wtp_row_province
-		root = {
-			change_variable = { name = wtp_row_cursor add = 1 }
-			cmm_set_list_data_value = {
-				mod_id = wtp
-				setting_id = provinces
-				field_id = bonus
-				item = var:wtp_row_cursor
-				value = scope:wtp_row_province.wtp_selected_bonus
-			}
-		}
+		effect = wtp_reset_province_row
 	}
 }
 
-# Fill the ceiling column beside each recipe, same walk by ordinal.
 # Scope: country
-wtp_label_recipe_ceilings = {
-	cmm_build_list_ordered_values = {
-		setting = wtp__recipes
-		list_name = wtp_recipe_rows
+# Args: setting (key), i (number)
+wtp_reset_province_row = {
+	cmm_hide_list_item = { mod_id = wtp setting_id = provinces item = $i$ }
+	cmm_set_list_item_value = {
+		mod_id = wtp
+		setting_id = provinces
+		item = $i$
+		value = flag:wtp_empty_row
 	}
-	set_variable = { name = wtp_row_cursor value = 0 }
-	every_in_list = {
-		variable = wtp_recipe_rows
-		save_scope_as = wtp_row_recipe
-		root = {
-			change_variable = { name = wtp_row_cursor add = 1 }
-			cmm_set_list_data_value = {
-				mod_id = wtp
-				setting_id = recipes
-				field_id = ceiling
-				item = var:wtp_row_cursor
-				value = wtp_row_ceiling
-			}
-		}
+	cmm_set_list_data_value = {
+		mod_id = wtp
+		setting_id = provinces
+		field_id = bonus
+		item = $i$
+		value = 0
 	}
-}
+	if = {
+		limit = { has_global_variable = wtp_prov_row_$i$ }
+		remove_global_variable = wtp_prov_row_$i$
+	}
 
-# Forget the current answer. Scope: country
-wtp_clear_shortlist = {
-	clear_global_variable_list = wtp_pool
-	cmm_begin_global_settings_list = {
-		mod_id = wtp
-		setting_id = provinces
-		tab_id = plan
-		is_ordered = 0
-	}
-	cmm_finish_global_settings_list = {
-		mod_id = wtp
-		setting_id = provinces
+	if = {
+		limit = { always = no }
+		cmf_suppress = { v = $setting$_$i$ }
 	}
 }
