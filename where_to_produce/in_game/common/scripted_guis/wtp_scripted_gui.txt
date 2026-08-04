@@ -10,7 +10,7 @@
 # dropdown, numeric and slider settings, lists have no CMM auto-apply. The widget
 # marks the pending change and calls this, and `cmm_apply_list_change` commits it.
 
-# Ticking a recipe. Scope: country
+# Ticking a recipe in or out of the shortlist. Scope: country
 wtp__recipes_on_changed = {
 	scope = country
 
@@ -22,8 +22,6 @@ wtp__recipes_on_changed = {
 		cmm_apply_list_change = {
 			setting = wtp__recipes
 		}
-		wtp_read_picked_recipe = yes
-		wtp_sync_recipe_ticks = yes
 		wtp_rebuild_shortlist = yes
 	}
 }

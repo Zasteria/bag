@@ -1,0 +1,20 @@
+﻿# True when the recipe list on screen was built for the good now chosen.
+#
+# Both halves have to be checked: no good chosen and no list built is a match,
+# and either one without the other is not. A save reloads with its rows and its
+# ticks already in the variables that hold them, so this is what keeps a reload
+# from re-ticking everything the player had unticked.
+# Scope: any
+wtp_recipes_match_good = {
+	OR = {
+		AND = {
+			NOT = { has_global_variable = wtp_good }
+			NOT = { has_global_variable = wtp_shown_good }
+		}
+		AND = {
+			has_global_variable = wtp_good
+			has_global_variable = wtp_shown_good
+			global_var:wtp_shown_good = global_var:wtp_good
+		}
+	}
+}

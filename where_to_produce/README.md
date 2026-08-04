@@ -3,9 +3,10 @@
 An EU5 mod for the question the game makes you answer one location at a time:
 **I want more glass — where in my realm should it come from?**
 
-Pick a good, tick one of the recipes that make it, and get a shortlist of the
-provinces where that recipe would gain most from the raw materials on hand.
-Provinces with no local bonus at all never appear.
+Pick a good and get every recipe that makes it — what each one consumes, what it
+turns out, and the most it could ever take from local raw materials — plus a
+shortlist of the provinces where those recipes gain most. Provinces with no
+local bonus at all never appear.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
@@ -44,25 +45,45 @@ will ever get, while 6% somewhere else might be nowhere near its own ceiling.
 The shortlist reports the ceiling alongside the actual figure for exactly this
 reason.
 
-## How the shortlist is built
+## Percentage or volume
 
-Recipe first, then provinces. Ranking provinces by "the best recipe available
-there" made the ceiling column compare a different recipe on every row, which
-read as nonsense. The player picks the recipe; its output is then the same
-everywhere, leaving the bonus as the only thing left to rank on.
+The bonus is production *efficiency*, so it multiplies output:
+
+```
+volume = output x (1 + bonus% / 100)
+```
+
+That is the number that makes two recipes comparable. A jeweller's guild working
+silver turns out 1.0 and reaches 10%, so 1.10. A village carver working stone
+also reaches 10%, but from an output of 0.1, so 0.11. Ranked on the percentage
+the two are level; ranked on volume the guild is ten times the carver. Both
+columns are on the shortlist and either can drive the order.
+
+The ceiling matters for the opposite reason. 2.86% against a ceiling of 5.24% is
+more than half of everything that recipe will ever give, while 6% on a different
+recipe might be nowhere near its own limit — which is why the recipe list
+carries the ceiling and the volume at that ceiling side by side.
+
+## How the shortlist is built
 
 Provinces, not locations: the bonus is province wide, so ten locations of one
 province would score identically and crowd everything else out.
 
-`wtp_rebuild_shortlist` walks `every_owned_location`, steps up to its province,
-and collects each one where the ticked recipe would gain anything.
-`ordered_in_global_list` then takes the best few by `wtp_selected_bonus`, and
-each survivor is written into one row of the shortlist.
+`wtp_rebuild_shortlist` walks `every_owned_location` and steps up to its
+province. Each province is scored once, against every ticked recipe, and keeps
+the best one — so the recipe named on a row and the two figures beside it are
+always the same recipe. `ordered_in_global_list` then takes the best few by
+whatever `wtp_scored_rank` is currently ranking on, and each survivor is written
+into one row.
+
+A recipe that gains nothing in a province is passed over rather than scored at
+its plain output: that volume is one every other province matches, so it says
+nothing about this place.
 
 A recipe travels as the flag naming its own localization key —
 `flag:wtp_recipe_weapon_smith_maintenance`. That one value labels the row, tells
-`wtp_selected_bonus` which recipe was ticked, and keys the ceiling column, so
-there is nothing to keep in step between the three.
+the scoring which recipe it is, and keys both of its columns, so there is
+nothing to keep in step between them.
 
 ## Using it
 
@@ -70,16 +91,15 @@ there is nothing to keep in step between the three.
 
 - **Good** — four pickers, one per category, the way the game already groups
   goods. Any one of them off "none" names the good.
-- **Recipes** — every way to make it, best output first, with the most that
-  recipe could ever gain from local raw materials beside it. Tick one; the
-  column behaves as a radio button.
-- **Best provinces** — where that recipe gains most, best first, with the bonus
-  it actually gets there.
-- **Display** — how many provinces to list, up to ten.
-
-The ceiling is the column worth reading: 2.86% against a ceiling of 5.24% is
-more than half of everything that recipe will ever give, while 6% on a different
-recipe might be nowhere near its own limit.
+- **Recipes** — every way to make it, best output first, each row reading
+  `<method> — <inputs> → <output>` under the game's own name for the method,
+  with the full recipe and the raw materials a province could supply in the
+  tooltip. Two columns: the ceiling, and the volume at that ceiling. All rows
+  count towards the shortlist until they are unticked.
+- **Best provinces** — where the ticked recipes gain most. Each row names the
+  one that does best there, with the bonus it gets and what it turns out.
+- **Display** — rank by local percentage or by volume, and how many provinces to
+  list, up to ten.
 
 ## How the two lists work
 
@@ -108,13 +128,29 @@ the macro verbatim and comes back as
 More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'
 ```
 
-at load. So a counter turns into a literal through a `switch`, the way CMF does
-it everywhere. Where the ordinal is only needed per existing row,
-`cmm_for_each_list_item` hands it over as `$i$` already resolved.
+at load. The generator already knows which row each recipe lands on, so it
+passes both the ordinal and the recipe as literals; that is what lets one call
+set a row's label, its tooltip, its value and all three of its columns. The
+shortlist only learns its order at runtime, so there a counter goes through a
+`switch`, the way CMF turns one into a literal everywhere in its own source.
+Where the ordinal is only needed per existing row, `cmm_for_each_list_item`
+hands it over as `$i$` already resolved.
 
-**A province has no localization key of its own.** Each shortlist row parks its
-province in `wtp_prov_row_<n>` and the row label — a fixed key per ordinal —
-reads it back with `[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName]`.
+**Neither a province nor a recipe has a localization key a row label could be
+pointed at.** Each shortlist row parks both in globals and the label — a fixed
+key per ordinal — reads them back:
+
+```
+[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_1').GetFlagName]
+```
+
+`GetFlagName` localizes, which is what turns the stored recipe flag into the
+method's name.
+
+**Nothing generated is a word in any language.** Recipe labels and tooltips are
+built out of `$key$` references to the game's own method and goods names plus
+three captions defined per language by hand, so one generated file serves every
+localization the mod ships.
 
 ## Notes for anyone extending this
 
@@ -152,10 +188,14 @@ in_game/common/scripted_effects/               registration, the row writers, th
 in_game/common/scripted_guis/                  the two list callbacks, without which
                                                neither list is drawn at all
 in_game/common/on_action/                      CMF registration and callback hooks
-main_menu/localization/                        English and Russian
+main_menu/localization/                        the captions, in English and Russian;
+                                               everything generated is $key$ references
 tools/eu5data.py                               reads the game files and holds the formula
 tools/generate.py                              writes the script layer
 ```
+
+The generator deletes what it no longer emits, so a file that disappears from
+the tree after a run was left over from an earlier design rather than lost.
 
 Regenerate after a patch that touches goods, production methods or building
 types:
@@ -172,7 +212,8 @@ one `step` instead of `step_value` cost a full round. The same pass warns if a
 good has grown more recipes than the list has rows.
 
 The bonus is linear in a method's inputs, so it lands in script as a sum of
-`if` clauses over the province's raw materials:
+`if` clauses over the province's raw materials, with the volume hanging off it
+and the two constants alongside:
 
 ```
 wtp_bonus_weapon_smith_maintenance = {
@@ -182,9 +223,20 @@ wtp_bonus_weapon_smith_maintenance = {
     divide = 1.0605
     multiply = 10
 }
+wtp_volume_weapon_smith_maintenance = {
+    value = wtp_bonus_weapon_smith_maintenance
+    divide = 100
+    add = 1
+    multiply = 1
+}
 wtp_ceiling_weapon_smith_maintenance = 5.2381
-wtp_output_weapon_smith_maintenance = 1
+wtp_peak_weapon_smith_maintenance = 1.0524
 ```
+
+The shortlist reaches those in two hops — the good first, then the recipe within
+it — rather than through one chain over all 215 methods, because it evaluates
+them once per province per ticked recipe and forty-odd comparisons beat two
+hundred.
 
 At 1.3.10: 40 raw materials referenced, 215 methods scored, 47 goods reachable.
 The generated script is replayed against the model over every combination of a
