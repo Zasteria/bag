@@ -23,3 +23,4 @@
  wtp__provinces_item_column_name: "Провинция"
  wtp__shortlist_size_name: "Провинций в списке"
  wtp__shortlist_size_desc: "Сколько провинций показывать, максимум десять."
+ WTP_PICK_NONE: "— не выбрано —"

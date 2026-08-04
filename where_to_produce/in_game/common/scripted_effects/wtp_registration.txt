@@ -14,32 +14,32 @@ wtp_register = {
 		setting_id = pick_rgo
 		tab_id = plan
 		group_id = goods
-		default_index = 0
-		option_count = 21
+		default_index = 1
+		option_count = 22
 	}
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
 		setting_id = pick_basic
 		tab_id = plan
 		group_id = goods
-		default_index = 0
-		option_count = 9
+		default_index = 1
+		option_count = 10
 	}
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
 		setting_id = pick_consumer
 		tab_id = plan
 		group_id = goods
-		default_index = 0
-		option_count = 13
+		default_index = 1
+		option_count = 14
 	}
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
 		setting_id = pick_weapons
 		tab_id = plan
 		group_id = goods
-		default_index = 0
-		option_count = 4
+		default_index = 1
+		option_count = 5
 	}
 
 	# The recipes that make the chosen good. One tick decides which of them the
@@ -92,6 +92,12 @@ wtp_register = {
 	}
 
 	wtp_sync_settings = yes
+
+	# A save that already had a good chosen should come back with its lists.
+	if = {
+		limit = { has_global_variable = wtp_good }
+		wtp_on_good_changed = yes
+	}
 }
 
 # CMM keeps its values in a variable map that neither a script value nor an
@@ -114,22 +120,34 @@ wtp_handle_callback = {
 	# A different good means a different set of recipes, and the old shortlist
 	# no longer means anything.
 	if = {
-		limit = { var:cmf_callback = flag:wtp__pick_rgo }
+		limit = {
+			var:cmf_callback = flag:wtp__pick_rgo
+			global_var:wtp_pick_rgo > 1
+		}
 		wtp_apply_pick_rgo = yes
 		wtp_on_good_changed = yes
 	}
 	if = {
-		limit = { var:cmf_callback = flag:wtp__pick_basic }
+		limit = {
+			var:cmf_callback = flag:wtp__pick_basic
+			global_var:wtp_pick_basic > 1
+		}
 		wtp_apply_pick_basic = yes
 		wtp_on_good_changed = yes
 	}
 	if = {
-		limit = { var:cmf_callback = flag:wtp__pick_consumer }
+		limit = {
+			var:cmf_callback = flag:wtp__pick_consumer
+			global_var:wtp_pick_consumer > 1
+		}
 		wtp_apply_pick_consumer = yes
 		wtp_on_good_changed = yes
 	}
 	if = {
-		limit = { var:cmf_callback = flag:wtp__pick_weapons }
+		limit = {
+			var:cmf_callback = flag:wtp__pick_weapons
+			global_var:wtp_pick_weapons > 1
+		}
 		wtp_apply_pick_weapons = yes
 		wtp_on_good_changed = yes
 	}

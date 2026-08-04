@@ -3,154 +3,154 @@
 # Scope: country
 
 wtp_apply_pick_rgo = {
-	if = { limit = { global_var:wtp_pick_rgo = 1 }
+	if = { limit = { global_var:wtp_pick_rgo = 2 }
 		set_global_variable = { name = wtp_good value = goods:clay }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 2 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 3 }
 		set_global_variable = { name = wtp_good value = goods:coal }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 3 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 4 }
 		set_global_variable = { name = wtp_good value = goods:cotton }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 4 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 5 }
 		set_global_variable = { name = wtp_good value = goods:fiber_crops }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 5 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 6 }
 		set_global_variable = { name = wtp_good value = goods:fish }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 6 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 7 }
 		set_global_variable = { name = wtp_good value = goods:fruit }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 7 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 8 }
 		set_global_variable = { name = wtp_good value = goods:horses }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 8 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 9 }
 		set_global_variable = { name = wtp_good value = goods:iron }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 9 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 10 }
 		set_global_variable = { name = wtp_good value = goods:ivory }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 10 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 11 }
 		set_global_variable = { name = wtp_good value = goods:livestock }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 11 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 12 }
 		set_global_variable = { name = wtp_good value = goods:lumber }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 12 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 13 }
 		set_global_variable = { name = wtp_good value = goods:masonry }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 13 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 14 }
 		set_global_variable = { name = wtp_good value = goods:salt }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 14 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 15 }
 		set_global_variable = { name = wtp_good value = goods:sand }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 15 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 16 }
 		set_global_variable = { name = wtp_good value = goods:silver }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 16 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 17 }
 		set_global_variable = { name = wtp_good value = goods:slaves_goods }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 17 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 18 }
 		set_global_variable = { name = wtp_good value = goods:stone }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 18 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 19 }
 		set_global_variable = { name = wtp_good value = goods:sugar }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 19 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 20 }
 		set_global_variable = { name = wtp_good value = goods:tobacco }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 20 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 21 }
 		set_global_variable = { name = wtp_good value = goods:wild_game }
 	}
-	else_if = { limit = { global_var:wtp_pick_rgo = 21 }
+	else_if = { limit = { global_var:wtp_pick_rgo = 22 }
 		set_global_variable = { name = wtp_good value = goods:wool }
 	}
 }
 
 wtp_apply_pick_basic = {
-	if = { limit = { global_var:wtp_pick_basic = 1 }
+	if = { limit = { global_var:wtp_pick_basic = 2 }
 		set_global_variable = { name = wtp_good value = goods:dyes }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 2 }
+	else_if = { limit = { global_var:wtp_pick_basic = 3 }
 		set_global_variable = { name = wtp_good value = goods:glass }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 3 }
+	else_if = { limit = { global_var:wtp_pick_basic = 4 }
 		set_global_variable = { name = wtp_good value = goods:leather }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 4 }
+	else_if = { limit = { global_var:wtp_pick_basic = 5 }
 		set_global_variable = { name = wtp_good value = goods:medicaments }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 5 }
+	else_if = { limit = { global_var:wtp_pick_basic = 6 }
 		set_global_variable = { name = wtp_good value = goods:paper }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 6 }
+	else_if = { limit = { global_var:wtp_pick_basic = 7 }
 		set_global_variable = { name = wtp_good value = goods:saltpeter }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 7 }
+	else_if = { limit = { global_var:wtp_pick_basic = 8 }
 		set_global_variable = { name = wtp_good value = goods:steel }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 8 }
+	else_if = { limit = { global_var:wtp_pick_basic = 9 }
 		set_global_variable = { name = wtp_good value = goods:tar }
 	}
-	else_if = { limit = { global_var:wtp_pick_basic = 9 }
+	else_if = { limit = { global_var:wtp_pick_basic = 10 }
 		set_global_variable = { name = wtp_good value = goods:tools }
 	}
 }
 
 wtp_apply_pick_consumer = {
-	if = { limit = { global_var:wtp_pick_consumer = 1 }
+	if = { limit = { global_var:wtp_pick_consumer = 2 }
 		set_global_variable = { name = wtp_good value = goods:beer }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 2 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 3 }
 		set_global_variable = { name = wtp_good value = goods:books }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 3 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 4 }
 		set_global_variable = { name = wtp_good value = goods:cloth }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 4 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 5 }
 		set_global_variable = { name = wtp_good value = goods:fine_cloth }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 5 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 6 }
 		set_global_variable = { name = wtp_good value = goods:furniture }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 6 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 7 }
 		set_global_variable = { name = wtp_good value = goods:incense }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 7 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 8 }
 		set_global_variable = { name = wtp_good value = goods:jewelry }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 8 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 9 }
 		set_global_variable = { name = wtp_good value = goods:lacquerware }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 9 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 10 }
 		set_global_variable = { name = wtp_good value = goods:liquor }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 10 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 11 }
 		set_global_variable = { name = wtp_good value = goods:porcelain }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 11 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 12 }
 		set_global_variable = { name = wtp_good value = goods:pottery }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 12 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 13 }
 		set_global_variable = { name = wtp_good value = goods:silk }
 	}
-	else_if = { limit = { global_var:wtp_pick_consumer = 13 }
+	else_if = { limit = { global_var:wtp_pick_consumer = 14 }
 		set_global_variable = { name = wtp_good value = goods:wine }
 	}
 }
 
 wtp_apply_pick_weapons = {
-	if = { limit = { global_var:wtp_pick_weapons = 1 }
+	if = { limit = { global_var:wtp_pick_weapons = 2 }
 		set_global_variable = { name = wtp_good value = goods:cannons }
 	}
-	else_if = { limit = { global_var:wtp_pick_weapons = 2 }
+	else_if = { limit = { global_var:wtp_pick_weapons = 3 }
 		set_global_variable = { name = wtp_good value = goods:firearms }
 	}
-	else_if = { limit = { global_var:wtp_pick_weapons = 3 }
+	else_if = { limit = { global_var:wtp_pick_weapons = 4 }
 		set_global_variable = { name = wtp_good value = goods:naval_supplies }
 	}
-	else_if = { limit = { global_var:wtp_pick_weapons = 4 }
+	else_if = { limit = { global_var:wtp_pick_weapons = 5 }
 		set_global_variable = { name = wtp_good value = goods:weaponry }
 	}
 }

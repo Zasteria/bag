@@ -24,3 +24,4 @@
  wtp_province_row: "[GetGlobalVariable('wtp_row_name').GetValue]"
  wtp__shortlist_size_name: "Provinces Shown"
  wtp__shortlist_size_desc: "How many provinces to list, up to ten."
+ WTP_PICK_NONE: "— none —"

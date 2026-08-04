@@ -242,16 +242,20 @@ def render_menu(game: Game, ids) -> tuple[str, str]:
     loc = ["l_english:"]
 
     # Turning a dropdown ordinal back into the good it stands for.
+    # Option 1 of every picker is "nothing chosen", so opening the menu does not
+    # look like four goods are already selected and one picker can be used on its
+    # own. Goods therefore start at ordinal 2.
     for group, _ in CATEGORY_GROUPS:
         out.append("wtp_apply_pick_%s = {" % group)
-        for index, good in enumerate(groups[group], start=1):
-            keyword = "if" if index == 1 else "else_if"
+        for index, good in enumerate(groups[group], start=2):
+            keyword = "if" if index == 2 else "else_if"
             out.append("\t%s = { limit = { global_var:wtp_pick_%s = %d }" % (keyword, group, index))
             out.append("\t\tset_global_variable = { name = wtp_good value = goods:%s }" % good)
             out.append("\t}")
         out.append("}")
         out.append("")
-        for index, good in enumerate(groups[group], start=1):
+        loc.append(' wtp__pick_%s_option_1_name: "$WTP_PICK_NONE$"' % group)
+        for index, good in enumerate(groups[group], start=2):
             loc.append(' wtp__pick_%s_option_%d_name: "$%s$"' % (group, index, good))
 
     # Rebuilding the recipe list for whichever good is selected.
