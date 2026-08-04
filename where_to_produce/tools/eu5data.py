@@ -152,10 +152,15 @@ class Game:
 
     def group_of(self, good: str) -> str:
         """Which picker group a good belongs in, or "" if none fits."""
+        # A good is filed under the most specific industry that makes it. Masonry
+        # comes from both a quarry and a mason's yard, and the game lists it under
+        # basic industry, not raw materials -- so the industries outrank the RGO.
         known = {category: name for name, category in CATEGORY_GROUPS}
-        for method in self.producing(good):
-            if method.building_category in known:
-                return known[method.building_category]
+        found = {known[m.building_category] for m in self.producing(good)
+                 if m.building_category in known}
+        for name in ("weapons", "consumer", "basic", "rgo"):
+            if name in found:
+                return name
         # Plantation and village buildings carry categories of their own. What
         # they make -- cotton, sugar, livestock, fish -- is raw material, so it
         # belongs with the rest of it rather than in no group at all.

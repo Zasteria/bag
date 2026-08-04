@@ -16,7 +16,7 @@ wtp_row_limit = {
 wtp_row_ceiling = {
 	value = 0
 	if = {
-		limit = { exists = scope:cmm_list_current_item_value }
+		limit = { exists = scope:wtp_row_recipe }
 		value = wtp_selected_ceiling
 	}
 }

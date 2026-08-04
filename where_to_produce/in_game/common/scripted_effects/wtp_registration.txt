@@ -15,7 +15,7 @@ wtp_register = {
 		tab_id = plan
 		group_id = goods
 		default_index = 1
-		option_count = 22
+		option_count = 21
 	}
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
@@ -23,7 +23,7 @@ wtp_register = {
 		tab_id = plan
 		group_id = goods
 		default_index = 1
-		option_count = 10
+		option_count = 11
 	}
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp

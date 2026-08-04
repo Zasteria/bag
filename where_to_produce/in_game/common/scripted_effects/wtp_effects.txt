@@ -28,28 +28,27 @@ wtp_on_good_changed = {
 	wtp_clear_shortlist = yes
 }
 
-# Which recipe is ticked. CMM stores the tick per row, so the pick is read back
-# by walking the list.
+# Which recipe is ticked. CMM can hand back the rows whose bool field is set as
+# a plain variable list, which is how Construction Manager reads its own lists --
+# no walking rows and poking at the settings map.
 # Scope: country
 wtp_read_picked_recipe = {
 	remove_global_variable = wtp_recipe
+	clear_variable_list = wtp_picked_recipes
 
-	cmm_for_each_list_item = {
+	cmm_build_list_bool_list = {
 		setting = wtp__recipes
-		effect = wtp_read_one_recipe_row
+		field_slot = 1
+		list_name = wtp_picked_recipes
 	}
-}
 
-# Called once per recipe row by cmm_for_each_list_item, which hands the row over
-# as scope:cmm_list_current_item and its attached scope as
-# scope:cmm_list_current_item_value.
-# Scope: country
-wtp_read_one_recipe_row = {
-	if = {
-		limit = {
-			"variable_map(cmm|scope:cmm_list_current_item)" >= 1
+	# One tick decides the answer; if several are set the first one wins.
+	every_in_list = {
+		variable = wtp_picked_recipes
+		limit = { NOT = { exists = global_var:wtp_recipe } }
+		root = {
+			set_global_variable = { name = wtp_recipe value = prev }
 		}
-		set_global_variable = { name = wtp_recipe value = scope:cmm_list_current_item_value }
 	}
 }
 
@@ -112,43 +111,53 @@ wtp_rebuild_shortlist = {
 	}
 }
 
-# Fill the percentage column beside each province.
+# Fill the percentage column beside each province. cmm_set_list_data_value wants
+# a literal row number, so the rows are walked by ordinal and each reads the
+# province stored against it.
 # Scope: country
 wtp_label_province_bonuses = {
-	cmm_for_each_list_item = {
+	cmm_build_list_ordered_values = {
 		setting = wtp__provinces
-		effect = wtp_label_one_province_row
+		list_name = wtp_province_rows
+	}
+	set_variable = { name = wtp_row_cursor value = 0 }
+	every_in_list = {
+		variable = wtp_province_rows
+		save_scope_as = wtp_row_province
+		root = {
+			change_variable = { name = wtp_row_cursor add = 1 }
+			cmm_set_list_data_value = {
+				mod_id = wtp
+				setting_id = provinces
+				field_id = bonus
+				item = var:wtp_row_cursor
+				value = scope:wtp_row_province.wtp_selected_bonus
+			}
+		}
 	}
 }
 
-# Scope: country
-wtp_label_one_province_row = {
-	cmm_set_list_data_value = {
-		mod_id = wtp
-		setting_id = provinces
-		field_id = bonus
-		item = scope:cmm_list_current_item
-		value = scope:cmm_list_current_item_value.wtp_selected_bonus
-	}
-}
-
-# Fill the ceiling column beside each recipe.
+# Fill the ceiling column beside each recipe, same walk by ordinal.
 # Scope: country
 wtp_label_recipe_ceilings = {
-	cmm_for_each_list_item = {
+	cmm_build_list_ordered_values = {
 		setting = wtp__recipes
-		effect = wtp_label_one_recipe_row
+		list_name = wtp_recipe_rows
 	}
-}
-
-# Scope: country
-wtp_label_one_recipe_row = {
-	cmm_set_list_data_value = {
-		mod_id = wtp
-		setting_id = recipes
-		field_id = ceiling
-		item = scope:cmm_list_current_item
-		value = wtp_row_ceiling
+	set_variable = { name = wtp_row_cursor value = 0 }
+	every_in_list = {
+		variable = wtp_recipe_rows
+		save_scope_as = wtp_row_recipe
+		root = {
+			change_variable = { name = wtp_row_cursor add = 1 }
+			cmm_set_list_data_value = {
+				mod_id = wtp
+				setting_id = recipes
+				field_id = ceiling
+				item = var:wtp_row_cursor
+				value = wtp_row_ceiling
+			}
+		}
 	}
 }
 

@@ -31,6 +31,7 @@ Usage:
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -318,7 +319,7 @@ def render_selected(game: Game, ids) -> str:
     out.append("\tvalue = 0")
     for index, name in enumerate(sorted(names)):
         keyword = "if" if index == 0 else "else_if"
-        out.append("\t%s = { limit = { scope:cmm_list_current_item_value = flag:%s } value = wtp_ceiling_%s }" % (
+        out.append("\t%s = { limit = { scope:wtp_row_recipe = flag:%s } value = wtp_ceiling_%s }" % (
             keyword, name, name))
     out.append("}")
     out.append("")
@@ -361,6 +362,17 @@ def main() -> int:
         path.write_text(text, encoding="utf-8")
 
     scored = {ids[(m.building, m.key)] for m in game.methods if m.raw_inputs(game.raw_goods)}
+    counts = {name: len(rows) + 1 for name, rows in game.goods_by_group().items()}
+    registration = (MOD_ROOT / "in_game" / "common" / "scripted_effects"
+                    / "wtp_registration.txt").read_text(encoding="utf-8-sig")
+    for name, want in counts.items():
+        found = re.search(r"setting_id = pick_%s(?:.|\n)*?option_count = (\d+)" % name,
+                          registration)
+        if found and int(found.group(1)) != want:
+            print("option_count for pick_%s is %s, should be %d"
+                  % (name, found.group(1), want), file=sys.stderr)
+
+    print("goods per picker:         %s" % counts)
     print("raw materials referenced: %d" % len(used_goods))
     print("methods scored:           %d" % len(scored))
     print("goods reachable:          %d" % len(game.goods_produced))

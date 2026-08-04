@@ -11,7 +11,7 @@ wtp_build_goods_catalogue = {
 	clear_global_variable_list = wtp_goods_consumer
 	clear_global_variable_list = wtp_goods_weapons
 
-	# rgo: 21
+	# rgo: 20
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:clay }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:coal }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:cotton }
@@ -23,7 +23,6 @@ wtp_build_goods_catalogue = {
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:ivory }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:livestock }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:lumber }
-	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:masonry }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:salt }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:sand }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:silver }
@@ -34,10 +33,11 @@ wtp_build_goods_catalogue = {
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:wild_game }
 	add_to_global_variable_list = { name = wtp_goods_rgo target = goods:wool }
 
-	# basic: 9
+	# basic: 10
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:dyes }
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:glass }
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:leather }
+	add_to_global_variable_list = { name = wtp_goods_basic target = goods:masonry }
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:medicaments }
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:paper }
 	add_to_global_variable_list = { name = wtp_goods_basic target = goods:saltpeter }
