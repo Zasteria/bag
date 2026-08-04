@@ -3,15 +3,14 @@
 An EU5 mod for the question the game makes you answer one location at a time:
 **I want more glass — where in my realm should it come from?**
 
-Pick a good, get a shortlist of locations where a building producing it would
-actually gain from the raw materials on hand, ranked by output and by how much
-of the recipe those materials cover. Locations with no local bonus at all never
-appear.
+Pick a good and get every recipe that makes it — what each one consumes, what it
+turns out, and the most it could ever take from local raw materials — plus a
+shortlist of the provinces where those recipes gain most. Provinces with no
+local bonus at all never appear.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
-> Loads and runs. The mod registers, the action bar button works and the window
-> opens. Styling and the shortlist itself are still being shaken out.
+The interface is a tab in CMF's Mod Menu: **Where To Produce → Plan**.
 
 ## The formula
 
@@ -46,50 +45,168 @@ will ever get, while 6% somewhere else might be nowhere near its own ceiling.
 The shortlist reports the ceiling alongside the actual figure for exactly this
 reason.
 
+## Percentage or volume
+
+The bonus is production *efficiency*, so it multiplies output:
+
+```
+volume = output x (1 + bonus% / 100)
+```
+
+That is the number that makes two recipes comparable. A jeweller's guild working
+silver turns out 1.0 and reaches 10%, so 1.10. A village carver working stone
+also reaches 10%, but from an output of 0.1, so 0.11. Ranked on the percentage
+the two are level; ranked on volume the guild is ten times the carver. Both
+columns are on the shortlist and either can drive the order.
+
+The ceiling matters for the opposite reason. 2.86% against a ceiling of 5.24% is
+more than half of everything that recipe will ever give, while 6% on a different
+recipe might be nowhere near its own limit — which is why the recipe list
+carries the ceiling and the volume at that ceiling side by side.
+
 ## How the shortlist is built
 
 Provinces, not locations: the bonus is province wide, so ten locations of one
 province would score identically and crowd everything else out.
 
-`wtp_rebuild_shortlist` walks `every_owned_location`, steps up to its province,
-and collects each one that could produce the chosen good at all. Then
-`ordered_in_global_list` takes the best ten twice over — once ordered by what
-the recipe yields, once by how much of it the local raw materials cover — and
-the window shows the first N of whichever column is being sorted on.
+`wtp_rebuild_shortlist` walks `every_owned_location` and steps up to its
+province. Each province is scored once, against every ticked recipe, and keeps
+the best one — so the recipe named on a row and the two figures beside it are
+always the same recipe. `ordered_in_global_list` then takes the best few by
+whatever `wtp_scored_rank` is currently ranking on, and each survivor is written
+into one row.
 
-The good the player picked sits in the `wtp_good` global as a goods scope.
-`order_by` accepts a single script value, so the generated `wtp_current_output`
-and `wtp_current_bonus` fan out from that one name to the chain for that good.
+A recipe that gains nothing in a province is passed over rather than scored at
+its plain output: that volume is one every other province matches, so it says
+nothing about this place.
 
-## Ranking
-
-Two columns, sort by either:
-
-- **Output** — what the method actually yields. A glass mill at 4.0 dwarfs a
-  rural glassmaker at 0.2 whatever their percentages.
-- **Local coverage** — the bonus above, against that method's ceiling.
-
-The two disagree often, which is the point: iron gives a tools guild output 1.0,
-stone tools only 0.25, and both can sit at the same 10%.
+A recipe travels as the flag naming its own localization key —
+`flag:wtp_recipe_weapon_smith_maintenance`. That one value labels the row, tells
+the scoring which recipe it is, and keys both of its columns, so there is
+nothing to keep in step between them.
 
 ## Using it
 
-The Community Mod Framework puts a **Where To Produce** button on its action
-bar. The window lists every good something in the game could produce with a
-local bonus; pick one and the shortlist fills in.
+**Mod Menu → Where To Produce → Plan.**
 
-Four columns: the province, what the best available recipe there yields, the
-bonus it actually gets, and the most that recipe could ever get. The last one
-matters — 2.86% against a ceiling of 5.24% is more than half of everything that
-recipe will ever give, while 6% elsewhere might be nowhere near its own limit.
+- **Good** — four pickers, one per category, the way the game already groups
+  goods. Any one of them off "none" names the good.
+- **Recipes** — every way to make it, best output first, under the game's own
+  name for the method. Hover a row for what it consumes, what it turns out and
+  which of its inputs a province could supply. Two columns: the ceiling, and the
+  volume at that ceiling. All rows count towards the shortlist until they are
+  unticked, and an unticked recipe stays unticked across a reload.
+- **Best provinces** — where the ticked recipes gain most. Each row names the
+  one that does best there, with the bonus it gets and what it turns out.
+- **Display** — whether to hide recipes this country has no use for, rank by
+  local percentage or by volume, and how many provinces to list, up to ten.
 
-Under **Shortlist → Display** in the Mod Menu: how many provinces to show, and
-whether to rank by output or by local coverage.
+The row label is the method's name and nothing else. The row is one line of text
+the engine shrinks to fit, so writing the recipe into it left every row at a
+different font size — which is why the recipe is in the tooltip, where it has
+room. Icons are not an option: CMM draws a row as text, and goods have no text
+icon (the game draws them as `icon` widgets from `GetGoodsIcon`).
+
+## What gets hidden
+
+**Only what I can build**, on by default, drops three kinds of row:
+
+- the building carries a `country_potential` this country fails — a Japanese
+  clan reform, an English tag, a flat `always = no`. The generator copies each
+  one verbatim into a scripted trigger, so the rule is the game's own;
+- the building is `is_special` or `is_foreign`, so it is not something the
+  player builds in the ordinary way;
+- nowhere in the realm works any raw material the recipe could take a bonus
+  from, which is the only thing this mod has to say about it.
+
+What it cannot drop is a method locked behind an advance. `ProductionMethod.IsAvailable`
+exists as a GUI data function, but nothing in `building_types` or
+`production_methods` says which advance unlocks which method, so a pre-Columbian
+variant of a guild still shows for a European — sitting near the bottom, where
+its output puts it.
+
+## How the two lists work
+
+Worth knowing before touching them, because none of it fails loudly.
+
+**A CMM list setting is invisible until the mod supplies
+`<mod>__<setting>_on_changed`.** Registering a list marks it as having a
+scripted GUI, and `CMMSettingRowVisible` then draws the row only when that
+scripted GUI reports `is_shown`. With no such file the whole widget is hidden —
+header, rows and all — and nothing reaches any log. It is also the only route a
+click on a list takes into script: unlike bool, dropdown, numeric and slider
+settings, lists have no CMM auto-apply, so `cmf_on_callback` never fires for one.
+
+**CMM's dynamic list builder runs exactly once.** `cmm_begin_settings_list`, the
+run of `cmm_add_settings_list_item` and `cmm_finish_settings_list` are each gated
+on `cmm_list_initialized_<setting>`, which registration itself sets. A second
+pass adds nothing and reports nothing. Both lists are therefore registered once
+at their full height — twenty recipe rows, ten province rows — and the rows are
+written in place with `cmm_set_list_item_value` and `cmm_set_list_data_value`,
+with `cmm_hide_list_item` for the ones a shorter good leaves over.
+
+**A hidden row still takes its place.** CMM draws rows from
+`cmm_list_items_<setting>` and gates each on `CMMListItemIsVisible`, but the vbox
+holding them has no `ignoreinvisible`, so hiding the surplus leaves the panel at
+its old height with the bottom half blank. Both lists are therefore *resized*:
+the item list is cleared, `cmm_list_initialized_<setting>` removed, and the
+setting re-registered at the height it needs. That is the same door the first
+registration goes through — `_cmm_reconcile_list_setting_item_growth`, which
+handles a re-registration, only ever adds rows.
+
+**A list can never be registered empty** — `item_count` is clamped to at least
+one. What hides a list with nothing in it is `is_shown` on its `_on_changed`
+scripted GUI, since that is what `CMMSettingRowVisible` already gates the whole
+widget on.
+
+**A row ordinal has to be a literal.** `item = var:wtp_row_cursor` is pasted into
+the macro verbatim and comes back as
+
+```
+More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'
+```
+
+at load. The filter decides at runtime how many rows there are, so both the
+height and each ordinal come out of a `switch` on a counter — the way CMF turns
+one into a literal everywhere in its own source. `item_count = $n$` inside the
+resize macro is fine for the same reason: `$n$` arrives as a literal from that
+switch.
+
+**A recipe's tooltip key cannot be built from its own flag.** Script has no
+string concatenation, so `wtp_build_recipe_index` carries a variable map from
+recipe flag to tooltip flag and the row writer reads the second out of it.
+
+**Neither a province nor a recipe has a localization key a row label could be
+pointed at.** Each shortlist row parks both in globals and the label — a fixed
+key per ordinal — reads them back:
+
+```
+[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_1').GetFlagName]
+```
+
+`GetFlagName` localizes, which is what turns the stored recipe flag into the
+method's name.
+
+**Nothing generated is a word in any language.** Recipe labels and tooltips are
+built out of `$key$` references to the game's own method and goods names plus
+three captions defined per language by hand, so one generated file serves every
+localization the mod ships. A production method's key *is* its localization key:
+`silver_base` is "Ювелирные изделия из серебра".
+
+**Ticks live outside the rows.** The rows are thrown away whenever the list is
+resized, so what the player unticked is kept in `wtp_unticked_recipes` and read
+back by the row writer. Anything not in that list arrives ticked, which is what
+makes a newly chosen good an answer straight away.
 
 ## Notes for anyone extending this
 
-An action bar element registered through `cmf_add_action_bar_element` is drawn
-entirely from localization keyed on the element name:
+Nothing of our own is drawn. A custom window was built and thrown away: view
+objects only resolve inside their own panel, and the Mod Menu gives the
+framework's look for free.
+
+Should the action bar ever be wanted again, an element registered through
+`cmf_add_action_bar_element` is drawn entirely from localization keyed on the
+element name — the `wtp_open_*` keys are still in place for it:
 
 | Key | Holds |
 | --- | --- |
@@ -113,24 +230,36 @@ straight onto the map.
 .metadata/metadata.json                        mod descriptor
 in_game/common/scripted_triggers/              generated: is this raw material in the province
 in_game/common/script_values/                  generated: what a method scores here
-in_game/common/scripted_effects/               registration, the ranking pass
-in_game/common/scripted_guis/                  what the window calls into
+in_game/common/scripted_effects/               registration, the row writers, the ranking pass
+in_game/common/scripted_guis/                  the two list callbacks, without which
+                                               neither list is drawn at all
 in_game/common/on_action/                      CMF registration and callback hooks
-in_game/gui/wtp_window.gui                     the window, injected as a scripted widget
-main_menu/localization/                        English and Russian
+main_menu/localization/                        the captions, in English and Russian;
+                                               everything generated is $key$ references
 tools/eu5data.py                               reads the game files and holds the formula
 tools/generate.py                              writes the script layer
 ```
+
+The generator deletes what it no longer emits, so a file that disappears from
+the tree after a run was left over from an earlier design rather than lost.
 
 Regenerate after a patch that touches goods, production methods or building
 types:
 
 ```
-python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common"
+python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" \
+    "<CMF>/in_game/common/scripted_effects"
 ```
 
+The second argument is optional but worth passing: it checks every `cmm_` call
+in the mod against the argument names CMF declares. A macro called with a name
+CMF does not declare fails silently and takes the rest of its effect with it —
+one `step` instead of `step_value` cost a full round. The same pass warns if a
+good has grown more recipes than the list has rows.
+
 The bonus is linear in a method's inputs, so it lands in script as a sum of
-`if` clauses over the province's raw materials:
+`if` clauses over the province's raw materials, with the volume hanging off it
+and the two constants alongside:
 
 ```
 wtp_bonus_weapon_smith_maintenance = {
@@ -140,9 +269,20 @@ wtp_bonus_weapon_smith_maintenance = {
     divide = 1.0605
     multiply = 10
 }
+wtp_volume_weapon_smith_maintenance = {
+    value = wtp_bonus_weapon_smith_maintenance
+    divide = 100
+    add = 1
+    multiply = 1
+}
 wtp_ceiling_weapon_smith_maintenance = 5.2381
-wtp_output_weapon_smith_maintenance = 1
+wtp_peak_weapon_smith_maintenance = 1.0524
 ```
+
+The shortlist reaches those in two hops — the good first, then the recipe within
+it — rather than through one chain over all 215 methods, because it evaluates
+them once per province per ticked recipe and forty-odd comparisons beat two
+hundred.
 
 At 1.3.10: 40 raw materials referenced, 215 methods scored, 47 goods reachable.
 The generated script is replayed against the model over every combination of a

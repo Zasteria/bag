@@ -259,6 +259,47 @@ and `CMMSettingIsRegistered(...)` guards against the mod being absent.
 Registering any CMM setting marks the mod active automatically;
 `cmf_register_mod = { mod_id = ... }` does it explicitly.
 
+### CMM list settings
+
+A list setting is not like the others, in three ways that each fail silently.
+
+**It is invisible without `<mod_id>__<setting_id>_on_changed`.** Registering a
+list marks the setting as having a scripted GUI, and `CMMSettingRowVisible` then
+gates the row on `CMMGuiIsShown(Concatenate(SettingKey, '_on_changed'))`. Absent
+that scripted GUI the whole widget is hidden, header included. The *group*
+header still renders, because `_cmm_register_setting_metadata` files a list under
+`group_id = <setting_id>`, so a missing callback looks like an empty list rather
+than a missing one.
+
+**Lists have no auto-apply.** `cmm_core_auto_apply_scripted_gui.txt` covers
+bool, dropdown, numeric, slider and button settings, and each of those fires
+`cmf_on_callback`. A list does not: the widget marks the pending change and calls
+that same `_on_changed` scripted GUI, which has to call `cmm_apply_list_change`
+to commit it. Nothing about a list reaches `cmf_on_callback`.
+
+**The dynamic builder runs once.** `cmm_begin_settings_list`, every
+`cmm_add_settings_list_item` and `cmm_finish_settings_list` are gated on
+`cmm_list_initialized_<setting>`, which `cmm_register_*_settings_list` sets. So
+a list can be built dynamically *or* registered statically, never registered and
+then refilled. For a list whose contents change, register it once at its full
+height and write rows in place:
+
+| Effect | Does |
+| --- | --- |
+| `cmm_set_list_item_value` | the scope or flag the row stands for |
+| `cmm_set_list_data_value` | any field's value, bool fields included — they share one `cmm` variable map |
+| `cmm_hide_list_item` / `cmm_show_list_item` | rows the current contents do not need |
+| `set_variable = { name = <mod>__<setting>_i<n>_name value = flag:<key> }` | the row label, localized from the flag |
+| `cmm_for_each_list_item` | calls an effect per row with the ordinal already resolved as `$i$` |
+| `cmm_build_list_bool_list` | the values of the rows whose bool field is set |
+
+Item ordinals must be literals — `item = var:x` is pasted into the macro verbatim
+and dies at load with "More than one colon in event target link". CMF turns
+counters into literals with a `switch`, and so should anything built on it.
+
+Construction Manager is the working reference: `cm_cmm_effects.txt` registers
+statically and `cm_cmm_scripted_gui.txt` holds one `_on_changed` per list.
+
 ### Other CMF facilities
 
 - `cmf_add_action_bar_element` / `cmf_remove_action_bar_element` put a button on
