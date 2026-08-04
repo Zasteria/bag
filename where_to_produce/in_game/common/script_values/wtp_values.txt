@@ -1,46 +1,23 @@
-﻿# How many provinces the shortlist keeps. `max` on an ordered iterator takes a
-# script value, so the Mod Menu setting reaches it through here rather than
-# through a cast in the window.
+﻿# How many buildings the answer keeps. `max` on an ordered iterator and the row
+# cap both take a script value, so the Mod Menu setting reaches them through here.
 # Scope: any
 wtp_row_limit = {
-	value = 3
+	value = 8
 	if = {
 		limit = { has_global_variable = wtp_rows }
 		value = global_var:wtp_rows
 	}
 	min = 1
-	max = 10
+	max = 12
 }
 
-# What a province is ranked on: the raw material bonus itself, or the volume the
-# recipe turns out at that bonus. One name so the scoring pass has one thing to
+# What a candidate is ranked on. One name so the selection pass has one thing to
 # compare, and so the two measures cannot drift apart.
-# Scope: province, with scope:wtp_scored_recipe set
-wtp_scored_rank = {
-	value = wtp_scored_bonus
+# Scope: country, with scope:wtp_cand naming the candidate
+wtp_candidate_rank = {
+	value = "variable_map(wtp_bonus_of|scope:wtp_cand)"
 	if = {
-		limit = {
-			has_global_variable = wtp_sort
-			global_var:wtp_sort = 2
-		}
-		value = wtp_scored_volume
-	}
-}
-
-# The figures the winning recipe left on the province, for the row that reports
-# it. Scope: province
-wtp_stored_bonus = {
-	value = 0
-	if = {
-		limit = { has_variable = wtp_best_bonus }
-		value = var:wtp_best_bonus
-	}
-}
-
-wtp_stored_volume = {
-	value = 0
-	if = {
-		limit = { has_variable = wtp_best_volume }
-		value = var:wtp_best_volume
+		limit = { wtp_ranking_by_volume = yes }
+		value = "variable_map(wtp_volume_of|scope:wtp_cand)"
 	}
 }

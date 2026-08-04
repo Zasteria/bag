@@ -1,52 +1,82 @@
 ﻿# A CMM list setting is invisible until the mod supplies this.
 #
-# Registering a list marks it as having a scripted GUI (`_cmm_mark_setting_has_sgui`
-# inside `_cmm_register_list_setting_internal`), and the row is then drawn only
-# when `CMMGuiIsShown('<mod>__<setting>_on_changed')` is true. With no such
-# scripted GUI the whole widget is hidden — header, rows and all — which is
-# exactly what an empty list looks like from the outside, and nothing is written
-# to any log.
+# Registering a list marks it as having a scripted GUI, and the row is then drawn
+# only when `CMMGuiIsShown('<mod>__<setting>_on_changed')` is true. With no such
+# scripted GUI the whole widget is hidden — header, rows and all — and nothing is
+# written to any log.
 #
 # That gate is also the only way to show *no* list: `item_count` is clamped to at
 # least one, so a list can never be registered empty. `is_shown` below is what
-# takes the whole widget off the screen when there is nothing to put in it.
+# takes a whole widget off the screen when there is nothing to put in it, which
+# is how the areas, provinces and answer lists stay out of the way until the
+# level above them has been picked.
 #
 # It is also the only route a click on a list reaches script by: unlike bool,
 # dropdown, numeric and slider settings, lists have no CMM auto-apply. The widget
 # marks the pending change and calls this, and `cmm_apply_list_change` commits it.
 
-# Ticking a recipe in or out of the shortlist. Scope: country
-wtp__recipes_on_changed = {
+# Scope: country
+wtp__regions_on_changed = {
 	scope = country
 
 	is_shown = {
-		has_variable = wtp_recipe_count
-		var:wtp_recipe_count > 0
+		has_variable = wtp_regions_count
+		var:wtp_regions_count > 0
 	}
 
 	effect = {
-		cmm_apply_list_change = {
-			setting = wtp__recipes
-		}
-		wtp_read_active_recipes = yes
-		wtp_remember_ticks = yes
-		wtp_rebuild_shortlist = yes
+		cmm_apply_list_change = { setting = wtp__regions }
+		wtp_read_pick = { s = regions g = wtp_sel_region }
+		wtp_sync_regions_ticks = yes
+		wtp_after_region_pick = yes
 	}
 }
 
-# The shortlist has nothing to click, but it is a list setting all the same and
-# stays hidden without its callback. Scope: country
+# Scope: country
+wtp__areas_on_changed = {
+	scope = country
+
+	is_shown = {
+		has_variable = wtp_areas_count
+		var:wtp_areas_count > 0
+	}
+
+	effect = {
+		cmm_apply_list_change = { setting = wtp__areas }
+		wtp_read_pick = { s = areas g = wtp_sel_area }
+		wtp_sync_areas_ticks = yes
+		wtp_after_area_pick = yes
+	}
+}
+
+# Scope: country
 wtp__provinces_on_changed = {
 	scope = country
 
 	is_shown = {
-		has_variable = wtp_shortlist_count
-		var:wtp_shortlist_count > 0
+		has_variable = wtp_provinces_count
+		var:wtp_provinces_count > 0
 	}
 
 	effect = {
-		cmm_apply_list_change = {
-			setting = wtp__provinces
-		}
+		cmm_apply_list_change = { setting = wtp__provinces }
+		wtp_read_pick = { s = provinces g = wtp_sel_province }
+		wtp_sync_provinces_ticks = yes
+		wtp_fill_top = yes
+	}
+}
+
+# The answer has nothing to click, but it is a list setting all the same and
+# stays hidden without its callback. Scope: country
+wtp__top_on_changed = {
+	scope = country
+
+	is_shown = {
+		has_variable = wtp_top_count
+		var:wtp_top_count > 0
+	}
+
+	effect = {
+		cmm_apply_list_change = { setting = wtp__top }
 	}
 }
