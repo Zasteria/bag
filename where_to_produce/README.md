@@ -91,15 +91,39 @@ nothing to keep in step between them.
 
 - **Good** — four pickers, one per category, the way the game already groups
   goods. Any one of them off "none" names the good.
-- **Recipes** — every way to make it, best output first, each row reading
-  `<method> — <inputs> → <output>` under the game's own name for the method,
-  with the full recipe and the raw materials a province could supply in the
-  tooltip. Two columns: the ceiling, and the volume at that ceiling. All rows
-  count towards the shortlist until they are unticked.
+- **Recipes** — every way to make it, best output first, under the game's own
+  name for the method. Hover a row for what it consumes, what it turns out and
+  which of its inputs a province could supply. Two columns: the ceiling, and the
+  volume at that ceiling. All rows count towards the shortlist until they are
+  unticked, and an unticked recipe stays unticked across a reload.
 - **Best provinces** — where the ticked recipes gain most. Each row names the
   one that does best there, with the bonus it gets and what it turns out.
-- **Display** — rank by local percentage or by volume, and how many provinces to
-  list, up to ten.
+- **Display** — whether to hide recipes this country has no use for, rank by
+  local percentage or by volume, and how many provinces to list, up to ten.
+
+The row label is the method's name and nothing else. The row is one line of text
+the engine shrinks to fit, so writing the recipe into it left every row at a
+different font size — which is why the recipe is in the tooltip, where it has
+room. Icons are not an option: CMM draws a row as text, and goods have no text
+icon (the game draws them as `icon` widgets from `GetGoodsIcon`).
+
+## What gets hidden
+
+**Only what I can build**, on by default, drops three kinds of row:
+
+- the building carries a `country_potential` this country fails — a Japanese
+  clan reform, an English tag, a flat `always = no`. The generator copies each
+  one verbatim into a scripted trigger, so the rule is the game's own;
+- the building is `is_special` or `is_foreign`, so it is not something the
+  player builds in the ordinary way;
+- nowhere in the realm works any raw material the recipe could take a bonus
+  from, which is the only thing this mod has to say about it.
+
+What it cannot drop is a method locked behind an advance. `ProductionMethod.IsAvailable`
+exists as a GUI data function, but nothing in `building_types` or
+`production_methods` says which advance unlocks which method, so a pre-Columbian
+variant of a guild still shows for a European — sitting near the bottom, where
+its output puts it.
 
 ## How the two lists work
 
@@ -121,6 +145,20 @@ at their full height — twenty recipe rows, ten province rows — and the rows 
 written in place with `cmm_set_list_item_value` and `cmm_set_list_data_value`,
 with `cmm_hide_list_item` for the ones a shorter good leaves over.
 
+**A hidden row still takes its place.** CMM draws rows from
+`cmm_list_items_<setting>` and gates each on `CMMListItemIsVisible`, but the vbox
+holding them has no `ignoreinvisible`, so hiding the surplus leaves the panel at
+its old height with the bottom half blank. Both lists are therefore *resized*:
+the item list is cleared, `cmm_list_initialized_<setting>` removed, and the
+setting re-registered at the height it needs. That is the same door the first
+registration goes through — `_cmm_reconcile_list_setting_item_growth`, which
+handles a re-registration, only ever adds rows.
+
+**A list can never be registered empty** — `item_count` is clamped to at least
+one. What hides a list with nothing in it is `is_shown` on its `_on_changed`
+scripted GUI, since that is what `CMMSettingRowVisible` already gates the whole
+widget on.
+
 **A row ordinal has to be a literal.** `item = var:wtp_row_cursor` is pasted into
 the macro verbatim and comes back as
 
@@ -128,13 +166,15 @@ the macro verbatim and comes back as
 More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'
 ```
 
-at load. The generator already knows which row each recipe lands on, so it
-passes both the ordinal and the recipe as literals; that is what lets one call
-set a row's label, its tooltip, its value and all three of its columns. The
-shortlist only learns its order at runtime, so there a counter goes through a
-`switch`, the way CMF turns one into a literal everywhere in its own source.
-Where the ordinal is only needed per existing row, `cmm_for_each_list_item`
-hands it over as `$i$` already resolved.
+at load. The filter decides at runtime how many rows there are, so both the
+height and each ordinal come out of a `switch` on a counter — the way CMF turns
+one into a literal everywhere in its own source. `item_count = $n$` inside the
+resize macro is fine for the same reason: `$n$` arrives as a literal from that
+switch.
+
+**A recipe's tooltip key cannot be built from its own flag.** Script has no
+string concatenation, so `wtp_build_recipe_index` carries a variable map from
+recipe flag to tooltip flag and the row writer reads the second out of it.
 
 **Neither a province nor a recipe has a localization key a row label could be
 pointed at.** Each shortlist row parks both in globals and the label — a fixed
@@ -150,7 +190,13 @@ method's name.
 **Nothing generated is a word in any language.** Recipe labels and tooltips are
 built out of `$key$` references to the game's own method and goods names plus
 three captions defined per language by hand, so one generated file serves every
-localization the mod ships.
+localization the mod ships. A production method's key *is* its localization key:
+`silver_base` is "Ювелирные изделия из серебра".
+
+**Ticks live outside the rows.** The rows are thrown away whenever the list is
+resized, so what the player unticked is kept in `wtp_unticked_recipes` and read
+back by the row writer. Anything not in that list arrives ticked, which is what
+makes a newly chosen good an answer straight away.
 
 ## Notes for anyone extending this
 

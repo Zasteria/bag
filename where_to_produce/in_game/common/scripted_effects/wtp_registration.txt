@@ -3,15 +3,17 @@
 # provinces for the ones that are ticked. Nothing of our own is drawn, so it
 # looks like the rest of the menu and no vanilla file is touched.
 #
-# Both lists are registered at their full height and never rebuilt; the rows are
-# written in place and the unused ones hidden. See wtp_effects.txt for why.
+# The two lists are registered here only so their fields and metadata exist
+# before anything reads them. Their real height is set every time they are
+# filled — see wtp_effects.txt for why they are rebuilt rather than hidden.
 #
 # Scope: country
 wtp_register = {
 	cmf_register_mod = { mod_id = wtp }
 
 	# One picker per category, the way the game already groups goods. Option
-	# counts follow the generated menu.
+	# counts follow the generated menu. Only one of the four is ever off
+	# "nothing chosen": whichever the player moves puts the others back.
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
 		setting_id = pick_rgo
@@ -45,62 +47,17 @@ wtp_register = {
 		option_count = 5
 	}
 
-	# Every recipe that makes the chosen good, with its inputs and output on the
-	# row. All of them count towards the shortlist until they are unticked, so
-	# the two columns say what each one is worth before anything is narrowed
-	# down: the most it could ever take from local raw materials, and what it
-	# would turn out at that. Twenty rows is the widest any good needs —
-	# liquor — and the generator says so if a patch changes that.
-	cmm_register_global_settings_list = {
+	# Neither list is registered here. Both are registered by the effect that
+	# fills them, at exactly the height they need, and both of those run at the
+	# end of this. Registering them at a guessed height first would leave the
+	# item count and the item list disagreeing on a reload.
+	cmm_register_global_bool_setting = {
 		mod_id = wtp
-		setting_id = recipes
+		setting_id = filter
 		tab_id = plan
-		item_count = 20
-		is_ordered = 0
-	}
-	cmm_register_list_bool_field = {
-		mod_id = wtp
-		setting_id = recipes
-		field_id = pick
+		group_id = display
 		default_value = 1
 	}
-	cmm_register_list_data_field = {
-		mod_id = wtp
-		setting_id = recipes
-		field_id = ceiling
-		default_value = 0
-	}
-	cmm_set_list_field_format = { mod_id = wtp setting_id = recipes field_id = ceiling }
-	cmm_register_list_data_field = {
-		mod_id = wtp
-		setting_id = recipes
-		field_id = peak
-		default_value = 0
-	}
-
-	# The answer: provinces, best first, each naming the ticked recipe that does
-	# best there, the bonus it gets and what it turns out.
-	cmm_register_global_settings_list = {
-		mod_id = wtp
-		setting_id = provinces
-		tab_id = plan
-		item_count = 10
-		is_ordered = 0
-	}
-	cmm_register_list_data_field = {
-		mod_id = wtp
-		setting_id = provinces
-		field_id = bonus
-		default_value = 0
-	}
-	cmm_set_list_field_format = { mod_id = wtp setting_id = provinces field_id = bonus }
-	cmm_register_list_data_field = {
-		mod_id = wtp
-		setting_id = provinces
-		field_id = volume
-		default_value = 0
-	}
-
 	cmm_register_global_dropdown_setting = {
 		mod_id = wtp
 		setting_id = sort
@@ -120,21 +77,24 @@ wtp_register = {
 		step_value = 1
 	}
 
+	wtp_build_recipe_index = yes
 	wtp_sync_settings = yes
 	set_global_variable = { name = wtp_shown_rows value = global_var:wtp_rows }
 	set_global_variable = { name = wtp_shown_sort value = global_var:wtp_sort }
-	wtp_apply_pickers = yes
+	set_global_variable = { name = wtp_shown_filter value = global_var:wtp_filter }
 
-	# A save comes back with its rows and its ticks already in the variables that
-	# hold them, so the recipe list is only rewritten when the good it was built
-	# for is not the good now chosen — otherwise a reload would tick everything
-	# the player had unticked. On a new game neither is set, and the rewrite is
-	# what hides the twenty blank rows registration leaves behind.
-	if = {
-		limit = { NOT = { wtp_recipes_match_good = yes } }
-		wtp_fill_recipes = yes
-		wtp_remember_good = yes
-	}
+	# Nothing has moved yet: remember the pickers before anything compares
+	# against them, or a reload would look like all four had changed at once.
+	wtp_remember_pickers = yes
+
+	# An older save may have rows this build hid rather than removed.
+	wtp_unhide_rows = yes
+
+	# The rows themselves are rebuilt from scratch on every load. What the player
+	# chose survives in wtp_unticked_recipes, which the row writer reads, so a
+	# reload comes back with the same ticks rather than all of them.
+	wtp_fill_recipes = yes
+	wtp_remember_good = yes
 	wtp_rebuild_shortlist = yes
 }
 
@@ -147,13 +107,14 @@ wtp_sync_settings = {
 	cmm_sync_setting_alias = { setting = wtp__pick_basic alias = wtp_pick_basic }
 	cmm_sync_setting_alias = { setting = wtp__pick_consumer alias = wtp_pick_consumer }
 	cmm_sync_setting_alias = { setting = wtp__pick_weapons alias = wtp_pick_weapons }
+	cmm_sync_setting_alias = { setting = wtp__filter alias = wtp_filter }
 	cmm_sync_setting_alias = { setting = wtp__sort alias = wtp_sort }
 	cmm_sync_setting_alias = { setting = wtp__shortlist_size alias = wtp_rows }
 }
 
-# The pickers, the row count and the sort order arrive here; ticking a recipe
-# does not, because CMM has no auto-apply for list settings and routes those
-# through the `wtp__recipes_on_changed` scripted GUI instead.
+# The pickers, the filter, the row count and the sort order arrive here; ticking
+# a recipe does not, because CMM has no auto-apply for list settings and routes
+# those through the `wtp__recipes_on_changed` scripted GUI instead.
 #
 # Every mod's callback leaf runs on every callback, ours included, so what is
 # worth rebuilding is compared against what is currently on screen rather than
@@ -164,7 +125,14 @@ wtp_handle_callback = {
 	wtp_apply_pickers = yes
 
 	if = {
-		limit = { NOT = { wtp_recipes_match_good = yes } }
+		limit = {
+			OR = {
+				NOT = { wtp_recipes_match_good = yes }
+				NOT = { has_global_variable = wtp_shown_filter }
+				NOT = { global_var:wtp_shown_filter = global_var:wtp_filter }
+			}
+		}
+		set_global_variable = { name = wtp_shown_filter value = global_var:wtp_filter }
 		wtp_fill_recipes = yes
 		wtp_remember_good = yes
 		wtp_rebuild_shortlist = yes
@@ -172,9 +140,7 @@ wtp_handle_callback = {
 	else_if = {
 		limit = {
 			OR = {
-				NOT = { has_global_variable = wtp_shown_rows }
 				NOT = { global_var:wtp_shown_rows = global_var:wtp_rows }
-				NOT = { has_global_variable = wtp_shown_sort }
 				NOT = { global_var:wtp_shown_sort = global_var:wtp_sort }
 			}
 		}
@@ -194,12 +160,4 @@ wtp_remember_good = {
 		limit = { has_global_variable = wtp_shown_good }
 		remove_global_variable = wtp_shown_good
 	}
-}
-
-# Whichever picker is off "nothing chosen" names the good. Scope: country
-wtp_apply_pickers = {
-	if = { limit = { global_var:wtp_pick_rgo > 1 } wtp_apply_pick_rgo = yes }
-	if = { limit = { global_var:wtp_pick_basic > 1 } wtp_apply_pick_basic = yes }
-	if = { limit = { global_var:wtp_pick_consumer > 1 } wtp_apply_pick_consumer = yes }
-	if = { limit = { global_var:wtp_pick_weapons > 1 } wtp_apply_pick_weapons = yes }
 }

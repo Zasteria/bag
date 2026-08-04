@@ -9,11 +9,14 @@ most of that was learnt the hard way and will save a repeat.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
-**`where_to_produce/` — lists confirmed working; the table around them is new
-and untested.** Screenshots at 1.3.10 showed both lists populating, the tick
-driving the shortlist, and `Рудные горы / 10%` for silver jewellery — right to
-the digit. What followed that is not yet in game: real method names, the recipe
-on the row, multi-select, the volume columns and the sort order.
+**`where_to_produce/` — working end to end; the last round of tidying is
+untested.** Screenshots at 1.3.10 showed both lists populating, multi-select
+driving the shortlist, the volume columns and the sort order all correct —
+`Рудные горы / Оружейные заводы / 1.88% / 4.075` reads exactly right. What the
+same screenshots showed was that it was unreadable: every row a different font
+size, lists that would not shrink or clear, and a wall of recipes the country
+can never build. That is what the last round addressed, and none of it has been
+in game yet.
 
 ## What was wrong with the lists
 
@@ -50,6 +53,28 @@ Worth keeping because none of the three announced itself.
    where the ordinal is only needed per existing row,
    `cmm_for_each_list_item` hands it over as `$i$` already resolved.
 
+## What made it unreadable, and what fixed it
+
+- **A row is one line of text the engine shrinks to fit.** Writing the recipe
+  into the label left every row at its own font size — that, not the wording, is
+  what made the table look broken. The label is now the method's name and nothing
+  else; the recipe moved to the tooltip.
+- **A hidden row still takes its place.** `cmm_hide_list_item` sets a flag the
+  row widget reads, but the vbox around it has no `ignoreinvisible`, so the panel
+  kept its old height with the bottom half blank. Both lists are now *resized*:
+  clear `cmm_list_items_<setting>`, remove `cmm_list_initialized_<setting>`,
+  re-register at the height needed. `_cmm_reconcile_list_setting_item_growth`
+  only ever adds rows, which is why removing the initialized flag is the only way
+  down.
+- **A list cannot be registered empty** — `item_count` clamps to one. What hides
+  a list with nothing in it is `is_shown` on its `_on_changed` scripted GUI,
+  which `CMMSettingRowVisible` already gates the whole widget on.
+- **Nothing cleared the good.** `wtp_apply_pickers` only ever *set* it, so
+  putting all four pickers back to "nothing chosen" left the last one standing.
+  The pickers now behave as one choice: whichever moved wins and the other three
+  are written back to 1 in CMM's `cmm` map, the same shape
+  `cmm_auto_apply_dropdown` writes.
+
 ## Settled by the screenshots
 
 - `[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName]` renders a province
@@ -64,22 +89,22 @@ Worth keeping because none of the three announced itself.
 
 ## Untested, in order of doubt
 
-1. `[GetGlobalVariable('wtp_meth_row_1').GetFlagName]` in a province row label.
-   CMF localizes list rows through `GetFlagName` on a *country* variable, and
-   this is the global equivalent — but a global one has not been seen doing it.
-   If the shortlist rows come up as bare province names, that is where to look.
-2. The per-province scoring loop: `save_scope_as` on the province, then
-   `every_in_global_list` over the ticked recipes with `scope:… = { }` stepping
-   back into it. Every piece is a normal construct, but the shape is new here.
-   Watch `wtp_best_score` actually varying between provinces — if every row
-   scores the same, the scope step is not landing.
-3. Cost. The pass is provinces × ticked recipes, and the recipes arrive all
-   ticked. Twenty recipes over a few hundred provinces on every tick, every
-   good change and every sort change; if the menu stutters, the first move is to
-   score only on the shortlist rebuild rather than on every callback.
-4. Whether a `data` field renders two decimals for the volume columns. If it
-   rounds to whole numbers the volumes are useless — most sit between 0.1 and
-   4 — and they would have to be scaled by 100 and read as percent of one unit.
+1. Re-registering a list at a new height. Clearing `cmm_list_items_<setting>` and
+   removing `cmm_list_initialized_<setting>` sends registration back through its
+   first-time branch, which is how it is meant to work — but CMF has no caller
+   that does this, so nothing has exercised it. If the panel comes back with the
+   wrong number of rows, or rows that render as raw keys, that is where to look.
+2. `is_shown` on the two `_on_changed` scripted GUIs actually hiding an empty
+   list. The group header is drawn from the tab structure and will still show,
+   so the tidy empty state is a titled box with nothing in it.
+3. Writing `cmm` map entries for the three pickers the player did not touch.
+   Registration only seeds a dropdown when the key is absent, so it should
+   survive a reload, but the menu has never been seen resetting its own dropdown.
+4. Cost. The scoring pass is provinces × ticked recipes and the recipes arrive
+   all ticked, plus a new pass over every owned location to work out which raw
+   materials the realm has. If the menu stutters, the realm scan is the cheap
+   thing to cache and the scoring is the expensive thing to move off the
+   callback path.
 
 `error.log` names the file and line for GUI failures. A script effect that
 merely does nothing logs nothing at all, which is what made all three of the
@@ -137,13 +162,26 @@ python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" "<CMF>/in
   away: view objects only resolve inside their own panel, and CMM gives the
   framework's look for free.
 
+## The one thing the game files here cannot answer
+
+Production methods locked behind an advance. `ProductionMethod.IsAvailable`
+exists as a GUI data function, so the game plainly knows, but nothing in
+`building_types/` or `production_methods/` says which advance unlocks which
+method — so a pre-Columbian or obsidian variant of a guild still shows for a
+European player. It sits near the bottom, where its output puts it, but it is
+noise.
+
+Fixing it needs whatever holds the `has_advance` unlocks — `common/advances/`
+and the technology folder beside it. With those, the same trick that copies
+`country_potential` verbatim would copy the unlock condition too.
+
 ## Loose ends, none blocking
 
-- The recipe list is twenty rows because liquor has twenty recipes. The
-  generator warns if a patch pushes a good past that, and also if the row
-  writers or the `item_count` fall out of step; raising it means changing
-  `RECIPE_ROWS`, the `item_count` in `wtp_registration.txt` and the run of
-  `wtp_recipe_row_<n>` in `wtp_effects.txt`.
+- The row writers stop at twenty because liquor has twenty recipes. The
+  generator warns if a patch pushes a good past that, and checks that every
+  branch of both switches in `wtp_effects.txt` is present; raising it means
+  changing `RECIPE_ROWS` and extending `wtp_resize_recipe_list` and
+  `wtp_place_recipe_row`.
 - `wtp_open_*` in localization is left over from the action bar button the Mod
   Menu replaced. Kept because the keys are what a shortcut back to the tab would
   need, and because the `_color` rule below is easy to lose.

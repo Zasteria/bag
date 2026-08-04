@@ -155,318 +155,707 @@ wtp_apply_pick_weapons = {
 	}
 }
 
-# One row per recipe that makes the chosen good, best output first.
-# Scope: country
-wtp_fill_recipes = {
-	wtp_reset_recipe_rows = yes
+# Scope: any
+wtp_forget_realm_materials = {
+	if = { limit = { has_global_variable = wtp_realm_has_alum } remove_global_variable = wtp_realm_has_alum }
+	if = { limit = { has_global_variable = wtp_realm_has_amber } remove_global_variable = wtp_realm_has_amber }
+	if = { limit = { has_global_variable = wtp_realm_has_beeswax } remove_global_variable = wtp_realm_has_beeswax }
+	if = { limit = { has_global_variable = wtp_realm_has_clay } remove_global_variable = wtp_realm_has_clay }
+	if = { limit = { has_global_variable = wtp_realm_has_coal } remove_global_variable = wtp_realm_has_coal }
+	if = { limit = { has_global_variable = wtp_realm_has_copper } remove_global_variable = wtp_realm_has_copper }
+	if = { limit = { has_global_variable = wtp_realm_has_cotton } remove_global_variable = wtp_realm_has_cotton }
+	if = { limit = { has_global_variable = wtp_realm_has_dyes } remove_global_variable = wtp_realm_has_dyes }
+	if = { limit = { has_global_variable = wtp_realm_has_elephants } remove_global_variable = wtp_realm_has_elephants }
+	if = { limit = { has_global_variable = wtp_realm_has_fiber_crops } remove_global_variable = wtp_realm_has_fiber_crops }
+	if = { limit = { has_global_variable = wtp_realm_has_fruit } remove_global_variable = wtp_realm_has_fruit }
+	if = { limit = { has_global_variable = wtp_realm_has_fur } remove_global_variable = wtp_realm_has_fur }
+	if = { limit = { has_global_variable = wtp_realm_has_gems } remove_global_variable = wtp_realm_has_gems }
+	if = { limit = { has_global_variable = wtp_realm_has_goods_gold } remove_global_variable = wtp_realm_has_goods_gold }
+	if = { limit = { has_global_variable = wtp_realm_has_horses } remove_global_variable = wtp_realm_has_horses }
+	if = { limit = { has_global_variable = wtp_realm_has_iron } remove_global_variable = wtp_realm_has_iron }
+	if = { limit = { has_global_variable = wtp_realm_has_ivory } remove_global_variable = wtp_realm_has_ivory }
+	if = { limit = { has_global_variable = wtp_realm_has_lead } remove_global_variable = wtp_realm_has_lead }
+	if = { limit = { has_global_variable = wtp_realm_has_livestock } remove_global_variable = wtp_realm_has_livestock }
+	if = { limit = { has_global_variable = wtp_realm_has_lumber } remove_global_variable = wtp_realm_has_lumber }
+	if = { limit = { has_global_variable = wtp_realm_has_maize } remove_global_variable = wtp_realm_has_maize }
+	if = { limit = { has_global_variable = wtp_realm_has_marble } remove_global_variable = wtp_realm_has_marble }
+	if = { limit = { has_global_variable = wtp_realm_has_mercury } remove_global_variable = wtp_realm_has_mercury }
+	if = { limit = { has_global_variable = wtp_realm_has_millet } remove_global_variable = wtp_realm_has_millet }
+	if = { limit = { has_global_variable = wtp_realm_has_pearls } remove_global_variable = wtp_realm_has_pearls }
+	if = { limit = { has_global_variable = wtp_realm_has_pepper } remove_global_variable = wtp_realm_has_pepper }
+	if = { limit = { has_global_variable = wtp_realm_has_potato } remove_global_variable = wtp_realm_has_potato }
+	if = { limit = { has_global_variable = wtp_realm_has_rice } remove_global_variable = wtp_realm_has_rice }
+	if = { limit = { has_global_variable = wtp_realm_has_salt } remove_global_variable = wtp_realm_has_salt }
+	if = { limit = { has_global_variable = wtp_realm_has_saltpeter } remove_global_variable = wtp_realm_has_saltpeter }
+	if = { limit = { has_global_variable = wtp_realm_has_sand } remove_global_variable = wtp_realm_has_sand }
+	if = { limit = { has_global_variable = wtp_realm_has_silk } remove_global_variable = wtp_realm_has_silk }
+	if = { limit = { has_global_variable = wtp_realm_has_silver } remove_global_variable = wtp_realm_has_silver }
+	if = { limit = { has_global_variable = wtp_realm_has_stone } remove_global_variable = wtp_realm_has_stone }
+	if = { limit = { has_global_variable = wtp_realm_has_sugar } remove_global_variable = wtp_realm_has_sugar }
+	if = { limit = { has_global_variable = wtp_realm_has_tin } remove_global_variable = wtp_realm_has_tin }
+	if = { limit = { has_global_variable = wtp_realm_has_wheat } remove_global_variable = wtp_realm_has_wheat }
+	if = { limit = { has_global_variable = wtp_realm_has_wild_game } remove_global_variable = wtp_realm_has_wild_game }
+	if = { limit = { has_global_variable = wtp_realm_has_wine } remove_global_variable = wtp_realm_has_wine }
+	if = { limit = { has_global_variable = wtp_realm_has_wool } remove_global_variable = wtp_realm_has_wool }
+}
+
+# Scope: location
+wtp_note_realm_material = {
+	if = { limit = { raw_material = goods:alum }
+		set_global_variable = { name = wtp_realm_has_alum value = yes }
+	}
+	else_if = { limit = { raw_material = goods:amber }
+		set_global_variable = { name = wtp_realm_has_amber value = yes }
+	}
+	else_if = { limit = { raw_material = goods:beeswax }
+		set_global_variable = { name = wtp_realm_has_beeswax value = yes }
+	}
+	else_if = { limit = { raw_material = goods:clay }
+		set_global_variable = { name = wtp_realm_has_clay value = yes }
+	}
+	else_if = { limit = { raw_material = goods:coal }
+		set_global_variable = { name = wtp_realm_has_coal value = yes }
+	}
+	else_if = { limit = { raw_material = goods:copper }
+		set_global_variable = { name = wtp_realm_has_copper value = yes }
+	}
+	else_if = { limit = { raw_material = goods:cotton }
+		set_global_variable = { name = wtp_realm_has_cotton value = yes }
+	}
+	else_if = { limit = { raw_material = goods:dyes }
+		set_global_variable = { name = wtp_realm_has_dyes value = yes }
+	}
+	else_if = { limit = { raw_material = goods:elephants }
+		set_global_variable = { name = wtp_realm_has_elephants value = yes }
+	}
+	else_if = { limit = { raw_material = goods:fiber_crops }
+		set_global_variable = { name = wtp_realm_has_fiber_crops value = yes }
+	}
+	else_if = { limit = { raw_material = goods:fruit }
+		set_global_variable = { name = wtp_realm_has_fruit value = yes }
+	}
+	else_if = { limit = { raw_material = goods:fur }
+		set_global_variable = { name = wtp_realm_has_fur value = yes }
+	}
+	else_if = { limit = { raw_material = goods:gems }
+		set_global_variable = { name = wtp_realm_has_gems value = yes }
+	}
+	else_if = { limit = { raw_material = goods:goods_gold }
+		set_global_variable = { name = wtp_realm_has_goods_gold value = yes }
+	}
+	else_if = { limit = { raw_material = goods:horses }
+		set_global_variable = { name = wtp_realm_has_horses value = yes }
+	}
+	else_if = { limit = { raw_material = goods:iron }
+		set_global_variable = { name = wtp_realm_has_iron value = yes }
+	}
+	else_if = { limit = { raw_material = goods:ivory }
+		set_global_variable = { name = wtp_realm_has_ivory value = yes }
+	}
+	else_if = { limit = { raw_material = goods:lead }
+		set_global_variable = { name = wtp_realm_has_lead value = yes }
+	}
+	else_if = { limit = { raw_material = goods:livestock }
+		set_global_variable = { name = wtp_realm_has_livestock value = yes }
+	}
+	else_if = { limit = { raw_material = goods:lumber }
+		set_global_variable = { name = wtp_realm_has_lumber value = yes }
+	}
+	else_if = { limit = { raw_material = goods:maize }
+		set_global_variable = { name = wtp_realm_has_maize value = yes }
+	}
+	else_if = { limit = { raw_material = goods:marble }
+		set_global_variable = { name = wtp_realm_has_marble value = yes }
+	}
+	else_if = { limit = { raw_material = goods:mercury }
+		set_global_variable = { name = wtp_realm_has_mercury value = yes }
+	}
+	else_if = { limit = { raw_material = goods:millet }
+		set_global_variable = { name = wtp_realm_has_millet value = yes }
+	}
+	else_if = { limit = { raw_material = goods:pearls }
+		set_global_variable = { name = wtp_realm_has_pearls value = yes }
+	}
+	else_if = { limit = { raw_material = goods:pepper }
+		set_global_variable = { name = wtp_realm_has_pepper value = yes }
+	}
+	else_if = { limit = { raw_material = goods:potato }
+		set_global_variable = { name = wtp_realm_has_potato value = yes }
+	}
+	else_if = { limit = { raw_material = goods:rice }
+		set_global_variable = { name = wtp_realm_has_rice value = yes }
+	}
+	else_if = { limit = { raw_material = goods:salt }
+		set_global_variable = { name = wtp_realm_has_salt value = yes }
+	}
+	else_if = { limit = { raw_material = goods:saltpeter }
+		set_global_variable = { name = wtp_realm_has_saltpeter value = yes }
+	}
+	else_if = { limit = { raw_material = goods:sand }
+		set_global_variable = { name = wtp_realm_has_sand value = yes }
+	}
+	else_if = { limit = { raw_material = goods:silk }
+		set_global_variable = { name = wtp_realm_has_silk value = yes }
+	}
+	else_if = { limit = { raw_material = goods:silver }
+		set_global_variable = { name = wtp_realm_has_silver value = yes }
+	}
+	else_if = { limit = { raw_material = goods:stone }
+		set_global_variable = { name = wtp_realm_has_stone value = yes }
+	}
+	else_if = { limit = { raw_material = goods:sugar }
+		set_global_variable = { name = wtp_realm_has_sugar value = yes }
+	}
+	else_if = { limit = { raw_material = goods:tin }
+		set_global_variable = { name = wtp_realm_has_tin value = yes }
+	}
+	else_if = { limit = { raw_material = goods:wheat }
+		set_global_variable = { name = wtp_realm_has_wheat value = yes }
+	}
+	else_if = { limit = { raw_material = goods:wild_game }
+		set_global_variable = { name = wtp_realm_has_wild_game value = yes }
+	}
+	else_if = { limit = { raw_material = goods:wine }
+		set_global_variable = { name = wtp_realm_has_wine value = yes }
+	}
+	else_if = { limit = { raw_material = goods:wool }
+		set_global_variable = { name = wtp_realm_has_wool value = yes }
+	}
+}
+
+# Scope: any
+wtp_build_recipe_index = {
+	clear_global_variable_map = wtp_recipe_tooltip
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_ablaq_palace_maintenance value = flag:wtp_recipe_ablaq_palace_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_alum_dyes_guild_maintenance value = flag:wtp_recipe_alum_dyes_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_alum_fine_cloth_guild_maintenance value = flag:wtp_recipe_alum_fine_cloth_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_alum_fine_cloth_manufactory_maintenance value = flag:wtp_recipe_alum_fine_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_alum_fine_cloth_workshop_maintenance value = flag:wtp_recipe_alum_fine_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_amber_enhancement value = flag:wtp_recipe_amber_enhancement_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_ancient_medicine_apotechary value = flag:wtp_recipe_ancient_medicine_apotechary_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_arctic_fishing_village_maintenance value = flag:wtp_recipe_arctic_fishing_village_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_base_cloth_manufactory_maintenance value = flag:wtp_recipe_base_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_base_fine_cloth_guild_maintenance value = flag:wtp_recipe_base_fine_cloth_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_base_fine_cloth_workshop_maintenance value = flag:wtp_recipe_base_fine_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_bavarian_beer_workshop_maintenance value = flag:wtp_recipe_bavarian_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_bavarian_brewery_maintenance value = flag:wtp_recipe_bavarian_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_bog_iron_maintenance value = flag:wtp_recipe_bog_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_brewery_manufactory_maintenance value = flag:wtp_recipe_brewery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_brewery_mill_maintenance value = flag:wtp_recipe_brewery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_bronze_tools_guild_maintenance value = flag:wtp_recipe_bronze_tools_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_foundry_maintenance value = flag:wtp_recipe_cannon_foundry_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_ammunition_iron_maintenance value = flag:wtp_recipe_cannon_maker_ammunition_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_ammunition_lead_maintenance value = flag:wtp_recipe_cannon_maker_ammunition_lead_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_ammunition_stone_maintenance value = flag:wtp_recipe_cannon_maker_ammunition_stone_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_bronze_maintenance value = flag:wtp_recipe_cannon_maker_bronze_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_iron_maintenance value = flag:wtp_recipe_cannon_maker_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_maker_lumber_maintenance value = flag:wtp_recipe_cannon_maker_lumber_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_workshop_ammunition_iron_maintenance value = flag:wtp_recipe_cannon_workshop_ammunition_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_workshop_ammunition_lead_maintenance value = flag:wtp_recipe_cannon_workshop_ammunition_lead_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_workshop_ammunition_stone_maintenance value = flag:wtp_recipe_cannon_workshop_ammunition_stone_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_workshop_bronze_maintenance value = flag:wtp_recipe_cannon_workshop_bronze_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cannon_workshop_iron_maintenance value = flag:wtp_recipe_cannon_workshop_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_char_coal_maintenance value = flag:wtp_recipe_char_coal_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_clay_bricks value = flag:wtp_recipe_clay_bricks_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_clay_pit_maintenance value = flag:wtp_recipe_clay_pit_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_coastal_boatyard value = flag:wtp_recipe_coastal_boatyard_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_copper_base value = flag:wtp_recipe_copper_base_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_copper_tools_guild_maintenance value = flag:wtp_recipe_copper_tools_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cotton_cloth_guild_maintenance value = flag:wtp_recipe_cotton_cloth_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cotton_cloth_manufactory_maintenance value = flag:wtp_recipe_cotton_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cotton_cloth_workshop_maintenance value = flag:wtp_recipe_cotton_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cotton_mill_maintenance value = flag:wtp_recipe_cotton_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_cotton_plantation_maintenance value = flag:wtp_recipe_cotton_plantation_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_crude_quarry_maintenance value = flag:wtp_recipe_crude_quarry_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_dyes_guild_maintenance value = flag:wtp_recipe_dyes_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_dyes_workshop_maintenance value = flag:wtp_recipe_dyes_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_dyesmill_maintenance value = flag:wtp_recipe_dyesmill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_dyesworks_maintenance value = flag:wtp_recipe_dyesworks_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_elephant_hunting_grounds_maintenance value = flag:wtp_recipe_elephant_hunting_grounds_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_eng_royal_forest_maintenance value = flag:wtp_recipe_eng_royal_forest_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_farming_village_maintenance value = flag:wtp_recipe_farming_village_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_cloth_guild_maintenance value = flag:wtp_recipe_fiber_crops_cloth_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_cloth_manufactory_maintenance value = flag:wtp_recipe_fiber_crops_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_cloth_workshop_maintenance value = flag:wtp_recipe_fiber_crops_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_farm_maintenance value = flag:wtp_recipe_fiber_crops_farm_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_mill_maintenance value = flag:wtp_recipe_fiber_crops_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fiber_crops_silk_guild_maintenance value = flag:wtp_recipe_fiber_crops_silk_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fine_cloth_mill_maintenance value = flag:wtp_recipe_fine_cloth_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_firearms_factory_maintenance value = flag:wtp_recipe_firearms_factory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_firearms_manufactory_maintenance value = flag:wtp_recipe_firearms_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fishing_village_maintenance value = flag:wtp_recipe_fishing_village_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_forest_tannery value = flag:wtp_recipe_forest_tannery_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fruit_beer_workshop_maintenance value = flag:wtp_recipe_fruit_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fruit_brewery_maintenance value = flag:wtp_recipe_fruit_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fruit_orchard_maintenance value = flag:wtp_recipe_fruit_orchard_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fruit_winery_maintenance value = flag:wtp_recipe_fruit_winery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fruit_winery_manufactory_maintenance value = flag:wtp_recipe_fruit_winery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fur_trim_guild_maintenance value = flag:wtp_recipe_fur_trim_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_fur_trim_workshop_maintenance value = flag:wtp_recipe_fur_trim_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_furniture_maintenance value = flag:wtp_recipe_furniture_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_furniture_manufactory_maintenance value = flag:wtp_recipe_furniture_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_furniture_mill_maintenance value = flag:wtp_recipe_furniture_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_furniture_workshop_maintenance value = flag:wtp_recipe_furniture_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_gems_enhancement value = flag:wtp_recipe_gems_enhancement_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_glass_guild_maintenance value = flag:wtp_recipe_glass_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_glassmill_maintenance value = flag:wtp_recipe_glassmill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_glassworks_maintenance value = flag:wtp_recipe_glassworks_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_gold_base value = flag:wtp_recipe_gold_base_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_gun_factory_maintenance value = flag:wtp_recipe_gun_factory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_guild_ammunition_iron_maintenance value = flag:wtp_recipe_guns_guild_ammunition_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_guild_ammunition_lead_maintenance value = flag:wtp_recipe_guns_guild_ammunition_lead_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_guild_bronze_maintenance value = flag:wtp_recipe_guns_guild_bronze_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_guild_iron_maintenance value = flag:wtp_recipe_guns_guild_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_guild_lumber_maintenance value = flag:wtp_recipe_guns_guild_lumber_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_workshop_ammunition_iron_maintenance value = flag:wtp_recipe_guns_workshop_ammunition_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_workshop_ammunition_lead_maintenance value = flag:wtp_recipe_guns_workshop_ammunition_lead_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_workshop_bronze_maintenance value = flag:wtp_recipe_guns_workshop_bronze_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_guns_workshop_iron_maintenance value = flag:wtp_recipe_guns_workshop_iron_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_hand_cannon_guild_maintenance value = flag:wtp_recipe_hand_cannon_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_honey_beer_workshop_maintenance value = flag:wtp_recipe_honey_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_honey_brewery_maintenance value = flag:wtp_recipe_honey_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_honey_winery_maintenance value = flag:wtp_recipe_honey_winery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_honey_winery_manufactory_maintenance value = flag:wtp_recipe_honey_winery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_horse_breeders_maintenance value = flag:wtp_recipe_horse_breeders_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_improved_char_coal_maintenance value = flag:wtp_recipe_improved_char_coal_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_iron_foundry_maintenance value = flag:wtp_recipe_iron_foundry_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_iron_mill_maintenance value = flag:wtp_recipe_iron_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_ivory_enhancement value = flag:wtp_recipe_ivory_enhancement_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_lacquerware_manufactory_maintenance value = flag:wtp_recipe_lacquerware_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_lacquerware_shop_maintenance value = flag:wtp_recipe_lacquerware_shop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_leather_guild_maintenance value = flag:wtp_recipe_leather_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_leather_livestock_workshop_maintenance value = flag:wtp_recipe_leather_livestock_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_leather_manufactory_maintenance value = flag:wtp_recipe_leather_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_leather_mill_maintenance value = flag:wtp_recipe_leather_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_leather_wildgame_workshop_maintenance value = flag:wtp_recipe_leather_wildgame_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_maize_beer_workshop_maintenance value = flag:wtp_recipe_maize_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_maize_brewery_maintenance value = flag:wtp_recipe_maize_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_metal_glass_guild_maintenance value = flag:wtp_recipe_metal_glass_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_metal_glass_workshop_maintenance value = flag:wtp_recipe_metal_glass_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_metalwork_guild_maintenance value = flag:wtp_recipe_metalwork_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_metalwork_workshop_maintenance value = flag:wtp_recipe_metalwork_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_millet_beer_workshop_maintenance value = flag:wtp_recipe_millet_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_millet_brewery_maintenance value = flag:wtp_recipe_millet_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_natural_medicine_apotechary value = flag:wtp_recipe_natural_medicine_apotechary_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_naval_supplies_guild_maintenance value = flag:wtp_recipe_naval_supplies_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_naval_supplies_manufactory_maintenance value = flag:wtp_recipe_naval_supplies_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_naval_supplies_mill_maintenance value = flag:wtp_recipe_naval_supplies_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_naval_supplies_workshop_maintenance value = flag:wtp_recipe_naval_supplies_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_guild_cloth_maintenance value = flag:wtp_recipe_paper_guild_cloth_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_guild_fiber_pulp_maintenance value = flag:wtp_recipe_paper_guild_fiber_pulp_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_guild_leather_maintenance value = flag:wtp_recipe_paper_guild_leather_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_manufactory_maintenance value = flag:wtp_recipe_paper_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_mill_maintenance value = flag:wtp_recipe_paper_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_wood_pulp_maintenance value = flag:wtp_recipe_paper_wood_pulp_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_workshop_cloth_maintenance value = flag:wtp_recipe_paper_workshop_cloth_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_paper_workshop_fiber_pulp_maintenance value = flag:wtp_recipe_paper_workshop_fiber_pulp_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pearls_enhancement value = flag:wtp_recipe_pearls_enhancement_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_perfumery_maintenance value = flag:wtp_recipe_perfumery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_porcelain_guild_maintenance value = flag:wtp_recipe_porcelain_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_porcelain_manufactory_maintenance value = flag:wtp_recipe_porcelain_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_potato_distillery_maintenance value = flag:wtp_recipe_potato_distillery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_potato_distillery_mill_maintenance value = flag:wtp_recipe_potato_distillery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_potato_liquor_guild_maintenance value = flag:wtp_recipe_potato_liquor_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_potato_liquor_workshop_maintenance value = flag:wtp_recipe_potato_liquor_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pottery_maintenance value = flag:wtp_recipe_pottery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pottery_manufactory_maintenance value = flag:wtp_recipe_pottery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pottery_mill_maintenance value = flag:wtp_recipe_pottery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pottery_w_maintenance value = flag:wtp_recipe_pottery_w_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pounamou_carver_maintenance value = flag:wtp_recipe_pounamou_carver_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_pre_columbian_weapon_smith_maintenance value = flag:wtp_recipe_pre_columbian_weapon_smith_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_printing_manufactory_maintenance value = flag:wtp_recipe_printing_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_printing_mill_maintenance value = flag:wtp_recipe_printing_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_printing_press_maintenance value = flag:wtp_recipe_printing_press_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_putrefaction_demands value = flag:wtp_recipe_putrefaction_demands_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_putrefaction_mill_demands value = flag:wtp_recipe_putrefaction_mill_demands_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_beer_workshop_maintenance value = flag:wtp_recipe_rice_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_brewery_maintenance value = flag:wtp_recipe_rice_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_distillery_maintenance value = flag:wtp_recipe_rice_distillery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_distillery_mill_maintenance value = flag:wtp_recipe_rice_distillery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_liquor_guild_maintenance value = flag:wtp_recipe_rice_liquor_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_liquor_workshop_maintenance value = flag:wtp_recipe_rice_liquor_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_winery_maintenance value = flag:wtp_recipe_rice_winery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rice_winery_manufactory_maintenance value = flag:wtp_recipe_rice_winery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_blacksmith value = flag:wtp_recipe_rural_blacksmith_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_cotton_clothmaker value = flag:wtp_recipe_rural_cotton_clothmaker_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_fiber_clothmaker value = flag:wtp_recipe_rural_fiber_clothmaker_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_glassmaker_maintenance value = flag:wtp_recipe_rural_glassmaker_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_jewelry_carver value = flag:wtp_recipe_rural_jewelry_carver_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_millet_brewery value = flag:wtp_recipe_rural_millet_brewery_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_pottery_maker value = flag:wtp_recipe_rural_pottery_maker_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_weaponmaker value = flag:wtp_recipe_rural_weaponmaker_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_rural_wool_clothmaker value = flag:wtp_recipe_rural_wool_clothmaker_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_salt_collector_maintenance value = flag:wtp_recipe_salt_collector_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_saltpeter_guild_demands value = flag:wtp_recipe_saltpeter_guild_demands_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_saltpeter_workshop_demands value = flag:wtp_recipe_saltpeter_workshop_demands_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sand_pit_maintenance value = flag:wtp_recipe_sand_pit_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_schwaz_mine_maintenance value = flag:wtp_recipe_schwaz_mine_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_scottish_whisky_distillery_maintenance value = flag:wtp_recipe_scottish_whisky_distillery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_scottish_whisky_distillery_mill_maintenance value = flag:wtp_recipe_scottish_whisky_distillery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_scriptorium_maintenance value = flag:wtp_recipe_scriptorium_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sheep_farm_maintenance value = flag:wtp_recipe_sheep_farm_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_shoen_fiber_crops_farm_maintenance value = flag:wtp_recipe_shoen_fiber_crops_farm_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_shoen_ironsand_maintenance value = flag:wtp_recipe_shoen_ironsand_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_shoen_lumbermills_maintenance value = flag:wtp_recipe_shoen_lumbermills_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_shoen_masonry_maintenance value = flag:wtp_recipe_shoen_masonry_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_silk_cloth_manufactory_maintenance value = flag:wtp_recipe_silk_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_silk_cloth_mill_maintenance value = flag:wtp_recipe_silk_cloth_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_silk_weavers_maintenance value = flag:wtp_recipe_silk_weavers_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_silk_weavers_workshop_maintenance value = flag:wtp_recipe_silk_weavers_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_silver_base value = flag:wtp_recipe_silver_base_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_slave_center_maintenance value = flag:wtp_recipe_slave_center_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_spanish_cloth_maintenance value = flag:wtp_recipe_spanish_cloth_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_spanish_cloth_workshop_maintenance value = flag:wtp_recipe_spanish_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_steel_mill_maintenance value = flag:wtp_recipe_steel_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_stone_bricks value = flag:wtp_recipe_stone_bricks_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_stone_quarry_maintenance value = flag:wtp_recipe_stone_quarry_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_stone_tools_guild_maintenance value = flag:wtp_recipe_stone_tools_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sugar_distillery_maintenance value = flag:wtp_recipe_sugar_distillery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sugar_distillery_mill_maintenance value = flag:wtp_recipe_sugar_distillery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sugar_liquor_guild_maintenance value = flag:wtp_recipe_sugar_liquor_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sugar_liquor_workshop_maintenance value = flag:wtp_recipe_sugar_liquor_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_sugar_plantation_maintenance value = flag:wtp_recipe_sugar_plantation_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tamagahane_blacksmith value = flag:wtp_recipe_tamagahane_blacksmith_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tamagahane_bladesmith value = flag:wtp_recipe_tamagahane_bladesmith_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tannery_maintenance value = flag:wtp_recipe_tannery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tannery_manufactory_maintenance value = flag:wtp_recipe_tannery_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tannery_mill_maintenance value = flag:wtp_recipe_tannery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tar_kiln_maintenance value = flag:wtp_recipe_tar_kiln_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_tobacco_plantation_maintenance value = flag:wtp_recipe_tobacco_plantation_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_weapon_factory_maintenance value = flag:wtp_recipe_weapon_factory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_weapon_guild_obsidian_maintenance value = flag:wtp_recipe_weapon_guild_obsidian_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_weapon_manufactory_maintenance value = flag:wtp_recipe_weapon_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_weapon_smith_maintenance value = flag:wtp_recipe_weapon_smith_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_weapon_workshop_maintenance value = flag:wtp_recipe_weapon_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_beer_workshop_maintenance value = flag:wtp_recipe_wheat_beer_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_brewery_maintenance value = flag:wtp_recipe_wheat_brewery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_distillery_maintenance value = flag:wtp_recipe_wheat_distillery_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_distillery_mill_maintenance value = flag:wtp_recipe_wheat_distillery_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_liquor_guild_maintenance value = flag:wtp_recipe_wheat_liquor_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wheat_liquor_workshop_maintenance value = flag:wtp_recipe_wheat_liquor_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wine_liquor_guild_maintenance value = flag:wtp_recipe_wine_liquor_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wine_liquor_workshop_maintenance value = flag:wtp_recipe_wine_liquor_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_cloth_guild_maintenance value = flag:wtp_recipe_wool_cloth_guild_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_cloth_manufactory_maintenance value = flag:wtp_recipe_wool_cloth_manufactory_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_cloth_workshop_maintenance value = flag:wtp_recipe_wool_cloth_workshop_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_mill_maintenance value = flag:wtp_recipe_wool_mill_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_weavers_maintenance value = flag:wtp_recipe_wool_weavers_maintenance_desc }
+	add_to_global_variable_map = { name = wtp_recipe_tooltip key = flag:wtp_recipe_wool_weavers_workshop_maintenance value = flag:wtp_recipe_wool_weavers_workshop_maintenance_desc }
+}
+
+# Every recipe that makes the chosen good, best output first, minus the
+# ones wtp_offer turns away. Scope: country
+wtp_collect_recipes = {
+	clear_global_variable_list = wtp_shown_recipes
+	set_variable = { name = wtp_recipe_count value = 0 }
 
 	if = { limit = { global_var:wtp_good = goods:beer }
-		wtp_recipe_row_1 = { m = brewery_mill_maintenance }
-		wtp_recipe_row_2 = { m = brewery_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = bavarian_beer_workshop_maintenance }
-		wtp_recipe_row_4 = { m = bavarian_brewery_maintenance }
-		wtp_recipe_row_5 = { m = fruit_beer_workshop_maintenance }
-		wtp_recipe_row_6 = { m = honey_beer_workshop_maintenance }
-		wtp_recipe_row_7 = { m = maize_beer_workshop_maintenance }
-		wtp_recipe_row_8 = { m = millet_beer_workshop_maintenance }
-		wtp_recipe_row_9 = { m = rice_beer_workshop_maintenance }
-		wtp_recipe_row_10 = { m = wheat_beer_workshop_maintenance }
-		wtp_recipe_row_11 = { m = fruit_brewery_maintenance }
-		wtp_recipe_row_12 = { m = honey_brewery_maintenance }
-		wtp_recipe_row_13 = { m = maize_brewery_maintenance }
-		wtp_recipe_row_14 = { m = millet_brewery_maintenance }
-		wtp_recipe_row_15 = { m = rice_brewery_maintenance }
-		wtp_recipe_row_16 = { m = wheat_brewery_maintenance }
-		wtp_recipe_row_17 = { m = rural_millet_brewery }
+		wtp_offer = { m = brewery_mill_maintenance }
+		wtp_offer = { m = brewery_manufactory_maintenance }
+		wtp_offer = { m = bavarian_beer_workshop_maintenance }
+		wtp_offer = { m = bavarian_brewery_maintenance }
+		wtp_offer = { m = fruit_beer_workshop_maintenance }
+		wtp_offer = { m = honey_beer_workshop_maintenance }
+		wtp_offer = { m = maize_beer_workshop_maintenance }
+		wtp_offer = { m = millet_beer_workshop_maintenance }
+		wtp_offer = { m = rice_beer_workshop_maintenance }
+		wtp_offer = { m = wheat_beer_workshop_maintenance }
+		wtp_offer = { m = fruit_brewery_maintenance }
+		wtp_offer = { m = honey_brewery_maintenance }
+		wtp_offer = { m = maize_brewery_maintenance }
+		wtp_offer = { m = millet_brewery_maintenance }
+		wtp_offer = { m = rice_brewery_maintenance }
+		wtp_offer = { m = wheat_brewery_maintenance }
+		wtp_offer = { m = rural_millet_brewery }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:books }
-		wtp_recipe_row_1 = { m = printing_mill_maintenance }
-		wtp_recipe_row_2 = { m = printing_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = printing_press_maintenance }
-		wtp_recipe_row_4 = { m = scriptorium_maintenance }
+		wtp_offer = { m = printing_mill_maintenance }
+		wtp_offer = { m = printing_manufactory_maintenance }
+		wtp_offer = { m = printing_press_maintenance }
+		wtp_offer = { m = scriptorium_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:cannons }
-		wtp_recipe_row_1 = { m = gun_factory_maintenance }
-		wtp_recipe_row_2 = { m = cannon_foundry_maintenance }
-		wtp_recipe_row_3 = { m = cannon_workshop_bronze_maintenance }
-		wtp_recipe_row_4 = { m = cannon_workshop_iron_maintenance }
-		wtp_recipe_row_5 = { m = cannon_maker_bronze_maintenance }
-		wtp_recipe_row_6 = { m = cannon_maker_iron_maintenance }
-		wtp_recipe_row_7 = { m = cannon_workshop_ammunition_iron_maintenance }
-		wtp_recipe_row_8 = { m = cannon_maker_ammunition_iron_maintenance }
-		wtp_recipe_row_9 = { m = cannon_workshop_ammunition_lead_maintenance }
-		wtp_recipe_row_10 = { m = cannon_maker_ammunition_lead_maintenance }
-		wtp_recipe_row_11 = { m = cannon_maker_lumber_maintenance }
-		wtp_recipe_row_12 = { m = cannon_workshop_ammunition_stone_maintenance }
-		wtp_recipe_row_13 = { m = cannon_maker_ammunition_stone_maintenance }
+		wtp_offer = { m = gun_factory_maintenance }
+		wtp_offer = { m = cannon_foundry_maintenance }
+		wtp_offer = { m = cannon_workshop_bronze_maintenance }
+		wtp_offer = { m = cannon_workshop_iron_maintenance }
+		wtp_offer = { m = cannon_maker_bronze_maintenance }
+		wtp_offer = { m = cannon_maker_iron_maintenance }
+		wtp_offer = { m = cannon_workshop_ammunition_iron_maintenance }
+		wtp_offer = { m = cannon_maker_ammunition_iron_maintenance }
+		wtp_offer = { m = cannon_workshop_ammunition_lead_maintenance }
+		wtp_offer = { m = cannon_maker_ammunition_lead_maintenance }
+		wtp_offer = { m = cannon_maker_lumber_maintenance }
+		wtp_offer = { m = cannon_workshop_ammunition_stone_maintenance }
+		wtp_offer = { m = cannon_maker_ammunition_stone_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:clay }
-		wtp_recipe_row_1 = { m = clay_pit_maintenance }
+		wtp_offer = { m = clay_pit_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:cloth }
-		wtp_recipe_row_1 = { m = cotton_mill_maintenance }
-		wtp_recipe_row_2 = { m = fiber_crops_mill_maintenance }
-		wtp_recipe_row_3 = { m = wool_mill_maintenance }
-		wtp_recipe_row_4 = { m = cotton_cloth_manufactory_maintenance }
-		wtp_recipe_row_5 = { m = fiber_crops_cloth_manufactory_maintenance }
-		wtp_recipe_row_6 = { m = wool_cloth_manufactory_maintenance }
-		wtp_recipe_row_7 = { m = cotton_cloth_workshop_maintenance }
-		wtp_recipe_row_8 = { m = wool_cloth_workshop_maintenance }
-		wtp_recipe_row_9 = { m = cotton_cloth_guild_maintenance }
-		wtp_recipe_row_10 = { m = wool_cloth_guild_maintenance }
-		wtp_recipe_row_11 = { m = fiber_crops_cloth_workshop_maintenance }
-		wtp_recipe_row_12 = { m = fiber_crops_cloth_guild_maintenance }
-		wtp_recipe_row_13 = { m = rural_cotton_clothmaker }
-		wtp_recipe_row_14 = { m = rural_wool_clothmaker }
-		wtp_recipe_row_15 = { m = rural_fiber_clothmaker }
+		wtp_offer = { m = cotton_mill_maintenance }
+		wtp_offer = { m = fiber_crops_mill_maintenance }
+		wtp_offer = { m = wool_mill_maintenance }
+		wtp_offer = { m = cotton_cloth_manufactory_maintenance }
+		wtp_offer = { m = fiber_crops_cloth_manufactory_maintenance }
+		wtp_offer = { m = wool_cloth_manufactory_maintenance }
+		wtp_offer = { m = cotton_cloth_workshop_maintenance }
+		wtp_offer = { m = wool_cloth_workshop_maintenance }
+		wtp_offer = { m = cotton_cloth_guild_maintenance }
+		wtp_offer = { m = wool_cloth_guild_maintenance }
+		wtp_offer = { m = fiber_crops_cloth_workshop_maintenance }
+		wtp_offer = { m = fiber_crops_cloth_guild_maintenance }
+		wtp_offer = { m = rural_cotton_clothmaker }
+		wtp_offer = { m = rural_wool_clothmaker }
+		wtp_offer = { m = rural_fiber_clothmaker }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:coal }
-		wtp_recipe_row_1 = { m = improved_char_coal_maintenance }
-		wtp_recipe_row_2 = { m = char_coal_maintenance }
+		wtp_offer = { m = improved_char_coal_maintenance }
+		wtp_offer = { m = char_coal_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:cotton }
-		wtp_recipe_row_1 = { m = cotton_plantation_maintenance }
+		wtp_offer = { m = cotton_plantation_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:dyes }
-		wtp_recipe_row_1 = { m = dyesmill_maintenance }
-		wtp_recipe_row_2 = { m = dyesworks_maintenance }
-		wtp_recipe_row_3 = { m = dyes_workshop_maintenance }
-		wtp_recipe_row_4 = { m = alum_dyes_guild_maintenance }
-		wtp_recipe_row_5 = { m = dyes_guild_maintenance }
+		wtp_offer = { m = dyesmill_maintenance }
+		wtp_offer = { m = dyesworks_maintenance }
+		wtp_offer = { m = dyes_workshop_maintenance }
+		wtp_offer = { m = alum_dyes_guild_maintenance }
+		wtp_offer = { m = dyes_guild_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:fiber_crops }
-		wtp_recipe_row_1 = { m = fiber_crops_farm_maintenance }
-		wtp_recipe_row_2 = { m = shoen_fiber_crops_farm_maintenance }
+		wtp_offer = { m = fiber_crops_farm_maintenance }
+		wtp_offer = { m = shoen_fiber_crops_farm_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:fine_cloth }
-		wtp_recipe_row_1 = { m = fine_cloth_mill_maintenance }
-		wtp_recipe_row_2 = { m = silk_cloth_mill_maintenance }
-		wtp_recipe_row_3 = { m = silk_cloth_manufactory_maintenance }
-		wtp_recipe_row_4 = { m = silk_weavers_workshop_maintenance }
-		wtp_recipe_row_5 = { m = silk_weavers_maintenance }
-		wtp_recipe_row_6 = { m = spanish_cloth_workshop_maintenance }
-		wtp_recipe_row_7 = { m = wool_weavers_workshop_maintenance }
-		wtp_recipe_row_8 = { m = spanish_cloth_maintenance }
-		wtp_recipe_row_9 = { m = wool_weavers_maintenance }
-		wtp_recipe_row_10 = { m = alum_fine_cloth_manufactory_maintenance }
-		wtp_recipe_row_11 = { m = alum_fine_cloth_workshop_maintenance }
-		wtp_recipe_row_12 = { m = fur_trim_workshop_maintenance }
-		wtp_recipe_row_13 = { m = alum_fine_cloth_guild_maintenance }
-		wtp_recipe_row_14 = { m = fur_trim_guild_maintenance }
-		wtp_recipe_row_15 = { m = base_cloth_manufactory_maintenance }
-		wtp_recipe_row_16 = { m = base_fine_cloth_workshop_maintenance }
-		wtp_recipe_row_17 = { m = base_fine_cloth_guild_maintenance }
+		wtp_offer = { m = fine_cloth_mill_maintenance }
+		wtp_offer = { m = silk_cloth_mill_maintenance }
+		wtp_offer = { m = silk_cloth_manufactory_maintenance }
+		wtp_offer = { m = silk_weavers_workshop_maintenance }
+		wtp_offer = { m = silk_weavers_maintenance }
+		wtp_offer = { m = spanish_cloth_workshop_maintenance }
+		wtp_offer = { m = wool_weavers_workshop_maintenance }
+		wtp_offer = { m = spanish_cloth_maintenance }
+		wtp_offer = { m = wool_weavers_maintenance }
+		wtp_offer = { m = alum_fine_cloth_manufactory_maintenance }
+		wtp_offer = { m = alum_fine_cloth_workshop_maintenance }
+		wtp_offer = { m = fur_trim_workshop_maintenance }
+		wtp_offer = { m = alum_fine_cloth_guild_maintenance }
+		wtp_offer = { m = fur_trim_guild_maintenance }
+		wtp_offer = { m = base_cloth_manufactory_maintenance }
+		wtp_offer = { m = base_fine_cloth_workshop_maintenance }
+		wtp_offer = { m = base_fine_cloth_guild_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:firearms }
-		wtp_recipe_row_1 = { m = firearms_factory_maintenance }
-		wtp_recipe_row_2 = { m = firearms_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = guns_workshop_bronze_maintenance }
-		wtp_recipe_row_4 = { m = guns_guild_bronze_maintenance }
-		wtp_recipe_row_5 = { m = guns_guild_iron_maintenance }
-		wtp_recipe_row_6 = { m = guns_workshop_iron_maintenance }
-		wtp_recipe_row_7 = { m = hand_cannon_guild_maintenance }
-		wtp_recipe_row_8 = { m = guns_workshop_ammunition_iron_maintenance }
-		wtp_recipe_row_9 = { m = guns_guild_ammunition_iron_maintenance }
-		wtp_recipe_row_10 = { m = guns_workshop_ammunition_lead_maintenance }
-		wtp_recipe_row_11 = { m = guns_guild_ammunition_lead_maintenance }
-		wtp_recipe_row_12 = { m = guns_guild_lumber_maintenance }
+		wtp_offer = { m = firearms_factory_maintenance }
+		wtp_offer = { m = firearms_manufactory_maintenance }
+		wtp_offer = { m = guns_workshop_bronze_maintenance }
+		wtp_offer = { m = guns_guild_bronze_maintenance }
+		wtp_offer = { m = guns_guild_iron_maintenance }
+		wtp_offer = { m = guns_workshop_iron_maintenance }
+		wtp_offer = { m = hand_cannon_guild_maintenance }
+		wtp_offer = { m = guns_workshop_ammunition_iron_maintenance }
+		wtp_offer = { m = guns_guild_ammunition_iron_maintenance }
+		wtp_offer = { m = guns_workshop_ammunition_lead_maintenance }
+		wtp_offer = { m = guns_guild_ammunition_lead_maintenance }
+		wtp_offer = { m = guns_guild_lumber_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:fish }
-		wtp_recipe_row_1 = { m = arctic_fishing_village_maintenance }
-		wtp_recipe_row_2 = { m = fishing_village_maintenance }
+		wtp_offer = { m = arctic_fishing_village_maintenance }
+		wtp_offer = { m = fishing_village_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:fruit }
-		wtp_recipe_row_1 = { m = fruit_orchard_maintenance }
+		wtp_offer = { m = fruit_orchard_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:furniture }
-		wtp_recipe_row_1 = { m = furniture_mill_maintenance }
-		wtp_recipe_row_2 = { m = furniture_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = furniture_workshop_maintenance }
-		wtp_recipe_row_4 = { m = furniture_maintenance }
+		wtp_offer = { m = furniture_mill_maintenance }
+		wtp_offer = { m = furniture_manufactory_maintenance }
+		wtp_offer = { m = furniture_workshop_maintenance }
+		wtp_offer = { m = furniture_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:glass }
-		wtp_recipe_row_1 = { m = glassmill_maintenance }
-		wtp_recipe_row_2 = { m = glassworks_maintenance }
-		wtp_recipe_row_3 = { m = metal_glass_workshop_maintenance }
-		wtp_recipe_row_4 = { m = metal_glass_guild_maintenance }
-		wtp_recipe_row_5 = { m = glass_guild_maintenance }
-		wtp_recipe_row_6 = { m = rural_glassmaker_maintenance }
+		wtp_offer = { m = glassmill_maintenance }
+		wtp_offer = { m = glassworks_maintenance }
+		wtp_offer = { m = metal_glass_workshop_maintenance }
+		wtp_offer = { m = metal_glass_guild_maintenance }
+		wtp_offer = { m = glass_guild_maintenance }
+		wtp_offer = { m = rural_glassmaker_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:horses }
-		wtp_recipe_row_1 = { m = horse_breeders_maintenance }
+		wtp_offer = { m = horse_breeders_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:incense }
-		wtp_recipe_row_1 = { m = perfumery_maintenance }
+		wtp_offer = { m = perfumery_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:iron }
-		wtp_recipe_row_1 = { m = bog_iron_maintenance }
-		wtp_recipe_row_2 = { m = shoen_ironsand_maintenance }
+		wtp_offer = { m = bog_iron_maintenance }
+		wtp_offer = { m = shoen_ironsand_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:ivory }
-		wtp_recipe_row_1 = { m = elephant_hunting_grounds_maintenance }
+		wtp_offer = { m = elephant_hunting_grounds_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:jewelry }
-		wtp_recipe_row_1 = { m = copper_base }
-		wtp_recipe_row_2 = { m = gold_base }
-		wtp_recipe_row_3 = { m = silver_base }
-		wtp_recipe_row_4 = { m = pounamou_carver_maintenance }
-		wtp_recipe_row_5 = { m = amber_enhancement }
-		wtp_recipe_row_6 = { m = gems_enhancement }
-		wtp_recipe_row_7 = { m = ivory_enhancement }
-		wtp_recipe_row_8 = { m = pearls_enhancement }
-		wtp_recipe_row_9 = { m = rural_jewelry_carver }
+		wtp_offer = { m = copper_base }
+		wtp_offer = { m = gold_base }
+		wtp_offer = { m = silver_base }
+		wtp_offer = { m = pounamou_carver_maintenance }
+		wtp_offer = { m = amber_enhancement }
+		wtp_offer = { m = gems_enhancement }
+		wtp_offer = { m = ivory_enhancement }
+		wtp_offer = { m = pearls_enhancement }
+		wtp_offer = { m = rural_jewelry_carver }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:lacquerware }
-		wtp_recipe_row_1 = { m = lacquerware_manufactory_maintenance }
-		wtp_recipe_row_2 = { m = lacquerware_shop_maintenance }
+		wtp_offer = { m = lacquerware_manufactory_maintenance }
+		wtp_offer = { m = lacquerware_shop_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:leather }
-		wtp_recipe_row_1 = { m = leather_mill_maintenance }
-		wtp_recipe_row_2 = { m = tannery_mill_maintenance }
-		wtp_recipe_row_3 = { m = leather_manufactory_maintenance }
-		wtp_recipe_row_4 = { m = tannery_manufactory_maintenance }
-		wtp_recipe_row_5 = { m = leather_livestock_workshop_maintenance }
-		wtp_recipe_row_6 = { m = leather_wildgame_workshop_maintenance }
-		wtp_recipe_row_7 = { m = leather_guild_maintenance }
-		wtp_recipe_row_8 = { m = tannery_maintenance }
-		wtp_recipe_row_9 = { m = forest_tannery }
+		wtp_offer = { m = leather_mill_maintenance }
+		wtp_offer = { m = tannery_mill_maintenance }
+		wtp_offer = { m = leather_manufactory_maintenance }
+		wtp_offer = { m = tannery_manufactory_maintenance }
+		wtp_offer = { m = leather_livestock_workshop_maintenance }
+		wtp_offer = { m = leather_wildgame_workshop_maintenance }
+		wtp_offer = { m = leather_guild_maintenance }
+		wtp_offer = { m = tannery_maintenance }
+		wtp_offer = { m = forest_tannery }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:liquor }
-		wtp_recipe_row_1 = { m = potato_distillery_mill_maintenance }
-		wtp_recipe_row_2 = { m = rice_distillery_mill_maintenance }
-		wtp_recipe_row_3 = { m = scottish_whisky_distillery_mill_maintenance }
-		wtp_recipe_row_4 = { m = sugar_distillery_mill_maintenance }
-		wtp_recipe_row_5 = { m = wheat_distillery_mill_maintenance }
-		wtp_recipe_row_6 = { m = potato_distillery_maintenance }
-		wtp_recipe_row_7 = { m = rice_distillery_maintenance }
-		wtp_recipe_row_8 = { m = scottish_whisky_distillery_maintenance }
-		wtp_recipe_row_9 = { m = sugar_distillery_maintenance }
-		wtp_recipe_row_10 = { m = wheat_distillery_maintenance }
-		wtp_recipe_row_11 = { m = potato_liquor_workshop_maintenance }
-		wtp_recipe_row_12 = { m = rice_liquor_workshop_maintenance }
-		wtp_recipe_row_13 = { m = sugar_liquor_workshop_maintenance }
-		wtp_recipe_row_14 = { m = wheat_liquor_workshop_maintenance }
-		wtp_recipe_row_15 = { m = wine_liquor_workshop_maintenance }
-		wtp_recipe_row_16 = { m = potato_liquor_guild_maintenance }
-		wtp_recipe_row_17 = { m = rice_liquor_guild_maintenance }
-		wtp_recipe_row_18 = { m = sugar_liquor_guild_maintenance }
-		wtp_recipe_row_19 = { m = wheat_liquor_guild_maintenance }
-		wtp_recipe_row_20 = { m = wine_liquor_guild_maintenance }
+		wtp_offer = { m = potato_distillery_mill_maintenance }
+		wtp_offer = { m = rice_distillery_mill_maintenance }
+		wtp_offer = { m = scottish_whisky_distillery_mill_maintenance }
+		wtp_offer = { m = sugar_distillery_mill_maintenance }
+		wtp_offer = { m = wheat_distillery_mill_maintenance }
+		wtp_offer = { m = potato_distillery_maintenance }
+		wtp_offer = { m = rice_distillery_maintenance }
+		wtp_offer = { m = scottish_whisky_distillery_maintenance }
+		wtp_offer = { m = sugar_distillery_maintenance }
+		wtp_offer = { m = wheat_distillery_maintenance }
+		wtp_offer = { m = potato_liquor_workshop_maintenance }
+		wtp_offer = { m = rice_liquor_workshop_maintenance }
+		wtp_offer = { m = sugar_liquor_workshop_maintenance }
+		wtp_offer = { m = wheat_liquor_workshop_maintenance }
+		wtp_offer = { m = wine_liquor_workshop_maintenance }
+		wtp_offer = { m = potato_liquor_guild_maintenance }
+		wtp_offer = { m = rice_liquor_guild_maintenance }
+		wtp_offer = { m = sugar_liquor_guild_maintenance }
+		wtp_offer = { m = wheat_liquor_guild_maintenance }
+		wtp_offer = { m = wine_liquor_guild_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:livestock }
-		wtp_recipe_row_1 = { m = farming_village_maintenance }
+		wtp_offer = { m = farming_village_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:lumber }
-		wtp_recipe_row_1 = { m = shoen_lumbermills_maintenance }
+		wtp_offer = { m = shoen_lumbermills_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:masonry }
-		wtp_recipe_row_1 = { m = shoen_masonry_maintenance }
-		wtp_recipe_row_2 = { m = clay_bricks }
-		wtp_recipe_row_3 = { m = stone_bricks }
+		wtp_offer = { m = shoen_masonry_maintenance }
+		wtp_offer = { m = clay_bricks }
+		wtp_offer = { m = stone_bricks }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:medicaments }
-		wtp_recipe_row_1 = { m = ancient_medicine_apotechary }
-		wtp_recipe_row_2 = { m = natural_medicine_apotechary }
+		wtp_offer = { m = ancient_medicine_apotechary }
+		wtp_offer = { m = natural_medicine_apotechary }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:naval_supplies }
-		wtp_recipe_row_1 = { m = naval_supplies_mill_maintenance }
-		wtp_recipe_row_2 = { m = naval_supplies_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = naval_supplies_workshop_maintenance }
-		wtp_recipe_row_4 = { m = naval_supplies_guild_maintenance }
-		wtp_recipe_row_5 = { m = coastal_boatyard }
+		wtp_offer = { m = naval_supplies_mill_maintenance }
+		wtp_offer = { m = naval_supplies_manufactory_maintenance }
+		wtp_offer = { m = naval_supplies_workshop_maintenance }
+		wtp_offer = { m = naval_supplies_guild_maintenance }
+		wtp_offer = { m = coastal_boatyard }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:paper }
-		wtp_recipe_row_1 = { m = paper_wood_pulp_maintenance }
-		wtp_recipe_row_2 = { m = paper_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = paper_mill_maintenance }
-		wtp_recipe_row_4 = { m = paper_workshop_cloth_maintenance }
-		wtp_recipe_row_5 = { m = paper_guild_cloth_maintenance }
-		wtp_recipe_row_6 = { m = paper_guild_fiber_pulp_maintenance }
-		wtp_recipe_row_7 = { m = paper_workshop_fiber_pulp_maintenance }
-		wtp_recipe_row_8 = { m = paper_guild_leather_maintenance }
+		wtp_offer = { m = paper_wood_pulp_maintenance }
+		wtp_offer = { m = paper_manufactory_maintenance }
+		wtp_offer = { m = paper_mill_maintenance }
+		wtp_offer = { m = paper_workshop_cloth_maintenance }
+		wtp_offer = { m = paper_guild_cloth_maintenance }
+		wtp_offer = { m = paper_guild_fiber_pulp_maintenance }
+		wtp_offer = { m = paper_workshop_fiber_pulp_maintenance }
+		wtp_offer = { m = paper_guild_leather_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:porcelain }
-		wtp_recipe_row_1 = { m = porcelain_manufactory_maintenance }
-		wtp_recipe_row_2 = { m = porcelain_guild_maintenance }
+		wtp_offer = { m = porcelain_manufactory_maintenance }
+		wtp_offer = { m = porcelain_guild_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:pottery }
-		wtp_recipe_row_1 = { m = pottery_mill_maintenance }
-		wtp_recipe_row_2 = { m = pottery_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = pottery_w_maintenance }
-		wtp_recipe_row_4 = { m = pottery_maintenance }
-		wtp_recipe_row_5 = { m = rural_pottery_maker }
+		wtp_offer = { m = pottery_mill_maintenance }
+		wtp_offer = { m = pottery_manufactory_maintenance }
+		wtp_offer = { m = pottery_w_maintenance }
+		wtp_offer = { m = pottery_maintenance }
+		wtp_offer = { m = rural_pottery_maker }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:salt }
-		wtp_recipe_row_1 = { m = salt_collector_maintenance }
+		wtp_offer = { m = salt_collector_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:saltpeter }
-		wtp_recipe_row_1 = { m = putrefaction_mill_demands }
-		wtp_recipe_row_2 = { m = putrefaction_demands }
-		wtp_recipe_row_3 = { m = saltpeter_workshop_demands }
-		wtp_recipe_row_4 = { m = saltpeter_guild_demands }
+		wtp_offer = { m = putrefaction_mill_demands }
+		wtp_offer = { m = putrefaction_demands }
+		wtp_offer = { m = saltpeter_workshop_demands }
+		wtp_offer = { m = saltpeter_guild_demands }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:sand }
-		wtp_recipe_row_1 = { m = sand_pit_maintenance }
+		wtp_offer = { m = sand_pit_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:silk }
-		wtp_recipe_row_1 = { m = fiber_crops_silk_guild_maintenance }
-		wtp_recipe_row_2 = { m = ablaq_palace_maintenance }
+		wtp_offer = { m = fiber_crops_silk_guild_maintenance }
+		wtp_offer = { m = ablaq_palace_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:silver }
-		wtp_recipe_row_1 = { m = schwaz_mine_maintenance }
+		wtp_offer = { m = schwaz_mine_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:slaves_goods }
-		wtp_recipe_row_1 = { m = slave_center_maintenance }
+		wtp_offer = { m = slave_center_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:steel }
-		wtp_recipe_row_1 = { m = steel_mill_maintenance }
+		wtp_offer = { m = steel_mill_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:stone }
-		wtp_recipe_row_1 = { m = stone_quarry_maintenance }
-		wtp_recipe_row_2 = { m = crude_quarry_maintenance }
+		wtp_offer = { m = stone_quarry_maintenance }
+		wtp_offer = { m = crude_quarry_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:sugar }
-		wtp_recipe_row_1 = { m = sugar_plantation_maintenance }
+		wtp_offer = { m = sugar_plantation_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:tar }
-		wtp_recipe_row_1 = { m = tar_kiln_maintenance }
+		wtp_offer = { m = tar_kiln_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:tobacco }
-		wtp_recipe_row_1 = { m = tobacco_plantation_maintenance }
+		wtp_offer = { m = tobacco_plantation_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:tools }
-		wtp_recipe_row_1 = { m = iron_mill_maintenance }
-		wtp_recipe_row_2 = { m = iron_foundry_maintenance }
-		wtp_recipe_row_3 = { m = metalwork_workshop_maintenance }
-		wtp_recipe_row_4 = { m = metalwork_guild_maintenance }
-		wtp_recipe_row_5 = { m = bronze_tools_guild_maintenance }
-		wtp_recipe_row_6 = { m = copper_tools_guild_maintenance }
-		wtp_recipe_row_7 = { m = rural_blacksmith }
-		wtp_recipe_row_8 = { m = tamagahane_blacksmith }
-		wtp_recipe_row_9 = { m = stone_tools_guild_maintenance }
+		wtp_offer = { m = iron_mill_maintenance }
+		wtp_offer = { m = iron_foundry_maintenance }
+		wtp_offer = { m = metalwork_workshop_maintenance }
+		wtp_offer = { m = metalwork_guild_maintenance }
+		wtp_offer = { m = bronze_tools_guild_maintenance }
+		wtp_offer = { m = copper_tools_guild_maintenance }
+		wtp_offer = { m = rural_blacksmith }
+		wtp_offer = { m = tamagahane_blacksmith }
+		wtp_offer = { m = stone_tools_guild_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:weaponry }
-		wtp_recipe_row_1 = { m = weapon_factory_maintenance }
-		wtp_recipe_row_2 = { m = weapon_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = weapon_workshop_maintenance }
-		wtp_recipe_row_4 = { m = weapon_smith_maintenance }
-		wtp_recipe_row_5 = { m = pre_columbian_weapon_smith_maintenance }
-		wtp_recipe_row_6 = { m = weapon_guild_obsidian_maintenance }
-		wtp_recipe_row_7 = { m = rural_weaponmaker }
-		wtp_recipe_row_8 = { m = tamagahane_bladesmith }
+		wtp_offer = { m = weapon_factory_maintenance }
+		wtp_offer = { m = weapon_manufactory_maintenance }
+		wtp_offer = { m = weapon_workshop_maintenance }
+		wtp_offer = { m = weapon_smith_maintenance }
+		wtp_offer = { m = pre_columbian_weapon_smith_maintenance }
+		wtp_offer = { m = weapon_guild_obsidian_maintenance }
+		wtp_offer = { m = rural_weaponmaker }
+		wtp_offer = { m = tamagahane_bladesmith }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:wild_game }
-		wtp_recipe_row_1 = { m = eng_royal_forest_maintenance }
+		wtp_offer = { m = eng_royal_forest_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:wine }
-		wtp_recipe_row_1 = { m = fruit_winery_manufactory_maintenance }
-		wtp_recipe_row_2 = { m = honey_winery_manufactory_maintenance }
-		wtp_recipe_row_3 = { m = rice_winery_manufactory_maintenance }
-		wtp_recipe_row_4 = { m = fruit_winery_maintenance }
-		wtp_recipe_row_5 = { m = honey_winery_maintenance }
-		wtp_recipe_row_6 = { m = rice_winery_maintenance }
+		wtp_offer = { m = fruit_winery_manufactory_maintenance }
+		wtp_offer = { m = honey_winery_manufactory_maintenance }
+		wtp_offer = { m = rice_winery_manufactory_maintenance }
+		wtp_offer = { m = fruit_winery_maintenance }
+		wtp_offer = { m = honey_winery_maintenance }
+		wtp_offer = { m = rice_winery_maintenance }
 	}
 	else_if = { limit = { global_var:wtp_good = goods:wool }
-		wtp_recipe_row_1 = { m = sheep_farm_maintenance }
+		wtp_offer = { m = sheep_farm_maintenance }
 	}
 }

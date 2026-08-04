@@ -13,7 +13,7 @@
  wtp__pick_consumer_name: "Consumer goods"
  wtp__pick_weapons_name: "Weapons industry"
  wtp__plan__recipes_name: "Recipes"
- wtp__recipes_desc: "Every way to make the chosen good, with what it consumes and what it turns out. All of them count towards the shortlist; untick the ones you are not interested in."
+ wtp__recipes_desc: "Every way to make the chosen good. Hover a row for what it consumes and what it turns out. All of them count towards the shortlist; untick the ones you are not interested in."
  wtp__recipes__pick_name: "Use"
  wtp__recipes__ceiling_name: "Best %"
  wtp__recipes__ceiling_desc: "The most this recipe could ever take from raw materials in one province — with every one of them present."
@@ -29,6 +29,8 @@
  wtp__provinces__volume_name: "Output"
  wtp__provinces__volume_desc: "What the recipe turns out here, counting the local raw materials and nothing else."
  wtp__provinces_item_column_name: "Province"
+ wtp__filter_name: "Only what I can build"
+ wtp__filter_desc: "Hides recipes this country has no use for: buildings another tag, culture or reform keeps to itself, buildings that are not built in the ordinary way, and recipes whose raw materials are worked nowhere in the realm."
  wtp__sort_name: "Rank by"
  wtp__sort_desc: "Local coverage favours whichever recipe the province supplies best. Output favours whichever turns out most, which is usually a bigger recipe at a smaller percentage."
  wtp__sort_option_1_name: "Local %"
@@ -38,12 +40,10 @@
  WTP_PICK_NONE: "— none —"
  WTP_IN: "Consumes:"
  WTP_OUT: "Produces:"
- WTP_FROM_RGO: "Can come from the province:"
- wtp_empty_row: ""
+ WTP_FROM_RGO: "From the province:"
  # Neither a province nor a recipe has a localization key a row label could be
  # pointed at, so each shortlist row parks both in globals and reads them back
- # here. Ten keys because the list is registered at ten rows; unused rows are
- # hidden and never drawn.
+ # here. Ten keys because the list never grows past ten rows.
  wtp__provinces_i1_name: "[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_1').GetFlagName]"
  wtp__provinces_i2_name: "[GetGlobalVariable('wtp_prov_row_2').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_2').GetFlagName]"
  wtp__provinces_i3_name: "[GetGlobalVariable('wtp_prov_row_3').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_3').GetFlagName]"

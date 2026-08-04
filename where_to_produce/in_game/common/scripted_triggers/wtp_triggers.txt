@@ -18,3 +18,31 @@ wtp_recipes_match_good = {
 		}
 	}
 }
+
+# The Mod Menu setting that hides recipes this country has no use for.
+# Scope: any
+wtp_filtering_recipes = {
+	OR = {
+		NOT = { has_global_variable = wtp_filter }
+		global_var:wtp_filter = 1
+	}
+}
+
+# Whether a picker has moved since the last pass. On the first pass nothing has,
+# because wtp_register remembers all four before anything reads them.
+# Scope: any
+wtp_picker_moved_rgo = {
+	NOT = { global_var:wtp_seen_rgo = global_var:wtp_pick_rgo }
+}
+
+wtp_picker_moved_basic = {
+	NOT = { global_var:wtp_seen_basic = global_var:wtp_pick_basic }
+}
+
+wtp_picker_moved_consumer = {
+	NOT = { global_var:wtp_seen_consumer = global_var:wtp_pick_consumer }
+}
+
+wtp_picker_moved_weapons = {
+	NOT = { global_var:wtp_seen_weapons = global_var:wtp_pick_weapons }
+}

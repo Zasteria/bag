@@ -1,10 +1,15 @@
 ﻿# A CMM list setting is invisible until the mod supplies this.
 #
 # Registering a list marks it as having a scripted GUI (`_cmm_mark_setting_has_sgui`
-# inside `_cmm_register_list_setting_internal`), and the row is then drawn only when
-# `CMMGuiIsShown('<mod>__<setting>_on_changed')` is true. With no such scripted GUI
-# the whole widget is hidden -- header, rows and all -- which is exactly what an
-# empty list looks like from the outside, and nothing is written to any log.
+# inside `_cmm_register_list_setting_internal`), and the row is then drawn only
+# when `CMMGuiIsShown('<mod>__<setting>_on_changed')` is true. With no such
+# scripted GUI the whole widget is hidden — header, rows and all — which is
+# exactly what an empty list looks like from the outside, and nothing is written
+# to any log.
+#
+# That gate is also the only way to show *no* list: `item_count` is clamped to at
+# least one, so a list can never be registered empty. `is_shown` below is what
+# takes the whole widget off the screen when there is nothing to put in it.
 #
 # It is also the only route a click on a list reaches script by: unlike bool,
 # dropdown, numeric and slider settings, lists have no CMM auto-apply. The widget
@@ -15,13 +20,16 @@ wtp__recipes_on_changed = {
 	scope = country
 
 	is_shown = {
-		always = yes
+		has_variable = wtp_recipe_count
+		var:wtp_recipe_count > 0
 	}
 
 	effect = {
 		cmm_apply_list_change = {
 			setting = wtp__recipes
 		}
+		wtp_read_active_recipes = yes
+		wtp_remember_ticks = yes
 		wtp_rebuild_shortlist = yes
 	}
 }
@@ -32,7 +40,8 @@ wtp__provinces_on_changed = {
 	scope = country
 
 	is_shown = {
-		always = yes
+		has_variable = wtp_shortlist_count
+		var:wtp_shortlist_count > 0
 	}
 
 	effect = {
