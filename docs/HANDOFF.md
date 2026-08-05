@@ -38,6 +38,18 @@ against three tooltips.
 
 ## Not done, and asked for
 
+- **The game's own look.** The answer is a CMM table: a `text_single` and numeric
+  cells. The player wants the plate the game draws for a building — icon, name,
+  input icons, arrow, output — clickable, with a tooltip. That cannot be done
+  inside a CMM list, and the way to it is our own window. Everything it needs is
+  reachable: `GetGlobalList` as a datamodel (vanilla does it), `BuildingType.GetIcon`
+  and `.GetName` if the pool holds `building_type:` scopes rather than flags,
+  `Player.MakeScope.GetVariableFromVariableMap(name, key).GetValue` for the
+  numbers — that is how CMF reads its own maps from GUI — and
+  `BuildingType.GetPossibleProductionMethods` for the recipe. The old custom
+  window failed because it read `LocationProductionView`, which only resolves
+  inside its own panel; a window reading only our own globals does not.
+
 - **A button in the location panel** to jump to the province on screen instead of
   walking three pickers. `scripted_widgets` makes it possible; it was left out
   because injecting into a vanilla panel is where the old custom window already

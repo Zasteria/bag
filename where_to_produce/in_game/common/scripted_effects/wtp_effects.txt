@@ -320,6 +320,7 @@ wtp_set_tick = {
 wtp_fill_top = {
 	clear_variable_map = wtp_bonus_of
 	clear_variable_map = wtp_volume_of
+	clear_variable_map = wtp_ceiling_of
 	clear_variable_map = wtp_desc_of
 	clear_global_variable_list = wtp_top_pool
 	set_variable = { name = wtp_top_count value = 0 }
@@ -359,6 +360,7 @@ wtp_offer_building = {
 		}
 		set_variable = { name = wtp_cand_bonus value = 0 }
 		set_variable = { name = wtp_cand_volume value = 0 }
+		set_variable = { name = wtp_cand_ceiling value = 0 }
 		if = { limit = { has_variable = wtp_cand_desc } remove_variable = wtp_cand_desc }
 
 		wtp_methods_of_$b$ = yes
@@ -368,6 +370,7 @@ wtp_offer_building = {
 			add_to_global_variable_list = { name = wtp_top_pool target = flag:$b$ }
 			add_to_variable_map = { name = wtp_bonus_of key = flag:$b$ value = var:wtp_cand_bonus }
 			add_to_variable_map = { name = wtp_volume_of key = flag:$b$ value = var:wtp_cand_volume }
+			add_to_variable_map = { name = wtp_ceiling_of key = flag:$b$ value = var:wtp_cand_ceiling }
 			add_to_variable_map = { name = wtp_desc_of key = flag:$b$ value = var:wtp_cand_desc }
 			change_variable = { name = wtp_top_count add = 1 }
 		}
@@ -395,6 +398,7 @@ wtp_try_method = {
 		}
 		set_variable = { name = wtp_cand_bonus value = scope:wtp_target.wtp_bonus_$m$ }
 		set_variable = { name = wtp_cand_volume value = scope:wtp_target.wtp_volume_$m$ }
+		set_variable = { name = wtp_cand_ceiling value = wtp_ceiling_$m$ }
 		set_variable = { name = wtp_cand_desc value = flag:wtp_recipe_$m$_desc }
 	}
 }
@@ -469,14 +473,17 @@ wtp_find_best_candidate = {
 wtp_write_top_row = {
 	set_local_variable = { name = wtp_key value = var:wtp_best_flag }
 	set_variable = { name = wtp_row_local value = "variable_map(wtp_bonus_of|local_var:wtp_key)" }
+	set_variable = { name = wtp_row_ceiling value = "variable_map(wtp_ceiling_of|local_var:wtp_key)" }
 	set_variable = { name = wtp_row_output value = "variable_map(wtp_volume_of|local_var:wtp_key)" }
 	round_variable = { name = wtp_row_local nearest = 0.01 }
+	round_variable = { name = wtp_row_ceiling nearest = 0.01 }
 	round_variable = { name = wtp_row_output nearest = 0.01 }
 
 	set_variable = { name = wtp__top_i$n$_name value = var:wtp_best_flag }
 	set_variable = { name = wtp__top_i$n$_desc value = "variable_map(wtp_desc_of|local_var:wtp_key)" }
 	cmm_set_list_item_value = { mod_id = wtp setting_id = top item = $n$ value = var:wtp_best_flag }
 	cmm_set_list_data_value = { mod_id = wtp setting_id = top field_id = local item = $n$ value = var:wtp_row_local }
+	cmm_set_list_data_value = { mod_id = wtp setting_id = top field_id = ceiling item = $n$ value = var:wtp_row_ceiling }
 	cmm_set_list_data_value = { mod_id = wtp setting_id = top field_id = output item = $n$ value = var:wtp_row_output }
 
 	if = { limit = { always = no } cmf_suppress = { v = wtp_key } }

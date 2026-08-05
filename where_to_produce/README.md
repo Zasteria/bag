@@ -26,7 +26,9 @@ land you hold, so the list is short enough to read.
 - **Worth building here** — the answer. One row per building, ranked, under the
   game's own name for it. Hover a row for the recipe behind the figure: what it
   consumes, what it turns out, and which of its inputs the province supplies.
-  Two columns, **Local %** and **Output**.
+  Three columns: **Local %**, **Max %** — what that method could ever reach, so
+  a figure reads as "everything this province will ever give" or "half of it" —
+  and **Output**.
 - **Display** — town buildings, rural ones or both; rank by percentage or by
   output; how many rows; and two filters, one for what this country can never
   build and one for what it has not reached yet.
@@ -99,8 +101,8 @@ wtp_fill_provinces         ... limited to the picked area -> province
 wtp_fill_top               every candidate building against the picked province
 ```
 
-`wtp_fill_top` scores each building into three country variable maps keyed by the
-building's flag — bonus, volume, and the tooltip of the method that won — and
+`wtp_fill_top` scores each building into four country variable maps keyed by the
+building's flag — bonus, ceiling, volume, and the tooltip of the method that won — and
 then a twelve-pass selection sort writes the best into the rows. A selection sort
 rather than `ordered_in_global_list`, because the ranking lives in a variable map
 and an ordered iterator wants a script value it can evaluate on the iterated
@@ -282,3 +284,26 @@ Goods inputs are recognised by matching the goods catalogue, not by "any
 numeric key". Methods carry bookkeeping numbers too, and `debug_max_profit = -1`
 on the plantations is numeric enough to have made four recipes' input weight
 come out negative before this was keyed on real goods.
+
+## Why the answer is a table and not a plate
+
+The game draws a building as a plate: icon, name, input icons with amounts, an
+arrow, the output. The answer here cannot look like that, because a CMM list row
+is a `text_single` plus numeric cells — there is no place to put a widget, and
+goods have no text icon to put in the string (the game draws them as `icon`
+widgets from `GetGoodsIcon`).
+
+Getting the game's own look means drawing our own window, and everything it
+would need does exist:
+
+| Need | Reachable through |
+| --- | --- |
+| rows | `datamodel = "[GetGlobalList('wtp_top_pool')]"`, as vanilla does for `hacw_hook_list` |
+| the building | store `building_type:X` scopes rather than flags, and each item is a `BuildingType` |
+| its icon and name | `BuildingType.GetIcon`, `.GetName` |
+| the numbers | `Player.MakeScope.GetVariableFromVariableMap(name, key).GetValue`, which is how CMF reads its own maps from GUI |
+| the recipe | `BuildingType.GetPossibleProductionMethods`, `.ProductionEfficiencyInfo` |
+
+The old custom window failed for a different reason — it read
+`LocationProductionView`, which only resolves inside its own panel. A window that
+reads nothing but our own globals and script values does not hit that.
