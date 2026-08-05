@@ -32,6 +32,8 @@
  wtp__sort_desc: "Local coverage favours whichever building this province supplies best. Output favours whichever turns out most, which is usually a bigger building at a smaller percentage."
  wtp__sort_option_1_name: "Local %"
  wtp__sort_option_2_name: "Output"
+ wtp__unlocked_name: "Only what I have now"
+ wtp__unlocked_desc: "Hides buildings this country has not reached yet, and ones a successor has already replaced. Asks the game itself, so it moves with your advances and ages. If the list comes up empty, this is the toggle to turn off."
  wtp__filter_name: "Only what I can build"
  wtp__filter_desc: "Hides buildings this country has no use for: ones another tag, culture or reform keeps to itself, ones that are not built in the ordinary way, and ones whose raw materials are worked nowhere in your realm."
  wtp__shortlist_size_name: "Buildings Shown"

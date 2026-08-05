@@ -246,6 +246,17 @@ def render_availability(game: Game, ids, gates, buildings, entries) -> str:
                 out.append(gate)
         out.append("}")
 
+        # Whether the country has it *now*. `can_build_building` is the engine's
+        # own answer, so it moves with advances and ages without this mod knowing
+        # anything about them, and `building_type_is_obsolete` drops the ones a
+        # successor has replaced. Kept apart from the availability trigger above
+        # because they answer different questions -- "never" against "not yet" --
+        # and the menu offers them as two toggles.
+        out.append("wtp_building_unlocked_%s = {" % building)
+        out.append("\tcan_build_building = building_type:%s" % building)
+        out.append("\tNOT = { building_type_is_obsolete = building_type:%s }" % building)
+        out.append("}")
+
         town = scalar(info, "pop_type") in TOWN_POPS
         out.append("# %s is staffed by %s" % (building, scalar(info, "pop_type")))
         out.append("wtp_building_in_scope_%s = {" % building)

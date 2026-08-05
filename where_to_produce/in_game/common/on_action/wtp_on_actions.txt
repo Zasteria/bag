@@ -23,9 +23,27 @@ wtp_on_registration = {
 	}
 }
 
+# What is unlocked changes as the game goes on, and nothing about advancing an
+# age touches the Mod Menu. Once a year is often enough to keep the answer from
+# describing a country you no longer are, and it costs one pass over the
+# candidates for the province already picked.
+# Scope: country
+cmf_yearly_human_country_pulse = {
+	on_actions = {
+		wtp_on_year
+	}
+}
+
 # Scope: country
 wtp_on_callback = {
 	effect = {
 		wtp_handle_callback = yes
+	}
+}
+
+# Scope: country
+wtp_on_year = {
+	effect = {
+		wtp_fill_top = yes
 	}
 }

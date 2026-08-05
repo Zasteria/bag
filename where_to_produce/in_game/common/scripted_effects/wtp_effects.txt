@@ -352,6 +352,10 @@ wtp_offer_building = {
 				NOT = { wtp_filtering_buildings = yes }
 				wtp_building_available_$b$ = yes
 			}
+			OR = {
+				NOT = { wtp_only_unlocked_buildings = yes }
+				wtp_building_unlocked_$b$ = yes
+			}
 		}
 		set_variable = { name = wtp_cand_bonus value = 0 }
 		set_variable = { name = wtp_cand_volume value = 0 }

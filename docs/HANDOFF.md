@@ -59,15 +59,22 @@ to be the thing that breaks:
 2. **`region = global_var:wtp_sel_region` as a filter on `every_owned_location`.**
    Vanilla only ever compares against a literal `region:x`. If the area list
    ignores which region was picked, this comparison is why.
-3. **Reading a variable map inside a script value** — `wtp_candidate_rank` does
+3. **`can_build_building` and `building_type_is_obsolete` on the country.**
+   Both are engine triggers vanilla uses country-side — `country_can_build_in_location`
+   splits exactly this way, and Construction Manager leans on both. They are what
+   the **Only what I have now** toggle is; if it turns out stricter than it looks
+   and empties the answer, that toggle is the thing to turn off and the rest of
+   the filtering carries on. That is why it is its own setting rather than folded
+   into the availability filter.
+4. **Reading a variable map inside a script value** — `wtp_candidate_rank` does
    `"variable_map(wtp_bonus_of|scope:wtp_cand)"`. CMF uses that expression in
    triggers and effects, not in a script value. If every row scores the same, the
    selection sort is reading nothing.
-4. **Re-registering a list at a new height.** Clearing `cmm_list_items_<setting>`
+5. **Re-registering a list at a new height.** Clearing `cmm_list_items_<setting>`
    and removing `cmm_list_initialized_<setting>` sends registration back through
    its first-time branch, which is how it is meant to work — but CMF has no
    caller that does this. Four lists now depend on it.
-5. **`GetRegion` / `GetArea` on a global variable.** `GetProvince` is confirmed
+6. **`GetRegion` / `GetArea` on a global variable.** `GetProvince` is confirmed
    working from the screenshots; these two follow the same pattern and
    `Area.GetNameWithNoTooltip` exists, but they have not been seen.
 
@@ -131,16 +138,18 @@ python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" "<CMF>/in
 
 ## The one thing the game files here cannot answer
 
-Production methods locked behind an advance. `ProductionMethod.IsAvailable`
-exists as a GUI data function, so the game plainly knows, but nothing in
-`building_types/` or `production_methods/` says which advance unlocks which
-method — so a pre-Columbian or obsidian variant of a guild still shows for a
-European player. It sits near the bottom, where its output puts it, but it is
-noise.
+*Building* unlocks are solved: `can_build_building` in the country scope is the
+engine's own answer and moves with advances and ages by itself.
 
-Fixing it needs whatever holds the `has_advance` unlocks — `common/advances/`
-and the technology folder beside it. With those, the same trick that copies
-`country_potential` verbatim would copy the unlock condition too.
+What is left is one *method* of an unlocked building being locked behind an
+advance. `ProductionMethod.IsAvailable` exists as a GUI data function, so the
+game plainly knows, but there is no script-side counterpart and nothing in
+`building_types/` or `production_methods/` records the unlock. A pre-Columbian
+variant of a guild you do have still counts towards that guild's figure.
+
+It is a small error now — the ages gate buildings, not methods within them — and
+fixing it would need whatever holds the unlocks, `common/advances/` and the
+technology folder beside it.
 
 ## Loose ends, none blocking
 

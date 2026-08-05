@@ -13,3 +13,18 @@ wtp_filtering_buildings = {
 		global_var:wtp_filter = 1
 	}
 }
+
+# The Display setting that hides buildings this country has not reached yet.
+#
+# Kept apart from the one above because the two answer different questions —
+# "never" against "not yet" — and because this one leans on the engine's
+# `can_build_building`, which is the one thing here nobody has watched work. If
+# it turns out stricter than it looks and empties the list, this is the toggle to
+# turn off, and the rest of the filtering carries on.
+# Scope: any
+wtp_only_unlocked_buildings = {
+	OR = {
+		NOT = { has_global_variable = wtp_unlocked }
+		global_var:wtp_unlocked = 1
+	}
+}

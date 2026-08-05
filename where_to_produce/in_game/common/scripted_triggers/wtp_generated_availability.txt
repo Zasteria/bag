@@ -9,6 +9,10 @@ wtp_building_available_ablaq_palace = {
 	# special or foreign: not built the ordinary way
 	always = no
 }
+wtp_building_unlocked_ablaq_palace = {
+	can_build_building = building_type:ablaq_palace
+	NOT = { building_type_is_obsolete = building_type:ablaq_palace }
+}
 # ablaq_palace is staffed by burghers
 wtp_building_in_scope_ablaq_palace = {
 	OR = {
@@ -25,6 +29,10 @@ wtp_building_available_apothecary = {
 		has_global_variable = wtp_realm_has_mercury
 		has_global_variable = wtp_realm_has_wild_game
 	}
+}
+wtp_building_unlocked_apothecary = {
+	can_build_building = building_type:apothecary
+	NOT = { building_type_is_obsolete = building_type:apothecary }
 }
 # apothecary is staffed by burghers
 wtp_building_in_scope_apothecary = {
@@ -46,6 +54,10 @@ wtp_building_available_beer_workshop = {
 		has_global_variable = wtp_realm_has_wheat
 	}
 }
+wtp_building_unlocked_beer_workshop = {
+	can_build_building = building_type:beer_workshop
+	NOT = { building_type_is_obsolete = building_type:beer_workshop }
+}
 # beer_workshop is staffed by burghers
 wtp_building_in_scope_beer_workshop = {
 	OR = {
@@ -59,6 +71,10 @@ wtp_building_available_bog_iron_smelter = {
 	OR = {
 		has_global_variable = wtp_realm_has_coal
 	}
+}
+wtp_building_unlocked_bog_iron_smelter = {
+	can_build_building = building_type:bog_iron_smelter
+	NOT = { building_type_is_obsolete = building_type:bog_iron_smelter }
 }
 # bog_iron_smelter is staffed by laborers
 wtp_building_in_scope_bog_iron_smelter = {
@@ -80,6 +96,10 @@ wtp_building_available_brewery = {
 		has_global_variable = wtp_realm_has_wheat
 	}
 }
+wtp_building_unlocked_brewery = {
+	can_build_building = building_type:brewery
+	NOT = { building_type_is_obsolete = building_type:brewery }
+}
 # brewery is staffed by burghers
 wtp_building_in_scope_brewery = {
 	OR = {
@@ -95,6 +115,10 @@ wtp_building_available_brewery_manufactory = {
 		has_global_variable = wtp_realm_has_wheat
 	}
 }
+wtp_building_unlocked_brewery_manufactory = {
+	can_build_building = building_type:brewery_manufactory
+	NOT = { building_type_is_obsolete = building_type:brewery_manufactory }
+}
 # brewery_manufactory is staffed by burghers
 wtp_building_in_scope_brewery_manufactory = {
 	OR = {
@@ -109,6 +133,10 @@ wtp_building_available_brewery_mill = {
 		has_global_variable = wtp_realm_has_lumber
 		has_global_variable = wtp_realm_has_wheat
 	}
+}
+wtp_building_unlocked_brewery_mill = {
+	can_build_building = building_type:brewery_mill
+	NOT = { building_type_is_obsolete = building_type:brewery_mill }
 }
 # brewery_mill is staffed by laborers
 wtp_building_in_scope_brewery_mill = {
@@ -126,6 +154,10 @@ wtp_building_available_cannon_foundry = {
 		has_global_variable = wtp_realm_has_saltpeter
 		has_global_variable = wtp_realm_has_tin
 	}
+}
+wtp_building_unlocked_cannon_foundry = {
+	can_build_building = building_type:cannon_foundry
+	NOT = { building_type_is_obsolete = building_type:cannon_foundry }
 }
 # cannon_foundry is staffed by burghers
 wtp_building_in_scope_cannon_foundry = {
@@ -147,6 +179,10 @@ wtp_building_available_cannon_maker = {
 		has_global_variable = wtp_realm_has_tin
 	}
 }
+wtp_building_unlocked_cannon_maker = {
+	can_build_building = building_type:cannon_maker
+	NOT = { building_type_is_obsolete = building_type:cannon_maker }
+}
 # cannon_maker is staffed by burghers
 wtp_building_in_scope_cannon_maker = {
 	OR = {
@@ -166,6 +202,10 @@ wtp_building_available_cannon_workshop = {
 		has_global_variable = wtp_realm_has_tin
 	}
 }
+wtp_building_unlocked_cannon_workshop = {
+	can_build_building = building_type:cannon_workshop
+	NOT = { building_type_is_obsolete = building_type:cannon_workshop }
+}
 # cannon_workshop is staffed by burghers
 wtp_building_in_scope_cannon_workshop = {
 	OR = {
@@ -181,6 +221,10 @@ wtp_building_available_cannons_factory = {
 		has_global_variable = wtp_realm_has_saltpeter
 	}
 }
+wtp_building_unlocked_cannons_factory = {
+	can_build_building = building_type:cannons_factory
+	NOT = { building_type_is_obsolete = building_type:cannons_factory }
+}
 # cannons_factory is staffed by laborers
 wtp_building_in_scope_cannons_factory = {
 	OR = {
@@ -195,6 +239,10 @@ wtp_building_available_charcoal_maker = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_charcoal_maker = {
+	can_build_building = building_type:charcoal_maker
+	NOT = { building_type_is_obsolete = building_type:charcoal_maker }
+}
 # charcoal_maker is staffed by laborers
 wtp_building_in_scope_charcoal_maker = {
 	OR = {
@@ -208,6 +256,10 @@ wtp_building_available_clay_pit = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_clay_pit = {
+	can_build_building = building_type:clay_pit
+	NOT = { building_type_is_obsolete = building_type:clay_pit }
 }
 # clay_pit is staffed by laborers
 wtp_building_in_scope_clay_pit = {
@@ -224,6 +276,10 @@ wtp_building_available_cloth_guild = {
 		has_global_variable = wtp_realm_has_fiber_crops
 		has_global_variable = wtp_realm_has_wool
 	}
+}
+wtp_building_unlocked_cloth_guild = {
+	can_build_building = building_type:cloth_guild
+	NOT = { building_type_is_obsolete = building_type:cloth_guild }
 }
 # cloth_guild is staffed by burghers
 wtp_building_in_scope_cloth_guild = {
@@ -242,6 +298,10 @@ wtp_building_available_cloth_manufactory = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_cloth_manufactory = {
+	can_build_building = building_type:cloth_manufactory
+	NOT = { building_type_is_obsolete = building_type:cloth_manufactory }
+}
 # cloth_manufactory is staffed by burghers
 wtp_building_in_scope_cloth_manufactory = {
 	OR = {
@@ -258,6 +318,10 @@ wtp_building_available_cloth_workshop = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_cloth_workshop = {
+	can_build_building = building_type:cloth_workshop
+	NOT = { building_type_is_obsolete = building_type:cloth_workshop }
+}
 # cloth_workshop is staffed by burghers
 wtp_building_in_scope_cloth_workshop = {
 	OR = {
@@ -271,6 +335,10 @@ wtp_building_available_cotton_plantation = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_cotton_plantation = {
+	can_build_building = building_type:cotton_plantation
+	NOT = { building_type_is_obsolete = building_type:cotton_plantation }
 }
 # cotton_plantation is staffed by slaves
 wtp_building_in_scope_cotton_plantation = {
@@ -290,6 +358,10 @@ wtp_building_available_distiller_manufactory = {
 		has_global_variable = wtp_realm_has_wheat
 	}
 }
+wtp_building_unlocked_distiller_manufactory = {
+	can_build_building = building_type:distiller_manufactory
+	NOT = { building_type_is_obsolete = building_type:distiller_manufactory }
+}
 # distiller_manufactory is staffed by burghers
 wtp_building_in_scope_distiller_manufactory = {
 	OR = {
@@ -307,6 +379,10 @@ wtp_building_available_distiller_mill = {
 		has_global_variable = wtp_realm_has_sugar
 		has_global_variable = wtp_realm_has_wheat
 	}
+}
+wtp_building_unlocked_distiller_mill = {
+	can_build_building = building_type:distiller_mill
+	NOT = { building_type_is_obsolete = building_type:distiller_mill }
 }
 # distiller_mill is staffed by laborers
 wtp_building_in_scope_distiller_mill = {
@@ -326,6 +402,10 @@ wtp_building_available_distillers_guild = {
 		has_global_variable = wtp_realm_has_wine
 	}
 }
+wtp_building_unlocked_distillers_guild = {
+	can_build_building = building_type:distillers_guild
+	NOT = { building_type_is_obsolete = building_type:distillers_guild }
+}
 # distillers_guild is staffed by burghers
 wtp_building_in_scope_distillers_guild = {
 	OR = {
@@ -344,6 +424,10 @@ wtp_building_available_distillers_workshop = {
 		has_global_variable = wtp_realm_has_wine
 	}
 }
+wtp_building_unlocked_distillers_workshop = {
+	can_build_building = building_type:distillers_workshop
+	NOT = { building_type_is_obsolete = building_type:distillers_workshop }
+}
 # distillers_workshop is staffed by burghers
 wtp_building_in_scope_distillers_workshop = {
 	OR = {
@@ -358,6 +442,10 @@ wtp_building_available_dyes_guild = {
 		has_global_variable = wtp_realm_has_alum
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_dyes_guild = {
+	can_build_building = building_type:dyes_guild
+	NOT = { building_type_is_obsolete = building_type:dyes_guild }
 }
 # dyes_guild is staffed by burghers
 wtp_building_in_scope_dyes_guild = {
@@ -374,6 +462,10 @@ wtp_building_available_dyes_mill = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_dyes_mill = {
+	can_build_building = building_type:dyes_mill
+	NOT = { building_type_is_obsolete = building_type:dyes_mill }
+}
 # dyes_mill is staffed by laborers
 wtp_building_in_scope_dyes_mill = {
 	OR = {
@@ -389,6 +481,10 @@ wtp_building_available_dyes_workshop = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_dyes_workshop = {
+	can_build_building = building_type:dyes_workshop
+	NOT = { building_type_is_obsolete = building_type:dyes_workshop }
+}
 # dyes_workshop is staffed by burghers
 wtp_building_in_scope_dyes_workshop = {
 	OR = {
@@ -403,6 +499,10 @@ wtp_building_available_dyesworks = {
 		has_global_variable = wtp_realm_has_alum
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_dyesworks = {
+	can_build_building = building_type:dyesworks
+	NOT = { building_type_is_obsolete = building_type:dyesworks }
 }
 # dyesworks is staffed by burghers
 wtp_building_in_scope_dyesworks = {
@@ -420,6 +520,10 @@ wtp_building_available_elephant_hunting_grounds = {
 	# country_potential of elephant_hunting_grounds, verbatim
 	produced_in_country:elephants > 0
 }
+wtp_building_unlocked_elephant_hunting_grounds = {
+	can_build_building = building_type:elephant_hunting_grounds
+	NOT = { building_type_is_obsolete = building_type:elephant_hunting_grounds }
+}
 # elephant_hunting_grounds is staffed by peasants
 wtp_building_in_scope_elephant_hunting_grounds = {
 	OR = {
@@ -432,6 +536,10 @@ wtp_building_in_scope_elephant_hunting_grounds = {
 wtp_building_available_eng_royal_forest = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_eng_royal_forest = {
+	can_build_building = building_type:eng_royal_forest
+	NOT = { building_type_is_obsolete = building_type:eng_royal_forest }
 }
 # eng_royal_forest is staffed by peasants
 wtp_building_in_scope_eng_royal_forest = {
@@ -447,6 +555,10 @@ wtp_building_available_farming_village = {
 		has_global_variable = wtp_realm_has_clay
 	}
 }
+wtp_building_unlocked_farming_village = {
+	can_build_building = building_type:farming_village
+	NOT = { building_type_is_obsolete = building_type:farming_village }
+}
 # farming_village is staffed by peasants
 wtp_building_in_scope_farming_village = {
 	OR = {
@@ -461,6 +573,10 @@ wtp_building_available_fiber_crops_farm = {
 		has_global_variable = wtp_realm_has_livestock
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_fiber_crops_farm = {
+	can_build_building = building_type:fiber_crops_farm
+	NOT = { building_type_is_obsolete = building_type:fiber_crops_farm }
 }
 # fiber_crops_farm is staffed by laborers
 wtp_building_in_scope_fiber_crops_farm = {
@@ -480,6 +596,10 @@ wtp_building_available_fine_cloth_guild = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_fine_cloth_guild = {
+	can_build_building = building_type:fine_cloth_guild
+	NOT = { building_type_is_obsolete = building_type:fine_cloth_guild }
+}
 # fine_cloth_guild is staffed by burghers
 wtp_building_in_scope_fine_cloth_guild = {
 	OR = {
@@ -496,6 +616,10 @@ wtp_building_available_fine_cloth_manufactory = {
 		has_global_variable = wtp_realm_has_silk
 	}
 }
+wtp_building_unlocked_fine_cloth_manufactory = {
+	can_build_building = building_type:fine_cloth_manufactory
+	NOT = { building_type_is_obsolete = building_type:fine_cloth_manufactory }
+}
 # fine_cloth_manufactory is staffed by burghers
 wtp_building_in_scope_fine_cloth_manufactory = {
 	OR = {
@@ -510,6 +634,10 @@ wtp_building_available_fine_cloth_mill = {
 		has_global_variable = wtp_realm_has_dyes
 		has_global_variable = wtp_realm_has_silk
 	}
+}
+wtp_building_unlocked_fine_cloth_mill = {
+	can_build_building = building_type:fine_cloth_mill
+	NOT = { building_type_is_obsolete = building_type:fine_cloth_mill }
 }
 # fine_cloth_mill is staffed by laborers
 wtp_building_in_scope_fine_cloth_mill = {
@@ -529,6 +657,10 @@ wtp_building_available_fine_cloth_workshop = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_fine_cloth_workshop = {
+	can_build_building = building_type:fine_cloth_workshop
+	NOT = { building_type_is_obsolete = building_type:fine_cloth_workshop }
+}
 # fine_cloth_workshop is staffed by burghers
 wtp_building_in_scope_fine_cloth_workshop = {
 	OR = {
@@ -543,6 +675,10 @@ wtp_building_available_firearms_factory = {
 		has_global_variable = wtp_realm_has_lead
 		has_global_variable = wtp_realm_has_saltpeter
 	}
+}
+wtp_building_unlocked_firearms_factory = {
+	can_build_building = building_type:firearms_factory
+	NOT = { building_type_is_obsolete = building_type:firearms_factory }
 }
 # firearms_factory is staffed by laborers
 wtp_building_in_scope_firearms_factory = {
@@ -562,6 +698,10 @@ wtp_building_available_firearms_manufactory = {
 		has_global_variable = wtp_realm_has_saltpeter
 	}
 }
+wtp_building_unlocked_firearms_manufactory = {
+	can_build_building = building_type:firearms_manufactory
+	NOT = { building_type_is_obsolete = building_type:firearms_manufactory }
+}
 # firearms_manufactory is staffed by burghers
 wtp_building_in_scope_firearms_manufactory = {
 	OR = {
@@ -578,6 +718,10 @@ wtp_building_available_fishing_village = {
 		has_global_variable = wtp_realm_has_lumber
 		has_global_variable = wtp_realm_has_salt
 	}
+}
+wtp_building_unlocked_fishing_village = {
+	can_build_building = building_type:fishing_village
+	NOT = { building_type_is_obsolete = building_type:fishing_village }
 }
 # fishing_village is staffed by peasants
 wtp_building_in_scope_fishing_village = {
@@ -596,6 +740,10 @@ wtp_building_available_forest_village = {
 		has_global_variable = wtp_realm_has_wild_game
 	}
 }
+wtp_building_unlocked_forest_village = {
+	can_build_building = building_type:forest_village
+	NOT = { building_type_is_obsolete = building_type:forest_village }
+}
 # forest_village is staffed by peasants
 wtp_building_in_scope_forest_village = {
 	OR = {
@@ -609,6 +757,10 @@ wtp_building_available_fruit_orchard = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_fruit_orchard = {
+	can_build_building = building_type:fruit_orchard
+	NOT = { building_type_is_obsolete = building_type:fruit_orchard }
 }
 # fruit_orchard is staffed by laborers
 wtp_building_in_scope_fruit_orchard = {
@@ -625,6 +777,10 @@ wtp_building_available_furniture_guild = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_furniture_guild = {
+	can_build_building = building_type:furniture_guild
+	NOT = { building_type_is_obsolete = building_type:furniture_guild }
+}
 # furniture_guild is staffed by burghers
 wtp_building_in_scope_furniture_guild = {
 	OR = {
@@ -639,6 +795,10 @@ wtp_building_available_furniture_manufactory = {
 		has_global_variable = wtp_realm_has_dyes
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_furniture_manufactory = {
+	can_build_building = building_type:furniture_manufactory
+	NOT = { building_type_is_obsolete = building_type:furniture_manufactory }
 }
 # furniture_manufactory is staffed by burghers
 wtp_building_in_scope_furniture_manufactory = {
@@ -655,6 +815,10 @@ wtp_building_available_furniture_mill = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_furniture_mill = {
+	can_build_building = building_type:furniture_mill
+	NOT = { building_type_is_obsolete = building_type:furniture_mill }
+}
 # furniture_mill is staffed by laborers
 wtp_building_in_scope_furniture_mill = {
 	OR = {
@@ -669,6 +833,10 @@ wtp_building_available_furniture_workshop = {
 		has_global_variable = wtp_realm_has_dyes
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_furniture_workshop = {
+	can_build_building = building_type:furniture_workshop
+	NOT = { building_type_is_obsolete = building_type:furniture_workshop }
 }
 # furniture_workshop is staffed by burghers
 wtp_building_in_scope_furniture_workshop = {
@@ -686,6 +854,10 @@ wtp_building_available_glass_guild = {
 		has_global_variable = wtp_realm_has_lumber
 		has_global_variable = wtp_realm_has_sand
 	}
+}
+wtp_building_unlocked_glass_guild = {
+	can_build_building = building_type:glass_guild
+	NOT = { building_type_is_obsolete = building_type:glass_guild }
 }
 # glass_guild is staffed by burghers
 wtp_building_in_scope_glass_guild = {
@@ -705,6 +877,10 @@ wtp_building_available_glass_mill = {
 		has_global_variable = wtp_realm_has_stone
 	}
 }
+wtp_building_unlocked_glass_mill = {
+	can_build_building = building_type:glass_mill
+	NOT = { building_type_is_obsolete = building_type:glass_mill }
+}
 # glass_mill is staffed by laborers
 wtp_building_in_scope_glass_mill = {
 	OR = {
@@ -721,6 +897,10 @@ wtp_building_available_glass_workshop = {
 		has_global_variable = wtp_realm_has_lumber
 		has_global_variable = wtp_realm_has_sand
 	}
+}
+wtp_building_unlocked_glass_workshop = {
+	can_build_building = building_type:glass_workshop
+	NOT = { building_type_is_obsolete = building_type:glass_workshop }
 }
 # glass_workshop is staffed by burghers
 wtp_building_in_scope_glass_workshop = {
@@ -739,6 +919,10 @@ wtp_building_available_glassworks = {
 		has_global_variable = wtp_realm_has_sand
 		has_global_variable = wtp_realm_has_stone
 	}
+}
+wtp_building_unlocked_glassworks = {
+	can_build_building = building_type:glassworks
+	NOT = { building_type_is_obsolete = building_type:glassworks }
 }
 # glassworks is staffed by burghers
 wtp_building_in_scope_glassworks = {
@@ -759,6 +943,10 @@ wtp_building_available_gun_smith = {
 		has_global_variable = wtp_realm_has_tin
 	}
 }
+wtp_building_unlocked_gun_smith = {
+	can_build_building = building_type:gun_smith
+	NOT = { building_type_is_obsolete = building_type:gun_smith }
+}
 # gun_smith is staffed by burghers
 wtp_building_in_scope_gun_smith = {
 	OR = {
@@ -776,6 +964,10 @@ wtp_building_available_guns_workshop = {
 		has_global_variable = wtp_realm_has_saltpeter
 		has_global_variable = wtp_realm_has_tin
 	}
+}
+wtp_building_unlocked_guns_workshop = {
+	can_build_building = building_type:guns_workshop
+	NOT = { building_type_is_obsolete = building_type:guns_workshop }
 }
 # guns_workshop is staffed by burghers
 wtp_building_in_scope_guns_workshop = {
@@ -795,6 +987,10 @@ wtp_building_available_hand_cannon_guild = {
 		has_global_variable = wtp_realm_has_tin
 	}
 }
+wtp_building_unlocked_hand_cannon_guild = {
+	can_build_building = building_type:hand_cannon_guild
+	NOT = { building_type_is_obsolete = building_type:hand_cannon_guild }
+}
 # hand_cannon_guild is staffed by burghers
 wtp_building_in_scope_hand_cannon_guild = {
 	OR = {
@@ -810,6 +1006,10 @@ wtp_building_available_horse_breeders = {
 		has_global_variable = wtp_realm_has_wheat
 	}
 }
+wtp_building_unlocked_horse_breeders = {
+	can_build_building = building_type:horse_breeders
+	NOT = { building_type_is_obsolete = building_type:horse_breeders }
+}
 # horse_breeders is staffed by laborers
 wtp_building_in_scope_horse_breeders = {
 	OR = {
@@ -823,6 +1023,10 @@ wtp_building_available_improved_charcoal_maker = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_improved_charcoal_maker = {
+	can_build_building = building_type:improved_charcoal_maker
+	NOT = { building_type_is_obsolete = building_type:improved_charcoal_maker }
 }
 # improved_charcoal_maker is staffed by laborers
 wtp_building_in_scope_improved_charcoal_maker = {
@@ -839,6 +1043,10 @@ wtp_building_available_iron_foundry = {
 		has_global_variable = wtp_realm_has_iron
 	}
 }
+wtp_building_unlocked_iron_foundry = {
+	can_build_building = building_type:iron_foundry
+	NOT = { building_type_is_obsolete = building_type:iron_foundry }
+}
 # iron_foundry is staffed by laborers
 wtp_building_in_scope_iron_foundry = {
 	OR = {
@@ -853,6 +1061,10 @@ wtp_building_available_iron_mill = {
 		has_global_variable = wtp_realm_has_coal
 		has_global_variable = wtp_realm_has_iron
 	}
+}
+wtp_building_unlocked_iron_mill = {
+	can_build_building = building_type:iron_mill
+	NOT = { building_type_is_obsolete = building_type:iron_mill }
 }
 # iron_mill is staffed by laborers
 wtp_building_in_scope_iron_mill = {
@@ -874,6 +1086,10 @@ wtp_building_available_jewelry_guild = {
 		has_global_variable = wtp_realm_has_silver
 	}
 }
+wtp_building_unlocked_jewelry_guild = {
+	can_build_building = building_type:jewelry_guild
+	NOT = { building_type_is_obsolete = building_type:jewelry_guild }
+}
 # jewelry_guild is staffed by burghers
 wtp_building_in_scope_jewelry_guild = {
 	OR = {
@@ -888,6 +1104,10 @@ wtp_building_available_lacquerware_guild = {
 		has_global_variable = wtp_realm_has_dyes
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_lacquerware_guild = {
+	can_build_building = building_type:lacquerware_guild
+	NOT = { building_type_is_obsolete = building_type:lacquerware_guild }
 }
 # lacquerware_guild is staffed by burghers
 wtp_building_in_scope_lacquerware_guild = {
@@ -904,6 +1124,10 @@ wtp_building_available_lacquerware_manufactory = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_lacquerware_manufactory = {
+	can_build_building = building_type:lacquerware_manufactory
+	NOT = { building_type_is_obsolete = building_type:lacquerware_manufactory }
+}
 # lacquerware_manufactory is staffed by burghers
 wtp_building_in_scope_lacquerware_manufactory = {
 	OR = {
@@ -916,6 +1140,10 @@ wtp_building_in_scope_lacquerware_manufactory = {
 wtp_building_available_lucca_silk_production_guild = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_lucca_silk_production_guild = {
+	can_build_building = building_type:lucca_silk_production_guild
+	NOT = { building_type_is_obsolete = building_type:lucca_silk_production_guild }
 }
 # lucca_silk_production_guild is staffed by burghers
 wtp_building_in_scope_lucca_silk_production_guild = {
@@ -935,6 +1163,10 @@ wtp_building_available_market_village = {
 		has_global_variable = wtp_realm_has_stone
 	}
 }
+wtp_building_unlocked_market_village = {
+	can_build_building = building_type:market_village
+	NOT = { building_type_is_obsolete = building_type:market_village }
+}
 # market_village is staffed by peasants
 wtp_building_in_scope_market_village = {
 	OR = {
@@ -949,6 +1181,10 @@ wtp_building_available_mason = {
 		has_global_variable = wtp_realm_has_clay
 		has_global_variable = wtp_realm_has_stone
 	}
+}
+wtp_building_unlocked_mason = {
+	can_build_building = building_type:mason
+	NOT = { building_type_is_obsolete = building_type:mason }
 }
 # mason is staffed by laborers
 wtp_building_in_scope_mason = {
@@ -965,6 +1201,10 @@ wtp_building_available_naval_supplies_guild = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_naval_supplies_guild = {
+	can_build_building = building_type:naval_supplies_guild
+	NOT = { building_type_is_obsolete = building_type:naval_supplies_guild }
+}
 # naval_supplies_guild is staffed by burghers
 wtp_building_in_scope_naval_supplies_guild = {
 	OR = {
@@ -979,6 +1219,10 @@ wtp_building_available_naval_supplies_manufactory = {
 		has_global_variable = wtp_realm_has_fiber_crops
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_naval_supplies_manufactory = {
+	can_build_building = building_type:naval_supplies_manufactory
+	NOT = { building_type_is_obsolete = building_type:naval_supplies_manufactory }
 }
 # naval_supplies_manufactory is staffed by burghers
 wtp_building_in_scope_naval_supplies_manufactory = {
@@ -995,6 +1239,10 @@ wtp_building_available_naval_supplies_mill = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_naval_supplies_mill = {
+	can_build_building = building_type:naval_supplies_mill
+	NOT = { building_type_is_obsolete = building_type:naval_supplies_mill }
+}
 # naval_supplies_mill is staffed by laborers
 wtp_building_in_scope_naval_supplies_mill = {
 	OR = {
@@ -1009,6 +1257,10 @@ wtp_building_available_naval_supplies_workshop = {
 		has_global_variable = wtp_realm_has_fiber_crops
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_naval_supplies_workshop = {
+	can_build_building = building_type:naval_supplies_workshop
+	NOT = { building_type_is_obsolete = building_type:naval_supplies_workshop }
 }
 # naval_supplies_workshop is staffed by burghers
 wtp_building_in_scope_naval_supplies_workshop = {
@@ -1025,6 +1277,10 @@ wtp_building_available_paper_guild = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_paper_guild = {
+	can_build_building = building_type:paper_guild
+	NOT = { building_type_is_obsolete = building_type:paper_guild }
+}
 # paper_guild is staffed by burghers
 wtp_building_in_scope_paper_guild = {
 	OR = {
@@ -1039,6 +1295,10 @@ wtp_building_available_paper_manufactory = {
 		has_global_variable = wtp_realm_has_fiber_crops
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_paper_manufactory = {
+	can_build_building = building_type:paper_manufactory
+	NOT = { building_type_is_obsolete = building_type:paper_manufactory }
 }
 # paper_manufactory is staffed by burghers
 wtp_building_in_scope_paper_manufactory = {
@@ -1055,6 +1315,10 @@ wtp_building_available_paper_mill = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_paper_mill = {
+	can_build_building = building_type:paper_mill
+	NOT = { building_type_is_obsolete = building_type:paper_mill }
+}
 # paper_mill is staffed by laborers
 wtp_building_in_scope_paper_mill = {
 	OR = {
@@ -1070,6 +1334,10 @@ wtp_building_available_paper_workshop = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_paper_workshop = {
+	can_build_building = building_type:paper_workshop
+	NOT = { building_type_is_obsolete = building_type:paper_workshop }
+}
 # paper_workshop is staffed by burghers
 wtp_building_in_scope_paper_workshop = {
 	OR = {
@@ -1083,6 +1351,10 @@ wtp_building_available_perfumery = {
 	OR = {
 		has_global_variable = wtp_realm_has_pepper
 	}
+}
+wtp_building_unlocked_perfumery = {
+	can_build_building = building_type:perfumery
+	NOT = { building_type_is_obsolete = building_type:perfumery }
 }
 # perfumery is staffed by burghers
 wtp_building_in_scope_perfumery = {
@@ -1099,6 +1371,10 @@ wtp_building_available_porcelain_guild = {
 		has_global_variable = wtp_realm_has_coal
 	}
 }
+wtp_building_unlocked_porcelain_guild = {
+	can_build_building = building_type:porcelain_guild
+	NOT = { building_type_is_obsolete = building_type:porcelain_guild }
+}
 # porcelain_guild is staffed by burghers
 wtp_building_in_scope_porcelain_guild = {
 	OR = {
@@ -1113,6 +1389,10 @@ wtp_building_available_porcelain_manufactory = {
 		has_global_variable = wtp_realm_has_clay
 		has_global_variable = wtp_realm_has_coal
 	}
+}
+wtp_building_unlocked_porcelain_manufactory = {
+	can_build_building = building_type:porcelain_manufactory
+	NOT = { building_type_is_obsolete = building_type:porcelain_manufactory }
 }
 # porcelain_manufactory is staffed by burghers
 wtp_building_in_scope_porcelain_manufactory = {
@@ -1129,6 +1409,10 @@ wtp_building_available_pottery_guild = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_pottery_guild = {
+	can_build_building = building_type:pottery_guild
+	NOT = { building_type_is_obsolete = building_type:pottery_guild }
+}
 # pottery_guild is staffed by burghers
 wtp_building_in_scope_pottery_guild = {
 	OR = {
@@ -1143,6 +1427,10 @@ wtp_building_available_pottery_manufactory = {
 		has_global_variable = wtp_realm_has_clay
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_pottery_manufactory = {
+	can_build_building = building_type:pottery_manufactory
+	NOT = { building_type_is_obsolete = building_type:pottery_manufactory }
 }
 # pottery_manufactory is staffed by burghers
 wtp_building_in_scope_pottery_manufactory = {
@@ -1159,6 +1447,10 @@ wtp_building_available_pottery_mill = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_pottery_mill = {
+	can_build_building = building_type:pottery_mill
+	NOT = { building_type_is_obsolete = building_type:pottery_mill }
+}
 # pottery_mill is staffed by laborers
 wtp_building_in_scope_pottery_mill = {
 	OR = {
@@ -1174,6 +1466,10 @@ wtp_building_available_pottery_workshop = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_pottery_workshop = {
+	can_build_building = building_type:pottery_workshop
+	NOT = { building_type_is_obsolete = building_type:pottery_workshop }
+}
 # pottery_workshop is staffed by burghers
 wtp_building_in_scope_pottery_workshop = {
 	OR = {
@@ -1186,6 +1482,10 @@ wtp_building_in_scope_pottery_workshop = {
 wtp_building_available_pounamou_carver = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_pounamou_carver = {
+	can_build_building = building_type:pounamou_carver
+	NOT = { building_type_is_obsolete = building_type:pounamou_carver }
 }
 # pounamou_carver is staffed by burghers
 wtp_building_in_scope_pounamou_carver = {
@@ -1202,6 +1502,10 @@ wtp_building_available_printing_manufactory = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_printing_manufactory = {
+	can_build_building = building_type:printing_manufactory
+	NOT = { building_type_is_obsolete = building_type:printing_manufactory }
+}
 # printing_manufactory is staffed by burghers
 wtp_building_in_scope_printing_manufactory = {
 	OR = {
@@ -1216,6 +1520,10 @@ wtp_building_available_printing_mill = {
 		has_global_variable = wtp_realm_has_lead
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_printing_mill = {
+	can_build_building = building_type:printing_mill
+	NOT = { building_type_is_obsolete = building_type:printing_mill }
 }
 # printing_mill is staffed by laborers
 wtp_building_in_scope_printing_mill = {
@@ -1232,6 +1540,10 @@ wtp_building_available_printing_press_shop = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_printing_press_shop = {
+	can_build_building = building_type:printing_press_shop
+	NOT = { building_type_is_obsolete = building_type:printing_press_shop }
+}
 # printing_press_shop is staffed by burghers
 wtp_building_in_scope_printing_press_shop = {
 	OR = {
@@ -1246,6 +1558,10 @@ wtp_building_available_putrefaction_mill = {
 		has_global_variable = wtp_realm_has_livestock
 	}
 }
+wtp_building_unlocked_putrefaction_mill = {
+	can_build_building = building_type:putrefaction_mill
+	NOT = { building_type_is_obsolete = building_type:putrefaction_mill }
+}
 # putrefaction_mill is staffed by laborers
 wtp_building_in_scope_putrefaction_mill = {
 	OR = {
@@ -1259,6 +1575,10 @@ wtp_building_available_putrefaction_works = {
 	OR = {
 		has_global_variable = wtp_realm_has_livestock
 	}
+}
+wtp_building_unlocked_putrefaction_works = {
+	can_build_building = building_type:putrefaction_works
+	NOT = { building_type_is_obsolete = building_type:putrefaction_works }
 }
 # putrefaction_works is staffed by burghers
 wtp_building_in_scope_putrefaction_works = {
@@ -1276,6 +1596,10 @@ wtp_building_available_rural_clothmaker = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_rural_clothmaker = {
+	can_build_building = building_type:rural_clothmaker
+	NOT = { building_type_is_obsolete = building_type:rural_clothmaker }
+}
 # rural_clothmaker is staffed by laborers
 wtp_building_in_scope_rural_clothmaker = {
 	OR = {
@@ -1289,6 +1613,10 @@ wtp_building_available_rural_glassmaker = {
 	OR = {
 		has_global_variable = wtp_realm_has_sand
 	}
+}
+wtp_building_unlocked_rural_glassmaker = {
+	can_build_building = building_type:rural_glassmaker
+	NOT = { building_type_is_obsolete = building_type:rural_glassmaker }
 }
 # rural_glassmaker is staffed by laborers
 wtp_building_in_scope_rural_glassmaker = {
@@ -1304,6 +1632,10 @@ wtp_building_available_salt_collector = {
 		has_global_variable = wtp_realm_has_clay
 	}
 }
+wtp_building_unlocked_salt_collector = {
+	can_build_building = building_type:salt_collector
+	NOT = { building_type_is_obsolete = building_type:salt_collector }
+}
 # salt_collector is staffed by laborers
 wtp_building_in_scope_salt_collector = {
 	OR = {
@@ -1317,6 +1649,10 @@ wtp_building_available_saltpeter_guild = {
 	OR = {
 		has_global_variable = wtp_realm_has_livestock
 	}
+}
+wtp_building_unlocked_saltpeter_guild = {
+	can_build_building = building_type:saltpeter_guild
+	NOT = { building_type_is_obsolete = building_type:saltpeter_guild }
 }
 # saltpeter_guild is staffed by burghers
 wtp_building_in_scope_saltpeter_guild = {
@@ -1332,6 +1668,10 @@ wtp_building_available_saltpeter_workshop = {
 		has_global_variable = wtp_realm_has_livestock
 	}
 }
+wtp_building_unlocked_saltpeter_workshop = {
+	can_build_building = building_type:saltpeter_workshop
+	NOT = { building_type_is_obsolete = building_type:saltpeter_workshop }
+}
 # saltpeter_workshop is staffed by burghers
 wtp_building_in_scope_saltpeter_workshop = {
 	OR = {
@@ -1346,6 +1686,10 @@ wtp_building_available_sand_pit = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_sand_pit = {
+	can_build_building = building_type:sand_pit
+	NOT = { building_type_is_obsolete = building_type:sand_pit }
+}
 # sand_pit is staffed by laborers
 wtp_building_in_scope_sand_pit = {
 	OR = {
@@ -1358,6 +1702,10 @@ wtp_building_in_scope_sand_pit = {
 wtp_building_available_schwaz_mine = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_schwaz_mine = {
+	can_build_building = building_type:schwaz_mine
+	NOT = { building_type_is_obsolete = building_type:schwaz_mine }
 }
 # schwaz_mine is staffed by laborers
 wtp_building_in_scope_schwaz_mine = {
@@ -1374,6 +1722,10 @@ wtp_building_available_scriptorium = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_scriptorium = {
+	can_build_building = building_type:scriptorium
+	NOT = { building_type_is_obsolete = building_type:scriptorium }
+}
 # scriptorium is staffed by clergy
 wtp_building_in_scope_scriptorium = {
 	OR = {
@@ -1388,6 +1740,10 @@ wtp_building_available_sheep_farms = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_sheep_farms = {
+	can_build_building = building_type:sheep_farms
+	NOT = { building_type_is_obsolete = building_type:sheep_farms }
+}
 # sheep_farms is staffed by laborers
 wtp_building_in_scope_sheep_farms = {
 	OR = {
@@ -1401,6 +1757,10 @@ wtp_building_available_shoen = {
 	# special or foreign: not built the ordinary way
 	always = no
 }
+wtp_building_unlocked_shoen = {
+	can_build_building = building_type:shoen
+	NOT = { building_type_is_obsolete = building_type:shoen }
+}
 # shoen is staffed by peasants
 wtp_building_in_scope_shoen = {
 	OR = {
@@ -1413,6 +1773,10 @@ wtp_building_in_scope_shoen = {
 wtp_building_available_slave_center = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_slave_center = {
+	can_build_building = building_type:slave_center
+	NOT = { building_type_is_obsolete = building_type:slave_center }
 }
 # slave_center is staffed by burghers
 wtp_building_in_scope_slave_center = {
@@ -1429,6 +1793,10 @@ wtp_building_available_steel_mill = {
 		has_global_variable = wtp_realm_has_iron
 	}
 }
+wtp_building_unlocked_steel_mill = {
+	can_build_building = building_type:steel_mill
+	NOT = { building_type_is_obsolete = building_type:steel_mill }
+}
 # steel_mill is staffed by laborers
 wtp_building_in_scope_steel_mill = {
 	OR = {
@@ -1443,6 +1811,10 @@ wtp_building_available_stone_quarry = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_stone_quarry = {
+	can_build_building = building_type:stone_quarry
+	NOT = { building_type_is_obsolete = building_type:stone_quarry }
+}
 # stone_quarry is staffed by laborers
 wtp_building_in_scope_stone_quarry = {
 	OR = {
@@ -1456,6 +1828,10 @@ wtp_building_available_sugar_plantation = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_sugar_plantation = {
+	can_build_building = building_type:sugar_plantation
+	NOT = { building_type_is_obsolete = building_type:sugar_plantation }
 }
 # sugar_plantation is staffed by slaves
 wtp_building_in_scope_sugar_plantation = {
@@ -1473,6 +1849,10 @@ wtp_building_available_tannery = {
 		has_global_variable = wtp_realm_has_wild_game
 	}
 }
+wtp_building_unlocked_tannery = {
+	can_build_building = building_type:tannery
+	NOT = { building_type_is_obsolete = building_type:tannery }
+}
 # tannery is staffed by burghers
 wtp_building_in_scope_tannery = {
 	OR = {
@@ -1488,6 +1868,10 @@ wtp_building_available_tannery_manufactory = {
 		has_global_variable = wtp_realm_has_sand
 		has_global_variable = wtp_realm_has_wild_game
 	}
+}
+wtp_building_unlocked_tannery_manufactory = {
+	can_build_building = building_type:tannery_manufactory
+	NOT = { building_type_is_obsolete = building_type:tannery_manufactory }
 }
 # tannery_manufactory is staffed by burghers
 wtp_building_in_scope_tannery_manufactory = {
@@ -1505,6 +1889,10 @@ wtp_building_available_tannery_mill = {
 		has_global_variable = wtp_realm_has_wild_game
 	}
 }
+wtp_building_unlocked_tannery_mill = {
+	can_build_building = building_type:tannery_mill
+	NOT = { building_type_is_obsolete = building_type:tannery_mill }
+}
 # tannery_mill is staffed by laborers
 wtp_building_in_scope_tannery_mill = {
 	OR = {
@@ -1521,6 +1909,10 @@ wtp_building_available_tanning_workshop = {
 		has_global_variable = wtp_realm_has_wild_game
 	}
 }
+wtp_building_unlocked_tanning_workshop = {
+	can_build_building = building_type:tanning_workshop
+	NOT = { building_type_is_obsolete = building_type:tanning_workshop }
+}
 # tanning_workshop is staffed by burghers
 wtp_building_in_scope_tanning_workshop = {
 	OR = {
@@ -1535,6 +1927,10 @@ wtp_building_available_tar_kiln = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_tar_kiln = {
+	can_build_building = building_type:tar_kiln
+	NOT = { building_type_is_obsolete = building_type:tar_kiln }
+}
 # tar_kiln is staffed by laborers
 wtp_building_in_scope_tar_kiln = {
 	OR = {
@@ -1547,6 +1943,10 @@ wtp_building_in_scope_tar_kiln = {
 wtp_building_available_tatara = {
 	# special or foreign: not built the ordinary way
 	always = no
+}
+wtp_building_unlocked_tatara = {
+	can_build_building = building_type:tatara
+	NOT = { building_type_is_obsolete = building_type:tatara }
 }
 # tatara is staffed by peasants
 wtp_building_in_scope_tatara = {
@@ -1565,6 +1965,10 @@ wtp_building_available_textile_mill = {
 		has_global_variable = wtp_realm_has_wool
 	}
 }
+wtp_building_unlocked_textile_mill = {
+	can_build_building = building_type:textile_mill
+	NOT = { building_type_is_obsolete = building_type:textile_mill }
+}
 # textile_mill is staffed by laborers
 wtp_building_in_scope_textile_mill = {
 	OR = {
@@ -1578,6 +1982,10 @@ wtp_building_available_tobacco_plantation = {
 	OR = {
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_tobacco_plantation = {
+	can_build_building = building_type:tobacco_plantation
+	NOT = { building_type_is_obsolete = building_type:tobacco_plantation }
 }
 # tobacco_plantation is staffed by slaves
 wtp_building_in_scope_tobacco_plantation = {
@@ -1596,6 +2004,10 @@ wtp_building_available_tools_guild = {
 		has_global_variable = wtp_realm_has_tin
 	}
 }
+wtp_building_unlocked_tools_guild = {
+	can_build_building = building_type:tools_guild
+	NOT = { building_type_is_obsolete = building_type:tools_guild }
+}
 # tools_guild is staffed by burghers
 wtp_building_in_scope_tools_guild = {
 	OR = {
@@ -1609,6 +2021,10 @@ wtp_building_available_tools_workshop = {
 	OR = {
 		has_global_variable = wtp_realm_has_iron
 	}
+}
+wtp_building_unlocked_tools_workshop = {
+	can_build_building = building_type:tools_workshop
+	NOT = { building_type_is_obsolete = building_type:tools_workshop }
 }
 # tools_workshop is staffed by burghers
 wtp_building_in_scope_tools_workshop = {
@@ -1624,6 +2040,10 @@ wtp_building_available_weapon_factory = {
 		has_global_variable = wtp_realm_has_coal
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_weapon_factory = {
+	can_build_building = building_type:weapon_factory
+	NOT = { building_type_is_obsolete = building_type:weapon_factory }
 }
 # weapon_factory is staffed by laborers
 wtp_building_in_scope_weapon_factory = {
@@ -1642,6 +2062,10 @@ wtp_building_available_weapon_guild = {
 		has_global_variable = wtp_realm_has_stone
 	}
 }
+wtp_building_unlocked_weapon_guild = {
+	can_build_building = building_type:weapon_guild
+	NOT = { building_type_is_obsolete = building_type:weapon_guild }
+}
 # weapon_guild is staffed by burghers
 wtp_building_in_scope_weapon_guild = {
 	OR = {
@@ -1658,6 +2082,10 @@ wtp_building_available_weapon_manufactory = {
 		has_global_variable = wtp_realm_has_lumber
 	}
 }
+wtp_building_unlocked_weapon_manufactory = {
+	can_build_building = building_type:weapon_manufactory
+	NOT = { building_type_is_obsolete = building_type:weapon_manufactory }
+}
 # weapon_manufactory is staffed by burghers
 wtp_building_in_scope_weapon_manufactory = {
 	OR = {
@@ -1673,6 +2101,10 @@ wtp_building_available_weapon_workshop = {
 		has_global_variable = wtp_realm_has_iron
 		has_global_variable = wtp_realm_has_lumber
 	}
+}
+wtp_building_unlocked_weapon_workshop = {
+	can_build_building = building_type:weapon_workshop
+	NOT = { building_type_is_obsolete = building_type:weapon_workshop }
 }
 # weapon_workshop is staffed by burghers
 wtp_building_in_scope_weapon_workshop = {
@@ -1691,6 +2123,10 @@ wtp_building_available_winery = {
 		has_global_variable = wtp_realm_has_rice
 	}
 }
+wtp_building_unlocked_winery = {
+	can_build_building = building_type:winery
+	NOT = { building_type_is_obsolete = building_type:winery }
+}
 # winery is staffed by burghers
 wtp_building_in_scope_winery = {
 	OR = {
@@ -1707,6 +2143,10 @@ wtp_building_available_winery_manufactory = {
 		has_global_variable = wtp_realm_has_lumber
 		has_global_variable = wtp_realm_has_rice
 	}
+}
+wtp_building_unlocked_winery_manufactory = {
+	can_build_building = building_type:winery_manufactory
+	NOT = { building_type_is_obsolete = building_type:winery_manufactory }
 }
 # winery_manufactory is staffed by burghers
 wtp_building_in_scope_winery_manufactory = {

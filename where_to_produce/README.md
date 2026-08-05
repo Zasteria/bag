@@ -28,8 +28,8 @@ land you hold, so the list is short enough to read.
   consumes, what it turns out, and which of its inputs the province supplies.
   Two columns, **Local %** and **Output**.
 - **Display** — town buildings, rural ones or both; rank by percentage or by
-  output; how many rows; and whether to hide buildings this country has no use
-  for.
+  output; how many rows; and two filters, one for what this country can never
+  build and one for what it has not reached yet.
 
 Each list only appears once the one above it has a pick, so the tab starts as a
 single list of your regions.
@@ -108,7 +108,24 @@ scope.
 
 ## What gets hidden
 
-**Only what I can build**, on by default, drops three kinds of row:
+Two filters, both on by default, because "never" and "not yet" are different
+questions.
+
+**Only what I have now** asks the engine directly:
+
+```
+can_build_building = building_type:<b>
+NOT = { building_type_is_obsolete = building_type:<b> }
+```
+
+Both are country scoped triggers, so they move with your advances and ages
+without this mod knowing anything about either — which is what keeps a fourth
+tier mill out of the list of a country that has never left the fourth age. It
+also drops what a successor has already replaced. The answer is refreshed on
+CMF's yearly pulse as well as on every click, so it does not go stale while the
+menu is shut.
+
+**Only what I can build** drops three kinds of row:
 
 - the building carries a `country_potential` this country fails — a Japanese
   clan reform, an English tag, a flat `always = no`. The generator copies each
@@ -118,12 +135,13 @@ scope.
 - nowhere in the realm works any raw material it could take a bonus from, which
   is the only thing this mod has to say about it.
 
-What it cannot drop is a method locked behind an advance.
-`ProductionMethod.IsAvailable` exists as a GUI data function, but nothing in
-`building_types` or `production_methods` says which advance unlocks which
-method, so a pre-Columbian variant of a guild still shows for a European —
-sitting near the bottom, where its output puts it. Fixing that needs
-`common/advances/` and the technology folder beside it.
+What neither can drop is one *method* of an unlocked building being locked
+behind an advance. `ProductionMethod.IsAvailable` exists as a GUI data function,
+but there is no script-side counterpart and nothing in `building_types` or
+`production_methods` records the unlock, so a pre-Columbian variant of a guild
+you do have still counts — sitting near the bottom, where its output puts it.
+The building level is what the ages actually gate, so this is a much smaller
+error than it was.
 
 ## How the lists work
 
