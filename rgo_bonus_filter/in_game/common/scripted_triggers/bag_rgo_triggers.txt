@@ -1,29 +1,32 @@
-﻿# Filter entry points. Neither panel hands its filter more than the object
-# being tested — a building_type filter gets only `root`, and a location filter
-# gets `root` plus `scope:target` — so everything else comes from global
-# variables that the probe widgets in the two panels write.
+﻿# Filter entry points. Neither panel hands its filter more than the object being
+# tested -- a building_type filter gets only `root`, and a location filter gets
+# `root` plus `scope:target` -- so everything else comes from global variables
+# that the probe widgets in the two panels write.
 #
-# In both cases the location itself always counts, and the rest of its province
-# is added unless the Mod Menu narrowed the search. That matches the shovel
-# badge the game draws: the bonus comes from raw materials anywhere in the
-# province.
+# Each panel offers two chips rather than one chip and a setting. The province
+# variant matches the shovel badge the game draws, since the bonus comes from
+# raw materials anywhere in the province; the location variant asks the stricter
+# question of whether this very location works the material itself.
 
 # Buildings panel of one location: which building types gain here.
 # Scope: building_type
 bag_rgo_has_local_bonus = {
 	has_global_variable = bag_rgo_view_location
 	global_var:bag_rgo_view_location = {
-		OR = {
-			bag_rgo_location_feeds_root = yes
-			AND = {
-				NOT = { has_global_variable = bag_rgo_location_only }
-				province = {
-					any_location_in_province = {
-						bag_rgo_location_feeds_root = yes
-					}
-				}
+		province = {
+			any_location_in_province = {
+				bag_rgo_location_feeds_root = yes
 			}
 		}
+	}
+}
+
+# Same, but only the location on screen counts.
+# Scope: building_type
+bag_rgo_has_local_bonus_here = {
+	has_global_variable = bag_rgo_view_location
+	global_var:bag_rgo_view_location = {
+		bag_rgo_location_feeds_root = yes
 	}
 }
 
@@ -31,15 +34,16 @@ bag_rgo_has_local_bonus = {
 # Scope: location
 bag_rgo_location_suits_build_type = {
 	has_global_variable = bag_rgo_build_type
-	OR = {
-		bag_rgo_location_feeds_build_type = yes
-		AND = {
-			NOT = { has_global_variable = bag_rgo_location_only }
-			province = {
-				any_location_in_province = {
-					bag_rgo_location_feeds_build_type = yes
-				}
-			}
+	province = {
+		any_location_in_province = {
+			bag_rgo_location_feeds_build_type = yes
 		}
 	}
+}
+
+# Same, but the material has to be worked in the location itself.
+# Scope: location
+bag_rgo_location_suits_build_type_here = {
+	has_global_variable = bag_rgo_build_type
+	bag_rgo_location_feeds_build_type = yes
 }

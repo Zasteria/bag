@@ -61,16 +61,19 @@ frame — so each probe lives in a copy of the panel it watches:
 | File | Probe stores |
 | --- | --- |
 | `in_game/gui/location_production_lateralview.gui` | the location being viewed |
-| `in_game/gui/build_location_lateralview.gui` | the building type being placed |
+| `in_game/gui/bag_rgo_build_location_window.gui` | the building type being placed |
 
-Both are the vanilla panels with **17 lines inserted and nothing else changed**.
-They are pinned to 1.3.10: re-copy after a patch that touches either.
+**Redefine the window, not the panel's types.** Construction Manager and Glorp
+UI both restyle the build panel by redefining `types buildLocationTypes` from
+files of their own. Shipping a copy of vanilla's `build_location_lateralview.gui`
+carried vanilla's version of those same types along with the probe, and
+whichever loaded last won — which is how this mod was stripping Construction
+Manager's mass-build button of its icon. The build panel is now 149 lines
+holding the window alone, so every type is left to whoever wants it.
 
-Glorp UI restyles the build panel through its own separate file, redefining
-`types` rather than replacing the panel, so it does not clash with these copies
-— but **load this mod before Glorp UI**. Our copies carry vanilla's `types`
-definitions, and whichever loads last wins, so putting this mod after Glorp
-would undo its restyling of that panel.
+`location_production_lateralview.gui` is still a whole-file copy, because
+nothing else touches that panel. Both are pinned to 1.3.10: re-copy after a
+patch that changes them.
 
 ## Regenerating the predicate
 
@@ -84,18 +87,17 @@ python3 rgo_bonus_filter/tools/generate_rgo_filter.py "<EU5>/game/in_game/common
 As of 1.3.10 that reads 465 building types, of which 110 consume a raw material
 while producing something, over 293 building/material pairs across 40 materials.
 
-## Settings
+## Province or location
 
-Under **Filter → Range** in the Mod Menu:
+Each panel offers both as chips of its own rather than a chip and a setting:
 
-- **This Location Only** — count only raw materials produced in this very
-  location. Off by default, matching the game's own shovel badge, which counts
-  the whole province.
+- **Local Raw Materials** — the material is worked anywhere in the province.
+  This is what the game's own shovel badge means.
+- **Local Raw Materials (This Location)** — stricter; the location works it
+  itself.
 
-CMM keeps setting values in a variable map that script triggers cannot read, so
-`cmm_sync_bool_alias` mirrors this one onto a plain global variable, refreshed
-from `cmf_on_callback` whenever the setting changes. It is registered global
-rather than per country because the filter trigger can reach nothing else.
+The mod has no settings. Putting the choice in the funnel next to the filter it
+changes beats hiding it three menus away in the Mod Menu.
 
 ## Layout
 
