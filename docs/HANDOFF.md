@@ -9,107 +9,79 @@ most of that was learnt the hard way and will save a repeat.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
-**`where_to_produce/` — working end to end; the last round of tidying is
-untested.** Screenshots at 1.3.10 showed both lists populating, multi-select
-driving the shortlist, the volume columns and the sort order all correct —
-`Рудные горы / Оружейные заводы / 1.88% / 4.075` reads exactly right. What the
-same screenshots showed was that it was unreadable: every row a different font
-size, lists that would not shrink or clear, and a wall of recipes the country
-can never build. That is what the last round addressed, and none of it has been
-in game yet.
+**`where_to_produce/` — rewritten around the opposite question; untested.**
+Everything up to the last round answered "for this good, which province" and
+worked: the lists populated, the volume columns and sort order were right, and
+`Рудные горы / Оружейные заводы / 1.88% / 4.075` read exactly true. The player
+then said that is not the mod they want. What they want — and what the community
+"Province Breakdown" spreadsheet does — is the inverse: **pick a province, see
+what is worth building in it.**
 
-## What was wrong with the lists
+So the front was rebuilt: region → area → province pickers, then one ranked list
+of buildings. The whole verified data layer survived unchanged — the bonus
+formula, the volumes, the availability filter, the list machinery. What went was
+the good picker, the recipe list and the province shortlist.
 
-Worth keeping because none of the three announced itself.
+## What the spreadsheet asked for, and what it got
 
-1. **No `<setting>_on_changed` scripted GUI, so neither list was drawn at all.**
-   Registering a CMM list marks the setting as having a scripted GUI
-   (`_cmm_mark_setting_has_sgui`, inside `_cmm_register_list_setting_internal`),
-   and `CMMSettingRowVisible` then draws the row only when
-   `CMMGuiIsShown('<mod>__<setting>_on_changed')`. With no such file the whole
-   widget was hidden — its header included. What still rendered was the *group*
-   header, which a list gets for free because `_cmm_register_setting_metadata`
-   files it under `group_id = <setting_id>`, and that is why it looked like two
-   empty lists rather than two missing ones.
+| Spreadsheet column | Here |
+| --- | --- |
+| Province / Area / Region | the three picker lists, built from land you hold |
+| Top Burgher Buildings | the answer with **Show = Town** |
+| Top Laborer Buildings | the answer with **Show = Rural** — `pop_type` gives the split |
+| Raw Goods | not shown; it is what the percentages are computed from |
+| Ideal City Locations | not done. It is a made-up topography score, and picking a location is the same problem the build button would need |
 
-   It is also the only route a click on a list takes into script. Lists have no
-   CMM auto-apply — bool, dropdown, numeric, slider and button settings each
-   have one in `cmm_core_auto_apply_scripted_gui.txt`, lists do not — so
-   `cmf_on_callback` never fires for a list, and ticking a recipe reached
-   nothing. The callback path itself was fine all along.
+The percentages will read lower than the sheet's: it tops out at 12.5% on
+single-input buildings from patch 1.0.6, and 1.3.10 tops out at 10%, verified
+against three tooltips.
 
-2. **CMM's dynamic list builder runs exactly once.**
-   `cmm_begin_settings_list`, every `cmm_add_settings_list_item` and
-   `cmm_finish_settings_list` are gated on `cmm_list_initialized_<setting>` —
-   which `cmm_register_*_settings_list` sets itself. So registering the list and
-   then filling it dynamically could never work: the second pass added nothing
-   and reported nothing. Construction Manager is the working example, and it
-   registers statically and writes rows in place; so do we now.
+## Not done, and asked for
 
-3. **`item = var:wtp_row_cursor` is not a thing.** The macro pastes it verbatim,
-   which `game.log` reported at load as
-   `More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'`.
-   Row ordinals have to be literals. A counter becomes one through a `switch`;
-   where the ordinal is only needed per existing row,
-   `cmm_for_each_list_item` hands it over as `$i$` already resolved.
-
-## What made it unreadable, and what fixed it
-
-- **A row is one line of text the engine shrinks to fit.** Writing the recipe
-  into the label left every row at its own font size — that, not the wording, is
-  what made the table look broken. The label is now the method's name and nothing
-  else; the recipe moved to the tooltip.
-- **A hidden row still takes its place.** `cmm_hide_list_item` sets a flag the
-  row widget reads, but the vbox around it has no `ignoreinvisible`, so the panel
-  kept its old height with the bottom half blank. Both lists are now *resized*:
-  clear `cmm_list_items_<setting>`, remove `cmm_list_initialized_<setting>`,
-  re-register at the height needed. `_cmm_reconcile_list_setting_item_growth`
-  only ever adds rows, which is why removing the initialized flag is the only way
-  down.
-- **A list cannot be registered empty** — `item_count` clamps to one. What hides
-  a list with nothing in it is `is_shown` on its `_on_changed` scripted GUI,
-  which `CMMSettingRowVisible` already gates the whole widget on.
-- **Nothing cleared the good.** `wtp_apply_pickers` only ever *set* it, so
-  putting all four pickers back to "nothing chosen" left the last one standing.
-  The pickers now behave as one choice: whichever moved wins and the other three
-  are written back to 1 in CMM's `cmm` map, the same shape
-  `cmm_auto_apply_dropdown` writes.
-
-## Settled by the screenshots
-
-- `[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName]` renders a province
-  name. `GetProvince` on a variable exists, even though no vanilla `.gui` uses it.
-- `ordered_in_global_list` with `order_by` sorts descending, and `max` takes the
-  top of that.
-- `cmm_set_list_data_value` with a literal ordinal reaches the column, and a
-  `data` field renders whole percentages cleanly.
-- A production method's key is its localization key: `silver_base` is
-  "Ювелирные изделия из серебра", and 0.69 silver → 1 jewelry matches the
-  building panel exactly.
+- **A button in the location panel** to jump to the province on screen instead of
+  walking three pickers. `scripted_widgets` makes it possible; it was left out
+  because injecting into a vanilla panel is where the old custom window already
+  failed once, and the table wanted to be right first.
+- **Building from the row.** `construct_building = { building_type owner payer }`
+  in a location scope queues a real construction and Construction Manager uses
+  exactly that. The open question is *which* location of the province — the same
+  problem the spreadsheet's "Ideal City Locations" column exists to answer.
 
 ## Untested, in order of doubt
 
-1. Re-registering a list at a new height. Clearing `cmm_list_items_<setting>` and
-   removing `cmm_list_initialized_<setting>` sends registration back through its
-   first-time branch, which is how it is meant to work — but CMF has no caller
-   that does this, so nothing has exercised it. If the panel comes back with the
-   wrong number of rows, or rows that render as raw keys, that is where to look.
-2. `is_shown` on the two `_on_changed` scripted GUIs actually hiding an empty
-   list. The group header is drawn from the tab structure and will still show,
-   so the tidy empty state is a titled box with nothing in it.
-3. Writing `cmm` map entries for the three pickers the player did not touch.
-   Registration only seeds a dropdown when the key is absent, so it should
-   survive a reload, but the menu has never been seen resetting its own dropdown.
-4. Cost. The scoring pass is provinces × ticked recipes and the recipes arrive
-   all ticked, plus a new pass over every owned location to work out which raw
-   materials the realm has. If the menu stutters, the realm scan is the cheap
-   thing to cache and the scoring is the expensive thing to move off the
-   callback path.
+Nothing of the new front has been in game. In rough order of how likely each is
+to be the thing that breaks:
+
+1. **`region = { }` and `area = { }` as scope blocks from an owned location.**
+   Both appear in vanilla (`area = { any_ownable_location_in_area = ... }`), and
+   `.region` is used dotted, but this is the first thing here to rely on them.
+   If the region list comes up empty, that is where to look.
+2. **`region = global_var:wtp_sel_region` as a filter on `every_owned_location`.**
+   Vanilla only ever compares against a literal `region:x`. If the area list
+   ignores which region was picked, this comparison is why.
+3. **`can_build_building` and `building_type_is_obsolete` on the country.**
+   Both are engine triggers vanilla uses country-side — `country_can_build_in_location`
+   splits exactly this way, and Construction Manager leans on both. They are what
+   the **Only what I have now** toggle is; if it turns out stricter than it looks
+   and empties the answer, that toggle is the thing to turn off and the rest of
+   the filtering carries on. That is why it is its own setting rather than folded
+   into the availability filter.
+4. **Reading a variable map inside a script value** — `wtp_candidate_rank` does
+   `"variable_map(wtp_bonus_of|scope:wtp_cand)"`. CMF uses that expression in
+   triggers and effects, not in a script value. If every row scores the same, the
+   selection sort is reading nothing.
+5. **Re-registering a list at a new height.** Clearing `cmm_list_items_<setting>`
+   and removing `cmm_list_initialized_<setting>` sends registration back through
+   its first-time branch, which is how it is meant to work — but CMF has no
+   caller that does this. Four lists now depend on it.
+6. **`GetRegion` / `GetArea` on a global variable.** `GetProvince` is confirmed
+   working from the screenshots; these two follow the same pattern and
+   `Area.GetNameWithNoTooltip` exists, but they have not been seen.
 
 `error.log` names the file and line for GUI failures. A script effect that
-merely does nothing logs nothing at all, which is what made all three of the
-original bugs invisible — check `game.log` too, that is where the load-time
-macro expansion error turned up.
+merely does nothing logs nothing at all, which is what made every bug in this
+mod so far invisible — check `game.log` too, that is where the load-time macro
+expansion errors turn up.
 
 ## Files a new session must be given
 
@@ -141,20 +113,22 @@ python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" "<CMF>/in
   so it multiplies output: a jeweller's guild at 10% turns out 1.10, a village
   carver at the same 10% turns out 0.11. Ranking on the percentage alone put
   them level, which is what "I want to see the volume too" was about.
-- **Each province keeps one recipe, not a maximum per column.** Scoring picks
-  the best ticked recipe by whatever is being ranked on and reports *that*
-  recipe's figures. Taking the best percentage and the best volume independently
-  would have been two different recipes on one row.
-- **A recipe that gains nothing here is passed over.** Its volume is the plain
+- **A building is worth what its best method is worth here.** Scoring walks a
+  building's methods and keeps the best by whatever is being ranked on, and
+  reports *that* method's figures and recipe. Taking the best percentage and the
+  best volume independently would have been two different methods on one row.
+- **A method that gains nothing here is passed over.** Its volume is the plain
   output, which every other province matches, so it says nothing about the place.
-- **A recipe is carried as the flag naming its own localization key**
-  (`flag:wtp_recipe_<method>`). One value labels the row, tells the scoring which
-  recipe it is, and keys both columns, so there is nothing to keep in step.
-- **Row labels and tooltips are generated without words.** They are `$key$`
-  references to the game's own method and goods names plus three captions written
-  per language by hand, so one generated file serves every localization.
-- **A good belongs to the most specific industry that makes it.** Masonry comes
-  from a quarry and a mason's yard; the game files it under basic industry.
+- **A building type's key is its own localization key**, so the flag standing for
+  a candidate labels its row directly. A region, an area and a province have no
+  such key, so those rows park theirs in a global and a fixed key per ordinal
+  reads it back.
+- **Tooltips are generated without words.** They are `$key$` references to the
+  game's own method and goods names plus three captions written per language by
+  hand, so one generated file serves every localization.
+- **Town and rural are `pop_type`.** Burghers are the town half, labourers,
+  peasants, slaves and clergy the rural one — which is the split the spreadsheet
+  uses, and it matters because the two go in different kinds of location.
 - **Only recipes that output something count.** A monastery burns clay for
   upkeep and produces nothing, so it has no efficiency to gain — which is why
   the game gates its own shovel badge on `IsProducing`.
@@ -164,31 +138,27 @@ python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" "<CMF>/in
 
 ## The one thing the game files here cannot answer
 
-Production methods locked behind an advance. `ProductionMethod.IsAvailable`
-exists as a GUI data function, so the game plainly knows, but nothing in
-`building_types/` or `production_methods/` says which advance unlocks which
-method — so a pre-Columbian or obsidian variant of a guild still shows for a
-European player. It sits near the bottom, where its output puts it, but it is
-noise.
+*Building* unlocks are solved: `can_build_building` in the country scope is the
+engine's own answer and moves with advances and ages by itself.
 
-Fixing it needs whatever holds the `has_advance` unlocks — `common/advances/`
-and the technology folder beside it. With those, the same trick that copies
-`country_potential` verbatim would copy the unlock condition too.
+What is left is one *method* of an unlocked building being locked behind an
+advance. `ProductionMethod.IsAvailable` exists as a GUI data function, so the
+game plainly knows, but there is no script-side counterpart and nothing in
+`building_types/` or `production_methods/` records the unlock. A pre-Columbian
+variant of a guild you do have still counts towards that guild's figure.
+
+It is a small error now — the ages gate buildings, not methods within them — and
+fixing it would need whatever holds the unlocks, `common/advances/` and the
+technology folder beside it.
 
 ## Loose ends, none blocking
 
-- The row writers stop at twenty because liquor has twenty recipes. The
-  generator warns if a patch pushes a good past that, and checks that every
-  branch of both switches in `wtp_effects.txt` is present; raising it means
-  changing `RECIPE_ROWS` and extending `wtp_resize_recipe_list` and
-  `wtp_place_recipe_row`.
-- `wtp_open_*` in localization is left over from the action bar button the Mod
-  Menu replaced. Kept because the keys are what a shortcut back to the tab would
-  need, and because the `_color` rule below is easy to lose.
-- The generator now deletes the four generated files and the goods catalogue the
-  old good-first ranking needed — about 3,500 lines the game no longer parses.
-  Anything wanting "which good is this province best at" would have to
-  regenerate that chain, not resurrect it.
+- The picker lists cap at twenty rows and the answer at twelve. A realm holding
+  land in more than twenty regions, or twenty areas of one region, silently sees
+  only the first twenty. Raising it means changing `LISTS` in the generator,
+  which emits both switches, and adding the matching localization keys.
+- The generator deletes what it no longer emits, so a generated file that
+  disappears after a run was left over from an earlier design rather than lost.
 
 ## Hard-won facts that are easy to lose
 

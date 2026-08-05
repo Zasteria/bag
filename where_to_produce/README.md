@@ -1,16 +1,38 @@
 # Where To Produce
 
 An EU5 mod for the question the game makes you answer one location at a time:
-**I want more glass — where in my realm should it come from?**
+**this province is mine — what is actually worth building in it?**
 
-Pick a good and get every recipe that makes it — what each one consumes, what it
-turns out, and the most it could ever take from local raw materials — plus a
-shortlist of the provinces where those recipes gain most. Provinces with no
-local bonus at all never appear.
+Walk down region, area, province, and the last list ranks every building this
+mod can say something about by what that province's own raw materials are worth
+to it: the percentage of the recipe they cover, and the volume that turns into.
 
 Requires the Community Mod Framework (`community_mod_framework` 2.\*).
 
 The interface is a tab in CMF's Mod Menu: **Where To Produce → Plan**.
+
+It answers the same question as the community "Production Efficiency /
+Urbanization / Province Breakdown" spreadsheet, against the patch you are
+actually playing rather than the one the sheet was built from — and only for
+land you hold, so the list is short enough to read.
+
+## Using it
+
+**Mod Menu → Where To Produce → Plan.**
+
+- **Region** — the regions you hold land in. Tick one.
+- **Area** — the areas of that region you hold land in.
+- **Province** — the provinces of that area.
+- **Worth building here** — the answer. One row per building, ranked, under the
+  game's own name for it. Hover a row for the recipe behind the figure: what it
+  consumes, what it turns out, and which of its inputs the province supplies.
+  Two columns, **Local %** and **Output**.
+- **Display** — town buildings, rural ones or both; rank by percentage or by
+  output; how many rows; and two filters, one for what this country can never
+  build and one for what it has not reached yet.
+
+Each list only appears once the one above it has a pick, so the tab starts as a
+single list of your regions.
 
 ## The formula
 
@@ -40,10 +62,9 @@ weapon_smith_maintenance   lumber 0.2521 + coal 0.3034 + tools 0.5050 = 1.0605
                            0.5555 / 1.0605  ->  ceiling 5.24%
 ```
 
-So 2.86% out of a possible 5.24% is more than half of everything that method
-will ever get, while 6% somewhere else might be nowhere near its own ceiling.
-The shortlist reports the ceiling alongside the actual figure for exactly this
-reason.
+The community spreadsheet reaches 12.5% on single-input buildings; it was built
+from patch 1.0.6. The three readings above are from 1.3.10, where the ceiling is
+10%. Where the two disagree, this mod matches the game you are playing.
 
 ## Percentage or volume
 
@@ -53,79 +74,76 @@ The bonus is production *efficiency*, so it multiplies output:
 volume = output x (1 + bonus% / 100)
 ```
 
-That is the number that makes two recipes comparable. A jeweller's guild working
-silver turns out 1.0 and reaches 10%, so 1.10. A village carver working stone
-also reaches 10%, but from an output of 0.1, so 0.11. Ranked on the percentage
-the two are level; ranked on volume the guild is ten times the carver. Both
-columns are on the shortlist and either can drive the order.
+That is the number that makes two buildings comparable. A jeweller's guild
+working silver turns out 1.0 and reaches 10%, so 1.10. A village carver working
+stone also reaches 10%, but from an output of 0.1, so 0.11. Ranked on the
+percentage the two are level; ranked on output the guild is ten times the
+carver. Both columns are on the answer and either can drive the order.
 
-The ceiling matters for the opposite reason. 2.86% against a ceiling of 5.24% is
-more than half of everything that recipe will ever give, while 6% on a different
-recipe might be nowhere near its own limit — which is why the recipe list
-carries the ceiling and the volume at that ceiling side by side.
+A building is worth what its *best* method is worth in that province, so the
+runtime walks a building's methods and keeps the best — which is what the
+spreadsheet does too. The tooltip shows the recipe of whichever method won, so
+the figure and the recipe beside it always belong together.
 
-## How the shortlist is built
+## How it is put together
 
-Provinces, not locations: the bonus is province wide, so ten locations of one
-province would score identically and crowd everything else out.
+One province is scored at a time, which is what makes this cheap: a couple of
+hundred script value reads for the whole answer, rather than one pass per
+province in the realm.
 
-`wtp_rebuild_shortlist` walks `every_owned_location` and steps up to its
-province. Each province is scored once, against every ticked recipe, and keeps
-the best one — so the recipe named on a row and the two figures beside it are
-always the same recipe. `ordered_in_global_list` then takes the best few by
-whatever `wtp_scored_rank` is currently ranking on, and each survivor is written
-into one row.
+```
+wtp_scan_realm_materials   one walk over owned locations -> wtp_realm_has_<good>
+wtp_fill_regions           owned locations -> region, deduped
+wtp_fill_areas             ... limited to the picked region -> area
+wtp_fill_provinces         ... limited to the picked area -> province
+wtp_fill_top               every candidate building against the picked province
+```
 
-A recipe that gains nothing in a province is passed over rather than scored at
-its plain output: that volume is one every other province matches, so it says
-nothing about this place.
-
-A recipe travels as the flag naming its own localization key —
-`flag:wtp_recipe_weapon_smith_maintenance`. That one value labels the row, tells
-the scoring which recipe it is, and keys both of its columns, so there is
-nothing to keep in step between them.
-
-## Using it
-
-**Mod Menu → Where To Produce → Plan.**
-
-- **Good** — four pickers, one per category, the way the game already groups
-  goods. Any one of them off "none" names the good.
-- **Recipes** — every way to make it, best output first, under the game's own
-  name for the method. Hover a row for what it consumes, what it turns out and
-  which of its inputs a province could supply. Two columns: the ceiling, and the
-  volume at that ceiling. All rows count towards the shortlist until they are
-  unticked, and an unticked recipe stays unticked across a reload.
-- **Best provinces** — where the ticked recipes gain most. Each row names the
-  one that does best there, with the bonus it gets and what it turns out.
-- **Display** — whether to hide recipes this country has no use for, rank by
-  local percentage or by volume, and how many provinces to list, up to ten.
-
-The row label is the method's name and nothing else. The row is one line of text
-the engine shrinks to fit, so writing the recipe into it left every row at a
-different font size — which is why the recipe is in the tooltip, where it has
-room. Icons are not an option: CMM draws a row as text, and goods have no text
-icon (the game draws them as `icon` widgets from `GetGoodsIcon`).
+`wtp_fill_top` scores each building into three country variable maps keyed by the
+building's flag — bonus, volume, and the tooltip of the method that won — and
+then a twelve-pass selection sort writes the best into the rows. A selection sort
+rather than `ordered_in_global_list`, because the ranking lives in a variable map
+and an ordered iterator wants a script value it can evaluate on the iterated
+scope.
 
 ## What gets hidden
 
-**Only what I can build**, on by default, drops three kinds of row:
+Two filters, both on by default, because "never" and "not yet" are different
+questions.
+
+**Only what I have now** asks the engine directly:
+
+```
+can_build_building = building_type:<b>
+NOT = { building_type_is_obsolete = building_type:<b> }
+```
+
+Both are country scoped triggers, so they move with your advances and ages
+without this mod knowing anything about either — which is what keeps a fourth
+tier mill out of the list of a country that has never left the fourth age. It
+also drops what a successor has already replaced. The answer is refreshed on
+CMF's yearly pulse as well as on every click, so it does not go stale while the
+menu is shut.
+
+**Only what I can build** drops three kinds of row:
 
 - the building carries a `country_potential` this country fails — a Japanese
   clan reform, an English tag, a flat `always = no`. The generator copies each
   one verbatim into a scripted trigger, so the rule is the game's own;
 - the building is `is_special` or `is_foreign`, so it is not something the
   player builds in the ordinary way;
-- nowhere in the realm works any raw material the recipe could take a bonus
-  from, which is the only thing this mod has to say about it.
+- nowhere in the realm works any raw material it could take a bonus from, which
+  is the only thing this mod has to say about it.
 
-What it cannot drop is a method locked behind an advance. `ProductionMethod.IsAvailable`
-exists as a GUI data function, but nothing in `building_types` or
-`production_methods` says which advance unlocks which method, so a pre-Columbian
-variant of a guild still shows for a European — sitting near the bottom, where
-its output puts it.
+What neither can drop is one *method* of an unlocked building being locked
+behind an advance. `ProductionMethod.IsAvailable` exists as a GUI data function,
+but there is no script-side counterpart and nothing in `building_types` or
+`production_methods` records the unlock, so a pre-Columbian variant of a guild
+you do have still counts — sitting near the bottom, where its output puts it.
+The building level is what the ages actually gate, so this is a much smaller
+error than it was.
 
-## How the two lists work
+## How the lists work
 
 Worth knowing before touching them, because none of it fails loudly.
 
@@ -137,27 +155,22 @@ header, rows and all — and nothing reaches any log. It is also the only route 
 click on a list takes into script: unlike bool, dropdown, numeric and slider
 settings, lists have no CMM auto-apply, so `cmf_on_callback` never fires for one.
 
+That gate is also how a list disappears when it has nothing in it: `item_count`
+is clamped to at least one, so a list can never be registered empty.
+
 **CMM's dynamic list builder runs exactly once.** `cmm_begin_settings_list`, the
 run of `cmm_add_settings_list_item` and `cmm_finish_settings_list` are each gated
 on `cmm_list_initialized_<setting>`, which registration itself sets. A second
-pass adds nothing and reports nothing. Both lists are therefore registered once
-at their full height — twenty recipe rows, ten province rows — and the rows are
-written in place with `cmm_set_list_item_value` and `cmm_set_list_data_value`,
-with `cmm_hide_list_item` for the ones a shorter good leaves over.
+pass adds nothing and reports nothing.
 
 **A hidden row still takes its place.** CMM draws rows from
 `cmm_list_items_<setting>` and gates each on `CMMListItemIsVisible`, but the vbox
 holding them has no `ignoreinvisible`, so hiding the surplus leaves the panel at
-its old height with the bottom half blank. Both lists are therefore *resized*:
-the item list is cleared, `cmm_list_initialized_<setting>` removed, and the
-setting re-registered at the height it needs. That is the same door the first
-registration goes through — `_cmm_reconcile_list_setting_item_growth`, which
-handles a re-registration, only ever adds rows.
-
-**A list can never be registered empty** — `item_count` is clamped to at least
-one. What hides a list with nothing in it is `is_shown` on its `_on_changed`
-scripted GUI, since that is what `CMMSettingRowVisible` already gates the whole
-widget on.
+its old height with the bottom half blank. Every list is therefore *resized*: the
+item list is cleared, `cmm_list_initialized_<setting>` removed, and the setting
+re-registered at the height it needs — the same door the first registration goes
+through. `_cmm_reconcile_list_setting_item_growth`, which handles a
+re-registration, only ever adds rows.
 
 **A row ordinal has to be a literal.** `item = var:wtp_row_cursor` is pasted into
 the macro verbatim and comes back as
@@ -166,37 +179,24 @@ the macro verbatim and comes back as
 More than one colon in event target link 'flag:wtp__provinces_ivar:wtp_row_cursor_f1'
 ```
 
-at load. The filter decides at runtime how many rows there are, so both the
-height and each ordinal come out of a `switch` on a counter — the way CMF turns
-one into a literal everywhere in its own source. `item_count = $n$` inside the
-resize macro is fine for the same reason: `$n$` arrives as a literal from that
-switch.
+at load. Every ordinal therefore comes out of a `switch` on a counter, and
+`wtp_generated_rows.txt` holds those — four lists, each needing one switch to
+register itself at the right height and one to write a given row.
 
-**A recipe's tooltip key cannot be built from its own flag.** Script has no
-string concatenation, so `wtp_build_recipe_index` carries a variable map from
-recipe flag to tooltip flag and the row writer reads the second out of it.
-
-**Neither a province nor a recipe has a localization key a row label could be
-pointed at.** Each shortlist row parks both in globals and the label — a fixed
-key per ordinal — reads them back:
+**A row label needs a localization key to point at.** A building type has one —
+its own key — so the flag standing for the candidate labels the answer rows
+directly. A region, an area and a province have none, so each picker row parks
+its own in a global and a fixed key per ordinal reads it back:
 
 ```
-[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName] — [GetGlobalVariable('wtp_meth_row_1').GetFlagName]
+[GetGlobalVariable('wtp_prov_row_1').GetProvince.GetName]
+[GetGlobalVariable('wtp_area_row_1').GetArea.GetNameWithNoTooltip]
 ```
 
-`GetFlagName` localizes, which is what turns the stored recipe flag into the
-method's name.
-
-**Nothing generated is a word in any language.** Recipe labels and tooltips are
-built out of `$key$` references to the game's own method and goods names plus
-three captions defined per language by hand, so one generated file serves every
-localization the mod ships. A production method's key *is* its localization key:
-`silver_base` is "Ювелирные изделия из серебра".
-
-**Ticks live outside the rows.** The rows are thrown away whenever the list is
-resized, so what the player unticked is kept in `wtp_unticked_recipes` and read
-back by the row writer. Anything not in that list arrives ticked, which is what
-makes a newly chosen good an answer straight away.
+**Nothing generated is a word in any language.** Tooltips are built out of
+`$key$` references to the game's own method and goods names plus three captions
+defined per language by hand, so one generated file serves every localization the
+mod ships.
 
 ## Notes for anyone extending this
 
@@ -204,44 +204,34 @@ Nothing of our own is drawn. A custom window was built and thrown away: view
 objects only resolve inside their own panel, and the Mod Menu gives the
 framework's look for free.
 
-Should the action bar ever be wanted again, an element registered through
-`cmf_add_action_bar_element` is drawn entirely from localization keyed on the
-element name — the `wtp_open_*` keys are still in place for it:
+Two things that are known to be possible and are not done yet:
 
-| Key | Holds |
-| --- | --- |
-| `<element>_icon` | text drawn in the button, so a texticon such as `@good!` |
-| `<element>_color` | one of CMF's palette names — `blue`, `bone`, `gold`, … |
-| `<element>_name` | tooltip title |
-| `<element>_tooltip` | tooltip body |
-
-`_color` is not cosmetic. CMF draws one button variant per colour and gates each
-on the key matching, so an element without it is invisible in the bottom bars.
-The top variant is a tab and skips that gate, which is why a missing `_color`
-looks like "only works in one position".
-
-Skins like `bg_paper_card` go on the widget as `using = bg_paper_card`. Wrapping
-them in a `background = { }` block does nothing, and the panel draws its text
-straight onto the map.
+- **A button in the location panel** that jumps straight to the province you are
+  looking at, instead of walking the three pickers. `scripted_widgets` maps a gui
+  path to a widget and the engine instantiates it, which is how CMF adds four of
+  its own.
+- **Building from the row.** `construct_building = { building_type = X owner = Y
+  payer = Z }` in a location scope queues a real construction — Construction
+  Manager uses exactly that. The open question is not the effect but *which*
+  location of the province to build in, which is the same problem the
+  spreadsheet's "Ideal City Locations" column answers.
 
 ## Layout
 
 ```
 .metadata/metadata.json                        mod descriptor
-in_game/common/scripted_triggers/              generated: is this raw material in the province
+in_game/common/scripted_triggers/              generated: province materials, and
+                                               whether a building is worth offering
 in_game/common/script_values/                  generated: what a method scores here
-in_game/common/scripted_effects/               registration, the row writers, the ranking pass
-in_game/common/scripted_guis/                  the two list callbacks, without which
-                                               neither list is drawn at all
+in_game/common/scripted_effects/               the pickers, the scoring, the row writers
+in_game/common/scripted_guis/                  the four list callbacks, without which
+                                               no list is drawn at all
 in_game/common/on_action/                      CMF registration and callback hooks
 main_menu/localization/                        the captions, in English and Russian;
                                                everything generated is $key$ references
 tools/eu5data.py                               reads the game files and holds the formula
 tools/generate.py                              writes the script layer
 ```
-
-The generator deletes what it no longer emits, so a file that disappears from
-the tree after a run was left over from an earlier design rather than lost.
 
 Regenerate after a patch that touches goods, production methods or building
 types:
@@ -254,12 +244,13 @@ python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" \
 The second argument is optional but worth passing: it checks every `cmm_` call
 in the mod against the argument names CMF declares. A macro called with a name
 CMF does not declare fails silently and takes the rest of its effect with it —
-one `step` instead of `step_value` cost a full round. The same pass warns if a
-good has grown more recipes than the list has rows.
+one `step` instead of `step_value` cost a full round. The same pass checks that
+every row writer the generated switches call actually exists, and the generator
+deletes what it no longer emits, so a file that disappears after a run was left
+over from an earlier design rather than lost.
 
 The bonus is linear in a method's inputs, so it lands in script as a sum of
-`if` clauses over the province's raw materials, with the volume hanging off it
-and the two constants alongside:
+`if` clauses over the province's raw materials, with the volume hanging off it:
 
 ```
 wtp_bonus_weapon_smith_maintenance = {
@@ -275,27 +266,17 @@ wtp_volume_weapon_smith_maintenance = {
     add = 1
     multiply = 1
 }
-wtp_ceiling_weapon_smith_maintenance = 5.2381
-wtp_peak_weapon_smith_maintenance = 1.0524
 ```
 
-The shortlist reaches those in two hops — the good first, then the recipe within
-it — rather than through one chain over all 215 methods, because it evaluates
-them once per province per ticked recipe and forty-odd comparisons beat two
-hundred.
-
-At 1.3.10: 40 raw materials referenced, 215 methods scored, 47 goods reachable.
-The generated script is replayed against the model over every combination of a
-method's raw inputs — 824 checks, no mismatches.
+At 1.3.10: 40 raw materials referenced, 215 methods scored across 110 buildings
+— 63 staffed by burghers, 47 by everyone else — and 8 buildings behind a
+`country_potential`.
 
 `tools/eu5data.py` is the source of truth for the numbers. Point it at
 `<EU5>/game/in_game/common`; it resolves every production method per building
 type, both inline `unique_production_methods` and the shared ones named through
 `possible_production_methods`, and skips upkeep-only methods that output nothing
 — the game gates its own shovel badge on `IsProducing` for the same reason.
-
-At 1.3.10 that comes to 52 raw material goods, 228 producing methods and 47
-goods that can be made with some local bonus.
 
 Goods inputs are recognised by matching the goods catalogue, not by "any
 numeric key". Methods carry bookkeeping numbers too, and `debug_max_profit = -1`
