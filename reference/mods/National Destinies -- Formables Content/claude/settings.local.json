@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "WebSearch",
+      "WebFetch",
+      "Skill(eu5:deploy)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/home/eppu/.local/share/Steam/steamapps/common/Europa Universalis V"
+    ]
+  }
+}
