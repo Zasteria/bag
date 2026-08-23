@@ -34,7 +34,7 @@ Community Mod Framework for their settings.
 - **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — how EU5 modding actually works.
   Mod layout, the declarative filter system and what a filter trigger really
   receives, how view objects are scoped, the CMF and CMM APIs, where the RGO
-  bonus lives in the data.
+  bonus lives in the data, and how to translate somebody else's mod.
 - **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — mistakes already made, each with
   the symptom that gave it away. None of them raise an error you would notice,
   which is exactly why they are written down.

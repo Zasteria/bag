@@ -8,7 +8,7 @@ every session, so treat it as the briefing you would otherwise have to be given.
 1. **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — how EU5 modding actually works.
    Mod layout, the declarative filter system and what a filter trigger really
    receives, how view objects are scoped, the CMF and CMM APIs, where the RGO
-   bonus lives in the data. Nearly all of it was learnt by getting it wrong
+   bonus lives in the data, and how to translate somebody else's mod. Nearly all of it was learnt by getting it wrong
    first, so reading it is cheaper than rediscovering it.
 2. **[`docs/HANDOFF.md`](docs/HANDOFF.md)** — where each mod stands right now,
    what is broken, and what is untested. Check it is current before trusting it.

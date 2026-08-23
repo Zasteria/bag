@@ -342,6 +342,62 @@ the same and work. Advanced Auto Build ships a byte-identical second copy under
   so several mods can restyle the same window without overwriting each other's
   copy of the vanilla file.
 
+## Translating a mod that ships without your language
+
+A separate mod carrying one `.yml` is the whole job. It needs no dependency on
+the mod it translates — the keys simply add, and nothing collides — and only a
+CMF dependency if it redefines one of CMF's own shared keys. `auto_build_ru` is
+the worked example; its `tools/generate_ru.py` is written against one mod but
+the shape of it is reusable.
+
+**Read the size before quoting one.** A mod's key count badly overstates the
+work. Of Advanced Auto Build's 1201 keys, 372 were pure markup, 316 were
+`$vanilla_key$` passthrough, and another 315 were families differing only by a
+number — 883 strings of actual prose, and about 6000 words. Count what is left
+after stripping `[...]`, `$...$`, `@icon!` and `#code`, not lines.
+
+**Audit before translating.** Four checks, each cheap and each has caught
+something:
+
+1. Parse every language the mod ships and compare key sets. Equal sets mean the
+   English is a complete translation and can be the source; a gap means the
+   other language is the original and has to be consulted for those keys.
+2. Collect every key its `.gui` files and scripts reference — `text`, `tooltip`,
+   `raw_tooltip`, `custom_tooltip`, and `$...$` inside other values — and check
+   each is defined. A dangling one renders raw in *every* language, and is the
+   mod's bug rather than yours.
+3. Derive the CMM keys from its registration effects (see
+   [Mod Menu settings](#mod-menu-settings-cmm)) and check those too. This is
+   where a real mod is likeliest to be missing one.
+4. Look for keys that are not the mod's own. A mod may redefine a vanilla or CMF
+   key, and translating it changes what every other mod says.
+
+**What must not be translated.** Each of these looks like text and is not:
+
+| Looks like | Is | If translated |
+| --- | --- | --- |
+| `gold` under `<element>_color` | a CMF palette name | the action bar button vanishes |
+| `@production_panel!` | a texticon | renders as literal text |
+| `$farming_village$` | a reference to the game's own key | breaks; it was already in the player's language |
+| `[GetPlayer.MakeScope...]` | a data function | `ERROR:` on screen |
+| `#G ... #!` | a colour code | the colour is lost, or the text is |
+
+Passthrough is the happy case: a mod that names its buildings
+`$vanilla_key$` needs none of them translated.
+
+**Generate rather than hand-write the final file.** Keep the prose in a source
+file and emit the game's `.yml` from it, with the source checked against the
+base mod's English: every key covered, no key invented, and the markup of each
+value identical in both. That last check is the one that earns its keep — it
+catches a bracket eaten while rewording, which is otherwise found by the player.
+It also turns a base-mod update into one run that names the keys that moved.
+
+**Families collapse.** Keys differing only by a number — twenty template slots,
+step buttons, per-ordinal rows — are worth writing once with a placeholder and
+expanding over the numbers the base mod actually uses. Collapse only when the
+*values* match too: `eu5ab_building_age_1..6` share a key shape and are six
+different ages.
+
 ## Filter scopes: what a trigger actually gets
 
 `58_building_type.txt` opens with "root is the building_type / scope:target is
