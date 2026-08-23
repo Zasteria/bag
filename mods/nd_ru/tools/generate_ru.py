@@ -93,7 +93,7 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
                 problems.append(f"  {key}: markup {token!r} lost in translation")
             for token in sorted((got - want).keys()):
                 problems.append(f"  {key}: markup {token!r} invented")
-        if '"' in value:
+        if re.search(r'(?<!\\)"', value):
             problems.append(f"  {key}: a double quote would truncate the line")
         stray = prose(value)
         if "[" in stray or "]" in stray:

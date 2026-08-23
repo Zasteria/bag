@@ -6,8 +6,15 @@ its advances and modifiers are called, what an event is titled.  This picks
 exactly those keys out of the base mod and reports them per file, so the work
 can be taken a file at a time and resumed in a later session.
 
-    python3 mods/nd_ru/tools/scope.py            # progress per file
-    python3 mods/nd_ru/tools/scope.py <stem>     # the untranslated keys of one file
+    python3 mods/nd_ru/tools/scope.py             # progress per file, names only
+    python3 mods/nd_ru/tools/scope.py <stem>      # untranslated names of one file
+    python3 mods/nd_ru/tools/scope.py --full <stem>   # every untranslated key of it
+    python3 mods/nd_ru/tools/scope.py --plan      # what priority.txt still wants
+
+``--full`` is for the files the player asked for whole rather than by name: the
+situations and disasters that run for years, and each country's formation event.
+``priority.txt`` fixes the order -- Europe before the rest, because that is where
+this player plays -- so a later session picks up where this one stopped.
 """
 
 from __future__ import annotations
@@ -43,8 +50,45 @@ def read(path: Path) -> dict[str, str]:
     return out
 
 
+def priority() -> list[str]:
+    """The stems priority.txt asks for, in its order."""
+    path = MOD / "priority.txt"
+    if not path.exists():
+        return []
+    return [line.strip() for line in path.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.startswith("#")]
+
+
 def main(argv: list[str]) -> int:
     stems = {p.name[: -len("_l_english.yml")]: p for p in sorted(BASE.glob("*_l_english.yml"))}
+
+    if len(argv) > 2 and argv[1] == "--full":
+        stem = argv[2]
+        if stem not in stems:
+            raise SystemExit(f"no such file: {stem}")
+        english = read(stems[stem])
+        source = MOD / "translations" / f"{stem}.yml"
+        done = read(source) if source.exists() else {}
+        for key, value in english.items():
+            if key not in done and re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)):
+                print(f"{key}\t{value}")
+        return 0
+
+    if len(argv) > 1 and argv[1] == "--plan":
+        for stem in priority():
+            if stem not in stems:
+                print(f"{stem}: нет такого файла в моде")
+                continue
+            english = read(stems[stem])
+            source = MOD / "translations" / f"{stem}.yml"
+            done = set(read(source)) if source.exists() else set()
+            names = {k for k, v in english.items() if is_name(k, v)}
+            prose = {k for k, v in english.items()
+                     if k not in names and re.search(r"[A-Za-z]{2}", MARKUP.sub("", v))}
+            mark = "готово" if not (names | prose) - done else ""
+            print(f"{stem:14} названий {len(names - done):>4}"
+                  f"   прочего {len(prose - done):>4}  {mark}")
+        return 0
 
     if len(argv) > 1:
         stem = argv[1]
