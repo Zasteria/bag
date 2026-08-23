@@ -1,0 +1,16 @@
+﻿# Age 2 levy file for IRQ. See 05_0nd_irq.txt for why the prefix matters.
+
+# Ayyarun (age 2). The armed quarters of the Iraqi cities. Drawn from the
+# burghers and labourers who actually lived behind the walls, never from the
+# countryside, because that is where the futuwwa lodges were.
+levy_nd_irq_ayyarun = {
+	size = levy_generic_infantry_size
+	unit = a_nd_irq_ayyarun
+
+	allowed_pop_type = burghers
+	allowed_pop_type = laborers
+
+	country_allow = {
+		has_or_had_tag = IRQ
+	}
+}

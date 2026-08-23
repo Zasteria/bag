@@ -1,0 +1,20 @@
+﻿# Regnum Gothorum (GOT): age 6 levy
+# National Destinies mod
+# Prefix 00 = age 6, read first. Supersedes levy_nd_got_hoste_del_fuero
+# (02_0nd_got.txt, age 4) and through it the age 1 thiufa.
+
+# Milicia del Fuero: universal conscription under the oldest conscription law
+# in Europe.
+levy_nd_got_milicia_del_fuero = {
+	size = levy_generic_infantry_size
+	unit = a_nd_got_milicia_del_fuero
+
+	allowed_pop_type = soldiers
+	allowed_pop_type = peasants
+	allowed_pop_type = laborers
+	allowed_pop_type = clergy
+
+	country_allow = {
+		has_or_had_tag = GOT
+	}
+}

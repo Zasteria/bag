@@ -1,0 +1,16 @@
+﻿# Regnum Gothorum (GOT): age 5 levy
+# National Destinies mod
+# Prefix 01 = age 5. Supersedes levy_nd_got_gardingi (05_0nd_got.txt, age 1).
+
+# Gardingos Reales: the household horse of the absolutist court. Nobles only,
+# as the oath always was.
+levy_nd_got_gardingi_reales = {
+	size = levy_generic_noble_cavalry_size
+	unit = a_nd_got_gardingi_reales
+
+	allowed_pop_type = nobles
+
+	country_allow = {
+		has_or_had_tag = GOT
+	}
+}

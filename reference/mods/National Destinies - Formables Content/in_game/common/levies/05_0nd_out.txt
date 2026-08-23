@@ -1,0 +1,29 @@
+﻿# Outremer levies unlocked in Age 1. The numeric prefix encodes the unlock
+# age exactly as vanilla does, so a newer vanilla levy is never shadowed.
+
+# The Maronite muster of Mount Lebanon. Restricted to the Levantine
+# population of the mountain because that is who these were: a native
+# Christian community in the highlands above Tripoli and Beirut, not a
+# levy the crown could raise anywhere in an empire this size.
+levy_nd_out_maronite_crossbow = {
+	size = levy_generic_infantry_size
+	unit = a_nd_out_maronite_crossbow
+
+	allowed_pop_type = peasants
+	allowed_pop_type = soldiers
+
+	allowed_culture = levantine_culture
+
+	allow = {
+		location ?= {
+			OR = {
+				topography = mountains
+				topography = hills
+			}
+		}
+	}
+
+	country_allow = {
+		has_or_had_tag = OUT
+	}
+}

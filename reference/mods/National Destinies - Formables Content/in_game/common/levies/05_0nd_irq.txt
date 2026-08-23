@@ -1,0 +1,26 @@
+﻿# Read-order file: the engine takes the FIRST valid levy across all levy files
+# in name order, so the numeric prefix encodes this file's unlock age exactly
+# as vanilla does (00_revolutions first ... 05_traditions last). The extra 0
+# after the prefix sorts this file ahead of vanilla's same-age file. Never
+# merge a tag's levies into one early-sorting file: that would shadow every
+# newer vanilla levy for the rest of the campaign.
+
+# Madan marshmen (age 1). Raised only from pops living in the marsh itself:
+# the levy is the Bataih, not a national militia with a marsh name.
+levy_nd_irq_madan_marshmen = {
+	size = levy_generic_infantry_size
+	unit = a_nd_irq_madan_marshmen
+
+	allowed_pop_type = peasants
+	allowed_pop_type = tribesmen
+
+	allow = {
+		location ?= {
+			topography = wetlands
+		}
+	}
+
+	country_allow = {
+		has_or_had_tag = IRQ
+	}
+}

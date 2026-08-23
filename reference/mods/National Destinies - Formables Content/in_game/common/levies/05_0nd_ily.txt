@@ -1,0 +1,20 @@
+﻿# Read-order file: the engine picks the FIRST valid levy across all levy
+# files in name order, so the prefix encodes this file's unlock age exactly
+# like vanilla (00_revolutions ... 05_traditions). The extra 0 after the
+# prefix sorts us before the vanilla file of the same age. Do NOT merge a
+# tag's levies into a single 00_ file: that shadows every newer vanilla levy
+# forever.
+#
+# Illyria (ILY), Age 1 levies.
+
+# Banderij: the magnate's banner. Nobles only, because that is literally
+# what a banderium was: a great house turning out its own mailed retinue
+# under its own flag.
+levy_nd_ily_banderij = {
+	unit = a_nd_ily_banderij
+	size = levy_generic_noble_cavalry_size
+	country_allow = {
+		has_advance = nd_ily_banderiji
+	}
+	allowed_pop_type = nobles
+}

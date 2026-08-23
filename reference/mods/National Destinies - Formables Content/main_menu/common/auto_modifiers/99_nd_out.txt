@@ -1,0 +1,19 @@
+﻿# Outremer bureaucracy slot grant.
+# Activates once OUT has been proclaimed (nd_out_formed) and only when the
+# bureaucracies game-rule is enabled. Gates on the strict current tag rather
+# than has_or_had_tag so capacity never stacks across a formable chain: the
+# bureaucracy definitions themselves use has_or_had_tag so a crusader chain
+# player keeps the options, but the slot count is always the current
+# formable's alone. Six institutions, two granted slots, plus the universal
+# capital slot: the player runs three of them.
+
+nd_out_bureaucracy_authority = {
+	potential_trigger = {
+		tag = OUT
+		has_variable = nd_out_formed
+		has_game_rule = nd_bureaucracies_enabled
+	}
+
+	allow_bureaucracy = yes
+	global_max_bureaucracy_slots = 2
+}

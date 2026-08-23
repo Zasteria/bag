@@ -1,0 +1,167 @@
+﻿# ==========================================================================
+# SUE FOR IMPERIAL RECONCILIATION (Item 4, dnm_proposal): the mod's
+# first country_interaction for any tag. The Reaction of the Reich's
+# fourth exit: a diplomatic overture to the sitting Emperor, available at
+# will while the pariah status is live, instead of a war or a 50-year
+# wait. Modeled on country_interactions/hre.txt (request_elector_status's
+# accept-script shape and its Emperor-targeting select_trigger idiom).
+#
+# The engine's block_when_at_war default (yes, per readme) supplies the
+# "not while at war with the Emperor" condition natively.
+#
+# Success sets nd_dnm_reich_reconciled, which the situation's can_end
+# reads as its fourth exit and nd_dnm.29 reads for its differentiated
+# reward (and, for a Bohemia-origin former-elector union, the vacant-seat
+# bestowal). Rejection is not free: the court's public mockery costs
+# prestige, and the 10-year cooldown runs from the attempt either way.
+# ==========================================================================
+nd_dnm_sue_for_imperial_reconciliation = {
+	type = diplomacy
+
+	# News-feed message types (WE_PERFORM_X_ACTION etc.) live in the
+	# non-additive gui/messagetypes.txt; suppressing messages instead of
+	# overriding that whole vanilla file (the mod's own generic actions
+	# already use the same suppression). The interaction's own UI, the
+	# PROPOSE_/INCOMING_OFFER_ loc, and the effect text all still render.
+	show_message = no
+	show_message_to_target = no
+
+	ai_tick = monthly
+	ai_tick_frequency = 12
+
+	potential = {
+		scope:actor = {
+			tag = DNM
+			has_country_modifier = nd_dnm_reich_pariah
+			# Idempotency: once reconciled, the overture is moot.
+			NOT = { has_variable = nd_dnm_reich_reconciled }
+		}
+	}
+
+	select_trigger = {
+		looking_for_a = country
+		target_flag = recipient
+		name = "choose_country"
+		column = {
+			data = name
+		}
+		# There is exactly one Emperor at a time, so the selection list is
+		# trivially one entry (the request_elector_status idiom).
+		visible = {
+			is_emperor = yes
+		}
+	}
+
+	cooldown = {
+		type = nd_dnm_sue_for_imperial_reconciliation
+		years = 10
+	}
+
+	# The tribute: two years of trade-and-tax income, floored at 200 gold,
+	# paid to the Emperor, the same income-scaled add_gold shape the
+	# DNM crisis content already uses (no price: definition needed).
+	effect = {
+		scope:actor = {
+			add_gold = {
+				value = monthly_income_trade_and_tax
+				multiply = -24
+				max = -200
+			}
+		}
+		scope:recipient = {
+			add_gold = {
+				value = scope:actor.monthly_income_trade_and_tax
+				multiply = 24
+				min = 200
+			}
+		}
+		scope:actor = {
+			custom_tooltip = {
+				text = nd_dnm_reconciliation_success_tt
+				hidden_effect = { set_variable = nd_dnm_reich_reconciled }
+			}
+		}
+	}
+
+	reject_effect = {
+		scope:actor = {
+			add_prestige = prestige_mild_penalty
+			custom_tooltip = nd_dnm_reconciliation_rejected_tt
+		}
+	}
+
+	# The Emperor's answer. Reads, in order: the Reich's own live cohesion
+	# (a weak Emperor needs friends, not more enemies), his grudge, his
+	# distraction, the upstart's respectability, and, from Item 1, the
+	# origin-dependent grievance: a founding vote's defection is not
+	# easily forgiven, and Bohemia's Golden Bull seat (fact #4) is the
+	# single hardest grievance to paper over.
+	accept = {
+		add = {
+			desc = "ND_DNM_ACCEPT_BASE"
+			value = -40
+		}
+		subtract = {
+			desc = "ND_DNM_ACCEPT_IMPERIAL_AUTHORITY"
+			value = international_organization:hre.var:imperial_authority
+			multiply = 0.5
+		}
+		if = {
+			limit = { "scope:recipient.antagonism(scope:actor)" > 0 }
+			subtract = {
+				desc = "DIPLOREASON_ANTAGONISM"
+				value = "scope:recipient.antagonism(scope:actor)"
+			}
+		}
+		if = {
+			# `at_war`, not `is_at_war`: the latter is not a trigger
+			# (error.log 2026-07-31; trigger loc country_triggers.txt:788).
+			limit = { scope:recipient = { at_war = yes } }
+			add = {
+				desc = "ND_DNM_ACCEPT_EMPEROR_DISTRACTED"
+				value = 30
+			}
+		}
+		add = {
+			desc = "ND_DNM_ACCEPT_LEGITIMACY"
+			value = scope:actor.legitimacy
+			multiply = 0.5
+		}
+		add = {
+			desc = "ND_DNM_ACCEPT_PRESTIGE"
+			value = scope:actor.prestige
+			multiply = 0.25
+		}
+		if = {
+			limit = { scope:actor = { has_variable = nd_dnm_origin_was_elector } }
+			subtract = {
+				desc = "ND_DNM_ACCEPT_DEFECTED_ELECTOR"
+				value = 30
+			}
+		}
+		if = {
+			limit = { scope:actor = { has_variable = nd_dnm_origin_boh } }
+			subtract = {
+				desc = "ND_DNM_ACCEPT_BOHEMIAN_SEAT"
+				value = 30
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = 0
+		add = {
+			if = {
+				limit = {
+					scope:actor = {
+						gold >= {
+							value = monthly_income_trade_and_tax
+							multiply = 36
+						}
+					}
+				}
+				value = 50
+			}
+		}
+	}
+}

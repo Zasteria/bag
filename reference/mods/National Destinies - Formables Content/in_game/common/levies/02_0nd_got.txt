@@ -1,0 +1,18 @@
+﻿# Regnum Gothorum (GOT): age 4 levy
+# National Destinies mod
+# Prefix 02 = age 4. Supersedes levy_nd_got_thiufa (05_0nd_got.txt, age 1).
+
+# Hueste del Fuero: the same muster clause, the same pop list, matchlocks.
+levy_nd_got_hoste_del_fuero = {
+	size = levy_generic_infantry_size
+	unit = a_nd_got_hoste_del_fuero
+
+	allowed_pop_type = soldiers
+	allowed_pop_type = peasants
+	allowed_pop_type = laborers
+	allowed_pop_type = clergy
+
+	country_allow = {
+		has_or_had_tag = GOT
+	}
+}

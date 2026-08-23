@@ -1,0 +1,17 @@
+﻿# Occitania (OCC): age 2 levies
+# Prefix encodes unlock age (04 = age 2 renaissance). See 05_0nd_occ.txt.
+
+# Consular militia: the town's own companies, mustered by quarter under the
+# consulate. Burghers and soldiers, because this is an urban obligation owed
+# to a charter and not a lord's summons on the land.
+levy_nd_occ_milicia_consulara = {
+	size = levy_generic_infantry_size
+	unit = a_nd_occ_milicia_consulara
+
+	allowed_pop_type = burghers
+	allowed_pop_type = soldiers
+
+	country_allow = {
+		has_or_had_tag = OCC
+	}
+}

@@ -1,0 +1,14 @@
+﻿# Age 6 levy. File prefix 00 mirrors vanilla's revolutions ladder.
+
+# The island's light horse. Nobles only, because the ten percent noble
+# cavalry size assumes a small pop type.
+levy_nd_sar_piedmont_dragoni_sardi = {
+	size = levy_generic_noble_cavalry_size
+	unit = a_nd_sar_piedmont_dragoni_sardi
+
+	allowed_pop_type = nobles
+
+	country_allow = {
+		has_or_had_tag = SAR_piedmont
+	}
+}

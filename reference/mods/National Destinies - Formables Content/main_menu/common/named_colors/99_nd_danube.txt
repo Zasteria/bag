@@ -1,0 +1,9 @@
+﻿# Succession of the Danube map palette. Named colors, never inline rgb in
+# a situation's script-color context (jomini_scriptcolor "Badly read
+# script value" lesson, CLAUDE.md Stage 5b).
+colors = {
+	nd_dnb_hab_color = rgb { 237 194 46 }
+	nd_dnb_hun_color = rgb { 196 48 43 }
+	nd_dnb_boh_color = rgb { 224 224 230 }
+	nd_dnb_bound_color = rgb { 70 70 78 }
+}

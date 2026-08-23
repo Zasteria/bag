@@ -1,0 +1,24 @@
+﻿# SAR_piedmont (Sardinia-Piedmont) bureaucracy slot grant.
+# Activates after formation (nd_sar_piedmont_formed, stamped in the
+# form_effect and in every option of nd_sar_piedmont.1) so the crown gains the
+# bureaucracy permission once it exists, and only when the bureaucracies
+# game-rule is enabled.
+# 4 bureaucracies, 1 slot granted here, +1 from the capital = 2 effective.
+# Player picks 2 of 4.
+#
+# The gate is the strict `tag`, not has_or_had_tag: slot capacity must not
+# stack if the player later forms a successor. The bureaucracy definitions
+# themselves use has_or_had_tag so the institutions stay selectable.
+# Slot capacity is authorised here and nowhere else; no advance grants
+# global_max_bureaucracy_slots.
+
+nd_sar_piedmont_bureaucracy_authority = {
+	potential_trigger = {
+		tag = SAR_piedmont
+		has_variable = nd_sar_piedmont_formed
+		has_game_rule = nd_bureaucracies_enabled
+	}
+
+	allow_bureaucracy = yes
+	global_max_bureaucracy_slots = 1
+}

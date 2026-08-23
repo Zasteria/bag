@@ -1,0 +1,16 @@
+﻿# Outremer levies unlocked in Age 3.
+
+# The sworn brotherhoods of the port cities. Burghers only: a confraternity
+# was a chartered urban body with a hall, a patron saint and a muster roll,
+# so the pop type is itself the restriction and no rural population can
+# raise one.
+levy_nd_out_confraternity = {
+	size = levy_generic_infantry_size
+	unit = a_nd_out_confraternity_militia
+
+	allowed_pop_type = burghers
+
+	country_allow = {
+		has_or_had_tag = OUT
+	}
+}

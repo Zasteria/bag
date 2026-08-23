@@ -1,0 +1,540 @@
+﻿# Danubian Monarchy (DNM): the Habsburg dilemma made playable.
+#
+# A brand-new formable, NOT a vanilla wrapper. Formable from HAB (Austria),
+# HUN (Hungary), or BOH (Bohemia) via the shared-tag + origin-variable
+# pattern (cf. nd_rom_byz, which keys advances off nd_rom_byz_formed). After
+# the tag switches to DNM the engine no longer knows which crown you came
+# from, so form_effect records it in nd_dnm_origin_* for the creator's
+# formation event and the destiny/disaster chains to read.
+#
+# Forming this is an irreversible strategic fork: it EJECTS you from the
+# Holy Roman Empire and grants empire rank in the same effect. HRE members
+# are engine-blocked from empire rank (international_organization/hre.txt:
+# "block_from_change_to_empire_rank = yes"), so the HRE exit must precede /
+# accompany the rank change. You surrender the imperial crown to forge a
+# centralized multi-ethnic Danube state. No time gate: pacing comes from
+# the work of unioning/absorbing two great powers, never a date check.
+DNM_f = {
+
+	level = 4
+	# 0.10, retuned 2026-08-07 from 0.35 (which was itself retuned from 0.5
+	# on 2026-07-31 to make the union route reachable). It never was. The
+	# 2026-07-31 note asked for verification against a real union game and
+	# that never happened; MEASURED 2026-08-07 against map_data/definitions,
+	# the 16-area pool is 444 locations, so 0.35 demanded 156 of them:
+	#
+	#   Austria, ENTIRE hereditary bloc (6 areas)   112 = 0.252  fails
+	#   Austria, realistic core (Vienna/Styria/
+	#     Carinthia/Tirol)                           86 = 0.194  fails
+	#   Bohemian crown complete (incl. Silesia)     106 = 0.239  fails
+	#   Bohemia core (Bohemia + Moravia)             56 = 0.126  fails
+	#   Hungary alone                               226 = 0.509  passes
+	#
+	# Austria could not reach the bar owning every hereditary land it has,
+	# and Austria is the route the retune was written for. Only Hungary,
+	# the largest of the three blocs, ever cleared it.
+	#
+	# The fraction counts DIRECT ownership (engine tooltip: "We need to own
+	# at least N more locations"), and it is a static field: it cannot be
+	# taught that a crown answering to us is our territory. So it stops
+	# being the gate. It is now a floor meaning "we personally hold a real
+	# bloc of the Danube" (45 locations: Bohemia core clears it with 11 to
+	# spare, Austria core with 41), and the SUBJECT-AWARE requirement lives
+	# in allow, where it can be stated truthfully in the panel: the three
+	# crown clauses, plus the imperial seat held by us or by a crown that
+	# answers to us. That is the same protection expressed in the terms
+	# that actually matter, instead of a number the union road cannot move.
+	required_locations_fraction = 0.10
+	rule = plausible
+
+	capital_required = no
+	potential_requires_own = yes
+
+	# Habsburg sphere only: ruling Habsburg dynasty, OR you are / once were
+	# any of the three constituent crowns.
+	#
+	# NO RELIGION GATE (2026-08-07 user ruling, the 1.3.2 observer run).
+	# This used to demand `religion = religion:catholic` in both potential
+	# and allow, on the reading that the Danubian Monarchy is the Catholic
+	# dynastic counter-project to a Protestant-fractured Reich. That
+	# reading dead-ended the whole Succession of the Danube arc: a Hussite
+	# Bohemia could win the Congress, take Austria and Hungary as fiefdoms,
+	# and then no country on the map could ever form the Monarchy, because
+	# the winner was barred by religion and the losers were subjects. The
+	# Danube arc is the primary road in, so the road may not be closed by a
+	# conversion the crown made two centuries earlier. A Hussite or
+	# Protestant Danubian Monarchy is now a legitimate outcome; the
+	# confessional content stays where it belongs, gated per feature (the
+	# Reformationskommission bureaucracy still requires Catholic).
+	potential = {
+		OR = {
+			ruler = { dynasty = dynasty:habsburg_dynasty }
+			has_or_had_tag = HAB
+			has_or_had_tag = HUN
+			has_or_had_tag = BOH
+		}
+	}
+
+	# No time gate at all. You must directly OWN Vienna (the imperial seat,
+	# regardless of origin) AND own your origin crown's capital. The other
+	# two crowns are each satisfied symmetrically by: you are them / they no
+	# longer exist / they are your subject / they are your personal-union
+	# junior: no forced annexation at the button. THE WELDING (2026-07-31)
+	# is how junior crowns become the realm afterwards: fully integrated
+	# unions absorb at formation (form_effect below); the rest weld when
+	# the Pragmatic Sanction is UPHELD (nd_dnm.21): indivisibiliter ac
+	# inseparabiliter made mechanical. A ceded or broken Sanction leaves
+	# the crowns separate, with vanilla union integration as the long
+	# redemption road. Route matrix: PLAN.md progress log 2026-07-31.
+	#
+	# A personal union is NOT a subject relation in EU5: there is no union
+	# entry in common/subject_types/, unions are an international_organization
+	# and `is_subject_or_below_of` returns false for a PU junior. The junior
+	# case therefore needs its own explicit test, `in_union_with = root` plus
+	# `union = { country_is_senior_partner = { country = root } }` (the vanilla
+	# idiom, cf. country_interactions/take_over_seniority.txt), otherwise the
+	# Habsburg fantasy of inheriting Hungary and Bohemia by marriage (the
+	# single most likely route to this formable) does not count and the
+	# tooltip lies about it (reported on the Workshop, 2026-06-17).
+	allow = {
+		# THE PRIVILEGIUM MAIUS CLAUSE (2026-07-31, user request: a road
+		# to formation that does not require leaving the HRE first).
+		# Austria historically NEVER became a kingdom: its answer to
+		# exactly this problem was the forged Privilegium maius (facts
+		# #4/#5), the quasi-royal archducal dignity Charles IV refused
+		# and the Habsburg Emperor Frederick III later confirmed. Vanilla
+		# ships that whole chain (flavor_hab.1000+) with the unique
+		# austrian_archduchy_reform as its payoff, so the confirmed
+		# forgery stands in for the royal crown Austria never held.
+		# (Hungary and Bohemia start as kingdoms; this clause is the
+		# Austrian route's historical workaround, and vanilla grants the
+		# same reform to Styria/Tyrol Habsburg lines.)
+		#
+		# `country_rank_level >= 3` (kingdom or better), NOT
+		# `country_rank = country_rank:rank_kingdom` (2026-08-07). The
+		# latter is an EXACT test: vanilla writes `country_rank_level >=`
+		# whenever it means ordering (make_tributary_cb.txt:25,
+		# invite_artist.txt:56) and reserves the equality form for exact
+		# matches (war_of_the_roses.txt:258). Written exact, a crown that
+		# had already risen to empire rank was locked out of the Monarchy
+		# forever, which is absurd on a formable whose own form_effect
+		# grants empire rank. Levels count up from county: 1 county,
+		# 2 duchy, 3 kingdom, 4 empire (RUM_f reads `country_rank_level
+		# < 4` to mean "not yet an empire").
+		OR = {
+			country_rank_level >= 3
+			custom_tooltip = {
+				text = DNM_f_privilegium_tt
+				has_reform = government_reform:austrian_archduchy_reform
+			}
+		}
+
+		# The imperial seat is always required, whatever your origin, but
+		# HELD BY THE REALM rather than annexed by the crown personally
+		# (2026-08-07 user ruling). A Bohemian or Hungarian senior who won
+		# the Congress has Austria as a fiefdom, and Austria is what owns
+		# Vienna: demanding direct ownership closed the union road for two
+		# of the three crowns the Congress can acclaim, which is the road
+		# this formable exists to reward. Same you / your subject / your
+		# union junior test as the three crown clauses below, so a crown
+		# that answers to us satisfies the seat exactly as we would.
+		# (Vanilla PLC does demand Vilnius directly, but it pairs that
+		# with a pool Poland cannot fill without absorbing Lithuania
+		# anyway, so the question never arises there.)
+		OR = {
+			owns = location:vienna
+			custom_tooltip = {
+				text = DNM_f_vienna_by_crown_tt
+				location:vienna ?= {
+					owner ?= {
+						OR = {
+							is_subject_or_below_of = root
+							AND = {
+								in_union_with = root
+								union ?= {
+									country_is_senior_partner = { country = root }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		# Your origin crown's capital. Vienna is already required above
+		# unconditionally, so the HAB origin branch is just the origin
+		# check (no second `owns = location:vienna`, which double-listed
+		# Vienna in the public Atlas "must own" panel).
+		OR = {
+			OR = { has_or_had_tag = HAB tag = HAB }
+			AND = {
+				OR = { has_or_had_tag = HUN tag = HUN }
+				owns = location:buda
+			}
+			AND = {
+				OR = { has_or_had_tag = BOH tag = BOH }
+				owns = location:prague
+			}
+		}
+
+		# Austrian crown (Vienna): you / gone / your subject / your PU junior.
+		trigger_if = {
+			limit = {
+				country_exists = c:HAB
+				this != c:HAB
+			}
+			custom_tooltip = {
+				text = DNM_f_trigger_hab
+				OR = {
+					tag = HAB
+					has_or_had_tag = HAB
+					NOT = { country_exists = c:HAB }
+					c:HAB = {
+						OR = {
+							is_subject_or_below_of = root
+							AND = {
+								in_union_with = root
+								union ?= {
+									country_is_senior_partner = { country = root }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		# Hungarian crown (Buda): you / gone / your subject / your PU junior.
+		trigger_if = {
+			limit = {
+				country_exists = c:HUN
+				this != c:HUN
+			}
+			custom_tooltip = {
+				text = DNM_f_trigger_hun
+				OR = {
+					tag = HUN
+					has_or_had_tag = HUN
+					NOT = { country_exists = c:HUN }
+					c:HUN = {
+						OR = {
+							is_subject_or_below_of = root
+							AND = {
+								in_union_with = root
+								union ?= {
+									country_is_senior_partner = { country = root }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		# Bohemian crown (Prague): you / gone / your subject / your PU junior.
+		trigger_if = {
+			limit = {
+				country_exists = c:BOH
+				this != c:BOH
+			}
+			custom_tooltip = {
+				text = DNM_f_trigger_boh
+				OR = {
+					tag = BOH
+					has_or_had_tag = BOH
+					NOT = { country_exists = c:BOH }
+					c:BOH = {
+						OR = {
+							is_subject_or_below_of = root
+							AND = {
+								in_union_with = root
+								union ?= {
+									country_is_senior_partner = { country = root }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	name = DNM
+	flag = DNM
+	adjective = DNM_ADJ
+	tag = DNM
+	color = map_DNM
+
+	# Danubian pool: Austrian hereditary lands + Bohemian crown +
+	# Hungarian crown. 0.5 fraction over this 16-area pool.
+	areas = {
+		# Austrian hereditary lands
+		austria_area          # Lower Austria (Vienna)
+		upper_austria_area    # Upper Austria
+		styria_area           # Styria
+		carinthia_area        # Carinthia
+		slovenia_area         # Carniola
+		tirol_area            # Tyrol and Trentino
+		# Bohemian crown
+		bohemia_area          # Bohemia (Prague)
+		moravia_area          # Moravia
+		silesia_area          # Silesia
+		# Hungarian crown
+		transdanubia_area     # Transdanubia (Buda)
+		north_alfold_area     # North Alfold
+		south_alfold_area     # South Alfold
+		slovakia_area         # Upper Hungary / Slovakia
+		transylvania_area     # Transylvania
+		croatia_area          # Croatia
+		slavonia_area         # Slavonia
+	}
+
+	form_effect = {
+		# Record the origin crown so the formation event, destiny tree,
+		# and disaster chains can branch on it after the tag switch.
+		# Wrapped in hidden_effect: form_effect renders a confirmation
+		# tooltip and a bare set_variable would clutter it.
+		hidden_effect = {
+			if = {
+				limit = { OR = { tag = HUN has_or_had_tag = HUN } }
+				set_variable = nd_dnm_origin_hun
+			}
+			else_if = {
+				limit = { OR = { tag = BOH has_or_had_tag = BOH } }
+				set_variable = nd_dnm_origin_boh
+			}
+			else = {
+				set_variable = nd_dnm_origin_hab
+			}
+
+			# Was the forming crown a sitting HRE elector at this instant?
+			# Captured HERE because the HRE-removal block below strips the
+			# status: after it runs the answer is unrecoverable. Read by the
+			# Reich reconciliation interaction (a founding vote's defection
+			# is the hardest grievance to forgive) and, for BOH origin, by
+			# the vacant-seat bestowal in nd_dnm.29.
+			if = {
+				limit = {
+					is_member_of_international_organization = international_organization:hre
+					international_organization:hre ?= {
+						country_has_special_status = {
+							type = special_status:elector
+							country = root
+						}
+					}
+				}
+				set_variable = nd_dnm_origin_was_elector
+			}
+		}
+
+		# THE WELDING, FORMATION-TIME CASE (2026-07-31, user design): a
+		# constituent crown whose union integration is COMPLETE at the
+		# moment of formation is absorbed outright: the player who did
+		# the union-law work before forging the monarchy skips the slow
+		# post-formation annexation entirely. Gate mirrors the union's
+		# own annexability bar: the law ladder at its full height (5 laws
+		# each granting union_integration_level = 1, counted in
+		# laws/40_personal_unions.txt: review the 5 if a patch changes
+		# the ladder) AND the crown itself caught up to it
+		# (var:integrated_in_union, maintained by the union's own
+		# change_union_integration_level scripted effect). Crowns not yet
+		# integrated stay juniors; winning the Pragmatic Sanction later
+		# welds them too (nd_dnm.21). Vanilla idiom for the absorption:
+		# flavor_wittelsbach_house_union.txt (core first, then
+		# annex_country). Runs BEFORE the HRE-removal block below so
+		# absorbed ex-HRE land is swept out of the Empire by the
+		# existing exit logic.
+		if = {
+			limit = {
+				country_exists = c:HUN
+				c:HUN = {
+					in_union_with = root
+					union ?= {
+						country_is_senior_partner = { country = root }
+						modifier:union_integration_level >= 5
+					}
+					has_variable = integrated_in_union
+					var:integrated_in_union >= 5
+				}
+			}
+			custom_tooltip = {
+				text = nd_dnm_weld_hun_tt
+				c:HUN = {
+					every_core_location = { add_core = root }
+				}
+				annex_country = { country = c:HUN }
+			}
+		}
+		if = {
+			limit = {
+				country_exists = c:BOH
+				c:BOH = {
+					in_union_with = root
+					union ?= {
+						country_is_senior_partner = { country = root }
+						modifier:union_integration_level >= 5
+					}
+					has_variable = integrated_in_union
+					var:integrated_in_union >= 5
+				}
+			}
+			custom_tooltip = {
+				text = nd_dnm_weld_boh_tt
+				c:BOH = {
+					every_core_location = { add_core = root }
+				}
+				annex_country = { country = c:BOH }
+			}
+		}
+		if = {
+			limit = {
+				country_exists = c:HAB
+				c:HAB = {
+					in_union_with = root
+					union ?= {
+						country_is_senior_partner = { country = root }
+						modifier:union_integration_level >= 5
+					}
+					has_variable = integrated_in_union
+					var:integrated_in_union >= 5
+				}
+			}
+			custom_tooltip = {
+				text = nd_dnm_weld_hab_tt
+				c:HAB = {
+					every_core_location = { add_core = root }
+				}
+				annex_country = { country = c:HAB }
+			}
+		}
+
+		# THE FORMATION COST: leave the Holy Roman Empire. HRE members are
+		# engine-blocked from empire rank, so this must happen before the
+		# rank change. Surrendering the imperial crown is the difficulty.
+		# The location sweep is wrapped in custom_tooltip because the bare
+		# per-location effect renders one nameless "Was removed from Holy
+		# Roman Empire" line per location in the When Formed panel; vanilla
+		# wraps this exact loop at both of its own call sites
+		# (laws/22_swiss_confederation.txt:1042, events/hre.txt:81). The
+		# country-level removal stays outside so the engine's own "X leaves
+		# the Holy Roman Empire" line still renders.
+		#
+		# THE SWEEP IS UNCONDITIONAL, the country removal is not (fixed
+		# 2026-08-08, reported on the Workshop). Both used to sit inside
+		# `is_member_of_international_organization = hre`, which is only
+		# ever true for the Austrian route. Hungary and Bohemia are not
+		# Reich members, so a Hungarian former who had conquered or
+		# unioned Austria and Bohemia kept every one of those imperial
+		# locations INSIDE the Empire: it formed the Danubian Monarchy,
+		# took the Reich-pariah modifier and the imperial-ban casus belli
+		# for a departure that never happened, and left the Emperor still
+		# holding its Austrian and Bohemian land. Location membership in
+		# the HRE is per LOCATION, so it has to be swept whatever the
+		# former's own membership was.
+		#
+		# THE EMPEROR KEEPS HIS CLAIM (2026-08-14, Workshop request by
+		# Sharkseant, who asked that the departed land stay inside the
+		# Empire to represent the Reich's continuing claim on the Danube).
+		# Leaving the locations in the international organization is the
+		# wrong tool for that: `hre_land_ownership`'s
+		# can_add_location_trigger requires the owner to be a member, so
+		# the state is one-way, and the Emperor's own reclaim interaction
+		# (`demand_unlawful_territory`, country_interactions/hre.txt:1929)
+		# needs `integration_level = conquered` with a member core, which
+		# the Monarchy's own heartland is not. He would get the map border
+		# and no lever.
+		#
+		# Vanilla says the claim with CORES instead. Its one scripted
+		# secede-from-the-Empire path (events/hre.txt:81-89) sweeps the
+		# locations out AND calls add_core for the leader country on every
+		# one of them. We did the sweep and skipped the cores, which is
+		# why the departure felt consequence-free on the map. Now the
+		# Emperor holds a standing claim on every imperial location the
+		# Monarchy walked away with, which is what pays off the
+		# imperial-ban casus belli the situation hands him.
+		#
+		# Both blocks now sit behind `exists`. The Empire can be destroyed
+		# outright (events/hre.txt:166), and every line in here names
+		# international_organization:hre directly. With no Empire there is
+		# also nothing to sweep and no membership to end, so guarding costs
+		# nothing. The core grant carries its own leader check because a
+		# leaderless interregnum has no one to hold the claim; vanilla
+		# tests it the same way (flavor_mlo.txt:503).
+		if = {
+			limit = { exists = international_organization:hre }
+			custom_tooltip = {
+				text = nd_dnm_hre_sweep_tt
+				every_owned_location = {
+					limit = { is_owned_by_international_organization = international_organization:hre }
+					if = {
+						limit = {
+							international_organization:hre = {
+								international_organization_has_leader = yes
+							}
+						}
+						add_core = international_organization:hre.leader_country
+					}
+					remove_from_international_organization = international_organization:hre
+				}
+			}
+			if = {
+				limit = { is_member_of_international_organization = international_organization:hre }
+				international_organization:hre = {
+					remove_country_from_international_organization = root
+				}
+			}
+		}
+
+		# Grant empire rank in the same effect (only possible now that we
+		# are outside the HRE).
+		if = {
+			limit = { country_rank_level < 4 }
+			set_country_rank_effect = { rank = country_rank:rank_empire }
+		}
+
+		# STATE LIVES HERE, NOT IN THE EVENT (2026-07-31, crisis-lifecycle
+		# audit). The formation event's options used to be the only place
+		# the formed marker, grace window, pariah timer, chain timers, and
+		# situation activation were set: an entire content layer depending
+		# on a popup being delivered (the exact failure class the
+		# game-start bootstrap already fixed for 20 tags). form_effect sets
+		# all of it unconditionally; the event's own hidden_effect sets the
+		# same variables again, which is harmless (set_variable is
+		# idempotent, same-day timer overwrite is a no-op).
+		hidden_effect = {
+			set_variable = nd_formed
+			set_variable = nd_dnm_formed
+			set_variable = { name = nd_dnm_grace value = yes years = 10 }
+			set_variable = { name = nd_dnm_pariah_timer value = yes years = 50 }
+			set_variable = { name = nd_dnm_chain_30_pending value = yes years = 2 }
+			set_variable = { name = nd_dnm_chain_31_pending value = yes years = 5 }
+			set_variable = { name = nd_dnm_chain_32_pending value = yes years = 8 }
+		}
+		# The Reich's answer, behind two gates.
+		#
+		# nd_reich_reaction_is_enabled is the lobby rule: a player who does
+		# not want the Empire to hound the Danube turns it off and keeps
+		# everything else, because both Danubian disasters gate on
+		# nd_dnm_formed rather than on the situation.
+		#
+		# The HRE existence test is not cosmetic. The Empire can be
+		# destroyed outright (vanilla events/hre.txt:166, the unify-the-
+		# Empire option). With no Reich, on_start would hand the imperial
+		# ban to an `is_emperor = yes` that matches nobody, and two of the
+		# four exits (beat the Emperor, be forgiven by him) would be
+		# unreachable while the pariah modifier ran anyway. It also keeps
+		# the crisis lifecycle contract honest: the matching no-Reich
+		# clause in can_end must be FALSE at activation, and this is what
+		# guarantees it.
+		if = {
+			limit = {
+				exists = international_organization:hre
+				nd_reich_reaction_is_enabled = yes
+			}
+			activate_situation = situation:nd_dnm_reaction_of_the_reich
+		}
+
+		trigger_event_non_silently = nd_dnm.1
+		add_stability = stability_severe_bonus
+	}
+}

@@ -1,0 +1,91 @@
+﻿nd_mandate_crisis_rule = {
+	default = nd_mandate_crisis_disabled
+
+	nd_mandate_crisis_enabled = {
+		flag = nd_mandate_crisis_enabled
+		flag = flavour_rule
+	}
+
+	nd_mandate_crisis_disabled = {
+		flag = flavour_rule
+	}
+}
+
+nd_bureaucracies_rule = {
+	default = nd_bureaucracies_enabled
+
+	nd_bureaucracies_enabled = {
+		flag = nd_bureaucracies_enabled
+		flag = flavour_rule
+	}
+
+	nd_bureaucracies_disabled = {
+		flag = flavour_rule
+	}
+}
+
+nd_destinies_rule = {
+	default = nd_destinies_enabled
+
+	nd_destinies_enabled = {
+		flag = nd_destinies_enabled
+		flag = flavour_rule
+	}
+
+	nd_destinies_disabled = {
+		flag = flavour_rule
+	}
+}
+
+# AI nation formation (2026-07-31). Community-verified vanilla gap: the AI
+# essentially never forms nations (Russia never, Austria-Hungary never; no
+# formable carries any AI steering, 0 occurrences of ai_will_do in vanilla
+# formable_countries). Off by default: turning it on changes world
+# difficulty, which is the subscriber's call, not ours.
+#   opportunistic: AI countries already meeting a major formable's
+#                    requirements take it (pulse in 99_nd_on_actions.txt).
+#   ambitious    : additionally steers AI conquest toward the territory
+#                    still needed (ai_scripted_expansion_score entries).
+nd_ai_formables_rule = {
+	default = nd_ai_formables_off
+
+	nd_ai_formables_off = {
+		flag = flavour_rule
+	}
+
+	nd_ai_formables_opportunistic = {
+		flag = nd_ai_formables_opportunistic
+		flag = flavour_rule
+	}
+
+	nd_ai_formables_ambitious = {
+		flag = nd_ai_formables_ambitious
+		flag = flavour_rule
+	}
+}
+
+# Reaction of the Reich (2026-08-14, Workshop request by Sharkseant, who
+# asked for a way to keep the AI from dragging the world into the Danubian
+# rupture). Enabled by default, because the Empire's answer is the point of
+# the Danubian Monarchy: forming it is meant to cost something.
+#
+# The rule governs the EXTERNAL consequence only. Switching it off still
+# ejects the realm from the Empire, still grants imperial rank, and leaves
+# both Danubian disasters running, because they gate on nd_dnm_formed
+# rather than on the situation.
+#
+# Read as `has_game_rule = nd_reich_reaction_enabled` through the
+# nd_reich_reaction_is_enabled scripted trigger, matching the shape of
+# nd_bureaucracies_rule above.
+nd_reich_reaction_rule = {
+	default = nd_reich_reaction_enabled
+
+	nd_reich_reaction_enabled = {
+		flag = nd_reich_reaction_enabled
+		flag = flavour_rule
+	}
+
+	nd_reich_reaction_disabled = {
+		flag = flavour_rule
+	}
+}

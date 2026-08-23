@@ -1,0 +1,3 @@
+﻿colors = {
+	map_CPT = hsv360 { 350 72 44 }
+}

@@ -1,0 +1,16 @@
+﻿# Age 4 levy. File prefix 02 mirrors vanilla's reformation ladder so that
+# the age 5 and 6 vanilla levies correctly supersede this one.
+
+# The parish militia of the 1566 ordinance: enrolled by village, drilled in
+# peacetime, and worth having precisely because it costs nothing to keep.
+levy_nd_sar_piedmont_milizia_paesana = {
+	size = levy_generic_infantry_size
+	unit = a_nd_sar_piedmont_milizia_paesana
+
+	allowed_pop_type = peasants
+	allowed_pop_type = soldiers
+
+	country_allow = {
+		has_or_had_tag = SAR_piedmont
+	}
+}

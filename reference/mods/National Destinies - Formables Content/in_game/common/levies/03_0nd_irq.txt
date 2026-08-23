@@ -1,0 +1,25 @@
+﻿# Age 3 levy file for IRQ. See 05_0nd_irq.txt for why the prefix matters.
+
+# Muntafiq horse (age 3). Noble cavalry at the 10% levy size, so restricted to
+# nobles as the size band requires, and further restricted to the desert edge:
+# the confederation's strength was the dry ground between the Euphrates and
+# the Nejd, not the irrigated Sawad.
+levy_nd_irq_muntafiq_horse = {
+	size = levy_generic_noble_cavalry_size
+	unit = a_nd_irq_muntafiq_horse
+
+	allowed_pop_type = nobles
+
+	allow = {
+		location ?= {
+			OR = {
+				vegetation = desert
+				vegetation = sparse
+			}
+		}
+	}
+
+	country_allow = {
+		has_or_had_tag = IRQ
+	}
+}

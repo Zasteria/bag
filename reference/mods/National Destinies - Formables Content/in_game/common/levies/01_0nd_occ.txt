@@ -1,0 +1,17 @@
+﻿# Occitania (OCC): age 5 levies
+# Prefix encodes unlock age (01 = age 5 absolutism). See 05_0nd_occ.txt.
+
+# Camisards: shepherds and wool carders of the Cevennes. Peasant and laborer
+# pops, never soldiers, because the whole point of the rising was that these
+# were not soldiers.
+levy_nd_occ_camisard = {
+	size = levy_generic_infantry_size
+	unit = a_nd_occ_camisard
+
+	allowed_pop_type = peasants
+	allowed_pop_type = laborers
+
+	country_allow = {
+		has_or_had_tag = OCC
+	}
+}

@@ -1,0 +1,20 @@
+﻿# Read-order file: the engine picks the FIRST valid levy across all levy
+# files in name order, so the prefix encodes this file's unlock age
+# exactly like vanilla (00_revolutions ... 05_traditions). The extra 0
+# after the prefix sorts us before the vanilla file of the same age.
+# Do NOT merge tags' levies back into a single 00_ file: that shadows
+# every newer vanilla levy forever.
+
+# Wardens of the bullion road, raised from the mining villages themselves:
+# the men who work the kilns and the men garrisoned to watch them.
+levy_nd_the_bullion_wardens = {
+	size = levy_generic_infantry_size
+	unit = a_nd_the_bullion_warden
+
+	allowed_pop_type = laborers
+	allowed_pop_type = soldiers
+
+	country_allow = {
+		has_or_had_tag = THE
+	}
+}
