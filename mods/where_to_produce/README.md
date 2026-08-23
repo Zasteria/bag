@@ -237,7 +237,7 @@ Regenerate after a patch that touches goods, production methods or building
 types:
 
 ```
-python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" \
+python3 mods/where_to_produce/tools/generate.py "<EU5>/game/in_game/common" \
     "<CMF>/in_game/common/scripted_effects"
 ```
 

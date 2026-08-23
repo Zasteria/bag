@@ -83,27 +83,21 @@ merely does nothing logs nothing at all, which is what made every bug in this
 mod so far invisible — check `game.log` too, that is where the load-time macro
 expansion errors turn up.
 
-## Files a new session must be given
+## Where to check things
 
-None of this is in the repository, and nothing can be verified without it:
+Everything a session needs is in `reference/` — EU5 1.3.10's `gui` and the parts
+of `common` that matter, plus Community Mod Framework, Construction Manager and
+Glorp UI. Grep it rather than asking for uploads.
 
-| What | Why |
-| --- | --- |
-| `<EU5>/game/in_game/gui/` | filters, panels, widget types |
-| `<EU5>/game/in_game/common/` — `building_types`, `production_methods`, `goods` | everything the generators read |
-| `<EU5>/game/in_game/common/` — `scripted_effects`, `scripted_triggers`, `on_action` | the only reference for what script can do |
-| Community Mod Framework (workshop 3692202776) | the CMM API being used |
-| Construction Manager (workshop 3736668860) | the only working example of CMM lists |
-| Glorp UI (workshop 3601047146) | interface patterns; also what the filter mod must not collide with |
-| `Documents/Paradox Interactive/Europa Universalis V/logs/` | how every bug so far was actually found |
-
-Regenerate after any patch, and point the generator at CMF so it checks macro
-argument names:
+The one thing that still has to come from the player is `logs/` after a test
+run, because only they can run the game. Regenerate after a patch:
 
 ```
-python3 rgo_bonus_filter/tools/generate_rgo_filter.py "<EU5>/game/in_game/common"
-python3 where_to_produce/tools/generate.py "<EU5>/game/in_game/common" "<CMF>/in_game/common/scripted_effects"
+python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
+python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
+        reference/mods/community_mod_framework/in_game/common/scripted_effects
 ```
+
 
 ## Decisions already made, worth not relitigating
 
@@ -163,7 +157,7 @@ technology folder beside it.
 ## Hard-won facts that are easy to lose
 
 - The RGO bonus formula, verified to the digit against three tooltips, is in
-  [`../where_to_produce/README.md`](../where_to_produce/README.md). Every input
+  [`../mods/where_to_produce/README.md`](../mods/where_to_produce/README.md). Every input
   counts in the divisor, produced goods included.
 - A `building_type` filter receives `root` and nothing else — not `scope:target`,
   whatever vanilla's comment says. Reading it logs an error every pass.

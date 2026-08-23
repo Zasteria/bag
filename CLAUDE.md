@@ -16,6 +16,9 @@ every session, so treat it as the briefing you would otherwise have to be given.
    made here, each with the symptom that gave it away. Most cost a full
    test-in-game round trip. Scan it whenever something silently does nothing.
 
+The mods live in [`mods/`](mods/), one folder each, and each carries its own
+README covering how that mod works and what is left to do.
+
 ## The game files are in the repository
 
 `reference/` holds the EU5 1.3.10 files and the three mods worth imitating.
@@ -42,7 +45,7 @@ If vanilla or one of the three mods does not use it, treat it as unproven and sa
 so.
 
 **A macro called with an argument CMF does not declare fails silently** and
-takes the rest of its effect with it. `where_to_produce/tools/generate.py`
+takes the rest of its effect with it. `mods/where_to_produce/tools/generate.py`
 checks this when pointed at CMF's scripted_effects — run it that way.
 
 **Effects that merely do nothing log nothing.** `error.log` names the file and
@@ -60,8 +63,8 @@ Anything named `*_generated_*` is written by a tool and must not be hand edited.
 Regenerate after a game patch:
 
 ```
-python3 rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
-python3 where_to_produce/tools/generate.py reference/game/in_game/common \
+python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
+python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
         reference/mods/community_mod_framework/in_game/common/scripted_effects
 ```
 

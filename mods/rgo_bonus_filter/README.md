@@ -81,7 +81,7 @@ Needed after a game patch that touches building types, production methods or
 goods:
 
 ```
-python3 rgo_bonus_filter/tools/generate_rgo_filter.py "<EU5>/game/in_game/common"
+python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py "<EU5>/game/in_game/common"
 ```
 
 As of 1.3.10 that reads 465 building types, of which 110 consume a raw material

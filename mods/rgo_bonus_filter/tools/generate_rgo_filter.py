@@ -9,7 +9,7 @@ production method's goods inputs with the goods flagged as raw materials, and
 emit scripted triggers a filter can call.
 
 Usage:
-    python3 rgo_bonus_filter/tools/generate_rgo_filter.py <game>/in_game/common
+    python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py <game>/in_game/common
 
 where the common directory holds goods/, production_methods/ and
 building_types/. Writes in_game/common/scripted_triggers/.

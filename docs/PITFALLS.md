@@ -13,7 +13,7 @@ takes the rest of its effect with it.** `step` where CMF declares `step_value`
 meant the setting never entered CMM's maps; syncing its alias then errored, and
 everything after it in the same effect was skipped — including four other
 settings. Symptom: an interface that renders perfectly and does nothing.
-`where_to_produce/tools/generate.py` checks this when pointed at CMF's
+`mods/where_to_produce/tools/generate.py` checks this when pointed at CMF's
 `scripted_effects`.
 
 **Dropdown options are numbered from one.** Registering with `default_index = 0`
