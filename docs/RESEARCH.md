@@ -300,6 +300,38 @@ counters into literals with a `switch`, and so should anything built on it.
 Construction Manager is the working reference: `cm_cmm_effects.txt` registers
 statically and `cm_cmm_scripted_gui.txt` holds one `_on_changed` per list.
 
+### What CMM actually reads from localization
+
+`cmm_setting_row.gui` builds a row's text from three suffixes and no others:
+`CMMLocalizedSuffix(<setting key>, '_name')`, `..._desc` for the hover tooltip
+and `..._text` for a button setting's caption. There is **no `_format` suffix
+for a plain setting** — the only formatted values in CMM are *list fields*, and
+those are opt-in through `cmm_set_list_field_format`, which sets prefix and
+postfix keys per field. Advanced Auto Build ships five
+`<mod>__<setting>_format` keys that nothing reads; they are harmless, but a
+`_format` key is not the way to put a unit after a slider's number.
+
+`_format` *is* real for a list filter, where `search_filter_<key>_format` goes
+with a `range`. The two conventions are unrelated and easy to conflate.
+
+### CMF's shared keys are overridable, for everyone
+
+`CMM_NUMERIC_INCREASE_MAX` and `CMM_NUMERIC_DECREASE_MIN` are CMF's own keys and
+are used by every mod's numeric settings. A mod can redefine them — Advanced
+Auto Build does, to change the hint on its own sliders, wrapping the whole thing
+in `SelectLocalization` on `Scope.GetFlagName` so other mods' settings fall back
+to the original wording. It works, and whichever mod loads later wins the key,
+so a translation of one mod has to reproduce the fallback in that language or
+quietly change what every other mod's settings say.
+
+### Localization goes in `main_menu/`
+
+All three reference mods put every `.yml` under
+`main_menu/localization/<lang>/`, including the text that only ever appears
+in game — CMM settings, tooltips, filter chips. Both mods in this repository do
+the same and work. Advanced Auto Build ships a byte-identical second copy under
+`in_game/localization/`; nothing here needs it, and no reference mod does that.
+
 ### Other CMF facilities
 
 - `cmf_add_action_bar_element` / `cmf_remove_action_bar_element` put a button on

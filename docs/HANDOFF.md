@@ -9,6 +9,14 @@ most of that was learnt the hard way and will save a repeat.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
+**`auto_build_ru/` — complete, never loaded.** Russian for Advanced Auto Build
+(`eu5ab_*` 0.9.1 Beta), which ships English and Chinese only and so renders as
+raw keys in a Russian game. All 1201 keys are translated;
+`tools/generate_ru.py` writes the game file from `translations/ru.yml` and
+checks key coverage and markup parity, so what is left to find out is whether
+the game picks the file up at all. See that mod's README for what to look at
+first and for the two terminology choices worth confirming on screen.
+
 **`where_to_produce/` — rewritten around the opposite question; untested.**
 Everything up to the last round answered "for this good, which province" and
 worked: the lists populated, the volume columns and sort order were right, and
@@ -96,7 +104,13 @@ run, because only they can run the game. Regenerate after a patch:
 python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
 python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
         reference/mods/community_mod_framework/in_game/common/scripted_effects
+python3 mods/auto_build_ru/tools/generate_ru.py
 ```
+
+Advanced Auto Build arrived in `reference/` without its `.metadata/`, so its mod
+id and version are not in the tree. `auto_build_ru` therefore declares only CMF
+as a dependency; if the base mod's id is wanted there, that file has to come
+from the player's mod folder.
 
 
 ## Decisions already made, worth not relitigating
