@@ -350,6 +350,18 @@ CMF dependency if it redefines one of CMF's own shared keys. `auto_build_ru` is
 the worked example; its `tools/generate_ru.py` is written against one mod but
 the shape of it is reusable.
 
+**A mod may ship a language that is only the English text.** National Destinies
+ships eleven languages whose files are byte identical to the English ones apart
+from the `l_<language>:` header, so it reads in English in a Russian game while
+`localization/russian/` plainly exists. Diff against `english/` before believing
+a language is present.
+
+That changes the job from adding keys to **overriding** them, which is confirmed
+working in game: a separate localization mod loaded after the base mod replaces
+the base mod's values for the same keys. Load order decides, so the translation
+declares a dependency on the mod it translates and has to sit below it in the
+playset.
+
 **Read the size before quoting one.** A mod's key count badly overstates the
 work. Of Advanced Auto Build's 1201 keys, 372 were pure markup, 316 were
 `$vanilla_key$` passthrough, and another 315 were families differing only by a
