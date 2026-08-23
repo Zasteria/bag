@@ -17,6 +17,15 @@ checks key coverage and markup parity, so what is left to find out is whether
 the game picks the file up at all. See that mod's README for what to look at
 first and for the two terminology choices worth confirming on screen.
 
+**`nd_ru/` — только начат.** Русский для National Destinies
+(`trin.national_destinies` 1.3.6). Базовый мод везёт одиннадцать языков, и все
+файлы всех языков побайтово равны английским, так что в русской игре он читается
+по-английски. Объём — 40 719 ключей, 688 617 слов прозы, 220 файлов. Каркас,
+генератор и три пробных файла есть; в игре не проверялось ничего. Первое, что
+надо подтвердить, — перекрывает ли наш ключ ключ базового мода (у `auto_build_ru`
+такой задачи не было: там ключей просто не существовало). Второе — русская
+локализация самой игры, без неё термины вроде advances и levies выбраны на глаз.
+
 **`where_to_produce/` — rewritten around the opposite question; untested.**
 Everything up to the last round answered "for this good, which province" and
 worked: the lists populated, the volume columns and sort order were right, and

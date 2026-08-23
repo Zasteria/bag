@@ -33,6 +33,7 @@ needs no permission.
 | `mods/community_mod_framework/` | 2.3.3 | The CMF and CMM APIs both mods here build on |
 | `mods/construction_manager/` | 2.2.11 | The working reference for CMM lists |
 | `mods/glorp_ui/` | 1.3.10.1 | Interface patterns, and a compatibility target |
+| `mods/National Destinies - Formables Content/` | 1.3.6 | The mod `nd_ru/` translates; ships eleven languages that all carry the English text |
 | `mods/Auto build by Lincoln Guang/` | 0.9.1 Beta | The mod `auto_build_ru/` translates; English and Chinese localization, and a large worked example of CMM settings, generic actions and generated script |
 
 Mod copies are text only — `.txt`, `.gui`, `.yml`, `.json`. Textures and

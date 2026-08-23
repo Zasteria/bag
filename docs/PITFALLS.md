@@ -87,6 +87,16 @@ Advanced Auto Build's Mod Menu tab looked like, and it is diagnosed by the
 company it keeps: if other mods in the same list read correctly, the language
 is fine and that mod's `.yml` for it is simply absent.
 
+**A shipped language can be the English text under a different header.**
+National Destinies ships eleven languages whose 220 files are byte identical to
+the English ones apart from the `l_<language>:` line, so the mod reads in English
+inside a Russian game while `localization/russian/` plainly exists. It is the
+opposite symptom to a missing `.yml`, which shows raw keys — here everything
+renders, just in the wrong language. Diff the files against `english/` before
+concluding a language is present. It also changes the job: those keys are
+defined, so a translation has to **override** them rather than add to them, and
+the overriding mod has to load later.
+
 **A `_format` key does nothing for a CMM setting.** Only list *fields* take a
 format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
