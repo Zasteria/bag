@@ -20,13 +20,17 @@ the coverage report says how far along it is.
 It refuses to write a file that would show up wrong in game:
 
 * a key the base mod does not define is invented and cannot render;
-* a base key the source file misses would leave that one line in English, so a
-  source file has to cover its base file completely;
+* a base key the source file misses stays with the base mod, and so stays
+  English -- that is how a names-first pass is meant to work, so it is counted
+  and reported rather than refused;
 * the markup of a value -- ``[data functions]`` and ``[concept|e]`` links,
   ``$key$`` references, ``@texticons!``, ``#format`` codes, ``\\n`` -- is read by
   the engine rather than displayed and has to survive translation unchanged;
 * a stray double quote truncates the line, and a square bracket added to plain
-  text renders as ``ERROR:``.
+  text renders as ``ERROR:``;
+* a character belonging to neither Russian nor the Latin the mod's proper names
+  need has no business in the file -- a stray CJK ideograph slipped into three
+  values on the first large batch and would have reached the player unnoticed.
 """
 
 from __future__ import annotations
@@ -79,12 +83,6 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
     for key in invented:
         problems.append(f"  {key}: not a key of the base mod")
 
-    missing = [k for k in english if k not in russian]
-    for key in missing[:10]:
-        problems.append(f"  {key}: not translated")
-    if len(missing) > 10:
-        problems.append(f"  ... and {len(missing) - 10} more keys not translated")
-
     for key, value in russian.items():
         if key not in english:
             continue
@@ -102,6 +100,14 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
             problems.append(f"  {key}: a square bracket in plain text renders as ERROR:")
         if not value.strip():
             problems.append(f"  {key}: empty value")
+        for char in set(value):
+            point = ord(char)
+            if not (0x0400 <= point <= 0x04FF          # Cyrillic
+                    or 0x20 <= point <= 0x7E           # ASCII: names, markup
+                    or 0x00C0 <= point <= 0x024F       # accented Latin
+                    or char in "\u00ab\u00bb\u2014\u2013\u2026\u2018\u2019\u02bf\u02bd\u0301"):
+                problems.append(
+                    f"  {key}: stray character {char!r} (U+{point:04X})")
 
     return problems
 
@@ -142,11 +148,11 @@ def main(argv: list[str]) -> int:
             for line in problems:
                 print(line, file=sys.stderr)
             continue
-        ordered = {key: russian[key] for key in english}
+        ordered = {key: russian[key] for key in english if key in russian}
         write_yml(OUT_DIR / f"{stem}_ru_generated_l_russian.yml", ordered)
         written.append(stem)
         done_keys += len(ordered)
-        done_words += sum(len(prose(v).split()) for v in english.values())
+        done_words += sum(len(prose(english[k]).split()) for k in ordered)
 
     # Anything emitted by an earlier run whose source file is gone.
     for stale in OUT_DIR.glob("*_ru_generated_l_russian.yml"):
@@ -161,7 +167,7 @@ def main(argv: list[str]) -> int:
         total_words += sum(len(prose(v).split()) for v in values.values())
 
     print(f"файлов:  {len(written):>4} из {len(base_files)}"
-          f"   ({100 * len(written) / len(base_files):.1f}%)")
+          f"   ({100 * len(written) / len(base_files):.1f}%) затронуто")
     print(f"ключей:  {done_keys:>6} из {total_keys}"
           f" ({100 * done_keys / total_keys:.1f}%)")
     print(f"слов:    {done_words:>6} из {total_words}"
