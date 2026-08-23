@@ -15,9 +15,9 @@ Each folder is a complete mod — copy the folder itself into
 Both depend on the [Community Mod Framework](https://steamcommunity.com/workshop/)
 (`community_mod_framework` 2.\*) for their settings.
 
-Picking this up in a fresh session? Start with
-[`docs/HANDOFF.md`](docs/HANDOFF.md): where things stand, what is still broken,
-and which game and mod files have to be supplied before anything can be checked.
+Picking this up in a fresh session? [`CLAUDE.md`](CLAUDE.md) is loaded
+automatically and points at everything else. The game files and the three mods
+worth imitating live in [`reference/`](reference/), so nothing needs uploading.
 
 ## Shared notes
 
