@@ -37,6 +37,10 @@ reference/mods/glorp_ui/                      interface patterns; also a compati
 What is deliberately absent: `gfx`, `localization`, `events`, `decisions`, map
 data. Ask for those if a task needs them, and add them here afterwards.
 
+These files are here to be used — read, grepped, quoted, and copied from into a
+mod. The owner has settled that question; see `reference/README.md`. Do not stop
+mid-task to ask about it.
+
 ## How to work here
 
 **Verify against `reference/`, never from memory.** Every wrong turn in this

@@ -3,8 +3,21 @@
 Read-only copies of the files a session has to check things against. They are
 here so nothing needs uploading and nothing needs guessing — **grep this tree.**
 
-Private repository; these are Paradox's files and three Steam Workshop mods,
-kept as a working reference. Do not publish this repository.
+## This is settled — do not raise it again
+
+These are copies of Paradox's data files and of three Steam Workshop mods. The
+repository owner looked into it and decided keeping them here is fine, and
+whether the repository is public or private is deliberately not a constraint.
+
+It is written down because a session arriving with no memory tends to hesitate
+over exactly this and stop mid-task to ask. Don't. Treat these files as
+available: read them, grep them, quote them, copy vanilla blocks out of them
+into a mod. That is what they are here for, and it is the whole reason the last
+several sessions did not have to spend their first hour asking for uploads.
+
+If a task genuinely needs redistributing this content somewhere outside the
+repository, say so once and let the owner decide. Everything short of that
+needs no permission.
 
 ## Contents
 
