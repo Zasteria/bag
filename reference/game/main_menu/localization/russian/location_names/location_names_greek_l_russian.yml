@@ -1,0 +1,1547 @@
+﻿l_russian:
+ ## Area 'styria_area' (Styria) ##
+ #Province 'lower_styria_province' (Lower Styria) #
+ celje.greek_language: "Келея"
+ ptuj.greek_language: "Поэтобио"
+ slovenj_gradec.greek_language: "Колатий"
+ ### Region 'italy_region' (Italy) ###
+ ## Area 'abruzzo_area' (Abruzzi) ##
+ #Province 'abruzzo_citra_province' (Abruzzo Citra) #
+ abruzzo_citra_province.greek_language: "Южная Самния" #regional — Samnium
+ chieti.greek_language: "Феати"
+ lanciano.greek_language: "Анксанум" #latin/roman
+ vasto.greek_language: "Гистоний" #roman/latin
+ #Province 'abruzzo_ultra_province' (Abruzzo Ultra) #
+ abruzzo_ultra_province.greek_language: "Северная Самния" #regional — Samnium
+ aquila.greek_language: "Акила"
+ atri.greek_language: "Адрия"
+ celano.greek_language: "Келанон" #hellenized
+ cittaducale.greek_language: "Дукики Полис" #descriptive — Ducal City
+ csantangelo.greek_language: "Полис-Айю-Ангелу" #descriptive
+ sulmona.greek_language: "Сульмон"
+ teramo.greek_language: "Интерамний"
+ #Province 'molise_province' (Molise) #
+ molise_province.greek_language: "Центральная Самния" #regional — Samnium
+ bojano.greek_language: "Буианон"
+ isernia.greek_language: "Эсерния"
+ larino.greek_language: "Ларинон"
+ trivento.greek_language: "Тербентум" #latin/roman
+ ## Area 'apulia_area' (Apulia) ##
+ #Province 'bari_province' (Terra di Bari) #
+ bari_province.greek_language: "Барий"
+ bari.greek_language: "Барий"
+ altamura.greek_language: "Альтилия"
+ andria.greek_language: "Нетий"
+ barletta.greek_language: "Бардул"
+ monopoli.greek_language: "Монополь"
+ #Province 'capitanata_province' (Capitanata) #
+ capitanata_province.greek_language: "Капитаната" #Byzantine catepanate territory
+ foggia.greek_language: "Аргориппа"
+ bovino.greek_language: "Бибинум" #latin/roman
+ lucera.greek_language: "Лукерия"
+ manfredonia.greek_language: "Сипунт"
+ rotondo.greek_language: "Айос-Иоаннис-Стронгилос" #descriptive
+ sansevero.greek_language: "Каструм Дрионис" #latin/roman
+ #Province 'otranto_province' (Terra d'Otranto) #
+ otranto_province.greek_language: "Идрунт"
+ lecce.greek_language: "Лупия"
+ brindisi.greek_language: "Брентесий"
+ francavilla.greek_language: "Ирия"
+ gallipoliita.greek_language: "Каллиполь Апулийский"
+ martinafr.greek_language: "Келия"
+ taranto.greek_language: "Тарант"
+ ## Area 'basilicata_area' (Basilicata and Calabria) ##
+ #Province 'basilicata_province' (Basilicata) #
+ basilicata_province.greek_language: "Ликания" #Lucania
+ potenza.greek_language: "Потентия"
+ acerenza.greek_language: "Ахеронтия"
+ lagonegro.greek_language: "Скидрос"
+ matera.greek_language: "Метапонтий"
+ melfi.greek_language: "Венусия"
+ montepeloso.greek_language: "Акра Мирту" #hellenized
+ santarcangelo.greek_language: "Гераклея"
+ #Province 'calabria_ultra_province' (Calabria Ultra) #
+ calabria_ultra_province.greek_language: "Верхняя Калабрия"
+ catanzaro.greek_language: "Скиллитион"
+ cotrone.greek_language: "Кротон"
+ gerace.greek_language: "Геракион"
+ monteleone.greek_language: "Гиппоний"
+ nicastro.greek_language: "Неокастрон Калабрийский"
+ palmi.greek_language: "Пальмы"
+ reggiocal.greek_language: "Регион Калавриас"
+ #Province 'calabria_citra_province' (Calabria Citra) #
+ calabria_citra_province.greek_language: "Нижняя Калабрия"
+ cosenza.greek_language: "Козенция"
+ cassano.greek_language: "Фурии"
+ castrovillari.greek_language: "Новый Сассоний"
+ scalea.greek_language: "Лаос"
+ paola.greek_language: "Лампетия"
+ rossano.greek_language: "Русианум"
+ ## Area 'campania_area' (Campania and Principato) ##
+ #Province 'lavoro_province' (Terra di Lavoro) #
+ lavoro_province.greek_language: "Неаполь" #capital Naples
+ naples.greek_language: "Неаполь"
+ caserta.greek_language: "Калатия"
+ gaeta.greek_language: "Каити"
+ nola.greek_language: "Нола"
+ piedimonte.greek_language: "Аллифа"
+ sora.greek_language: "Сора"
+ venafro.greek_language: "Уэнафрон"
+ #Province 'principato_citra_province' (Principato Citra) #
+ principato_citra_province.greek_language: "Салернита" #Salerno region
+ salerno.greek_language: "Салерн"
+ campagna.greek_language: "Кампана"
+ salacon.greek_language: "Посейдония"
+ vallo.greek_language: "Элея"
+ #Province 'principato_ultra_province' (Principato Ultra) #
+ principato_ultra_province.greek_language: "Беневентон" #Benevento
+ avellino.greek_language: "Абеллинон"
+ ariano.greek_language: "Ариано"
+ benevento.greek_language: "Малии"
+ santangelo.greek_language: "Компса"
+ ## Area 'emilia_area' (Emilia and Romagna) ##
+ #Province 'bologna_province' (Bologna) #
+ bologna_province.greek_language: "Бонония"
+ bologna.greek_language: "Бонония"
+ medicina.greek_language: "Клатерна"
+ vergato.greek_language: "Веркатон" #hellenized
+ #Province 'ferrara_province' (Ferrara) #
+ ferrara_province.greek_language: "Восточная Эмилия" #regional — Aemilia
+ ferrara.greek_language: "Ферарес" #hellenized
+ argenta.greek_language: "Августа"
+ comacchio.greek_language: "Спина"
+ ficarolo.greek_language: "Сикинос" #hellenized
+ rovigo.greek_language: "Адрия" #latin/roman — disambig from atri (Adría)
+ #Province 'modena_province' (Modena) #
+ modena_province.greek_language: "Мутина" #Latin via Greek
+ modena.greek_language: "Мутина"
+ frassinoro.greek_language: "Фраксинорион" #hellenized
+ nonantola.greek_language: "Нонантула"
+ mirandola.greek_language: "Мирандула" #hellenized
+ #Province 'parma_province' (Parma) #
+ parma_province.greek_language: "Парма"
+ parma.greek_language: "Парма"
+ berceto.greek_language: "Веркетон" #hellenized
+ sandonnino.greek_language: "Айос-Домнинос"
+ #Province 'piacenza_province' (Piacenza) #
+ piacenza_province.greek_language: "Плакентия"
+ piacenza.greek_language: "Плацентия"
+ bardi.greek_language: "Варды" #flag
+ bobbio.greek_language: "Бобиу" #monastery of Bobbio
+ fiorenzuola.greek_language: "Флоренциола"
+ #Province 'reggioem_province' (Reggio di Lombardia) #
+ reggioem_province.greek_language: "Регион Лепиди" #Regium Lepidi
+ reggioem.greek_language: "Ригион Лепидий"
+ canossa.greek_language: "Каносса"
+ guastalla.greek_language: "Брикселл"
+ #Province 'romagna_province' (Romagna) #
+ romagna_province.greek_language: "Романия" #Exarchate land
+ rimini.greek_language: "Аримин"
+ cesena.greek_language: "Каисина"
+ faenza.greek_language: "Фауэнтия"
+ imola.greek_language: "Корнилион Агора" #Hellenized the roman name Forum Cornelii
+ modigliana.greek_language: "Мутилиана"
+ ravenna.greek_language: "Рабенна"
+ #Province 'urbino_province' (Urbino) #
+ urbino_province.greek_language: "Умбрия" #regional — Umbria
+ urbino.greek_language: "Урбин"
+ gubbio.greek_language: "Игувий"
+ montefeltro.greek_language: "Монтефелтрион" #hellenized
+ pesaro.greek_language: "Пизавр"
+ ## Area 'lazio_area' (Lazio) ##
+ #Province 'campagna_province' (Campagna) #
+ campagna_province.greek_language: "Латион" #regional — Latium
+ anagni.greek_language: "Анагния"
+ palestrina.greek_language: "Пренесте"
+ sabina.greek_language: "Номентос"
+ tivoli.greek_language: "Тибур"
+ #Province 'marittima_province' (Marittima) #
+ marittima_province.greek_language: "Рома" #capital Rome
+ rome.greek_language: "Роми"
+ terracina.greek_language: "Таррацина"
+ velletri.greek_language: "Велитры"
+ #Province 'patrimonio_province' (San Pietro in Tuscia) #
+ patrimonio_province.greek_language: "Южная Этрурия" #regional — Etruria/Tuscia
+ bracciano.greek_language: "Бракианон" #hellenized
+ civitavecchia.greek_language: "Кентукеллы"
+ corneto.greek_language: "Тарквиния"
+ orte.greek_language: "Окриколон"
+ orvietano.greek_language: "Вольсинии"
+ viterbo.greek_language: "Экс"
+ ## Area 'liguria_area' (Liguria and Corsica) ##
+ #Province 'cismonte_province' (Cismonte) #
+ cismonte_province.greek_language: "Северный Кирн" #regional — Corsica north
+ bastia.greek_language: "Вастия"
+ aleria.greek_language: "Алерия"
+ calvi.greek_language: "Кальви"
+ corte.greek_language: "Корте"
+ #Province 'levante_province' (Levante) #
+ levante_province.greek_language: "Восточная Лигурия" #regional — eastern Liguria
+ genoa.greek_language: "Генуа"
+ lavagna.greek_language: "Лабания"
+ sarzana.greek_language: "Сарзана" #hellenized
+ #Province 'pumonte_province' (Pumonte) #
+ pumonte_province.greek_language: "Южный Кирн" #regional — Corsica south
+ ajaccio.greek_language: "Эакион"
+ bonifacio.greek_language: "Бонифаций"
+ sartene.greek_language: "Сартена" #hellenized
+ vico.greek_language: "Вик"
+ #Province 'punente_province' (Punente) #
+ punente_province.greek_language: "Западная Лигурия" #regional — western Liguria
+ albenga.greek_language: "Альбинга"
+ cairo_montenotte.greek_language: "Керон" #hellenized
+ finalborgo.greek_language: "Финала"
+ savona.greek_language: "Савон" #Greek Σαβών
+ ventimiglia.greek_language: "Альбинтимилион"
+ ## Area 'lombardy_area' (Lombardy) ##
+ #Province 'bergamo_province' (Bergamo) #
+ bergamo_province.greek_language: "Восточная Инсубрия" #regional — Insubria
+ bergamo.greek_language: "Бергом"
+ cortenuova.greek_language: "Кортенуова" #hellenized
+ clusone.greek_language: "Клусона" #hellenized
+ zogno.greek_language: "Цонион" #hellenized
+ #Province 'brescia_province' (Brescia) #
+ brescia_province.greek_language: "Восточная Инсубрия" #regional — Insubria
+ brescia.greek_language: "Бриксия"
+ asola.greek_language: "Асола" #hellenized
+ palazzolo.greek_language: "Палацолон" #hellenized
+ salo_ita.greek_language: "Салон" #hellenized
+ breno.greek_language: "Бренон" #hellenized
+ nozza.greek_language: "Ноца" #hellenized
+ #Province 'cremona_province' (Cremona) #
+ cremona_province.greek_language: "Кремона"
+ cremona.greek_language: "Кремона"
+ casalmaggiore.greek_language: "Касалимагора" #hellenized
+ soncino.greek_language: "Сонцинон" #hellenized
+ lodi.greek_language: "Лаус Помпея"
+ #Province 'mantua_province' (Mantua) #
+ mantua_province.greek_language: "Мантуа"
+ mantova.greek_language: "Мантуа"
+ goito.greek_language: "Гоитос" #hellenized
+ ostiglia.greek_language: "Гостилия"
+ #Province 'milano_province' (Milan) #
+ milano_province.greek_language: "Медиолан"
+ milano.greek_language: "Медиолан"
+ legnano.greek_language: "Легнанон" #hellenized
+ rho.greek_language: "Родон" #flag
+ varese.greek_language: "Варесос" #hellenized
+ #Province 'monza_province' (Monza) #
+ monza_province.greek_language: "Центральная Инсубрия" #regional — Insubria
+ monza.greek_language: "Модикия"
+ lecco.greek_language: "Леккос" #hellenized
+ treviglio.greek_language: "Тревиглион" #hellenized
+ como.greek_language: "Комон"
+ #Province 'pavia_province' (Pavia) #
+ pavia_province.greek_language: "Тикнос" #Ticinum
+ pavia.greek_language: "Тикинос"
+ lomello.greek_language: "Лумеллон" #hellenized
+ voghera.greek_language: "Ирия"
+ #Province 'valtellina_province' (Valtellina) #
+ valtellina_province.greek_language: "Ретия" #regional — Raetia
+ tresivio.greek_language: "Тресивион" #hellenized
+ bormio.greek_language: "Бурмия" #latin/roman
+ chiavenna.greek_language: "Клавен" #hellenized
+ #Province 'ticino_province' (Ticino) #
+ ticino_province.greek_language: "Южная Ретия" #regional — Raetia
+ lugano.greek_language: "Луканон" #hellenized
+ bellinzona.greek_language: "Беллизоне" #hellenized
+ locarno.greek_language: "Локарнон" #hellenized
+ ## Area 'marche_area' (Marche and Umbria) ##
+ #Province 'marche_province' (Marche) #
+ marche_province.greek_language: "Пикенон" #Picenum
+ ancona.greek_language: "Анкон"
+ ascolipiceno.greek_language: "Аскулон"
+ camerino.greek_language: "Камеринон"
+ fabriano.greek_language: "Фабрианон" #hellenized
+ fermo.greek_language: "Фирмон"
+ macerata.greek_language: "Мацераты" #hellenized
+ #Province 'perugia_province' (Perugia) #
+ perugia_province.greek_language: "Перуджиа"
+ perugia.greek_language: "Перуджиа"
+ cittacastello.greek_language: "Тиферина" #ancient Tiphernum
+ marsciano.greek_language: "Марсианон" #hellenized
+ #Province 'spoleto_province' (Spoleto) #
+ spoleto_province.greek_language: "Сполетион"
+ spoleto.greek_language: "Сполетион"
+ assisi.greek_language: "Ассисион"
+ narni.greek_language: "Нарния"
+ rieti.greek_language: "Реате"
+ todi.greek_language: "Тудер"
+ ## Area 'piemonte_area' (Piedmont) ##
+ #Province 'alessandria_province' (Alessandria) #
+ alessandria_province.greek_language: "Северная Лигурия" #regional — north Liguria
+ alessandria.greek_language: "Александрия Италийская" #latin/roman — disambig from Egyptian Alexandria
+ novi.greek_language: "Нови" #hellenized
+ rovegno.greek_language: "Ровенион" #hellenized
+ tortona.greek_language: "Дертона"
+ #Province 'aosta_province' (Aosta) #
+ aosta_province.greek_language: "Галатия Салассонская" #regional — Salassi territory
+ aosta.greek_language: "Ауста Претория"
+ chatillonaos.greek_language: "Сатигион" #hellenized
+ morgex.greek_language: "Морцек" #hellenized
+ #Province 'mondovi_province' (Mondovi) #
+ mondovi_province.greek_language: "Центральная Лигурия" #regional — Liguria
+ mondovi.greek_language: "Мондови" #hellenized
+ alba.greek_language: "Альба Помпея"
+ ceva.greek_language: "Цева" #hellenized
+ #Province 'monferrato_province' (Monferrato) #
+ monferrato_province.greek_language: "Северная Лигурия" #regional — Liguria/Piedmont
+ casale.greek_language: "Вардаката" #latin/roman
+ acqui.greek_language: "Аквы Статиелловы"
+ asti.greek_language: "Аста"
+ #Province 'novara_province' (Novara) #
+ novara_province.greek_language: "Западная Инсубрия" #regional — Insubria
+ novara.greek_language: "Новария"
+ arona.greek_language: "Арона" #hellenized
+ biella.greek_language: "Бугелла" #hellenized
+ domodossola.greek_language: "Оскеллы"
+ varallo.greek_language: "Вараллон" #hellenized
+ vercelli.greek_language: "Верчеллы"
+ #Province 'torino_province' (Torino) #
+ torino_province.greek_language: "Таурии"
+ turin.greek_language: "Августа Тауринон"
+ ivrea.greek_language: "Эпоредия"
+ lanzo.greek_language: "Ланцон" #hellenized
+ pinerolo.greek_language: "Пинеролион" #hellenized
+ susa.greek_language: "Сегусион"
+ #Province 'saluzzo_province' (Saluzzo) #
+ saluzzo_province.greek_language: "Верхняя Лигурия" #regional — Liguria
+ saluzzo.greek_language: "Салукия" #latin/roman
+ carmagnola.greek_language: "Карманиола" #hellenized
+ chieri.greek_language: "Карион" #hellenized
+ cuneo.greek_language: "Кунео" #hellenized
+ ## Area 'sardinia_area' (Sardinia) ##
+ #Province 'arborea_province' (Arborea) #
+ arborea_province.greek_language: "Арборея" #hellenized
+ oristano.greek_language: "Аристианис"
+ ales.greek_language: "Ареста" #flag
+ sorgono.greek_language: "Сургонон" #hellenized
+ terralba.greek_language: "Отока"
+ #Province 'cagliari_province' (Cagliari) #
+ cagliari_province.greek_language: "Каралис"
+ cagliari.greek_language: "Каралис"
+ tratalias.greek_language: "Траталии" #hellenized
+ villa_di_chiesa.greek_language: "Аргирополь Сардинский" #medieval Argentaria
+ isili.greek_language: "Исили" #hellenized
+ muravera.greek_language: "Саркапос" #ancient Sarcapos
+ seddori.greek_language: "Седдори" #hellenized
+ tortoli.greek_language: "Тортолион" #hellenized
+ #Province 'gallura_province' (Gallura) #
+ gallura_province.greek_language: "Галлура" #hellenized
+ terranova_pausania.greek_language: "Ольвия"
+ posada.greek_language: "Фаусания" #hellenized
+ tempiopausania.greek_language: "Наос" #literal
+ #Province 'logudoro_province' (Logudoro) #
+ logudoro_province.greek_language: "Логудорон" #judicate of Torres
+ sassari.greek_language: "Сасара"
+ alghero.greek_language: "Альгерон" #hellenized
+ bosa.greek_language: "Боса"
+ castelsardo.greek_language: "Кастрон Сардон"
+ macomer.greek_language: "Макомерон" #hellenized
+ bitti.greek_language: "Витта" #hellenized
+ ozieri.greek_language: "Озиерион" #hellenized
+ thiesi.greek_language: "Фиесы" #hellenized
+ ## Area 'sicily_area' (Sicily) ##
+ #Province 'demena_province' (Val di Demena) #
+ demena_province.greek_language: "Деменна"
+ messina.greek_language: "Мессена"
+ catania.greek_language: "Катана"
+ mistretta.greek_language: "Аместратос"
+ nicosiasic.greek_language: "Никосия Сицилийская"
+ patti.greek_language: "Патты"
+ piazza.greek_language: "Платия"
+ #Province 'girgenti_province' (Val di Girgenti) #
+ girgenti_province.greek_language: "Акрагантина" #Agrigentum
+ girgenti.greek_language: "Акрагант"
+ bivona.greek_language: "Вивона" #hellenized
+ caltanisetta.greek_language: "Несса"
+ cefalu.greek_language: "Кефалоидион"
+ sciacca.greek_language: "Термы Селинунтские"
+ termini.greek_language: "Термы Гимерейские"
+ #Province 'mazara_province' (Val di Mazara) #
+ mazara_province.greek_language: "Мазара"
+ palermo.greek_language: "Панорм"
+ corleone.greek_language: "Схера" #medieval Sclera
+ mazara.greek_language: "Селинунта"
+ salemi.greek_language: "Халикии"
+ trapani.greek_language: "Дрепан"
+ pantelleria.greek_language: "Коссира"
+ lampedusa.greek_language: "Лопадусса"
+ #Province 'noto_province' (Val di Noto) #
+ noto_province.greek_language: "Нотос"
+ syracuse.greek_language: "Сиракузы"
+ caltagirone.greek_language: "Кальтон" #hellenized
+ malta.greek_language: "Мелита"
+ modica.greek_language: "Мотика"
+ noto.greek_language: "Неитон"
+ terranovasic.greek_language: "Гела" #ancient Gela
+ ## Area 'tuscany_area' (Tuscany) ##
+ #Province 'arezzo_province' (Arezzo) #
+ arezzo_province.greek_language: "Аретини" #Arretium
+ arezzo.greek_language: "Арретион"
+ cortona.greek_language: "Кортония"
+ sansepolcro.greek_language: "Айос-Тафос" #descriptive
+ #Province 'florence_province' (Florence) #
+ florence_province.greek_language: "Флорентия"
+ florence.greek_language: "Флорентия"
+ mangona.greek_language: "Мангона" #hellenized
+ poggibonsi.greek_language: "Поцимпонси" #hellenized
+ prato.greek_language: "Пратон"
+ sanlorenzo.greek_language: "Айос-Лаурентиу"
+ pistoia.greek_language: "Пистория"
+ #Province 'grosseto_province' (Grosseto) #
+ grosseto_province.greek_language: "Южная Этрурия" #regional — Etruria south
+ grosseto.greek_language: "Руселлы" #latin/roman
+ massamar.greek_language: "Масса Бетерненсия" #latin/roman
+ pitigliano.greek_language: "Питилианон" #hellenized
+ piombino.greek_language: "Популонион"
+ #Province 'lucca_province' (Lucca) #
+ lucca_province.greek_language: "Лука"
+ lucca.greek_language: "Лука"
+ massa.greek_language: "Маса"
+ fosdinovo.greek_language: "Фосдиновон" #hellenized
+ pescia.greek_language: "Пеския"
+ #Province 'pisa_province' (Pisa) #
+ pisa_province.greek_language: "Писа"
+ pisa.greek_language: "Писа"
+ livorno.greek_language: "Ливурнон"
+ pontedera.greek_language: "Понтедера" #hellenized
+ volterra.greek_language: "Волатерры"
+ #Province 'siena_province' (Siena) #
+ siena_province.greek_language: "Сиенна"
+ siena.greek_language: "Сиенна"
+ chiusi.greek_language: "Клусий"
+ montalcino.greek_language: "Монталцинон" #hellenized
+ ## Area 'veneto_area' (Veneto and Friuli) ##
+ #Province 'belluno_province' (Belluno) #
+ belluno_province.greek_language: "Северная Генетия" #regional — northern Venetia
+ belluno.greek_language: "Беллунон"
+ pieve.greek_language: "Катубрион" #latin/roman
+ feltre.greek_language: "Фельтрон"
+ #Province 'friuli_province' (Friuli) #
+ friuli_province.greek_language: "Карния" #regional — Carnia/Forum Iulii
+ aquileia.greek_language: "Акилея"
+ cividale.greek_language: "Форон Юлии"
+ gemona.greek_language: "Глемона"
+ tolmezzo.greek_language: "Толметион" #latin/roman
+ pordenone.greek_language: "Портус Наонис"
+ spilimbergo.greek_language: "Спилимбергон" #hellenized
+ udine.greek_language: "Утина"
+ #Province 'padua_province' (Padua) #
+ padua_province.greek_language: "Патавион"
+ padova.greek_language: "Патавион"
+ monselice.greek_language: "Мон Силикис" #medieval
+ #Province 'venice_province' (Venice) #
+ venice_province.greek_language: "Венетия"
+ venice.greek_language: "Венетия"
+ mestre.greek_language: "Местре"
+ treviso.greek_language: "Тарвисион"
+ castelfranco.greek_language: "Кастеллофранкон" #hellenized
+ ceneda.greek_language: "Кенета"
+ chioggia.greek_language: "Клоггия"
+ conegliano.greek_language: "Конелианон" #hellenized
+ #Province 'verona_province' (Verona) #
+ verona_province.greek_language: "Верона"
+ verona.greek_language: "Верона"
+ legnago.greek_language: "Лениакон" #hellenized
+ peschiera.greek_language: "Арилика" #latin/roman
+ #Province 'vicenza_province' (Vicenza) #
+ vicenza_province.greek_language: "Викентия"
+ vicenza.greek_language: "Викентия"
+ bassano.greek_language: "Вассианон"
+ schio.greek_language: "Скион" #hellenized
+ ### Region 'caucasus_region' (Caucasus) ###
+ ## Area 'armenian_highlands_area' (Armenian Highlands) ##
+ #Province 'amadiya_province' (Amadiya) #
+ amadiya.greek_language: "Аменти"
+ baskale.greek_language: "Алуака"
+ hakkari.greek_language: "Ксекари"
+ semdinli.greek_language: "Семзинан"
+ zakho.greek_language: "Ксасания"
+ #Province 'bitlis_province' (Bitlis) #
+ bitlis.greek_language: "Балалис"
+ bahcesaray.greek_language: "Нимфей"
+ catak.greek_language: "Сатакс"
+ hizan.greek_language: "Ксизан"
+ mus.greek_language: "Апостоли"
+ #Province 'erzurum_province' (Erzurum) #
+ erzurum.greek_language: "Феодосиополь"
+ bayburt.greek_language: "Баберд"
+ erzincan.greek_language: "Келезини"
+ ilic.greek_language: "Аналиба"
+ kelkit.greek_language: "Сатала"
+ kemah.greek_language: "Камахон"
+ sebinkarahisar.greek_language: "Колония"
+ siran.greek_language: "Хириана"
+ tercan.greek_language: "Дерзини"
+ #Province 'harput_province' (Harput) #
+ harput.greek_language: "Каркафиокерта"
+ adakli.greek_language: "Артал"
+ bingol.greek_language: "Романуполь"
+ cemisgezek.greek_language: "Цимисхий"
+ keban.greek_language: "Софини"
+ palu.greek_language: "Палий"
+ pertek.greek_language: "Анзита"
+ sivrice.greek_language: "Колхис"
+ #Province 'malazgirt_province' (Malazgirt) #
+ malazgirt.greek_language: "Мадзиерти"
+ #Province 'van_province' (Van) #
+ van.greek_language: "Ева"
+ ahlat.greek_language: "Катала"
+ bargiri.greek_language: "Перки"
+ ercis.greek_language: "Арзес"
+ tatvan.greek_language: "Дизанант"
+ ## Area 'georgia_area' (Georgia) ##
+ #Province 'meskheti_province' (Meskheti) #
+ artanuji.greek_language: "Артанисса"
+ ispir.greek_language: "Спер"
+ ### Region 'steppes_region' (Pontic Steppe) ###
+ ## Area 'crimea_area' (Crimea) ##
+ #Province 'gothia_province' (Gothia) #
+ theodoro.greek_language: "Херсонисос"
+ ### Region 'balkan_region' (Balkans) ###
+ ## Area 'slovenia_area' (Carniola) ##
+ #Province 'gorizia_province' (Goriška) #
+ gorizia_province.greek_language: "Южный Норик" #regional — Noricum
+ gorizia.greek_language: "Гориция" #hellenized
+ tolmin.greek_language: "Тулменион" #latin/roman
+ trieste.greek_language: "Тергести"
+ #Province 'lower_carniola_province' (Lower Carniola) #
+ lower_carniola_province.greek_language: "Центральный Норик" #regional — Noricum
+ novo_mesto.greek_language: "Нео-Место"
+ ilirska_bistrica.greek_language: "Бистрика Иллирийская"
+ kocevje.greek_language: "Коцеба" #hellenized
+ metlika.greek_language: "Метлика" #hellenized
+ postojna.greek_language: "Постония"
+ #Province 'upper_carniola_province' (Upper Carniola) #
+ upper_carniola_province.greek_language: "Северный Норик" #regional — Noricum
+ ljubljana.greek_language: "Имона"
+ bled.greek_language: "Велд" #latin/roman
+ kranj.greek_language: "Крании" #cranium
+ skofja_loka.greek_language: "Скофия Лока"
+ ## Area 'slavonia_area' (Slavonia) ##
+ #Province 'bjelovar_province' (Podravina) #
+ bjelovar_province.greek_language: "Центральная Паннонская Склавиния" #regional — Pannonia Slavonia
+ bjelovar.greek_language: "Биелобар"
+ koprivnica.greek_language: "Коприбница" #just hellenized, not official
+ kutina.greek_language: "Барианис"
+ pakrac.greek_language: "Пакрац" #hellenized, not official
+ vaska.greek_language: "Баска" #hellenized, not official
+ virovitica.greek_language: "Биробитица" #hellenized it, not official
+ #Province 'vukovar_syrmia_province' (Slavonia Proper) #
+ vukovar_syrmia_province.greek_language: "Сирмий"
+ vukovar.greek_language: "Корнакон"
+ ilok.greek_language: "Коккий" #Cuccium
+ osijek.greek_language: "Мурса"
+ petrovaradin.greek_language: "Петрикон"
+ pozega.greek_language: "Поссега" #latin/roman
+ sremska_mitrovica.greek_language: "Сирмий"
+ #Province 'zagreb_province' (Zagorje) #
+ zagreb_province.greek_language: "Западная Паннонская Склавиния" #regional — Pannonia Slavonia
+ zagreb.greek_language: "Андавтоний"
+ karlovac.greek_language: "Каролополь" #Hellenized, not official
+ petrinja.greek_language: "Петриния"
+ sisak.greek_language: "Сиския"
+ slunj.greek_language: "Слобин" #hellenized, not official
+ varazdin.greek_language: "Вараздин" #hellenized it, not official
+ ## Area 'croatia_area' (Croatia) ##
+ #Province 'istria_province' (Istria) #
+ istria_province.greek_language: "Истрия"
+ pola.greek_language: "Пола"
+ buzet.greek_language: "Пиквент" #latin/roman name
+ pazin.greek_language: "Петина"
+ rovinj.greek_language: "Рубиний"
+ #Province 'lika_province' (Lika) #
+ lika_province.greek_language: "Либурния" #regional — Liburnia
+ senj.greek_language: "Афинит" #don't see an accent, ancient greek
+ crikvenica.greek_language: "Ад Туррес" #latin/roman
+ kaseg.greek_language: "Анк" #might be roman/latin
+ krk.greek_language: "Кирикон"
+ otocac.greek_language: "Арупий" #latin/roman
+ pag.greek_language: "Пагион"
+ rijeka.greek_language: "Битополь"
+ #Province 'north_dalmatia_province' (Northern Dalmatia) #
+ north_dalmatia_province.greek_language: "Северная Далматия"
+ knin.greek_language: "Бурнум" #latin/roman
+ novigrad.greek_language: "Неаполь" #hellenized — disambig from naples (Neápolis)
+ sibenik.greek_language: "Скардон"
+ sinj.greek_language: "Эквум" #latin/roman
+ zadar.greek_language: "Идасса"
+ #Province 'south_dalmatia_province' (Southern Dalmatia) #
+ south_dalmatia_province.greek_language: "Южная Далматия"
+ dubrovnik.greek_language: "Раусин"
+ brac.greek_language: "Элафусса"
+ makarska.greek_language: "Муккурум" #latin/roman
+ metkovic.greek_language: "Нарона"
+ slano.greek_language: "Стагнон"
+ split.greek_language: "Аспалат"
+ ## Area 'bosnia_area' (Bosnia) ##
+ #Province 'bosnia_province' (Bosna) #
+ bosnia_province.greek_language: "Босна"
+ vrhbosna.greek_language: "Катера"
+ borac.greek_language: "Кастра" #latin/roman is Castra, Hellenized it by using K
+ konjic.greek_language: "Мартарион" #latin/roman
+ olovo.greek_language: "Плюмбум" #latin/roman
+ srebrenica.greek_language: "Аргентария" #roman/latin
+ zenica.greek_language: "Бистуа Нова" #roman/latin
+ #Province 'donji_kraji_province' (Donji-Kraji) #
+ donji_kraji_province.greek_language: "Западная Босния" #regional — west Bosna
+ jajce.greek_language: "Апеба" #roman/latin
+ glamoc.greek_language: "Сальбиум" #roman/latin
+ kljuc.greek_language: "Клиуц" #hellenized
+ livno.greek_language: "Баридум" #roman/latin
+ #Province 'hum_province' (Hum) #
+ hum_province.greek_language: "Хумы" #Zachlumia
+ trebinje.greek_language: "Тербуния"
+ drijeva.greek_language: "Наренти" #latin/roman
+ gacko.greek_language: "Гацкон" #hellenized
+ mostar.greek_language: "Влаган" #medieval Blagaj
+ nevesinje.greek_language: "Невесинион" #hellenized
+ #Province 'podrinje_province' (Podrinje) #
+ podrinje_province.greek_language: "Восточная Босния" #regional — eastern Bosna
+ ustikolina.greek_language: "Остиколина" #hellenized
+ pljevlja.greek_language: "Комини" #roman/latin, unsure
+ soko_grad.greek_language: "Соколоград" #hellenized
+ #Province 'una_sana_province' (Sana) #
+ una_sana_province.greek_language: "Южная Паннония" #regional — Pannonia south
+ bihac.greek_language: "Ретиний" #roman/latin
+ dubica.greek_language: "Ад Преториум" #latin/roman
+ gradiski_brod.greek_language: "Сербитиум" #roman/latin
+ kozara.greek_language: "Козара" #hellenized
+ srb.greek_language: "Серва" #hellenized
+ #Province 'usora_and_soli_province' (Posavina) #
+ usora_and_soli_province.greek_language: "Северная Босния" #regional — northern Bosna
+ doboj.greek_language: "Добоион" #hellenized
+ glaz.greek_language: "Глазион" #hellenized
+ soli.greek_language: "Галы"
+ srebrenik.greek_language: "Аргентитон" #hellenized
+ teocak.greek_language: "Теоцакон" #hellenized
+ ## Area 'serbia_area' (Serbia) ##
+ #Province 'branicevo_province' (Braničevo) #
+ branicevo_province.greek_language: "Браницовон"
+ branicevo.greek_language: "Бранидзоба"
+ kucevo.greek_language: "Браницова" #Byzantine
+ ravno.greek_language: "Равенон" #hellenized
+ #Province 'kosovo_province' (Kosovo) #
+ kosovo_province.greek_language: "Коссифион Педион" #Field of Blackbirds
+ peja.greek_language: "Сипарант" #latin/roman
+ gjakova.greek_language: "Цакобица"
+ mitrovica.greek_language: "Айос-Димитриос"
+ novo_brdo.greek_language: "Дамастий"
+ pristina.greek_language: "Ульпиана" #latin/roman
+ prizren.greek_language: "Феранда" #latin/roman
+ #Province 'macva_province' (Mačva) #
+ macva_province.greek_language: "Восточная Мисия" #regional — Moesia
+ debrc.greek_language: "Демпрецон" #hellenized
+ krupanj.greek_language: "Крупанион" #hellenized
+ sabac.greek_language: "Сабакия" #hellenized
+ valjevo.greek_language: "Валевон" #hellenized
+ #Province 'nis_province' (Niš) #
+ nis_province.greek_language: "Наиссос"
+ nis.greek_language: "Нисос"
+ glubocica.greek_language: "Глубуцица" #hellenized
+ medveda.greek_language: "Идим" #roman/latin
+ prokuplje.greek_language: "Компл"
+ vranje.greek_language: "Вранея" #Byzantine
+ #Province 'raska_province' (Raška) #
+ raska_province.greek_language: "Расха"
+ trgoviste_SER.greek_language: "Терговисион" #hellenized
+ brskovo.greek_language: "Брескова" #hellenized
+ brvenik.greek_language: "Бревеникон" #hellenized
+ budimlja.greek_language: "Будимля" #hellenized
+ sjenica.greek_language: "Сианица" #hellenized
+ #Province 'sumadija_province' (Šumadija) #
+ sumadija_province.greek_language: "Сербская Склавиния" #regional — Serb Slavic lands
+ belgrad.greek_language: "Сингидонон"
+ smederevo.greek_language: "Семендрия"
+ rudnik.greek_language: "Руденикон" #hellenized
+ #Province 'toplica_province' (Toplica) #
+ toplica_province.greek_language: "Южная Мисия" #regional — Moesia south
+ krusevac.greek_language: "Крусевацион" #hellenized
+ jagodina.greek_language: "Ад Октабум" #roman/latin
+ stalac.greek_language: "Сталацион" #hellenized
+ zica.greek_language: "Зица" #monastery
+ #Province 'zeta_province' (Zeta) #
+ zeta_province.greek_language: "Диоклея"
+ podgorica.greek_language: "Диоклея"
+ bar_cg.greek_language: "Антибар"
+ gradina.greek_language: "Алата" #seems like a greek locations near the area
+ kotor.greek_language: "Декатера" #Ascrivium in latin
+ onogost.greek_language: "Андерба" #latin/roman
+ #Province 'zlatibor_province' (Zlatibor) #
+ zlatibor_province.greek_language: "Южная Склавиния" #regional — south Slavic lands
+ uzice.greek_language: "Капедун" #roman/latin
+ arilje.greek_language: "Ахиллион" #hellenized
+ gradac.greek_language: "Градецион" #hellenized
+ prijepolje.greek_language: "Приаполион" #hellenized
+ visegrad.greek_language: "Висеградон" #hellenized
+ ## Area 'bulgaria_area' (Bulgaria) ##
+ #Province 'north_dobruja_province' (North Dobruja) #
+ north_dobruja_province.greek_language: "Верхний Паристрион" #theme — Paradounavon
+ babadag.greek_language: "Оргами"
+ cernavoda.greek_language: "Аксиополь"
+ constanta.greek_language: "Томий"
+ enisala.greek_language: "Хальмирис"
+ isaccea.greek_language: "Нобиодунум" #roman/latin
+ tulcea.greek_language: "Эгис"
+ harsova.greek_language: "Карсий" #roman/latin
+ #Province 'pleven_province' (Pleven) #
+ pleven_province.greek_language: "Нижняя Мёзия" #regional — Moesia Inferior
+ pleven.greek_language: "Сторгосия" #roman/latin
+ bozhenitsa.greek_language: "Бозеница" #hellenized
+ dobrolak.greek_language: "Добролакон" #hellenized
+ gigen.greek_language: "Иск" #Oescus in roman/latin
+ hotalich.greek_language: "Севлиевон" #hellenized — disambig from servia
+ lovech.greek_language: "Ксисария" #possibly roman/latin
+ oryahovo.greek_language: "Бариана" #latin/roman
+ #Province 'preslav_province' (Preslav) #
+ preslav_province.greek_language: "Мегали Преслава"
+ veliki_preslav.greek_language: "Никополь на Истре"
+ ktenia.greek_language: "Ктения" #flag
+ ovech.greek_language: "Пробат"
+ razgrad.greek_language: "Абрит"
+ shumen.greek_language: "Симеоний"
+ targoviste_BUL.greek_language: "Мисионис" #latin/roman
+ varna.greek_language: "Павталия"
+ #Province 'sredets_province' (Sredets) #
+ sredets_province.greek_language: "Сардика"
+ sredets.greek_language: "Сердонополь"
+ dupnitsa.greek_language: "Тобиница"
+ pirot.greek_language: "Туррес" #roman/latin
+ tsaribrod.greek_language: "Транслитий" #roman/latin
+ velbuzd.greek_language: "Одиссос"
+ samokov.greek_language: "Самокон" #hellenized
+ svoge.greek_language: "Свогон" #hellenized
+ zemlungrad.greek_language: "Земланградон" #hellenized
+ #Province 'south_dobruja_province' (South Dobruja) #
+ south_dobruja_province.greek_language: "Нижний Паристрион" #theme
+ karvuna.greek_language: "Дионисополь"
+ drastar.greek_language: "Дуросторон"
+ kaliakra.greek_language: "Калиакри"
+ kladentsi.greek_language: "Кладенцион" #hellenized
+ pangalia.greek_language: "Каллатий"
+ tutrakan.greek_language: "Трансмариска" #roman/latin
+ #Province 'tarnovo_province' (Tarnovo) #
+ tarnovo_province.greek_language: "Тирновон"
+ tarnovo.greek_language: "Тирновон"
+ cherven.greek_language: "Хербен"
+ lyaskovets.greek_language: "Лесковецион" #hellenized
+ nikopol.greek_language: "Никополь"
+ ruse.greek_language: "Сексагинта Приста" #latin/roman
+ tryavna.greek_language: "Триавнон" #hellenized
+ #Province 'vidin_province' (Vidin) #
+ vidin_province.greek_language: "Видина"
+ vidin.greek_language: "Бидини"
+ archar.greek_language: "Разария"
+ kozelj.greek_language: "Козелион" #hellenized
+ kutlovitsa.greek_language: "Кастра ад Монтанезиум" #latin/roman
+ lom.greek_language: "Артан"
+ svrljig.greek_language: "Тимакон" #latin/roman
+ visesav.greek_language: "Клаудон"
+ vratsa.greek_language: "Вратисион" #hellenized
+ ## Area 'macedonia_area' (Macedonia) ##
+ #Province 'central_macedonia_province' (Central Macedonia) #
+ central_macedonia_province.greek_language: "Боттиея" #region
+ edessa.greek_language: "Эдесса"
+ giannitsa.greek_language: "Гианница"
+ gynaikokastro.greek_language: "Гинекокастрон"
+ hatera.greek_language: "Гатера"
+ kilkis.greek_language: "Килкис"
+ veria.greek_language: "Верия"
+ #Province 'chalkidiki_province' (Chalkidiki) #
+ chalkidiki_province.greek_language: "Фессалоники" #capital
+ thessaloniki.greek_language: "Фессалоники"
+ polygyros.greek_language: "Полийирос"
+ #Province 'lower_macedonia_province' (Lower Macedonia) #
+ lower_macedonia_province.greek_language: "Стримон" #theme — Strymon
+ serres.greek_language: "Серры"
+ drama.greek_language: "Драма"
+ kavala.greek_language: "Христуполь" #Byzantine name of Kavala
+ rentina.greek_language: "Рентина"
+ thasos.greek_language: "Тасос"
+ #Province 'pirin_province' (Pirin) #
+ pirin_province.greek_language: "Родопы" #region — Rhodope
+ melnik.greek_language: "Меленико"
+ bansko.greek_language: "Добарскон" #medieval Dobarsko
+ krupnik.greek_language: "Скаптопара"
+ dospat.greek_language: "Деспати"
+ nevrokop.greek_language: "Неброкопи"
+ #Province 'prilep_province' (Prilep) #
+ prilep_province.greek_language: "Пелагония"
+ prilep.greek_language: "Прилап"
+ bitola.greek_language: "Битолия"
+ florina.greek_language: "Хлеринон"
+ kicevo.greek_language: "Кицабий"
+ ohrid.greek_language: "Охрида"
+ tetovo.greek_language: "Инеон"
+ #Province 'upper_macedonia_province' (Upper Macedonia) #
+ upper_macedonia_province.greek_language: "Верхняя Македония"
+ grevena.greek_language: "Гревена"
+ kastoria.greek_language: "Кастория"
+ servia.greek_language: "Сербия"
+ siatista.greek_language: "Сиатиста"
+ ostrovo.greek_language: "Островон"
+ #Province 'vardar_province' (Vardar) #
+ vardar_province.greek_language: "Скопия"
+ skopje.greek_language: "Скупи"
+ prosek.greek_language: "Стены"
+ kocani.greek_language: "Коцани"
+ kratovo.greek_language: "Транатура"
+ kumanovo.greek_language: "Бикиан"
+ shtip.greek_language: "Стипеон"
+ strumica.greek_language: "Струмица"
+ veles.greek_language: "Белеса"
+ ## Area 'thrace_area' (Thrace) ##
+ #Province 'burgas_province' (Burgas) #
+ burgas_province.greek_language: "Пиргос" #hellenized
+ burgas.greek_language: "Пиргос"
+ anhialo.greek_language: "Анхиал"
+ aytos.greek_language: "Аэтос"
+ lardeja.greek_language: "Ладрея"
+ rusokastro.greek_language: "Росокастрон"
+ sozopol.greek_language: "Аполлония Понтийская"
+ #Province 'constantinople_province' (Byzantion) #
+ constantinople_province.greek_language: "Византий"
+ constantinople.greek_language: "Константинополь"
+ vize.greek_language: "Бизий"
+ catalca.greek_language: "Метры"
+ silivri.greek_language: "Селимбрия"
+ corlu.greek_language: "Цурул"
+ #Province 'dardanelles_province' (Dardanelles) #
+ dardanelles_province.greek_language: "Геллеспонт"
+ gallipoli.greek_language: "Каллиполь"
+ enez.greek_language: "Энос"
+ hayrabolu.greek_language: "Хариополь"
+ malgara.greek_language: "Мегали Агора"
+ rodoscuk.greek_language: "Редест"
+ kesan.greek_language: "Русион"
+ #Province 'edirne_province' (Edirne) #
+ edirne_province.greek_language: "Адрианополь"
+ edirne.greek_language: "Адрианополь"
+ ahtopol.greek_language: "Агафополь"
+ luleburgaz.greek_language: "Аркадиополь"
+ kiyikoy.greek_language: "Мидия"
+ kirklareli.greek_language: "Саранта Экклесы"
+ #Province 'evros_province' (Evros) #
+ evros_province.greek_language: "Эброс" #river region
+ demotica.greek_language: "Дидимотихон"
+ komotini.greek_language: "Комотини"
+ traianopolis.greek_language: "Траянополь"
+ xanthia.greek_language: "Ксанфия"
+ #Province 'rhodopes_province' (Rhodopes) #
+ rhodopes_province.greek_language: "Родопы"
+ stanimaka.greek_language: "Стенимах"
+ beden.greek_language: "Ведена" #hellenized
+ haskovo.greek_language: "Марса"
+ ormenio.greek_language: "Орменион"
+ perperek.greek_language: "Перперикон"
+ smolyan.greek_language: "Смолян" #hellenized
+ ustra.greek_language: "Устра" #medieval
+ #Province 'sliven_province' (Sliven) #
+ sliven_province.greek_language: "Северная Фракия" #regional — northern Thrace
+ sliven.greek_language: "Силимнос"
+ boruy.greek_language: "Иринополь"
+ bukelon.greek_language: "Вуклеон"
+ constantia_bul.greek_language: "Константия"
+ elhovo.greek_language: "Тонзон" #ancient Tonzos
+ hiambouli.greek_language: "Диамполь"
+ #Province 'zagore_province' (Zagore) #
+ zagore_province.greek_language: "Загора"
+ plovdiv.greek_language: "Филиппополь"
+ kostenets.greek_language: "Костенецион" #hellenized
+ kran.greek_language: "Севтополь"
+ stipon.greek_language: "Стипон"
+ strelcha.greek_language: "Стрелца" #hellenized
+ tsepina.greek_language: "Цепена"
+ ## Area 'albania_area' (Albania) ##
+ #Province 'albania_province' (Albania) #
+ albania_province.greek_language: "Диррахий" #theme — capital Dyrrachium
+ durres.greek_language: "Диррахий"
+ ballsh.greek_language: "Биллида"
+ berat.greek_language: "Пульхериополь"
+ debar.greek_language: "Аздра"
+ devol.greek_language: "Деаболис"
+ elbasan.greek_language: "Скампий"
+ kavaje.greek_language: "Кабагия"
+ kruje.greek_language: "Кроя"
+ tirana.greek_language: "Тиркан"
+ #Province 'illyria_province' (Illyria) #
+ illyria_province.greek_language: "Иллирия"
+ shkoder.greek_language: "Скодра"
+ dukagjini.greek_language: "Рубикон" #medieval Rubik
+ has.greek_language: "Хасион" #hellenized
+ koman.greek_language: "Комани"
+ lezha.greek_language: "Лисс"
+ #Province 'north_epirus_province' (Northern Epirus) #
+ north_epirus_province.greek_language: "Верхний Эпир"
+ avlonya.greek_language: "Авлон"
+ argyrokastro.greek_language: "Аргирокастрон"
+ butrint.greek_language: "Бутротон"
+ kleisoura_epirus.greek_language: "Клисура Эпирская" #Byzantine — disambig from kleisoura
+ konitsa.greek_language: "Коница"
+ ## Area 'northern_greece_area' (Northern Greece) ##
+ #Province 'aetolia_province' (Aetolia and Acarnania) #
+ aetolia_province.greek_language: "Этолия"
+ angelokastron.greek_language: "Ангелокастрон"
+ karpenisi.greek_language: "Карпенисион"
+ loidoriki.greek_language: "Лидорикион"
+ nafpaktos.greek_language: "Навпакт"
+ salona.greek_language: "Амфисса"
+ vonitsa.greek_language: "Воница"
+ #Province 'attica_province' (Attica and Beotia) #
+ attica_province.greek_language: "Аттика"
+ athens.greek_language: "Афины"
+ atalanti.greek_language: "Аталанта"
+ livadeia.greek_language: "Ливадия"
+ megara.greek_language: "Мегара"
+ thebes.greek_language: "Фивы"
+ #Province 'ionian_islands_province' (Ionian Islands) #
+ ionian_islands_province.greek_language: "Гептанисос" #Seven Islands
+ corfu.greek_language: "Керкира"
+ cephalonia.greek_language: "Кефалония"
+ leukas.greek_language: "Лефкас"
+ zakynthos.greek_language: "Закинф"
+ #Province 'neopatras_province' (Neopatras) #
+ neopatras_province.greek_language: "Неопатры"
+ neopatras.greek_language: "Неопатры"
+ bodonitsa.greek_language: "Бодоница"
+ gravia.greek_language: "Гравия"
+ zetounion.greek_language: "Зетунион"
+ #Province 'south_epirus_province' (Southern Epirus) #
+ south_epirus_province.greek_language: "Нижний Эпир"
+ ioannina.greek_language: "Иоаннина"
+ parga.greek_language: "Парга"
+ preveza.greek_language: "Превеса"
+ pyli.greek_language: "Пила"
+ #Province 'thessaly_province' (Thessaly) #
+ thessaly_province.greek_language: "Фессалия"
+ larissa.greek_language: "Ларисса"
+ demetrias.greek_language: "Димитриада"
+ elassona.greek_language: "Элассон"
+ farsala.greek_language: "Фарсал"
+ karditsa.greek_language: "Кардица"
+ stomio.greek_language: "Стомион"
+ trikala.greek_language: "Трикала"
+ tyrnavos.greek_language: "Тирнавос"
+ ## Area 'morea_area' (Morea) ##
+ #Province 'achaea_province' (Achaea) #
+ achaea_province.greek_language: "Ахея"
+ patras.greek_language: "Патры"
+ chalandritsa.greek_language: "Халандрица"
+ kalavryta.greek_language: "Калаврита"
+ vostitsa.greek_language: "Востица"
+ #Province 'arcadia_province' (Arcadia) #
+ arcadia_province.greek_language: "Аркадия"
+ tripolitsa.greek_language: "Триполица"
+ karytaina.greek_language: "Каритена"
+ veligosti.greek_language: "Велигости"
+ #Province 'argolis_province' (Argolis) #
+ argolis_province.greek_language: "Арголида"
+ argos.greek_language: "Аргос"
+ astros.greek_language: "Астрос"
+ ermioni.greek_language: "Гермиона"
+ nafplio.greek_language: "Нафплион"
+ #Province 'corinthia_province' (Corinthia) #
+ corinthia_province.greek_language: "Коринфия"
+ corinth.greek_language: "Коринф"
+ damala.greek_language: "Дамала"
+ xylokastro.greek_language: "Ксилокастрон"
+ #Province 'ilia_province' (Ilia) #
+ ilia_province.greek_language: "Элида"
+ andravida.greek_language: "Андравида"
+ andritsaina.greek_language: "Андрицена"
+ pontikokastro.greek_language: "Понтикокастрон"
+ #Province 'laconia_province' (Laconia) #
+ laconia_province.greek_language: "Лакония"
+ mystras.greek_language: "Мистра"
+ kythira.greek_language: "Кифера"
+ monemvasia.greek_language: "Монемвасия"
+ oitylo.greek_language: "Итилон"
+ #Province 'messenia_province' (Messenia) #
+ messenia_province.greek_language: "Мессения"
+ kalamata.greek_language: "Каламата"
+ kyparissia.greek_language: "Кипарисия"
+ leuktron.greek_language: "Левктрон"
+ modon.greek_language: "Метона"
+ ## Area 'aegean_archipelago_area' (Aegean Archipelago) ##
+ #Province 'chios_province' (Chios) #
+ chios_province.greek_language: "Хиос"
+ chios.greek_language: "Хиос"
+ ikaria.greek_language: "Икария"
+ samos.greek_language: "Самос"
+ #Province 'crete_province' (Crete) #
+ crete_province.greek_language: "Крит"
+ candia.greek_language: "Хандак"
+ chania.greek_language: "Хания"
+ elounda.greek_language: "Элунда"
+ gergeri.greek_language: "Гергера"
+ hagios_pavlos.greek_language: "Айос-Павлос"
+ rethymno.greek_language: "Ретимнон"
+ siteia.greek_language: "Сития"
+ viannos.greek_language: "Вианн"
+ #Province 'euboea_province' (Euboea) #
+ euboea_province.greek_language: "Эвбея"
+ negroponte.greek_language: "Халкида"
+ eretreia.greek_language: "Эретрия"
+ karystos.greek_language: "Каристос"
+ kleisoura.greek_language: "Клисура"
+ oreos.greek_language: "Ореи"
+ #Province 'lemnos_province' (Lemnos) #
+ lemnos_province.greek_language: "Лемнос"
+ mitilene.greek_language: "Митилена"
+ molyvos.greek_language: "Митимна"
+ imbros.greek_language: "Имброс"
+ lemnos.greek_language: "Лемнос"
+ #Province 'naxos_province' (Naxos) #
+ naxos_province.greek_language: "Наксос"
+ naxos.greek_language: "Наксос"
+ amorgos.greek_language: "Аморгос"
+ andros.greek_language: "Андрос"
+ kythnos.greek_language: "Китнос"
+ milos.greek_language: "Милос"
+ mykonos.greek_language: "Миконос"
+ #Province 'rodos_province' (Rhodes) #
+ rodos_province.greek_language: "Родос"
+ rodos.greek_language: "Родос"
+ karpathos.greek_language: "Карпатос"
+ kos.greek_language: "Кос"
+ ### Region 'khorasan_region' (Khorasan) ###
+ ## Area 'eastern_khorasan_area' (Eastern Ḫorāsān) ##
+ #Province 'herat_province' (Herāt) #
+ herat.greek_language: "Александрия Ариана"
+ ## Area 'transoxiana_area' (Transoxiana) ##
+ #Province 'khujand_province' (Khujand) #
+ khujand.greek_language: "Александрия Эсхата"
+ ### Region 'anatolia_region' (Anatolia) ###
+ ## Area 'cappadocia_area' (Cappadocia) ##
+ #Province 'amasya_province' (Amasya) #
+ amasya_province.greek_language: "Амасия"
+ amasya.greek_language: "Амасия"
+ gadegara.greek_language: "Феаклиодиополь"
+ ladik_pontus.greek_language: "Лаодикея Понтийская"
+ merzifon.greek_language: "Мирсифон"
+ sonisa.greek_language: "Бинаса"
+ #Province 'bozok_province' (Bozok) #
+ bozok_province.greek_language: "Харсианон" #theme — Charsianon
+ bozok.greek_language: "Табия"
+ baliseyh.greek_language: "Лассора"
+ candir.greek_language: "Эбаисса"
+ dinek_keskin.greek_language: "Сармалия"
+ sorgun.greek_language: "Эбагина"
+ #Province 'corum_province' (Çorum) #
+ corum_province.greek_language: "Эвхаита"
+ corum.greek_language: "Евхаит"
+ gumus.greek_language: "Диакопа"
+ huseyinabad.greek_language: "Митридатий"
+ iskilip.greek_language: "Асклепион"
+ sungurlu.greek_language: "Беринуполь"
+ #Province 'divrigi_province' (Divrigi) #
+ divrigi_province.greek_language: "Тефрика"
+ divrigi.greek_language: "Леонтокоми"
+ arapgir.greek_language: "Арабрак"
+ arguvan.greek_language: "Аргаунт"
+ egin.greek_language: "Береиссо"
+ #Province 'kayseri_province' (Kayseri) #
+ kayseri_province.greek_language: "Кесария"
+ kayseri.greek_language: "Кесария"
+ bogazliyan.greek_language: "Кимбалей"
+ develi.greek_language: "Кизистра"
+ tomarza.greek_language: "Томарза"
+ yahyali.greek_language: "Роданд"
+ #Province 'kirsehir_province' (Kırşehir) #
+ kirsehir_province.greek_language: "Мокисос" #alt: Justinianoúpolis
+ kirsehir.greek_language: "Юстинианополь"
+ hacibektas.greek_language: "Саланда"
+ nevsehir.greek_language: "Неаполь Каппадокийский"
+ sariyahsi.greek_language: "Нисса"
+ urgup.greek_language: "Айос-Прокопиос"
+ #Province 'nigde_province' (Niğde) #
+ nigde_province.greek_language: "Тиана" #regional — Tyana lay here
+ nigde.greek_language: "Нигди"
+ bekarlar.greek_language: "Назианз"
+ bor_tur.greek_language: "Порос" #Bor derives from Greek Pôros; Tyana lay nearby
+ #Province 'sivas_province' (Sivas) #
+ sivas_province.greek_language: "Севастия"
+ sivas.greek_language: "Севастия"
+ darende.greek_language: "Таранта"
+ dasmenda.greek_language: "Дасмендрон"
+ deliktash.greek_language: "Кангара"
+ gemerek.greek_language: "Армакса"
+ gurun.greek_language: "Габраина"
+ hafik.greek_language: "Камиса"
+ sarkisla.greek_language: "Маландара"
+ zara.greek_language: "Зара"
+ #Province 'tokat_province' (Tokat) #
+ tokat_province.greek_language: "Дазимон" #alt: Komana Pontika
+ tokat.greek_language: "Евдоксия"
+ akdagmadeni.greek_language: "Аргирий"
+ aydincik.greek_language: "Газиура"
+ koyulhisar.greek_language: "Никополь Армянский"
+ niksar.greek_language: "Неокесария"
+ sulusaray.greek_language: "Гераклеополь"
+ zile.greek_language: "Зила"
+ ## Area 'central_anatolia_area' (Central Anatolia) ##
+ #Province 'aksaray_province' (Aksaray) #
+ aksaray_province.greek_language: "Колония"
+ aksaray.greek_language: "Архелаида" #Byzantine — disambig from sebinkarahisar (Kolṓneia)
+ kochisar.greek_language: "Парнас"
+ kulu_turkey.greek_language: "Кинна" #replaces orphan kulu entry
+ insuyu.greek_language: "Пиллитокоми"
+ #Province 'ankara_province' (Ankara) #
+ ankara_province.greek_language: "Анкира"
+ ankara.greek_language: "Анкира"
+ cubuk.greek_language: "Икотарий"
+ haymana.greek_language: "Галатон Равнинная" #descriptive — plateau in Galatia
+ kalecik.greek_language: "Малос"
+ karakecili.greek_language: "Аспона"
+ polatli.greek_language: "Гордий"
+ #Province 'beysehir_province' (Beysehir) #
+ beysehir_province.greek_language: "Мисфия" #Lykaonian region
+ beysehir.greek_language: "Мисфия"
+ aksehir.greek_language: "Филомилион"
+ bolvadin.greek_language: "Полиботон"
+ ilgin.greek_language: "Тирей"
+ sarkikaraagac.greek_language: "Адрианополь Писидийский"
+ seydisehir.greek_language: "Амблада"
+ yalvac.greek_language: "Антиохия Писидийская"
+ #Province 'cankiri_province' (Çankiri) #
+ cankiri_province.greek_language: "Гангры"
+ cankiri.greek_language: "Гангры"
+ bayat.greek_language: "Ксимени"
+ cerkes.greek_language: "Антониополь"
+ kursunlu.greek_language: "Анадината"
+ sabanozu.greek_language: "Клоссама"
+ tosya.greek_language: "Феодосия Пафлагонская"
+ #Province 'karahisar_province' (Karahisar) #
+ karahisar_province.greek_language: "Акроинон"
+ karahisar_i_sahib.greek_language: "Никополь" #Byzantine — disambig from nikopol (Nikópolis)
+ altintas.greek_language: "Соа"
+ emirdag.greek_language: "Аморий"
+ sandikli.greek_language: "Гиераполь" #latin/roman — disambig from lazkiye
+ seyitgazi.greek_language: "Наколея"
+ suhut.greek_language: "Синнада"
+ #Province 'konya_province' (Konya) #
+ konya_province.greek_language: "Иконий"
+ konya.greek_language: "Иконий"
+ altinekin.greek_language: "Конгуст"
+ celtik.greek_language: "Толастохора"
+ cumra.greek_language: "Корна"
+ ladik.greek_language: "Клавдиолаодикея"
+ suluklu.greek_language: "Сулуклон" #hellenized — disambig from celtik (Tolastochṓra)
+ turgut.greek_language: "Кланий"
+ #Province 'larende_province' (Larende) #
+ larende_province.greek_language: "Ларандос"
+ larende.greek_language: "Ларанда"
+ eregli_kar.greek_language: "Гераклея Кивистра"
+ eskil.greek_language: "Саватра" #flag — Lykaonian Sauatra plausibly nearby
+ hatunsaray.greek_language: "Листра"
+ karapinar.greek_language: "Фибаса"
+ obruk.greek_language: "Петра"
+ pirloganda.greek_language: "Астра"
+ #Province 'sivrihisar_province' (Sivrihisar) #
+ sivrihisar_province.greek_language: "Пессинунт" #alt: Justinianoúpolis
+ sivrihisar.greek_language: "Спалея"
+ beypazari.greek_language: "Лагания"
+ bozan.greek_language: "Потам"
+ kaymaz.greek_language: "Тронка"
+ kibrus.greek_language: "Кибери"
+ kizilca.greek_language: "Коккинофермы"
+ mihaliccik.greek_language: "Михалица"
+ ## Area 'cilicia_area' (Cilicia) ##
+ #Province 'adana_province' (Adana) #
+ adana_province.greek_language: "Адана"
+ adana.greek_language: "Адана"
+ ayas.greek_language: "Эги"
+ iskenderun.greek_language: "Александретта"
+ kars_armenia.greek_language: "Флавиополь"
+ #Province 'cyprus_province' (Cyprus) #
+ cyprus_province.greek_language: "Кипр"
+ nicosia_cyp.greek_language: "Левкосия"
+ famagusta.greek_language: "Аммохост"
+ kyrenia.greek_language: "Керинея"
+ larnaca.greek_language: "Ларнака"
+ limassol.greek_language: "Лемесос"
+ morphou.greek_language: "Морфу"
+ paphos.greek_language: "Пафос"
+ #Province 'icel_province' (İçel) #
+ icel_province.greek_language: "Горная Селевкия" #Isauria coast
+ silifke.greek_language: "Селевкия Киликийская"
+ anamur.greek_language: "Анемурий"
+ ermenek.greek_language: "Германикополь"
+ mut.greek_language: "Клавдиополь Киликийский"
+ #Province 'malatya_province' (Malatya) #
+ malatya_province.greek_language: "Мелитена"
+ malatya.greek_language: "Мелитини"
+ besni.greek_language: "Биссон"
+ gerger.greek_language: "Арсамея"
+ kahta.greek_language: "Каракунт"
+ kaysun.greek_language: "Кабагия" #hellenized — disambig from kavaje
+ samsat.greek_language: "Самосата"
+ #Province 'marash_province' (Maraş) #
+ marash_province.greek_language: "Германикея"
+ marash.greek_language: "Германикея"
+ afsin.greek_language: "Эфес" #Arábissos
+ elbistan.greek_language: "Пластентия"
+ enguzud.greek_language: "Ликанд"
+ goksun.greek_language: "Кукусос"
+ kapan.greek_language: "Кокусос"
+ ulnia.greek_language: "Ульния"
+ #Province 'sis_province' (Sis) #
+ sis_province.greek_language: "Флавиада" #alt: Sís
+ sis.greek_language: "Сисий"
+ anavarza.greek_language: "Аназарб"
+ caxud.greek_language: "Августа" #latin/roman — disambig from argenta
+ comana_cil.greek_language: "Комана"
+ hargan.greek_language: "Кабасс"
+ #Province 'tarsus_province' (Tarsus) #
+ tarsus_province.greek_language: "Тарс"
+ tarsus.greek_language: "Антиохия Киликийская" #alt. Antiócheia Kýdnoy , Tarsós
+ candir_cil.greek_language: "Папирий"
+ corycus.greek_language: "Корикос"
+ molevon.greek_language: "Мапсукрины"
+ ## Area 'marmara_area' (Marmara Area) ##
+ #Province 'biga_province' (Biga) #
+ biga_province.greek_language: "Пеги"
+ biga.greek_language: "Пигаи"
+ ayvacik.greek_language: "Асс"
+ bandirma.greek_language: "Бандерма"
+ bayramic.greek_language: "Скепсис"
+ can.greek_language: "Палескепсис"
+ canakkale.greek_language: "Абидос"
+ gonen.greek_language: "Артемида Фермийская"
+ lapseki.greek_language: "Лампсак"
+ #Province 'hudavendigar_province' (Hüdavendigâr) #
+ hudavendigar_province.greek_language: "Вифиния" #region; capital Prousa
+ bursa.greek_language: "Пруса"
+ adranos.greek_language: "Адрианы"
+ dursunbey.greek_language: "Адрианион"
+ harmancik.greek_language: "Кибели"
+ iznik.greek_language: "Никея"
+ #Province 'karasi_province' (Karasi) #
+ karasi_province.greek_language: "Мисия"
+ balikesir.greek_language: "Палеокастрон"
+ balya.greek_language: "Аргирея"
+ bergama.greek_language: "Пергам"
+ bigadic.greek_language: "Пигадия"
+ edremit.greek_language: "Адрамиттий"
+ manyas.greek_language: "Пойманинон"
+ mihalic.greek_language: "Милитополь"
+ soma.greek_language: "Аполлония"
+ susurluk.greek_language: "Мекест"
+ #Province 'kocaeli_province' (Kocaeli) #
+ kocaeli_province.greek_language: "Никомедия"
+ izmit.greek_language: "Никомидия"
+ atpazari.greek_language: "Агрилий"
+ uskudar.greek_language: "Халкидона"
+ silli.greek_language: "Халаита"
+ #Province 'kutahya_province' (Kütahya) #
+ kutahya_province.greek_language: "Котиай"
+ kutahya.greek_language: "Котиайон"
+ aslanapa.greek_language: "Эзианы"
+ domanic.greek_language: "Доманитида"
+ emet.greek_language: "Тибериополь"
+ simav.greek_language: "Синай"
+ tavsanli.greek_language: "Палокс"
+ #Province 'sultanonu_province' (Sultanönü) #
+ sultanonu_province.greek_language: "Дорилей"
+ sultanonu.greek_language: "Дорилей"
+ bilecik.greek_language: "Билокоми"
+ goynuk.greek_language: "Кинон Галликанон"
+ eynegol.greek_language: "Ангелокомий"
+ inonu.greek_language: "Базилика"
+ nalli.greek_language: "Милия"
+ sogut.greek_language: "Фибасион"
+ ## Area 'pontus_area' (Pontus) ##
+ #Province 'bolu_province' (Bolu) #
+ bolu_province.greek_language: "Клавдиополь"
+ bolu.greek_language: "Вифиний" #alt. Klavdioúpolis, even Hadriana or Hadrianopolis all 4 names were used to refer to it
+ akcasehir.greek_language: "Диосполь"
+ akyazi.greek_language: "Димитрион"
+ eregli.greek_language: "Гераклея Понтийская"
+ konrapa.greek_language: "Пруса у Иппоса" #alt. Prusias, Proúsa Yppíou
+ mudurnu.greek_language: "Модра"
+ #Province 'canik_province' (Canik) #
+ canik_province.greek_language: "Диоспонт" #coast east of Sinope
+ giresun.greek_language: "Керасунт"
+ akkus.greek_language: "Кайнон Хорион"
+ bayramlu.greek_language: "Котиора"
+ mesudiye.greek_language: "Милас"
+ terme.greek_language: "Темискира"
+ unye.greek_language: "Ойнои"
+ #Province 'kastamonu_province' (Kastamonu) #
+ kastamonu_province.greek_language: "Пафлагония" #region
+ kastamonu.greek_language: "Кастамон"
+ arac.greek_language: "Отрея"
+ devrekani.greek_language: "Деблефани"
+ inebolu.greek_language: "Ионополь"
+ kure_i_mamure.greek_language: "Киторон"
+ taskopru.greek_language: "Помпийополь"
+ #Province 'safranbolu_province' (Safranbolu) #
+ safranbolu_province.greek_language: "Гонория" #Honorias province
+ safranbolu.greek_language: "Сафрамполь"
+ amasra.greek_language: "Амастрида"
+ bartin.greek_language: "Парфений"
+ gerede.greek_language: "Кратея"
+ mengen.greek_language: "Тимонион"
+ ulus.greek_language: "Олунт"
+ yenicepazari.greek_language: "Геница"
+ #Province 'sinop_province' (Sinop) #
+ sinop_province.greek_language: "Синопа"
+ sinop.greek_language: "Синопи"
+ bafra.greek_language: "Гадилон"
+ boyabat.greek_language: "Амния"
+ gerze.greek_language: "Каруса"
+ samsun.greek_language: "Амис"
+ #Province 'trebizond_province' (Trebizond) #
+ trebizond_province.greek_language: "Халдия" #theme centred on Trapezous
+ trebizond.greek_language: "Трапезунт"
+ gorele.greek_language: "Коралла"
+ gumushane.greek_language: "Цанцакон"
+ khupati.greek_language: "Кисса" #alt. Chópa
+ rize.greek_language: "Ризон"
+ surmene.greek_language: "Сурмена"
+ ## Area 'west_anatolia_area' (West Anatolia) ##
+ #Province 'alaiye_province' (Alaiye) #
+ alaiye_province.greek_language: "Коракисион"
+ alaiye.greek_language: "Коракисион"
+ karahisar_i_teke.greek_language: "Аспенд"
+ manavgat.greek_language: "Сиди"
+ selinti.greek_language: "Селинунт"
+ #Province 'antalya_province' (Antalya) #
+ antalya_province.greek_language: "Атталия"
+ antalya.greek_language: "Атталия"
+ elmali.greek_language: "Акарасс"
+ finike.greek_language: "Феникс"
+ kas.greek_language: "Антифелл"
+ istanoz.greek_language: "Исинда"
+ #Province 'aydin_province' (Aydin) #
+ aydin_province.greek_language: "Траллы" #alt: Maíandros region
+ tire.greek_language: "Фира"
+ alasehir.greek_language: "Филадельфия"
+ balat.greek_language: "Милет"
+ birgi.greek_language: "Пиргий"
+ cine.greek_language: "Алабанда"
+ guzelhisar.greek_language: "Траллы"
+ milas.greek_language: "Миласа"
+ nazilli.greek_language: "Маставра"
+ #Province 'hamid_province' (Hamid) #
+ hamid_province.greek_language: "Писидия"
+ isparta.greek_language: "Барис"
+ burdur.greek_language: "Полидорий"
+ dinar.greek_language: "Апамея"
+ egirdir.greek_language: "Акротирион" #Byzantine name for Eğirdir lake/town
+ stefani.greek_language: "Истефани"
+ uluborlu.greek_language: "Созополь"
+ #Province 'mugla_province' (Muğla) #
+ mugla_province.greek_language: "Кария" #region
+ mugla.greek_language: "Мугла"
+ bodrum.greek_language: "Галикарнас"
+ gokabat.greek_language: "Идима"
+ golhisar.greek_language: "Кибира"
+ marmaris.greek_language: "Мармарида"
+ megri.greek_language: "Макри"
+ tavas.greek_language: "Тавы"
+ yuksekkum.greek_language: "Кавн"
+ #Province 'saruhan_province' (Saruhan) #
+ saruhan_province.greek_language: "Лидия" #region; alt: Magnēsía
+ manisa.greek_language: "Магнесия"
+ akhisar.greek_language: "Фиатира"
+ demirci.greek_language: "Арианд"
+ foca.greek_language: "Фокея"
+ gordes.greek_language: "Гордос"
+ kula.greek_language: "Опсикий"
+ #Province 'smyrna_province' (Smyrna) #
+ smyrna_province.greek_language: "Смирна"
+ smyrna.greek_language: "Смирна"
+ ayasuluk.greek_language: "Агиос-Феологос"
+ cesme.greek_language: "Эрифры"
+ menemen.greek_language: "Менемени"
+ urla.greek_language: "Клазомены"
+ #Province 'usak_province' (Uşak) #
+ usak_province.greek_language: "Фригия" #region
+ usak.greek_language: "Тименофира"
+ banaz.greek_language: "Панасий"
+ gediz.greek_language: "Кады"
+ honaz.greek_language: "Хоны"
+ lazkiye.greek_language: "Гиераполь"
+ seyhli.greek_language: "Дионисиополь"
+ ### Region 'crescent_region' (Crescent) ###
+ ## Area 'jazira_area' (Jazira) ##
+ #Province 'mardin_province' (Mardin) #
+ ras_ayn.greek_language: "Феодосиополь" #Byzantine — disambig from erzurum (Theodosioúpolis)
+ #Province 'mosul_province' (Mosul) #
+ sinjar.greek_language: "Сингара"
+ #Province 'nusaybin_province' (Nusaybin) #
+ nusaybin.greek_language: "Нисибис"
+ ## Area 'levant_area' (Levant) ##
+ #Province 'antakya_province' (Antakya) #
+ antioch.greek_language: "Антиохия"
+ afrin.greek_language: "Инопар"
+ arsuz.greek_language: "Рос"
+ artah.greek_language: "Имма" #no idea where to put the accent
+ idlib.greek_language: "Серемин" #couldn't find any more info than this name could be wrong about it
+ #Province 'ayntab_province' (Ayntab) #
+ ayntab.greek_language: "Антиохия у Тавра"
+ dluk.greek_language: "Долихи Сирийская"
+ kilis.greek_language: "Килиза" #don't know where to put the accent
+ trapessac.greek_language: "Харакс Мелеагра" #Meleagrum
+ #Province 'deir_province' (Deir ez-Zor) #
+ deir_ez_zor.greek_language: "Дибра"
+ ithriya.greek_language: "Сериана"
+ sukhnah.greek_language: "Сикна"
+ tabqah.greek_language: "Давсара"
+ taybah.greek_language: "Давсара" #hellenized — disambig from tabqah (Dausara)
+ #Province 'filastin_province' (Filastin) #
+ jerusalem.greek_language: "Гиеросолима"
+ acre.greek_language: "Антиохия Птолемаида"
+ beersheba.greek_language: "Биросаба"
+ gaza.greek_language: "Селевкия" #Gaza, kadytis, Seleucia
+ hebron.greek_language: "Хебронас"
+ majdal.greek_language: "Аскалон"
+ nablus.greek_language: "Флабия Неаполис"
+ safed.greek_language: "Сепф"
+ #Province 'halab_province' (Halab) #
+ aleppo.greek_language: "Бероя Сирийская"
+ al_bab.greek_language: "Батны" #no idea about the accent or if it has a better name
+ dabiq.greek_language: "Минника"
+ jabbul.greek_language: "Габула"
+ manbij.greek_language: "Бамбики"
+ marrat.greek_language: "Арра"
+ maskanah.greek_language: "Барбалиссунт"
+ zardana.greek_language: "Зардания" #hellenized it, not official
+ #Province 'hawran_province' (Al-Hawran) #
+ bosra.greek_language: "Босра"
+ dara.greek_language: "Адра"
+ irbid.greek_language: "Арбила"
+ nawa.greek_language: "Навы"
+ suwayda.greek_language: "Дионисиада"
+ #Province 'hims_province' (Hims) #
+ homs.greek_language: "Эмеса"
+ hama.greek_language: "Эмафус"
+ kafartab.greek_language: "Кафарда"
+ masyaf.greek_language: "Марсий"
+ qastal.greek_language: "Кастелл" #latin/roman
+ qusayr.greek_language: "Кадитис"
+ salamiyya.greek_language: "Саламиада"
+ #Province 'latakia_province' (Latakia) #
+ latakia.greek_language: "Лаодикея"
+ baniyas.greek_language: "Баланея"
+ jableh.greek_language: "Габалы"
+ tartus.greek_language: "Антиарад"
+ #Province 'lebanon_province' (Libnan) #
+ beirut.greek_language: "Лаодикея Финикийская"
+ baalbek.greek_language: "Гелиополь Сирийский"
+ deir_qamar.greek_language: "Бетмара"
+ sidon.greek_language: "Сидона"
+ tripoli_syria.greek_language: "Триполис"
+ #Province 'shaam_province' (Shaam) #
+ damascus.greek_language: "Дамаск"
+ burraq.greek_language: "Энос"
+ jayrud.greek_language: "Герода"
+ nabek.greek_language: "Касама"
+ qutayfah.greek_language: "Адарина"
+ #Province 'sharat_province' (Al-Sharat) #
+ karak.greek_language: "Харах"
+ amman.greek_language: "Филадельфия Скалистая"
+ aqaba.greek_language: "Эйла"
+ maan.greek_language: "Аммата"
+ sughar.greek_language: "Петра Адрианова"
+ #Province 'tadmur_province' (Tadmur) #
+ tadmur.greek_language: "Пальмира"
+ arak.greek_language: "Араха"
+ huwwarin.greek_language: "Евария"
+ qaryatayn.greek_language: "Назала"
+ ### Region 'hindustan_region' (Hindustan) ###
+ ## Area 'punjab_area' (Punjab) ##
+ #Province 'pothwar_province' (Pothwar) #
+ dina.greek_language: "Букефалия"
+ ### Region 'nubia_region' (Nubia) ###
+ ## Area 'equatoria_area' (Equatoria) ##
+ #Province 'equatoria_province' (Equatoria) #
+ bor.greek_language: "Тиана"
+ ### Region 'egypt_region' (Egypt) ###
+ ## Area 'lower_egypt_area' (Lower Egypt) ##
+ #Province 'alexandria_province' (Alexandria) #
+ alexandria.greek_language: "Александрия" #kat' Aígypton
+ matruh.greek_language: "Аммония"
+ sallum.greek_language: "Тетрапиргия"
+ #Province 'buhayra_province' (Buhayra) #
+ ramsis.greek_language: "Хереон"
+ kharibta.greek_language: "Архандрополь"
+ rashid.greek_language: "Больбитини"
+ #Province 'dakahliyya_province' (Dakahliyya) #
+ damietta.greek_language: "Тамиафий"
+ mansoura.greek_language: "Фернуфий"
+ tinnis.greek_language: "Танис"
+ #Province 'gharbiyya_province' (Gharbiyya) #
+ el_mahalla.greek_language: "Феодосиу"
+ el_burullus.greek_language: "Паралий"
+ fuwa.greek_language: "Пава"
+ samanoud.greek_language: "Себеннит"
+ tidah.greek_language: "Фрагоний"
+ #Province 'cairo_province' (Cairo) #
+ cairo.greek_language: "Гелиополь"
+ atfih.greek_language: "Афродитополь"
+ giza.greek_language: "Филаки"
+ menouf.greek_language: "Онуфий Нижний"
+ qalyub.greek_language: "Каллиопи"
+ #Province 'sharqiyya_province' (Sharqiyya) #
+ bilbeis.greek_language: "Фелб"
+ faqus.greek_language: "Факуса"
+ suez.greek_language: "Арсинои"
+ ## Area 'upper_egypt_area' (Upper Egypt) ##
+ #Province 'asyut_province' (Asyut) #
+ asyut.greek_language: "Ликополь"
+ el_balyana.greek_language: "Полибий"
+ el_buwit.greek_language: "Гиеракон Комский"
+ akhmim.greek_language: "Панополь"
+ #Province 'bahnasa_province' (Bahnasawiya) #
+ el_bahnasa.greek_language: "Оксиринх"
+ faiyum.greek_language: "Крокодилополь"
+ sharuna.greek_language: "Гиппон"
+ #Province 'minya_province' (Minya) #
+ minya.greek_language: "Скены Мандры"
+ ashmunayn.greek_language: "Гермополь Великий"
+ manfalut.greek_language: "Балот"
+ tahna.greek_language: "Акорий"
+ #Province 'qusiyya_province' (Qusiyya) #
+ qus.greek_language: "Аполлония Малая"
+ aswan.greek_language: "Сиени"
+ edfu.greek_language: "Аполлонополь Великий"
+ esna.greek_language: "Латополь"
+ qena.greek_language: "Хинобоскион"
+ hiw.greek_language: "Диосполь Малый"
+ #Province 'red_sea_coast_province' (Red Sea Coast) #
+ el_qoseir.greek_language: "Левкос Лимен"
+ safaga.greek_language: "Филотера"
+ saint_anthony.greek_language: "Айю-Антониу"
+ saint_paul_anchorite.greek_language: "Айю-Павлу-Фивеу"
+ #Province 'oasis_province' (Western Oases) #
+ kharga.greek_language: "Оазис Внутренний"
+ bahariyya.greek_language: "Оазис Малый"
+ baris.greek_language: "Кизис"
+ el_qasr.greek_language: "Мофис"
+ qasr_farafra.greek_language: "Фарафра"
+ siwa.greek_language: "Аммон Иерон"
+ ## Area 'cyrenaica_area' (Cyrenaica) ##
+ #Province 'al_bayda_province' (Al-Bayda) #
+ al_bayda.greek_language: "Балагра"
+ derna.greek_language: "Дарний"
+ tobruk.greek_language: "Антипиргос"
+ #Province 'barca_province' (Barca) #
+ benghazi.greek_language: "Гесперида"
+ ajdabiya.greek_language: "Кератофили" #Corniclanum is the latin name of the place which translates to Horn tribe i hellenized it a bit
+ barca.greek_language: "Барка"
+ #Province 'jebel_akhdar_province' (Jebel Akhdar) #
+ msus.greek_language: "Масунт"
+ ## Area 'sinai_area' (Sinai) ##
+ #Province 'al_jifar_province' (Jifar) #
+ el_arish.greek_language: "Ринокорура"
+ qatya.greek_language: "Геррон"
+ warrada.greek_language: "Керкасор"
+ #Province 'tih_province' (Tih) #
+ el_tor.greek_language: "Райфу"
+ el_jundi.greek_language: "Посейдей"
+ faran.greek_language: "Фаран"
+ nuweiba.greek_language: "Нубимба"
+ saint_katrine.greek_language: "Айя-Екатеринис"
