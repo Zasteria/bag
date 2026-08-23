@@ -71,10 +71,11 @@ python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_gam
 python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
         reference/mods/community_mod_framework/in_game/common/scripted_effects
 python3 mods/auto_build_ru/tools/generate_ru.py
+python3 mods/nd_ru/tools/generate_ru.py
 ```
 
-The last one is run after the *mod it translates* updates, not after a game
-patch, and fails naming the keys when that mod's English file has moved.
+The last two are run after the *mod each translates* updates, not after a game
+patch, and fail naming the keys when that mod's English file has moved.
 
 ## Conventions
 
