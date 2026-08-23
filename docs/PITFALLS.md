@@ -80,6 +80,18 @@ which at least tells you the right one.
 **Generate localization for every language, not just English.** The player plays
 in Russian; an English-only key shows as the raw key.
 
+**The engine does not fall back to English.** A mod shipping only
+`english` and `simp_chinese` renders every one of its keys as the raw key name
+in a Russian game — the whole interface, not a stray label. That is what
+Advanced Auto Build's Mod Menu tab looked like, and it is diagnosed by the
+company it keeps: if other mods in the same list read correctly, the language
+is fine and that mod's `.yml` for it is simply absent.
+
+**A `_format` key does nothing for a CMM setting.** Only list *fields* take a
+format, and only through `cmm_set_list_field_format`. A row's text comes from
+`_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
+filter convention that makes this look plausible.
+
 ## Loading
 
 **Later file wins for a duplicate database key, and files sort by name.** A mod

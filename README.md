@@ -23,6 +23,7 @@ written down rather than kept in anyone's head.
 | --- | --- | --- |
 | [`mods/rgo_bonus_filter/`](mods/rgo_bonus_filter/) | Filter chips that cut both building lists down to what gains production efficiency from raw materials in the province | Working |
 | [`mods/where_to_produce/`](mods/where_to_produce/) | Pick a province, get a ranked list of what is worth building there | In progress |
+| [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Untested |
 
 Each folder is a complete mod: copy the folder itself into
 `Documents/Paradox Interactive/Europa Universalis V/mod/`. Both depend on the
@@ -64,6 +65,7 @@ must not be hand edited. Regenerate after a patch:
 python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
 python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
         reference/mods/community_mod_framework/in_game/common/scripted_effects
+python3 mods/auto_build_ru/tools/generate_ru.py
 ```
 
 A diff of the generated files then shows exactly what the patch changed
