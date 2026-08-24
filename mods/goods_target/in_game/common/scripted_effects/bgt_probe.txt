@@ -1,0 +1,20 @@
+﻿# What this mod knows, written where it can be checked.
+#
+# Nothing here builds or subsidises anything yet. The one question this step
+# answers is whether the price readings are right: the five standard
+# construction goods, read from the capital's market, against the discount the
+# game itself applies. If these match the construction tooltip, the rest of the
+# mod rests on solid ground; if they do not, nothing else is worth writing.
+#
+# The variables are set as well as logged. They are not read by anything -- they
+# exist so that a failure to evaluate the value shows up in error.log with a
+# name attached, rather than as a log line that never appears.
+# Scope: country
+bgt_probe_readings = {
+	set_variable = { name = bgt_read_lumber value = bgt_impact_lumber }
+	set_variable = { name = bgt_read_masonry value = bgt_impact_masonry }
+	set_variable = { name = bgt_read_glass value = bgt_impact_glass }
+	set_variable = { name = bgt_read_sand value = bgt_impact_sand }
+	set_variable = { name = bgt_read_stone value = bgt_impact_stone }
+	cmf_log = { action = bgt_log_readings }
+}

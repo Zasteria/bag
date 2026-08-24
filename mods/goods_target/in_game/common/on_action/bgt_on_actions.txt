@@ -1,0 +1,35 @@
+﻿# CMF extension points. Both merge with whatever else declares them, so
+# nothing of Construction Manager's own wiring is displaced.
+
+# New game, save load and country transfer, once per human country.
+# Scope: country
+cmf_on_mod_registration = {
+	on_actions = {
+		bgt_on_registration
+	}
+}
+
+# Scope: country
+bgt_on_registration = {
+	effect = {
+		bgt_register = yes
+	}
+}
+
+# Yearly, human countries only.
+# Scope: country
+cmf_yearly_human_country_pulse = {
+	on_actions = {
+		bgt_yearly_probe
+	}
+}
+
+# Scope: country
+bgt_yearly_probe = {
+	effect = {
+		if = {
+			limit = { "variable_map(cmm|flag:bgt__log_readings)" >= 1 }
+			bgt_probe_readings = yes
+		}
+	}
+}

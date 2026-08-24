@@ -80,6 +80,8 @@ run, and the mod was removed. See
 
 Kept here so it is one list rather than scattered through prose:
 
+- `goods_target` entirely — it has never been loaded. First question: does the
+  Mod Menu tab appear, and do its readings match the construction tooltip.
 - `rgo_bonus_filter`'s build-panel chip.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

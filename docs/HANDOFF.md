@@ -13,6 +13,15 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`RESEARCH.md`](RESEARCH.md#what-cmf-241-added).
 
+**`goods_target/` — new, first step only, never run.** An addon to Construction
+Manager: build the producers of goods you name until construction hits its
+discount cap, subsidising them on the way. What exists is the measurement half —
+one script value per construction good saying what its price is doing to build
+costs, two CMM settings, and a yearly log line. Nothing builds and nothing is
+subsidised yet, on purpose: the one question for the first run is whether those
+readings match the game's own construction tooltip. The mod's README says what
+to look at and what the next three steps are.
+
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 

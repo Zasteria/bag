@@ -155,6 +155,10 @@ class Method:
 class Game:
     raw_goods: set[str]
     methods: list[Method]
+    # Every good in the catalogue, raw and produced alike. A mod naming a good
+    # checks it against this rather than against its own memory: a good that a
+    # patch renames goes silently dead otherwise.
+    all_goods: set[str] = field(default_factory=set)
 
     def group_of(self, good: str) -> str:
         """Which picker group a good belongs in, or "" if none fits."""
@@ -256,4 +260,4 @@ def load_game(common: Path | None = None) -> Game:
                 output=float(output) if output and NUMBER_RE.match(output) else 0.0,
                 inputs=_inputs(body, goods),
             ))
-    return Game(raw_goods=raw, methods=methods)
+    return Game(raw_goods=raw, methods=methods, all_goods=goods)

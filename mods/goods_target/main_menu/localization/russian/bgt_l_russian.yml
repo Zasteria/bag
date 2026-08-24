@@ -1,0 +1,10 @@
+﻿l_russian:
+ bgt_name: "Цель по товарам"
+ bgt_desc: "Достраивает производителей выбранных товаров, пока строительство всего остального не станет настолько дешёвым, насколько позволяет игра. Дополнение к Construction Manager."
+ bgt__main_name: "Цель по товарам"
+ bgt__main__goal_name: "Желаемая скидка"
+ bgt__target_discount_name: "Целевая скидка"
+ bgt__target_discount_desc: "Насколько дешёвым должно стать строительство, прежде чем мод остановится. Больше 33% движок не засчитывает, и то лишь когда товар составляет весь рецепт."
+ bgt__log_readings_name: "Писать замеры в журнал"
+ bgt__log_readings_desc: "Раз в год записывать текущие замеры в журнал фреймворка.\n\nСейчас на рынке столицы:\n\n@lumber! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_lumber')|1]%\n@masonry! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_masonry')|1]%\n@glass! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_glass')|1]%\n@sand! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_sand')|1]%\n@stone! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_stone')|1]%"
+ bgt_log_readings: "Замеры «Цели по товарам»: @lumber! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_lumber')|1]% @masonry! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_masonry')|1]% @glass! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_glass')|1]% @sand! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_sand')|1]% @stone! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_stone')|1]%"

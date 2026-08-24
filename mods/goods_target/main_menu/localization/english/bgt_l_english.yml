@@ -1,0 +1,10 @@
+﻿l_english:
+ bgt_name: "Goods Target"
+ bgt_desc: "Keeps building the producers of the goods you pick until construction of everything else is as cheap as the game will allow. An addon to Construction Manager."
+ bgt__main_name: "Goods Target"
+ bgt__main__goal_name: "Discount Goal"
+ bgt__target_discount_name: "Target discount"
+ bgt__target_discount_desc: "How cheap construction should get before this stops building. The engine credits at most 33%, and only where the good in question is the whole recipe."
+ bgt__log_readings_name: "Write readings to the log"
+ bgt__log_readings_desc: "Once a year, put the current readings in the framework's log.\n\nRight now, in your capital's market:\n\n@lumber! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_lumber')|1]%\n@masonry! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_masonry')|1]%\n@glass! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_glass')|1]%\n@sand! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_sand')|1]%\n@stone! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_stone')|1]%"
+ bgt_log_readings: "Goods Target readings: @lumber! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_lumber')|1]% @masonry! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_masonry')|1]% @glass! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_glass')|1]% @sand! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_sand')|1]% @stone! [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bgt_impact_stone')|1]%"
