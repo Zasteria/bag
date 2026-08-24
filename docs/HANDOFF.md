@@ -37,8 +37,15 @@ list. Nothing outstanding.
 
 **`auto_build_ru/` — done, confirmed working in game.** Russian for Advanced Auto
 Build, which ships English and Chinese only and so rendered as raw keys in a
-Russian game. All 1201 keys are translated, the player reports the Mod Menu tab
-reading correctly, and nothing is outstanding.
+Russian game. The player reports the Mod Menu tab reading correctly.
+
+The base mod updated to 0.9.2 Beta mid-session and the generator refused to
+write, naming 40 keys it had never seen — the template buttons, the priority
+step tooltips, a whole R.G.O. diagnostics panel and a throughput warning. That
+is what it is for. All 40 are translated now, 1241 keys in total, and the
+generator is clean again. Note the base mod's id is `eu5ab_regional_development`
+and its folder now carries a workshop number; both are resolved by
+`tools/refs.py` and neither is written down anywhere.
 
 **`nd_ru/` — в работе, играбелен за Вестфалию.** Русский для National Destinies
 (`trin.national_destinies` 1.3.6). Базовый мод везёт одиннадцать языков, и файлы

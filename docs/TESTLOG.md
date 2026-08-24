@@ -74,6 +74,8 @@ only notes CMF and Glorp overriding vanilla types, which is what they are for.
 **Observed:** works as intended — reported by the player.
 **Verdict:** the mod is done. Adding keys for a language a base mod does not ship
 needs no dependency on it and no load-order care.
+**Since:** the base mod moved to 0.9.2 Beta, bringing 40 new keys. Those are
+translated but have not been on screen.
 
 ### 2026-08 — `rgo_bonus_filter`, buildings panel chip
 
