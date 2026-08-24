@@ -23,6 +23,7 @@ itself, so read the table before designing a test.
 | Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
 | Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
+| Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
 
 **And one thing the owner has already rejected as an answer:** "report it to
 Paradox". They know it is a base-game defect and know other players have it. The
@@ -249,36 +250,79 @@ buildings, editors and variable systems. `PdxGuiWidget` can be hidden, found,
 counted and animated, and that is all. So there is no mod-side call that undoes
 this; a fix has to be something that stops the widgets being made.
 
-### The candidate, and it doubles as the fix
+### The candidate, and the lever that goes with it
 
 Hover. It fits everything: idle costs nothing because an unmoving mouse shows no
-tooltips; clicking through diplomacy sweeps the pointer over dozens of new
-flags, names and numbers; map modes sweep it over a new legend each time; and the
-decay is what a per-subject tooltip cache would look like.
+tooltips; clicking through diplomacy sweeps the pointer over dozens of new flags,
+names and numbers; map modes sweep it over a new legend each time; and the decay
+within a block is what a per-subject tooltip cache would look like.
 
-And the game has **Settings → Tooltip Settings**, which is a lever a player can
-pull without any mod: `Draw tooltips`, `Tooltip Mode`, `Show Delay`,
-`Map Tooltips` (Enabled / No Seazones / Disabled) and `Map tooltips delay`.
+**And the defines say tooltips are built with no delay at all.**
+`game/loading_screen/common/defines/jomini/00_tooltips.txt`, in full:
 
-So the next run is the test *and* the candidate fix, in one session on one save,
-paused throughout:
+```
+NTooltip = {
+    OPEN_DELAYED_TIME = 0.0f;
+    CLOSE_TIME = 0.2f;
+    TENDENCY_BUFFER = 15;
+    MIDDLE_MOUSE_LOCK_TIME = 0.25;
+    MOUSE_MOVE_DISTANCE_TO_UPDATE_TOOLTIP_POSITION = 10.0f;
+    MOUSE_MOVE_DURATION_TO_UPDATE_TOOLTIP_POSITION = 0.2;
+}
+```
+
+Zero delay means every brush of the cursor over anything builds a tooltip
+immediately. Sweeping across the map builds them by the dozen a second.
+
+That file's own first line is `# This file overrides
+cw/jomini/modules/tooltip_manager/data/common/defines/jomini/00_tooltips.txt`, so
+overriding a defines file is the ordinary mechanism and **a mod can do the same
+thing**. If hover is the source, a one-file mod setting `OPEN_DELAYED_TIME` to
+something like `0.35f` cuts the creation rate by whatever fraction of hovers are
+incidental — which is most of them.
+
+Better still, the game's own **Settings → Tooltip Settings → Show Delay** almost
+certainly drives the same value. So the setting tests the mod before the mod is
+written.
+
+### The run that decides it
+
+One session, one save, paused throughout:
 
 1. **A** — move the mouse over the map and the top bar for two minutes, sweeping
    across countries and buttons, **without a single click**.
-2. Settings → Tooltip Settings: `Map Tooltips` to **Disabled**, `Show Delay` and
-   `Map tooltips delay` to **maximum**.
+2. Settings → Tooltip Settings: `Show Delay` to **maximum**, `Map Tooltips` to
+   **Disabled**, `Map tooltips delay` to **maximum**.
 3. **B** — exactly the same two minutes of sweeping.
 
 Then `performance_degradation.log`.
 
-- **A leaks and B does not** → the mechanism is tooltips, and the settings above
-  are the mitigation. Then it is worth asking what a mod can trim from the
-  heaviest tooltip files (`shared/location_tooltips.gui` 438 widgets,
-  `shared/combat_tooltips.gui` 428, `cooltip.gui` 627).
+- **A leaks and B does not** → the mechanism is tooltips. Write the defines mod,
+  and then look at what else can be trimmed from the heaviest tooltip files
+  (`shared/location_tooltips.gui` 438 widgets, `shared/combat_tooltips.gui` 428,
+  `cooltip.gui` 627).
+- **A leaks and B leaks the same** → the delay is not the knob, but hover still
+  is. Then the tooltip `.gui` files are the place to look.
 - **A does not leak at all** → hover is out entirely and the leak needs clicks.
   The next test is then the same panel opened thirty times against thirty
   different panels opened once, which separates a per-open leak (a mod can make
   panels cheaper) from a per-object cache (only Paradox can).
+
+### The other route, if the run does not settle it
+
+`debug_mode` in the console opens a toolbox. The buttons, as of 1.3.11:
+
+```
+TOOLBOX     Language  Environment  Map menu  Inspect  Explorer  Unit Viewer  Errors
+2D Tools    UI Editor  Animator  UI Bounds  UI Library  Workbench  Reload GFX
+3D Editors  E. Designer  Animation Edit  Particle Edit
+```
+
+There is **no Tweaker**, so the runtime-variable idea is out. But `UI Editor` is
+the live widget tree, and that is the direct way to name what accumulates: play
+until the count is high, open it, and see which container holds a quarter of a
+million children. `UI Bounds` draws widget outlines and would show a stack of
+invisible ones. `Inspect` reports whatever is under the cursor.
 
 **The mitigation that is already established.** Leaving to the main menu releases
 all of it — widgets back to the 364 the process starts with, memory back to what
