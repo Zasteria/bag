@@ -33,6 +33,18 @@ MARKUP = re.compile(r"\[[^\]]*\]|\$[^$]*\$|@\w+!|#[A-Za-z_]+|#!|\\n")
 PROSE = re.compile(r"(_desc|_tooltip|_effect|_text)$|\.\d+\.(?!t$)\w+$")
 
 
+# The formation event: one per country, and the one the player is asked to
+# choose a path in, so it is wanted whole rather than by its title.
+FORMATION = re.compile(r"^nd_[a-z]+\.1\.")
+
+
+def is_wanted(key: str, value: str) -> bool:
+    """A country's working set: its names plus its formation event, whole."""
+    if not re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)):
+        return False
+    return is_name(key, value) or bool(FORMATION.match(key))
+
+
 def is_name(key: str, value: str) -> bool:
     if PROSE.search(key):
         return False
@@ -82,12 +94,12 @@ def main(argv: list[str]) -> int:
             english = read(stems[stem])
             source = MOD / "translations" / f"{stem}.yml"
             done = set(read(source)) if source.exists() else set()
-            names = {k for k, v in english.items() if is_name(k, v)}
-            prose = {k for k, v in english.items()
-                     if k not in names and re.search(r"[A-Za-z]{2}", MARKUP.sub("", v))}
-            mark = "готово" if not (names | prose) - done else ""
-            print(f"{stem:14} названий {len(names - done):>4}"
-                  f"   прочего {len(prose - done):>4}  {mark}")
+            wanted = {k for k, v in english.items() if is_wanted(k, v)}
+            rest = {k for k, v in english.items()
+                    if k not in wanted and re.search(r"[A-Za-z]{2}", MARKUP.sub("", v))}
+            mark = "готово" if not wanted - done else ""
+            print(f"{stem:14} нужно {len(wanted - done):>4}"
+                  f"   остальной прозы {len(rest - done):>4}  {mark}")
         return 0
 
     if len(argv) > 1:
@@ -98,7 +110,7 @@ def main(argv: list[str]) -> int:
         source = MOD / "translations" / f"{stem}.yml"
         done = read(source) if source.exists() else {}
         for key, value in english.items():
-            if is_name(key, value) and key not in done:
+            if is_wanted(key, value) and key not in done:
                 print(f'{key}\t{value}')
         return 0
 
