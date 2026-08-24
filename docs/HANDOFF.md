@@ -16,7 +16,7 @@ is in [`RESEARCH.md`](RESEARCH.md#what-cmf-241-added).
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
-**`auto_build_ru/` — complete, never loaded.** Russian for Advanced Auto Build
+**`auto_build_ru/` — done, confirmed working in game.** Russian for Advanced Auto Build
 (`eu5ab_*` 0.9.1 Beta), which ships English and Chinese only and so renders as
 raw keys in a Russian game. All 1201 keys are translated;
 `mods/auto_build_ru/tools/generate_ru.py` writes the game file from its

@@ -40,6 +40,14 @@ which are English text under an `l_russian:` header.
 **Verdict:** the whole approach of the mod rests on this and it holds. Load order
 decides; `nd_ru` must sit after the base mod.
 
+### 2026-08 — `auto_build_ru`, does the game pick the file up
+
+**Loaded:** Advanced Auto Build with `auto_build_ru`.
+**Expected:** the mod's Mod Menu tab in Russian instead of raw keys.
+**Observed:** works as intended — reported by the player.
+**Verdict:** the mod is done. Adding keys for a language a base mod does not ship
+needs no dependency on it and no load-order care.
+
 ### 2026-08 — `rgo_bonus_filter`, buildings panel chip
 
 **Expected:** a filter chip in the funnel menu of a location's buildings panel,
@@ -61,8 +69,6 @@ run, and the mod was removed. See
 
 Kept here so it is one list rather than scattered through prose:
 
-- `auto_build_ru` — complete, never loaded. The open question is whether the game
-  picks the file up at all.
 - `rgo_bonus_filter`'s build-panel chip.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.
