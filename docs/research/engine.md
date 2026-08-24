@@ -333,6 +333,30 @@ wrong.
 `mods/ru_loc_fix/tools/locscan.py` is all of this written as rules, and can be
 pointed at any localization tree.
 
+## The interface is about 27 800 widgets, and nothing frees them
+
+Two numbers worth carrying, both asked of the files rather than guessed.
+
+**Every `.gui` the game ships declares roughly 27 800 widgets between them** —
+that is the whole interface, every window, counted as widget declarations across
+`in_game/gui/`. The heaviest single files are `ui_library.gui` (1 420),
+`location_window.gui` (988), `alertmanager.gui` (770) and `cooltip.gui` (627).
+A live session holds about 37 000 right after loading, so the multiplier from
+`datamodel` instances is modest. When a count in
+`performance_degradation.log` reaches six figures, that is instances piling up,
+not a heavy panel.
+
+**The engine exposes no way to release a widget.** `dump_data_types` has no
+`Destroy`, `Clear`, `Free`, `Collect`, `Prune` or `Reset` on any GUI type — every
+such name in the dumps belongs to a building, an asset editor, or a variable
+system (`VariableSystem.Clear`, `UIVariables.ClearAll`). `PdxGuiWidget` offers
+`Hide`, `FindChild`, `FindParent`, `GetChildrenCount`, `CountVisibleChildren`,
+animation control and highlight setters, and nothing that unmakes anything. So a
+mod can stop widgets being created, and cannot make existing ones go away.
+
+`PdxGuiWidget.GetChildrenCount` is worth remembering anyway: it is the one hook a
+mod has for measuring the size of a widget tree from inside the game.
+
 ## Building types, production methods and goods
 
 `common/building_types/*.txt` defines each building type. Production methods

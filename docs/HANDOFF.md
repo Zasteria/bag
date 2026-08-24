@@ -164,15 +164,22 @@ owner stopped wanting it; the reason it did not work was never established,
 because it was never tested. What it is worth knowing about it is in
 [Why it failed](#why-where_to_produce-failed), below.
 
-## The slowdown — closed, and it is the base game
+## The slowdown — it is the base game, and the hunt is for a lever
 
-Measured across four runs and settled on 2026-08-25. Numbers and method in
-[`TESTLOG.md`](TESTLOG.md); this is the conclusion.
+Measured across five runs. The measurement is finished; what is open is whether a
+mod or a setting can do anything about it. Numbers and method in
+[`TESTLOG.md`](TESTLOG.md); this is the state of it.
 
 **What it is.** The game accumulates GUI widgets and never releases them while a
 session is running. 364 at the main menu, ~37 000 once a game is loaded, 294 013
 after an hour of ordinary play. Frame time follows: 14 ms early, 21 ms after an
 hour.
+
+**How big that is.** Every `.gui` file the game ships declares, in total, about
+**27 800 widgets** — the whole interface, every window, counted statically
+(`in_game/gui/`, widget declarations, minus properties that share the shape). So
+after an hour the process is holding **more than ten copies of the entire
+interface**. This is not a heavy panel; it is instances piling up.
 
 **What causes it.** Interface interaction, and nothing else:
 
@@ -195,15 +202,65 @@ hour.
 - *anything in this repository* — `rgo_bonus_filter` adds to the location panel,
   the lightest of the three by a factor of six.
 
-**The one useful thing that came out of it.** Leaving to the main menu releases
+### The lead worth following
+
+**Growth decays inside a block of unchanging activity.** Four blocks, four times
+the same shape:
+
+```
+diplomacy, full playset   +24814   +8809  +11150    +140
+locations, full playset    +3783   +1338   +1504    +336
+map modes, full playset   +17532   +5191   +3278   +5123   +1130   +0
+diplomacy, no mods        +14560   +3487   +3425    -418    +258
+```
+
+He was doing the same thing throughout each row, so a per-*action* leak would be
+flat. A decaying one says the cost is per *distinct thing looked at*: the first
+pass over a set of countries or map modes is expensive and the second is nearly
+free. Over an hour of real play you keep meeting new things, which is why it
+never plateaus.
+
+**The engine offers nothing to release them.** `dump_data_types` has no widget
+`Destroy`, `Clear`, `Free`, `Collect` or `Prune` — the only such names belong to
+buildings, editors and variable systems. `PdxGuiWidget` can be hidden, found,
+counted and animated, and that is all. So there is no mod-side call that undoes
+this; a fix has to be something that stops the widgets being made.
+
+### The candidate, and it doubles as the fix
+
+Hover. It fits everything: idle costs nothing because an unmoving mouse shows no
+tooltips; clicking through diplomacy sweeps the pointer over dozens of new
+flags, names and numbers; map modes sweep it over a new legend each time; and the
+decay is what a per-subject tooltip cache would look like.
+
+And the game has **Settings → Tooltip Settings**, which is a lever a player can
+pull without any mod: `Draw tooltips`, `Tooltip Mode`, `Show Delay`,
+`Map Tooltips` (Enabled / No Seazones / Disabled) and `Map tooltips delay`.
+
+So the next run is the test *and* the candidate fix, in one session on one save,
+paused throughout:
+
+1. **A** — move the mouse over the map and the top bar for two minutes, sweeping
+   across countries and buttons, **without a single click**.
+2. Settings → Tooltip Settings: `Map Tooltips` to **Disabled**, `Show Delay` and
+   `Map tooltips delay` to **maximum**.
+3. **B** — exactly the same two minutes of sweeping.
+
+Then `performance_degradation.log`.
+
+- **A leaks and B does not** → the mechanism is tooltips, and the settings above
+  are the mitigation. Then it is worth asking what a mod can trim from the
+  heaviest tooltip files (`shared/location_tooltips.gui` 438 widgets,
+  `shared/combat_tooltips.gui` 428, `cooltip.gui` 627).
+- **A does not leak at all** → hover is out entirely and the leak needs clicks.
+  The next test is then the same panel opened thirty times against thirty
+  different panels opened once, which separates a per-open leak (a mod can make
+  panels cheaper) from a per-object cache (only Paradox can).
+
+**The mitigation that is already established.** Leaving to the main menu releases
 all of it — widgets back to the 364 the process starts with, memory back to what
 it was before any game was loaded. So **main menu, then load the save** is worth
-exactly as much as restarting the game and costs a fraction of the time. That is
-the whole mitigation available, and it is Paradox's bug to fix.
-
-**Do not spend another session on this** unless something new arrives — a patch,
-or a report from elsewhere naming a mechanism. The measurement is done; what is
-left is a bug report, and the table above is its body.
+exactly as much as restarting the game and costs a fraction of the time.
 
 ## Where to check things
 
