@@ -31,6 +31,12 @@ python3 mods/nd_ru/tools/term.py Levies
 | Advance / Advances | Улучшение / Улучшения | `game_concept_advance(s)` |
 | Levies | Ополчение | `game_concept_levies` |
 | Bureaucracy | Бюрократический механизм | `game_concept_bureaucracy` |
+| Imperial Diet | Рейхстаг | `IMPERIAL_DIET` |
+| Location | Район | `game_concept_location` |
+| Core | Национальный район | `game_concept_core` |
+| Imperial Authority | Имперская власть | `imperial_authority` |
+| Subject Loyalty | Лояльность ленника | `game_concept_subject_loyalty` |
+| Empire (ранг) | Империя | `rank_empire` |
 
 Внутри `[advances|e]` и прочих ссылок на понятия название подставляет сама игра,
 поэтому там ничего переводить не нужно и нельзя. Термин из таблицы нужен только
@@ -48,6 +54,10 @@ python3 mods/nd_ru/tools/term.py Levies
 | realm | держава | не «королевство»: держава бывает и республикой |
 | estates | сословия | |
 | diet / Landtag | сейм / ландтаг | сейм — общее слово, ландтаг — когда мод пишет Landtag |
+| the Diet (имперский) | рейхстаг | **отдельно от сеймов коронных земель**: когда мод пишет `the Diet` про Империю, это рейхстаг, так его зовёт сама игра |
+| the Reich | Рейх | Империя как политическое тело; `Holy Roman Empire` — Священная Римская империя |
+| constituent crown | корона-составляющая | |
+| welded into the realm | вваривается в державу | |
 | composite monarchy | составная монархия | |
 | Crown Confidence | доверие короне | шкала в кризисе наследования |
 | Old Liberties | старые вольности | |
@@ -68,7 +78,19 @@ Erblande`, `Directorium in publicis et cameralibus`, `Reformationskommission`,
 `Konzivilisation`, `Josephinismus`, `Privilegium Maius`, `Festungsbaukunst`,
 `Bollwerk des Glaubens`, `Kreuzzugsgeist`, `Kaiserliche Ordnung`,
 `Kongressdiplomatie`, `Cuius Regio, Eius Religio`, `Universalis Monarchia`,
-`indivisibiliter ac inseparabiliter`.
+`indivisibiliter ac inseparabiliter`, `Handelsverein`, `Handelshegemonie`,
+`Stauferreich`, `Schwäbische Verwaltung`, `Bundesrat des Schwäbischen Bundes`,
+`Schwäbischer Kreistag`, `Tübinger Vertrag`, `Reichsritterschaft Schwabens`,
+`Augsburger Stadtrat`, `Studia Generalia`, `Ius Gentium`, `Universitas`,
+`Trace italienne`, `Imperium Mundi`, `Pax Europaea`.
+
+**Правило, а не список:** латиницей остаются **имена** — путей судьбы, механизмов
+бюрократии, модификаторов, зданий-понятий, — то есть то, что мод нарочно написал
+не по-английски. Описание рядом с таким именем переводится всегда. Здание или
+войско с немецким именем, у которого есть ясное русское соответствие,
+переводится (`Rathaus` → ратуша, `Webhaus` → ткацкий дом); имя собственное без
+соответствия — транслитерируется (`Friedenssaal` → Фриденссааль, `Fuggerei` →
+Фуггерай, `Kreistruppen` → крайструппен).
 
 Всего таких значений около сорока. Проверить список:
 
@@ -83,6 +105,17 @@ for k, v in srcs.items():
         print(k, "=", v)
 PY
 ```
+
+## Что не текст, хотя выглядит текстом
+
+- **`..._CATEGORY: "CATEGORY_HOSTILE_ACTIONS"`** — имя категории взаимодействия
+  из самой игры. Разметки на нём нет, латиница есть, и на глаз это проза.
+  Переводить нельзя: действие уедет в несуществующую категорию. `scope.py` их
+  теперь не показывает.
+- **`"$generic_reject_request_effect_string$"`** и прочие чистые `$...$` —
+  ссылки на ключ, который уже на языке игрока.
+- **`.entry`-ключи** событий вида `nd_dnm.52.entry: "$nd_dnm.52.t$"` — станут
+  русскими сами, как только переведён заголовок.
 
 ## Правила, а не список
 
