@@ -384,6 +384,18 @@ something:
 4. Look for keys that are not the mod's own. A mod may redefine a vanilla or CMF
    key, and translating it changes what every other mod says.
 
+**Ask the game what it calls its own concepts.** A mod's prose names game
+concepts in plain text — advances, levies, bureaucracy — and inventing a word for
+them produces exactly the disease the translation is meant to cure: a private
+term sitting in the middle of the game's own interface. The game's localization
+answers it: match the English value against `localization/english`, read the
+Russian value of the same key. In EU5 1.3.10 advances are «Улучшения», not
+«достижения», which is what a session guessed before the game's files were in the
+repository. `mods/nd_ru/tools/term.py` is that lookup.
+
+Inside `[advances|e]` and other concept links the game substitutes the name
+itself, so the word only has to be chosen where the mod writes it as prose.
+
 **What must not be translated.** Each of these looks like text and is not:
 
 | Looks like | Is | If translated |
@@ -396,6 +408,45 @@ something:
 
 Passthrough is the happy case: a mod that names its buildings
 `$vanilla_key$` needs none of them translated.
+
+**A mod of a hundred thousand words is a different job.** `auto_build_ru` was
+6000 words and fitted in one sitting. National Destinies is 688 617 words of
+prose across 220 files, which no subscription pays for in full. What that
+changes:
+
+- **Measure before promising.** Count prose words after stripping markup, not
+  keys and not lines. Then convert to sessions: one session of steady work moved
+  about 25 000 words, tooling and mistakes included. That number is the only
+  honest basis for "how long will this take".
+- **The order of work is a deliverable.** A file like `priority.txt` naming the
+  stems in the order they matter — for a player, the region they actually play —
+  lets any later session pick up without re-deciding anything.
+- **Translate in layers, not files.** Names first (short, low judgement, most
+  visible), then the events a player reads, then descriptions. A layer finished
+  across the whole mod is worth more than a few files finished completely.
+- **Look for the cheap thousands.** `nd_bureaucracy_impact_modifier_types` holds
+  1770 keys built from three sentences; `nd_event_guards` holds 144 keys built
+  from one. Both were generated from templates in minutes and fixed their line
+  for every country at once. Before translating by hand, group the file's values
+  by shape and see how many distinct sentences there really are.
+
+**A key of a country need not live in that country's file.** Westphalia had 88
+keys in `nd_wes` and 10 more in a shared modifier file. Checking one file and
+declaring the country done is how a gap survives. Search every file for the tag.
+
+**`_entry` keys are usually passthrough.** `nd_wes.1.entry: "$nd_wes.1.t$"` is a
+reference to the event title, so translating the title makes the log entry
+Russian by itself. Translating the entry as well is wasted work.
+
+**Overriding another mod's localization works, and stacks with a third.** A
+separate mod loaded later replaces the base mod's values for the same keys —
+confirmed in game. That also means a hand translation can sit on top of somebody
+else's machine translation of the same mod: theirs below, yours above, and the
+player gets your keys where you have them and theirs everywhere else. Two
+conditions: the overriding mod must load later, and **its file names must differ**,
+because a file of the same name replaces the whole file rather than merging keys.
+Naming the generated output `<stem>_ru_generated_l_russian.yml` keeps it clear of
+both the base mod and any other translation.
 
 **Generate rather than hand-write the final file.** Keep the prose in a source
 file and emit the game's `.yml` from it, with the source checked against the

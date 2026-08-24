@@ -61,6 +61,27 @@ player look, rather than guessing twice.
 Say plainly what is verified and what is not, and prefer one change with a clear
 signal over several at once.
 
+## The tools are part of the repository
+
+Every generator and checker lives in `mods/*/tools/` and is committed. **Nothing
+about them is carried in a session's head** — a fresh session gets them by
+reading the repository, and a rule they enforce today they will enforce next
+year. When a session learns a rule the hard way, the cheapest place to put it is
+inside the checker that would have caught it, not only in prose.
+
+`mods/nd_ru/tools/` is the fullest example:
+
+| | |
+| --- | --- |
+| `generate_ru.py` | собирает игровые файлы из `translations/` и отказывается писать сломанное |
+| `scope.py` | что осталось перевести, по файлам и по приоритету |
+| `term.py` | как игра сама называет своё понятие (advances — «Улучшения») |
+
+`generate_ru.py` уже дважды остановил ошибку, которую не заметил глаз: китайский
+иероглиф посреди русского слова и забытое английское слово в русской фразе. Обе
+проверки появились после того, как ошибка случилась, — это и есть способ здесь
+работать.
+
 ## Generated files
 
 Anything named `*_generated_*` is written by a tool and must not be hand edited.

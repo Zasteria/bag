@@ -48,6 +48,20 @@ report guesses as if they were verified.
 **Asking what it needs from you** gets the request for `error.log` and
 screenshots out of the way at the start, instead of three exchanges in.
 
+## Если сессия про перевод крупного мода
+
+`nd_ru` — самый большой проект в репозитории, и его нельзя вести «на память».
+Такой сессии, помимо общего брифинга, нужно прочитать:
+
+1. [`../mods/nd_ru/README.md`](../mods/nd_ru/README.md) — три команды, которыми
+   ведётся работа, и что именно проверяет генератор.
+2. [`../mods/nd_ru/GLOSSARY.md`](../mods/nd_ru/GLOSSARY.md) — принятые термины.
+   Сверяться до перевода, а не после.
+
+И сразу спросить владельца, **какой объём брать в этот раз**: весь мод — около
+двадцати семи сессий, поэтому объём режется по приоритету, а не берётся целиком.
+Цифры для такого разговора — в [`HANDOFF.md`](HANDOFF.md).
+
 ## If the session goes on long
 
 Context runs out well before a mod is finished. Before that happens, have it
