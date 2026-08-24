@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that every CMM macro a mod calls exists and is called the way CMF declares it.
+"""Check a mod's CMM calls: the arguments CMF declares, and the keys it will look for.
 
 This is the check for the worst failure mode in this repository. A CMM macro
 called with an argument name CMF does not declare **fails silently and takes the
@@ -18,9 +18,16 @@ settings into three — so declarations are read from whole folders and never fr
 a named file. Point `--cmf` at another copy of CMF to check against a version
 that is not the one in `reference/`.
 
-Written for `where_to_produce`, which was removed. It is kept here because the
-mistake it catches belongs to CMM rather than to that mod, and the next mod
-built on the Mod Menu will be able to make it.
+It also derives every localization key CMM will read — settings, tabs, groups,
+list columns, list fields, and the prefix/postfix keys a formatted field needs —
+and reports the ones no language defines. None of those raise anything in game:
+CMF decides whether a key exists by comparing `Localize(key)` against the key
+itself, so a missing one renders as its own name, in the middle of the
+framework's own interface. `--args-only` skips that half.
+
+Written for `where_to_produce`, which was removed, and grown by `goods_target`,
+which printed `bgt__construction__target_prefix` in a column where a number
+should have been. Both mistakes belong to CMM rather than to either mod.
 """
 
 from __future__ import annotations
@@ -36,6 +43,16 @@ import refs  # noqa: E402
 CALL = re.compile(r"(cmm_[a-z_]+) = \{([^{}]*)\}")
 ARGUMENT = re.compile(r"\b(\w+)\s*=")
 DECLARED_PLACEHOLDER = re.compile(r"\$(\w+)\$")
+ARG_PAIR = re.compile(r"(\w+)\s*=\s*([\w:]+)")
+KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.]+):\s*"')
+
+# What each format macro makes the widget look for, on top of _name and _desc.
+FORMAT_SUFFIXES = {
+    "cmm_set_list_field_format": ("_prefix", "_postfix"),
+    "cmm_set_list_field_conditional_format": (
+        "_prefix", "_postfix",
+        "_prefix_high", "_postfix_high", "_prefix_low", "_postfix_low"),
+}
 
 # Where a mod keeps script that may call CMM, relative to its in_game/common.
 MOD_FOLDERS = ("scripted_effects", "scripted_guis")
@@ -72,6 +89,82 @@ def check(mod_common: Path, cmf_common: Path) -> list[str]:
     return problems
 
 
+def required_keys(mod_common: Path) -> set[str]:
+    """Every localization key CMM will look for, derived as CMM derives it."""
+    text = read_folders(mod_common, MOD_FOLDERS)
+    keys: set[str] = set()
+    mods_seen: set[str] = set()
+
+    for call in CALL.finditer(text):
+        name, args = call.group(1), dict(ARG_PAIR.findall(call.group(2)))
+        mod, setting = args.get("mod_id"), args.get("setting_id")
+        if not mod or not setting:
+            continue
+        mods_seen.add(mod)
+
+        if name in FORMAT_SUFFIXES:
+            field = args.get("field_id")
+            if field:
+                keys |= {f"{mod}__{setting}__{field}{s}" for s in FORMAT_SUFFIXES[name]}
+            continue
+        if not name.startswith("cmm_register"):
+            continue
+        if "field_id" in args:
+            keys.add(f"{mod}__{setting}__{args['field_id']}_name")
+            continue
+        if "settings_list" in name:
+            # A list is its own group, so its header is keyed through the tab.
+            if "tab_id" in args:
+                keys.add(f"{mod}__{args['tab_id']}__{setting}_name")
+            keys.add(f"{mod}__{setting}_item_column_name")
+            continue
+        keys.add(f"{mod}__{setting}_name")
+        if "tab_id" in args:
+            keys.add(f"{mod}__{args['tab_id']}_name")
+            if "group_id" in args:
+                keys.add(f"{mod}__{args['tab_id']}__{args['group_id']}_name")
+
+    for mod in mods_seen:
+        keys |= {f"{mod}_name", f"{mod}_desc"}
+    return keys
+
+
+def defined_keys(mod_root: Path) -> dict[str, set[str]]:
+    """What each language of the mod actually defines."""
+    found: dict[str, set[str]] = {}
+    localization = mod_root / "main_menu/localization"
+    if not localization.is_dir():
+        return found
+    for folder in sorted(p for p in localization.iterdir() if p.is_dir()):
+        keys = set()
+        for path in sorted(folder.glob("*.yml")):
+            for line in path.read_text(encoding="utf-8-sig").splitlines():
+                match = KEY_LINE.match(line)
+                if match:
+                    keys.add(match.group(1))
+        found[folder.name] = keys
+    return found
+
+
+def check_localization(mod_common: Path) -> list[str]:
+    """Missing keys, and languages that have drifted apart."""
+    mod_root = mod_common.parent.parent
+    defined = defined_keys(mod_root)
+    if not defined:
+        return ["no localization folders under %s" % (mod_root / "main_menu/localization")]
+
+    wanted = required_keys(mod_common)
+    problems = []
+    for language, keys in defined.items():
+        for key in sorted(wanted - keys):
+            problems.append(f"{language}: no localization for {key}")
+    first, *rest = sorted(defined)
+    for language in rest:
+        for key in sorted(defined[first] ^ defined[language]):
+            problems.append(f"{key} is in {first} or {language} but not both")
+    return problems
+
+
 def main(argv: list[str]) -> int:
     args = [a for a in argv[1:] if not a.startswith("--")]
     if len(args) != 1:
@@ -87,6 +180,8 @@ def main(argv: list[str]) -> int:
         raise SystemExit(f"no such folder: {mod_common}")
 
     problems = check(mod_common, cmf / "in_game/common")
+    if "--args-only" not in argv:
+        problems += check_localization(mod_common)
     for problem in problems:
         print(problem, file=sys.stderr)
     calls = len(set(CALL.findall(read_folders(mod_common, MOD_FOLDERS))))

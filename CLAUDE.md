@@ -5,11 +5,14 @@ every session, so treat it as the briefing you would otherwise have to be given.
 
 ## Read these before touching anything
 
-1. **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — how EU5 modding actually works.
-   Mod layout, the declarative filter system and what a filter trigger really
-   receives, how view objects are scoped, the CMF and CMM APIs, where the RGO
-   bonus lives in the data, and how to translate somebody else's mod. Nearly all of it was learnt by getting it wrong
-   first, so reading it is cheaper than rediscovering it.
+1. **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — the index to how EU5 modding
+   actually works, split by subject: [`research/engine.md`](docs/research/engine.md)
+   for what the engine gives a mod, [`research/cmf.md`](docs/research/cmf.md) for
+   the framework and Construction Manager's automation,
+   [`research/translation.md`](docs/research/translation.md) for translating
+   somebody else's mod. Read the one the task needs, not all three. Nearly all of
+   it was learnt by getting it wrong first, so reading it is cheaper than
+   rediscovering it.
 2. **[`docs/HANDOFF.md`](docs/HANDOFF.md)** — where each mod stands right now,
    what is broken, and what is untested. Check it is current before trusting it.
 3. **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — the specific mistakes already
@@ -107,7 +110,7 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
 | `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
-| `check_cmm.py` | every CMM call in a mod, against the arguments CMF declares |
+| `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
 

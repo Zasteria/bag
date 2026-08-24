@@ -36,6 +36,36 @@ why the game gates its own shovel badge on `IsProducing`. Counting upkeep
 methods put castles and monasteries in a list of things to build for their raw
 materials.
 
+**A live script value in a list row costs a frame, every frame.** 74 rows each
+labelled with `ScriptValue('bgt_impact_<good>')`, each of those reading a market
+price and a default price, made the game visibly lose ticks whenever the Mod
+Menu was open — and the figures still looked frozen, because what a row shows is
+recomputed constantly rather than when the thing it describes changes. Compute
+on a pulse into a variable and let the row read the variable; the same five
+values inside one tooltip cost nothing, so it is the number of rows drawing them
+that matters, not the values themselves.
+
+**A formatted list field needs its format keys or it prints their names.**
+`cmm_set_list_field_format` and `cmm_set_list_field_conditional_format` make the
+widget read `<mod>__<setting>__<field>_prefix` and `_postfix`, and for the
+conditional one also `_prefix_high` / `_postfix_high` / `_prefix_low` /
+`_postfix_low`. CMF decides whether a key exists by comparing `Localize(key)`
+against the key itself, so a missing one is not an error — it renders as its own
+name, in the column, where a number should be. `cm__auto_build_list__min_discount_*`
+shows the full set.
+
+**A CMM list silently loses every row past the fiftieth.** CMF initialises list
+items through an unrolled chain ending at item 50, so a list registered at 74
+shows 50 rows and says nothing about the rest. Split into several lists — and
+give each its own output, since `cmm_build_list_bool_list` clears the list it
+builds into and a shared one would keep only the last.
+
+**Asking a variable map for a key it does not hold is an error, not false.** A
+CMM setting sitting at its registered default may never have been written to the
+`cmm` map, so `"variable_map(cmm|flag:<mod>__<setting>)" >= 1` as a plain gate
+can take the whole effect down on a new game. Guard it with
+`is_key_in_variable_map` and decide what the absence means.
+
 **`item = var:x` inside a CMM list macro dies at load** with "More than one
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
@@ -162,6 +192,22 @@ had already been redesigned around their absence. The game prints its whole API
 — `python3 tools/api.py <name>` answers in a second, and
 `reference/game/docs/` is where those dumps live. Ask it before concluding
 anything is impossible.
+
+## Diagnosing without a signal
+
+**Two suspects and one round trip is a wasted round trip.** A monthly log line
+that never appeared could have meant the pulse never fired, the setting read
+errored, or CMF's log would not render what it was handed. Fixing all three
+blind answered nothing: the next run still showed one number, and it was still
+ambiguous. What works is a probe whose failure modes are *separable* — a counter
+that only the pulse can increment, shown through a path already proven to work,
+so the reading distinguishes "never ran" from "ran and could not be displayed".
+
+**Ask for the logs before theorising.** `error.log` being empty of your mod is
+itself a finding: it rules out every failure the engine notices and leaves only
+the silent classes — a missing localization key, an effect never called, a value
+never read. Two of the four faults in `goods_target` were identified from the
+logs plus `reference/` in one pass, without a further run.
 
 ## Working blind
 

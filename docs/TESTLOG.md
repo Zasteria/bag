@@ -40,6 +40,67 @@ which are English text under an `l_russian:` header.
 **Verdict:** the whole approach of the mod rests on this and it holds. Load order
 decides; `nd_ru` must sit after the base mod.
 
+### 2026-08 — `goods_target`, every good and a target each, with logs
+
+**Loaded:** game 1.3.11, the player's normal playset. Logs supplied.
+**Expected:** monthly checks counted in the settings tooltip, a target per row,
+readings updating monthly.
+**Observed, in four parts:**
+
+1. **Monthly checks: 0.** The pulse leaves no trace at all. The display path is
+   not the suspect — Construction Manager reads `var:` inside script values the
+   same way this does.
+2. **The Target column shows a raw key**, `bgt__construction__t…`.
+3. **The readings do not change from month to month.**
+4. **The game visibly loses ticks while the Mod Menu is open** — obvious with
+   the game unpaused, opening and closing the menu.
+
+**The logs say nothing about this mod.** Zero lines in `error.log`, its five
+rotations, `gui.log` or `game.log`; `debug.log` shows only that it mounted and
+that its `1.3.*` matched game 1.3.11. So none of the four is an error the engine
+noticed — all four are the silent kind.
+
+**Diagnosed from the logs and the reference tree, not guessed:**
+
+- The raw key is the **format keys**. `cmm_set_list_field_conditional_format`
+  makes the widget read `<mod>__<setting>__<field>_prefix` and `_postfix`, and
+  the `_high` / `_low` pair for the sign. CMF detects their existence by
+  comparing `Localize(key)` against the key itself, so a missing one renders as
+  its own name and logs nothing. `cm__auto_build_list__min_discount_*` is the
+  worked example.
+- The performance and the frozen readings are the same cause: each of the 74
+  row labels calls `ScriptValue('bgt_impact_<good>')`, and each of those does
+  four market and default price lookups. That is evaluated for every drawn row,
+  every frame. The version before this one had no reading in its rows and cost
+  nothing noticeable; the tooltip with five of them was also fine.
+
+**Not resolved:** why the monthly pulse never runs. `monthly_country_pulse`
+exists in the game's own dump, CMF chains it through `_cmf_on_monthly` into
+`cmf_monthly_human_country_pulse`, and this mod's *registration* leaf on
+`cmf_on_mod_registration` demonstrably works — so on_action merging from this
+mod's file works at least once.
+
+### 2026-08 — `goods_target`, the goods list
+
+**Expected:** a 28-row list with two ticks per row, and a monthly log line
+naming what is ticked.
+**Observed:** the list draws, the rows name their goods, a row can be selected
+and the game's own goods tooltip comes up on hover. Ticks can be set. **The log
+shows nothing new** — no monthly entries at all.
+**Verdict:** the list half works, including the `_on_changed` callback without
+which nothing would draw. Whether a tick reaches script is still unknown,
+because the only thing that would have said so was the log.
+**Two suspects, both removed rather than diagnosed:** the monthly effect was
+gated on `variable_map(cmm|flag:bgt__log_readings)`, and asking a variable map
+for a key it does not hold is an error rather than false — a setting left at its
+registered default may never have been written to the map. And the count was
+logged with `cmf_log_value = { value = var:... }`, a CMF macro taking `var:` in
+an argument, which is the shape that kills a CMM list on `item = var:x`.
+**Learnt:** the mod now counts into country variables that a script value reads
+back into the tooltip, so the next answer does not depend on the log at all.
+**Also asked for:** every good rather than the 28 construction ones (cannons
+were missing), and a target per good rather than one for all.
+
 ### 2026-08 — `goods_target`, first load: do the readings match
 
 **Loaded:** the player's normal playset with `goods_target` added.
@@ -98,8 +159,8 @@ run, and the mod was removed. See
 
 Kept here so it is one list rather than scattered through prose:
 
-- `goods_target`'s goods list: whether it draws at all, and whether a tick
-  reaches script. Its readings are confirmed; nothing else about it is.
+- whether anything in `goods_target` runs on a monthly pulse. Its lists,
+  readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.
