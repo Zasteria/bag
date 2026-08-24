@@ -40,6 +40,22 @@ which are English text under an `l_russian:` header.
 **Verdict:** the whole approach of the mod rests on this and it holds. Load order
 decides; `nd_ru` must sit after the base mod.
 
+### 2026-08 — `goods_target`, first load: do the readings match
+
+**Loaded:** the player's normal playset with `goods_target` added.
+**Expected:** a Mod Menu tab with two settings, and readings that agree with the
+game's own construction cost tooltip.
+**Observed:** both. The tab renders in Russian, and the tooltip of "Писать замеры
+в журнал" showed lumber -14.7%, masonry +22.1%, glass -33.0%, sand -18.7%,
+stone +1.1%. The player confirms the discount matched the game at the start of
+the run.
+**Verdict:** the measurement the whole mod rests on is right. Registration, the
+`capital.market.market_price` reading, the per-good script values and
+`GuiScope...ScriptValue` in a CMM tooltip all work.
+**Learnt:** the readings move every month, so a yearly log line is the wrong
+cadence — the probe moved to CMF's monthly pulse, which is also where
+Construction Manager's own dispatcher runs.
+
 ### 2026-08 — logs from a live playset, checked for our own mods
 
 **Loaded:** the player's normal playset — CMF, Construction Manager, Glorp UI,
@@ -80,8 +96,8 @@ run, and the mod was removed. See
 
 Kept here so it is one list rather than scattered through prose:
 
-- `goods_target` entirely — it has never been loaded. First question: does the
-  Mod Menu tab appear, and do its readings match the construction tooltip.
+- `goods_target`'s goods list: whether it draws at all, and whether a tick
+  reaches script. Its readings are confirmed; nothing else about it is.
 - `rgo_bonus_filter`'s build-panel chip.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

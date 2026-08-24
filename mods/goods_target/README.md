@@ -7,9 +7,8 @@ otherwise stop it, and subsidising the producers so their workers stay put.
 
 Requires the Community Mod Framework and Construction Manager.
 
-> **This is the first step of that, and only the first.** Nothing is built and
-> nothing is subsidised yet. What ships is the measurement the rest depends on,
-> put where it can be checked against the game. See
+> **Nothing is built and nothing is subsidised yet.** What ships so far is the
+> measurement the rest depends on, and the goods list to tick in. See
 > [What is built so far](#what-is-built-so-far).
 
 ## The idea
@@ -39,38 +38,39 @@ one means the number shown here and the number CM acts on cannot drift apart.
 from Construction Manager's own `cm_construction_demand_<good>` maps rather than
 from a list typed by hand.
 
-**Two settings**, in the Mod Menu under **Goods Target**: the discount to aim
-for, and whether to write a yearly line of readings into the framework's log.
-Both are types CMM applies by itself.
+**The goods list.** A CMM list, one row per construction good, with two ticks:
+**Build** and **Subsidise**. The five goods worth targeting — lumber, masonry,
+glass, sand, stone — are first; the other 23 follow. Rows, their ordinals and
+their labels are generated, because a CMM list macro pastes `item = var:x`
+verbatim and dies at load on it, so every ordinal has to be a literal.
 
-**Nothing else.** No goods list, no building, no subsidies.
+**Two settings**: the discount to aim for, and whether to write a monthly line
+into the framework's log naming the goods that are ticked.
+
+**Nothing else.** No building, no subsidies — the ticks are only recorded.
 
 ## What to look at first
 
-The mod is in the game to answer one question: **are the readings right?**
+The readings were checked in game and match; see
+[`TESTLOG.md`](../../docs/TESTLOG.md). The open question now is **whether a tick
+in the goods list reaches script.**
 
-1. Mod Menu → **Goods Target**. The tab should exist, with two settings. If it
-   does not, registration failed and nothing else matters.
-2. Hover **Write readings to the log**. Its tooltip prints the five standard
-   construction goods — lumber, masonry, glass, sand, stone — with what each is
-   doing to construction cost right now.
-3. Open the build panel for any building and read the game's own construction
-   cost tooltip, which breaks the cost down by good.
+1. Mod Menu → **Goods Target**. There should be a **Goods** list under the two
+   settings, 28 rows, each naming a good behind its icon. A list that is missing
+   entirely — header without rows — means the `_on_changed` scripted GUI did not
+   register, which is the one failure CMM gives no other sign of.
+2. Tick **Build** on lumber and **Subsidise** on glass.
+3. Wait for the month to turn and open CMF's log. It should say it is watching
+   1 good, then name lumber for building and glass for subsidising.
 
-If the two agree, the rest of the mod is worth writing. If they disagree, the
-difference is the whole story and nothing should be built on top.
-
-`error.log` will name the file and line if a value fails to evaluate. A reading
-that is simply wrong logs nothing, which is why it has to be read off the screen
-against the game's own tooltip.
+The count and the names are logged separately on purpose. The count is a bare
+number and cannot fail to render; naming a good asks CMF's log to render a goods
+scope, which is less certain. A right count with missing names means the list
+works and only the logging is wrong.
 
 ## What comes next, in order
 
-1. **A goods list.** A CMM list setting, one row per construction good, with a
-   tick and a target. Lists are the part of CMM that fails silently — a list is
-   invisible without a `<mod>__<setting>_on_changed` scripted GUI, and CMF's
-   auto-apply does not cover them — so it gets its own step and its own run.
-2. **Building.** Construction Manager stages its own work into
+1. **Building.** Construction Manager stages its own work into
    `cm_q_ungated_locations` / `cm_q_ungated_building_types`, a queue that skips
    the profit and discount gates; its Auto Build feature is built on exactly
    that. This mod adds its own leaf action to the monthly pulse, stages there,
@@ -78,10 +78,10 @@ against the game's own tooltip.
    a fixed set of feature flags with no default branch, so adding a flag to its
    priority list would do nothing at all — see
    [`RESEARCH.md`](../../docs/RESEARCH.md#construction-managers-automation-and-how-to-add-to-it).
-3. **Subsidies.** `set_subsidized` in a building scope, `is_subsidized` to read
+2. **Subsidies.** `set_subsidized` in a building scope, `is_subsidized` to read
    it back. Applied to the producers of a targeted good, so a building that goes
    into loss as the price falls keeps its workers.
-4. **Advice.** A targeted good whose own recipe is expensive — lumber mills held
+3. **Advice.** A targeted good whose own recipe is expensive — lumber mills held
    back by dear tools — is worth saying out loud rather than silently failing to
    reach the target.
 
@@ -89,11 +89,13 @@ against the game's own tooltip.
 
 ```
 .metadata/metadata.json                       descriptor, depends on CMF and CM
-in_game/common/on_action/                     CMF registration and the yearly probe
-in_game/common/scripted_effects/              settings, and the probe itself
+in_game/common/on_action/                     CMF registration and the monthly probe
+in_game/common/scripted_effects/              settings, the probe, and the generated list
+in_game/common/scripted_guis/                 the list's _on_changed, without which no list is drawn
 in_game/common/script_values/                 generated: one price reading per good
 main_menu/localization/                       English and Russian
-tools/generate.py                             writes the readings
+tools/generate.py                             writes the readings, the list and its labels,
+                                              and checks every CMM key is localized in both languages
 ```
 
 Regenerate after a game patch or a Construction Manager update:

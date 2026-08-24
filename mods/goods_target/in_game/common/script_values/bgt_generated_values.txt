@@ -7,6 +7,136 @@
 #
 # Root is the country. The market read is the capital's.
 
+bgt_impact_lumber = {
+	goods:lumber = { save_temporary_scope_as = bgt_good }
+	if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		divide = 2
+	}
+	else_if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		multiply = {
+			value = 1
+			divide = 9
+			add = 1
+		}
+	}
+	else = { value = 0 }
+	multiply = 100
+	min = -33
+	max = 300
+}
+
+bgt_impact_masonry = {
+	goods:masonry = { save_temporary_scope_as = bgt_good }
+	if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		divide = 2
+	}
+	else_if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		multiply = {
+			value = 1
+			divide = 9
+			add = 1
+		}
+	}
+	else = { value = 0 }
+	multiply = 100
+	min = -33
+	max = 300
+}
+
+bgt_impact_glass = {
+	goods:glass = { save_temporary_scope_as = bgt_good }
+	if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		divide = 2
+	}
+	else_if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		multiply = {
+			value = 1
+			divide = 9
+			add = 1
+		}
+	}
+	else = { value = 0 }
+	multiply = 100
+	min = -33
+	max = 300
+}
+
+bgt_impact_sand = {
+	goods:sand = { save_temporary_scope_as = bgt_good }
+	if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		divide = 2
+	}
+	else_if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		multiply = {
+			value = 1
+			divide = 9
+			add = 1
+		}
+	}
+	else = { value = 0 }
+	multiply = 100
+	min = -33
+	max = 300
+}
+
+bgt_impact_stone = {
+	goods:stone = { save_temporary_scope_as = bgt_good }
+	if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		divide = 2
+	}
+	else_if = {
+		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
+		value = "capital.market.market_price(scope:bgt_good)"
+		divide = "default_price(scope:bgt_good)"
+		subtract = 1
+		multiply = {
+			value = 1
+			divide = 9
+			add = 1
+		}
+	}
+	else = { value = 0 }
+	multiply = 100
+	min = -33
+	max = 300
+}
+
 bgt_impact_books = {
 	goods:books = { save_temporary_scope_as = bgt_good }
 	if = {
@@ -139,32 +269,6 @@ bgt_impact_fine_cloth = {
 
 bgt_impact_firearms = {
 	goods:firearms = { save_temporary_scope_as = bgt_good }
-	if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		divide = 2
-	}
-	else_if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		multiply = {
-			value = 1
-			divide = 9
-			add = 1
-		}
-	}
-	else = { value = 0 }
-	multiply = 100
-	min = -33
-	max = 300
-}
-
-bgt_impact_glass = {
-	goods:glass = { save_temporary_scope_as = bgt_good }
 	if = {
 		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
 		value = "capital.market.market_price(scope:bgt_good)"
@@ -345,60 +449,8 @@ bgt_impact_livestock = {
 	max = 300
 }
 
-bgt_impact_lumber = {
-	goods:lumber = { save_temporary_scope_as = bgt_good }
-	if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		divide = 2
-	}
-	else_if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		multiply = {
-			value = 1
-			divide = 9
-			add = 1
-		}
-	}
-	else = { value = 0 }
-	multiply = 100
-	min = -33
-	max = 300
-}
-
 bgt_impact_marble = {
 	goods:marble = { save_temporary_scope_as = bgt_good }
-	if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		divide = 2
-	}
-	else_if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		multiply = {
-			value = 1
-			divide = 9
-			add = 1
-		}
-	}
-	else = { value = 0 }
-	multiply = 100
-	min = -33
-	max = 300
-}
-
-bgt_impact_masonry = {
-	goods:masonry = { save_temporary_scope_as = bgt_good }
 	if = {
 		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
 		value = "capital.market.market_price(scope:bgt_good)"
@@ -501,32 +553,6 @@ bgt_impact_salt = {
 	max = 300
 }
 
-bgt_impact_sand = {
-	goods:sand = { save_temporary_scope_as = bgt_good }
-	if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		divide = 2
-	}
-	else_if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		multiply = {
-			value = 1
-			divide = 9
-			add = 1
-		}
-	}
-	else = { value = 0 }
-	multiply = 100
-	min = -33
-	max = 300
-}
-
 bgt_impact_silver = {
 	goods:silver = { save_temporary_scope_as = bgt_good }
 	if = {
@@ -555,32 +581,6 @@ bgt_impact_silver = {
 
 bgt_impact_steel = {
 	goods:steel = { save_temporary_scope_as = bgt_good }
-	if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		divide = 2
-	}
-	else_if = {
-		limit = { "capital.market.market_price(scope:bgt_good)" < "default_price(scope:bgt_good)" }
-		value = "capital.market.market_price(scope:bgt_good)"
-		divide = "default_price(scope:bgt_good)"
-		subtract = 1
-		multiply = {
-			value = 1
-			divide = 9
-			add = 1
-		}
-	}
-	else = { value = 0 }
-	multiply = 100
-	min = -33
-	max = 300
-}
-
-bgt_impact_stone = {
-	goods:stone = { save_temporary_scope_as = bgt_good }
 	if = {
 		limit = { "capital.market.market_price(scope:bgt_good)" > "default_price(scope:bgt_good)" }
 		value = "capital.market.market_price(scope:bgt_good)"

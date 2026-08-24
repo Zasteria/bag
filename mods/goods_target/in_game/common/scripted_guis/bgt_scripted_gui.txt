@@ -1,0 +1,25 @@
+﻿# The list's change callback.
+#
+# Without this file the goods list is not merely inert -- it is invisible.
+# Registering a list marks the setting as having a scripted GUI, and CMM then
+# draws the row only while `CMMGuiIsShown('<setting>_on_changed')`. The group
+# header still renders, so a missing callback looks like an empty list rather
+# than a missing one.
+#
+# It is also the only path a click on a list takes into script. Bool, dropdown,
+# numeric, slider and button settings auto-apply and reach cmf_on_callback; a
+# list reaches nothing until cmm_apply_list_change is called here.
+bgt__goods_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bgt__goods
+		}
+		bgt_rebuild_lookups = yes
+	}
+}

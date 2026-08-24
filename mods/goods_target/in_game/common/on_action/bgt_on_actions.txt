@@ -16,16 +16,19 @@ bgt_on_registration = {
 	}
 }
 
-# Yearly, human countries only.
+# Monthly, human countries only -- prices move every month, so a yearly reading
+# says nothing about what the mod would be reacting to. This is also the pulse
+# Construction Manager's own dispatcher runs on, which is where the building
+# half will have to live.
 # Scope: country
-cmf_yearly_human_country_pulse = {
+cmf_monthly_human_country_pulse = {
 	on_actions = {
-		bgt_yearly_probe
+		bgt_monthly_probe
 	}
 }
 
 # Scope: country
-bgt_yearly_probe = {
+bgt_monthly_probe = {
 	effect = {
 		if = {
 			limit = { "variable_map(cmm|flag:bgt__log_readings)" >= 1 }

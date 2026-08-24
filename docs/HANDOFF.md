@@ -13,14 +13,24 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`RESEARCH.md`](RESEARCH.md#what-cmf-241-added).
 
-**`goods_target/` — new, first step only, never run.** An addon to Construction
-Manager: build the producers of goods you name until construction hits its
-discount cap, subsidising them on the way. What exists is the measurement half —
-one script value per construction good saying what its price is doing to build
-costs, two CMM settings, and a yearly log line. Nothing builds and nothing is
-subsidised yet, on purpose: the one question for the first run is whether those
-readings match the game's own construction tooltip. The mod's README says what
-to look at and what the next three steps are.
+**`goods_target/` — readings confirmed in game, goods list untested.** An addon
+to Construction Manager: build the producers of goods you tick until
+construction hits its discount cap, subsidising them on the way.
+
+The measurement half is **verified** — the readings matched the game's own
+construction tooltip on the first load ([`TESTLOG.md`](TESTLOG.md)), so
+registration, `capital.market.market_price`, the per-good script values and a
+live `ScriptValue` inside a CMM tooltip all work.
+
+What is new and unrun is the goods list: 28 rows, two ticks each, Build and
+Subsidise, plus the `_on_changed` scripted GUI without which a CMM list is
+invisible rather than merely inert. The question for the next run is whether a
+tick reaches script, and the monthly log line answers it in two independent
+ways — a count, which cannot fail to render, and the goods named, which asks
+CMF's log to render a goods scope.
+
+Still nothing builds and nothing is subsidised. The order of the rest is in the
+mod's README.
 
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.

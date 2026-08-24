@@ -1,28 +1,24 @@
 ﻿# Settings, registered on CMF's mod registration hook.
-#
-# Only setting types with CMM auto-apply are used here: bool and numeric both
-# reach cmf_on_callback by themselves. The goods list this mod is really about
-# is a CMM list setting, which needs an _on_changed scripted GUI of its own and
-# is deliberately not part of this first step -- see the README.
 # Scope: country
 bgt_register = {
 	cmf_register_mod = { mod_id = bgt }
 
-	# The discount to aim for, as a positive percentage. The engine credits at
-	# most 33%, so that is both the default and the ceiling.
+	# The discount to aim for, as a negative percentage, matching both the
+	# readings this mod shows and Construction Manager's own min-discount fields.
+	# The engine credits at most -33%.
 	cmm_register_numeric_setting = {
 		mod_id = bgt
 		setting_id = target_discount
 		tab_id = main
 		group_id = goal
-		default_value = 33
-		min_value = 0
-		max_value = 33
+		default_value = -33
+		min_value = -33
+		max_value = 0
 		step_value = 1
 	}
 
-	# Writes one line a year into CMF's log with the readings below, so the
-	# numbers can be compared against the game's own construction tooltip.
+	# Writes one line a month into CMF's log: every ticked good, what it reads
+	# now, and whether the target is met.
 	cmm_register_bool_setting = {
 		mod_id = bgt
 		setting_id = log_readings
@@ -30,4 +26,7 @@ bgt_register = {
 		group_id = goal
 		default_value = 1
 	}
+
+	bgt_register_goods_list = yes
+	bgt_rebuild_lookups = yes
 }
