@@ -152,6 +152,17 @@ changes nothing, logs nothing.
 **`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
 it the launcher does not treat the folder as an EU5 mod.
 
+## Deciding what exists
+
+**"No mod here uses it" is not "the engine lacks it".** Subsidies were declared
+GUI-only after grepping vanilla's `common/`, CMF, Construction Manager and Glorp
+UI and finding only `ToggleSubsidizeBuildings` in a `.gui`. The engine has
+`set_subsidized` and `is_subsidized`, both in the building scope, and a feature
+had already been redesigned around their absence. The game prints its whole API
+— `python3 tools/api.py <name>` answers in a second, and
+`reference/game/docs/` is where those dumps live. Ask it before concluding
+anything is impossible.
+
 ## Working blind
 
 **Building a whole mod before loading it once is the expensive mistake, and it

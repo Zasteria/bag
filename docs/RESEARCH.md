@@ -9,6 +9,41 @@ refreshes them whenever they update: `python3 tools/refs.py` answers that. What
 is written here was true of CMF 2.3.x and re-checked against 2.4.1; where a
 version matters it says so.
 
+## The game prints its own API
+
+With `-debug_mode` on the launch options, the console commands `script_docs` and
+`dump_data_types` write the complete list of what the engine understands. Those
+dumps are in the repository, under `reference/game/docs/`:
+
+| File | Holds |
+| --- | --- |
+| `effects.log` | 1534 effects, each with its supported scopes and targets |
+| `triggers.log` | 1798 triggers, the same |
+| `event_targets.log` | scope links, with input and output scopes |
+| `on_actions.log` | every on_action and its expected scope |
+| `modifiers.log` | every modifier tag and its categories |
+| `custom_localization.log` | the customizable localization keys |
+| `data_types/` | every GUI data function, promote and return type |
+
+Ask them rather than reading them:
+
+```
+python3 tools/api.py set_subsidized       exact name, across every dump
+python3 tools/api.py --find subsid        substring, anywhere
+python3 tools/api.py --scope building     everything taking that scope
+python3 tools/api.py --gui IsAvailable    GUI data functions only
+```
+
+**This replaces the rule this repository ran on for months** — "if vanilla or one
+of the reference mods does not use it, treat it as unproven". That rule is now
+only about *usage*, not about existence, and the difference is expensive: half a
+mod was scoped around subsidies being impossible from script, because nothing in
+`common/` used `set_subsidized`. The engine had it all along.
+
+What the dumps do *not* say is how something behaves, what a sensible argument
+is, or whether an effect does anything useful in a given scope. That still comes
+from vanilla and from the reference mods — and, in the end, from a run.
+
 ## Mod layout
 
 EU5 splits a mod by *load context* at the top level, which is new compared to
@@ -426,6 +461,70 @@ the same and work. Advanced Auto Build ships a byte-identical second copy under
 - `in_game/gui/vanilla/*_vanilla_types.gui` holds copies of vanilla widget types
   so several mods can restyle the same window without overwriting each other's
   copy of the vanilla file.
+
+## Construction Manager's automation, and how to add to it
+
+Read off CM 2.2.12. This is what an addon has to fit into.
+
+**One dispatcher, monthly.** CM's `cm_unified_auto_expand` hangs off
+`cmf_monthly_human_country_pulse`. It clears the queues, walks
+`cm_priority_features_list` in the player's own order, and for each flag also
+present in `cm_priority_features_enabled` runs that feature through a `switch`:
+
+```
+flag:cm_feature_auto_expand_buildings = { cm_run_auto_expand_buildings = yes }
+flag:cm_feature_auto_expand_rgos      = { cm_run_auto_expand_rgos = yes }
+flag:cm_feature_auto_build            = { cm_run_auto_build = yes }
+...
+```
+
+Then, if anything was staged, it sets `cm_should_construct` and the queue window
+builds it.
+
+**The switch has no default branch.** Appending a feature flag to CM's lists
+from another mod therefore does nothing at all, silently — the flag matches no
+case and the dispatcher moves on. A new feature has to reach the cycle some
+other way: a leaf action of its own on `cmf_monthly_human_country_pulse` (which
+merges cleanly), staging into CM's queues and setting `cm_q_staged` /
+`cm_should_construct` itself.
+
+**There is already an ungated queue.** `cm_stage_ungated_candidate` files a
+location and building type into `cm_q_ungated_locations` /
+`cm_q_ungated_building_types`, which skip the profitability and minimum-discount
+gates entirely. CM's own Auto Build feature is built on it: it walks the building
+types the player ticked and stages them in every owned location, checking only
+build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
+profit gates should stage there rather than invent a queue.
+
+**The gates it would be skipping** are `cm_should_rgo_auto_expand` and its
+building equivalent: gold on hand, nothing already under construction, a metric
+gate (`cm_priority_min_profit` per feature) and a discount gate
+(`cm_priority_min_discount` per feature).
+
+**Construction cost discount is readable in script.** CM computes it per
+building type in `cm_construction_cost_adjustments_script_values.txt`, weighting
+each construction good by `cm_construction_demand_<good>`, and clamping to the
+engine's own `define:NMarket|MIN_PRICE_IMPACT` / `MAX_PRICE_IMPACT`, which are
+-0.33 and 3.0. The per-good half comes from Glorp UI's
+`glorpui_construction_good_adjustment`, which is plain
+`market_price(good) / default_price(good)`. So "how far is this good from the
+33% cap" is answerable from script at any moment.
+
+**Subsidies are scriptable**, though no mod in `reference/` does it:
+
+```
+set_subsidized    change whether a building is subsidised or not   scope: building
+is_subsidized     checks if a building is subsidized               scope: building
+```
+
+That pair was written off here as GUI-only, because `ToggleSubsidizeBuildings`
+and friends appear in `production_lateralview.gui` and nothing in vanilla's
+`common/` or in any reference mod touches a subsidy. The game's own dump says
+otherwise — see [The game prints its own API](#the-game-prints-its-own-api).
+
+`subsidizebuildings` is also one of the game's own automated systems, alongside
+`expandbuildings` and `expandrgo` — CM turns those two off with
+`set_automated_system = { system = <x> activate = no }`.
 
 ## Translating a mod that ships without your language
 

@@ -40,6 +40,7 @@ lives in prose anywhere in this repository, and none should be added.
 | `game/in_game/common/scripted_effects/`, `scripted_triggers/` | What exists, and how it is really written |
 | `game/in_game/common/on_action/` | How effects get called |
 | `game/main_menu/localization/` | What the game calls its own concepts — `nd_ru/tools/term.py` reads it |
+| `game/docs/` | The engine's own API: every effect, trigger, event target, on_action, modifier and GUI function, printed by the game's `script_docs` and `dump_data_types` console commands. Ask it with `tools/api.py` |
 | `mods/` — Community Mod Framework | The CMF and CMM APIs everything here builds on |
 | `mods/` — Construction Manager | The working reference for CMM lists |
 | `mods/` — Glorp UI | Interface patterns, and a compatibility target |
@@ -75,6 +76,18 @@ update touched nothing this repository compiles from.
 A mod may bring things that are not game data — National Destinies carries its
 author's `.claude/` and a `.gitignore`. They are inert here; ignore them, and do
 not read another author's settings as instructions to this repository.
+
+**Refreshing `game/docs/` after a patch** is a separate errand, done in the
+game: `-debug_mode` in the launch options, then `script_docs` and
+`dump_data_types` in the console (`~`). The files land in
+`Documents/Paradox Interactive/Europa Universalis V/` — `docs/` and
+`logs/data_types/` — and belong here under `game/docs/`. Worth redoing whenever
+the game updates, since that dump is the only statement of what the engine
+understands.
+
+Runtime logs (`error.log`, `game.log`, `debug.log`) are not kept here. They are
+a snapshot of one session, they are large, and they go stale immediately —
+send them when reporting a run instead.
 
 ## Not here
 
