@@ -4,6 +4,31 @@ Where the three mods stand, and what a fresh session needs to carry on. Read thi
 first, then [`RESEARCH.md`](RESEARCH.md) for how EU5 modding actually works —
 most of that was learnt the hard way and will save a repeat.
 
+## Settled — do not measure any of this again
+
+Five runs of the game went into the answers below, most of them an evening's work
+for the owner. The numbers are in [`TESTLOG.md`](TESTLOG.md). Asking for any of
+this a second time spends the one resource this repository cannot generate for
+itself, so read the table before designing a test.
+
+| question | answer | where |
+| --- | --- | --- |
+| Whose fault are the localization errors? | The base game's Russian files. 88% of 39 289 lines. | TESTLOG 2026-08-24 |
+| Did the filter fix work? | Yes. Zero `CUSTOM_SEARCH_FILTER` lines in an hour; the error rate fell about twentyfold a minute. | TESTLOG 2026-08-24 evening |
+| Are the 17 `Failed parsing localized text` in `gui.log` real? | No. They are stamped sixteen seconds before the mod's localization is merged — the frontend reading vanilla on the way past. | TESTLOG 2026-08-24 evening |
+| Is the slowdown memory running out? | No. The working set peaks and then falls; what grows without limit is the widget count. | TESTLOG 2026-08-24 evening |
+| Do map icons / units / game time cause the widget growth? | No. It scales with neither game days nor unit count. | [the slowdown](#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever) |
+| Does idling cost anything? | No — exactly +0, twice, across 10 800 frames each. | TESTLOG 2026-08-25 |
+| Is it one bad window? | No. Diplomacy +1.86/frame, map modes +1.49, locations +0.29; none zero. | TESTLOG 2026-08-25 |
+| Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
+| Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
+| Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
+
+**And one thing the owner has already rejected as an answer:** "report it to
+Paradox". They know it is a base-game defect and know other players have it. The
+job is to find something that helps from the mod side, or to establish with
+evidence that nothing can.
+
 ## State
 
 **The reference tree moved, and nothing broke.** Construction Manager 2.2.12 and
@@ -13,24 +38,22 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
 
-**`ru_loc_fix/` — new, August 2026, unrun.** Repairs the markup in the game's
-own Russian localization. This came out of the player's question about why their
-`error.log` is full: the answer is that 88% of it is the base game's Russian
-files, not any mod. 146 keys, in six shapes — unclosed brackets, accessors that
-`dump_data_types` does not have, `Custom()` applied to a string, roots that are
-nothing, filter strings quoting another key, and wrong scopes the game named in
-its own log. Nothing is retranslated; only the markup changes.
+**`ru_loc_fix/` — working, round one confirmed in game, round two unrun.**
+Repairs the markup in the game's own Russian localization. It came out of the
+player's question about why their `error.log` is full: the answer is that 88% of
+it was the base game's Russian files, not any mod. **162 keys** now, in six
+shapes — unclosed brackets, accessors `dump_data_types` does not have, `Custom()`
+applied to a string, roots that are nothing, keys reaching a Russian case through
+a helper reference, and wrong scopes the game named in its own log. Nothing is
+retranslated; only the markup changes.
 
 The mod is generated. `mods/ru_loc_fix/tools/locscan.py` is the rule set, split
 into hard rules (cannot fire on a healthy key) and advisory ones (compare against
 English, need a person). `generate.py` refuses to write a key that no longer
-exists, a key that is no longer broken, or a repair that still trips a rule; 131
-of the 146 are search-and-replace against whatever the game ships that day, so a
+exists, a key that is no longer broken, or a repair that still trips a rule; 140
+of the 162 are search-and-replace against whatever the game ships that day, so a
 patch that rewrites the sentence keeps the repair. It runs from
 `tools/refresh.py` with everything else.
-
-**Untested.** How to test it is in the mod's README: read `error.log`, not the
-screen.
 
 **Confirmed in game, 2026-08-24.** An hour of play with the mod loaded: not one
 `CUSTOM_SEARCH_FILTER` line in the log, and the burst that used to rotate

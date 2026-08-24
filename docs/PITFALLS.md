@@ -239,6 +239,27 @@ scope that is not a country. The fix was still right — but a key that starts
 working starts reporting, and a rise in a different error is not automatically a
 regression.
 
+**A test the player physically cannot perform is a wasted round trip.** "Sit on
+the map for five minutes without opening anything" is impossible in a running
+game — events fire and demand a click. The owner said so, and he was right. Pause
+removes events, the tick and map churn in one move, and every block after that is
+attributable. Before asking for a protocol, walk through it as the person who has
+to do it.
+
+**"Report it to the developers" is not a deliverable.** This session established
+that the widget leak is vanilla's, wrote the numbers up as a bug report, and
+handed it over as the answer. The owner's reply was that he had known it was
+vanilla the whole time and was asking for a fix, not a diagnosis. He was right
+about that too: the diagnosis had ruled things out, but nothing had yet been
+asked of the engine dumps about what a mod *could* do. Establishing whose fault
+something is is the beginning of the work here, not the end of it.
+
+**When a measurement is finished, say which questions it closed.** Five rounds of
+tests produced ten settled facts, and the risk at the end of every session is
+that the next one re-derives them and spends the owner's evenings doing it. The
+table at the top of [`HANDOFF.md`](HANDOFF.md#settled--do-not-measure-any-of-this-again)
+exists for that; add to it rather than writing a new narrative each time.
+
 ## The reference tree changes under you
 
 **A folder name in `reference/mods/` is not a fact.** The owner refreshes these

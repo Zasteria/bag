@@ -331,9 +331,40 @@ was before any game was loaded. So quitting to the main menu and loading the sav
 again is worth exactly as much as restarting the executable, and costs a
 fraction of the time.
 
-**Verdict:** a base-game defect, measured and quantified. The investigation is
-closed on this repository's side; what remains is a bug report, and the numbers
-above are it.
+**Verdict:** a base-game defect, measured and quantified. The measurement is
+finished — but the investigation is *not*, and the owner said so plainly when
+this entry first ended with "so file a bug report". They already knew it was
+vanilla. What is wanted is a lever from the mod side, or evidence that there is
+none. The lead and the next run are in
+[`HANDOFF.md`](HANDOFF.md#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever).
+
+## Waiting on a run
+
+The next session should start here rather than designing anything new. Both of
+these are prepared, both are cheap, and the owner has agreed to do the first.
+
+**The hover test, and the tooltip settings with it.** One session, one save,
+paused throughout. Two minutes sweeping the mouse over the map and top bar with
+**no clicks**; then Settings → Tooltip Settings with `Map Tooltips` set to
+Disabled and both delays at maximum; then the same two minutes again. Send
+`performance_degradation.log`. What each outcome means is in
+[`HANDOFF.md`](HANDOFF.md#the-candidate-and-it-doubles-as-the-fix) — read it
+before asking for anything else, because the losing branch has its own next test
+already written and it is not this one repeated.
+
+**`ru_loc_fix` round two — eleven keys and four expansions, never in game.**
+Round one is confirmed; round two is not. It is checked from the log, not the
+screen: after any run, `error.log` should no longer carry
+`RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`, `MARKET_SURPLYS_INFO`,
+`ALERT_HAS_UNMARRIED_CHILDREN`, `THIRD_DESTROY_BUILDING_EFFECT` or
+`DESTROY_BUILDING_EFFECT`. Any ordinary hour of play tests it; no special
+protocol is needed, so it can ride along with the hover run.
+
+**And one thing only eyes can check.** Whether the repaired Russian *reads*
+correctly. The log says those keys no longer fail; it does not say the sentences
+are right. Quickest look: a religion tooltip (harmony, purity, honor), the goods
+filter chips in a location's buildings panel, and the price line in the build
+panel.
 
 ## Never run
 
