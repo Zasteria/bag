@@ -32,7 +32,6 @@ import refs  # noqa: E402
 # its reference paths from `refs`, so none of them is given an argument here.
 GENERATORS = (
     ("rgo_bonus_filter", "mods/rgo_bonus_filter/tools/generate_rgo_filter.py"),
-    ("where_to_produce", "mods/where_to_produce/tools/generate.py"),
     ("auto_build_ru", "mods/auto_build_ru/tools/generate_ru.py"),
     ("nd_ru", "mods/nd_ru/tools/generate_ru.py"),
 )

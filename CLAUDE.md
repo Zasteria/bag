@@ -64,8 +64,9 @@ If vanilla or one of the three mods does not use it, treat it as unproven and sa
 so.
 
 **A macro called with an argument CMF does not declare fails silently** and
-takes the rest of its effect with it. `mods/where_to_produce/tools/generate.py`
-checks this when pointed at CMF's scripted_effects — run it that way.
+takes the rest of its effect with it. `python3 tools/check_cmm.py
+mods/<mod>/in_game/common` checks a whole mod for it — run it after touching any
+CMM call.
 
 **Effects that merely do nothing log nothing.** `error.log` names the file and
 line for GUI failures and for script errors, but an effect that never runs is
@@ -74,7 +75,13 @@ player look, rather than guessing twice.
 
 **Only the player can run the game.** Nothing here can be tested from a session.
 Say plainly what is verified and what is not, and prefer one change with a clear
-signal over several at once.
+signal over several at once. Build the smallest thing that would show a signal
+and ask for a run — a whole feature finished before its first load is how
+`where_to_produce` ended up with six suspects and no way to choose between them.
+
+**When the player reports a run, write it into [`docs/TESTLOG.md`](docs/TESTLOG.md)
+in the same session.** They report it once, in passing; if a session does not
+record it, the next one goes on calling the thing untested.
 
 ## The tools are part of the repository
 
@@ -90,6 +97,13 @@ At the top level, `tools/` is what every mod's tooling shares:
 | --- | --- |
 | `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
+| `check_cmm.py` | every CMM call in a mod, against the arguments CMF declares |
+| `check_docs.py` | the documents still describe files that exist |
+| `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
+
+`.claude/hooks/session-start.sh` runs the first two checkers at the start of
+every session and hands the result back as context, so a session begins knowing
+the state of the tree rather than what a document last remembered.
 
 `mods/nd_ru/tools/` is the fullest example:
 

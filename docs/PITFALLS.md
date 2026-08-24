@@ -13,8 +13,8 @@ takes the rest of its effect with it.** `step` where CMF declares `step_value`
 meant the setting never entered CMM's maps; syncing its alias then errored, and
 everything after it in the same effect was skipped — including four other
 settings. Symptom: an interface that renders perfectly and does nothing.
-`mods/where_to_produce/tools/generate.py` checks this when pointed at CMF's
-`scripted_effects`.
+`python3 tools/check_cmm.py mods/<mod>/in_game/common` checks a whole mod against
+whichever CMF is in `reference/`.
 
 **Dropdown options are numbered from one.** Registering with `default_index = 0`
 put the stored value out of range, so nothing the player picked matched any
@@ -151,6 +151,17 @@ changes nothing, logs nothing.
 
 **`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
 it the launcher does not treat the folder as an EU5 mod.
+
+## Working blind
+
+**Building a whole mod before loading it once is the expensive mistake, and it
+has been made here.** `where_to_produce` was finished — four CMM lists, pickers,
+scoring, tooltips — and then abandoned without ever running, leaving six
+independent suspects and no way to tell which was in play, because an effect
+that never runs logs nothing. One `cmf_log` on the first list, one round trip,
+would have cut that to one. Only the player can run the game, so the size of an
+untested increment is the whole risk: the smallest thing that produces a visible
+signal beats the complete feature every time.
 
 ## Diagnosis
 

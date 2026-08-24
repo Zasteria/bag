@@ -81,6 +81,42 @@ would pick the bonus up.
 These are GUI data functions. There is no script-side counterpart in
 `common/scripted_triggers/`, so a filter `trigger` cannot call them directly.
 
+### The formula behind the number
+
+The game shows the bonus only as tooltip text — "Coal in the Ore Mountains,
++2.86%". Recovered by matching those readings, and **verified to the digit
+against three of them at 1.3.10**:
+
+```
+RGO bonus % = 10 * (input amounts the province supplies) / (all input amounts)
+```
+
+| Building / method | Available | Computed | Tooltip |
+| --- | --- | --- | --- |
+| `saltpeter_guild` / `saltpeter_guild_demands` | livestock | 8.33% | +8.33% |
+| `weapon_guild` / `weapon_smith_maintenance` | coal | 2.86% | +2.86% |
+| `mason` / `clay_bricks` | clay | 10.00% | +10.00% |
+
+**Every input counts towards the denominator**, produced goods included — an RGO
+can never supply tools, but tools still carry their weight:
+
+```
+weapon_smith_maintenance   lumber 0.2521 + coal 0.3034 + tools 0.5050 = 1.0605
+                           lumber and coal are all an RGO can give
+                           0.5555 / 1.0605  ->  ceiling 5.24%, not 10%
+```
+
+The bonus is production *efficiency*, so it multiplies output:
+`volume = output * (1 + bonus / 100)`. That is the figure that compares two
+buildings: a jeweller's guild and a village carver both reach 10%, but on outputs
+of 1.0 and 0.1, so ranking on the percentage alone puts them level.
+
+The community "Province Breakdown" spreadsheet tops out at 12.5% on single-input
+buildings because it was built from patch 1.0.6; 1.3.10 tops out at 10%.
+
+`tools/eu5data.py` holds all of this in code — it resolves every method per
+building type, inline and shared, and skips upkeep methods that produce nothing.
+
 ## Which window is which
 
 Three different panels list buildings, and they are easy to mix up:
@@ -302,6 +338,17 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
+Two more things about a list's height, found while building one and never
+confirmed in game:
+
+- **A list cannot be registered empty.** `item_count` is clamped to at least one,
+  so a list with nothing to show has to be hidden rather than emptied.
+- **Re-registration only grows.** `_cmm_reconcile_list_setting_item_growth` adds
+  rows and never removes them, so shrinking a list means clearing
+  `cmm_list_items_<setting>`, removing `cmm_list_initialized_<setting>` and
+  registering again — sending it back through the first-time branch. CMF itself
+  has no caller that does this.
+
 Construction Manager is the working reference: `cm_cmm_effects.txt` registers
 statically and `cm_cmm_scripted_gui.txt` holds one `_on_changed` per list.
 
@@ -314,8 +361,8 @@ marked `_srsgui` unless `CMMGuiIsShown('<key>_on_changed')`.
 ### What CMF 2.4.1 added
 
 Read off its `scripted_effects/`, not tried in game. Worth knowing before
-building anything list shaped, because two of these are what the awkward parts
-of `where_to_produce` worked around:
+building anything list shaped — the two marked below are what a hand written
+selection sort and a static row-by-row registration were doing before 2.4.1:
 
 | Effect | What it looks like it solves |
 | --- | --- |
@@ -385,7 +432,8 @@ the same and work. Advanced Auto Build ships a byte-identical second copy under
 A separate mod carrying one `.yml` is the whole job. It needs no dependency on
 the mod it translates — the keys simply add, and nothing collides — and only a
 CMF dependency if it redefines one of CMF's own shared keys. `auto_build_ru` is
-the worked example; its `tools/generate_ru.py` is written against one mod but
+the worked example; its `mods/auto_build_ru/tools/generate_ru.py` is written
+against one mod but
 the shape of it is reusable.
 
 **A mod may ship a language that is only the English text.** National Destinies

@@ -22,15 +22,22 @@ written down rather than kept in anyone's head.
 | Mod | What it does | State |
 | --- | --- | --- |
 | [`mods/rgo_bonus_filter/`](mods/rgo_bonus_filter/) | Filter chips that cut both building lists down to what gains production efficiency from raw materials in the province | Working |
-| [`mods/where_to_produce/`](mods/where_to_produce/) | Pick a province, get a ranked list of what is worth building there | In progress |
 | [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Untested |
+| [`mods/nd_ru/`](mods/nd_ru/) | Russian localization for National Destinies, which ships eleven languages all carrying the English text | In progress |
 
 Each folder is a complete mod: copy the folder itself into
-`Documents/Paradox Interactive/Europa Universalis V/mod/`. Both depend on the
-Community Mod Framework for their settings.
+`Documents/Paradox Interactive/Europa Universalis V/mod/`.
+
+One mod was removed: `where_to_produce`, a province-first "what is worth building
+here" table, which was built to completion without ever being loaded in game and
+then abandoned. What it taught, and where its working parts went, is in
+[`docs/HANDOFF.md`](docs/HANDOFF.md#why-where_to_produce-failed).
 
 ## Docs
 
+- **[`docs/TESTLOG.md`](docs/TESTLOG.md)** — what has actually been in the game
+  and what it showed. Only the player can run EU5, so a run is the scarcest
+  thing here; each one gets written down.
 - **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — how EU5 modding actually works.
   Mod layout, the declarative filter system and what a filter trigger really
   receives, how view objects are scoped, the CMF and CMM APIs, where the RGO
