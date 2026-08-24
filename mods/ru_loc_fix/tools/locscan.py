@@ -169,6 +169,13 @@ def filter_nested_fault(key: str, value: str, russian: dict[str, Entry]) -> str 
     fails every single time. Five such keys produced 34 225 of the 39 289 errors
     in the run of 2026-08-24 — over one second, which rotated `error.log` five
     times and took every other error of that session with it.
+
+    Fixing those five did not end the class: the hour-long run that followed put
+    `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` (13 950 lines), `FILTER_BY_GOODS`
+    (3 866) and `MARKET_SURPLYS_INFO` (1 650) in their place, none of which is a
+    filter string. This rule stays narrow because it is the only shape that can
+    be *proven* wrong from the files — the same key written both ways, four lines
+    apart. `declension_ref` lists the rest of the pool for a person to watch.
     """
     if not key.startswith("CUSTOM_SEARCH_FILTER_"):
         return None
@@ -284,6 +291,82 @@ def roots(value: str) -> set[str]:
     return found
 
 
+# `A.B.C` — a promote chain, for pairing each step with the one in front of it.
+CHAIN = re.compile(r"(?:^|[\s(,])([A-Za-z_][A-Za-z0-9_]*)((?:\.[A-Za-z_][A-Za-z0-9_]*)+)")
+# Two accessors the Russian files reach for constantly and the English ones never
+# need: a declension and a gender agreement. They are available on any scope, so
+# their absence from the English corpus says nothing.
+RUSSIAN_ONLY = {"Custom", "IsFemale"}
+# The declension helpers: a key holding seventy five `AddTextIf` tests that turn
+# a goods or estate name into one Russian case. Referencing one loses the scope
+# in some panels and not others.
+DECLENSION_HELPER = re.compile(r"^(GOODS|Goods|TARGET_GOODS|ESTATE|Estate)_.*_RU_")
+# How often English has to use a root before its silence about a member counts
+# as evidence.
+ENOUGH = 20
+
+
+def chain_pairs(value: str) -> set[tuple[str, str]]:
+    """Each `<thing>.<member>` step in the value's promote chains."""
+    found: set[tuple[str, str]] = set()
+    for block in DATA_BLOCK.findall(value):
+        block = re.sub(r"'[^']*'", "''", block)
+        for match in CHAIN.finditer(block):
+            previous = match.group(1)
+            for member in match.group(2).split(".")[1:]:
+                found.add((previous, member))
+                previous = member
+    return found
+
+
+def member_on_root_fault(value: str, en_pairs: dict, en_roots: dict) -> str | None:
+    """A member asked of something the English files never ask it of.
+
+    Weaker than `unknown_member`, which only says the accessor exists somewhere;
+    this says it exists on the wrong thing. English calls `TARGET_CULTURE.GetName`
+    210 times and never `.GetAdjective`, and sure enough the engine's dump gives
+    `GetAdjective` to Country, Government, Location, Religion and ReligionGroup
+    and not to Culture — so the five Russian keys that ask a culture for its
+    adjective print nothing.
+
+    Advisory, because English's silence is not proof: it needs `GetAdjective` on
+    a country and Russian needs it on everything, and a rewritten sentence may
+    legitimately reach one step further. Read the hits against the dump —
+    `python3 tools/api.py <member>` says which types have it.
+    """
+    for root, member in sorted(chain_pairs(value)):
+        if member in RUSSIAN_ONLY:
+            continue
+        if en_roots.get(root, 0) >= ENOUGH and (root, member) not in en_pairs:
+            return "%s.%s — English uses %s. %d times and never with .%s" % (
+                root, member, root, en_roots[root], member)
+    return None
+
+
+def declension_ref_fault(key: str, value: str, russian: dict[str, Entry]) -> str | None:
+    """A key that reaches a Russian case through one of the declension helpers.
+
+    `filter_nested` proves the fault for the shape where the same key exists both
+    ways; this reports the whole pool it belongs to. Ninety-odd keys reference
+    `$GOODS_..._RU_GEN_lower$` or a sibling, and the game has complained about
+    ten of them so far — always when a panel that had never been opened before
+    was opened. There is nothing in the files that separates the ten from the
+    rest, so this stays advisory and the list is what to read the next log
+    against.
+
+    Where one does fail, the repair is `fixes/expand.txt`: write the helper out
+    inside the key. The promote resolves inline in the very same string where it
+    fails through the reference, so inlining keeps the declension and loses the
+    error.
+    """
+    if DECLENSION_HELPER.match(key):
+        return None  # the helpers themselves, quoting each other
+    for referenced in KEY_REF.findall(value):
+        if DECLENSION_HELPER.match(referenced) and referenced in russian:
+            return "reaches a Russian case through $%s$" % referenced
+    return None
+
+
 def scope_difference(value: str, english: str) -> str | None:
     """A scope the Russian key reaches for and the English key does not.
 
@@ -335,7 +418,7 @@ def argument_difference(value: str, english: str) -> str | None:
 
 
 HARD = ("brackets", "custom_on_text", "filter_nested", "unknown_root", "unknown_member")
-ADVISORY = ("scope", "arguments")
+ADVISORY = ("scope", "arguments", "member_on_root", "declension_ref")
 RULES = HARD + ADVISORY
 
 
@@ -344,6 +427,13 @@ def scan(russian: dict[str, Entry], english: dict[str, Entry],
     """Every rule in `rules`, against every Russian key."""
     known: set[str] = set()
     members: set[str] = set()
+    en_pairs: set[tuple[str, str]] = set()
+    en_roots: dict[str, int] = {}
+    if "member_on_root" in rules:
+        for entry in english.values():
+            for pair in chain_pairs(entry.value):
+                en_pairs.add(pair)
+                en_roots[pair[0]] = en_roots.get(pair[0], 0) + 1
     per_file: dict[Path, set[str]] = {}
     if "unknown_member" in rules:
         members = dumped_names()
@@ -369,6 +459,8 @@ def scan(russian: dict[str, Entry], english: dict[str, Entry],
             ("unknown_member", lambda: unknown_member_fault(entry.value, members)),
             ("scope", lambda: scope_difference(entry.value, pair.value) if pair else None),
             ("arguments", lambda: argument_difference(entry.value, pair.value) if pair else None),
+            ("member_on_root", lambda: member_on_root_fault(entry.value, en_pairs, en_roots)),
+            ("declension_ref", lambda: declension_ref_fault(key, entry.value, russian)),
         )
         for name, check in checks:
             if name not in rules:

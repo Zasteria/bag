@@ -35,3 +35,17 @@ CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_DESC              pdx_data_localize.cpp:
 CUSTOM_SEARCH_FILTER_LOCATION_PROVINCE_RAW_GOODS_DESC     pdx_data_localize.cpp:173 Data error in loc string, 104x at 22:05:49
 CUSTOM_SEARCH_FILTER_DESTINATION_GOODS_DESC               not seen this run — the trade panel was never opened — but written the same way as the five above
 integrate_area_action_progress_tooltip        cabinet_action.cpp:263 String contains "Cabinet.", which will not work. Use SCOPE.sCabinet('cabinet')
+
+# Round two — the hour-long run of 2026-08-24 (evening), once the first fix had
+# cleared enough of the log to see past it.
+RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST          pdx_data_localize.cpp:173, 93x — 13 950 FetchData lines behind it, the largest single source of the run
+FILTER_BY_GOODS                               pdx_data_localize.cpp:173, 52x — 3 866 FetchData lines
+MARKET_SURPLYS_INFO                           pdx_data_localize.cpp:173, 22x — 1 650 FetchData lines
+EST_SATISFACTION_TITLE                        pdx_gui_localize.cpp:140, 2x — 222 FetchData lines, promote 'ESTATE' where the panel supplies 'Estate'
+ALERT_HAS_UNMARRIED_CHILDREN                  pdx_data_factory.cpp:1424 Could not find data system function 'IsFemale' in 'COUNTRY.GetGovernment.IsFemale', 524x
+THIRD_DESTROY_BUILDING_EFFECT                 pdx_data_callstack.cpp:53 Promote 'TARGET_BUILDING' returned nullptr, 392x
+DESTROY_BUILDING_EFFECT                       pdx_data_callstack.cpp:53 Promote 'TARGET_BUILDING' returned nullptr, 246x
+THIRD_ADD_TEMPORARY_DEMAND_EFFECT             pdx_data_callstack.cpp:17 no context for 'TARGET_MARKET.GetCenterLocation.Custom', 68x
+DIED_TODAY                                    pdx_data_callstack.cpp:53 Promote 'CHARACTER' returned nullptr, 150x
+integrate_province_action_progress_long_wordier  pdx_data_callstack.cpp:340 New data types does not contain a 'Cabinet' data context, 12x
+PAST_REMOVE_TOLERATED_CULTURE_EFFECT          pdx_data_factory.cpp:1424 Could not find data system function 'GetAdjective' in 'TARGET_CULTURE.GetAdjective', 2x

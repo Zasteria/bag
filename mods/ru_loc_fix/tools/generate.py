@@ -53,6 +53,7 @@ import locscan  # noqa: E402
 FIXES = MOD / "fixes"
 REWRITES = FIXES / "rewrites.txt"
 OBSERVED = FIXES / "observed.txt"
+EXPAND = FIXES / "expand.txt"
 OUT = MOD / "main_menu/localization/russian/bag_ruloc_generated_l_russian.yml"
 
 HEADER = """\
@@ -125,6 +126,51 @@ def read_literals(directory: Path) -> dict[str, tuple[str, Path, int]]:
     return values
 
 
+def read_expand(path: Path) -> list[str]:
+    """Keys whose `$helper$` references are to be written out in place."""
+    if not path.exists():
+        return []
+    keys = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.split("#", 1)[0].strip()
+        if stripped:
+            keys.append(stripped)
+    return keys
+
+
+def expand_refs(value: str, russian: dict[str, locscan.Entry]) -> tuple[str, list[str]]:
+    """Replace every `$helper$` that carries data functions with the helper itself.
+
+    One level only, and the caller checks the result: an expansion that leaves
+    another such reference behind has to be looked at by a person, because the
+    helper it pulled in is a `#TOOLTIP:` wrapper and inlining that would put
+    commas inside a markup parameter list.
+
+    A reference carrying a formatter (`$key|l$`) is left alone — the formatter
+    applies to the substituted text as a whole and there is no telling from here
+    whether that survives being spread across seventy five data functions.
+    """
+    problems: list[str] = []
+
+    def one(match: re.Match) -> str:
+        name = match.group(1)
+        formatter = match.group(2)
+        target = russian.get(name)
+        if not target or not locscan.DATA_BLOCK.search(target.value):
+            return match.group(0)
+        if formatter:
+            problems.append("$%s%s$ carries a formatter" % (name, formatter))
+            return match.group(0)
+        return target.value
+
+    out = re.sub(r"\$([A-Za-z0-9_.\-]+)(\|[^$]*)?\$", one, value)
+    for name in locscan.KEY_REF.findall(out):
+        target = russian.get(name)
+        if target and locscan.DATA_BLOCK.search(target.value):
+            problems.append("$%s$ is still there after one pass" % name)
+    return out, problems
+
+
 def read_observed(path: Path) -> dict[str, str]:
     """Keys the game itself reported broken, and the line that reported them."""
     seen: dict[str, str] = {}
@@ -142,6 +188,7 @@ def main() -> int:
     flagged = {f.key: f for f in locscan.scan(russian, english, locscan.HARD)}
     observed = read_observed(OBSERVED)
     rewrites = read_rewrites(REWRITES)
+    expand = read_expand(EXPAND)
     literals = read_literals(FIXES)
     additions: dict[str, tuple[str, Path, int]] = {}
     add_path = FIXES / ADDITIONS
@@ -157,7 +204,7 @@ def main() -> int:
     # Rewrites, against every key a hard rule flags. A pair that changes nothing
     # on any key is dead weight and worth knowing about, so they are counted.
     used = {pair: 0 for pair in rewrites}
-    for key in sorted(set(flagged) | set(observed)):
+    for key in sorted(set(flagged) | set(observed) | set(expand)):
         if key not in russian:
             continue
         value = russian[key].value
@@ -168,6 +215,10 @@ def main() -> int:
             if pattern in value:
                 value = value.replace(pattern, replacement)
                 used[pair] += 1
+        if key in expand:
+            value, problems = expand_refs(value, russian)
+            for problem in problems:
+                complaints.append("expanding %s: %s" % (key, problem))
         if value != russian[key].value:
             fixed[key] = value
     for (only, pattern, _, why), count in used.items():

@@ -473,3 +473,37 @@ key: integrate_area_action_progress_tooltip
 why: the game says this one outright at load — `String contains "Cabinet.", which will not work. Use SCOPE.sCabinet('cabinet')`. The English key was migrated and the Russian one was not. Other keys keep `[Cabinet.` and are fine; only a cabinet action's *tooltip* runs in a scope where the promote is unavailable.
 from: #W [Cabinet.GetActionNumProgress|%]
 to: #W [SCOPE.sCabinet('cabinet').GetActionNumProgress|%]
+
+
+# ===========================================================================
+# Round two — what the hour-long run of 2026-08-24 (evening) showed once the
+# first fix had cleared the log enough to see past it.
+# ===========================================================================
+
+key: RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST
+why: the helper this key references is the `#TOOLTIP:`-wrapped one, which cannot be written out inline — commas inside a markup parameter list. The plain variant declines the name the same way and only loses the hover tooltip, which the price in brackets right after already stands in for.
+from: $GOODS_GetName_RU_GEN_lower$
+to: $GOODS_GetNameWithNoTooltip_RU_GEN_lower$
+
+key: EST_SATISFACTION_TITLE
+why: the estate panel supplies `Estate`, not `ESTATE` — the English key says `[Estate.GetNameWithNoTooltip]`. The Russian reached for the uppercase helper, whose seventy five tests all promote `ESTATE`. The mixed-case helper is the same text against the right promote.
+from: $ESTATE_GetNameWithNoTooltip_RU_GEN_lower$
+to: $Estate_GetNameWithNoTooltip_RU_GEN_lower$
+
+why: `Government` has no `IsFemale`; the ruler does. The game says so outright — `Could not find data system function 'IsFemale' in 'COUNTRY.GetGovernment.IsFemale'` — 524 times in one hour, from a standing alert.
+from: COUNTRY.GetGovernment.IsFemale
+to: COUNTRY.GetGovernment.GetRuler.IsFemale
+
+why: `TARGET_BUILDING` is not a promote — the effect describes a building *type*, and the English keys say `TARGET_BUILDING_TYPE`. `Promote 'TARGET_BUILDING' returned nullptr`, 638 times.
+from: TARGET_BUILDING.GetName
+to: TARGET_BUILDING_TYPE.GetName
+
+key: THIRD_ADD_TEMPORARY_DEMAND_EFFECT
+why: `TARGET_MARKET` is not supplied here; the same string already uses `MARKET` for the market's own name, and the English key uses only that.
+from: TARGET_MARKET.GetCenterLocation
+to: MARKET.GetCenterLocation
+
+key: integrate_province_action_progress_long_wordier
+why: the same `Cabinet.` promote the game refuses in a cabinet action's strings, and the same replacement it names.
+from: [Cabinet.GetActionNumProgress|%]
+to: [SCOPE.sCabinet('cabinet').GetActionNumProgress|%]
