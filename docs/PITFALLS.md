@@ -195,6 +195,34 @@ a perfectly ordinary type that no English string happens to mention. Check the
 engine's `dump_data_types` before calling a name invented — the same rule that
 applies to effects and triggers.
 
+**Three samples of a performance log cannot tell a leak from a warm-up.** The
+first reading of `performance_degradation.log` had memory climbing 280 MB a
+minute and concluded the game was heading for swap. An hour of the same log says
+otherwise: the working set peaks at 14.7 GB and then falls under 7 GB. What
+actually grows without limit is the GUI widget count and the frame time. Read the
+whole run before naming a cause; the file is a few kilobytes and there is no
+excuse.
+
+**`Failed parsing localized text` in `gui.log` at frontend load says nothing
+about the game.** Seventeen of them, all at one timestamp, sixteen seconds before
+the mod's localization is merged — the frontend parses vanilla's value on the way
+past. Check the timestamp against the `pdx_localize.cpp:257` lines that mark the
+merge before believing that list.
+
+**Fixing the loudest error is how you find the second loudest.** Five keys were
+34 225 of 39 289 lines and hid everything else, including three keys with exactly
+the same fault that had never once appeared in a log. There is no way to reach
+those by reading files: nothing separates the ninety keys that reference a
+declension helper from the ten that fail. Expect a fix of this kind to take more
+than one round, and treat the second log as the point of the first fix.
+
+**Closing a bracket turns a parse error into a scope error.** `lieutenancy_tt`
+never rendered because of an unbalanced bracket; with the bracket closed it
+renders, and now the two `Custom()` calls inside it can be seen failing on a
+scope that is not a country. The fix was still right — but a key that starts
+working starts reporting, and a rise in a different error is not automatically a
+regression.
+
 ## The reference tree changes under you
 
 **A folder name in `reference/mods/` is not a fact.** The owner refreshes these

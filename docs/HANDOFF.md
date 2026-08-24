@@ -32,17 +32,43 @@ patch that rewrites the sentence keeps the repair. It runs from
 **Untested.** How to test it is in the mod's README: read `error.log`, not the
 screen.
 
-**What still errors after it, and what each would need.** Roughly 4 500 lines
-survive, in this order of size:
+**Confirmed in game, 2026-08-24.** An hour of play with the mod loaded: not one
+`CUSTOM_SEARCH_FILTER` line in the log, and the burst that used to rotate
+`error.log` five times inside one second is gone. The rate fell from 39 289
+errors in three minutes to 35 455 in an hour — about twenty times fewer per
+minute — and the log is legible for the first time.
 
-| | lines | what it would take |
+What that legibility bought was round two. The same fault turned out not to be
+confined to filter strings: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` (13 950
+lines), `FILTER_BY_GOODS` (3 866) and `MARKET_SURPLYS_INFO` (1 650) took their
+place, each reaching a Russian case through `$GOODS_..._RU_*$`. Eleven more keys
+are fixed for the next run; the mod is at 162.
+
+**Round two keeps the grammar.** The first fix replaced declined forms with
+nominatives. This one does not have to: the same strings hold the promote both
+ways — `RGO_BUILD` has `[GOODS.GetDefaultMarketPrice]` inline, which works, next
+to `$GOODS_GetName_RU_GEN_lower$`, which does not — so the scope is present and
+it is the *reference* that loses it. `fixes/expand.txt` writes the helper out
+inside the key, seventy five `AddTextIf` tests and all.
+
+**What still errors, and what each would need.** After round two lands, roughly
+12 000 lines an hour should remain, and almost none of it is localization:
+
+| | lines/hour | what it would take |
 | --- | --- | --- |
-| `common/customizable_localization/ru_EU5_custom_loc.txt` — `location_rank` returning an invalid object on four consecutive lines, and `longname_ru_GEN` / `CL_tt` / `CL_ACC` finding no entry for a country | 484 + 804 in `game.log` | **the file.** `common/customizable_localization/` is not in `reference/`; ask the owner to add it |
-| `ForeignCountryView` evaluated with no view context | 1 497 | vanilla's own `foreign_country_lateralview.gui`, which Glorp UI copies verbatim — the bug is Paradox's and fixing it means carrying a copy of a large `.gui`, which this repository avoids |
-| character nicknames: `Select_CString(Character.IsFemale, …)` given a `Container` | 64 | unknown. The same 180 keys work everywhere else, so it is one caller, and nothing in the log says which |
-| `gui/glorpUI_country_header.gui` — a widget positioned inside a layout | 18 | the file, which is in neither the reference copy of Glorp UI nor this repository |
-| `D008_pronoia` at the main menu, an unknown formatting tag `v!.`, an input stack context, an audio arena | ~35 | each too small to chase, and none of them ours |
-| other mods' scripts: National Destinies `common/formable_countries/99_nd_dnm.txt:71` asks a ruler for a dynasty it may not have; `common/subject_types/000_new_dominion.txt:67`; `common/scripted_effects/OGAS_proximity.txt:62` | 9 | their authors', not ours — worth reporting upstream |
+| `ForeignCountryView` evaluated with no view context | 5 118 | vanilla's own `foreign_country_lateralview.gui`, which Glorp UI copies verbatim — the bug is Paradox's, and fixing it means carrying a copy of a large `.gui` |
+| `ActionGroup.GetActions` at `gui/shared/cards.gui:2363` | 2 476 | the same: a vanilla `.gui` |
+| `longname_ru_GEN` finding no entry for a country, in `game.log` | 4 108 | **nothing.** The file is in the tree now and the fault is not in it: `country_ru_flavor` ends in a `fallback = yes` entry and every one of its 218 suffixed keys exists, so the object being passed is an invalid country and that is the caller's doing |
+| character nicknames: `Select_CString(Character.IsFemale, …)` given a `Container` | ~1 300 | unknown. The same 180 keys work everywhere else, so it is one caller and nothing in the log says which |
+| `Custom()` handed a location where it wants a country, in `debug.log` | ~390 | unattributed. New in the second run, but the shape (`predlog_vvo`, `CL_tt`, `CL_tt`, `CL_PREP` in that order, 98 times over) matches no key this mod touches |
+| other mods' scripts, `D008_pronoia`, an audio arena, an input stack | ~50 | their authors', not ours |
+
+The `location_rank` errors of the first run — 484 lines — did not recur. If they
+come back: `LR_GEN` and its four siblings in
+`in_game/common/customizable_localization/ru_EU5_custom_loc.txt` test
+`location_rank = location_rank:x` with no fallback, so a location that has no
+rank at all falls through. That file is 49 653 lines and overriding it wholesale
+to add one fallback is not worth it.
 
 **`goods_target/` — paused, half working, four faults known.** An addon to
 Construction Manager: build the producers of goods you tick until they are as
@@ -138,40 +164,56 @@ owner stopped wanting it; the reason it did not work was never established,
 because it was never tested. What it is worth knowing about it is in
 [Why it failed](#why-where_to_produce-failed), below.
 
-## The memory leak
+## The slowdown
 
-Separate from the localization, and not solved. Recorded here because the next
-session will otherwise re-derive it from the same logs.
+Separate from the localization, and not solved. Two runs have been measured; the
+second corrected the first.
 
 **What is measured.** `performance_degradation.log` is the game's own sampler,
-one row per 3 600 rendered frames. In the run of 2026-08-24 the two in-game
-intervals both show GUI widgets climbing by 26 550 and 33 877 — seven to nine
-widgets per frame — and the process gaining about 280 MB a minute, while the
-average frame time stays flat at 14–15 ms. The numbers are in
-[`TESTLOG.md`](TESTLOG.md#2026-08-24--logs-from-a-live-game-eu5-1311).
+one row per 3 600 rendered frames. The hour-long run of 2026-08-24 gives 55 rows,
+and they say this:
 
-**What that means.** The slowdown the player describes is not the renderer. It is
-the process growing until the machine swaps: 12.4 GB right after load, 20.5 GB
-of free RAM at launch, ~280 MB a minute. Reloading frees it, which is why
-reloading is the cure.
+| | after load | after an hour |
+| --- | --- | --- |
+| GUI widgets | 38 281 | **294 013** |
+| average frame time | 14.1 ms | **21.4 ms** |
+| memory, working set | 13.4 GB | 6.9 GB — *down* |
+| memory, virtual | 19.7 GB | 23.5 GB |
 
-**What is not known.** Which widget. Nothing in the logs names it, and none of
-this repository's mods was on screen during the leak — the player was on the map
-and never opened Goods Target or the Mod Menu. The always-visible UI is the place
-to look, and Glorp UI replaces most of it.
+**Frame time is the slowdown, and the widget count is what tracks it.** 70 frames
+a second becomes 47 over an hour, while the widgets go up eightfold and never
+come back down. Nothing else in the sampler moves with it.
 
-**The cheapest next step, and it is cheap.** The game counts the widgets for us,
-so this needs no instrumentation at all:
+**The first run's reading was wrong and is corrected here.** Three minutes of
+data showed memory climbing 280 MB a minute, and the obvious story was a leak
+running the machine out of RAM. An hour of data kills that: the working set peaks
+at 14.7 GB around the twenty-eighth minute, then falls under 7 GB and stays
+there. Windows reclaims it. What grows without limit is the widget count and the
+virtual size. Three samples could not tell a leak from a warm-up, and that lesson
+is worth more than the mistake: on this log, read the whole run.
 
-1. Start a game, sit on the map without opening anything for about three minutes,
-   quit. Read the `GUI widgets` column of `performance_degradation.log`.
-2. Do the same with Glorp UI and its two `glorpui_*` addons disabled.
+**It is bursty, not continuous.** Several intervals add zero widgets — nothing at
+all across 3 601 frames at t=1291, again at t=1345, at t=2539 and at t=2604 — and
+a few go slightly negative, so widgets *are* released sometimes and the counter is
+live. Growth arrives in steps of two to ten thousand. The leak is therefore tied
+to something the player does, not to time passing, and what to look for is a
+window that leaves widgets behind when it closes.
 
-If the slope goes flat, it is Glorp UI, and the next question is which of its
-always-visible windows. If it does not, the same two runs against CMF, then
-against the rest, cut the list in half each time. One number, two runs, no
-guessing — this is the shape the `where_to_produce` failure should have taught us
-to use.
+**What is not known.** Which window. None of this repository's mods was on screen
+for it — Goods Target and the Mod Menu were never opened.
+
+**The cheapest next step.** The game counts the widgets for us, so this needs no
+instrumentation at all:
+
+1. Start a game, sit on the map without opening anything for about five minutes,
+   quit. Read the `GUI widgets` column. It should barely move — and if it moves
+   anyway, the leak is not panel-driven and this whole reading is wrong.
+2. Start again and open and close one panel twenty times, then quit, and compare.
+   A panel that leaks shows it immediately at that rate.
+3. Failing that, one run with Glorp UI and its two `glorpui_*` addons disabled,
+   same five minutes, same column.
+
+One number per run, and each run rules something out.
 
 **One thing noticed in passing.** The game complains about
 `gui/glorpUI_country_header.gui`, and no such file exists anywhere under the
@@ -179,7 +221,6 @@ Glorp UI copy in the reference tree (`python3 tools/refs.py --path glorp` says
 where that is). Either the installed Glorp UI is newer than the copy here, or the
 file belongs to one of the two local `glorpui_*` mods, which are not in this
 repository at all. Worth resolving before blaming Glorp for anything.
-
 
 ## Where to check things
 

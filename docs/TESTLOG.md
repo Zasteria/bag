@@ -209,6 +209,47 @@ with the game's own counter, and is **not** attributed to anything yet — see
 [HANDOFF](HANDOFF.md#the-memory-leak) for the next step, which is two short
 runs and one number.
 
+### 2026-08-24 (evening) — `ru_loc_fix` in game, an hour of play
+
+**The first thing this repository has fixed that the log can confirm.**
+
+**Loaded:** the same playset as the morning run, with `ru_loc_fix` added at the
+top. No time-acceleration mod this time; the player notes the game degrades
+without it too, and that the mod exists to paper over exactly this.
+
+**Expected:** no `FetchData failed for 'AddTextIf(EqualTo_string(` from the five
+search-filter strings, and no burst at load.
+**Observed:** zero. Not one `CUSTOM_SEARCH_FILTER` line anywhere in
+`error.log`, `gui.log` or `game.log`. The 31 350-lines-in-one-second burst is
+gone and `error.log` no longer rotates itself out of existence at startup.
+**Rate:** 39 289 errors in three minutes became 35 455 in an hour — about twenty
+times fewer per minute.
+
+**And the log became readable, which was the other half of the point.** Three
+keys nobody could see before now stand at the top, all with the same fault the
+filters had: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` 13 950 lines,
+`FILTER_BY_GOODS` 3 866, `MARKET_SURPLYS_INFO` 1 650. So the fault was never
+about filter strings; it is about reaching a Russian case through
+`$GOODS_..._RU_*$` from a panel where the reference loses the scope. Round two
+fixes those and eight more.
+
+**One thing the run settled that no amount of reading could.** `gui.log` still
+lists seventeen `Failed parsing localized text` lines for keys this mod repairs
+— and they are all stamped 23:12:33, sixteen seconds *before* the mod's
+localization is merged at 23:12:49. They are the frontend pass parsing vanilla's
+value. None of the seventeen appears again anywhere in the run. So a
+`Failed parsing localized text` at frontend load is not evidence of anything
+being broken in game.
+
+**Verdict:** the approach works and the tooling around it works. What it cannot
+do is tell in advance *which* of the ninety-odd keys that reference a declension
+helper will fail; only a run says that, which is what `fixes/observed.txt` is for.
+
+**Still not checked by eye:** whether the repaired sentences read correctly on
+screen. The log says they no longer fail; it does not say the Russian is right.
+The quickest look is a religion tooltip (harmony, purity, honor) and the goods
+filter chips in a location's buildings panel.
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:
