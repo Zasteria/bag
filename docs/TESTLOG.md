@@ -155,6 +155,217 @@ leaving only buildings that gain efficiency from raw materials in the province.
 run, and the mod was removed. See
 [`HANDOFF.md`](HANDOFF.md#why-where_to_produce-failed).
 
+### 2026-08-24 — logs from a live game, EU5 1.3.11
+
+The player sent a full `logs/` after a short session: main menu at 22:02, game
+from 22:05:17 to 22:08:32, Sweden, the playset below. Nothing was being tested;
+the question was where the errors come from and why the game slows down the
+longer it runs. Both were answered from the files, so this is the most useful
+run in this log so far.
+
+**Loaded:** Community Mod Framework, Autonomous Diplomats, Construction Manager,
+Goods Target, Glorp UI + two local `glorpui_*` addons, Quality of Life by Buddy,
+Integration Hotfix, Please Buy My Terrible Art, National Destinies + Nation
+Destinies Rus + `nd_ru`, OGAS Optimized, `auto_build_ru`, `rgo_bonus_filter`,
+`sheep_farm_food`. Game in Russian.
+
+**Observed — errors.** 39 289 lines across `error.log` and its five rotations.
+
+| source | lines |
+| --- | --- |
+| the game's own Russian localization | 34 700 (88%) |
+| `ForeignCountryView` with no context, vanilla GUI | 1 497 |
+| `location_rank` in `common/customizable_localization/ru_EU5_custom_loc.txt` | 484 |
+| everything else | ~2 600 |
+
+**31 350 of those were written in the single second 22:05:49**, all from five
+search-filter strings, and they rotated `error.log` five times over. Every error
+the game produced before that second is gone. That alone is a reason to fix
+them: the log is unusable for anything else while they are there.
+
+`game.log` carries 804 more the error log never sees — `Object of type
+'country' is not valid for 'longname_ru_GEN'` (576), `'CL_tt'` (152), `'CL_ACC'`
+(76) — all from the same custom localization file.
+
+**Observed — the slowdown.** `performance_degradation.log` samples every 3 600
+rendered frames, and the two in-game intervals are unambiguous:
+
+| | frames | GUI widgets | memory |
+| --- | --- | --- | --- |
+| after load | — | 37 768 | 12 675 MB |
+| +1 sample | 3 601 | 64 318 (+26 550) | 12 977 MB (+301) |
+| +1 sample | 3 601 | 98 195 (+33 877) | 13 214 MB (+237) |
+
+Seven to nine GUI widgets and roughly 280 MB per minute, steadily, while the
+frame time itself stays flat at 14–15 ms. So the degradation the player
+describes is not the renderer giving up: it is the process growing until the
+machine runs out of memory. It starts at 12.4 GB and gains ~280 MB a minute, and
+the machine had 20.5 GB free at launch — about an hour and a quarter to
+swapping. Reloading the save frees it, which is exactly what the player reports.
+
+**Verdict:** the errors are the game's, not the mods'; `ru_loc_fix` is the
+answer to 88% of them. The leak is a separate fault, is real, is measurable
+with the game's own counter, and is **not** attributed to anything yet — see
+[HANDOFF](HANDOFF.md#the-memory-leak) for the next step, which is two short
+runs and one number.
+
+### 2026-08-24 (evening) — `ru_loc_fix` in game, an hour of play
+
+**The first thing this repository has fixed that the log can confirm.**
+
+**Loaded:** the same playset as the morning run, with `ru_loc_fix` added at the
+top. No time-acceleration mod this time; the player notes the game degrades
+without it too, and that the mod exists to paper over exactly this.
+
+**Expected:** no `FetchData failed for 'AddTextIf(EqualTo_string(` from the five
+search-filter strings, and no burst at load.
+**Observed:** zero. Not one `CUSTOM_SEARCH_FILTER` line anywhere in
+`error.log`, `gui.log` or `game.log`. The 31 350-lines-in-one-second burst is
+gone and `error.log` no longer rotates itself out of existence at startup.
+**Rate:** 39 289 errors in three minutes became 35 455 in an hour — about twenty
+times fewer per minute.
+
+**And the log became readable, which was the other half of the point.** Three
+keys nobody could see before now stand at the top, all with the same fault the
+filters had: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` 13 950 lines,
+`FILTER_BY_GOODS` 3 866, `MARKET_SURPLYS_INFO` 1 650. So the fault was never
+about filter strings; it is about reaching a Russian case through
+`$GOODS_..._RU_*$` from a panel where the reference loses the scope. Round two
+fixes those and eight more.
+
+**One thing the run settled that no amount of reading could.** `gui.log` still
+lists seventeen `Failed parsing localized text` lines for keys this mod repairs
+— and they are all stamped 23:12:33, sixteen seconds *before* the mod's
+localization is merged at 23:12:49. They are the frontend pass parsing vanilla's
+value. None of the seventeen appears again anywhere in the run. So a
+`Failed parsing localized text` at frontend load is not evidence of anything
+being broken in game.
+
+**Verdict:** the approach works and the tooling around it works. What it cannot
+do is tell in advance *which* of the ninety-odd keys that reference a declension
+helper will fail; only a run says that, which is what `fixes/observed.txt` is for.
+
+**Still not checked by eye:** whether the repaired sentences read correctly on
+screen. The log says they no longer fail; it does not say the Russian is right.
+The quickest look is a religion tooltip (harmony, purity, honor) and the goods
+filter chips in a location's buildings panel.
+
+### 2026-08-25 — the widget experiment, five blocks on one save
+
+The protocol from [`HANDOFF.md`](HANDOFF.md#the-slowdown), run by the player on a
+loaded 1362 save: paused throughout except the last block, two minutes per
+activity, a short unpaused skip between blocks so the in-game date separates
+them in the log. One sampler row is 3 601 frames, about fifty seconds here.
+
+Only intervals *inside* one block are counted; a row whose date differs from the
+row before it spans the skip as well and is thrown out.
+
+| block | what was done | widgets | per frame |
+| --- | --- | --- | --- |
+| 1 | paused, hands off | **+0, +0, +0** | **0.00** |
+| 2 | clicking countries, opening diplomacy | +20 099 | +1.86 |
+| 3 | clicking locations, opening the build panel | +3 178 | +0.29 |
+| 4 | cycling map modes | +32 254 | +1.49 |
+| 5 | speed 7, panning the map, dismissing events | +27 566 in one row | — |
+
+**Three findings, and the first two are settled.**
+
+**Idle costs nothing at all.** Not "little" — three consecutive rows of exactly
++0 across 10 800 frames. Every widget this game accumulates is created by
+something the player did. (The first row of block 1 adds 9 624; that is the
+interface finishing its build after the save loaded, not idling.)
+
+**Widgets *are* released — but only on teardown.** Quitting the 1337 game at the
+start of the run took the count from 38 281 to 2 618 to 367 in two rows. Nothing
+comparable happens during play: the largest fall inside the session is −557.
+
+**It is not one window.** That was the hypothesis and it is wrong. Diplomacy
+panels and map modes leak at comparable rates — 1.86 and 1.49 widgets a frame,
+ten to seventeen thousand per fifty seconds of clicking — and the location panel
+leaks too, six times slower but never zero. Whatever is failing to release is
+shared by most of the interface, so bisecting panels further is a dead end.
+
+**A caveat about frame time, and it matters.** This run stayed at 14 ms
+throughout, at 175 000 widgets, where the hour-long run was at 17–21 ms with the
+same count. The difference is that this run was paused for all but the last
+block, and a paused game does no simulation. So this run says nothing about the
+frame-time cost of widgets; it was designed to measure accumulation and that is
+all it measured.
+
+**What it rules out for this repository:** `rgo_bonus_filter` adds to the
+location panel, and the location panel is the *lightest* of the three. Nothing
+of ours is implicated.
+
+**Next:** the remaining axis is mods against vanilla, and one run settles it —
+see [`HANDOFF.md`](HANDOFF.md#the-slowdown).
+
+### 2026-08-25 — vanilla against the full playset, and the case closes
+
+The run before this one left one question: is the widget leak the mod set or the
+base game. This run answers it, and the answer is the base game.
+
+**What the file shows happened.** One process, two games. The first is the full
+playset — 37 768 widgets at 1337_04_01, 449 Gfx units, 843 trade wagons, the same
+three numbers to the unit as every modded run in this log. Then a return to the
+main menu, the playset changed, and a second new game: 36 977 widgets, 448 Gfx
+units, **713** trade wagons. A genuinely different and lighter data set, so the
+mods really did come off. (EU5 reloads a playset in place; the process never
+restarted.)
+
+**The same activity, both sides:**
+
+| | idle, paused | clicking countries and opening diplomacy |
+| --- | --- | --- |
+| full playset (1362 save) | +0 | +20 099 over 10 803 frames = **+1.86/frame** |
+| mods off (1337 start) | +0 | +21 472 over 10 803 frames = **+1.99/frame** |
+
+**Vanilla leaks at the same rate — slightly faster, if anything.** The two sides
+are not perfectly matched (a 1362 save knows more countries than a 1337 start),
+but the magnitudes are identical and the idle baseline is exactly zero in both.
+Nothing in the playset causes this, and nothing in this repository can fix it.
+
+**Confirmed again, twice in one file: the main menu releases everything.**
+Leaving a game took widgets from 37 768 to 2 618 to 364 — the same 364 the
+process starts with — and memory from 12 952 MB to 9 951 MB, which is what it
+was before any game was loaded. So quitting to the main menu and loading the save
+again is worth exactly as much as restarting the executable, and costs a
+fraction of the time.
+
+**Verdict:** a base-game defect, measured and quantified. The measurement is
+finished — but the investigation is *not*, and the owner said so plainly when
+this entry first ended with "so file a bug report". They already knew it was
+vanilla. What is wanted is a lever from the mod side, or evidence that there is
+none. The lead and the next run are in
+[`HANDOFF.md`](HANDOFF.md#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever).
+
+## Waiting on a run
+
+The next session should start here rather than designing anything new. Both of
+these are prepared, both are cheap, and the owner has agreed to do the first.
+
+**The hover test, and the tooltip settings with it.** One session, one save,
+paused throughout. Two minutes sweeping the mouse over the map and top bar with
+**no clicks**; then Settings → Tooltip Settings with `Map Tooltips` set to
+Disabled and both delays at maximum; then the same two minutes again. Send
+`performance_degradation.log`. What each outcome means is in
+[`HANDOFF.md`](HANDOFF.md#the-candidate-and-it-doubles-as-the-fix) — read it
+before asking for anything else, because the losing branch has its own next test
+already written and it is not this one repeated.
+
+**`ru_loc_fix` round two — eleven keys and four expansions, never in game.**
+Round one is confirmed; round two is not. It is checked from the log, not the
+screen: after any run, `error.log` should no longer carry
+`RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`, `MARKET_SURPLYS_INFO`,
+`ALERT_HAS_UNMARRIED_CHILDREN`, `THIRD_DESTROY_BUILDING_EFFECT` or
+`DESTROY_BUILDING_EFFECT`. Any ordinary hour of play tests it; no special
+protocol is needed, so it can ride along with the hover run.
+
+**And one thing only eyes can check.** Whether the repaired Russian *reads*
+correctly. The log says those keys no longer fail; it does not say the sentences
+are right. Quickest look: a religion tooltip (harmony, purity, honor), the goods
+filter chips in a location's buildings panel, and the price line in the build
+panel.
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:

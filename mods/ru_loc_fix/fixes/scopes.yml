@@ -1,0 +1,48 @@
+l_russian:
+# Keys that reach for something that is not in scope where they are used.
+
+# `TOWN_RIGHTS` is not a promote; the advance unlocks a *type* of town right,
+# and the English key says so. The game answers `Promote 'TOWN_RIGHTS' returned
+# nullptr` and drops the whole line.
+ UNLOCKS_TOWN_RIGHTS:0 "$ICON$ Открывает [Concept('town_rights', 'городские права')|e] типа «[TOWN_RIGHTS_TYPE.GetName]»"
+
+# The first half of this tooltip says `Location`, the second says `LOCATION`.
+# Only the first is the scope the tooltip runs in; the uppercase promote is not
+# available and takes the province name with it.
+ SIMPLE_PROVINCE_ICON_STATE_CAPITAL_TOOLTIP:0 "[Location.GetName] — [Concept('province_capital_wth_icon', 'столица провинции')|e] @province! [Location.GetProvince.GetName]."
+
+# An estate's opinion, written with the goods custom localization — a
+# copy-and-paste that left `$GOODS_GetNameWithNoTooltip_RU_ACC_lower$` where the
+# English key has `[ESTATE.GetNameWithNoTooltip]`. There is no declined form of
+# an estate name to be had, so the sentence is turned around to take the
+# nominative.
+ ESTATE_OPINION_OF:0 "[ESTATE.GetNameWithNoTooltip] — мнение о державе [TARGET_COUNTRY.GetNameWithNoTooltip]: $VAL$"
+
+# `target_character` is an event's saved scope and means nothing in the
+# mercenary panel. The English key says `Character`, which is what the panel
+# supplies.
+ CURRENT_MERCENARY_SELECTION:0 "[Character.GetNameWithNoTooltip] — нанять"
+
+# `CL_GEN` and `CL_DAT` are country custom localizations. A colonial charter is
+# not a country and a loan is not a country, so both return nothing.
+ COLONIAL_MAINTENANCE_FOR_COLONY_HEADER:0 "Содержание колоний на территории [ColonialCharter.GetNameWithNoTooltip]"
+ LOAN_BUTTON_TEXT:0 "Выплатить заём [Loan.GetNameWithNoTooltip]"
+
+# `Character.GetCombatModifierNoFormat` takes three arguments — the dump says
+# `( Arg0, Arg1, Arg2 )` — and the English key passes the third: whether this is
+# a naval battle. Two arguments do not parse.
+ TT_AVERAGE_DISCIPLINE_COMBAT_TEXT:0 "Дисциплина [CombatSide.GetCountry.Custom('CL_GEN')] в этой [Concept('battle', 'битве')|e] составляет [CombatSide.GetCommander.GetCombatModifierNoFormat(CombatSide.GetCountry, 'discipline', CombatSide.GetCombat.IsNavalCombat)|+2%]."
+
+# Round two — from the hour-long run of 2026-08-24 (evening).
+
+# `CHARACTER` is not supplied in the character list this label sits in, and the
+# English key has no gender in it at all: "Died today". The Russian added one and
+# pays for it 150 times an hour. There is no character to ask, so the sentence is
+# turned into one that needs no gender.
+ DIED_TODAY:0 "Смерть наступила сегодня"
+
+# `Culture` has no `GetAdjective` — the engine's dump gives it only `GetName` and
+# `GetNameWithNoTooltip`, and the game says `Could not find data system function
+# 'GetAdjective' in 'TARGET_CULTURE.GetAdjective'`. Adjective and its ending both
+# go; the name in quotes carries the sentence.
+ PAST_REMOVE_TOLERATED_CULTURE_EFFECT:0 "Культура «[TARGET_CULTURE.GetName]» исключена из числа [Concept('tolerated_culture', 'приемлемых')|E]"

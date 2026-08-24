@@ -1,0 +1,51 @@
+# Keys the game itself reported broken, with the line that reported it.
+#
+# The rules in locscan.py read the files; some faults only show when the string
+# is evaluated, against a scope the file cannot know about. This list is what a
+# run said, and it is what lets generate.py ship a fix for a key no rule flags.
+# Every line here comes from the logs of a real session — 2026-08-24, EU5
+# 1.3.11, the player's Russian playset. Do not add a key on reasoning alone.
+
+CUSTOM_SEARCH_FILTER_LOCATION_RANK_NAME       pdx_data_localize.cpp:173 Data error in loc string, 4x — "New data types does not contain a 'Location' data context"
+CUSTOM_SEARCH_FILTER_BUILDING_ONLY_POPTYPE_NAME  pdx_data_callstack.cpp:17 Promote 'POP' returned nullptr, 8x
+UNLOCKS_TOWN_RIGHTS                           pdx_data_callstack.cpp:17 Promote 'TOWN_RIGHTS' returned nullptr, 18x
+SIMPLE_PROVINCE_ICON_STATE_CAPITAL_TOOLTIP    pdx_gui_localize.cpp:140 PdxDataFetchLocalizedData failed, 6x — wanted a 'Container' for 'LOCATION.GetProvince.GetName'
+ESTATE_OPINION_OF                             reads $GOODS_GetNameWithNoTooltip_RU_ACC_lower$ where the English key reads [ESTATE.GetNameWithNoTooltip]; same fault as the five filter keys, on a panel this session never opened
+CURRENT_MERCENARY_SELECTION                   gui/setup_mercenary_requirements.gui:138 Failed parsing localized text
+COLONIAL_MAINTENANCE_FOR_COLONY_HEADER        gui/shared/geopolitics_tooltips.gui:526 Failed parsing localized text
+LOAN_BUTTON_TEXT                              gui.log Failed parsing localized text
+IO_PARLIAMENT_SUPPORT_TITLE                   gui/shared/io_tooltips.gui:728 Failed parsing localized text
+IO_PARLIAMENT_SUPPORT_TT                      gui/shared/io_tooltips.gui:733 Failed parsing localized text
+VOTE_IO_PARLIAMENT                            gui.log Failed parsing localized text
+VOTE_OF_COUNTRY                               gui/shared/io_tooltips.gui:265 Failed parsing localized text
+PARLIAMENT_DURATION_TXT                       gui.log Failed parsing localized text
+TT_AVERAGE_DISCIPLINE_COMBAT_TEXT             gui/shared/unit_overview_tooltips.gui:535 Failed parsing localized text
+EXPLORATION_CONSTRUCTION_FINISHED_WHEN        gui.log Failed parsing localized text
+LOCATION_FOOD_TT_TABLE_TITLE                  gui/shared/location_tooltips.gui:2147 Failed parsing localized text
+WAR_UNIT_TYPE_STATS_TT_LOSSES                 gui.log Failed parsing localized text
+HARMONY_TT_CURRENT_TEXT                       gui/shared/religion_tooltips.gui:433 Failed parsing localized text
+PURITY_TT_CURRENT_TEXT                        gui/shared/religion_tooltips.gui:564 Failed parsing localized text
+YANANTIN_TT_CURRENT_TEXT                      gui/shared/religion_tooltips.gui:498 Failed parsing localized text
+HONOR_TT_CURRENT_TEXT                         gui/shared/religion_tooltips.gui:785 Failed parsing localized text
+SELF_CONTROL_TT_CURRENT_TEXT                  gui/shared/religion_tooltips.gui:311 Failed parsing localized text
+CUSTOM_SEARCH_FILTER_BUILDING_ONLY_GOODS_NAME             pdx_data_localize.cpp:173 Data error in loc string, 154x at 22:05:49
+CUSTOM_SEARCH_FILTER_BUILDING_ONLY_INPUT_GOODS_NAME       pdx_data_localize.cpp:173 Data error in loc string, 73x at 22:05:49
+CUSTOM_SEARCH_FILTER_BUILDING_ONLY_INPUT_GOODS_DESC       pdx_data_localize.cpp:173 Data error in loc string, 73x at 22:05:49
+CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_DESC              pdx_data_localize.cpp:173 Data error in loc string, 52x at 22:05:49
+CUSTOM_SEARCH_FILTER_LOCATION_PROVINCE_RAW_GOODS_DESC     pdx_data_localize.cpp:173 Data error in loc string, 104x at 22:05:49
+CUSTOM_SEARCH_FILTER_DESTINATION_GOODS_DESC               not seen this run — the trade panel was never opened — but written the same way as the five above
+integrate_area_action_progress_tooltip        cabinet_action.cpp:263 String contains "Cabinet.", which will not work. Use SCOPE.sCabinet('cabinet')
+
+# Round two — the hour-long run of 2026-08-24 (evening), once the first fix had
+# cleared enough of the log to see past it.
+RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST          pdx_data_localize.cpp:173, 93x — 13 950 FetchData lines behind it, the largest single source of the run
+FILTER_BY_GOODS                               pdx_data_localize.cpp:173, 52x — 3 866 FetchData lines
+MARKET_SURPLYS_INFO                           pdx_data_localize.cpp:173, 22x — 1 650 FetchData lines
+EST_SATISFACTION_TITLE                        pdx_gui_localize.cpp:140, 2x — 222 FetchData lines, promote 'ESTATE' where the panel supplies 'Estate'
+ALERT_HAS_UNMARRIED_CHILDREN                  pdx_data_factory.cpp:1424 Could not find data system function 'IsFemale' in 'COUNTRY.GetGovernment.IsFemale', 524x
+THIRD_DESTROY_BUILDING_EFFECT                 pdx_data_callstack.cpp:53 Promote 'TARGET_BUILDING' returned nullptr, 392x
+DESTROY_BUILDING_EFFECT                       pdx_data_callstack.cpp:53 Promote 'TARGET_BUILDING' returned nullptr, 246x
+THIRD_ADD_TEMPORARY_DEMAND_EFFECT             pdx_data_callstack.cpp:17 no context for 'TARGET_MARKET.GetCenterLocation.Custom', 68x
+DIED_TODAY                                    pdx_data_callstack.cpp:53 Promote 'CHARACTER' returned nullptr, 150x
+integrate_province_action_progress_long_wordier  pdx_data_callstack.cpp:340 New data types does not contain a 'Cabinet' data context, 12x
+PAST_REMOVE_TOLERATED_CULTURE_EFFECT          pdx_data_factory.cpp:1424 Could not find data system function 'GetAdjective' in 'TARGET_CULTURE.GetAdjective', 2x

@@ -1,0 +1,509 @@
+# Repairs that are a search and replace.
+#
+# Every pair here is applied, in this order, to every key that a hard rule in
+# `locscan.py` flags. A key whose value changes and comes out clean is written
+# into the mod; a key that changes and is still broken makes `generate.py`
+# refuse, naming it. A pair that never matches anything is reported too — a
+# patch has moved the text out from under it.
+#
+# Prefer a rewrite over a literal wherever the repair is mechanical. A rewrite
+# keeps whatever prose Paradox ships today, so it survives them editing the
+# sentence; a literal freezes the sentence as it was the day it was written.
+#
+#   key:  <the one key this applies to; omit to apply it wherever it matches>
+#   from: <text to find>
+#   to:   <text to put there>
+#   why:  <what is wrong, and how we know>
+#
+# Leading and trailing spaces are stripped from both, so a pair cannot depend on
+# them. Lines starting with # are comments.
+
+
+# ---------------------------------------------------------------------------
+# Accessors that do not exist. `dump_data_types` lists every one the engine has
+# and none of these are in it; the correct spelling is the one the English key
+# of the same name uses.
+# ---------------------------------------------------------------------------
+
+why: `GetAdjectvive` — two letters transposed. `Country.GetAdjective` is the real one.
+from: .GetAdjectvive
+to: .GetAdjective
+
+why: `GetAdjectiveWitnNoTooltip` — n for h.
+from: .GetAdjectiveWitnNoTooltip
+to: .GetAdjectiveWithNoTooltip
+
+why: `GetAdjectiveWithNotooltip` — a lowercase t in Tooltip.
+from: .GetAdjectiveWithNotooltip
+to: .GetAdjectiveWithNoTooltip
+
+why: `GetAdjectiveNoTooltip` — the `With` was dropped.
+from: .GetAdjectiveNoTooltip
+to: .GetAdjectiveWithNoTooltip
+
+why: `GetNameWithNoToolip` — a missing t in Tooltip.
+from: .GetNameWithNoToolip
+to: .GetNameWithNoTooltip
+
+why: `GetGovernement` and `GetGovernnment` — both are `GetGovernment`.
+from: .GetGovernement
+to: .GetGovernment
+
+why: see above.
+from: .GetGovernnment
+to: .GetGovernment
+
+why: `GetCountryGetGovernment` — the dot between the two accessors was lost.
+from: .GetCountryGetGovernment
+to: .GetCountry.GetGovernment
+
+why: `GerHerHis` — r for t. The accessor is `GetHerHis`.
+from: .GerHerHis
+to: .GetHerHis
+
+why: `GetRuвler` carries a Cyrillic в in the middle of a Latin accessor name.
+from: .GetRuвler
+to: .GetRuler
+
+why: `GetEstateNameWith(` — an accessor name cut off mid-word. `Government.GetEstateName` takes the estate key.
+from: .GetEstateNameWith(
+to: .GetEstateName(
+
+why: `GetParliamentName` is not an accessor; the parliament is an object with a name of its own.
+from: .GetGovernment.GetParliamentName
+to: .GetGovernment.GetParliament.GetName
+
+why: `GetCapitalName` is not an accessor. Where the chain already reached the capital, only the name is missing.
+from: .GetCapital.GetCapitalName
+to: .GetCapital.GetName
+
+why: and where it did not, both steps are.
+from: .GetCountry.GetCapitalName
+to: .GetCountry.GetCapital.GetName
+
+why: `Construction.GetFinishedDate` does not exist; the English key uses `GetFinishedDateIncludingQueue`.
+from: .GetFinishedDate|V
+to: .GetFinishedDateIncludingQueue|V
+
+why: `GetRuler.GetFirstSpouse` — no such accessor. The consort hangs off the government, as the English key has it.
+from: .GetGovernment.GetRuler.GetFirstSpouse.
+to: .GetGovernment.GetConsort.
+
+why: a country has no `.Ruler`; the ruler is reached through the government.
+from: .GetLeaderCountry.Ruler.
+to: .GetLeaderCountry.GetGovernment.GetRuler.
+
+
+# ---------------------------------------------------------------------------
+# Roots that are not scopes.
+# ---------------------------------------------------------------------------
+
+why: `LocationFoodWrap` is nothing. `Location.GetTotalFoodConsumption` is what the English key calls.
+from: LocationFoodWrap.
+to: Location.
+
+why: `taget_character` — a slip for the saved scope `target_character`, used correctly elsewhere in the same event.
+from: taget_character.
+to: target_character.
+
+key: personality_events.23.d
+why: `arget_heir` — the t of `target_heir` was eaten by the `(` before it. Anchored on the call because `arget_heir` is a substring of the correct name.
+from: Select_CString(arget_heir.
+to: Select_CString(target_heir.
+
+why: `Rtarget_ruler` — a stray R in front of the saved scope `target_ruler`.
+from: Rtarget_ruler.
+to: target_ruler.
+
+
+# ---------------------------------------------------------------------------
+# `Custom()` asked of a string.
+#
+# `.Custom('CL_GEN')` asks a country for a custom localization. `GetName` has
+# already turned the country into text, and text cannot be asked anything, so
+# the whole key fails to parse. Dropping the name accessor is always the repair:
+# the custom localization produces the name itself, declined.
+# ---------------------------------------------------------------------------
+
+why: the country is already in hand; `GetName` in front of `Custom` throws it away.
+from: .GetName.Custom(
+to: .Custom(
+
+why: `GetName.GetName` — the same doubling, without a Custom after it.
+from: .GetName.GetName]
+to: .GetName]
+
+why: `GetCourt` is not an accessor, and `parliament_ru_GEN` is a country custom localization anyway.
+from: .GetCountry.GetCourt.Custom('parliament_ru_GEN')
+to: .GetCountry.Custom('parliament_ru_GEN')
+
+
+# ---------------------------------------------------------------------------
+# Custom localizations asked of the wrong scope.
+#
+# A custom localization declares the scope it runs in — `custom_localization.log`
+# in the game's own docs says which — and returns nothing when handed anything
+# else. These three call an international organization's custom localization on
+# its parliament.
+# ---------------------------------------------------------------------------
+
+why: `parliament_io_ru_*` is declared `Scope: international_organization`, not parliament.
+from: .GetInternationalOrganization.GetParliament.Custom('parliament_io_ru_
+to: .GetInternationalOrganization.Custom('parliament_io_ru_
+
+why: `Parliament.GetParliamentLocation` — the government has no such accessor, the parliament does.
+from: Player.GetGovernment.GetParliamentLocation.
+to: Player.GetGovernment.GetParliament.GetParliamentLocation.
+
+
+# ===========================================================================
+# Brackets.
+#
+# `[` opens a data function and `]` closes it. One that is never closed
+# swallows the rest of the line; one that closes nothing leaves the text in
+# front of it printed raw, `Concept(...)` and all. Either way the engine says
+# `Failed parsing localized text` and the player sees a fragment.
+#
+# Each of these is one key, because closing a bracket takes reading the
+# sentence: the repair is not "put a `]` at the end", it is "the translator
+# meant this much to be a data function".
+# ===========================================================================
+
+key: lieutenancy_tt
+why: the `[` in front of the modifier value was lost.
+from: меньше SCOPE.sCountry('actor').GetModifierValue(
+to: меньше [SCOPE.sCountry('actor').GetModifierValue(
+
+key: catholic_flavor.11.desc
+why: unclosed Select_CString before `должное почтение`.
+from: 'ей', 'ему') должное
+to: 'ей', 'ему')] должное
+
+key: ABANDON_COLONY_TT
+why: the second Concept lost its `[`.
+from: Concept('locations', 'районы')|e] на
+to: [Concept('locations', 'районы')|e] на
+
+key: ABANDON_COLONY_TT_NO_COST
+why: the same sentence, the same missing `[`.
+from: Concept('locations', 'районы')|e] на
+to: [Concept('locations', 'районы')|e] на
+
+key: START_COLONY_TT_NO_COST
+why: the same missing `[`, singular this time.
+from: Concept('locations', 'районе')|e] провинции
+to: [Concept('locations', 'районе')|e] провинции
+
+key: coup_attempt.7.desc
+why: Select_CString with no `[` in front of it.
+from: и Select_CString(target_character_2.IsFemale
+to: и [Select_CString(target_character_2.IsFemale
+
+key: DIPLOREASON_CULTURE_VIEW
+why: one `]` too many at the end of the line.
+from: Custom('CL_GEN')|L]#!#!]
+to: Custom('CL_GEN')|L]#!#!
+
+key: pradhana_maha_samanta_tt
+why: the line begins mid-data-function; the `[` never made it.
+from: ShowSubjectTypeName('maha_samanta')] нашей
+to: [ShowSubjectTypeName('maha_samanta')] нашей
+
+key: SELF_CONTROL_TT_CURRENT_TEXT
+why: the `]` after the value formatter was dropped, so the rest of the sentence became part of the data function.
+from: ')|W
+to: ')|W]
+
+key: HARMONY_TT_CURRENT_TEXT
+why: the same, in the same block of five.
+from: ')|W
+to: ')|W]
+
+key: YANANTIN_TT_CURRENT_TEXT
+why: the same.
+from: ')|W
+to: ')|W]
+
+key: PURITY_TT_CURRENT_TEXT
+why: the same.
+from: ')|W
+to: ')|W]
+
+key: HONOR_TT_CURRENT_TEXT
+why: the same.
+from: ')|W
+to: ')|W]
+
+key: PAST_FIRST_ADD_CHARACTER_MODIFIER_UNTIL_DEATH
+why: the value starts with a Concept that lost its `[`.
+from: Concept('character', 'Персонаж')|e] получил
+to: [Concept('character', 'Персонаж')|e] получил
+
+key: flavor_byz.60.desc
+why: unclosed Select_CString before the dash.
+from: 'императора-соправителя' ),
+to: 'императора-соправителя' )],
+
+key: BYZ_additional_events_become_available
+why: unclosed Select_CString before `откроются`.
+from: 'императором-соправителем' ), откроются
+to: 'императором-соправителем' )], откроются
+
+key: flavor_chi.83.tooltip
+why: the script value lost its `[`.
+from: получат ROOT.ScriptValue(
+to: получат [ROOT.ScriptValue(
+
+key: flavor_eth.155.a
+why: a whole promote chain was pasted inside another one.
+from: [ROOT.GetCountry.[ROOT.GetCountry.Custom('CL_DAT')].
+to: [ROOT.GetCountry.Custom('CL_DAT')].
+
+key: flavor_fra.2014.a
+why: the formatter ended up outside the data function, with a stray quote.
+from: ('nobles_estate')]')|U]
+to: ('nobles_estate')|U]
+
+key: flavor_fra.429.title
+why: an extra `[` inside Select_CString's first argument.
+from: [Select_CString([ROOT.GetCountry.GetGovernment.GetRuler.IsFemale,
+to: [Select_CString(ROOT.GetCountry.GetGovernment.GetRuler.IsFemale,
+
+key: flavor_geo.2.a
+why: the `]` was typed as the sentence's full stop.
+from: Custom('CL_INST').
+to: Custom('CL_INST')].
+
+key: flavor_geo.2.b
+why: the same.
+from: Custom('CL_DAT').
+to: Custom('CL_DAT')].
+
+key: flavor_geo.2.c
+why: the same.
+from: Custom('CL_DAT').
+to: Custom('CL_DAT')].
+
+key: flavor_hab.2302.desc
+why: the `]` landed before the formatter instead of after it.
+from: GetAdjectiveWithNoTooltip]|l]ие
+to: GetAdjectiveWithNoTooltip|l]ие
+
+key: flavor_hol.31.desc
+why: the rank was never closed, so the location name after it disappeared into the data function.
+from: Custom('LR_GEN') [target_location.GetName]
+to: Custom('LR_GEN')|l] [target_location.GetName]
+
+key: flavor_kor.3.desc
+why: Select_CString with no `[` in front of it.
+from: станет Select_CString(mongol_aristocrat.IsFemale
+to: станет [Select_CString(mongol_aristocrat.IsFemale
+
+key: flavor_kor.6.title
+why: the title ends inside an unclosed data function.
+from: из [target_country.Custom('CL_GEN')
+to: из [target_country.Custom('CL_GEN')]
+
+key: flavor_mam.79.desc
+why: an extra `[` inside Select_CString's first argument.
+from: [Select_CString([target_character.IsFemale, 'Она'
+to: [Select_CString(target_character.IsFemale, 'Она'
+
+key: flavor_mug.7.desc
+why: the rank lost its `[`.
+from: ROOT.GetCountry.Custom('rank_ru_PREP')
+to: [ROOT.GetCountry.Custom('rank_ru_PREP')
+
+key: flavor_mug.10.desc
+why: the rank lost its `[`.
+from: гуманизма#!#! ROOT.GetCountry.Custom('rank_ru_GEN')
+to: гуманизма#!#! [ROOT.GetCountry.Custom('rank_ru_GEN')
+
+key: flavor_mug.13.desc
+why: the rank lost its `[`.
+from: ROOT.GetCountry.Custom('rank_ru_PREP')
+to: [ROOT.GetCountry.Custom('rank_ru_PREP')
+
+key: flavor_sco.210.desc
+why: the `]` was typed as the sentence's full stop.
+from: [GetCountry('ENG').Custom('CL_INST').
+to: [GetCountry('ENG').Custom('CL_INST')].
+
+key: flavor_tur.1003.desc
+why: the `[` after `#ONCLICK:COUNTRY,` was lost.
+from: #ONCLICK:COUNTRY,ROOT.GetCountry.Custom('CL_tt')]
+to: #ONCLICK:COUNTRY,[ROOT.GetCountry.Custom('CL_tt')]
+
+key: flavor_tur.1004.desc
+why: the same.
+from: #ONCLICK:COUNTRY,ROOT.GetCountry.Custom('CL_tt')]
+to: #ONCLICK:COUNTRY,[ROOT.GetCountry.Custom('CL_tt')]
+
+key: flavor_tur.1005.desc
+why: the same.
+from: #ONCLICK:COUNTRY,ROOT.GetCountry.Custom('CL_tt')]
+to: #ONCLICK:COUNTRY,[ROOT.GetCountry.Custom('CL_tt')]
+
+key: none_impacted_by_foreign_destabilization_efforts_modifier_tt
+why: a Concept was opened, its arguments abandoned, and another Concept started inside it.
+from: [Concept('modifier',[Concept('event'
+to: [Concept('event'
+
+key: mission_raise_literacy_tip
+why: a `]` left behind after the tooltip markup it belonged to.
+from: #L библиотек#!#! ] в ваших
+to: #L библиотек#!#! в ваших
+
+key: hint_control_hint_text_1
+why: the paragraph starts with a Concept that lost its `[`.
+from: \n\nConcept('max_control'
+to: \n\n[Concept('max_control'
+
+key: MARKET_BURGHER_FOOD_EXPORTS
+why: the multiplication lost its `[`.
+from: : Multiply_CFixedPoint(
+to: : [Multiply_CFixedPoint(
+
+key: BUILDING_UPGRADE_ONE_LEVEL
+why: a `[` in front of the plain word `Сооружение`.
+from: [Сооружение «[BuildingType
+to: Сооружение «[BuildingType
+
+key: MARKET_ATTRACTION_POWER
+why: the tail of a Concept left behind after the Concept itself was rewritten.
+from: 'Рыночная привлекательность')|e]')|e]:
+to: 'Рыночная привлекательность')|e]:
+
+key: BUILDINGS_MINIMUM_INCOME
+why: the last data function lost its `[`.
+from: \nBuildingItem.GetIncomeBreakdownMin]
+to: \n[BuildingItem.GetIncomeBreakdownMin]
+
+key: king_in_prussia.1.desc
+why: an extra `[` inside Select_CString's first argument.
+from: [Select_CString([emperor_character.IsFemale
+to: [Select_CString(emperor_character.IsFemale
+
+key: WAR_UNIT_TYPE_STATS_TT_LOSSES
+why: a doubled `[`, and the second half naming a scope this tooltip does not have — the English key uses the same one twice.
+from: «[[FinishedWarUnitStats
+to: «[FinishedWarUnitStats
+
+key: WAR_UNIT_TYPE_STATS_TT_LOSSES
+why: see above.
+from: [BattleUnitStats.GetCategory.GetName]
+to: [FinishedWarUnitStats.GetCategory.GetName]
+
+key: OTHER_PERFORMS_delist_unit_ACTION_FLAVOR
+why: the Concept lost its `[`.
+from: быть Concept('mercenaries'
+to: быть [Concept('mercenaries'
+
+key: CURIA_PROPOSAL_REJECTED_DESC
+why: the second Concept lost its `[`.
+from: |e] Concept('curia'
+to: |e] [Concept('curia'
+
+key: MERCENARY_ARMY_RECRUIT
+why: the value starts mid-data-function.
+from: CHARACTER.GetNameWithNoTooltip]
+to: [CHARACTER.GetNameWithNoTooltip]
+
+key: MERCENARY_NAVY_RECRUIT
+why: the same.
+from: CHARACTER.GetNameWithNoTooltip]
+to: [CHARACTER.GetNameWithNoTooltip]
+
+key: offer_deny_market_access_cta_to_unknown
+why: a Concept opened, abandoned, and started again inside itself.
+from: [Concept('country',[Concept('country', 'державе')|e]
+to: [Concept('country', 'державе')|e]
+
+key: STATIC_MODIFIER_NAME_location_template_natural_harbor_suitability_good
+why: the value ends without its `]`.
+from: 'пригодность природной гавани')|e
+to: 'пригодность природной гавани')|e]
+
+key: subject_interaction_events.4.a
+why: a Select_CString opened on a government accessor, abandoned mid-word, with the real one started inside it.
+from: [Select_CString(subject_target.GetGovernment.GetRule[Select_CString(better_ruler.IsFemale
+to: [Select_CString(better_ruler.IsFemale
+
+key: NOT_area_capital_equal
+why: the value ends without its `]`.
+from: [TARGET_LOCATION.GetName
+to: [TARGET_LOCATION.GetName]
+
+key: unionevents.98.desc
+why: unclosed Select_CString, and `root_characer` for `root_character` inside it.
+from: [Select_CString(root_characer.IsFemale, 'умерла', 'умер' ).
+to: [Select_CString(root_character.IsFemale, 'умерла', 'умер' )].
+
+key: unionevents.98.desc.union_has_leader
+why: unclosed Select_CString before `международного объединения`.
+from: 'нынешний правитель' ) международного
+to: 'нынешний правитель' )] международного
+
+key: flavor_lit.31.desc
+why: `XXXXX` is a placeholder the translator never filled in. The tooltip around it is about our own country, which the rest of the same string calls `ROOT.GetCountry`.
+from: [XXXXX.Custom(
+to: [ROOT.GetCountry.Custom(
+
+key: flavor_pol.28.desc
+why: `XXX`, the same placeholder — and this one sits inside a `#TOOLTIP:COUNTRY` whose two other halves already say `ROOT.GetCountry`.
+from: [XXX.Custom(
+to: [ROOT.GetCountry.Custom(
+
+key: flavor_rus.26.desc
+why: the same placeholder, three times in one sentence.
+from: [XXX.Custom(
+to: [ROOT.GetCountry.Custom(
+
+key: flavor_rus.51.desc
+why: the same placeholder.
+from: [XXX.Custom(
+to: [ROOT.GetCountry.Custom(
+
+key: lesson_economy_4_desc
+why: a Concept opened and abandoned mid-argument, taking a sentence of the tutorial with it. The English lesson says what belongs there: merchants cost capacity and earn or lose money, and burghers living in a market trade on their own account.
+from: [Concept('merchant_capacity_wth_icon', '#TOOLTIP:POPTYPE,burghers,X #L горожане#!#! будут самостоятельно вести [Concept('trade', 'торговлю')].
+to: [Concept('merchant_capacity_wth_icon', 'торговый потенциал')|e] и получая при этом прибыль или убыток. Кроме того, @burghers! #TOOLTIP:POPTYPE,burghers,X #L горожане#!#!, живущие на рынке, ведут собственную [Concept('trade', 'торговлю')].
+
+key: integrate_area_action_progress_tooltip
+why: the game says this one outright at load — `String contains "Cabinet.", which will not work. Use SCOPE.sCabinet('cabinet')`. The English key was migrated and the Russian one was not. Other keys keep `[Cabinet.` and are fine; only a cabinet action's *tooltip* runs in a scope where the promote is unavailable.
+from: #W [Cabinet.GetActionNumProgress|%]
+to: #W [SCOPE.sCabinet('cabinet').GetActionNumProgress|%]
+
+
+# ===========================================================================
+# Round two — what the hour-long run of 2026-08-24 (evening) showed once the
+# first fix had cleared the log enough to see past it.
+# ===========================================================================
+
+key: RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST
+why: the helper this key references is the `#TOOLTIP:`-wrapped one, which cannot be written out inline — commas inside a markup parameter list. The plain variant declines the name the same way and only loses the hover tooltip, which the price in brackets right after already stands in for.
+from: $GOODS_GetName_RU_GEN_lower$
+to: $GOODS_GetNameWithNoTooltip_RU_GEN_lower$
+
+key: EST_SATISFACTION_TITLE
+why: the estate panel supplies `Estate`, not `ESTATE` — the English key says `[Estate.GetNameWithNoTooltip]`. The Russian reached for the uppercase helper, whose seventy five tests all promote `ESTATE`. The mixed-case helper is the same text against the right promote.
+from: $ESTATE_GetNameWithNoTooltip_RU_GEN_lower$
+to: $Estate_GetNameWithNoTooltip_RU_GEN_lower$
+
+why: `Government` has no `IsFemale`; the ruler does. The game says so outright — `Could not find data system function 'IsFemale' in 'COUNTRY.GetGovernment.IsFemale'` — 524 times in one hour, from a standing alert.
+from: COUNTRY.GetGovernment.IsFemale
+to: COUNTRY.GetGovernment.GetRuler.IsFemale
+
+why: `TARGET_BUILDING` is not a promote — the effect describes a building *type*, and the English keys say `TARGET_BUILDING_TYPE`. `Promote 'TARGET_BUILDING' returned nullptr`, 638 times.
+from: TARGET_BUILDING.GetName
+to: TARGET_BUILDING_TYPE.GetName
+
+key: THIRD_ADD_TEMPORARY_DEMAND_EFFECT
+why: `TARGET_MARKET` is not supplied here; the same string already uses `MARKET` for the market's own name, and the English key uses only that.
+from: TARGET_MARKET.GetCenterLocation
+to: MARKET.GetCenterLocation
+
+key: integrate_province_action_progress_long_wordier
+why: the same `Cabinet.` promote the game refuses in a cabinet action's strings, and the same replacement it names.
+from: [Cabinet.GetActionNumProgress|%]
+to: [SCOPE.sCabinet('cabinet').GetActionNumProgress|%]

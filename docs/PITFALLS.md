@@ -155,6 +155,111 @@ format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
 filter convention that makes this look plausible.
 
+**The base game's own Russian localization is broken, and it is the largest
+single source of errors in a Russian game.** For a long time the answer to "the
+log is full of localization errors" here was "some mod's". It is not: 88% of the
+39 289 errors in the run of 2026-08-24 came out of
+`reference/game/main_menu/localization/russian/`. Six shapes, all found by
+`mods/ru_loc_fix/tools/locscan.py`: unclosed brackets (55 keys), accessors that
+`dump_data_types` does not list (36 — `GetAdjectvive`, `GetGovernnment`,
+`GerHerHis`), `Custom()` applied to the result of `GetName` (27), roots that are
+nothing at all (10 — including `XXX` left in by a translator), a filter string
+quoting another key (6), and wrong scopes the game named itself (14). Before
+blaming a mod for a localization error, run that scanner.
+
+**A `$OTHER_KEY$` reference inside a search-filter string loses the object.** A
+filter's name and description are built once per object the filter selects, and
+in that context a data function written inline resolves and the same data
+function reached through a quoted key does not.
+`CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_NAME` and `..._RAW_GOODS_DESC` sit four
+lines apart, do the same thing two ways, and only the second one fails — every
+time, 75 failed lookups per evaluation.
+
+**Thirty thousand errors in one second destroys the log.** `error.log` rotates
+at 1 MB and keeps five. Five filter strings produced 31 350 lines inside the
+second the game started, which rotated it five times over: everything the game
+had said before that second was gone before the player quit. When a log looks
+suspiciously empty of everything except one repeated error, check the
+timestamps at the head of each rotation — if they are all the same second, the
+log is not telling you what happened, it is telling you what happened last.
+
+**`Custom()` cannot be asked of a name.** `Country.GetName.Custom('CL_GEN')` is
+27 keys' worth of the same mistake in the shipped Russian files: `GetName` has
+already produced text and text cannot be promoted. The whole key fails to parse,
+so the player sees nothing at all rather than an undeclined name.
+
+**A GUI type can be real and appear nowhere in the English localization.** The
+first version of the unknown-root rule compared against English strings alone
+and accused twenty-five healthy keys, all using `UnitTypeLateralView`, which is
+a perfectly ordinary type that no English string happens to mention. Check the
+engine's `dump_data_types` before calling a name invented — the same rule that
+applies to effects and triggers.
+
+**`performance_degradation.log` has columns that identify a playset.** `GUI
+widgets` at the first in-game sample, `Total number of Gfx units` and
+`Total number of Trade wagons` are deterministic for a given bookmark and data
+set — 37 768 / 449 / 843 for this playset at 1337_04_01, every single run. When a
+run arrived that was supposed to be vanilla, those three columns said so without
+anyone having to be asked: 36 977 / 448 / 713. Use them to confirm a run was
+configured the way the report says it was.
+
+**`performance_degradation.log` records the in-game date, which turns it into a
+controlled experiment for free.** A row whose date equals the row before it was
+taken while the game was paused. Splitting an hour that way said more than any
+guess: paused and idle adds zero widgets, growth does not scale with game days
+(103 days added 138 widgets, 125 days added 10 936), and it does not scale with
+the unit count on the map. That ruled out map icons, unit markers and the tick
+itself without asking the player to run anything.
+
+**Three samples of a performance log cannot tell a leak from a warm-up.** The
+first reading of `performance_degradation.log` had memory climbing 280 MB a
+minute and concluded the game was heading for swap. An hour of the same log says
+otherwise: the working set peaks at 14.7 GB and then falls under 7 GB. What
+actually grows without limit is the GUI widget count and the frame time. Read the
+whole run before naming a cause; the file is a few kilobytes and there is no
+excuse.
+
+**`Failed parsing localized text` in `gui.log` at frontend load says nothing
+about the game.** Seventeen of them, all at one timestamp, sixteen seconds before
+the mod's localization is merged — the frontend parses vanilla's value on the way
+past. Check the timestamp against the `pdx_localize.cpp:257` lines that mark the
+merge before believing that list.
+
+**Fixing the loudest error is how you find the second loudest.** Five keys were
+34 225 of 39 289 lines and hid everything else, including three keys with exactly
+the same fault that had never once appeared in a log. There is no way to reach
+those by reading files: nothing separates the ninety keys that reference a
+declension helper from the ten that fail. Expect a fix of this kind to take more
+than one round, and treat the second log as the point of the first fix.
+
+**Closing a bracket turns a parse error into a scope error.** `lieutenancy_tt`
+never rendered because of an unbalanced bracket; with the bracket closed it
+renders, and now the two `Custom()` calls inside it can be seen failing on a
+scope that is not a country. The fix was still right — but a key that starts
+working starts reporting, and a rise in a different error is not automatically a
+regression.
+
+**A test the player physically cannot perform is a wasted round trip.** "Sit on
+the map for five minutes without opening anything" is impossible in a running
+game — events fire and demand a click. The owner said so, and he was right. Pause
+removes events, the tick and map churn in one move, and every block after that is
+attributable. Before asking for a protocol, walk through it as the person who has
+to do it.
+
+**"Report it to the developers" is not a deliverable.** This session established
+that the widget leak is vanilla's, wrote the numbers up as a bug report, and
+handed it over as the answer. The owner's reply was that he had known it was
+vanilla the whole time and was asking for a fix, not a diagnosis. He was right
+about that too: the diagnosis had ruled things out, but nothing had yet been
+asked of the engine dumps about what a mod *could* do. Establishing whose fault
+something is is the beginning of the work here, not the end of it.
+
+**When a measurement is finished, say which questions it closed.** Five rounds of
+tests produced ten settled facts, and the risk at the end of every session is
+that the next one re-derives them and spends the owner's evenings doing it. The
+table at the top of [`HANDOFF.md`](HANDOFF.md#settled--do-not-measure-any-of-this-again)
+exists for that; add to it rather than writing a new narrative each time.
+
 ## The reference tree changes under you
 
 **A folder name in `reference/mods/` is not a fact.** The owner refreshes these

@@ -1,0 +1,30 @@
+l_russian:
+# The search filter strings.
+#
+# A filter's name and description are built once per object the filter can
+# select — one per good — and in that context a `$OTHER_KEY$` reference loses
+# the object. The Russian file writes some of these keys with the good's name
+# fetched directly and some through `$GOODS_GetNameWithNoTooltip_RU_*_lower$`,
+# and only the second kind fails: 456 evaluations, 75 failed lookups each,
+# 34 225 lines in `error.log` inside one second, which rotated the log five
+# times over and destroyed every other error of that session.
+#
+# The declined forms have to go, so each sentence is rebuilt around the
+# nominative the engine will actually hand back. `«...»` around the name is how
+# the two keys in this family that always worked already read.
+
+ CUSTOM_SEARCH_FILTER_BUILDING_ONLY_GOODS_NAME:0 "@[GOODS.GetKey]! Производит: [GOODS.GetNameWithNoTooltip]"
+ CUSTOM_SEARCH_FILTER_BUILDING_ONLY_INPUT_GOODS_NAME:0 "@[GOODS.GetKey]! Использует: [GOODS.GetNameWithNoTooltip]"
+ CUSTOM_SEARCH_FILTER_BUILDING_ONLY_INPUT_GOODS_DESC:0 "Позволяет отобразить [Concept('buildings', 'сооружения')|e], которые используют товар @[GOODS.GetKey]! «[GOODS.GetNameWithNoTooltip]»."
+ CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_DESC:0 "Будут отображаться [Concept('locations', 'районы')|e], которые [Concept('produce', 'производят')|e] товар @[GOODS.GetKey]! «[GOODS.GetNameWithNoTooltip]»."
+ CUSTOM_SEARCH_FILTER_LOCATION_PROVINCE_RAW_GOODS_DESC:0 "Будут отображаться [Concept('locations', 'районы')|e] тех [Concept('province', 'провинций')], где [Concept('rgo', 'добывают')] товар @[GOODS.GetKey]! «[GOODS.GetNameWithNoTooltip]»."
+ CUSTOM_SEARCH_FILTER_DESTINATION_GOODS_DESC:0 "Позволяет отобразить [Concept('trades', 'торговые сделки')|e] только с товаром @[GOODS.GetKey]! «[GOODS.GetNameWithNoTooltip]»."
+
+# The rank filter reaches for a location that is not in scope; the English key
+# shows the rank's own icon and name, and nothing else is available here.
+ CUSTOM_SEARCH_FILTER_LOCATION_RANK_NAME:0 "[LocationRank.GetIcon] [LocationRank.GetNameWithNoTooltip|L]"
+
+# `POP` is not the scope of a pop type filter — the object is the type itself,
+# which is why the game answers `Promote 'POP' returned nullptr`. There is no
+# culture to be had here at all, so the invented adjective ending goes with it.
+ CUSTOM_SEARCH_FILTER_BUILDING_ONLY_POPTYPE_NAME:0 "[POP_TYPE.GetIcon] [POP_TYPE.GetNameWithNoTooltip]"

@@ -10,7 +10,7 @@ does not care what a `$vanilla_key$` passthrough is.
 
 | | |
 | --- | --- |
-| **[`research/engine.md`](research/engine.md)** | What the engine gives a mod: how to ask it what exists, mod layout, list filters and what a trigger really receives, view object scoping, scripted widgets, and where the RGO bonus and the goods data live |
+| **[`research/engine.md`](research/engine.md)** | What the engine gives a mod: how to ask it what exists, mod layout, list filters and what a trigger really receives, view object scoping, scripted widgets, why localization is code and the ways it fails to compile, and where the RGO bonus and the goods data live |
 | **[`research/cmf.md`](research/cmf.md)** | Community Mod Framework: its hooks, Mod Menu settings, the list machinery that fails silently, and how Construction Manager's automation is put together for an addon to reach |
 | **[`research/translation.md`](research/translation.md)** | Translating somebody else's mod: what the job is, what it costs, and how a localization breaks without a word |
 

@@ -1,0 +1,18 @@
+l_russian:
+# Keys the game never defines, written because the rest of their family is.
+#
+# The game's Russian localization declines a country's rank through
+# `Custom('rank_ru_GEN')` and its four siblings, which resolve to
+# `<rank>_GEN` and so on. All 218 ranks have those five forms — except
+# `rank_county_abbey`, which has none of them, while `rank_duchy_abbey`,
+# `rank_kingdom_abbey` and `rank_empire_abbey` all do. An abbey at county rank
+# therefore prints the raw key wherever a declined rank is wanted.
+#
+# Written as references rather than as words, the same way the game writes
+# `rank_county_abbey` itself (`"$rank_duchy_abbey$"`), so if Paradox ever
+# rewords the duchy forms these follow.
+ rank_county_abbey_GEN:0 "$rank_duchy_abbey_GEN$"
+ rank_county_abbey_DAT:0 "$rank_duchy_abbey_DAT$"
+ rank_county_abbey_ACC:0 "$rank_duchy_abbey_ACC$"
+ rank_county_abbey_INST:0 "$rank_duchy_abbey_INST$"
+ rank_county_abbey_PREP:0 "$rank_duchy_abbey_PREP$"

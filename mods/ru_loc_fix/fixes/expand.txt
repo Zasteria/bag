@@ -1,0 +1,23 @@
+# Keys whose `$helper$` reference is written out in place instead of being
+# referenced.
+#
+# The Russian localization declines a goods or estate name through a helper key
+# holding seventy five `AddTextIf(EqualTo_string(...))` tests. Referenced as
+# `$helper$` from a panel string, the promote inside it does not resolve and the
+# whole key fails; written inline in the same string, the same promote resolves
+# fine. That is not a guess:
+# `CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_NAME` reads `[GOODS.GetNameWithNoTooltip]`
+# inline and has never errored, while `..._RAW_GOODS_DESC` four lines below reads
+# `$GOODS_GetNameWithNoTooltip_RU_ACC_lower$` and failed every time;
+# `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` holds both in one string and only the
+# referenced half fails.
+#
+# So the repair is to inline the helper, which keeps the declension the
+# translator wrote. Where that cannot be done — the helper is a `#TOOLTIP:`
+# wrapper, and inlining it would put commas inside a markup parameter list —
+# the generator refuses and the key needs a rewrite or a literal instead.
+
+FILTER_BY_GOODS                       # 3 866 lines: "Фильтр по $Goods_..._RU_DAT_lower$"
+MARKET_SURPLYS_INFO                   # 1 650 lines: "Доступ к $GOODS_..._RU_DAT_lower$ на рынке ..."
+RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST  # 13 950 lines, the largest single source in the second run
+EST_SATISFACTION_TITLE                # 222 lines, and the wrong case of the promote as well

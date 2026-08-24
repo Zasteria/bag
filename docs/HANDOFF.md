@@ -4,6 +4,31 @@ Where the three mods stand, and what a fresh session needs to carry on. Read thi
 first, then [`RESEARCH.md`](RESEARCH.md) for how EU5 modding actually works —
 most of that was learnt the hard way and will save a repeat.
 
+## Settled — do not measure any of this again
+
+Five runs of the game went into the answers below, most of them an evening's work
+for the owner. The numbers are in [`TESTLOG.md`](TESTLOG.md). Asking for any of
+this a second time spends the one resource this repository cannot generate for
+itself, so read the table before designing a test.
+
+| question | answer | where |
+| --- | --- | --- |
+| Whose fault are the localization errors? | The base game's Russian files. 88% of 39 289 lines. | TESTLOG 2026-08-24 |
+| Did the filter fix work? | Yes. Zero `CUSTOM_SEARCH_FILTER` lines in an hour; the error rate fell about twentyfold a minute. | TESTLOG 2026-08-24 evening |
+| Are the 17 `Failed parsing localized text` in `gui.log` real? | No. They are stamped sixteen seconds before the mod's localization is merged — the frontend reading vanilla on the way past. | TESTLOG 2026-08-24 evening |
+| Is the slowdown memory running out? | No. The working set peaks and then falls; what grows without limit is the widget count. | TESTLOG 2026-08-24 evening |
+| Do map icons / units / game time cause the widget growth? | No. It scales with neither game days nor unit count. | [the slowdown](#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever) |
+| Does idling cost anything? | No — exactly +0, twice, across 10 800 frames each. | TESTLOG 2026-08-25 |
+| Is it one bad window? | No. Diplomacy +1.86/frame, map modes +1.49, locations +0.29; none zero. | TESTLOG 2026-08-25 |
+| Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
+| Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
+| Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
+
+**And one thing the owner has already rejected as an answer:** "report it to
+Paradox". They know it is a base-game defect and know other players have it. The
+job is to find something that helps from the mod side, or to establish with
+evidence that nothing can.
+
 ## State
 
 **The reference tree moved, and nothing broke.** Construction Manager 2.2.12 and
@@ -12,6 +37,61 @@ CMM list code. `tools/refresh.py` rebuilds everything from them and reports
 clean: no generated file changed, and `tools/check_cmm.py` — the check that every
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
+
+**`ru_loc_fix/` — working, round one confirmed in game, round two unrun.**
+Repairs the markup in the game's own Russian localization. It came out of the
+player's question about why their `error.log` is full: the answer is that 88% of
+it was the base game's Russian files, not any mod. **162 keys** now, in six
+shapes — unclosed brackets, accessors `dump_data_types` does not have, `Custom()`
+applied to a string, roots that are nothing, keys reaching a Russian case through
+a helper reference, and wrong scopes the game named in its own log. Nothing is
+retranslated; only the markup changes.
+
+The mod is generated. `mods/ru_loc_fix/tools/locscan.py` is the rule set, split
+into hard rules (cannot fire on a healthy key) and advisory ones (compare against
+English, need a person). `generate.py` refuses to write a key that no longer
+exists, a key that is no longer broken, or a repair that still trips a rule; 140
+of the 162 are search-and-replace against whatever the game ships that day, so a
+patch that rewrites the sentence keeps the repair. It runs from
+`tools/refresh.py` with everything else.
+
+**Confirmed in game, 2026-08-24.** An hour of play with the mod loaded: not one
+`CUSTOM_SEARCH_FILTER` line in the log, and the burst that used to rotate
+`error.log` five times inside one second is gone. The rate fell from 39 289
+errors in three minutes to 35 455 in an hour — about twenty times fewer per
+minute — and the log is legible for the first time.
+
+What that legibility bought was round two. The same fault turned out not to be
+confined to filter strings: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` (13 950
+lines), `FILTER_BY_GOODS` (3 866) and `MARKET_SURPLYS_INFO` (1 650) took their
+place, each reaching a Russian case through `$GOODS_..._RU_*$`. Eleven more keys
+are fixed for the next run; the mod is at 162.
+
+**Round two keeps the grammar.** The first fix replaced declined forms with
+nominatives. This one does not have to: the same strings hold the promote both
+ways — `RGO_BUILD` has `[GOODS.GetDefaultMarketPrice]` inline, which works, next
+to `$GOODS_GetName_RU_GEN_lower$`, which does not — so the scope is present and
+it is the *reference* that loses it. `fixes/expand.txt` writes the helper out
+inside the key, seventy five `AddTextIf` tests and all.
+
+**What still errors, and what each would need.** After round two lands, roughly
+12 000 lines an hour should remain, and almost none of it is localization:
+
+| | lines/hour | what it would take |
+| --- | --- | --- |
+| `ForeignCountryView` evaluated with no view context | 5 118 | vanilla's own `foreign_country_lateralview.gui`, which Glorp UI copies verbatim — the bug is Paradox's, and fixing it means carrying a copy of a large `.gui` |
+| `ActionGroup.GetActions` at `gui/shared/cards.gui:2363` | 2 476 | the same: a vanilla `.gui` |
+| `longname_ru_GEN` finding no entry for a country, in `game.log` | 4 108 | **nothing.** The file is in the tree now and the fault is not in it: `country_ru_flavor` ends in a `fallback = yes` entry and every one of its 218 suffixed keys exists, so the object being passed is an invalid country and that is the caller's doing |
+| character nicknames: `Select_CString(Character.IsFemale, …)` given a `Container` | ~1 300 | unknown. The same 180 keys work everywhere else, so it is one caller and nothing in the log says which |
+| `Custom()` handed a location where it wants a country, in `debug.log` | ~390 | unattributed. New in the second run, but the shape (`predlog_vvo`, `CL_tt`, `CL_tt`, `CL_PREP` in that order, 98 times over) matches no key this mod touches |
+| other mods' scripts, `D008_pronoia`, an audio arena, an input stack | ~50 | their authors', not ours |
+
+The `location_rank` errors of the first run — 484 lines — did not recur. If they
+come back: `LR_GEN` and its four siblings in
+`in_game/common/customizable_localization/ru_EU5_custom_loc.txt` test
+`location_rank = location_rank:x` with no fallback, so a location that has no
+rank at all falls through. That file is 49 653 lines and overriding it wholesale
+to add one fallback is not worth it.
 
 **`goods_target/` — paused, half working, four faults known.** An addon to
 Construction Manager: build the producers of goods you tick until they are as
@@ -106,6 +186,104 @@ was worth building in a province you picked. It never worked in game and the
 owner stopped wanting it; the reason it did not work was never established,
 because it was never tested. What it is worth knowing about it is in
 [Why it failed](#why-where_to_produce-failed), below.
+
+## The slowdown — it is the base game, and the hunt is for a lever
+
+Measured across five runs. The measurement is finished; what is open is whether a
+mod or a setting can do anything about it. Numbers and method in
+[`TESTLOG.md`](TESTLOG.md); this is the state of it.
+
+**What it is.** The game accumulates GUI widgets and never releases them while a
+session is running. 364 at the main menu, ~37 000 once a game is loaded, 294 013
+after an hour of ordinary play. Frame time follows: 14 ms early, 21 ms after an
+hour.
+
+**How big that is.** Every `.gui` file the game ships declares, in total, about
+**27 800 widgets** — the whole interface, every window, counted statically
+(`in_game/gui/`, widget declarations, minus properties that share the shape). So
+after an hour the process is holding **more than ten copies of the entire
+interface**. This is not a heavy panel; it is instances piling up.
+
+**What causes it.** Interface interaction, and nothing else:
+
+| | widgets per frame |
+| --- | --- |
+| paused, hands off | **0.00** — exactly zero, across 10 800 frames, twice |
+| clicking countries, opening diplomacy | +1.86 |
+| cycling map modes | +1.49 |
+| clicking locations, opening the build panel | +0.29 |
+
+**What it is not.** Ruled out, each with data rather than argument:
+
+- *map markers, unit icons, the passage of time* — growth does not scale with
+  game days (103 days added 138 widgets, 125 days added 10 936) and does not
+  scale with the unit count, which swings 276 to 708 with no relation to it;
+- *one bad window* — every kind of interaction leaks, at different rates and none
+  of them zero;
+- *the mod set* — with every mod off the same activity leaks **+1.99** widgets a
+  frame against **+1.86** with the full playset. Vanilla is marginally worse;
+- *anything in this repository* — `rgo_bonus_filter` adds to the location panel,
+  the lightest of the three by a factor of six.
+
+### The lead worth following
+
+**Growth decays inside a block of unchanging activity.** Four blocks, four times
+the same shape:
+
+```
+diplomacy, full playset   +24814   +8809  +11150    +140
+locations, full playset    +3783   +1338   +1504    +336
+map modes, full playset   +17532   +5191   +3278   +5123   +1130   +0
+diplomacy, no mods        +14560   +3487   +3425    -418    +258
+```
+
+He was doing the same thing throughout each row, so a per-*action* leak would be
+flat. A decaying one says the cost is per *distinct thing looked at*: the first
+pass over a set of countries or map modes is expensive and the second is nearly
+free. Over an hour of real play you keep meeting new things, which is why it
+never plateaus.
+
+**The engine offers nothing to release them.** `dump_data_types` has no widget
+`Destroy`, `Clear`, `Free`, `Collect` or `Prune` — the only such names belong to
+buildings, editors and variable systems. `PdxGuiWidget` can be hidden, found,
+counted and animated, and that is all. So there is no mod-side call that undoes
+this; a fix has to be something that stops the widgets being made.
+
+### The candidate, and it doubles as the fix
+
+Hover. It fits everything: idle costs nothing because an unmoving mouse shows no
+tooltips; clicking through diplomacy sweeps the pointer over dozens of new
+flags, names and numbers; map modes sweep it over a new legend each time; and the
+decay is what a per-subject tooltip cache would look like.
+
+And the game has **Settings → Tooltip Settings**, which is a lever a player can
+pull without any mod: `Draw tooltips`, `Tooltip Mode`, `Show Delay`,
+`Map Tooltips` (Enabled / No Seazones / Disabled) and `Map tooltips delay`.
+
+So the next run is the test *and* the candidate fix, in one session on one save,
+paused throughout:
+
+1. **A** — move the mouse over the map and the top bar for two minutes, sweeping
+   across countries and buttons, **without a single click**.
+2. Settings → Tooltip Settings: `Map Tooltips` to **Disabled**, `Show Delay` and
+   `Map tooltips delay` to **maximum**.
+3. **B** — exactly the same two minutes of sweeping.
+
+Then `performance_degradation.log`.
+
+- **A leaks and B does not** → the mechanism is tooltips, and the settings above
+  are the mitigation. Then it is worth asking what a mod can trim from the
+  heaviest tooltip files (`shared/location_tooltips.gui` 438 widgets,
+  `shared/combat_tooltips.gui` 428, `cooltip.gui` 627).
+- **A does not leak at all** → hover is out entirely and the leak needs clicks.
+  The next test is then the same panel opened thirty times against thirty
+  different panels opened once, which separates a per-open leak (a mod can make
+  panels cheaper) from a per-object cache (only Paradox can).
+
+**The mitigation that is already established.** Leaving to the main menu releases
+all of it — widgets back to the 364 the process starts with, memory back to what
+it was before any game was loaded. So **main menu, then load the save** is worth
+exactly as much as restarting the game and costs a fraction of the time.
 
 ## Where to check things
 
