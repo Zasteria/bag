@@ -125,22 +125,21 @@ format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
 filter convention that makes this look plausible.
 
-## Getting files into the repository
+## The reference tree changes under you
 
-**The GitHub web uploader silently drops folders that begin with a dot.**
-Advanced Auto Build arrived without its `.metadata/`, so its mod id and version
-were unknown for two sessions. Dragging a folder into the browser loses them;
-`Add file -> Create new file` with the full path typed in works, and so does any
-desktop git client. Symptom: the tree looks complete and one folder is missing.
+**A folder name in `reference/mods/` is not a fact.** The owner refreshes these
+by hand, and the name arrives however the upload produced it: the same mod is
+`community_mod_framework` one time and `3692202776_community_mod_framework` the
+next. Anything hardcoding the name breaks silently — a missing base mod reads as
+"nothing to translate", not as an error. Ask `tools/refs.py`, which matches on
+the `id` inside `metadata.json` (`trin.national_destinies`); the number in the
+Steam path is not that id.
 
-**A workshop mod is mostly textures.** 100 MB of mod is a few MB of text. The web
-form's 25 MB per file and ~100 files per drag are what a big upload hits, not any
-GitHub limit: a desktop client pushes the whole thing without trouble. Either
-strip to `.txt`, `.gui`, `.yml`, `.json` first, or push it whole from a clone.
-
-**A mod's id is not its workshop number.** It is a string inside
-`metadata.json` (`trin.national_destinies`), so renaming the folder loses
-nothing. The number in the Steam path is not the id.
+**A version written in prose goes stale the moment the owner updates a mod.**
+That is not the owner's mistake to fix by annotating uploads; it is the
+document's mistake. Versions come from `python3 tools/refs.py`, and a mod
+arriving newer than a document remembers is the normal state of this repository
+rather than something to report as a problem.
 
 ## Loading
 

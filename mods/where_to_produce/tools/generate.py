@@ -32,7 +32,13 @@ runtime walks a building's methods and keeps the best — which is also what the
 community spreadsheet this mod is modelled on does.
 
 Usage:
-    python3 mods/where_to_produce/tools/generate.py <EU5>/game/in_game/common [<CMF>/in_game/common/scripted_effects]
+    python3 mods/where_to_produce/tools/generate.py [<EU5>/game/in_game/common [<CMF>/in_game/common/scripted_effects]]
+
+Both default to `reference/` — the game files, and whichever folder there holds
+Community Mod Framework — so the arguments are only for pointing it at another
+copy. Without CMF it cannot check that every CMM macro is called with arguments
+CMF actually declares, which is the check that catches a silently swallowed
+effect.
 """
 
 from __future__ import annotations
@@ -46,6 +52,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from eu5data import RGO_MAX_BONUS, Game, Method, load_game, load_dir, scalar  # noqa: E402
 
 MOD_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(MOD_ROOT.parent.parent / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
 OUT = MOD_ROOT / "in_game" / "common"
 TRIGGERS_OUT = OUT / "scripted_triggers" / "wtp_generated_rgo_triggers.txt"
 AVAIL_OUT = OUT / "scripted_triggers" / "wtp_generated_availability.txt"
@@ -366,8 +375,19 @@ def render_rows() -> str:
 
 
 def check_cmm_arguments(cmf_effects: Path) -> None:
-    """Warn when a cmm_ call uses an argument name CMF does not declare."""
-    declared = "".join(p.read_text(encoding="utf-8-sig") for p in cmf_effects.glob("*.txt"))
+    """Warn when a cmm_ call uses an argument name CMF does not declare.
+
+    CMF moves its own macros between files across versions — 2.4.1 split the
+    list settings into three — so the declarations are read from the whole
+    folder and from `scripted_guis/` beside it, never from a named file.
+    """
+    sources = list(cmf_effects.glob("*.txt"))
+    beside = cmf_effects.parent / "scripted_guis"
+    if beside.is_dir():
+        sources += list(beside.glob("*.txt"))
+    if not sources:
+        raise SystemExit("no CMF script files under %s" % cmf_effects)
+    declared = "".join(p.read_text(encoding="utf-8-sig") for p in sources)
     ours = "".join(p.read_text(encoding="utf-8-sig")
                    for folder in ("scripted_effects", "scripted_guis")
                    for p in (OUT / folder).glob("*.txt"))
@@ -396,10 +416,10 @@ def check_hand_written() -> None:
 
 
 def main() -> int:
-    if len(sys.argv) not in (2, 3):
+    if len(sys.argv) > 3:
         print(__doc__)
         return 2
-    common = Path(sys.argv[1])
+    common = Path(sys.argv[1]) if len(sys.argv) > 1 else refs.GAME_COMMON
     missing = [n for n in ("goods", "production_methods", "building_types")
                if not (common / n).is_dir()]
     if missing:
@@ -429,8 +449,8 @@ def main() -> int:
             path.unlink()
             print("removed %s" % path.relative_to(MOD_ROOT.parent))
 
-    if len(sys.argv) > 2:
-        check_cmm_arguments(Path(sys.argv[2]))
+    check_cmm_arguments(Path(sys.argv[2]) if len(sys.argv) > 2
+                        else refs.known("cmf") / "in_game/common/scripted_effects")
     check_hand_written()
 
     town = sum(1 for b in buildings if scalar(entries[b], "pop_type") in TOWN_POPS)

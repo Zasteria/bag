@@ -45,10 +45,18 @@ Community Mod Framework for their settings.
 
 ## Reference
 
-`reference/` holds EU5 1.3.10's `gui` and the parts of `common` that matter,
-plus Community Mod Framework, Construction Manager and Glorp UI. It is there so
-a session can grep for an answer instead of guessing or asking for uploads —
-which is where most of the wasted effort in this repository has gone.
+`reference/` holds EU5's `gui` and the parts of `common` that matter, plus
+Community Mod Framework, Construction Manager, Glorp UI and the two mods being
+translated. It is there so a session can grep for an answer instead of guessing
+or asking for uploads — which is where most of the wasted effort in this
+repository has gone.
+
+The owner refreshes it by hand whenever something updates, so what is in it and
+at which version is a question for the tree, not for a document:
+
+```
+python3 tools/refs.py
+```
 
 ## How the work goes
 
@@ -59,14 +67,11 @@ so far — usually in one pass. The failure that costs a round trip is the silen
 one, where an effect never runs and nothing is logged at all.
 
 Anything named `*_generated_*` is written by a tool from the game's own data and
-must not be hand edited. Regenerate after a patch:
+must not be hand edited. After a patch, or after any refresh of `reference/`:
 
 ```
-python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
-python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
-        reference/mods/community_mod_framework/in_game/common/scripted_effects
-python3 mods/auto_build_ru/tools/generate_ru.py
+python3 tools/refresh.py
 ```
 
-A diff of the generated files then shows exactly what the patch changed
-underneath the mods.
+It rebuilds every generated file and then names the ones that changed — which is
+exactly what the patch changed underneath the mods.

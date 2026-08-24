@@ -1,8 +1,13 @@
 # EU5 modding notes
 
-Findings from reading two shipped EU5 mods: **Community Mod Framework** 2.3.3
-(`community_mod_framework`) and **Glorp UI** 1.3.10.1 (`glorp.ui`). Both target
-game version 1.3.\*.
+Findings from reading the shipped EU5 mods in `reference/` — chiefly **Community
+Mod Framework** (`community_mod_framework`) and **Glorp UI** (`glorp.ui`), with
+**Construction Manager** as the worked example for lists.
+
+Which version of each is in the tree is not written here, because the owner
+refreshes them whenever they update: `python3 tools/refs.py` answers that. What
+is written here was true of CMF 2.3.x and re-checked against 2.4.1; where a
+version matters it says so.
 
 ## Mod layout
 
@@ -299,6 +304,39 @@ counters into literals with a `switch`, and so should anything built on it.
 
 Construction Manager is the working reference: `cm_cmm_effects.txt` registers
 statically and `cm_cmm_scripted_gui.txt` holds one `_on_changed` per list.
+
+All three of those still hold in CMF 2.4.1, which reorganised the list code into
+three files without changing the contract: `cmm_core_auto_apply_scripted_gui.txt`
+still covers only bool, dropdown, numeric, slider and button, and
+`loading_screen/data_binding/cmm_macros_settings.txt` still hides a setting
+marked `_srsgui` unless `CMMGuiIsShown('<key>_on_changed')`.
+
+### What CMF 2.4.1 added
+
+Read off its `scripted_effects/`, not tried in game. Worth knowing before
+building anything list shaped, because two of these are what the awkward parts
+of `where_to_produce` worked around:
+
+| Effect | What it looks like it solves |
+| --- | --- |
+| `cmm_register_subtab` | a tab under a tab, so one mod's settings need not be one flat list |
+| `cmm_move_list_item` | reordering rows, which a hand written selection sort currently does |
+| `cmm_register_settings_list_from_list` | registering a list *from a script list*, instead of one static row at a time |
+| `cmm_set_list_field_default_for_item` | per-row defaults, and the reset value |
+| `cmm_disable_list_field_for_item` / `cmm_enable_list_field_for_item` | greying one field of one row |
+| `cmm_set_list_field_conditional_format` | a field's format chosen by its value |
+
+The ordinal rule is unchanged: these still take `item = <literal>`, and a
+`var:` there still dies at load.
+
+CMF 2.4.1 also grew an alert system (`cmf_alert_effects.txt`,
+`cmf_sgui_alerts.txt`, `cmf_alert_settings.gui`) and a much larger
+`cmf_log_effects.txt`. Neither has been read closely here.
+
+Construction Manager 2.2.12 uses one engine effect this repository had not seen:
+`set_automated_system = { system = expandbuildings activate = no }`, in a country
+scope, which turns off the game's own building automation. It appears in no
+vanilla file in `reference/`, so CM is the only evidence for it.
 
 ### What CMM actually reads from localization
 

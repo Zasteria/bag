@@ -21,7 +21,7 @@ README covering how that mod works and what is left to do.
 
 ## The game files are in the repository
 
-`reference/` holds the EU5 1.3.10 files and the three mods worth imitating.
+`reference/` holds the EU5 files and the mods worth imitating.
 **Grep it instead of asking for uploads or guessing.**
 
 ```
@@ -29,17 +29,32 @@ reference/game/in_game/gui/                   panels, widget types, gui/filters
 reference/game/in_game/common/                building_types, production_methods,
                                               goods, scripted_effects,
                                               scripted_triggers, on_action
-reference/mods/community_mod_framework/       the CMF and CMM APIs this repo builds on
-reference/mods/construction_manager/          the working reference for CMM lists
-reference/mods/glorp_ui/                      interface patterns; also a compatibility target
+reference/game/main_menu/localization/        what the game calls its own concepts
+reference/mods/                               CMF, Construction Manager, Glorp UI,
+                                              and the two mods being translated
 ```
 
-What is deliberately absent: `gfx`, `localization`, `events`, `decisions`, map
-data. Ask for those if a task needs them, and add them here afterwards.
+**Do not hardcode a mod's folder name, and do not trust a version written in
+prose.** The owner refreshes these by hand whenever a mod updates, and the
+folder name arrives however the upload produced it — `community_mod_framework`
+one time, `3692202776_community_mod_framework` the next. Ask the tree instead:
+
+```
+python3 tools/refs.py                                  what is there, with versions
+python3 tools/refs.py --path community_mod_framework   where it is right now
+```
+
+In a tool, `import refs` and call `refs.known("cmf")`, which resolves the mod by
+the `id` inside its `metadata.json`. `reference/INVENTORY.md` is the same list,
+written by that tool.
 
 These files are here to be used — read, grepped, quoted, and copied from into a
 mod. The owner has settled that question; see `reference/README.md`. Do not stop
-mid-task to ask about it.
+mid-task to ask about it, and do not treat a mod arriving at a newer version as
+a problem to report — it is the normal state of this tree.
+
+What is deliberately absent: `gfx`, `events`, `decisions`, map data, and most of
+`common/`. Ask for those if a task needs them, and add them here afterwards.
 
 ## How to work here
 
@@ -69,6 +84,13 @@ reading the repository, and a rule they enforce today they will enforce next
 year. When a session learns a rule the hard way, the cheapest place to put it is
 inside the checker that would have caught it, not only in prose.
 
+At the top level, `tools/` is what every mod's tooling shares:
+
+| | |
+| --- | --- |
+| `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
+| `refresh.py` | the one command to run after the owner refreshes `reference/` |
+
 `mods/nd_ru/tools/` is the fullest example:
 
 | | |
@@ -85,18 +107,22 @@ inside the checker that would have caught it, not only in prose.
 ## Generated files
 
 Anything named `*_generated_*` is written by a tool and must not be hand edited.
-Regenerate after a game patch:
+After anything under `reference/` changes — a game patch, a mod update, an
+upload the owner did without saying so — one command rebuilds all of it and
+reports what moved:
 
 ```
-python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
-python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
-        reference/mods/community_mod_framework/in_game/common/scripted_effects
-python3 mods/auto_build_ru/tools/generate_ru.py
-python3 mods/nd_ru/tools/generate_ru.py
+python3 tools/refresh.py
 ```
 
-The last two are run after the *mod each translates* updates, not after a game
-patch, and fail naming the keys when that mod's English file has moved.
+Nothing else needs doing about a refresh, and nothing anywhere records a version
+by hand. Run it at the start of a session too: it is cheaper than believing a
+document. `--check` reports and then reverts, for when you only want to know.
+
+Each generator still runs on its own and takes an explicit path when you want a
+different copy of the files. The two translation generators are the ones run
+after the *mod each translates* updates rather than after a game patch, and they
+fail naming the keys when that mod's English file has moved.
 
 ## Conventions
 

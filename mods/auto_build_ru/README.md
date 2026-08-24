@@ -24,11 +24,11 @@ base mod's own key order. `main_menu/localization/russian/eu5ab_ru_generated_l_r
 is written from it by the tool and **must not be edited by hand**:
 
 ```
-python3 mods/auto_build_ru/tools/generate_ru.py \
-        "reference/mods/Auto build by Lincoln Guang"
+python3 mods/auto_build_ru/tools/generate_ru.py
 ```
 
-The path argument is optional and defaults to that same copy in `reference/`.
+The base mod is found in `reference/` by itself, through `tools/refs.py`, so the
+folder it was uploaded under does not matter. A path argument still overrides it.
 Point it at a newer copy of the base mod after it updates: the tool fails, and
 names the keys, when the base mod has added, removed or renamed any.
 

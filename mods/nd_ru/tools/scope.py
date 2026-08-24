@@ -19,13 +19,17 @@ this player plays -- so a later session picks up where this one stopped.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
 
 MOD = Path(__file__).resolve().parent.parent
 REPO = MOD.parent.parent
-BASE = REPO / "reference/mods/National Destinies - Formables Content/main_menu/localization/english"
+sys.path.insert(0, str(REPO / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
+BASE = refs.known("national_destinies") / "main_menu/localization/english"
 KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\s*(?:\d+\s+)?"(.*)"\s*$')
 MARKUP = re.compile(r"\[[^\]]*\]|\$[^$]*\$|@\w+!|#[A-Za-z_]+|#!|\\n")
 
@@ -136,4 +140,9 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        sys.exit(main(sys.argv))
+    except BrokenPipeError:
+        # `| head` closed the pipe. That is how this tool is normally read, so
+        # it is not worth a traceback.
+        os._exit(0)

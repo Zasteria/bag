@@ -46,7 +46,10 @@ from pathlib import Path
 
 MOD = Path(__file__).resolve().parent.parent
 REPO = MOD.parent.parent
-DEFAULT_BASE = REPO / "reference" / "mods" / "National Destinies - Formables Content"
+sys.path.insert(0, str(REPO / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
+DEFAULT_BASE = refs.known("national_destinies")
 ENGLISH_DIR = "main_menu/localization/english"
 OUT_DIR = MOD / "main_menu/localization/russian"
 SOURCE_DIR = MOD / "translations"

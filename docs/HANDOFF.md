@@ -6,6 +6,15 @@ most of that was learnt the hard way and will save a repeat.
 
 ## State
 
+**The reference tree moved, and nothing broke.** Construction Manager 2.2.12 and
+Community Mod Framework 2.4.1 came in, the second a real reorganisation of the
+CMM list code. `tools/refresh.py` rebuilds everything from them and reports
+clean: no generated file changed, and `where_to_produce`'s check that every CMM
+macro is called with arguments CMF declares still passes. What 2.4.1 added is in
+[`RESEARCH.md`](RESEARCH.md#what-cmf-241-added) — `cmm_move_list_item` and
+`cmm_register_settings_list_from_list` are the two that touch work already done
+here.
+
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
@@ -145,24 +154,24 @@ expansion errors turn up.
 
 ## Where to check things
 
-Everything a session needs is in `reference/` — EU5 1.3.10's `gui` and the parts
-of `common` that matter, plus Community Mod Framework, Construction Manager and
-Glorp UI. Grep it rather than asking for uploads.
+Everything a session needs is in `reference/` — the game's `gui` and the parts
+of `common` that matter, plus Community Mod Framework, Construction Manager,
+Glorp UI and the two mods being translated. Grep it rather than asking for
+uploads, and run `python3 tools/refs.py` rather than believing a version written
+in prose.
 
 The one thing that still has to come from the player is `logs/` after a test
-run, because only they can run the game. Regenerate after a patch:
+run, because only they can run the game. After any refresh of `reference/`:
 
 ```
-python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py reference/game/in_game/common
-python3 mods/where_to_produce/tools/generate.py reference/game/in_game/common \
-        reference/mods/community_mod_framework/in_game/common/scripted_effects
-python3 mods/auto_build_ru/tools/generate_ru.py
+python3 tools/refresh.py
 ```
 
 Advanced Auto Build arrived in `reference/` without its `.metadata/`, so its mod
-id and version are not in the tree. `auto_build_ru` therefore declares only CMF
-as a dependency; if the base mod's id is wanted there, that file has to come
-from the player's mod folder.
+id and version are not in the tree — it is the one mod `refs.py` has to find by
+folder name. `auto_build_ru` therefore declares only CMF as a dependency; if the
+base mod's id is wanted there, that file has to come from the player's mod
+folder.
 
 
 ## Decisions already made, worth not relitigating
