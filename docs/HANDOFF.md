@@ -32,6 +32,18 @@ patch that rewrites the sentence keeps the repair. It runs from
 **Untested.** How to test it is in the mod's README: read `error.log`, not the
 screen.
 
+**What still errors after it, and what each would need.** Roughly 4 500 lines
+survive, in this order of size:
+
+| | lines | what it would take |
+| --- | --- | --- |
+| `common/customizable_localization/ru_EU5_custom_loc.txt` — `location_rank` returning an invalid object on four consecutive lines, and `longname_ru_GEN` / `CL_tt` / `CL_ACC` finding no entry for a country | 484 + 804 in `game.log` | **the file.** `common/customizable_localization/` is not in `reference/`; ask the owner to add it |
+| `ForeignCountryView` evaluated with no view context | 1 497 | vanilla's own `foreign_country_lateralview.gui`, which Glorp UI copies verbatim — the bug is Paradox's and fixing it means carrying a copy of a large `.gui`, which this repository avoids |
+| character nicknames: `Select_CString(Character.IsFemale, …)` given a `Container` | 64 | unknown. The same 180 keys work everywhere else, so it is one caller, and nothing in the log says which |
+| `gui/glorpUI_country_header.gui` — a widget positioned inside a layout | 18 | the file, which is in neither the reference copy of Glorp UI nor this repository |
+| `D008_pronoia` at the main menu, an unknown formatting tag `v!.`, an input stack context, an audio arena | ~35 | each too small to chase, and none of them ours |
+| other mods' scripts: National Destinies `common/formable_countries/99_nd_dnm.txt:71` asks a ruler for a dynasty it may not have; `common/subject_types/000_new_dominion.txt:67`; `common/scripted_effects/OGAS_proximity.txt:62` | 9 | their authors', not ours — worth reporting upstream |
+
 **`goods_target/` — paused, half working, four faults known.** An addon to
 Construction Manager: build the producers of goods you tick until they are as
 cheap as you asked, subsidising them on the way.
