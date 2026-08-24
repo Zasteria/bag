@@ -104,10 +104,19 @@ def read_rewrites(path: Path) -> list[tuple[str | None, str, str, str]]:
     return pairs
 
 
+ADDITIONS = "additions.yml"
+
+
 def read_literals(directory: Path) -> dict[str, tuple[str, Path, int]]:
-    """The hand written replacement values, from ordinary localization files."""
+    """The hand written replacement values, from ordinary localization files.
+
+    `additions.yml` is the exception and is read separately: those keys are ones
+    the game never defines at all.
+    """
     values: dict[str, tuple[str, Path, int]] = {}
     for path in sorted(directory.glob("*.yml")):
+        if path.name == ADDITIONS:
+            continue
         for number, line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
             match = locscan.KEY_LINE.match(line)
             if match:
@@ -134,6 +143,13 @@ def main() -> int:
     observed = read_observed(OBSERVED)
     rewrites = read_rewrites(REWRITES)
     literals = read_literals(FIXES)
+    additions: dict[str, tuple[str, Path, int]] = {}
+    add_path = FIXES / ADDITIONS
+    if add_path.exists():
+        for number, line in enumerate(add_path.read_text(encoding="utf-8-sig").splitlines(), 1):
+            match = locscan.KEY_LINE.match(line)
+            if match:
+                additions[match.group(1)] = (match.group(2), add_path, number)
 
     fixed: dict[str, str] = {}
     complaints: list[str] = []
@@ -178,6 +194,16 @@ def main() -> int:
             continue
         fixed[key] = value
 
+    # Additions are the mirror image: a key the game does not define, written
+    # because its whole family is defined and it was missed. If the game starts
+    # defining it, ours would silently replace theirs, so that is reported.
+    for key, (value, path, number) in additions.items():
+        if key in russian:
+            complaints.append("%s:%d: the game now defines %s itself — drop ours "
+                              "rather than shadow it" % (path.name, number, key))
+            continue
+        fixed[key] = value
+
     # Every shipped value has to survive the rules it was written to satisfy.
     entries = {k: locscan.Entry(k, v, OUT, 0) for k, v in fixed.items()}
     for finding in locscan.scan(entries, english, locscan.HARD):
@@ -200,11 +226,11 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("﻿" + "\n".join(lines) + "\n", encoding="utf-8")
 
-    by_rewrite = sum(1 for k in fixed if k not in literals)
+    by_rewrite = sum(1 for k in fixed if k not in literals and k not in additions)
     left = sorted(set(flagged) - set(fixed))
     print("wrote %s" % OUT.relative_to(MOD.parent.parent))
-    print("     %d keys repaired: %d by rewrite, %d written out"
-          % (len(fixed), by_rewrite, len(fixed) - by_rewrite))
+    print("     %d keys repaired: %d by rewrite, %d written out, %d added"
+          % (len(fixed), by_rewrite, len(fixed) - by_rewrite - len(additions), len(additions)))
     print("     %d keys the hard rules still flag and this mod does not fix" % len(left))
     for key in left[:20]:
         print("       %s  (%s)" % (key, flagged[key].rule))
