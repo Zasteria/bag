@@ -34,7 +34,10 @@ from pathlib import Path
 
 MOD = Path(__file__).resolve().parent.parent
 REPO = MOD.parent.parent
-DEFAULT_BASE = REPO / "reference" / "mods" / "Auto build by Lincoln Guang"
+sys.path.insert(0, str(REPO / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
+DEFAULT_BASE = refs.known("auto_build")
 ENGLISH = "main_menu/localization/english/eu5ab_l_english.yml"
 OUT = MOD / "main_menu/localization/russian/eu5ab_ru_generated_l_russian.yml"
 SOURCE = MOD / "translations/ru.yml"

@@ -13,11 +13,15 @@ value of the same key.
 from __future__ import annotations
 
 import re
+import os
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
-LOC = REPO / "reference/game/main_menu/localization"
+sys.path.insert(0, str(REPO / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
+LOC = refs.GAME_LOCALIZATION
 KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\s*(?:\d+\s+)?"(.*)"\s*$')
 
 
@@ -39,7 +43,11 @@ def main(argv: list[str]) -> int:
     needle = " ".join(argv[2:] if by_key else argv[1:])
 
     if by_key:
-        hits = [k for k in english if k.lower() == needle.lower()]
+        # Exact key first, then any key containing it — `--key ADVANCES` is how
+        # the glossary says to ask, and no key is spelt exactly that.
+        low = needle.lower()
+        hits = [k for k in english if k.lower() == low] or \
+               [k for k in english if low in k.lower()][:20]
     else:
         low = needle.lower()
         exact = [k for k, v in english.items() if v.lower() == low]
@@ -54,4 +62,8 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        sys.exit(main(sys.argv))
+    except BrokenPipeError:
+        # `| head` closed the pipe, which is how this tool is normally read.
+        os._exit(0)

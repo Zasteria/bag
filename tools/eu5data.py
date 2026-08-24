@@ -1,7 +1,13 @@
-"""Read the parts of the EU5 game files this mod reasons about.
+"""Read the parts of the EU5 game files a mod is likely to reason about.
 
-Point `load_game(path)` at `<EU5>/game/in_game/common` and it returns the goods
-catalogue plus every production method, resolved per building type.
+Point `load_game(path)` at `<EU5>/game/in_game/common` — or call it with no
+argument for the copy in `reference/` — and it returns the goods catalogue plus
+every production method, resolved per building type.
+
+This outlived the mod it was written for. `where_to_produce` was removed in
+August 2026 without ever working in game (see `docs/HANDOFF.md`), but its data
+layer was the half that was right: every number below was checked against the
+game, and re-deriving them would cost another set of tooltip readings.
 
 The one formula that matters, recovered by matching the game's own tooltips:
 
@@ -217,7 +223,10 @@ def _goods(goods_dir: Path) -> tuple[set[str], set[str]]:
     return every, raw
 
 
-def load_game(common: Path) -> Game:
+def load_game(common: Path | None = None) -> Game:
+    if common is None:
+        import refs  # local: only needed when no explicit copy was named
+        common = refs.GAME_COMMON
     goods, raw = _goods(common / "goods")
     shared = load_dir(common / "production_methods")
 

@@ -9,10 +9,12 @@ production method's goods inputs with the goods flagged as raw materials, and
 emit scripted triggers a filter can call.
 
 Usage:
-    python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py <game>/in_game/common
+    python3 mods/rgo_bonus_filter/tools/generate_rgo_filter.py [<game>/in_game/common]
 
-where the common directory holds goods/, production_methods/ and
-building_types/. Writes in_game/common/scripted_triggers/.
+Defaults to the game files in `reference/`, so the argument is only for pointing
+it at a different copy. The common directory has to hold goods/,
+production_methods/ and building_types/. Writes
+in_game/common/scripted_triggers/.
 """
 
 from __future__ import annotations
@@ -25,6 +27,9 @@ from pathlib import Path
 NON_INPUT_NUMERIC_KEYS = {"output"}
 
 MOD_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(MOD_ROOT.parent.parent / "tools"))
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
 OUT_PATH = (
     MOD_ROOT / "in_game" / "common" / "scripted_triggers" / "bag_rgo_generated_triggers.txt"
 )
@@ -224,11 +229,11 @@ def render(by_good: dict[str, list[str]]) -> str:
 
 
 def main() -> int:
-    if len(sys.argv) != 2:
+    if len(sys.argv) > 2:
         print(__doc__)
         return 2
 
-    common = Path(sys.argv[1])
+    common = Path(sys.argv[1]) if len(sys.argv) == 2 else refs.GAME_COMMON
     missing = [
         name
         for name in ("goods", "production_methods", "building_types")

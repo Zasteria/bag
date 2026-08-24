@@ -13,8 +13,8 @@ takes the rest of its effect with it.** `step` where CMF declares `step_value`
 meant the setting never entered CMM's maps; syncing its alias then errored, and
 everything after it in the same effect was skipped — including four other
 settings. Symptom: an interface that renders perfectly and does nothing.
-`mods/where_to_produce/tools/generate.py` checks this when pointed at CMF's
-`scripted_effects`.
+`python3 tools/check_cmm.py mods/<mod>/in_game/common` checks a whole mod against
+whichever CMF is in `reference/`.
 
 **Dropdown options are numbered from one.** Registering with `default_index = 0`
 put the stored value out of range, so nothing the player picked matched any
@@ -125,22 +125,21 @@ format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
 filter convention that makes this look plausible.
 
-## Getting files into the repository
+## The reference tree changes under you
 
-**The GitHub web uploader silently drops folders that begin with a dot.**
-Advanced Auto Build arrived without its `.metadata/`, so its mod id and version
-were unknown for two sessions. Dragging a folder into the browser loses them;
-`Add file -> Create new file` with the full path typed in works, and so does any
-desktop git client. Symptom: the tree looks complete and one folder is missing.
+**A folder name in `reference/mods/` is not a fact.** The owner refreshes these
+by hand, and the name arrives however the upload produced it: the same mod is
+`community_mod_framework` one time and `3692202776_community_mod_framework` the
+next. Anything hardcoding the name breaks silently — a missing base mod reads as
+"nothing to translate", not as an error. Ask `tools/refs.py`, which matches on
+the `id` inside `metadata.json` (`trin.national_destinies`); the number in the
+Steam path is not that id.
 
-**A workshop mod is mostly textures.** 100 MB of mod is a few MB of text. The web
-form's 25 MB per file and ~100 files per drag are what a big upload hits, not any
-GitHub limit: a desktop client pushes the whole thing without trouble. Either
-strip to `.txt`, `.gui`, `.yml`, `.json` first, or push it whole from a clone.
-
-**A mod's id is not its workshop number.** It is a string inside
-`metadata.json` (`trin.national_destinies`), so renaming the folder loses
-nothing. The number in the Steam path is not the id.
+**A version written in prose goes stale the moment the owner updates a mod.**
+That is not the owner's mistake to fix by annotating uploads; it is the
+document's mistake. Versions come from `python3 tools/refs.py`, and a mod
+arriving newer than a document remembers is the normal state of this repository
+rather than something to report as a problem.
 
 ## Loading
 
@@ -152,6 +151,17 @@ changes nothing, logs nothing.
 
 **`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
 it the launcher does not treat the folder as an EU5 mod.
+
+## Working blind
+
+**Building a whole mod before loading it once is the expensive mistake, and it
+has been made here.** `where_to_produce` was finished — four CMM lists, pickers,
+scoring, tooltips — and then abandoned without ever running, leaving six
+independent suspects and no way to tell which was in play, because an effect
+that never runs logs nothing. One `cmf_log` on the first list, one round trip,
+would have cut that to one. Only the player can run the game, so the size of an
+untested increment is the whole risk: the smallest thing that produces a visible
+signal beats the complete feature every time.
 
 ## Diagnosis
 

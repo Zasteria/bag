@@ -15,7 +15,9 @@ Paste this as the first message:
 
 1. Прочитай `CLAUDE.md`, `docs/RESEARCH.md` и `docs/PITFALLS.md` целиком.
 2. Просмотри `docs/HANDOFF.md` — состояние модов.
-3. Загляни в `reference/`, чтобы понимать, что там есть и как это грепать.
+3. Запусти `python3 tools/refresh.py`. Он покажет, что сейчас лежит в
+   `reference/` и с какими версиями, пересоберёт генерируемые файлы и назовёт
+   изменившиеся. Версии в тексте могли устареть — этот вывод не может.
 
 Потом коротко ответь своими словами:
 
@@ -47,6 +49,11 @@ report guesses as if they were verified.
 
 **Asking what it needs from you** gets the request for `error.log` and
 screenshots out of the way at the start, instead of three exchanges in.
+
+**`tools/refresh.py` instead of a paragraph about versions.** `reference/` is
+refreshed by hand and without notice, so a session that reads versions out of a
+document starts by mistrusting the tree, or worse, reports a routine mod update
+as a problem. One command makes the tree its own answer.
 
 ## Если сессия про перевод крупного мода
 
