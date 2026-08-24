@@ -195,6 +195,14 @@ a perfectly ordinary type that no English string happens to mention. Check the
 engine's `dump_data_types` before calling a name invented — the same rule that
 applies to effects and triggers.
 
+**`performance_degradation.log` has columns that identify a playset.** `GUI
+widgets` at the first in-game sample, `Total number of Gfx units` and
+`Total number of Trade wagons` are deterministic for a given bookmark and data
+set — 37 768 / 449 / 843 for this playset at 1337_04_01, every single run. When a
+run arrived that was supposed to be vanilla, those three columns said so without
+anyone having to be asked: 36 977 / 448 / 713. Use them to confirm a run was
+configured the way the report says it was.
+
 **`performance_degradation.log` records the in-game date, which turns it into a
 controlled experiment for free.** A row whose date equals the row before it was
 taken while the game was paused. Splitting an hour that way said more than any

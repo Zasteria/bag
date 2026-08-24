@@ -164,98 +164,46 @@ owner stopped wanting it; the reason it did not work was never established,
 because it was never tested. What it is worth knowing about it is in
 [Why it failed](#why-where_to_produce-failed), below.
 
-## The slowdown
+## The slowdown — closed, and it is the base game
 
-Separate from the localization, and not solved. Two runs have been measured; the
-second corrected the first.
+Measured across four runs and settled on 2026-08-25. Numbers and method in
+[`TESTLOG.md`](TESTLOG.md); this is the conclusion.
 
-**What is measured.** `performance_degradation.log` is the game's own sampler,
-one row per 3 600 rendered frames. The hour-long run of 2026-08-24 gives 55 rows,
-and they say this:
+**What it is.** The game accumulates GUI widgets and never releases them while a
+session is running. 364 at the main menu, ~37 000 once a game is loaded, 294 013
+after an hour of ordinary play. Frame time follows: 14 ms early, 21 ms after an
+hour.
 
-| | after load | after an hour |
-| --- | --- | --- |
-| GUI widgets | 38 281 | **294 013** |
-| average frame time | 14.1 ms | **21.4 ms** |
-| memory, working set | 13.4 GB | 6.9 GB — *down* |
-| memory, virtual | 19.7 GB | 23.5 GB |
+**What causes it.** Interface interaction, and nothing else:
 
-**Frame time is the slowdown, and the widget count is what tracks it.** 70 frames
-a second becomes 47 over an hour, while the widgets go up eightfold and never
-come back down. Nothing else in the sampler moves with it.
+| | widgets per frame |
+| --- | --- |
+| paused, hands off | **0.00** — exactly zero, across 10 800 frames, twice |
+| clicking countries, opening diplomacy | +1.86 |
+| cycling map modes | +1.49 |
+| clicking locations, opening the build panel | +0.29 |
 
-**The first run's reading was wrong and is corrected here.** Three minutes of
-data showed memory climbing 280 MB a minute, and the obvious story was a leak
-running the machine out of RAM. An hour of data kills that: the working set peaks
-at 14.7 GB around the twenty-eighth minute, then falls under 7 GB and stays
-there. Windows reclaims it. What grows without limit is the widget count and the
-virtual size. Three samples could not tell a leak from a warm-up, and that lesson
-is worth more than the mistake: on this log, read the whole run.
+**What it is not.** Ruled out, each with data rather than argument:
 
-**It is bursty, and it is not the simulation.** The sampler records the in-game
-date, so a row whose date matches the row before it was taken while the game was
-paused. Sorting the hour that way settles several things at once:
+- *map markers, unit icons, the passage of time* — growth does not scale with
+  game days (103 days added 138 widgets, 125 days added 10 936) and does not
+  scale with the unit count, which swings 276 to 708 with no relation to it;
+- *one bad window* — every kind of interaction leaks, at different rates and none
+  of them zero;
+- *the mod set* — with every mod off the same activity leaks **+1.99** widgets a
+  frame against **+1.86** with the full playset. Vanilla is marginally worse;
+- *anything in this repository* — `rgo_bonus_filter` adds to the location panel,
+  the lightest of the three by a factor of six.
 
-- **Paused and idle adds nothing.** Two stretches — four samples at 1342_01_01
-  and two at 1347_08_01, some 21 000 frames between them — add +0, +0, −58, +396,
-  +0, +0. The counter is live and a game left alone does not grow.
-- **Growth does not track game time.** The interval ending 1348_06_03 advanced
-  103 game days and added 138 widgets; the one ending 1350_05_07 advanced 125
-  days and added 10 936. Eighty times the widgets for the same amount of
-  simulation.
-- **Growth does not track what is on the map.** `Total number of Gfx units`
-  swings between 276 and 708 across the run with no relation to the widget
-  column, and `Total number of Trade wagons` never moves off 843.
-- **The largest single block is paused.** The five samples right after load, all
-  at 1337_04_01 with the game paused, add 102 000 widgets between them — that is
-  the player setting up and opening panels, not the world ticking.
+**The one useful thing that came out of it.** Leaving to the main menu releases
+all of it — widgets back to the 364 the process starts with, memory back to what
+it was before any game was loaded. So **main menu, then load the save** is worth
+exactly as much as restarting the game and costs a fraction of the time. That is
+the whole mitigation available, and it is Paradox's bug to fix.
 
-So map markers, unit icons and the passage of time are all ruled out as the thing
-that accumulates. Two candidates survive, and both are things a person does:
-panels opened and closed, and event windows dismissed. Pause separates them,
-because a paused game fires no events.
-
-**The experiment was run on 2026-08-25, and it answered.** Five two-minute
-blocks on one save, paused, separated by short unpaused skips so the in-game date
-labels them. Numbers and method in
-[`TESTLOG.md`](TESTLOG.md#2026-08-25--the-widget-experiment-five-blocks-on-one-save).
-Three results:
-
-- **Idle costs exactly nothing.** Three consecutive rows of +0 across 10 800
-  frames. Every widget is created by an action.
-- **Widgets are released, but only on teardown.** Quitting a game took the count
-  from 38 281 to 367 in two rows; the largest fall *during* play is −557.
-- **It is not one window, which was the hypothesis.** Diplomacy panels leak
-  1.86 widgets a frame, map modes 1.49, the location panel 0.29 — different
-  rates, but none of them zero. Whatever fails to release is shared across most
-  of the interface.
-
-So bisecting panels is finished; it will keep finding more panels. The remaining
-axis is **the mod set against vanilla**, and one run settles it. The save cannot
-be loaded without its mods, so both sides start a fresh 1337 game:
-
-1. New game, any country. Wait for the map, **pause**.
-2. One minute doing nothing — the row after the warm-up row should read +0.
-3. Two minutes clicking countries and opening the diplomacy panel. That block ran
-   at ten thousand widgets per fifty seconds with the full playset, so one row is
-   already a decisive reading.
-4. Quit, send `performance_degradation.log`.
-
-**Run vanilla first.** If vanilla leaks at the same rate the question is closed:
-it is the base game, there is nothing this repository can do about it, and
-reloading periodically stays the only answer. Only if vanilla is flat is it worth
-a third run with Glorp UI and its two `glorpui_*` addons disabled.
-
-**What is already ruled out:** map markers, unit icons and the passage of time
-(the paused-date analysis above), and `rgo_bonus_filter` — it adds to the
-location panel, which is the lightest of the three by a factor of six.
-
-**One thing noticed in passing.** The game complains about
-`gui/glorpUI_country_header.gui`, and no such file exists anywhere under the
-Glorp UI copy in the reference tree (`python3 tools/refs.py --path glorp` says
-where that is). Either the installed Glorp UI is newer than the copy here, or the
-file belongs to one of the two local `glorpui_*` mods, which are not in this
-repository at all. Worth resolving before blaming Glorp for anything.
+**Do not spend another session on this** unless something new arrives — a patch,
+or a report from elsewhere naming a mechanism. The measurement is done; what is
+left is a bug report, and the table above is its body.
 
 ## Where to check things
 

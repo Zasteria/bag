@@ -299,6 +299,42 @@ of ours is implicated.
 **Next:** the remaining axis is mods against vanilla, and one run settles it —
 see [`HANDOFF.md`](HANDOFF.md#the-slowdown).
 
+### 2026-08-25 — vanilla against the full playset, and the case closes
+
+The run before this one left one question: is the widget leak the mod set or the
+base game. This run answers it, and the answer is the base game.
+
+**What the file shows happened.** One process, two games. The first is the full
+playset — 37 768 widgets at 1337_04_01, 449 Gfx units, 843 trade wagons, the same
+three numbers to the unit as every modded run in this log. Then a return to the
+main menu, the playset changed, and a second new game: 36 977 widgets, 448 Gfx
+units, **713** trade wagons. A genuinely different and lighter data set, so the
+mods really did come off. (EU5 reloads a playset in place; the process never
+restarted.)
+
+**The same activity, both sides:**
+
+| | idle, paused | clicking countries and opening diplomacy |
+| --- | --- | --- |
+| full playset (1362 save) | +0 | +20 099 over 10 803 frames = **+1.86/frame** |
+| mods off (1337 start) | +0 | +21 472 over 10 803 frames = **+1.99/frame** |
+
+**Vanilla leaks at the same rate — slightly faster, if anything.** The two sides
+are not perfectly matched (a 1362 save knows more countries than a 1337 start),
+but the magnitudes are identical and the idle baseline is exactly zero in both.
+Nothing in the playset causes this, and nothing in this repository can fix it.
+
+**Confirmed again, twice in one file: the main menu releases everything.**
+Leaving a game took widgets from 37 768 to 2 618 to 364 — the same 364 the
+process starts with — and memory from 12 952 MB to 9 951 MB, which is what it
+was before any game was loaded. So quitting to the main menu and loading the save
+again is worth exactly as much as restarting the executable, and costs a
+fraction of the time.
+
+**Verdict:** a base-game defect, measured and quantified. The investigation is
+closed on this repository's side; what remains is a bug report, and the numbers
+above are it.
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:
