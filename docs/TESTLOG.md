@@ -155,6 +155,60 @@ leaving only buildings that gain efficiency from raw materials in the province.
 run, and the mod was removed. See
 [`HANDOFF.md`](HANDOFF.md#why-where_to_produce-failed).
 
+### 2026-08-24 — logs from a live game, EU5 1.3.11
+
+The player sent a full `logs/` after a short session: main menu at 22:02, game
+from 22:05:17 to 22:08:32, Sweden, the playset below. Nothing was being tested;
+the question was where the errors come from and why the game slows down the
+longer it runs. Both were answered from the files, so this is the most useful
+run in this log so far.
+
+**Loaded:** Community Mod Framework, Autonomous Diplomats, Construction Manager,
+Goods Target, Glorp UI + two local `glorpui_*` addons, Quality of Life by Buddy,
+Integration Hotfix, Please Buy My Terrible Art, National Destinies + Nation
+Destinies Rus + `nd_ru`, OGAS Optimized, `auto_build_ru`, `rgo_bonus_filter`,
+`sheep_farm_food`. Game in Russian.
+
+**Observed — errors.** 39 289 lines across `error.log` and its five rotations.
+
+| source | lines |
+| --- | --- |
+| the game's own Russian localization | 34 700 (88%) |
+| `ForeignCountryView` with no context, vanilla GUI | 1 497 |
+| `location_rank` in `common/customizable_localization/ru_EU5_custom_loc.txt` | 484 |
+| everything else | ~2 600 |
+
+**31 350 of those were written in the single second 22:05:49**, all from five
+search-filter strings, and they rotated `error.log` five times over. Every error
+the game produced before that second is gone. That alone is a reason to fix
+them: the log is unusable for anything else while they are there.
+
+`game.log` carries 804 more the error log never sees — `Object of type
+'country' is not valid for 'longname_ru_GEN'` (576), `'CL_tt'` (152), `'CL_ACC'`
+(76) — all from the same custom localization file.
+
+**Observed — the slowdown.** `performance_degradation.log` samples every 3 600
+rendered frames, and the two in-game intervals are unambiguous:
+
+| | frames | GUI widgets | memory |
+| --- | --- | --- | --- |
+| after load | — | 37 768 | 12 675 MB |
+| +1 sample | 3 601 | 64 318 (+26 550) | 12 977 MB (+301) |
+| +1 sample | 3 601 | 98 195 (+33 877) | 13 214 MB (+237) |
+
+Seven to nine GUI widgets and roughly 280 MB per minute, steadily, while the
+frame time itself stays flat at 14–15 ms. So the degradation the player
+describes is not the renderer giving up: it is the process growing until the
+machine runs out of memory. It starts at 12.4 GB and gains ~280 MB a minute, and
+the machine had 20.5 GB free at launch — about an hour and a quarter to
+swapping. Reloading the save frees it, which is exactly what the player reports.
+
+**Verdict:** the errors are the game's, not the mods'; `ru_loc_fix` is the
+answer to 88% of them. The leak is a separate fault, is real, is measurable
+with the game's own counter, and is **not** attributed to anything yet — see
+[HANDOFF](HANDOFF.md#the-memory-leak) for the next step, which is two short
+runs and one number.
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:

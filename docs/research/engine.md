@@ -282,6 +282,57 @@ There is no built-in sort key for the RGO bonus itself. Sweeping every
 `sort_by_key_button` in vanilla turns up `rgo_profit` and `rgo_income`, which
 are about raw material output, not about a building picking the bonus up.
 
+## Localization is code, and the Russian files do not compile
+
+A `.yml` value is not text with decorations in it. `[...]` is a data function,
+`$...$` quotes another key, `@name!` is a texticon and `#tag ... #!` is
+formatting, and the engine parses all of it before anything reaches the screen.
+When the parse fails the key produces nothing — not a fallback, not the English,
+nothing — and the failure lands in `gui.log` as
+`Failed parsing localized text: <key>` or in `error.log` as `FetchData failed
+for '<expression>'` followed by `Data error in loc string '<key>'`.
+
+The game's own Russian files fail this way in 146 places. What they get wrong is
+worth knowing because a mod can get it wrong the same ways:
+
+**Brackets have to balance.** Fifty-five keys do not. `|W ед.` was meant to be
+`|W] ед.` and swallowed the rest of the sentence; `«[[FinishedWarUnitStats` has
+one bracket too many.
+
+**An accessor has to exist.** `dump_data_types` lists every one, root and member
+alike, so `python3 tools/api.py <name>` settles it. Thirty-six Russian keys call
+things like `GetAdjectvive`, `GetGovernnment`, `GerHerHis` and `GetFinishedDate`,
+and the last of those is instructive: it is not a typo but a stale name, and the
+English key of the same name uses `GetFinishedDateIncludingQueue`. **Comparing
+the two languages' version of the same key is the cheapest bug finder there is.**
+
+**A name accessor ends the chain.** `Country.GetName.Custom('CL_GEN')` cannot
+work: `GetName` has produced text, and text has no members. Twenty-seven Russian
+keys do exactly this.
+
+**A custom localization declares the scope it runs in**, and
+`reference/game/docs/custom_localization.log` says which — `Scope: country`,
+`Scope: location`, `Scope: international_organization`. Handed anything else it
+returns nothing. `[Loan.Custom('CL_DAT')]` asks a loan for a country's declension.
+
+**A `$key$` reference is not always transparent.** In a search filter's name or
+description it loses the object the filter is being built for, while a data
+function written inline in the same string resolves normally. The evidence is
+two keys four lines apart in `lists_l_russian.yml` doing the same job two ways,
+one of which never fails and one of which always does. Assume the same anywhere
+a string is built per object, and inline the data function.
+
+**Some faults only the engine can see.** A promote that returns `nullptr`
+(`TOWN_RIGHTS` where the key meant `TOWN_RIGHTS_TYPE`), a scope that is not
+supplied (`LOCATION.GetProvince` in a tooltip whose context is `Location`), a
+`Cabinet.` promote the engine explicitly refuses in a cabinet action's tooltip —
+none of these are visible in the file. They are visible in the log, which is the
+argument for reading it after every run rather than only when something looks
+wrong.
+
+`mods/ru_loc_fix/tools/locscan.py` is all of this written as rules, and can be
+pointed at any localization tree.
+
 ## Building types, production methods and goods
 
 `common/building_types/*.txt` defines each building type. Production methods

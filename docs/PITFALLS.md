@@ -155,6 +155,46 @@ format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
 filter convention that makes this look plausible.
 
+**The base game's own Russian localization is broken, and it is the largest
+single source of errors in a Russian game.** For a long time the answer to "the
+log is full of localization errors" here was "some mod's". It is not: 88% of the
+39 289 errors in the run of 2026-08-24 came out of
+`reference/game/main_menu/localization/russian/`. Six shapes, all found by
+`mods/ru_loc_fix/tools/locscan.py`: unclosed brackets (55 keys), accessors that
+`dump_data_types` does not list (36 — `GetAdjectvive`, `GetGovernnment`,
+`GerHerHis`), `Custom()` applied to the result of `GetName` (27), roots that are
+nothing at all (10 — including `XXX` left in by a translator), a filter string
+quoting another key (6), and wrong scopes the game named itself (14). Before
+blaming a mod for a localization error, run that scanner.
+
+**A `$OTHER_KEY$` reference inside a search-filter string loses the object.** A
+filter's name and description are built once per object the filter selects, and
+in that context a data function written inline resolves and the same data
+function reached through a quoted key does not.
+`CUSTOM_SEARCH_FILTER_LOCATION_RAW_GOODS_NAME` and `..._RAW_GOODS_DESC` sit four
+lines apart, do the same thing two ways, and only the second one fails — every
+time, 75 failed lookups per evaluation.
+
+**Thirty thousand errors in one second destroys the log.** `error.log` rotates
+at 1 MB and keeps five. Five filter strings produced 31 350 lines inside the
+second the game started, which rotated it five times over: everything the game
+had said before that second was gone before the player quit. When a log looks
+suspiciously empty of everything except one repeated error, check the
+timestamps at the head of each rotation — if they are all the same second, the
+log is not telling you what happened, it is telling you what happened last.
+
+**`Custom()` cannot be asked of a name.** `Country.GetName.Custom('CL_GEN')` is
+27 keys' worth of the same mistake in the shipped Russian files: `GetName` has
+already produced text and text cannot be promoted. The whole key fails to parse,
+so the player sees nothing at all rather than an undeclined name.
+
+**A GUI type can be real and appear nowhere in the English localization.** The
+first version of the unknown-root rule compared against English strings alone
+and accused twenty-five healthy keys, all using `UnitTypeLateralView`, which is
+a perfectly ordinary type that no English string happens to mention. Check the
+engine's `dump_data_types` before calling a name invented — the same rule that
+applies to effects and triggers.
+
 ## The reference tree changes under you
 
 **A folder name in `reference/mods/` is not a fact.** The owner refreshes these

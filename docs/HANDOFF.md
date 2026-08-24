@@ -13,6 +13,25 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
 
+**`ru_loc_fix/` — new, August 2026, unrun.** Repairs the markup in the game's
+own Russian localization. This came out of the player's question about why their
+`error.log` is full: the answer is that 88% of it is the base game's Russian
+files, not any mod. 146 keys, in six shapes — unclosed brackets, accessors that
+`dump_data_types` does not have, `Custom()` applied to a string, roots that are
+nothing, filter strings quoting another key, and wrong scopes the game named in
+its own log. Nothing is retranslated; only the markup changes.
+
+The mod is generated. `mods/ru_loc_fix/tools/locscan.py` is the rule set, split
+into hard rules (cannot fire on a healthy key) and advisory ones (compare against
+English, need a person). `generate.py` refuses to write a key that no longer
+exists, a key that is no longer broken, or a repair that still trips a rule; 131
+of the 146 are search-and-replace against whatever the game ships that day, so a
+patch that rewrites the sentence keeps the repair. It runs from
+`tools/refresh.py` with everything else.
+
+**Untested.** How to test it is in the mod's README: read `error.log`, not the
+screen.
+
 **`goods_target/` — paused, half working, four faults known.** An addon to
 Construction Manager: build the producers of goods you tick until they are as
 cheap as you asked, subsidising them on the way.
@@ -106,6 +125,49 @@ was worth building in a province you picked. It never worked in game and the
 owner stopped wanting it; the reason it did not work was never established,
 because it was never tested. What it is worth knowing about it is in
 [Why it failed](#why-where_to_produce-failed), below.
+
+## The memory leak
+
+Separate from the localization, and not solved. Recorded here because the next
+session will otherwise re-derive it from the same logs.
+
+**What is measured.** `performance_degradation.log` is the game's own sampler,
+one row per 3 600 rendered frames. In the run of 2026-08-24 the two in-game
+intervals both show GUI widgets climbing by 26 550 and 33 877 — seven to nine
+widgets per frame — and the process gaining about 280 MB a minute, while the
+average frame time stays flat at 14–15 ms. The numbers are in
+[`TESTLOG.md`](TESTLOG.md#2026-08-24--logs-from-a-live-game-eu5-1311).
+
+**What that means.** The slowdown the player describes is not the renderer. It is
+the process growing until the machine swaps: 12.4 GB right after load, 20.5 GB
+of free RAM at launch, ~280 MB a minute. Reloading frees it, which is why
+reloading is the cure.
+
+**What is not known.** Which widget. Nothing in the logs names it, and none of
+this repository's mods was on screen during the leak — the player was on the map
+and never opened Goods Target or the Mod Menu. The always-visible UI is the place
+to look, and Glorp UI replaces most of it.
+
+**The cheapest next step, and it is cheap.** The game counts the widgets for us,
+so this needs no instrumentation at all:
+
+1. Start a game, sit on the map without opening anything for about three minutes,
+   quit. Read the `GUI widgets` column of `performance_degradation.log`.
+2. Do the same with Glorp UI and its two `glorpui_*` addons disabled.
+
+If the slope goes flat, it is Glorp UI, and the next question is which of its
+always-visible windows. If it does not, the same two runs against CMF, then
+against the rest, cut the list in half each time. One number, two runs, no
+guessing — this is the shape the `where_to_produce` failure should have taught us
+to use.
+
+**One thing noticed in passing.** The game complains about
+`gui/glorpUI_country_header.gui`, and no such file exists anywhere under the
+Glorp UI copy in the reference tree (`python3 tools/refs.py --path glorp` says
+where that is). Either the installed Glorp UI is newer than the copy here, or the
+file belongs to one of the two local `glorpui_*` mods, which are not in this
+repository at all. Worth resolving before blaming Glorp for anything.
+
 
 ## Where to check things
 
