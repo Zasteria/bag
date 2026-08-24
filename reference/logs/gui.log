@@ -1,0 +1,372 @@
+[09:31:25][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-Regular.ttf
+[09:31:25][pdx_font.cpp:89]: Loading Font File fonts/NotoSansSC/NotoSansSC-Regular.ttf
+[09:31:25][pdx_font.cpp:89]: Loading Font File fonts/NotoSansJP/NotoSansJP-Regular.ttf
+[09:31:25][pdx_font.cpp:89]: Loading Font File fonts/NotoSansKR/NotoSansKR-Regular.ttf
+[09:31:27][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-SemiBold.ttf
+[09:31:27][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifSC/NotoSerifSC-SemiBold.otf
+[09:31:27][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifJP/NotoSerifJP-SemiBold.otf
+[09:31:27][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifKR/NotoSerifKR-SemiBold.otf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-Bold.ttf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifSC/NotoSerifSC-Bold.otf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifJP/NotoSerifJP-Bold.otf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSerifKR/NotoSerifKR-Bold.otf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-Italic.ttf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSansMono/NotoSansMono_SemiCondensed-Medium.ttf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSansSC/NotoSansSC-Medium.ttf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSansJP/NotoSansJP-Medium.ttf
+[09:31:28][pdx_font.cpp:89]: Loading Font File fonts/NotoSansKR/NotoSansKR-Medium.ttf
+[09:31:41][pdx_gui_factory.cpp:1866]: Type 'frontendnews' at gui/cmf_dependency_check.gui:5 overrides previous definition at gui/frontend_mainview.gui:122, both definitions are in mods
+[09:31:41][pdx_gui_factory.cpp:1866]: Type 'steam_logo_button' at gui/cmf_main_menu_marker.gui:4 overrides previous definition at gui/frontend_mainview.gui:188, both definitions are in mods
+[09:31:41][pdx_gui_factory.cpp:1866]: Type 'playset_create_button' at gui/cmf_dependency_check.gui:169 overrides previous definition at gui/mods_gui/mods_gui.gui:3, both definitions are in mods
+[09:31:41][pdx_gui_factory.cpp:1866]: Template 'sdk_button_style_template' at gui/cmf_main_menu_marker.gui:32 overrides previous definition at gui/pdx_account/pdx_custom_types.gui:7, both definitions are in mods
+[09:31:41][pdx_gui_factory.cpp:1866]: Type 'frontendbackground' at gui/shared/glorpUI_frontend_templates.gui:2 overrides previous definition at gui/shared/frontend_templates.gui:439, both definitions are in mods
+[09:31:41][pdx_gui_localize.cpp:302]: gui/shared/geopolitics_tooltips.gui:526 - Failed parsing localized text: COLONIAL_MAINTENANCE_FOR_COLONY_HEADER
+[09:31:41][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/geopolitics_tooltips.gui:526
+[09:31:42][pdx_gui_factory.cpp:1866]: Template 'bg_circle_piechart' at gui/shared/fum_backgrounds.gui:1 overrides previous definition at gui/shared/backgrounds.gui:4142, both definitions are in mods
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/Open_Sans/OpenSans-Regular.ttf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSans/NotoSansJP-Regular.otf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSans/NotoSansKR-Regular.otf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSans/NotoSansSC-Regular.otf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSans/NotoSans-Regular.ttf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSansMono/NotoSansMono_SemiCondensed-Light.ttf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSansSC/NotoSansSC-Light.ttf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSansJP/NotoSansJP-Light.ttf
+[09:31:53][pdx_font.cpp:89]: Loading Font File fonts/NotoSansKR/NotoSansKR-Light.ttf
+[09:31:54][pdx_font.cpp:1752]: Transaction: SFontContext was committed
+[09:32:27][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-Medium.ttf
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'automationsystemstandardcard' at gui/atd_automation_lateralview.gui:3 overrides previous definition at gui/automation_lateralview.gui:325, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Type 'automationsystemstandardcard' at gui/cm_automation_lateralview.gui:2 overrides previous definition at gui/atd_automation_lateralview.gui:3
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'build_location_entry' at gui/cm_build_location_lateralview.gui:1 overrides previous definition at gui/build_location_lateralview.gui:1301, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'build_location_lateralview_panel_content' at gui/cm_build_location_lateralview.gui:1719 overrides previous definition at gui/build_location_lateralview.gui:87, both definitions are in mods
+[09:32:54][pdx_gui_localize.cpp:302]: gui/credit.gui:67 - Failed parsing localized text: LOAN_BUTTON_TEXT
+[09:32:54][pdx_gui_factory.cpp:289]: failed reading property, at gui/credit.gui:67
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'food_production_province' at gui/cm_food_production_lateralview.gui:2 overrides previous definition at gui/food_production_lateralview.gui:259, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'food_production_location' at gui/cm_food_production_lateralview.gui:264 overrides previous definition at gui/food_production_lateralview.gui:506, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'frontendnews' at gui/cmf_dependency_check.gui:5 overrides previous definition at gui/frontend_mainview.gui:122, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'steam_logo_button' at gui/cmf_main_menu_marker.gui:4 overrides previous definition at gui/frontend_mainview.gui:188, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'alert_banner_setup' at gui/glorpUI_alertmanager.gui:3 overrides previous definition at gui/alertmanager.gui:297, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'build_location_entry' at gui/glorpUI_build_location_lateralview.gui:1 overrides previous definition at gui/cm_build_location_lateralview.gui:1
+[09:32:54][pdx_gui_factory.cpp:1862]: Type 'build_location_lateralview_panel_content' at gui/glorpUI_build_location_lateralview.gui:1719 overrides previous definition at gui/cm_build_location_lateralview.gui:1719
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'country_header' at gui/glorpUI_country_header.gui:2 overrides previous definition at gui/country_header.gui:2, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'two_countries_header' at gui/glorpUI_country_header.gui:108 overrides previous definition at gui/country_header.gui:103, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'one_country_header_template' at gui/glorpUI_country_header.gui:140 overrides previous definition at gui/country_header.gui:135, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Type 'food_production_province' at gui/glorpUI_food_production_lateralview.gui:2 overrides previous definition at gui/cm_food_production_lateralview.gui:2
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'two_countries_header_template' at gui/glorpUI_country_header.gui:207 overrides previous definition at gui/country_header.gui:202, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Type 'food_production_location' at gui/glorpUI_food_production_lateralview.gui:264 overrides previous definition at gui/cm_food_production_lateralview.gui:264
+[09:32:54][pdx_gui_factory.cpp:1862]: Type 'zoom_to_button' at gui/glorpUI_shared_types.gui:3 overrides previous definition at gui/cm_glorp_synced_types.gui:3
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'glorpUI_roi_tooltip_base' at gui/glorpUI_shared_types.gui:36 overrides previous definition at gui/cm_glorp_synced_types.gui:36
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'glorpUI_building_roi_tooltip_base' at gui/glorpUI_shared_types.gui:136 overrides previous definition at gui/cm_glorp_synced_types.gui:136
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'glorpUI_building_roi_tooltip' at gui/glorpUI_shared_types.gui:152 overrides previous definition at gui/cm_glorp_synced_types.gui:152
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'glorpUI_building_type_roi_tooltip' at gui/glorpUI_shared_types.gui:174 overrides previous definition at gui/cm_glorp_synced_types.gui:174
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'glorpUI_rgo_roi_tooltip' at gui/glorpUI_shared_types.gui:196 overrides previous definition at gui/cm_glorp_synced_types.gui:196
+[09:32:54][pdx_gui_localize.cpp:302]: gui/expansion_lateralview.gui:1342 - Failed parsing localized text: EXPLORATION_CONSTRUCTION_FINISHED_WHEN
+[09:32:54][pdx_gui_factory.cpp:289]: failed reading property, at gui/expansion_lateralview.gui:1342
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'bg_mapmode_menu' at gui/glorpUI_hud_bot.gui:5 overrides previous definition at gui/hud_bot.gui:431, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmode_category_menu' at gui/glorpUI_hud_bot.gui:113 overrides previous definition at gui/hud_bot.gui:728, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmode_category_block' at gui/glorpUI_hud_bot.gui:173 overrides previous definition at gui/hud_bot.gui:865, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'button_mapmode' at gui/glorpUI_hud_bot.gui:195 overrides previous definition at gui/hud_bot.gui:893, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'button_mapmode_category' at gui/glorpUI_hud_bot.gui:333 overrides previous definition at gui/hud_bot.gui:951, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmode_current_button' at gui/glorpUI_hud_bot.gui:446 overrides previous definition at gui/hud_bot.gui:1046, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmarkers_settings_window' at gui/glorpUI_hud_bot.gui:579 overrides previous definition at gui/hud_bot.gui:1179, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'gamespeed_button_disabled' at gui/fum_hud_topbar.gui:2 overrides previous definition at gui/hud_topbar.gui:55, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'gamespeed_play_button' at gui/fum_hud_topbar.gui:29 overrides previous definition at gui/hud_topbar.gui:81, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'gamespeed_paused_button' at gui/fum_hud_topbar.gui:56 overrides previous definition at gui/hud_topbar.gui:107, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'topbar' at gui/glorpUI_hud_topbar.gui:5 overrides previous definition at gui/hud_topbar.gui:133, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'speed_bar' at gui/fum_hud_topbar.gui:85 overrides previous definition at gui/hud_topbar.gui:1834, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmodes_color_ledger' at gui/glorpUI_hud_bot.gui:665 overrides previous definition at gui/hud_bot.gui:1457, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'frontend_menu_middle_template' at gui/glorpUI_ingame_menu.gui:1 overrides previous definition at gui/ingame_menu.gui:169, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'mapmodes_window' at gui/glorpUI_hud_bot.gui:795 overrides previous definition at gui/hud_bot.gui:1570, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'construction_marker' at gui/fum_map_markers_construction.gui:2 overrides previous definition at gui/map_markers_construction.gui:28, both definitions are in mods
+[09:32:54][pdx_gui_localize.cpp:302]: gui/messages.gui:468 - Failed parsing localized text: WAR_UNIT_TYPE_STATS_TT_LOSSES
+[09:32:54][pdx_gui_factory.cpp:289]: failed reading property, at gui/messages.gui:468
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'characternamedefault' at gui/glorpUI_people_lateral_view.gui:3 overrides previous definition at gui/people_lateral_view.gui:3, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'societal_values' at gui/glorpUI_societal_values_lateralview.gui:1 overrides previous definition at gui/societal_values_lateralview.gui:1, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'SocietalValueCountryLeft_tooltip' at gui/svx_extra_societal_value_hints.gui:6 overrides previous definition at gui/glorpUI_generated_societal_value_hints.gui:3
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'SocietalValueCountryRight_tooltip' at gui/svx_extra_societal_value_hints.gui:726 overrides previous definition at gui/glorpUI_generated_societal_value_hints.gui:247
+[09:32:54][pdx_gui_localize.cpp:302]: gui/setup_mercenary_requirements.gui:138 - Failed parsing localized text: CURRENT_MERCENARY_SELECTION
+[09:32:54][pdx_gui_factory.cpp:289]: failed reading property, at gui/setup_mercenary_requirements.gui:138
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'alert_manager' at gui/cmf/cmf_alert_manager.gui:6 overrides previous definition at gui/alertmanager.gui:565, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'alertsettingscontent' at gui/cmf/cmf_alert_settings.gui:100 overrides previous definition at gui/alert_settings.gui:269, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1862]: Template 'frontend_menu_middle_template' at gui/glorpUI_ingame_menu.gui:1 overrides previous definition at gui/cmm/cmm_ingame_menu.gui:1
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'playset_create_button' at gui/cmf_dependency_check.gui:169 overrides previous definition at gui/mods_gui/mods_gui.gui:3, both definitions are in mods
+[09:32:54][pdx_gui_factory.cpp:1866]: Type 'organization_panel_default' at gui/panels/organization/glorpUI_common.gui:3 overrides previous definition at gui/panels/organization/common.gui:3, both definitions are in mods
+[09:32:54][pdx_gui_localize.cpp:302]: gui/panels/organization/members.gui:1030 - Failed parsing localized text: VOTE_IO_PARLIAMENT
+[09:32:54][pdx_gui_factory.cpp:289]: failed reading property, at gui/panels/organization/members.gui:1030
+[09:32:54][pdx_gui_factory.cpp:1866]: Template 'sdk_button_style_template' at gui/cmf_main_menu_marker.gui:32 overrides previous definition at gui/pdx_account/pdx_custom_types.gui:7, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'bg_circle_piechart' at gui/shared/fum_backgrounds.gui:1 overrides previous definition at gui/shared/backgrounds.gui:4142, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'building_tooltip_detail' at gui/shared/glorpUI_building_tooltips.gui:1 overrides previous definition at gui/shared/building_tooltips.gui:712, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'cabinet_card_header_content' at gui/shared/glorpUI_cabinet_cards.gui:1 overrides previous definition at gui/shared/cabinet_cards.gui:27, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'cabinet_card' at gui/shared/glorpUI_cabinet_cards.gui:75 overrides previous definition at gui/shared/cabinet_cards.gui:99, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'cabinet_header_card' at gui/shared/glorpUI_cabinet_cards.gui:458 overrides previous definition at gui/shared/cabinet_cards.gui:482, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'card_header_button_cabinet' at gui/shared/glorpUI_cabinet_cards.gui:513 overrides previous definition at gui/shared/cabinet_cards.gui:537, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'CountryTooltip' at gui/shared/glorpUI_country_tooltips.gui:1 overrides previous definition at gui/shared/country_tooltips.gui:453, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'CountryTooltip_DiplomacyStatBars' at gui/shared/glorpUI_diplomacy_tooltips.gui:1 overrides previous definition at gui/shared/diplomacy_tooltips.gui:645, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'CountryMapModeDiplomacyTooltip' at gui/shared/glorpUI_diplomacy_tooltips.gui:208 overrides previous definition at gui/shared/diplomacy_tooltips.gui:849, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'DHEEvent_tooltip' at gui/shared/glorpUI_event_tooltips.gui:1 overrides previous definition at gui/shared/event_tooltips.gui:1, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'frontendbackground' at gui/shared/glorpUI_frontend_templates.gui:2 overrides previous definition at gui/shared/frontend_templates.gui:439, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'ProvinceDefinition_tooltip' at gui/shared/glorpUI_geography_definitions_tooltips.gui:1 overrides previous definition at gui/shared/geography_definitions_tooltips.gui:1, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'bg_circle_piechart' at gui/shared/fum_backgrounds.gui:1 overrides previous definition at gui/shared/glorpUI_backgrounds.gui:1
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'left_panel_bar' at gui/panels/left_panel/glorpUI_left_panel.gui:3 overrides previous definition at gui/panels/left_panel/left_panel.gui:109, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'left_panel' at gui/panels/left_panel/glorpUI_left_panel.gui:831 overrides previous definition at gui/panels/left_panel/left_panel.gui:680, both definitions are in mods
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/io_tooltips.gui:265 - Failed parsing localized text: VOTE_OF_COUNTRY
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/io_tooltips.gui:265
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/io_tooltips.gui:728 - Failed parsing localized text: IO_PARLIAMENT_SUPPORT_TITLE
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/io_tooltips.gui:728
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/io_tooltips.gui:733 - Failed parsing localized text: IO_PARLIAMENT_SUPPORT_TT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/io_tooltips.gui:733
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'SocietalValueCountryLeft_tooltip' at gui/svx_extra_societal_value_hints.gui:6 overrides previous definition at gui/shared/government_tooltips.gui:1916, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'SocietalValueCountryRight_tooltip' at gui/svx_extra_societal_value_hints.gui:726 overrides previous definition at gui/shared/government_tooltips.gui:1935, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'cabinet_character_button' at gui/shared/glorpUI_cabinet_cards.gui:532 overrides previous definition at gui/shared/cabinet_cards.gui:556, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'economy_plotline' at gui/shared/glorpUI_plotlines.gui:3 overrides previous definition at gui/shared/plotlines.gui:198, both definitions are in mods
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/location_tooltips.gui:2147 - Failed parsing localized text: LOCATION_FOOD_TT_TABLE_TITLE
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/location_tooltips.gui:2147
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/religion_tooltips.gui:311 - Failed parsing localized text: SELF_CONTROL_TT_CURRENT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/religion_tooltips.gui:311
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/religion_tooltips.gui:433 - Failed parsing localized text: HARMONY_TT_CURRENT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/religion_tooltips.gui:433
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/religion_tooltips.gui:498 - Failed parsing localized text: YANANTIN_TT_CURRENT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/religion_tooltips.gui:498
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/religion_tooltips.gui:564 - Failed parsing localized text: PURITY_TT_CURRENT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/religion_tooltips.gui:564
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/religion_tooltips.gui:785 - Failed parsing localized text: HONOR_TT_CURRENT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/religion_tooltips.gui:785
+[09:32:55][pdx_gui_localize.cpp:302]: gui/shared/unit_overview_tooltips.gui:535 - Failed parsing localized text: TT_AVERAGE_DISCIPLINE_COMBAT_TEXT
+[09:32:55][pdx_gui_factory.cpp:289]: failed reading property, at gui/shared/unit_overview_tooltips.gui:535
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'food_production_province' at gui/glorpUI_food_production_lateralview.gui:2 overrides previous definition at gui/vanilla/cmf_food_production_lateralview_vanilla_types.gui:6
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'build_rgo_entry' at gui/expand_raw_goods_lateralview.gui:516 overrides previous definition at gui/vanilla/cmf_expand_raw_goods_lateralview_vanilla_types.gui:5
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'food_production_location' at gui/glorpUI_food_production_lateralview.gui:264 overrides previous definition at gui/vanilla/cmf_food_production_lateralview_vanilla_types.gui:253
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_decor' at gui/government_lateralview.gui:46 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:49
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_card_top_part' at gui/government_lateralview.gui:98 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:101
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_card_privilege_common_widget' at gui/government_lateralview.gui:603 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:606
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_card_privilege' at gui/government_lateralview.gui:663 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:666
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_card_background' at gui/government_lateralview.gui:842 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:845
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_card' at gui/government_lateralview.gui:903 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:906
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'io_law_item' at gui/government_lateralview.gui:926 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:929
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'laws_list_item' at gui/government_lateralview.gui:1387 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:1390
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'law_item_icon' at gui/government_lateralview.gui:1965 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:1968
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_reform_action_button_common_widget' at gui/government_lateralview.gui:1999 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2002
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_add_reform_button' at gui/government_lateralview.gui:2023 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2026
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estate_reform_implementation_progress' at gui/government_lateralview.gui:2080 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2083
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'reform_details_dynamic' at gui/government_lateralview.gui:2134 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2137
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'privilige_details_dynamic' at gui/government_lateralview.gui:2221 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2224
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'ruler_trait_item' at gui/government_lateralview.gui:2239 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2243
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'row_building_card' at gui/location_window.gui:7554 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:191
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_unit_side_color' at gui/fum_map_markers_vanilla_types.gui:3 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:4
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_unit_side_color_transporting' at gui/fum_map_markers_vanilla_types.gui:29 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:31
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_country_side_color' at gui/fum_map_markers_vanilla_types.gui:55 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:58
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_siege_side_color' at gui/fum_map_markers_vanilla_types.gui:81 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:85
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_bg_circle' at gui/fum_map_markers_vanilla_types.gui:120 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:125
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_frame' at gui/fum_map_markers_vanilla_types.gui:174 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:181
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_bg' at gui/fum_map_markers_vanilla_types.gui:190 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:198
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_unit_strength' at gui/fum_map_markers_vanilla_types.gui:204 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:256
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_commander' at gui/fum_map_markers_vanilla_types.gui:722 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:775
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_transport' at gui/fum_map_markers_vanilla_types.gui:776 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:830
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'bg_unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:865 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:920
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:876 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:932
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_modifiers_small_zoom' at gui/fum_map_markers_vanilla_types.gui:1669 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:1726
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_unit_banners' at gui/fum_map_markers_vanilla_types.gui:1748 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:1806
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_maker_siege_banner' at gui/fum_map_markers_vanilla_types.gui:1811 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:1918
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:1989 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2096
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_units' at gui/fum_map_markers_vanilla_types.gui:2005 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2112
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_unit_info' at gui/fum_map_markers_vanilla_types.gui:2029 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2136
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_compass' at gui/fum_map_markers_vanilla_types.gui:2053 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2160
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_layout' at gui/fum_map_markers_vanilla_types.gui:2108 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2215
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_battle_side_flank' at gui/fum_map_markers_vanilla_types.gui:2119 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2226
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'combat_side_marker' at gui/fum_map_markers_vanilla_types.gui:2195 overrides previous definition at gui/vanilla/cmf_map_markers_vanilla_types.gui:2271
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'chat_editbox' at gui/multiplayer_chat.gui:266 overrides previous definition at gui/vanilla/cmf_multiplayer_chat_vanilla_types.gui:7
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_card' at gui/location_window.gui:8107 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:816
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'unlock_icon' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:52 overrides previous definition at gui/technology_lateralview.gui:49, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_action_progress' at gui/outliner_entries.gui:3859 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:464
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_icon_empty' at gui/outliner_entries.gui:3803 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:657
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_icon' at gui/outliner_entries.gui:3836 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:691
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'production_view_poptypes' at gui/production_lateralview.gui:1 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:311
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'special_advance' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:107 overrides previous definition at gui/technology_lateralview.gui:103, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'advance_frame_with_icon' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:465 overrides previous definition at gui/technology_lateralview.gui:460, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'category_big_template' at gui/outliner_entries.gui:7625 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:865
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'category_small_template' at gui/outliner_entries.gui:7782 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:1023
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'town_rights_type_item' at gui/vanilla/cmf_town_rights_vanilla_types.gui:4 overrides previous definition at gui/town_rights.gui:1, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'building_type_header' at gui/production_lateralview.gui:1745 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:531
+[09:32:55][pdx_gui_factory.cpp:1866]: Type 'advances_tree_item' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:477 overrides previous definition at gui/technology_lateralview.gui:472, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'advances_tree_item_modifiers' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:1524 overrides previous definition at gui/technology_lateralview.gui:1518, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1866]: Template 'institution_item_subheader' at gui/vanilla/cmf_technology_lateralview_vanilla_types.gui:1635 overrides previous definition at gui/technology_lateralview.gui:2374, both definitions are in mods
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_filtered_header_with_candidate' at gui/production_lateralview.gui:2284 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:1427
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_filtered_header_no_candidate' at gui/production_lateralview.gui:3234 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:2346
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'countryinfo_block_margin' at gui/vanilla/cmfg_foreign_country_lateralview_vanilla_types.gui:6 overrides previous definition at gui/vanilla/cmf_foreign_country_lateralview_vanilla_types.gui:6
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'government_main_tabs' at gui/vanilla/cmfg_government_lateralview_vanilla_types.gui:5 overrides previous definition at gui/vanilla/cmf_government_lateralview_vanilla_types.gui:2330
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'subheader_culture_religion' at gui/vanilla/cmfg_foreign_country_lateralview_vanilla_types.gui:31 overrides previous definition at gui/vanilla/cmf_foreign_country_lateralview_vanilla_types.gui:31
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'right_panel_maxmin_width' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:29 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:29
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'left_panel_maxmin_width' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:35 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:35
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'panel_bar_size' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:41 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:41
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'panel_decor_size' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:43 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:43
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'left_topbar_section_size' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:45 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:45
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_building_levels_piechart' at gui/vanilla/cmfg_location_window_vanilla_types.gui:6 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:6
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'right_topbar_section_size' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:47 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:47
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'panels_margin_bottom' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:49 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:49
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'lateralview_margins' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:52 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:52
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'lateralview_full_margins' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:57 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:57
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'lateralview_left_setup' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:65 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:65
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'demography_chart' at gui/vanilla/cmfg_location_window_vanilla_types.gui:67 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:67
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'lateralview_right_setup' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:89 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:89
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'flags_with_limit' at gui/vanilla/cmfg_location_window_vanilla_types.gui:135 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:135
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'card_button_alt' at gui/vanilla/cmfg_location_window_vanilla_types.gui:175 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:175
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'error_platypus' at gui/vanilla/cmfg_ingame_topbar_vanilla_types.gui:116 overrides previous definition at gui/vanilla/cmf_ingame_topbar_vanilla_types.gui:116
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_buildings_tooltip' at gui/vanilla/cmfg_location_window_vanilla_types.gui:191 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:737
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'garrison_sortie_button' at gui/vanilla/cmfg_location_window_vanilla_types.gui:252 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:798
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_unit_side_color' at gui/fum_map_markers_vanilla_types.gui:3 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:4
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_unit_side_color_transporting' at gui/fum_map_markers_vanilla_types.gui:29 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:31
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'army_slot' at gui/vanilla/cmfg_location_window_vanilla_types.gui:270 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:1874
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'navy_slot' at gui/vanilla/cmfg_location_window_vanilla_types.gui:308 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:1912
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_country_side_color' at gui/fum_map_markers_vanilla_types.gui:55 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:58
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_siege_side_color' at gui/fum_map_markers_vanilla_types.gui:81 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:85
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'marker_bg_circle' at gui/fum_map_markers_vanilla_types.gui:120 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:125
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_card_right_buttons' at gui/vanilla/cmfg_location_window_vanilla_types.gui:346 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:1950
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_frame' at gui/fum_map_markers_vanilla_types.gui:174 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:181
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_bg' at gui/fum_map_markers_vanilla_types.gui:190 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:198
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'location_conditions_item' at gui/vanilla/cmfg_location_window_vanilla_types.gui:451 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2055
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'army_small_item' at gui/vanilla/cmfg_location_window_vanilla_types.gui:598 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2202
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'diplomatic_relations_content' at gui/vanilla/cmfg_foreign_country_lateralview_vanilla_types.gui:100 overrides previous definition at gui/vanilla/cmf_foreign_country_lateralview_vanilla_types.gui:100
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_unit_strength' at gui/fum_map_markers_vanilla_types.gui:204 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:256
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'regency_progress_tooltip' at gui/vanilla/cmfg_foreign_country_lateralview_vanilla_types.gui:1285 overrides previous definition at gui/vanilla/cmf_foreign_country_lateralview_vanilla_types.gui:1285
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'goods_building_item' at gui/vanilla/cmfg_location_window_vanilla_types.gui:665 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2269
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_commander' at gui/fum_map_markers_vanilla_types.gui:722 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:775
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'button_outliner_texture' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:5 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:5
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'button_outliner_category_texture' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:32 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:32
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'button_outliner_effect' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:41 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:41
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_color' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:80 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:80
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'location_fort_status' at gui/vanilla/cmfg_location_window_vanilla_types.gui:984 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2588
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_transport' at gui/fum_map_markers_vanilla_types.gui:776 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:830
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'outlinericonbg' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:88 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:88
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'bg_unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:865 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:920
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'outlinertextbase' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:113 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:113
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'outlinerbuttonbase' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:118 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:118
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'outlinercategorybuttonbase' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:142 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:142
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'outlinerentrybase' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:152 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:152
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'production_main_tabs' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:4 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:4
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'siege_fall_chance_info' at gui/vanilla/cmfg_location_window_vanilla_types.gui:1083 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2687
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'agendacheck' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:227 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:227
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'location_side_color' at gui/vanilla/cmfg_location_window_vanilla_types.gui:1209 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2813
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'icon_gold_texture_alt' at gui/vanilla/cmfg_location_window_vanilla_types.gui:1244 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2848
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'card_button_alt_frame' at gui/vanilla/cmfg_location_window_vanilla_types.gui:1269 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2873
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'location_background' at gui/vanilla/cmfg_location_window_vanilla_types.gui:1293 overrides previous definition at gui/vanilla/cmf_location_window_vanilla_types.gui:2897
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'agendamissionentry' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:280 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:280
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_small_action_progress' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:457 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:546
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'production_view_subtabs' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:70 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:70
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'cabinet_entry_actions' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:568 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:715
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'OnlyVisibleWhenOneInLocation' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:593 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:740
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'OnlyVisibleWhenMultipleInLocation' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:598 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:745
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'diplomacy_expanded_big_content' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:610 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:757
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'diplomacy_expanded_small_content' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:639 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:786
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unitflankinfo' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:121 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:121
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'diplomacy_icon_content' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:676 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:823
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'foreign_production_building_card' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:313 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:410
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'category_icon_template' at gui/vanilla/cmfg_outliner_entries_vanilla_types.gui:709 overrides previous definition at gui/vanilla/cmf_outliner_entries_vanilla_types.gui:1156
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'foreign_building_card' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:434 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:2595
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combatprogress' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:410 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:410
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:876 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:932
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_modifiers_small_zoom' at gui/fum_map_markers_vanilla_types.gui:1669 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:1726
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'siegeprogress' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:631 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:631
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_marker_item_unit_banners' at gui/fum_map_markers_vanilla_types.gui:1748 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:1806
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'market_card' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:545 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:2706
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'recruit_location_entry' at gui/vanilla/cmfg_recruit_location_lateralview_vanilla_types.gui:4 overrides previous definition at gui/vanilla/cmf_recruit_location_lateralview_vanilla_types.gui:4
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'market_card_right_buttons' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1095 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3256
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'levy_possible_category_tt' at gui/vanilla/cmfg_recruit_location_lateralview_vanilla_types.gui:768 overrides previous definition at gui/vanilla/cmf_recruit_location_lateralview_vanilla_types.gui:768
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_maker_siege_banner' at gui/fum_map_markers_vanilla_types.gui:1811 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:1918
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_modifiers' at gui/fum_map_markers_vanilla_types.gui:1989 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2096
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_units' at gui/fum_map_markers_vanilla_types.gui:2005 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2112
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'estates_filter_button' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1249 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3410
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'occupation_block' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:891 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:891
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_unit_info' at gui/fum_map_markers_vanilla_types.gui:2029 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2136
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'flag_estate_building_card' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1361 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3522
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'estates_filter_button_pin_overlay' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1401 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3562
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'siege_modifier' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:1156 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:1156
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'pop_filter_button_tt' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1413 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3574
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_compass' at gui/fum_map_markers_vanilla_types.gui:2053 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2160
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'trade_capacity_button_action' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1435 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3596
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_item_layout' at gui/fum_map_markers_vanilla_types.gui:2108 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2215
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_marker_battle_side_flank' at gui/fum_map_markers_vanilla_types.gui:2119 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2226
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'trade_capacity_button_text' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1468 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3629
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'gov_needs_button_action' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1554 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3715
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'building_needs_button_action' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1597 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3758
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'pop_needs_button_action' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1626 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3787
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'food_needs_button_action' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1664 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3825
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'market_banner' at gui/vanilla/cmfg_production_lateralview_vanilla_types.gui:1689 overrides previous definition at gui/vanilla/cmf_production_lateralview_vanilla_types.gui:3850
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'combat_side_marker' at gui/fum_map_markers_vanilla_types.gui:2195 overrides previous definition at gui/vanilla/cmfg_map_markers_vanilla_types.gui:2271
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_block' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:6 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:6
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_side_modifier_icon' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:611 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:611
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_side_statistics' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:645 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:645
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'dynamic_section_regiments' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:790 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:790
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'section_regiments' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:917 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:917
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_flank_status' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:981 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:981
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'reserves_status' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:1282 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:1282
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_country_ruler' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:1644 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:1644
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'countries_strength_bar' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:1888 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:1888
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_participating_countries_card' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2051 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2051
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'countries_battle_modifiers_dice' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2155 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2155
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'combat_side_modifiers' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2229 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2229
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'battle_header_card' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2354 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2354
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'battle_side_card' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2365 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2365
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'battle_goto_widget' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2378 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2378
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'battle_side_small_card' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2421 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2421
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'goto_battle_action' at gui/vanilla/cmfg_battle_lateralview_vanilla_types.gui:2509 overrides previous definition at gui/vanilla/cmf_battle_lateralview_vanilla_types.gui:2509
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'siege_block' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:1193 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:1193
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_category_secondary_icon' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:2139 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:2139
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_action_category' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:2543 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:2543
+[09:32:55][pdx_gui_factory.cpp:1862]: Type 'unit_mercenary_contracts_ongoing' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:2845 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:2845
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'toggle_unit_action_icon' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:2970 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:2970
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'unit_formation_texture' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:3037 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:3037
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'army_strength_texture' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:3042 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:3042
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'navy_strength_texture' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:3047 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:3047
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'reinforcement_rate_tootlip' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:3052 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:3052
+[09:32:55][pdx_gui_factory.cpp:1862]: Template 'subunit_illustration' at gui/vanilla/cmfg_single_unit_window_vanilla_types.gui:3092 overrides previous definition at gui/vanilla/cmf_single_unit_window_vanilla_types.gui:3092
+[09:32:55][pdx_gui_factory.cpp:624]: gui/panels/left_panel/glorpUI_left_panel.gui:802 - 'button_panel_tab_ideas' is not a valid widget/type/property
+[09:32:55][pdx_gui_factory.cpp:624]: gui/panels/left_panel/glorpUI_left_panel.gui:803 - 'button_panel_tab_uniqueevents' is not a valid widget/type/property
+[09:32:55][pdx_gui_factory.cpp:624]: gui/economy_lateralview.gui:1098 - 'smart_taxes_replacement_enable_checkbox' is not a valid widget/type/property
+[09:32:55][pdx_gui_factory.cpp:624]: gui/economy_lateralview.gui:1350 - 'smart_taxes_satisfaction_target_setter' is not a valid widget/type/property
+[09:32:55][pdx_gui_factory.cpp:624]: gui/economy_lateralview.gui:2227 - 'smart_taxes_research_spending_mechanic_type' is not a valid widget/type/property
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/CormorantGaramond-SemiBold.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSerifDisplay-SemiBold.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSerifSC-Bold.otf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSerifJP-Bold.otf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSerifKR-Bold.otf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSerif_SemiCondensed-Regular.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSansSC-Regular.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSansJP-Regular.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSansKR-Regular.ttf
+[09:33:10][pdx_font.cpp:89]: Loading Font File fonts/MapNamesFonts/NotoSansMono_SemiCondensed-Medium.ttf
+[09:33:19][pdx_font.cpp:1752]: Transaction: SFontContext was committed
+[09:33:19][pdx_font.cpp:89]: Loading Font File fonts/NotoSansMono/NotoSansMono_SemiCondensed-Light.ttf
+[09:33:19][pdx_font.cpp:89]: Loading Font File fonts/NotoSansSC/NotoSansSC-Light.ttf
+[09:33:19][pdx_font.cpp:89]: Loading Font File fonts/NotoSansJP/NotoSansJP-Light.ttf
+[09:33:19][pdx_font.cpp:89]: Loading Font File fonts/NotoSansKR/NotoSansKR-Light.ttf
+[09:33:59][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:33:59][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:33:59][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:33:59][pdx_gui_factory.cpp:2256]: gui/panels/left_panel/glorpUI_left_panel.gui:802 - untyped is not a valid type
+[09:33:59][pdx_gui_factory.cpp:2256]: gui/panels/left_panel/glorpUI_left_panel.gui:803 - untyped is not a valid type
+[09:33:59][pdx_gui_factory.cpp:2256]: gui/panels/left_panel/glorpUI_left_panel.gui:802 - untyped is not a valid type
+[09:33:59][pdx_gui_factory.cpp:2256]: gui/panels/left_panel/glorpUI_left_panel.gui:803 - untyped is not a valid type
+[09:33:59][pdx_gui_layout.cpp:201]: gui/government_lateralview.gui:3063 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/foreign_country_lateralview.gui:472 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/foreign_country_lateralview.gui:472 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/foreign_country_lateralview.gui:472 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/foreign_country_lateralview.gui:472 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/foreign_country_lateralview.gui:1009 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:00][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:50 - Widget cannot have a position in a layout
+[09:34:04][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-Medium.ttf
+[09:34:05][pdx_font.cpp:89]: Loading Font File fonts/NotoSerif/NotoSerif_SemiCondensed-SemiBoldItalic.ttf
+[09:34:05][pdx_font.cpp:89]: Loading Font File fonts/NotoSansSC/NotoSansSC-SemiBold.ttf
+[09:34:05][pdx_font.cpp:89]: Loading Font File fonts/NotoSansJP/NotoSansJP-SemiBold.ttf
+[09:34:05][pdx_font.cpp:89]: Loading Font File fonts/NotoSansKR/NotoSansKR-SemiBold.ttf
+[09:35:06][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:34 - Widget cannot have a position in a layout
+[09:35:06][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:34 - Widget cannot have a position in a layout
+[09:35:06][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:34 - Widget cannot have a position in a layout
+[09:35:06][pdx_gui_layout.cpp:201]: gui/glorpUI_country_header.gui:34 - Widget cannot have a position in a layout
+[09:35:06][jominiapplication.cpp:763]: Clearing Gui property caches

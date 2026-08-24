@@ -1,0 +1,14 @@
+[09:31:06][systemsettings.cpp:215]: CPU Model: AMD Ryzen 7 7800X3D 8-Core Processor           
+[09:31:06][systemsettings.cpp:216]: CPU Speed: 4192MHz
+[09:31:06][systemsettings.cpp:217]: CPU Physical Cores: 8
+[09:31:06][systemsettings.cpp:218]: CPU Logical Cores: 16
+[09:31:06][systemsettings.cpp:219]: RAM Total: 31830
+[09:31:06][systemsettings.cpp:220]: RAM Free: 20036
+[09:31:06][systemsettings.cpp:221]: Swap Total: 49238
+[09:31:06][systemsettings.cpp:222]: Swap Free: 30198
+[09:31:06][systemsettings.cpp:223]: OS Version: Windows 11 (Build 26200)
+[09:31:06][systemsettings.cpp:224]: OS Language: ru
+[09:31:08][contextowner.cpp:951]: GPU Name: NVIDIA GeForce RTX 5070
+[09:31:08][contextowner.cpp:952]: GPU Vendor: nVidia
+[09:31:08][contextowner.cpp:953]: GPU Id: 12036
+[09:31:08][contextowner.cpp:954]: GPU Dedicated Memory: 11943
