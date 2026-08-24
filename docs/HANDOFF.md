@@ -215,24 +215,40 @@ that accumulates. Two candidates survive, and both are things a person does:
 panels opened and closed, and event windows dismissed. Pause separates them,
 because a paused game fires no events.
 
-**The experiment, designed against the above.** Pause the game — that removes
-events, the tick and any map churn in one move, and the baseline is already known
-to be zero, so every row that is not zero is attributable to what was being done
-while it was recorded. One row is 3 600 rendered frames, about seventy seconds at
-the frame rates in this log, so two minutes per activity gives roughly two rows
-each:
+**The experiment was run on 2026-08-25, and it answered.** Five two-minute
+blocks on one save, paused, separated by short unpaused skips so the in-game date
+labels them. Numbers and method in
+[`TESTLOG.md`](TESTLOG.md#2026-08-25--the-widget-experiment-five-blocks-on-one-save).
+Three results:
 
-1. paused, hands off — two minutes (confirms the zero, and catches it if the
-   save behaves differently from the one already measured);
-2. paused, open and close the foreign country panel, over and over — two minutes;
-3. paused, open and close a location's panel — two minutes;
-4. paused, cycle through map modes — two minutes;
-5. unpaused at speed 5, dismissing events as they arrive and touching nothing
-   else — two minutes.
+- **Idle costs exactly nothing.** Three consecutive rows of +0 across 10 800
+  frames. Every widget is created by an action.
+- **Widgets are released, but only on teardown.** Quitting a game took the count
+  from 38 281 to 367 in two rows; the largest fall *during* play is −557.
+- **It is not one window, which was the hypothesis.** Diplomacy panels leak
+  1.86 widgets a frame, map modes 1.49, the location panel 0.29 — different
+  rates, but none of them zero. Whatever fails to release is shared across most
+  of the interface.
 
-Then send `performance_degradation.log`. The rows are in order, so the blocks map
-onto them without anyone having to write down a time. Whichever block moves the
-widget column is the answer, and the ones that do not are ruled out for good.
+So bisecting panels is finished; it will keep finding more panels. The remaining
+axis is **the mod set against vanilla**, and one run settles it. The save cannot
+be loaded without its mods, so both sides start a fresh 1337 game:
+
+1. New game, any country. Wait for the map, **pause**.
+2. One minute doing nothing — the row after the warm-up row should read +0.
+3. Two minutes clicking countries and opening the diplomacy panel. That block ran
+   at ten thousand widgets per fifty seconds with the full playset, so one row is
+   already a decisive reading.
+4. Quit, send `performance_degradation.log`.
+
+**Run vanilla first.** If vanilla leaks at the same rate the question is closed:
+it is the base game, there is nothing this repository can do about it, and
+reloading periodically stays the only answer. Only if vanilla is flat is it worth
+a third run with Glorp UI and its two `glorpui_*` addons disabled.
+
+**What is already ruled out:** map markers, unit icons and the passage of time
+(the paused-date analysis above), and `rgo_bonus_filter` — it adds to the
+location panel, which is the lightest of the three by a factor of six.
 
 **One thing noticed in passing.** The game complains about
 `gui/glorpUI_country_header.gui`, and no such file exists anywhere under the

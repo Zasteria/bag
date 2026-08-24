@@ -250,6 +250,55 @@ screen. The log says they no longer fail; it does not say the Russian is right.
 The quickest look is a religion tooltip (harmony, purity, honor) and the goods
 filter chips in a location's buildings panel.
 
+### 2026-08-25 — the widget experiment, five blocks on one save
+
+The protocol from [`HANDOFF.md`](HANDOFF.md#the-slowdown), run by the player on a
+loaded 1362 save: paused throughout except the last block, two minutes per
+activity, a short unpaused skip between blocks so the in-game date separates
+them in the log. One sampler row is 3 601 frames, about fifty seconds here.
+
+Only intervals *inside* one block are counted; a row whose date differs from the
+row before it spans the skip as well and is thrown out.
+
+| block | what was done | widgets | per frame |
+| --- | --- | --- | --- |
+| 1 | paused, hands off | **+0, +0, +0** | **0.00** |
+| 2 | clicking countries, opening diplomacy | +20 099 | +1.86 |
+| 3 | clicking locations, opening the build panel | +3 178 | +0.29 |
+| 4 | cycling map modes | +32 254 | +1.49 |
+| 5 | speed 7, panning the map, dismissing events | +27 566 in one row | — |
+
+**Three findings, and the first two are settled.**
+
+**Idle costs nothing at all.** Not "little" — three consecutive rows of exactly
++0 across 10 800 frames. Every widget this game accumulates is created by
+something the player did. (The first row of block 1 adds 9 624; that is the
+interface finishing its build after the save loaded, not idling.)
+
+**Widgets *are* released — but only on teardown.** Quitting the 1337 game at the
+start of the run took the count from 38 281 to 2 618 to 367 in two rows. Nothing
+comparable happens during play: the largest fall inside the session is −557.
+
+**It is not one window.** That was the hypothesis and it is wrong. Diplomacy
+panels and map modes leak at comparable rates — 1.86 and 1.49 widgets a frame,
+ten to seventeen thousand per fifty seconds of clicking — and the location panel
+leaks too, six times slower but never zero. Whatever is failing to release is
+shared by most of the interface, so bisecting panels further is a dead end.
+
+**A caveat about frame time, and it matters.** This run stayed at 14 ms
+throughout, at 175 000 widgets, where the hour-long run was at 17–21 ms with the
+same count. The difference is that this run was paused for all but the last
+block, and a paused game does no simulation. So this run says nothing about the
+frame-time cost of widgets; it was designed to measure accumulation and that is
+all it measured.
+
+**What it rules out for this repository:** `rgo_bonus_filter` adds to the
+location panel, and the location panel is the *lightest* of the three. Nothing
+of ours is implicated.
+
+**Next:** the remaining axis is mods against vanilla, and one run settles it —
+see [`HANDOFF.md`](HANDOFF.md#the-slowdown).
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:
