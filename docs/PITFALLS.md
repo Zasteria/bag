@@ -195,6 +195,14 @@ a perfectly ordinary type that no English string happens to mention. Check the
 engine's `dump_data_types` before calling a name invented — the same rule that
 applies to effects and triggers.
 
+**`performance_degradation.log` records the in-game date, which turns it into a
+controlled experiment for free.** A row whose date equals the row before it was
+taken while the game was paused. Splitting an hour that way said more than any
+guess: paused and idle adds zero widgets, growth does not scale with game days
+(103 days added 138 widgets, 125 days added 10 936), and it does not scale with
+the unit count on the map. That ruled out map icons, unit markers and the tick
+itself without asking the player to run anything.
+
 **Three samples of a performance log cannot tell a leak from a warm-up.** The
 first reading of `performance_degradation.log` had memory climbing 280 MB a
 minute and concluded the game was heading for swap. An hour of the same log says

@@ -192,28 +192,47 @@ there. Windows reclaims it. What grows without limit is the widget count and the
 virtual size. Three samples could not tell a leak from a warm-up, and that lesson
 is worth more than the mistake: on this log, read the whole run.
 
-**It is bursty, not continuous.** Several intervals add zero widgets — nothing at
-all across 3 601 frames at t=1291, again at t=1345, at t=2539 and at t=2604 — and
-a few go slightly negative, so widgets *are* released sometimes and the counter is
-live. Growth arrives in steps of two to ten thousand. The leak is therefore tied
-to something the player does, not to time passing, and what to look for is a
-window that leaves widgets behind when it closes.
+**It is bursty, and it is not the simulation.** The sampler records the in-game
+date, so a row whose date matches the row before it was taken while the game was
+paused. Sorting the hour that way settles several things at once:
 
-**What is not known.** Which window. None of this repository's mods was on screen
-for it — Goods Target and the Mod Menu were never opened.
+- **Paused and idle adds nothing.** Two stretches — four samples at 1342_01_01
+  and two at 1347_08_01, some 21 000 frames between them — add +0, +0, −58, +396,
+  +0, +0. The counter is live and a game left alone does not grow.
+- **Growth does not track game time.** The interval ending 1348_06_03 advanced
+  103 game days and added 138 widgets; the one ending 1350_05_07 advanced 125
+  days and added 10 936. Eighty times the widgets for the same amount of
+  simulation.
+- **Growth does not track what is on the map.** `Total number of Gfx units`
+  swings between 276 and 708 across the run with no relation to the widget
+  column, and `Total number of Trade wagons` never moves off 843.
+- **The largest single block is paused.** The five samples right after load, all
+  at 1337_04_01 with the game paused, add 102 000 widgets between them — that is
+  the player setting up and opening panels, not the world ticking.
 
-**The cheapest next step.** The game counts the widgets for us, so this needs no
-instrumentation at all:
+So map markers, unit icons and the passage of time are all ruled out as the thing
+that accumulates. Two candidates survive, and both are things a person does:
+panels opened and closed, and event windows dismissed. Pause separates them,
+because a paused game fires no events.
 
-1. Start a game, sit on the map without opening anything for about five minutes,
-   quit. Read the `GUI widgets` column. It should barely move — and if it moves
-   anyway, the leak is not panel-driven and this whole reading is wrong.
-2. Start again and open and close one panel twenty times, then quit, and compare.
-   A panel that leaks shows it immediately at that rate.
-3. Failing that, one run with Glorp UI and its two `glorpui_*` addons disabled,
-   same five minutes, same column.
+**The experiment, designed against the above.** Pause the game — that removes
+events, the tick and any map churn in one move, and the baseline is already known
+to be zero, so every row that is not zero is attributable to what was being done
+while it was recorded. One row is 3 600 rendered frames, about seventy seconds at
+the frame rates in this log, so two minutes per activity gives roughly two rows
+each:
 
-One number per run, and each run rules something out.
+1. paused, hands off — two minutes (confirms the zero, and catches it if the
+   save behaves differently from the one already measured);
+2. paused, open and close the foreign country panel, over and over — two minutes;
+3. paused, open and close a location's panel — two minutes;
+4. paused, cycle through map modes — two minutes;
+5. unpaused at speed 5, dismissing events as they arrive and touching nothing
+   else — two minutes.
+
+Then send `performance_degradation.log`. The rows are in order, so the blocks map
+onto them without anyone having to write down a time. Whichever block moves the
+widget column is the answer, and the ones that do not are ruled out for good.
 
 **One thing noticed in passing.** The game complains about
 `gui/glorpUI_country_header.gui`, and no such file exists anywhere under the
