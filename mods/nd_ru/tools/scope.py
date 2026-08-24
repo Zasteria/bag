@@ -42,9 +42,22 @@ PROSE = re.compile(r"(_desc|_tooltip|_effect|_text)$|\.\d+\.(?!t$)\w+$")
 FORMATION = re.compile(r"^nd_[a-z]+\.1\.")
 
 
+# A ``..._CATEGORY`` key names one of the game's own interaction categories.
+# Its value looks like prose to the eye and to a letter count, and translating
+# it files the interaction under a category that does not exist.
+CONSTANT = re.compile(r"^CATEGORY_[A-Z_]+$")
+
+
+def translatable(key: str, value: str) -> bool:
+    """A value a player reads, rather than one the engine reads."""
+    if key.endswith("_CATEGORY") and CONSTANT.match(value):
+        return False
+    return bool(re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)))
+
+
 def is_wanted(key: str, value: str) -> bool:
     """A country's working set: its names plus its formation event, whole."""
-    if not re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)):
+    if not translatable(key, value):
         return False
     return is_name(key, value) or bool(FORMATION.match(key))
 
@@ -54,7 +67,7 @@ def is_name(key: str, value: str) -> bool:
         return False
     if key.startswith(("STATIC_MODIFIER_DESC_", "AUTO_MODIFIER_DESC_")):
         return False
-    return bool(re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)))
+    return translatable(key, value)
 
 
 def read(path: Path) -> dict[str, str]:
@@ -86,7 +99,7 @@ def main(argv: list[str]) -> int:
         source = MOD / "translations" / f"{stem}.yml"
         done = read(source) if source.exists() else {}
         for key, value in english.items():
-            if key not in done and re.search(r"[A-Za-z]{2}", MARKUP.sub("", value)):
+            if key not in done and translatable(key, value):
                 print(f"{key}\t{value}")
         return 0
 
@@ -100,7 +113,7 @@ def main(argv: list[str]) -> int:
             done = set(read(source)) if source.exists() else set()
             wanted = {k for k, v in english.items() if is_wanted(k, v)}
             rest = {k for k, v in english.items()
-                    if k not in wanted and re.search(r"[A-Za-z]{2}", MARKUP.sub("", v))}
+                    if k not in wanted and translatable(k, v)}
             mark = "готово" if not wanted - done else ""
             print(f"{stem:14} нужно {len(wanted - done):>4}"
                   f"   остальной прозы {len(rest - done):>4}  {mark}")

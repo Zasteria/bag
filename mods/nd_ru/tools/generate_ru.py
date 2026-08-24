@@ -10,6 +10,15 @@ file, checked against the keys the base mod actually defines.
 Usage:
 
     python3 mods/nd_ru/tools/generate_ru.py [<path to the base mod>]
+    python3 mods/nd_ru/tools/generate_ru.py --accept [<path to the base mod>]
+
+When the base mod updates, the English behind a key already translated can be
+rewritten.  Only a change to the *markup* of such a value is visible to the
+checks below; a rewritten sentence is not, and the Russian silently goes on
+saying what the mod no longer says.  So every English value that has been
+translated is fingerprinted in ``english_generated_fingerprints.txt``, and a run
+after a base-mod update names the keys whose English moved.  Read each one,
+bring the translation up to date, then record the new English with ``--accept``.
 
 One source file per base file: ``translations/<stem>.yml`` is emitted as
 ``main_menu/localization/russian/<stem>_ru_generated_l_russian.yml`` from the
@@ -34,7 +43,11 @@ It refuses to write a file that would show up wrong in game:
 * an English function word left standing in a Russian sentence is the same class
   of slip and just as invisible, so one that the English value does not itself
   contain is refused. Latin names (``in publicis et cameralibus``) are not
-  English and pass.
+  English and pass;
+* a Latin letter glued to a Cyrillic one inside a single word -- ``territoryов``
+  -- is an English word left mid-sentence and declined as if it were Russian.
+  It reads past the eye and past the function-word list, so it is refused
+  outright: no proper name the mod needs mixes the two scripts inside a word.
 """
 
 from __future__ import annotations
@@ -42,6 +55,7 @@ from __future__ import annotations
 import re
 import sys
 from collections import Counter
+from hashlib import sha1
 from pathlib import Path
 
 MOD = Path(__file__).resolve().parent.parent
@@ -53,11 +67,17 @@ DEFAULT_BASE = refs.known("national_destinies")
 ENGLISH_DIR = "main_menu/localization/english"
 OUT_DIR = MOD / "main_menu/localization/russian"
 SOURCE_DIR = MOD / "translations"
+# key -> fingerprint of the English value it was translated from.
+FINGERPRINTS = MOD / "english_generated_fingerprints.txt"
 
 KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\s*(?:\d+\s+)?"(.*)"\s*$')
 # What the engine reads instead of displaying, and so must come through a
 # translation byte for byte.
 MARKUP = re.compile(r"\[[^\]]*\]|\$[^$]*\$|@\w+!|#[A-Za-z_]+|#!|\\n")
+# A Latin letter glued to a Cyrillic one is always a slip: an English word
+# left mid-sentence and given a Russian ending, or a stray keystroke.  No
+# proper name the mod needs ever mixes the two inside one word.
+MIXED_SCRIPT = re.compile(r"[\u0400-\u04FF][A-Za-z]|[A-Za-z][\u0400-\u04FF]")
 # Words that mark a half-translated sentence rather than a proper name.
 ENGLISH_WORDS = {
     "the", "and", "of", "though", "with", "that", "which", "from", "into",
@@ -113,6 +133,10 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
             problems.append(f"  {key}: a square bracket in plain text renders as ERROR:")
         if not value.strip():
             problems.append(f"  {key}: empty value")
+        mixed = MIXED_SCRIPT.search(stray)
+        if mixed:
+            problems.append(
+                f"  {key}: Latin and Cyrillic inside one word ({mixed.group(0)!r})")
         russian_words = {w.lower() for w in re.findall(r"[A-Za-z]+", MARKUP.sub("", value))}
         english_words = {w.lower() for w in re.findall(r"[A-Za-z]+", english[key])}
         for word in sorted(russian_words & ENGLISH_WORDS - english_words):
@@ -129,6 +153,32 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
     return problems
 
 
+def fingerprint(value: str) -> str:
+    """A short digest of one English value, stable across runs."""
+    return sha1(value.encode("utf-8")).hexdigest()[:12]
+
+
+def read_fingerprints() -> dict[str, str]:
+    """What English each translated key was last checked against."""
+    if not FINGERPRINTS.exists():
+        return {}
+    recorded: dict[str, str] = {}
+    for line in FINGERPRINTS.read_text(encoding="utf-8").splitlines():
+        if line and not line.startswith("#"):
+            digest, _, key = line.partition("\t")
+            recorded[key] = digest
+    return recorded
+
+
+def write_fingerprints(recorded: dict[str, str]) -> None:
+    body = ["# Written by generate_ru.py -- do not edit by hand.",
+            "# <digest of the English value>\t<key>, for every translated key.",
+            "# A run whose digest differs names the key: the base mod rewrote its",
+            "# English and the Russian may no longer say the same thing."]
+    body += [f"{recorded[key]}\t{key}" for key in sorted(recorded)]
+    FINGERPRINTS.write_text("\n".join(body) + "\n", encoding="utf-8")
+
+
 def write_yml(path: Path, values: dict[str, str]) -> None:
     """Write a localization file the way the game wants it: BOM, one space."""
     body = ["l_russian:"]
@@ -137,6 +187,10 @@ def write_yml(path: Path, values: dict[str, str]) -> None:
 
 
 def main(argv: list[str]) -> int:
+    argv = list(argv)
+    accept = "--accept" in argv
+    if accept:
+        argv.remove("--accept")
     base = Path(argv[1]) if len(argv) > 1 else DEFAULT_BASE
     english_dir = base / ENGLISH_DIR
     if not english_dir.is_dir():
@@ -155,6 +209,9 @@ def main(argv: list[str]) -> int:
     failed = False
     written: list[str] = []
     done_keys = done_words = 0
+    recorded = read_fingerprints()
+    current: dict[str, str] = {}
+    moved: list[tuple[str, str]] = []
     for stem, source in sources.items():
         english = read_yml(base_files[stem])
         russian = read_yml(source)
@@ -166,10 +223,34 @@ def main(argv: list[str]) -> int:
                 print(line, file=sys.stderr)
             continue
         ordered = {key: russian[key] for key in english if key in russian}
+        for key in ordered:
+            digest = fingerprint(english[key])
+            was = recorded.get(key)
+            if was is not None and was != digest and not accept:
+                moved.append((stem, key))
+                current[key] = was     # keep flagging it until it is dealt with
+            else:
+                current[key] = digest
         write_yml(OUT_DIR / f"{stem}_ru_generated_l_russian.yml", ordered)
         written.append(stem)
         done_keys += len(ordered)
         done_words += sum(len(prose(english[k]).split()) for k in ordered)
+
+    # A key that failed its checks above keeps whatever was recorded for it,
+    # so a broken file does not quietly lose the fingerprints of its keys.
+    for key, digest in recorded.items():
+        current.setdefault(key, digest)
+    write_fingerprints(current)
+
+    if moved:
+        failed = True
+        word = "ключа" if len(moved) % 10 == 1 and len(moved) % 100 != 11 else "ключей"
+        print(f"английский оригинал изменился у {len(moved)} {word}"
+              f" — перевод мог устареть:", file=sys.stderr)
+        for stem, key in moved:
+            print(f"  {stem}: {key}", file=sys.stderr)
+        print("  свериться с базовым модом, поправить перевод, затем "
+              "generate_ru.py --accept", file=sys.stderr)
 
     # Anything emitted by an earlier run whose source file is gone.
     for stale in OUT_DIR.glob("*_ru_generated_l_russian.yml"):
