@@ -1,0 +1,32 @@
+﻿# Settings, registered on CMF's mod registration hook.
+# Scope: country
+bgt_register = {
+	cmf_register_mod = { mod_id = bgt }
+
+	# The discount to aim for, as a negative percentage, matching both the
+	# readings this mod shows and Construction Manager's own min-discount fields.
+	# The engine credits at most -33%.
+	cmm_register_numeric_setting = {
+		mod_id = bgt
+		setting_id = target_discount
+		tab_id = main
+		group_id = goal
+		default_value = -33
+		min_value = -33
+		max_value = 0
+		step_value = 1
+	}
+
+	# Writes one line a month into CMF's log: every ticked good, what it reads
+	# now, and whether the target is met.
+	cmm_register_bool_setting = {
+		mod_id = bgt
+		setting_id = log_readings
+		tab_id = main
+		group_id = goal
+		default_value = 1
+	}
+
+	bgt_register_goods_list = yes
+	bgt_rebuild_lookups = yes
+}

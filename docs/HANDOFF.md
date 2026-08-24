@@ -13,13 +13,39 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`RESEARCH.md`](RESEARCH.md#what-cmf-241-added).
 
+**`goods_target/` — readings confirmed in game, goods list untested.** An addon
+to Construction Manager: build the producers of goods you tick until
+construction hits its discount cap, subsidising them on the way.
+
+The measurement half is **verified** — the readings matched the game's own
+construction tooltip on the first load ([`TESTLOG.md`](TESTLOG.md)), so
+registration, `capital.market.market_price`, the per-good script values and a
+live `ScriptValue` inside a CMM tooltip all work.
+
+What is new and unrun is the goods list: 28 rows, two ticks each, Build and
+Subsidise, plus the `_on_changed` scripted GUI without which a CMM list is
+invisible rather than merely inert. The question for the next run is whether a
+tick reaches script, and the monthly log line answers it in two independent
+ways — a count, which cannot fail to render, and the goods named, which asks
+CMF's log to render a goods scope.
+
+Still nothing builds and nothing is subsidised. The order of the rest is in the
+mod's README.
+
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
 **`auto_build_ru/` — done, confirmed working in game.** Russian for Advanced Auto
 Build, which ships English and Chinese only and so rendered as raw keys in a
-Russian game. All 1201 keys are translated, the player reports the Mod Menu tab
-reading correctly, and nothing is outstanding.
+Russian game. The player reports the Mod Menu tab reading correctly.
+
+The base mod updated to 0.9.2 Beta mid-session and the generator refused to
+write, naming 40 keys it had never seen — the template buttons, the priority
+step tooltips, a whole R.G.O. diagnostics panel and a throughput warning. That
+is what it is for. All 40 are translated now, 1241 keys in total, and the
+generator is clean again. Note the base mod's id is `eu5ab_regional_development`
+and its folder now carries a workshop number; both are resolved by
+`tools/refs.py` and neither is written down anywhere.
 
 **`nd_ru/` — в работе, играбелен за Вестфалию.** Русский для National Destinies
 (`trin.national_destinies` 1.3.6). Базовый мод везёт одиннадцать языков, и файлы

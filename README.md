@@ -22,7 +22,8 @@ written down rather than kept in anyone's head.
 | Mod | What it does | State |
 | --- | --- | --- |
 | [`mods/rgo_bonus_filter/`](mods/rgo_bonus_filter/) | Filter chips that cut both building lists down to what gains production efficiency from raw materials in the province | Working |
-| [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Untested |
+| [`mods/goods_target/`](mods/goods_target/) | Build for a construction discount: keep building the producers of chosen goods until building everything else is cheap. An addon to Construction Manager | Readings verified, rest untested |
+| [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Working |
 | [`mods/nd_ru/`](mods/nd_ru/) | Russian localization for National Destinies, which ships eleven languages all carrying the English text | In progress |
 
 Each folder is a complete mod: copy the folder itself into

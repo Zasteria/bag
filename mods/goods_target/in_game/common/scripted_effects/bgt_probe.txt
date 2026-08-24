@@ -1,0 +1,34 @@
+﻿# What this mod knows, written where it can be checked.
+#
+# Still nothing is built and nothing is subsidised. This step adds the goods
+# list, and the question for the run is whether a tick in it reaches script at
+# all. The lines below are written from the variable lists that the list's
+# _on_changed callback rebuilds, so a good appears here only if its tick made
+# the whole trip: widget -> CMM -> cmm_apply_list_change -> bgt_rebuild_lookups.
+#
+# Two lines rather than one, because they fail differently. The count is a bare
+# number and cannot fail to render; the per-good line asks CMF's log pane to
+# name a goods scope, which is the less certain of the two. If the count is
+# right and the names are missing, the list works and only the logging is wrong.
+#
+# Scope: country
+bgt_probe_readings = {
+	set_variable = { name = bgt_watched_count value = 0 }
+	every_in_list = {
+		variable = bgt_goods_build
+		change_variable = { name = bgt_watched_count add = 1 }
+	}
+	cmf_log_value = { action = bgt_log_watching value = var:bgt_watched_count }
+
+	every_in_list = {
+		variable = bgt_goods_build
+		save_scope_as = cmf_log_arg2
+		cmf_log_with_scope_arg = { action = bgt_log_good }
+	}
+
+	every_in_list = {
+		variable = bgt_goods_subsidise
+		save_scope_as = cmf_log_arg2
+		cmf_log_with_scope_arg = { action = bgt_log_subsidise }
+	}
+}
