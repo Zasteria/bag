@@ -3,6 +3,13 @@
 Mods for Europa Universalis V. This file is loaded automatically at the start of
 every session, so treat it as the briefing you would otherwise have to be given.
 
+## What this session is for
+
+**[`docs/NEXT_SESSION.md`](docs/NEXT_SESSION.md) — read it before anything else.**
+It names the one job in progress, what five evenings of the owner's testing have
+already settled, and what not to ask him to do again. The rest of this file is how
+to work here; that file is what to work on.
+
 ## Read these before touching anything
 
 1. **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — the index to how EU5 modding
@@ -14,7 +21,9 @@ every session, so treat it as the briefing you would otherwise have to be given.
    it was learnt by getting it wrong first, so reading it is cheaper than
    rediscovering it.
 2. **[`docs/HANDOFF.md`](docs/HANDOFF.md)** — where each mod stands right now,
-   what is broken, and what is untested. Check it is current before trusting it.
+   what is broken, and what is untested. It opens with a table of questions the
+   owner's test runs have already answered; **never ask for a measurement listed
+   there.** Check the rest is current before trusting it.
 3. **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — the specific mistakes already
    made here, each with the symptom that gave it away. Most cost a full
    test-in-game round trip. Scan it whenever something silently does nothing.

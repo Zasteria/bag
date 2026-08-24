@@ -357,6 +357,55 @@ mod can stop widgets being created, and cannot make existing ones go away.
 `PdxGuiWidget.GetChildrenCount` is worth remembering anyway: it is the one hook a
 mod has for measuring the size of a widget tree from inside the game.
 
+## Defines, and where they actually live
+
+Not under `common/defines/` where a Paradox habit would put them —
+**`game/loading_screen/common/defines/`**, because they have to be read before
+anything else loads. The tree carries them:
+
+| | |
+| --- | --- |
+| `00_defines.txt` | the main file, ~148 KB, sections `NGame NGUI NText NCountry NAI NLocation NMarket NEconomy …` |
+| `graphic/00_graphics.txt` | rendering |
+| `jomini/00_tooltips.txt` | **tooltip timings** |
+| `jomini/*.txt` | fog of war, rivers, roads, adjacencies, icons, map editor |
+
+A defines file is overridable by a mod, and the game demonstrates it on itself:
+`jomini/00_tooltips.txt` opens with `# This file overrides
+cw/jomini/modules/tooltip_manager/data/common/defines/jomini/00_tooltips.txt`.
+
+**`NGUI` holds nothing about widgets.** Twenty lines: rename length, how many
+rows a breakdown shows, how many things Ctrl-click queues, side-menu margins,
+food alert thresholds, hint carousel time. No pool, no cache, no arena, no limit.
+So "raise the widget limit" has no knob — asked and answered, do not re-check.
+
+One line in it is worth remembering anyway, because it shows the engine does
+know how to evict things:
+
+```
+PURGE_COA_SEARCH_COUNT = 100 # How many COA entries we will search through in a frame for purging
+```
+
+Coats of arms get purged a hundred entries a frame. Widgets get no such
+treatment, and nothing exposes one.
+
+## The debug toolbox
+
+`debug_mode` in the console, then a toolbox appears. As of 1.3.11:
+
+```
+TOOLBOX     Language  Environment  Map menu  Inspect  Explorer  Unit Viewer  Errors
+2D Tools    UI Editor  Animator  UI Bounds  UI Library  Workbench  Reload GFX
+3D Editors  E. Designer  Animation Edit  Particle Edit
+```
+
+`Tweaker`, `DrawCmdsViewer` and `ScriptProfilerGui` are types in the data dumps
+but have no button here, so they are not reachable this way.
+
+`UI Editor` is the live widget tree — the one tool that can name a widget that
+should not exist. `UI Bounds` outlines every widget on screen. `Inspect` reports
+what is under the cursor. `Errors` is `error.log` in a window.
+
 ## Building types, production methods and goods
 
 `common/building_types/*.txt` defines each building type. Production methods
