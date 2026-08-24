@@ -30,7 +30,11 @@ It refuses to write a file that would show up wrong in game:
   text renders as ``ERROR:``;
 * a character belonging to neither Russian nor the Latin the mod's proper names
   need has no business in the file -- a stray CJK ideograph slipped into three
-  values on the first large batch and would have reached the player unnoticed.
+  values on the first large batch and would have reached the player unnoticed;
+* an English function word left standing in a Russian sentence is the same class
+  of slip and just as invisible, so one that the English value does not itself
+  contain is refused. Latin names (``in publicis et cameralibus``) are not
+  English and pass.
 """
 
 from __future__ import annotations
@@ -51,6 +55,12 @@ KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\s*(?:\d+\s+)?"(.*)"\s*$')
 # What the engine reads instead of displaying, and so must come through a
 # translation byte for byte.
 MARKUP = re.compile(r"\[[^\]]*\]|\$[^$]*\$|@\w+!|#[A-Za-z_]+|#!|\\n")
+# Words that mark a half-translated sentence rather than a proper name.
+ENGLISH_WORDS = {
+    "the", "and", "of", "though", "with", "that", "which", "from", "into",
+    "their", "its", "was", "were", "have", "has", "been", "this", "there",
+    "when", "while", "would", "could", "should", "than", "then", "but",
+}
 
 
 def read_yml(path: Path) -> dict[str, str]:
@@ -100,6 +110,10 @@ def check(stem: str, english: dict[str, str], russian: dict[str, str]) -> list[s
             problems.append(f"  {key}: a square bracket in plain text renders as ERROR:")
         if not value.strip():
             problems.append(f"  {key}: empty value")
+        russian_words = {w.lower() for w in re.findall(r"[A-Za-z]+", MARKUP.sub("", value))}
+        english_words = {w.lower() for w in re.findall(r"[A-Za-z]+", english[key])}
+        for word in sorted(russian_words & ENGLISH_WORDS - english_words):
+            problems.append(f"  {key}: English word {word!r} left in the translation")
         for char in set(value):
             point = ord(char)
             if not (0x0400 <= point <= 0x04FF          # Cyrillic
