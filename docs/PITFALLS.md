@@ -77,6 +77,29 @@ that gate, which makes a missing `_color` look like "only works in one position"
 `<mod>__<tab>__<setting>_name`. Getting this wrong prints the key on screen,
 which at least tells you the right one.
 
+**A model writing hundreds of Russian lines drops foreign characters into
+them.** Three CJK ideographs landed mid-word in the first large batch
+(`сохранив自 свою`), a fourth in a later one, and an English `though` survived in
+a Russian sentence. None of it is visible while writing and none of it errors:
+it simply renders on screen. On any batch past a few dozen lines, put the check
+in the generator rather than trusting the eye — `mods/nd_ru/tools/generate_ru.py`
+refuses a value carrying a character outside Cyrillic and the Latin proper names
+need, or an English function word the source value does not itself contain.
+
+**Checking one file is not checking the country.** Westphalia looked finished at
+88 keys; ten more sat in a shared modifier file, and the shared file for event
+guards held one more. Grep every localization file for the tag before calling a
+country done. Symptom: a panel that is Russian everywhere except one tooltip.
+
+**A per-file completeness rule blocks a layered pass.** The generator first
+demanded that a source file cover its base file entirely, which is right for a
+small mod and wrong for a names-first pass over a large one. An untranslated key
+simply stays with the base mod; count it and report it, do not refuse it.
+
+**The mod's own `\"` is legal and the quote check must allow it.** A value like
+`\"Let others wage war\"` parses fine; a naive "no double quotes" rule rejects
+the whole file. Match an unescaped quote only.
+
 **Generate localization for every language, not just English.** The player plays
 in Russian; an English-only key shows as the raw key.
 
@@ -101,6 +124,23 @@ the overriding mod has to load later.
 format, and only through `cmm_set_list_field_format`. A row's text comes from
 `_name`, `_desc` and `_text`. `search_filter_<key>_format` is the unrelated
 filter convention that makes this look plausible.
+
+## Getting files into the repository
+
+**The GitHub web uploader silently drops folders that begin with a dot.**
+Advanced Auto Build arrived without its `.metadata/`, so its mod id and version
+were unknown for two sessions. Dragging a folder into the browser loses them;
+`Add file -> Create new file` with the full path typed in works, and so does any
+desktop git client. Symptom: the tree looks complete and one folder is missing.
+
+**A workshop mod is mostly textures.** 100 MB of mod is a few MB of text. The web
+form's 25 MB per file and ~100 files per drag are what a big upload hits, not any
+GitHub limit: a desktop client pushes the whole thing without trouble. Either
+strip to `.txt`, `.gui`, `.yml`, `.json` first, or push it whole from a clone.
+
+**A mod's id is not its workshop number.** It is a string inside
+`metadata.json` (`trin.national_destinies`), so renaming the folder loses
+nothing. The number in the Steam path is not the id.
 
 ## Loading
 

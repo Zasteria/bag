@@ -1,0 +1,6 @@
+﻿l_russian:
+ rule_nd_bureaucracies_rule: "Бюрократические механизмы National Destinies"
+ setting_nd_bureaucracies_enabled: "Включено"
+ setting_nd_bureaucracies_enabled_desc: "Каждая образуемая страна получает при образовании от 4 до 9 включаемых исторических учреждений. Каждое из них — размещаемый в ячейке бюрократический механизм с ползунком содержания; образованная страна получает также ячейки и власть, нужные, чтобы их содержать. Требует системы [bureaucracies|e] из базовой игры."
+ setting_nd_bureaucracies_disabled: "Отключено"
+ setting_nd_bureaucracies_disabled_desc: "Образуемые страны не получают при образовании бюрократической власти. Система [bureaucracies|e] остаётся полностью ванильной."
