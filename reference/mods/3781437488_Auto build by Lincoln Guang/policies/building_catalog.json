@@ -1,0 +1,3638 @@
+{
+  "schema_version": 2,
+  "source": {
+    "kind": "vanilla_player_manageable_buildings",
+    "excluded_files": [
+      "00_unique_buildings_to_make_obsolete.txt",
+      "event_only_buildings.txt",
+      "readme.txt"
+    ],
+    "excluded_definition_rules": [
+      "estate_owned",
+      "country_potential_always_no",
+      "unsafe_lifecycle_building"
+    ]
+  },
+  "buildings": [
+    {
+      "id": "academy_of_sciences",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "admiralty",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "alhambra",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "apothecary",
+      "age": 1,
+      "output_goods": [
+        "medicaments"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "aqueduct_system",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "armory",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "art_school",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "arts_academy",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "bailiff",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "bajang_ratu",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "banking_office",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "bardic_school",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "barracks",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "bastion",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "beer_workshop",
+      "age": 4,
+      "output_goods": [
+        "beer"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "black_market",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "bog_iron_smelter",
+      "age": 1,
+      "output_goods": [
+        "iron"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "brethren_marsh",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "brewery",
+      "age": 1,
+      "output_goods": [
+        "beer"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "brewery_manufactory",
+      "age": 5,
+      "output_goods": [
+        "beer"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "brewery_mill",
+      "age": 6,
+      "output_goods": [
+        "beer"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "bridge_infrastructure",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "brothel",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "bubu_building",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "bund",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "calmecac",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "calvinist_preachers",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "cannon_foundry",
+      "age": 5,
+      "output_goods": [
+        "cannons"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cannon_maker",
+      "age": 2,
+      "output_goods": [
+        "cannons"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cannon_workshop",
+      "age": 4,
+      "output_goods": [
+        "cannons"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cannons_factory",
+      "age": 6,
+      "output_goods": [
+        "cannons"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "caravan_stop",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "caravanserai",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "castle",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "cawa_barracks",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "central_bank",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "chancery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "charcoal_maker",
+      "age": 1,
+      "output_goods": [
+        "coal"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "city_guard",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "city_walls",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "clan_family_shrine",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "clan_shipyards",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "clay_pit",
+      "age": 1,
+      "output_goods": [
+        "clay"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "clearing_house",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cloth_guild",
+      "age": 1,
+      "output_goods": [
+        "cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cloth_manufactory",
+      "age": 5,
+      "output_goods": [
+        "cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "cloth_workshop",
+      "age": 4,
+      "output_goods": [
+        "cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "coastal_fort",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "coastal_settlements",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "colonial_administration",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "commerce_center",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "confucian_academy",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "confucian_school",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "conscription_center",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "construction_center",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "copenhagen_dockyard",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "cotton_plantation",
+      "age": 3,
+      "output_goods": [
+        "cotton"
+      ],
+      "workforce_pop_types": [
+        "slaves"
+      ]
+    },
+    {
+      "id": "council_hall",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "counting_house",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "customs_house",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "distiller_manufactory",
+      "age": 5,
+      "output_goods": [
+        "liquor"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "distiller_mill",
+      "age": 6,
+      "output_goods": [
+        "liquor"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "distillers_guild",
+      "age": 1,
+      "output_goods": [
+        "liquor"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "distillers_workshop",
+      "age": 4,
+      "output_goods": [
+        "liquor"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "dock",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "dry_dock",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "dun_fort",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "tribesmen"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "dyes_guild",
+      "age": 1,
+      "output_goods": [
+        "dyes"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "dyes_mill",
+      "age": 6,
+      "output_goods": [
+        "dyes"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "dyes_workshop",
+      "age": 4,
+      "output_goods": [
+        "dyes"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "dyesworks",
+      "age": 5,
+      "output_goods": [
+        "dyes"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "early_council_hall",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "eghabho_nore_mansion",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "elephant_hunting_grounds",
+      "age": 1,
+      "output_goods": [
+        "ivory"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "embassy",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "eng_royal_forest",
+      "age": 1,
+      "output_goods": [
+        "wild_game"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "entrepot",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "farming_village",
+      "age": 1,
+      "output_goods": [
+        "livestock"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "fiber_crops_farm",
+      "age": 1,
+      "output_goods": [
+        "fiber_crops"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "fine_cloth_guild",
+      "age": 1,
+      "output_goods": [
+        "fine_cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "fine_cloth_manufactory",
+      "age": 5,
+      "output_goods": [
+        "fine_cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "fine_cloth_mill",
+      "age": 6,
+      "output_goods": [
+        "fine_cloth"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "fine_cloth_workshop",
+      "age": 4,
+      "output_goods": [
+        "fine_cloth"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "firearms_factory",
+      "age": 6,
+      "output_goods": [
+        "firearms"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "firearms_manufactory",
+      "age": 5,
+      "output_goods": [
+        "firearms"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "fishing_village",
+      "age": 1,
+      "output_goods": [
+        "fish"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "fondaco",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "forest_village",
+      "age": 1,
+      "output_goods": [
+        "leather"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "fortress",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "fortress_church",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "fortress_granary",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "free_economic_society",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "fruit_orchard",
+      "age": 1,
+      "output_goods": [
+        "fruit"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "fulani_cattle_rearing_pen",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "funduq",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "furniture_guild",
+      "age": 1,
+      "output_goods": [
+        "furniture"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "furniture_manufactory",
+      "age": 5,
+      "output_goods": [
+        "furniture"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "furniture_mill",
+      "age": 6,
+      "output_goods": [
+        "furniture"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "furniture_workshop",
+      "age": 4,
+      "output_goods": [
+        "furniture"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "galata",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "galley_barracks",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "slaves"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "german_mountain_toll_castle",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "german_river_toll_castle",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "ghilman_barracks",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "slaves"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "glass_guild",
+      "age": 1,
+      "output_goods": [
+        "glass"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "glass_mill",
+      "age": 6,
+      "output_goods": [
+        "glass"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "glass_workshop",
+      "age": 4,
+      "output_goods": [
+        "glass"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "glassworks",
+      "age": 5,
+      "output_goods": [
+        "glass"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "gosho",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "grain_house",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "granary",
+      "age": 1,
+      "output_goods": [
+        "wheat",
+        "rice"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "grand_marketplace",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "grand_shipyard",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "great_enclosure",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "great_hill_complex",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "great_valley_complex",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "greek_latin_academy",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "gun_smith",
+      "age": 2,
+      "output_goods": [
+        "firearms"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "guns_workshop",
+      "age": 4,
+      "output_goods": [
+        "firearms"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "gurgaddi",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "gymnasium_building",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "hand_cannon_guild",
+      "age": 1,
+      "output_goods": [
+        "firearms"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "hanseatic_kontor",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "hanseatic_shipwright_guild",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "hanseatic_town_hall",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "hippodrome",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "horse_breeders",
+      "age": 1,
+      "output_goods": [
+        "horses"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "hospital",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "house_of_parliament",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "hre_imperial_armory_foreign",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "hre_imperial_armory_own",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "hsa_burgtor",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "ibadat_khana",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "imperial_academy_of_arts",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "improved_charcoal_maker",
+      "age": 5,
+      "output_goods": [
+        "coal"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "incamisana",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "institute_of_noble_maidens",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "iron_foundry",
+      "age": 5,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "iron_mill",
+      "age": 6,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "irrigation_systems",
+      "age": 1,
+      "output_goods": [
+        "wheat",
+        "rice",
+        "maize",
+        "millet"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "italian_administration_center",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "janissary_barracks",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "slaves"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "jesuit_college",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "jewelry_guild",
+      "age": 1,
+      "output_goods": [
+        "jewelry"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "jurchen_barracks",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kalari",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "khmer_baray",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kilwan_shipwrights",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kings_manor",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kokufu",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "korean_gunnery_coastal_defense",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "korean_gunnery_land_defense",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kremlin",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kurmina_headquarter",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "kurultai",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "lacquerware_guild",
+      "age": 1,
+      "output_goods": [
+        "lacquerware"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "lacquerware_manufactory",
+      "age": 5,
+      "output_goods": [
+        "lacquerware"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "lazaretto",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "library",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "lieutenancy",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "local_governor",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "local_smelters",
+      "age": 1,
+      "output_goods": [
+        "copper"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "lumber_mill",
+      "age": 1,
+      "output_goods": [
+        "lumber"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "lutheran_preachers",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "madrasa",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "mamluk_barracks",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "slaves"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "market_village",
+      "age": 1,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "market_warehouse",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "marketplace",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "mason",
+      "age": 1,
+      "output_goods": [
+        "masonry"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "medical_school",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "merchant_guild_chapel",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "merchants_quarters",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "mercury_patio",
+      "age": 3,
+      "output_goods": [
+        "goods_gold"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "miaphysite_monastery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "minting_office",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "missionary_building",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "modern_council_hall",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "monastery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "moscow_artillery_yard",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "moscow_orphanage",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "naval_base",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "naval_battery",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "naval_governor",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "naval_supplies_guild",
+      "age": 1,
+      "output_goods": [
+        "naval_supplies"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "naval_supplies_manufactory",
+      "age": 5,
+      "output_goods": [
+        "naval_supplies"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "naval_supplies_mill",
+      "age": 6,
+      "output_goods": [
+        "naval_supplies"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "naval_supplies_workshop",
+      "age": 3,
+      "output_goods": [
+        "naval_supplies"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "north_sea_shipyards",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "novodevichy_convent",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "opera_house",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "order_commandery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "order_headquarters",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "order_stronghold",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "orthodox_monastery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "ostrog",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "overseas_trading_post",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "panaqa_building",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "paper_guild",
+      "age": 1,
+      "output_goods": [
+        "paper"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "paper_manufactory",
+      "age": 5,
+      "output_goods": [
+        "paper"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "paper_mill",
+      "age": 6,
+      "output_goods": [
+        "paper"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "paper_workshop",
+      "age": 3,
+      "output_goods": [
+        "paper"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "peel_towers",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "perfumery",
+      "age": 5,
+      "output_goods": [
+        "incense"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "pest_house",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "pirate_tavern",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "polders",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "pomor_outpost",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "por_feitoria",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "porcelain_guild",
+      "age": 1,
+      "output_goods": [
+        "porcelain"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "porcelain_manufactory",
+      "age": 5,
+      "output_goods": [
+        "porcelain"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "port_authority",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "porto_pisano",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "pottery_guild",
+      "age": 1,
+      "output_goods": [
+        "pottery"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "pottery_manufactory",
+      "age": 5,
+      "output_goods": [
+        "pottery"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "pottery_mill",
+      "age": 6,
+      "output_goods": [
+        "pottery"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "pottery_workshop",
+      "age": 4,
+      "output_goods": [
+        "pottery"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "pounamou_carver",
+      "age": 1,
+      "output_goods": [
+        "jewelry"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "pound_lock_canal_infrastructure",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "printing_manufactory",
+      "age": 5,
+      "output_goods": [
+        "books"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "printing_mill",
+      "age": 6,
+      "output_goods": [
+        "books"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "printing_press_shop",
+      "age": 3,
+      "output_goods": [
+        "books"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "protected_harbor",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "provincial_chancery",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "pukara_building",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "putrefaction_mill",
+      "age": 6,
+      "output_goods": [
+        "saltpeter"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "putrefaction_works",
+      "age": 5,
+      "output_goods": [
+        "saltpeter"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "qalat_al_mashwar",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "regimental_camp",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "repaired_great_wall_of_china",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "republican_assembly",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "ribat",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "royal_academy_of_arts",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "royal_court",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "royal_garden",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "royal_society",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "rural_clothmaker",
+      "age": 1,
+      "output_goods": [
+        "cloth"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "rural_glassmaker",
+      "age": 1,
+      "output_goods": [
+        "glass"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "safaviyya_order_hall",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "tribesmen"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "salt_collector",
+      "age": 1,
+      "output_goods": [
+        "salt"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "saltpeter_guild",
+      "age": 1,
+      "output_goods": [
+        "saltpeter"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "saltpeter_workshop",
+      "age": 4,
+      "output_goods": [
+        "saltpeter"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "sand_pit",
+      "age": 1,
+      "output_goods": [
+        "sand"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "sawmill",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "scriptorium",
+      "age": 1,
+      "output_goods": [
+        "books"
+      ],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "seat_of_cardinal",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "seljuk_mint",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "sergeantry",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "sheep_farms",
+      "age": 1,
+      "output_goods": [
+        "wool"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "shipyard",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "shoen",
+      "age": 1,
+      "output_goods": [
+        "stone"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "slave_center",
+      "age": 2,
+      "output_goods": [
+        "slaves_goods"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "slave_market",
+      "age": 1,
+      "output_goods": [
+        "slaves_goods"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "smuggler_cove",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "peasants"
+      ]
+    },
+    {
+      "id": "sofa_barracks",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "stannary_court",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "star_fort",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "steel_mill",
+      "age": 6,
+      "output_goods": [
+        "steel"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "stock_exchange",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "stockade",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "stone_quarry",
+      "age": 1,
+      "output_goods": [
+        "stone"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "stroganov_school_of_iconic_art",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "sufi_lodge",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "sugar_plantation",
+      "age": 3,
+      "output_goods": [
+        "sugar"
+      ],
+      "workforce_pop_types": [
+        "slaves"
+      ]
+    },
+    {
+      "id": "sukharev_tower",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "supreme_court",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "tambo",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "tannery",
+      "age": 1,
+      "output_goods": [
+        "leather"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "tannery_manufactory",
+      "age": 5,
+      "output_goods": [
+        "leather"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "tannery_mill",
+      "age": 6,
+      "output_goods": [
+        "leather"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "tanning_workshop",
+      "age": 4,
+      "output_goods": [
+        "leather"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "tar_kiln",
+      "age": 1,
+      "output_goods": [
+        "tar"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "tatara",
+      "age": 1,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "peasants"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "tax_assessor",
+      "age": 6,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "telpochcalli",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "temple",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "terraces",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "laborers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "textile_mill",
+      "age": 6,
+      "output_goods": [
+        "cloth"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "theater",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "thema_headquarters",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "theodosian_walls",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "tobacco_plantation",
+      "age": 3,
+      "output_goods": [
+        "tobacco"
+      ],
+      "workforce_pop_types": [
+        "slaves"
+      ]
+    },
+    {
+      "id": "tools_guild",
+      "age": 1,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "tools_workshop",
+      "age": 4,
+      "output_goods": [
+        "tools"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_foreign_influence",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_garrison",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_governance",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_harbor",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_headquarters",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_company_local_venture",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trade_office",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "trading_hub",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "training_fields",
+      "age": 3,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ]
+    },
+    {
+      "id": "trans_saharan_trade_outposts",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "tur_kodjabashi_office",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "uffizi",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "university",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "clergy"
+      ]
+    },
+    {
+      "id": "venetian_arsenal",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "venetian_palaces",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "venetian_quarter",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "viceroyalty",
+      "age": 4,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ]
+    },
+    {
+      "id": "walls_of_benin",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "war_college",
+      "age": 5,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "warrior_lodge",
+      "age": 2,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "tribesmen"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "warrior_temple",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "weapon_factory",
+      "age": 6,
+      "output_goods": [
+        "weaponry"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "weapon_guild",
+      "age": 1,
+      "output_goods": [
+        "weaponry"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "weapon_manufactory",
+      "age": 5,
+      "output_goods": [
+        "weaponry"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "weapon_workshop",
+      "age": 3,
+      "output_goods": [
+        "weaponry"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "wharf",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "windmill",
+      "age": 1,
+      "output_goods": [
+        "wheat",
+        "rice"
+      ],
+      "workforce_pop_types": [
+        "laborers"
+      ]
+    },
+    {
+      "id": "winery",
+      "age": 1,
+      "output_goods": [
+        "wine"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "winery_manufactory",
+      "age": 5,
+      "output_goods": [
+        "wine"
+      ],
+      "workforce_pop_types": [
+        "burghers"
+      ]
+    },
+    {
+      "id": "yakata",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "yamashiro",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "soldiers"
+      ],
+      "is_special": true
+    },
+    {
+      "id": "zhixian",
+      "age": 1,
+      "output_goods": [],
+      "workforce_pop_types": [
+        "nobles"
+      ],
+      "is_special": true
+    }
+  ],
+  "source_buildings_by_good": {
+    "cannons": [
+      "cannon_foundry",
+      "cannon_workshop"
+    ],
+    "cloth": [
+      "cloth_workshop"
+    ],
+    "coal": [
+      "charcoal_maker"
+    ],
+    "copper": [
+      "local_smelters"
+    ],
+    "fiber_crops": [
+      "fiber_crops_farm"
+    ],
+    "fine_cloth": [
+      "fine_cloth_workshop"
+    ],
+    "fish": [
+      "fishing_village"
+    ],
+    "fruit": [
+      "fruit_orchard"
+    ],
+    "gems": [
+      "jewelry_guild"
+    ],
+    "glass": [
+      "glass_workshop",
+      "glassworks"
+    ],
+    "goods_gold": [
+      "mercury_patio"
+    ],
+    "horses": [
+      "horse_breeders"
+    ],
+    "incense": [
+      "perfumery"
+    ],
+    "iron": [
+      "bog_iron_smelter"
+    ],
+    "jewelry": [
+      "jewelry_guild"
+    ],
+    "livestock": [
+      "farming_village"
+    ],
+    "lumber": [
+      "lumber_mill"
+    ],
+    "masonry": [
+      "mason"
+    ],
+    "naval_supplies": [
+      "naval_supplies_workshop"
+    ],
+    "paper": [
+      "paper_workshop",
+      "paper_mill"
+    ],
+    "porcelain": [
+      "porcelain_manufactory"
+    ],
+    "salt": [
+      "salt_collector"
+    ],
+    "silk": [
+      "fine_cloth_workshop"
+    ],
+    "stone": [
+      "stone_quarry"
+    ],
+    "tar": [
+      "tar_kiln"
+    ],
+    "tools": [
+      "tools_workshop",
+      "tools_guild",
+      "iron_foundry"
+    ],
+    "weaponry": [
+      "weapon_factory",
+      "weapon_workshop"
+    ],
+    "wheat": [
+      "windmill",
+      "irrigation_systems",
+      "granary"
+    ],
+    "wool": [
+      "sheep_farms"
+    ]
+  },
+  "input_goods_by_building": {
+    "apothecary": [
+      "fiber_crops",
+      "wild_game"
+    ],
+    "armory": [
+      "cloth",
+      "firearms",
+      "leather",
+      "paper",
+      "weaponry"
+    ],
+    "barracks": [
+      "cloth",
+      "firearms",
+      "leather",
+      "paper",
+      "weaponry"
+    ],
+    "bastion": [
+      "cannons",
+      "firearms",
+      "stone",
+      "tools",
+      "weaponry"
+    ],
+    "beer_workshop": [
+      "lumber",
+      "tools",
+      "wheat"
+    ],
+    "bog_iron_smelter": [
+      "coal"
+    ],
+    "brewery": [
+      "lumber",
+      "tools",
+      "wheat"
+    ],
+    "brewery_manufactory": [
+      "lumber",
+      "tools",
+      "wheat"
+    ],
+    "brewery_mill": [
+      "lumber",
+      "tools",
+      "wheat"
+    ],
+    "cannon_foundry": [
+      "copper",
+      "lead",
+      "saltpeter",
+      "tin",
+      "tools"
+    ],
+    "cannon_maker": [
+      "iron",
+      "lumber",
+      "tools"
+    ],
+    "cannon_workshop": [
+      "copper",
+      "iron",
+      "lead",
+      "saltpeter",
+      "stone",
+      "tin",
+      "tools"
+    ],
+    "cannons_factory": [
+      "lead",
+      "saltpeter",
+      "steel"
+    ],
+    "caravanserai": [
+      "cloth",
+      "jewelry"
+    ],
+    "castle": [
+      "stone",
+      "tar",
+      "tools",
+      "weaponry"
+    ],
+    "charcoal_maker": [
+      "lumber"
+    ],
+    "clay_pit": [
+      "lumber"
+    ],
+    "cloth_guild": [
+      "cotton"
+    ],
+    "cloth_manufactory": [
+      "dyes",
+      "wool"
+    ],
+    "cloth_workshop": [
+      "cotton",
+      "fiber_crops",
+      "wool"
+    ],
+    "commerce_center": [
+      "beeswax",
+      "cloth",
+      "jewelry",
+      "paper",
+      "salt"
+    ],
+    "cotton_plantation": [
+      "leather",
+      "lumber",
+      "slaves_goods",
+      "tools"
+    ],
+    "distiller_manufactory": [
+      "glass",
+      "pottery",
+      "sugar"
+    ],
+    "distiller_mill": [
+      "glass",
+      "pottery",
+      "sugar"
+    ],
+    "distillers_guild": [
+      "glass",
+      "pottery",
+      "sugar"
+    ],
+    "distillers_workshop": [
+      "glass",
+      "pottery",
+      "sugar"
+    ],
+    "dock": [
+      "cloth",
+      "lumber",
+      "naval_supplies",
+      "tar",
+      "tools"
+    ],
+    "dry_dock": [
+      "cloth",
+      "lumber",
+      "naval_supplies",
+      "tar",
+      "tools"
+    ],
+    "dyes_guild": [
+      "lumber"
+    ],
+    "dyes_mill": [
+      "alum",
+      "lumber"
+    ],
+    "dyes_workshop": [
+      "alum",
+      "lumber"
+    ],
+    "dyesworks": [
+      "alum",
+      "lumber"
+    ],
+    "elephant_hunting_grounds": [
+      "elephants",
+      "tools",
+      "weaponry"
+    ],
+    "eng_royal_forest": [
+      "horses",
+      "weaponry",
+      "wine"
+    ],
+    "farming_village": [
+      "clay",
+      "tools"
+    ],
+    "fiber_crops_farm": [
+      "livestock",
+      "lumber",
+      "tools"
+    ],
+    "fine_cloth_guild": [
+      "cloth"
+    ],
+    "fine_cloth_manufactory": [
+      "silk"
+    ],
+    "fine_cloth_mill": [
+      "cloth",
+      "dyes"
+    ],
+    "fine_cloth_workshop": [
+      "alum",
+      "cloth",
+      "dyes",
+      "fur",
+      "silk",
+      "wool"
+    ],
+    "firearms_factory": [
+      "lead",
+      "saltpeter",
+      "steel"
+    ],
+    "firearms_manufactory": [
+      "coal",
+      "iron",
+      "lead",
+      "lumber",
+      "saltpeter"
+    ],
+    "fishing_village": [
+      "salt",
+      "tools"
+    ],
+    "forest_village": [
+      "sand",
+      "tar",
+      "wild_game"
+    ],
+    "fruit_orchard": [
+      "lumber"
+    ],
+    "funduq": [
+      "books",
+      "fine_cloth",
+      "jewelry",
+      "paper"
+    ],
+    "furniture_guild": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "furniture_manufactory": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "furniture_mill": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "furniture_workshop": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "glass_guild": [
+      "lumber",
+      "sand",
+      "tools"
+    ],
+    "glass_mill": [
+      "alum",
+      "coal",
+      "lumber",
+      "sand",
+      "stone",
+      "tools"
+    ],
+    "glass_workshop": [
+      "alum",
+      "lead",
+      "lumber",
+      "sand",
+      "tools"
+    ],
+    "glassworks": [
+      "alum",
+      "coal",
+      "lumber",
+      "sand",
+      "stone",
+      "tools"
+    ],
+    "granary": [
+      "masonry"
+    ],
+    "grand_shipyard": [
+      "cloth",
+      "lumber",
+      "naval_supplies",
+      "tar",
+      "tools"
+    ],
+    "gun_smith": [
+      "iron",
+      "lumber",
+      "tools"
+    ],
+    "guns_workshop": [
+      "copper",
+      "tin",
+      "tools"
+    ],
+    "hand_cannon_guild": [
+      "alum",
+      "copper",
+      "lead",
+      "saltpeter",
+      "tin",
+      "tools"
+    ],
+    "horse_breeders": [
+      "horses",
+      "wheat"
+    ],
+    "improved_charcoal_maker": [
+      "lumber"
+    ],
+    "iron_foundry": [
+      "coal",
+      "iron"
+    ],
+    "iron_mill": [
+      "coal",
+      "iron"
+    ],
+    "irrigation_systems": [
+      "tools"
+    ],
+    "jewelry_guild": [
+      "amber",
+      "copper",
+      "gems",
+      "goods_gold",
+      "ivory",
+      "pearls",
+      "silver"
+    ],
+    "lacquerware_guild": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "lacquerware_manufactory": [
+      "dyes",
+      "lumber",
+      "tools"
+    ],
+    "local_smelters": [
+      "coal",
+      "lumber",
+      "tools"
+    ],
+    "lumber_mill": [
+      "tools"
+    ],
+    "market_village": [
+      "iron"
+    ],
+    "marketplace": [
+      "cloth",
+      "jewelry",
+      "paper",
+      "salt"
+    ],
+    "mason": [
+      "clay",
+      "stone"
+    ],
+    "mercury_patio": [
+      "mercury"
+    ],
+    "naval_base": [
+      "cloth",
+      "lumber",
+      "naval_supplies",
+      "tar",
+      "tools"
+    ],
+    "naval_supplies_guild": [
+      "cloth",
+      "fiber_crops",
+      "lumber",
+      "tar"
+    ],
+    "naval_supplies_manufactory": [
+      "cloth",
+      "fiber_crops",
+      "lumber",
+      "tar"
+    ],
+    "naval_supplies_mill": [
+      "cloth",
+      "fiber_crops",
+      "lumber",
+      "tar"
+    ],
+    "naval_supplies_workshop": [
+      "cloth",
+      "fiber_crops",
+      "lumber",
+      "tar"
+    ],
+    "paper_guild": [
+      "leather",
+      "lumber"
+    ],
+    "paper_manufactory": [
+      "cloth",
+      "fiber_crops",
+      "lumber"
+    ],
+    "paper_mill": [
+      "cloth",
+      "fiber_crops",
+      "lumber"
+    ],
+    "paper_workshop": [
+      "cloth",
+      "fiber_crops",
+      "lumber"
+    ],
+    "perfumery": [
+      "liquor",
+      "pepper"
+    ],
+    "porcelain_guild": [
+      "clay",
+      "coal",
+      "tools"
+    ],
+    "porcelain_manufactory": [
+      "clay",
+      "coal",
+      "tools"
+    ],
+    "pottery_guild": [
+      "clay",
+      "lumber",
+      "tools"
+    ],
+    "pottery_manufactory": [
+      "clay",
+      "lumber",
+      "tools"
+    ],
+    "pottery_mill": [
+      "clay",
+      "lumber",
+      "tools"
+    ],
+    "pottery_workshop": [
+      "clay",
+      "lumber",
+      "tools"
+    ],
+    "pounamou_carver": [
+      "gems"
+    ],
+    "printing_manufactory": [
+      "lead",
+      "lumber",
+      "paper",
+      "tools"
+    ],
+    "printing_mill": [
+      "lead",
+      "lumber",
+      "paper",
+      "tools"
+    ],
+    "printing_press_shop": [
+      "lead",
+      "lumber",
+      "paper",
+      "tools"
+    ],
+    "protected_harbor": [
+      "lumber",
+      "stone",
+      "tar",
+      "tools"
+    ],
+    "putrefaction_mill": [
+      "livestock",
+      "pottery"
+    ],
+    "putrefaction_works": [
+      "livestock",
+      "pottery"
+    ],
+    "rural_clothmaker": [
+      "wool"
+    ],
+    "rural_glassmaker": [
+      "sand"
+    ],
+    "salt_collector": [
+      "clay"
+    ],
+    "saltpeter_guild": [
+      "livestock",
+      "pottery"
+    ],
+    "saltpeter_workshop": [
+      "livestock",
+      "pottery"
+    ],
+    "sand_pit": [
+      "lumber",
+      "tools"
+    ],
+    "scriptorium": [
+      "dyes",
+      "lumber",
+      "paper"
+    ],
+    "sheep_farms": [
+      "lumber",
+      "tools"
+    ],
+    "shipyard": [
+      "cloth",
+      "lumber",
+      "naval_supplies",
+      "tar",
+      "tools"
+    ],
+    "shoen": [
+      "tools"
+    ],
+    "slave_center": [
+      "firearms",
+      "paper",
+      "stone",
+      "tools"
+    ],
+    "slave_market": [
+      "leather",
+      "paper",
+      "tools",
+      "weaponry"
+    ],
+    "steel_mill": [
+      "coal",
+      "iron"
+    ],
+    "stockade": [
+      "lumber",
+      "tar",
+      "weaponry"
+    ],
+    "stone_quarry": [
+      "leather",
+      "lumber",
+      "tools"
+    ],
+    "sugar_plantation": [
+      "leather",
+      "lumber",
+      "slaves_goods",
+      "tools"
+    ],
+    "tannery": [
+      "livestock",
+      "sand",
+      "tar",
+      "tools"
+    ],
+    "tannery_manufactory": [
+      "livestock",
+      "sand",
+      "tar",
+      "tools"
+    ],
+    "tannery_mill": [
+      "livestock",
+      "sand",
+      "tar",
+      "tools"
+    ],
+    "tanning_workshop": [
+      "livestock",
+      "sand",
+      "tar",
+      "tools"
+    ],
+    "tar_kiln": [
+      "lumber"
+    ],
+    "tatara": [
+      "iron"
+    ],
+    "textile_mill": [
+      "cotton",
+      "dyes"
+    ],
+    "tobacco_plantation": [
+      "leather",
+      "lumber",
+      "slaves_goods",
+      "tools"
+    ],
+    "tools_guild": [
+      "copper",
+      "iron",
+      "stone",
+      "tin"
+    ],
+    "tools_workshop": [
+      "iron"
+    ],
+    "training_fields": [
+      "cloth",
+      "firearms",
+      "leather",
+      "paper",
+      "weaponry"
+    ],
+    "weapon_factory": [
+      "coal",
+      "lumber",
+      "steel"
+    ],
+    "weapon_guild": [
+      "lumber",
+      "stone"
+    ],
+    "weapon_manufactory": [
+      "coal",
+      "iron",
+      "lumber",
+      "tools"
+    ],
+    "weapon_workshop": [
+      "coal",
+      "iron",
+      "lumber",
+      "tools"
+    ],
+    "windmill": [
+      "cloth",
+      "lumber",
+      "tools"
+    ],
+    "winery": [
+      "fruit",
+      "lumber",
+      "tools"
+    ],
+    "winery_manufactory": [
+      "fruit",
+      "lumber",
+      "tools"
+    ]
+  }
+}

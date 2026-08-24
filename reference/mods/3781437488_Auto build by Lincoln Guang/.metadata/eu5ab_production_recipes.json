@@ -1,0 +1,1887 @@
+﻿{
+  "recipes": [
+    {
+      "building_id": "apothecary",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "fiber_crops": 0.1853,
+        "wild_game": 0.0461
+      },
+      "outputs": {
+        "medicaments": 0.5
+      },
+      "production_method_id": "natural_medicine_apotechary",
+      "raw_inputs": {
+        "fiber_crops": 0.1853,
+        "wild_game": 0.0461
+      }
+    },
+    {
+      "building_id": "beer_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.2625,
+        "tools": 0.105,
+        "wheat": 1.0513
+      },
+      "outputs": {
+        "beer": 1.1
+      },
+      "production_method_id": "wheat_beer_workshop_maintenance",
+      "raw_inputs": {
+        "lumber": 0.2625,
+        "wheat": 1.0513
+      }
+    },
+    {
+      "building_id": "bog_iron_smelter",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.375
+      },
+      "outputs": {
+        "iron": 0.3
+      },
+      "production_method_id": "bog_iron_maintenance",
+      "raw_inputs": {
+        "coal": 0.375
+      }
+    },
+    {
+      "building_id": "brewery",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.2484,
+        "tools": 0.0999,
+        "wheat": 0.9944
+      },
+      "outputs": {
+        "beer": 1.0
+      },
+      "production_method_id": "wheat_brewery_maintenance",
+      "raw_inputs": {
+        "lumber": 0.2484,
+        "wheat": 0.9944
+      }
+    },
+    {
+      "building_id": "brewery_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.3179,
+        "tools": 0.159,
+        "wheat": 2.1231
+      },
+      "outputs": {
+        "beer": 2.0
+      },
+      "production_method_id": "brewery_manufactory_maintenance",
+      "raw_inputs": {
+        "lumber": 0.3179,
+        "wheat": 2.1231
+      }
+    },
+    {
+      "building_id": "brewery_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.5038,
+        "tools": 0.2519,
+        "wheat": 4.4144
+      },
+      "outputs": {
+        "beer": 4.0
+      },
+      "production_method_id": "brewery_mill_maintenance",
+      "raw_inputs": {
+        "lumber": 0.5038,
+        "wheat": 4.4144
+      }
+    },
+    {
+      "building_id": "cannon_foundry",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "copper": 0.6408,
+        "lead": 0.385,
+        "saltpeter": 0.6408,
+        "tin": 0.3204,
+        "tools": 0.5129
+      },
+      "outputs": {
+        "cannons": 2.0
+      },
+      "production_method_id": "cannon_foundry_maintenance",
+      "raw_inputs": {
+        "copper": 0.6408,
+        "lead": 0.385,
+        "saltpeter": 0.6408,
+        "tin": 0.3204
+      }
+    },
+    {
+      "building_id": "cannon_maker",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.0404,
+        "lumber": 0.1065,
+        "tools": 0.0174
+      },
+      "outputs": {
+        "cannons": 0.1
+      },
+      "production_method_id": "cannon_maker_lumber_maintenance",
+      "raw_inputs": {
+        "iron": 0.0404,
+        "lumber": 0.1065
+      }
+    },
+    {
+      "building_id": "cannon_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "copper": 0.9082,
+        "tin": 0.2267,
+        "tools": 0.114
+      },
+      "outputs": {
+        "cannons": 1.1
+      },
+      "production_method_id": "cannon_workshop_bronze_maintenance",
+      "raw_inputs": {
+        "copper": 0.9082,
+        "tin": 0.2267
+      }
+    },
+    {
+      "building_id": "cannons_factory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lead": 0.391,
+        "saltpeter": 0.6516,
+        "steel": 1.9533
+      },
+      "outputs": {
+        "cannons": 4.0
+      },
+      "production_method_id": "gun_factory_maintenance",
+      "raw_inputs": {
+        "lead": 0.391,
+        "saltpeter": 0.6516
+      }
+    },
+    {
+      "building_id": "charcoal_maker",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.8889
+      },
+      "outputs": {
+        "coal": 0.8
+      },
+      "production_method_id": "char_coal_maintenance",
+      "raw_inputs": {
+        "lumber": 0.8889
+      }
+    },
+    {
+      "building_id": "clay_pit",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.2778
+      },
+      "outputs": {
+        "clay": 1.0
+      },
+      "production_method_id": "clay_pit_maintenance",
+      "raw_inputs": {
+        "lumber": 0.2778
+      }
+    },
+    {
+      "building_id": "cloth_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cotton": 0.8333
+      },
+      "outputs": {
+        "cloth": 1.0
+      },
+      "production_method_id": "cotton_cloth_guild_maintenance",
+      "raw_inputs": {
+        "cotton": 0.8333
+      }
+    },
+    {
+      "building_id": "cloth_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.148,
+        "wool": 1.6093
+      },
+      "outputs": {
+        "cloth": 2.0
+      },
+      "production_method_id": "wool_cloth_manufactory_maintenance",
+      "raw_inputs": {
+        "dyes": 0.148,
+        "wool": 1.6093
+      }
+    },
+    {
+      "building_id": "cloth_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cotton": 0.88
+      },
+      "outputs": {
+        "cloth": 1.1
+      },
+      "production_method_id": "cotton_cloth_workshop_maintenance",
+      "raw_inputs": {
+        "cotton": 0.88
+      }
+    },
+    {
+      "building_id": "cotton_plantation",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.05,
+        "lumber": 0.05,
+        "slaves_goods": 0.1,
+        "tools": 0.05
+      },
+      "outputs": {
+        "cotton": 1.0
+      },
+      "production_method_id": "cotton_plantation_maintenance",
+      "raw_inputs": {
+        "lumber": 0.05
+      }
+    },
+    {
+      "building_id": "distiller_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "glass": 0.1817,
+        "pottery": 0.1064,
+        "sugar": 1.0649
+      },
+      "outputs": {
+        "liquor": 2.0
+      },
+      "production_method_id": "sugar_distillery_maintenance",
+      "raw_inputs": {
+        "sugar": 1.0649
+      }
+    },
+    {
+      "building_id": "distiller_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "glass": 0.4239,
+        "pottery": 0.1112,
+        "sugar": 2.0082
+      },
+      "outputs": {
+        "liquor": 4.0
+      },
+      "production_method_id": "sugar_distillery_mill_maintenance",
+      "raw_inputs": {
+        "sugar": 2.0082
+      }
+    },
+    {
+      "building_id": "distillers_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "glass": 0.0779,
+        "pottery": 0.0972,
+        "sugar": 0.5841
+      },
+      "outputs": {
+        "liquor": 1.0
+      },
+      "production_method_id": "sugar_liquor_guild_maintenance",
+      "raw_inputs": {
+        "sugar": 0.5841
+      }
+    },
+    {
+      "building_id": "distillers_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "glass": 0.0729,
+        "pottery": 0.1037,
+        "sugar": 0.6258
+      },
+      "outputs": {
+        "liquor": 1.1
+      },
+      "production_method_id": "sugar_liquor_workshop_maintenance",
+      "raw_inputs": {
+        "sugar": 0.6258
+      }
+    },
+    {
+      "building_id": "dyes_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.4444
+      },
+      "outputs": {
+        "dyes": 0.2
+      },
+      "production_method_id": "dyes_guild_maintenance",
+      "raw_inputs": {
+        "lumber": 0.4444
+      }
+    },
+    {
+      "building_id": "dyes_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.3586,
+        "lumber": 7.184
+      },
+      "outputs": {
+        "dyes": 4.0
+      },
+      "production_method_id": "dyesmill_maintenance",
+      "raw_inputs": {
+        "alum": 0.3586,
+        "lumber": 7.184
+      }
+    },
+    {
+      "building_id": "dyes_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.0614,
+        "lumber": 0.7305
+      },
+      "outputs": {
+        "dyes": 0.4
+      },
+      "production_method_id": "dyes_workshop_maintenance",
+      "raw_inputs": {
+        "alum": 0.0614,
+        "lumber": 0.7305
+      }
+    },
+    {
+      "building_id": "dyesworks",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.3311,
+        "lumber": 3.4403
+      },
+      "outputs": {
+        "dyes": 2.0
+      },
+      "production_method_id": "dyesworks_maintenance",
+      "raw_inputs": {
+        "alum": 0.3311,
+        "lumber": 3.4403
+      }
+    },
+    {
+      "building_id": "elephant_hunting_grounds",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "elephants": 0.417,
+        "tools": 0.208,
+        "weaponry": 0.208
+      },
+      "outputs": {
+        "ivory": 1.0
+      },
+      "production_method_id": "elephant_hunting_grounds_maintenance",
+      "raw_inputs": {
+        "elephants": 0.417
+      }
+    },
+    {
+      "building_id": "eng_royal_forest",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "horses": 0.104,
+        "weaponry": 0.104,
+        "wine": 0.104
+      },
+      "outputs": {
+        "wild_game": 1.0
+      },
+      "production_method_id": "eng_royal_forest_maintenance",
+      "raw_inputs": {
+        "horses": 0.104,
+        "wine": 0.104
+      }
+    },
+    {
+      "building_id": "farming_village",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 1.0896,
+        "tools": 0.0267
+      },
+      "outputs": {
+        "livestock": 0.5
+      },
+      "production_method_id": "farming_village_maintenance",
+      "raw_inputs": {
+        "clay": 1.0896
+      }
+    },
+    {
+      "building_id": "fiber_crops_farm",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 0.494,
+        "lumber": 0.198,
+        "tools": 0.099
+      },
+      "outputs": {
+        "fiber_crops": 0.8
+      },
+      "production_method_id": "fiber_crops_farm_maintenance",
+      "raw_inputs": {
+        "livestock": 0.494,
+        "lumber": 0.198
+      }
+    },
+    {
+      "building_id": "fine_cloth_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.8333
+      },
+      "outputs": {
+        "fine_cloth": 0.5
+      },
+      "production_method_id": "fine_cloth_guild_maintenance",
+      "raw_inputs": {}
+    },
+    {
+      "building_id": "fine_cloth_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "silk": 2.3077
+      },
+      "outputs": {
+        "fine_cloth": 2.0
+      },
+      "production_method_id": "silk_cloth_manufactory_maintenance",
+      "raw_inputs": {
+        "silk": 2.3077
+      }
+    },
+    {
+      "building_id": "fine_cloth_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 5.436,
+        "dyes": 0.3674
+      },
+      "outputs": {
+        "fine_cloth": 4.0
+      },
+      "production_method_id": "fine_cloth_mill_maintenance",
+      "raw_inputs": {
+        "dyes": 0.3674
+      }
+    },
+    {
+      "building_id": "fine_cloth_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.96
+      },
+      "outputs": {
+        "fine_cloth": 0.6
+      },
+      "production_method_id": "fine_cloth_workshop_maintenance",
+      "raw_inputs": {}
+    },
+    {
+      "building_id": "firearms_factory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lead": 0.4044,
+        "saltpeter": 0.674,
+        "steel": 1.3464
+      },
+      "outputs": {
+        "firearms": 4.0
+      },
+      "production_method_id": "firearms_factory_maintenance",
+      "raw_inputs": {
+        "lead": 0.4044,
+        "saltpeter": 0.674
+      }
+    },
+    {
+      "building_id": "firearms_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.342,
+        "iron": 0.9115,
+        "lead": 0.1144,
+        "lumber": 0.342,
+        "saltpeter": 0.2275
+      },
+      "outputs": {
+        "firearms": 2.0
+      },
+      "production_method_id": "firearms_manufactory_maintenance",
+      "raw_inputs": {
+        "coal": 0.342,
+        "iron": 0.9115,
+        "lead": 0.1144,
+        "lumber": 0.342,
+        "saltpeter": 0.2275
+      }
+    },
+    {
+      "building_id": "fishing_village",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "salt": 0.0929,
+        "tools": 0.015
+      },
+      "outputs": {
+        "fish": 0.5
+      },
+      "production_method_id": "fishing_village_maintenance",
+      "raw_inputs": {
+        "salt": 0.0929
+      }
+    },
+    {
+      "building_id": "forest_village",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "sand": 0.048,
+        "tar": 0.029,
+        "wild_game": 0.419
+      },
+      "outputs": {
+        "leather": 0.2
+      },
+      "production_method_id": "forest_tannery",
+      "raw_inputs": {
+        "sand": 0.048,
+        "wild_game": 0.419
+      }
+    },
+    {
+      "building_id": "fruit_orchard",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.167
+      },
+      "outputs": {
+        "fruit": 0.3
+      },
+      "production_method_id": "fruit_orchard_maintenance",
+      "raw_inputs": {
+        "lumber": 0.167
+      }
+    },
+    {
+      "building_id": "furniture_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.1468,
+        "lumber": 0.9817,
+        "tools": 0.1468
+      },
+      "outputs": {
+        "furniture": 1.0
+      },
+      "production_method_id": "furniture_maintenance",
+      "raw_inputs": {
+        "dyes": 0.1468,
+        "lumber": 0.9817
+      }
+    },
+    {
+      "building_id": "furniture_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.2249,
+        "lumber": 2.0272,
+        "tools": 0.2249
+      },
+      "outputs": {
+        "furniture": 2.0
+      },
+      "production_method_id": "furniture_manufactory_maintenance",
+      "raw_inputs": {
+        "dyes": 0.2249,
+        "lumber": 2.0272
+      }
+    },
+    {
+      "building_id": "furniture_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.4475,
+        "lumber": 3.8377,
+        "tools": 0.4475
+      },
+      "outputs": {
+        "furniture": 4.0
+      },
+      "production_method_id": "furniture_mill_maintenance",
+      "raw_inputs": {
+        "dyes": 0.4475,
+        "lumber": 3.8377
+      }
+    },
+    {
+      "building_id": "furniture_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.1356,
+        "lumber": 1.1271,
+        "tools": 0.1356
+      },
+      "outputs": {
+        "furniture": 1.1
+      },
+      "production_method_id": "furniture_workshop_maintenance",
+      "raw_inputs": {
+        "dyes": 0.1356,
+        "lumber": 1.1271
+      }
+    },
+    {
+      "building_id": "glass_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.1933,
+        "sand": 0.9657,
+        "tools": 0.3674
+      },
+      "outputs": {
+        "glass": 0.75
+      },
+      "production_method_id": "glass_guild_maintenance",
+      "raw_inputs": {
+        "lumber": 0.1933,
+        "sand": 0.9657
+      }
+    },
+    {
+      "building_id": "glass_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.1452,
+        "coal": 0.8341,
+        "lumber": 0.5556,
+        "sand": 3.3378,
+        "stone": 0.2785,
+        "tools": 1.3348
+      },
+      "outputs": {
+        "glass": 4.0
+      },
+      "production_method_id": "glassmill_maintenance",
+      "raw_inputs": {
+        "alum": 0.1452,
+        "coal": 0.8341,
+        "lumber": 0.5556,
+        "sand": 3.3378,
+        "stone": 0.2785
+      }
+    },
+    {
+      "building_id": "glass_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.0422,
+        "lead": 0.0947,
+        "lumber": 0.3365,
+        "sand": 1.0517,
+        "tools": 0.4312
+      },
+      "outputs": {
+        "glass": 1.1
+      },
+      "production_method_id": "metal_glass_workshop_maintenance",
+      "raw_inputs": {
+        "alum": 0.0422,
+        "lead": 0.0947,
+        "lumber": 0.3365,
+        "sand": 1.0517
+      }
+    },
+    {
+      "building_id": "glassworks",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.0431,
+        "coal": 0.4039,
+        "lumber": 0.4039,
+        "sand": 2.1273,
+        "stone": 0.1912,
+        "tools": 0.6059
+      },
+      "outputs": {
+        "glass": 2.0
+      },
+      "production_method_id": "glassworks_maintenance",
+      "raw_inputs": {
+        "alum": 0.0431,
+        "coal": 0.4039,
+        "lumber": 0.4039,
+        "sand": 2.1273,
+        "stone": 0.1912
+      }
+    },
+    {
+      "building_id": "gun_smith",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.0404,
+        "lumber": 0.1342,
+        "tools": 0.0175
+      },
+      "outputs": {
+        "firearms": 0.15
+      },
+      "production_method_id": "guns_guild_lumber_maintenance",
+      "raw_inputs": {
+        "iron": 0.0404,
+        "lumber": 0.1342
+      }
+    },
+    {
+      "building_id": "guns_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "copper": 0.5008,
+        "tin": 0.0999,
+        "tools": 0.3125
+      },
+      "outputs": {
+        "firearms": 1.1
+      },
+      "production_method_id": "guns_workshop_bronze_maintenance",
+      "raw_inputs": {
+        "copper": 0.5008,
+        "tin": 0.0999
+      }
+    },
+    {
+      "building_id": "hand_cannon_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "alum": 0.0055,
+        "copper": 0.1035,
+        "lead": 0.0101,
+        "saltpeter": 0.1035,
+        "tin": 0.0211,
+        "tools": 0.0513
+      },
+      "outputs": {
+        "firearms": 0.3
+      },
+      "production_method_id": "hand_cannon_guild_maintenance",
+      "raw_inputs": {
+        "alum": 0.0055,
+        "copper": 0.1035,
+        "lead": 0.0101,
+        "saltpeter": 0.1035,
+        "tin": 0.0211
+      }
+    },
+    {
+      "building_id": "horse_breeders",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "horses": 0.313,
+        "wheat": 1.563
+      },
+      "outputs": {
+        "horses": 1.0
+      },
+      "production_method_id": "horse_breeders_maintenance",
+      "raw_inputs": {
+        "horses": 0.313,
+        "wheat": 1.563
+      }
+    },
+    {
+      "building_id": "improved_charcoal_maker",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 1.3333
+      },
+      "outputs": {
+        "coal": 1.2
+      },
+      "production_method_id": "improved_char_coal_maintenance",
+      "raw_inputs": {
+        "lumber": 1.3333
+      }
+    },
+    {
+      "building_id": "iron_foundry",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.3297,
+        "iron": 1.3187
+      },
+      "outputs": {
+        "tools": 2.0
+      },
+      "production_method_id": "iron_foundry_maintenance",
+      "raw_inputs": {
+        "coal": 0.3297,
+        "iron": 1.3187
+      }
+    },
+    {
+      "building_id": "iron_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.6356,
+        "iron": 2.5393
+      },
+      "outputs": {
+        "tools": 4.0
+      },
+      "production_method_id": "iron_mill_maintenance",
+      "raw_inputs": {
+        "coal": 0.6356,
+        "iron": 2.5393
+      }
+    },
+    {
+      "building_id": "jewelry_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "goods_gold": 0.5208
+      },
+      "outputs": {
+        "jewelry": 1.0
+      },
+      "production_method_id": "gold_base",
+      "raw_inputs": {
+        "goods_gold": 0.5208
+      }
+    },
+    {
+      "building_id": "lacquerware_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.5007,
+        "lumber": 1.2017,
+        "tools": 0.1204
+      },
+      "outputs": {
+        "lacquerware": 1.0
+      },
+      "production_method_id": "lacquerware_shop_maintenance",
+      "raw_inputs": {
+        "dyes": 0.5007,
+        "lumber": 1.2017
+      }
+    },
+    {
+      "building_id": "lacquerware_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.9048,
+        "lumber": 2.2625,
+        "tools": 0.2265
+      },
+      "outputs": {
+        "lacquerware": 2.0
+      },
+      "production_method_id": "lacquerware_manufactory_maintenance",
+      "raw_inputs": {
+        "dyes": 0.9048,
+        "lumber": 2.2625
+      }
+    },
+    {
+      "building_id": "lumber_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "tools": 0.417
+      },
+      "outputs": {
+        "lumber": 1.0
+      },
+      "production_method_id": "lumber_mill_maintenance",
+      "raw_inputs": {}
+    },
+    {
+      "building_id": "market_village",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.417
+      },
+      "outputs": {
+        "tools": 0.5
+      },
+      "production_method_id": "rural_blacksmith",
+      "raw_inputs": {
+        "iron": 0.417
+      }
+    },
+    {
+      "building_id": "mason",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "stone": 0.417
+      },
+      "outputs": {
+        "masonry": 0.5
+      },
+      "production_method_id": "stone_bricks",
+      "raw_inputs": {
+        "stone": 0.417
+      }
+    },
+    {
+      "building_id": "naval_supplies_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.0486,
+        "fiber_crops": 0.4906,
+        "lumber": 0.1963,
+        "tar": 0.5393
+      },
+      "outputs": {
+        "naval_supplies": 1.0
+      },
+      "production_method_id": "naval_supplies_guild_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 0.4906,
+        "lumber": 0.1963
+      }
+    },
+    {
+      "building_id": "naval_supplies_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.2194,
+        "fiber_crops": 0.6596,
+        "lumber": 0.8791,
+        "tar": 0.6596
+      },
+      "outputs": {
+        "naval_supplies": 2.0
+      },
+      "production_method_id": "naval_supplies_manufactory_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 0.6596,
+        "lumber": 0.8791
+      }
+    },
+    {
+      "building_id": "naval_supplies_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.2281,
+        "fiber_crops": 1.3673,
+        "lumber": 1.8236,
+        "tar": 1.3673
+      },
+      "outputs": {
+        "naval_supplies": 4.0
+      },
+      "production_method_id": "naval_supplies_mill_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 1.3673,
+        "lumber": 1.8236
+      }
+    },
+    {
+      "building_id": "naval_supplies_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.1088,
+        "fiber_crops": 0.4351,
+        "lumber": 0.1638,
+        "tar": 0.5989
+      },
+      "outputs": {
+        "naval_supplies": 1.1
+      },
+      "production_method_id": "naval_supplies_workshop_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 0.4351,
+        "lumber": 0.1638
+      }
+    },
+    {
+      "building_id": "paper_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.1852,
+        "lumber": 0.1852
+      },
+      "outputs": {
+        "paper": 0.5
+      },
+      "production_method_id": "paper_guild_leather_maintenance",
+      "raw_inputs": {
+        "lumber": 0.1852
+      }
+    },
+    {
+      "building_id": "paper_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.2464,
+        "fiber_crops": 0.9841,
+        "lumber": 0.2464
+      },
+      "outputs": {
+        "paper": 2.0
+      },
+      "production_method_id": "paper_manufactory_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 0.9841,
+        "lumber": 0.2464
+      }
+    },
+    {
+      "building_id": "paper_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cloth": 0.1288,
+        "fiber_crops": 1.2882
+      },
+      "outputs": {
+        "paper": 2.0
+      },
+      "production_method_id": "paper_mill_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 1.2882
+      }
+    },
+    {
+      "building_id": "paper_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "fiber_crops": 0.8
+      },
+      "outputs": {
+        "paper": 1.0
+      },
+      "production_method_id": "paper_workshop_fiber_pulp_maintenance",
+      "raw_inputs": {
+        "fiber_crops": 0.8
+      }
+    },
+    {
+      "building_id": "perfumery",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "liquor": 0.2203,
+        "pepper": 0.2745
+      },
+      "outputs": {
+        "incense": 1.0
+      },
+      "production_method_id": "perfumery_maintenance",
+      "raw_inputs": {
+        "pepper": 0.2745
+      }
+    },
+    {
+      "building_id": "porcelain_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 2.604,
+        "coal": 0.5206,
+        "tools": 0.0522
+      },
+      "outputs": {
+        "porcelain": 1.0
+      },
+      "production_method_id": "porcelain_guild_maintenance",
+      "raw_inputs": {
+        "clay": 2.604,
+        "coal": 0.5206
+      }
+    },
+    {
+      "building_id": "porcelain_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 4.9231,
+        "coal": 0.6154,
+        "tools": 0.3077
+      },
+      "outputs": {
+        "porcelain": 2.0
+      },
+      "production_method_id": "porcelain_manufactory_maintenance",
+      "raw_inputs": {
+        "clay": 4.9231,
+        "coal": 0.6154
+      }
+    },
+    {
+      "building_id": "pottery_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 1.0039,
+        "lumber": 0.1201,
+        "tools": 0.0504
+      },
+      "outputs": {
+        "pottery": 1.0
+      },
+      "production_method_id": "pottery_maintenance",
+      "raw_inputs": {
+        "clay": 1.0039,
+        "lumber": 0.1201
+      }
+    },
+    {
+      "building_id": "pottery_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 1.1249,
+        "lumber": 0.1682,
+        "tools": 0.113
+      },
+      "outputs": {
+        "pottery": 1.5
+      },
+      "production_method_id": "pottery_manufactory_maintenance",
+      "raw_inputs": {
+        "clay": 1.1249,
+        "lumber": 0.1682
+      }
+    },
+    {
+      "building_id": "pottery_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 3.1427,
+        "lumber": 0.2787,
+        "tools": 0.1393
+      },
+      "outputs": {
+        "pottery": 3.25
+      },
+      "production_method_id": "pottery_mill_maintenance",
+      "raw_inputs": {
+        "clay": 3.1427,
+        "lumber": 0.2787
+      }
+    },
+    {
+      "building_id": "pottery_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 1.0987,
+        "lumber": 0.1102,
+        "tools": 0.0551
+      },
+      "outputs": {
+        "pottery": 1.1
+      },
+      "production_method_id": "pottery_w_maintenance",
+      "raw_inputs": {
+        "clay": 1.0987,
+        "lumber": 0.1102
+      }
+    },
+    {
+      "building_id": "pounamou_carver",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "gems": 0.208
+      },
+      "outputs": {
+        "jewelry": 0.2
+      },
+      "production_method_id": "pounamou_carver_maintenance",
+      "raw_inputs": {
+        "gems": 0.208
+      }
+    },
+    {
+      "building_id": "printing_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lead": 0.3205,
+        "lumber": 0.4269,
+        "paper": 1.6024,
+        "tools": 0.0431
+      },
+      "outputs": {
+        "books": 2.0
+      },
+      "production_method_id": "printing_manufactory_maintenance",
+      "raw_inputs": {
+        "lead": 0.3205,
+        "lumber": 0.4269
+      }
+    },
+    {
+      "building_id": "printing_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lead": 0.5661,
+        "lumber": 0.9054,
+        "paper": 3.1149,
+        "tools": 0.0563
+      },
+      "outputs": {
+        "books": 4.0
+      },
+      "production_method_id": "printing_mill_maintenance",
+      "raw_inputs": {
+        "lead": 0.5661,
+        "lumber": 0.9054
+      }
+    },
+    {
+      "building_id": "printing_press_shop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lead": 0.2138,
+        "lumber": 0.2662,
+        "paper": 0.7462,
+        "tools": 0.0269
+      },
+      "outputs": {
+        "books": 1.0
+      },
+      "production_method_id": "printing_press_maintenance",
+      "raw_inputs": {
+        "lead": 0.2138,
+        "lumber": 0.2662
+      }
+    },
+    {
+      "building_id": "putrefaction_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 2.8907,
+        "pottery": 1.5898
+      },
+      "outputs": {
+        "saltpeter": 4.0
+      },
+      "production_method_id": "putrefaction_mill_demands",
+      "raw_inputs": {
+        "livestock": 2.8907
+      }
+    },
+    {
+      "building_id": "putrefaction_works",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 1.5388,
+        "pottery": 0.7687
+      },
+      "outputs": {
+        "saltpeter": 2.0
+      },
+      "production_method_id": "putrefaction_demands",
+      "raw_inputs": {
+        "livestock": 1.5388
+      }
+    },
+    {
+      "building_id": "rural_clothmaker",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "wool": 0.5
+      },
+      "outputs": {
+        "cloth": 0.5
+      },
+      "production_method_id": "rural_wool_clothmaker",
+      "raw_inputs": {
+        "wool": 0.5
+      }
+    },
+    {
+      "building_id": "rural_glassmaker",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "sand": 1.0
+      },
+      "outputs": {
+        "glass": 0.2
+      },
+      "production_method_id": "rural_glassmaker_maintenance",
+      "raw_inputs": {
+        "sand": 1.0
+      }
+    },
+    {
+      "building_id": "salt_collector",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "clay": 2.0
+      },
+      "outputs": {
+        "salt": 0.3
+      },
+      "production_method_id": "salt_collector_maintenance",
+      "raw_inputs": {
+        "clay": 2.0
+      }
+    },
+    {
+      "building_id": "saltpeter_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 0.9804,
+        "pottery": 0.1961
+      },
+      "outputs": {
+        "saltpeter": 1.0
+      },
+      "production_method_id": "saltpeter_guild_demands",
+      "raw_inputs": {
+        "livestock": 0.9804
+      }
+    },
+    {
+      "building_id": "saltpeter_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 1.0556,
+        "pottery": 0.1766
+      },
+      "outputs": {
+        "saltpeter": 1.1
+      },
+      "production_method_id": "saltpeter_workshop_demands",
+      "raw_inputs": {
+        "livestock": 1.0556
+      }
+    },
+    {
+      "building_id": "sand_pit",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.161,
+        "tools": 0.058
+      },
+      "outputs": {
+        "sand": 1.0
+      },
+      "production_method_id": "sand_pit_maintenance",
+      "raw_inputs": {
+        "lumber": 0.161
+      }
+    },
+    {
+      "building_id": "scriptorium",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "dyes": 0.0503,
+        "lumber": 0.0998,
+        "paper": 0.1995
+      },
+      "outputs": {
+        "books": 0.3
+      },
+      "production_method_id": "scriptorium_maintenance",
+      "raw_inputs": {
+        "dyes": 0.0503,
+        "lumber": 0.0998
+      }
+    },
+    {
+      "building_id": "sheep_farms",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.496,
+        "tools": 0.099
+      },
+      "outputs": {
+        "wool": 0.5
+      },
+      "production_method_id": "sheep_farm_maintenance",
+      "raw_inputs": {
+        "lumber": 0.496
+      }
+    },
+    {
+      "building_id": "shoen",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "tools": 0.139
+      },
+      "outputs": {
+        "stone": 0.5
+      },
+      "production_method_id": "shoen_quarries_maintenance",
+      "raw_inputs": {}
+    },
+    {
+      "building_id": "slave_center",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "firearms": 0.05,
+        "paper": 0.05,
+        "stone": 0.1,
+        "tools": 0.1
+      },
+      "outputs": {
+        "slaves_goods": 1.0
+      },
+      "production_method_id": "slave_center_maintenance",
+      "raw_inputs": {
+        "stone": 0.1
+      }
+    },
+    {
+      "building_id": "slave_market",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.526,
+        "paper": 0.363,
+        "tools": 0.478,
+        "weaponry": 0.421
+      },
+      "outputs": {
+        "slaves_goods": 2.0
+      },
+      "production_method_id": "slave_market_maintenance",
+      "raw_inputs": {}
+    },
+    {
+      "building_id": "steel_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 2.963,
+        "iron": 2.963
+      },
+      "outputs": {
+        "steel": 4.0
+      },
+      "production_method_id": "steel_mill_maintenance",
+      "raw_inputs": {
+        "coal": 2.963,
+        "iron": 2.963
+      }
+    },
+    {
+      "building_id": "stone_quarry",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.107,
+        "lumber": 0.127,
+        "tools": 0.107
+      },
+      "outputs": {
+        "stone": 1.0
+      },
+      "production_method_id": "stone_quarry_maintenance",
+      "raw_inputs": {
+        "lumber": 0.127
+      }
+    },
+    {
+      "building_id": "sugar_plantation",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.05,
+        "lumber": 0.05,
+        "slaves_goods": 0.1,
+        "tools": 0.05
+      },
+      "outputs": {
+        "sugar": 1.0
+      },
+      "production_method_id": "sugar_plantation_maintenance",
+      "raw_inputs": {
+        "lumber": 0.05
+      }
+    },
+    {
+      "building_id": "tannery",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 1.0873,
+        "sand": 0.4345,
+        "tar": 0.0819,
+        "tools": 0.1627
+      },
+      "outputs": {
+        "leather": 1.0
+      },
+      "production_method_id": "leather_guild_maintenance",
+      "raw_inputs": {
+        "livestock": 1.0873,
+        "sand": 0.4345
+      }
+    },
+    {
+      "building_id": "tannery_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 2.065,
+        "sand": 0.9679,
+        "tar": 0.1292,
+        "tools": 0.2585
+      },
+      "outputs": {
+        "leather": 2.0
+      },
+      "production_method_id": "leather_manufactory_maintenance",
+      "raw_inputs": {
+        "livestock": 2.065,
+        "sand": 0.9679
+      }
+    },
+    {
+      "building_id": "tannery_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 4.2156,
+        "sand": 1.7567,
+        "tar": 0.2103,
+        "tools": 0.4222
+      },
+      "outputs": {
+        "leather": 4.0
+      },
+      "production_method_id": "leather_mill_maintenance",
+      "raw_inputs": {
+        "livestock": 4.2156,
+        "sand": 1.7567
+      }
+    },
+    {
+      "building_id": "tanning_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "livestock": 1.145,
+        "sand": 0.4452,
+        "tar": 0.064,
+        "tools": 0.1906
+      },
+      "outputs": {
+        "leather": 1.1
+      },
+      "production_method_id": "leather_livestock_workshop_maintenance",
+      "raw_inputs": {
+        "livestock": 1.145,
+        "sand": 0.4452
+      }
+    },
+    {
+      "building_id": "tar_kiln",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 1.1111
+      },
+      "outputs": {
+        "tar": 1.0
+      },
+      "production_method_id": "tar_kiln_maintenance",
+      "raw_inputs": {
+        "lumber": 1.1111
+      }
+    },
+    {
+      "building_id": "tatara",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.417
+      },
+      "outputs": {
+        "tools": 0.5
+      },
+      "production_method_id": "tamagahane_blacksmith",
+      "raw_inputs": {
+        "iron": 0.417
+      }
+    },
+    {
+      "building_id": "textile_mill",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "cotton": 1.8866,
+        "dyes": 0.2517
+      },
+      "outputs": {
+        "cloth": 3.0
+      },
+      "production_method_id": "cotton_mill_maintenance",
+      "raw_inputs": {
+        "cotton": 1.8866,
+        "dyes": 0.2517
+      }
+    },
+    {
+      "building_id": "tobacco_plantation",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "leather": 0.05,
+        "lumber": 0.05,
+        "slaves_goods": 0.1,
+        "tools": 0.05
+      },
+      "outputs": {
+        "tobacco": 1.0
+      },
+      "production_method_id": "tobacco_plantation_maintenance",
+      "raw_inputs": {
+        "lumber": 0.05
+      }
+    },
+    {
+      "building_id": "tools_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.8333
+      },
+      "outputs": {
+        "tools": 1.0
+      },
+      "production_method_id": "metalwork_guild_maintenance",
+      "raw_inputs": {
+        "iron": 0.8333
+      }
+    },
+    {
+      "building_id": "tools_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "iron": 0.88
+      },
+      "outputs": {
+        "tools": 1.1
+      },
+      "production_method_id": "metalwork_workshop_maintenance",
+      "raw_inputs": {
+        "iron": 0.88
+      }
+    },
+    {
+      "building_id": "weapon_factory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.4413,
+        "lumber": 0.4413,
+        "steel": 1.4689
+      },
+      "outputs": {
+        "weaponry": 4.0
+      },
+      "production_method_id": "weapon_factory_maintenance",
+      "raw_inputs": {
+        "coal": 0.4413,
+        "lumber": 0.4413
+      }
+    },
+    {
+      "building_id": "weapon_guild",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "lumber": 0.0633,
+        "stone": 0.9051
+      },
+      "outputs": {
+        "weaponry": 0.4
+      },
+      "production_method_id": "pre_columbian_weapon_smith_maintenance",
+      "raw_inputs": {
+        "lumber": 0.0633,
+        "stone": 0.9051
+      }
+    },
+    {
+      "building_id": "weapon_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.5565,
+        "iron": 0.4446,
+        "lumber": 0.5565,
+        "tools": 0.4446
+      },
+      "outputs": {
+        "weaponry": 2.0
+      },
+      "production_method_id": "weapon_manufactory_maintenance",
+      "raw_inputs": {
+        "coal": 0.5565,
+        "iron": 0.4446,
+        "lumber": 0.5565
+      }
+    },
+    {
+      "building_id": "weapon_workshop",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "coal": 0.3302,
+        "iron": 0.275,
+        "lumber": 0.3302,
+        "tools": 0.2197
+      },
+      "outputs": {
+        "weaponry": 1.1
+      },
+      "production_method_id": "weapon_workshop_maintenance",
+      "raw_inputs": {
+        "coal": 0.3302,
+        "iron": 0.275,
+        "lumber": 0.3302
+      }
+    },
+    {
+      "building_id": "winery",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "fruit": 1.154,
+        "lumber": 0.157,
+        "tools": 0.092
+      },
+      "outputs": {
+        "wine": 1.0
+      },
+      "production_method_id": "fruit_winery_maintenance",
+      "raw_inputs": {
+        "fruit": 1.154,
+        "lumber": 0.157
+      }
+    },
+    {
+      "building_id": "winery_manufactory",
+      "has_allow": false,
+      "has_potential": false,
+      "inputs": {
+        "fruit": 1.8861,
+        "lumber": 0.3975,
+        "tools": 0.1982
+      },
+      "outputs": {
+        "wine": 2.0
+      },
+      "production_method_id": "fruit_winery_manufactory_maintenance",
+      "raw_inputs": {
+        "fruit": 1.8861,
+        "lumber": 0.3975
+      }
+    }
+  ],
+  "schema_version": 1
+}

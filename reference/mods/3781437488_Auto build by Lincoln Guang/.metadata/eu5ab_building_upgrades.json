@@ -1,0 +1,1721 @@
+﻿{
+  "buildings": {
+    "academy_of_sciences": {
+      "predecessors": [],
+      "successors": []
+    },
+    "admiralty": {
+      "predecessors": [],
+      "successors": []
+    },
+    "alhambra": {
+      "predecessors": [],
+      "successors": []
+    },
+    "apothecary": {
+      "predecessors": [],
+      "successors": []
+    },
+    "aqueduct_system": {
+      "predecessors": [],
+      "successors": []
+    },
+    "armory": {
+      "predecessors": [
+        "korean_barracks",
+        "provincial_garrison"
+      ],
+      "successors": [
+        "barracks",
+        "conscription_center"
+      ]
+    },
+    "art_school": {
+      "predecessors": [],
+      "successors": [
+        "arts_academy"
+      ]
+    },
+    "arts_academy": {
+      "predecessors": [
+        "art_school"
+      ],
+      "successors": []
+    },
+    "bailiff": {
+      "predecessors": [],
+      "successors": []
+    },
+    "bajang_ratu": {
+      "predecessors": [],
+      "successors": []
+    },
+    "banking_office": {
+      "predecessors": [],
+      "successors": []
+    },
+    "bardic_school": {
+      "predecessors": [],
+      "successors": []
+    },
+    "barracks": {
+      "predecessors": [
+        "armory",
+        "korean_barracks",
+        "provincial_garrison"
+      ],
+      "successors": [
+        "conscription_center"
+      ]
+    },
+    "bastion": {
+      "predecessors": [
+        "castle",
+        "stockade"
+      ],
+      "successors": [
+        "fortress",
+        "star_fort"
+      ]
+    },
+    "beer_workshop": {
+      "predecessors": [
+        "brewery"
+      ],
+      "successors": [
+        "brewery_manufactory",
+        "brewery_mill"
+      ]
+    },
+    "black_market": {
+      "predecessors": [],
+      "successors": []
+    },
+    "bog_iron_smelter": {
+      "predecessors": [],
+      "successors": []
+    },
+    "brethren_marsh": {
+      "predecessors": [],
+      "successors": []
+    },
+    "brewery": {
+      "predecessors": [],
+      "successors": [
+        "beer_workshop",
+        "brewery_manufactory",
+        "brewery_mill"
+      ]
+    },
+    "brewery_manufactory": {
+      "predecessors": [
+        "beer_workshop",
+        "brewery"
+      ],
+      "successors": [
+        "brewery_mill"
+      ]
+    },
+    "brewery_mill": {
+      "predecessors": [
+        "beer_workshop",
+        "brewery",
+        "brewery_manufactory"
+      ],
+      "successors": []
+    },
+    "bridge_infrastructure": {
+      "predecessors": [],
+      "successors": []
+    },
+    "brothel": {
+      "predecessors": [],
+      "successors": []
+    },
+    "bubu_building": {
+      "predecessors": [],
+      "successors": []
+    },
+    "bund": {
+      "predecessors": [],
+      "successors": []
+    },
+    "calmecac": {
+      "predecessors": [],
+      "successors": []
+    },
+    "calvinist_preachers": {
+      "predecessors": [],
+      "successors": []
+    },
+    "cannon_foundry": {
+      "predecessors": [
+        "cannon_maker",
+        "cannon_workshop"
+      ],
+      "successors": [
+        "cannons_factory"
+      ]
+    },
+    "cannon_maker": {
+      "predecessors": [],
+      "successors": [
+        "cannon_foundry",
+        "cannon_workshop",
+        "cannons_factory"
+      ]
+    },
+    "cannon_workshop": {
+      "predecessors": [
+        "cannon_maker"
+      ],
+      "successors": [
+        "cannon_foundry",
+        "cannons_factory"
+      ]
+    },
+    "cannons_factory": {
+      "predecessors": [
+        "cannon_foundry",
+        "cannon_maker",
+        "cannon_workshop"
+      ],
+      "successors": []
+    },
+    "caravan_stop": {
+      "predecessors": [],
+      "successors": []
+    },
+    "caravanserai": {
+      "predecessors": [],
+      "successors": []
+    },
+    "castle": {
+      "predecessors": [
+        "stockade"
+      ],
+      "successors": [
+        "bastion",
+        "fortress",
+        "star_fort"
+      ]
+    },
+    "cawa_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "central_bank": {
+      "predecessors": [],
+      "successors": []
+    },
+    "chancery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "charcoal_maker": {
+      "predecessors": [],
+      "successors": [
+        "improved_charcoal_maker"
+      ]
+    },
+    "city_guard": {
+      "predecessors": [],
+      "successors": []
+    },
+    "city_walls": {
+      "predecessors": [],
+      "successors": []
+    },
+    "clan_family_shrine": {
+      "predecessors": [],
+      "successors": []
+    },
+    "clan_shipyards": {
+      "predecessors": [],
+      "successors": []
+    },
+    "clay_pit": {
+      "predecessors": [],
+      "successors": []
+    },
+    "clearing_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "cloth_guild": {
+      "predecessors": [],
+      "successors": [
+        "cloth_manufactory",
+        "cloth_workshop",
+        "textile_mill"
+      ]
+    },
+    "cloth_manufactory": {
+      "predecessors": [
+        "cloth_guild",
+        "cloth_workshop"
+      ],
+      "successors": [
+        "textile_mill"
+      ]
+    },
+    "cloth_workshop": {
+      "predecessors": [
+        "cloth_guild"
+      ],
+      "successors": [
+        "cloth_manufactory",
+        "textile_mill"
+      ]
+    },
+    "coastal_fort": {
+      "predecessors": [],
+      "successors": [
+        "naval_battery"
+      ]
+    },
+    "coastal_settlements": {
+      "predecessors": [],
+      "successors": []
+    },
+    "colonial_administration": {
+      "predecessors": [],
+      "successors": []
+    },
+    "commerce_center": {
+      "predecessors": [
+        "grand_marketplace",
+        "marketplace",
+        "merchants_quarters"
+      ],
+      "successors": []
+    },
+    "confucian_academy": {
+      "predecessors": [],
+      "successors": []
+    },
+    "confucian_school": {
+      "predecessors": [],
+      "successors": []
+    },
+    "conscription_center": {
+      "predecessors": [
+        "armory",
+        "barracks",
+        "korean_barracks",
+        "provincial_garrison",
+        "regimental_camp",
+        "training_fields"
+      ],
+      "successors": []
+    },
+    "construction_center": {
+      "predecessors": [],
+      "successors": []
+    },
+    "copenhagen_dockyard": {
+      "predecessors": [],
+      "successors": []
+    },
+    "cotton_plantation": {
+      "predecessors": [],
+      "successors": []
+    },
+    "council_hall": {
+      "predecessors": [
+        "early_council_hall"
+      ],
+      "successors": [
+        "modern_council_hall"
+      ]
+    },
+    "counting_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "customs_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "distiller_manufactory": {
+      "predecessors": [
+        "distillers_guild",
+        "distillers_workshop"
+      ],
+      "successors": [
+        "distiller_mill"
+      ]
+    },
+    "distiller_mill": {
+      "predecessors": [
+        "distiller_manufactory",
+        "distillers_guild",
+        "distillers_workshop"
+      ],
+      "successors": []
+    },
+    "distillers_guild": {
+      "predecessors": [],
+      "successors": [
+        "distiller_manufactory",
+        "distiller_mill",
+        "distillers_workshop"
+      ]
+    },
+    "distillers_workshop": {
+      "predecessors": [
+        "distillers_guild"
+      ],
+      "successors": [
+        "distiller_manufactory",
+        "distiller_mill"
+      ]
+    },
+    "dock": {
+      "predecessors": [],
+      "successors": [
+        "dry_dock",
+        "grand_shipyard",
+        "naval_base",
+        "shipyard"
+      ]
+    },
+    "dry_dock": {
+      "predecessors": [
+        "dock"
+      ],
+      "successors": [
+        "grand_shipyard",
+        "naval_base",
+        "shipyard"
+      ]
+    },
+    "dun_fort": {
+      "predecessors": [],
+      "successors": []
+    },
+    "dyes_guild": {
+      "predecessors": [],
+      "successors": [
+        "dyes_mill",
+        "dyes_workshop",
+        "dyesworks"
+      ]
+    },
+    "dyes_mill": {
+      "predecessors": [
+        "dyes_guild",
+        "dyes_workshop",
+        "dyesworks"
+      ],
+      "successors": []
+    },
+    "dyes_workshop": {
+      "predecessors": [
+        "dyes_guild"
+      ],
+      "successors": [
+        "dyes_mill",
+        "dyesworks"
+      ]
+    },
+    "dyesworks": {
+      "predecessors": [
+        "dyes_guild",
+        "dyes_workshop"
+      ],
+      "successors": [
+        "dyes_mill"
+      ]
+    },
+    "early_council_hall": {
+      "predecessors": [],
+      "successors": [
+        "council_hall",
+        "modern_council_hall"
+      ]
+    },
+    "eghabho_nore_mansion": {
+      "predecessors": [],
+      "successors": []
+    },
+    "elephant_hunting_grounds": {
+      "predecessors": [],
+      "successors": []
+    },
+    "embassy": {
+      "predecessors": [],
+      "successors": []
+    },
+    "eng_royal_forest": {
+      "predecessors": [],
+      "successors": []
+    },
+    "entrepot": {
+      "predecessors": [],
+      "successors": []
+    },
+    "farming_village": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fiber_crops_farm": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fine_cloth_guild": {
+      "predecessors": [],
+      "successors": [
+        "fine_cloth_manufactory",
+        "fine_cloth_mill",
+        "fine_cloth_workshop"
+      ]
+    },
+    "fine_cloth_manufactory": {
+      "predecessors": [
+        "fine_cloth_guild",
+        "fine_cloth_workshop"
+      ],
+      "successors": [
+        "fine_cloth_mill"
+      ]
+    },
+    "fine_cloth_mill": {
+      "predecessors": [
+        "fine_cloth_guild",
+        "fine_cloth_manufactory",
+        "fine_cloth_workshop"
+      ],
+      "successors": []
+    },
+    "fine_cloth_workshop": {
+      "predecessors": [
+        "fine_cloth_guild"
+      ],
+      "successors": [
+        "fine_cloth_manufactory",
+        "fine_cloth_mill"
+      ]
+    },
+    "firearms_factory": {
+      "predecessors": [
+        "firearms_manufactory",
+        "gun_smith",
+        "guns_workshop",
+        "hand_cannon_guild"
+      ],
+      "successors": []
+    },
+    "firearms_manufactory": {
+      "predecessors": [
+        "gun_smith",
+        "guns_workshop",
+        "hand_cannon_guild"
+      ],
+      "successors": [
+        "firearms_factory"
+      ]
+    },
+    "fishing_village": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fondaco": {
+      "predecessors": [],
+      "successors": []
+    },
+    "forest_village": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fortress": {
+      "predecessors": [
+        "bastion",
+        "castle",
+        "star_fort",
+        "stockade"
+      ],
+      "successors": []
+    },
+    "fortress_church": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fortress_granary": {
+      "predecessors": [],
+      "successors": []
+    },
+    "free_economic_society": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fruit_orchard": {
+      "predecessors": [],
+      "successors": []
+    },
+    "fulani_cattle_rearing_pen": {
+      "predecessors": [],
+      "successors": []
+    },
+    "funduq": {
+      "predecessors": [],
+      "successors": []
+    },
+    "furniture_guild": {
+      "predecessors": [],
+      "successors": [
+        "furniture_manufactory",
+        "furniture_mill",
+        "furniture_workshop"
+      ]
+    },
+    "furniture_manufactory": {
+      "predecessors": [
+        "furniture_guild",
+        "furniture_workshop"
+      ],
+      "successors": [
+        "furniture_mill"
+      ]
+    },
+    "furniture_mill": {
+      "predecessors": [
+        "furniture_guild",
+        "furniture_manufactory",
+        "furniture_workshop"
+      ],
+      "successors": []
+    },
+    "furniture_workshop": {
+      "predecessors": [
+        "furniture_guild"
+      ],
+      "successors": [
+        "furniture_manufactory",
+        "furniture_mill"
+      ]
+    },
+    "galata": {
+      "predecessors": [],
+      "successors": []
+    },
+    "galley_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "german_mountain_toll_castle": {
+      "predecessors": [],
+      "successors": []
+    },
+    "german_river_toll_castle": {
+      "predecessors": [],
+      "successors": []
+    },
+    "ghilman_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "glass_guild": {
+      "predecessors": [],
+      "successors": [
+        "glass_mill",
+        "glass_workshop",
+        "glassworks"
+      ]
+    },
+    "glass_mill": {
+      "predecessors": [
+        "glass_guild",
+        "glass_workshop",
+        "glassworks"
+      ],
+      "successors": []
+    },
+    "glass_workshop": {
+      "predecessors": [
+        "glass_guild"
+      ],
+      "successors": [
+        "glass_mill",
+        "glassworks"
+      ]
+    },
+    "glassworks": {
+      "predecessors": [
+        "glass_guild",
+        "glass_workshop"
+      ],
+      "successors": [
+        "glass_mill"
+      ]
+    },
+    "gosho": {
+      "predecessors": [],
+      "successors": []
+    },
+    "grain_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "granary": {
+      "predecessors": [],
+      "successors": []
+    },
+    "grand_marketplace": {
+      "predecessors": [
+        "marketplace",
+        "merchants_quarters"
+      ],
+      "successors": [
+        "commerce_center"
+      ]
+    },
+    "grand_shipyard": {
+      "predecessors": [
+        "dock",
+        "dry_dock",
+        "shipyard"
+      ],
+      "successors": [
+        "naval_base"
+      ]
+    },
+    "great_enclosure": {
+      "predecessors": [],
+      "successors": []
+    },
+    "great_hill_complex": {
+      "predecessors": [],
+      "successors": []
+    },
+    "great_valley_complex": {
+      "predecessors": [],
+      "successors": []
+    },
+    "greek_latin_academy": {
+      "predecessors": [],
+      "successors": []
+    },
+    "gun_smith": {
+      "predecessors": [
+        "hand_cannon_guild"
+      ],
+      "successors": [
+        "firearms_factory",
+        "firearms_manufactory",
+        "guns_workshop"
+      ]
+    },
+    "guns_workshop": {
+      "predecessors": [
+        "gun_smith",
+        "hand_cannon_guild"
+      ],
+      "successors": [
+        "firearms_factory",
+        "firearms_manufactory"
+      ]
+    },
+    "gurgaddi": {
+      "predecessors": [],
+      "successors": []
+    },
+    "gymnasium_building": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hand_cannon_guild": {
+      "predecessors": [],
+      "successors": [
+        "firearms_factory",
+        "firearms_manufactory",
+        "gun_smith",
+        "guns_workshop"
+      ]
+    },
+    "hanseatic_kontor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hanseatic_shipwright_guild": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hanseatic_town_hall": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hippodrome": {
+      "predecessors": [],
+      "successors": []
+    },
+    "horse_breeders": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hospital": {
+      "predecessors": [],
+      "successors": []
+    },
+    "house_of_parliament": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hre_imperial_armory_foreign": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hre_imperial_armory_own": {
+      "predecessors": [],
+      "successors": []
+    },
+    "hsa_burgtor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "ibadat_khana": {
+      "predecessors": [],
+      "successors": []
+    },
+    "imperial_academy_of_arts": {
+      "predecessors": [],
+      "successors": []
+    },
+    "improved_charcoal_maker": {
+      "predecessors": [
+        "charcoal_maker"
+      ],
+      "successors": []
+    },
+    "incamisana": {
+      "predecessors": [],
+      "successors": []
+    },
+    "institute_of_noble_maidens": {
+      "predecessors": [],
+      "successors": []
+    },
+    "iron_foundry": {
+      "predecessors": [
+        "tools_guild",
+        "tools_workshop"
+      ],
+      "successors": [
+        "iron_mill"
+      ]
+    },
+    "iron_mill": {
+      "predecessors": [
+        "iron_foundry",
+        "tools_guild",
+        "tools_workshop"
+      ],
+      "successors": []
+    },
+    "irrigation_systems": {
+      "predecessors": [],
+      "successors": []
+    },
+    "italian_administration_center": {
+      "predecessors": [],
+      "successors": []
+    },
+    "janissary_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "jesuit_college": {
+      "predecessors": [],
+      "successors": []
+    },
+    "jewelry_guild": {
+      "predecessors": [],
+      "successors": []
+    },
+    "jurchen_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kalari": {
+      "predecessors": [],
+      "successors": []
+    },
+    "khmer_baray": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kilwan_shipwrights": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kings_manor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kokufu": {
+      "predecessors": [],
+      "successors": []
+    },
+    "korean_gunnery_coastal_defense": {
+      "predecessors": [],
+      "successors": []
+    },
+    "korean_gunnery_land_defense": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kremlin": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kurmina_headquarter": {
+      "predecessors": [],
+      "successors": []
+    },
+    "kurultai": {
+      "predecessors": [],
+      "successors": []
+    },
+    "lacquerware_guild": {
+      "predecessors": [],
+      "successors": [
+        "lacquerware_manufactory"
+      ]
+    },
+    "lacquerware_manufactory": {
+      "predecessors": [
+        "lacquerware_guild"
+      ],
+      "successors": []
+    },
+    "lazaretto": {
+      "predecessors": [],
+      "successors": []
+    },
+    "library": {
+      "predecessors": [],
+      "successors": []
+    },
+    "lieutenancy": {
+      "predecessors": [],
+      "successors": []
+    },
+    "local_governor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "local_smelters": {
+      "predecessors": [],
+      "successors": []
+    },
+    "lumber_mill": {
+      "predecessors": [],
+      "successors": []
+    },
+    "lutheran_preachers": {
+      "predecessors": [],
+      "successors": []
+    },
+    "madrasa": {
+      "predecessors": [],
+      "successors": []
+    },
+    "mamluk_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "market_village": {
+      "predecessors": [],
+      "successors": []
+    },
+    "market_warehouse": {
+      "predecessors": [],
+      "successors": []
+    },
+    "marketplace": {
+      "predecessors": [],
+      "successors": [
+        "commerce_center",
+        "grand_marketplace",
+        "merchants_quarters"
+      ]
+    },
+    "mason": {
+      "predecessors": [],
+      "successors": []
+    },
+    "medical_school": {
+      "predecessors": [],
+      "successors": []
+    },
+    "merchant_guild_chapel": {
+      "predecessors": [],
+      "successors": []
+    },
+    "merchants_quarters": {
+      "predecessors": [
+        "marketplace"
+      ],
+      "successors": [
+        "commerce_center",
+        "grand_marketplace"
+      ]
+    },
+    "mercury_patio": {
+      "predecessors": [],
+      "successors": []
+    },
+    "miaphysite_monastery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "minting_office": {
+      "predecessors": [],
+      "successors": []
+    },
+    "missionary_building": {
+      "predecessors": [],
+      "successors": []
+    },
+    "modern_council_hall": {
+      "predecessors": [
+        "council_hall",
+        "early_council_hall"
+      ],
+      "successors": []
+    },
+    "monastery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "moscow_artillery_yard": {
+      "predecessors": [],
+      "successors": []
+    },
+    "moscow_orphanage": {
+      "predecessors": [],
+      "successors": []
+    },
+    "naval_base": {
+      "predecessors": [
+        "dock",
+        "dry_dock",
+        "grand_shipyard",
+        "shipyard"
+      ],
+      "successors": []
+    },
+    "naval_battery": {
+      "predecessors": [
+        "coastal_fort"
+      ],
+      "successors": []
+    },
+    "naval_governor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "naval_supplies_guild": {
+      "predecessors": [],
+      "successors": [
+        "naval_supplies_manufactory",
+        "naval_supplies_mill",
+        "naval_supplies_workshop"
+      ]
+    },
+    "naval_supplies_manufactory": {
+      "predecessors": [
+        "naval_supplies_guild",
+        "naval_supplies_workshop"
+      ],
+      "successors": [
+        "naval_supplies_mill"
+      ]
+    },
+    "naval_supplies_mill": {
+      "predecessors": [
+        "naval_supplies_guild",
+        "naval_supplies_manufactory",
+        "naval_supplies_workshop"
+      ],
+      "successors": []
+    },
+    "naval_supplies_workshop": {
+      "predecessors": [
+        "naval_supplies_guild"
+      ],
+      "successors": [
+        "naval_supplies_manufactory",
+        "naval_supplies_mill"
+      ]
+    },
+    "north_sea_shipyards": {
+      "predecessors": [],
+      "successors": []
+    },
+    "novodevichy_convent": {
+      "predecessors": [],
+      "successors": []
+    },
+    "opera_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "order_commandery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "order_headquarters": {
+      "predecessors": [],
+      "successors": []
+    },
+    "order_stronghold": {
+      "predecessors": [],
+      "successors": []
+    },
+    "orthodox_monastery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "ostrog": {
+      "predecessors": [],
+      "successors": []
+    },
+    "overseas_trading_post": {
+      "predecessors": [],
+      "successors": []
+    },
+    "panaqa_building": {
+      "predecessors": [],
+      "successors": []
+    },
+    "paper_guild": {
+      "predecessors": [],
+      "successors": [
+        "paper_manufactory",
+        "paper_mill",
+        "paper_workshop"
+      ]
+    },
+    "paper_manufactory": {
+      "predecessors": [
+        "paper_guild",
+        "paper_workshop"
+      ],
+      "successors": [
+        "paper_mill"
+      ]
+    },
+    "paper_mill": {
+      "predecessors": [
+        "paper_guild",
+        "paper_manufactory",
+        "paper_workshop"
+      ],
+      "successors": []
+    },
+    "paper_workshop": {
+      "predecessors": [
+        "paper_guild"
+      ],
+      "successors": [
+        "paper_manufactory",
+        "paper_mill"
+      ]
+    },
+    "peel_towers": {
+      "predecessors": [],
+      "successors": []
+    },
+    "perfumery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pest_house": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pirate_tavern": {
+      "predecessors": [],
+      "successors": []
+    },
+    "polders": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pomor_outpost": {
+      "predecessors": [],
+      "successors": []
+    },
+    "por_feitoria": {
+      "predecessors": [],
+      "successors": []
+    },
+    "porcelain_guild": {
+      "predecessors": [],
+      "successors": [
+        "porcelain_manufactory"
+      ]
+    },
+    "porcelain_manufactory": {
+      "predecessors": [
+        "porcelain_guild"
+      ],
+      "successors": []
+    },
+    "port_authority": {
+      "predecessors": [],
+      "successors": []
+    },
+    "porto_pisano": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pottery_guild": {
+      "predecessors": [],
+      "successors": [
+        "pottery_manufactory",
+        "pottery_mill",
+        "pottery_workshop"
+      ]
+    },
+    "pottery_manufactory": {
+      "predecessors": [
+        "pottery_guild",
+        "pottery_workshop"
+      ],
+      "successors": [
+        "pottery_mill"
+      ]
+    },
+    "pottery_mill": {
+      "predecessors": [
+        "pottery_guild",
+        "pottery_manufactory",
+        "pottery_workshop"
+      ],
+      "successors": []
+    },
+    "pottery_workshop": {
+      "predecessors": [
+        "pottery_guild"
+      ],
+      "successors": [
+        "pottery_manufactory",
+        "pottery_mill"
+      ]
+    },
+    "pounamou_carver": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pound_lock_canal_infrastructure": {
+      "predecessors": [],
+      "successors": []
+    },
+    "printing_manufactory": {
+      "predecessors": [
+        "printing_press_shop",
+        "scriptorium"
+      ],
+      "successors": [
+        "printing_mill"
+      ]
+    },
+    "printing_mill": {
+      "predecessors": [
+        "printing_manufactory",
+        "printing_press_shop",
+        "scriptorium"
+      ],
+      "successors": []
+    },
+    "printing_press_shop": {
+      "predecessors": [
+        "scriptorium"
+      ],
+      "successors": [
+        "printing_manufactory",
+        "printing_mill"
+      ]
+    },
+    "protected_harbor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "provincial_chancery": {
+      "predecessors": [],
+      "successors": []
+    },
+    "pukara_building": {
+      "predecessors": [],
+      "successors": []
+    },
+    "putrefaction_mill": {
+      "predecessors": [
+        "putrefaction_works",
+        "saltpeter_guild",
+        "saltpeter_workshop"
+      ],
+      "successors": []
+    },
+    "putrefaction_works": {
+      "predecessors": [
+        "saltpeter_guild",
+        "saltpeter_workshop"
+      ],
+      "successors": [
+        "putrefaction_mill"
+      ]
+    },
+    "qalat_al_mashwar": {
+      "predecessors": [],
+      "successors": []
+    },
+    "regimental_camp": {
+      "predecessors": [
+        "training_fields"
+      ],
+      "successors": [
+        "conscription_center"
+      ]
+    },
+    "repaired_great_wall_of_china": {
+      "predecessors": [
+        "ruined_great_wall_of_china"
+      ],
+      "successors": []
+    },
+    "republican_assembly": {
+      "predecessors": [],
+      "successors": []
+    },
+    "ribat": {
+      "predecessors": [],
+      "successors": []
+    },
+    "royal_academy_of_arts": {
+      "predecessors": [],
+      "successors": []
+    },
+    "royal_court": {
+      "predecessors": [],
+      "successors": []
+    },
+    "royal_garden": {
+      "predecessors": [],
+      "successors": []
+    },
+    "royal_society": {
+      "predecessors": [],
+      "successors": []
+    },
+    "rural_clothmaker": {
+      "predecessors": [],
+      "successors": []
+    },
+    "rural_glassmaker": {
+      "predecessors": [],
+      "successors": []
+    },
+    "safaviyya_order_hall": {
+      "predecessors": [],
+      "successors": []
+    },
+    "salt_collector": {
+      "predecessors": [],
+      "successors": []
+    },
+    "saltpeter_guild": {
+      "predecessors": [],
+      "successors": [
+        "putrefaction_mill",
+        "putrefaction_works",
+        "saltpeter_workshop"
+      ]
+    },
+    "saltpeter_workshop": {
+      "predecessors": [
+        "saltpeter_guild"
+      ],
+      "successors": [
+        "putrefaction_mill",
+        "putrefaction_works"
+      ]
+    },
+    "sand_pit": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sawmill": {
+      "predecessors": [],
+      "successors": []
+    },
+    "scriptorium": {
+      "predecessors": [],
+      "successors": [
+        "printing_manufactory",
+        "printing_mill",
+        "printing_press_shop"
+      ]
+    },
+    "seat_of_cardinal": {
+      "predecessors": [],
+      "successors": []
+    },
+    "seljuk_mint": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sergeantry": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sheep_farms": {
+      "predecessors": [],
+      "successors": []
+    },
+    "shipyard": {
+      "predecessors": [
+        "dock",
+        "dry_dock"
+      ],
+      "successors": [
+        "grand_shipyard",
+        "naval_base"
+      ]
+    },
+    "shoen": {
+      "predecessors": [],
+      "successors": []
+    },
+    "slave_center": {
+      "predecessors": [],
+      "successors": []
+    },
+    "slave_market": {
+      "predecessors": [],
+      "successors": []
+    },
+    "smuggler_cove": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sofa_barracks": {
+      "predecessors": [],
+      "successors": []
+    },
+    "stannary_court": {
+      "predecessors": [],
+      "successors": []
+    },
+    "star_fort": {
+      "predecessors": [
+        "bastion",
+        "castle",
+        "stockade"
+      ],
+      "successors": [
+        "fortress"
+      ]
+    },
+    "steel_mill": {
+      "predecessors": [],
+      "successors": []
+    },
+    "stock_exchange": {
+      "predecessors": [],
+      "successors": []
+    },
+    "stockade": {
+      "predecessors": [],
+      "successors": [
+        "bastion",
+        "castle",
+        "fortress",
+        "star_fort"
+      ]
+    },
+    "stone_quarry": {
+      "predecessors": [],
+      "successors": []
+    },
+    "stroganov_school_of_iconic_art": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sufi_lodge": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sugar_plantation": {
+      "predecessors": [],
+      "successors": []
+    },
+    "sukharev_tower": {
+      "predecessors": [],
+      "successors": []
+    },
+    "supreme_court": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tambo": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tannery": {
+      "predecessors": [],
+      "successors": [
+        "tannery_manufactory",
+        "tannery_mill",
+        "tanning_workshop"
+      ]
+    },
+    "tannery_manufactory": {
+      "predecessors": [
+        "tannery",
+        "tanning_workshop"
+      ],
+      "successors": [
+        "tannery_mill"
+      ]
+    },
+    "tannery_mill": {
+      "predecessors": [
+        "tannery",
+        "tannery_manufactory",
+        "tanning_workshop"
+      ],
+      "successors": []
+    },
+    "tanning_workshop": {
+      "predecessors": [
+        "tannery"
+      ],
+      "successors": [
+        "tannery_manufactory",
+        "tannery_mill"
+      ]
+    },
+    "tar_kiln": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tatara": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tax_assessor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "telpochcalli": {
+      "predecessors": [],
+      "successors": []
+    },
+    "temple": {
+      "predecessors": [],
+      "successors": []
+    },
+    "terraces": {
+      "predecessors": [],
+      "successors": []
+    },
+    "textile_mill": {
+      "predecessors": [
+        "cloth_guild",
+        "cloth_manufactory",
+        "cloth_workshop"
+      ],
+      "successors": []
+    },
+    "theater": {
+      "predecessors": [],
+      "successors": []
+    },
+    "thema_headquarters": {
+      "predecessors": [],
+      "successors": []
+    },
+    "theodosian_walls": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tobacco_plantation": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tools_guild": {
+      "predecessors": [],
+      "successors": [
+        "iron_foundry",
+        "iron_mill",
+        "tools_workshop"
+      ]
+    },
+    "tools_workshop": {
+      "predecessors": [
+        "tools_guild"
+      ],
+      "successors": [
+        "iron_foundry",
+        "iron_mill"
+      ]
+    },
+    "trade_company_foreign_influence": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_company_garrison": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_company_governance": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_company_harbor": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_company_headquarters": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_company_local_venture": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trade_office": {
+      "predecessors": [],
+      "successors": []
+    },
+    "trading_hub": {
+      "predecessors": [],
+      "successors": []
+    },
+    "training_fields": {
+      "predecessors": [],
+      "successors": [
+        "conscription_center",
+        "regimental_camp"
+      ]
+    },
+    "trans_saharan_trade_outposts": {
+      "predecessors": [],
+      "successors": []
+    },
+    "tur_kodjabashi_office": {
+      "predecessors": [],
+      "successors": []
+    },
+    "uffizi": {
+      "predecessors": [],
+      "successors": []
+    },
+    "university": {
+      "predecessors": [],
+      "successors": []
+    },
+    "venetian_arsenal": {
+      "predecessors": [],
+      "successors": []
+    },
+    "venetian_palaces": {
+      "predecessors": [],
+      "successors": []
+    },
+    "venetian_quarter": {
+      "predecessors": [],
+      "successors": []
+    },
+    "viceroyalty": {
+      "predecessors": [],
+      "successors": []
+    },
+    "walls_of_benin": {
+      "predecessors": [],
+      "successors": []
+    },
+    "war_college": {
+      "predecessors": [],
+      "successors": []
+    },
+    "warrior_lodge": {
+      "predecessors": [],
+      "successors": []
+    },
+    "warrior_temple": {
+      "predecessors": [],
+      "successors": []
+    },
+    "weapon_factory": {
+      "predecessors": [
+        "weapon_guild",
+        "weapon_manufactory",
+        "weapon_workshop"
+      ],
+      "successors": []
+    },
+    "weapon_guild": {
+      "predecessors": [],
+      "successors": [
+        "weapon_factory",
+        "weapon_manufactory",
+        "weapon_workshop"
+      ]
+    },
+    "weapon_manufactory": {
+      "predecessors": [
+        "weapon_guild",
+        "weapon_workshop"
+      ],
+      "successors": [
+        "weapon_factory"
+      ]
+    },
+    "weapon_workshop": {
+      "predecessors": [
+        "weapon_guild"
+      ],
+      "successors": [
+        "weapon_factory",
+        "weapon_manufactory"
+      ]
+    },
+    "wharf": {
+      "predecessors": [],
+      "successors": []
+    },
+    "windmill": {
+      "predecessors": [],
+      "successors": []
+    },
+    "winery": {
+      "predecessors": [],
+      "successors": [
+        "winery_manufactory"
+      ]
+    },
+    "winery_manufactory": {
+      "predecessors": [
+        "winery"
+      ],
+      "successors": []
+    },
+    "yakata": {
+      "predecessors": [],
+      "successors": []
+    },
+    "yamashiro": {
+      "predecessors": [],
+      "successors": []
+    },
+    "zhixian": {
+      "predecessors": [],
+      "successors": []
+    }
+  },
+  "schema_version": 1
+}
