@@ -72,9 +72,9 @@ Passthrough is the happy case: a mod that names its buildings
 `$vanilla_key$` needs none of them translated.
 
 **A mod of a hundred thousand words is a different job.** `auto_build_ru` was
-6000 words and fitted in one sitting. National Destinies is 688 617 words of
-prose across 220 files, which no subscription pays for in full. What that
-changes:
+6000 words and fitted in one sitting. National Destinies is some 690 000 words
+of prose across 220 files, which no subscription pays for in full. Take the
+current figure from `generate_ru.py` rather than from here. What that changes:
 
 - **Measure before promising.** Count prose words after stripping markup, not
   keys and not lines. Then convert to sessions: one session of steady work moved
@@ -110,12 +110,33 @@ because a file of the same name replaces the whole file rather than merging keys
 Naming the generated output `<stem>_ru_generated_l_russian.yml` keeps it clear of
 both the base mod and any other translation.
 
+**A base-mod update rewrites keys you have already translated, and most of
+those rewrites are invisible.** National Destinies 1.3.7 touched exactly four
+localization files: 67 new keys and one rewritten value in `nd_dnm`, one
+rewritten value in `nd_dnm_country`, one in `nd_ymp`, four passthrough `.entry`
+keys. The generator's markup check caught one of the three rewrites — the one
+whose brackets changed. The other two were found only by diffing the reference
+tree between the two versions:
+
+```
+git log --oneline -- reference/mods                # when the owner refreshed
+git show <commit> --stat | grep localization/english | grep -v '|   0$'
+```
+
+That works only while the old version is still in git history, so do not rely on
+it. Fingerprint instead: record a digest of the English value behind every
+translated key, and have the generator name the ones that moved. Then a base-mod
+update really is *one run that names the keys*, which is what this section used
+to promise and could not deliver. `mods/nd_ru/english_generated_fingerprints.txt`
+is that record, and `generate_ru.py --accept` is how a reviewed key is signed off.
+
 **Generate rather than hand-write the final file.** Keep the prose in a source
 file and emit the game's `.yml` from it, with the source checked against the
 base mod's English: every key covered, no key invented, and the markup of each
 value identical in both. That last check is the one that earns its keep — it
 catches a bracket eaten while rewording, which is otherwise found by the player.
-It also turns a base-mod update into one run that names the keys that moved.
+It also turns a base-mod update into one run that names the keys whose *markup*
+moved — which is not the same as every key that moved, see above.
 
 **Families collapse.** Keys differing only by a number — twenty template slots,
 step buttons, per-ordinal rows — are worth writing once with a placeholder and

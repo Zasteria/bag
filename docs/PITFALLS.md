@@ -116,6 +116,31 @@ in the generator rather than trusting the eye — `mods/nd_ru/tools/generate_ru.
 refuses a value carrying a character outside Cyrillic and the Latin proper names
 need, or an English function word the source value does not itself contain.
 
+**A Latin word given a Russian ending reads past every check that was in
+place.** `territoryов` survived the CJK rule (Latin is allowed, for the mod's
+proper names) and the English-function-word rule (`territory` is not a function
+word), and would have reached the screen. The rule that catches it is narrower
+and exact: a Latin letter glued to a Cyrillic one *inside one word* is never a
+proper name and always a slip. It is in `generate_ru.py` now, and it fires on
+nothing in the 4 000 keys already translated.
+
+**A base-mod update can leave a translation stale in complete silence.** When
+National Destinies went to 1.3.7 it rewrote `DNM_f_desc` and `nd_dnm.21.a_tt`.
+Only the second was caught, and only because its *markup* changed; the first was
+found by diffing the reference tree by hand. A rewritten sentence with the same
+brackets looks identical to every check. `generate_ru.py` now fingerprints the
+English behind every translated key in `english_generated_fingerprints.txt` and
+names the ones that moved; `--accept` records the new English once the
+translation has been brought up to date. Symptom without it: the Russian
+confidently describes a mechanic the mod no longer has.
+
+**Not everything with letters in it is prose.** `dip_..._CATEGORY:
+"CATEGORY_HOSTILE_ACTIONS"` names one of the game's own interaction categories.
+It has no markup to protect it, so it read as ordinary text and sat in
+`scope.py`'s to-do list as two keys that would never go away. Translating it
+would file the interaction under a category that does not exist. `scope.py`
+excludes it now.
+
 **Checking one file is not checking the country.** Westphalia looked finished at
 88 keys; ten more sat in a shared modifier file, and the shared file for event
 guards held one more. Grep every localization file for the tag before calling a
