@@ -9,6 +9,41 @@ refreshes them whenever they update: `python3 tools/refs.py` answers that. What
 is written here was true of CMF 2.3.x and re-checked against 2.4.1; where a
 version matters it says so.
 
+## The game prints its own API
+
+With `-debug_mode` on the launch options, the console commands `script_docs` and
+`dump_data_types` write the complete list of what the engine understands. Those
+dumps are in the repository, under `reference/game/docs/`:
+
+| File | Holds |
+| --- | --- |
+| `effects.log` | 1534 effects, each with its supported scopes and targets |
+| `triggers.log` | 1798 triggers, the same |
+| `event_targets.log` | scope links, with input and output scopes |
+| `on_actions.log` | every on_action and its expected scope |
+| `modifiers.log` | every modifier tag and its categories |
+| `custom_localization.log` | the customizable localization keys |
+| `data_types/` | every GUI data function, promote and return type |
+
+Ask them rather than reading them:
+
+```
+python3 tools/api.py set_subsidized       exact name, across every dump
+python3 tools/api.py --find subsid        substring, anywhere
+python3 tools/api.py --scope building     everything taking that scope
+python3 tools/api.py --gui IsAvailable    GUI data functions only
+```
+
+**This replaces the rule this repository ran on for months** — "if vanilla or one
+of the reference mods does not use it, treat it as unproven". That rule is now
+only about *usage*, not about existence, and the difference is expensive: half a
+mod was scoped around subsidies being impossible from script, because nothing in
+`common/` used `set_subsidized`. The engine had it all along.
+
+What the dumps do *not* say is how something behaves, what a sensible argument
+is, or whether an effect does anything useful in a given scope. That still comes
+from vanilla and from the reference mods — and, in the end, from a run.
+
 ## Mod layout
 
 EU5 splits a mod by *load context* at the top level, which is new compared to
@@ -475,13 +510,17 @@ engine's own `define:NMarket|MIN_PRICE_IMPACT` / `MAX_PRICE_IMPACT`, which are
 `market_price(good) / default_price(good)`. So "how far is this good from the
 33% cap" is answerable from script at any moment.
 
-**Subsidies are GUI, not script.** `ToggleSubsidizeBuildings(...)`,
-`SubsidizeBuilding(...)` and `AreBuildingsSubsidized(...)` appear only in
-`production_lateralview.gui`. Nothing in vanilla's `common/`, CMF, CM or Glorp
-touches a subsidy from script, and the GUI functions take a `BuildingItem` or
-`BuildingCandidate`, which only resolve inside that panel. Whether an engine
-effect exists under some other name is unproven — and cheap to find out, since
-an unknown effect name is reported at load in `error.log`.
+**Subsidies are scriptable**, though no mod in `reference/` does it:
+
+```
+set_subsidized    change whether a building is subsidised or not   scope: building
+is_subsidized     checks if a building is subsidized               scope: building
+```
+
+That pair was written off here as GUI-only, because `ToggleSubsidizeBuildings`
+and friends appear in `production_lateralview.gui` and nothing in vanilla's
+`common/` or in any reference mod touches a subsidy. The game's own dump says
+otherwise — see [The game prints its own API](#the-game-prints-its-own-api).
 
 `subsidizebuildings` is also one of the game's own automated systems, alongside
 `expandbuildings` and `expandrgo` — CM turns those two off with

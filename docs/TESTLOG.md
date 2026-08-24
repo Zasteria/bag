@@ -40,6 +40,17 @@ which are English text under an `l_russian:` header.
 **Verdict:** the whole approach of the mod rests on this and it holds. Load order
 decides; `nd_ru` must sit after the base mod.
 
+### 2026-08 — logs from a live playset, checked for our own mods
+
+**Loaded:** the player's normal playset — CMF, Construction Manager, Glorp UI,
+National Destinies, our mods — while dumping `script_docs`.
+**Observed:** `error.log` carries no line mentioning `bag_rgo`, `eu5ab`, `nd_`
+or any `_ru_generated_` file. Its 164 repeated script errors come from another
+Russian localization mod (`common/customizable_localization/ru_EUN_custom_loc.txt`,
+"Event target link 'location_rank' returned an invalid object"), and `gui.log`
+only notes CMF and Glorp overriding vanilla types, which is what they are for.
+**Verdict:** nothing of ours errors at load or in play.
+
 ### 2026-08 — `auto_build_ru`, does the game pick the file up
 
 **Loaded:** Advanced Auto Build with `auto_build_ru`.

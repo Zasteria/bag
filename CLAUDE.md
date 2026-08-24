@@ -30,6 +30,7 @@ reference/game/in_game/common/                building_types, production_methods
                                               goods, scripted_effects,
                                               scripted_triggers, on_action
 reference/game/main_menu/localization/        what the game calls its own concepts
+reference/game/docs/                          the engine's own API dump — ask it with tools/api.py
 reference/mods/                               CMF, Construction Manager, Glorp UI,
                                               and the two mods being translated
 ```
@@ -58,10 +59,18 @@ What is deliberately absent: `gfx`, `events`, `decisions`, map data, and most of
 
 ## How to work here
 
-**Verify against `reference/`, never from memory.** Every wrong turn in this
-repo came from assuming a trigger, an effect argument or a data function existed.
-If vanilla or one of the three mods does not use it, treat it as unproven and say
-so.
+**Ask the game whether something exists.** It prints its own API, and the dumps
+are in `reference/game/docs/`:
+
+```
+python3 tools/api.py set_subsidized      an effect, trigger, target or GUI function by name
+python3 tools/api.py --find subsid       substring, across every dump
+```
+
+Never conclude from "no mod here uses it" that the engine lacks it — that
+mistake cost a redesign. What the dumps do not answer is *how* something
+behaves; for that, verify against vanilla and the reference mods, never from
+memory, and say plainly when something is unproven.
 
 **A macro called with an argument CMF does not declare fails silently** and
 takes the rest of its effect with it. `python3 tools/check_cmm.py
@@ -97,6 +106,7 @@ At the top level, `tools/` is what every mod's tooling shares:
 | --- | --- |
 | `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
+| `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
 | `check_cmm.py` | every CMM call in a mod, against the arguments CMF declares |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
