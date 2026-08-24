@@ -427,6 +427,66 @@ the same and work. Advanced Auto Build ships a byte-identical second copy under
   so several mods can restyle the same window without overwriting each other's
   copy of the vanilla file.
 
+## Construction Manager's automation, and how to add to it
+
+Read off CM 2.2.12. This is what an addon has to fit into.
+
+**One dispatcher, monthly.** CM's `cm_unified_auto_expand` hangs off
+`cmf_monthly_human_country_pulse`. It clears the queues, walks
+`cm_priority_features_list` in the player's own order, and for each flag also
+present in `cm_priority_features_enabled` runs that feature through a `switch`:
+
+```
+flag:cm_feature_auto_expand_buildings = { cm_run_auto_expand_buildings = yes }
+flag:cm_feature_auto_expand_rgos      = { cm_run_auto_expand_rgos = yes }
+flag:cm_feature_auto_build            = { cm_run_auto_build = yes }
+...
+```
+
+Then, if anything was staged, it sets `cm_should_construct` and the queue window
+builds it.
+
+**The switch has no default branch.** Appending a feature flag to CM's lists
+from another mod therefore does nothing at all, silently — the flag matches no
+case and the dispatcher moves on. A new feature has to reach the cycle some
+other way: a leaf action of its own on `cmf_monthly_human_country_pulse` (which
+merges cleanly), staging into CM's queues and setting `cm_q_staged` /
+`cm_should_construct` itself.
+
+**There is already an ungated queue.** `cm_stage_ungated_candidate` files a
+location and building type into `cm_q_ungated_locations` /
+`cm_q_ungated_building_types`, which skip the profitability and minimum-discount
+gates entirely. CM's own Auto Build feature is built on it: it walks the building
+types the player ticked and stages them in every owned location, checking only
+build-queue slots and `cm_location_can_auto_build`. An addon that must ignore the
+profit gates should stage there rather than invent a queue.
+
+**The gates it would be skipping** are `cm_should_rgo_auto_expand` and its
+building equivalent: gold on hand, nothing already under construction, a metric
+gate (`cm_priority_min_profit` per feature) and a discount gate
+(`cm_priority_min_discount` per feature).
+
+**Construction cost discount is readable in script.** CM computes it per
+building type in `cm_construction_cost_adjustments_script_values.txt`, weighting
+each construction good by `cm_construction_demand_<good>`, and clamping to the
+engine's own `define:NMarket|MIN_PRICE_IMPACT` / `MAX_PRICE_IMPACT`, which are
+-0.33 and 3.0. The per-good half comes from Glorp UI's
+`glorpui_construction_good_adjustment`, which is plain
+`market_price(good) / default_price(good)`. So "how far is this good from the
+33% cap" is answerable from script at any moment.
+
+**Subsidies are GUI, not script.** `ToggleSubsidizeBuildings(...)`,
+`SubsidizeBuilding(...)` and `AreBuildingsSubsidized(...)` appear only in
+`production_lateralview.gui`. Nothing in vanilla's `common/`, CMF, CM or Glorp
+touches a subsidy from script, and the GUI functions take a `BuildingItem` or
+`BuildingCandidate`, which only resolve inside that panel. Whether an engine
+effect exists under some other name is unproven — and cheap to find out, since
+an unknown effect name is reported at load in `error.log`.
+
+`subsidizebuildings` is also one of the game's own automated systems, alongside
+`expandbuildings` and `expandrgo` — CM turns those two off with
+`set_automated_system = { system = <x> activate = no }`.
+
 ## Translating a mod that ships without your language
 
 A separate mod carrying one `.yml` is the whole job. It needs no dependency on
