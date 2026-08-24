@@ -7,9 +7,10 @@ otherwise stop it, and subsidising the producers so their workers stay put.
 
 Requires the Community Mod Framework and Construction Manager.
 
-> **Nothing is built and nothing is subsidised yet.** What ships so far is the
-> measurement the rest depends on, and the goods list to tick in. See
-> [What is built so far](#what-is-built-so-far).
+> **Paused, and not working yet.** The lists and the readings are right; nothing
+> runs on a schedule, nothing is built and nothing is subsidised. See
+> [Where it stands](#where-it-stands-and-what-is-wrong-with-it) before touching
+> anything.
 
 ## The idea
 
@@ -56,32 +57,51 @@ generator refuses to emit a list longer than CMF can initialise.
 
 **Nothing else.** No building, no subsidies — the ticks are only recorded.
 
-## What to look at first
+## Where it stands, and what is wrong with it
 
-The readings match the game and the lists draw; see
-[`TESTLOG.md`](../../docs/TESTLOG.md). What is still unknown is **whether the
-monthly check runs at all** — last round its log line never appeared, and the
-log was the only thing that would have said so.
+Paused in August 2026, at the owner's word, with four faults known and two of
+them diagnosed. Everything below is from a real run whose logs are in hand;
+`error.log`, its rotations, `gui.log` and `game.log` carry **not one line** about
+this mod, so every fault here is of the silent kind.
 
-So the answer no longer goes through the log:
+**Works, seen on screen:** registration and the Mod Menu tab; both lists, all 74
+rows, each naming its good; ticks; the game's own goods tooltip on a row; and the
+readings, which matched the game's construction tooltip on the first run.
 
-1. Tick **Build** on lumber and **Subsidise** on glass.
-2. Let a month pass.
-3. Mod Menu → **Goods Target**, hover **Write to the log**. The tooltip counts
-   monthly checks seen, goods ticked to build, goods ticked to subsidise. Those
-   are counted by the monthly check itself, so they are the ticks as script sees
-   them.
+**1. Nothing periodic runs.** The settings tooltip counts monthly checks and it
+stayed at zero. Not the display path — Construction Manager reads `var:` inside
+a script value the same way. So either the leaf on
+`cmf_monthly_human_country_pulse` never fires, or it fires and dies without a
+trace. What is known: `monthly_country_pulse` exists in the game's own dump, CMF
+chains it through `_cmf_on_monthly`, and *this mod's* other leaf — registration,
+on `cmf_on_mod_registration` — demonstrably works, so on_action merging from
+this file works at least once.
 
-**Monthly checks still 0** — the on_action never reaches us, and nothing else
-here is running either. **Checks climbing, ticks 0** — the pulse runs and the
-list's output is not reaching it. **Both right, log still silent** — everything
-works and only CMF's log does not render what it is handed, which costs nothing.
+  **The cheapest next step** is free: Construction Manager's own automation runs
+  on that same pulse. If CM still auto-builds in the same save, the on_action
+  fires and the fault is ours; if CM has also gone quiet, it is not. After that,
+  a leaf on the *yearly* pulse alongside the monthly one separates "this
+  on_action" from "our leaves in general" in a single run.
 
-Two things about last round were fixed blind rather than diagnosed, because
-either could have caused the silence on its own: a `variable_map` read used as a
-gate, which errors rather than returning false when the key was never written,
-and a count passed to a CMF macro as `var:` — the same shape that kills a list
-on `item = var:x`.
+**2. The Target column printed a key.** Diagnosed and **fixed, unverified**: a
+field given `cmm_set_list_field_conditional_format` needs `_prefix`, `_postfix`
+and the `_high` / `_low` pair, and CMF detects their existence by comparing
+`Localize(key)` with the key itself — so a missing one renders as its own name
+and logs nothing. `tools/check_cmm.py` now derives every key CMM will look for
+and fails on a missing one; it reproduced this fault exactly before the twelve
+keys were added.
+
+**3. The game loses ticks while the menu is open, and 4. the readings never
+change.** One cause: every one of the 74 row labels calls
+`ScriptValue('bgt_impact_<good>')`, and each of those reads a market price and a
+default price four times over. That is evaluated per drawn row, per frame. The
+version before this one had no reading in its rows and cost nothing noticeable.
+
+  **The fix, not yet made:** compute the readings on the pulse into
+  `bgt_read_<good>` variables and let each row read its variable — cheap to draw,
+  and it changes exactly when the pulse says so, which is also what "updates
+  monthly" means. That fix depends on fault 1, since nothing runs on the pulse
+  yet.
 
 ## What comes next, in order
 
@@ -92,7 +112,7 @@ on `item = var:x`.
    and lets CM's queue window build and pay for it. CM's dispatcher switches on
    a fixed set of feature flags with no default branch, so adding a flag to its
    priority list would do nothing at all — see
-   [`RESEARCH.md`](../../docs/RESEARCH.md#construction-managers-automation-and-how-to-add-to-it).
+   [`research/cmf.md`](../../docs/research/cmf.md#construction-managers-automation-and-how-to-add-to-it).
 2. **Subsidies.** `set_subsidized` in a building scope, `is_subsidized` to read
    it back. Applied to the producers of a targeted good, so a building that goes
    into loss as the price falls keeps its workers.

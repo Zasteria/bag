@@ -11,31 +11,28 @@ Community Mod Framework 2.4.1 came in, the second a real reorganisation of the
 CMM list code. `tools/refresh.py` rebuilds everything from them and reports
 clean: no generated file changed, and `tools/check_cmm.py` — the check that every
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
-is in [`RESEARCH.md`](RESEARCH.md#what-cmf-241-added).
+is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
 
-**`goods_target/` — readings confirmed in game, goods list untested.** An addon
-to Construction Manager: build the producers of goods you tick until
-construction hits its discount cap, subsidising them on the way.
+**`goods_target/` — paused, half working, four faults known.** An addon to
+Construction Manager: build the producers of goods you tick until they are as
+cheap as you asked, subsidising them on the way.
 
-The measurement half is **verified** — the readings matched the game's own
-construction tooltip on the first load ([`TESTLOG.md`](TESTLOG.md)), so
-registration, `capital.market.market_price`, the per-good script values and a
-live `ScriptValue` inside a CMM tooltip all work.
+On screen and right: registration, both goods lists (74 rows, every good in the
+game), the ticks, and the price readings, which matched the game's own
+construction tooltip.
 
-The lists draw and take ticks, confirmed in game. What is **not** confirmed is
-that the monthly pulse runs: its log line has never appeared. Two causes were
-removed without being told apart — a `variable_map` gate that errors when the
-key was never written, and a count handed to a CMF macro as `var:` — and the
-counters now live in country variables that a script value reads back into the
-settings tooltip, so the next run answers it without the log.
+Not right, and none of it logs anything: **nothing runs on the monthly pulse**
+(the counter stays at zero), the readings never change and the game loses ticks
+while the menu is open (both because 74 row labels each evaluate a live script
+value every frame), and the Target column printed a key (missing format keys —
+diagnosed, fixed, unverified).
 
-All 74 goods are listed now, in **two** lists: CMF initialises at most 50 rows,
-and a longer list loses its tail in silence. The target is a field of each row
-rather than one figure for everything. The two lists keep separate output,
-because `cmm_build_list_bool_list` clears the list it builds into.
+The mod's README has each fault, what is proven about it, and the cheapest next
+step for the one that matters: Construction Manager runs on the same pulse, so
+whether *its* automation still works in the same save says whose fault it is,
+and costs nothing to check.
 
-Still nothing builds and nothing is subsidised. The order of the rest is in the
-mod's README.
+Still nothing builds and nothing is subsidised.
 
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
@@ -135,7 +132,7 @@ folder.
 ## Hard-won facts that are easy to lose
 
 - The RGO bonus formula, verified to the digit against three tooltips, is in
-  [`RESEARCH.md`](RESEARCH.md#the-formula-behind-the-number) and in code in
+  [`research/engine.md`](research/engine.md#the-formula-behind-the-number) and in code in
   `tools/eu5data.py`. Every input counts in the divisor, produced goods included.
 - A `building_type` filter receives `root` and nothing else — not `scope:target`,
   whatever vanilla's comment says. Reading it logs an error every pass.

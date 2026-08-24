@@ -1,6 +1,6 @@
 # Advanced Auto Build — Russian
 
-Russian localization for **EU5 Advanced Auto Build** (`eu5ab_*`, 0.9.1 Beta), the
+Russian localization for **EU5 Advanced Auto Build** (`eu5ab_regional_development`), the
 automated-construction mod by Lincoln Guang. That mod ships English and
 Simplified Chinese and nothing else, so a game running in Russian shows the raw
 key for every one of its 1201 strings — window titles, its Mod Menu tab, every
@@ -73,7 +73,8 @@ correct Russian; only the eu5ab-specific hint is lost if CMF wins.
 
 Matches the Russian already used in this repository's own mods: локация,
 провинция, область, регион, здание, сырьё. Two choices worth confirming in
-game, because vanilla's Russian localization is not in `reference/`:
+game — the game's own Russian is in `reference/` now, so
+`python3 mods/nd_ru/tools/term.py <word>` can settle either of them:
 
 - **RGO → «добыча сырья»** (and «сырьевая локация» where the base mod means the
   place rather than the activity).
@@ -81,13 +82,10 @@ game, because vanilla's Russian localization is not in `reference/`:
 
 ## State
 
-**Never run in game.** The file is generated, complete and internally checked,
-but only the player can load it. What to look at first:
+**Working, confirmed in game.** The Mod Menu tab reads in Russian.
 
-1. The Mod Menu entry: **Продвинутое автостроительство** rather than
-   `eu5ab_regional_development_name`.
-2. Its four tabs, and the group headers inside them.
-3. The action bar button — if it is missing from the bottom bars, `_color` is
-   the reason, and this mod overriding it in Russian is the thing to suspect.
-4. Any key still showing raw, which means the base mod defines it somewhere
-   this file does not cover.
+The base mod updated to 0.9.2 Beta afterwards and brought 40 new keys — the
+template buttons, the priority step tooltips, an R.G.O. diagnostics panel and a
+throughput warning. The generator refused to write until they were translated,
+which is what it is for; they are in, at 1241 keys, but have not been on screen
+yet.

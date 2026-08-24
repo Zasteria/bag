@@ -33,6 +33,7 @@ MOD = Path(__file__).resolve().parent.parent
 REPO = MOD.parent.parent
 sys.path.insert(0, str(REPO / "tools"))
 
+import check_cmm  # noqa: E402  the shared CMM checker
 import eu5data  # noqa: E402
 import refs  # noqa: E402
 
@@ -193,67 +194,6 @@ REBUILD_ONE = """\tif = {
 ITEM = "\tcmm_set_list_item_value = { mod_id = bgt setting_id = %(list)s item = %(n)d value = goods:%(good)s }"
 
 
-SETTING = re.compile(
-    r"cmm_register_(bool|numeric|slider|dropdown|text|button|settings_list)_setting\b|"
-    r"cmm_register_settings_list\b|cmm_register_list_(bool|numeric|slider|text)_field\b")
-ARG = re.compile(r"(\w+)\s*=\s*([\w:]+)")
-KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.]+):\s*"')
-
-
-def required_keys() -> set[str]:
-    """The localization keys CMM will look for, derived the way CMM derives them.
-
-    A missing one is not an error anywhere -- the raw key name simply appears on
-    screen, in the middle of the framework's own interface.
-    """
-    text = "".join(p.read_text(encoding="utf-8-sig")
-                   for p in sorted((MOD / "in_game/common/scripted_effects").glob("*.txt")))
-    keys = {"bgt_name", "bgt_desc"}
-    for call in re.finditer(r"(cmm_register_\w+) = \{([^{}]*)\}", text):
-        name, args = call.group(1), dict(ARG.findall(call.group(2)))
-        mod, setting = args.get("mod_id"), args.get("setting_id")
-        if not mod or not setting:
-            continue
-        if "list_" in name and "field_id" in args:
-            keys.add(f"{mod}__{setting}__{args['field_id']}_name")
-            continue
-        if name.endswith("settings_list"):
-            # A list is its own group, so its header is keyed through the tab.
-            keys.add(f"{mod}__{args['tab_id']}__{setting}_name")
-            keys.add(f"{mod}__{setting}_item_column_name")
-            continue
-        keys.add(f"{mod}__{setting}_name")
-        if "tab_id" in args:
-            keys.add(f"{mod}__{args['tab_id']}_name")
-        if "group_id" in args:
-            keys.add(f"{mod}__{args['tab_id']}__{args['group_id']}_name")
-    return keys
-
-
-def check_localization() -> list[str]:
-    """Every derived key defined, in every language, and the languages in step."""
-    defined = {}
-    for language in LOC_LANGUAGES:
-        folder = MOD / "main_menu/localization" / language
-        keys = set()
-        for path in sorted(folder.glob("*.yml")):
-            for line in path.read_text(encoding="utf-8-sig").splitlines():
-                match = KEY_LINE.match(line)
-                if match:
-                    keys.add(match.group(1))
-        defined[language] = keys
-
-    problems = []
-    for language, keys in defined.items():
-        for key in sorted(required_keys() - keys):
-            problems.append(f"{language}: no localization for {key}")
-    first, *rest = LOC_LANGUAGES
-    for language in rest:
-        for key in sorted(defined[first] ^ defined[language]):
-            problems.append(f"{key} is in one language and not the other")
-    return problems
-
-
 def write(path: Path, text: str) -> None:
     """Every file the game reads carries a UTF-8 BOM."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -352,13 +292,13 @@ def main() -> int:
     print("goods: %d in %d lists (%d charged for by construction, %d depressible)"
           % (len(goods), len(LISTS), len(construction), len(STANDARD)))
 
-    problems = check_localization()
+    problems = check_cmm.check_localization(MOD / "in_game/common")
     for problem in problems:
         print(problem, file=sys.stderr)
     if problems:
         print("%d localization problems" % len(problems), file=sys.stderr)
         return 1
-    print("localization: every derived CMM key defined, both languages in step")
+    print("localization: every key CMM derives is defined, languages in step")
     return 0
 
 
