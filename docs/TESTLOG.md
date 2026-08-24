@@ -40,6 +40,27 @@ which are English text under an `l_russian:` header.
 **Verdict:** the whole approach of the mod rests on this and it holds. Load order
 decides; `nd_ru` must sit after the base mod.
 
+### 2026-08 — `goods_target`, the goods list
+
+**Expected:** a 28-row list with two ticks per row, and a monthly log line
+naming what is ticked.
+**Observed:** the list draws, the rows name their goods, a row can be selected
+and the game's own goods tooltip comes up on hover. Ticks can be set. **The log
+shows nothing new** — no monthly entries at all.
+**Verdict:** the list half works, including the `_on_changed` callback without
+which nothing would draw. Whether a tick reaches script is still unknown,
+because the only thing that would have said so was the log.
+**Two suspects, both removed rather than diagnosed:** the monthly effect was
+gated on `variable_map(cmm|flag:bgt__log_readings)`, and asking a variable map
+for a key it does not hold is an error rather than false — a setting left at its
+registered default may never have been written to the map. And the count was
+logged with `cmf_log_value = { value = var:... }`, a CMF macro taking `var:` in
+an argument, which is the shape that kills a CMM list on `item = var:x`.
+**Learnt:** the mod now counts into country variables that a script value reads
+back into the tooltip, so the next answer does not depend on the log at all.
+**Also asked for:** every good rather than the 28 construction ones (cannons
+were missing), and a target per good rather than one for all.
+
 ### 2026-08 — `goods_target`, first load: do the readings match
 
 **Loaded:** the player's normal playset with `goods_target` added.
@@ -98,8 +119,8 @@ run, and the mod was removed. See
 
 Kept here so it is one list rather than scattered through prose:
 
-- `goods_target`'s goods list: whether it draws at all, and whether a tick
-  reaches script. Its readings are confirmed; nothing else about it is.
+- whether a tick in `goods_target` reaches script, and why its monthly log line
+  never appeared. The list and its readings are confirmed; the pulse is not.
 - `rgo_bonus_filter`'s build-panel chip.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

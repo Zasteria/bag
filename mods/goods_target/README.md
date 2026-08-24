@@ -26,10 +26,11 @@ it does, and stop once the discount is there.
 
 ## What is built so far
 
-**The reading.** For each of the game's 28 construction goods, a script value
-saying what that good's price in your capital's market is doing to the cost of
-building — `bgt_impact_lumber` and its 27 siblings, in percent, negative being a
-discount.
+**The reading.** For every one of the game's 74 goods, a script value saying
+where that good's price in your capital's market stands against its default, in
+percent, negative being cheap — `bgt_impact_lumber` and its 73 siblings. For the
+28 goods construction is charged in, that figure is also the discount the good
+earns on building; for the rest it is the price and nothing more.
 
 The formula is Glorp UI's `glorpui_construction_good_adjustment`, which is what
 Construction Manager's own discount gates use. Copying it rather than inventing
@@ -38,35 +39,49 @@ one means the number shown here and the number CM acts on cannot drift apart.
 from Construction Manager's own `cm_construction_demand_<good>` maps rather than
 from a list typed by hand.
 
-**The goods list.** A CMM list, one row per construction good, with two ticks:
-**Build** and **Subsidise**. The five goods worth targeting — lumber, masonry,
-glass, sand, stone — are first; the other 23 follow. Rows, their ordinals and
-their labels are generated, because a CMM list macro pastes `item = var:x`
-verbatim and dies at load on it, so every ordinal has to be a literal.
+**Two goods lists**, because CMF initialises at most 50 list rows and 74 goods
+do not fit in one: **Goods Construction Is Paid In** (28) and **Other Goods**
+(46). The five a player can actually depress — lumber, masonry, glass, sand,
+stone — lead the first.
 
-**Two settings**: the discount to aim for, and whether to write a monthly line
-into the framework's log naming the goods that are ticked.
+Each row carries what that good is doing right now beside its name, and three
+fields: **Build**, **Subsidise**, and **Target** — the discount that good should
+reach, per good rather than one figure for all of them.
+
+Rows, ordinals and labels are generated. A CMM list macro pastes `item = var:x`
+verbatim and dies at load, so every ordinal has to be a literal, and the
+generator refuses to emit a list longer than CMF can initialise.
+
+**One setting**: whether to write a monthly line into the framework's log.
 
 **Nothing else.** No building, no subsidies — the ticks are only recorded.
 
 ## What to look at first
 
-The readings were checked in game and match; see
-[`TESTLOG.md`](../../docs/TESTLOG.md). The open question now is **whether a tick
-in the goods list reaches script.**
+The readings match the game and the lists draw; see
+[`TESTLOG.md`](../../docs/TESTLOG.md). What is still unknown is **whether the
+monthly check runs at all** — last round its log line never appeared, and the
+log was the only thing that would have said so.
 
-1. Mod Menu → **Goods Target**. There should be a **Goods** list under the two
-   settings, 28 rows, each naming a good behind its icon. A list that is missing
-   entirely — header without rows — means the `_on_changed` scripted GUI did not
-   register, which is the one failure CMM gives no other sign of.
-2. Tick **Build** on lumber and **Subsidise** on glass.
-3. Wait for the month to turn and open CMF's log. It should say it is watching
-   1 good, then name lumber for building and glass for subsidising.
+So the answer no longer goes through the log:
 
-The count and the names are logged separately on purpose. The count is a bare
-number and cannot fail to render; naming a good asks CMF's log to render a goods
-scope, which is less certain. A right count with missing names means the list
-works and only the logging is wrong.
+1. Tick **Build** on lumber and **Subsidise** on glass.
+2. Let a month pass.
+3. Mod Menu → **Goods Target**, hover **Write to the log**. The tooltip counts
+   monthly checks seen, goods ticked to build, goods ticked to subsidise. Those
+   are counted by the monthly check itself, so they are the ticks as script sees
+   them.
+
+**Monthly checks still 0** — the on_action never reaches us, and nothing else
+here is running either. **Checks climbing, ticks 0** — the pulse runs and the
+list's output is not reaching it. **Both right, log still silent** — everything
+works and only CMF's log does not render what it is handed, which costs nothing.
+
+Two things about last round were fixed blind rather than diagnosed, because
+either could have caused the silence on its own: a `variable_map` read used as a
+gate, which errors rather than returning false when the key was never written,
+and a count passed to a CMF macro as `var:` — the same shape that kills a list
+on `item = var:x`.
 
 ## What comes next, in order
 

@@ -22,12 +22,17 @@ construction tooltip on the first load ([`TESTLOG.md`](TESTLOG.md)), so
 registration, `capital.market.market_price`, the per-good script values and a
 live `ScriptValue` inside a CMM tooltip all work.
 
-What is new and unrun is the goods list: 28 rows, two ticks each, Build and
-Subsidise, plus the `_on_changed` scripted GUI without which a CMM list is
-invisible rather than merely inert. The question for the next run is whether a
-tick reaches script, and the monthly log line answers it in two independent
-ways — a count, which cannot fail to render, and the goods named, which asks
-CMF's log to render a goods scope.
+The lists draw and take ticks, confirmed in game. What is **not** confirmed is
+that the monthly pulse runs: its log line has never appeared. Two causes were
+removed without being told apart — a `variable_map` gate that errors when the
+key was never written, and a count handed to a CMF macro as `var:` — and the
+counters now live in country variables that a script value reads back into the
+settings tooltip, so the next run answers it without the log.
+
+All 74 goods are listed now, in **two** lists: CMF initialises at most 50 rows,
+and a longer list loses its tail in silence. The target is a field of each row
+rather than one figure for everything. The two lists keep separate output,
+because `cmm_build_list_bool_list` clears the list it builds into.
 
 Still nothing builds and nothing is subsidised. The order of the rest is in the
 mod's README.

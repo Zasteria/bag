@@ -28,11 +28,13 @@ cmf_monthly_human_country_pulse = {
 }
 
 # Scope: country
+#
+# The probe runs unconditionally and decides inside what to log. Gating the
+# whole thing on a setting read was how the last round could fail without
+# leaving a trace: if that read was the fault, nothing ran, and a mod that does
+# nothing looks exactly like a mod that was never called.
 bgt_monthly_probe = {
 	effect = {
-		if = {
-			limit = { "variable_map(cmm|flag:bgt__log_readings)" >= 1 }
-			bgt_probe_readings = yes
-		}
+		bgt_probe_readings = yes
 	}
 }

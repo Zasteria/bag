@@ -36,6 +36,18 @@ why the game gates its own shovel badge on `IsProducing`. Counting upkeep
 methods put castles and monasteries in a list of things to build for their raw
 materials.
 
+**A CMM list silently loses every row past the fiftieth.** CMF initialises list
+items through an unrolled chain ending at item 50, so a list registered at 74
+shows 50 rows and says nothing about the rest. Split into several lists — and
+give each its own output, since `cmm_build_list_bool_list` clears the list it
+builds into and a shared one would keep only the last.
+
+**Asking a variable map for a key it does not hold is an error, not false.** A
+CMM setting sitting at its registered default may never have been written to the
+`cmm` map, so `"variable_map(cmm|flag:<mod>__<setting>)" >= 1` as a plain gate
+can take the whole effect down on a new game. Guard it with
+`is_key_in_variable_map` and decide what the absence means.
+
 **`item = var:x` inside a CMM list macro dies at load** with "More than one
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that

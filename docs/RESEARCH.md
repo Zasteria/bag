@@ -373,6 +373,14 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
+**A list holds at most 50 items.** CMF documents `item_count` as `1..50`, and it
+is not advice: `cmm_core_list_setting_init_effects.txt` initialises items
+through an unrolled chain of `if`s that stops at 50. A longer list registers its
+count and then leaves every row past the fiftieth uninitialised — counted,
+undrawn, and silent. Anything with more rows than that has to be split into
+several lists, and they cannot share their rebuilt output either, because
+`cmm_build_list_bool_list` clears the list it writes into before filling it.
+
 Two more things about a list's height, found while building one and never
 confirmed in game:
 
