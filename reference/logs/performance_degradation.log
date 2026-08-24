@@ -1,0 +1,4 @@
+"Total Time",		 "Average Delta",		 "MinDelta",		 "MaxDelta" ,"Audio Events:","Ecs entities","Ecs entities capacity","GUI widgets","Game Data","Memory Usage (MB)","Memory Usage (Virtual) (MB)","Old Entities:","Print Debug duration (ms)","Total number of Gfx units","Total number of Trade wagons"
+"0.0170276","0.0170276","0.0170276","0.0170276",16,24,48,364,1_01_01,9263.374,14969.471,2,0,,0
+"44.02293669999977","0.016694199203338332","0.0021401","6.9648163",356,28,452,51286,1346_12_02,12810.183,19337.744,6,0.001,649,1061
+"99.8667087999997","0.015507851180227693","0.008413","5.2459479",2,28,468,60084,1346_12_02,12710.044,19297.115,8,0.001,649,1061

@@ -1,0 +1,12 @@
+[09:31:06][jomini_game_setup.cpp:162]: game_release_tag: 
+[09:31:06][jomini_game_setup.cpp:163]: game_hash_long: 69f9fa5a5ddf99a81aaf35ceeae1ae172b85b8cd
+[09:31:06][jomini_game_setup.cpp:164]: game_hash_short: 69f9fa5a5
+[09:31:06][jomini_game_setup.cpp:165]: game_branch: u26q2/release/1.3.11
+[09:31:06][jomini_game_setup.cpp:166]: game_timestamp: 2026-07-13 12:31:39 +0000
+
+[09:31:06][jomini_game_setup.cpp:162]: clausewitz_release_tag: 2026.28.0
+[09:31:06][jomini_game_setup.cpp:163]: clausewitz_hash_long: 2a3ad8fb9d1ffaab67867a144d85774d68bb7688
+[09:31:06][jomini_game_setup.cpp:164]: clausewitz_hash_short: 2a3ad8fb9d
+[09:31:06][jomini_game_setup.cpp:165]: clausewitz_branch: caesar/u26q2/release/1.3.11
+[09:31:06][jomini_game_setup.cpp:166]: clausewitz_timestamp: 2026-07-13 12:11:50 +0000
+
