@@ -679,12 +679,23 @@ python3 tools/refresh.py
 **Whether a refresh is owed** is answered without asking him: `python3
 tools/workshop.py` compares the tracked workshop items against what the last
 sync wrote down, needs nothing but the network, and runs daily on GitHub as
-well. Bringing one in is `.\tools\sync_workshop.ps1` on the machine that has
-Steam — copy, rebuild, commit, push in one command — or `python3
-tools/workshop.py sync --commit --push` where Python is nearer. The workshop
-itself will never hand the files to GitHub: an anonymous steamcmd download of
-an item for this game is refused, so the files only move from a machine that
-owns it.
+well. The workshop itself will never hand the files to GitHub: an anonymous
+steamcmd download of an item for this game is refused, so the files only move
+from a machine that owns it.
+
+**He brings them over from a menu, `.\tools\mods.ps1`, and that menu is not
+only about this repository.** It reads his whole subscription out of Steam's own
+`appworkshop_3450310.acf`, says which mods the workshop has moved on since Steam
+downloaded them, fetches those with steamcmd into the game's workshop folder so
+the next launch loads them, and only then offers the copies here, the rebuild,
+and the push. A mod moves between `reference/mods/` (whole, watched daily) and
+`reference/playset/` (text only) from the same menu, which rewrites
+`tools/workshop_mods.txt` itself.
+
+That shape is deliberate and was asked for in those words: **nothing about
+updating his mods may require a session of ours.** `sync_workshop.ps1` is still
+there for the unattended path, and `workshop.py` is still the machinery under
+both.
 
 **The first real sync ran on 2026-08-25**, and brought both mods this repository
 translates up to date in one command. It also showed what the loop is worth:

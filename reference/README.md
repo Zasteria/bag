@@ -63,9 +63,21 @@ has changed before.
 
 ## How refreshing works
 
-Either the whole loop in one command, or by hand — both end in the same place.
+Three ways, all ending in the same place.
 
-**In one command, on the box that has Steam:**
+**The menu**, on the box that has Steam — this is what the owner actually runs:
+
+```
+.\tools\mods.ps1
+```
+
+It covers more than this repository: which of his subscribed mods the workshop
+has moved on since Steam downloaded them, fetching those into the game's own
+workshop folder so the next launch loads them, then the copies here, then the
+commit and the push. `python3 tools/mods.py check` is the same answer without
+the menu.
+
+**In one command, unattended, on the same box:**
 
 ```
 .\tools\sync_workshop.ps1
