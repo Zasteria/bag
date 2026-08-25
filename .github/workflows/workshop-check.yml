@@ -33,7 +33,12 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          # The whole history: `workshop.py status` asks git when each
+          # reference copy was last committed, and on a shallow clone that
+          # question has no answer.
+          fetch-depth: 0
 
       - name: What the workshop has
         id: check

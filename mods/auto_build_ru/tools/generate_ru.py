@@ -14,6 +14,11 @@ Usage:
 It refuses to write a file that would show up wrong in game:
 
 * every key the base mod defines has to be translated, and nothing else may be;
+* a key whose English the base mod has *rewritten* is named, because the
+  Russian under it may no longer say the same thing -- that is invisible
+  otherwise, and 0.9.3 rewrote two of them under a translation that stayed
+  put.  Check it against the base mod, fix the Russian, then record the new
+  English with ``--accept``;
 * the markup of a value -- ``[data functions]``, ``$key$`` references,
   ``@texticons!``, ``#format`` codes -- has to survive translation unchanged,
   because those are what the engine reads rather than displays;
@@ -30,6 +35,7 @@ from __future__ import annotations
 import re
 import sys
 from collections import Counter
+from hashlib import sha1
 from pathlib import Path
 
 MOD = Path(__file__).resolve().parent.parent
@@ -41,6 +47,8 @@ DEFAULT_BASE = refs.known("auto_build")
 ENGLISH = "main_menu/localization/english/eu5ab_l_english.yml"
 OUT = MOD / "main_menu/localization/russian/eu5ab_ru_generated_l_russian.yml"
 SOURCE = MOD / "translations/ru.yml"
+# key -> a digest of the English value it was translated from.
+FINGERPRINTS = MOD / "english_generated_fingerprints.txt"
 
 KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-{}]+):\s*(?:\d+\s+)?"(.*)"\s*$')
 FAMILY = re.compile(r"(?<=_)\d+(?=_|$)")
@@ -123,8 +131,38 @@ def check(english: dict[str, str], russian: dict[str, str]) -> list[str]:
     return problems
 
 
+def fingerprint(value: str) -> str:
+    """A short digest of one English value, stable across runs."""
+    return sha1(value.encode("utf-8")).hexdigest()[:12]
+
+
+def read_fingerprints() -> dict[str, str]:
+    """What English each translated key was last checked against."""
+    if not FINGERPRINTS.exists():
+        return {}
+    recorded: dict[str, str] = {}
+    for line in FINGERPRINTS.read_text(encoding="utf-8").splitlines():
+        if line and not line.startswith("#"):
+            digest, _, key = line.partition("\t")
+            recorded[key] = digest
+    return recorded
+
+
+def write_fingerprints(recorded: dict[str, str]) -> None:
+    body = ["# Written by generate_ru.py -- do not edit by hand.",
+            "# <digest of the English value>\t<key>, for every translated key.",
+            "# A run whose digest differs names the key: the base mod rewrote its",
+            "# English and the Russian may no longer say the same thing."]
+    body += [f"{recorded[key]}\t{key}" for key in sorted(recorded)]
+    FINGERPRINTS.write_text("\n".join(body) + "\n", encoding="utf-8")
+
+
 def main() -> int:
-    base = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_BASE
+    argv = list(sys.argv)
+    accept = "--accept" in argv
+    if accept:
+        argv.remove("--accept")
+    base = Path(argv[1]) if len(argv) > 1 else DEFAULT_BASE
     english_path = base / ENGLISH
     if not english_path.is_file():
         raise SystemExit(f"no English localization at {english_path}")
@@ -138,11 +176,33 @@ def main() -> int:
             print(f"  {problem}", file=sys.stderr)
         return 1
 
+    recorded = read_fingerprints()
+    current: dict[str, str] = {}
+    moved: list[str] = []
+    for key in english:
+        digest = fingerprint(english[key])
+        was = recorded.get(key)
+        if was is not None and was != digest and not accept:
+            moved.append(key)
+            current[key] = was     # keep flagging it until it is dealt with
+        else:
+            current[key] = digest
+    write_fingerprints(current)
+
     lines = ["l_russian:"]
     lines += [f' {key}: "{russian[key]}"' for key in english]
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("﻿" + "\n".join(lines) + "\n", encoding="utf-8")
     print(f"{OUT.relative_to(REPO)}: {len(english)} keys")
+
+    if moved:
+        print(f"английский оригинал изменился у {len(moved)} ключ(ей)"
+              " — перевод мог устареть:", file=sys.stderr)
+        for key in moved:
+            print(f"  {key}", file=sys.stderr)
+        print("  свериться с базовым модом, поправить перевод, затем "
+              "generate_ru.py --accept", file=sys.stderr)
+        return 1
     return 0
 
 

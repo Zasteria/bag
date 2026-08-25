@@ -276,10 +276,24 @@ Russian game. The player reports the Mod Menu tab reading correctly.
 The base mod updated to 0.9.2 Beta mid-session and the generator refused to
 write, naming 40 keys it had never seen — the template buttons, the priority
 step tooltips, a whole R.G.O. diagnostics panel and a throughput warning. That
-is what it is for. All 40 are translated now, 1241 keys in total, and the
-generator is clean again. Note the base mod's id is `eu5ab_regional_development`
-and its folder now carries a workshop number; both are resolved by
-`tools/refs.py` and neither is written down anywhere.
+is what it is for. All 40 were translated then. Note the base mod's id is
+`eu5ab_regional_development` and its folder now carries a workshop number; both
+are resolved by `tools/refs.py` and neither is written down anywhere.
+
+**0.9.3 Beta came in on 2026-08-25 and brought a second ranking strategy** — the
+mod can now order ordinary buildings by the profit the game itself predicts,
+instead of by its own supply-and-demand score. 28 new keys, all translated: the
+strategy block in the window, the two candidate limits, the CMM setting and its
+two options, and four new throughput warnings. 1269 keys now.
+
+**Two keys had gone stale without anything saying so.** The throughput warning's
+`action_name` and `action_desc` were rewritten by the base mod — they used to be
+about presets and additions, they are now about the new Planning Candidates
+limit — under a Russian translation that stayed put and went on reporting itself
+complete. `nd_ru` catches that with fingerprints and this generator had none. It
+does now: `mods/auto_build_ru/english_generated_fingerprints.txt`, same shape,
+same `--accept`. Both keys are retranslated. **None of the 0.9.3 work has been
+in game.**
 
 **`nd_ru/` — в работе, играбелен за Вестфалию и Швабию.** Русский для National
 Destinies. Базовый мод везёт одиннадцать языков, и файлы всех одиннадцати
@@ -672,18 +686,25 @@ itself will never hand the files to GitHub: an anonymous steamcmd download of
 an item for this game is refused, so the files only move from a machine that
 owns it.
 
-**As of 2026-08-25 two copies here are behind**: National Destinies (the
-workshop moved hours after this tree's copy was committed) and Advanced Auto
-Build. Both are mods this repository translates, so a session working on
-`nd_ru` or `auto_build_ru` should expect the English side to have moved —
-their generators name the keys that no longer exist rather than writing a
-broken file, which is how it will show up.
+**The first real sync ran on 2026-08-25**, and brought both mods this repository
+translates up to date in one command. It also showed what the loop is worth:
+Advanced Auto Build had gained 28 keys and quietly rewritten two, and National
+Destinies had added a formable to a sentence. All of it is translated now, and
+both generators are clean.
 
-Advanced Auto Build arrived in `reference/` without its `.metadata/`, so its mod
-id and version are not in the tree — it is the one mod `refs.py` has to find by
-folder name. `auto_build_ru` therefore declares only CMF as a dependency; if the
-base mod's id is wanted there, that file has to come from the player's mod
-folder.
+**A sync from a box without Python rebuilds nothing.** That is what the first
+run did: the reference copies were committed and pushed, `refresh.py` never ran,
+and so nothing said the translations had drifted. The update check survives it —
+`workshop.py status` works out from git that a folder committed after the
+workshop's last update cannot be behind, so it does not need `record` to have
+run — but the generators do not run themselves. After a sync, make sure someone
+ran `python3 tools/refresh.py` and read its report.
+
+Advanced Auto Build used to arrive in `reference/` without its `.metadata/`,
+which is why `auto_build_ru` declares only CMF as a dependency. The workshop copy
+the sync brings carries it, so `refs.py` now reads that mod's id and version out
+of the tree like every other; the dependency line is the only thing left over
+from when it could not.
 
 
 ## Hard-won facts that are easy to lose
