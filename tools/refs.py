@@ -156,6 +156,14 @@ def mod(*hints: str) -> Path:
         if len(matched) == 1:
             return matched[0].path
         if len(matched) > 1:
+            # An addon to a mod is named after it — `glorp_ui_small_fix` answers
+            # to every hint `glorp_ui` does — so a folder name alone stopped
+            # being enough the day one arrived. The mod's own `id` is the thing
+            # that cannot be shared: if exactly one candidate declares the id
+            # asked for, that is the mod, whatever the folders are called.
+            exact = [m for m in matched if m.id and _slug(m.id) == _slug(hint)]
+            if len(exact) == 1:
+                return exact[0].path
             names = ", ".join(m.folder for m in matched)
             raise SystemExit(f"{hint!r} matches more than one mod: {names}")
     listing = "\n".join(f"  {m.folder}  ({m.id or 'no metadata'})" for m in known)

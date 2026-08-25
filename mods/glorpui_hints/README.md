@@ -12,6 +12,16 @@ declares the dependency, so the launcher orders it.
 > societal value tooltip. What is still unrun is in
 > [what is untested](#what-is-untested).
 
+## Somebody else's addon to the same mod
+
+`Glorp UI small fix` (workshop 3784988919) translates Glorp UI's own hint keys
+into **ten languages** and adds three fixes of its own. It does *not* extend the
+hint lists — the 364 keys of extra sources below are this mod's alone — so the
+two overlap only on the translation half, where whichever mounts later wins.
+The full comparison, with numbers, is in
+[`HANDOFF.md`](../../docs/HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod);
+two things worth stealing from it are listed there.
+
 ## What it fixes
 
 Hover a societal value and the tooltip offers **«Дальше продвинуться в сторону
