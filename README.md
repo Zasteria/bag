@@ -25,6 +25,7 @@ written down rather than kept in anyone's head.
 | [`mods/goods_target/`](mods/goods_target/) | Build for a construction discount: keep building the producers of chosen goods until building everything else is cheap. An addon to Construction Manager | Paused: lists and readings work, nothing periodic does |
 | [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Working |
 | [`mods/nd_ru/`](mods/nd_ru/) | Russian localization for National Destinies, which ships eleven languages all carrying the English text | In progress |
+| [`mods/glorpui_hints/`](mods/glorpui_hints/) | Russian for Glorp UI's societal value hints, which ship in English only, plus the twenty source kinds its generator does not read | Both halves worked separately; the merge is unrun |
 
 Each folder is a complete mod: copy the folder itself into
 `Documents/Paradox Interactive/Europa Universalis V/mod/`.

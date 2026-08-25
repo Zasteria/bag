@@ -20,6 +20,23 @@ whichever CMF is in `reference/`.
 put the stored value out of range, so nothing the player picked matched any
 branch. Symptom: menu looks correctly filled in, nothing downstream reacts.
 
+**A comment saying a trigger was confirmed is not a confirmation.**
+`gates.py` gated 492 religious aspect hints on `country_religion = religion:X`,
+under a comment reading "confirmed in common/religious_aspects". It is not there
+and never was: `country_religion` appears nowhere in the game's script and is
+not in the engine's trigger dump. What those files carry is
+`religion = calvinist` — the aspect declaring its own religion, a different
+thing in a different scope. The country trigger is `religion = religion:X`, 598
+uses in the game's own `common/`.
+
+Nothing caught it for months because a wrong trigger name in a
+`customizable_localization` gate does not stop the mod loading; the gate simply
+never passes and the lines never appear, which looks exactly like a country not
+qualifying for them. It was found the day a checker started comparing every
+trigger name in the file against what exists. **Put the confirmation in a
+checker, not in a comment** — a comment records what someone believed once, and
+a checker re-establishes it on every run.
+
 **A `building_type` filter receives `root` and nothing else.** Not
 `scope:target`, whatever the comment at the top of vanilla's
 `58_building_type.txt` says. Reading it logs an error on every pass of the list.
@@ -96,6 +113,101 @@ interface leaves a hole. Filter the data instead, or resize the list.
 
 **Square brackets are data function syntax.** A label reading `[debug] location
 known` renders as `ERROR:`. Keep brackets out of plain text.
+
+**A `$NAME$` that names a key which does exist can still come out blank.**
+`glorpui_hints` replaced its hand written modifier labels with references to the
+game's own — `$STATIC_MODIFIER_NAME_parliament_outside_capital$` instead of
+"Парламент вне столицы" — so that a patch renaming a modifier would be followed
+for free. On screen some of them rendered and some rendered as nothing:
+`is_bankrupt` was fine, `parliament_outside_capital` and
+`peasants_percentage_in_country` were bare values with no text. All three keys
+exist in the game's Russian files. Nothing was logged.
+
+What separates them is still unknown, and that is the point: **a label that is
+nothing but a reference has no floor.** If the reference resolves the line reads
+correctly, and if it does not the line loses everything, silently. The rule now
+in `mods/glorpui_hints/tools/generate.py` is not "no references" — the catalogue
+lines have referenced `$building_type$` since the beginning and always worked —
+but "every label carries literal text of its own", so a reference can lose part
+of a line and never all of it.
+
+**The left half of a `TooltipScrolledStringPairList` row is narrow, and it
+truncates rather than wraps.** A hint line is `@hint! <label>: <value>`, and the
+label has about as much room as a short noun phrase. Adding a parenthetical to
+it — "(масштабируется: максимум при used_fort_limit_percentage = 200%)" — did
+not make the row taller: it cut the *label* off at «Традиции армии ( …» and
+«Во вр …» and spilled the rest across the value column. Nothing errors, and it
+only shows on a screenshot. Whatever a hint line has to say has to fit in a few
+words, or belong somewhere that is not that row.
+
+**A mod-defined game concept with no texture renders as nothing.** The same
+change made «(масштабируется)» a game concept so the explanation could be a
+hover: `[Concept('svx_scale_army_tradition','(масштабируется)')|e]`, with the
+concept declared in the mod's own `in_game/common/game_concepts/`. Glorp UI
+proves a mod can define concepts — but every one of its own carries a `texture`,
+and these carried only `shown_in_encyclopedia = no`. On screen the whole
+`[Concept(...)]` produced empty output: the line kept its label and its value and
+lost the word between them. No error, no log line. If a text-only concept is
+wanted, prove it with one before generating forty.
+
+**A `$NAME$` that names no key prints the name.** No error, no log line, no
+blank: the engine puts `SOCIEALVALUE_RIGHTITEM_WNTT_GEN` in capitals in the
+middle of the Russian sentence and carries on. The game's own Russian defines
+seven societal value declension helpers as `SOCIETALVALUE_*` and references all
+seven as `SOCIEALVALUE_*`, so twenty four keys print a name instead of a word —
+and it took a screenshot to notice, because nothing else could. `missing_ref` in
+`locscan.py` is the rule now. It is hard on the fault and careful about the
+repair: the *nearest* defined key is not always the intended one, and four of
+the thirteen references it finds are cultures whose neighbour is a different
+people (Even and Evenk, Halkomelem and Halkomelemt, Lalagir and Lalagyr).
+
+**A pattern in the data is not a fault until something fails.** All 1755
+`*_culture_tt` keys in the game's Russian
+`EU5_customizable_localization_ru_culrel_l_russian.yml` hold a bare number that
+is exactly the key's own line number minus two — every one of them, plus 624
+more in a sibling family. They are used as `#TOOLTIP:CULTURE,$X_tt$,`, where a
+culture key looks like it belongs. That is a striking, verifiable pattern and it
+reads exactly like a generator that wrote line numbers into tooltip targets, so
+this document briefly said every culture tooltip in the Russian localization was
+broken.
+
+It is not. A hover settled it: the tooltips are complete and correct, and the
+key on screen (`westphalian_cadj` → `#TOOLTIP:CULTURE,$westphalian_tt$,` →
+`"1052"`, on line 1054) is one of the numeric ones. The number is what the engine
+wants there, or the engine ignores it.
+
+The cost of getting this wrong would have been 1755 keys rewritten to fix
+nothing. **A pattern explains a fault; it does not establish one.** Before
+repairing on the strength of a shape in the data, find the thing that visibly
+fails — and if nothing visibly fails, that is the answer.
+
+**A "broken" key can be a key nothing can call.** Three of the culture
+references `missing_ref` found are declensions for `even_culture`,
+`halkomelemt_culture` and `lalagyr_culture` — cultures the game does not have,
+though `evenk_`, `halkomelem_` and `lalagir_` all exist. Unreachable, harmless,
+and repairing them by pointing at the near neighbour would have put the Evenk
+tooltip on the Even culture. Before repairing a dangling reference, check
+whether the thing it belongs to exists at all: `reference/game/in_game/common/`
+answers it, and a dead key is cheaper left alone than fixed wrong.
+
+**A checker that silently reads less than it thinks is worse than no checker.**
+`locscan.py`'s key regex required the line to end at the closing quote, so
+`hre_tt: "0" #True` — a key with a comment after it — was not a key as far as
+every rule was concerned. **18 012 keys, 3.4% of the tree**, invisible. The
+symptom only appeared when a new rule started asking "is this reference
+defined?" and answered no 1 418 times. Nothing was wrong with the rule. When a
+checker's finding count looks too big to be true, suspect what the checker can
+see before suspecting the game.
+
+**The game loads the selected language's folder and nothing else — there is no
+fallback to English.** Glorp UI generates 759 `GLORP_UI_SVH_*` keys into
+`main_menu/localization/english/` and no other language, so on a Russian client
+every one of them is missing, the societal value hint list renders empty, and
+the tooltip says «Нет.» while `debug.log` takes 725 `Missing loc key` lines per
+load. Nothing about that reads as a localization problem on screen: the widget
+draws correctly and is simply blank. It hits all ten non-English languages, not
+just Russian. When a mod's feature works in English and does nothing in Russian,
+check which language folders it actually ships before looking anywhere else.
 
 **A CMF action bar element is drawn entirely from localization**, keyed on the
 element name: `_icon` takes a texticon such as `@good!`, `_name` and `_tooltip`
@@ -311,6 +423,19 @@ changes nothing, logs nothing.
 
 **`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
 it the launcher does not treat the folder as an EU5 mod.
+
+**Overriding another mod's *generated* override goes stale in complete
+silence.** `mods/glorpui_hints/` overrides Glorp UI's override of the societal
+value tooltip templates, and to keep Glorp UI's own hint lists it re-emits them
+inside its own file. When Glorp UI regenerates those templates — which it does
+on every game patch — nothing errors: the templates still parse, the mod still
+loads, and the player quietly gets a months-old copy of Glorp UI's list with
+whatever Glorp UI added missing from it. `error.log` says nothing, because
+nothing failed. The only defence is a checker that compares the two files, so
+`mods/glorpui_hints/tools/generate.py` reduces both to an ordered sequence of
+(gating script value, title, body key) and fails naming the difference. Any mod
+that copies another mod's generated file needs the same check written the same
+day the copy is made.
 
 ## Deciding what exists
 

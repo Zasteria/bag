@@ -338,6 +338,259 @@ vanilla. What is wanted is a lever from the mod side, or evidence that there is
 none. The lead and the next run are in
 [`HANDOFF.md`](HANDOFF.md#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever).
 
+### 2026-08-25 — `glorpui_hints`, the merge, and a key on screen
+
+**Loaded:** the merged `glorpui_hints` in place of `glorpui_ru_svh_fix` and
+`glorpui_svh_extra`.
+**Expected:** the societal value tooltip to read in Russian and to carry the
+added block.
+**Observed:** it does. Screenshot of *Оборона*: Glorp UI's own list in Russian
+("Принять реформу правления Система гарнизонов +0.05"), and under it «Также
+влияет на смещение» with the four parliament issues about building forts and
+«Обороняющаяся сторона в войне +0.10», scrolled. The owner's words: "в целом всё
+работает как и раньше".
+**Verdict:** **the merge is confirmed.** Two mods in one folder under one id load
+and behave as the two did. Nothing in `glorpui_hints` is outstanding.
+
+**And the screenshot showed something else — three raw keys, none of them ours.**
+The tooltip read «Дальше продвинуться в сторону
+*SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:», «При своём максимальном значении
+*SOCIEALVALUE_NAME_GEN* будет оказывать…» and «Поддержать *SOCIEALVALUE_VALUE_ACC*
+с помощью действий совета». That is the game's own Russian localization: it
+defines seven declension helpers spelled `SOCIETALVALUE_*` and references all
+seven as `SOCIEALVALUE_*` — a missing T — in twenty four keys. No overlap, so
+every reference resolves to nothing.
+
+`$NAME$` naming nothing neither errors nor logs: the engine prints the name in
+capitals and carries on. So this class was invisible to every rule
+`ru_loc_fix` had, and it took a screenshot to find one. It has a rule now
+(`missing_ref`), and finding it turned up **49 keys in thirteen references**,
+which `ru_loc_fix` repairs 45 of. Unfixed and reported: four culture tooltips
+whose nearest defined key belongs to a different people.
+
+**Riding on the same rule: `locscan.py` could not see 18 012 keys** — 3.4% of
+the tree — because its key regex rejected a line with a comment after the
+closing quote. `hre_tt: "0" #True` read as undefined, so every reference to it
+looked broken. Fixed; every other rule's count is unchanged, which is how we
+know the fix did not disturb them.
+
+**Untested:** all 45 repairs. Any run checks them — the three keys above are on
+the societal value tooltip, which is one hover away.
+
+### 2026-08-25 — `ru_loc_fix` round three, and the game files arrived
+
+**Loaded:** the playset with `ru_loc_fix` at 207 keys.
+**Expected:** the three raw keys on the societal value tooltip to become words.
+**Observed:** they did. The owner: "проверил, что ценности теперь отображаются
+правильно".
+**Verdict:** **round three confirmed.** `$SOCIEALVALUE_*$` was the fault and the
+rewrite to `$SOCIETALVALUE_*$` is the repair, on screen. That also settles the
+class: a `$NAME$` naming no key really does print the name, and repairing the
+reference really does fix it — which is what makes the other 21 repairs
+(`protestant_union.tt`, `catholic_league.tt`, `pirate_events.2.a`) worth
+believing without seeing each one.
+
+**And the game files came in**, by `tools/extract_game_files.ps1` on the owner's
+Windows box — 597 files, `in_game/common/` up from seven directories to
+thirty one. The PowerShell script had never been run when it was written; it
+works.
+
+**What the extraction missed, and it matters:** `static_modifiers` — 298 of the
+1405 societal value pushes, and the whole "scaling" half of `glorpui_hints`
+(fort maintenance, army size, at war, defender in war). The scan of what did
+arrive finds **1128 pushes across 22 source types**; the missing 298 are all
+that folder. It is not under `in_game/` at all, and the first sweep only looked
+there. Both scripts now search the whole install for a manifest directory that
+is not where it says, and sweep every `.txt` in the install rather than one
+mount — so re-running brings it. `modifier_type_definitions` is missing for the
+same reason.
+
+**Still untested:** nothing about `glorpui_hints` changed in this round, so its
+extra hint lists are still the ones built before any of this. Rebuilding them
+against the arrived files is the next thing, and it needs `static_modifiers`
+first.
+
+### 2026-08-25 — culture tooltips, and a theory that did not survive them
+
+**Loaded:** the playset, after the game files went into `reference/`.
+**Expected:** to find out whether the Russian culture tooltips resolve, since
+every `*_culture_tt` key in the game's Russian custom localization holds a bare
+number equal to its own line number minus two — 1755 of them, no exceptions.
+**Observed:** they resolve, completely. Screenshot of a location's culture list:
+*Вестфальск* opens a full culture tooltip (traditions 179.00, cultural influence
+71.63, language, culture groups, the eight countries it is primary for),
+*Германск* opens the culture group, *Нижнефранконск* the same. The owner: "вроде
+они работают как надо и раньше работали так же".
+**Verdict:** **the theory was wrong and this is closed.** The key on screen is
+`westphalian_cadj`, which is literally
+`#TOOLTIP:CULTURE,$westphalian_tt$, #L Вестфальск#!#!`, and `westphalian_tt`
+holds `"1052"` on line 1054 — so the number is exactly what the engine wants
+there, or it ignores the argument. Repairing 1755 keys would have fixed nothing
+and broken whatever it touched. `PITFALLS.md` carries the lesson: a pattern in
+the data explains a fault, it does not establish one.
+
+**And the rest of the game files arrived**, `static_modifiers` among them — not
+under `in_game/` but under `main_menu/common/`, found by the by-name search the
+last round added. The manifest now names the real paths. The source scan is
+complete for the first time: **1426 pushes across 23 source types**, up from
+1128.
+
+**So `glorpui_hints` was rebuilt from real game files** — the first time that
+has been possible in this repository rather than on the owner's machine. 243
+hint lines became **264**, 107 gated became **138**, and nothing was lost. The
+twelve new ones are five Italian and foreign leagues the game has added since
+the lists were last built, plus two placements of *Обороняющаяся сторона в войне*
+and *Парламент в столице*. Defensive goes from 9 lines to 15.
+
+**Untested:** the rebuilt lists. The visible change is the defensive axis
+growing by six lines and new international organizations appearing; one hover
+over a societal value shows it.
+
+### 2026-08-25 — the rebuilt hint lists
+
+**Loaded:** `glorpui_hints` with the lists rebuilt from the game files now in
+`reference/`.
+**Expected:** more lines per direction, and no raw keys from the 21 new gated
+entries.
+**Observed:** "всякого в списках действительно больше. Каких-то глючных ключей и
+т.п. не вижу. Всё работает ок."
+**Verdict:** **the rebuild is confirmed.** 264 hint lines and 138 gates render
+correctly, which also confirms the pipeline end to end for the first time inside
+this repository: game files in `reference/` → scan → generator → mod → screen.
+
+**English is out of scope by the owner's decision**, unless the mod is ever
+published: "английским языком заниматься не планирую, по крайней мере пока не
+появится желание выложить этот мод в общий доступ." The gap stays recorded in
+the mod's README; it is not work.
+
+### 2026-08-25 — the availability gates, first round
+
+**Loaded:** `glorpui_hints` with the four new gate kinds, on the owner's own
+save (a Catholic German county).
+**Expected:** organizations he cannot join and missions in a missions-off game
+to disappear; religious aspect lines to start appearing.
+**Observed:** "итальянские лиги пропали, миссии тоже". Both confirmed.
+**Verdict:** `can_join_international_organization` and
+`game_has_missions_enabled` both work as gates in a country scoped
+customizable localization. That is the mechanism proven, not just these two
+categories.
+
+**Religious aspects: still unknown, and not his fault.** He plays Catholic,
+where aspects are set by the Papacy rather than chosen, so the repaired
+`religion = religion:X` gate has nothing to show him either way. It needs a run
+as a religion that picks its own aspects — Lutheran was his example. Until then
+the `country_religion` repair is reasoned, not seen.
+
+**Two things still not filtered, both reported from the screen:**
+
+- **Cabinet actions.** *Дикастерия по евангелизации* and *Влияние Строгановых*
+  were on screen for a Catholic German county. They are `office_of_new_converts`
+  (`potential` wants a modifier on Kazan) and `stroganov_influences` (`potential`
+  wants the Stroganov variable) — national, and both carry a `potential` block
+  this mod was not reading. All eight cabinet actions that push have one.
+- **Parliament issues.** All four *Поддержка строительства …* lines showed at
+  once when only one can ever be valid: `promote_castle_building` requires
+  `has_advance = castle_advance` and forbids the better advances, and the other
+  three do the same one rung up. The gate was `has_parliament = yes` and nothing
+  else.
+
+Both are fixed in the same session: cabinet actions take `potential` + `allow`
+verbatim, parliament issues take `has_parliament = yes` plus the estate that
+raises the issue plus `potential` + `allow`. Gated lines 167 → **175**.
+
+**A bonus the verbatim copy brings:** two parliament issues carry
+`potential = { always = no }` with a comment saying they are event-driven.
+Copying `potential` drops them, which is right.
+
+**Untested:** the cabinet action and parliament issue gates. What to look for —
+*Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
+*Поддержка строительства …* line instead of four.
+
+**The mod menu switch and the scaling hovers, both unrun.** Two mechanisms
+landed together and they fail differently, which is how to tell them apart:
+
+- **The switch.** `Подсказки общественных ценностей → Списки → Фильтрация →
+  Показывать всё без фильтра`, in CMF's mod menu. If the row is not there at
+  all, registration did not run. If the row is there and the tooltip does not
+  change, the `.gui` condition is wrong. Nothing else in the mod moves either
+  way.
+- **The hovers.** «(масштабируется)» and «(условие)» on the 41 scaled and
+  conditional lines. These are game concepts this mod defines. If they work, the
+  hover says what the modifier scales with and at what value it is at full size
+  — 100 army tradition, 200% of the fort limit, `army_size_percentage > 1.0` for
+  the expected-army one. If a text-only concept is not a thing, those 41 words
+  render bare or as `ERROR:` and nothing else is affected.
+
+### 2026-08-25 — the switch works, the two clever bits did not
+
+**Loaded:** `glorpui_hints` with the mod menu switch and the scaling hovers.
+**Expected:** a switch that restores the unfiltered pool, and a hover on
+«(масштабируется)» saying what the modifier scales with.
+**Observed:** **the switch works** — "переключатель есть и свою функцию он
+выполняет". The hovers do not, and they took text with them: on
+*Децентрализация* the *Парламент вне столицы* line rendered as a bare `+0.20`
+with no words at all, and on *Традиционализм* the *Доля крестьян в населении*
+line as a bare `до +0.10`. In the same list *Банкрот* and *Сословие Племена*
+rendered correctly.
+**Verdict:** two separate faults, both in the same commit, both silent.
+
+1. **A label that is nothing but a `$reference$` has no floor.** The labels had
+   been changed to the game's own `$STATIC_MODIFIER_NAME_x$` so a rename would
+   be followed for free. All three keys exist in the game's Russian files;
+   `is_bankrupt` rendered and `parliament_outside_capital` and
+   `peasants_percentage_in_country` rendered as nothing. What separates them is
+   **still unknown** — and the fix does not depend on knowing, because a label
+   made only of a reference loses the whole line when the reference fails.
+2. **A mod-defined game concept with no `texture` renders as nothing.** The
+   hovers were `[Concept('svx_scale_x','(масштабируется)')|e]` with the concepts
+   declared in the mod's own `game_concepts/`. The whole data block produced
+   empty output — visible on *Банкрот*, which kept its label and its value and
+   lost the word between them. Glorp UI's own concepts all carry a `texture`.
+
+**Both are backed out.** Labels are this mod's own strings again, and the
+explanation is inline in the same line, which cannot fail:
+«Превышен лимит крепостей *(масштабируется: максимум при
+used_fort_limit_percentage = 200%)*: +0.10» and «Армия больше ожидаемой *(при
+army_size_percentage > 1.0)*: +0.10». Where the game's files say nothing — every
+`static_modifier`, *Средняя грамотность* among them — it reads
+*(масштабируется, показан максимум)* and claims nothing more. A trigger that
+only repeats its own label gets no bracket at all.
+
+**And the checker that would have caught the first one is in.** Every hint label
+must carry literal text of its own; a label made only of markup and references
+fails the run. Its first version silently passed the very line it was written
+for — a non-greedy match started at an earlier `@hint!` and swallowed the whole
+entry before it — so it is verified in both directions now: clean on the real
+file, and failing on a planted reference-only label.
+
+**Untested:** the inline notes. Everything they replace was rendering before the
+change, so the risk is the wording rather than the mechanism.
+
+### 2026-08-25 — the inline scaling notes, rejected on sight
+
+**Loaded:** `glorpui_hints` with the explanation inline in each hint line.
+**Observed:** it does not fit. The screenshots show the *labels* truncated —
+*Традиции армии* as «Традиции армии ( …», *Во время войны* as «Во вр …», *Доля
+крестьян в населении* as «Доля …» — with the bracket spilling across the value
+column. And where a modifier declares nothing, "(масштабируется, показан
+максимум)" says what «до +0.10» already said. The owner: "чёт супер гига пупер
+фу… просто пара бесполезных слов".
+**Verdict:** **reverted.** The hint text is byte-identical to the 2026-08-25
+version he approved; only the switch's keys are new on top of it. The left half
+of a `TooltipScrolledStringPairList` row is narrow and truncates rather than
+wraps — in [`PITFALLS.md`](PITFALLS.md#interface) now.
+
+The arithmetic behind the notes was correct and is kept in
+[`research/engine.md`](research/engine.md): `auto_modifiers` declare
+`scales_with` and `potential_trigger`, `static_modifiers` declare neither. It is
+recorded rather than used, so a later session does not derive it a third time.
+
+**One correction from the owner, not acted on at his request.** He believes
+"expected army" is set by the estates — what they expect the country to field.
+The file says only `army_size_percentage > 1.0`, which is a ratio against
+something the modifier does not name, so both can be true and the file does not
+settle it. Nothing in the mod depends on this any more.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

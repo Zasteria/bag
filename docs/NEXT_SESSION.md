@@ -1,6 +1,6 @@
 # Next session: read this first
 
-This repository holds five mods, four documents and a pile of history. Almost
+This repository holds six mods, four documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
 ## The job
@@ -111,6 +111,25 @@ so the setting tests the mod before it is written.
 4. **If it is not**, the fallback route is `UI Editor` in `debug_mode` — the live
    widget tree, and the only tool that can name what accumulates. The toolbox
    contents are in [`research/engine.md`](research/engine.md#the-debug-toolbox).
+
+## The third job, added 2026-08-25 — the owner redirected the session to it
+
+**`mods/glorpui_hints/`.** The two Glorp UI hint addons from the `EU5-filters`
+repository are now one mod here, and the owner's stated next step is *"займёмся
+доработками функциональной части аддона"* — improving what the addon actually
+does, once the merge is in.
+
+Before designing anything: read the mod's
+[README](../mods/glorpui_hints/README.md) and the
+[HANDOFF entry](HANDOFF.md#state). The two things a next session most needs to
+know are that the extra hint lists **cannot be rebuilt from `reference/`** —
+the game's `common/` tree they compile from is not here, and the README lists
+exactly which directories to ask for — and that the added lines are **Russian
+only**, which is the nearest concrete improvement there is.
+
+The merge itself has never been loaded. Getting it into a run costs nothing
+extra: the old `glorpui_ru_svh_fix` and `glorpui_svh_extra` come out of the
+playset, this one goes in, and either the tooltip fills or it does not.
 
 ## Riding along, no extra work
 

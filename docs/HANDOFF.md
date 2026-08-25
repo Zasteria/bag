@@ -22,6 +22,7 @@ itself, so read the table before designing a test.
 | Is it one bad window? | No. Diplomacy +1.86/frame, map modes +1.49, locations +0.29; none zero. | TESTLOG 2026-08-25 |
 | Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
 | Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
+| Does the merged `glorpui_hints` load and work? | Yes. Both blocks render, in Russian, on the same save. | TESTLOG 2026-08-25 |
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
 | Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
 
@@ -39,20 +40,21 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
 
-**`ru_loc_fix/` — working, round one confirmed in game, round two unrun.**
+**`ru_loc_fix/` — working, round one confirmed in game, rounds two and three unrun.**
 Repairs the markup in the game's own Russian localization. It came out of the
 player's question about why their `error.log` is full: the answer is that 88% of
-it was the base game's Russian files, not any mod. **162 keys** now, in six
+it was the base game's Russian files, not any mod. **207 keys** now, in seven
 shapes — unclosed brackets, accessors `dump_data_types` does not have, `Custom()`
 applied to a string, roots that are nothing, keys reaching a Russian case through
-a helper reference, and wrong scopes the game named in its own log. Nothing is
+a helper reference, wrong scopes the game named in its own log, and `$NAME$`
+references to keys that do not exist. Nothing is
 retranslated; only the markup changes.
 
 The mod is generated. `mods/ru_loc_fix/tools/locscan.py` is the rule set, split
 into hard rules (cannot fire on a healthy key) and advisory ones (compare against
 English, need a person). `generate.py` refuses to write a key that no longer
-exists, a key that is no longer broken, or a repair that still trips a rule; 140
-of the 162 are search-and-replace against whatever the game ships that day, so a
+exists, a key that is no longer broken, or a repair that still trips a rule; 185
+of the 207 are search-and-replace against whatever the game ships that day, so a
 patch that rewrites the sentence keeps the repair. It runs from
 `tools/refresh.py` with everything else.
 
@@ -66,7 +68,58 @@ What that legibility bought was round two. The same fault turned out not to be
 confined to filter strings: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` (13 950
 lines), `FILTER_BY_GOODS` (3 866) and `MARKET_SURPLYS_INFO` (1 650) took their
 place, each reaching a Russian case through `$GOODS_..._RU_*$`. Eleven more keys
-are fixed for the next run; the mod is at 162.
+went in for that round.
+
+**Round three came from a screenshot, 2026-08-25, and it is a class the log
+cannot report.** A `$NAME$` reference to a key that does not exist neither errors
+nor logs — the engine prints the name, in capitals, inside the sentence. The
+societal value tooltip read «Дальше продвинуться в сторону
+*SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:» because the game defines seven declension
+helpers as `SOCIETALVALUE_*` and references all seven as `SOCIEALVALUE_*`. The
+new hard rule `missing_ref` finds **49 keys in thirteen references**; 46 are
+repaired and 3 are deliberately not.
+
+**Confirmed on screen 2026-08-25** — the owner reports the tooltip reads
+correctly now. That settles the class and not just the key: a `$NAME$` naming no
+key does print the name, and repairing the reference does fix it.
+
+**The culture list arrived and settled the last four.** `common/cultures/`
+defines 1751 cultures. `inca_culture` is not one of them and `inka_culture` is —
+a c for a k — so `country_history_CSU`, which is Cusco's country history and does
+render, is repaired. The other three are declensions for `even_culture`,
+`halkomelemt_culture` and `lalagyr_culture`, none of which the game has: nothing
+can ask for the declension of a culture that does not exist, so those keys are
+unreachable and stay as they are. Pointing them at the neighbour would be worse
+than leaving them — Even and Evenk are two different peoples. The reasoning sits
+in `fixes/observed.txt` so it is not derived a second time.
+
+**A thing the culture list exposed, checked, and closed.** All 1755
+`*_culture_tt` keys in `EU5_customizable_localization_ru_culrel_l_russian.yml`
+hold a bare number equal to their own line number minus two — for all 1755, with
+no exceptions, and the 624 keys of the `X_tt` family alongside them are numeric
+too. They are used as `#TOOLTIP:CULTURE,$X_tt$,`, where a culture key looks like
+it belongs, so this was written up here as "every culture tooltip in the Russian
+localization is handed a line number".
+
+**That conclusion was wrong, and a run said so.** The owner hovered the culture
+list in a location panel on 2026-08-25: the tooltips are complete and correct —
+traditions, language, culture groups, the countries the culture is primary for.
+The text he hovered is `westphalian_cadj`, which is literally
+`#TOOLTIP:CULTURE,$westphalian_tt$, #L Вестфальск#!#!`, and `westphalian_tt`
+holds `"1052"` on line 1054. So the number *is* what the engine wants there, or
+the engine ignores the argument; either way nothing is broken.
+
+**Do not repair this.** The line-number correlation is a real and verifiable
+fact about the file and it means nothing for behaviour. Changing 1755 working
+keys on the strength of it would have been the most expensive mistake in this
+repository. What the episode is actually worth is in
+[`PITFALLS.md`](PITFALLS.md#localization).
+
+**And the rule found a hole in the checker.** `locscan.py`'s key regex required a
+line to end at the closing quote, so a key with a trailing comment —
+`hre_tt: "0" #True` — was not a key to any rule in the file. **18 012 keys, 3.4%
+of the tree**, invisible. Fixed; every other rule's count came back identical,
+which is how we know nothing else moved.
 
 **Round two keeps the grammar.** The first fix replaced declined forms with
 nominatives. This one does not have to: the same strings hold the promote both
@@ -117,6 +170,104 @@ Still nothing builds and nothing is subsidised.
 
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
+
+**`glorpui_hints/` — merged, and confirmed in game.** It came in
+from the `EU5-filters` repository, where it lived as `glorpui_ru_svh_fix` (the
+missing Russian for Glorp UI's societal value hints) and `glorpui_svh_extra`
+(the hint sources Glorp UI's generator never reads). Both worked in game as
+separate mods; the owner asked for one, and this is it, at id
+`bag.glorpui_hints`. **The merge loaded and worked on 2026-08-25** — both blocks
+render in Russian, screenshot in [`TESTLOG.md`](TESTLOG.md). The old two are out
+of the playset; leaving either alongside would mean two mods defining the same
+keys and overriding the same templates.
+
+Nothing in the contents changed. Both halves were re-checked against Glorp UI as
+it is in `reference/` now, and both are still current: the 759 hint keys
+regenerate byte-identical, and Glorp UI's 34 tooltip lists per side are still
+exactly what this mod re-emits inside its own override. So the Glorp UI update
+broke neither half.
+
+What the merge added is `mods/glorpui_hints/tools/generate.py`, in
+`tools/refresh.py` with everything else. It regenerates the Russian hint text
+from Glorp UI's English file every run, and — the part that matters — it
+compares this mod's re-emission of Glorp UI's list against Glorp UI's own file
+as an ordered sequence and fails naming the difference. That failure has no
+symptom in game: the templates parse, the mod loads, and the player silently
+gets a stale copy of Glorp UI's list. It is in
+[`PITFALLS.md`](PITFALLS.md#loading) now.
+
+**It can be rebuilt here now, and it has been.** The extra hint lists compile
+out of the game's own `common/` tree, none of which was in `reference/`. The
+owner ran `tools/extract_game_files.ps1` on 2026-08-25 and all of it is here:
+the source scan reports **1426 pushes across 23 source types**, complete. Two of
+the directories are not under `in_game/` at all — `static_modifiers` and
+`modifier_type_definitions` live under `main_menu/common/` — which is why the
+manifest carries a real path per entry.
+
+Rebuilt against them, the lists went from 243 hint lines to **264** and from 107
+gated to **138**, with nothing lost: five Italian and foreign leagues the game
+has added, and two more placements of existing lines. Defensive goes from 9
+lines to 15. `python3 mods/glorpui_hints/tools/generate.py --game-files
+reference/game` is the command; it is not part of `tools/refresh.py` because the
+scan takes a minute and the game files move far less often than Glorp UI does.
+
+**Filtering by availability, 2026-08-25 — the owner's ask, and it is done.** He
+wants the lists to stop offering what his country can never take: Italian
+leagues he cannot join, parliaments a monarchy cannot have, missions in a game
+with missions switched off. All three were the ungated categories, and all three
+turned out to have an answer in the game's own vocabulary rather than needing
+one invented — `can_join_international_organization` from the engine dump,
+`game_has_missions_enabled` from the game's own scripted triggers, and
+`potential`/`allow` copied verbatim for parliament types. Confirmed on screen the
+same evening: the leagues and the missions are gone.
+
+**A second round followed from the same run.** Cabinet actions and parliament
+issues came back still unfiltered, and both were the same oversight — the object
+carries its own `potential` and the mod was not reading it. `office_of_new_converts`
+wants a location modifier on Kazan; `promote_castle_building` requires the castle
+advance and forbids the better ones, which is why all four fort-support issues
+showed at once. Both take `potential` + `allow` verbatim now, and a parliament
+issue also takes the estate that raises it. Gated lines went 138 → 167 → **175**.
+The mod's README has the table.
+
+**One gate is still unseen.** The religious aspect repair cannot be checked by
+this owner: he plays Catholic, where aspects are set by the Papacy rather than
+chosen, so there is nothing for the gate to show either way. It needs a run as a
+religion that picks its own aspects.
+
+**That work found a live bug that had been shipping.** 492 religious aspect
+lines were gated on `country_religion`, a trigger that does not exist anywhere —
+so those lines never appeared, indistinguishably from a country not qualifying.
+It is `religion = religion:X` now, and a new check in
+`mods/glorpui_hints/tools/generate.py` compares every trigger name in the gates
+against the engine dump, the game's scripted triggers, and every name the game
+itself writes in that position. See [`PITFALLS.md`](PITFALLS.md#script).
+
+**The switch is built, and it is the mod's first script.** `Списки → Фильтрация
+→ Показывать всё без фильтра` in CMF's mod menu turns the two filtered blocks
+off and an unfiltered one on. It is a `.gui` condition only —
+`CMMSettingIsRegistered` and `CMMValueEqualsOne` are GUI functions — so the
+unfiltered body is a plain string that cannot fail. The registration effect on
+`cmf_on_mod_registration` is the mod's only hand written script, and the mod now
+declares a dependency on CMF. Tooltip lists go 102 → 136; the extra 34 are
+hidden unless the switch is on.
+
+**Saying more than «масштабируется» was tried twice and dropped.** The owner
+wanted to know how much literacy or how much fleet reaches the maximum. Part of
+that is exact — `auto_modifiers` declare `scales_with`, so the threshold is
+arithmetic — and part has no answer at all, because `static_modifiers` declare
+nothing and the engine scales them. The first attempt put it in a hover and the
+hover rendered empty; the second put it inline and it truncated the labels it
+shared a row with. Both are in [`PITFALLS.md`](PITFALLS.md); the arithmetic is
+kept in [`research/engine.md`](research/engine.md) so it is not derived a third
+time. The line reads label, «(масштабируется)», number — as it did before any of
+this.
+
+**Known gap, not yet work: English.** The added lines are Russian only. An
+English game finds no `SVX_*` keys and renders the two new blocks as raw keys —
+the same fault this mod fixes for Glorp UI, pointing the other way. It is a
+change to the generator (fourteen category nouns and two block titles), not to
+the files.
 
 **`auto_build_ru/` — done, confirmed working in game.** Russian for Advanced Auto
 Build, which ships English and Chinese only and so rendered as raw keys in a
