@@ -645,7 +645,8 @@ in front of it 76 times in its own `common/`.
 
 **And the rule went into the checker.** `check_gate_scopes` in
 `mods/glorpui_hints/tools/generate.py` reads **Supported Scopes** out of the
-engine's own `docs/triggers.log` and reports any trigger called in country scope
+engine's own trigger dump (`reference/game/docs/triggers.log`) and reports
+any trigger called in country scope
 that the engine does not allow there. It follows only the outer scope — a nested
 `capital = { ... }` is a different scope and is left alone, which is precisely
 what the repair is. Checked both ways: it catches the old line and passes the
