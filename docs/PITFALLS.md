@@ -108,6 +108,25 @@ repair: the *nearest* defined key is not always the intended one, and four of
 the thirteen references it finds are cultures whose neighbour is a different
 people (Even and Evenk, Halkomelem and Halkomelemt, Lalagir and Lalagyr).
 
+**A generated localization file can be generated wrong, and look right.** All
+1755 `*_culture_tt` keys in the game's Russian
+`EU5_customizable_localization_ru_culrel_l_russian.yml` hold a bare number that
+is exactly the key's own line number minus two — every one of them — and they
+are used where a culture key belongs, `#TOOLTIP:CULTURE,$X_culture_tt$,`. The
+culture name renders perfectly; only the hover target is a line number. The tell
+was not the text but the *shape* of the values: when a whole family of keys
+holds numbers, check them against the line they sit on before assuming the
+engine wants a number.
+
+**A "broken" key can be a key nothing can call.** Three of the culture
+references `missing_ref` found are declensions for `even_culture`,
+`halkomelemt_culture` and `lalagyr_culture` — cultures the game does not have,
+though `evenk_`, `halkomelem_` and `lalagir_` all exist. Unreachable, harmless,
+and repairing them by pointing at the near neighbour would have put the Evenk
+tooltip on the Even culture. Before repairing a dangling reference, check
+whether the thing it belongs to exists at all: `reference/game/in_game/common/`
+answers it, and a dead key is cheaper left alone than fixed wrong.
+
 **A checker that silently reads less than it thinks is worse than no checker.**
 `locscan.py`'s key regex required the line to end at the closing quote, so
 `hre_tt: "0" #True` — a key with a comment after it — was not a key as far as

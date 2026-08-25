@@ -52,8 +52,12 @@ def manifest() -> dict[str, str]:
     return wanted
 
 
-# Any file under here mentioning this comes along whatever its folder is called.
-SWEEP_ROOT = "in_game/common"
+# Any .txt under the whole install mentioning this comes along, whatever folder
+# it is in. The sweep used to cover `in_game/common/` alone, which is where a
+# mod's `common/` lives — but the game puts some of its own data elsewhere
+# (`loading_screen/common/defines/` is the known case), and `static_modifiers`
+# turned out to be one of those: 298 of the societal value pushes, absent from
+# the first extraction and missed by a sweep that never left `in_game/`.
 SWEEP_MARKER = "monthly_towards_"
 
 # Where the game usually is, per platform. First one that exists wins.
@@ -113,11 +117,23 @@ def copy_tree(source: Path, target: Path) -> tuple[int, int]:
     return files, size
 
 
+def elsewhere(game: Path, relative: str) -> Path | None:
+    """The directory `relative` names, wherever in the install it actually is.
+
+    Paradox moves a folder between mounts — `static_modifiers` is not under
+    `in_game/` at all — so a manifest entry that misses at its written path gets
+    one search by name before it is called missing.
+    """
+    name = relative.rsplit("/", 1)[-1]
+    for candidate in sorted(game.rglob(name)):
+        if candidate.is_dir():
+            return candidate
+    return None
+
+
 def sweep(game: Path, out: Path, already: set[Path]) -> list[tuple[str, int]]:
-    """Files under `in_game/common/` that mention the marker, folder be damned."""
-    root = game / SWEEP_ROOT
-    if not root.is_dir():
-        return []
+    """Every .txt in the install that mentions the marker, folder be damned."""
+    root = game
     found: dict[str, int] = {}
     for path in sorted(root.rglob("*.txt")):
         if not path.is_file() or path in already:
@@ -169,15 +185,21 @@ def main(argv: list[str]) -> int:
     copied: set[Path] = set()
     for relative, reason in manifest().items():
         source = game / relative
+        found_at = relative
         if not source.is_dir():
-            missing.append("%-46s %s" % (relative, reason))
-            continue
-        files, size = copy_tree(source, out / relative)
+            moved = elsewhere(game, relative)
+            if moved is None:
+                missing.append("%-46s %s" % (relative, reason))
+                continue
+            source = moved
+            found_at = str(moved.relative_to(game)).replace(os.sep, "/")
+        files, size = copy_tree(source, out / found_at)
         copied.update(p for p in source.rglob("*") if p.is_file())
         total_files += files
         total_size += size
-        print("  %-46s %4d file%s %9s"
-              % (relative, files, " " if files == 1 else "s", human(size)))
+        note = "" if found_at == relative else "   <- found at %s" % found_at
+        print("  %-46s %4d file%s %9s%s"
+              % (relative, files, " " if files == 1 else "s", human(size), note))
 
     if not args.no_sweep:
         extra = sweep(game, out, copied)

@@ -12,8 +12,10 @@
     and its Python twin (tools/extract_game_files.py) both read it, so the list
     cannot drift between them.
 
-    On top of the list it sweeps in_game/common/ for any file mentioning
-    'monthly_towards_', so a directory Paradox renames comes along anyway.
+    A directory that is not where the manifest says gets one search by name
+    across the whole install before it is called missing - static_modifiers is
+    not under in_game/ at all. On top of that, every .txt in the install that
+    mentions 'monthly_towards_' comes along regardless of its folder.
 
     Existing files are overwritten with the copy from the install - that is what
     a refresh is - and nothing is deleted. git is the undo: run git status
@@ -48,7 +50,9 @@ $manifestFile = Join-Path $toolsDir 'game_files_manifest.txt'
 
 if (-not $Out) { $Out = Join-Path $repoDir 'reference\game' }
 
-$sweepRoot   = 'in_game\common'
+# The sweep covers the whole install, not in_game\common alone: the game puts
+# some of its own data on other mounts, and static_modifiers - 298 of the
+# societal value pushes - is one of those.
 $sweepMarker = 'monthly_towards_'
 
 # ---------------------------------------------------------------- find the game
@@ -133,17 +137,28 @@ $missing    = @()
 $copiedPaths = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
 
 foreach ($relative in $wanted.Keys) {
-    $source = Join-Path $gameRoot $relative
+    $source  = Join-Path $gameRoot $relative
+    $foundAt = $relative
+
     if (-not (Test-Path $source -PathType Container)) {
-        $missing += ('{0,-46} {1}' -f $relative, $wanted[$relative])
-        continue
+        # Not where the manifest says. Look for a directory of that name
+        # anywhere in the install before calling it missing.
+        $leaf  = Split-Path -Leaf $relative
+        $moved = Get-ChildItem -LiteralPath $gameRoot -Recurse -Directory -Filter $leaf -ErrorAction SilentlyContinue |
+                 Select-Object -First 1
+        if (-not $moved) {
+            $missing += ('{0,-46} {1}' -f $relative, $wanted[$relative])
+            continue
+        }
+        $source  = $moved.FullName
+        $foundAt = $moved.FullName.Substring($gameRoot.Length).TrimStart('\')
     }
 
     $files = @(Get-ChildItem -LiteralPath $source -Recurse -File)
     $bytes = 0.0
     foreach ($file in $files) {
         $tail        = $file.FullName.Substring($source.Length).TrimStart('\')
-        $destination = Join-Path (Join-Path $outRoot $relative) $tail
+        $destination = Join-Path (Join-Path $outRoot $foundAt) $tail
         $parent      = Split-Path -Parent $destination
         if (-not (Test-Path $parent)) { New-Item -ItemType Directory -Force -Path $parent | Out-Null }
         Copy-Item -LiteralPath $file.FullName -Destination $destination -Force
@@ -154,15 +169,17 @@ foreach ($relative in $wanted.Keys) {
     $totalFiles += $files.Count
     $totalBytes += $bytes
     $word = if ($files.Count -eq 1) { 'file ' } else { 'files' }
-    Write-Host ('  {0,-46} {1,4} {2} {3,9}' -f $relative, $files.Count, $word, (Format-Size $bytes))
+    $note = if ($foundAt -eq $relative) { '' } else { "   <- found at $foundAt" }
+    Write-Host ('  {0,-46} {1,4} {2} {3,9}{4}' -f $relative, $files.Count, $word, (Format-Size $bytes), $note)
 }
 
 # ------------------------------------------------------- the sweep, by content
 
-$sweepDir = Join-Path $gameRoot $sweepRoot
-if (Test-Path $sweepDir -PathType Container) {
+if (Test-Path $gameRoot -PathType Container) {
+    Write-Host ''
+    Write-Host 'sweeping the install for files that mention the marker...'
     $extra = [ordered]@{}
-    foreach ($file in Get-ChildItem -LiteralPath $sweepDir -Recurse -File -Filter '*.txt') {
+    foreach ($file in Get-ChildItem -LiteralPath $gameRoot -Recurse -File -Filter '*.txt' -ErrorAction SilentlyContinue) {
         if ($copiedPaths.Contains($file.FullName)) { continue }
         $hit = Select-String -LiteralPath $file.FullName -Pattern $sweepMarker -SimpleMatch -List -ErrorAction SilentlyContinue
         if (-not $hit) { continue }
@@ -174,7 +191,7 @@ if (Test-Path $sweepDir -PathType Container) {
         Copy-Item -LiteralPath $file.FullName -Destination $destination -Force
 
         $folder = Split-Path -Parent $relativeFile
-        if (-not $folder) { $folder = $sweepRoot }
+        if (-not $folder) { $folder = '(top level)' }
         if ($extra.Contains($folder)) { $extra[$folder] += 1 } else { $extra[$folder] = 1 }
         $totalFiles += 1
         $totalBytes += $file.Length

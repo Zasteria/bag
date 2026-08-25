@@ -76,12 +76,39 @@ nor logs — the engine prints the name, in capitals, inside the sentence. The
 societal value tooltip read «Дальше продвинуться в сторону
 *SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:» because the game defines seven declension
 helpers as `SOCIETALVALUE_*` and references all seven as `SOCIEALVALUE_*`. The
-new hard rule `missing_ref` finds **49 keys in thirteen references**; 45 are
-repaired and 4 refused. The refused four are cultures whose nearest defined key
-belongs to a different people — Even and Evenk, Halkomelem and Halkomelemt,
-Lalagir and Lalagyr are each two real cultures, and `country_history_CSU` wants
-an `inca_culture_tt` that exists in no language. Repairing those needs the game's
-culture list, which is not in `reference/`.
+new hard rule `missing_ref` finds **49 keys in thirteen references**; 46 are
+repaired and 3 are deliberately not.
+
+**Confirmed on screen 2026-08-25** — the owner reports the tooltip reads
+correctly now. That settles the class and not just the key: a `$NAME$` naming no
+key does print the name, and repairing the reference does fix it.
+
+**The culture list arrived and settled the last four.** `common/cultures/`
+defines 1751 cultures. `inca_culture` is not one of them and `inka_culture` is —
+a c for a k — so `country_history_CSU`, which is Cusco's country history and does
+render, is repaired. The other three are declensions for `even_culture`,
+`halkomelemt_culture` and `lalagyr_culture`, none of which the game has: nothing
+can ask for the declension of a culture that does not exist, so those keys are
+unreachable and stay as they are. Pointing them at the neighbour would be worse
+than leaving them — Even and Evenk are two different peoples. The reasoning sits
+in `fixes/observed.txt` so it is not derived a second time.
+
+**And a bigger thing the culture list exposed — unfixed, and unmeasured on
+purpose.** All **1755** `*_culture_tt` keys in
+`EU5_customizable_localization_ru_culrel_l_russian.yml` hold a bare number, and
+that number is exactly the key's own line number minus two, for all 1755 with no
+exceptions. They are used as `#TOOLTIP:CULTURE,$X_culture_tt$,` — where a culture
+key belongs. So every culture tooltip in the Russian localization is handed a
+line number, because whoever generated that file wrote line numbers into the
+tooltip targets.
+
+None of that shows in the text: the culture name renders, only the hover target
+is wrong, and a wrong tooltip target is the quiet kind of failure. **It has not
+been seen failing in game and should not be repaired before it has** — 1755 keys
+is too large a change to make on inference. The check is one hover: point at a
+culture name and see whether a tooltip appears. If it does not, the repair is
+mechanical and now possible, because 1751 of the 1755 prefixes are real culture
+ids and `X_culture_tt` should hold `X_culture`.
 
 **And the rule found a hole in the checker.** `locscan.py`'s key regex required a
 line to end at the closing quote, so a key with a trailing comment —

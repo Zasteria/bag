@@ -377,6 +377,39 @@ know the fix did not disturb them.
 **Untested:** all 45 repairs. Any run checks them — the three keys above are on
 the societal value tooltip, which is one hover away.
 
+### 2026-08-25 — `ru_loc_fix` round three, and the game files arrived
+
+**Loaded:** the playset with `ru_loc_fix` at 207 keys.
+**Expected:** the three raw keys on the societal value tooltip to become words.
+**Observed:** they did. The owner: "проверил, что ценности теперь отображаются
+правильно".
+**Verdict:** **round three confirmed.** `$SOCIEALVALUE_*$` was the fault and the
+rewrite to `$SOCIETALVALUE_*$` is the repair, on screen. That also settles the
+class: a `$NAME$` naming no key really does print the name, and repairing the
+reference really does fix it — which is what makes the other 21 repairs
+(`protestant_union.tt`, `catholic_league.tt`, `pirate_events.2.a`) worth
+believing without seeing each one.
+
+**And the game files came in**, by `tools/extract_game_files.ps1` on the owner's
+Windows box — 597 files, `in_game/common/` up from seven directories to
+thirty one. The PowerShell script had never been run when it was written; it
+works.
+
+**What the extraction missed, and it matters:** `static_modifiers` — 298 of the
+1405 societal value pushes, and the whole "scaling" half of `glorpui_hints`
+(fort maintenance, army size, at war, defender in war). The scan of what did
+arrive finds **1128 pushes across 22 source types**; the missing 298 are all
+that folder. It is not under `in_game/` at all, and the first sweep only looked
+there. Both scripts now search the whole install for a manifest directory that
+is not where it says, and sweep every `.txt` in the install rather than one
+mount — so re-running brings it. `modifier_type_definitions` is missing for the
+same reason.
+
+**Still untested:** nothing about `glorpui_hints` changed in this round, so its
+extra hint lists are still the ones built before any of this. Rebuilding them
+against the arrived files is the next thing, and it needs `static_modifiers`
+first.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

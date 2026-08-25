@@ -538,3 +538,8 @@ key: flavor_swe_teu.4.a
 why: the whole value is one reference, to `pirate_events.1.a`, which does not exist; the English key of the same name references `pirate_events.2.a`, which does.
 from: $pirate_events.1.a$
 to: $pirate_events.2.a$
+
+key: country_history_CSU
+why: the Inca culture is `inka_culture`, with a k — `reference/game/in_game/common/cultures/` has `inka_culture` and no `inca_culture`. The key is Cusco's country history and it renders; the tooltip target was the only broken part.
+from: $inca_culture_tt$
+to: $inka_culture_tt$
