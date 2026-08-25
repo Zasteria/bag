@@ -1,0 +1,22 @@
+# The workshop items this repository keeps a copy of, and who needs each one.
+#
+# Read by tools/workshop.py and by tools/sync_workshop.ps1, so adding a mod here
+# adds it to both: the update check that runs on GitHub, and the one command the
+# owner runs on the machine that has Steam.
+#
+# One item per line: <workshop id> <key> # why it is here. The key is what
+# tools/refs.py calls the mod (refs.KNOWN), which is how the local copy is found
+# whatever the folder ended up being called. A line starting with # is a note.
+#
+# The workshop id is the number in the item's URL —
+# steamcommunity.com/sharedfiles/filedetails/?id=<this> — and the same number
+# Steam uses for the folder under steamapps/workshop/content/3450310/.
+#
+# Adding one is enough: nothing else has to be told. Removing one stops the
+# check without touching the copy already in reference/.
+
+3692202776  cmf                   # every mod here calls CMF's macros; a changed argument breaks them silently
+3736668860  construction_manager  # the working reference for CMM lists, and the heaviest scripted GUI in the playset
+3601047146  glorp_ui              # glorpui_hints is an addon to it and copies its keys
+3668193813  national_destinies    # nd_ru translates it; its English file moving is what breaks the generator
+3781437488  auto_build            # auto_build_ru translates it

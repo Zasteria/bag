@@ -21,6 +21,11 @@ briefing=$(
     echo
     python3 tools/check_docs.py --quiet 2>&1
     echo
+    # Whether the workshop has moved under the reference copies. Needs the
+    # network, so it is given a short leash and allowed to say nothing: a
+    # session that cannot reach Steam is not a session that should stall here.
+    timeout 20 python3 tools/workshop.py status --quiet 2>/dev/null
+    echo
     echo "Reminders that cost a round trip when forgotten:"
     echo "  - Only the player can run the game. Nothing here can be tested from a session."
     echo "  - Build the smallest thing that shows a signal, then ask for a run."

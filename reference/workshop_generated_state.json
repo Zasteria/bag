@@ -1,0 +1,62 @@
+{
+ "_written_by": "tools/workshop.py — do not edit by hand",
+ "app_id": "3450310",
+ "mods": {
+  "3601047146": {
+   "basis": "committed_after",
+   "file_size": "9077444",
+   "folder": "3601047146_glorp_ui",
+   "hcontent_file": "4269972745836792774",
+   "key": "glorp_ui",
+   "mod_id": "glorp.ui",
+   "time_updated": 1786391217,
+   "title": "Glorp UI",
+   "version": "10.08.26"
+  },
+  "3668193813": {
+   "basis": "behind",
+   "file_size": "102163730",
+   "folder": "National Destinies - Formables Content1.3.7",
+   "hcontent_file": "145634670643705015",
+   "key": "national_destinies",
+   "mod_id": "trin.national_destinies",
+   "time_updated": 1787669939,
+   "title": "National Destinies - Formables Content",
+   "version": "1.3.7"
+  },
+  "3692202776": {
+   "basis": "committed_after",
+   "file_size": "5784579",
+   "folder": "3692202776_community_mod_framework",
+   "hcontent_file": "519292452694353286",
+   "key": "cmf",
+   "mod_id": "community_mod_framework",
+   "time_updated": 1787103629,
+   "title": "Community Mod Framework - 1.3 Pavia",
+   "version": "2.4.1"
+  },
+  "3736668860": {
+   "basis": "committed_after",
+   "file_size": "3224869",
+   "folder": "3736668860_construction_manager",
+   "hcontent_file": "5022825315062431490",
+   "key": "construction_manager",
+   "mod_id": "romaimperator.construction_manager",
+   "time_updated": 1787000950,
+   "title": "[1.3 & 1.2] Construction Manager",
+   "version": "2.2.12"
+  },
+  "3781437488": {
+   "basis": "behind",
+   "file_size": "18452309",
+   "folder": "3781437488_Auto build by Lincoln Guang",
+   "hcontent_file": "8113132233502793417",
+   "key": "auto_build",
+   "mod_id": "eu5ab_regional_development",
+   "time_updated": 1787656407,
+   "title": "EU5 Advanced Auto Build",
+   "version": "0.9.2 Beta"
+  }
+ },
+ "recorded": "2026-08-25 16:51"
+}
