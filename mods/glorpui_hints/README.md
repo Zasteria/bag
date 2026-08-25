@@ -235,10 +235,13 @@ employment_systems/  cabinet_actions/  international_organizations/  missions/
 script_values/                for `societal_value_monthly_move` and its siblings
 ```
 
-`python3 tools/extract_game_files.py` copies exactly that list out of an EU5
-install into a folder shaped like `reference/game/`, ready to be dropped on top
-of it. On top of the list it sweeps `in_game/common/` for any file mentioning
-`monthly_towards_`, so a directory Paradox renames comes along anyway.
+`tools/extract_game_files.ps1` copies exactly that list out of an EU5 install
+straight into `reference/game/` — run it on the machine that has the game, then
+commit what appears. `tools/extract_game_files.py` is the same thing where
+Python is easier to reach. Both read `tools/game_files_manifest.txt`, so the
+list cannot drift between them, and both sweep `in_game/common/` for any file
+mentioning `monthly_towards_` so that a directory Paradox renames comes along
+anyway.
 
 Until those arrive the generated files are frozen at whatever game version they
 were built against, and a patch that adds or renames a source is invisible here.

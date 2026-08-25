@@ -10,14 +10,16 @@ top of it.
 
     python3 tools/extract_game_files.py
     python3 tools/extract_game_files.py --game "D:/Steam/steamapps/common/Europa Universalis V"
-    python3 tools/extract_game_files.py --out C:/Users/me/eu5_extract
+    python3 tools/extract_game_files.py --out /somewhere/else
 
-Without `--game` it looks in the usual Steam locations for this platform. The
-output is a folder shaped exactly like `reference/game/`; copy its contents over
-`reference/game/` in a checkout, `git add`, and push.
+There is a PowerShell twin, `tools/extract_game_files.ps1`, for the machine that
+has the game on it. The two do the same thing; use whichever runs.
 
-Nothing is overwritten in place and nothing is deleted: the script only reads
-the install and writes the output folder.
+Without `--game` it looks in the usual Steam locations for this platform.
+Without `--out` it writes straight into this repository's `reference/game/`,
+which is where the files are wanted — so the next step is `git status`, not a
+copy. Existing files are overwritten with the newer copy from the install, which
+is the point of a refresh; nothing is deleted, and `git` is the undo.
 
 What it takes, and why, is the manifest below. Every entry names the tool that
 wants it, so an entry with no reason left can be dropped. On top of the
@@ -34,39 +36,21 @@ import shutil
 import sys
 from pathlib import Path
 
-# Directory under the game root -> what needs it. Missing ones are reported,
-# not fatal: Paradox renames folders, and the sweep below catches the important
-# case anyway.
-MANIFEST = {
-    # mods/glorpui_hints — the axis list, without which nothing can be built
-    "in_game/common/societal_values":
-        "glorpui_hints: the 34 axis pairs",
-    "in_game/common/modifier_type_definitions":
-        "glorpui_hints: which modifiers are societal value changes",
-    # mods/glorpui_hints — where the pushes come from
-    "in_game/common/laws": "glorpui_hints: 442 pushes",
-    "in_game/common/static_modifiers": "glorpui_hints: 298 pushes, the scaling ones",
-    "in_game/common/government_reforms": "glorpui_hints: 235 pushes",
-    "in_game/common/estate_privileges": "glorpui_hints: 150 pushes",
-    "in_game/common/auto_modifiers": "glorpui_hints: 87 pushes",
-    "in_game/common/religious_aspects": "glorpui_hints: 60 pushes, and their gates",
-    "in_game/common/parliament_issues": "glorpui_hints: 24 pushes, and their gates",
-    "in_game/common/employment_systems": "glorpui_hints: 9 pushes, mutually exclusive",
-    "in_game/common/chivalric_orders": "glorpui_hints: 8 pushes, and their gates",
-    "in_game/common/subject_types": "glorpui_hints: 6 pushes, and their gates",
-    "in_game/common/international_organizations": "glorpui_hints: 5 pushes",
-    "in_game/common/estates": "glorpui_hints: 5 pushes, and their gates",
-    "in_game/common/cabinet_actions": "glorpui_hints: 5 pushes",
-    "in_game/common/religious_schools": "glorpui_hints: 4 pushes, and their gates",
-    "in_game/common/missions": "glorpui_hints: 4 pushes",
-    "in_game/common/advances": "glorpui_hints: 2 pushes",
-    "in_game/common/parliament_types": "glorpui_hints: 1 push",
-    "in_game/common/traits": "glorpui_hints: scanned, currently not listed",
-    "in_game/common/regencies": "glorpui_hints: scanned, currently not listed",
-    "in_game/common/disasters": "glorpui_hints: scanned, currently not listed",
-    "in_game/common/script_values":
-        "glorpui_hints: societal_value_monthly_move and its siblings",
-}
+# The list of directories lives in a file both this and the PowerShell twin
+# read, so adding one adds it to both.
+MANIFEST_FILE = Path(__file__).resolve().parent / "game_files_manifest.txt"
+
+
+def manifest() -> dict[str, str]:
+    """Directory under the game root -> what needs it."""
+    wanted: dict[str, str] = {}
+    for line in MANIFEST_FILE.read_text(encoding="utf-8").splitlines():
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        path, _, reason = line.partition("#")
+        wanted[path.strip()] = reason.strip()
+    return wanted
+
 
 # Any file under here mentioning this comes along whatever its folder is called.
 SWEEP_ROOT = "in_game/common"
@@ -166,27 +150,24 @@ def main(argv: list[str]) -> int:
         description="Copy the game directories this repository needs into one "
                     "folder shaped like reference/game/.")
     parser.add_argument("--game", help="the Europa Universalis V install folder")
-    parser.add_argument("--out", default="eu5_extract",
-                        help="where to write it (default: ./eu5_extract)")
+    parser.add_argument("--out", type=Path,
+                        help="where to write it (default: this repository's "
+                             "reference/game/)")
     parser.add_argument("--no-sweep", action="store_true",
                         help="skip the content sweep for renamed folders")
     args = parser.parse_args(argv[1:])
 
     game = find_game(args.game)
-    out = Path(args.out).expanduser().resolve()
+    out = (args.out.expanduser() if args.out
+           else Path(__file__).resolve().parent.parent / "reference/game").resolve()
     print("game:   %s" % game)
     print("out:    %s" % out)
     print()
 
-    if out.exists() and any(out.iterdir()):
-        print("%s already has something in it. Delete it or pass a different "
-              "--out; this script will not merge into it." % out, file=sys.stderr)
-        return 2
-
     total_files = total_size = 0
     missing: list[str] = []
     copied: set[Path] = set()
-    for relative, reason in MANIFEST.items():
+    for relative, reason in manifest().items():
         source = game / relative
         if not source.is_dir():
             missing.append("%-46s %s" % (relative, reason))
@@ -216,9 +197,9 @@ def main(argv: list[str]) -> int:
               "matters and is missing from both is worth saying so.")
 
     print("\n%d files, %s." % (total_files, human(total_size)))
-    print("\nNext: copy the *contents* of\n  %s\non top of `reference/game/` in "
-          "a checkout of this repository, then\n"
-          "  git add reference/game && git commit && git push" % out)
+    print("\nNext:\n  git status          # what the install brought\n"
+          "  git add reference/game && git commit -m \"reference: game files\" "
+          "&& git push")
     return 0
 
 
