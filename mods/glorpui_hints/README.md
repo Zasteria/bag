@@ -84,14 +84,18 @@ four parliament issues about building forts. The employment example lands too:
 
 138 of the lines are wrapped in `customizable_localization` with a trigger and
 disappear when the country cannot have the thing, and 78 more are listed under
-«Станет доступно при условиях» instead:
+«Станет доступно при условиях» instead. By category: religious aspects 120,
+parliament issues 24, international organizations 24, buildings and religious
+schools and subject types and chivalric orders and cabinet actions 65 between
+them, employment systems 9, estates 5, missions 4, parliament types 2.
 
 | Category | Gate |
 | --- | --- |
-| Religious aspects | `OR = { country_religion = religion:X ... }` + `NOT = { has_religious_aspect = ... }` |
+| Religious aspects | `OR = { religion = religion:X ... }` + `NOT = { has_religious_aspect = ... }` |
 | Religious schools | the object's own `enabled_for_country` block, copied verbatim |
 | Estates | `country_has_estate = estate_type:X` |
-| Parliament issues | `has_parliament = yes` |
+| Parliament issues | `has_parliament = yes` + the estate that raises it + the issue's own `potential` and `allow` |
+| Cabinet actions | the action's own `potential` and `allow` blocks, verbatim |
 | Subject types | `is_subject_type = X` |
 | Chivalric orders | `has_chivalric_order = yes` |
 | Buildings | the object's own `country_potential` and `allow` blocks, verbatim |
@@ -140,6 +144,26 @@ the game's own answer rather than by a guess:
   `international_organization_type`, which is asked of an organization and not
   of a country, so those are left ungated rather than copied into the wrong
   scope.
+
+**Cabinet actions and parliament issues came back from the first run still
+unfiltered**, and both were the same oversight: the object carries its own
+`potential`, and the mod was not reading it.
+
+- *Дикастерия по евангелизации* and *Влияние Строгановых* were on screen for a
+  Catholic German county. They are `office_of_new_converts`, whose `potential`
+  wants a location modifier on Kazan, and `stroganov_influences`, whose
+  `potential` wants the Stroganov variable. All eight cabinet actions that push
+  a societal value carry a `potential`.
+- All four *Поддержка строительства …* parliament issues showed at once, when
+  only one can ever be valid: `promote_castle_building` requires
+  `has_advance = castle_advance` and forbids bastions, star forts and
+  fortresses; the other three say the same thing one rung up. `has_parliament =
+  yes` could not know that. The issue's `estate` goes in too, because an issue
+  is raised by an estate and a country without that estate never sees it.
+
+Copying `potential` verbatim also drops the two issues that carry
+`potential = { always = no }` under a comment saying they are driven by events —
+which is right, they are not something a country can be offered.
 
 Nothing is left ungated now except what a trigger cannot reach.
 
@@ -296,11 +320,14 @@ renames comes along regardless.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The availability gates added 2026-08-25** — international organizations,
-  missions, parliament types, and the 492 religious aspect lines whose gate was
-  repaired. What to look for: the Italian and foreign leagues gone unless you
-  can join one, missions gone in a game with missions switched off, and the
-  religious aspect lines *appearing*, which they never did before.
+- **The cabinet action and parliament issue gates.** What to look for:
+  *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
+  *Поддержка строительства …* line instead of four.
+- **The religious aspect gate.** The organizations and missions gates are
+  confirmed on screen; this one is not, because the owner plays Catholic, where
+  aspects are set by the Papacy rather than chosen. It needs a run as a religion
+  that picks its own — Lutheran, for instance. Until then the `country_religion`
+  repair is reasoned, not seen.
 - **English.** Out of scope by the owner's decision unless the mod is ever
   published. The added lines are Russian only, so an English game finds no
   `SVX_*` keys and renders the new blocks as raw keys. Fixing it is a change to

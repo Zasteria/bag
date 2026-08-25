@@ -221,7 +221,36 @@ def gate_for(source_type, key, objects, extra=None):
         return {"reach": lines, "now": lines}
 
     if source_type == "parliament_issues":
-        return {"reach": ["has_parliament = yes"], "now": ["has_parliament = yes"]}
+        # A parliament to raise it in, the estate that raises it, and the
+        # issue's own blocks. `has_parliament = yes` alone left four "support
+        # building X forts" issues on screen at once when only one can ever be
+        # valid: each names its advance and forbids the better ones, in `allow`.
+        #
+        # Two issues carry `potential = { always = no }` with a comment saying
+        # they are driven by events. Copying `potential` verbatim drops them,
+        # which is right — they are not something a country can be offered.
+        lines = ["has_parliament = yes"]
+        estate = re.search(r"^\testate\s*=\s*(\w+)", body, re.M)
+        if estate:
+            lines.append("country_has_estate = estate_type:%s" % estate.group(1))
+        for name in ("potential", "allow"):
+            block = sub_block(body, name)
+            if block and not _needs_a_scope(block):
+                lines.append(" ".join(block.split()))
+        return {"reach": lines, "now": lines}
+
+    if source_type == "cabinet_actions":
+        # The same shape again: the action's own `potential` and `allow`.
+        # `potential` is where the national ones live — `office_of_new_converts`
+        # wants a modifier on Kazan, `stroganov_influences` wants the Stroganov
+        # variable — and both were on screen for a Catholic German county until
+        # this was written.
+        lines = []
+        for name in ("potential", "allow"):
+            block = sub_block(body, name)
+            if block and not _needs_a_scope(block):
+                lines.append(" ".join(block.split()))
+        return {"reach": lines, "now": lines}
 
     if source_type == "subject_types":
         lines = ["is_subject_type = %s" % key]

@@ -218,8 +218,22 @@ with missions switched off. All three were the ungated categories, and all three
 turned out to have an answer in the game's own vocabulary rather than needing
 one invented — `can_join_international_organization` from the engine dump,
 `game_has_missions_enabled` from the game's own scripted triggers, and
-`potential`/`allow` copied verbatim for parliament types. Gated lines went from
-138 to **167**. The mod's README has the table.
+`potential`/`allow` copied verbatim for parliament types. Confirmed on screen the
+same evening: the leagues and the missions are gone.
+
+**A second round followed from the same run.** Cabinet actions and parliament
+issues came back still unfiltered, and both were the same oversight — the object
+carries its own `potential` and the mod was not reading it. `office_of_new_converts`
+wants a location modifier on Kazan; `promote_castle_building` requires the castle
+advance and forbids the better ones, which is why all four fort-support issues
+showed at once. Both take `potential` + `allow` verbatim now, and a parliament
+issue also takes the estate that raises it. Gated lines went 138 → 167 → **175**.
+The mod's README has the table.
+
+**One gate is still unseen.** The religious aspect repair cannot be checked by
+this owner: he plays Catholic, where aspects are set by the Papacy rather than
+chosen, so there is nothing for the gate to show either way. It needs a run as a
+religion that picks its own aspects.
 
 **That work found a live bug that had been shipping.** 492 religious aspect
 lines were gated on `country_religion`, a trigger that does not exist anywhere —

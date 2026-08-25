@@ -65,6 +65,7 @@ SOURCE_DIRS = {
     "building_types": "in_game/common/building_types",
     "missions": "in_game/common/missions",
     "parliament_types": "in_game/common/parliament_types",
+    "cabinet_actions": "in_game/common/cabinet_actions",
     "religious_aspects": "in_game/common/religious_aspects",
     "religious_schools": "in_game/common/religious_schools",
     "estates": "in_game/common/estates",

@@ -463,6 +463,49 @@ published: "английским языком заниматься не план
 появится желание выложить этот мод в общий доступ." The gap stays recorded in
 the mod's README; it is not work.
 
+### 2026-08-25 — the availability gates, first round
+
+**Loaded:** `glorpui_hints` with the four new gate kinds, on the owner's own
+save (a Catholic German county).
+**Expected:** organizations he cannot join and missions in a missions-off game
+to disappear; religious aspect lines to start appearing.
+**Observed:** "итальянские лиги пропали, миссии тоже". Both confirmed.
+**Verdict:** `can_join_international_organization` and
+`game_has_missions_enabled` both work as gates in a country scoped
+customizable localization. That is the mechanism proven, not just these two
+categories.
+
+**Religious aspects: still unknown, and not his fault.** He plays Catholic,
+where aspects are set by the Papacy rather than chosen, so the repaired
+`religion = religion:X` gate has nothing to show him either way. It needs a run
+as a religion that picks its own aspects — Lutheran was his example. Until then
+the `country_religion` repair is reasoned, not seen.
+
+**Two things still not filtered, both reported from the screen:**
+
+- **Cabinet actions.** *Дикастерия по евангелизации* and *Влияние Строгановых*
+  were on screen for a Catholic German county. They are `office_of_new_converts`
+  (`potential` wants a modifier on Kazan) and `stroganov_influences` (`potential`
+  wants the Stroganov variable) — national, and both carry a `potential` block
+  this mod was not reading. All eight cabinet actions that push have one.
+- **Parliament issues.** All four *Поддержка строительства …* lines showed at
+  once when only one can ever be valid: `promote_castle_building` requires
+  `has_advance = castle_advance` and forbids the better advances, and the other
+  three do the same one rung up. The gate was `has_parliament = yes` and nothing
+  else.
+
+Both are fixed in the same session: cabinet actions take `potential` + `allow`
+verbatim, parliament issues take `has_parliament = yes` plus the estate that
+raises the issue plus `potential` + `allow`. Gated lines 167 → **175**.
+
+**A bonus the verbatim copy brings:** two parliament issues carry
+`potential = { always = no }` with a comment saying they are event-driven.
+Copying `potential` drops them, which is right.
+
+**Untested:** the cabinet action and parliament issue gates. What to look for —
+*Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
+*Поддержка строительства …* line instead of four.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
