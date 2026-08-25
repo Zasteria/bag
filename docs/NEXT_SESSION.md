@@ -3,7 +3,7 @@
 This repository holds five mods, four documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
-## The one job
+## The job
 
 **Make Europa Universalis V stay playable for longer than an hour.**
 
@@ -12,6 +12,12 @@ quietly worse, and by the third or fourth the game is a slideshow — slow ticks
 freezes, the lot. Reloading fixes it. He wants that first hour to last four.
 
 Everything below serves that. If a task does not, it is not this session's.
+
+There are **two faults under that one complaint**, and they are not the same
+fault. The first grows over hours and a reload clears it — that is the widget
+leak, and it is the base game's. The second is there in the first minute, on a
+freshly loaded save, and it is the playset's. Keep them apart: a measurement of
+one says nothing about the other.
 
 ## What is already known — do not measure it again
 
@@ -33,6 +39,48 @@ The short version:
 Five evenings of the owner's time went into those. Asking for any of it again is
 the worst thing this session can do.
 
+## The second job, added 2026-08-25
+
+**Panels open with a hitch under the playset and instantly in vanilla — on a save
+loaded a minute ago.** That is a *different* fault from the one above: this one
+does not grow, does not need three hours, and reloading does not clear it. Do not
+merge the two in your head.
+
+It has been counted from the files, with no run spent — the section is
+[The second slowdown](HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute)
+and the tools are `python3 tools/guicost.py` and `python3 tools/playset.py`.
+
+**Know the size of what you can say.** The owner runs **22 workshop mods**;
+`reference/` has five. `playset.py` reads the mount table out of his `debug.log`
+and reports that **17 of the 22 mount `in_game`** — the only mount that can add a
+widget — and that at most 14 of those have never been looked at. Any sentence of
+the form "the playset does X" is a sentence about a quarter of the surface.
+**He does not run Advanced Auto Build**, whatever the 2026-08-24 log's mount of
+`3781437488` says; the first version of this section led with it and was wrong.
+
+What is actually established:
+
+- `GetScriptedGui('x')` in a `.gui` is a script trigger run from the interface.
+  Vanilla uses it **nine times** in 387 files. Of what is in `reference/` and
+  still in the playset, **Construction Manager is the heaviest at 344** — 491×
+  vanilla's density per widget;
+- **static widget counts lie about `datamodel` windows.** `cm_hidden_window`
+  declares 23 widgets and binds a datamodel over **every building type**, 465 of
+  them, with two more datamodels nested per row — permanently live, at
+  `position = { -10000 1 }`, with a comment saying it "keeps descendant
+  visibility gates re-evaluating each frame";
+- mods add **+42%** filter chips to the `building` tag, four of them ours, and
+  ours walk a province per building type;
+- **dead already:** Glorp's panels are lighter than vanilla's (0.78×), and no
+  mod's Russian localization has a single hard markup fault.
+
+**Ask for the bisect before anything else.** Seventeen mods halve in four or five
+loads of a minute each; same save, same three panels (country, diplomacy, a
+location's build panel). Try Construction Manager and `rgo_bonus_filter` first in
+case they save the bisect. If it lands on a mod nobody has seen, get its folder
+into `reference/mods/` and run `guicost.py` again. If it lands on nothing, the
+instrument is `ScriptProfilerEntry`.
+
 ## The live hypothesis
 
 **Hover.** Every brush of the cursor builds a tooltip, and the defines say it is
@@ -46,7 +94,9 @@ so the setting tests the mod before it is written.
 
 ## What to do, in order
 
-1. **Ask whether the run happened.** The protocol is written out in
+0. **Ask for the five-minute bisect** in the section above. It costs almost
+   nothing and it can close the second job outright.
+1. **Ask whether the hover run happened.** The protocol is written out in
    [`HANDOFF.md`](HANDOFF.md#the-run-that-decides-it): paused, two minutes of
    mouse-sweeping with no clicks, tooltip settings changed, the same two minutes
    again, then `performance_degradation.log`. Every branch of the result already

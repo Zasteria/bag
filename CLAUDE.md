@@ -122,6 +122,8 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
+| `guicost.py` | what the interface costs before anybody clicks: always-live windows, script calls from `.gui`, filter chips per tag |
+| `playset.py` | which mods the player actually runs, read out of the mount table in his own `debug.log` |
 
 `.claude/hooks/session-start.sh` runs the first two checkers at the start of
 every session and hands the result back as context, so a session begins knowing

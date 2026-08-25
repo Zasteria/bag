@@ -258,8 +258,9 @@ merely returns false logs nothing at all.
 
 `in_game/gui/scripted_widgets/*.txt` maps `<gui path> = <widget name>`, one per
 line, and the engine instantiates those widgets into the running interface. That
-is how a mod adds behaviour without copying a vanilla `.gui`. CMF registers four
-of them this way.
+is how a mod adds behaviour without copying a vanilla `.gui`. CMF registers
+twelve of them this way; `python3 tools/guicost.py --drivers` lists what every
+mod in the tree registers, so nothing here has to remember a count.
 
 Global view objects such as `LocationProductionView` stay readable from any
 widget, so a scripted widget can observe a panel it is not part of.
@@ -269,6 +270,47 @@ CMF's change detectors are the pattern to copy. `cmm_window_open_gate.gui` uses
 condition turns true and re-arms once it goes false again — no polling, and no
 `trigger_on_create` juggling. `cmf_country_transfer.gui` shows the older variant
 built on `GetVariableSystem` plus `TriggerAnimation`.
+
+**They never come down.** A scripted widget is registered for the session, not
+for as long as it is useful, and hiding it with `visible = no` hides a live
+widget tree whose `visible`, `enabled` and `datacontext` expressions are still
+asked every frame. So the cost of one is its whole subtree, paid from load,
+whether or not the player ever opens the mod. CMF's twelve come to 104 widgets
+and Construction Manager's three to 96 — probes, which is the size a scripted
+widget is meant to be. Advanced Auto Build registers seven whole windows,
+**14 125 widgets**, against a vanilla interface of about 27 800 in total.
+
+**`GetScriptedGui('x')` is the expensive expression.** It runs a script trigger
+from the interface, entering the script engine, and vanilla uses it **nine
+times** across 387 `.gui` files — it is not what the base game reaches for. A
+count in the thousands means a mod has moved its logic into the interface layer
+and is paying for it every frame the widget is alive.
+
+**An animation state that names itself as its own `next` is a timer.** Inside an
+always-live window that is a background worker with no off switch;
+`eu5ab_engine_queue_window` runs eight of them at 0.15 s, each walking a
+`datamodel` of locations × building types and calling
+`GetBuildOrExpandBuildingCost`, `GetBuildingTypeProfitInLocation` and
+`CanBuildOrExpandBuilding` per pair. The window keeps itself "visible" with
+`[EqualTo_CFixedPoint('(CFixedPoint)0', '(CFixedPoint)0')]` and parks at
+`position = { -10000 1 }` so it ticks offscreen.
+
+**A `datamodel` multiplies whatever is inside it, so a static widget count is
+not a cost.** `cm_hidden_window` declares twenty-three widgets and binds
+`datamodel = "[GetGlobalList('cm_building_types_to_process')]"`; what lives is
+that subtree once per building type, and there are 465. Two more datamodels nest
+inside each row, over the type's construction demand entries and its production
+methods. Whenever a number is meant to be about cost rather than about files,
+find what the window repeats over first.
+
+`python3 tools/guicost.py` counts all of it across the game and every mod in the
+tree, with `--drivers` for the always-live windows, their loop periods and the
+lists they repeat over. What it cannot know is which mods the player actually
+runs — `reference/` is not the playset, and `python3 tools/playset.py <logs>`
+reads the real one out of the mount table in his `debug.log`. It was
+written for the question *why does a panel open instantly in vanilla and with a
+hitch under the playset*; the answer it gives is in
+[`HANDOFF.md`](../HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute).
 
 ## Sorting
 
