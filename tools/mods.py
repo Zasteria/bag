@@ -1071,13 +1071,39 @@ def screen_publish() -> None:
     say()
     publish.main(["publish"])
     say()
-    say("Номер мода — подробности и текст для страницы, Enter — назад.")
+    say("Номер мода — подробности и текст для страницы,")
+    say("«к» + номер — сделать manager-config.json для загрузчика, Enter — назад.")
     for number, mod in enumerate(mods, 1):
         say("  %-3d %s" % (number, mod.path.name))
     answer = ask("> ").strip()
-    if answer.isdigit() and 1 <= int(answer) <= len(mods):
-        publish.main(["publish", mods[int(answer) - 1].path.name])
+
+    config = answer.lower().startswith(("к", "k"))
+    if config:
+        answer = answer[1:].strip()
+    if not (answer.isdigit() and 1 <= int(answer) <= len(mods)):
+        return
+    mod = mods[int(answer) - 1]
+
+    if not config:
+        publish.main(["publish", mod.path.name])
         ask("Enter — назад ")
+        return
+
+    # The uploader takes the *installed* copy, not this repository: the folder
+    # in the repository also holds tools/ and workshop/, which are not the mod.
+    target = game_mods_dir(configured)
+    if target is None or not (target / mod.path.name).is_dir():
+        say()
+        say("Сначала поставь мод в игру — пункт 4. Загружается именно та папка,")
+        say("а не эта: здесь рядом лежат tools/ и workshop/, они не часть мода.")
+        ask("Enter — назад ")
+        return
+    say()
+    say(publish.write_manager_config(mod.path, target / mod.path.name,
+                                     target / "manager-config.json"))
+    say("Открой его загрузчиком: https://github.com/kaiser-chris/pdx-workshop-manager")
+    say("Steam должен быть запущен и залогинен. Подробности — docs/WORKSHOP.md.")
+    ask("Enter — назад ")
 
 
 def menu(configured: dict) -> int:

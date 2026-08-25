@@ -11,47 +11,53 @@ things worth taking from the rival addon, and grew the tooling to publish it.
 None of that has been in game. So this session is two things and they are in
 this order:
 
-### 1. One run, and it settles four questions at once
+### 1. What the 2026-08-27 screenshots already settled
 
-Ask for it before anything else. It is one save, one societal value tooltip and
-one map mode panel — no protocol, no timing, nothing to sit through — and it is
-the whole risk of the rewrite:
+Do not ask for these again — they are in [`TESTLOG.md`](TESTLOG.md):
 
-- **hover any societal value.** The catalogue lines should now open with the
-  game's own word: «**Религиозная особенность** …», «**Улучшение** …»,
-  «**Тип ленника** …» where they used to say «Аспект веры», «Достижение», «Тип
-  вассала». **If the opening word is missing altogether**, `[religious_aspect|e]`
-  does not render inside a `TooltipScrolledStringPairList` label, 284 lines lost
-  it in all eleven languages, and `catalog` in
-  `mods/glorpui_hints/tools/languages.py` goes back to a literal noun per
-  language. That is the one change here that can go badly.
-- **the same tooltip, playing anyone but England, Morocco or the Ottomans**:
-  `Yeomanry`, `Jaysh Armies`, `Ghazi` and `Ayans` should not be offered at all.
-- **the map mode panel**: «Переключиться на режим «Средний контроль»» and
-  «Обновить среднюю досягаемость», not «…«Средняя»» and «Обновить Средняя
-  расстояние».
-- **`error.log` must not carry `svx_unlock_`**, and `debug.log`'s 725
-  `Missing loc key 'GLORP_UI_SVH_*'` lines should be gone.
+- **the category as a game concept renders**, in Russian and English, as an
+  encyclopedia link. That was the whole risk of the rewrite and it is closed;
+- **English works** — the block titles, the openers, all of it;
+- **the launcher has no upload button**, so the route is PDX Workshop Manager;
+- **a building's `allow` was being copied into country scope** and the engine
+  said so in one line of `error.log`. Fixed, and `check_gate_scopes` now catches
+  the whole class;
+- **`ru_loc_fix` round two is confirmed** from the same logs.
 
-**Write the result into [`TESTLOG.md`](TESTLOG.md) in the same session.**
+**The player switches language from the console on the fly.** That makes
+checking another language nearly free — but a hot switch does not re-resolve
+*vanilla* strings, only the mod's, so a real check of one wants a restart.
 
-### 2. Walk him through the upload
+### 2. What is still unrun on `glorpui_hints`
 
-He has never published a mod and said so. [`WORKSHOP.md`](WORKSHOP.md) is
-written and `python3 tools/publish.py` reports the mod ready — but **one thing
-in it is unverified and only he can settle it: where the upload button is.**
-The EU5 wiki documents only the third-party PDX Workshop Manager; the forum
-carries bug reports about in-game "Mod Tools", so a button exists and nobody
-here has seen it.
+Cheap, and none of it needs a protocol:
 
-So: ask him to open EU5's main menu and say what the mod-related entry is
-called. Then finish that section of `WORKSHOP.md` from his answer, rather than
-guessing at a menu path on his behalf. Everything else is ready — the folder
-that gets uploaded is what menu item 4 already writes, the page text is in
-`mods/glorpui_hints/workshop/`, both in English and Russian.
+- **the five advance-gated privileges.** Playing anyone but England, Morocco or
+  the Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be
+  offered. `error.log` must not carry `svx_unlock_`;
+- **the building `allow` repair** — `error.log` must not carry
+  `Inconsistent trigger scopes` any more;
+- **nine of the eleven languages**, which is a console switch each;
+- **the four repaired Glorp UI keys.** The player could not find those map
+  modes and does not care about them; if they are still not visible next time,
+  **offer to drop them** — they are another mod's interface and the only thing
+  in here outside this mod's stated scope.
 
-Two things he has to do on the workshop page and not in a file: add **Glorp UI**
-and **Community Mod Framework** as Required Items, and upload hidden first.
+### 3. Publish it
+
+Everything is ready and `python3 tools/publish.py glorpui_hints` says `ok`.
+
+1. merge the branch, then `mods.bat → 4` with the `git pull`;
+2. load once and check §2 above;
+3. `mods.bat → 5 → «к» + номер` writes `manager-config.json` beside the game's
+   mod folder — app id, thumbnail path and mod directory already right;
+4. run [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
+   (GUI build, Steam running and logged in), point it at that config;
+5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
+   as Required Items, and **hidden first**.
+
+The whole thing, with what is verified and what is not, is
+[`WORKSHOP.md`](WORKSHOP.md).
 
 ### What was done on 2026-08-27, so it is not re-derived
 

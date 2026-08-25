@@ -8,6 +8,9 @@ knows is a subscriber saying it does nothing.
 
     python3 tools/publish.py                 every mod under mods/
     python3 tools/publish.py glorpui_hints   just that one, with the text to paste
+    python3 tools/publish.py glorpui_hints --config "<папка мода в игре>"
+                                             write manager-config.json for the
+                                             uploader, with the paths filled in
 
 What it knows that a person cannot check by looking:
 
@@ -169,8 +172,76 @@ def describe(folder: Path) -> None:
               "вручную — «Add/Remove Required Items»")
 
 
+# EU5's Steam app id. Not the wiki's — its PDX Workshop Manager page says
+# 529340, which is Imperator: Rome. 3450310 is what steamcmd downloads EU5
+# workshop items with in tools/workshop.py, and what the game's own workshop
+# content folder is named.
+APP_ID = 3450310
+
+
+def write_manager_config(folder: Path, installed: Path, out: Path) -> str:
+    """A ready `manager-config.json` for kaiser-chris/pdx-workshop-manager.
+
+    Three things in it are easy to get wrong by hand and are why this exists at
+    all: the app id above; `thumbnail`, which the tool defaults to
+    `thumbnail.png` in the mod root while every EU5 mod keeps it in
+    `.metadata/`; and `directory`, which has to be the *installed* copy — the
+    one the game mounts — rather than this repository, because the repository
+    folder also holds `tools/` and `workshop/`, which are not the mod.
+
+    **`id` is never overwritten.** After the first upload the tool writes the
+    workshop id it was given back into this file, and that number is the only
+    link between the mod and its page. So an existing config with a real id is
+    left exactly as it is.
+    """
+    data = json.loads((folder / ".metadata/metadata.json").read_text(
+        encoding="utf-8-sig"))
+    if out.is_file():
+        try:
+            old = json.loads(out.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            old = {}
+        for mod in old.get("mods", []):
+            if mod.get("id"):
+                return ("%s уже есть, и в нём workshop id %s — не трогаю. "
+                        "Это единственная связь мода со своей страницей."
+                        % (out, mod["id"]))
+
+    descriptions = {}
+    for language in ("english", "russian"):
+        path = folder / "workshop" / ("description_%s.bbcode" % language)
+        if path.is_file():
+            descriptions[language] = str(path.resolve())
+
+    config = {
+        "game": APP_ID,
+        "mods": [{
+            "id": 0,
+            "directory": str(installed),
+            "thumbnail": ".metadata/thumbnail.png",
+            "names": {"english": data.get("name", folder.name)},
+            "descriptions": descriptions,
+        }],
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n",
+                   encoding="utf-8")
+    return "написал %s — id 0 значит «мода в мастерской ещё нет, создай»" % out
+
+
 def main(argv: list[str]) -> int:
     wanted = [a for a in argv[1:] if not a.startswith("-")]
+    if "--config" in argv:
+        installed = Path(argv[argv.index("--config") + 1])
+        wanted = [a for a in wanted if a != str(installed)]
+        if len(wanted) != 1:
+            print("--config берёт ровно один мод", file=sys.stderr)
+            return 2
+        folder = refs.REPO / "mods" / wanted[0]
+        print(write_manager_config(
+            folder, installed, installed.parent / "manager-config.json"))
+        return 0
+
     folders = sorted(p for p in (refs.REPO / "mods").iterdir() if p.is_dir())
     if wanted:
         folders = [p for p in folders if p.name in wanted]

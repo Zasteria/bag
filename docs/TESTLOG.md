@@ -657,6 +657,51 @@ The cheapest single check is now known — turn the mod menu switch
 «Показывать всё без фильтра» on and hover **Децентрализация**: the subject type
 lines should read «**Тип ленника** …» where the old build said «Тип вассала».
 
+### 2026-08-27 — the concept tokens render, and in two languages
+
+**The change with the widest blast radius is confirmed.** Screenshots of the
+*Decentralization* tooltip with the mod menu switch «Показывать всё без фильтра»
+on, in Russian and then in English — the player switches language from the
+console on the fly, which turns out to make testing the other ten languages
+almost free.
+
+| expected | observed |
+| --- | --- |
+| the catalogue lines open with the game's own word for the category, from `[religious_aspect\|e]` and friends | **yes.** «**Религиозная особенность** Двенадцать представителей», «**Тип ленника** Феод / Пронии / Удж-бей / Вассал» — where the 2026-08-25 build said «Аспект веры» and «Тип вассала» |
+| the concept renders as an encyclopedia link, not plain text | **yes** — the category word is coloured and hoverable, the object name beside it is not |
+| English exists at all | **yes.** "Religious Aspect The Twelve Emissaries", "Subject Type Fiefdom". The old build shipped no English `SVX_*` keys, so this block would have been raw keys |
+| the English openers are Glorp UI's own | **yes** — "Enact the Traditional Distribution Policy" |
+| the unfiltered block replaces the two filtered ones | **yes**, and the block titles translate: «Влияет на смещение (без фильтра)» / "Pushes towards this (unfiltered)" |
+
+So `catalog` in `languages.py` stays a concept token, and the seven Russian
+terms it corrected are the game's own words on screen. **That was the one change
+that could have gone badly, and it did not.**
+
+**One thing the hot language switch does not do:** the vanilla block title
+«Дальше продвинуться в сторону децентрализации:» stayed Russian in the English
+screenshot while everything this mod owns switched. Not our key and not our bug
+— but it means a language switched from the console is not a clean test of
+*vanilla* strings, only of ours. A real check of another language wants a
+restart.
+
+**Still unconfirmed:** the five advance-gated privileges, the building `allow`
+repair from earlier today, and nine of the eleven languages.
+
+### 2026-08-27 — the launcher has no upload button
+
+Screenshot of «Модификации и дополнения»: playsets, mod order, enable and
+disable, and **nothing about publishing**. That settles the open question in
+[`WORKSHOP.md`](WORKSHOP.md) — EU5 has no first-party upload, which is why the
+wiki documents only the third-party
+[PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager).
+The route is now written down, and `mods.bat → 5 → «к»` generates its config so
+the app id, the thumbnail path and the mod directory cannot be got wrong by
+hand.
+
+Also confirmed from the same screenshot: the load order the player actually
+runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
+after it, which is what the declared dependency is for.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

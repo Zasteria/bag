@@ -255,10 +255,10 @@ been in game.** Version 1.1.0. What changed, all of it unrun:
   hint line is an opener, a reference the game resolves itself, and a number;
 - **the fourteen category nouns became game concepts** rather than translated
   words, which is free in every language and fixed **seven Russian terms** that
-  were synonyms — an advance is «Улучшение», not «Достижение». This is the
-  change with the widest blast radius and the first thing a run should look at:
-  if `[religious_aspect|e]` does not render in a tooltip pair list, 284 lines
-  lose their opening word in all eleven languages and nothing errors;
+  were synonyms — an advance is «Улучшение», not «Достижение».
+  **Confirmed on screen 2026-08-27**, in Russian and English, rendering as
+  encyclopedia links: [TESTLOG](TESTLOG.md). This was the risk of the rewrite
+  and it is closed;
 - **five hints now wait for the advance that unlocks the privilege**, scanned
   out of `common/advances`;
 - **four keys of Glorp UI's own interface repaired**, Russian only;
