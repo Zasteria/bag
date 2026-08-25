@@ -1,0 +1,11 @@
+﻿{
+	"name":	"Glorp UI small fix",
+	"id":	"",
+	"version":	"0.1",
+	"supported_game_version":	"",
+	"short_description":	"Glorp UI – Some Localization & Hint Fixes",
+	"tags":	["Fixes"],
+	"relationships":	[],
+	"game_custom_data":	{
+}
+}

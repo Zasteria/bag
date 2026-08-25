@@ -1,0 +1,70 @@
+﻿# ============================================================
+# Glorp UI 가치관 힌트 — 해금 전 특권 추천 차단
+#
+# [왜 이런 우회를 쓰는가]
+# customizable_localization 은 나중 정의로 덮어쓰이지 않는다. 먼저 읽은 것이
+# 이기고 중복 키는 버려진다. 실측 로그:
+#   gamedatabase.h:408  Duplicated key glorpui_svh_free_subjects_pv_peasants_yeomanry
+#                       will not be created from file: ...
+# 따라서 Glorp UI 의 엔트리 자체는 손댈 수 없다.
+#
+# 대신 그 엔트리가 가리키는 '로컬 키'는 덮을 수 있다. 그래서
+#   GLORP_UI_SVH_..._PV_...  ->  "[Player.Custom('kfix_svh_gate_...')]"
+# 로 바꿔 두고, 여기서 해금 여부를 판정해 실제 문구 또는 빈 문자열을 낸다.
+# 로컬 덮어쓰기는 main_menu/localization/korean/zzz_societal_value_hint_l_korean.yml.
+#
+# [왜 필요한가]
+# Glorp UI 필터 glorpui_svh_privilege_takeable 은 특권의 potential/allow 만
+# 본다. 그런데 바닐라는 아래 3개를 어드밴스의 unlock_estate_privilege 로 잠근다.
+# 특권 쪽 potential 이 비어 있어 필터를 그냥 통과한다.
+#   peasants_yeomanry <- unlock_early_longbowmen_advance  (잉글랜드/웨일스 계열)
+#   jaysh_armies      <- jaysh_armies_advance             (모로코)
+#   ghazi_privilege   <- ghazi                            (오스만)
+#
+# 전수 조사: 바닐라 계층 특권 261개 중 unlock 으로 잠긴 것 10개,
+# Glorp UI 힌트 대상 135개 중 실제로 새는 것은 위 3개뿐이다.
+# (ayans_privilege 는 potential 에 has_or_had_tag = TUR 이 있어 정상 필터됨)
+#
+# 태그가 아니라 has_advance 를 검사한다. 형성국·문화 등 어떤 경로로 얻든
+# 정확히 맞고, 어드밴스를 아직 안 찍었으면 그 시점엔 실제로 못 가지므로
+# 추천하지 않는 것이 맞다.
+# ============================================================
+
+kfix_svh_gate_peasants_yeomanry = {
+	type = country
+
+	text = {
+		trigger = { has_advance = unlock_early_longbowmen_advance }
+		localization_key = kfix_svh_line_peasants_yeomanry
+	}
+
+	text = {
+		localization_key = empty_text
+	}
+}
+
+kfix_svh_gate_jaysh_armies = {
+	type = country
+
+	text = {
+		trigger = { has_advance = jaysh_armies_advance }
+		localization_key = kfix_svh_line_jaysh_armies
+	}
+
+	text = {
+		localization_key = empty_text
+	}
+}
+
+kfix_svh_gate_ghazi_privilege = {
+	type = country
+
+	text = {
+		trigger = { has_advance = ghazi }
+		localization_key = kfix_svh_line_ghazi_privilege
+	}
+
+	text = {
+		localization_key = empty_text
+	}
+}

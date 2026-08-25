@@ -1,0 +1,11 @@
+﻿# Companion to glorpui_generated_societal_value_hints_l_turkish.yml
+l_turkish:
+ # Tooltip heading: vanilla turkish references a dead scope; repointed to SocietalValue.
+ TO_MOVE_FURTHER_TO_LEFT: "[SocietalValue.GetLeftLabelWithNoTooltip] yönünde ilerlemek için:"
+ TO_MOVE_FURTHER_TO_RIGHT: "[SocietalValue.GetRightLabelWithNoTooltip] yönünde ilerlemek için:"
+
+ # Shown only once the unlocking advance is taken (see
+ # in_game/common/customizable_localization/zzz_kfix_svh_unlock_gate.txt).
+ kfix_svh_line_ghazi_privilege: "@hint! #TOOLTIP:ESTATE_PRIVILEGE,ghazi_privilege #L $ghazi_privilege$#!#! tanı: #color_green +0.05#!\n"
+ kfix_svh_line_jaysh_armies: "@hint! #TOOLTIP:ESTATE_PRIVILEGE,jaysh_armies #L $jaysh_armies$#!#! tanı: #color_green +0.10#!\n"
+ kfix_svh_line_peasants_yeomanry: "@hint! #TOOLTIP:ESTATE_PRIVILEGE,peasants_yeomanry #L $peasants_yeomanry$#!#! tanı: #color_green +0.10#!\n"

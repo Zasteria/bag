@@ -1,0 +1,11 @@
+﻿# Companion to glorpui_generated_societal_value_hints_l_polish.yml
+l_polish:
+ # Tooltip heading: vanilla polish references a dead scope; repointed to SocietalValue.
+ TO_MOVE_FURTHER_TO_LEFT: "Aby dalej wprowadzać zmiany, których celem jest [SocietalValue.GetLeftLabelWithNoTooltip]:"
+ TO_MOVE_FURTHER_TO_RIGHT: "Aby dalej wprowadzać zmiany, których celem jest [SocietalValue.GetRightLabelWithNoTooltip]:"
+
+ # Shown only once the unlocking advance is taken (see
+ # in_game/common/customizable_localization/zzz_kfix_svh_unlock_gate.txt).
+ kfix_svh_line_ghazi_privilege: "@hint! Nadaj #TOOLTIP:ESTATE_PRIVILEGE,ghazi_privilege #L $ghazi_privilege$#!#!: #color_green +0.05#!\n"
+ kfix_svh_line_jaysh_armies: "@hint! Nadaj #TOOLTIP:ESTATE_PRIVILEGE,jaysh_armies #L $jaysh_armies$#!#!: #color_green +0.10#!\n"
+ kfix_svh_line_peasants_yeomanry: "@hint! Nadaj #TOOLTIP:ESTATE_PRIVILEGE,peasants_yeomanry #L $peasants_yeomanry$#!#!: #color_green +0.10#!\n"

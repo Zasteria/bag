@@ -1,0 +1,6 @@
+﻿# Keys present in glorpui_l_english.yml but absent from glorpui_l_russian.yml.
+l_russian:
+ GLORP_UI_AVG_CONTROL: "Средний [max_control|e]"
+ GLORP_UI_AVG_PROXIMITY: "Средняя [proximity|e]"
+ REFRESH_AVG_PROX: "Обновить среднюю досягаемость"
+ SWAP_TO_AVG_CONTROL: "Переключить на средний контроль"

@@ -20,3 +20,4 @@
 3601047146  glorp_ui              # glorpui_hints is an addon to it and copies its keys
 3668193813  national_destinies    # nd_ru translates it; its English file moving is what breaks the generator
 3781437488  auto_build            # auto_build_ru translates it
+3784988919  glorp_ui_small_fix     # Сравнение
