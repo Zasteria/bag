@@ -1,9 +1,109 @@
 # Next session: read this first
 
-This repository holds six mods, four documents and a pile of history. Almost
+This repository holds six mods, five documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
-## The job
+## This session: `mods/glorpui_hints/`
+
+The owner's words: *«займёмся доработками функциональной части аддона»*. The mod
+is merged, **loaded and confirmed working in game on 2026-08-25** — both blocks
+render in Russian. What follows is the work he has actually decided on, in the
+order that makes sense, with the numbers already measured so nothing has to be
+re-derived.
+
+**Read first:** the mod's [README](../mods/glorpui_hints/README.md) and
+[what the rival addon turned out to be](HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod).
+
+### The situation that shapes all of it
+
+`Glorp UI small fix` (workshop 3784988919, copy in `reference/mods/`) appeared
+in late August and does **the translation half in ten languages**. It does not
+touch the content half: our 364 keys of hint lines compiled from the twenty
+source kinds Glorp UI's generator never reads are still ours alone. So the mod's
+selling point is content, not "Russian for Glorp UI" — that niche is taken, and
+by ten languages rather than one.
+
+### 1. Ten languages is a much smaller job than it looks
+
+This is the thing worth knowing before deciding anything. The mod's Russian is
+**1123 keys**, but a new language does not need 1123 translations:
+
+- **Glorp UI's 759 hint keys need three phrases.** `mods/glorpui_hints/tools/translate_hints.py`
+  rebuilds them from Glorp UI's English by replacing the verb phrase in front of
+  the `#TOOLTIP:` token — "Grant", "Add the", "Enact the". Everything after it is
+  `$key$` references the game resolves in whatever language the player runs.
+- **Our 364 extra keys**: 284 are formulaic from **29 distinct openers** ("@hint!
+  Аспект веры ", "@hint! Построить в столице ", …), 34 are pure data functions
+  with no words in them at all, and the remaining 46 reduce to about **33
+  phrasings** built from a handful of sentences.
+
+So a language costs roughly **40–50 short strings**, not a thousand. A phrase
+table per language in `translate_hints.py` and the generator does the rest — the
+same shape `nd_ru` and `auto_build_ru` already use, and it keeps surviving Glorp
+UI updates the way the Russian does today.
+
+### 2. Two things worth taking from the rival mod
+
+Both verified against the game files in `reference/`, not taken on trust:
+
+- **Privileges locked behind an advance are recommended when they cannot be
+  taken.** Glorp UI's `glorpui_svh_privilege_takeable` filter reads a
+  privilege's `potential`/`allow` and nothing else. **Ten** vanilla privileges
+  are locked by an advance's `unlock_estate_privilege`; four of them appear in
+  Glorp UI's hints; `ayans_privilege` is already filtered by `has_or_had_tag =
+  TUR` in its own potential. **Three leak**: `peasants_yeomanry`,
+  `jaysh_armies`, `ghazi_privilege`. He gates them as three special cases; our
+  generator already gates 253 lines by country trigger, so the same machinery can
+  gate them from the data — scan `common/advances` for
+  `unlock_estate_privilege` and add `has_advance` to the gate.
+- **Four Glorp UI keys whose Russian is broken grammar**: `GLORP_UI_AVG_CONTROL`
+  ("Средняя значение [max_control|e]"), `GLORP_UI_AVG_PROXIMITY`,
+  `SWAP_TO_AVG_CONTROL`, `REFRESH_AVG_PROX` ("Обновить Средняя расстояние").
+  Glorp UI marks them `# LOCK`. Overriding them belongs in this mod.
+
+### 3. The blocker in the old plan is gone
+
+This file used to say the extra hint lists **cannot** be rebuilt from
+`reference/` and that the game's `common/` tree had to be asked for. **That is
+no longer true** — `tools/game_files_manifest.txt` has pulled those directories
+in since, and on 2026-08-26 a full rebuild was run and produced byte-identical
+output:
+
+```
+python3 mods/glorpui_hints/tools/generate.py --game-files reference/game
+```
+
+So the extra lists can be regenerated in a session, from this tree, with nothing
+asked of the owner.
+
+### 4. Where the mod is not proven
+
+The gating and the CMM setting have been in game once, on 2026-08-25, and
+everything since is unrun. Any change here needs a run to confirm; **build the
+smallest thing that shows a signal and ask for one**, rather than a finished
+feature nobody has loaded.
+
+## Where everything else stands, 2026-08-26
+
+- **The mod loop is finished** — see the section further down, and do not
+  rebuild it.
+- **`reference/playset/` holds the other 17 mods** he runs, text only, and
+  `tools/guicost.py` counts them. What that census found is in
+  [HANDOFF](HANDOFF.md#what-the-playset-turned-out-to-hold).
+- **Every generator is green** against the current reference tree; the
+  translations were brought up to Advanced Auto Build 0.9.3 and National
+  Destinies 1.3.8 on 2026-08-25.
+- **`nd_ru` covering a tenth of National Destinies is deliberate** — the settled
+  table in [HANDOFF](HANDOFF.md#settled--do-not-measure-any-of-this-again) says
+  why. Do not raise it.
+- The performance hunt below is the owner's standing job and has not moved; it
+  waits on a run he has not been asked for yet.
+
+## The standing job: make the game playable for longer than an hour
+
+This is the owner's big one, and it outlives any single session. It is *not*
+what he asked for next — the section at the top of this file is — but it is what
+everything below serves, and it is where the next run he agrees to should go.
 
 **Make Europa Universalis V stay playable for longer than an hour.**
 
@@ -11,7 +111,7 @@ The owner's own description: the first hour is comfortable, the next two get
 quietly worse, and by the third or fourth the game is a slideshow — slow ticks,
 freezes, the lot. Reloading fixes it. He wants that first hour to last four.
 
-Everything below serves that. If a task does not, it is not this session's.
+Everything in the rest of this file serves that.
 
 There are **two faults under that one complaint**, and they are not the same
 fault. The first grows over hours and a reload clears it — that is the widget
@@ -131,25 +231,6 @@ so many words that **nothing about updating his mods may require one of our
 sessions** — so do not add a step only a session can do, and do not tell him to
 run the pieces by hand when the menu covers it. `tools/workshop.py` is the same
 machinery without the menu, and the GitHub check runs daily on its own.
-
-## The third job, added 2026-08-25 — the owner redirected the session to it
-
-**`mods/glorpui_hints/`.** The two Glorp UI hint addons from the `EU5-filters`
-repository are now one mod here, and the owner's stated next step is *"займёмся
-доработками функциональной части аддона"* — improving what the addon actually
-does, once the merge is in.
-
-Before designing anything: read the mod's
-[README](../mods/glorpui_hints/README.md) and the
-[HANDOFF entry](HANDOFF.md#state). The two things a next session most needs to
-know are that the extra hint lists **cannot be rebuilt from `reference/`** —
-the game's `common/` tree they compile from is not here, and the README lists
-exactly which directories to ask for — and that the added lines are **Russian
-only**, which is the nearest concrete improvement there is.
-
-The merge itself has never been loaded. Getting it into a run costs nothing
-extra: the old `glorpui_ru_svh_fix` and `glorpui_svh_extra` come out of the
-playset, this one goes in, and either the tooltip fills or it does not.
 
 ## Riding along, no extra work
 
