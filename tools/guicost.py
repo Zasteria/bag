@@ -191,6 +191,14 @@ def everything() -> list[Census]:
     for path in sorted((REPO / "mods").iterdir()):
         if path.is_dir() and gui_dir(path):
             out.append(census("mods/" + path.name, path))
+    # The rest of the playset, when it has been copied in. These are the mods
+    # this census used to be silent about — seventeen of the twenty-two mount
+    # `in_game`, and a census of five of them is a census of a quarter of the
+    # surface. A text-only copy is enough: everything counted here is declared
+    # in a `.gui` or a `.txt`.
+    for mod in refs.playset():
+        if gui_dir(mod.path):
+            out.append(census("playset/" + (mod.id or mod.folder), mod.path))
     return out
 
 

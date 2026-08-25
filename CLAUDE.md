@@ -45,6 +45,9 @@ reference/game/main_menu/localization/        what the game calls its own concep
 reference/game/docs/                          the engine's own API dump — ask it with tools/api.py
 reference/mods/                               CMF, Construction Manager, Glorp UI,
                                               and the two mods being translated
+reference/playset/                            the owner's other subscribed mods,
+                                              text only — read when the question
+                                              is about the playset, not by default
 ```
 
 **Do not hardcode a mod's folder name, and do not trust a version written in
@@ -67,6 +70,12 @@ These files are here to be used — read, grepped, quoted, and copied from into 
 mod. The owner has settled that question; see `reference/README.md`. Do not stop
 mid-task to ask about it, and do not treat a mod arriving at a newer version as
 a problem to report — it is the normal state of this tree.
+
+`reference/playset/` is the rest of what the owner loads, copied text only and
+refreshed by `.\tools\sync_workshop.ps1 -Playset`. Nothing builds against it —
+`refs.mods()` does not see it and no generator reads it — and a mod there can
+vanish at the next sync. It is for the questions that need the whole load order:
+`tools/guicost.py` counts it, and it is where a mod nobody has looked at goes.
 
 What is deliberately absent: `gfx`, `events`, `decisions`, map data, and most of
 `common/`. Ask for those if a task needs them, and add them here afterwards.
@@ -122,7 +131,8 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
 | `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
 | `extract_game_files.py` | copy the game directories a task needs out of an EU5 install, straight into `reference/game/`. `extract_game_files.ps1` is the same thing for the Windows box that has the game; both read `game_files_manifest.txt`, so the list cannot drift |
-| `workshop.py` | what the Steam Workshop has right now against what is here, and the command that copies an update in, rebuilds everything from it and pushes. `sync_workshop.ps1` is the same loop on the box that has Steam; both read `workshop_mods.txt`, so the list cannot drift |
+| `mods.py` | **the owner's own tool, and the one he runs.** A menu over the whole mod loop: what his subscription has that Steam has not downloaded, fetching those with steamcmd straight into the game's workshop folder, refreshing either copy in this repository, moving a mod between `reference/mods/` and `reference/playset/`, and committing and pushing. `mods.ps1` is the launcher; `find_python.ps1` is how both PowerShell scripts locate Python |
+| `workshop.py` | the same work without the menu — what the workshop has against what is here, and the commands that copy an update in, rebuild everything from it and push. `sync_workshop.ps1` is the unattended loop on the box that has Steam; both read `workshop_mods.txt`, so the list cannot drift |
 | `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
@@ -160,6 +170,13 @@ python3 tools/refresh.py
 Nothing else needs doing about a refresh, and nothing anywhere records a version
 by hand. Run it at the start of a session too: it is cheaper than believing a
 document. `--check` reports and then reverts, for when you only want to know.
+
+The owner does all of that from `.\tools\mods.ps1`, which is a menu rather than
+a command to remember, and which also updates his actual Steam copies — the
+repository is only one of the three places it touches. **Do not tell him to run
+the pieces by hand when the menu covers it**, and do not build a step that only
+a session can perform: he asked for a tool that outlives any interest in
+modding.
 
 Whether there is anything to refresh is its own question, and
 `python3 tools/workshop.py` answers it against Steam without needing the game,

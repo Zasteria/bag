@@ -63,9 +63,21 @@ has changed before.
 
 ## How refreshing works
 
-Either the whole loop in one command, or by hand — both end in the same place.
+Three ways, all ending in the same place.
 
-**In one command, on the box that has Steam:**
+**The menu**, on the box that has Steam — this is what the owner actually runs:
+
+```
+.\tools\mods.ps1
+```
+
+It covers more than this repository: which of his subscribed mods the workshop
+has moved on since Steam downloaded them, fetching those into the game's own
+workshop folder so the next launch loads them, then the copies here, then the
+commit and the push. `python3 tools/mods.py check` is the same answer without
+the menu.
+
+**In one command, unattended, on the same box:**
 
 ```
 .\tools\sync_workshop.ps1
@@ -145,6 +157,29 @@ understands.
 Runtime logs (`error.log`, `game.log`, `debug.log`) are not kept here. They are
 a snapshot of one session, they are large, and they go stale immediately —
 send them when reporting a run instead.
+
+## `playset/` — the other mods the owner runs
+
+`mods/` holds the five this repository builds against, whole. `playset/` holds
+**the rest of what he is subscribed to**, copied text only: no textures, no
+sound, English and Russian localization and nothing else. Refresh it with
+
+```
+.\tools\sync_workshop.ps1 -Playset          # or: python3 tools/workshop.py playset
+```
+
+which also drops the copies of mods he has unsubscribed from, so the tree stays
+a picture of what he actually loads.
+
+**It is there to be read and measured, not built against.** `refs.mods()` does
+not see it, no generator compiles from it, and nothing in `mods/` may depend on
+it — a mod in the playset can vanish at the next sync. What it is *for* is the
+questions that need the whole load order rather than five of it:
+`tools/guicost.py` counts its interface cost alongside vanilla's, and
+`tools/playset.py` can name which of the mounted mods is which.
+
+Do not grep it by default. `mods/` and `game/` answer nearly everything; reach
+for `playset/` when the question is about the playset.
 
 ## Not here
 

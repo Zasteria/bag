@@ -36,6 +36,12 @@ REPO = Path(__file__).resolve().parent.parent
 REFERENCE = REPO / "reference"
 MODS = REFERENCE / "mods"
 
+# The rest of the owner's subscribed mods: copied text-only, for looking at and
+# for measuring, not for building against. Nothing compiles from here, and
+# `mods()` deliberately does not see it — a tool that asks for "the reference
+# mods" means the five in `mods/`.
+PLAYSET = REFERENCE / "playset"
+
 GAME = REFERENCE / "game"
 GAME_COMMON = GAME / "in_game/common"
 GAME_GUI = GAME / "in_game/gui"
@@ -114,6 +120,29 @@ def mods() -> list[Mod]:
     return found
 
 
+def playset() -> list[Mod]:
+    """Every mod folder under `reference/playset/`, sorted by folder.
+
+    Empty when the tree has none, rather than an error: the playset copies are
+    optional, and every tool that reads them has to work without them.
+    """
+    if not PLAYSET.is_dir():
+        return []
+    found = []
+    for folder in sorted(PLAYSET.iterdir()):
+        if not folder.is_dir():
+            continue
+        data = _metadata(folder)
+        found.append(Mod(
+            path=folder,
+            id=data.get("id"),
+            name=data.get("name"),
+            version=str(data.get("version")) if data.get("version") else None,
+            game_version=data.get("supported_game_version"),
+        ))
+    return found
+
+
 def mod(*hints: str) -> Path:
     """The folder of the mod named by any of `hints`, matched id first.
 
@@ -164,6 +193,30 @@ def table() -> str:
             m.version or "—",
             m.game_version or "—",
         ))
+    rest = playset()
+    if rest:
+        lines += [
+            "",
+            "## The rest of the playset",
+            "",
+            "Text only — no `gfx`, no sound, and only English and Russian",
+            "localization. These are here to be read and measured, not built",
+            "against: `refs.mods()` does not see them, and nothing generated",
+            "compiles from them.",
+            "",
+            "| Folder | Mod id | Version | Mounts |",
+            "| --- | --- | --- | --- |",
+        ]
+        for m in rest:
+            mounts = sorted(p.name for p in m.path.iterdir()
+                            if p.is_dir() and not p.name.startswith("."))
+            lines.append("| `%s` | %s | %s | %s |" % (
+                m.folder,
+                "`%s`" % m.id if m.id else "no metadata",
+                m.version or "—",
+                ", ".join(mounts) or "—",
+            ))
+
     game_files = sum(1 for _ in GAME.rglob("*")) if GAME.is_dir() else 0
     lines += [
         "",
@@ -194,6 +247,12 @@ def main(argv: list[str]) -> int:
     for m in mods():
         print("%-40s %-34s %-9s %s" % (
             m.folder, m.id or "(no metadata)", m.version or "—", m.game_version or "—"))
+    rest = playset()
+    if rest:
+        print("\nplayset/ (text only, for reading and measuring): %d mods" % len(rest))
+        for m in rest:
+            print("  %-40s %-34s %s" % (
+                m.folder, m.id or "(no metadata)", m.version or "—"))
     return 0
 
 

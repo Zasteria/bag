@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# The owner's own paths and account, not the repository's.
+tools/mods.local.json
