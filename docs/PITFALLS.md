@@ -97,6 +97,16 @@ interface leaves a hole. Filter the data instead, or resize the list.
 **Square brackets are data function syntax.** A label reading `[debug] location
 known` renders as `ERROR:`. Keep brackets out of plain text.
 
+**The game loads the selected language's folder and nothing else — there is no
+fallback to English.** Glorp UI generates 759 `GLORP_UI_SVH_*` keys into
+`main_menu/localization/english/` and no other language, so on a Russian client
+every one of them is missing, the societal value hint list renders empty, and
+the tooltip says «Нет.» while `debug.log` takes 725 `Missing loc key` lines per
+load. Nothing about that reads as a localization problem on screen: the widget
+draws correctly and is simply blank. It hits all ten non-English languages, not
+just Russian. When a mod's feature works in English and does nothing in Russian,
+check which language folders it actually ships before looking anywhere else.
+
 **A CMF action bar element is drawn entirely from localization**, keyed on the
 element name: `_icon` takes a texticon such as `@good!`, `_name` and `_tooltip`
 fill the tooltip, and **`_color` must name one of CMF's palette entries** or the
@@ -311,6 +321,19 @@ changes nothing, logs nothing.
 
 **`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
 it the launcher does not treat the folder as an EU5 mod.
+
+**Overriding another mod's *generated* override goes stale in complete
+silence.** `mods/glorpui_hints/` overrides Glorp UI's override of the societal
+value tooltip templates, and to keep Glorp UI's own hint lists it re-emits them
+inside its own file. When Glorp UI regenerates those templates — which it does
+on every game patch — nothing errors: the templates still parse, the mod still
+loads, and the player quietly gets a months-old copy of Glorp UI's list with
+whatever Glorp UI added missing from it. `error.log` says nothing, because
+nothing failed. The only defence is a checker that compares the two files, so
+`mods/glorpui_hints/tools/generate.py` reduces both to an ordered sequence of
+(gating script value, title, body key) and fails naming the difference. Any mod
+that copies another mod's generated file needs the same check written the same
+day the copy is made.
 
 ## Deciding what exists
 

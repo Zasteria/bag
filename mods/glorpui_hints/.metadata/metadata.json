@@ -1,0 +1,23 @@
+﻿{
+    "name": "Glorp UI - Societal Value Hints (RU)",
+    "id": "bag.glorpui_hints",
+    "version": "1.0.0",
+    "game_id": "eu5",
+    "supported_game_version": "1.3.*",
+    "short_description": "Russian for Glorp UI's societal value hints, and the sources its generator does not look at: employment systems, buildings, religious aspects, parliament issues, cabinet actions and the scaling modifiers.",
+    "tags": [
+        "User Interface",
+        "Fixes",
+        "1.3"
+    ],
+    "relationships": [
+        {
+            "rel_type": "dependency",
+            "id": "glorp.ui",
+            "display_name": "Glorp UI",
+            "resource_type": "mod",
+            "version": "*"
+        }
+    ],
+    "game_custom_data": {}
+}

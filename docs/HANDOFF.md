@@ -118,6 +118,45 @@ Still nothing builds and nothing is subsidised.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
+**`glorpui_hints/` — new here, and it is two mods merged into one.** It came in
+from the `EU5-filters` repository, where it lived as `glorpui_ru_svh_fix` (the
+missing Russian for Glorp UI's societal value hints) and `glorpui_svh_extra`
+(the hint sources Glorp UI's generator never reads). Both worked in game as
+separate mods; the owner asked for one, and this is it, at id
+`bag.glorpui_hints`. **The old two have to come out of the playset** — leaving
+either alongside means two mods defining the same keys and overriding the same
+templates.
+
+Nothing in the contents changed. Both halves were re-checked against Glorp UI as
+it is in `reference/` now, and both are still current: the 759 hint keys
+regenerate byte-identical, and Glorp UI's 34 tooltip lists per side are still
+exactly what this mod re-emits inside its own override. So the Glorp UI update
+broke neither half.
+
+What the merge added is `mods/glorpui_hints/tools/generate.py`, in
+`tools/refresh.py` with everything else. It regenerates the Russian hint text
+from Glorp UI's English file every run, and — the part that matters — it
+compares this mod's re-emission of Glorp UI's list against Glorp UI's own file
+as an ordered sequence and fails naming the difference. That failure has no
+symptom in game: the templates parse, the mod loads, and the player silently
+gets a stale copy of Glorp UI's list. It is in
+[`PITFALLS.md`](PITFALLS.md#loading) now.
+
+**What it cannot do here.** The extra hint lists are compiled out of the game's
+`in_game/common/` tree — `societal_values/`, `laws/`, `static_modifiers/`,
+`religious_aspects/`, `employment_systems/` and a dozen more — and
+`reference/game/in_game/common/` carries seven directories, none of them those.
+So the added lines are frozen at whatever game version they were built against,
+and a patch that adds or renames a source is invisible here. The list of what
+would have to be uploaded is in the mod's README. Until then
+`--game-files <unpacked game>` is the only way to rebuild that half.
+
+**Known gap, not yet work: English.** The added lines are Russian only. An
+English game finds no `SVX_*` keys and renders the two new blocks as raw keys —
+the same fault this mod fixes for Glorp UI, pointing the other way. It is a
+change to the generator (fourteen category nouns and two block titles), not to
+the files.
+
 **`auto_build_ru/` — done, confirmed working in game.** Russian for Advanced Auto
 Build, which ships English and Chinese only and so rendered as raw keys in a
 Russian game. The player reports the Mod Menu tab reading correctly.
