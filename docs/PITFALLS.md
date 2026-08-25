@@ -114,6 +114,33 @@ interface leaves a hole. Filter the data instead, or resize the list.
 **Square brackets are data function syntax.** A label reading `[debug] location
 known` renders as `ERROR:`. Keep brackets out of plain text.
 
+**A `$NAME$` that names a key which does exist can still come out blank.**
+`glorpui_hints` replaced its hand written modifier labels with references to the
+game's own — `$STATIC_MODIFIER_NAME_parliament_outside_capital$` instead of
+"Парламент вне столицы" — so that a patch renaming a modifier would be followed
+for free. On screen some of them rendered and some rendered as nothing:
+`is_bankrupt` was fine, `parliament_outside_capital` and
+`peasants_percentage_in_country` were bare values with no text. All three keys
+exist in the game's Russian files. Nothing was logged.
+
+What separates them is still unknown, and that is the point: **a label that is
+nothing but a reference has no floor.** If the reference resolves the line reads
+correctly, and if it does not the line loses everything, silently. The rule now
+in `mods/glorpui_hints/tools/generate.py` is not "no references" — the catalogue
+lines have referenced `$building_type$` since the beginning and always worked —
+but "every label carries literal text of its own", so a reference can lose part
+of a line and never all of it.
+
+**A mod-defined game concept with no texture renders as nothing.** The same
+change made «(масштабируется)» a game concept so the explanation could be a
+hover: `[Concept('svx_scale_army_tradition','(масштабируется)')|e]`, with the
+concept declared in the mod's own `in_game/common/game_concepts/`. Glorp UI
+proves a mod can define concepts — but every one of its own carries a `texture`,
+and these carried only `shown_in_encyclopedia = no`. On screen the whole
+`[Concept(...)]` produced empty output: the line kept its label and its value and
+lost the word between them. No error, no log line. If a text-only concept is
+wanted, prove it with one before generating forty.
+
 **A `$NAME$` that names no key prints the name.** No error, no log line, no
 blank: the engine puts `SOCIEALVALUE_RIGHTITEM_WNTT_GEN` in capitals in the
 middle of the Russian sentence and carries on. The game's own Russian defines

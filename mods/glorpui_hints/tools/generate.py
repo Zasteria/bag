@@ -265,6 +265,38 @@ def check_triggers_exist(problems: list[str]) -> None:
                         % (EXTRA_CUSTOM.name, name, count, "" if count == 1 else "s"))
 
 
+# One entry of a TooltipScrolledStringPairList: everything between `@hint!` and
+# the colon that splits the pair. `(?:(?!@hint!).)` rather than `.` because a
+# body key is one long line of many entries, and a plain non-greedy match starts
+# at the *first* `@hint!` and swallows every entry up to the first colon — which
+# made the first version of this check pass on a label it was written to catch.
+HINT_LABEL = re.compile(r"@hint!((?:(?!@hint!).)*?):\s*#color_green")
+# What is markup or a reference rather than something a player reads.
+NOT_TEXT = re.compile(r"\$[^$]*\$|\[[^\]]*\]|#[A-Za-z_!]+|#!|\\n")
+
+
+def check_hints_have_labels(problems: list[str]) -> None:
+    """Every hint line says something before its number.
+
+    A line whose whole label is `$SOME_KEY$` renders as a bare value with no
+    text when that reference does not resolve, and nothing errors. It happened:
+    `$STATIC_MODIFIER_NAME_parliament_outside_capital$` came out blank on screen
+    while `$STATIC_MODIFIER_NAME_is_bankrupt$` two lines away came out fine.
+
+    So the rule is not "references are banned" — the catalogue lines reference
+    `$building_type$` and always have — but "a label must carry literal text of
+    its own". A reference can then only ever lose part of a line, never all of
+    it.
+    """
+    text = EXTRA_LOC.read_text(encoding="utf-8-sig")
+    for label in HINT_LABEL.findall(text):
+        if NOT_TEXT.sub("", label).strip():
+            continue
+        problems.append("%s: a hint label is nothing but markup and references"
+                        " — %r would render blank" % (EXTRA_LOC.name, label.strip()))
+        return
+
+
 def rebuild_extra(game_files: Path) -> int:
     """Re-scan the game and rewrite the three generated files."""
     findings = MOD.parent.parent / "sv_findings.json"
@@ -317,6 +349,7 @@ def main(argv: list[str]) -> int:
     check_references_resolve(problems, glorp, text)
     check_localization_conventions(problems, text)
     check_triggers_exist(problems)
+    check_hints_have_labels(problems)
     if problems:
         print()
         for problem in problems:

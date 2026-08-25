@@ -181,7 +181,7 @@ has, with no trigger in front of any of it. For the rare game where the plan is
 to fight your way into a region you start nowhere near, and for answering "is
 this filtered out, or is it simply not there".
 
-It is a `.gui` condition and nothing more —
+**Confirmed in game 2026-08-25.** It is a `.gui` condition and nothing more —
 `CMMSettingIsRegistered('svx__show_all')` and `CMMValueEqualsOne(...)`, both GUI
 functions — so no script runs and the unfiltered body is a plain string that
 cannot fail. The registration is the mod's only hand written script:
@@ -196,34 +196,43 @@ whole session, which is for rules rather than for what a player wants to see.
 
 ### What «масштабируется» actually means
 
-Every scaled and conditional line carries a hover. «(масштабируется)» and
-«(условие)» are game concepts this mod defines — the same mechanism Glorp UI
-uses for its banner — and their text is compiled out of the modifier's own file:
+Every scaled and conditional line carries a short bracket, and what is in it
+depends on what the modifier's own file is willing to say:
 
 - an **`auto_modifier`** declares `scales_with`, an ordinary script value block,
-  so both the quantity and the value at which the modifier reaches full size are
-  computable. `army_tradition multiply = 0.01` is full at **100**;
+  so the multiplier is `((value + add - subtract) * multiply) / divide` and the
+  value at which the modifier reaches full size is arithmetic.
+  `army_tradition multiply = 0.01` is full at **100**;
   `used_fort_limit_percentage subtract = 1.0` at **200%**;
   `value = 0.5 subtract = used_fort_limit_percentage multiply = 2` at **0%**,
-  which is what "below half the fort limit" never said out loud. It may declare
-  only `potential_trigger`, and then the answer is the condition rather than a
-  number: *Армия больше ожидаемой* is `army_size_percentage > 1.0`, which is the
-  whole of what "expected army" means.
+  which is what "below half the fort limit" never said out loud. A share is
+  printed as a percentage — `state_religion_clergy multiply = 100 max = 1` is
+  full at 0.01, which is arithmetically right and reads as nonsense, so it says
+  **1%**.
+- it may declare only `potential_trigger`, and then the answer is the condition:
+  *Армия больше ожидаемой* is `army_size_percentage > 1.0`, which is the whole
+  of what "expected army" means. A trigger that only repeats its own label —
+  *Наследник - адмирал* is `heir ?= { is_admiral = yes }` — gets no bracket at
+  all; the rule is that a trigger must carry a threshold to be worth printing.
 - a **`static_modifier`** declares neither. The engine scales those when it
   attaches them and neither the shipped files nor the defines say by how much,
-  so the hover says exactly that rather than inventing a figure. *Средняя
-  грамотность* is one of these: the +0.10 is the maximum and nothing in the
-  files says what literacy reaches it.
+  so the line reads *(масштабируется, показан максимум)* and claims nothing
+  more. *Средняя грамотность* is one of these: the +0.10 is the maximum and
+  nothing in the files says what literacy reaches it.
 
-41 explanations, 13 of them with a computed threshold. The arithmetic declines
-anything whose shape it does not cover — two quantities subtracted from each
-other, a conditional block — rather than guessing, because a wrong threshold is
-worse than none.
+41 notes, 13 of them with a computed threshold. The arithmetic declines anything
+whose shape it does not cover — two quantities subtracted from each other, a
+conditional block — rather than guessing, because a wrong threshold is worse
+than none.
 
-The line's label comes from the game's own `$STATIC_MODIFIER_NAME_x$` /
-`$AUTO_MODIFIER_NAME_x$` where the game has one, so a patch that renames a
-modifier is followed for free and the concept links inside those names come
-along. The hand written label is only the fallback.
+**This was a hover once, and it cost a run.** The first version put the
+explanation in a game concept the mod declared and took the label from the
+game's own `$STATIC_MODIFIER_NAME_x$`. Both rendered as nothing for some
+entries, with no error anywhere, and between them a line could lose every word
+it had — *Парламент вне столицы* came out as a bare `+0.20`. Both are backed
+out; [`PITFALLS.md`](../../docs/PITFALLS.md#localization) has the detail, and
+the run is in [`TESTLOG.md`](../../docs/TESTLOG.md). The bracket is inline in
+the same string now, which cannot fail.
 
 ### Scaling versus conditional
 
@@ -375,19 +384,8 @@ renames comes along regardless.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The mod menu switch.** CMM registration is the most silent-failing thing in
-  this repository: a mod that never registers shows no row and logs nothing.
-  Look for `Подсказки общественных ценностей → Списки → Фильтрация` in CMF's mod
-  menu. If the row is absent, registration did not run; if the row is there and
-  the tooltip does not change, the `.gui` condition is wrong. The two fail
-  differently, which is why they are worth telling apart.
-- **The hover on «(масштабируется)» and «(условие)».** These are game concepts
-  this mod defines. Glorp UI proves a mod *can* define one, but its examples all
-  carry a `texture` and these carry only `shown_in_encyclopedia = no` — a
-  text-only concept is unproven here, and vanilla's own `game_concepts/` is not
-  in `reference/` to check against. If it does not work the symptom is on those
-  41 lines only: the word renders without a hover, or renders as `ERROR:`.
-  Reverting is one line in the generator.
+- **The inline scaling notes.** Everything they replace was rendering before,
+  so what is unproven is the wording rather than the mechanism.
 - **The cabinet action and parliament issue gates.** What to look for:
   *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
   *Поддержка строительства …* line instead of four.

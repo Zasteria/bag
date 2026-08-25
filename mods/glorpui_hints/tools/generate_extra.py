@@ -304,25 +304,22 @@ def collect(findings, game_files):
                 }
             entries[axis].append({"sort": (-value, obj), "text": text, "gate": gate})
         elif obj in SCALED or obj in CONDITIONAL:
-            # The game's own name where it has one, so a patch that renames a
-            # modifier is followed for free and the concept links inside the
-            # name come along; the hand written label is the fallback.
-            named = names.get(obj)
-            label = "$%s$" % named[1] if named else (SCALED.get(obj) or CONDITIONAL[obj])
-            # One game concept per modifier, so the explanation is a hover
-            # rather than another line of text in an already long list.
-            concept = "svx_scale_%s" % obj
-            concepts[concept] = scaling_note(obj, facts)
-            if obj in SCALED:
-                text = ("@hint! %s [Concept('%s','(масштабируется)')|e]: "
-                        "#color_green до +%.2f#!\\n" % (label, concept, value))
-            else:
-                # The anchor is a word of ours, never the name: a `$key$`
-                # reference inside a data function argument is the shape that
-                # ru_loc_fix exists to repair, and it is not worth risking for
-                # a hover.
-                text = ("@hint! %s [Concept('%s','(условие)')|e]: "
-                        "#color_green +%.2f#!\\n" % (label, concept, value))
+            # The label is this mod's own, not the game's `$STATIC_MODIFIER_NAME_x$`.
+            # Referencing the game's name looked strictly better — a rename
+            # followed for free — and on screen some of them came out blank:
+            # `parliament_outside_capital` and `peasants_percentage_in_country`
+            # rendered as a bare value with no text at all, while
+            # `is_bankrupt` in the same list rendered fine. Whatever separates
+            # them, a label that is sometimes empty is worse than a label that
+            # needs editing after a patch. See PITFALLS.
+            label = SCALED.get(obj) or CONDITIONAL[obj]
+            # The explanation is inline, in the same string, for the same
+            # reason: it was a game concept this mod defined and the hover came
+            # out empty on every one of the 41.
+            note = inline_note(obj, facts, obj in SCALED)
+            bracket = " #help %s#!" % note if note else ""
+            text = ("@hint! %s%s: #color_green %s+%.2f#!\\n"
+                    % (label, bracket, "до " if obj in SCALED else "", value))
             entries[axis].append({"sort": (-value, obj), "text": text,
                                   "gate": {"reach": [], "now": []}})
         elif obj.endswith(CABINET_SUFFIX):
@@ -361,11 +358,45 @@ def game_modifier_names(game_files):
     return names
 
 
-def percentish(quantity, threshold):
-    """The threshold as a player reads it: a ratio as a percentage."""
-    if "percentage" in quantity or "ratio" in quantity:
+def percentish(quantity, threshold, obj=""):
+    """The threshold as a player reads it: a share as a percentage.
+
+    `state_religion_clergy multiply = 100 max = 1` reaches full size at 0.01,
+    which is arithmetically right and reads as nonsense; it is one percent of
+    the population. The quantity's own name does not always say it is a share —
+    here the modifier's does — so both are asked.
+    """
+    share = any(word in name for name in (quantity, obj)
+                for word in ("percentage", "ratio", "_percent"))
+    if share:
         return "%g%%" % (threshold * 100)
     return "%g" % threshold
+
+
+def inline_note(obj, facts, scaled):
+    """The short bracket that goes on the line itself.
+
+    Short because it shares the line with the label and the value, and because
+    the list is already long. What it carries is the one number a player cannot
+    get anywhere else: the value of the scaling quantity at which the modifier
+    is at full size, or the condition that switches it on.
+    """
+    fact = facts.get(obj) or {}
+    full = full_at(fact.get("scales"))
+    if full:
+        quantity, threshold = full
+        return "(масштабируется: максимум при %s = %s)" % (
+            quantity, percentish(quantity, threshold, obj))
+    trigger = fact.get("trigger")
+    # Only a trigger that carries a threshold says anything the label does not.
+    # "Наследник - адмирал (при heir ?= { is_admiral = yes })" is the label
+    # twice; "Армия больше ожидаемой (при army_size_percentage > 1.0)" is the
+    # answer to what "expected" means.
+    if trigger and re.search(r"[<>]=?\s*-?\d", trigger):
+        return "(при %s)" % trigger
+    if scaled:
+        return "(масштабируется, показан максимум)"
+    return ""
 
 
 def scaling_note(obj, facts):
@@ -386,7 +417,7 @@ def scaling_note(obj, facts):
     if full:
         quantity, threshold = full
         lines.append("Растёт вместе с #Y %s#!, полная величина при #Y %s#!."
-                     % (quantity, percentish(quantity, threshold)))
+                     % (quantity, percentish(quantity, threshold, obj)))
     elif fact.get("scales"):
         lines.append("Растёт вместе с #Y %s#!." % " ".join(
             re.findall(r"(?:value|subtract|add) = ([A-Za-z_][\w:]*)", fact["scales"])))
@@ -423,11 +454,6 @@ def main():
            ' SVX_ALSO_PUSHES: "Также влияет на смещение:"',
            ' SVX_REACHABLE: "Станет доступно при условиях:"',
            ' SVX_EVERYTHING: "Влияет на смещение (без фильтра):"']
-    for concept in sorted(concepts):
-        modifier = concept[len("svx_scale_"):]
-        loc.append(' game_concept_%s: "%s"' % (
-            concept, SCALED.get(modifier) or CONDITIONAL.get(modifier) or modifier))
-        loc.append(' game_concept_%s_desc: "%s"' % (concept, concepts[concept]))
     custom = [HEADER, ""]
     soon_gates = collections.defaultdict(list)
     counts = {"now": 0, "soon": 0}
@@ -527,14 +553,6 @@ def main():
                        "in_game/common/script_values/svx_extra_hint_script_values.txt"),
           "\n".join(values))
 
-    # The concepts themselves. `shown_in_encyclopedia = no` keeps forty of them
-    # out of the encyclopedia, where they would be noise: they exist to be
-    # hovered from one line of one tooltip and nowhere else.
-    concept_file = [HEADER, ""]
-    for concept in sorted(concepts):
-        concept_file += ["%s = {" % concept, "\tshown_in_encyclopedia = no", "}", ""]
-    write(os.path.join(args.out, "in_game/common/game_concepts/svx_scaling_concepts.txt"),
-          "\n".join(concept_file))
 
     def scroll_list(visible_value, title, body_key, switch=None):
         live = ("GreaterThan_CFixedPoint(GuiScope"
@@ -599,10 +617,10 @@ def main():
     print("%d hint lines: %d gated as available now, %d also listed as attainable"
           % (total, counts["now"], counts["soon"]))
     facts = modifier_facts(args.game_files)
-    computed = sum(1 for c in concepts if full_at(
-        (facts.get(c[len("svx_scale_"):]) or {}).get("scales")))
-    print("%d scaling explanations, %d of them with a computed threshold"
-          % (len(concepts), computed))
+    computed = sum(1 for obj in set(SCALED) | set(CONDITIONAL)
+                   if full_at((facts.get(obj) or {}).get("scales")))
+    print("%d scaling notes, %d of them with a computed threshold"
+          % (len(SCALED) + len(CONDITIONAL), computed))
 
 
 if __name__ == "__main__":

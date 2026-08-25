@@ -521,6 +521,51 @@ landed together and they fail differently, which is how to tell them apart:
   the expected-army one. If a text-only concept is not a thing, those 41 words
   render bare or as `ERROR:` and nothing else is affected.
 
+### 2026-08-25 — the switch works, the two clever bits did not
+
+**Loaded:** `glorpui_hints` with the mod menu switch and the scaling hovers.
+**Expected:** a switch that restores the unfiltered pool, and a hover on
+«(масштабируется)» saying what the modifier scales with.
+**Observed:** **the switch works** — "переключатель есть и свою функцию он
+выполняет". The hovers do not, and they took text with them: on
+*Децентрализация* the *Парламент вне столицы* line rendered as a bare `+0.20`
+with no words at all, and on *Традиционализм* the *Доля крестьян в населении*
+line as a bare `до +0.10`. In the same list *Банкрот* and *Сословие Племена*
+rendered correctly.
+**Verdict:** two separate faults, both in the same commit, both silent.
+
+1. **A label that is nothing but a `$reference$` has no floor.** The labels had
+   been changed to the game's own `$STATIC_MODIFIER_NAME_x$` so a rename would
+   be followed for free. All three keys exist in the game's Russian files;
+   `is_bankrupt` rendered and `parliament_outside_capital` and
+   `peasants_percentage_in_country` rendered as nothing. What separates them is
+   **still unknown** — and the fix does not depend on knowing, because a label
+   made only of a reference loses the whole line when the reference fails.
+2. **A mod-defined game concept with no `texture` renders as nothing.** The
+   hovers were `[Concept('svx_scale_x','(масштабируется)')|e]` with the concepts
+   declared in the mod's own `game_concepts/`. The whole data block produced
+   empty output — visible on *Банкрот*, which kept its label and its value and
+   lost the word between them. Glorp UI's own concepts all carry a `texture`.
+
+**Both are backed out.** Labels are this mod's own strings again, and the
+explanation is inline in the same line, which cannot fail:
+«Превышен лимит крепостей *(масштабируется: максимум при
+used_fort_limit_percentage = 200%)*: +0.10» and «Армия больше ожидаемой *(при
+army_size_percentage > 1.0)*: +0.10». Where the game's files say nothing — every
+`static_modifier`, *Средняя грамотность* among them — it reads
+*(масштабируется, показан максимум)* and claims nothing more. A trigger that
+only repeats its own label gets no bracket at all.
+
+**And the checker that would have caught the first one is in.** Every hint label
+must carry literal text of its own; a label made only of markup and references
+fails the run. Its first version silently passed the very line it was written
+for — a non-greedy match started at an earlier `@hint!` and swallowed the whole
+entry before it — so it is verified in both directions now: clean on the real
+file, and failing on a planted reference-only label.
+
+**Untested:** the inline notes. Everything they replace was rendering before the
+change, so the risk is the wording rather than the mechanism.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
