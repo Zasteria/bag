@@ -662,6 +662,23 @@ run, because only they can run the game. After any refresh of `reference/`:
 python3 tools/refresh.py
 ```
 
+**Whether a refresh is owed** is answered without asking him: `python3
+tools/workshop.py` compares the tracked workshop items against what the last
+sync wrote down, needs nothing but the network, and runs daily on GitHub as
+well. Bringing one in is `.\tools\sync_workshop.ps1` on the machine that has
+Steam — copy, rebuild, commit, push in one command — or `python3
+tools/workshop.py sync --commit --push` where Python is nearer. The workshop
+itself will never hand the files to GitHub: an anonymous steamcmd download of
+an item for this game is refused, so the files only move from a machine that
+owns it.
+
+**As of 2026-08-25 two copies here are behind**: National Destinies (the
+workshop moved hours after this tree's copy was committed) and Advanced Auto
+Build. Both are mods this repository translates, so a session working on
+`nd_ru` or `auto_build_ru` should expect the English side to have moved —
+their generators name the keys that no longer exist rather than writing a
+broken file, which is how it will show up.
+
 Advanced Auto Build arrived in `reference/` without its `.metadata/`, so its mod
 id and version are not in the tree — it is the one mod `refs.py` has to find by
 folder name. `auto_build_ru` therefore declares only CMF as a dependency; if the

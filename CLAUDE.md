@@ -48,9 +48,11 @@ reference/mods/                               CMF, Construction Manager, Glorp U
 ```
 
 **Do not hardcode a mod's folder name, and do not trust a version written in
-prose.** The owner refreshes these by hand whenever a mod updates, and the
-folder name arrives however the upload produced it — `community_mod_framework`
-one time, `3692202776_community_mod_framework` the next. Ask the tree instead:
+prose.** These get refreshed whenever a mod updates — by
+`python3 tools/workshop.py sync` (or `.\tools\sync_workshop.ps1`, its twin on
+the machine that has Steam), or by hand, in which case the folder name arrives
+however the upload produced it: `community_mod_framework` one time,
+`3692202776_community_mod_framework` the next. Ask the tree instead:
 
 ```
 python3 tools/refs.py                                  what is there, with versions
@@ -120,6 +122,7 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
 | `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
 | `extract_game_files.py` | copy the game directories a task needs out of an EU5 install, straight into `reference/game/`. `extract_game_files.ps1` is the same thing for the Windows box that has the game; both read `game_files_manifest.txt`, so the list cannot drift |
+| `workshop.py` | what the Steam Workshop has right now against what is here, and the command that copies an update in, rebuilds everything from it and pushes. `sync_workshop.ps1` is the same loop on the box that has Steam; both read `workshop_mods.txt`, so the list cannot drift |
 | `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
@@ -157,6 +160,12 @@ python3 tools/refresh.py
 Nothing else needs doing about a refresh, and nothing anywhere records a version
 by hand. Run it at the start of a session too: it is cheaper than believing a
 document. `--check` reports and then reverts, for when you only want to know.
+
+Whether there is anything to refresh is its own question, and
+`python3 tools/workshop.py` answers it against Steam without needing the game,
+an account or the files. It runs on GitHub daily as well, and opens an issue
+naming the mod that moved — so an update the owner has not noticed is not a
+thing a session has to guess at.
 
 Each generator still runs on its own and takes an explicit path when you want a
 different copy of the files. The two translation generators are the ones run

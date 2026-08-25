@@ -63,18 +63,68 @@ has changed before.
 
 ## How refreshing works
 
-The owner copies a folder in from `<EU5>/game/` or from the workshop, whole and
-unedited: textures, thumbnails, the mod author's own stray files and all.
-Nothing needs stripping first and nothing needs annotating afterwards. Then, in
-the repository:
+Either the whole loop in one command, or by hand — both end in the same place.
+
+**In one command, on the box that has Steam:**
+
+```
+.\tools\sync_workshop.ps1
+```
+
+It takes the items listed in [`tools/workshop_mods.txt`](../tools/workshop_mods.txt)
+out of `steamapps/workshop/content/`, replaces the copies here with them, renames
+the folder to match if the last copy arrived under some other name, rebuilds
+everything generated from them, commits and pushes. `python3 tools/workshop.py
+sync --commit --push` is the same thing where Python is easier to reach; add
+`-Only` / `--only` for one mod, `-DryRun` / `--dry-run` to see what it would do.
+
+**Steam not having fetched the update yet** is the usual reason a sync copies in
+the same version again. Both scripts take a path to `steamcmd`, and with it they
+download the current version of each tracked item on demand — which is the thing
+that unsubscribing and resubscribing was being used for:
+
+```
+.\tools\sync_workshop.ps1 -SteamCmd C:\steamcmd\steamcmd.exe -Login <account>
+```
+
+The login has to be the owner's own, and once by hand so Steam Guard is
+satisfied. **Anonymous does not work** — for this app steamcmd answers
+`ERROR! Download item failed (Failure)`, which was tried rather than assumed.
+That is also why nothing can pull a workshop update straight into GitHub: the
+files only exist where somebody owns the game.
+
+**By hand**, the old way, still works: copy the folder in from `<EU5>/game/` or
+from the workshop, whole and unedited — textures, thumbnails, the mod author's
+own stray files and all. Nothing needs stripping first and nothing needs
+annotating afterwards. Then, in the repository:
 
 ```
 python3 tools/refresh.py
+python3 tools/workshop.py record
 ```
 
-which rebuilds every generated file and reports what the update moved
+The second line is what stops the update check reporting an update that is
+already here.
+
+`refresh.py` rebuilds every generated file and reports what the update moved
 underneath the mods. That report is the useful part: a clean one means the
 update touched nothing this repository compiles from.
+
+## Knowing an update happened at all
+
+```
+python3 tools/workshop.py
+```
+
+asks Steam what the tracked items are today and compares that against
+`workshop_generated_state.json`, which is what the last sync wrote down. It
+needs no account, no game and no Steam, so it also runs on GitHub once a day
+(`.github/workflows/workshop-check.yml`) and puts what it finds in an issue —
+one issue, commented on and closed as the answer changes, rather than one a day.
+
+A copy that arrived before any of this existed is not assumed to be current: if
+git recorded the folder *after* the workshop's last update it cannot be behind,
+and if it did not, the tool says `behind` and leaves it to a sync to settle.
 
 A mod may bring things that are not game data — National Destinies carries its
 author's `.claude/` and a `.gitignore`. They are inert here; ignore them, and do
