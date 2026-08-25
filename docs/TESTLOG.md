@@ -591,6 +591,71 @@ The file says only `army_size_percentage > 1.0`, which is a ratio against
 something the modifier does not name, so both can be true and the file does not
 settle it. Nothing in the mod depends on this any more.
 
+### 2026-08-27 — a logs drop, and the error nobody would have seen
+
+**Not a designed run.** The player was asked to look at the eleven-language
+rebuild, said it "looks the same as before", and sent the whole `logs/` folder
+instead. It answered three things anyway, one of them a real bug.
+
+**What was loaded.** The 2026-08-25 build of `glorpui_hints`, out of
+`Documents/.../mod/glorpui_hints` — **not** the 2026-08-27 rebuild, which had
+not been installed. So "looks the same as before" is not evidence about the
+rewrite, and the axis he was looking at (*Миролюбие*) could not have shown a
+difference in any case: its extra block is two conditional lines,
+«В мирное время» and «Крепостей меньше половины лимита», and those words are
+identical in both builds. The catalogue lines are the ones that changed.
+
+Also loaded: `3784988919` (`Glorp UI small fix`), the rival addon, alongside
+ours. The screenshot shows **our** phrasing — «Даровать привилегию Религиозные
+дипломаты», «Принять реформу правления Дипломатические традиции» — where his
+says «Предоставить …» and «Добавить … ([government_reform|e])». So on this
+playset ours wins the shared keys. Worth knowing and worth not relying on: the
+mount lines interleave the two across several passes and the order is not
+obviously ours to control.
+
+| | |
+| --- | --- |
+| **`Missing loc key 'GLORP_UI_SVH_*'`** | **0.** Was 725 per load before this mod existed. The translation half does its whole job. |
+| **`ru_loc_fix` round two** | **confirmed.** All six keys it was to repair — `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`, `MARKET_SURPLYS_INFO`, `ALERT_HAS_UNMARRIED_CHILDREN`, `THIRD_DESTROY_BUILDING_EFFECT`, `DESTROY_BUILDING_EFFECT` — appear **0 times** in `error.log`. Round one was already confirmed; round two now is. |
+| **`glorpui_hints` gates** | **one broken gate, found only because the logs came.** |
+
+**The bug.** One line, once, in `error.log`:
+
+```
+[jomini_trigger.cpp:803]: is_core_of: Inconsistent trigger scopes (country vs.
+location) at common/customizable_localization/svx_extra_hint_loc.txt:3073
+```
+
+`svx_n_sinicized_004` is the Confucian Academy, and its gate is that building's
+own `allow` block copied verbatim. **A building's `allow` is evaluated on the
+location being built in**, not on the country — `is_core_of = owner`,
+`owner = { ... }`, `region`, `market`, `has_building`, `dominant_culture` — and
+all 179 of them were being pasted into a `type = country` customizable
+localization. `is_core_of` is simply the one strict enough to say so.
+
+On screen this shows as nothing at all: the gate does not answer, so the hint
+either never appears or always does, and no player would ever connect the two.
+
+**The repair is the exact question rather than a workaround.** Every building
+push here is a `capital_country_modifier` — the building has to be *in the
+capital* — so the block belongs in the capital's scope:
+`exists = capital capital = { ... }`. `capital` is a country → location event
+target (`python3 tools/api.py capital`) and the game writes `exists = capital`
+in front of it 76 times in its own `common/`.
+
+**And the rule went into the checker.** `check_gate_scopes` in
+`mods/glorpui_hints/tools/generate.py` reads **Supported Scopes** out of the
+engine's own `docs/triggers.log` and reports any trigger called in country scope
+that the engine does not allow there. It follows only the outer scope — a nested
+`capital = { ... }` is a different scope and is left alone, which is precisely
+what the repair is. Checked both ways: it catches the old line and passes the
+new one.
+
+**Still unrun, and unchanged by this:** everything the 2026-08-27 rebuild added.
+The cheapest single check is now known — turn the mod menu switch
+«Показывать всё без фильтра» on and hover **Децентрализация**: the subject type
+lines should read «**Тип ленника** …» where the old build said «Тип вассала».
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
@@ -624,13 +689,9 @@ Disabled and both delays at maximum; then the same two minutes again. Send
 before asking for anything else, because the losing branch has its own next test
 already written and it is not this one repeated.
 
-**`ru_loc_fix` round two — eleven keys and four expansions, never in game.**
-Round one is confirmed; round two is not. It is checked from the log, not the
-screen: after any run, `error.log` should no longer carry
-`RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`, `MARKET_SURPLYS_INFO`,
-`ALERT_HAS_UNMARRIED_CHILDREN`, `THIRD_DESTROY_BUILDING_EFFECT` or
-`DESTROY_BUILDING_EFFECT`. Any ordinary hour of play tests it; no special
-protocol is needed, so it can ride along with the hover run.
+~~**`ru_loc_fix` round two — eleven keys and four expansions, never in game.**~~
+**Confirmed 2026-08-27** from the logs drop above: none of the six keys appears
+in `error.log` any more.
 
 **And one thing only eyes can check.** Whether the repaired Russian *reads*
 correctly. The log says those keys no longer fail; it does not say the sentences

@@ -75,7 +75,7 @@ svx_n_centralization_008 = {
 	text = {
 		trigger = {
 			always = no
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_CENTRALIZATION_008
 	}
@@ -89,7 +89,7 @@ svx_s_centralization_008 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no always = no } }
+			NOT = { AND = { always = no exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_CENTRALIZATION_008
 	}
@@ -103,7 +103,7 @@ svx_n_centralization_009 = {
 	text = {
 		trigger = {
 			always = no
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_CENTRALIZATION_009
 	}
@@ -117,7 +117,7 @@ svx_s_centralization_009 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no always = no } }
+			NOT = { AND = { always = no exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_CENTRALIZATION_009
 	}
@@ -424,7 +424,7 @@ svx_n_innovative_006 = {
 	text = {
 		trigger = {
 			always = no
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_INNOVATIVE_006
 	}
@@ -438,7 +438,7 @@ svx_s_innovative_006 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no always = no } }
+			NOT = { AND = { always = no exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_INNOVATIVE_006
 	}
@@ -563,7 +563,7 @@ svx_n_innovative_013 = {
 	text = {
 		trigger = {
 			always = no
-			custom_tooltip = { text = cahokia_woodhenge_why always = no }
+			exists = capital capital = { custom_tooltip = { text = cahokia_woodhenge_why always = no } }
 		}
 		localization_key = SVX_N_INNOVATIVE_013
 	}
@@ -577,7 +577,7 @@ svx_s_innovative_013 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no custom_tooltip = { text = cahokia_woodhenge_why always = no } } }
+			NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = cahokia_woodhenge_why always = no } } } }
 		}
 		localization_key = SVX_S_INNOVATIVE_013
 	}
@@ -970,7 +970,7 @@ svx_n_spiritualist_019 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_SPIRITUALIST_019
 	}
@@ -984,7 +984,7 @@ svx_s_spiritualist_019 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy }
-			NOT = { AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } always = no } }
+			NOT = { AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_SPIRITUALIST_019
 	}
@@ -998,7 +998,7 @@ svx_n_spiritualist_020 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_SPIRITUALIST_020
 	}
@@ -1012,7 +1012,7 @@ svx_s_spiritualist_020 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art }
-			NOT = { AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } always = no } }
+			NOT = { AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_SPIRITUALIST_020
 	}
@@ -1054,7 +1054,7 @@ svx_n_humanist_003 = {
 	text = {
 		trigger = {
 			OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY }
-			custom_tooltip = { text = college_of_poets_why always = no }
+			exists = capital capital = { custom_tooltip = { text = college_of_poets_why always = no } }
 		}
 		localization_key = SVX_N_HUMANIST_003
 	}
@@ -1068,7 +1068,7 @@ svx_s_humanist_003 = {
 	text = {
 		trigger = {
 			OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY }
-			NOT = { AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } custom_tooltip = { text = college_of_poets_why always = no } } }
+			NOT = { AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } exists = capital capital = { custom_tooltip = { text = college_of_poets_why always = no } } } }
 		}
 		localization_key = SVX_S_HUMANIST_003
 	}
@@ -1082,7 +1082,7 @@ svx_n_humanist_004 = {
 	text = {
 		trigger = {
 			always = no
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_HUMANIST_004
 	}
@@ -1096,7 +1096,7 @@ svx_s_humanist_004 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no always = no } }
+			NOT = { AND = { always = no exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_HUMANIST_004
 	}
@@ -1110,7 +1110,7 @@ svx_n_humanist_005 = {
 	text = {
 		trigger = {
 			always = no
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_HUMANIST_005
 	}
@@ -1124,7 +1124,7 @@ svx_s_humanist_005 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no always = no } }
+			NOT = { AND = { always = no exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_HUMANIST_005
 	}
@@ -1166,7 +1166,7 @@ svx_n_humanist_007 = {
 	text = {
 		trigger = {
 			always = no
-			custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no }
+			exists = capital capital = { custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no } }
 		}
 		localization_key = SVX_N_HUMANIST_007
 	}
@@ -1180,7 +1180,7 @@ svx_s_humanist_007 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no } } }
+			NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no } } } }
 		}
 		localization_key = SVX_S_HUMANIST_007
 	}
@@ -1194,7 +1194,7 @@ svx_n_humanist_008 = {
 	text = {
 		trigger = {
 			always = no
-			custom_tooltip = { text = usa_philosophical_society_why always = no }
+			exists = capital capital = { custom_tooltip = { text = usa_philosophical_society_why always = no } }
 		}
 		localization_key = SVX_N_HUMANIST_008
 	}
@@ -1208,7 +1208,7 @@ svx_s_humanist_008 = {
 	text = {
 		trigger = {
 			always = no
-			NOT = { AND = { always = no custom_tooltip = { text = usa_philosophical_society_why always = no } } }
+			NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = usa_philosophical_society_why always = no } } } }
 		}
 		localization_key = SVX_S_HUMANIST_008
 	}
@@ -1222,7 +1222,7 @@ svx_n_humanist_009 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_HUMANIST_009
 	}
@@ -1236,7 +1236,7 @@ svx_s_humanist_009 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage }
-			NOT = { AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } always = no } }
+			NOT = { AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_HUMANIST_009
 	}
@@ -1335,7 +1335,7 @@ svx_n_aristocracy_006 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_ARISTOCRACY_006
 	}
@@ -1349,7 +1349,7 @@ svx_s_aristocracy_006 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } }
-			NOT = { AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } always = no } }
+			NOT = { AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_ARISTOCRACY_006
 	}
@@ -1420,7 +1420,7 @@ svx_n_plutocracy_004 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_PLUTOCRACY_004
 	}
@@ -1434,7 +1434,7 @@ svx_s_plutocracy_004 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens }
-			NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } always = no } }
+			NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_PLUTOCRACY_004
 	}
@@ -2477,7 +2477,7 @@ svx_n_traditional_economy_007 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_TRADITIONAL_ECONOMY_007
 	}
@@ -2491,7 +2491,7 @@ svx_s_traditional_economy_007 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society }
-			NOT = { AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } always = no } }
+			NOT = { AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_TRADITIONAL_ECONOMY_007
 	}
@@ -2645,7 +2645,7 @@ svx_n_individualism_006 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_INDIVIDUALISM_006
 	}
@@ -2659,7 +2659,7 @@ svx_s_individualism_006 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences }
-			NOT = { AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } always = no } }
+			NOT = { AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_INDIVIDUALISM_006
 	}
@@ -2673,7 +2673,7 @@ svx_n_individualism_007 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_INDIVIDUALISM_007
 	}
@@ -2687,7 +2687,7 @@ svx_s_individualism_007 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV }
-			NOT = { AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } always = no } }
+			NOT = { AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_INDIVIDUALISM_007
 	}
@@ -2960,7 +2960,7 @@ svx_n_communalism_012 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens }
-			always = no
+			exists = capital capital = { always = no }
 		}
 		localization_key = SVX_N_COMMUNALISM_012
 	}
@@ -2974,7 +2974,7 @@ svx_s_communalism_012 = {
 	text = {
 		trigger = {
 			custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens }
-			NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } always = no } }
+			NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } exists = capital capital = { always = no } } }
 		}
 		localization_key = SVX_S_COMMUNALISM_012
 	}
@@ -3070,22 +3070,9 @@ svx_n_sinicized_004 = {
 	type = country
 	text = {
 		trigger = {
-			is_core_of = owner
+			exists = capital capital = { is_core_of = owner }
 		}
 		localization_key = SVX_N_SINICIZED_004
-	}
-	text = {
-		localization_key = empty_text
-	}
-}
-
-svx_n_sinicized_005 = {
-	type = country
-	text = {
-		trigger = {
-			OR = { culture = { has_culture_group = culture_group:confucian_group } religion ?= religion:sanjiao any_international_organizations_member_of = { international_organization_type = international_organization_type:sect international_organization_has_policy = policy:confucianism_policy } custom_tooltip = { text = has_neo_confucianism_tt has_variable = has_neo_confucianism } is_member_of_international_organization = international_organization:middle_kingdom }
-		}
-		localization_key = SVX_N_SINICIZED_005
 	}
 	text = {
 		localization_key = empty_text

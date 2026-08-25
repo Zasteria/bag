@@ -462,6 +462,96 @@ def trigger_blocks(text: str) -> str:
     return "\n".join(out)
 
 
+# Logic words keep the scope they are written in; everything else that opens a
+# block changes it (`capital = { ... }`, `owner = { ... }`, `any_owned_location`).
+SCOPE_PRESERVING = {"AND", "OR", "NOT", "NOR", "NAND", "trigger_if", "trigger_else",
+                    "trigger_else_if", "limit", "custom_tooltip",
+                    "custom_description", "hidden_trigger"}
+
+
+def trigger_scopes() -> dict[str, set[str]]:
+    """Which scopes each trigger says it supports, from the engine's own dump."""
+    text = (refs.GAME / "docs/triggers.log").read_text(
+        encoding="utf-8", errors="replace")
+    scopes: dict[str, set[str]] = {}
+    name = None
+    for line in text.splitlines():
+        heading = re.match(r"^## (\w+)", line)
+        if heading:
+            name = heading.group(1)
+            continue
+        supported = re.match(r"^\*\*Supported Scopes\*\*: (.+?)\s*$", line)
+        if supported and name:
+            scopes[name] = {part.strip() for part in supported.group(1).split(",")}
+            name = None
+    return scopes
+
+
+def country_scope_calls(block: str):
+    """Every `name =` written in country scope inside one trigger block.
+
+    Only the calls that are still in the scope the block started in — a nested
+    `capital = { ... }` or `owner = { ... }` is a different scope and this does
+    not follow it. That is the whole point: the calls it *can* see are exactly
+    the ones that have to be country triggers.
+    """
+    depth = 0
+    for match in re.finditer(r"([A-Za-z_][A-Za-z_0-9]*)\s*=\s*\{|\}|"
+                             r"([a-z_][a-z_0-9]*)\s*(?:=|<|>|<=|>=)", block):
+        if match.group(0) == "}":
+            depth = max(0, depth - 1)
+        elif match.group(1):
+            if depth == 0 and match.group(1) not in SCOPE_PRESERVING:
+                depth += 1          # a scope change: stop looking inside it
+            elif depth:
+                depth += 1
+            # a scope-preserving block at depth 0 stays at depth 0
+        elif match.group(2) and depth == 0:
+            yield match.group(2)
+
+
+def check_gate_scopes(problems: list[str]) -> None:
+    """A country gate may only call triggers the engine allows in a country.
+
+    The gates copy blocks verbatim out of the game's own files, and a block the
+    game evaluates somewhere else is written for somewhere else. A building's
+    `allow` is asked of the *location* being built in, so it says
+    `is_core_of = owner` — and pasted into a `type = country` customizable
+    localization that produced one line in the player's error.log, a gate that
+    never answered, and nothing on screen to say so:
+
+        jomini_trigger.cpp:803: is_core_of: Inconsistent trigger scopes
+        (country vs. location) at svx_extra_hint_loc.txt:3073
+
+    The engine's own dump states **Supported Scopes** per trigger, so this is
+    answerable here rather than in a round trip. Only the calls still in the
+    outer scope are checked; a nested `capital = { ... }` is a different scope
+    and is left alone, which is exactly what the repair for that bug is.
+    """
+    scopes = trigger_scopes()
+    if not scopes:
+        problems.append("no triggers.log in reference/ — cannot check gate scopes")
+        return
+    for path in (EXTRA_CUSTOM, UNLOCK_GATE):
+        seen: dict[str, int] = {}
+        for block in trigger_blocks(path.read_text(encoding="utf-8-sig")).split("\n"):
+            for name in country_scope_calls(block):
+                supported = scopes.get(name)
+                # `none` is the dump's word for "no scope required" —
+                # `always`, `exists`, `has_variable`, `has_dlc`. Unknown names
+                # are `check_triggers_exist`'s business, not this one's.
+                if supported is None or supported & {"country", "none"}:
+                    continue
+                seen[name] = seen.get(name, 0) + 1
+        for name, count in sorted(seen.items()):
+            problems.append(
+                "%s: %s is a %s trigger, called in country scope (%d time%s) — "
+                "the engine logs `Inconsistent trigger scopes` and the gate "
+                "never answers" % (path.name, name,
+                                   "/".join(sorted(scopes[name])), count,
+                                   "" if count == 1 else "s"))
+
+
 def check_triggers_exist(problems: list[str]) -> None:
     """Every trigger the gates call is one the engine or the game defines.
 
@@ -614,6 +704,7 @@ def main(argv: list[str]) -> int:
     check_catalog_concepts_exist(problems)
     check_languages_are_in_step(problems)
     check_triggers_exist(problems)
+    check_gate_scopes(problems)
     for language in svx_languages.LANGUAGES:
         check_references_resolve(problems, glorp, language, rendered[language])
         paths = [extra_path(language), menu_path(language), hints_path(language)]

@@ -16,8 +16,8 @@ svx_soon_visible_centralization = {
 			scope:glorpui_country = {
 				OR = {
 					AND = { OR = { religion = religion:anglican religion = religion:calvinist religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:paulicianism } NOT = { AND = { OR = { religion = religion:anglican religion = religion:calvinist religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:paulicianism } NOT = { has_religious_aspect = religious_aspect:crown_as_head_of_faith } } } }
-					AND = { always = no NOT = { AND = { always = no always = no } } }
-					AND = { always = no NOT = { AND = { always = no always = no } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { always = no } } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -74,11 +74,11 @@ svx_soon_visible_innovative = {
 			scope:glorpui_country = {
 				OR = {
 					AND = { OR = { religion = religion:anglican religion = religion:calvinist religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:paulicianism religion = religion:waldensian } NOT = { AND = { OR = { religion = religion:anglican religion = religion:calvinist religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:paulicianism religion = religion:waldensian } NOT = { has_religious_aspect = religious_aspect:adult_baptism } } } }
-					AND = { always = no NOT = { AND = { always = no always = no } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { always = no } } } }
 					AND = { OR = { religion = religion:bogomilism religion = religion:catharism } NOT = { AND = { OR = { religion = religion:bogomilism religion = religion:catharism } NOT = { has_religious_aspect = religious_aspect:participation_women } } } }
 					AND = { OR = { religion = religion:lutheran } NOT = { AND = { OR = { religion = religion:lutheran } NOT = { has_religious_aspect = religious_aspect:pietism } } } }
 					AND = { OR = { religion = religion:anglican religion = religion:bogomilism religion = religion:calvinist religion = religion:catharism religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:miaphysite religion = religion:paulicianism religion = religion:waldensian } NOT = { AND = { OR = { religion = religion:anglican religion = religion:bogomilism religion = religion:calvinist religion = religion:catharism religion = religion:hussite religion = religion:lollardy religion = religion:lutheran religion = religion:miaphysite religion = religion:paulicianism religion = religion:waldensian } NOT = { has_religious_aspect = religious_aspect:translated_bibles } } } }
-					AND = { always = no NOT = { AND = { always = no custom_tooltip = { text = cahokia_woodhenge_why always = no } } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = cahokia_woodhenge_why always = no } } } } }
 				}
 			}
 		}
@@ -112,8 +112,8 @@ svx_soon_visible_spiritualist = {
 					AND = { OR = { religion = religion:hussite } NOT = { AND = { OR = { religion = religion:hussite } NOT = { has_religious_aspect = religious_aspect:punishment_of_sin } } } }
 					AND = { OR = { religion = religion:bogomilism religion = religion:catharism religion = religion:paulicianism religion = religion:waldensian } NOT = { AND = { OR = { religion = religion:bogomilism religion = religion:catharism religion = religion:paulicianism religion = religion:waldensian } NOT = { has_religious_aspect = religious_aspect:rejection_of_sacraments } } } }
 					AND = { OR = { religion = religion:miaphysite } NOT = { AND = { OR = { religion = religion:miaphysite } NOT = { has_religious_aspect = religious_aspect:ritual_purification } } } }
-					AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } NOT = { AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } always = no } } }
-					AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } NOT = { AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } always = no } } }
+					AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } NOT = { AND = { custom_tooltip = { text = greek_latin_academy_why OR = { tag = MOS tag = RUS } has_variable = greek_latin_academy } exists = capital capital = { always = no } } } }
+					AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } NOT = { AND = { custom_tooltip = { text = stroganov_school_of_iconic_art_why OR = { tag = MOS tag = RUS } religion ?= religion:orthodox has_variable = stroganov_school_of_iconic_art } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -128,13 +128,13 @@ svx_soon_visible_humanist = {
 			scope:glorpui_sv = societal_value_type:spiritualist_vs_humanist
 			scope:glorpui_country = {
 				OR = {
-					AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } NOT = { AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } custom_tooltip = { text = college_of_poets_why always = no } } } }
-					AND = { always = no NOT = { AND = { always = no always = no } } }
-					AND = { always = no NOT = { AND = { always = no always = no } } }
+					AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } NOT = { AND = { OR = { has_or_had_tag = HAB has_or_had_tag = TIR has_or_had_tag = STY } exists = capital capital = { custom_tooltip = { text = college_of_poets_why always = no } } } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { always = no } } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { always = no } } } }
 					AND = { OR = { religion = religion:miaphysite } NOT = { AND = { OR = { religion = religion:miaphysite } NOT = { has_religious_aspect = religious_aspect:specialized_canon } } } }
-					AND = { always = no NOT = { AND = { always = no custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no } } } }
-					AND = { always = no NOT = { AND = { always = no custom_tooltip = { text = usa_philosophical_society_why always = no } } } }
-					AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } NOT = { AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } always = no } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = usa_academy_of_arts_and_sciences_why always = no } } } } }
+					AND = { always = no NOT = { AND = { always = no exists = capital capital = { custom_tooltip = { text = usa_philosophical_society_why always = no } } } } }
+					AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } NOT = { AND = { custom_tooltip = { text = moscow_orphanage_why OR = { tag = MOS tag = RUS } has_variable = moscow_orphanage } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -158,7 +158,7 @@ svx_soon_visible_aristocracy = {
 			scope:glorpui_country = {
 				OR = {
 					AND = { OR = { religion = religion:hellenism_religion } NOT = { AND = { OR = { religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:imperial_cult_aspect } NOT = { has_religious_aspect = religious_aspect:hero_cult_aspect } } } }
-					AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } NOT = { AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } always = no } } }
+					AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } NOT = { AND = { custom_tooltip = { text = munich_residenz_founding_potential OR = { has_or_had_tag = BAV has_or_had_tag = LBV has_or_had_tag = UBV } } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -174,7 +174,7 @@ svx_soon_visible_plutocracy = {
 			scope:glorpui_country = {
 				OR = {
 					AND = { OR = { religion = religion:calvinist religion = religion:hussite religion = religion:lutheran } NOT = { AND = { OR = { religion = religion:calvinist religion = religion:hussite religion = religion:lutheran } NOT = { has_religious_aspect = religious_aspect:soli_deo_gloria } } } }
-					AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } always = no } } }
+					AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -359,7 +359,7 @@ svx_soon_visible_traditional_economy = {
 			scope:glorpui_country = {
 				OR = {
 					AND = { OR = { religion = religion:hellenism_religion } NOT = { AND = { OR = { religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:eleusinian_mysteries_aspect } } } }
-					AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } NOT = { AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } always = no } } }
+					AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } NOT = { AND = { custom_tooltip = { text = free_economic_society_why OR = { tag = MOS tag = RUS } has_variable = free_economic_society } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -387,8 +387,8 @@ svx_soon_visible_individualism = {
 					AND = { OR = { religion = religion:bogomilism religion = religion:catharism } NOT = { AND = { OR = { religion = religion:bogomilism religion = religion:catharism } NOT = { has_religious_aspect = religious_aspect:participation_women } } } }
 					AND = { OR = { religion = religion:anglican } NOT = { AND = { OR = { religion = religion:anglican } NOT = { has_religious_aspect = religious_aspect:prima_scriptura } } } }
 					AND = { OR = { religion = religion:calvinist religion = religion:hussite religion = religion:lutheran } NOT = { AND = { OR = { religion = religion:calvinist religion = religion:hussite religion = religion:lutheran } NOT = { has_religious_aspect = religious_aspect:sola_scriptura } } } }
-					AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } NOT = { AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } always = no } } }
-					AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } NOT = { AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } always = no } } }
+					AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } NOT = { AND = { custom_tooltip = { text = academy_of_sciences_why OR = { tag = MOS tag = RUS } has_variable = academy_of_sciences } exists = capital capital = { always = no } } } }
+					AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } NOT = { AND = { custom_tooltip = { text = bavarian_academy_of_sciences_why has_or_had_tag = BAV } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
@@ -410,7 +410,7 @@ svx_soon_visible_communalism = {
 					AND = { OR = { religion = religion:paulicianism } NOT = { AND = { OR = { religion = religion:paulicianism } NOT = { has_religious_aspect = religious_aspect:name_change } } } }
 					AND = { OR = { religion = religion:lutheran } NOT = { AND = { OR = { religion = religion:lutheran } NOT = { has_religious_aspect = religious_aspect:pietism } } } }
 					AND = { OR = { religion = religion:catharism } NOT = { AND = { OR = { religion = religion:catharism } NOT = { has_religious_aspect = religious_aspect:the_perfects } } } }
-					AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } always = no } } }
+					AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } NOT = { AND = { custom_tooltip = { text = institute_of_noble_maidens_why OR = { tag = MOS tag = RUS } has_variable = institute_of_noble_maidens } exists = capital capital = { always = no } } } }
 				}
 			}
 		}
