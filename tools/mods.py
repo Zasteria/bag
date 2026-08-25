@@ -688,6 +688,204 @@ def demote(mod: Mod, world: World) -> None:
     say("потому что в playset лежит только текст.")
 
 
+# ------------------------------------------------- our own mods, into the game
+
+# A mod folder here is two things at once: what the game loads, and what this
+# repository needs to build it. Only the first half may be installed — the game
+# has no use for a generator, and a `translations/` folder inside a live mod is
+# just something to wonder about later.
+GAME_PARTS = {".metadata", "in_game", "main_menu", "loading_screen", "jomini",
+              "gfx", "sound", "music"}
+REPO_ONLY = {"tools", "translations", "fixes", "docs", ".git", ".claude", "__pycache__"}
+
+# Where the game keeps mods that did not come from the workshop.
+GAME_FOLDER = "Paradox Interactive/Europa Universalis V/mod"
+
+
+def documents_dir() -> list[Path]:
+    """Every plausible Documents folder, the registry's answer first.
+
+    Windows lets Documents be moved, and OneDrive moves it without asking, so
+    the literal `%USERPROFILE%\Documents` is a guess rather than an answer.
+    """
+    found: list[Path] = []
+    if sys.platform == "win32":
+        try:
+            import winreg
+            key = r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, key) as handle:
+                found.append(Path(winreg.QueryValueEx(handle, "Personal")[0]))
+        except (ImportError, OSError):
+            pass
+    home = Path.home()
+    found += [home / "Documents", home / "OneDrive/Documents", home / "OneDrive - Personal/Documents"]
+    return [p for p in found if p.is_dir()]
+
+
+def game_mods_dir(configured: dict, make: bool = False) -> Path | None:
+    """`Documents/Paradox Interactive/Europa Universalis V/mod`, or None."""
+    given = configured.get("game_mods")
+    if given:
+        target = Path(given).expanduser()
+        if make:
+            target.mkdir(parents=True, exist_ok=True)
+        return target if target.is_dir() else None
+
+    for documents in documents_dir():
+        target = documents / GAME_FOLDER
+        if target.is_dir():
+            return target
+        # The game's own folder existing without `mod/` inside it just means he
+        # has never installed a local mod: that is ours to create, once.
+        if target.parent.is_dir() and make:
+            target.mkdir(parents=True, exist_ok=True)
+            return target
+    return None
+
+
+def our_mods() -> list[refs.Mod]:
+    """The mods this repository builds, in `mods/`."""
+    found = []
+    for folder in sorted((refs.REPO / "mods").iterdir()):
+        if not folder.is_dir() or not (folder / ".metadata/metadata.json").is_file():
+            continue
+        data = json.loads((folder / ".metadata/metadata.json").read_text(encoding="utf-8-sig"))
+        found.append(refs.Mod(path=folder, id=data.get("id"), name=data.get("name"),
+                              version=str(data.get("version") or ""),
+                              game_version=data.get("supported_game_version")))
+    return found
+
+
+def game_files(folder: Path) -> tuple[list[Path], list[str]]:
+    """The parts of a mod folder the game wants, and anything unrecognised.
+
+    Unrecognised is reported rather than guessed at in either direction: a mount
+    this tool has not heard of would otherwise be dropped silently, and a new
+    repository-only folder would otherwise be installed into the game.
+    """
+    wanted: list[Path] = []
+    unknown: list[str] = []
+    for entry in sorted(folder.iterdir()):
+        if entry.is_dir() and entry.name in GAME_PARTS:
+            wanted.append(entry)
+        elif entry.is_dir() and entry.name not in REPO_ONLY:
+            unknown.append(entry.name)
+    return wanted, unknown
+
+
+def tree_digest(paths: list[Path], root: Path) -> str:
+    """A digest of exactly what would be installed, so "same" means the same."""
+    from hashlib import sha1
+    digest = sha1()
+    for part in paths:
+        for path in sorted(part.rglob("*")):
+            if not path.is_file():
+                continue
+            digest.update(str(path.relative_to(root)).replace("\\", "/").encode("utf-8"))
+            digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def installed_state(mod: refs.Mod, target: Path) -> str:
+    there = target / mod.path.name
+    if not there.is_dir():
+        return "нет в игре"
+    mine, _ = game_files(mod.path)
+    theirs, _ = game_files(there)
+    if tree_digest(mine, mod.path) == tree_digest(theirs, there):
+        return "совпадает"
+    return "отличается"
+
+
+def install(mod: refs.Mod, target: Path) -> tuple[int, int]:
+    """Replace the game's copy of this mod with the one here."""
+    parts, _ = game_files(mod.path)
+    there = target / mod.path.name
+    if there.exists():
+        shutil.rmtree(there)
+    files = size = 0
+    for part in parts:
+        for path in sorted(part.rglob("*")):
+            if not path.is_file():
+                continue
+            destination = there / path.relative_to(mod.path)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, destination)
+            files += 1
+            size += path.stat().st_size
+    return files, size
+
+
+def screen_install(configured: dict) -> None:
+    target = game_mods_dir(configured, make=True)
+    if target is None:
+        say()
+        say("Не нашёл папку модов игры. Обычно она здесь:")
+        say(r"  C:\Users\<ты>\Documents\Paradox Interactive\Europa Universalis V\mod")
+        say("Укажи её один раз:")
+        say('  mods.bat --game-mods "<путь>"')
+        return
+
+    say()
+    say("Папка модов игры: %s" % target)
+    if yes("Сначала подтянуть свежее из GitHub (git pull)?"):
+        with Doing("git pull") as step:
+            done = workshop.git("pull", check=False)
+            step.finish("готово" if done.returncode == 0 else "не вышло")
+        if done.returncode != 0:
+            say((done.stdout + done.stderr).strip())
+
+    mods = our_mods()
+    say()
+    say("  %-3s %-22s %-10s %-12s %s" % ("#", "мод", "версия", "в игре", "что это"))
+    for number, mod in enumerate(mods, 1):
+        state = installed_state(mod, target)
+        say("  %-3d %-22s %-10s %-12s %s"
+            % (number, mod.path.name, mod.version or "—", state, (mod.name or "")[:34]))
+    say()
+    say("Enter — поставить все, номера через запятую — только их,")
+    answer = ask("«у» + номера — убрать из игры, 0 — назад: ")
+    if answer == "0":
+        return
+
+    remove = answer.lower().startswith(("у", "y"))
+    if remove:
+        answer = answer[1:].strip()
+    chosen: list[refs.Mod] = []
+    if not answer:
+        chosen = list(mods)
+    else:
+        for part in re.split(r"[,\s]+", answer):
+            if part.isdigit() and 1 <= int(part) <= len(mods):
+                chosen.append(mods[int(part) - 1])
+    if not chosen:
+        return
+
+    say()
+    for mod in chosen:
+        if remove:
+            there = target / mod.path.name
+            if there.is_dir():
+                shutil.rmtree(there, ignore_errors=True)
+                say("  %-22s убран из игры" % mod.path.name)
+            else:
+                say("  %-22s его там и не было" % mod.path.name)
+            continue
+        _, unknown = game_files(mod.path)
+        with Doing("ставлю %s" % mod.path.name) as step:
+            files, size = install(mod, target)
+            step.finish("%d файлов, %s" % (files, workshop.human(size)))
+        if unknown:
+            say("     не знаю, что это, и потому не копировал: %s" % ", ".join(unknown))
+
+    say()
+    if not remove:
+        say("Готово. В игру уехало только то, что она читает — .metadata и папки")
+        say("монтирования; генераторы, переводы-исходники и README остались здесь.")
+        say("Если мод ставится впервые, включи его в лаунчере один раз; дальше")
+        say("обновления подхватываются сами, папка та же.")
+
+
 # ------------------------------------------------------------------ git at the end
 
 
@@ -877,8 +1075,9 @@ def menu(configured: dict) -> int:
         say("  1  Проверить обновления в мастерской и скачать")
         say("  2  Обновить копии в репозитории (reference / playset)")
         say("  3  Мои моды: список, что где лежит, перенос между ними")
-        say("  4  Коммит и пуш")
-        say("  5  Перечитать всё заново")
+        say("  4  Поставить наши моды в игру")
+        say("  5  Коммит и пуш")
+        say("  6  Перечитать всё заново")
         say("  0  Выход")
         choice = ask("> ")
 
@@ -891,8 +1090,10 @@ def menu(configured: dict) -> int:
         elif choice == "3":
             screen_list(world, configured)
         elif choice == "4":
-            commit_and_push()
+            screen_install(configured)
         elif choice == "5":
+            commit_and_push()
+        elif choice == "6":
             world = gather(configured)
         elif choice in {"0", "q", "в", "выход"}:
             return 0
@@ -912,14 +1113,16 @@ def main(argv: list[str]) -> int:
                         help="папка steamapps/workshop/content, если она не там, где обычно")
     parser.add_argument("--steamcmd", metavar="PATH", help="путь к steamcmd")
     parser.add_argument("--login", metavar="USER", help="аккаунт Steam")
+    parser.add_argument("--game-mods", metavar="DIR", dest="game_mods",
+                        help="папка модов игры (Documents/Paradox Interactive/...)")
     parsed = parser.parse_args(argv[1:])
 
     configured = settings_read()
-    for name in ("workshop", "steamcmd", "login"):
+    for name in ("workshop", "steamcmd", "login", "game_mods"):
         given = getattr(parsed, name)
         if given:
             configured[name] = given
-    if any(getattr(parsed, n) for n in ("workshop", "steamcmd", "login")):
+    if any(getattr(parsed, n) for n in ("workshop", "steamcmd", "login", "game_mods")):
         settings_write(configured)
 
     if parsed.command == "check":

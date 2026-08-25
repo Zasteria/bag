@@ -70,6 +70,18 @@ game files.
 
 ## Mod layout
 
+**Where a local mod lives.** Not in the game's install and not in Steam's
+workshop folder: `Documents/Paradox Interactive/Europa Universalis V/mod/<any
+folder name>/`, and what makes it a mod rather than a folder is
+`.metadata/metadata.json` inside it. There is no `.mod` descriptor to write
+beside it — that is the EU4/CK3 shape and it is gone. A mod put there is
+enabled once in the launcher; replacing the folder's contents afterwards is how
+it gets updated, which is what `tools/mods.py` does from its menu.
+
+Documents may not be under `%USERPROFILE%` — OneDrive moves it without asking —
+so the path is read from `HKCU\...\Explorer\Shell Folders\Personal` rather
+than assembled from the user name.
+
 EU5 splits a mod by *load context* at the top level, which is new compared to
 EU4/CK3:
 

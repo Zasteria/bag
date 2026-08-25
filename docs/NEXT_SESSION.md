@@ -124,8 +124,9 @@ so the setting tests the mod before it is written.
 `mods.bat` in the repository root (over `tools/mods.ps1`, over `tools/mods.py`)
 is the owner's tool for everything about a mod updating:
 his whole subscription against the workshop, steamcmd into the game's own
-folder, the copies here, moving a mod between `reference/mods/` and
-`reference/playset/`, the commit and the push. It was built because he said in
+workshop folder, the copies here, **our own mods into
+`Documents/Paradox Interactive/Europa Universalis V/mod/`**, moving a mod
+between `reference/mods/` and `reference/playset/`, the commit and the push. It was built because he said in
 so many words that **nothing about updating his mods may require one of our
 sessions** — so do not add a step only a session can do, and do not tell him to
 run the pieces by hand when the menu covers it. `tools/workshop.py` is the same

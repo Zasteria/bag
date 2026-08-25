@@ -701,6 +701,20 @@ and the push. A mod moves between `reference/mods/` (whole, watched daily) and
 `reference/playset/` (text only) from the same menu, which rewrites
 `tools/workshop_mods.txt` itself.
 
+**It also installs what we build.** Menu item 4 copies the mods in `mods/` into
+`Documents/Paradox Interactive/Europa Universalis V/mod/`, which is the folder
+he used to keep in step by hand — pull the branch, delete the old folder, paste
+the new one, six times. It offers a `git pull` first, says of each mod whether
+the game's copy is the same, different or absent, and can take one back out
+again.
+
+**Only the game's half of a mod folder goes.** `.metadata/` and the mount
+directories (`in_game`, `main_menu`, `loading_screen`, …); never `tools/`,
+`translations/`, `fixes/` or the READMEs, which are this repository's business.
+A top-level directory that is in neither list is **reported and not copied** —
+so a mount nobody has heard of cannot be dropped in silence, and a new source
+folder cannot end up inside a live mod.
+
 That shape is deliberate and was asked for in those words: **nothing about
 updating his mods may require a session of ours.** `sync_workshop.ps1` is still
 there for the unattended path, and `workshop.py` is still the machinery under
