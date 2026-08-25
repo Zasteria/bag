@@ -16,6 +16,11 @@ patch's effect, made visible, and `git diff` says what it was.
 
 Add `--check` to leave nothing changed on disk and only report, which is what a
 session should run before trusting anything a doc says about the tree.
+
+Add `--brief` to hear from a generator only when it has something to say — a
+failure, or a file it actually changed. That is the shape the mod menu wants:
+the full report is reassuring the first time and noise the twentieth, and it
+reads as though the generators were rewriting mods that nobody touched.
 """
 
 from __future__ import annotations
@@ -61,22 +66,28 @@ def changed_files() -> list[str]:
 
 def main(argv: list[str]) -> int:
     check_only = "--check" in argv
+    brief = "--brief" in argv
     before = set(changed_files())
 
-    print("reference/")
-    for mod in refs.mods():
-        print("  %-40s %-34s %s" % (mod.folder, mod.id or "(no metadata)", mod.version or "—"))
+    if not brief:
+        print("reference/")
+        for mod in refs.mods():
+            print("  %-40s %-34s %s" % (mod.folder, mod.id or "(no metadata)", mod.version or "—"))
 
     failed = []
-    print()
+    if not brief:
+        print()
     for name, script in GENERATORS:
         code, output = run(script)
-        marker = "ok " if code == 0 else "FAIL"
-        print("%s %s" % (marker, name))
-        for line in output.splitlines():
-            print("     %s" % line)
         if code != 0:
             failed.append(name)
+        if brief and code == 0:
+            continue
+        print("%s %s" % ("ok " if code == 0 else "FAIL", name))
+        for line in output.splitlines():
+            print("     %s" % line)
+    if brief and not failed:
+        print("ok  %d генератор(ов) отработали" % len(GENERATORS))
 
     refs.INVENTORY.write_text(refs.table(), encoding="utf-8")
 

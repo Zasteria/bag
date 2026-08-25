@@ -489,6 +489,26 @@ def run_python(script: str, *args: str) -> int:
     return done.returncode
 
 
+def reference_is_current(mod: Mod) -> bool:
+    """Is the copy under `reference/mods/` already the workshop's version?
+
+    Copying a mod that has not moved costs nothing in git — identical files are
+    no diff — but it reads as though the tool were rewriting things nobody
+    touched, and National Destinies alone is a hundred megabytes of it. So the
+    same test the update check uses answers here too: a folder committed after
+    the workshop last moved cannot be behind, and one with uncommitted changes
+    was just copied.
+    """
+    if mod.folder is None or not mod.folder.exists():
+        return False
+    if not mod.published:
+        return True                      # Steam did not answer; do not churn on a guess
+    if workshop.committed_at(mod.folder) > mod.published:
+        return True
+    return bool(workshop.git("status", "--porcelain", "--", str(mod.folder),
+                             check=False).stdout.strip())
+
+
 def update_reference(world: World, chosen: list[Mod] | None = None) -> list[str]:
     """Replace the whole copies under `reference/mods/` from the workshop."""
     if world.content is None:
@@ -531,10 +551,21 @@ def update_playset(world: World) -> None:
 
 
 def rebuild() -> None:
+    """Rebuild what this repository compiles *from* the reference copies.
+
+    Worth being plain about, because the output looks alarming otherwise: this
+    touches only the `*_generated_*` files inside our own mods. Those are
+    compiled from the reference copies — a translation is built against the base
+    mod's English — so a base mod moving has to be followed here or the mod ships
+    against a version that is gone. Nothing hand-written is read or rewritten.
+    """
     say()
-    say("--- пересборка всего, что генерируется из этих файлов ---")
-    run_python("tools/refresh.py")
-    run_python("tools/workshop.py", "record")
+    say("--- пересобираю файлы *_generated_* в наших модах ---")
+    say("    (они компилируются из reference; руками написанное не трогается)")
+    run_python("tools/refresh.py", "--brief")
+    if run_python("tools/workshop.py", "record") != 0:
+        say("    отметку о версиях записать не удалось — это не страшно:")
+        say("    проверка обновлений всё равно определит их по истории git.")
 
 
 # ---------------------------------------------------------- moving mods around
@@ -703,11 +734,28 @@ def screen_repository(world: World) -> None:
     if choice not in {"1", "2", "3"}:
         return
     say()
+    copied: list[str] = []
     if choice in {"1", "3"}:
-        update_reference(world)
+        tracked = {item.id for item in workshop.tracked()}
+        mine = [m for m in world.mods if m.id in tracked]
+        behind = [m for m in mine if not reference_is_current(m)]
+        if behind:
+            say("Отстают от мастерской копии в reference:")
+            for mod in behind:
+                say("  %s" % mod.name)
+            say()
+            copied = update_reference(world, behind)
+        else:
+            say("Копии в reference уже те же, что в мастерской — копировать нечего.")
+            if yes("Всё равно перекопировать все %d?" % len(mine), default=False):
+                copied = update_reference(world)
     if choice in {"2", "3"}:
         update_playset(world)
-    rebuild()
+    # Only a changed reference copy can change anything generated: nothing here
+    # compiles from the playset, and a rebuild that had no input to react to is
+    # ten seconds of output saying so.
+    if copied:
+        rebuild()
 
 
 def screen_list(world: World, configured: dict) -> None:

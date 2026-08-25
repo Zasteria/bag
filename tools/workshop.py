@@ -150,14 +150,21 @@ def steam_details(ids: list[str], timeout: float = 20.0) -> dict[str, dict]:
         + [("publishedfileids[%d]" % n, item) for n, item in enumerate(ids)]
     ).encode("ascii")
     request = urllib.request.Request(DETAILS_URL, data=body)
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as answer:
-            payload = json.load(answer)
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-        raise SystemExit(
-            "could not ask Steam what the workshop has: %s\n"
-            "`--offline` reports what is written down here instead." % exc
-        ) from exc
+    # Steam's public endpoint drops a connection now and again — a TLS handshake
+    # that times out once is not an answer, and treating it as one turned a
+    # perfectly good run into a red line about the network.
+    for attempt in (1, 2, 3):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as answer:
+                payload = json.load(answer)
+            break
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            if attempt == 3:
+                raise SystemExit(
+                    "could not ask Steam what the workshop has: %s\n"
+                    "`--offline` reports what is written down here instead." % exc
+                ) from exc
+            time.sleep(2 * attempt)
     out = {}
     for detail in payload.get("response", {}).get("publishedfiledetails", []):
         if detail.get("result") != 1:
