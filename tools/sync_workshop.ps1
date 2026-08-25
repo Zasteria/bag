@@ -40,6 +40,10 @@
 .PARAMETER Branch
     Branch to push to. Default is whatever is checked out.
 
+.PARAMETER CheckPython
+    Report which Python this script would use, and where it looked, then stop.
+    Nothing is copied, committed or pushed.
+
 .PARAMETER NoCommit
     Copy and rebuild, but leave the result in the working tree uncommitted.
 
@@ -66,6 +70,7 @@ param(
     [string]   $Login,
     [string[]] $Only,
     [string]   $Branch,
+    [switch]   $CheckPython,
     [switch]   $NoCommit,
     [switch]   $NoPush,
     [switch]   $DryRun
@@ -82,6 +87,91 @@ if (Get-Variable -Name PSNativeCommandUseErrorActionPreference -ErrorAction Sile
 # Europa Universalis V. Its workshop items live under
 # steamapps\workshop\content\3450310\<item id>\.
 $AppId = '3450310'
+
+# Python is looked for where Windows actually keeps it, not only on PATH.
+# An install made without ticking "Add python.exe to PATH" is invisible to
+# Get-Command and perfectly usable otherwise - which is how the first sync came
+# to skip the rebuild on a machine that had Python installed all along. So the
+# registry is asked first: every python.org and Store install records itself
+# under Software\Python\<company>\<tag>\InstallPath whether or not PATH knows.
+#
+# Windows also ships a python.exe stub that opens the Microsoft Store and runs
+# nothing, so a candidate counts only once it has answered --version.
+function Get-PythonCandidates {
+    $candidates = @()
+
+    foreach ($hive in @('HKCU:\Software\Python', 'HKLM:\SOFTWARE\Python',
+                        'HKLM:\SOFTWARE\WOW6432Node\Python')) {
+        if (-not (Test-Path $hive)) { continue }
+        foreach ($company in (Get-ChildItem $hive -ErrorAction SilentlyContinue)) {
+            foreach ($tag in (Get-ChildItem $company.PSPath -ErrorAction SilentlyContinue)) {
+                $install = Join-Path $tag.PSPath 'InstallPath'
+                if (-not (Test-Path $install)) { continue }
+                $property = Get-ItemProperty $install -ErrorAction SilentlyContinue
+                if ($property.ExecutablePath) { $candidates += $property.ExecutablePath }
+                elseif ($property.'(default)') {
+                    $candidates += (Join-Path $property.'(default)' 'python.exe')
+                }
+            }
+        }
+    }
+
+    foreach ($name in @('python', 'python3', 'py')) {
+        $found = Get-Command $name -ErrorAction SilentlyContinue
+        if ($found) { $candidates += $found.Source }
+    }
+
+    foreach ($pattern in @(
+        "$env:LOCALAPPDATA\Programs\Python\Python3*\python.exe",
+        "$env:LOCALAPPDATA\Microsoft\WindowsApps\python*.exe",
+        "$env:ProgramFiles\Python3*\python.exe",
+        "${env:ProgramFiles(x86)}\Python3*\python.exe",
+        'C:\Python3*\python.exe'
+    )) {
+        $candidates += (Get-ChildItem -Path $pattern -ErrorAction SilentlyContinue |
+                        Sort-Object FullName -Descending | ForEach-Object { $_.FullName })
+    }
+
+    return ($candidates | Where-Object { $_ } | Select-Object -Unique)
+}
+
+function Find-Python {
+    param([switch] $Explain)
+
+    $tried = @()
+    foreach ($candidate in (Get-PythonCandidates)) {
+        $answer = ''
+        try { $answer = (& $candidate --version 2>&1 | Out-String).Trim() } catch { $answer = $_.Exception.Message }
+        if ($answer -match 'Python 3') {
+            if ($Explain) { Write-Host ("  {0,-60} {1}" -f $candidate, $answer) -ForegroundColor Green }
+            return $candidate
+        }
+        $tried += ('  {0,-60} {1}' -f $candidate, $(if ($answer) { $answer } else { 'said nothing' }))
+    }
+
+    # Nothing answered. What was tried is the useful half of that.
+    if ($tried) {
+        Write-Host 'Looked at these and none of them answered --version with a Python 3:' -ForegroundColor Yellow
+        $tried | ForEach-Object { Write-Host $_ -ForegroundColor Yellow }
+    } else {
+        Write-Host 'Found nothing to try: PATH has no python, python3 or py, the registry has' -ForegroundColor Yellow
+        Write-Host 'no Software\Python install recorded, and the usual folders hold none.' -ForegroundColor Yellow
+    }
+    return $null
+}
+
+if ($CheckPython) {
+    Write-Host 'Looking for Python the way this script does:'
+    $found = Find-Python -Explain
+    if ($found) {
+        Write-Host ''
+        Write-Host "This is what a sync would use: $found" -ForegroundColor Green
+        exit 0
+    }
+    Write-Host ''
+    Write-Host 'A sync would copy and push, and skip the rebuild.' -ForegroundColor Red
+    exit 1
+}
 
 $toolsDir = if ($PSScriptRoot) { $PSScriptRoot }
             else { Split-Path -Parent $MyInvocation.MyCommand.Path }
@@ -292,33 +382,13 @@ if (-not $copied) {
 
 # ----------------------------------------------------- rebuild what is generated
 
-# Python is looked for properly rather than hopefully. Windows ships a
-# python.exe stub that opens the Microsoft Store and prints nothing, so a
-# candidate only counts once it has actually answered --version.
-function Find-Python {
-    $candidates = @()
-    foreach ($name in @('python', 'python3', 'py')) {
-        $found = Get-Command $name -ErrorAction SilentlyContinue
-        if ($found) { $candidates += $found.Source }
-    }
-    foreach ($pattern in @(
-        "$env:LOCALAPPDATA\Programs\Python\Python3*\python.exe",
-        "$env:ProgramFiles\Python3*\python.exe",
-        "${env:ProgramFiles(x86)}\Python3*\python.exe",
-        'C:\Python3*\python.exe'
-    )) {
-        $candidates += (Get-ChildItem -Path $pattern -ErrorAction SilentlyContinue |
-                        Sort-Object FullName -Descending | ForEach-Object { $_.FullName })
-    }
-
-    foreach ($candidate in ($candidates | Where-Object { $_ } | Select-Object -Unique)) {
-        try {
-            $version = & $candidate --version 2>&1 | Out-String
-            if ($version -match 'Python 3') { return $candidate }
-        } catch { }
-    }
-    return $null
-}
+# Python's own output is Russian in places, and PowerShell reads a native
+# command through a pipe rather than a console - which puts Python on the
+# machine's ANSI code page, where a Cyrillic line raises UnicodeEncodeError and
+# takes the rest of the run with it. UTF-8 both ways instead.
+$env:PYTHONUTF8 = '1'
+$env:PYTHONIOENCODING = 'utf-8'
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 
 $python = Find-Python
 
