@@ -696,7 +696,8 @@ def demote(mod: Mod, world: World) -> None:
 # just something to wonder about later.
 GAME_PARTS = {".metadata", "in_game", "main_menu", "loading_screen", "jomini",
               "gfx", "sound", "music"}
-REPO_ONLY = {"tools", "translations", "fixes", "docs", ".git", ".claude", "__pycache__"}
+REPO_ONLY = {"tools", "translations", "fixes", "docs", "workshop",
+             ".git", ".claude", "__pycache__"}
 
 # Where the game keeps mods that did not come from the workshop.
 GAME_FOLDER = "Paradox Interactive/Europa Universalis V/mod"
@@ -1059,6 +1060,26 @@ def screen_list(world: World, configured: dict) -> None:
             download(configured, [mod], world.content)
 
 
+def screen_publish() -> None:
+    """Готов ли наш мод к мастерской — и что вставлять на её страницу."""
+    import publish
+
+    mods = our_mods()
+    say()
+    say("Проверяю то, на что мастерская не ругается, а просто молча роняет:")
+    say("теги, картинку, версию, BOM. Как загружать — docs/WORKSHOP.md.")
+    say()
+    publish.main(["publish"])
+    say()
+    say("Номер мода — подробности и текст для страницы, Enter — назад.")
+    for number, mod in enumerate(mods, 1):
+        say("  %-3d %s" % (number, mod.path.name))
+    answer = ask("> ").strip()
+    if answer.isdigit() and 1 <= int(answer) <= len(mods):
+        publish.main(["publish", mods[int(answer) - 1].path.name])
+        ask("Enter — назад ")
+
+
 def menu(configured: dict) -> int:
     world = gather(configured)
     while True:
@@ -1076,8 +1097,9 @@ def menu(configured: dict) -> int:
         say("  2  Обновить копии в репозитории (reference / playset)")
         say("  3  Мои моды: список, что где лежит, перенос между ними")
         say("  4  Поставить наши моды в игру")
-        say("  5  Коммит и пуш")
-        say("  6  Перечитать всё заново")
+        say("  5  Готов ли наш мод к мастерской")
+        say("  6  Коммит и пуш")
+        say("  7  Перечитать всё заново")
         say("  0  Выход")
         choice = ask("> ")
 
@@ -1092,8 +1114,10 @@ def menu(configured: dict) -> int:
         elif choice == "4":
             screen_install(configured)
         elif choice == "5":
-            commit_and_push()
+            screen_publish()
         elif choice == "6":
+            commit_and_push()
+        elif choice == "7":
             world = gather(configured)
         elif choice in {"0", "q", "в", "выход"}:
             return 0

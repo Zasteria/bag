@@ -1,0 +1,43 @@
+[h1]Glorp UI — Societal Value Hints[/h1]
+
+An add-on for [b]Glorp UI[/b] that finishes the societal value tooltip: it lists the sources Glorp UI's own generator never reads, hides the ones your country cannot take, and ships Glorp UI's own hint list in [b]all eleven languages[/b] instead of English alone.
+
+[b]Load it after Glorp UI.[/b] The launcher does that on its own — the dependency is declared.
+
+[h2]The empty list[/h2]
+
+Glorp UI replaces the game's built-in hint block with its own, and ships the text for it in [i]English only[/i]. Paradox games load the localization folder of the selected language and do not fall back to English, so in any other language every one of those 759 keys is missing, the list renders empty, and your [i]debug.log[/i] collects 725 [i]Missing loc key[/i] lines on every single load.
+
+This mod supplies that text in English, French, German, Spanish, Brazilian Portuguese, Polish, Russian, Turkish, Simplified Chinese, Japanese and Korean.
+
+[h2]The thin list[/h2]
+
+Glorp UI reads government reforms, laws and policies, and estate privileges. The game pushes a societal value from [b]twenty-three[/b] kinds of object — 1405 pushes in all. So this mod adds a second block, [i]Also pushes towards this[/i], and a third, [i]Becomes available under these conditions[/i], covering:
+
+[list]
+[*]employment systems, buildings, religious aspects and schools, parliament issues and types, chivalric orders, subject types, estates, cabinet actions, international organizations, advances and missions;
+[*]the modifiers that are always in force and grow with your country — fort and army maintenance, army size and experience, average control and development, literacy, estate shares of the population;
+[*]the ones a condition switches on — war and peace, attacker and defender, bankruptcy, the fort limit, legitimacy;
+[*]and pointing the cabinet at the value, on every one of the 34 directions.
+[/list]
+
+For [i]Defensive[/i] that is 0 lines → 15.
+
+[h2]It hides what you cannot have[/h2]
+
+253 of the lines carry a trigger and disappear when your country cannot have the thing: an aspect of another religion, an estate you do not have, an organization you cannot join, a mission in a game with missions switched off, a parliament issue raised by an estate you lack. Each gate is copied from the object's own [i]potential[/i] and [i]allow[/i], or asked of the game with its own trigger — nothing is guessed.
+
+Five hints Glorp UI shows are also held back until the advance that unlocks the privilege is taken: Glorp UI's filter reads the privilege's own conditions, and these are locked from the other side.
+
+[h2]The switch[/h2]
+
+[i]Community Mod Framework[/i] mod menu → [b]Societal Value Hints[/b] → [b]Lists[/b] → [b]Filtering[/b] → [b]Show everything, unfiltered[/b]. Every line the direction has, with nothing filtered out — for the game where you plan to fight your way somewhere you are nowhere near, and for answering "is this filtered out, or is it simply not there".
+
+[h2]Compatibility[/h2]
+
+[list]
+[*][b]Requires[/b] Glorp UI and Community Mod Framework.
+[*]Overrides Glorp UI's two societal value tooltip templates, and re-emits Glorp UI's own list inside them unchanged. Another mod that overrides the same two templates will conflict.
+[*]It also repairs four keys of Glorp UI's own interface whose Russian is broken grammar. Only Russian — the other translations are fine and are left alone.
+[*]Costs no always-live window, no scripted GUI and no loop. It runs script only while a societal value tooltip is actually open.
+[/list]

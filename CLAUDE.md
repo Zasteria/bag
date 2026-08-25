@@ -27,6 +27,9 @@ to work here; that file is what to work on.
 3. **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — the specific mistakes already
    made here, each with the symptom that gave it away. Most cost a full
    test-in-game round trip. Scan it whenever something silently does nothing.
+4. **[`docs/WORKSHOP.md`](docs/WORKSHOP.md)** — only when the task is putting a
+   mod *out*: what the workshop reads, what it silently drops, and which parts
+   of the upload nobody here has done yet.
 
 The mods live in [`mods/`](mods/), one folder each, and each carries its own
 README covering how that mod works and what is left to do.
@@ -138,6 +141,7 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
 | `guicost.py` | what the interface costs before anybody clicks: always-live windows, script calls from `.gui`, filter chips per tag |
 | `playset.py` | which mods the player actually runs, read out of the mount table in his own `debug.log` |
+| `publish.py` | whether a mod is fit to upload: the workshop's own tag vocabulary, the version format the launcher parses, the thumbnail, the BOM. How the upload itself works is [`docs/WORKSHOP.md`](docs/WORKSHOP.md) |
 
 `.claude/hooks/session-start.sh` runs the first two checkers at the start of
 every session and hands the result back as context, so a session begins knowing
@@ -193,8 +197,12 @@ fail naming the keys when that mod's English file has moved.
 
 - Script and localization files carry a UTF-8 BOM.
 - Localization: one leading space per key under the `l_<language>:` header, and
-  both `english` and `russian` are kept in step. The player plays in Russian, so
-  a key missing there shows as the raw key on screen.
+  every language folder a mod ships is kept in step with the others. The player
+  plays in Russian, so a key missing there shows as the raw key on screen.
+  `glorpui_hints` ships all eleven the game has; the rest ship Russian.
+- **A word the game already has a name for is not translated by hand.**
+  `[religious_aspect|e]` resolves `game_concept_religious_aspect` in the
+  player's language for free, and is right where a synonym would be wrong.
 - Prefer adding to `gui/filters/` or to CMF's action bar over copying a vanilla
   `.gui`. When a copy is unavoidable, copy the **window** and not the file's
   `types` block — other mods restyle those types, and carrying vanilla's copies
