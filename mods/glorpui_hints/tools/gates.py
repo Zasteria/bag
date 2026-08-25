@@ -202,12 +202,30 @@ def gate_for(source_type, key, objects, extra=None):
         return {"reach": reach, "now": now}
 
     if source_type == "building_types":
-        # The game's own blocks, copied verbatim: country_potential says which
-        # countries may ever have it, allow says whether it can be built now.
+        # `country_potential` is asked of a country and copies straight across.
+        #
+        # **`allow` is not.** The game evaluates it on the location being built
+        # in, so it is written in location scope: `is_core_of = owner`,
+        # `owner = { ... }`, `region`, `market`, `has_building`,
+        # `dominant_culture`. Copied into a `type = country` customizable
+        # localization it made the engine say so, in the player's error.log and
+        # nowhere else:
+        #
+        #     jomini_trigger.cpp:803: is_core_of: Inconsistent trigger scopes
+        #     (country vs. location) at svx_extra_hint_loc.txt:3073
+        #
+        # Every building push here is a `capital_country_modifier`, so the
+        # location the block has to hold in is the capital — which makes
+        # `capital = { ... }` not a workaround but the exact question. `capital`
+        # is a country → location event target (`tools/api.py capital`), and the
+        # game writes `exists = capital` in front of it, 76 times in its own
+        # `common/`.
         potential = sub_block(body, "country_potential")
-        reach = [" ".join(potential.split())] if potential else []
+        reach = ([" ".join(potential.split())]
+                 if potential and not _needs_a_scope(potential) else [])
         allow = sub_block(body, "allow")
-        now = reach + ([" ".join(allow.split())] if allow else [])
+        now = reach + (["exists = capital capital = { %s }" % " ".join(allow.split())]
+                       if allow and not _needs_a_scope(allow) else [])
         return {"reach": reach, "now": now}
 
     if source_type == "religious_schools":
