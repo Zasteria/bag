@@ -4,13 +4,20 @@
     "version": "1.0.0",
     "game_id": "eu5",
     "supported_game_version": "1.3.*",
-    "short_description": "Russian for Glorp UI's societal value hints, and the sources its generator does not look at: employment systems, buildings, religious aspects, parliament issues, cabinet actions and the scaling modifiers.",
+    "short_description": "Russian for Glorp UI's societal value hints, the sources its generator does not look at, and a filter that drops what your country cannot take.",
     "tags": [
         "User Interface",
         "Fixes",
         "1.3"
     ],
     "relationships": [
+        {
+            "rel_type": "dependency",
+            "id": "community_mod_framework",
+            "display_name": "Community Mod Framework",
+            "resource_type": "mod",
+            "version": "2.*"
+        },
         {
             "rel_type": "dependency",
             "id": "glorp.ui",

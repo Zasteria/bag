@@ -64,7 +64,8 @@ normal country qualifies for none.
 
 A second block, **«Также влияет на смещение»**, under Glorp UI's own, and a
 third, **«Станет доступно при условиях»**, for what is out of reach today but
-not out of reach forever. 264 hint lines across all 34 directions, of two kinds:
+not out of reach forever. A fourth, **«Влияет на смещение (без фильтра)»**,
+replaces both when the mod menu switch is on. 264 hint lines across all 34 directions, of two kinds:
 
 - **catalogue lines** — something to pick or to build: employment system,
   buildings, religious aspects, religious schools, parliament issues, chivalric
@@ -171,6 +172,59 @@ Left out entirely: `traits`, `regencies`, `disasters` (situational, not the
 player's choice) and the Byzantine `auto_modifiers` branch (hellenization and
 latinization, ~50 objects, BYZ only).
 
+### The switch, and what it is for
+
+Filtering is the point, but a filtered list cannot be checked against itself.
+`Списки → Фильтрация → Показывать всё без фильтра` in CMF's mod menu turns the
+two filtered blocks off and one unfiltered block on: every line the direction
+has, with no trigger in front of any of it. For the rare game where the plan is
+to fight your way into a region you start nowhere near, and for answering "is
+this filtered out, or is it simply not there".
+
+It is a `.gui` condition and nothing more —
+`CMMSettingIsRegistered('svx__show_all')` and `CMMValueEqualsOne(...)`, both GUI
+functions — so no script runs and the unfiltered body is a plain string that
+cannot fail. The registration is the mod's only hand written script:
+`in_game/common/scripted_effects/svx_cmm_registration.txt` on CMF's
+`cmf_on_mod_registration`. `python3 tools/check_cmm.py
+mods/glorpui_hints/in_game/common` checks the call against whichever CMF is in
+`reference/`, and checks that every localization key CMM derives is defined.
+
+The switch is per country rather than global: it is a reading preference of the
+person looking at the tooltip, and CMF's global variants store one value for the
+whole session, which is for rules rather than for what a player wants to see.
+
+### What «масштабируется» actually means
+
+Every scaled and conditional line carries a hover. «(масштабируется)» and
+«(условие)» are game concepts this mod defines — the same mechanism Glorp UI
+uses for its banner — and their text is compiled out of the modifier's own file:
+
+- an **`auto_modifier`** declares `scales_with`, an ordinary script value block,
+  so both the quantity and the value at which the modifier reaches full size are
+  computable. `army_tradition multiply = 0.01` is full at **100**;
+  `used_fort_limit_percentage subtract = 1.0` at **200%**;
+  `value = 0.5 subtract = used_fort_limit_percentage multiply = 2` at **0%**,
+  which is what "below half the fort limit" never said out loud. It may declare
+  only `potential_trigger`, and then the answer is the condition rather than a
+  number: *Армия больше ожидаемой* is `army_size_percentage > 1.0`, which is the
+  whole of what "expected army" means.
+- a **`static_modifier`** declares neither. The engine scales those when it
+  attaches them and neither the shipped files nor the defines say by how much,
+  so the hover says exactly that rather than inventing a figure. *Средняя
+  грамотность* is one of these: the +0.10 is the maximum and nothing in the
+  files says what literacy reaches it.
+
+41 explanations, 13 of them with a computed threshold. The arithmetic declines
+anything whose shape it does not cover — two quantities subtracted from each
+other, a conditional block — rather than guessing, because a wrong threshold is
+worse than none.
+
+The line's label comes from the game's own `$STATIC_MODIFIER_NAME_x$` /
+`$AUTO_MODIFIER_NAME_x$` where the game has one, so a patch that renames a
+modifier is followed for free and the concept links inside those names come
+along. The hand written label is only the fallback.
+
 ### Scaling versus conditional
 
 Sources from `static_modifiers` / `auto_modifiers` split in two, and the value is
@@ -274,15 +328,16 @@ different thing in a different scope. It is `religion = religion:X` now.
 
 ## What it costs the interface
 
-`python3 tools/guicost.py` prices it at **102 widgets in one file, no
+`python3 tools/guicost.py` prices it at **136 widgets in one file, no
 `GetScriptedGui`, no always-live window, no loop** — the cheapest thing in the
 tree. What it does spend is script calls while a societal value tooltip is up:
-102 `visible` expressions, one per tooltip list, each running a script value.
+136 `visible` expressions, one per tooltip list, each running a script value.
 Thirty-three of every thirty-four fail on their first line
 (`scope:glorpui_sv = societal_value_type:X`) and cost nothing more. The axis that
 matches then evaluates its body, which is up to 21 `Player.Custom` gates on the
 worst direction. Glorp UI's own version already ran 34 of those `visible` calls;
-this mod takes it to 102.
+this mod takes it to 136, of which 34 are the unfiltered block that is hidden
+unless the switch is on.
 
 That is worth keeping in mind against the open
 [panel-hitch question](../../docs/HANDOFF.md), whose live hypothesis is hover:
@@ -320,6 +375,19 @@ renames comes along regardless.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
+- **The mod menu switch.** CMM registration is the most silent-failing thing in
+  this repository: a mod that never registers shows no row and logs nothing.
+  Look for `Подсказки общественных ценностей → Списки → Фильтрация` in CMF's mod
+  menu. If the row is absent, registration did not run; if the row is there and
+  the tooltip does not change, the `.gui` condition is wrong. The two fail
+  differently, which is why they are worth telling apart.
+- **The hover on «(масштабируется)» and «(условие)».** These are game concepts
+  this mod defines. Glorp UI proves a mod *can* define one, but its examples all
+  carry a `texture` and these carry only `shown_in_encyclopedia = no` — a
+  text-only concept is unproven here, and vanilla's own `game_concepts/` is not
+  in `reference/` to check against. If it does not work the symptom is on those
+  41 lines only: the word renders without a hover, or renders as `ERROR:`.
+  Reverting is one line in the generator.
 - **The cabinet action and parliament issue gates.** What to look for:
   *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
   *Поддержка строительства …* line instead of four.

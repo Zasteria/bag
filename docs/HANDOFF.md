@@ -243,15 +243,32 @@ It is `religion = religion:X` now, and a new check in
 against the engine dump, the game's scripted triggers, and every name the game
 itself writes in that position. See [`PITFALLS.md`](PITFALLS.md#script).
 
-**Still wanted, not built: a toggle to see the unfiltered pool.** The owner asked
-for a switch that puts everything back, for the rare game where he means to
-fight his way into a region he starts nowhere near. The mechanism is CMF's mod
-menu — `CMMSettingValue` and `CMMSettingIsRegistered` are GUI functions, so the
-`.gui` can choose between a filtered body key and a full one with no script
-involved, at the cost of a second set of 34 tooltip lists per side and a CMF
-dependency this mod does not yet declare. Deliberately left for after the
-filtering has been in a game, because CMM registration is the single most
-silent-failing thing in this repository.
+**The switch is built, and it is the mod's first script.** `Списки → Фильтрация
+→ Показывать всё без фильтра` in CMF's mod menu turns the two filtered blocks
+off and an unfiltered one on. It is a `.gui` condition only —
+`CMMSettingIsRegistered` and `CMMValueEqualsOne` are GUI functions — so the
+unfiltered body is a plain string that cannot fail. The registration effect on
+`cmf_on_mod_registration` is the mod's only hand written script, and the mod now
+declares a dependency on CMF. Tooltip lists go 102 → 136; the extra 34 are
+hidden unless the switch is on.
+
+**And every scaled or conditional line got a hover that says what it means.**
+The owner's complaint was that «масштабируется, до +0.10» tells him nothing
+about how much literacy or how much fleet. Where the game's files answer it,
+they now do: an `auto_modifier` declares `scales_with`, which is an ordinary
+script value block, so the value at which the modifier reaches full size is
+arithmetic — `army_tradition multiply = 0.01` is full at 100,
+`used_fort_limit_percentage subtract = 1.0` at 200%, and *Армия больше
+ожидаемой* is exactly `army_size_percentage > 1.0`. Where they do not — every
+`static_modifier`, which is where *Средняя грамотность* lives — the hover says
+so rather than inventing a figure, because the engine applies that scaling and
+neither the files nor the defines publish it. 41 explanations, 13 with a
+computed threshold.
+
+The hovers are game concepts this mod defines, which is the mechanism Glorp UI
+uses for its banner. **Unproven in one respect:** Glorp's concepts all carry a
+`texture` and these carry only `shown_in_encyclopedia = no`, and vanilla's own
+`game_concepts/` is not in `reference/` to check a text-only one against.
 
 **Known gap, not yet work: English.** The added lines are Russian only. An
 English game finds no `SVX_*` keys and renders the two new blocks as raw keys —

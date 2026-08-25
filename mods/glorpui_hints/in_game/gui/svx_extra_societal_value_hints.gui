@@ -21,7 +21,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -35,7 +35,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_centralization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_centralization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -46,6 +46,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_CENTRALIZATION')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_CENTRALIZATION')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -63,7 +77,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -77,7 +91,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_traditionalist'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_traditionalist'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -88,6 +102,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_TRADITIONALIST')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_TRADITIONALIST')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -105,7 +133,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -119,7 +147,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_spiritualist'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_spiritualist'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -130,6 +158,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_SPIRITUALIST')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_SPIRITUALIST')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -147,7 +189,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -161,7 +203,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_aristocracy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_aristocracy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -172,6 +214,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_ARISTOCRACY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_ARISTOCRACY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -189,7 +245,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -203,7 +259,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_serfdom'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_serfdom'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -214,6 +270,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_SERFDOM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_SERFDOM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -231,7 +301,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -245,7 +315,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_mercantilism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_mercantilism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -256,6 +326,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_MERCANTILISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_MERCANTILISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -273,7 +357,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -287,7 +371,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_belligerent'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_belligerent'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -298,6 +382,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_BELLIGERENT')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_BELLIGERENT')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -315,7 +413,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -329,7 +427,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_quality'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_quality'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -340,6 +438,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_QUALITY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_QUALITY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -357,7 +469,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -371,7 +483,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_offensive'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_offensive'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -382,6 +494,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_OFFENSIVE')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_OFFENSIVE')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -399,7 +525,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -413,7 +539,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_land'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_land'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -424,6 +550,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_LAND')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_LAND')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -441,7 +581,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -455,7 +595,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_capital_economy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_capital_economy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -466,6 +606,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_CAPITAL_ECONOMY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_CAPITAL_ECONOMY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -483,7 +637,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -497,7 +651,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_individualism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_individualism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -508,6 +662,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_INDIVIDUALISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_INDIVIDUALISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -525,7 +693,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -539,7 +707,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_outward'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_outward'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -550,6 +718,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_OUTWARD')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_OUTWARD')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -567,7 +749,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -581,7 +763,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_sinicized'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_sinicized'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -592,6 +774,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_SINICIZED')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_SINICIZED')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -609,7 +805,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -623,7 +819,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_absolutism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_absolutism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -634,6 +830,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_ABSOLUTISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_ABSOLUTISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -651,7 +861,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -665,7 +875,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_mysticism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_mysticism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -676,6 +886,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_MYSTICISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_MYSTICISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -693,7 +917,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -707,7 +931,7 @@ template SocietalValueCountryLeft_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_latinization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_latinization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -718,6 +942,20 @@ template SocietalValueCountryLeft_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_LATINIZATION')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_LATINIZATION')]"
 		}
 
 	}
@@ -741,7 +979,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -755,7 +993,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_decentralization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_decentralization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -766,6 +1004,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_DECENTRALIZATION')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_centralization_vs_decentralization'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_DECENTRALIZATION')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -783,7 +1035,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -797,7 +1049,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_innovative'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_innovative'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -808,6 +1060,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_INNOVATIVE')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_traditionalist_vs_innovative'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_INNOVATIVE')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -825,7 +1091,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -839,7 +1105,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_humanist'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_humanist'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -850,6 +1116,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_HUMANIST')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_spiritualist_vs_humanist'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_HUMANIST')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -867,7 +1147,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -881,7 +1161,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_plutocracy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_plutocracy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -892,6 +1172,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_PLUTOCRACY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_aristocracy_vs_plutocracy'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_PLUTOCRACY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -909,7 +1203,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -923,7 +1217,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_free_subjects'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_free_subjects'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -934,6 +1228,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_FREE_SUBJECTS')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_serfdom_vs_free_subjects'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_FREE_SUBJECTS')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -951,7 +1259,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -965,7 +1273,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_free_trade'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_free_trade'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -976,6 +1284,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_FREE_TRADE')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mercantilism_vs_free_trade'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_FREE_TRADE')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -993,7 +1315,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1007,7 +1329,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_conciliatory'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_conciliatory'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1018,6 +1340,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_CONCILIATORY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_belligerent_vs_conciliatory'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_CONCILIATORY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1035,7 +1371,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1049,7 +1385,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_quantity'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_quantity'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1060,6 +1396,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_QUANTITY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_quality_vs_quantity'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_QUANTITY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1077,7 +1427,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1091,7 +1441,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_defensive'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_defensive'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1102,6 +1452,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_DEFENSIVE')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_offensive_vs_defensive'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_DEFENSIVE')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1119,7 +1483,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1133,7 +1497,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_naval'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_naval'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1144,6 +1508,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_NAVAL')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_land_vs_naval'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_NAVAL')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1161,7 +1539,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1175,7 +1553,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_traditional_economy'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_traditional_economy'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1186,6 +1564,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_TRADITIONAL_ECONOMY')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_capital_economy_vs_traditional_economy'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_TRADITIONAL_ECONOMY')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1203,7 +1595,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1217,7 +1609,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_communalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_communalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1228,6 +1620,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_COMMUNALISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_individualism_vs_communalism'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_COMMUNALISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1245,7 +1651,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1259,7 +1665,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_inward'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_inward'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1270,6 +1676,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_INWARD')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_outward_vs_inward'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_INWARD')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1287,7 +1707,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1301,7 +1721,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_unsinicized'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_unsinicized'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1312,6 +1732,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_UNSINICIZED')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_sinicized_vs_unsinicized'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_UNSINICIZED')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1329,7 +1763,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1343,7 +1777,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_liberalism'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_liberalism'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1354,6 +1788,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_LIBERALISM')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_absolutism_vs_liberalism'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_LIBERALISM')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1371,7 +1819,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1385,7 +1833,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_jurisprudence'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_jurisprudence'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1396,6 +1844,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_JURISPRUDENCE')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_mysticism_vs_jurisprudence'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_JURISPRUDENCE')]"
 		}
 
 		TooltipScrolledStringPairList = {
@@ -1413,7 +1875,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1427,7 +1889,7 @@ template SocietalValueCountryRight_tooltip {
 		}
 
 		TooltipScrolledStringPairList = {
-			visible = "[GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_hellenization'), '(CFixedPoint)0')]"
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_soon_visible_hellenization'), '(CFixedPoint)0'), Not(And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all')))))]"
 			blockoverride "block_scrollarea" {
 				maximumsize = { -1 160 }
 			}
@@ -1438,6 +1900,20 @@ template SocietalValueCountryRight_tooltip {
 			}
 
 			textcontext = "[Localize('SVX_SOON_HELLENIZATION')]"
+		}
+
+		TooltipScrolledStringPairList = {
+			visible = "[And(GreaterThan_CFixedPoint(GuiScope.AddScope('glorpui_sv', SocietalValue.MakeScope).AddScope('glorpui_country', Player.MakeScope).ScriptValue('svx_axis_latinization_vs_hellenization'), '(CFixedPoint)0'), And(CMMSettingIsRegistered('svx__show_all'),CMMValueEqualsOne(CMMSettingValue('svx__show_all'))))]"
+			blockoverride "block_scrollarea" {
+				maximumsize = { -1 160 }
+			}
+
+			blockoverride "block_title" {
+				text = "SVX_EVERYTHING"
+				default_format = "#help"
+			}
+
+			textcontext = "[Localize('SVX_ALL_HELLENIZATION')]"
 		}
 
 	}

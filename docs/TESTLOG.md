@@ -506,6 +506,21 @@ Copying `potential` drops them, which is right.
 *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
 *Поддержка строительства …* line instead of four.
 
+**The mod menu switch and the scaling hovers, both unrun.** Two mechanisms
+landed together and they fail differently, which is how to tell them apart:
+
+- **The switch.** `Подсказки общественных ценностей → Списки → Фильтрация →
+  Показывать всё без фильтра`, in CMF's mod menu. If the row is not there at
+  all, registration did not run. If the row is there and the tooltip does not
+  change, the `.gui` condition is wrong. Nothing else in the mod moves either
+  way.
+- **The hovers.** «(масштабируется)» and «(условие)» on the 41 scaled and
+  conditional lines. These are game concepts this mod defines. If they work, the
+  hover says what the modifier scales with and at what value it is at full size
+  — 100 army tradition, 200% of the fort limit, `army_size_percentage > 1.0` for
+  the expected-army one. If a text-only concept is not a thing, those 41 words
+  render bare or as `ERROR:` and nothing else is affected.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

@@ -124,6 +124,109 @@ CONDITIONAL = {
     "regent_is_admiral": "Регент - адмирал",
 }
 
+# Where the game keeps its own name for a modifier, by kind. Preferring these
+# over a hand written label means a patch that renames one is followed for free,
+# and the concept links inside them (`[Concept('literacy', ...)]`) come along.
+MODIFIER_NAME_KEY = {
+    "static_modifiers": "STATIC_MODIFIER_NAME_%s",
+    "auto_modifiers": "AUTO_MODIFIER_NAME_%s",
+}
+
+
+def modifier_facts(game_files):
+    """modifier -> what its own file says about when and how much it applies.
+
+    Only `auto_modifiers` say anything: they carry `potential_trigger`, the
+    condition that switches the modifier on, and `scales_with`, the quantity its
+    size is proportional to. `static_modifiers` carry neither — the engine
+    decides how to scale those when it attaches them, and nothing in the shipped
+    files or the defines says by how much. That difference is the whole reason
+    some of these hints can answer "how much do I need" and some cannot.
+    """
+    facts = {}
+    for key, body in svx_gates.scan_objects(
+            game_files, "in_game/common/auto_modifiers").items():
+        trigger = svx_gates.sub_block(body, "potential_trigger")
+        scales = svx_gates.sub_block(body, "scales_with")
+        simple = re.search(r"^\tscales_with\s*=\s*(\w+)\s*$", body, re.M)
+        facts[key] = {
+            "trigger": " ".join(trigger.split()) if trigger else None,
+            "scales": " ".join(scales.split()) if scales else (
+                "value = %s" % simple.group(1) if simple else None),
+        }
+    return facts
+
+
+def full_at(scales):
+    """(quantity, the value of it at which the modifier reaches its full size).
+
+    `scales_with` is an ordinary script value block, so the multiplier is
+    `((value + add - subtract) * multiply) / divide` and the modifier is at full
+    size when that reaches 1. `army_tradition multiply = 0.01` is therefore full
+    at 100, and `used_fort_limit_percentage subtract = 1.0` at 2.0 — which is
+    the number a player actually wants and the tooltip never showed.
+
+    Returns None for anything with a shape this arithmetic does not cover,
+    rather than guessing: a wrong threshold is worse than none.
+    """
+    if not scales:
+        return None
+    quantity = re.match(r"value = (\S+)", scales)
+    if not quantity:
+        return None
+    rest = scales[quantity.end():]
+    try:
+        # `value = 0.5 subtract = used_fort_limit_percentage multiply = 2` — the
+        # quantity is the subtrahend and the modifier grows as it falls. Full
+        # size at zero forts held, which is what "below half the fort limit"
+        # never said out loud.
+        base = float(quantity.group(1))
+    except ValueError:
+        base = None
+    if base is not None:
+        names = re.findall(r"subtract = ([A-Za-z_][\w:]*)", rest)
+        if len(set(names)) != 1:
+            return None
+        falling = names[0]
+        factor = 1.0
+        for name, raw in re.findall(r"(multiply|divide) = (\S+)", rest):
+            try:
+                number = float(raw)
+            except ValueError:
+                return None
+            if name == "multiply":
+                factor *= number
+            elif number:
+                factor /= number
+            else:
+                return None
+        if not factor:
+            return None
+        return falling, (base - (1.0 / factor)) / len(names)
+    if re.search(r"\b(if|limit|complex_trigger_modifier|desc)\b", rest):
+        return None
+    factor, offset = 1.0, 0.0
+    for name, raw in re.findall(r"(add|subtract|multiply|divide|min|max) = (\S+)", rest):
+        try:
+            number = float(raw)
+        except ValueError:
+            return None
+        if name == "multiply":
+            factor *= number
+        elif name == "divide":
+            if not number:
+                return None
+            factor /= number
+        elif name == "add":
+            offset += number
+        elif name == "subtract":
+            offset -= number
+        # `min` and `max` clamp the result and do not move where full size is.
+    if not factor:
+        return None
+    return quantity.group(1), (1.0 / factor) - offset
+
+
 CABINET_SUFFIX = "_progress_cabinet_efficiency"
 
 STEPS = {
@@ -168,6 +271,9 @@ def collect(findings, game_files):
     # Which organization grants each special status, read from the
     # organizations rather than from the statuses. See gates.status_owners.
     extra = {"status_owners": svx_gates.status_owners(game_files)}
+    facts = modifier_facts(game_files)
+    names = game_modifier_names(game_files)
+    concepts = {}
 
     entries = collections.defaultdict(list)
     for row in findings:
@@ -197,17 +303,28 @@ def collect(findings, game_files):
                         for peer in dict.fromkeys(peers)],
                 }
             entries[axis].append({"sort": (-value, obj), "text": text, "gate": gate})
-        elif obj in SCALED:
-            entries[axis].append({
-                "sort": (-value, obj),
-                "text": "@hint! %s #help (масштабируется)#!: #color_green до +%.2f#!\\n"
-                        % (SCALED[obj], value),
-                "gate": {"reach": [], "now": []}})
-        elif obj in CONDITIONAL:
-            entries[axis].append({
-                "sort": (-value, obj),
-                "text": "@hint! %s: #color_green +%.2f#!\\n" % (CONDITIONAL[obj], value),
-                "gate": {"reach": [], "now": []}})
+        elif obj in SCALED or obj in CONDITIONAL:
+            # The game's own name where it has one, so a patch that renames a
+            # modifier is followed for free and the concept links inside the
+            # name come along; the hand written label is the fallback.
+            named = names.get(obj)
+            label = "$%s$" % named[1] if named else (SCALED.get(obj) or CONDITIONAL[obj])
+            # One game concept per modifier, so the explanation is a hover
+            # rather than another line of text in an already long list.
+            concept = "svx_scale_%s" % obj
+            concepts[concept] = scaling_note(obj, facts)
+            if obj in SCALED:
+                text = ("@hint! %s [Concept('%s','(масштабируется)')|e]: "
+                        "#color_green до +%.2f#!\\n" % (label, concept, value))
+            else:
+                # The anchor is a word of ours, never the name: a `$key$`
+                # reference inside a data function argument is the shape that
+                # ru_loc_fix exists to repair, and it is not worth risking for
+                # a hover.
+                text = ("@hint! %s [Concept('%s','(условие)')|e]: "
+                        "#color_green +%.2f#!\\n" % (label, concept, value))
+            entries[axis].append({"sort": (-value, obj), "text": text,
+                                  "gate": {"reach": [], "now": []}})
         elif obj.endswith(CABINET_SUFFIX):
             entries[axis].append({
                 "sort": (-99, obj),
@@ -224,7 +341,63 @@ def collect(findings, game_files):
             seen.add(row["text"])
             out.append(row)
         ordered[axis] = out
-    return ordered
+    return ordered, concepts
+
+
+def game_modifier_names(game_files):
+    """Every `STATIC_MODIFIER_NAME_x` / `AUTO_MODIFIER_NAME_x` the game defines."""
+    names = {}
+    directory = os.path.join(game_files, "main_menu/localization/russian")
+    for source, kind in (("static_modifiers_l_russian.yml", "static_modifiers"),
+                         ("auto_modifiers_l_russian.yml", "auto_modifiers")):
+        path = os.path.join(directory, source)
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding="utf-8-sig", errors="replace") as handle:
+            for line in handle:
+                match = re.match(r"^ (STATIC|AUTO)_MODIFIER_NAME_(\w+):", line)
+                if match:
+                    names[match.group(2)] = (kind, match.group(0)[1:-1])
+    return names
+
+
+def percentish(quantity, threshold):
+    """The threshold as a player reads it: a ratio as a percentage."""
+    if "percentage" in quantity or "ratio" in quantity:
+        return "%g%%" % (threshold * 100)
+    return "%g" % threshold
+
+
+def scaling_note(obj, facts):
+    """The explanation for one modifier, from what its own file says.
+
+    Three shapes, and the third is the honest one. An `auto_modifier` declares
+    `scales_with`, so the quantity and the value at which the modifier reaches
+    full size are both computable — 100 army tradition, twice the fort limit.
+    It may declare only `potential_trigger`, in which case the answer is the
+    condition rather than a number. A `static_modifier` declares neither: the
+    engine scales those when it attaches them and neither the shipped files nor
+    the defines say by how much, so the note says so instead of inventing a
+    figure.
+    """
+    fact = facts.get(obj) or {}
+    lines = []
+    full = full_at(fact.get("scales"))
+    if full:
+        quantity, threshold = full
+        lines.append("Растёт вместе с #Y %s#!, полная величина при #Y %s#!."
+                     % (quantity, percentish(quantity, threshold)))
+    elif fact.get("scales"):
+        lines.append("Растёт вместе с #Y %s#!." % " ".join(
+            re.findall(r"(?:value|subtract|add) = ([A-Za-z_][\w:]*)", fact["scales"])))
+    if fact.get("trigger"):
+        lines.append("Действует, когда: #Y %s#!." % fact["trigger"])
+    if not lines:
+        lines.append("Величина растёт вместе с состоянием державы, а показанное "
+                     "число — её максимум. Насколько именно — решает движок: "
+                     "ни файлы игры, ни defines этого не публикуют.")
+    lines.append("#help Собрано из файлов игры аддоном подсказок.#!")
+    return "\\n".join(lines)
 
 
 def write(path, text):
@@ -244,11 +417,17 @@ def main():
         findings = json.load(handle)
     pairs = axis_pairs(os.path.join(
         args.game_files, "in_game/common/societal_values/00_default.txt"))
-    entries = collect(findings, args.game_files)
+    entries, concepts = collect(findings, args.game_files)
 
     loc = [HEADER, "l_russian:",
            ' SVX_ALSO_PUSHES: "Также влияет на смещение:"',
-           ' SVX_REACHABLE: "Станет доступно при условиях:"']
+           ' SVX_REACHABLE: "Станет доступно при условиях:"',
+           ' SVX_EVERYTHING: "Влияет на смещение (без фильтра):"']
+    for concept in sorted(concepts):
+        modifier = concept[len("svx_scale_"):]
+        loc.append(' game_concept_%s: "%s"' % (
+            concept, SCALED.get(modifier) or CONDITIONAL.get(modifier) or modifier))
+        loc.append(' game_concept_%s_desc: "%s"' % (concept, concepts[concept]))
     custom = [HEADER, ""]
     soon_gates = collections.defaultdict(list)
     counts = {"now": 0, "soon": 0}
@@ -300,6 +479,14 @@ def main():
 
             loc.append(' SVX_BODY_%s: "%s"' % (direction.upper(), "".join(now_body)))
             loc.append(' SVX_SOON_%s: "%s"' % (direction.upper(), "".join(soon_body)))
+            # The unfiltered pool, for the mod menu switch: every line this
+            # direction has, with no trigger in front of any of it. It is a
+            # third body key rather than a mode the gates understand, because a
+            # customizable localization cannot be told to ignore its own
+            # trigger — and because a plain string cannot fail.
+            loc.append(' SVX_ALL_%s: "%s"' % (
+                direction.upper(),
+                "".join(row["text"] for row in entries.get(direction, []))))
 
     write(os.path.join(args.out,
                        "main_menu/localization/russian/svx_extra_hints_l_russian.yml"),
@@ -340,13 +527,27 @@ def main():
                        "in_game/common/script_values/svx_extra_hint_script_values.txt"),
           "\n".join(values))
 
-    def scroll_list(visible_value, title, body_key):
+    # The concepts themselves. `shown_in_encyclopedia = no` keeps forty of them
+    # out of the encyclopedia, where they would be noise: they exist to be
+    # hovered from one line of one tooltip and nowhere else.
+    concept_file = [HEADER, ""]
+    for concept in sorted(concepts):
+        concept_file += ["%s = {" % concept, "\tshown_in_encyclopedia = no", "}", ""]
+    write(os.path.join(args.out, "in_game/common/game_concepts/svx_scaling_concepts.txt"),
+          "\n".join(concept_file))
+
+    def scroll_list(visible_value, title, body_key, switch=None):
+        live = ("GreaterThan_CFixedPoint(GuiScope"
+                ".AddScope('glorpui_sv', SocietalValue.MakeScope)"
+                ".AddScope('glorpui_country', Player.MakeScope)"
+                ".ScriptValue('%s'), '(CFixedPoint)0')" % visible_value)
+        if switch == "on":
+            live = "And(%s, %s)" % (live, show_all)
+        elif switch == "off":
+            live = "And(%s, Not(%s))" % (live, show_all)
         return "\n".join([
             "\t\tTooltipScrolledStringPairList = {",
-            "\t\t\tvisible = \"[GreaterThan_CFixedPoint(GuiScope"
-            ".AddScope('glorpui_sv', SocietalValue.MakeScope)"
-            ".AddScope('glorpui_country', Player.MakeScope)"
-            ".ScriptValue('%s'), '(CFixedPoint)0')]\"" % visible_value,
+            "\t\t\tvisible = \"[%s]\"" % live,
             "\t\t\tblockoverride \"block_scrollarea\" {",
             "\t\t\t\tmaximumsize = { -1 160 }",
             "\t\t\t}",
@@ -366,6 +567,13 @@ def main():
            "# Glorp UI's takeable-only list is re-emitted first, unchanged in behaviour:",
            "# same GLORP_UI_SVH_BODY_* body keys, same glorpui_svh_visible_* gate.",
            ""]
+    # True while the mod menu switch is on. `CMMSettingIsRegistered` guards the
+    # case CMF describes: the setting is read before registration has run, or
+    # the mod menu is not there at all — in which case the answer is "off" and
+    # the filtered lists show, which is the behaviour without a switch.
+    show_all = ("And(CMMSettingIsRegistered('svx__show_all'),"
+                "CMMValueEqualsOne(CMMSettingValue('svx__show_all')))")
+
     for side, index, block_name, vanilla_title in (
             ("Left", 0, "societal_value_left_tooltip_extra", "TO_MOVE_FURTHER_TO_LEFT"),
             ("Right", 1, "societal_value_right_tooltip_extra", "TO_MOVE_FURTHER_TO_RIGHT")):
@@ -378,9 +586,11 @@ def main():
                                    vanilla_title,
                                    "GLORP_UI_SVH_BODY_%s" % direction.upper()))
             gui.append(scroll_list("svx_axis_%s" % parts[2], "SVX_ALSO_PUSHES",
-                                   "SVX_BODY_%s" % direction.upper()))
+                                   "SVX_BODY_%s" % direction.upper(), switch="off"))
             gui.append(scroll_list("svx_soon_visible_%s" % direction, "SVX_REACHABLE",
-                                   "SVX_SOON_%s" % direction.upper()))
+                                   "SVX_SOON_%s" % direction.upper(), switch="off"))
+            gui.append(scroll_list("svx_axis_%s" % parts[2], "SVX_EVERYTHING",
+                                   "SVX_ALL_%s" % direction.upper(), switch="on"))
         gui += ["\t}", "}", ""]
     write(os.path.join(args.out, "in_game/gui/svx_extra_societal_value_hints.gui"),
           "\n".join(gui))
@@ -388,6 +598,11 @@ def main():
     total = sum(len(v) for v in entries.values())
     print("%d hint lines: %d gated as available now, %d also listed as attainable"
           % (total, counts["now"], counts["soon"]))
+    facts = modifier_facts(args.game_files)
+    computed = sum(1 for c in concepts if full_at(
+        (facts.get(c[len("svx_scale_"):]) or {}).get("scales")))
+    print("%d scaling explanations, %d of them with a computed threshold"
+          % (len(concepts), computed))
 
 
 if __name__ == "__main__":
