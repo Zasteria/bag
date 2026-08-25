@@ -65,7 +65,8 @@ has changed before.
 
 Three ways, all ending in the same place.
 
-**The menu**, on the box that has Steam — this is what the owner actually runs:
+**The menu**, on the box that has Steam — this is what the owner actually runs.
+Double-click `mods.bat` in the repository root, or from a shell:
 
 ```
 .\tools\mods.ps1

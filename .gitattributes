@@ -1,0 +1,2 @@
+# A .bat is read by cmd.exe, which wants CRLF; git must not normalise it away.
+*.bat text eol=crlf

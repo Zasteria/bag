@@ -77,9 +77,16 @@ What is actually established:
 **Ask for the bisect before anything else.** Seventeen mods halve in four or five
 loads of a minute each; same save, same three panels (country, diplomacy, a
 location's build panel). Try Construction Manager and `rgo_bonus_filter` first in
-case they save the bisect. If it lands on a mod nobody has seen, get its folder
-into `reference/mods/` and run `guicost.py` again. If it lands on nothing, the
-instrument is `ScriptProfilerEntry`.
+case they save the bisect. If it lands on nothing, the instrument is
+`ScriptProfilerEntry`.
+
+**The whole playset is now in `reference/playset/` and has been counted** — that
+step of the old plan is done, and what it found is in
+[`HANDOFF.md`](HANDOFF.md#what-the-playset-turned-out-to-hold). Short version:
+no playset mod adds a filter chip, three keep small always-live windows, and
+the heavy script density is still Construction Manager's. So the declarations
+have been read; what has not been read is what those mods *do on tick*, and the
+bisect is still the cheapest way to find out which one matters.
 
 ## The live hypothesis
 
@@ -111,6 +118,18 @@ so the setting tests the mod before it is written.
 4. **If it is not**, the fallback route is `UI Editor` in `debug_mode` — the live
    widget tree, and the only tool that can name what accumulates. The toolbox
    contents are in [`research/engine.md`](research/engine.md#the-debug-toolbox).
+
+## The mod loop is finished — do not rebuild it
+
+`mods.bat` in the repository root (over `tools/mods.ps1`, over `tools/mods.py`)
+is the owner's tool for everything about a mod updating:
+his whole subscription against the workshop, steamcmd into the game's own
+folder, the copies here, moving a mod between `reference/mods/` and
+`reference/playset/`, the commit and the push. It was built because he said in
+so many words that **nothing about updating his mods may require one of our
+sessions** — so do not add a step only a session can do, and do not tell him to
+run the pieces by hand when the menu covers it. `tools/workshop.py` is the same
+machinery without the menu, and the GitHub check runs daily on its own.
 
 ## The third job, added 2026-08-25 — the owner redirected the session to it
 

@@ -25,6 +25,7 @@ itself, so read the table before designing a test.
 | Does the merged `glorpui_hints` load and work? | Yes. Both blocks render, in Russian, on the same save. | TESTLOG 2026-08-25 |
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
 | Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
+| Why keep `nd_ru` when `nation_destinies_rus` translates 93% of the mod? | **Because that one is Google's machine translation and behind on versions.** The owner loads `nd_ru` *after* it on purpose: where ours has a key, his good translation wins; everywhere else the machine one fills in. This was decided before this repository existed, and has now been asked twice. | [below](#somebody-else-has-translated-national-destinies-nearly-all-of-it) |
 
 **And one thing the owner has already rejected as an answer:** "report it to
 Paradox". They know it is a base-game defect and know other players have it. The
@@ -683,7 +684,15 @@ well. The workshop itself will never hand the files to GitHub: an anonymous
 steamcmd download of an item for this game is refused, so the files only move
 from a machine that owns it.
 
-**He brings them over from a menu, `.\tools\mods.ps1`, and that menu is not
+**The menu has been run end to end, on 2026-08-25, and it works.** Advanced Auto
+Build 0.9.3 was found, fetched with steamcmd under his account, copied into
+`steamapps/workshop/content/3450310/` — the folder the game reads mods from —
+and then into `reference/`, rebuilt, committed and pushed, all from the menu.
+The playset came in the same evening: **17 mods, 18 MB of text**, which is the
+first time anything here could see more than five of the twenty-two.
+
+**He brings them over from a menu — `mods.bat` in the repository root, which is
+there so the command never has to be looked up again — and that menu is not
 only about this repository.** It reads his whole subscription out of Steam's own
 `appworkshop_3450310.acf`, says which mods the workshop has moved on since Steam
 downloaded them, fetches those with steamcmd into the game's workshop folder so
@@ -717,6 +726,65 @@ the sync brings carries it, so `refs.py` now reads that mod's id and version out
 of the tree like every other; the dependency line is the only thing left over
 from when it could not.
 
+
+## What the playset turned out to hold
+
+Counted on 2026-08-25, the first time `tools/guicost.py` could see more than the
+five mods in `reference/mods/`. Seventeen more, and the answer is mostly a
+narrowing one — which is worth as much as a suspect:
+
+- **not one playset mod adds a filter chip.** The `building` tag is still
+  vanilla's 36 plus Construction Manager's 11 and our 4, so the +42% this
+  repository has been reasoning about is the whole of it. That closes a
+  direction rather than opening one;
+- **three of them keep an always-live window**, and all three are small:
+  `faster.universalis` has eight 24-widget `fum_speed_watcher_*` windows whose
+  `visible` is `IsGameSpeedEqualOrGreaterThan` — cheap engine calls, no script —
+  and `autonomous_diplomats` (8 widgets) and `calidad_de_vida_eu5` (4) have one
+  each. Against Construction Manager's 344 `GetScriptedGui` calls that is
+  nothing;
+- **no playset mod overrides a file our mods ship.** Checked by relative path
+  across every `.txt`, `.yml` and `.gui` in `mods/`.
+
+So the interface census now covers the playset and still names the same two
+heavy things: Construction Manager at 491x vanilla's script-call density, and
+Advanced Auto Build at 2161x — **which he does not run**. The remaining
+unexamined surface is behaviour, not declarations: what those mods do on tick.
+
+## Somebody else has translated National Destinies, nearly all of it
+
+`nation_destinies_rus` is in his playset — a **full** Russian translation of the
+mod `nd_ru` translates. Measured against the base mod's English, on the same day:
+
+| | keys | markup faults | left in English |
+| --- | --- | --- | --- |
+| the base mod (English) | 40 795 | — | — |
+| `mods/nd_ru` | 4 174 (10%) | 0 | 53 |
+| `nation_destinies_rus` | 37 949 (93%) | 33 | 120 |
+
+**3 787 of our 4 174 keys are keys it also translates**, and 32 of its 33 markup
+faults are inside that overlap — so on those keys ours is the sound one, and
+whichever of the two mounts *later* wins them.
+
+**The decision was made long ago and is not open.** That mod is machine
+translation — Google's — and it lags the base mod's versions; the owner runs it
+*under* `nd_ru` deliberately, so that a key we have translated properly shows
+our text and everything else falls back to the machine one rather than to
+English. `nd_ru` is therefore not competing with it and does not need to reach
+93% to be worth having: every key it covers is a key upgraded from machine to
+human, and the 32 broken-markup keys in the overlap are repaired by the same
+mechanism.
+
+**Do not ask him about this again, and do not propose dropping `nd_ru`.** It
+has come up twice; the numbers above exist to make the arrangement legible, not
+to reopen it. What matters practically: **`nd_ru` must mount after
+`nation_destinies_rus`** — if a load order ever puts it first, our translation
+becomes invisible and the symptom is machine-Russian on keys we know we
+translated.
+
+Our 53 English leftovers are deliberate and correct: they are `_CATEGORY` keys
+pointing at vanilla category names and proper nouns that stay as they are
+(`Erbverbrüderung`, `Studia Generalia`).
 
 ## Hard-won facts that are easy to lose
 
