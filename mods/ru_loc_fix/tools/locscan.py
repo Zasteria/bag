@@ -43,8 +43,14 @@ REPO = MOD.parent.parent
 sys.path.insert(0, str(REPO / "tools"))
 import refs  # noqa: E402  the reference tree, resolved by mod id
 
-# ` KEY:0 "value"` — the version number after the colon is optional and ignored.
-KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\d*\s+"(.*)"\s*$')
+# ` KEY:0 "value"` — the version number after the colon is optional and ignored,
+# and so is a comment after the closing quote. Missing that trailing comment cost
+# this module 18 012 keys, 3.4% of the tree, every one of them silently: a line
+# it cannot match is not a key as far as every rule here is concerned, so
+# `hre_tt: "0" #True` read as undefined and every reference to it looked broken.
+# The value itself is matched greedily to the last quote on the line, so a `#`
+# inside the text — `#Y ... #!` — is safe.
+KEY_LINE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\d*\s+"(.*)"\s*(?:#.*)?$')
 # `[ ... ]`, one level, which is what a data function looks like from outside.
 DATA_BLOCK = re.compile(r"\[([^\[\]]*)\]")
 # The identifier a data function starts from: `Country.GetName` -> `Country`.
@@ -367,6 +373,118 @@ def declension_ref_fault(key: str, value: str, russian: dict[str, Entry]) -> str
     return None
 
 
+# The characters a localization key is made of, for generating the one-edit
+# neighbours of a name that is not a key.
+KEY_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_."
+
+
+def one_edit_away(name: str, keys: set[str]) -> str | None:
+    """A defined key one insertion, deletion or substitution from `name`.
+
+    Generated from the name rather than compared against every key: the tree has
+    286 000 of them and this is asked for a thousand names.
+    """
+    for cut in range(len(name)):
+        candidate = name[:cut] + name[cut + 1:]
+        if candidate in keys:
+            return candidate
+    for cut in range(len(name)):
+        for character in KEY_ALPHABET:
+            if character == name[cut]:
+                continue
+            candidate = name[:cut] + character + name[cut + 1:]
+            if candidate in keys:
+                return candidate
+    for cut in range(len(name) + 1):
+        for character in KEY_ALPHABET:
+            candidate = name[:cut] + character + name[cut:]
+            if candidate in keys:
+                return candidate
+    return None
+
+
+def misspelled_refs(russian: dict[str, Entry],
+                    english: dict[str, Entry]) -> dict[str, str]:
+    """`$NAME$` references that name no key, mapped to the key they meant.
+
+    A `$NAME$` in a value is one of two things and the file cannot tell them
+    apart by looking: a reference to another localization key, or a parameter
+    the caller substitutes at runtime. `$NUM$` is a parameter and names no key;
+    reporting it would drown the rule.
+
+    Two filters together do separate them, and both are needed. **The English
+    key set** answers the parameter question: a parameter the engine
+    substitutes is substituted in every language, so a `$NAME$` that appears
+    nowhere in the English tree is not one. **One edit** answers the rest: a
+    reference that is a single keystroke from a key that does exist is a slip,
+    and a name invented from nothing is not reported at all.
+
+    Loosening either filter breaks it. Edit distance alone offers `$NUM$` ->
+    `$AUM$` and a hundred more like it, because a three letter parameter is
+    always one letter from something in a tree this size.
+
+    What comes back is the *nearest* defined key, which is not always the
+    intended one. Four of the thirteen references this finds are cultures — Even
+    and Evenk, Halkomelem and Halkomelemt, Lalagir and Lalagyr are each two real
+    peoples, and the nearest key belongs to the other one. The fault is hard
+    either way: the reference resolves to nothing and the raw name reaches the
+    screen. The repair is a person's, and `fixes/` is where they write it.
+    """
+    defined = set(russian)
+    parameters: set[str] = set()
+    for entry in english.values():
+        parameters.update(KEY_REF.findall(entry.value))
+
+    wanted: set[str] = set()
+    for entry in russian.values():
+        for referenced in KEY_REF.findall(entry.value):
+            if referenced not in defined and referenced not in parameters:
+                wanted.add(referenced)
+
+    repairs: dict[str, str] = {}
+    for name in sorted(wanted):
+        near = one_edit_away(name, defined)
+        if near:
+            repairs[name] = near
+    return repairs
+
+
+def missing_ref_fault(key: str, value: str, repairs: dict[str, str],
+                      russian: dict[str, Entry],
+                      english: dict[str, Entry]) -> str | None:
+    """A `$NAME$` reference to a key that does not exist.
+
+    The engine does not fail on it and does not log it: it prints the name, in
+    capitals, in the middle of the sentence. `TO_MOVE_FURTHER_TO_RIGHT` reads
+    "Дальше продвинуться в сторону $SOCIEALVALUE_RIGHTITEM_WNTT_GEN$:" — one
+    missing T in a name defined seven lines away — and that is what the societal
+    value tooltip shows on screen. Seen in a 2026-08-25 screenshot; TESTLOG has
+    it.
+
+    `repairs` decides which references count, and is built once by
+    `misspelled_refs` — a reference outside it is a runtime parameter or an
+    invention, and neither is this rule's business.
+    """
+    for referenced in KEY_REF.findall(value):
+        if referenced not in repairs:
+            continue
+        their = english.get(key)
+        if their:
+            # The English key of the same name is evidence rather than
+            # inference — but only where it references something a keystroke
+            # from the broken name. Its `$VAL$` and `$NAME$` are parameters the
+            # caller fills in, and one of those happens to be a defined key too,
+            # so "the English key references something" is not on its own a
+            # reason to believe it is what the Russian meant.
+            for name in KEY_REF.findall(their.value):
+                if name != referenced and one_edit_away(referenced, {name}):
+                    return ("$%s$ names no key; the English key of the same "
+                            "name references $%s$" % (referenced, name))
+        return "$%s$ names no key (nearest defined: $%s$)" % (
+            referenced, repairs[referenced])
+    return None
+
+
 def scope_difference(value: str, english: str) -> str | None:
     """A scope the Russian key reaches for and the English key does not.
 
@@ -417,7 +535,8 @@ def argument_difference(value: str, english: str) -> str | None:
     return None
 
 
-HARD = ("brackets", "custom_on_text", "filter_nested", "unknown_root", "unknown_member")
+HARD = ("brackets", "custom_on_text", "filter_nested", "unknown_root",
+        "unknown_member", "missing_ref")
 ADVISORY = ("scope", "arguments", "member_on_root", "declension_ref")
 RULES = HARD + ADVISORY
 
@@ -434,6 +553,9 @@ def scan(russian: dict[str, Entry], english: dict[str, Entry],
             for pair in chain_pairs(entry.value):
                 en_pairs.add(pair)
                 en_roots[pair[0]] = en_roots.get(pair[0], 0) + 1
+    repairs: dict[str, str] = {}
+    if "missing_ref" in rules:
+        repairs = misspelled_refs(russian, english)
     per_file: dict[Path, set[str]] = {}
     if "unknown_member" in rules:
         members = dumped_names()
@@ -457,6 +579,8 @@ def scan(russian: dict[str, Entry], english: dict[str, Entry],
             ("unknown_root", lambda: unknown_root_fault(
                 entry.value, known, per_file.get(entry.path, set()))),
             ("unknown_member", lambda: unknown_member_fault(entry.value, members)),
+            ("missing_ref", lambda: missing_ref_fault(
+                key, entry.value, repairs, russian, english)),
             ("scope", lambda: scope_difference(entry.value, pair.value) if pair else None),
             ("arguments", lambda: argument_difference(entry.value, pair.value) if pair else None),
             ("member_on_root", lambda: member_on_root_fault(entry.value, en_pairs, en_roots)),

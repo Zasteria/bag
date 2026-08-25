@@ -8,9 +8,9 @@ Requires **Glorp UI** (`glorp.ui`) and must load **after** it — the mod overri
 Glorp UI's own override of the tooltip templates. `.metadata/metadata.json`
 declares the dependency, so the launcher orders it.
 
-> Both halves ran in game as two separate mods and worked. This folder is those
-> two merged, with the same generated files; the merge itself has not been
-> loaded. See [what is untested](#what-is-untested).
+> **Confirmed in game, 2026-08-25.** Both blocks render in Russian on the
+> societal value tooltip. What is still unrun is in
+> [what is untested](#what-is-untested).
 
 ## What it fixes
 
@@ -235,6 +235,11 @@ employment_systems/  cabinet_actions/  international_organizations/  missions/
 script_values/                for `societal_value_monthly_move` and its siblings
 ```
 
+`python3 tools/extract_game_files.py` copies exactly that list out of an EU5
+install into a folder shaped like `reference/game/`, ready to be dropped on top
+of it. On top of the list it sweeps `in_game/common/` for any file mentioning
+`monthly_towards_`, so a directory Paradox renames comes along anyway.
+
 Until those arrive the generated files are frozen at whatever game version they
 were built against, and a patch that adds or renames a source is invisible here.
 
@@ -245,12 +250,6 @@ were built against, and a patch that adds or renames a source is invisible here.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The merge itself.** Two mods became one folder with one id
-  (`bag.glorpui_hints`). Nothing about the contents changed apart from the
-  generator names in the header comments, but no run has loaded it.
-- **Removing the old two.** `glorpui_ru_svh_fix` and `glorpui_svh_extra` must
-  come out of the playset; leaving either alongside this one means two mods
-  defining the same keys and overriding the same templates.
 - **The added lines against the current game version.** They were compiled from
   the game files as they were, and nothing here can re-read them.
 - **English.** The added lines are Russian only. In an English game the `SVX_*`

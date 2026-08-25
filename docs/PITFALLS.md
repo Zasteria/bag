@@ -97,6 +97,26 @@ interface leaves a hole. Filter the data instead, or resize the list.
 **Square brackets are data function syntax.** A label reading `[debug] location
 known` renders as `ERROR:`. Keep brackets out of plain text.
 
+**A `$NAME$` that names no key prints the name.** No error, no log line, no
+blank: the engine puts `SOCIEALVALUE_RIGHTITEM_WNTT_GEN` in capitals in the
+middle of the Russian sentence and carries on. The game's own Russian defines
+seven societal value declension helpers as `SOCIETALVALUE_*` and references all
+seven as `SOCIEALVALUE_*`, so twenty four keys print a name instead of a word —
+and it took a screenshot to notice, because nothing else could. `missing_ref` in
+`locscan.py` is the rule now. It is hard on the fault and careful about the
+repair: the *nearest* defined key is not always the intended one, and four of
+the thirteen references it finds are cultures whose neighbour is a different
+people (Even and Evenk, Halkomelem and Halkomelemt, Lalagir and Lalagyr).
+
+**A checker that silently reads less than it thinks is worse than no checker.**
+`locscan.py`'s key regex required the line to end at the closing quote, so
+`hre_tt: "0" #True` — a key with a comment after it — was not a key as far as
+every rule was concerned. **18 012 keys, 3.4% of the tree**, invisible. The
+symptom only appeared when a new rule started asking "is this reference
+defined?" and answered no 1 418 times. Nothing was wrong with the rule. When a
+checker's finding count looks too big to be true, suspect what the checker can
+see before suspecting the game.
+
 **The game loads the selected language's folder and nothing else — there is no
 fallback to English.** Glorp UI generates 759 `GLORP_UI_SVH_*` keys into
 `main_menu/localization/english/` and no other language, so on a Russian client

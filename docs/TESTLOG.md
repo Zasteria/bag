@@ -338,6 +338,45 @@ vanilla. What is wanted is a lever from the mod side, or evidence that there is
 none. The lead and the next run are in
 [`HANDOFF.md`](HANDOFF.md#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever).
 
+### 2026-08-25 — `glorpui_hints`, the merge, and a key on screen
+
+**Loaded:** the merged `glorpui_hints` in place of `glorpui_ru_svh_fix` and
+`glorpui_svh_extra`.
+**Expected:** the societal value tooltip to read in Russian and to carry the
+added block.
+**Observed:** it does. Screenshot of *Оборона*: Glorp UI's own list in Russian
+("Принять реформу правления Система гарнизонов +0.05"), and under it «Также
+влияет на смещение» with the four parliament issues about building forts and
+«Обороняющаяся сторона в войне +0.10», scrolled. The owner's words: "в целом всё
+работает как и раньше".
+**Verdict:** **the merge is confirmed.** Two mods in one folder under one id load
+and behave as the two did. Nothing in `glorpui_hints` is outstanding.
+
+**And the screenshot showed something else — three raw keys, none of them ours.**
+The tooltip read «Дальше продвинуться в сторону
+*SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:», «При своём максимальном значении
+*SOCIEALVALUE_NAME_GEN* будет оказывать…» and «Поддержать *SOCIEALVALUE_VALUE_ACC*
+с помощью действий совета». That is the game's own Russian localization: it
+defines seven declension helpers spelled `SOCIETALVALUE_*` and references all
+seven as `SOCIEALVALUE_*` — a missing T — in twenty four keys. No overlap, so
+every reference resolves to nothing.
+
+`$NAME$` naming nothing neither errors nor logs: the engine prints the name in
+capitals and carries on. So this class was invisible to every rule
+`ru_loc_fix` had, and it took a screenshot to find one. It has a rule now
+(`missing_ref`), and finding it turned up **49 keys in thirteen references**,
+which `ru_loc_fix` repairs 45 of. Unfixed and reported: four culture tooltips
+whose nearest defined key belongs to a different people.
+
+**Riding on the same rule: `locscan.py` could not see 18 012 keys** — 3.4% of
+the tree — because its key regex rejected a line with a comment after the
+closing quote. `hre_tt: "0" #True` read as undefined, so every reference to it
+looked broken. Fixed; every other rule's count is unchanged, which is how we
+know the fix did not disturb them.
+
+**Untested:** all 45 repairs. Any run checks them — the three keys above are on
+the societal value tooltip, which is one hover away.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

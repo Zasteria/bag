@@ -507,3 +507,34 @@ key: integrate_province_action_progress_long_wordier
 why: the same `Cabinet.` promote the game refuses in a cabinet action's strings, and the same replacement it names.
 from: [Cabinet.GetActionNumProgress|%]
 to: [SCOPE.sCabinet('cabinet').GetActionNumProgress|%]
+
+
+# ---------------------------------------------------------------------------
+# References to keys that do not exist. `$NAME$` naming nothing does not error
+# and does not log: the engine prints the name, in capitals, in the middle of
+# the sentence. `missing_ref` in locscan.py finds them; these are the ones whose
+# target is known rather than merely nearest.
+#
+# The SOCIEAL/SOCIETAL pair is the game's own typo, in every one of the twenty
+# four keys that reach the societal value declension helpers: seven helpers
+# defined as `SOCIETALVALUE_*`, seven referenced as `SOCIEALVALUE_*`, no
+# overlap, all in the same tree. Confirmed on screen 2026-08-25 — the societal
+# value tooltip read "Дальше продвинуться в сторону SOCIEALVALUE_RIGHTITEM_WNTT_GEN:".
+# ---------------------------------------------------------------------------
+
+why: SOCIEAL for SOCIETAL, a missing T. Twenty four keys; see the note above.
+from: $SOCIEALVALUE_
+to: $SOCIETALVALUE_
+
+why: `protestant_union_tt` is written with an underscore where the key is defined with a dot, in situations_l_russian.yml. Twelve keys.
+from: $protestant_union_tt$
+to: $protestant_union.tt$
+
+why: `catholic_league_tt` for `catholic_league.tt`, same fault, same file. Eight keys.
+from: $catholic_league_tt$
+to: $catholic_league.tt$
+
+key: flavor_swe_teu.4.a
+why: the whole value is one reference, to `pirate_events.1.a`, which does not exist; the English key of the same name references `pirate_events.2.a`, which does.
+from: $pirate_events.1.a$
+to: $pirate_events.2.a$

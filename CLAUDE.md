@@ -119,6 +119,7 @@ At the top level, `tools/` is what every mod's tooling shares:
 | `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
 | `refresh.py` | the one command to run after the owner refreshes `reference/` |
 | `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
+| `extract_game_files.py` | copy the game directories a task needs out of an EU5 install, laid out like `reference/game/` |
 | `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |

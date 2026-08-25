@@ -22,6 +22,7 @@ itself, so read the table before designing a test.
 | Is it one bad window? | No. Diplomacy +1.86/frame, map modes +1.49, locations +0.29; none zero. | TESTLOG 2026-08-25 |
 | Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
 | Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
+| Does the merged `glorpui_hints` load and work? | Yes. Both blocks render, in Russian, on the same save. | TESTLOG 2026-08-25 |
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
 | Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
 
@@ -39,20 +40,21 @@ clean: no generated file changed, and `tools/check_cmm.py` — the check that ev
 CMM macro is called with arguments CMF declares — still passes. What 2.4.1 added
 is in [`research/cmf.md`](research/cmf.md#what-cmf-241-added).
 
-**`ru_loc_fix/` — working, round one confirmed in game, round two unrun.**
+**`ru_loc_fix/` — working, round one confirmed in game, rounds two and three unrun.**
 Repairs the markup in the game's own Russian localization. It came out of the
 player's question about why their `error.log` is full: the answer is that 88% of
-it was the base game's Russian files, not any mod. **162 keys** now, in six
+it was the base game's Russian files, not any mod. **207 keys** now, in seven
 shapes — unclosed brackets, accessors `dump_data_types` does not have, `Custom()`
 applied to a string, roots that are nothing, keys reaching a Russian case through
-a helper reference, and wrong scopes the game named in its own log. Nothing is
+a helper reference, wrong scopes the game named in its own log, and `$NAME$`
+references to keys that do not exist. Nothing is
 retranslated; only the markup changes.
 
 The mod is generated. `mods/ru_loc_fix/tools/locscan.py` is the rule set, split
 into hard rules (cannot fire on a healthy key) and advisory ones (compare against
 English, need a person). `generate.py` refuses to write a key that no longer
-exists, a key that is no longer broken, or a repair that still trips a rule; 140
-of the 162 are search-and-replace against whatever the game ships that day, so a
+exists, a key that is no longer broken, or a repair that still trips a rule; 185
+of the 207 are search-and-replace against whatever the game ships that day, so a
 patch that rewrites the sentence keeps the repair. It runs from
 `tools/refresh.py` with everything else.
 
@@ -66,7 +68,26 @@ What that legibility bought was round two. The same fault turned out not to be
 confined to filter strings: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` (13 950
 lines), `FILTER_BY_GOODS` (3 866) and `MARKET_SURPLYS_INFO` (1 650) took their
 place, each reaching a Russian case through `$GOODS_..._RU_*$`. Eleven more keys
-are fixed for the next run; the mod is at 162.
+went in for that round.
+
+**Round three came from a screenshot, 2026-08-25, and it is a class the log
+cannot report.** A `$NAME$` reference to a key that does not exist neither errors
+nor logs — the engine prints the name, in capitals, inside the sentence. The
+societal value tooltip read «Дальше продвинуться в сторону
+*SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:» because the game defines seven declension
+helpers as `SOCIETALVALUE_*` and references all seven as `SOCIEALVALUE_*`. The
+new hard rule `missing_ref` finds **49 keys in thirteen references**; 45 are
+repaired and 4 refused. The refused four are cultures whose nearest defined key
+belongs to a different people — Even and Evenk, Halkomelem and Halkomelemt,
+Lalagir and Lalagyr are each two real cultures, and `country_history_CSU` wants
+an `inca_culture_tt` that exists in no language. Repairing those needs the game's
+culture list, which is not in `reference/`.
+
+**And the rule found a hole in the checker.** `locscan.py`'s key regex required a
+line to end at the closing quote, so a key with a trailing comment —
+`hre_tt: "0" #True` — was not a key to any rule in the file. **18 012 keys, 3.4%
+of the tree**, invisible. Fixed; every other rule's count came back identical,
+which is how we know nothing else moved.
 
 **Round two keeps the grammar.** The first fix replaced declined forms with
 nominatives. This one does not have to: the same strings hold the promote both
@@ -118,14 +139,15 @@ Still nothing builds and nothing is subsidised.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
-**`glorpui_hints/` — new here, and it is two mods merged into one.** It came in
+**`glorpui_hints/` — merged, and confirmed in game.** It came in
 from the `EU5-filters` repository, where it lived as `glorpui_ru_svh_fix` (the
 missing Russian for Glorp UI's societal value hints) and `glorpui_svh_extra`
 (the hint sources Glorp UI's generator never reads). Both worked in game as
 separate mods; the owner asked for one, and this is it, at id
-`bag.glorpui_hints`. **The old two have to come out of the playset** — leaving
-either alongside means two mods defining the same keys and overriding the same
-templates.
+`bag.glorpui_hints`. **The merge loaded and worked on 2026-08-25** — both blocks
+render in Russian, screenshot in [`TESTLOG.md`](TESTLOG.md). The old two are out
+of the playset; leaving either alongside would mean two mods defining the same
+keys and overriding the same templates.
 
 Nothing in the contents changed. Both halves were re-checked against Glorp UI as
 it is in `reference/` now, and both are still current: the 759 hint keys
