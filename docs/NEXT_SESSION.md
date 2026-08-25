@@ -18,7 +18,10 @@ Do not ask for these again — they are in [`TESTLOG.md`](TESTLOG.md):
 - **the category as a game concept renders**, in Russian and English, as an
   encyclopedia link. That was the whole risk of the rewrite and it is closed;
 - **English works** — the block titles, the openers, all of it;
-- **the launcher has no upload button**, so the route is PDX Workshop Manager;
+- **the upload button is the game's own Mod Tools**, hidden behind a sandbox
+  icon in the «Выбранные модификации» row of the mods screen. Not in the wiki;
+  one clause in Tinto Talks 85. Written down in [`WORKSHOP.md`](WORKSHOP.md)
+  with the exact values to type;
 - **a building's `allow` was being copied into country scope** and the engine
   said so in one line of `error.log`. Fixed, and `check_gate_scopes` now catches
   the whole class;
@@ -49,10 +52,14 @@ Everything is ready and `python3 tools/publish.py glorpui_hints` says `ok`.
 
 1. merge the branch, then `mods.bat → 4` with the `git pull`;
 2. load once and check §2 above;
-3. `mods.bat → 5 → «к» + номер` writes `manager-config.json` beside the game's
-   mod folder — app id, thumbnail path and mod directory already right;
-4. run [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
-   (GUI build, Steam running and logged in), point it at that config;
+3. in game: mods screen → «Выбранные модификации» row → **sandbox icon** →
+   Mod Tools → *Create mod*, filled from `metadata.json` (the table is in
+   [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
+4. check the page is not empty and that `relationships` survived in
+   `.metadata/metadata.json` — both are known ways this tool has misbehaved. If
+   it is empty, the fallback is
+   [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
+   and `mods.bat → 5 → «к»` writes its config;
 5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
    as Required Items, and **hidden first**.
 

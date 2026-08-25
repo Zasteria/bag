@@ -687,16 +687,35 @@ restart.
 **Still unconfirmed:** the five advance-gated privileges, the building `allow`
 repair from earlier today, and nine of the eleven languages.
 
-### 2026-08-27 — the launcher has no upload button
+### 2026-08-27 — the upload button exists, and it is hidden
 
-Screenshot of «Модификации и дополнения»: playsets, mod order, enable and
-disable, and **nothing about publishing**. That settles the open question in
-[`WORKSHOP.md`](WORKSHOP.md) — EU5 has no first-party upload, which is why the
-wiki documents only the third-party
-[PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager).
-The route is now written down, and `mods.bat → 5 → «к»` generates its config so
-the app id, the thumbnail path and the mod directory cannot be got wrong by
-hand.
+Two screenshots, an hour apart, and the second corrected the first.
+
+**First read, wrong:** the launcher's «Модификации и дополнения» shows playsets,
+order and checkboxes and nothing about publishing, so EU5 was written up as
+having no first-party upload.
+
+**It has one.** The player found it: the same screen, the row **«Выбранные
+модификации: N/M»**, a small **sandbox icon** in that row next to the gear. It
+opens **Mod Tools**, with tabs *Create mod* and *Uploaded mods*, the whole of
+`metadata.json` as a form — Name, ID, Path, Version, Supported game version,
+Description, and the tag list as checkboxes — and a button reading **Upload New
+Mod**.
+
+It is documented, in one sentence, in the middle of a dev diary about writing
+events and situations:
+[Tinto Talks 85, Modding](https://forum.paradoxplaza.com/forum/developer-diary/tinto-talks-85-22nd-of-october-modding.1864004/)
+— *"navigate into the Mods & DLCs Menu in the top right corner and then open the
+Mod Tools view by clicking on the sandbox icon next to Selected Mods"*. That
+diary is otherwise entirely about authoring; publishing is that clause and the
+button in a screenshot. The wiki does not mention it at all, which is why it
+documents the third-party uploader instead — and why an hour went on finding a
+button that was on screen the whole time.
+
+**So the route is the game's own**, and the tag checkboxes in that form are the
+authoritative tag vocabulary — the same one four mods here were outside of.
+[PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
+stays as the fallback; `mods.bat → 5 → «к»` still writes its config.
 
 Also confirmed from the same screenshot: the load order the player actually
 runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
