@@ -1,0 +1,11 @@
+﻿{
+	"name":	"OGAS Optimized",
+	"id":	"ogasoptimized",
+	"version":	"20260627",
+	"supported_game_version":	"1.2.*",
+	"short_description":	"Optimized Auto Road Builder",
+	"tags":	["Fixes", "Gameplay", "Utilities"],
+	"relationships":	[],
+	"game_custom_data":	{
+}
+}

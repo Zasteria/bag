@@ -1,0 +1,334 @@
+proximity_prediction = {
+	if = {
+		limit = { has_variable = OGAS_Predicted }
+		value = var:OGAS_Predicted
+	}
+	else = {
+		value = proximity
+	}
+	subtract = {
+		value = 1
+		divide = {
+			value = 1
+			add = {
+				add = owner.modifier:global_distance_from_capital_speed_propagation
+				add = owner.modifier:land_cost_on_distance_from_capital_speed_propagation
+				add = modifier:local_distance_from_capital_speed_propagation
+				add = {
+					if = {
+						limit = { topography = mountains }
+						value = -0.5
+					}
+					if = {
+						limit = { topography = hills }
+						value = -0.25
+					}
+					if = {
+						limit = { topography = plateau }
+						value = -0.125
+					}
+					if = {
+						limit = { topography = wetlands }
+						value = -0.25
+					}
+				}
+			}
+		}
+		multiply = {
+			value = owner.modifier:road_cost_on_distance_from_capital
+			if = {
+				limit = { owner = { has_advance = railroad_advance } }
+				subtract = 15
+			}
+			else_if = {
+				limit = { owner = { has_advance = modern_road_advance } }
+				subtract = 10
+			}
+			else_if = {
+				limit = { owner = { has_advance = paved_road_advance } }
+				subtract = 5
+			}
+			else_if = {
+				limit = { owner = { has_advance = road_building } }
+				subtract = 0
+			}
+		}
+		min = 0.01
+	}
+}
+
+market_access_prediction = {
+	scope:current_location = {
+		if = {
+			limit = { has_variable = OGAS_Predicted }
+			value = var:OGAS_Predicted
+		}
+		else = {
+			value = market_access
+		}
+		if = {
+			limit = { market_access < 1 }
+			subtract = modifier:local_market_access
+		}
+	}
+	subtract = {
+		value = 1
+		if = {
+			limit = { owner = { has_advance = railroad_advance } }
+			add = -0.4
+		}
+		else_if = {
+			limit = { owner = { has_advance = modern_road_advance } }
+			add = -0.3
+		}
+		else_if = {
+			limit = { owner = { has_advance = paved_road_advance } }
+			add = -0.2
+		}
+		else_if = {
+			limit = { owner = { has_advance = road_building } }
+			add = -0.1
+		}
+		multiply = {
+			value = "distance_to(scope:current_location)"
+			multiply = {
+				value = movement_cost_sum
+				add = scope:current_location.movement_cost_sum
+			}
+			if = {
+				limit = { area = scope:current_location.area }
+				divide = 2000
+			}
+			else = {
+				divide = 4000
+			}
+		}
+	}
+	add = modifier:local_market_access
+	max = 1
+}
+
+movement_cost_sum = {
+	if = {
+		limit = { topography = mountains }
+		value = 2
+	}
+	else_if = {
+		limit = { topography = hills }
+		value = 1.5
+	}
+	else_if = {
+		limit = { topography = plateau }
+		value = 1.25
+	}
+	else_if = {
+		limit = { topography = wetlands }
+		value = 1.5
+	}
+	else = {
+		value = 1
+	}
+
+	if = {
+		limit = { vegetation = desert }
+		add = 1.1
+	}
+	else_if = {
+		limit = { vegetation = farmland }
+		add = 1.1
+	}
+	else_if = {
+		limit = { vegetation = woods }
+		add = 1.25
+	}
+	else_if = {
+		limit = { vegetation = forest }
+		add = 1.5
+	}
+	else_if = {
+		limit = { vegetation = jungle }
+		add = 2
+	}
+	else = {
+		add = 1
+	}
+}
+
+OGAS_Auto_Road_Gold_Cost = {
+	save_temporary_scope_as = OGAS_Auto_Road_Cost_From
+	var:OGAS_Parent = { save_temporary_scope_as = OGAS_Auto_Road_Cost_To }
+	goods:lumber = { save_temporary_scope_as = OGAS_Auto_Road_Cost_Good_Lumber }
+	goods:masonry = { save_temporary_scope_as = OGAS_Auto_Road_Cost_Good_Masonry }
+	goods:sand = { save_temporary_scope_as = OGAS_Auto_Road_Cost_Good_Sand }
+
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Base
+		value = {
+			if = {
+				limit = { owner = { has_advance = railroad_advance } }
+				value = 100
+			}
+			else_if = {
+				limit = { owner = { has_advance = modern_road_advance } }
+				value = 50
+			}
+			else_if = {
+				limit = { owner = { has_advance = paved_road_advance } }
+				value = 25
+			}
+			else_if = {
+				limit = { owner = { has_advance = road_building } }
+				value = 10
+			}
+			else = {
+				value = 1
+			}
+		}
+	}
+
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Modifier
+		value = {
+			value = 1
+			if = {
+				limit = { owner = { has_advance = railroad_advance } }
+				add = owner.modifier:build_railroad_cost_modifier
+			}
+			else_if = {
+				limit = { owner = { has_advance = modern_road_advance } }
+				add = owner.modifier:build_modern_road_cost_modifier
+			}
+			else_if = {
+				limit = { owner = { has_advance = paved_road_advance } }
+				add = owner.modifier:build_paved_road_cost_modifier
+			}
+			else_if = {
+				limit = { owner = { has_advance = road_building } }
+				add = owner.modifier:build_gravel_road_cost_modifier
+			}
+			min = 0.01
+		}
+	}
+
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Road_Distance_Factor
+		value = {
+			value = "scope:OGAS_Auto_Road_Cost_From.distance_to(scope:OGAS_Auto_Road_Cost_To)"
+			multiply = {
+				value = movement_cost_sum
+				add = scope:OGAS_Auto_Road_Cost_To.movement_cost_sum
+			}
+			divide = {
+				if = {
+					limit = { area = scope:OGAS_Auto_Road_Cost_To.area }
+					value = 10
+				}
+				else = {
+					value = 20
+				}
+			}
+			min = 0.01
+		}
+	}
+
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Lumber_Market_Impact
+		value = {
+			value = "scope:OGAS_Auto_Road_Cost_Good_Lumber.price_in_market(scope:OGAS_Auto_Road_Cost_From.market)"
+			divide = 1.5
+			subtract = 1
+			multiply = 0.5
+			multiply = 0.635
+		}
+	}
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Masonry_Market_Impact
+		value = {
+			value = "scope:OGAS_Auto_Road_Cost_Good_Masonry.price_in_market(scope:OGAS_Auto_Road_Cost_From.market)"
+			divide = 1
+			subtract = 1
+			multiply = 1
+			multiply = 0.635
+		}
+	}
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Sand_Market_Impact
+		value = {
+			value = "scope:OGAS_Auto_Road_Cost_Good_Sand.price_in_market(scope:OGAS_Auto_Road_Cost_From.market)"
+			divide = 0.5
+			subtract = 1
+			multiply = 0.25
+			multiply = 0.635
+		}
+	}
+
+	save_temporary_value_as = {
+		name = OGAS_Auto_Road_Cost_Market_Price_Factor
+		value = {
+			value = 1
+			add = {
+				value = scope:OGAS_Auto_Road_Cost_Lumber_Market_Impact
+				add = scope:OGAS_Auto_Road_Cost_Masonry_Market_Impact
+				add = scope:OGAS_Auto_Road_Cost_Sand_Market_Impact
+				divide = 3
+			}
+			min = 0.01
+		}
+	}
+
+	value = scope:OGAS_Auto_Road_Cost_Base
+	multiply = scope:OGAS_Auto_Road_Cost_Road_Distance_Factor
+	multiply = scope:OGAS_Auto_Road_Cost_Modifier
+	multiply = scope:OGAS_Auto_Road_Cost_Market_Price_Factor
+	multiply = {
+		value = 1
+		add = owner.inflation
+	}
+	min = 1
+}
+
+OGAS_Location_Wealth = {
+	value = location_tax_base
+	if = {
+		limit = { local_control > 0 }
+		divide = local_control
+	}
+	else = {
+		multiply = 0
+	}
+}
+
+OGAS_Node_Demand_Proximity = {
+	value = var:OGAS_Predicted
+	subtract = proximity
+	min = 0
+	multiply = OGAS_Location_Wealth
+}
+
+OGAS_Node_Demand_Market_Access = {
+	value = var:OGAS_Predicted
+	subtract = market_access
+	min = 0
+	multiply = OGAS_Location_Wealth
+}
+
+OGAS_Market_Access_Topology_Order = {
+	value = var:OGAS_Predicted
+	subtract = modifier:local_market_access
+}
+
+value_prediction = {
+	value = OGAS_Node_Demand_Proximity
+}
+
+sum_value_prediction = {
+	value = var:OGAS_Value
+}
+
+market_access_value_prediction = {
+	value = OGAS_Node_Demand_Market_Access
+}
+
+sum_market_access_value_prediction = {
+	value = var:OGAS_Value
+}

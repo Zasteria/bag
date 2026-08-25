@@ -1,0 +1,307 @@
+﻿l_russian:
+  
+  # Game Rule 
+ rule_nd_mandate_crisis_rule: "Мандатный кризис" #NT!
+ setting_nd_mandate_crisis_enabled: "Включено" #NT!
+ setting_nd_mandate_crisis_enabled_desc: "Император Китая может столкнуться с мандатным кризисом, когда [celestial_authority_gc|e] упадет слишком низко, что может привести к разделению империи на враждующие государства. Этот кризис может возникать несколько раз на протяжении всей игры." #NT!
+ setting_nd_mandate_crisis_disabled: "Неполноценный" #NT!
+ setting_nd_mandate_crisis_disabled_desc: "Ситуация «Кризис мандата» отключена. Объединенный Китай не столкнется с событиями фрагментации династического цикла." #NT!
+  
+  # Situation 
+ nd_mandate_crisis: "Мандатный кризис" #NT!
+ nd_mandate_crisis_desc: "Мандат Небес колеблется. Власть династии над королевством ослабевает по мере того, как недовольство распространяется по провинциям. Без решительных действий империя может распасться на враждующие государства, каждое из которых претендует на право управлять." #NT!
+  
+  # Situation Panel 
+ nd_mc_resolved_end_tt: "Кризис мандата был разрешен путем реформы, завоевания или возникновения новой династии." #NT!
+ nd_mc_cooldown_tt: "Королевство лишь недавно пережило мандатный кризис и пока не может столкнуться с новым." #NT!
+ nd_mc_hard_timer_tt: "Мандатный кризис еще не исчерпал свой 50-летний период." #NT!
+ nd_mc_phase_header: "Кризисная фаза" #NT!
+ nd_mc_provinces_header: "Отколовшиеся государства" #NT!
+ nd_mc_panel_paths_header: "Династический цикл" #NT!
+ nd_mc_panel_paths_body: "Кризис разворачивается в две фазы.\n\n#T Фаза 1, Беспорядки:#! Коррупция, фракционность и недовольство провинций охватывают двор. Император еще может реформировать королевство и возобновить Мандат, пока не стало слишком поздно.\n\n#T Фаза 2, Фрагментация:#! Если [celestial_authority_gc|e] продолжит падение, провинции отделятся под властью повстанческих военачальников, каждая из которых предъявляет свои претензии на Мандат.\n\nКризис разрешается одним из трех способов: династия #T реформируется#! и выживает, Император #T отвоевывает#! отколовшиеся государства силой, или #T претендент#! захватывает королевство и основывает новую династию." #NT!
+  
+  # International Organization 
+ nd_mandate_challengers: "Претенденты на мандат" #NT!
+ nd_mandate_challengers_desc: "Тех, кто оспаривает право царствующей династии на управление Поднебесной." #NT!
+  
+  # Static Modifiers 
+ STATIC_MODIFIER_NAME_nd_mandate_crisis_unrest: "Мандатный кризис: беспорядки" #NT!
+ STATIC_MODIFIER_DESC_nd_mandate_crisis_unrest: "Растущие волнения угрожают стабильности династии." #NT!
+ STATIC_MODIFIER_NAME_nd_mandate_crisis_fragmentation: "Мандатный кризис: фрагментация" #NT!
+ STATIC_MODIFIER_DESC_nd_mandate_crisis_fragmentation: "Империя распадается. В провинциях поднимаются полевые командиры." #NT!
+ STATIC_MODIFIER_NAME_nd_mandate_crisis_reformed: "Династия реформированная" #NT!
+ STATIC_MODIFIER_DESC_nd_mandate_crisis_reformed: "Династия преодолела внутренний кризис посредством решительных реформ." #NT!
+ STATIC_MODIFIER_NAME_nd_mandate_crisis_reconquest: "Мандат подтвержден" #NT!
+ STATIC_MODIFIER_DESC_nd_mandate_crisis_reconquest: "Династия разгромила всех претендентов и подтвердила свой мандат на правление." #NT!
+ STATIC_MODIFIER_NAME_nd_mandate_crisis_new_dynasty: "Новая династия" #NT!
+ STATIC_MODIFIER_DESC_nd_mandate_crisis_new_dynasty: "Новая династия заявила права на Небесный Мандат и восстановила порядок в королевстве." #NT!
+  
+  # Legend Keys 
+ nd_mc_legend_emperor: "Император" #NT!
+ nd_mc_legend_challenger: "Сильнейший претендент" #NT!
+ nd_mc_legend_loyalist: "Лоялист" #NT!
+ nd_mc_legend_rebel: "Мятежник" #NT!
+ nd_mc_legend_neutral: "Нейтральный" #NT!
+  
+  # Tooltips 
+ nd_mc_emperor_tt: "Территория Императора" #NT!
+ nd_mc_challenger_tt: "Территория сильнейшего претендента на Мандат" #NT!
+ nd_mc_loyalist_tt: "Территория военачальника, верного Императору" #NT!
+ nd_mc_rebel_tt: "Территория военачальника, восставшего против Императора" #NT!
+ nd_mc_neutral_tt: "Территория несвязанного военачальника" #NT!
+ nd_mc_claimed_mandate_tt: "Вы заявили права на Небесный Мандат" #NT!
+ nd_mc_phase_2_starts_tt: "Кризис обострился. Провинции выходят из-под имперского контроля." #NT!
+ nd_mc_release_country_tt: "В провинциях появляется новый военачальник, захватывающий территорию у Императора." #NT!
+ nd_mc_release_culture_country_tt: "Лидеры провинций провозглашают независимость, создавая новое государство." #NT!
+ nd_mc_lose_characters_tt: "Наиболее способные чиновники и генералы переходят на сторону нового режима." #NT!
+ nd_mc_has_already_enacted_tt: "Мы уже провели эту реформу во время нынешнего кризиса." #NT!
+ nd_mc_emperor_allegiance: "Верность" #NT!
+  
+  # Event: The Heavens Grow Dark (on_start, emperor) 
+ nd_mandate_crisis.1.title: "Небеса темнеют" #NT!
+ nd_mandate_crisis.1.desc: "Приметы говорят об упадке династии. Налоговые поступления сокращаются, поскольку губернаторы провинций копят ресурсы. Пограничные гарнизоны отчаянно молят о подкреплении, а крестьянские агитаторы распространяют слухи о новой эпохе. Похоже, что Мандат Небес больше не определен.\n\nЕсли мы не будем действовать решительно, сама империя может распасться." #NT!
+ nd_mandate_crisis.1.a: "Мы должны сохранить королевство вместе." #NT!
+  
+  # Event: Whispers of Unrest (on_start, neighbors) 
+ nd_mandate_crisis.2.title: "Шепот беспорядков" #NT!
+ nd_mandate_crisis.2.desc: "В сообщениях из Поднебесной говорится о растущем беспорядке. Власть Императора в провинциях ослабевает, и на трон стремятся честолюбивые люди. Если династия падет, наступит период хаоса, а вместе с хаосом появятся новые возможности." #NT!
+ nd_mandate_crisis.2.a: "Мы будем внимательно следить за развитием событий." #NT!
+  
+  # Event: The Dynasty Endures (resolution, reform) 
+ nd_mandate_crisis.3.title: "Династия выстоит" #NT!
+ nd_mandate_crisis.3.desc: "Кризис удалось предотвратить благодаря тщательным реформам и устойчивому управлению. Бюрократия очищена от коррупции, граница защищена, а недовольство народа удовлетворено. На данный момент Небесный Мандат остается в нашем доме.\n\nИстория учит, что ни одна династия не правит вечно. Но сегодня мы заслужили еще одно поколение мира." #NT!
+ nd_mandate_crisis.3.a: "Пусть это запомнится как время обновления." #NT!
+  
+  # Event: The Mandate Renewed (resolution, reconquest) 
+ nd_mandate_crisis.4.title: "Мандат продлен" #NT!
+ nd_mandate_crisis.4.desc: "Повстанцы разгромлены, военачальники рассеяны. С помощью силы оружия мы воссоединили королевство и доказали, что Мандат Небес никогда по-настоящему не терялся. Провинции еще раз склоняются перед нашей властью.\n\nПусть история зафиксирует, что эта династия прошла испытания в огне восстания и стала сильнее." #NT!
+ nd_mandate_crisis.4.a: "Царство снова целое." #NT!
+  
+  # Event: A New Dynasty Rises (resolution, new dynasty) 
+ nd_mandate_crisis.5.title: "Возрождается новая династия" #NT!
+ nd_mandate_crisis.5.desc: "Старый порядок пал. Там, где когда-то одна династия командовала повиновением всего поднебесной, теперь из пепла восстания восстала новая сила. Мандат Небес переходит к тем, кто доказывает, что достоин его силой, добродетелью и волей людей.\n\nНачинается новая эра." #NT!
+ nd_mandate_crisis.5.a: "Мандат Небес принадлежит нам." #NT!
+  
+  # Phase 1 Flavor Events 
+ nd_mandate_crisis.10.title: "Евнух Коррупция" #NT!
+ nd_mandate_crisis.10.desc: "Дворцовые евнухи приобрели угрожающее влияние на судебные разбирательства. В сообщениях указывается, что они перекачивают налоговые поступления, предназначенные для защиты границ, в свою казну. Их сети покровительства подрывают авторитет назначенных чиновников во всей бюрократии." #NT!
+ nd_mandate_crisis.10.a: "Очистите злейших преступников." #NT!
+ nd_mandate_crisis.10.a_tt: "Чистка восстановит порядок, но создаст врагов при дворе." #NT!
+ nd_mandate_crisis.10.b: "Их преданность более ценна, чем их честность." #NT!
+ nd_mandate_crisis.10.b_tt: "Терпимость к коррупции подрывает моральный авторитет династии." #NT!
+  
+ nd_mandate_crisis.11.title: "Консолидация земель" #NT!
+ nd_mandate_crisis.11.desc: "Богатые семьи и судебные чиновники приобретают обширные сельскохозяйственные поместья, вытесняя мелких крестьян, обрабатывающих землю. Налоговые поступления сокращаются, поскольку эти магнаты пользуются льготами, в то время как перемещенные крестьяне пополняют растущие ряды бедняков, не имеющих корней." #NT!
+ nd_mandate_crisis.11.a: "Приказать о перераспределении незаконных захватов земель." #NT!
+ nd_mandate_crisis.11.a_tt: "Дворянство не забудет этого пренебрежения." #NT!
+ nd_mandate_crisis.11.b: "Великие семьи – это столпы королевства." #NT!
+ nd_mandate_crisis.11.b_tt: "Крестьяне отчаялись без земли." #NT!
+  
+ nd_mandate_crisis.12.title: "Пренебрежение границами" #NT!
+ nd_mandate_crisis.12.desc: "Командиры на границе сообщают о разрушении укреплений и дезертирстве среди своих гарнизонных войск. Без подкрепления приграничные регионы будут уязвимы для набегов и вторжений со стороны соседних держав." #NT!
+ nd_mandate_crisis.12.a: "Отправьте средства и войска к границе." #NT!
+ nd_mandate_crisis.12.a_tt: "Дорого, но необходимо." #NT!
+ nd_mandate_crisis.12.b: "Граница должна постоять за себя." #NT!
+ nd_mandate_crisis.12.b_tt: "Приграничные провинции могут потерять доверие к нашей защите." #NT!
+  
+ nd_mandate_crisis.13.title: "Крестьянские обиды" #NT!
+ nd_mandate_crisis.13.desc: "Деревенские старейшины со всего королевства подают петиции к трону, перечисляя целый ряд жалоб: низкие налоги, коррумпированные судьи, принудительный труд без компенсации. Тон петиций становится все смелее, некоторые открыто задаются вопросом, благоволит ли Небеса по-прежнему нашему дому." #NT!
+ nd_mandate_crisis.13.a: "Снизить налоговую нагрузку на простых людей." #NT!
+ nd_mandate_crisis.13.a_tt: "Доходы упадут, но волнения могут утихнуть." #NT!
+ nd_mandate_crisis.13.b: "Подавите агитаторов и наведите порядок." #NT!
+ nd_mandate_crisis.13.b_tt: "Молчание не означает согласия." #NT!
+  
+ nd_mandate_crisis.14.title: "Религиозное инакомыслие" #NT!
+ nd_mandate_crisis.14.desc: "Неортодоксальные религиозные движения приобретают сторонников в провинции, особенно среди раскулаченного крестьянства. Их учение часто несет в себе скрытый, а иногда и явный вызов легитимности правящей династии." #NT!
+ nd_mandate_crisis.14.a: "Позвольте им верить, пока они платят налоги." #NT!
+ nd_mandate_crisis.14.a_tt: "Терпимость может подорвать наш духовный авторитет." #NT!
+ nd_mandate_crisis.14.b: "Эти секты представляют угрозу общественному порядку." #NT!
+ nd_mandate_crisis.14.b_tt: "Преследование порождает мучеников." #NT!
+  
+ nd_mandate_crisis.15.title: "Голод в провинции" #NT!
+ nd_mandate_crisis.15.desc: "Неурожаи поразили отдаленные провинции. Без имперских запасов зерна населению грозит голод. Местные власти сообщают, что голодные крестьяне уже формируют вооруженные банды, нападая на зернохранилища и сборщиков налогов." #NT!
+ nd_mandate_crisis.15.a: "Откройте имперские зернохранилища и пришлите помощь." #NT!
+ nd_mandate_crisis.15.a_tt: "Казна пострадает, но народ запомнит наше милосердие." #NT!
+ nd_mandate_crisis.15.b: "Каждая провинция должна управлять своими делами." #NT!
+ nd_mandate_crisis.15.b_tt: "Голод порождает восстание." #NT!
+  
+  # Phase 2 Events 
+ nd_mandate_crisis.20.title: "Военачальник восстает" #NT!
+ nd_mandate_crisis.20.desc: "Командиры провинций захватили контроль над своими территориями, провозгласив независимость от центрального правительства. Они утверждают, что династия потеряла Мандат Неба и что из хаоса должен возникнуть новый порядок." #NT!
+ nd_mandate_crisis.20.a: "Это восстание будет подавлено." #NT!
+ nd_mandate_crisis.20.play_as_tag: "Стать этой страной" #NT!
+  
+ nd_mandate_crisis.21.title: "Культурное восстание" #NT!
+ nd_mandate_crisis.21.desc: "[?target_culture.GetName] народы периферии восстали против имперского правления. Местные лидеры объявили о создании нового государства, сплотив свой народ призывами к самоопределению и прекращению репрессивного налогообложения династии." #NT!
+ nd_mandate_crisis.21.a: "Они пожалеют об этом неповиновении." #NT!
+ nd_mandate_crisis.21.play_as_tag: "Стать этой страной" #NT!
+  
+ nd_mandate_crisis.23.title: "Империя раскололась" #NT!
+ nd_mandate_crisis.23.desc: "Первые провинции вырвались из-под имперского контроля. То, что началось как внутренние волнения, переросло в открытое восстание. Военачальники объявляют себя правителями своих владений, а единство империи теперь существует только на картах, нарисованных в столице.\n\nДинастия должна либо отвоевать эти отколовшиеся государства, либо смириться с потерей Мандата." #NT!
+ nd_mandate_crisis.23.a: "Мы будем бороться за восстановление королевства." #NT!
+  
+  # Warlord/Neighbor Events 
+ nd_mandate_crisis.30.title: "Заявление для императора" #NT!
+ nd_mandate_crisis.30.desc: "Мандатный кризис ставит нас перед выбором. Правящий Император ослаб, но династия по-прежнему удерживает столицу и командует значительными силами. Заявление о нашей лояльности может обеспечить нам благосклонное отношение или связать нашу судьбу с тонущим кораблем." #NT!
+ nd_mandate_crisis.30.a: "Мы стоим на стороне Императора." #NT!
+ nd_mandate_crisis.30.a_tt: "Наша преданность Императору крепнет." #NT!
+ nd_mandate_crisis.30.b: "Мы проложим свой собственный курс." #NT!
+  
+ nd_mandate_crisis.31.title: "Заявить права на мандат" #NT!
+ nd_mandate_crisis.31.desc: "Династия потеряла Мандат Неба. Признаки безошибочны: голод, восстание, раскол государства. У нас есть силы создать новый порядок. Пусть наше знамя будет поднято выше других. Мы станем основателями новой династии." #NT!
+ nd_mandate_crisis.31.a: "Мы претендуем на Мандат Небес!" #NT!
+ nd_mandate_crisis.31.a_tt: "Мы объявляем себя законными правителями Поднебесной." #NT!
+ nd_mandate_crisis.31.b: "Время еще не пришло." #NT!
+  
+ nd_mandate_crisis.32.title: "Иностранная возможность" #NT!
+ nd_mandate_crisis.32.desc: "Китай в смятении. Династия, которая когда-то управляла данью с половины известного мира, распадается. Приграничные провинции слабо защищены, их гарнизоны отозваны для участия во внутренних войнах. Если мы когда-нибудь захотим расшириться за счет Китая, лучшего момента, возможно, не будет." #NT!
+ nd_mandate_crisis.32.a: "Готовьтесь к войне." #NT!
+ nd_mandate_crisis.32.b: "Мы не будем вмешиваться в их дела." #NT!
+  
+  # Generic Actions (bare keys for action system) 
+ nd_mc_reform_bureaucracy: "Реформировать бюрократию" #NT!
+ nd_mc_reform_bureaucracy_desc: "Реструктуризация административного аппарата, устранение коррумпированных чиновников и оптимизация управления." #NT!
+ nd_mc_purge_eunuchs: "Очистить евнухов" #NT!
+ nd_mc_purge_eunuchs_desc: "Сломите власть дворцовой фракции евнухов и восстановите власть назначенных чиновников." #NT!
+ nd_mc_appease_generals: "Умиротворить генералов" #NT!
+ nd_mc_appease_generals_desc: "Направляйте средства и почести пограничным командирам, чтобы обеспечить их постоянную лояльность." #NT!
+ nd_mc_grant_autonomy: "Предоставить провинциальной автономию" #NT!
+ nd_mc_grant_autonomy_desc: "Облегчить центральный контроль над провинциями, уменьшив недовольство за счет прямой власти." #NT!
+ nd_mc_negotiate_surrender: "Переговоры с Военачальником" #NT!
+ nd_mc_negotiate_surrender_desc: "Предложите выгодные условия повстанческому военачальнику в обмен на его подчинение." #NT!
+ nd_mc_imperial_edict: "Имперский эдикт о легитимности" #NT!
+ nd_mc_imperial_edict_desc: "Издать официальную декларацию, осуждающую всех претендентов как незаконных повстанцев." #NT!
+ nd_mc_declare_loyalty: "Заявить о верности императору" #NT!
+ nd_mc_declare_loyalty_desc: "Присягните на верность правящей династии, приняв ее дальнейшее правление." #NT!
+ nd_mc_seek_mandate: "Ищите мандат" #NT!
+ nd_mc_seek_mandate_desc: "Объявляем себя законными наследниками Небесного Мандата и бросаем вызов Императору за превосходство." #NT!
+  # Generic Actions (action_ prefix keys) 
+ action_nd_mc_reform_bureaucracy: "Реформировать бюрократию" #NT!
+ action_nd_mc_reform_bureaucracy_desc: "Реструктуризация административного аппарата, устранение коррумпированных чиновников и оптимизация управления." #NT!
+ action_nd_mc_purge_eunuchs: "Очистить евнухов" #NT!
+ action_nd_mc_purge_eunuchs_desc: "Сломите власть дворцовой фракции евнухов и восстановите власть назначенных чиновников." #NT!
+ action_nd_mc_appease_generals: "Умиротворить генералов" #NT!
+ action_nd_mc_appease_generals_desc: "Направляйте средства и почести пограничным командирам, чтобы обеспечить их постоянную лояльность." #NT!
+ action_nd_mc_grant_autonomy: "Предоставить провинциальной автономию" #NT!
+ action_nd_mc_grant_autonomy_desc: "Облегчить центральный контроль над провинциями, уменьшив недовольство за счет прямой власти." #NT!
+ action_nd_mc_negotiate_surrender: "Переговоры с Военачальником" #NT!
+ action_nd_mc_negotiate_surrender_desc: "Предложите выгодные условия повстанческому военачальнику в обмен на его подчинение." #NT!
+ action_nd_mc_imperial_edict: "Имперский эдикт о легитимности" #NT!
+ action_nd_mc_imperial_edict_desc: "Издать официальную декларацию, осуждающую всех претендентов как незаконных повстанцев." #NT!
+ action_nd_mc_declare_loyalty: "Заявить о верности императору" #NT!
+ action_nd_mc_declare_loyalty_desc: "Присягните на верность правящей династии, приняв ее дальнейшее правление." #NT!
+ action_nd_mc_seek_mandate: "Ищите мандат" #NT!
+ action_nd_mc_seek_mandate_desc: "Объявляем себя законными наследниками Небесного Мандата и бросаем вызов Императору за превосходство." #NT!
+  
+  # Generic Action Tooltips 
+ nd_mc_reform_bureaucracy_tt: "Реформирует бюрократию, повышая [celestial_authority_gc|e]." #NT!
+ nd_mc_purge_eunuchs_tt: "Очищает фракцию евнухов, восстанавливая авторитет, но нанося удар [stability|e]." #NT!
+ nd_mc_appease_generals_tt: "Обеспечивает лояльность границ ценой больших затрат." #NT!
+ nd_mc_grant_autonomy_tt: "Облегчает волнения, уступая контроль над провинцией." #NT!
+ nd_mc_negotiate_surrender_tt: "Подкупает военачальника на выгодных условиях." #NT!
+ nd_mc_imperial_edict_tt: "Осуждает всех претендентов, повышая наш [legitimacy|e]." #NT!
+ nd_mc_declare_loyalty_tt: "Присягает на верность Императору." #NT!
+ nd_mc_seek_mandate_tt: "Заявляет о наших претензиях на управление Поднебесной." #NT!
+  
+  # Situation Select 
+ nd_mc_choose_situation: "Выберите ситуацию" #NT!
+ nd_mc_choose_warlord: "Выберите военачальника" #NT!
+ nd_mc_no_warlords_available: "@trigger_no! Нет военачальников, готовых к переговорам." #NT!
+  
+  # IO Opinion Bias 
+ io_opinion_nd_mandate_challengers: "$nd_mandate_challengers$" #NT!
+  
+  # IO Diplomatic Status 
+ diplomatic_status_nd_mandate_challengers_name: "$nd_mandate_challengers$" #NT!
+ diplomatic_status_nd_mandate_challengers_tooltip: "#T $nd_mandate_challengers$#!\nThis страна является членом $nd_mandate_challengers$." #NT!
+ nd_mandate_challengers_list_who_tt: "$WHO$ находится в $nd_mandate_challengers$ с $LIST$" #NT!
+  
+  # Generic Action Message Types 
+ PERFORM_nd_mc_reform_bureaucracy_ACTION: "Бюрократия реформирована" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_SETUP: "Когда мы реформируем бюрократию." #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_TITLE: "Бюрократия реформирована" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] реформировал бюрократию." #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_LOG: "Бюрократия реформирована." #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_reform_bureaucracy_ACTION_MAP: ""
+ PERFORM_nd_mc_purge_eunuchs_ACTION: "Евнухи очищены" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_SETUP: "Когда мы очистим евнухов." #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_TITLE: "Евнухи очищены" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] очистил фракцию евнухов." #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_LOG: "Евнухи очищены." #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_purge_eunuchs_ACTION_MAP: ""
+ PERFORM_nd_mc_appease_generals_ACTION: "Генералы умиротворены" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_SETUP: "Когда мы ублажаем генералов." #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_TITLE: "Генералы умиротворены" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] успокоил пограничных генералов." #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_LOG: "Генералы успокоились." #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_appease_generals_ACTION_MAP: ""
+ PERFORM_nd_mc_grant_autonomy_ACTION: "Предоставлена ​​провинциальная автономия" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_SETUP: "Когда мы предоставим провинции автономию." #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_TITLE: "Предоставлена ​​провинциальная автономия" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] предоставил автономию провинциям." #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_LOG: "Провинциальная автономия предоставлена." #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_grant_autonomy_ACTION_MAP: ""
+ PERFORM_nd_mc_negotiate_surrender_ACTION: "Военачальник провел переговоры с" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_SETUP: "Когда мы ведем переговоры с военачальником." #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_TITLE: "Военачальник провел переговоры с" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] провел переговоры с [SCOPE.sCountry('target').GetName]." #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_LOG: "Переговоры с Военачальником." #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_negotiate_surrender_ACTION_MAP: ""
+ PERFORM_nd_mc_imperial_edict_ACTION: "Издан императорский указ" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_SETUP: "Когда мы издадим императорский указ." #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_TITLE: "Издан императорский указ" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] издал указ о легитимности." #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_LOG: "Издан императорский указ." #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_imperial_edict_ACTION_MAP: ""
+ PERFORM_nd_mc_declare_loyalty_ACTION: "Лояльность заявлена" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_SETUP: "Когда мы заявляем о верности Императору." #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_TITLE: "Лояльность заявлена" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] заявил о верности Императору." #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_LOG: "Лояльность заявлена." #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_declare_loyalty_ACTION_MAP: ""
+ PERFORM_nd_mc_seek_mandate_ACTION: "Мандат заявлен" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_SETUP: "Когда мы ищем Мандат Небес." #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_HEADER: "$MESSENGER$" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_TITLE: "Мандат заявлен" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_DESC: "[SCOPE.sCountry('actor').GetName] претендует на Небесный Мандат." #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_EFFECTS: "$EFFECT$" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_LOG: "Мандат заявлен." #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_BTN1: "ХОРОШО" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_BTN2: "ХОРОШО" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_BTN3: "$common_string_go_to$" #NT!
+ PERFORM_nd_mc_seek_mandate_ACTION_MAP: ""

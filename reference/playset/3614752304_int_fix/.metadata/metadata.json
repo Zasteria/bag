@@ -1,0 +1,11 @@
+﻿{
+	"name":	"Unit Illustration Fix",
+	"id":	"Int_Fix",
+	"version":	"0.7",
+	"supported_game_version":	"1.1",
+	"short_description":	"In 1.1 Paradox finally fixed some of the unit illustrations but not all, with this mod levys will get different illustrations than regular units.",
+	"tags":	["Fixes", "1.1"],
+	"relationships":	[],
+	"game_custom_data":	{
+}
+}

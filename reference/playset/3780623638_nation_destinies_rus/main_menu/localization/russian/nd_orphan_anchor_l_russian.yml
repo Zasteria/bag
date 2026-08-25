@@ -1,0 +1,4 @@
+﻿l_russian:
+ nd_orphan_anchor.1.t: "Привязка потерянной переменной" #NT!
+ nd_orphan_anchor.1.d: "Внутреннее событие мода, никогда не срабатывает. См. nd_orphan_anchor.txt." #NT!
+ nd_orphan_anchor.1.a: "ХОРОШО" #NT!

@@ -1,0 +1,9 @@
+﻿REPLACE:relative_subject_power = {
+	game_data = {
+		category = country
+	}
+
+	nobles_estate_target_satisfaction = 0.1
+	global_nobles_estate_power = 0.25
+	crown_power_from_population = 0
+}

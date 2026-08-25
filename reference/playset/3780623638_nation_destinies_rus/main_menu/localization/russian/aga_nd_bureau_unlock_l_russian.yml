@@ -1,0 +1,301 @@
+﻿l_russian:
+ aga_nd_unlock_bureau_bah_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bah_advance_desc: "Открывает возможность использования бюрократии для BAH." #NT!
+ aga_nd_unlock_bureau_sca_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sca_advance_desc: "Открывает возможность использования бюрократии для SCA." #NT!
+ aga_nd_unlock_bureau_ukr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ukr_advance_desc: "Открывает возможность использования бюрократии для UKR." #NT!
+ aga_nd_unlock_bureau_nzo_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_nzo_advance_desc: "Открывает возможность использования бюрократии для NZO." #NT!
+ aga_nd_unlock_bureau_mal_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mal_advance_desc: "Открывает возможность использования бюрократии для MAL." #NT!
+ aga_nd_unlock_bureau_bel_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bel_advance_desc: "Открывает возможность использования бюрократии для BEL." #NT!
+ aga_nd_unlock_bureau_rom_byz_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rom_byz_advance_desc: "Разблокирует использование бюрократии для ROM_BYZ." #NT!
+ aga_nd_unlock_bureau_ate_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ate_advance_desc: "Открывает возможность использования бюрократии для ATE." #NT!
+ aga_nd_unlock_bureau_gbr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_gbr_advance_desc: "Открывает возможность использования бюрократии для GBR." #NT!
+ aga_nd_unlock_bureau_hau_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_hau_advance_desc: "Открывает возможность использования бюрократии для HAU." #NT!
+ aga_nd_unlock_bureau_bno_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bno_advance_desc: "Открывает возможность использования бюрократии для BNO." #NT!
+ aga_nd_unlock_bureau_mrl_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mrl_advance_desc: "Открывает возможность использования бюрократии для MRL." #NT!
+ aga_nd_unlock_bureau_num_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_num_advance_desc: "Открывает возможность использования бюрократии для NUM." #NT!
+ aga_nd_unlock_bureau_ger_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ger_advance_desc: "Открывает возможность использования бюрократии для GER." #NT!
+ aga_nd_unlock_bureau_msa_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_msa_advance_desc: "Открывает возможность использования бюрократии для MSA." #NT!
+ aga_nd_unlock_bureau_boh_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_boh_advance_desc: "Открывает возможность использования бюрократии для BOH." #NT!
+ aga_nd_unlock_bureau_egy_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_egy_advance_desc: "Открывает возможность использования бюрократии для EGY." #NT!
+ aga_nd_unlock_bureau_fkn_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_fkn_advance_desc: "Открывает возможность использования бюрократии для FKN." #NT!
+ aga_nd_unlock_bureau_soe_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_soe_advance_desc: "Открывает возможность использования бюрократии для SOE." #NT!
+ aga_nd_unlock_bureau_ymp_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ymp_advance_desc: "Открывает возможность использования бюрократии для YMP." #NT!
+ aga_nd_unlock_bureau_tib_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tib_advance_desc: "Открывает возможность использования бюрократии для TIB." #NT!
+ aga_nd_unlock_bureau_sar_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sar_advance_desc: "Открывает возможность использования бюрократии для SAR." #NT!
+ aga_nd_unlock_bureau_tgd_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tgd_advance_desc: "Открывает возможность использования бюрократии для TGD." #NT!
+ aga_nd_unlock_bureau_npl_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_npl_advance_desc: "Открывает возможность использования бюрократии для NPL." #NT!
+ aga_nd_unlock_bureau_sko_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sko_advance_desc: "Открывает возможность использования бюрократии для SKO." #NT!
+ aga_nd_unlock_bureau_adu_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_adu_advance_desc: "Открывает возможность использования бюрократии для ADU." #NT!
+ aga_nd_unlock_bureau_slo_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_slo_advance_desc: "Открывает возможность использования бюрократии для SLO." #NT!
+ aga_nd_unlock_bureau_azt_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_azt_advance_desc: "Открывает возможность использования бюрократии для AZT." #NT!
+ aga_nd_unlock_bureau_liv_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_liv_advance_desc: "Открывает возможность использования бюрократии для LIV." #NT!
+ aga_nd_unlock_bureau_mch_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mch_advance_desc: "Открывает возможность использования бюрократии для MCH." #NT!
+ aga_nd_unlock_bureau_may_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_may_advance_desc: "Открывает возможность использования бюрократии в МАЯ." #NT!
+ aga_nd_unlock_bureau_sil_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sil_advance_desc: "Открывает возможность использования бюрократии для SIL." #NT!
+ aga_nd_unlock_bureau_lbe_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_lbe_advance_desc: "Открывает возможность использования бюрократии для LBE." #NT!
+ aga_nd_unlock_bureau_anv_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_anv_advance_desc: "Открывает возможность использования бюрократии для ANV." #NT!
+ aga_nd_unlock_bureau_hin_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_hin_advance_desc: "Открывает возможность использования бюрократии для HIN." #NT!
+ aga_nd_unlock_bureau_bng_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bng_advance_desc: "Открывает возможность использования бюрократии для BNG." #NT!
+ aga_nd_unlock_bureau_dec_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_dec_advance_desc: "Открывает возможность использования бюрократии для DEC." #NT!
+ aga_nd_unlock_bureau_inc_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_inc_advance_desc: "Открывает возможность использования бюрократии для INC." #NT!
+ aga_nd_unlock_bureau_edo_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_edo_advance_desc: "Открывает возможность использования бюрократии для EDO." #NT!
+ aga_nd_unlock_bureau_nin_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_nin_advance_desc: "Открывает возможность использования бюрократии для NIN." #NT!
+ aga_nd_unlock_bureau_pom_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pom_advance_desc: "Открывает возможность использования бюрократии для POM." #NT!
+ aga_nd_unlock_bureau_pnt_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pnt_advance_desc: "Открывает возможность использования бюрократии для PNT." #NT!
+ aga_nd_unlock_bureau_sia_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sia_advance_desc: "Открывает возможность использования бюрократии для SIA." #NT!
+ aga_nd_unlock_bureau_ntr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ntr_advance_desc: "Открывает возможность использования бюрократии для NTR." #NT!
+ aga_nd_unlock_bureau_lat_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_lat_advance_desc: "Открывает возможность использования бюрократии для LAT." #NT!
+ aga_nd_unlock_bureau_dnm_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_dnm_advance_desc: "Открывает возможность использования бюрократии для DNM." #NT!
+ aga_nd_unlock_bureau_swi_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_swi_advance_desc: "Открывает возможность использования бюрократии для SWI." #NT!
+ aga_nd_unlock_bureau_wes_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_wes_advance_desc: "Открывает возможность использования бюрократии для WES." #NT!
+ aga_nd_unlock_bureau_kon_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_kon_advance_desc: "Открывает возможность использования бюрократии для KON." #NT!
+ aga_nd_unlock_bureau_guj_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_guj_advance_desc: "Открывает возможность использования бюрократии для GUJ." #NT!
+ aga_nd_unlock_bureau_bgp_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bgp_advance_desc: "Открывает возможность использования бюрократии для BGP." #NT!
+ aga_nd_unlock_bureau_soi_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_soi_advance_desc: "Открывает возможность использования бюрократии для SOI." #NT!
+ aga_nd_unlock_bureau_shl_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_shl_advance_desc: "Открывает возможность использования бюрократии для SHL." #NT!
+ aga_nd_unlock_bureau_bnh_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bnh_advance_desc: "Открывает возможность использования бюрократии для BNH." #NT!
+ aga_nd_unlock_bureau_pru_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pru_advance_desc: "Открывает возможность использования бюрократии для PRU." #NT!
+ aga_nd_unlock_bureau_spa_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_spa_advance_desc: "Открывает возможность использования бюрократии для SPA." #NT!
+ aga_nd_unlock_bureau_can_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_can_advance_desc: "Открывает возможность использования бюрократии для CAN." #NT!
+ aga_nd_unlock_bureau_jap_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_jap_advance_desc: "Открывает возможность использования бюрократии для JAP." #NT!
+ aga_nd_unlock_bureau_svb_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_svb_advance_desc: "Открывает возможность использования бюрократии для SVB." #NT!
+ aga_nd_unlock_bureau_kry_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_kry_advance_desc: "Открывает возможность использования бюрократии для KRY." #NT!
+ aga_nd_unlock_bureau_maz_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_maz_advance_desc: "Разблокирует использование бюрократии для МАЗ." #NT!
+ aga_nd_unlock_bureau_mlc_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mlc_advance_desc: "Открывает возможность использования бюрократии для MLC." #NT!
+ aga_nd_unlock_bureau_usa_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_usa_advance_desc: "Открывает возможность использования бюрократии в США." #NT!
+ aga_nd_unlock_bureau_rum_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rum_advance_desc: "Открывает возможность использования бюрократии для РУМ." #NT!
+ aga_nd_unlock_bureau_air_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_air_advance_desc: "Открывает возможность использования бюрократии для AIR." #NT!
+ aga_nd_unlock_bureau_chi_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_chi_advance_desc: "Открывает возможность использования бюрократии для ОМС." #NT!
+ aga_nd_unlock_bureau_ahm_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ahm_advance_desc: "Открывает возможность использования бюрократии для AHM." #NT!
+ aga_nd_unlock_bureau_byz_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_byz_advance_desc: "Открывает возможность использования бюрократии для BYZ." #NT!
+ aga_nd_unlock_bureau_alm_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_alm_advance_desc: "Открывает возможность использования бюрократии для ALM." #NT!
+ aga_nd_unlock_bureau_nse_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_nse_advance_desc: "Открывает возможность использования бюрократии для NSE." #NT!
+ aga_nd_unlock_bureau_ban_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ban_advance_desc: "Открывает возможность использования бюрократии для БАН." #NT!
+ aga_nd_unlock_bureau_tdr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tdr_advance_desc: "Открывает возможность использования бюрократии для TDR." #NT!
+ aga_nd_unlock_bureau_cth_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_cth_advance_desc: "Открывает возможность использования бюрократии для CTH." #NT!
+ aga_nd_unlock_bureau_lxa_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_lxa_advance_desc: "Открывает возможность использования бюрократии для LXA." #NT!
+ aga_nd_unlock_bureau_oye_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_oye_advance_desc: "Открывает возможность использования бюрократии для OYE." #NT!
+ aga_nd_unlock_bureau_ira_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ira_advance_desc: "Открывает возможность использования бюрократии для ИРА." #NT!
+ aga_nd_unlock_bureau_mgo_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mgo_advance_desc: "Открывает возможность использования бюрократии для MGO." #NT!
+ aga_nd_unlock_bureau_kbu_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_kbu_advance_desc: "Открывает возможность использования бюрократии для KBU." #NT!
+ aga_nd_unlock_bureau_sha_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sha_advance_desc: "Открывает возможность использования бюрократии для SHA." #NT!
+ aga_nd_unlock_bureau_koj_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_koj_advance_desc: "Открывает возможность использования бюрократии для KOJ." #NT!
+ aga_nd_unlock_bureau_dal_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_dal_advance_desc: "Открывает возможность использования бюрократии для DAL." #NT!
+ aga_nd_unlock_bureau_han_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_han_advance_desc: "Открывает возможность использования бюрократии для HAN." #NT!
+ aga_nd_unlock_bureau_drd_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_drd_advance_desc: "Открывает возможность использования бюрократии для DRD." #NT!
+ aga_nd_unlock_bureau_sax_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_sax_advance_desc: "Открывает возможность использования бюрократии для SAX." #NT!
+ aga_nd_unlock_bureau_aia_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_aia_advance_desc: "Открывает возможность использования бюрократии для AIA." #NT!
+ aga_nd_unlock_bureau_khl_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_khl_advance_desc: "Открывает возможность использования бюрократии в КХЛ." #NT!
+ aga_nd_unlock_bureau_ned_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ned_advance_desc: "Открывает возможность использования бюрократии для NED." #NT!
+ aga_nd_unlock_bureau_mol_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mol_advance_desc: "Открывает возможность использования бюрократии для MOL." #NT!
+ aga_nd_unlock_bureau_hen_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_hen_advance_desc: "Открывает возможность использования бюрократии для HEN." #NT!
+ aga_nd_unlock_bureau_dah_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_dah_advance_desc: "Открывает возможность использования бюрократии для DAH." #NT!
+ aga_nd_unlock_bureau_ayu_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ayu_advance_desc: "Открывает возможность использования бюрократии для AYU." #NT!
+ aga_nd_unlock_bureau_yua_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_yua_advance_desc: "Открывает возможность использования бюрократии для YUA." #NT!
+ aga_nd_unlock_bureau_vjn_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_vjn_advance_desc: "Открывает возможность использования бюрократии для VJN." #NT!
+ aga_nd_unlock_bureau_pue_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pue_advance_desc: "Открывает возможность использования бюрократии для PUE." #NT!
+ aga_nd_unlock_bureau_ire_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ire_advance_desc: "Открывает возможность использования бюрократии для IRE." #NT!
+ aga_nd_unlock_bureau_pol_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pol_advance_desc: "Открывает возможность использования бюрократии для ГСМ." #NT!
+ aga_nd_unlock_bureau_tus_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tus_advance_desc: "Открывает возможность использования бюрократии для TUS." #NT!
+ aga_nd_unlock_bureau_rmn_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rmn_advance_desc: "Открывает возможность использования бюрократии для RMN." #NT!
+ aga_nd_unlock_bureau_mca_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mca_advance_desc: "Открывает возможность использования бюрократии для MCA." #NT!
+ aga_nd_unlock_bureau_nub_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_nub_advance_desc: "Открывает возможность использования бюрократии для NUB." #NT!
+ aga_nd_unlock_bureau_eth_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_eth_advance_desc: "Открывает возможность использования бюрократии для ETH." #NT!
+ aga_nd_unlock_bureau_hab_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_hab_advance_desc: "Открывает возможность использования бюрократии для HAB." #NT!
+ aga_nd_unlock_bureau_lva_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_lva_advance_desc: "Открывает возможность использования бюрократии для LVA." #NT!
+ aga_nd_unlock_bureau_mge_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mge_advance_desc: "Открывает возможность использования бюрократии для MGE." #NT!
+ aga_nd_unlock_bureau_rom_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rom_advance_desc: "Разблокирует использование бюрократии для ПЗУ." #NT!
+ aga_nd_unlock_bureau_kaz_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_kaz_advance_desc: "Разблокирует использование бюрократии для КАЗ." #NT!
+ aga_nd_unlock_bureau_bej_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bej_advance_desc: "Открывает возможность использования бюрократии для BEJ." #NT!
+ aga_nd_unlock_bureau_mhr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mhr_advance_desc: "Открывает возможность использования бюрократии для MHR." #NT!
+ aga_nd_unlock_bureau_fin_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_fin_advance_desc: "Открывает возможность использования бюрократии для FIN." #NT!
+ aga_nd_unlock_bureau_ita_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ita_advance_desc: "Открывает возможность использования бюрократии для ITA." #NT!
+ aga_nd_unlock_bureau_cda_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_cda_advance_desc: "Открывает возможность использования бюрократии для CDA." #NT!
+ aga_nd_unlock_bureau_eur_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_eur_advance_desc: "Разблокирует использование бюрократии за евро." #NT!
+ aga_nd_unlock_bureau_pon_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pon_advance_desc: "Открывает возможность использования бюрократии для PON." #NT!
+ aga_nd_unlock_bureau_tbt_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tbt_advance_desc: "Открывает возможность использования бюрократии для ТБТ." #NT!
+ aga_nd_unlock_bureau_tws_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tws_advance_desc: "Открывает возможность использования бюрократии для TWS." #NT!
+ aga_nd_unlock_bureau_iro_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_iro_advance_desc: "Открывает возможность использования бюрократии для IRO." #NT!
+ aga_nd_unlock_bureau_pun_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pun_advance_desc: "Открывает возможность использования бюрократии для PUN." #NT!
+ aga_nd_unlock_bureau_swa_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_swa_advance_desc: "Открывает возможность использования бюрократии для SWA." #NT!
+ aga_nd_unlock_bureau_cel_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_cel_advance_desc: "Открывает возможность использования бюрократии для CEL." #NT!
+ aga_nd_unlock_bureau_dlh_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_dlh_advance_desc: "Открывает возможность использования бюрократии для DLH." #NT!
+ aga_nd_unlock_bureau_lot_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_lot_advance_desc: "Открывает возможность использования бюрократии для LOT." #NT!
+ aga_nd_unlock_bureau_gbu_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_gbu_advance_desc: "Открывает возможность использования бюрократии для GBU." #NT!
+ aga_nd_unlock_bureau_cso_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_cso_advance_desc: "Открывает возможность использования бюрократии для ОГО." #NT!
+ aga_nd_unlock_bureau_tab_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tab_advance_desc: "Открывает возможность использования бюрократии для TAB." #NT!
+ aga_nd_unlock_bureau_map_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_map_advance_desc: "Открывает возможность использования бюрократии для MAP." #NT!
+ aga_nd_unlock_bureau_gre_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_gre_advance_desc: "Открывает возможность использования бюрократии для GRE." #NT!
+ aga_nd_unlock_bureau_drr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_drr_advance_desc: "Открывает возможность использования бюрократии для СРБ." #NT!
+ aga_nd_unlock_bureau_ilk_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ilk_advance_desc: "Открывает возможность использования бюрократии для ILK." #NT!
+ aga_nd_unlock_bureau_mro_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mro_advance_desc: "Открывает возможность использования бюрократии для MRO." #NT!
+ aga_nd_unlock_bureau_ryu_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_ryu_advance_desc: "Открывает возможность использования бюрократии для RYU." #NT!
+ aga_nd_unlock_bureau_krs_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_krs_advance_desc: "Открывает возможность использования бюрократии для KRS." #NT!
+ aga_nd_unlock_bureau_bav_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_bav_advance_desc: "Открывает возможность использования бюрократии для BAV." #NT!
+ aga_nd_unlock_bureau_kws_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_kws_advance_desc: "Открывает возможность использования бюрократии для KWS." #NT!
+ aga_nd_unlock_bureau_plc_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_plc_advance_desc: "Открывает возможность использования бюрократии для ПЛК." #NT!
+ aga_nd_unlock_bureau_mtm_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mtm_advance_desc: "Открывает возможность использования бюрократии для MTM." #NT!
+ aga_nd_unlock_bureau_nus_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_nus_advance_desc: "Открывает возможность использования бюрократии для NUS." #NT!
+ aga_nd_unlock_bureau_rjp_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rjp_advance_desc: "Открывает возможность использования бюрократии для RJP." #NT!
+ aga_nd_unlock_bureau_pgr_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_pgr_advance_desc: "Открывает возможность использования бюрократии для PGR." #NT!
+ aga_nd_unlock_bureau_mug_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mug_advance_desc: "Открывает возможность использования бюрократии для MUG." #NT!
+ aga_nd_unlock_bureau_arc_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_arc_advance_desc: "Открывает возможность использования бюрократии для ARC." #NT!
+ aga_nd_unlock_bureau_mtp_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mtp_advance_desc: "Открывает возможность использования бюрократии для MTP." #NT!
+ aga_nd_unlock_bureau_hos_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_hos_advance_desc: "Открывает возможность использования бюрократии для поиска предметов." #NT!
+ aga_nd_unlock_bureau_tkt_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_tkt_advance_desc: "Открывает возможность использования бюрократии для TKT." #NT!
+ aga_nd_unlock_bureau_msi_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_msi_advance_desc: "Открывает возможность использования бюрократии для MSI." #NT!
+ aga_nd_unlock_bureau_yav_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_yav_advance_desc: "Открывает возможность использования бюрократии для YAV." #NT!
+ aga_nd_unlock_bureau_mor_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mor_advance_desc: "Открывает возможность использования бюрократии для MOR." #NT!
+ aga_nd_unlock_bureau_mir_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mir_advance_desc: "Открывает возможность использования бюрократии для МИР." #NT!
+ aga_nd_unlock_bureau_mex_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_mex_advance_desc: "Открывает возможность использования бюрократии для MEX." #NT!
+ aga_nd_unlock_bureau_rus_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_rus_advance_desc: "Разблокирует использование бюрократии для RUS." #NT!
+ aga_nd_unlock_bureau_aeg_advance: "Бюрократия" #NT!
+ aga_nd_unlock_bureau_aeg_advance_desc: "Открывает возможность использования бюрократии для AEG." #NT!

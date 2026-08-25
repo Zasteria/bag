@@ -1,0 +1,10 @@
+﻿NCountry = {
+
+	ANNEX_BASE_COST = 75
+}
+
+NDiplomacy = {
+	TRUCE_YEARS = 3
+	SCALED_TRUCE_YEARS = 7
+
+}

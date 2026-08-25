@@ -1,0 +1,28 @@
+monthly_country_pulse = {
+	on_actions = {
+		OGAS_Auto_Road
+	}
+}
+
+OGAS_Auto_Road = {
+	trigger = {
+		is_ai = no
+	}
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		if = {
+			limit = { var:OGAS_Refresh_Interval > 0 }
+			change_variable = {
+				name = OGAS_Months_Since_Refresh
+				add = 1
+			}
+			if = {
+				limit = {
+					var:OGAS_Months_Since_Refresh >= var:OGAS_Refresh_Interval
+				}
+				OGAS_Auto_Road_Refresh = yes
+			}
+		}
+		OGAS_Auto_Construct_Road = yes
+	}
+}

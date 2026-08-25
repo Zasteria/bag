@@ -1,0 +1,11 @@
+﻿{
+	"name":	"Nation Destinies Rus",
+	"id":	"nation_destinies_rus",
+	"version":	"1.3",
+	"supported_game_version":	"1.3",
+	"short_description":	"Translate",
+	"tags":	["Translation"],
+	"relationships":	[],
+	"game_custom_data":	{
+}
+}

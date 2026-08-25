@@ -1,0 +1,51 @@
+在1.2版本中，由于同一个宗主国的附庸共享同一个强制转变宗教/文化的cd，玩家在10年内只能强制转变一个附庸的文化/宗教。同时，在1.2版本中，系统会动态判定领土的核心状态，那些主流和接受文化人口<50%的地块会失去核心。这些新更新的内容使得玩家的扩张变为极为缓慢且毫无意义，只会让游戏在慢节奏中变得相当无聊。
+
+为了解决以上问题，本mod做了如下改动：
+1.将“整合”地区的效果改动为：最大控制力+15%，每月控制力+0.05%，本地分离主义+10%。取消了本地人口同化速度-10的debuff。这使得游戏中的整合地区十分接近核心地区。
+2.将“强制附庸转变宗教”和“强制附庸转变文化”的cd改为3天。（在游戏中仍然显示10年，不过效果是的确生效的）
+3.在罗马帝国dlc更新后，拉丁-罗马价值观的效果使得广大玩家极度不满意，我将他们的效果改变为如下效果：
+
+拉丁化：
+出售效率+2.50%
+预期外交支出-20.00%
+每月人文倾向+0.10
+每月财阀政治倾向+0.10
+允许拉丁文化运动运动
+
+罗马派
+稳定度投资花费-20.00%
+正统信仰容忍度+0.50
+每月属灵倾向+0.10
+每月贵族政治倾向+0.10
+
+In version 1.2, since vassals under the same overlord share a single cooldown for forced religious/cultural conversion, players can only force-convert one vassal every 10 years. Additionally, version 1.2 dynamically calculates the core status of territories; locations where the primary and accepted culture population falls below 50% will lose their core status. These new updates make expansion extremely slow and unrewarding, ultimately making the game quite boring due to its sluggish pacing.
+
+To address these issues, this mod introduces the following changes:
+
+Integrated Territories Overhaul: Modified the effects of the "Integrated" territory status. It now grants Maximum Control +15%, Monthly Control +0.05%, and Local Separatism +10%. The -10 Local Population Assimilation Speed debuff has been removed. This makes integrated territories function much closer to core territories.
+
+Reduced Subject Conversion Cooldown: Reduced the cooldown for "Force Religion" and "Force Culture" on vassals to 3 days. (Note: The UI will still display 10 years, but the 3-day cooldown is what actually takes effect in-game).
+
+Value Reworks: Following the Roman Empire DLC update, many players were highly dissatisfied with the effects of the Latin and Roman values. I have reworked their effects as follows:
+
+Latinized:
+
+Sell Efficiency: +2.50%
+
+Expected Diplomatic Expenses: -20.00%
+
+Monthly Humanism Change: +0.10
+
+Monthly Plutocracy Change: +0.10
+
+Allows the Latin Cultural Movement
+
+Roman:
+
+Stability Investment Cost: -20.00%
+
+Tolerance of the True Faith: +0.50
+
+Monthly Spiritualism Change: +0.10
+
+Monthly Aristocracy Change: +0.10

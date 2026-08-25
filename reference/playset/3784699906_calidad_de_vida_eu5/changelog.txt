@@ -1,0 +1,11 @@
+Quality of Life by Buddy - Changelog
+=====================================
+
+v1.0.1 (2026-08-19)
+--------------------
+- Fixed: Cooldown alerts for estate emergency interactions now work correctly.
+  The cooldown type names in the watch list now match the vanilla cooldown
+  identifiers (e.g. ask_for_extra_levies_cooldown).
+  Affected interactions: Ask for Extra Levies, Levy Extraordinary Taxes,
+  Request Clerical Endorsement, Request Noble Envoys, Request Emergency Grant,
+  Appeal to the Commoners, Call the Tribes to Arms, Call Emergency Parliament.

@@ -1,0 +1,7 @@
+﻿REPLACE:years_since_game_start = {
+	game_data = {
+		category = country
+	}
+
+	building_upkeep_multiplier = 0
+}

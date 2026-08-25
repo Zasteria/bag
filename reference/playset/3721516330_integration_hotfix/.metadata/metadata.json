@@ -1,0 +1,12 @@
+﻿{
+	"name":	"Integration Hotfix-culture&religion",
+	"id":	"Integration Hotfix",
+	"version":	"0.7",
+	"supported_game_version":	"1.3.x",
+	"short_description":	"Changed some mechanism about subjects , changed the control cap bonus for integrating regions, and changed the effects of the Latin-Roman values./改变了附庸的相关机制和数值,改变了整合地区的控制力上限加成,改变了拉丁-罗马价值观的效果",
+	"tags":	["Balance", "Characters", "Culture & Art", "Diplomacy", "Events", "Fixes", "Gameplay", "Historical", "Sound", "Utilities"],
+	"picture": "thumbnail.png",
+	"relationships":	[],
+	"game_custom_data":	{
+}
+}

@@ -1,0 +1,5 @@
+﻿INJECT:oma_zanzibar_integration = {
+	province_modifier = {
+		province_integration_speed = 1
+	}
+}

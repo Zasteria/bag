@@ -1,0 +1,21 @@
+﻿l_russian:
+  
+  # Buildings 
+ nd_provincial_estate: "Провинциальная усадьба" #NT!
+ nd_provincial_estate_desc: "Место провинциального правительства, укомплектованное дворянами, в отдаленном городе, расширяющее сферу влияния короны на королевство ценой уступки местного влияния дворянству. Слабее, чем полноправный местный губернатор." #NT!
+ nd_port_commandery: "Порт Коммандери" #NT!
+ nd_port_commandery_desc: "Административный пост, укомплектованный дворянами, в заморском порту за пределами досягаемости столицы, распространяющий королевскую власть за океаном ценой уступки местного влияния знати. Слабее, чем полноправный военно-морской губернатор." #NT!
+  
+  # Production methods 
+ nd_provincial_estate_maintenance: "Содержание провинциальной усадьбы" #NT!
+ nd_port_commandery_maintenance: "Содержание командования порта" #NT!
+  
+  # Build allow tooltips 
+ nd_provincial_estate_tt: "Если в [SCOPE.sCountry('actor').GetNameWithNoTooltip] меньше [SCOPE.sCountry('actor').GetModifierValue('num_nd_provincial_estates')] [ShowBuildingTypeName('nd_provincial_estate')] (сейчас [SCOPE.sCountry('actor').GetTotalBuildingLevelsIncudingUnderConstruction('nd_provincial_estate')|V])." #NT!
+ nd_port_commandery_tt: "Если в [SCOPE.sCountry('actor').GetNameWithNoTooltip] меньше [SCOPE.sCountry('actor').GetModifierValue('num_nd_port_commanderies')] [ShowBuildingTypeName('nd_port_commandery')] (сейчас [SCOPE.sCountry('actor').GetTotalBuildingLevelsIncudingUnderConstruction('nd_port_commandery')|V])." #NT!
+  
+  # Modifier names 
+ MODIFIER_TYPE_NAME_num_nd_provincial_estates: "Количество провинциальных имений" #NT!
+ MODIFIER_TYPE_DESC_num_nd_provincial_estates: "Это определяет, сколько [ShowBuildingTypeName('nd_provincial_estate')] может построить страна." #NT!
+ MODIFIER_TYPE_NAME_num_nd_port_commanderies: "Количество портовых коммандерий" #NT!
+ MODIFIER_TYPE_DESC_num_nd_port_commanderies: "Это определяет, сколько [ShowBuildingTypeName('nd_port_commandery')] может построить страна." #NT!

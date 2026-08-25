@@ -1,0 +1,8 @@
+﻿province_base = {
+	game_data = {
+		category = province
+	}
+	province_integration_speed = 0.5
+}
+
+

@@ -1,0 +1,173 @@
+OGAS_Auto_Road_Relax_Road_Market_Access = {
+	if = {
+		limit = { has_variable = OGAS_Queue_Head }
+		var:OGAS_Queue_Head = { save_temporary_scope_as = current_location }
+		scope:current_location = {
+			if = {
+				limit = { has_variable = OGAS_Queue_Next }
+				var:OGAS_Queue_Next = { save_temporary_scope_as = OGAS_Queue_Next_Scope }
+				root = {
+					set_variable = {
+						name = OGAS_Queue_Head
+						value = scope:OGAS_Queue_Next_Scope
+					}
+				}
+			}
+			else = {
+				root = {
+					remove_variable = OGAS_Queue_Head
+					remove_variable = OGAS_Queue_Tail
+				}
+			}
+			remove_variable = OGAS_Queue_Next
+			remove_variable = OGAS_InQueue
+
+			if = {
+				limit = { scope:current_location.var:OGAS_Predicted > 0 }
+				every_neighbor_location = {
+					limit = {
+						is_ownable = yes
+						owner ?= root
+						market = prev.market
+					}
+					if = {
+						limit = { NOT = { has_variable = OGAS_Predicted } }
+						set_variable = { name = OGAS_Predicted value = 0 }
+					}
+					if = {
+						limit = {
+							market_access_prediction > var:OGAS_Predicted
+							NOT = { is_strait_connection_to = { target = scope:current_location } }
+						}
+						set_variable = {
+							name = OGAS_Predicted
+							value = market_access_prediction
+						}
+						set_variable = {
+							name = OGAS_Parent
+							value = scope:current_location
+						}
+						set_variable = {
+							name = OGAS_Plan_Owner
+							value = root
+						}
+						OGAS_Auto_Road_Queue_Enqueue = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+OGAS_Auto_Road_Calculate_Value_Market_Access = {
+	ordered_owned_location = {
+		limit = {
+			has_variable = OGAS_Predicted
+			owner ?= var:OGAS_Plan_Owner
+		}
+		order_by = {
+			value = OGAS_Market_Access_Topology_Order
+			multiply = -1
+		}
+		max = num_locations
+
+		if = {
+			limit = {
+				market_access >= {
+					value = var:OGAS_Predicted
+					subtract = 0.0001
+				}
+			}
+			set_variable = { name = OGAS_Subtree_Demand value = 0 }
+		}
+		else = {
+			if = {
+				limit = { NOT = { has_variable = OGAS_Subtree_Demand } }
+				set_variable = { name = OGAS_Subtree_Demand value = 0 }
+			}
+			change_variable = {
+				name = OGAS_Subtree_Demand
+				add = OGAS_Node_Demand_Market_Access
+			}
+			if = {
+				limit = {
+					has_variable = OGAS_Parent
+					NOT = { has_latest_road_to = var:OGAS_Parent }
+				}
+				set_variable = {
+					name = OGAS_Value
+					value = {
+						value = var:OGAS_Subtree_Demand
+						multiply = 100
+						divide = OGAS_Auto_Road_Gold_Cost
+					}
+				}
+			}
+			save_temporary_scope_as = current_location
+			if = {
+				limit = { has_variable = OGAS_Parent }
+				var:OGAS_Parent = {
+					if = {
+						limit = { NOT = { has_variable = OGAS_Subtree_Demand } }
+						set_variable = { name = OGAS_Subtree_Demand value = 0 }
+					}
+					change_variable = {
+						name = OGAS_Subtree_Demand
+						add = scope:current_location.var:OGAS_Subtree_Demand
+					}
+				}
+			}
+		}
+	}
+
+	every_owned_location = {
+		limit = { has_variable = OGAS_Subtree_Demand }
+		remove_variable = OGAS_Subtree_Demand
+	}
+}
+
+OGAS_Auto_Road_Pathfinding_Market_Access = {
+	remove_variable = OGAS_Queue_Head
+	remove_variable = OGAS_Queue_Tail
+
+	ordered_owned_location = {
+		order_by = market_access
+		max = num_locations
+		remove_variable = OGAS_InQueue
+		remove_variable = OGAS_Queue_Next
+		if = {
+			limit = { market_access > 0 }
+			set_variable = {
+				name = OGAS_Predicted
+				value = market_access
+			}
+			set_variable = {
+				name = OGAS_Plan_Owner
+				value = root
+			}
+			remove_variable = OGAS_Parent
+			OGAS_Auto_Road_Queue_Enqueue = yes
+		}
+	}
+
+	while = {
+		limit = { has_variable = OGAS_Queue_Head }
+		count = {
+			value = num_locations
+			multiply = 10
+		}
+		OGAS_Auto_Road_Relax_Road_Market_Access = yes
+	}
+
+	if = {
+		limit = { has_variable = OGAS_Queue_Head }
+		set_variable = OGAS_Debug_Queue_Exhausted
+	}
+
+	every_owned_location = {
+		remove_variable = OGAS_InQueue
+		remove_variable = OGAS_Queue_Next
+	}
+	remove_variable = OGAS_Queue_Head
+	remove_variable = OGAS_Queue_Tail
+}

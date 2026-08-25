@@ -1,0 +1,16 @@
+﻿annexation_speed_from_cultural_influence = {
+
+    potential_trigger = {
+        culture.cultural_influence > 0
+    }
+
+
+    scales_with = {
+        value = culture.cultural_influence
+        multiply = 0.001
+        max = 10.0
+    }
+
+
+    annexation_speed_modifier = 1
+}

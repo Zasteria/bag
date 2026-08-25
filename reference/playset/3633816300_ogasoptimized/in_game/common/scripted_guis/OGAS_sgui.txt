@@ -1,0 +1,151 @@
+OGAS_Auto_Road_Initialize_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Refresh = yes
+	}
+}
+
+OGAS_Auto_Road_Construct_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		if = {
+			limit = { var:OGAS_Auto_Build = 1 }
+			set_variable = { name = OGAS_Auto_Build value = 0 }
+		}
+		else = {
+			set_variable = { name = OGAS_Auto_Build value = 1 }
+			if = {
+				limit = {
+					NOT = { any_owned_location = { has_variable = OGAS_Predicted } }
+				}
+				OGAS_Auto_Road_Refresh = yes
+			}
+		}
+	}
+}
+
+OGAS_Auto_Road_Set_Mode_Proximity_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Mode value = 1 }
+		OGAS_Auto_Road_Refresh = yes
+	}
+}
+
+OGAS_Auto_Road_Set_Mode_Market_Access_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Mode value = 2 }
+		OGAS_Auto_Road_Refresh = yes
+	}
+}
+
+OGAS_Auto_Road_Set_Refresh_Interval_0_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Refresh_Interval value = 0 }
+		set_variable = { name = OGAS_Months_Since_Refresh value = 0 }
+	}
+}
+
+OGAS_Auto_Road_Set_Refresh_Interval_1_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Refresh_Interval value = 1 }
+		set_variable = { name = OGAS_Months_Since_Refresh value = 0 }
+	}
+}
+
+OGAS_Auto_Road_Set_Refresh_Interval_3_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Refresh_Interval value = 3 }
+		set_variable = { name = OGAS_Months_Since_Refresh value = 0 }
+	}
+}
+
+OGAS_Auto_Road_Set_Refresh_Interval_6_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Refresh_Interval value = 6 }
+		set_variable = { name = OGAS_Months_Since_Refresh value = 0 }
+	}
+}
+
+OGAS_Auto_Road_Set_Refresh_Interval_12_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		set_variable = { name = OGAS_Refresh_Interval value = 12 }
+		set_variable = { name = OGAS_Months_Since_Refresh value = 0 }
+	}
+}
+
+OGAS_Auto_Road_Gold_Reserve_Dec_10k_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		change_variable = { name = OGAS_Gold_Reserve add = -10000 }
+		OGAS_Auto_Road_Clamp_Gold_Reserve = yes
+	}
+}
+
+OGAS_Auto_Road_Gold_Reserve_Dec_1k_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		change_variable = { name = OGAS_Gold_Reserve add = -1000 }
+		OGAS_Auto_Road_Clamp_Gold_Reserve = yes
+	}
+}
+
+OGAS_Auto_Road_Gold_Reserve_Inc_1k_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		change_variable = { name = OGAS_Gold_Reserve add = 1000 }
+		OGAS_Auto_Road_Clamp_Gold_Reserve = yes
+	}
+}
+
+OGAS_Auto_Road_Gold_Reserve_Inc_10k_sgui = {
+	scope = country
+	is_shown = { always = yes }
+	is_valid = { always = yes }
+	effect = {
+		OGAS_Auto_Road_Ensure_Settings = yes
+		change_variable = { name = OGAS_Gold_Reserve add = 10000 }
+		OGAS_Auto_Road_Clamp_Gold_Reserve = yes
+	}
+}

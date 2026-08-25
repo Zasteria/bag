@@ -1,0 +1,5 @@
+﻿INJECT:integrate_area = {
+	province_modifier = {
+		province_integration_speed = 0.5
+	}
+}

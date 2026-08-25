@@ -1,0 +1,8 @@
+﻿l_russian:
+  
+  # Game Rule 
+ rule_nd_bureaucracies_rule: "Бюрократия национальных судеб" #NT!
+ setting_nd_bureaucracies_enabled: "Включено" #NT!
+ setting_nd_bureaucracies_enabled_desc: "Каждая формируемая страна при формировании получает от 4 до 9 переключаемых исторических институтов. Каждый из них представляет собой бюрократию с прорезями и слайдером обслуживания; сформированная нация также получает места и полномочия, необходимые для их управления. Для этого требуется базовая игровая система [bureaucracies|e]." #NT!
+ setting_nd_bureaucracies_disabled: "Неполноценный" #NT!
+ setting_nd_bureaucracies_disabled_desc: "Formables не получают бюрократических полномочий при формировании. Система [bureaucracies|e] остается полностью стандартной." #NT!
