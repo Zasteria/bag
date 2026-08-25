@@ -683,6 +683,13 @@ well. The workshop itself will never hand the files to GitHub: an anonymous
 steamcmd download of an item for this game is refused, so the files only move
 from a machine that owns it.
 
+**The menu has been run end to end, on 2026-08-25, and it works.** Advanced Auto
+Build 0.9.3 was found, fetched with steamcmd under his account, copied into
+`steamapps/workshop/content/3450310/` — the folder the game reads mods from —
+and then into `reference/`, rebuilt, committed and pushed, all from the menu.
+The playset came in the same evening: **17 mods, 18 MB of text**, which is the
+first time anything here could see more than five of the twenty-two.
+
 **He brings them over from a menu, `.\tools\mods.ps1`, and that menu is not
 only about this repository.** It reads his whole subscription out of Steam's own
 `appworkshop_3450310.acf`, says which mods the workshop has moved on since Steam
@@ -717,6 +724,54 @@ the sync brings carries it, so `refs.py` now reads that mod's id and version out
 of the tree like every other; the dependency line is the only thing left over
 from when it could not.
 
+
+## What the playset turned out to hold
+
+Counted on 2026-08-25, the first time `tools/guicost.py` could see more than the
+five mods in `reference/mods/`. Seventeen more, and the answer is mostly a
+narrowing one — which is worth as much as a suspect:
+
+- **not one playset mod adds a filter chip.** The `building` tag is still
+  vanilla's 36 plus Construction Manager's 11 and our 4, so the +42% this
+  repository has been reasoning about is the whole of it. That closes a
+  direction rather than opening one;
+- **three of them keep an always-live window**, and all three are small:
+  `faster.universalis` has eight 24-widget `fum_speed_watcher_*` windows whose
+  `visible` is `IsGameSpeedEqualOrGreaterThan` — cheap engine calls, no script —
+  and `autonomous_diplomats` (8 widgets) and `calidad_de_vida_eu5` (4) have one
+  each. Against Construction Manager's 344 `GetScriptedGui` calls that is
+  nothing;
+- **no playset mod overrides a file our mods ship.** Checked by relative path
+  across every `.txt`, `.yml` and `.gui` in `mods/`.
+
+So the interface census now covers the playset and still names the same two
+heavy things: Construction Manager at 491x vanilla's script-call density, and
+Advanced Auto Build at 2161x — **which he does not run**. The remaining
+unexamined surface is behaviour, not declarations: what those mods do on tick.
+
+## Somebody else has translated National Destinies, nearly all of it
+
+`nation_destinies_rus` is in his playset — a **full** Russian translation of the
+mod `nd_ru` translates. Measured against the base mod's English, on the same day:
+
+| | keys | markup faults | left in English |
+| --- | --- | --- | --- |
+| the base mod (English) | 40 795 | — | — |
+| `mods/nd_ru` | 4 174 (10%) | 0 | 53 |
+| `nation_destinies_rus` | 37 949 (93%) | 33 | 120 |
+
+**3 787 of our 4 174 keys are keys it also translates**, and 32 of its 33 markup
+faults are inside that overlap — so on those keys ours is the sound one, and
+whichever of the two mounts *later* wins them.
+
+This is the owner's call and nobody else's, and it has not been put to him yet:
+keep ours loaded after it and repair those keys while covering a tenth; drop
+`nd_ru` and take the 93%; or keep both and accept that load order decides. What
+is *not* in doubt is the arithmetic above — it is reproducible from the tree.
+
+Our 53 English leftovers are deliberate and correct: they are `_CATEGORY` keys
+pointing at vanilla category names and proper nouns that stay as they are
+(`Erbverbrüderung`, `Studia Generalia`).
 
 ## Hard-won facts that are easy to lose
 

@@ -129,6 +129,15 @@ translated key, and have the generator name the ones that moved. Then a base-mod
 update really is *one run that names the keys*, which is what this section used
 to promise and could not deliver. `mods/nd_ru/english_generated_fingerprints.txt`
 is that record, and `generate_ru.py --accept` is how a reviewed key is signed off.
+**Check whether somebody else is already translating the mod.** Nobody did, and
+`nation_destinies_rus` — a 93% Russian translation of National Destinies — was
+in the owner's own playset the whole time. It does not make `nd_ru` pointless
+(its markup is broken on 33 keys, 32 of them ones `nd_ru` covers soundly, and
+whichever mod mounts later wins a key), but it changes what finishing the
+translation is *worth*, and that is a question to raise before the next few
+thousand keys rather than after. The numbers are in
+[`HANDOFF.md`](../HANDOFF.md#somebody-else-has-translated-national-destinies-nearly-all-of-it).
+
 `auto_build_ru` keeps one too now — it did not, and the update to 0.9.3 rewrote
 two of its English values under a Russian translation that went on reporting
 itself complete. A generator that checks only *coverage* cannot see that: the key

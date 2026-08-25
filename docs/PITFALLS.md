@@ -407,6 +407,15 @@ next. Anything hardcoding the name breaks silently — a missing base mod reads 
 the `id` inside `metadata.json` (`trin.national_destinies`); the number in the
 Steam path is not that id.
 
+**Another mod's localization file is not written the way ours are.** A strict
+parser — key, colon, quoted value, end of line — is right for this repository's
+own files and wrong for everybody else's. `nation_destinies_rus` ends every
+line with a `#NT!` marker *after* the closing quote, and a parser that insisted
+on the quote being last read **8 keys out of 37 949** and produced a confident,
+completely wrong conclusion about how much that mod translates. Allow a trailing
+comment before drawing any conclusion from somebody else's file, and sanity-check
+the count against the file size before believing it.
+
 **A translated key can go stale while every check still passes.** When a base mod
 *rewrites* an English value, the Russian under it is still present, still
 markup-clean and still counted as covered — and now says something else.

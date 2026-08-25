@@ -459,8 +459,9 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
         say("папка мастерской Steam не найдена, копировать некуда.")
         return got
     say()
-    if not yes("Скопировать %d в папку мастерской Steam, чтобы игра увидела новые версии?"
-               % len(got)):
+    say("Куда: %s" % content)
+    say("Это та папка, из которой игра читает моды мастерской — не копия репозитория.")
+    if not yes("Скопировать туда %d, чтобы игра увидела новые версии?" % len(got)):
         return got
 
     for mod in got:
@@ -472,7 +473,7 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
         mod.installed = mod.published or int(time.time())
         installed = configured.setdefault("installed", {})
         installed[mod.id] = mod.installed
-        say("  %-44s %s" % (mod.name[:44], workshop.human(size)))
+        say("  %-44s %9s -> %s" % (mod.name[:44], workshop.human(size), target))
     settings_write(configured)
     say()
     say("Готово. Игра берёт моды из этой папки, так что следующий запуск —")
