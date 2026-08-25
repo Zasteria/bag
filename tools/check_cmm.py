@@ -146,6 +146,29 @@ def defined_keys(mod_root: Path) -> dict[str, set[str]]:
     return found
 
 
+def defined_elsewhere(keys: set[str], languages: set[str]) -> dict[str, set[str]]:
+    """Which of `keys` the game or a reference mod already defines, per language.
+
+    Only ever called about keys that are already known to be uneven across a
+    mod's own languages, and only about those keys — so the common case, where
+    nothing has drifted, reads nothing at all.
+    """
+    found: dict[str, set[str]] = {language: set() for language in languages}
+    roots = [refs.GAME] + [mod.path for mod in refs.mods()]
+    for root in roots:
+        for language in languages:
+            folder = root / "main_menu/localization" / language
+            if not folder.is_dir():
+                continue
+            for path in folder.rglob("*.yml"):
+                for line in path.read_text(encoding="utf-8-sig",
+                                           errors="replace").splitlines():
+                    match = KEY_LINE.match(line)
+                    if match and match.group(1) in keys:
+                        found[language].add(match.group(1))
+    return found
+
+
 def check_localization(mod_common: Path) -> list[str]:
     """Missing keys, and languages that have drifted apart."""
     mod_root = mod_common.parent.parent
@@ -158,9 +181,23 @@ def check_localization(mod_common: Path) -> list[str]:
     for language, keys in defined.items():
         for key in sorted(wanted - keys):
             problems.append(f"{language}: no localization for {key}")
+
+    # A key one language defines and another does not usually means somebody
+    # forgot, and it shows on screen as the raw key. But a mod may also override
+    # *another* mod's key in one language and leave the rest alone - repairing
+    # broken grammar in one language is exactly that, and copying the other ten
+    # in unchanged would only pin text that is fine. So the drift is reported
+    # only where nothing else defines the key either.
     first, *rest = sorted(defined)
+    drifted = set()
+    for language in rest:
+        drifted |= defined[first] ^ defined[language]
+    covered = defined_elsewhere(drifted, set(defined)) if drifted else {}
     for language in rest:
         for key in sorted(defined[first] ^ defined[language]):
+            short = first if key not in defined[first] else language
+            if key in covered.get(short, ()):
+                continue
             problems.append(f"{key} is in {first} or {language} but not both")
     return problems
 
