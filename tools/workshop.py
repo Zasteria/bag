@@ -293,8 +293,17 @@ def verdicts(offline: bool = False) -> list[tuple[Tracked, dict, dict, refs.Mod 
         detail = details.get(item.id, {})
         note = written.get(item.id, {})
 
+        moved = int((detail or note).get("time_updated") or 0)
+
         if mod is None:
             verdict = MISSING
+        elif moved and committed_at(mod.path) > moved:
+            # git settles it without anything having to be written down: the
+            # copy here was committed after the workshop last moved, so it
+            # cannot be behind. This is what makes a sync from a box with no
+            # Python — one that never got to run `record` — still come out
+            # current on the next check.
+            verdict = CURRENT
         elif not note.get("time_updated"):
             verdict = UNRECORDED
         elif note.get("basis") == "behind" and not (

@@ -407,6 +407,22 @@ next. Anything hardcoding the name breaks silently — a missing base mod reads 
 the `id` inside `metadata.json` (`trin.national_destinies`); the number in the
 Steam path is not that id.
 
+**A translated key can go stale while every check still passes.** When a base mod
+*rewrites* an English value, the Russian under it is still present, still
+markup-clean and still counted as covered — and now says something else.
+Advanced Auto Build 0.9.3 did that to two keys, and nothing reported it, because
+that generator kept no fingerprint of the English it had translated from. Both
+translation generators keep one now (`english_generated_fingerprints.txt`,
+signed off with `--accept`). Coverage is not currency.
+
+**A workshop sync that pushed is not a refresh that ran.** `sync_workshop.ps1`
+rebuilds the generated files only if it finds Python on that machine; without
+one, the reference copies are committed and pushed and nothing else happens,
+which reads exactly like a clean run. The first sync did this. The scripts say so
+loudly now, and `workshop.py status` works the currency out from git regardless,
+but the generators still have to run somewhere — `python3 tools/refresh.py` after
+any sync, and read the report.
+
 **A version written in prose goes stale the moment the owner updates a mod.**
 That is not the owner's mistake to fix by annotating uploads; it is the
 document's mistake. Versions come from `python3 tools/refs.py`, and a mod

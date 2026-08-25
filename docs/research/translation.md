@@ -129,6 +129,10 @@ translated key, and have the generator name the ones that moved. Then a base-mod
 update really is *one run that names the keys*, which is what this section used
 to promise and could not deliver. `mods/nd_ru/english_generated_fingerprints.txt`
 is that record, and `generate_ru.py --accept` is how a reviewed key is signed off.
+`auto_build_ru` keeps one too now — it did not, and the update to 0.9.3 rewrote
+two of its English values under a Russian translation that went on reporting
+itself complete. A generator that checks only *coverage* cannot see that: the key
+is still there, still translated, and no longer true.
 
 **Generate rather than hand-write the final file.** Keep the prose in a source
 file and emit the game's `.yml` from it, with the source checked against the

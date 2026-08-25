@@ -292,11 +292,35 @@ if (-not $copied) {
 
 # ----------------------------------------------------- rebuild what is generated
 
-$python = $null
-foreach ($name in @('python', 'python3', 'py')) {
-    $found = Get-Command $name -ErrorAction SilentlyContinue
-    if ($found) { $python = $found.Source; break }
+# Python is looked for properly rather than hopefully. Windows ships a
+# python.exe stub that opens the Microsoft Store and prints nothing, so a
+# candidate only counts once it has actually answered --version.
+function Find-Python {
+    $candidates = @()
+    foreach ($name in @('python', 'python3', 'py')) {
+        $found = Get-Command $name -ErrorAction SilentlyContinue
+        if ($found) { $candidates += $found.Source }
+    }
+    foreach ($pattern in @(
+        "$env:LOCALAPPDATA\Programs\Python\Python3*\python.exe",
+        "$env:ProgramFiles\Python3*\python.exe",
+        "${env:ProgramFiles(x86)}\Python3*\python.exe",
+        'C:\Python3*\python.exe'
+    )) {
+        $candidates += (Get-ChildItem -Path $pattern -ErrorAction SilentlyContinue |
+                        Sort-Object FullName -Descending | ForEach-Object { $_.FullName })
+    }
+
+    foreach ($candidate in ($candidates | Where-Object { $_ } | Select-Object -Unique)) {
+        try {
+            $version = & $candidate --version 2>&1 | Out-String
+            if ($version -match 'Python 3') { return $candidate }
+        } catch { }
+    }
+    return $null
 }
+
+$python = Find-Python
 
 Push-Location $repoDir
 try {
@@ -307,9 +331,17 @@ try {
         & $python (Join-Path $toolsDir 'workshop.py') 'record'
     } else {
         Write-Host ''
-        Write-Host 'No Python on this box, so the generated files were not rebuilt and the' -ForegroundColor Yellow
-        Write-Host 'workshop state was not recorded. Say so when asking for the next session:' -ForegroundColor Yellow
-        Write-Host '  python3 tools/refresh.py && python3 tools/workshop.py record' -ForegroundColor Yellow
+        Write-Host 'NO PYTHON FOUND ON THIS BOX.' -ForegroundColor Red
+        Write-Host 'The workshop copies below are still committed and pushed - that part is done -' -ForegroundColor Yellow
+        Write-Host 'but nothing generated from them was rebuilt, so a translation whose English has' -ForegroundColor Yellow
+        Write-Host 'moved will not have said so yet. Two ways on:' -ForegroundColor Yellow
+        Write-Host ''
+        Write-Host '  - ask the next session to run tools/refresh.py - it reports what the update moved;' -ForegroundColor Yellow
+        Write-Host '  - or install Python once and this step runs itself from now on:' -ForegroundColor Yellow
+        Write-Host '      winget install -e --id Python.Python.3.12' -ForegroundColor Yellow
+        Write-Host ''
+        Write-Host 'The update check is unaffected: it works out from git that these copies are' -ForegroundColor Yellow
+        Write-Host 'current, whether or not `workshop.py record` ever ran here.' -ForegroundColor Yellow
     }
 
     # ------------------------------------------------------------------ commit
