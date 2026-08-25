@@ -93,6 +93,10 @@ satisfied. **Anonymous does not work** — for this app steamcmd answers
 That is also why nothing can pull a workshop update straight into GitHub: the
 files only exist where somebody owns the game.
 
+**If the rebuild did not happen**, the box had no Python the script could find.
+`.\tools\sync_workshop.ps1 -CheckPython` says which one it would use and what
+it rejected, without copying anything.
+
 **By hand**, the old way, still works: copy the folder in from `<EU5>/game/` or
 from the workshop, whole and unedited — textures, thumbnails, the mod author's
 own stray files and all. Nothing needs stripping first and nothing needs

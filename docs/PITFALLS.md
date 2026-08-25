@@ -418,10 +418,23 @@ signed off with `--accept`). Coverage is not currency.
 **A workshop sync that pushed is not a refresh that ran.** `sync_workshop.ps1`
 rebuilds the generated files only if it finds Python on that machine; without
 one, the reference copies are committed and pushed and nothing else happens,
-which reads exactly like a clean run. The first sync did this. The scripts say so
-loudly now, and `workshop.py status` works the currency out from git regardless,
-but the generators still have to run somewhere — `python3 tools/refresh.py` after
-any sync, and read the report.
+which reads exactly like a clean run. The first sync did this — **on a machine
+with Python installed**, because the search was `Get-Command python/python3/py`
+and an install made without ticking "Add python.exe to PATH" answers none of the
+three. It reads the registry first now
+(`Software\Python\<company>\<tag>\InstallPath`, which every python.org and
+Store install writes whether or not PATH knows), and
+`.\tools\sync_workshop.ps1 -CheckPython` reports what it would use and every
+candidate it rejected. `workshop.py status` works the currency out from git
+regardless, but the generators still have to run somewhere — `python3
+tools/refresh.py` after any sync, and read the report.
+
+**PowerShell hands a native command's output through a pipe, not a console.**
+Python then encodes stdout with the machine's ANSI code page instead of UTF-8,
+and the first Cyrillic line — `nd_ru`'s generator prints its report in Russian —
+raises `UnicodeEncodeError` and takes the rest of the run with it. The sync
+script sets `PYTHONUTF8=1` and `PYTHONIOENCODING=utf-8` before calling Python
+for exactly this.
 
 **A version written in prose goes stale the moment the owner updates a mod.**
 That is not the owner's mistake to fix by annotating uploads; it is the
