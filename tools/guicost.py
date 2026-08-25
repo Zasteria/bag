@@ -27,6 +27,14 @@ timer. A state that names itself as its own successor is a loop running at that
 period for as long as its widget is alive; inside an always-live window that is a
 background worker, and its period is the tool's best guess at how often.
 
+The widget counts here are **static declarations, and they understate a window
+built on `datamodel`**: one declared item becomes one live widget per row of the
+list it binds. `cm_hidden_window` declares twenty-three widgets and binds a
+datamodel over every building type in the game, so what actually lives is that
+subtree times four hundred and sixty-five. `--drivers` names the list each
+always-live window iterates, because the multiplier is the number that matters
+and no static count can know it.
+
 `gui/filters/` is counted too, by tag: every chip whose tag matches a list is a
 trigger evaluated once per item in that list, so chips added to a busy tag are
 paid at every open.
@@ -59,6 +67,8 @@ DURATION = re.compile(r"duration\s*=\s*([0-9.]+)")
 NEXT = re.compile(r"next\s*=\s*(\S+)")
 STATE_NAME = re.compile(r"name\s*=\s*(\S+)")
 
+# `datamodel = "[...GetList('x')...]"` — what a repeated widget is repeated over.
+DATAMODEL = re.compile(r'datamodel\s*=\s*"\[([^"]*)\]"')
 # The engine calls that cost real work when a .gui asks for them per item.
 EXPENSIVE = (
     "GetBuildOrExpandBuildingCost",
@@ -77,6 +87,7 @@ class Census:
     scripted_gui: int = 0
     live_windows: list[tuple[str, str]] = field(default_factory=list)
     loops: list[tuple[str, str, float]] = field(default_factory=list)
+    datamodels: list[tuple[str, str]] = field(default_factory=list)
     filters: dict[str, int] = field(default_factory=dict)
     expensive: dict[str, int] = field(default_factory=dict)
 
@@ -153,6 +164,8 @@ def census(name: str, root: Path) -> Census:
             out._live_sizes.append((widget, widgets))
             for state, period in self_restarting_loops(text):
                 out.loops.append((widget, state, period))
+            for match in DATAMODEL.finditer(text):
+                out.datamodels.append((widget, match.group(1)))
 
     filters = gui / "filters"
     if filters.is_dir():
@@ -220,8 +233,12 @@ def main(argv: list[str]) -> int:
             for widget, source in row.live_windows:
                 loops = [(s, p) for w, s, p in row.loops if w == widget]
                 size = dict(row._live_sizes).get(widget, 0)
-                note = "  loops: " + ", ".join("%s every %gs" % (s, p) for s, p in loops) if loops else ""
-                print("    %-42s %-38s %5d widgets%s" % (widget, source, size, note))
+                print("    %-42s %-38s %5d widgets declared" % (widget, source, size))
+                if loops:
+                    print("        loops: " + ", ".join("%s every %gs" % (s, p) for s, p in loops))
+                bound = [b for w, b in row.datamodels if w == widget]
+                for expression in bound:
+                    print("        one per row of: %s" % expression)
             print()
         return 0
 

@@ -46,25 +46,40 @@ loaded a minute ago.** That is a *different* fault from the one above: this one
 does not grow, does not need three hours, and reloading does not clear it. Do not
 merge the two in your head.
 
-It has already been counted from the files, with no run spent — the section is
+It has been counted from the files, with no run spent — the section is
 [The second slowdown](HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute)
-and the tool is `python3 tools/guicost.py`. The short version:
+and the tools are `python3 tools/guicost.py` and `python3 tools/playset.py`.
 
-- Advanced Auto Build calls the script engine from its `.gui` files **4 719
-  times**; vanilla does it **nine** times in 387 files. All seven of its windows
-  are `scripted_widgets/`, so **14 125 widgets are live from load**, and
-  `eu5ab_engine_queue_window` runs eight self-restarting 0.15 s loops that price
-  every candidate building in every candidate location;
+**Know the size of what you can say.** The owner runs **22 workshop mods**;
+`reference/` has five. `playset.py` reads the mount table out of his `debug.log`
+and reports that **17 of the 22 mount `in_game`** — the only mount that can add a
+widget — and that at most 14 of those have never been looked at. Any sentence of
+the form "the playset does X" is a sentence about a quarter of the surface.
+**He does not run Advanced Auto Build**, whatever the 2026-08-24 log's mount of
+`3781437488` says; the first version of this section led with it and was wrong.
+
+What is actually established:
+
+- `GetScriptedGui('x')` in a `.gui` is a script trigger run from the interface.
+  Vanilla uses it **nine times** in 387 files. Of what is in `reference/` and
+  still in the playset, **Construction Manager is the heaviest at 344** — 491×
+  vanilla's density per widget;
+- **static widget counts lie about `datamodel` windows.** `cm_hidden_window`
+  declares 23 widgets and binds a datamodel over **every building type**, 465 of
+  them, with two more datamodels nested per row — permanently live, at
+  `position = { -10000 1 }`, with a comment saying it "keeps descendant
+  visibility gates re-evaluating each frame";
 - mods add **+42%** filter chips to the `building` tag, four of them ours, and
   ours walk a province per building type;
 - **dead already:** Glorp's panels are lighter than vanilla's (0.78×), and no
   mod's Russian localization has a single hard markup fault.
 
-**Ask for the bisect before anything else, because it is five minutes**: the same
-save and the same three panels, first with everything on, then with only Advanced
-Auto Build off, then with only `rgo_bonus_filter` off. Step 2 or step 3 naming
-the cause ends the question; if neither does, the instrument is
-`ScriptProfilerEntry`.
+**Ask for the bisect before anything else.** Seventeen mods halve in four or five
+loads of a minute each; same save, same three panels (country, diplomacy, a
+location's build panel). Try Construction Manager and `rgo_bonus_filter` first in
+case they save the bisect. If it lands on a mod nobody has seen, get its folder
+into `reference/mods/` and run `guicost.py` again. If it lands on nothing, the
+instrument is `ScriptProfilerEntry`.
 
 ## The live hypothesis
 

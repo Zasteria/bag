@@ -295,8 +295,19 @@ always-live window that is a background worker with no off switch;
 `[EqualTo_CFixedPoint('(CFixedPoint)0', '(CFixedPoint)0')]` and parks at
 `position = { -10000 1 }` so it ticks offscreen.
 
-`python3 tools/guicost.py` counts all three across the game and every mod in the
-tree, with `--drivers` for the always-live windows and their loop periods. It was
+**A `datamodel` multiplies whatever is inside it, so a static widget count is
+not a cost.** `cm_hidden_window` declares twenty-three widgets and binds
+`datamodel = "[GetGlobalList('cm_building_types_to_process')]"`; what lives is
+that subtree once per building type, and there are 465. Two more datamodels nest
+inside each row, over the type's construction demand entries and its production
+methods. Whenever a number is meant to be about cost rather than about files,
+find what the window repeats over first.
+
+`python3 tools/guicost.py` counts all of it across the game and every mod in the
+tree, with `--drivers` for the always-live windows, their loop periods and the
+lists they repeat over. What it cannot know is which mods the player actually
+runs — `reference/` is not the playset, and `python3 tools/playset.py <logs>`
+reads the real one out of the mount table in his `debug.log`. It was
 written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
 [`HANDOFF.md`](../HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute).

@@ -339,3 +339,20 @@ look at CMF's log panel.
 
 **`game.log` carries load-time macro expansion errors** that `error.log` does
 not.
+
+**`reference/` is not the playset, and mistaking it for one produces a confident
+wrong answer.** A session counted what every mod in `reference/` costs the
+interface, found one mod far outside the range, and led with it. The owner's
+reply was that he does not run that mod. `reference/` holds the five mods
+somebody thought to upload; his `debug.log` of the same week mounts **22**, of
+which 17 touch `in_game`. The mount table is right there in the log —
+`virtualfilesystem_physfs.cpp: Mounted Data: .../workshop/content/3450310/<id>/<part>`,
+one line per folder, in load order — and `python3 tools/playset.py <logs>` reads
+it. Run that before any sentence beginning "the playset".
+
+**A static widget count says nothing about a window built on `datamodel`.** The
+same session reported `cm_hidden_window` as 23 widgets. It declares 23 and binds
+a datamodel over every building type in the game, so what lives is that subtree
+465 times over, with two more datamodels nested per row. Whenever a count is
+about cost rather than about files, check what the window repeats over first —
+`guicost.py --drivers` prints it.

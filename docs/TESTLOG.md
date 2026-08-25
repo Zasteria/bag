@@ -348,11 +348,19 @@ any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
 the playset — *on a save loaded a minute ago*, so it is not the widget leak.
 Counted from the files already; the candidates and the numbers are in
 [`HANDOFF.md`](HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute).
-Same save and the same three panels (country, diplomacy, a location's build
-panel), three times: everything on; then **only** Advanced Auto Build off; then
-Auto Build back on and **only** `rgo_bonus_filter` off. No log, no timing — the
+The playset is 22 workshop mods, 17 of them touching `in_game`
+(`python3 tools/playset.py <logs>` reads it out of `debug.log`), so this is a
+bisect: same save, same three panels (country, diplomacy, a location's build
+panel), halving the `in_game` mods until the hitch is cornered — four or five
+loads of a minute each. Worth trying **Construction Manager** and
+`rgo_bonus_filter` first, in case they save the bisect. No log, no timing — the
 owner's own sense of the hitch is the measurement, because the difference he
 describes is one anybody can feel.
+
+Advanced Auto Build was the first version's headline and it was wrong: the owner
+does not run it. Its `3781437488` is mounted in the 2026-08-24 log, so if it
+turns out to be enabled and merely unused, that still costs — a scripted widget
+is instantiated whether it is opened or not.
 
 **The hover test, and the tooltip settings with it.** One session, one save,
 paused throughout. Two minutes sweeping the mouse over the map and top bar with
