@@ -657,6 +657,70 @@ The cheapest single check is now known — turn the mod menu switch
 «Показывать всё без фильтра» on and hover **Децентрализация**: the subject type
 lines should read «**Тип ленника** …» where the old build said «Тип вассала».
 
+### 2026-08-27 — the concept tokens render, and in two languages
+
+**The change with the widest blast radius is confirmed.** Screenshots of the
+*Decentralization* tooltip with the mod menu switch «Показывать всё без фильтра»
+on, in Russian and then in English — the player switches language from the
+console on the fly, which turns out to make testing the other ten languages
+almost free.
+
+| expected | observed |
+| --- | --- |
+| the catalogue lines open with the game's own word for the category, from `[religious_aspect\|e]` and friends | **yes.** «**Религиозная особенность** Двенадцать представителей», «**Тип ленника** Феод / Пронии / Удж-бей / Вассал» — where the 2026-08-25 build said «Аспект веры» and «Тип вассала» |
+| the concept renders as an encyclopedia link, not plain text | **yes** — the category word is coloured and hoverable, the object name beside it is not |
+| English exists at all | **yes.** "Religious Aspect The Twelve Emissaries", "Subject Type Fiefdom". The old build shipped no English `SVX_*` keys, so this block would have been raw keys |
+| the English openers are Glorp UI's own | **yes** — "Enact the Traditional Distribution Policy" |
+| the unfiltered block replaces the two filtered ones | **yes**, and the block titles translate: «Влияет на смещение (без фильтра)» / "Pushes towards this (unfiltered)" |
+
+So `catalog` in `languages.py` stays a concept token, and the seven Russian
+terms it corrected are the game's own words on screen. **That was the one change
+that could have gone badly, and it did not.**
+
+**One thing the hot language switch does not do:** the vanilla block title
+«Дальше продвинуться в сторону децентрализации:» stayed Russian in the English
+screenshot while everything this mod owns switched. Not our key and not our bug
+— but it means a language switched from the console is not a clean test of
+*vanilla* strings, only of ours. A real check of another language wants a
+restart.
+
+**Still unconfirmed:** the five advance-gated privileges, the building `allow`
+repair from earlier today, and nine of the eleven languages.
+
+### 2026-08-27 — the upload button exists, and it is hidden
+
+Two screenshots, an hour apart, and the second corrected the first.
+
+**First read, wrong:** the launcher's «Модификации и дополнения» shows playsets,
+order and checkboxes and nothing about publishing, so EU5 was written up as
+having no first-party upload.
+
+**It has one.** The player found it: the same screen, the row **«Выбранные
+модификации: N/M»**, a small **sandbox icon** in that row next to the gear. It
+opens **Mod Tools**, with tabs *Create mod* and *Uploaded mods*, the whole of
+`metadata.json` as a form — Name, ID, Path, Version, Supported game version,
+Description, and the tag list as checkboxes — and a button reading **Upload New
+Mod**.
+
+It is documented, in one sentence, in the middle of a dev diary about writing
+events and situations:
+[Tinto Talks 85, Modding](https://forum.paradoxplaza.com/forum/developer-diary/tinto-talks-85-22nd-of-october-modding.1864004/)
+— *"navigate into the Mods & DLCs Menu in the top right corner and then open the
+Mod Tools view by clicking on the sandbox icon next to Selected Mods"*. That
+diary is otherwise entirely about authoring; publishing is that clause and the
+button in a screenshot. The wiki does not mention it at all, which is why it
+documents the third-party uploader instead — and why an hour went on finding a
+button that was on screen the whole time.
+
+**So the route is the game's own**, and the tag checkboxes in that form are the
+authoritative tag vocabulary — the same one four mods here were outside of.
+[PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
+stays as the fallback; `mods.bat → 5 → «к»` still writes its config.
+
+Also confirmed from the same screenshot: the load order the player actually
+runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
+after it, which is what the declared dependency is for.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
