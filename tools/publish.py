@@ -25,7 +25,10 @@ What it knows that a person cannot check by looking:
 * **`version` has to parse.** The launcher reads x.y or x.y.z and a version it
   cannot read makes the mod look older than whatever a subscriber already has;
 * **`id` has to be stable forever.** Change it after publishing and every
-  subscriber has two mods, both mounted, fighting each other.
+  subscriber has two mods, both mounted, fighting each other;
+* **a workshop page has one description and it holds 8000 characters.** Not one
+  per language — one. Two full translations of a real description do not fit,
+  and Steam does not say so, it truncates.
 
 The upload itself is in [`docs/WORKSHOP.md`](../docs/WORKSHOP.md).
 """
@@ -72,6 +75,11 @@ GAME_PARTS = {".metadata", "in_game", "main_menu", "loading_screen", "jomini",
 
 THUMBNAIL_LIMIT = 1_000_000     # the workshop's own ceiling
 THUMBNAIL_SIZE = (512, 512)     # what Paradox recommends
+# A workshop item's description field. One per item, not one per language.
+DESCRIPTION_LIMIT = 8000
+# The file meant to be pasted into that field, as opposed to the per-language
+# ones the third-party uploader takes.
+STEAM_DESCRIPTION = "workshop/description_steam.bbcode"
 
 
 def png_size(data: bytes) -> tuple[int, int] | None:
@@ -124,6 +132,15 @@ def check(folder: Path) -> list[str]:
             problems.append("thumbnail.png %d байт, потолок мастерской %d"
                             % (len(raw), THUMBNAIL_LIMIT))
 
+    steam = folder / STEAM_DESCRIPTION
+    if steam.is_file():
+        length = len(steam.read_text(encoding="utf-8"))
+        if length > DESCRIPTION_LIMIT:
+            problems.append(
+                "%s — %d символов, а поле описания в мастерской держит %d. "
+                "Steam не откажет, он обрежет." % (STEAM_DESCRIPTION, length,
+                                                   DESCRIPTION_LIMIT))
+
     mounts = [p.name for p in folder.iterdir()
               if p.is_dir() and p.name in GAME_PARTS and p.name != ".metadata"]
     if not mounts:
@@ -155,14 +172,21 @@ def describe(folder: Path) -> None:
     print("  Версия:    %s   (для игры %s)"
           % (data.get("version"), data.get("supported_game_version")))
     print("  Языки:     %s" % (", ".join(languages(folder)) or "—"))
+    steam = folder / STEAM_DESCRIPTION
+    if steam.is_file():
+        print("  Описание:  %s — %d из %d символов."
+              % (STEAM_DESCRIPTION, len(steam.read_text(encoding="utf-8")),
+                 DESCRIPTION_LIMIT))
+        print("             Открой, скопируй целиком и вставь на странице мода.")
+    else:
+        print("  Описание:  нет %s" % STEAM_DESCRIPTION)
     for rel in ("workshop/description_english.bbcode",
                 "workshop/description_russian.bbcode"):
         path = folder / rel
         if path.is_file():
-            print("  Описание:  %s (%d символов)"
-                  % (rel, len(path.read_text(encoding="utf-8"))))
-        else:
-            print("  Описание:  нет %s" % rel)
+            print("             %s (%d) — для стороннего загрузчика, он берёт "
+                  "по файлу на язык"
+                  % (rel.split("/")[-1], len(path.read_text(encoding="utf-8"))))
     dependencies = [r.get("display_name") or r.get("id")
                     for r in data.get("relationships", [])
                     if r.get("rel_type") == "dependency"]
