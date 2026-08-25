@@ -1,82 +1,113 @@
 #!/usr/bin/env python3
-"""Russian for Glorp UI's societal value hints.
+"""Glorp UI's societal value hints, in every language the game ships.
 
 Glorp UI ships `glorpui_generated_societal_value_hints_l_english.yml` in
 `main_menu/localization/english/` and nowhere else. Paradox games load the
 localization folder of the selected language only, with no fallback to English,
 so on a Russian client every `GLORP_UI_SVH_*` key is missing, the hint list
 renders empty, and the tooltip says "Нет." — while `debug.log` collects one
-`Missing loc key` line per key per load.
+`Missing loc key` line per key per load. The same is true of the other nine
+non-English languages.
 
-The hint strings are built from exactly three templates. Everything language
-specific in them is the leading verb phrase: the reform, policy and privilege
-names themselves come from `$key$` references the game resolves in the active
-language. So the Russian file is the English file with those three phrases
-replaced — which is why it survives a Glorp UI update that only adds hints.
+The hint strings are built from exactly three templates, and one line of one
+looks like this:
 
-Run it through `mods/glorpui_hints/tools/generate.py`, or on its own against a
-different copy of the files:
+    @hint! Grant #TOOLTIP:ESTATE_PRIVILEGE,kormlenije #L $kormlenije$#!#!: #color_green +0.10#!\\n
+           ^^^^^ ^-------------------- the reference -------------------^  ^-- the number --^
 
-    python3 mods/glorpui_hints/tools/translate_hints.py \
-        --source <glorp ui>/main_menu/localization/english/glorpui_generated_societal_value_hints_l_english.yml \
-        --output <mod>/main_menu/localization/russian/glorpui_generated_societal_value_hints_l_russian.yml
+Everything language specific is the opener. The reference in the middle is what
+makes the privilege's name appear and hoverable, and the game resolves it in
+whatever language the player runs; the number is a number. So a language costs
+**three phrases**, held in `languages.py`, each written with a `{ref}`
+placeholder so a language may put the opener after the object rather than in
+front of it — which German, Turkish, Japanese and Korean all want to.
+
+    python3 mods/glorpui_hints/tools/translate_hints.py \\
+        --source <glorp ui>/main_menu/localization/english/glorpui_generated_societal_value_hints_l_english.yml \\
+        --output <mod>/main_menu/localization/russian/glorpui_generated_societal_value_hints_l_russian.yml \\
+        --language russian
+
+Normally it is run through `mods/glorpui_hints/tools/generate.py`, which does
+every language in one pass.
 """
 
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
 
-# (english prefix, russian replacement). The prefix is everything up to the
-# #TOOLTIP: token, which is where the language independent part starts.
-TEMPLATES = [
-    ("@hint! Grant #TOOLTIP:ESTATE_PRIVILEGE,",
-     "@hint! Даровать привилегию #TOOLTIP:ESTATE_PRIVILEGE,"),
-    ("@hint! Add the #TOOLTIP:GOVERNMENT_REFORM,",
-     "@hint! Принять реформу правления #TOOLTIP:GOVERNMENT_REFORM,"),
-    ("@hint! Enact the #TOOLTIP:POLICY,",
-     "@hint! Ввести политику #TOOLTIP:POLICY,"),
-]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# The English text also carries a trailing game concept token that only reads
-# correctly in English word order ("Add the <name> government reform:"). Russian
-# names the object type in the verb phrase instead, so the token is dropped.
-CONCEPT_SUFFIXES = [
-    ("#!#! [government_reform|e]:", "#!#!:"),
-    ("#!#! [policy]:", "#!#!:"),
-]
+import languages as svx_languages  # noqa: E402
+
+# One hint, split into the four parts above. `tail` is the trailing game concept
+# token English carries ("... the Altepetl [government_reform|e]:"); the opener
+# in `languages.py` decides for itself whether its language wants one.
+HINT_RE = re.compile(
+    r'^@hint! (?P<opener>.*?)'
+    r'(?P<ref>#TOOLTIP:(?P<registry>[A-Z_]+),\S+ #L \$\S+\$#!#!)'
+    r'(?P<tail>[^:]*): (?P<value>.*)$')
 
 ENTRY_RE = re.compile(r'^ (GLORP_UI_SVH_\w+): "(.*)"\s*$')
 
 SOURCE_NAME = "glorpui_generated_societal_value_hints_l_english.yml"
-OUTPUT_NAME = "glorpui_generated_societal_value_hints_l_russian.yml"
+
+
+def output_name(language: str) -> str:
+    return "glorpui_generated_societal_value_hints_l_%s.yml" % language
 
 
 class Unrecognised(Exception):
-    """A hint Glorp UI now writes in a shape the table above does not cover."""
+    """A hint Glorp UI now writes in a shape the openers do not cover."""
 
 
-def translate(value: str) -> str:
-    for english, russian in TEMPLATES:
-        if value.startswith(english):
-            value = russian + value[len(english):]
-            for suffix, replacement in CONCEPT_SUFFIXES:
-                value = value.replace(suffix, replacement)
-            return value
-    raise Unrecognised(value)
+def translate(value: str, openers: dict[str, str]) -> str:
+    match = HINT_RE.match(value)
+    if not match:
+        raise Unrecognised(value)
+    opener = openers.get(match.group("registry"))
+    if opener is None:
+        raise Unrecognised("no opener for registry %s: %s"
+                           % (match.group("registry"), value))
+    return "@hint! %s: %s" % (opener.format(ref=match.group("ref")),
+                              match.group("value"))
 
 
-def render(source: Path) -> tuple[str, int, int]:
-    """The Russian file's text, and how many hints and body keys went into it."""
+def gate_key(hint_key: str) -> str:
+    """The customizable localization that decides whether one hint prints."""
+    return "svx_unlock_%s" % hint_key.lower()
+
+
+def line_key(hint_key: str) -> str:
+    """Where the hint's actual words go once the key itself is a dispatch."""
+    return "SVX_UNLOCK_%s" % hint_key
+
+
+def render(source: Path, language: str,
+           gated: dict[str, str] | None = None) -> tuple[str, int, int]:
+    """The file's text for one language, and how many hints and bodies it holds.
+
+    `gated` names the hints that must not be suggested until an advance unlocks
+    the privilege they are about. Such a hint's own key becomes a dispatch to a
+    customizable localization, and its words move to a second key the dispatch
+    points at — because a `customizable_localization` **cannot be overridden**:
+    the first definition read wins and a later duplicate is dropped with
+    `gamedatabase.h: Duplicated key ... will not be created from file`. Glorp
+    UI's entry is therefore untouchable, but the localization key that entry
+    prints is not, and this mod is already rewriting every one of them.
+    """
+    openers = svx_languages.PHRASES[language]["hint"]
+    gated = gated or {}
     lines = source.read_text(encoding="utf-8-sig").split("\n")
 
     out: list[str] = []
     translated = bodies = 0
     for line in lines:
         if line.strip() == "l_english:":
-            out.append("l_russian:")
+            out.append("l_%s:" % language)
             continue
         match = ENTRY_RE.match(line)
         if not match:
@@ -89,13 +120,19 @@ def render(source: Path) -> tuple[str, int, int]:
             out.append(line)
             continue
         try:
-            out[len(out):] = [' %s: "%s"' % (key, translate(value))]
+            text = translate(value, openers)
         except Unrecognised as exc:
             raise Unrecognised("%s: %s" % (key, exc)) from None
+        if key in gated:
+            out.append(' %s: "[Player.Custom(\'%s\')]"' % (key, gate_key(key)))
+            out.append(' %s: "%s"' % (line_key(key), text))
+        else:
+            out.append(' %s: "%s"' % (key, text))
         translated += 1
 
-    out[0] = ("# Russian for Glorp UI's societal value hints, written by "
-              "mods/glorpui_hints/tools/translate_hints.py. Do not edit by hand.")
+    out[0] = ("# Glorp UI's societal value hints in %s, written by "
+              "mods/glorpui_hints/tools/translate_hints.py. Do not edit by hand."
+              % language)
     out.insert(1, "# Source: Glorp UI %s" % source.name)
     return "\n".join(out), translated, bodies
 
@@ -104,12 +141,14 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--language", default="russian",
+                        choices=svx_languages.LANGUAGES)
     args = parser.parse_args(argv[1:])
 
     try:
-        text, translated, bodies = render(args.source)
+        text, translated, bodies = render(args.source, args.language)
     except Unrecognised as exc:
-        print("unrecognised hint template — add it to TEMPLATES: %s" % exc,
+        print("unrecognised hint shape — add an opener to languages.py: %s" % exc,
               file=sys.stderr)
         return 1
     args.output.parent.mkdir(parents=True, exist_ok=True)

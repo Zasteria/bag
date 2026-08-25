@@ -111,6 +111,44 @@ interface leaves a hole. Filter the data instead, or resize the list.
 
 ## Localization
 
+**A `customizable_localization` cannot be overridden.** Localization keys do —
+a mod loading later wins, and `glorpui_hints` rewrites 759 of Glorp UI's every
+build. A `customizable_localization` does the opposite: **the first definition
+read wins, and the later duplicate is dropped**, saying so in the log and
+nowhere else.
+
+```
+gamedatabase.h:408  Duplicated key glorpui_svh_free_subjects_pv_peasants_yeomanry
+                    will not be created from file: ...
+```
+
+So an addon cannot tighten a base mod's rule by redeclaring it, however late it
+loads — the redeclaration is simply thrown away and the base mod's rule keeps
+running. What it *can* do is take over the localization key that rule prints and
+point it at a rule of its own. That is what
+`in_game/common/customizable_localization/svx_unlock_gate.txt` does. The line
+came out of `Glorp UI small fix`, whose author had already hit it and written the
+log line down.
+
+**A category noun probably does not need translating at all.** The game defines
+`game_concept_<name>` in all eleven of its localization folders, so
+`[religious_aspect|e]` renders "Religious Aspect", «Религиозная особенность»,
+"Glaubensaspekt" — for free, in the player's language, with the encyclopedia link
+attached. `python3 tools/api.py` does not list these; grep
+`reference/game/main_menu/localization/*/game_concepts_l_*.yml` for
+`game_concept_`.
+
+Beyond the ten languages it saves, it is the only way to be *sure* the term
+matches the game's own. Fourteen category nouns in `glorpui_hints` were hand
+written Russian and **seven of them were synonyms** rather than the game's word:
+an advance is «Улучшение», not «Достижение»; a subject type «Тип ленника», not
+«Тип вассала». Nobody would have noticed either without comparing.
+
+The cost is that a concept the game renames becomes a raw token on screen in
+every language at once and nothing errors — so check the ids against the game's
+own localization in the generator, the way
+`mods/glorpui_hints/tools/generate.py` does.
+
 **Square brackets are data function syntax.** A label reading `[debug] location
 known` renders as `ERROR:`. Keep brackets out of plain text.
 
@@ -396,6 +434,22 @@ tests produced ten settled facts, and the risk at the end of every session is
 that the next one re-derives them and spends the owner's evenings doing it. The
 table at the top of [`HANDOFF.md`](HANDOFF.md#settled--do-not-measure-any-of-this-again)
 exists for that; add to it rather than writing a new narrative each time.
+
+## Publishing
+
+**The workshop's tag list is fixed, and a tag outside it is dropped rather than
+refused.** Four mods here were filed under `Localization`, which EU5 does not
+have; the tag it does have is `Translation`, and `Economy` is really
+`Trade and Economics`. The upload says nothing, the mod simply ends up in no
+category on a hub where people browse by category. The list read off the hub's
+own filter sidebar is `WORKSHOP_TAGS` in
+[`../tools/publish.py`](../tools/publish.py), and `python3 tools/publish.py`
+checks every mod against it along with the version format, the thumbnail and the
+BOM.
+
+**The Steam app id for EU5 is `3450310`.** The wiki's PDX Workshop Manager page
+says `529340`, which is Imperator: Rome. `3450310` is the one `steamcmd` in
+`tools/workshop.py` actually downloads with.
 
 ## The reference tree changes under you
 

@@ -1,16 +1,17 @@
-# Glorp UI — Societal Value Hints (RU)
+# Glorp UI — Societal Value Hints
 
 One mod that does both halves of the societal value tooltip: it gives Glorp UI's
-own hint list a Russian text, and then adds the sources Glorp UI's generator
-never looks at.
+own hint list a text in **all eleven languages the game ships**, and then adds
+the sources Glorp UI's generator never looks at.
 
 Requires **Glorp UI** (`glorp.ui`) and must load **after** it — the mod overrides
 Glorp UI's own override of the tooltip templates. `.metadata/metadata.json`
 declares the dependency, so the launcher orders it.
 
 > **Confirmed in game, 2026-08-25.** Both blocks render in Russian on the
-> societal value tooltip. What is still unrun is in
-> [what is untested](#what-is-untested).
+> societal value tooltip. Everything the 2026-08-27 rewrite changed — eleven
+> languages, the category nouns as game concepts, the advance gates — is unrun.
+> The list is in [what is untested](#what-is-untested).
 
 ## Somebody else's addon to the same mod
 
@@ -19,8 +20,16 @@ into **ten languages** and adds three fixes of its own. It does *not* extend the
 hint lists — the 364 keys of extra sources below are this mod's alone — so the
 two overlap only on the translation half, where whichever mounts later wins.
 The full comparison, with numbers, is in
-[`HANDOFF.md`](../../docs/HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod);
-two things worth stealing from it are listed there.
+[`HANDOFF.md`](../../docs/HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod).
+
+**Both things worth taking from it have been taken**, and neither is his text:
+
+- his file carries the log line that settles *why* a `customizable_localization`
+  cannot be overridden, which is what
+  [the advance gates](#the-hints-that-have-to-wait-for-an-advance) are built on;
+- his phrasings put the verb after the object in German, Turkish, Japanese and
+  Korean, which is the reason the openers here are written with a `{ref}`
+  placeholder rather than as a prefix. The words themselves are ours.
 
 ## What it fixes
 
@@ -246,16 +255,31 @@ written differently for each:
 ```
 .metadata/metadata.json                                     id bag.glorpui_hints, depends on glorp.ui
 .metadata/thumbnail.png                                     512x512, carried over from the two mods this replaces
+main_menu/localization/<language>/                          eleven of these, identical key sets
+  glorpui_generated_societal_value_hints_l_<lang>.yml       Glorp UI's 759, plus the five held back
+  svx_extra_hints_l_<lang>.yml                              the added lines, body keys and gated ones
+  svx_menu_l_<lang>.yml                                     the CMF mod menu entry
 main_menu/localization/russian/
-  glorpui_generated_societal_value_hints_l_russian.yml      759 keys — the missing half of Glorp UI
-  svx_extra_hints_l_russian.yml                             the added lines, 68 body keys + 216 gated ones
+  svx_glorpui_fixes_l_russian.yml                           four keys of Glorp UI's own, repaired
 in_game/gui/svx_extra_societal_value_hints.gui              the two tooltip templates, overridden
-in_game/common/customizable_localization/svx_extra_hint_loc.txt   216 availability gates
-in_game/common/script_values/svx_extra_hint_script_values.txt     51 visibility values
+in_game/common/customizable_localization/svx_extra_hint_loc.txt   availability gates
+in_game/common/customizable_localization/svx_unlock_gate.txt      the advance locks
+in_game/common/script_values/svx_extra_hint_script_values.txt     visibility values
+in_game/common/scripted_effects/svx_cmm_registration.txt          the mod menu switch
+workshop/description_english.bbcode                         the workshop page, ready to paste
+workshop/description_russian.bbcode
 ```
 
-Everything under `main_menu/` and `in_game/` is generated. `svx_` is this mod's
-prefix for the names it puts into the game's namespace.
+Everything under `main_menu/` and `in_game/` is generated except
+`svx_cmm_registration.txt`. `svx_` is this mod's prefix for the names it puts
+into the game's namespace. `workshop/` is not uploaded — `tools/mods.py` copies
+only what the game mounts, and [`docs/WORKSHOP.md`](../../docs/WORKSHOP.md) is
+how the upload works.
+
+**Three of those files have no words in them at all** — the `.gui`, the two
+customizable localizations and the script values are the same bytes whatever
+language is running. That is the whole reason eleven languages cost eleven
+`.yml` files and nothing else.
 
 ## Rebuilding
 
@@ -265,22 +289,11 @@ python3 mods/glorpui_hints/tools/generate.py
 
 That is what `tools/refresh.py` runs, and it does two different jobs.
 
-**The Russian hint text is regenerated every time**, out of Glorp UI's own
-English file. The hints come from three templates, and everything language
-specific in them is the leading verb phrase — the reform, policy and privilege
-names arrive through `$key$` references the game resolves in the active
-language. So the Russian file is the English file with three phrases replaced:
-
-| English | Русский |
-|---|---|
-| `Grant <privilege>` | `Даровать привилегию <привилегия>` |
-| `Add the <reform> [government_reform\|e]` | `Принять реформу правления <реформа>` |
-| `Enact the <policy> [policy]` | `Ввести политику <политика>` |
-
-The trailing concept tokens are dropped: they only read in English word order,
-and in Russian the verb phrase has already named the object type. A Glorp UI
-update that adds hints is picked up with nobody noticing; one that writes a
-fourth shape fails the run and names the key.
+**Glorp UI's hint text is regenerated every time, in all eleven languages**, out
+of its own English file — see
+[why a hint costs an opener](#why-a-hint-costs-an-opener-rather-than-a-translation).
+A Glorp UI update that adds hints is picked up with nobody noticing; one that
+writes a fourth shape fails the run and names the key.
 
 **The added lines are not**, because they are compiled out of the game's own
 `common/` tree, which is large and only partly needed. It is all in `reference/`
@@ -330,31 +343,129 @@ was confirmed in `common/religious_aspects`; what those files carry is
 `religion = calvinist`, the aspect declaring its own religion, which is a
 different thing in a different scope. It is `religion = religion:X` now.
 
-## What a second language would cost
+## Eleven languages, out of about fifty strings each
 
-Measured on 2026-08-26, because the number decides whether shipping this mod in
-more than Russian is a project or an afternoon. The mod's Russian is **1123
-keys** and a new language needs nothing like that many translations:
+The mod shipped in Russian. It ships in **English, French, German, Spanish,
+Brazilian Portuguese, Polish, Russian, Turkish, Simplified Chinese, Japanese and
+Korean** — the eleven folders every mod in `reference/mods/` carries and the
+whole set the game has.
 
-| what | keys | what a new language actually needs |
+That was measured before it was built, because the number decided whether it was
+a project or an afternoon. The mod's Russian is **1123 keys** and a language
+needs nothing like that many translations:
+
+| what | keys | what a language actually needs |
 | --- | --- | --- |
-| Glorp UI's own hint keys | 759 | **3 phrases** |
-| our formulaic hint lines | 284 | **29 openers** |
+| Glorp UI's own hint keys | 759 | **3 openers** |
+| our catalogue lines | 284 | **nothing** — the category is a game concept |
 | our data-function lines | 34 | nothing — no words in them |
-| the rest of ours | 46 | about **33 phrasings**, built from a handful of sentences |
+| the rest of ours | 46 | about **45 short strings** |
 
-Glorp UI's 759 cost three phrases because
-[`tools/translate_hints.py`](tools/translate_hints.py) rebuilds them from the
-English file by replacing the verb phrase in front of the `#TOOLTIP:` token —
-"Grant", "Add the", "Enact the". Everything after that token is `$key$`
-references, which the game resolves in whatever language the player runs. The
-same shape covers our own lines: an opener plus a tooltip reference plus a
-number.
+Everything a player reads is in
+[`tools/languages.py`](tools/languages.py), one table per language, and nothing
+anywhere else. The generators hold no words at all.
 
-So a language is roughly **40–50 short strings**, entered as a phrase table
-beside the Russian one, and the generator produces the file — which also means a
-Glorp UI update that adds hints is picked up in every language at once, the way
-it already is in Russian.
+### Why a hint costs an opener rather than a translation
+
+One line of Glorp UI's English file:
+
+```
+@hint! Grant #TOOLTIP:ESTATE_PRIVILEGE,kormlenije #L $kormlenije$#!#!: #color_green +0.10#!\n
+       ^^^^^ ^-------------------- the reference -------------------^  ^-- the number --^
+```
+
+Only the opener is language specific. The reference is what makes the
+privilege's name appear and hover, and the game resolves it in whatever language
+the player runs. So the file is the English file with the opener replaced, which
+is also why a Glorp UI update that adds hints is picked up **in every language at
+once** without anyone noticing it happened.
+
+Each opener is written with a `{ref}` placeholder rather than as a prefix,
+because German, Turkish, Japanese and Korean all want the verb after the object:
+
+| | |
+| --- | --- |
+| english | `Grant {ref}` |
+| russian | `Даровать привилегию {ref}` |
+| german | `Privileg {ref} gewähren` |
+| japanese | `{ref}を付与` |
+
+**Rendering English gives Glorp UI's own file back character for character**, and
+that is checked on every run. It is the proof that splitting a hint into opener,
+reference and number loses nothing — the ten other languages have no original to
+be compared against.
+
+### The fourteen category nouns are not translated at all
+
+"Religious aspect", "Advance", "Subject type" and the rest are **game concepts**.
+The game defines `game_concept_religious_aspect` in all eleven of its
+localization folders, so `[religious_aspect|e]` renders it in the player's
+language, with the encyclopedia link attached, for free.
+
+That is what makes ten extra languages cost nothing on the largest block of
+lines. It also **fixed seven Russian terms** that were synonyms rather than the
+game's own word:
+
+| | was | the game's own |
+| --- | --- | --- |
+| `advance` | Достижение | **Улучшение** |
+| `subject_type` | Тип вассала | **Тип ленника** |
+| `religious_aspect` | Аспект веры | **Религиозная особенность** |
+| `mission` | Миссия | **Задание** |
+| `employment_system` | Способ найма рабочих | **Система найма** |
+| `parliament_issue` | Вопрос парламента | **Парламентский вопрос** |
+| `international_organization` | Международная организация | **Международное объединение** |
+
+The price is that a concept the game renames becomes a raw token on screen in
+every language at once, and nothing errors. So every id is checked against the
+game's own localization on every run, and `check_hints_have_labels` — the rule
+that a label must carry text certain to resolve — admits a concept token only
+because that check stands behind it.
+
+`building_types` is the one category that stays a real phrase: all 23 of its
+pushes are `capital_country_modifier`, so the line has to say *build it in the
+capital*, and no game concept says that.
+
+### The hints that have to wait for an advance
+
+Glorp UI's filter, `glorpui_svh_privilege_takeable`, reads a privilege's own
+`potential` and `allow`. **Ten vanilla privileges are locked from the other
+side** — by an advance's `unlock_estate_privilege` — and their own `potential` is
+empty, so they sail through and get recommended to a country that cannot take
+them. Four of the ten appear in Glorp UI's hints, across five keys:
+`peasants_yeomanry`, `jaysh_armies`, `ghazi_privilege`, `ayans_privilege`.
+
+They are read out of `common/advances` rather than listed, so a patch that locks
+an eleventh is picked up by a rebuild.
+
+**A `customizable_localization` cannot be overridden.** The first definition read
+wins and a later duplicate is dropped, saying so in the log:
+
+```
+gamedatabase.h:408  Duplicated key glorpui_svh_free_subjects_pv_peasants_yeomanry
+                    will not be created from file: ...
+```
+
+So Glorp UI's own entry is untouchable. What is not untouchable is the
+*localization key* that entry prints — and this mod is already rewriting every
+one of them. A gated hint's key becomes
+`[Player.Custom('svx_unlock_<key>')]`, its words move to `SVX_UNLOCK_<key>`, and
+`in_game/common/customizable_localization/svx_unlock_gate.txt` decides between
+them on `has_advance`.
+
+### Four keys of Glorp UI's own interface
+
+Not hints: `GLORP_UI_AVG_CONTROL`, `GLORP_UI_AVG_PROXIMITY`,
+`SWAP_TO_AVG_CONTROL` and `REFRESH_AVG_PROX` are broken Russian grammar —
+«Средняя значение», «Обновить Средняя расстояние» — and Glorp UI marks all four
+`# LOCK`, so they are not going to be repaired upstream.
+
+**Only Russian.** The other nine translations of those keys are grammatical, so
+nothing overrides them and Glorp UI keeps ownership of its own text there. That
+made the mod the first here to define a key in one language and not the rest, and
+`tools/check_cmm.py` used to call that drift; it now reports uneven keys only
+where nothing else defines them either, which is what a deliberate override looks
+like.
 
 ## What it costs the interface
 
@@ -400,11 +511,40 @@ renames comes along regardless.
 
 ## What is untested
 
+Everything the 2026-08-27 rewrite touched is unrun. In the order a single
+Russian game would settle it, cheapest first — **one tooltip answers the first
+three**:
+
+- **The category as a game concept.** The largest change and the one with the
+  widest blast radius: if `[religious_aspect|e]` does not render inside a
+  `TooltipScrolledStringPairList` label, 284 lines lose their opening word in
+  *all eleven languages at once* and nothing errors. What to look for on any
+  societal value tooltip: «**Религиозная особенность** Corona…» rather than
+  «Аспект веры …», and «**Улучшение**» rather than «Достижение». If the words
+  are missing entirely, the token does not render there and
+  `catalog` in `languages.py` goes back to a literal noun per language.
+- **The four repaired Glorp UI keys.** Map mode panel, the average control /
+  average proximity controls: «Переключиться на режим «Средний контроль»» rather
+  than «…«Средняя»», and «Обновить среднюю досягаемость» rather than «Обновить
+  Средняя расстояние».
+- **The advance gates.** Playing anyone who is not England, Morocco or the
+  Ottomans, `Даровать привилегию Yeomanry` / `Jaysh Armies` / `Ghazi` /
+  `Ayans` should not be offered at all. As the Ottomans before taking the
+  `ghazi` advance, the same. `error.log` must not carry `svx_unlock_`.
+- **The ten other languages have never been on screen by anyone.** They are
+  written against the game's own terminology where a concept exists and are
+  otherwise a careful translation of the Russian; nobody who speaks them has
+  read them. A correction belongs in `tools/languages.py`, never in a generated
+  `.yml`.
 - **Whether the thumbnail is load-bearing.** Both mods this replaces shipped a
   512x512 `.metadata/thumbnail.png` on the belief that the launcher skips a mod
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
-  which; the file is carried over because it costs 1.8 KB to keep.
+  which; the file is carried over because it costs 1.8 KB to keep, and because
+  it is also the workshop page's picture, which is not optional.
+
+Still unrun from before the rewrite:
+
 - **The cabinet action and parliament issue gates.** What to look for:
   *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
   *Поддержка строительства …* line instead of four.
@@ -413,9 +553,3 @@ renames comes along regardless.
   aspects are set by the Papacy rather than chosen. It needs a run as a religion
   that picks its own — Lutheran, for instance. Until then the `country_religion`
   repair is reasoned, not seen.
-- **English.** Out of scope by the owner's decision unless the mod is ever
-  published. The added lines are Russian only, so an English game finds no
-  `SVX_*` keys and renders the new blocks as raw keys. Fixing it is a change to
-  the generator — English for fourteen category nouns and two block titles — not
-  to the files.
-

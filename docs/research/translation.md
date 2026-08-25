@@ -1,6 +1,6 @@
 # Translating somebody else's mod
 
-Two of the mods here are translations. What that job actually is, what it
+Three of the mods here are translations. What that job actually is, what it
 costs, and the ways a localization breaks in silence.
 
 ## Translating a mod that ships without your language
@@ -160,3 +160,47 @@ step buttons, per-ordinal rows — are worth writing once with a placeholder and
 expanding over the numbers the base mod actually uses. Collapse only when the
 *values* match too: `eu5ab_building_age_1..6` share a key shape and are six
 different ages.
+
+
+## Shipping in all eleven languages
+
+The game has eleven: `braz_por`, `english`, `french`, `german`, `japanese`,
+`korean`, `polish`, `russian`, `simp_chinese`, `spanish`, `turkish`. That is not
+read off a wiki — it is the folder list every mod in `reference/mods/` carries,
+Community Mod Framework, Glorp UI and Construction Manager alike, and
+`reference/game/main_menu/localization/` is a subset of it because
+`tools/game_files_manifest.txt` only extracts two.
+
+`glorpui_hints` went from one language to eleven for about **fifty short strings
+each**, and the three things that made that possible generalise:
+
+**Translate the opener, not the line.** A generated hint is an opening phrase, a
+`$key$` reference the game resolves in the player's language, and a number. Only
+the first is language specific, so a language is a phrase table and the
+generator does the rest — which also means an update to the mod being extended
+is picked up in every language at once rather than in one.
+
+**Write the opener with a placeholder, not as a prefix.** `"Grant {ref}"` and
+`"{ref} gewähren"` are the same table entry; `"Grant "` and `"gewähren"` are not.
+German, Turkish, Japanese and Korean all want the verb after the object, and a
+prefix-substitution design cannot express that without being rewritten. The
+observation is `Glorp UI small fix`'s, which puts the verb last in exactly those
+four.
+
+**Ask the game for its own nouns.** See the concept-token entry in
+[`../PITFALLS.md`](../PITFALLS.md#localization): fourteen category nouns cost
+nothing in eleven languages and came out more accurate than the hand written
+Russian they replaced.
+
+**Keep every word in one file.** `mods/glorpui_hints/tools/languages.py` holds
+every string the mod puts on screen and the generators hold none, so a
+correction from somebody who actually speaks the language has exactly one place
+to go, and a generated `.yml` is never the thing edited.
+
+**A language folder is compared against the others, not against a list.**
+`tools/check_cmm.py` reports a key one language defines and another does not,
+because that is what shows on screen as a raw key. The one legitimate exception
+is overriding *another mod's* key in one language only — repairing broken
+grammar where it is broken and leaving the other ten alone — and the checker now
+allows it where the game or a reference mod already defines the key in the
+languages that are short of it.

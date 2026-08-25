@@ -13,6 +13,12 @@ verbatim in the shipped game files are wrapped in customizable localization, so
 hints for other religions, estates or subject types drop out. The rest are
 emitted as plain text - see mods/glorpui_hints/tools/gates.py for why nothing is guessed.
 
+**A hint line is collected as data and only turned into words at the end**, once
+per language. The `.gui`, the customizable localization and the script values
+carry no words at all and are written once; the eleven `.yml` files differ only
+in the openers held in `languages.py`. That is what makes eleven languages cost
+about fifty strings rather than eleven thousand.
+
 Inputs:
   - the scan produced by mods/glorpui_hints/tools/scan_sources.py
   - the extracted game files, for axis pairs and availability blocks
@@ -32,29 +38,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import gates as svx_gates
-
-# Source types the add-on lists, with the Russian noun that introduces them.
-# Reforms, laws and estate privileges are omitted - Glorp UI generates those.
-# Russian noun that introduces the entry, and the tooltip registry the object
-# lives in. Registry names come from the game's own #TOOLTIP: tokens.
-CATALOG_SOURCES = {
-    "employment_systems": ("Способ найма рабочих", "EMPLOYMENT_SYSTEM"),
-    "building_types": ("Построить в столице", "BUILDING_TYPE"),
-    "religious_aspects": ("Аспект веры", "RELIGIOUS_ASPECT"),
-    "religious_schools": ("Религиозная школа", "RELIGIOUS_SCHOOL"),
-    "parliament_issues": ("Вопрос парламента", "PARLIAMENT_ISSUE"),
-    "chivalric_orders": ("Рыцарский орден", "CHIVALRIC_ORDER"),
-    "subject_types": ("Тип вассала", "SUBJECT_TYPE"),
-    "estates": ("Сословие", "ESTATE_TYPE"),
-    "cabinet_actions": ("Действие совета", "CABINET_ACTION"),
-    "international_organizations": ("Международная организация",
-                                    "INTERNATIONAL_ORGANIZATION"),
-    "international_organization_special_statuses": ("Статус в организации",
-                                                    "SPECIAL_STATUS"),
-    "advances": ("Достижение", "ADVANCE_DEFINITION"),
-    "missions": ("Миссия", "MISSION"),
-    "parliament_types": ("Тип парламента", "PARLIAMENT_TYPE"),
-}
+import languages as svx_languages
 
 # Only one of these can be in force at a time, so a weaker one is pointless
 # while a stronger one is already active.
@@ -74,55 +58,13 @@ SOURCE_DIRS = {
     "parliament_issues": "in_game/common/parliament_issues",
 }
 
-# Always active, magnitude proportional to some country state. The listed value
-# is the maximum, hence "до".
-SCALED = {
-    "fort_maintenance_mod": "Содержание крепостей",
-    "army_maintenance_mod": "Содержание армии",
-    "navy_maintenance_mod": "Содержание флота",
-    "army_experience": "Опыт армии",
-    "navy_experience": "Опыт флота",
-    "army_tradition": "Традиции армии",
-    "navy_tradition": "Традиции флота",
-    "current_army_size": "Размер армии",
-    "current_navy_size": "Размер флота",
-    "average_control": "Средний контроль",
-    "average_development": "Среднее развитие",
-    "average_literacy": "Средняя грамотность",
-    "num_of_market_centers_in_country": "Число рыночных центров",
-    "trade_vs_tax": "Доля торговли в доходах",
-    "burghers_percentage_in_country": "Доля горожан в населении",
-    "peasants_percentage_in_country": "Доля крестьян в населении",
-    "soldier_percentage_in_country": "Доля солдат в населении",
-    "state_religion_clergy_ratio": "Доля духовенства госрелигии",
-    "proper_culture_nobles_ratio": "Доля знати основной культуры",
-}
-
-# On or off, no scaling - the label is the condition, so the exact value holds.
-CONDITIONAL = {
-    "is_bankrupt": "Во время банкротства",
-    "at_peace": "В мирное время",
-    "at_war": "Во время войны",
-    "attacker_in_war": "Нападающая сторона в войне",
-    "defender_in_war": "Обороняющаяся сторона в войне",
-    "over_fort_limit": "Превышен лимит крепостей",
-    "below_half_fort_limit": "Крепостей меньше половины лимита",
-    "larger_than_expected_army": "Армия больше ожидаемой",
-    "high_legitimacy": "Высокая легитимность",
-    "high_republican_tradition": "Высокие республиканские традиции",
-    "positive_self_control": "Высокое самообладание правителя",
-    "negative_self_control": "Низкое самообладание правителя",
-    "parliament_in_capital": "Парламент в столице",
-    "parliament_outside_capital": "Парламент вне столицы",
-    "ruler_is_general": "Правитель - генерал",
-    "ruler_is_admiral": "Правитель - адмирал",
-    "ruler_has_general_trait": "У правителя черта генерала",
-    "ruler_has_admiral_trait": "У правителя черта адмирала",
-    "heir_is_general": "Наследник - генерал",
-    "heir_is_admiral": "Наследник - адмирал",
-    "regent_is_general": "Регент - генерал",
-    "regent_is_admiral": "Регент - адмирал",
-}
+# What each of the four kinds of line is called, and where its words come from,
+# is in languages.py: `CATALOG_CONCEPTS` and `CATALOG_REGISTRIES` for the
+# catalogue lines, `scaled` and `conditional` for the two modifier kinds. Which
+# modifier is scaled and which is conditional is the same question in every
+# language, so the two key lists live there too and are read here.
+SCALED_KEYS = set(svx_languages.SCALED_KEYS)
+CONDITIONAL_KEYS = set(svx_languages.CONDITIONAL_KEYS)
 
 CABINET_SUFFIX = "_progress_cabinet_efficiency"
 
@@ -160,8 +102,42 @@ def amount(raw):
         return None
 
 
+def line_text(entry, phrases):
+    """One hint line, in one language.
+
+    The entry itself holds no words - only which kind of line it is, which
+    object it is about and how hard it pushes. Everything a player reads comes
+    out of `phrases`, which is one language's table from languages.py.
+    """
+    kind = entry["kind"]
+    if kind == "catalog":
+        source_type, obj = entry["source_type"], entry["object"]
+        reference = "#TOOLTIP:%s,%s #L $%s$#!#!" % (
+            svx_languages.CATALOG_REGISTRIES[source_type], obj, obj)
+        concept = svx_languages.CATALOG_CONCEPTS.get(source_type)
+        if concept is None:
+            # building_types: the push is a `capital_country_modifier`, so the
+            # line has to say build it *in the capital* and no game concept
+            # says that.
+            label = "%s %s" % (phrases["build_in_capital"], reference)
+        else:
+            label = phrases["catalog"].format(concept=concept, ref=reference)
+        return "@hint! %s: #color_green +%.2f#!\\n" % (label, entry["value"])
+    if kind == "scaled":
+        return "@hint! %s #help (%s)#!: #color_green %s+%.2f#!\\n" % (
+            phrases["scaled"][entry["object"]], phrases["scales"],
+            phrases["up_to"], entry["value"])
+    if kind == "conditional":
+        return "@hint! %s: #color_green +%.2f#!\\n" % (
+            phrases["conditional"][entry["object"]], entry["value"])
+    if kind == "cabinet":
+        return "@hint! %s #help (%s)#!\\n" % (
+            phrases["cabinet"], phrases["cabinet_scales"])
+    raise AssertionError("unknown line kind %r" % kind)
+
+
 def collect(findings, game_files):
-    """direction -> ordered list of entry dicts."""
+    """direction -> ordered list of entry dicts, with no words in any of them."""
     caches = {}
     for source_type, relative in SOURCE_DIRS.items():
         caches[source_type] = svx_gates.scan_objects(game_files, relative)
@@ -177,10 +153,7 @@ def collect(findings, game_files):
         if value is None:
             continue
 
-        if source_type in CATALOG_SOURCES:
-            label, registry = CATALOG_SOURCES[source_type]
-            text = ("@hint! %s #TOOLTIP:%s,%s #L $%s$#!#!: #color_green +%.2f#!\\n"
-                    % (label, registry, obj, obj, value))
+        if source_type in svx_languages.CATALOG_REGISTRIES:
             gate = svx_gates.gate_for(source_type, obj, caches.get(source_type, {}), extra)
             if source_type in EXCLUSIVE_SOURCES:
                 # Suppress once the country holds this one, or any peer that
@@ -196,32 +169,35 @@ def collect(findings, game_files):
                         "NOT = { has_employment_system = employment_system:%s }" % peer
                         for peer in dict.fromkeys(peers)],
                 }
-            entries[axis].append({"sort": (-value, obj), "text": text, "gate": gate})
-        elif obj in SCALED:
-            entries[axis].append({
-                "sort": (-value, obj),
-                "text": "@hint! %s #help (масштабируется)#!: #color_green до +%.2f#!\\n"
-                        % (SCALED[obj], value),
-                "gate": {"reach": [], "now": []}})
-        elif obj in CONDITIONAL:
-            entries[axis].append({
-                "sort": (-value, obj),
-                "text": "@hint! %s: #color_green +%.2f#!\\n" % (CONDITIONAL[obj], value),
-                "gate": {"reach": [], "now": []}})
+            entries[axis].append({"sort": (-value, obj), "kind": "catalog",
+                                  "source_type": source_type, "object": obj,
+                                  "value": value, "gate": gate})
+        elif obj in SCALED_KEYS:
+            entries[axis].append({"sort": (-value, obj), "kind": "scaled",
+                                  "object": obj, "value": value,
+                                  "gate": {"reach": [], "now": []}})
+        elif obj in CONDITIONAL_KEYS:
+            entries[axis].append({"sort": (-value, obj), "kind": "conditional",
+                                  "object": obj, "value": value,
+                                  "gate": {"reach": [], "now": []}})
         elif obj.endswith(CABINET_SUFFIX):
-            entries[axis].append({
-                "sort": (-99, obj),
-                "text": "@hint! Направить совет на эту ценность "
-                        "#help (масштабируется от эффективности совета)#!\\n",
-                "gate": {"reach": [], "now": []}})
+            entries[axis].append({"sort": (-99, obj), "kind": "cabinet",
+                                  "object": obj, "value": value,
+                                  "gate": {"reach": [], "now": []}})
 
     ordered = {}
     for axis, rows in entries.items():
         seen, out = set(), []
         for row in sorted(rows, key=lambda r: r["sort"]):
-            if row["text"] in seen:
+            # Two findings that would print the same line - the same object
+            # pushing the same axis twice - collapse into one. Compared on what
+            # the line is *about* rather than on its text, so the answer cannot
+            # depend on which language is being written.
+            identity = (row["kind"], row.get("source_type"), row["object"],
+                        row["value"])
+            if identity in seen:
                 continue
-            seen.add(row["text"])
+            seen.add(identity)
             out.append(row)
         ordered[axis] = out
     return ordered
@@ -231,6 +207,58 @@ def write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8-sig", newline="\n") as handle:
         handle.write(text)
+
+
+def localization(language, pairs, entries, gate_keys):
+    """One language's `svx_extra_hints_l_<language>.yml`.
+
+    `gate_keys` is the (direction, index) -> localization key mapping worked out
+    once by `main`, so every language prints the same key for the same gate and
+    the single customizable localization file serves all eleven.
+    """
+    phrases = svx_languages.PHRASES[language]
+    out = [HEADER, "l_%s:" % language]
+    for key, text in phrases["titles"].items():
+        out.append(' %s: "%s"' % (key, text))
+    for left, right, _ in pairs:
+        for direction in (left, right):
+            now_body, soon_body = [], []
+            for index, row in enumerate(entries.get(direction, [])):
+                text = line_text(row, phrases)
+                if not row["gate"]["now"]:
+                    now_body.append(text)
+                    continue
+                now_key = gate_keys[("n", direction, index)]
+                out.append(' %s: "%s"' % (now_key, text))
+                now_body.append("[Player.Custom('%s')]" % now_key.lower())
+                soon_key = gate_keys.get(("s", direction, index))
+                if soon_key:
+                    out.append(' %s: "%s"' % (soon_key, text))
+                    soon_body.append("[Player.Custom('%s')]" % soon_key.lower())
+            out.append(' SVX_BODY_%s: "%s"' % (direction.upper(), "".join(now_body)))
+            out.append(' SVX_SOON_%s: "%s"' % (direction.upper(), "".join(soon_body)))
+            # The unfiltered pool, for the mod menu switch: every line this
+            # direction has, with no trigger in front of any of it. It is a
+            # third body key rather than a mode the gates understand, because a
+            # customizable localization cannot be told to ignore its own
+            # trigger - and because a plain string cannot fail.
+            out.append(' SVX_ALL_%s: "%s"' % (
+                direction.upper(),
+                "".join(line_text(row, phrases)
+                        for row in entries.get(direction, []))))
+    return "\n".join(out) + "\n"
+
+
+def menu(language):
+    """The CMF mod menu entry. CMM derives every key from the mod and setting id."""
+    phrases = svx_languages.PHRASES[language]
+    out = [HEADER,
+           "# CMM derives every key below from the mod id and the setting id,",
+           "# and a key it cannot find shows as the raw key on screen.",
+           "l_%s:" % language]
+    for key, text in phrases["menu"].items():
+        out.append(' %s: "%s"' % (key, text))
+    return "\n".join(out) + "\n"
 
 
 def main():
@@ -246,16 +274,12 @@ def main():
         args.game_files, "in_game/common/societal_values/00_default.txt"))
     entries = collect(findings, args.game_files)
 
-    loc = [HEADER, "l_russian:",
-           ' SVX_ALSO_PUSHES: "Также влияет на смещение:"',
-           ' SVX_REACHABLE: "Станет доступно при условиях:"',
-           ' SVX_EVERYTHING: "Влияет на смещение (без фильтра):"']
     custom = [HEADER, ""]
+    gate_keys = {}
     soon_gates = collections.defaultdict(list)
     counts = {"now": 0, "soon": 0}
 
-    def emit(name, key, trigger_lines, text):
-        loc.append(' %s: "%s"' % (key, text))
+    def emit(name, trigger_lines):
         custom.append("%s = {" % name)
         custom.append("\ttype = country")
         custom.append("\ttext = {")
@@ -263,7 +287,7 @@ def main():
         for line in trigger_lines:
             custom.append("\t\t\t%s" % line)
         custom.append("\t\t}")
-        custom.append("\t\tlocalization_key = %s" % key)
+        custom.append("\t\tlocalization_key = %s" % name.upper())
         custom.append("\t}")
         custom.append("\ttext = {")
         custom.append("\t\tlocalization_key = empty_text")
@@ -271,18 +295,17 @@ def main():
         custom.append("}")
         custom.append("")
 
+    # The gates first, because they are the same in every language: a trigger
+    # has no words in it, and the localization key it points at is a name.
     for left, right, _ in pairs:
         for direction in (left, right):
-            now_body, soon_body = [], []
             for index, row in enumerate(entries.get(direction, [])):
                 gate = row["gate"]
                 if not gate["now"]:
-                    now_body.append(row["text"])
                     continue
-
                 name = "svx_n_%s_%03d" % (direction, index)
-                emit(name, name.upper(), gate["now"], row["text"])
-                now_body.append("[Player.Custom('%s')]" % name)
+                emit(name, gate["now"])
+                gate_keys[("n", direction, index)] = name.upper()
                 counts["now"] += 1
 
                 # Attainable-but-not-yet needs a real "reach" condition to be
@@ -294,25 +317,19 @@ def main():
                 soon = list(gate["reach"]) + [
                     "NOT = { AND = { %s } }" % " ".join(gate["now"])]
                 name = "svx_s_%s_%03d" % (direction, index)
-                emit(name, name.upper(), soon, row["text"])
-                soon_body.append("[Player.Custom('%s')]" % name)
+                emit(name, soon)
+                gate_keys[("s", direction, index)] = name.upper()
                 soon_gates[direction].append(soon)
                 counts["soon"] += 1
 
-            loc.append(' SVX_BODY_%s: "%s"' % (direction.upper(), "".join(now_body)))
-            loc.append(' SVX_SOON_%s: "%s"' % (direction.upper(), "".join(soon_body)))
-            # The unfiltered pool, for the mod menu switch: every line this
-            # direction has, with no trigger in front of any of it. It is a
-            # third body key rather than a mode the gates understand, because a
-            # customizable localization cannot be told to ignore its own
-            # trigger — and because a plain string cannot fail.
-            loc.append(' SVX_ALL_%s: "%s"' % (
-                direction.upper(),
-                "".join(row["text"] for row in entries.get(direction, []))))
+    for language in svx_languages.LANGUAGES:
+        write(os.path.join(args.out, "main_menu/localization/%s/svx_extra_hints_l_%s.yml"
+                           % (language, language)),
+              localization(language, pairs, entries, gate_keys))
+        write(os.path.join(args.out, "main_menu/localization/%s/svx_menu_l_%s.yml"
+                           % (language, language)),
+              menu(language))
 
-    write(os.path.join(args.out,
-                       "main_menu/localization/russian/svx_extra_hints_l_russian.yml"),
-          "\n".join(loc) + "\n")
     write(os.path.join(args.out,
                        "in_game/common/customizable_localization/svx_extra_hint_loc.txt"),
           "\n".join(custom))
@@ -383,7 +400,7 @@ def main():
            ""]
     # True while the mod menu switch is on. `CMMSettingIsRegistered` guards the
     # case CMF describes: the setting is read before registration has run, or
-    # the mod menu is not there at all — in which case the answer is "off" and
+    # the mod menu is not there at all - in which case the answer is "off" and
     # the filtered lists show, which is the behaviour without a switch.
     show_all = ("And(CMMSettingIsRegistered('svx__show_all'),"
                 "CMMValueEqualsOne(CMMSettingValue('svx__show_all')))")
@@ -412,6 +429,7 @@ def main():
     total = sum(len(v) for v in entries.values())
     print("%d hint lines: %d gated as available now, %d also listed as attainable"
           % (total, counts["now"], counts["soon"]))
+    print("%d languages written" % len(svx_languages.LANGUAGES))
 
 
 if __name__ == "__main__":
