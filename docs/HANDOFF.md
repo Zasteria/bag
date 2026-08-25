@@ -251,7 +251,7 @@ been in game.** Version 1.1.0. What changed, all of it unrun:
 
 - **eleven languages** — every folder the game has, English included. A language
   is about fifty short strings in
-  [`tools/languages.py`](../mods/glorpui_hints/tools/languages.py), because a
+  [`mods/glorpui_hints/tools/languages.py`](../mods/glorpui_hints/tools/languages.py), because a
   hint line is an opener, a reference the game resolves itself, and a number;
 - **the fourteen category nouns became game concepts** rather than translated
   words, which is free in every language and fixed **seven Russian terms** that

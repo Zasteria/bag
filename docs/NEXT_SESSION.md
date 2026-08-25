@@ -1,87 +1,83 @@
 # Next session: read this first
 
-This repository holds six mods, five documents and a pile of history. Almost
+This repository holds six mods, six documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
-## This session: `mods/glorpui_hints/`
+## This session: get `glorpui_hints` into the workshop
 
-The owner's words: *«займёмся доработками функциональной части аддона»*. The mod
-is merged, **loaded and confirmed working in game on 2026-08-25** — both blocks
-render in Russian. What follows is the work he has actually decided on, in the
-order that makes sense, with the numbers already measured so nothing has to be
-re-derived.
+The mod is **finished as a piece of software** and unfinished as a *published*
+one. On 2026-08-27 it went from Russian to **eleven languages**, took the two
+things worth taking from the rival addon, and grew the tooling to publish it.
+None of that has been in game. So this session is two things and they are in
+this order:
 
-**Read first:** the mod's [README](../mods/glorpui_hints/README.md) and
-[what the rival addon turned out to be](HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod).
+### 1. One run, and it settles four questions at once
 
-### The situation that shapes all of it
+Ask for it before anything else. It is one save, one societal value tooltip and
+one map mode panel — no protocol, no timing, nothing to sit through — and it is
+the whole risk of the rewrite:
 
-`Glorp UI small fix` (workshop 3784988919, copy in `reference/mods/`) appeared
-in late August and does **the translation half in ten languages**. It does not
-touch the content half: our 364 keys of hint lines compiled from the twenty
-source kinds Glorp UI's generator never reads are still ours alone. So the mod's
-selling point is content, not "Russian for Glorp UI" — that niche is taken, and
-by ten languages rather than one.
+- **hover any societal value.** The catalogue lines should now open with the
+  game's own word: «**Религиозная особенность** …», «**Улучшение** …»,
+  «**Тип ленника** …» where they used to say «Аспект веры», «Достижение», «Тип
+  вассала». **If the opening word is missing altogether**, `[religious_aspect|e]`
+  does not render inside a `TooltipScrolledStringPairList` label, 284 lines lost
+  it in all eleven languages, and `catalog` in
+  `mods/glorpui_hints/tools/languages.py` goes back to a literal noun per
+  language. That is the one change here that can go badly.
+- **the same tooltip, playing anyone but England, Morocco or the Ottomans**:
+  `Yeomanry`, `Jaysh Armies`, `Ghazi` and `Ayans` should not be offered at all.
+- **the map mode panel**: «Переключиться на режим «Средний контроль»» and
+  «Обновить среднюю досягаемость», not «…«Средняя»» and «Обновить Средняя
+  расстояние».
+- **`error.log` must not carry `svx_unlock_`**, and `debug.log`'s 725
+  `Missing loc key 'GLORP_UI_SVH_*'` lines should be gone.
 
-### 1. Ten languages is a much smaller job than it looks
+**Write the result into [`TESTLOG.md`](TESTLOG.md) in the same session.**
 
-This is the thing worth knowing before deciding anything. The mod's Russian is
-**1123 keys**, but a new language does not need 1123 translations:
+### 2. Walk him through the upload
 
-- **Glorp UI's 759 hint keys need three phrases.** `mods/glorpui_hints/tools/translate_hints.py`
-  rebuilds them from Glorp UI's English by replacing the verb phrase in front of
-  the `#TOOLTIP:` token — "Grant", "Add the", "Enact the". Everything after it is
-  `$key$` references the game resolves in whatever language the player runs.
-- **Our 364 extra keys**: 284 are formulaic from **29 distinct openers** ("@hint!
-  Аспект веры ", "@hint! Построить в столице ", …), 34 are pure data functions
-  with no words in them at all, and the remaining 46 reduce to about **33
-  phrasings** built from a handful of sentences.
+He has never published a mod and said so. [`WORKSHOP.md`](WORKSHOP.md) is
+written and `python3 tools/publish.py` reports the mod ready — but **one thing
+in it is unverified and only he can settle it: where the upload button is.**
+The EU5 wiki documents only the third-party PDX Workshop Manager; the forum
+carries bug reports about in-game "Mod Tools", so a button exists and nobody
+here has seen it.
 
-So a language costs roughly **40–50 short strings**, not a thousand. A phrase
-table per language in `translate_hints.py` and the generator does the rest — the
-same shape `nd_ru` and `auto_build_ru` already use, and it keeps surviving Glorp
-UI updates the way the Russian does today.
+So: ask him to open EU5's main menu and say what the mod-related entry is
+called. Then finish that section of `WORKSHOP.md` from his answer, rather than
+guessing at a menu path on his behalf. Everything else is ready — the folder
+that gets uploaded is what menu item 4 already writes, the page text is in
+`mods/glorpui_hints/workshop/`, both in English and Russian.
 
-### 2. Two things worth taking from the rival mod
+Two things he has to do on the workshop page and not in a file: add **Glorp UI**
+and **Community Mod Framework** as Required Items, and upload hidden first.
 
-Both verified against the game files in `reference/`, not taken on trust:
+### What was done on 2026-08-27, so it is not re-derived
 
-- **Privileges locked behind an advance are recommended when they cannot be
-  taken.** Glorp UI's `glorpui_svh_privilege_takeable` filter reads a
-  privilege's `potential`/`allow` and nothing else. **Ten** vanilla privileges
-  are locked by an advance's `unlock_estate_privilege`; four of them appear in
-  Glorp UI's hints; `ayans_privilege` is already filtered by `has_or_had_tag =
-  TUR` in its own potential. **Three leak**: `peasants_yeomanry`,
-  `jaysh_armies`, `ghazi_privilege`. He gates them as three special cases; our
-  generator already gates 253 lines by country trigger, so the same machinery can
-  gate them from the data — scan `common/advances` for
-  `unlock_estate_privilege` and add `has_advance` to the gate.
-- **Four Glorp UI keys whose Russian is broken grammar**: `GLORP_UI_AVG_CONTROL`
-  ("Средняя значение [max_control|e]"), `GLORP_UI_AVG_PROXIMITY`,
-  `SWAP_TO_AVG_CONTROL`, `REFRESH_AVG_PROX` ("Обновить Средняя расстояние").
-  Glorp UI marks them `# LOCK`. Overriding them belongs in this mod.
+- **Eleven languages for about fifty strings each.** Everything a player reads
+  is in `mods/glorpui_hints/tools/languages.py`; the generators hold no words.
+  The reasoning is in
+  [`research/translation.md`](research/translation.md#shipping-in-all-eleven-languages)
+  and the mod's own [README](../mods/glorpui_hints/README.md).
+- **Category nouns are game concepts, not translations.** Free in ten extra
+  languages and more accurate than the Russian it replaced.
+- **A `customizable_localization` cannot be overridden** — first definition
+  wins, later duplicates dropped. In [`PITFALLS.md`](PITFALLS.md#localization);
+  it is what the advance gates are built on.
+- **The workshop tag vocabulary is fixed and four of our mods were outside it.**
+  Also in [`PITFALLS.md`](PITFALLS.md#publishing).
 
-### 3. The blocker in the old plan is gone
+### What is deliberately not done
 
-This file used to say the extra hint lists **cannot** be rebuilt from
-`reference/` and that the game's `common/` tree had to be asked for. **That is
-no longer true** — `tools/game_files_manifest.txt` has pulled those directories
-in since, and on 2026-08-26 a full rebuild was run and produced byte-identical
-output:
-
-```
-python3 mods/glorpui_hints/tools/generate.py --game-files reference/game
-```
-
-So the extra lists can be regenerated in a session, from this tree, with nothing
-asked of the owner.
-
-### 4. Where the mod is not proven
-
-The gating and the CMM setting have been in game once, on 2026-08-25, and
-everything since is unrun. Any change here needs a run to confirm; **build the
-smallest thing that shows a signal and ask for one**, rather than a finished
-feature nobody has loaded.
+- **A thumbnail for the other five mods.** Only `glorpui_hints` has one, and it
+  is the workshop page's picture as well as the launcher's icon.
+  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod is
+  ready to go out.
+- **Reviewing the ten new translations with somebody who speaks them.** They are
+  written against the game's own terminology where a concept exists and are
+  otherwise a careful translation of the Russian. Nobody has read them. A
+  correction goes in `languages.py`, never in a generated `.yml`.
 
 ## Where everything else stands, 2026-08-26
 
