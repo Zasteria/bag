@@ -330,6 +330,32 @@ was confirmed in `common/religious_aspects`; what those files carry is
 `religion = calvinist`, the aspect declaring its own religion, which is a
 different thing in a different scope. It is `religion = religion:X` now.
 
+## What a second language would cost
+
+Measured on 2026-08-26, because the number decides whether shipping this mod in
+more than Russian is a project or an afternoon. The mod's Russian is **1123
+keys** and a new language needs nothing like that many translations:
+
+| what | keys | what a new language actually needs |
+| --- | --- | --- |
+| Glorp UI's own hint keys | 759 | **3 phrases** |
+| our formulaic hint lines | 284 | **29 openers** |
+| our data-function lines | 34 | nothing — no words in them |
+| the rest of ours | 46 | about **33 phrasings**, built from a handful of sentences |
+
+Glorp UI's 759 cost three phrases because
+[`tools/translate_hints.py`](tools/translate_hints.py) rebuilds them from the
+English file by replacing the verb phrase in front of the `#TOOLTIP:` token —
+"Grant", "Add the", "Enact the". Everything after that token is `$key$`
+references, which the game resolves in whatever language the player runs. The
+same shape covers our own lines: an opener plus a tooltip reference plus a
+number.
+
+So a language is roughly **40–50 short strings**, entered as a phrase table
+beside the Russian one, and the generator produces the file — which also means a
+Glorp UI update that adds hints is picked up in every language at once, the way
+it already is in Russian.
+
 ## What it costs the interface
 
 `python3 tools/guicost.py` prices it at **136 widgets in one file, no

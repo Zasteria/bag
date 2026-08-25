@@ -299,7 +299,9 @@ def check_hints_have_labels(problems: list[str]) -> None:
 
 def rebuild_extra(game_files: Path) -> int:
     """Re-scan the game and rewrite the three generated files."""
-    findings = MOD.parent.parent / "sv_findings.json"
+    # Beside the tool, not in the repository root: a crashed run used to leave
+    # it where the next `git add -A` would sweep it into a commit.
+    findings = TOOLS / "sv_findings.json"
     for command in (
             [sys.executable, str(TOOLS / "scan_sources.py"), str(game_files),
              "--json", str(findings)],
