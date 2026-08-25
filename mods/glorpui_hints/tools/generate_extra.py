@@ -124,109 +124,6 @@ CONDITIONAL = {
     "regent_is_admiral": "Регент - адмирал",
 }
 
-# Where the game keeps its own name for a modifier, by kind. Preferring these
-# over a hand written label means a patch that renames one is followed for free,
-# and the concept links inside them (`[Concept('literacy', ...)]`) come along.
-MODIFIER_NAME_KEY = {
-    "static_modifiers": "STATIC_MODIFIER_NAME_%s",
-    "auto_modifiers": "AUTO_MODIFIER_NAME_%s",
-}
-
-
-def modifier_facts(game_files):
-    """modifier -> what its own file says about when and how much it applies.
-
-    Only `auto_modifiers` say anything: they carry `potential_trigger`, the
-    condition that switches the modifier on, and `scales_with`, the quantity its
-    size is proportional to. `static_modifiers` carry neither — the engine
-    decides how to scale those when it attaches them, and nothing in the shipped
-    files or the defines says by how much. That difference is the whole reason
-    some of these hints can answer "how much do I need" and some cannot.
-    """
-    facts = {}
-    for key, body in svx_gates.scan_objects(
-            game_files, "in_game/common/auto_modifiers").items():
-        trigger = svx_gates.sub_block(body, "potential_trigger")
-        scales = svx_gates.sub_block(body, "scales_with")
-        simple = re.search(r"^\tscales_with\s*=\s*(\w+)\s*$", body, re.M)
-        facts[key] = {
-            "trigger": " ".join(trigger.split()) if trigger else None,
-            "scales": " ".join(scales.split()) if scales else (
-                "value = %s" % simple.group(1) if simple else None),
-        }
-    return facts
-
-
-def full_at(scales):
-    """(quantity, the value of it at which the modifier reaches its full size).
-
-    `scales_with` is an ordinary script value block, so the multiplier is
-    `((value + add - subtract) * multiply) / divide` and the modifier is at full
-    size when that reaches 1. `army_tradition multiply = 0.01` is therefore full
-    at 100, and `used_fort_limit_percentage subtract = 1.0` at 2.0 — which is
-    the number a player actually wants and the tooltip never showed.
-
-    Returns None for anything with a shape this arithmetic does not cover,
-    rather than guessing: a wrong threshold is worse than none.
-    """
-    if not scales:
-        return None
-    quantity = re.match(r"value = (\S+)", scales)
-    if not quantity:
-        return None
-    rest = scales[quantity.end():]
-    try:
-        # `value = 0.5 subtract = used_fort_limit_percentage multiply = 2` — the
-        # quantity is the subtrahend and the modifier grows as it falls. Full
-        # size at zero forts held, which is what "below half the fort limit"
-        # never said out loud.
-        base = float(quantity.group(1))
-    except ValueError:
-        base = None
-    if base is not None:
-        names = re.findall(r"subtract = ([A-Za-z_][\w:]*)", rest)
-        if len(set(names)) != 1:
-            return None
-        falling = names[0]
-        factor = 1.0
-        for name, raw in re.findall(r"(multiply|divide) = (\S+)", rest):
-            try:
-                number = float(raw)
-            except ValueError:
-                return None
-            if name == "multiply":
-                factor *= number
-            elif number:
-                factor /= number
-            else:
-                return None
-        if not factor:
-            return None
-        return falling, (base - (1.0 / factor)) / len(names)
-    if re.search(r"\b(if|limit|complex_trigger_modifier|desc)\b", rest):
-        return None
-    factor, offset = 1.0, 0.0
-    for name, raw in re.findall(r"(add|subtract|multiply|divide|min|max) = (\S+)", rest):
-        try:
-            number = float(raw)
-        except ValueError:
-            return None
-        if name == "multiply":
-            factor *= number
-        elif name == "divide":
-            if not number:
-                return None
-            factor /= number
-        elif name == "add":
-            offset += number
-        elif name == "subtract":
-            offset -= number
-        # `min` and `max` clamp the result and do not move where full size is.
-    if not factor:
-        return None
-    return quantity.group(1), (1.0 / factor) - offset
-
-
 CABINET_SUFFIX = "_progress_cabinet_efficiency"
 
 STEPS = {
@@ -271,9 +168,6 @@ def collect(findings, game_files):
     # Which organization grants each special status, read from the
     # organizations rather than from the statuses. See gates.status_owners.
     extra = {"status_owners": svx_gates.status_owners(game_files)}
-    facts = modifier_facts(game_files)
-    names = game_modifier_names(game_files)
-    concepts = {}
 
     entries = collections.defaultdict(list)
     for row in findings:
@@ -303,25 +197,17 @@ def collect(findings, game_files):
                         for peer in dict.fromkeys(peers)],
                 }
             entries[axis].append({"sort": (-value, obj), "text": text, "gate": gate})
-        elif obj in SCALED or obj in CONDITIONAL:
-            # The label is this mod's own, not the game's `$STATIC_MODIFIER_NAME_x$`.
-            # Referencing the game's name looked strictly better — a rename
-            # followed for free — and on screen some of them came out blank:
-            # `parliament_outside_capital` and `peasants_percentage_in_country`
-            # rendered as a bare value with no text at all, while
-            # `is_bankrupt` in the same list rendered fine. Whatever separates
-            # them, a label that is sometimes empty is worse than a label that
-            # needs editing after a patch. See PITFALLS.
-            label = SCALED.get(obj) or CONDITIONAL[obj]
-            # The explanation is inline, in the same string, for the same
-            # reason: it was a game concept this mod defined and the hover came
-            # out empty on every one of the 41.
-            note = inline_note(obj, facts, obj in SCALED)
-            bracket = " #help %s#!" % note if note else ""
-            text = ("@hint! %s%s: #color_green %s+%.2f#!\\n"
-                    % (label, bracket, "до " if obj in SCALED else "", value))
-            entries[axis].append({"sort": (-value, obj), "text": text,
-                                  "gate": {"reach": [], "now": []}})
+        elif obj in SCALED:
+            entries[axis].append({
+                "sort": (-value, obj),
+                "text": "@hint! %s #help (масштабируется)#!: #color_green до +%.2f#!\\n"
+                        % (SCALED[obj], value),
+                "gate": {"reach": [], "now": []}})
+        elif obj in CONDITIONAL:
+            entries[axis].append({
+                "sort": (-value, obj),
+                "text": "@hint! %s: #color_green +%.2f#!\\n" % (CONDITIONAL[obj], value),
+                "gate": {"reach": [], "now": []}})
         elif obj.endswith(CABINET_SUFFIX):
             entries[axis].append({
                 "sort": (-99, obj),
@@ -338,97 +224,7 @@ def collect(findings, game_files):
             seen.add(row["text"])
             out.append(row)
         ordered[axis] = out
-    return ordered, concepts
-
-
-def game_modifier_names(game_files):
-    """Every `STATIC_MODIFIER_NAME_x` / `AUTO_MODIFIER_NAME_x` the game defines."""
-    names = {}
-    directory = os.path.join(game_files, "main_menu/localization/russian")
-    for source, kind in (("static_modifiers_l_russian.yml", "static_modifiers"),
-                         ("auto_modifiers_l_russian.yml", "auto_modifiers")):
-        path = os.path.join(directory, source)
-        if not os.path.isfile(path):
-            continue
-        with open(path, encoding="utf-8-sig", errors="replace") as handle:
-            for line in handle:
-                match = re.match(r"^ (STATIC|AUTO)_MODIFIER_NAME_(\w+):", line)
-                if match:
-                    names[match.group(2)] = (kind, match.group(0)[1:-1])
-    return names
-
-
-def percentish(quantity, threshold, obj=""):
-    """The threshold as a player reads it: a share as a percentage.
-
-    `state_religion_clergy multiply = 100 max = 1` reaches full size at 0.01,
-    which is arithmetically right and reads as nonsense; it is one percent of
-    the population. The quantity's own name does not always say it is a share —
-    here the modifier's does — so both are asked.
-    """
-    share = any(word in name for name in (quantity, obj)
-                for word in ("percentage", "ratio", "_percent"))
-    if share:
-        return "%g%%" % (threshold * 100)
-    return "%g" % threshold
-
-
-def inline_note(obj, facts, scaled):
-    """The short bracket that goes on the line itself.
-
-    Short because it shares the line with the label and the value, and because
-    the list is already long. What it carries is the one number a player cannot
-    get anywhere else: the value of the scaling quantity at which the modifier
-    is at full size, or the condition that switches it on.
-    """
-    fact = facts.get(obj) or {}
-    full = full_at(fact.get("scales"))
-    if full:
-        quantity, threshold = full
-        return "(масштабируется: максимум при %s = %s)" % (
-            quantity, percentish(quantity, threshold, obj))
-    trigger = fact.get("trigger")
-    # Only a trigger that carries a threshold says anything the label does not.
-    # "Наследник - адмирал (при heir ?= { is_admiral = yes })" is the label
-    # twice; "Армия больше ожидаемой (при army_size_percentage > 1.0)" is the
-    # answer to what "expected" means.
-    if trigger and re.search(r"[<>]=?\s*-?\d", trigger):
-        return "(при %s)" % trigger
-    if scaled:
-        return "(масштабируется, показан максимум)"
-    return ""
-
-
-def scaling_note(obj, facts):
-    """The explanation for one modifier, from what its own file says.
-
-    Three shapes, and the third is the honest one. An `auto_modifier` declares
-    `scales_with`, so the quantity and the value at which the modifier reaches
-    full size are both computable — 100 army tradition, twice the fort limit.
-    It may declare only `potential_trigger`, in which case the answer is the
-    condition rather than a number. A `static_modifier` declares neither: the
-    engine scales those when it attaches them and neither the shipped files nor
-    the defines say by how much, so the note says so instead of inventing a
-    figure.
-    """
-    fact = facts.get(obj) or {}
-    lines = []
-    full = full_at(fact.get("scales"))
-    if full:
-        quantity, threshold = full
-        lines.append("Растёт вместе с #Y %s#!, полная величина при #Y %s#!."
-                     % (quantity, percentish(quantity, threshold, obj)))
-    elif fact.get("scales"):
-        lines.append("Растёт вместе с #Y %s#!." % " ".join(
-            re.findall(r"(?:value|subtract|add) = ([A-Za-z_][\w:]*)", fact["scales"])))
-    if fact.get("trigger"):
-        lines.append("Действует, когда: #Y %s#!." % fact["trigger"])
-    if not lines:
-        lines.append("Величина растёт вместе с состоянием державы, а показанное "
-                     "число — её максимум. Насколько именно — решает движок: "
-                     "ни файлы игры, ни defines этого не публикуют.")
-    lines.append("#help Собрано из файлов игры аддоном подсказок.#!")
-    return "\\n".join(lines)
+    return ordered
 
 
 def write(path, text):
@@ -448,7 +244,7 @@ def main():
         findings = json.load(handle)
     pairs = axis_pairs(os.path.join(
         args.game_files, "in_game/common/societal_values/00_default.txt"))
-    entries, concepts = collect(findings, args.game_files)
+    entries = collect(findings, args.game_files)
 
     loc = [HEADER, "l_russian:",
            ' SVX_ALSO_PUSHES: "Также влияет на смещение:"',
@@ -616,11 +412,6 @@ def main():
     total = sum(len(v) for v in entries.values())
     print("%d hint lines: %d gated as available now, %d also listed as attainable"
           % (total, counts["now"], counts["soon"]))
-    facts = modifier_facts(args.game_files)
-    computed = sum(1 for obj in set(SCALED) | set(CONDITIONAL)
-                   if full_at((facts.get(obj) or {}).get("scales")))
-    print("%d scaling notes, %d of them with a computed threshold"
-          % (len(SCALED) + len(CONDITIONAL), computed))
 
 
 if __name__ == "__main__":

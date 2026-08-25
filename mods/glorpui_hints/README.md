@@ -194,45 +194,30 @@ The switch is per country rather than global: it is a reading preference of the
 person looking at the tooltip, and CMF's global variants store one value for the
 whole session, which is for rules rather than for what a player wants to see.
 
-### What «масштабируется» actually means
+### Why «масштабируется» says nothing more than that
 
-Every scaled and conditional line carries a short bracket, and what is in it
-depends on what the modifier's own file is willing to say:
+It was made to say more, twice, and both attempts came back off the screen.
 
-- an **`auto_modifier`** declares `scales_with`, an ordinary script value block,
-  so the multiplier is `((value + add - subtract) * multiply) / divide` and the
-  value at which the modifier reaches full size is arithmetic.
-  `army_tradition multiply = 0.01` is full at **100**;
-  `used_fort_limit_percentage subtract = 1.0` at **200%**;
-  `value = 0.5 subtract = used_fort_limit_percentage multiply = 2` at **0%**,
-  which is what "below half the fort limit" never said out loud. A share is
-  printed as a percentage — `state_religion_clergy multiply = 100 max = 1` is
-  full at 0.01, which is arithmetically right and reads as nonsense, so it says
-  **1%**.
-- it may declare only `potential_trigger`, and then the answer is the condition:
-  *Армия больше ожидаемой* is `army_size_percentage > 1.0`, which is the whole
-  of what "expected army" means. A trigger that only repeats its own label —
-  *Наследник - адмирал* is `heir ?= { is_admiral = yes }` — gets no bracket at
-  all; the rule is that a trigger must carry a threshold to be worth printing.
-- a **`static_modifier`** declares neither. The engine scales those when it
-  attaches them and neither the shipped files nor the defines say by how much,
-  so the line reads *(масштабируется, показан максимум)* and claims nothing
-  more. *Средняя грамотность* is one of these: the +0.10 is the maximum and
-  nothing in the files says what literacy reaches it.
+The information exists and is exact for part of it: an `auto_modifier` declares
+`scales_with`, an ordinary script value block, so the value at which the
+modifier reaches full size is arithmetic — `army_tradition multiply = 0.01` is
+full at 100, `used_fort_limit_percentage subtract = 1.0` at 200%. A
+`static_modifier` declares nothing and the engine scales it, so *Средняя
+грамотность* has no answer at all. That asymmetry is in
+[`research/engine.md`](../../docs/research/engine.md) in case it is ever wanted.
 
-41 notes, 13 of them with a computed threshold. The arithmetic declines anything
-whose shape it does not cover — two quantities subtracted from each other, a
-conditional block — rather than guessing, because a wrong threshold is worse
-than none.
+What killed it was not the arithmetic. **A hint line is one row of a
+`TooltipScrolledStringPairList`, and its left half is narrow.** Putting
+"(масштабируется: максимум при used_fort_limit_percentage = 200%)" in there
+truncated the labels themselves — *Традиции армии* rendered as «Традиции армии (
+…» and *Во время войны* as «Во вр …», with the bracket spilling across the
+value column. And where the modifier had nothing to declare, the honest
+"(масштабируется, показан максимум)" was two words saying what «до +0.10»
+already said.
 
-**This was a hover once, and it cost a run.** The first version put the
-explanation in a game concept the mod declared and took the label from the
-game's own `$STATIC_MODIFIER_NAME_x$`. Both rendered as nothing for some
-entries, with no error anywhere, and between them a line could lose every word
-it had — *Парламент вне столицы* came out as a bare `+0.20`. Both are backed
-out; [`PITFALLS.md`](../../docs/PITFALLS.md#localization) has the detail, and
-the run is in [`TESTLOG.md`](../../docs/TESTLOG.md). The bracket is inline in
-the same string now, which cannot fail.
+The attempt before that put it in a hover instead and failed differently — see
+[`PITFALLS.md`](../../docs/PITFALLS.md#localization). The line is back to the
+label, «(масштабируется)», and the number.
 
 ### Scaling versus conditional
 
@@ -384,8 +369,6 @@ renames comes along regardless.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The inline scaling notes.** Everything they replace was rendering before,
-  so what is unproven is the wording rather than the mechanism.
 - **The cabinet action and parliament issue gates.** What to look for:
   *Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
   *Поддержка строительства …* line instead of four.

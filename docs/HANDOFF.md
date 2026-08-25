@@ -252,25 +252,16 @@ unfiltered body is a plain string that cannot fail. The registration effect on
 declares a dependency on CMF. Tooltip lists go 102 → 136; the extra 34 are
 hidden unless the switch is on.
 
-**And every scaled or conditional line now says what its number means.** The
-owner's complaint was that «масштабируется, до +0.10» tells him nothing about how
-much literacy or how much fleet. Where the game's files answer it, they now do:
-an `auto_modifier` declares `scales_with`, which is an ordinary script value
-block, so the value at which the modifier reaches full size is arithmetic —
-`army_tradition multiply = 0.01` is full at 100, `used_fort_limit_percentage
-subtract = 1.0` at 200%, and *Армия больше ожидаемой* is exactly
-`army_size_percentage > 1.0`. Where they do not — every `static_modifier`, which
-is where *Средняя грамотность* lives — the line says so rather than inventing a
-figure, because the engine applies that scaling and neither the shipped files nor
-the defines publish it. 41 notes, 13 with a computed threshold.
-
-**This shipped once as a hover and came back broken.** The first version made
-the label the game's own `$STATIC_MODIFIER_NAME_x$` and the explanation a game
-concept this mod declared. Both rendered as nothing for some entries, silently,
-and between them a line could lose every word it had. Both are backed out and
-both are in [`PITFALLS.md`](PITFALLS.md#localization); the explanation is inline
-in the same string now, which cannot fail. A new check refuses any hint label
-made only of markup and references.
+**Saying more than «масштабируется» was tried twice and dropped.** The owner
+wanted to know how much literacy or how much fleet reaches the maximum. Part of
+that is exact — `auto_modifiers` declare `scales_with`, so the threshold is
+arithmetic — and part has no answer at all, because `static_modifiers` declare
+nothing and the engine scales them. The first attempt put it in a hover and the
+hover rendered empty; the second put it inline and it truncated the labels it
+shared a row with. Both are in [`PITFALLS.md`](PITFALLS.md); the arithmetic is
+kept in [`research/engine.md`](research/engine.md) so it is not derived a third
+time. The line reads label, «(масштабируется)», number — as it did before any of
+this.
 
 **Known gap, not yet work: English.** The added lines are Russian only. An
 English game finds no `SVX_*` keys and renders the two new blocks as raw keys —

@@ -38,6 +38,36 @@ What the dumps do *not* say is how something behaves, what a sensible argument
 is, or whether an effect does anything useful in a given scope. That still comes
 from vanilla and from the reference mods — and, in the end, from a run.
 
+## What a modifier says about its own scaling
+
+Two kinds of modifier push a societal value and they differ in what a mod can
+learn about them, which matters any time a tooltip wants to say "how much do I
+need".
+
+**`auto_modifiers` declare it.** `potential_trigger` is the condition that
+switches the modifier on, and `scales_with` is an ordinary script value block,
+so the multiplier is `((value + add - subtract) * multiply) / divide` and the
+quantity is at full size when that reaches 1:
+
+```
+army_tradition        scales_with = { value = army_tradition multiply = 0.01 }   full at 100
+over_fort_limit       scales_with = { value = used_fort_limit_percentage subtract = 1.0 }   full at 200%
+below_half_fort_limit scales_with = { value = 0.5 subtract = used_fort_limit_percentage multiply = 2 }   full at 0%
+larger_than_expected_army   potential_trigger = { army_size_percentage > 1.0 }   no scaling at all
+```
+
+**`static_modifiers` declare neither.** `average_literacy` is
+`monthly_towards_innovative = societal_value_monthly_move` and nothing else; the
+engine decides how to scale it when it attaches it, and neither
+`main_menu/common/static_modifiers/` nor `loading_screen/common/defines/` says by
+how much. So "what literacy reaches the full +0.10" has no answer in the files,
+and a mod that prints one is inventing it.
+
+`glorpui_hints` computed all of this once and then stopped printing it, for
+reasons of screen space rather than of correctness — see that mod's README. The
+arithmetic is worth writing down because deriving it took two passes over the
+game files.
+
 ## Mod layout
 
 EU5 splits a mod by *load context* at the top level, which is new compared to

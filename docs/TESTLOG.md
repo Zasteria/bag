@@ -566,6 +566,31 @@ file, and failing on a planted reference-only label.
 **Untested:** the inline notes. Everything they replace was rendering before the
 change, so the risk is the wording rather than the mechanism.
 
+### 2026-08-25 — the inline scaling notes, rejected on sight
+
+**Loaded:** `glorpui_hints` with the explanation inline in each hint line.
+**Observed:** it does not fit. The screenshots show the *labels* truncated —
+*Традиции армии* as «Традиции армии ( …», *Во время войны* as «Во вр …», *Доля
+крестьян в населении* as «Доля …» — with the bracket spilling across the value
+column. And where a modifier declares nothing, "(масштабируется, показан
+максимум)" says what «до +0.10» already said. The owner: "чёт супер гига пупер
+фу… просто пара бесполезных слов".
+**Verdict:** **reverted.** The hint text is byte-identical to the 2026-08-25
+version he approved; only the switch's keys are new on top of it. The left half
+of a `TooltipScrolledStringPairList` row is narrow and truncates rather than
+wraps — in [`PITFALLS.md`](PITFALLS.md#interface) now.
+
+The arithmetic behind the notes was correct and is kept in
+[`research/engine.md`](research/engine.md): `auto_modifiers` declare
+`scales_with` and `potential_trigger`, `static_modifiers` declare neither. It is
+recorded rather than used, so a later session does not derive it a third time.
+
+**One correction from the owner, not acted on at his request.** He believes
+"expected army" is set by the estates — what they expect the country to field.
+The file says only `army_size_percentage > 1.0`, which is a ratio against
+something the modifier does not name, so both can be true and the file does not
+settle it. Nothing in the mod depends on this any more.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

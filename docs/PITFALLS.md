@@ -131,6 +131,15 @@ lines have referenced `$building_type$` since the beginning and always worked �
 but "every label carries literal text of its own", so a reference can lose part
 of a line and never all of it.
 
+**The left half of a `TooltipScrolledStringPairList` row is narrow, and it
+truncates rather than wraps.** A hint line is `@hint! <label>: <value>`, and the
+label has about as much room as a short noun phrase. Adding a parenthetical to
+it — "(масштабируется: максимум при used_fort_limit_percentage = 200%)" — did
+not make the row taller: it cut the *label* off at «Традиции армии ( …» and
+«Во вр …» and spilled the rest across the value column. Nothing errors, and it
+only shows on a screenshot. Whatever a hint line has to say has to fit in a few
+words, or belong somewhere that is not that row.
+
 **A mod-defined game concept with no texture renders as nothing.** The same
 change made «(масштабируется)» a game concept so the explanation could be a
 hover: `[Concept('svx_scale_army_tradition','(масштабируется)')|e]`, with the
