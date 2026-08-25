@@ -20,6 +20,23 @@ whichever CMF is in `reference/`.
 put the stored value out of range, so nothing the player picked matched any
 branch. Symptom: menu looks correctly filled in, nothing downstream reacts.
 
+**A comment saying a trigger was confirmed is not a confirmation.**
+`gates.py` gated 492 religious aspect hints on `country_religion = religion:X`,
+under a comment reading "confirmed in common/religious_aspects". It is not there
+and never was: `country_religion` appears nowhere in the game's script and is
+not in the engine's trigger dump. What those files carry is
+`religion = calvinist` — the aspect declaring its own religion, a different
+thing in a different scope. The country trigger is `religion = religion:X`, 598
+uses in the game's own `common/`.
+
+Nothing caught it for months because a wrong trigger name in a
+`customizable_localization` gate does not stop the mod loading; the gate simply
+never passes and the lines never appear, which looks exactly like a country not
+qualifying for them. It was found the day a checker started comparing every
+trigger name in the file against what exists. **Put the confirmation in a
+checker, not in a comment** — a comment records what someone believed once, and
+a checker re-establishes it on every run.
+
 **A `building_type` filter receives `root` and nothing else.** Not
 `scope:target`, whatever the comment at the top of vanilla's
 `58_building_type.txt` says. Reading it logs an error on every pass of the list.

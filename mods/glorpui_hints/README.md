@@ -96,6 +96,10 @@ disappear when the country cannot have the thing, and 78 more are listed under
 | Chivalric orders | `has_chivalric_order = yes` |
 | Buildings | the object's own `country_potential` and `allow` blocks, verbatim |
 | Employment systems | `NOT = { has_employment_system = employment_system:X }`, for itself and for every stronger option |
+| International organizations | `exists = international_organization:X` + `can_join_international_organization = international_organization:X` |
+| Status in an organization | membership of, or joinability of, the organization that grants it |
+| Missions | the mission's own `visible` block, verbatim — which opens with `game_has_missions_enabled = yes` |
+| Parliament types | the object's own `potential` and `allow` blocks, verbatim |
 
 Argument forms come from `reference/game/docs/triggers.log`, the output of the
 console's `script_docs`, where each trigger states its **Supported Scopes** and
@@ -110,8 +114,34 @@ it is already chosen but when any other option is chosen that pushes the same
 axis at least as hard. With *Equality* (+0.10) active, every
 `capitalism_prioritising_*` (+0.05) and *Equality* itself drop out.
 
-Left ungated: missions, international organizations and parliament types — the
-roster has no "the country has this object" trigger for them.
+**The organizations, missions and parliament types were the ungated ones**, and
+they are the four the owner asked for on 2026-08-25: the Italian leagues showing
+up for a country that can never join one, parliaments a monarchy cannot have,
+and missions listed in a game where missions are switched off. Each is gated by
+the game's own answer rather than by a guess:
+
+- **`can_join_international_organization`** is an engine trigger, country scope,
+  organization target — it is in the engine dump `reference/game/docs/triggers.log` and this mod simply asks
+  it. The organization's own `can_join_trigger` cannot be copied instead: it is
+  written against `scope:recipient`, which *is* the organization, and a country
+  scoped customizable localization has no such scope. `exists` comes first
+  because most of these are situational — the Italian leagues exist only while
+  the Italian Wars run — and it is the guard the game puts in front of its own
+  organization checks.
+- **Missions** take the mission's own `visible` block verbatim, which every one
+  of them opens with `game_has_missions_enabled = yes` — the game's own scripted
+  trigger for the Missions game rule, `NOT = { has_game_rule = mission_packs_disabled }`.
+  So a game with missions switched off loses those lines outright. `enabled` is
+  deliberately not copied: it answers "can this be finished now", which changes
+  month to month, where a hint only needs "is this a thing this country can be
+  offered".
+- **Parliament types** take `potential` and `allow` verbatim, the same shape as
+  buildings. The ones belonging to an international organization gate on
+  `international_organization_type`, which is asked of an organization and not
+  of a country, so those are left ungated rather than copied into the wrong
+  scope.
+
+Nothing is left ungated now except what a trigger cannot reach.
 
 Left out entirely: `traits`, `regencies`, `disasters` (situational, not the
 player's choice) and the Byzantine `auto_modifiers` branch (hellenization and
@@ -203,6 +233,21 @@ is defined here or by Glorp UI, each `[Localize(...)]` key exists, each
 something. A `.gui` asking for a name nothing defines does not fail to load — it
 prints zero, or the raw key, which is the exact fault this mod exists to repair.
 
+**And every trigger the gates call is a name that exists.** A mistyped trigger is
+a load error — but in the *player's* game, a round trip away. Three sources
+answer it together: the engine's dump, the game's `scripted_triggers/`, and
+every name the game itself writes in the same position anywhere in `common/`.
+The third is not optional: `religion = religion:catholic` and
+`culture = culture:low_frankish` are scope comparisons, appear in the dump
+nowhere, and the game writes them 598 and 1 418 times.
+
+The check earned itself on the first run. `country_religion = religion:X` gated
+**492** religious aspect lines and `country_religion` does not exist — not in the
+dump, not anywhere in the game's script. The comment in `gates.py` claimed it
+was confirmed in `common/religious_aspects`; what those files carry is
+`religion = calvinist`, the aspect declaring its own religion, which is a
+different thing in a different scope. It is `religion = religion:X` now.
+
 ## What it costs the interface
 
 `python3 tools/guicost.py` prices it at **102 widgets in one file, no
@@ -251,12 +296,14 @@ renames comes along regardless.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The rebuilt lists.** Rebuilt 2026-08-25 against the game files now in
-  `reference/`: 243 hint lines became 264 and 107 gated became 138, with nothing
-  lost. The visible change is the defensive axis going from 9 lines to 15 and
-  five Italian and foreign leagues appearing. None of that has been on screen.
-- **English.** The added lines are Russian only. In an English game the `SVX_*`
-  keys are missing and the new blocks render as raw keys — the same fault this
-  mod fixes for Glorp UI, in the other direction. Fixing it means English labels
-  for the fourteen category nouns and the two block titles, which is a change to
-  the generator, not to the files.
+- **The availability gates added 2026-08-25** — international organizations,
+  missions, parliament types, and the 492 religious aspect lines whose gate was
+  repaired. What to look for: the Italian and foreign leagues gone unless you
+  can join one, missions gone in a game with missions switched off, and the
+  religious aspect lines *appearing*, which they never did before.
+- **English.** Out of scope by the owner's decision unless the mod is ever
+  published. The added lines are Russian only, so an English game finds no
+  `SVX_*` keys and renders the new blocks as raw keys. Fixing it is a change to
+  the generator — English for fourteen category nouns and two block titles — not
+  to the files.
+

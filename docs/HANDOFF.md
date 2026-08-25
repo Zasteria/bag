@@ -211,6 +211,34 @@ lines to 15. `python3 mods/glorpui_hints/tools/generate.py --game-files
 reference/game` is the command; it is not part of `tools/refresh.py` because the
 scan takes a minute and the game files move far less often than Glorp UI does.
 
+**Filtering by availability, 2026-08-25 — the owner's ask, and it is done.** He
+wants the lists to stop offering what his country can never take: Italian
+leagues he cannot join, parliaments a monarchy cannot have, missions in a game
+with missions switched off. All three were the ungated categories, and all three
+turned out to have an answer in the game's own vocabulary rather than needing
+one invented — `can_join_international_organization` from the engine dump,
+`game_has_missions_enabled` from the game's own scripted triggers, and
+`potential`/`allow` copied verbatim for parliament types. Gated lines went from
+138 to **167**. The mod's README has the table.
+
+**That work found a live bug that had been shipping.** 492 religious aspect
+lines were gated on `country_religion`, a trigger that does not exist anywhere —
+so those lines never appeared, indistinguishably from a country not qualifying.
+It is `religion = religion:X` now, and a new check in
+`mods/glorpui_hints/tools/generate.py` compares every trigger name in the gates
+against the engine dump, the game's scripted triggers, and every name the game
+itself writes in that position. See [`PITFALLS.md`](PITFALLS.md#script).
+
+**Still wanted, not built: a toggle to see the unfiltered pool.** The owner asked
+for a switch that puts everything back, for the rare game where he means to
+fight his way into a region he starts nowhere near. The mechanism is CMF's mod
+menu — `CMMSettingValue` and `CMMSettingIsRegistered` are GUI functions, so the
+`.gui` can choose between a filtered body key and a full one with no script
+involved, at the cost of a second set of 34 tooltip lists per side and a CMF
+dependency this mod does not yet declare. Deliberately left for after the
+filtering has been in a game, because CMM registration is the single most
+silent-failing thing in this repository.
+
 **Known gap, not yet work: English.** The added lines are Russian only. An
 English game finds no `SVX_*` keys and renders the two new blocks as raw keys —
 the same fault this mod fixes for Glorp UI, pointing the other way. It is a

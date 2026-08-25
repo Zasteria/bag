@@ -63,6 +63,8 @@ EXCLUSIVE_SOURCES = {"employment_systems"}
 # Where the object definitions live, for the availability gates.
 SOURCE_DIRS = {
     "building_types": "in_game/common/building_types",
+    "missions": "in_game/common/missions",
+    "parliament_types": "in_game/common/parliament_types",
     "religious_aspects": "in_game/common/religious_aspects",
     "religious_schools": "in_game/common/religious_schools",
     "estates": "in_game/common/estates",
@@ -162,6 +164,9 @@ def collect(findings, game_files):
     caches = {}
     for source_type, relative in SOURCE_DIRS.items():
         caches[source_type] = svx_gates.scan_objects(game_files, relative)
+    # Which organization grants each special status, read from the
+    # organizations rather than from the statuses. See gates.status_owners.
+    extra = {"status_owners": svx_gates.status_owners(game_files)}
 
     entries = collections.defaultdict(list)
     for row in findings:
@@ -175,7 +180,7 @@ def collect(findings, game_files):
             label, registry = CATALOG_SOURCES[source_type]
             text = ("@hint! %s #TOOLTIP:%s,%s #L $%s$#!#!: #color_green +%.2f#!\\n"
                     % (label, registry, obj, obj, value))
-            gate = svx_gates.gate_for(source_type, obj, caches.get(source_type, {}))
+            gate = svx_gates.gate_for(source_type, obj, caches.get(source_type, {}), extra)
             if source_type in EXCLUSIVE_SOURCES:
                 # Suppress once the country holds this one, or any peer that
                 # already pushes this axis at least as hard.

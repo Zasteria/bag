@@ -80,7 +80,40 @@ def scan_objects(root, relative_dir):
     return objects
 
 
-def gate_for(source_type, key, objects):
+def status_owners(root):
+    """special status -> the international organization that grants it.
+
+    Read out of `special_statuses_implemented` rather than written down: the
+    status's own `can_bestow_trigger` names the granting organization as
+    `scope:recipient`, which a country scoped customizable localization does not
+    have, so the organization has to be found from the other side.
+    """
+    owners = {}
+    for key, body in scan_objects(root, "in_game/common/international_organizations").items():
+        listed = sub_block(body, "special_statuses_implemented")
+        if not listed:
+            continue
+        for status in listed.split():
+            owners[status] = key
+    return owners
+
+
+def _needs_a_scope(block):
+    """True when a trigger block reaches for something a country scope lacks.
+
+    `scope:recipient`, `scope:source` and `scope:actor` are handed in by the
+    system that evaluates the block in the game — an organization inviting a
+    country, an interaction being set up. A customizable localization of
+    `type = country` has none of them, so a block naming one cannot be copied
+    and the entry is left ungated instead. `international_organization_type`
+    is the same problem by another name: it is asked of an organization.
+    """
+    return any(token in block for token in
+               ("scope:recipient", "scope:source", "scope:actor", "scope:target",
+                "international_organization_type"))
+
+
+def gate_for(source_type, key, objects, extra=None):
     """Return {"reach": [...], "now": [...]} trigger lines for one hint.
 
     "reach" is what the country can never change on a whim - its tag, religion,
@@ -91,14 +124,76 @@ def gate_for(source_type, key, objects):
     Empty lists mean unconditional.
     """
     body = objects.get(key, "")
+    extra = extra or {}
+
+    if source_type == "international_organizations":
+        # `can_join_international_organization` is the engine's own answer, in
+        # the country scope and taking the organization as a target — both
+        # confirmed in `docs/triggers.log`. The organization's own
+        # `can_join_trigger` cannot be copied instead: it is written against
+        # `scope:recipient`, which is the organization, and a country scoped
+        # customizable localization has no such scope.
+        #
+        # `exists` first because most of these are situational — the Italian
+        # leagues only exist while the Italian Wars run — and it is the same
+        # guard the game puts in front of its own organization checks.
+        lines = ["exists = international_organization:%s" % key,
+                 "can_join_international_organization = international_organization:%s" % key]
+        return {"reach": lines, "now": lines}
+
+    if source_type == "international_organization_special_statuses":
+        owner = extra.get("status_owners", {}).get(key)
+        if not owner:
+            return {"reach": [], "now": []}
+        lines = ["exists = international_organization:%s" % owner,
+                 "OR = { is_member_of_international_organization = international_organization:%s"
+                 " can_join_international_organization = international_organization:%s }"
+                 % (owner, owner)]
+        return {"reach": lines, "now": lines}
+
+    if source_type == "missions":
+        # Every mission's `visible` opens with `game_has_missions_enabled = yes`,
+        # the game's own scripted trigger for the Missions game rule
+        # (`NOT = { has_game_rule = mission_packs_disabled }`). Copying the whole
+        # block takes that and the mission's own conditions together.
+        #
+        # `enabled` is deliberately not copied: it answers "can this be finished
+        # now", which changes month to month, where the hint only needs "is this
+        # a thing this country can be offered".
+        visible = sub_block(body, "visible")
+        lines = ["game_has_missions_enabled = yes"]
+        if visible and not _needs_a_scope(visible):
+            lines = [" ".join(visible.split())]
+        return {"reach": lines, "now": lines}
+
+    if source_type == "parliament_types":
+        # The same shape as building types: the object's own blocks, verbatim.
+        # Parliament types belonging to an international organization gate on
+        # `international_organization_type`, which is not a country trigger, so
+        # those are left ungated rather than copied into the wrong scope.
+        lines = []
+        for name in ("potential", "allow"):
+            block = sub_block(body, name)
+            if block and not _needs_a_scope(block):
+                lines.append(" ".join(block.split()))
+        return {"reach": lines, "now": lines}
 
     if source_type == "religious_aspects":
         religions = re.findall(r'^\s*religion\s*=\s*([a-z_0-9]+)\s*$', body, re.M)
         reach = []
         if religions:
-            # `country_religion = religion:X` - confirmed in common/religious_aspects
+            # `religion = religion:X` in a country scope — 598 uses in the game's
+            # own common/, and the form CMF and Construction Manager use too.
+            #
+            # This said `country_religion = religion:X` until 2026-08-25, on a
+            # comment claiming it was confirmed in common/religious_aspects. It
+            # was not: `country_religion` appears nowhere in the game's script
+            # and is not in the engine's trigger dump. What the aspect files
+            # carry is `religion = calvinist`, the aspect declaring its own
+            # religion, which is a different thing in a different scope. 492
+            # gates called a trigger that does not exist.
             reach.append("OR = { %s }" % " ".join(
-                "country_religion = religion:%s" % r for r in sorted(set(religions))))
+                "religion = religion:%s" % r for r in sorted(set(religions))))
         # `has_religious_aspect = religious_aspect:X` - confirmed in the same files
         now = reach + ["NOT = { has_religious_aspect = religious_aspect:%s }" % key]
         enabled = sub_block(body, "enabled")

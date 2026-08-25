@@ -176,6 +176,95 @@ def check_localization_conventions(problems: list[str], ru_hints: str) -> None:
                 problems.append("%s:%d: brackets do not balance" % (name, number))
 
 
+def known_triggers() -> set[str]:
+    """Every name a trigger clause may legitimately start with.
+
+    Three sources, and all three are needed:
+
+    * the engine's own dump, which is the authority on named triggers;
+    * the game's `scripted_triggers/`, for things like
+      `game_has_missions_enabled` that the dump does not know about;
+    * **every name the game itself writes in the same position** anywhere in
+      its `common/` tree. Not everything valid is a named trigger:
+      `religion = religion:catholic` and `culture = culture:low_frankish` are
+      scope comparisons, appear in the dump nowhere, and are written 598 and
+      1 418 times by the game. Without this third source the check reports them
+      and gets ignored, which is worse than not checking.
+
+    What survives all three is a name nothing in the game has ever written —
+    which is what `country_religion` was, in 492 gates.
+    """
+    names = set(re.findall(
+        r"^## (\w+)", (refs.GAME / "docs/triggers.log").read_text(
+            encoding="utf-8", errors="replace"), re.M))
+    scripted = refs.GAME_COMMON / "scripted_triggers"
+    if scripted.is_dir():
+        for path in scripted.glob("*.txt"):
+            names |= set(re.findall(r"^(\w+)\s*=\s*\{", path.read_text(
+                encoding="utf-8-sig", errors="replace"), re.M))
+    for path in refs.GAME_COMMON.rglob("*.txt"):
+        names |= set(TRIGGER_CALL.findall(path.read_text(
+            encoding="utf-8-sig", errors="replace")))
+    return names
+
+
+# A `name = ` at the start of a trigger clause. Values, targets and the right
+# hand side of a comparison are not names being called.
+TRIGGER_CALL = re.compile(r"(?:^|[{\s])([a-z_][a-z_0-9]*)\s*(?:=|<|>|<=|>=)")
+# Logic and control words, which are the engine's own and not in the dump.
+TRIGGER_KEYWORDS = {
+    "and", "or", "not", "nor", "nand", "if", "else", "else_if", "limit",
+    "trigger_if", "trigger_else", "trigger_else_if", "custom_tooltip",
+    "custom_description", "hidden_trigger", "value", "add", "subtract",
+    "multiply", "divide", "min", "max", "desc", "type", "text",
+    "localization_key", "trigger", "scale", "count", "percent", "amount",
+}
+
+
+def trigger_blocks(text: str) -> str:
+    """Just the insides of every `trigger = { ... }`, joined.
+
+    The rest of the file is definition names and `localization_key = X`, and
+    reading those as trigger calls reports every gate in the mod as unknown.
+    """
+    out = []
+    for match in re.finditer(r"\btrigger\s*=\s*\{", text):
+        depth = 0
+        for index in range(match.end() - 1, len(text)):
+            if text[index] == "{":
+                depth += 1
+            elif text[index] == "}":
+                depth -= 1
+                if depth == 0:
+                    out.append(text[match.end():index])
+                    break
+    return "\n".join(out)
+
+
+def check_triggers_exist(problems: list[str]) -> None:
+    """Every trigger the gates call is one the engine or the game defines.
+
+    A mistyped trigger name is a load error, not a quiet nothing — but it is a
+    load error in the *player's* game, found by them, a round trip away. The
+    names come out of the shipped files and the engine's own dump, so checking
+    them costs nothing and closes the one way this file can be wrong by a
+    keystroke.
+    """
+    known = known_triggers()
+    if not known:
+        problems.append("no triggers.log in reference/ — cannot check trigger names")
+        return
+    seen: dict[str, int] = {}
+    for name in TRIGGER_CALL.findall(trigger_blocks(EXTRA_CUSTOM.read_text(
+            encoding="utf-8-sig"))):
+        if name in TRIGGER_KEYWORDS or name in known:
+            continue
+        seen[name] = seen.get(name, 0) + 1
+    for name, count in sorted(seen.items()):
+        problems.append("%s: no trigger named %s (%d call%s)"
+                        % (EXTRA_CUSTOM.name, name, count, "" if count == 1 else "s"))
+
+
 def rebuild_extra(game_files: Path) -> int:
     """Re-scan the game and rewrite the three generated files."""
     findings = MOD.parent.parent / "sv_findings.json"
@@ -227,6 +316,7 @@ def main(argv: list[str]) -> int:
     check_glorp_list_is_current(problems, glorp)
     check_references_resolve(problems, glorp, text)
     check_localization_conventions(problems, text)
+    check_triggers_exist(problems)
     if problems:
         print()
         for problem in problems:

@@ -446,6 +446,23 @@ and *Парламент в столице*. Defensive goes from 9 lines to 15.
 growing by six lines and new international organizations appearing; one hover
 over a societal value shows it.
 
+### 2026-08-25 — the rebuilt hint lists
+
+**Loaded:** `glorpui_hints` with the lists rebuilt from the game files now in
+`reference/`.
+**Expected:** more lines per direction, and no raw keys from the 21 new gated
+entries.
+**Observed:** "всякого в списках действительно больше. Каких-то глючных ключей и
+т.п. не вижу. Всё работает ок."
+**Verdict:** **the rebuild is confirmed.** 264 hint lines and 138 gates render
+correctly, which also confirms the pipeline end to end for the first time inside
+this repository: game files in `reference/` → scan → generator → mod → screen.
+
+**English is out of scope by the owner's decision**, unless the mod is ever
+published: "английским языком заниматься не планирую, по крайней мере пока не
+появится желание выложить этот мод в общий доступ." The gap stays recorded in
+the mod's README; it is not work.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
