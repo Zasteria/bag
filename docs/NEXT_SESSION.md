@@ -121,7 +121,8 @@ so the setting tests the mod before it is written.
 
 ## The mod loop is finished — do not rebuild it
 
-`.\tools\mods.ps1` is the owner's tool for everything about a mod updating:
+`mods.bat` in the repository root (over `tools/mods.ps1`, over `tools/mods.py`)
+is the owner's tool for everything about a mod updating:
 his whole subscription against the workshop, steamcmd into the game's own
 folder, the copies here, moving a mod between `reference/mods/` and
 `reference/playset/`, the commit and the push. It was built because he said in

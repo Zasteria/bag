@@ -25,6 +25,7 @@ itself, so read the table before designing a test.
 | Does the merged `glorpui_hints` load and work? | Yes. Both blocks render, in Russian, on the same save. | TESTLOG 2026-08-25 |
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
 | Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
+| Why keep `nd_ru` when `nation_destinies_rus` translates 93% of the mod? | **Because that one is Google's machine translation and behind on versions.** The owner loads `nd_ru` *after* it on purpose: where ours has a key, his good translation wins; everywhere else the machine one fills in. This was decided before this repository existed, and has now been asked twice. | [below](#somebody-else-has-translated-national-destinies-nearly-all-of-it) |
 
 **And one thing the owner has already rejected as an answer:** "report it to
 Paradox". They know it is a base-game defect and know other players have it. The
@@ -690,7 +691,8 @@ and then into `reference/`, rebuilt, committed and pushed, all from the menu.
 The playset came in the same evening: **17 mods, 18 MB of text**, which is the
 first time anything here could see more than five of the twenty-two.
 
-**He brings them over from a menu, `.\tools\mods.ps1`, and that menu is not
+**He brings them over from a menu — `mods.bat` in the repository root, which is
+there so the command never has to be looked up again — and that menu is not
 only about this repository.** It reads his whole subscription out of Steam's own
 `appworkshop_3450310.acf`, says which mods the workshop has moved on since Steam
 downloaded them, fetches those with steamcmd into the game's workshop folder so
@@ -764,10 +766,21 @@ mod `nd_ru` translates. Measured against the base mod's English, on the same day
 faults are inside that overlap — so on those keys ours is the sound one, and
 whichever of the two mounts *later* wins them.
 
-This is the owner's call and nobody else's, and it has not been put to him yet:
-keep ours loaded after it and repair those keys while covering a tenth; drop
-`nd_ru` and take the 93%; or keep both and accept that load order decides. What
-is *not* in doubt is the arithmetic above — it is reproducible from the tree.
+**The decision was made long ago and is not open.** That mod is machine
+translation — Google's — and it lags the base mod's versions; the owner runs it
+*under* `nd_ru` deliberately, so that a key we have translated properly shows
+our text and everything else falls back to the machine one rather than to
+English. `nd_ru` is therefore not competing with it and does not need to reach
+93% to be worth having: every key it covers is a key upgraded from machine to
+human, and the 32 broken-markup keys in the overlap are repaired by the same
+mechanism.
+
+**Do not ask him about this again, and do not propose dropping `nd_ru`.** It
+has come up twice; the numbers above exist to make the arrangement legible, not
+to reopen it. What matters practically: **`nd_ru` must mount after
+`nation_destinies_rus`** — if a load order ever puts it first, our translation
+becomes invisible and the symptom is machine-Russian on keys we know we
+translated.
 
 Our 53 English leftovers are deliberate and correct: they are `_CATEGORY` keys
 pointing at vanilla category names and proper nouns that stay as they are

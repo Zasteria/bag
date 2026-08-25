@@ -248,12 +248,16 @@ class World:
 
 
 def gather(configured: dict, ask_steam: bool = True) -> World:
-    content = workshop_content(configured.get("workshop"))
+    with Doing("ищу папку мастерской Steam") as step:
+        content = workshop_content(configured.get("workshop"))
+        step.finish(str(content) if content else "не нашёл")
     world = World(content=content)
     if content is None:
         return world
 
-    times = installed_times(content)
+    with Doing("читаю, что Steam установил") as step:
+        times = installed_times(content)
+        step.finish("%d мод(ов)" % len(times))
     # What this tool put there itself. Steam's own record still names the
     # version *it* downloaded, so without this a mod updated from here reads as
     # outdated for ever — right up until Steam happens to fetch it again.
@@ -263,7 +267,9 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
         except (TypeError, ValueError):
             continue
     tracked = {item.id: item for item in workshop.tracked()}
-    in_reference = workshop.local_copies()
+    with Doing("сверяю с копиями в репозитории") as step:
+        in_reference = workshop.local_copies()
+        step.finish("reference: %d" % len(in_reference))
     in_playset = {}
     for mod in refs.playset():
         found = re.search(r"(\d{6,})", mod.folder)
@@ -295,11 +301,14 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
                                   version=copy.version if copy else None))
 
     if ask_steam:
-        try:
-            details = workshop.steam_details([m.id for m in world.mods])
-            world.asked_steam = True
-        except SystemExit:
-            details = {}
+        with Doing("спрашиваю мастерскую про %d мод(ов)" % len(world.mods)) as step:
+            try:
+                details = workshop.steam_details([m.id for m in world.mods])
+                world.asked_steam = True
+                step.finish("ответила")
+            except SystemExit:
+                details = {}
+                step.finish("Steam не ответил — версии покажу по тому, что записано")
         for mod in world.mods:
             detail = details.get(mod.id, {})
             mod.title = detail.get("title", "")
@@ -314,6 +323,59 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
 
 def say(text: str = "") -> None:
     print(text, flush=True)
+
+
+class Doing:
+    """Say what is happening *before* it happens, and spin while it does.
+
+    The first thing this tool does is read a Steam folder, parse Steam's own
+    installed-items record and ask the workshop about twenty-two mods over the
+    network — several seconds in which the old version printed nothing at all,
+    which is indistinguishable from a hang.
+    """
+
+    FRAMES = "|/-\\"
+
+    def __init__(self, text: str) -> None:
+        self.text = text
+        self.done = False
+        self.thread: object | None = None
+
+    def __enter__(self) -> "Doing":
+        self.live = sys.stdout.isatty()
+        if not self.live:
+            print("  %s ..." % self.text, flush=True)
+            return self
+        import threading
+        # Two trailing spaces: the spinner eats one and the answer that replaces
+        # it still has a space in front of it.
+        print("  %s ...  " % self.text, end="", flush=True)
+        self.thread = threading.Thread(target=self._spin, daemon=True)
+        self.thread.start()
+        return self
+
+    def _spin(self) -> None:
+        frame = 0
+        while not self.done:
+            print("\b%s" % self.FRAMES[frame % len(self.FRAMES)], end="", flush=True)
+            frame += 1
+            time.sleep(0.12)
+
+    def finish(self, note: str = "готово") -> None:
+        """The answer replaces the spinner, so the line ends up worth reading."""
+        self.note = note
+
+    def __exit__(self, *exception: object) -> None:
+        self.done = True
+        if self.thread is not None:
+            self.thread.join(timeout=0.5)          # type: ignore[union-attr]
+        note = getattr(self, "note", "готово")
+        if exception and exception[0] is not None:
+            note = "не вышло"
+        if self.live:
+            print("\b%s" % note, flush=True)
+        else:
+            print("  %s: %s" % (self.text, note), flush=True)
 
 
 def ask(prompt: str, default: str = "") -> str:
@@ -466,14 +528,14 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
 
     for mod in got:
         target = content / mod.id
-        if target.exists():
-            shutil.rmtree(target, ignore_errors=True)
-        shutil.copytree(downloaded / mod.id, target)
-        size = sum(p.stat().st_size for p in target.rglob("*") if p.is_file())
-        mod.installed = mod.published or int(time.time())
-        installed = configured.setdefault("installed", {})
-        installed[mod.id] = mod.installed
-        say("  %-44s %9s -> %s" % (mod.name[:44], workshop.human(size), target))
+        with Doing("копирую %s" % mod.name[:40]) as step:
+            if target.exists():
+                shutil.rmtree(target, ignore_errors=True)
+            shutil.copytree(downloaded / mod.id, target)
+            size = sum(p.stat().st_size for p in target.rglob("*") if p.is_file())
+            mod.installed = mod.published or int(time.time())
+            configured.setdefault("installed", {})[mod.id] = mod.installed
+            step.finish("%s -> %s" % (workshop.human(size), target))
     settings_write(configured)
     say()
     say("Готово. Игра берёт моды из этой папки, так что следующий запуск —")
@@ -531,14 +593,17 @@ def update_reference(world: World, chosen: list[Mod] | None = None) -> list[str]
         item = tracked[mod.id]
         existing = here.get(mod.id)
         folder = workshop.folder_for(item, source, existing)
-        files, size = workshop.copy_in(source, refs.MODS / folder)
-        note = ""
-        if existing is not None and existing.folder != folder:
-            shutil.rmtree(existing.path, ignore_errors=True)
-            note = "  (заменил %s)" % existing.folder
+        # National Destinies is a hundred megabytes; a copy of it is not instant
+        # and the line has to appear before the wait, not after it.
+        with Doing("копирую %s" % item.key) as step:
+            files, size = workshop.copy_in(source, refs.MODS / folder)
+            note = ""
+            if existing is not None and existing.folder != folder:
+                shutil.rmtree(existing.path, ignore_errors=True)
+                note = ", заменил %s" % existing.folder
+            step.finish("%s: %d файлов, %s%s"
+                        % (folder, files, workshop.human(size), note))
         done.append(item.key)
-        say("  %-24s %-40s %4d файлов %9s%s"
-            % (item.key, folder, files, workshop.human(size), note))
     return done
 
 
