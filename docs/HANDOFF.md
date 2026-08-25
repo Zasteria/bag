@@ -93,22 +93,27 @@ unreachable and stay as they are. Pointing them at the neighbour would be worse
 than leaving them — Even and Evenk are two different peoples. The reasoning sits
 in `fixes/observed.txt` so it is not derived a second time.
 
-**And a bigger thing the culture list exposed — unfixed, and unmeasured on
-purpose.** All **1755** `*_culture_tt` keys in
-`EU5_customizable_localization_ru_culrel_l_russian.yml` hold a bare number, and
-that number is exactly the key's own line number minus two, for all 1755 with no
-exceptions. They are used as `#TOOLTIP:CULTURE,$X_culture_tt$,` — where a culture
-key belongs. So every culture tooltip in the Russian localization is handed a
-line number, because whoever generated that file wrote line numbers into the
-tooltip targets.
+**A thing the culture list exposed, checked, and closed.** All 1755
+`*_culture_tt` keys in `EU5_customizable_localization_ru_culrel_l_russian.yml`
+hold a bare number equal to their own line number minus two — for all 1755, with
+no exceptions, and the 624 keys of the `X_tt` family alongside them are numeric
+too. They are used as `#TOOLTIP:CULTURE,$X_tt$,`, where a culture key looks like
+it belongs, so this was written up here as "every culture tooltip in the Russian
+localization is handed a line number".
 
-None of that shows in the text: the culture name renders, only the hover target
-is wrong, and a wrong tooltip target is the quiet kind of failure. **It has not
-been seen failing in game and should not be repaired before it has** — 1755 keys
-is too large a change to make on inference. The check is one hover: point at a
-culture name and see whether a tooltip appears. If it does not, the repair is
-mechanical and now possible, because 1751 of the 1755 prefixes are real culture
-ids and `X_culture_tt` should hold `X_culture`.
+**That conclusion was wrong, and a run said so.** The owner hovered the culture
+list in a location panel on 2026-08-25: the tooltips are complete and correct —
+traditions, language, culture groups, the countries the culture is primary for.
+The text he hovered is `westphalian_cadj`, which is literally
+`#TOOLTIP:CULTURE,$westphalian_tt$, #L Вестфальск#!#!`, and `westphalian_tt`
+holds `"1052"` on line 1054. So the number *is* what the engine wants there, or
+the engine ignores the argument; either way nothing is broken.
+
+**Do not repair this.** The line-number correlation is a real and verifiable
+fact about the file and it means nothing for behaviour. Changing 1755 working
+keys on the strength of it would have been the most expensive mistake in this
+repository. What the episode is actually worth is in
+[`PITFALLS.md`](PITFALLS.md#localization).
 
 **And the rule found a hole in the checker.** `locscan.py`'s key regex required a
 line to end at the closing quote, so a key with a trailing comment —
@@ -191,14 +196,20 @@ symptom in game: the templates parse, the mod loads, and the player silently
 gets a stale copy of Glorp UI's list. It is in
 [`PITFALLS.md`](PITFALLS.md#loading) now.
 
-**What it cannot do here.** The extra hint lists are compiled out of the game's
-`in_game/common/` tree — `societal_values/`, `laws/`, `static_modifiers/`,
-`religious_aspects/`, `employment_systems/` and a dozen more — and
-`reference/game/in_game/common/` carries seven directories, none of them those.
-So the added lines are frozen at whatever game version they were built against,
-and a patch that adds or renames a source is invisible here. The list of what
-would have to be uploaded is in the mod's README. Until then
-`--game-files <unpacked game>` is the only way to rebuild that half.
+**It can be rebuilt here now, and it has been.** The extra hint lists compile
+out of the game's own `common/` tree, none of which was in `reference/`. The
+owner ran `tools/extract_game_files.ps1` on 2026-08-25 and all of it is here:
+the source scan reports **1426 pushes across 23 source types**, complete. Two of
+the directories are not under `in_game/` at all — `static_modifiers` and
+`modifier_type_definitions` live under `main_menu/common/` — which is why the
+manifest carries a real path per entry.
+
+Rebuilt against them, the lists went from 243 hint lines to **264** and from 107
+gated to **138**, with nothing lost: five Italian and foreign leagues the game
+has added, and two more placements of existing lines. Defensive goes from 9
+lines to 15. `python3 mods/glorpui_hints/tools/generate.py --game-files
+reference/game` is the command; it is not part of `tools/refresh.py` because the
+scan takes a minute and the game files move far less often than Glorp UI does.
 
 **Known gap, not yet work: English.** The added lines are Russian only. An
 English game finds no `SVX_*` keys and renders the two new blocks as raw keys —

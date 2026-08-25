@@ -41,34 +41,6 @@ svx_s_centralization_005 = {
 	}
 }
 
-svx_n_centralization_007 = {
-	type = country
-	text = {
-		trigger = {
-			always = no
-			always = no
-		}
-		localization_key = SVX_N_CENTRALIZATION_007
-	}
-	text = {
-		localization_key = empty_text
-	}
-}
-
-svx_s_centralization_007 = {
-	type = country
-	text = {
-		trigger = {
-			always = no
-			NOT = { AND = { always = no always = no } }
-		}
-		localization_key = SVX_S_CENTRALIZATION_007
-	}
-	text = {
-		localization_key = empty_text
-	}
-}
-
 svx_n_centralization_008 = {
 	type = country
 	text = {
@@ -91,6 +63,34 @@ svx_s_centralization_008 = {
 			NOT = { AND = { always = no always = no } }
 		}
 		localization_key = SVX_S_CENTRALIZATION_008
+	}
+	text = {
+		localization_key = empty_text
+	}
+}
+
+svx_n_centralization_009 = {
+	type = country
+	text = {
+		trigger = {
+			always = no
+			always = no
+		}
+		localization_key = SVX_N_CENTRALIZATION_009
+	}
+	text = {
+		localization_key = empty_text
+	}
+}
+
+svx_s_centralization_009 = {
+	type = country
+	text = {
+		trigger = {
+			always = no
+			NOT = { AND = { always = no always = no } }
+		}
+		localization_key = SVX_S_CENTRALIZATION_009
 	}
 	text = {
 		localization_key = empty_text
@@ -1506,84 +1506,84 @@ svx_n_belligerent_001 = {
 	}
 }
 
-svx_n_belligerent_004 = {
+svx_n_belligerent_007 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:lutheran }
 			NOT = { has_religious_aspect = religious_aspect:justified_conflicts }
 		}
-		localization_key = SVX_N_BELLIGERENT_004
+		localization_key = SVX_N_BELLIGERENT_007
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_s_belligerent_004 = {
+svx_s_belligerent_007 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:lutheran }
 			NOT = { AND = { OR = { country_religion = religion:lutheran } NOT = { has_religious_aspect = religious_aspect:justified_conflicts } } }
 		}
-		localization_key = SVX_S_BELLIGERENT_004
+		localization_key = SVX_S_BELLIGERENT_007
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_n_belligerent_008 = {
+svx_n_belligerent_011 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:paulicianism }
 			NOT = { has_religious_aspect = religious_aspect:punishment_by_stoning }
 		}
-		localization_key = SVX_N_BELLIGERENT_008
+		localization_key = SVX_N_BELLIGERENT_011
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_s_belligerent_008 = {
+svx_s_belligerent_011 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:paulicianism }
 			NOT = { AND = { OR = { country_religion = religion:paulicianism } NOT = { has_religious_aspect = religious_aspect:punishment_by_stoning } } }
 		}
-		localization_key = SVX_S_BELLIGERENT_008
+		localization_key = SVX_S_BELLIGERENT_011
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_n_belligerent_013 = {
+svx_n_belligerent_016 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:anglican country_religion = religion:calvinist country_religion = religion:hussite country_religion = religion:lollardy country_religion = religion:lutheran country_religion = religion:miaphysite country_religion = religion:paulicianism }
 			NOT = { has_religious_aspect = religious_aspect:war_sermons }
 		}
-		localization_key = SVX_N_BELLIGERENT_013
+		localization_key = SVX_N_BELLIGERENT_016
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_s_belligerent_013 = {
+svx_s_belligerent_016 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:anglican country_religion = religion:calvinist country_religion = religion:hussite country_religion = religion:lollardy country_religion = religion:lutheran country_religion = religion:miaphysite country_religion = religion:paulicianism }
 			NOT = { AND = { OR = { country_religion = religion:anglican country_religion = religion:calvinist country_religion = religion:hussite country_religion = religion:lollardy country_religion = religion:lutheran country_religion = religion:miaphysite country_religion = religion:paulicianism } NOT = { has_religious_aspect = religious_aspect:war_sermons } } }
 		}
-		localization_key = SVX_S_BELLIGERENT_013
+		localization_key = SVX_S_BELLIGERENT_016
 	}
 	text = {
 		localization_key = empty_text
@@ -1766,26 +1766,26 @@ svx_n_offensive_003 = {
 	}
 }
 
-svx_n_offensive_008 = {
+svx_n_offensive_011 = {
 	type = country
 	text = {
 		trigger = {
 			has_chivalric_order = yes
 		}
-		localization_key = SVX_N_OFFENSIVE_008
+		localization_key = SVX_N_OFFENSIVE_011
 	}
 	text = {
 		localization_key = empty_text
 	}
 }
 
-svx_n_offensive_009 = {
+svx_n_offensive_012 = {
 	type = country
 	text = {
 		trigger = {
 			has_chivalric_order = yes
 		}
-		localization_key = SVX_N_OFFENSIVE_009
+		localization_key = SVX_N_OFFENSIVE_012
 	}
 	text = {
 		localization_key = empty_text
@@ -1844,13 +1844,13 @@ svx_n_defensive_004 = {
 	}
 }
 
-svx_n_defensive_008 = {
+svx_n_defensive_011 = {
 	type = country
 	text = {
 		trigger = {
 			has_chivalric_order = yes
 		}
-		localization_key = SVX_N_DEFENSIVE_008
+		localization_key = SVX_N_DEFENSIVE_011
 	}
 	text = {
 		localization_key = empty_text
@@ -2768,41 +2768,13 @@ svx_s_latinization_002 = {
 	}
 }
 
-svx_n_latinization_003 = {
+svx_n_latinization_004 = {
 	type = country
 	text = {
 		trigger = {
 			OR = { country_religion = religion:hellenism_religion }
 			NOT = { has_religious_aspect = religious_aspect:imperial_cult_aspect }
 			NOT = { has_religious_aspect = religious_aspect:hero_cult_aspect }
-		}
-		localization_key = SVX_N_LATINIZATION_003
-	}
-	text = {
-		localization_key = empty_text
-	}
-}
-
-svx_s_latinization_003 = {
-	type = country
-	text = {
-		trigger = {
-			OR = { country_religion = religion:hellenism_religion }
-			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:imperial_cult_aspect } NOT = { has_religious_aspect = religious_aspect:hero_cult_aspect } } }
-		}
-		localization_key = SVX_S_LATINIZATION_003
-	}
-	text = {
-		localization_key = empty_text
-	}
-}
-
-svx_n_latinization_004 = {
-	type = country
-	text = {
-		trigger = {
-			OR = { country_religion = religion:hellenism_religion }
-			NOT = { has_religious_aspect = religious_aspect:mithraic_mysteries_aspect }
 		}
 		localization_key = SVX_N_LATINIZATION_004
 	}
@@ -2816,7 +2788,7 @@ svx_s_latinization_004 = {
 	text = {
 		trigger = {
 			OR = { country_religion = religion:hellenism_religion }
-			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:mithraic_mysteries_aspect } } }
+			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:imperial_cult_aspect } NOT = { has_religious_aspect = religious_aspect:hero_cult_aspect } } }
 		}
 		localization_key = SVX_S_LATINIZATION_004
 	}
@@ -2830,8 +2802,7 @@ svx_n_latinization_005 = {
 	text = {
 		trigger = {
 			OR = { country_religion = religion:hellenism_religion }
-			NOT = { has_religious_aspect = religious_aspect:mos_maiorum_aspect }
-			NOT = { has_religious_aspect = religious_aspect:samothracian_mysteries_aspect }
+			NOT = { has_religious_aspect = religious_aspect:mithraic_mysteries_aspect }
 		}
 		localization_key = SVX_N_LATINIZATION_005
 	}
@@ -2845,9 +2816,38 @@ svx_s_latinization_005 = {
 	text = {
 		trigger = {
 			OR = { country_religion = religion:hellenism_religion }
-			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:mos_maiorum_aspect } NOT = { has_religious_aspect = religious_aspect:samothracian_mysteries_aspect } } }
+			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:mithraic_mysteries_aspect } } }
 		}
 		localization_key = SVX_S_LATINIZATION_005
+	}
+	text = {
+		localization_key = empty_text
+	}
+}
+
+svx_n_latinization_006 = {
+	type = country
+	text = {
+		trigger = {
+			OR = { country_religion = religion:hellenism_religion }
+			NOT = { has_religious_aspect = religious_aspect:mos_maiorum_aspect }
+			NOT = { has_religious_aspect = religious_aspect:samothracian_mysteries_aspect }
+		}
+		localization_key = SVX_N_LATINIZATION_006
+	}
+	text = {
+		localization_key = empty_text
+	}
+}
+
+svx_s_latinization_006 = {
+	type = country
+	text = {
+		trigger = {
+			OR = { country_religion = religion:hellenism_religion }
+			NOT = { AND = { OR = { country_religion = religion:hellenism_religion } NOT = { has_religious_aspect = religious_aspect:mos_maiorum_aspect } NOT = { has_religious_aspect = religious_aspect:samothracian_mysteries_aspect } } }
+		}
+		localization_key = SVX_S_LATINIZATION_006
 	}
 	text = {
 		localization_key = empty_text

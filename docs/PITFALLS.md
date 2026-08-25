@@ -108,15 +108,25 @@ repair: the *nearest* defined key is not always the intended one, and four of
 the thirteen references it finds are cultures whose neighbour is a different
 people (Even and Evenk, Halkomelem and Halkomelemt, Lalagir and Lalagyr).
 
-**A generated localization file can be generated wrong, and look right.** All
-1755 `*_culture_tt` keys in the game's Russian
+**A pattern in the data is not a fault until something fails.** All 1755
+`*_culture_tt` keys in the game's Russian
 `EU5_customizable_localization_ru_culrel_l_russian.yml` hold a bare number that
-is exactly the key's own line number minus two — every one of them — and they
-are used where a culture key belongs, `#TOOLTIP:CULTURE,$X_culture_tt$,`. The
-culture name renders perfectly; only the hover target is a line number. The tell
-was not the text but the *shape* of the values: when a whole family of keys
-holds numbers, check them against the line they sit on before assuming the
-engine wants a number.
+is exactly the key's own line number minus two — every one of them, plus 624
+more in a sibling family. They are used as `#TOOLTIP:CULTURE,$X_tt$,`, where a
+culture key looks like it belongs. That is a striking, verifiable pattern and it
+reads exactly like a generator that wrote line numbers into tooltip targets, so
+this document briefly said every culture tooltip in the Russian localization was
+broken.
+
+It is not. A hover settled it: the tooltips are complete and correct, and the
+key on screen (`westphalian_cadj` → `#TOOLTIP:CULTURE,$westphalian_tt$,` →
+`"1052"`, on line 1054) is one of the numeric ones. The number is what the engine
+wants there, or the engine ignores it.
+
+The cost of getting this wrong would have been 1755 keys rewritten to fix
+nothing. **A pattern explains a fault; it does not establish one.** Before
+repairing on the strength of a shape in the data, find the thing that visibly
+fails — and if nothing visibly fails, that is the answer.
 
 **A "broken" key can be a key nothing can call.** Three of the culture
 references `missing_ref` found are declensions for `even_culture`,

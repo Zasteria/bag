@@ -64,7 +64,7 @@ normal country qualifies for none.
 
 A second block, **«Также влияет на смещение»**, under Glorp UI's own, and a
 third, **«Станет доступно при условиях»**, for what is out of reach today but
-not out of reach forever. 243 hint lines across all 34 directions, of two kinds:
+not out of reach forever. 264 hint lines across all 34 directions, of two kinds:
 
 - **catalogue lines** — something to pick or to build: employment system,
   buildings, religious aspects, religious schools, parliament issues, chivalric
@@ -76,14 +76,15 @@ not out of reach forever. 243 hint lines across all 34 directions, of two kinds:
   the population, war and peace, attacker and defender, fort limit, legitimacy.
   Plus "point the cabinet at this value", for each of the 34 directions.
 
-For *defensive* that is 0 → 9 lines, including `fort_maintenance_mod` and the
+For *defensive* that is 0 → 15 lines, including `fort_maintenance_mod` and the
 four parliament issues about building forts. The employment example lands too:
 «Способ найма рабочих: Равенство +0.10».
 
 ### Filtering by availability
 
-216 of the lines are wrapped in `customizable_localization` with a trigger and
-disappear when the country cannot have the thing:
+138 of the lines are wrapped in `customizable_localization` with a trigger and
+disappear when the country cannot have the thing, and 78 more are listed under
+«Станет доступно при условиях» instead:
 
 | Category | Gate |
 | --- | --- |
@@ -170,13 +171,13 @@ update that adds hints is picked up with nobody noticing; one that writes a
 fourth shape fails the run and names the key.
 
 **The added lines are not**, because they are compiled out of the game's own
-`common/` tree and almost none of that is in `reference/` — see
-[what this needs](#what-this-needs-that-reference-does-not-have). They are
-committed as generated files and rebuilt only when the game files are handed
-over:
+`common/` tree, which is large and only partly needed. It is all in `reference/`
+now — see [where the game files come from](#where-the-game-files-come-from) — so
+the rebuild is one flag away, and the files are committed rather than rebuilt on
+every run because the scan takes a minute:
 
 ```
-python3 mods/glorpui_hints/tools/generate.py --game-files <unpacked game files>
+python3 mods/glorpui_hints/tools/generate.py --game-files reference/game
 ```
 
 ### What the run checks even when it rebuilds nothing
@@ -218,33 +219,30 @@ That is worth keeping in mind against the open
 [panel-hitch question](../../docs/HANDOFF.md), whose live hypothesis is hover:
 this is a hover-built tooltip that runs script. It has never been measured.
 
-## What this needs that `reference/` does not have
+## Where the game files come from
 
-Rebuilding the added lines needs the game's `in_game/common/` tree, and
-`reference/game/in_game/common/` carries seven directories of it. Missing, and
-needed:
+Rebuilding the added lines needs the directories named in
+`tools/game_files_manifest.txt`. **They are all in `reference/` as of
+2026-08-25**, and the scan they feed reports 1426 societal value pushes across
+23 kinds of object — complete. The list, and where each one actually lives:
 
-```
-societal_values/              the 34 axis pairs — without this nothing can be built
-modifier_type_definitions/    which modifiers are societal value changes
-laws/  government_reforms/  estate_privileges/  advances/
-static_modifiers/  auto_modifiers/
-religious_aspects/  religious_schools/  estates/  subject_types/
-chivalric_orders/  parliament_issues/  parliament_types/
-employment_systems/  cabinet_actions/  international_organizations/  missions/
-script_values/                for `societal_value_monthly_move` and its siblings
-```
+Twenty three directories under `in_game/common/` — laws, government reforms,
+estate privileges, religious aspects and schools, estates, subject types,
+chivalric orders, parliament issues and types, employment systems, cabinet
+actions, international organizations, missions, advances and the rest — plus two
+that are **not under `in_game/` at all**: `main_menu/common/static_modifiers`
+(298 pushes, the whole scaling half) and
+`main_menu/common/modifier_type_definitions`. That second pair is why the
+manifest carries a real path per entry rather than assuming a mount.
 
-`tools/extract_game_files.ps1` copies exactly that list out of an EU5 install
-straight into `reference/game/` — run it on the machine that has the game, then
-commit what appears. `tools/extract_game_files.py` is the same thing where
-Python is easier to reach. Both read `tools/game_files_manifest.txt`, so the
-list cannot drift between them, and both sweep `in_game/common/` for any file
-mentioning `monthly_towards_` so that a directory Paradox renames comes along
-anyway.
-
-Until those arrive the generated files are frozen at whatever game version they
-were built against, and a patch that adds or renames a source is invisible here.
+`tools/extract_game_files.ps1` copies the list out of an EU5 install straight
+into `reference/game/` — run it on the machine that has the game, then commit
+what appears. `tools/extract_game_files.py` is the same thing where Python is
+easier to reach. Both read `tools/game_files_manifest.txt`, so the list cannot
+drift between them; both give a directory that is not where the manifest says
+one search by name across the whole install before calling it missing; and both
+sweep every `.txt` in the install for `monthly_towards_`, so a directory Paradox
+renames comes along regardless.
 
 ## What is untested
 
@@ -253,8 +251,10 @@ were built against, and a patch that adds or renames a source is invisible here.
   without one, and both were listed. Every other mod in this repository ships
   none and is listed too. So one of the two is wrong and nobody has isolated
   which; the file is carried over because it costs 1.8 KB to keep.
-- **The added lines against the current game version.** They were compiled from
-  the game files as they were, and nothing here can re-read them.
+- **The rebuilt lists.** Rebuilt 2026-08-25 against the game files now in
+  `reference/`: 243 hint lines became 264 and 107 gated became 138, with nothing
+  lost. The visible change is the defensive axis going from 9 lines to 15 and
+  five Italian and foreign leagues appearing. None of that has been on screen.
 - **English.** The added lines are Russian only. In an English game the `SVX_*`
   keys are missing and the new blocks render as raw keys — the same fault this
   mod fixes for Glorp UI, in the other direction. Fixing it means English labels

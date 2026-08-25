@@ -410,6 +410,42 @@ extra hint lists are still the ones built before any of this. Rebuilding them
 against the arrived files is the next thing, and it needs `static_modifiers`
 first.
 
+### 2026-08-25 — culture tooltips, and a theory that did not survive them
+
+**Loaded:** the playset, after the game files went into `reference/`.
+**Expected:** to find out whether the Russian culture tooltips resolve, since
+every `*_culture_tt` key in the game's Russian custom localization holds a bare
+number equal to its own line number minus two — 1755 of them, no exceptions.
+**Observed:** they resolve, completely. Screenshot of a location's culture list:
+*Вестфальск* opens a full culture tooltip (traditions 179.00, cultural influence
+71.63, language, culture groups, the eight countries it is primary for),
+*Германск* opens the culture group, *Нижнефранконск* the same. The owner: "вроде
+они работают как надо и раньше работали так же".
+**Verdict:** **the theory was wrong and this is closed.** The key on screen is
+`westphalian_cadj`, which is literally
+`#TOOLTIP:CULTURE,$westphalian_tt$, #L Вестфальск#!#!`, and `westphalian_tt`
+holds `"1052"` on line 1054 — so the number is exactly what the engine wants
+there, or it ignores the argument. Repairing 1755 keys would have fixed nothing
+and broken whatever it touched. `PITFALLS.md` carries the lesson: a pattern in
+the data explains a fault, it does not establish one.
+
+**And the rest of the game files arrived**, `static_modifiers` among them — not
+under `in_game/` but under `main_menu/common/`, found by the by-name search the
+last round added. The manifest now names the real paths. The source scan is
+complete for the first time: **1426 pushes across 23 source types**, up from
+1128.
+
+**So `glorpui_hints` was rebuilt from real game files** — the first time that
+has been possible in this repository rather than on the owner's machine. 243
+hint lines became **264**, 107 gated became **138**, and nothing was lost. The
+twelve new ones are five Italian and foreign leagues the game has added since
+the lists were last built, plus two placements of *Обороняющаяся сторона в войне*
+and *Парламент в столице*. Defensive goes from 9 lines to 15.
+
+**Untested:** the rebuilt lists. The visible change is the defensive axis
+growing by six lines and new international organizations appearing; one hover
+over a societal value shows it.
+
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of

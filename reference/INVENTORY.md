@@ -16,7 +16,7 @@ python3 tools/refresh.py
 | `3781437488_Auto build by Lincoln Guang` | `eu5ab_regional_development` | 0.9.2 Beta | 1.3.* |
 | `National Destinies - Formables Content1.3.7` | `trin.national_destinies` | 1.3.7 | 1.*.* |
 
-`reference/game/` holds 2346 files of EU5 itself — `in_game/gui/`, the parts
+`reference/game/` holds 2384 files of EU5 itself — `in_game/gui/`, the parts
 of `in_game/common/` the mods here reason about, and the game's own
 localization, which is how `mods/nd_ru/tools/term.py` answers what the game
 calls a concept.

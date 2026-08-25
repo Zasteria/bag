@@ -10,9 +10,9 @@
 # `monthly_towards_`, which catches the renamed ones regardless.
 
 in_game/common/societal_values              # glorpui_hints: the 34 axis pairs
-in_game/common/modifier_type_definitions    # glorpui_hints: which modifiers are societal value changes
+main_menu/common/modifier_type_definitions    # glorpui_hints: which modifiers are societal value changes
 in_game/common/laws                         # glorpui_hints: 442 pushes
-in_game/common/static_modifiers             # glorpui_hints: 298 pushes, the scaling ones
+main_menu/common/static_modifiers           # glorpui_hints: 298 pushes, the scaling ones
 in_game/common/government_reforms           # glorpui_hints: 235 pushes
 in_game/common/estate_privileges            # glorpui_hints: 150 pushes
 in_game/common/auto_modifiers               # glorpui_hints: 87 pushes
