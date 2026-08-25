@@ -6,7 +6,8 @@
     "max_location_civil_constructions": 1,
     "deep_score_location_limit": 600,
     "deep_score_quota_multiplier": 8,
-    "candidates_per_location": 3
+    "candidates_per_location": 3,
+    "actual_profit_candidates_per_location": 10
   },
   "thresholds": {
     "food_emergency_ratio": 0.25,

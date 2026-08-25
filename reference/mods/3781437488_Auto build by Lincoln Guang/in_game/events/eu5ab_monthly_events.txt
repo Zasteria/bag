@@ -47,6 +47,28 @@ eu5ab_monthly.2 = {
 	}
 }
 
+namespace = eu5ab_queue_watchdog
+
+eu5ab_queue_watchdog.1 = {
+	type = country_event
+	title = eu5ab_window_title
+	outcome = neutral
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { has_variable = eu5ab_q_active }
+			eu5ab_check_engine_candidate_queue_watchdog = yes
+			# A successful check may finish the queue. Only an active queue needs
+			# another independent liveness check.
+			if = {
+				limit = { has_variable = eu5ab_q_active }
+				trigger_event_silently = { id = eu5ab_queue_watchdog.1 days = 2 }
+			}
+		}
+	}
+}
+
 namespace = eu5ab_worker
 
 eu5ab_worker.1 = {

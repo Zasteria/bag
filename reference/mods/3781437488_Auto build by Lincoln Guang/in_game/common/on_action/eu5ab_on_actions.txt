@@ -126,6 +126,11 @@ eu5ab_on_cmf_registration = {
 			default_value = 0
 			min_value = 0 max_value = 599 step_value = 1
 		}
+		cmm_register_dropdown_setting = {
+			mod_id = eu5ab_regional_development setting_id = candidate_ranking_mode
+			tab_id = automation group_id = ranking
+			default_index = 1 option_count = 2
+		}
 		cmm_register_settings_list = {
 			mod_id = eu5ab_regional_development
 			setting_id = candidate_priority
@@ -237,6 +242,42 @@ eu5ab_on_cmf_registration = {
 		cmm_add_scripted_gui = {
 			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_action
 		}
+		cmm_register_button_setting = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_planning_consequence
+			tab_id = performance group_id = preset
+		}
+		remove_from_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_planning_consequence }
+		add_to_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_planning_consequence value = 0 }
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_planning_consequence
+		}
+		cmm_register_button_setting = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_profit_action
+			tab_id = performance group_id = preset
+		}
+		remove_from_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_profit_action }
+		add_to_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_profit_action value = 0 }
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_profit_action
+		}
+		cmm_register_button_setting = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_profit_consequence
+			tab_id = performance group_id = preset
+		}
+		remove_from_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_profit_consequence }
+		add_to_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_profit_consequence value = 0 }
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_profit_consequence
+		}
+		cmm_register_button_setting = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_common_action
+			tab_id = performance group_id = preset
+		}
+		remove_from_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_common_action }
+		add_to_variable_map = { name = cmm_type key = flag:eu5ab_regional_development__performance_throughput_warning_common_action value = 0 }
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = performance_throughput_warning_common_action
+		}
 		cmm_register_bool_setting = {
 			mod_id = eu5ab_regional_development setting_id = parallel_location_scan
 			tab_id = performance group_id = advanced
@@ -258,6 +299,24 @@ eu5ab_on_cmf_registration = {
 			tab_id = performance group_id = advanced
 			default_value = 0
 			min_value = 0 max_value = 600 step_value = 10
+		}
+		cmm_register_numeric_setting = {
+			mod_id = eu5ab_regional_development setting_id = candidates_per_location
+			tab_id = performance group_id = advanced
+			default_value = 3
+			min_value = 3 max_value = 30 step_value = 1
+		}
+		cmm_register_numeric_setting = {
+			mod_id = eu5ab_regional_development setting_id = actual_profit_candidates_per_location
+			tab_id = performance group_id = advanced
+			default_value = 10
+			min_value = 3 max_value = 30 step_value = 1
+		}
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = candidates_per_location
+		}
+		cmm_add_scripted_gui = {
+			mod_id = eu5ab_regional_development setting_id = actual_profit_candidates_per_location
 		}
 		cmf_add_action_bar_element = { element = eu5ab_action_bar }
 		cmf_register_scripted_gui = { element = eu5ab_action_bar }
@@ -295,18 +354,24 @@ eu5ab_on_cmf_callback = {
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__parallel_location_scan value = 1 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__daily_location_task_limit value = 10 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__max_additions_per_run value = 30 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__candidates_per_location value = 5 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__actual_profit_candidates_per_location value = 15 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__early_stop_when_candidates_sufficient value = 1 }
 					}
 					2 = {
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__parallel_location_scan value = 1 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__daily_location_task_limit value = 20 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__max_additions_per_run value = 50 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__candidates_per_location value = 4 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__actual_profit_candidates_per_location value = 12 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__early_stop_when_candidates_sufficient value = 1 }
 					}
 					3 = {
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__parallel_location_scan value = 1 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__daily_location_task_limit value = 30 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__max_additions_per_run value = 0 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__candidates_per_location value = 3 }
+						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__actual_profit_candidates_per_location value = 10 }
 						add_to_variable_map = { name = cmm key = flag:eu5ab_regional_development__early_stop_when_candidates_sufficient value = 1 }
 					}
 				}
@@ -317,6 +382,8 @@ eu5ab_on_cmf_callback = {
 						var:cmf_callback = flag:eu5ab_regional_development__parallel_location_scan
 						var:cmf_callback = flag:eu5ab_regional_development__daily_location_task_limit
 						var:cmf_callback = flag:eu5ab_regional_development__max_additions_per_run
+						var:cmf_callback = flag:eu5ab_regional_development__candidates_per_location
+						var:cmf_callback = flag:eu5ab_regional_development__actual_profit_candidates_per_location
 						var:cmf_callback = flag:eu5ab_regional_development__early_stop_when_candidates_sufficient
 					}
 				}

@@ -5,6 +5,7 @@ eu5ab_sync_cmm_settings = {
 	set_variable = { name = eu5ab_monthly_build_hard_cap value = "variable_map(cmm|flag:eu5ab_regional_development__monthly_build_hard_cap)" }
 	set_variable = { name = eu5ab_global_budget_mode value = "variable_map(cmm|flag:eu5ab_regional_development__budget_mode)" }
 	set_variable = { name = eu5ab_global_economic_metric value = "variable_map(cmm|flag:eu5ab_regional_development__economic_metric)" }
+	set_variable = { name = eu5ab_global_candidate_ranking_mode value = "variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" }
 	set_variable = { name = eu5ab_global_emergency_food_exhaustion_override value = "variable_map(cmm|flag:eu5ab_regional_development__emergency_food_exhaustion_override)" }
 	set_variable = { name = eu5ab_global_emergency_food_stockpile_override value = "variable_map(cmm|flag:eu5ab_regional_development__emergency_food_stockpile_override)" }
 	set_variable = { name = eu5ab_global_emergency_construction_goods_override value = "variable_map(cmm|flag:eu5ab_regional_development__emergency_construction_goods_override)" }
@@ -26,6 +27,8 @@ eu5ab_sync_cmm_settings = {
 	set_variable = { name = eu5ab_global_parallel_location_scan value = "variable_map(cmm|flag:eu5ab_regional_development__parallel_location_scan)" }
 	set_variable = { name = eu5ab_global_daily_location_task_limit value = "variable_map(cmm|flag:eu5ab_regional_development__daily_location_task_limit)" }
 	set_variable = { name = eu5ab_global_max_additions_per_run value = "variable_map(cmm|flag:eu5ab_regional_development__max_additions_per_run)" }
+	set_variable = { name = eu5ab_global_candidates_per_location value = "variable_map(cmm|flag:eu5ab_regional_development__candidates_per_location)" }
+	set_variable = { name = eu5ab_global_actual_profit_candidates_per_location value = "variable_map(cmm|flag:eu5ab_regional_development__actual_profit_candidates_per_location)" }
 	set_variable = { name = eu5ab_global_early_stop_when_candidates_sufficient value = "variable_map(cmm|flag:eu5ab_regional_development__early_stop_when_candidates_sufficient)" }
 	eu5ab_rebuild_candidate_priority = yes
 }
@@ -37773,8 +37776,10 @@ eu5ab_try_construct_current_policy = {
 eu5ab_stage_current_upgrade_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -37867,14 +37872,113 @@ eu5ab_stage_current_upgrade_candidates = {
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
 		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_candidate_is_upgrade = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_upgrade }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_output_not_oversupplied = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 3 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_oversupply add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 3 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
 	}
 }
 
 eu5ab_stage_current_expansion_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -37967,14 +38071,113 @@ eu5ab_stage_current_expansion_candidates = {
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
 		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_candidate_is_expansion = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_expand }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_output_not_oversupplied = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 3 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_oversupply add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 3 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
 	}
 }
 
 eu5ab_stage_current_new_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -38066,6 +38269,103 @@ eu5ab_stage_current_new_candidates = {
 			eu5ab_try_construct_saved_building_type = yes
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_candidate_is_new_build = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_new }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_output_not_oversupplied = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 3 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_oversupply add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 3 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
 		}
 	}
 }
@@ -38103,8 +38403,10 @@ eu5ab_try_construct_current_input_source = {
 eu5ab_stage_current_input_upgrade_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -38182,14 +38484,98 @@ eu5ab_stage_current_input_upgrade_candidates = {
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
 		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_input_source_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_upstream_output_shortage = yes
+				eu5ab_candidate_is_upgrade = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_upgrade }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
 	}
 }
 
 eu5ab_stage_current_input_expansion_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -38267,14 +38653,98 @@ eu5ab_stage_current_input_expansion_candidates = {
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
 		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_input_source_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_upstream_output_shortage = yes
+				eu5ab_candidate_is_expansion = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_expand }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
 	}
 }
 
 eu5ab_stage_current_input_new_candidates = {
 	save_scope_as = eu5ab_candidate_location
 	owner = {
+		if = {
+			limit = { var:eu5ab_global_candidate_ranking_mode = 2 }
 		ordered_buildable_building_type = {
-			max = 3
+			max = { value = var:eu5ab_global_actual_profit_candidates_per_location }
 			check_range_bounds = no
 			order_by = eu5ab_current_candidate_score
 			limit = {
@@ -38352,6 +38822,88 @@ eu5ab_stage_current_input_new_candidates = {
 		}
 		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
 		}
+		}
+		else = {
+		ordered_buildable_building_type = {
+			max = { value = var:eu5ab_global_candidates_per_location }
+			check_range_bounds = no
+			order_by = eu5ab_current_candidate_score
+			limit = {
+				eu5ab_current_input_source_building_allowed = yes
+				eu5ab_current_special_building_allowed = yes
+				eu5ab_candidate_is_latest_unlocked = yes
+				eu5ab_candidate_location_can_build = yes
+				eu5ab_has_local_workforce = yes
+				eu5ab_upstream_output_shortage = yes
+				eu5ab_candidate_is_new_build = yes
+			}
+			save_scope_as = eu5ab_candidate_building
+		scope:eu5ab_candidate_location = {
+			set_variable = eu5ab_had_legal_candidate
+			change_variable = { name = eu5ab_worker_eu5ab_diag_legal_candidates add = 1 }
+			remove_variable = eu5ab_candidate_updates_worker_top
+			set_variable = { name = eu5ab_candidate_diag_priority value = owner.var:eu5ab_candidate_priority_new }
+			if = { limit = { NOT = { eu5ab_engine_candidate_is_food_emergency = yes } } change_variable = { name = eu5ab_candidate_diag_priority add = 4 } }
+			set_variable = { name = eu5ab_candidate_diag_score value = scope:eu5ab_candidate_building.eu5ab_current_candidate_score }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_variable = eu5ab_worker_top_1_kind }
+						var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority }
+						AND = {
+							NOT = { var:eu5ab_worker_top_1_priority > { value = var:eu5ab_candidate_diag_priority } }
+							NOT = { var:eu5ab_worker_top_1_priority < { value = var:eu5ab_candidate_diag_priority } }
+							var:eu5ab_worker_top_1_score < { value = var:eu5ab_candidate_diag_score }
+						}
+					}
+				}
+				remove_variable = eu5ab_worker_top_1_building
+				remove_variable = eu5ab_worker_top_1_kind
+				remove_variable = eu5ab_worker_top_1_priority
+				remove_variable = eu5ab_worker_top_1_score
+				remove_variable = eu5ab_worker_top_1_need
+				remove_variable = eu5ab_worker_top_1_economic
+				remove_variable = eu5ab_worker_top_1_labor_jobs
+				remove_variable = eu5ab_worker_top_1_labor_current
+				remove_variable = eu5ab_worker_top_1_labor_projected
+				remove_variable = eu5ab_worker_top_1_reason
+				set_variable = { name = eu5ab_worker_top_1_building value = scope:eu5ab_candidate_building }
+				set_variable = { name = eu5ab_worker_top_1_kind value = 1 }
+				set_variable = { name = eu5ab_worker_top_1_need value = scope:eu5ab_candidate_building.eu5ab_universal_need_score }
+				set_variable = { name = eu5ab_worker_top_1_economic value = scope:eu5ab_candidate_building.eu5ab_recipe_economic_efficiency_score }
+				set_variable = { name = eu5ab_worker_top_1_labor_jobs value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_net_new_jobs multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_current value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_current_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_labor_projected value = { value = scope:eu5ab_candidate_building.eu5ab_candidate_projected_available_workers multiply = 1000 } }
+				set_variable = { name = eu5ab_worker_top_1_reason value = 8 }
+				set_variable = { name = eu5ab_worker_top_1_priority value = var:eu5ab_candidate_diag_priority }
+				set_variable = { name = eu5ab_worker_top_1_score value = var:eu5ab_candidate_diag_score }
+				set_variable = eu5ab_candidate_updates_worker_top
+			}
+			remove_variable = eu5ab_candidate_diag_priority
+			remove_variable = eu5ab_candidate_diag_score
+		}
+		if = {
+			limit = {
+				scope:eu5ab_candidate_location = { NOT = { has_variable = eu5ab_action_taken } }
+				NOT = { eu5ab_inputs_available = yes }
+			}
+			scope:eu5ab_candidate_location = {
+				set_variable = { name = eu5ab_failure_cooldown value = 2 }
+			}
+			scope:eu5ab_candidate_location = {
+				change_variable = { name = eu5ab_worker_eu5ab_diag_fail_inputs add = 1 }
+				if = {
+					limit = { has_variable = eu5ab_candidate_updates_worker_top }
+					set_variable = { name = eu5ab_worker_top_1_reason value = 2 }
+				}
+			}
+		}
+		else = {
+			eu5ab_try_construct_saved_building_type = yes
+		}
+		scope:eu5ab_candidate_location = { remove_variable = eu5ab_candidate_updates_worker_top }
+		}
+		}
 	}
 }
 
@@ -38383,7 +38935,7 @@ eu5ab_try_construct_rgo_need = {
 			set_variable = eu5ab_action_taken
 			set_variable = eu5ab_active_rgo_construction
 			owner = {
-				if = { limit = { NOT = { is_target_in_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } } } add_to_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } }
+				if = { limit = { NOT = { is_target_in_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } } } add_to_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } change_variable = { name = eu5ab_diag_active_mod_projects add = 1 } }
 				if = {
 					limit = { NOT = { has_variable = eu5ab_constructions_started_this_tick } }
 					set_variable = { name = eu5ab_constructions_started_this_tick value = 0 }
@@ -38752,7 +39304,7 @@ eu5ab_commit_candidate_construction_demand = {
 # Asynchronous engine-value bridge queue.
 eu5ab_clear_engine_candidate_queue = {
 	every_in_list = { variable = eu5ab_q_phase_1_unsorted_locations clear_variable_list = eu5ab_q_phase_1_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_1_locations clear_variable_list = eu5ab_q_phase_1_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_1_locations clear_variable_list = eu5ab_q_phase_1_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_1_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_1_locations
 	clear_variable_list = eu5ab_q_phase_1_unsorted_locations
@@ -38761,7 +39313,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_1_staged
 	remove_variable = eu5ab_q_phase_1_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_2_unsorted_locations clear_variable_list = eu5ab_q_phase_2_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_2_locations clear_variable_list = eu5ab_q_phase_2_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_2_locations clear_variable_list = eu5ab_q_phase_2_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_2_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_2_locations
 	clear_variable_list = eu5ab_q_phase_2_unsorted_locations
@@ -38770,7 +39322,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_2_staged
 	remove_variable = eu5ab_q_phase_2_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_3_unsorted_locations clear_variable_list = eu5ab_q_phase_3_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_3_locations clear_variable_list = eu5ab_q_phase_3_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_3_locations clear_variable_list = eu5ab_q_phase_3_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_3_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_3_locations
 	clear_variable_list = eu5ab_q_phase_3_unsorted_locations
@@ -38779,7 +39331,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_3_staged
 	remove_variable = eu5ab_q_phase_3_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_4_unsorted_locations clear_variable_list = eu5ab_q_phase_4_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_4_locations clear_variable_list = eu5ab_q_phase_4_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_4_locations clear_variable_list = eu5ab_q_phase_4_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_4_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_4_locations
 	clear_variable_list = eu5ab_q_phase_4_unsorted_locations
@@ -38788,7 +39340,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_4_staged
 	remove_variable = eu5ab_q_phase_4_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_5_unsorted_locations clear_variable_list = eu5ab_q_phase_5_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_5_locations clear_variable_list = eu5ab_q_phase_5_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_5_locations clear_variable_list = eu5ab_q_phase_5_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_5_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_5_locations
 	clear_variable_list = eu5ab_q_phase_5_unsorted_locations
@@ -38797,7 +39349,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_5_staged
 	remove_variable = eu5ab_q_phase_5_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_6_unsorted_locations clear_variable_list = eu5ab_q_phase_6_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_6_locations clear_variable_list = eu5ab_q_phase_6_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_6_locations clear_variable_list = eu5ab_q_phase_6_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_6_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_6_locations
 	clear_variable_list = eu5ab_q_phase_6_unsorted_locations
@@ -38806,7 +39358,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_6_staged
 	remove_variable = eu5ab_q_phase_6_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_7_unsorted_locations clear_variable_list = eu5ab_q_phase_7_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_7_locations clear_variable_list = eu5ab_q_phase_7_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_7_locations clear_variable_list = eu5ab_q_phase_7_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_7_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_7_locations
 	clear_variable_list = eu5ab_q_phase_7_unsorted_locations
@@ -38815,7 +39367,7 @@ eu5ab_clear_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase_7_staged
 	remove_variable = eu5ab_q_phase_7_rgo_staged
 	every_in_list = { variable = eu5ab_q_phase_8_unsorted_locations clear_variable_list = eu5ab_q_phase_8_types remove_variable = eu5ab_location_candidate_staged remove_variable = eu5ab_cached_location_need_score }
-	every_in_list = { variable = eu5ab_q_phase_8_locations clear_variable_list = eu5ab_q_phase_8_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
+	every_in_list = { variable = eu5ab_q_phase_8_locations clear_variable_list = eu5ab_q_phase_8_types clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_failed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_location_need_score }
 	every_in_list = { variable = eu5ab_q_phase_8_rgo_locations remove_variable = eu5ab_q_done_rgo remove_variable = eu5ab_action_taken remove_variable = eu5ab_cached_rgo_queue_score remove_variable = eu5ab_cached_location_need_score }
 	clear_variable_list = eu5ab_q_phase_8_locations
 	clear_variable_list = eu5ab_q_phase_8_unsorted_locations
@@ -38829,7 +39381,17 @@ eu5ab_clear_engine_candidate_queue = {
 	clear_variable_list = eu5ab_q_rgo_locations
 	clear_variable_list = eu5ab_q_rgo_unsorted_locations
 	clear_variable_list = eu5ab_q_approved_locations
+	clear_variable_list = eu5ab_q_profit_locations
+	remove_variable = eu5ab_q_profit_selecting
 	remove_variable = eu5ab_q_retry_phase
+	remove_variable = eu5ab_q_watchdog_last_phase
+	remove_variable = eu5ab_q_watchdog_last_processed
+	remove_variable = eu5ab_q_watchdog_last_seen
+	remove_variable = eu5ab_q_watchdog_last_confirmed
+	remove_variable = eu5ab_q_watchdog_stall_checks
+	# Legacy callback-heartbeat fields from the first watchdog version.
+	remove_variable = eu5ab_q_watchdog_heartbeat
+	remove_variable = eu5ab_q_watchdog_last_heartbeat
 }
 
 eu5ab_prepare_engine_candidate_queue = {
@@ -38871,6 +39433,25 @@ eu5ab_prepare_engine_candidate_queue = {
 	remove_variable = eu5ab_q_phase
 	remove_variable = eu5ab_q_expected
 	set_variable = { name = eu5ab_diag_queue_state value = 1 }
+}
+
+# Snapshot only meaningful queue progress. GUI callbacks may still fire while
+# processing is stuck, so animation activity alone is not a liveness signal.
+eu5ab_reset_engine_candidate_watchdog_progress = {
+	if = {
+		limit = {
+			has_variable = eu5ab_q_active
+			has_variable = eu5ab_q_phase
+			has_variable = eu5ab_q_processed
+			has_variable = eu5ab_q_seen
+			has_variable = eu5ab_q_confirmed
+		}
+		set_variable = { name = eu5ab_q_watchdog_last_phase value = var:eu5ab_q_phase }
+		set_variable = { name = eu5ab_q_watchdog_last_processed value = var:eu5ab_q_processed }
+		set_variable = { name = eu5ab_q_watchdog_last_seen value = var:eu5ab_q_seen }
+		set_variable = { name = eu5ab_q_watchdog_last_confirmed value = var:eu5ab_q_confirmed }
+		set_variable = { name = eu5ab_q_watchdog_stall_checks value = 0 }
+	}
 }
 
 # Parallel worker lifecycle. These effects only mutate the root location.
@@ -39995,29 +40576,32 @@ eu5ab_start_engine_candidate_queue = {
 		set_variable = { name = eu5ab_q_phase value = 1 }
 		set_variable = { name = eu5ab_diag_queue_state value = 2 }
 		set_variable = { name = eu5ab_diag_built_this_run value = 2 }
+		eu5ab_reset_engine_candidate_watchdog_progress = yes
+		trigger_event_silently = { id = eu5ab_queue_watchdog.1 days = 2 }
 		eu5ab_prepare_engine_priority_phase = yes
 	}
 	else = { eu5ab_finish_engine_candidate_queue = yes }
 }
 
 eu5ab_reset_engine_priority_phase_progress = {
-	if = { limit = { var:eu5ab_q_phase = 1 } every_in_list = { variable = eu5ab_q_phase_1_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 1 } every_in_list = { variable = eu5ab_q_phase_1_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 1 } every_in_list = { variable = eu5ab_q_phase_1_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 2 } every_in_list = { variable = eu5ab_q_phase_2_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 2 } every_in_list = { variable = eu5ab_q_phase_2_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 2 } every_in_list = { variable = eu5ab_q_phase_2_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 3 } every_in_list = { variable = eu5ab_q_phase_3_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 3 } every_in_list = { variable = eu5ab_q_phase_3_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 3 } every_in_list = { variable = eu5ab_q_phase_3_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 4 } every_in_list = { variable = eu5ab_q_phase_4_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 4 } every_in_list = { variable = eu5ab_q_phase_4_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 4 } every_in_list = { variable = eu5ab_q_phase_4_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 5 } every_in_list = { variable = eu5ab_q_phase_5_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 5 } every_in_list = { variable = eu5ab_q_phase_5_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 5 } every_in_list = { variable = eu5ab_q_phase_5_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 6 } every_in_list = { variable = eu5ab_q_phase_6_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 6 } every_in_list = { variable = eu5ab_q_phase_6_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 6 } every_in_list = { variable = eu5ab_q_phase_6_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 7 } every_in_list = { variable = eu5ab_q_phase_7_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 7 } every_in_list = { variable = eu5ab_q_phase_7_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 7 } every_in_list = { variable = eu5ab_q_phase_7_rgo_locations remove_variable = eu5ab_q_done_rgo } }
-	if = { limit = { var:eu5ab_q_phase = 8 } every_in_list = { variable = eu5ab_q_phase_8_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
+	if = { limit = { var:eu5ab_q_phase = 8 } every_in_list = { variable = eu5ab_q_phase_8_locations clear_variable_list = eu5ab_q_done_types clear_variable_list = eu5ab_q_approved_types clear_variable_list = eu5ab_q_seen_types clear_variable_list = eu5ab_q_confirmed_types clear_variable_list = eu5ab_q_profit_best_types remove_variable = eu5ab_q_profit_best_actual remove_variable = eu5ab_q_profit_best_rank remove_variable = eu5ab_q_profit_done remove_variable = eu5ab_q_location_approved remove_variable = eu5ab_q_queue_before remove_variable = eu5ab_q_approved_cost remove_variable = eu5ab_q_approved_income remove_variable = eu5ab_q_approved_profit remove_variable = eu5ab_q_approved_emergency_override } }
 	if = { limit = { var:eu5ab_q_phase = 8 } every_in_list = { variable = eu5ab_q_phase_8_rgo_locations remove_variable = eu5ab_q_done_rgo } }
 	clear_variable_list = eu5ab_q_approved_locations
+	clear_variable_list = eu5ab_q_profit_locations
 	set_variable = { name = eu5ab_q_processed value = 0 }
 	set_variable = { name = eu5ab_q_approved value = 0 }
 	set_variable = { name = eu5ab_q_seen value = 0 }
@@ -40026,6 +40610,8 @@ eu5ab_reset_engine_priority_phase_progress = {
 	set_variable = { name = eu5ab_q_stall_rounds value = 0 }
 	set_variable = { name = eu5ab_q_confirm_stall_rounds value = 0 }
 	remove_variable = eu5ab_q_fire
+	remove_variable = eu5ab_q_profit_selecting
+	eu5ab_reset_engine_candidate_watchdog_progress = yes
 }
 
 eu5ab_clear_engine_priority_phase = {
@@ -40084,6 +40670,180 @@ eu5ab_prepare_engine_priority_phase = {
 		if = { limit = { has_variable_list = eu5ab_q_phase_8_rgo_locations } if = { limit = { has_variable = eu5ab_q_expected } change_variable = { name = eu5ab_q_expected add = var:eu5ab_q_phase_8_rgo_staged } } else = { set_variable = { name = eu5ab_q_expected value = var:eu5ab_q_phase_8_rgo_staged } } }
 	}
 	if = { limit = { NOT = { has_variable = eu5ab_q_expected } } eu5ab_advance_engine_priority_phase = yes }
+}
+
+# Predicted-profit selection first records the strongest engine-valued candidate
+# in each location. One priority point adds a 1% soft bonus based on the
+# absolute profit magnitude (floored at 1), so priorities can decide close
+# comparisons without defeating a materially larger predicted monthly profit.
+eu5ab_record_actual_profit_candidate = {
+	set_variable = { name = eu5ab_q_profit_candidate_priority value = scope:eu5ab_candidate_building.eu5ab_current_candidate_configured_priority }
+	set_variable = { name = eu5ab_q_profit_candidate_magnitude value = scope:eu5ab_engine_profit }
+	if = {
+		limit = { var:eu5ab_q_profit_candidate_magnitude < 0 }
+		set_variable = { name = eu5ab_q_profit_candidate_magnitude value = { value = var:eu5ab_q_profit_candidate_magnitude multiply = -1 } }
+	}
+	if = { limit = { var:eu5ab_q_profit_candidate_magnitude < 1 } set_variable = { name = eu5ab_q_profit_candidate_magnitude value = 1 } }
+	set_variable = {
+		name = eu5ab_q_profit_candidate_rank
+		value = {
+			value = var:eu5ab_q_profit_candidate_magnitude
+			multiply = var:eu5ab_q_profit_candidate_priority
+			multiply = 0.01
+			add = scope:eu5ab_engine_profit
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = eu5ab_q_profit_best_rank }
+				var:eu5ab_q_profit_best_rank < { value = var:eu5ab_q_profit_candidate_rank }
+			}
+		}
+		set_variable = { name = eu5ab_q_profit_best_actual value = scope:eu5ab_engine_profit }
+		set_variable = { name = eu5ab_q_profit_best_rank value = var:eu5ab_q_profit_candidate_rank }
+		clear_variable_list = eu5ab_q_profit_best_types
+		add_to_variable_list = { name = eu5ab_q_profit_best_types target = scope:eu5ab_candidate_building }
+	}
+	remove_variable = eu5ab_q_profit_candidate_priority
+	remove_variable = eu5ab_q_profit_candidate_magnitude
+	remove_variable = eu5ab_q_profit_candidate_rank
+}
+
+eu5ab_prepare_actual_profit_selection = {
+	clear_variable_list = eu5ab_q_profit_locations
+	set_variable = { name = eu5ab_q_expected value = 0 }
+	save_scope_as = eu5ab_q_profit_country
+	if = {
+		limit = { var:eu5ab_q_phase = 1 has_variable_list = eu5ab_q_phase_1_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_1_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 2 has_variable_list = eu5ab_q_phase_2_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_2_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 3 has_variable_list = eu5ab_q_phase_3_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_3_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 4 has_variable_list = eu5ab_q_phase_4_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_4_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 5 has_variable_list = eu5ab_q_phase_5_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_5_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 6 has_variable_list = eu5ab_q_phase_6_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_6_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 7 has_variable_list = eu5ab_q_phase_7_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_7_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_phase = 8 has_variable_list = eu5ab_q_phase_8_locations }
+		ordered_in_list = {
+			variable = eu5ab_q_phase_8_locations
+			limit = { has_variable_list = eu5ab_q_profit_best_types }
+			order_by = var:eu5ab_q_profit_best_rank
+			max = 600
+			check_range_bounds = no
+			save_scope_as = eu5ab_q_profit_location
+			scope:eu5ab_q_profit_country = {
+				add_to_variable_list = { name = eu5ab_q_profit_locations target = scope:eu5ab_q_profit_location }
+				change_variable = { name = eu5ab_q_expected add = 1 }
+			}
+		}
+	}
+	if = {
+		limit = { var:eu5ab_q_expected > 0 }
+		set_variable = { name = eu5ab_q_processed value = 0 }
+		set_variable = { name = eu5ab_q_progress_last value = 0 }
+		set_variable = { name = eu5ab_q_stall_rounds value = 0 }
+		set_variable = eu5ab_q_profit_selecting
+		set_variable = { name = eu5ab_diag_queue_state value = 6 }
+		eu5ab_reset_engine_candidate_watchdog_progress = yes
+	}
+	else = { eu5ab_advance_engine_priority_phase = yes }
 }
 
 eu5ab_restart_engine_priority_phase = {
@@ -40163,7 +40923,7 @@ eu5ab_confirm_engine_candidate = {
 		set_variable = { name = eu5ab_build_cooldown value = 3 }
 		set_variable = { name = eu5ab_recent_build_penalty value = 12 }
 		owner = {
-			if = { limit = { NOT = { is_target_in_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } } } add_to_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } }
+			if = { limit = { NOT = { is_target_in_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } } } add_to_variable_list = { name = eu5ab_active_project_locations target = scope:eu5ab_candidate_location } change_variable = { name = eu5ab_diag_active_mod_projects add = 1 } }
 			change_variable = { name = eu5ab_constructions_started_this_tick add = 1 }
 			if = {
 				limit = { scope:eu5ab_candidate_location = { exists = var:eu5ab_q_approved_emergency_override } }
@@ -40185,6 +40945,43 @@ eu5ab_confirm_engine_candidate = {
 	}
 	owner = { change_variable = { name = eu5ab_q_confirmed add = 1 } }
 	add_to_variable_list = { name = eu5ab_q_confirmed_types target = scope:eu5ab_candidate_building }
+}
+
+# Script-event watchdog for the hidden GUI bridge. It ignores callback activity
+# and requires phase, processed, seen, or confirmed to make real progress.
+eu5ab_check_engine_candidate_queue_watchdog = {
+	if = {
+		limit = {
+			has_variable = eu5ab_q_active
+			has_variable = eu5ab_q_phase
+			has_variable = eu5ab_q_processed
+			has_variable = eu5ab_q_seen
+			has_variable = eu5ab_q_confirmed
+			has_variable = eu5ab_q_watchdog_last_phase
+			has_variable = eu5ab_q_watchdog_last_processed
+			has_variable = eu5ab_q_watchdog_last_seen
+			has_variable = eu5ab_q_watchdog_last_confirmed
+			has_variable = eu5ab_q_watchdog_stall_checks
+		}
+		if = {
+			limit = {
+				OR = {
+					var:eu5ab_q_phase > { value = var:eu5ab_q_watchdog_last_phase }
+					var:eu5ab_q_processed > { value = var:eu5ab_q_watchdog_last_processed }
+					var:eu5ab_q_seen > { value = var:eu5ab_q_watchdog_last_seen }
+					var:eu5ab_q_confirmed > { value = var:eu5ab_q_watchdog_last_confirmed }
+				}
+			}
+			eu5ab_reset_engine_candidate_watchdog_progress = yes
+		}
+		else = { change_variable = { name = eu5ab_q_watchdog_stall_checks add = 1 } }
+		if = {
+			limit = { has_variable = eu5ab_q_active var:eu5ab_q_watchdog_stall_checks >= 2 }
+			change_variable = { name = eu5ab_diag_queue_recoveries add = 1 }
+			set_variable = { name = eu5ab_diag_queue_state value = 5 }
+			eu5ab_finish_engine_candidate_queue = yes
+		}
+	}
 }
 
 eu5ab_finish_engine_candidate_queue = {

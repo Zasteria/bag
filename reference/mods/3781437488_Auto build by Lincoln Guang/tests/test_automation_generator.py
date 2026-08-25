@@ -85,6 +85,9 @@ class AutomationGeneratorTests(unittest.TestCase):
         cls.engine_queue_gui = files[
             ROOT / "in_game" / "gui" / "eu5ab_engine_queue_window.gui"
         ]
+        cls.events = files[
+            ROOT / "in_game" / "events" / "eu5ab_monthly_events.txt"
+        ]
         cls.construction_demands = json.loads(files[
             ROOT / ".metadata" / "eu5ab_construction_demands.json"
         ])
@@ -278,6 +281,12 @@ class AutomationGeneratorTests(unittest.TestCase):
         )[0]
         for block in (confirm, rgo):
             self.assertIn("name = eu5ab_active_project_locations", block)
+            self.assertEqual(
+                block.count(
+                    "change_variable = { name = eu5ab_diag_active_mod_projects add = 1 }"
+                ),
+                1,
+            )
 
         migration = _blocks_for_token(
             self.effects, "\neu5ab_migrate_runtime_v2 = "
@@ -331,7 +340,10 @@ class AutomationGeneratorTests(unittest.TestCase):
             "eu5ab_stage_current_input_expansion_candidates",
             "eu5ab_stage_current_input_new_candidates",
         )
-        self.assertEqual(self.effects.count("ordered_buildable_building_type = {"), 7)
+        # Six ordinary feature iterators have separate bounded branches for
+        # configurable planning and actual-profit shortlists; the remaining
+        # iterator is unrelated to candidate ranking.
+        self.assertEqual(self.effects.count("ordered_buildable_building_type = {"), 13)
         self.assertGreaterEqual(self.effects.count("save_scope_as = eu5ab_candidate_location"), 6)
         self.assertGreaterEqual(self.effects.count("save_scope_as = eu5ab_candidate_building"), 6)
         for function_name in staged_feature_names:
@@ -344,7 +356,15 @@ class AutomationGeneratorTests(unittest.TestCase):
                 self.assertLess(saved_candidate, owner_scope)
                 self.assertLess(owner_scope, iterator)
                 self.assertLess(iterator, saved_building)
-                self.assertIn("max = 3", block)
+                self.assertIn(
+                    "max = { value = var:eu5ab_global_candidates_per_location }",
+                    block,
+                )
+                self.assertIn(
+                    "max = { value = "
+                    "var:eu5ab_global_actual_profit_candidates_per_location }",
+                    block,
+                )
                 self.assertIn("eu5ab_candidate_location_can_build = yes", block)
                 self.assertNotIn("position = 0", block)
                 self.assertIn("eu5ab_try_construct_saved_building_type = yes", block)
@@ -357,7 +377,7 @@ class AutomationGeneratorTests(unittest.TestCase):
                 self.assertNotIn("building_type = prev", block)
                 self.assertNotIn("prev.building_base_cost_in_gold", block)
 
-        self.assertEqual(self.effects.count("eu5ab_try_construct_saved_building_type = yes"), 6)
+        self.assertEqual(self.effects.count("eu5ab_try_construct_saved_building_type = yes"), 12)
         dispatcher_blocks = _blocks_for_token(
             self.effects, "\neu5ab_try_construct_saved_building_type = "
         )
@@ -417,6 +437,10 @@ class AutomationGeneratorTests(unittest.TestCase):
             'variable_map(cmm|flag:eu5ab_regional_development__economic_metric)',
             self.effects,
         )
+        self.assertIn(
+            'variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)',
+            self.effects,
+        )
         self.assertIn("eu5ab_refresh_global_budget = {", self.effects)
         self.assertIn("value = monthly_income_total", self.effects)
         self.assertIn("multiply = 6", self.effects)
@@ -470,6 +494,89 @@ class AutomationGeneratorTests(unittest.TestCase):
         self.assertIn("eu5ab_recipe_expected_input_cost = {", self.values)
         self.assertIn("eu5ab_recipe_expected_gross_margin = {", self.values)
         self.assertIn("eu5ab_recipe_economic_efficiency_score = {", self.values)
+
+    def test_actual_profit_mode_uses_bounded_shortlist_and_soft_priority(self):
+        default_priority = _blocks_for_token(
+            self.values, "\neu5ab_default_candidate_configured_priority = "
+        )[0]
+        configured_priority = _blocks_for_token(
+            self.values, "\neu5ab_current_candidate_configured_priority = "
+        )[0]
+        self.assertIn("this = building_type:granary", default_priority)
+        self.assertIn("eu5ab_tpl_1_building_priorities", configured_priority)
+        self.assertIn("max = 10", configured_priority)
+
+        ordinary_stage = _blocks_for_token(
+            self.effects, "\neu5ab_stage_current_expansion_candidates = "
+        )[0]
+        self.assertIn("var:eu5ab_global_candidate_ranking_mode = 2", ordinary_stage)
+        self.assertIn(
+            "max = { value = "
+            "var:eu5ab_global_actual_profit_candidates_per_location }",
+            ordinary_stage,
+        )
+        self.assertIn(
+            "max = { value = var:eu5ab_global_candidates_per_location }",
+            ordinary_stage,
+        )
+        self.assertEqual(ordinary_stage.count("order_by = eu5ab_current_candidate_score"), 2)
+
+        rank = _blocks_for_token(
+            self.effects, "\neu5ab_record_actual_profit_candidate = "
+        )[0]
+        self.assertIn("eu5ab_current_candidate_configured_priority", rank)
+        self.assertIn("multiply = 0.01", rank)
+        self.assertIn("eu5ab_q_profit_candidate_magnitude < 1", rank)
+        self.assertIn("add = scope:eu5ab_engine_profit", rank)
+        self.assertIn("eu5ab_q_profit_best_rank", rank)
+
+        prepare = _blocks_for_token(
+            self.effects, "\neu5ab_prepare_actual_profit_selection = "
+        )[0]
+        self.assertIn("order_by = var:eu5ab_q_profit_best_rank", prepare)
+        self.assertIn("name = eu5ab_q_profit_locations", prepare)
+        self.assertIn("set_variable = eu5ab_q_profit_selecting", prepare)
+        self.assertIn("name = eu5ab_diag_queue_state value = 6", prepare)
+
+        self.assertIn("GetList('eu5ab_q_profit_locations')", self.engine_queue_gui)
+        self.assertIn("GetList('eu5ab_q_profit_best_types')", self.engine_queue_gui)
+        self.assertIn("eu5ab_gui_queue_try_profit_candidate", self.engine_queue_gui)
+        self.assertIn("GetBuildingTypeProfitInLocation", self.engine_queue_gui)
+        profit_round_start = self.engine_queue_gui.index(
+            "name = eu5ab_q_profit_validate_round"
+        )
+        profit_round_end = self.engine_queue_gui.index(
+            "name = eu5ab_q_profit_validate_check", profit_round_start
+        )
+        profit_round = self.engine_queue_gui[profit_round_start:profit_round_end]
+        self.assertIn(
+            "PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')",
+            profit_round,
+        )
+
+        final_gate = _blocks_for_token(
+            self.scripted_guis, "\neu5ab_gui_queue_try_profit_candidate = "
+        )[0]
+        for gate in (
+            "eu5ab_engine_candidate_economically_sound = yes",
+            "eu5ab_engine_candidate_has_actual_budget = yes",
+            "eu5ab_engine_candidate_keeps_actual_cash_reserve = yes",
+            "eu5ab_engine_construction_materials_available = yes",
+        ):
+            self.assertIn(gate, final_gate)
+        self.assertIn("eu5ab_approve_engine_candidate = yes", final_gate)
+
+        sync = _blocks_for_token(
+            self.scripted_guis, "\neu5ab_gui_queue_sync_check = "
+        )[0]
+        self.assertIn("var:eu5ab_global_candidate_ranking_mode = 2", sync)
+        self.assertIn("NOT = { has_variable = eu5ab_q_profit_selecting }", sync)
+        self.assertIn("eu5ab_prepare_actual_profit_selection = yes", sync)
+
+        rgo_score = _blocks_for_token(
+            self.values, "\neu5ab_rgo_candidate_score = "
+        )[0]
+        self.assertNotIn("candidate_ranking_mode", rgo_score)
 
     def test_building_quality_score_is_bounded_below_need_signals(self):
         self.assertIn("limit = { this = building_type:granary }", self.values)
@@ -875,6 +982,89 @@ class AutomationGeneratorTests(unittest.TestCase):
         self.assertNotIn("remove_variable = eu5ab_q_phase", finish)
         self.assertNotIn("remove_variable = eu5ab_q_expected", finish)
 
+    def test_queue_watchdog_requires_real_queue_progress(self):
+        start = _blocks_for_token(
+            self.effects, "\neu5ab_start_engine_candidate_queue = "
+        )[0]
+        self.assertIn(
+            "eu5ab_reset_engine_candidate_watchdog_progress = yes",
+            start,
+        )
+        self.assertIn(
+            "trigger_event_silently = { id = eu5ab_queue_watchdog.1 days = 2 }",
+            start,
+        )
+
+        watchdog_event = _blocks_for_token(
+            self.events, "\neu5ab_queue_watchdog.1 = "
+        )[0]
+        self.assertIn("type = country_event", watchdog_event)
+        self.assertIn("has_variable = eu5ab_q_active", watchdog_event)
+        self.assertIn(
+            "eu5ab_check_engine_candidate_queue_watchdog = yes",
+            watchdog_event,
+        )
+        self.assertIn(
+            "trigger_event_silently = { id = eu5ab_queue_watchdog.1 days = 2 }",
+            watchdog_event,
+        )
+
+        watchdog = _blocks_for_token(
+            self.effects, "\neu5ab_check_engine_candidate_queue_watchdog = "
+        )[0]
+        for progress in ("phase", "processed", "seen", "confirmed"):
+            self.assertIn(
+                f"var:eu5ab_q_{progress} > "
+                f"{{ value = var:eu5ab_q_watchdog_last_{progress} }}",
+                watchdog,
+            )
+        self.assertIn("eu5ab_q_watchdog_stall_checks >= 2", watchdog)
+        self.assertIn("name = eu5ab_diag_queue_state value = 5", watchdog)
+        self.assertIn("eu5ab_finish_engine_candidate_queue = yes", watchdog)
+        self.assertNotIn("heartbeat", watchdog)
+        self.assertNotIn("watchdog", self.scripted_guis)
+
+        snapshot = _blocks_for_token(
+            self.effects,
+            "\neu5ab_reset_engine_candidate_watchdog_progress = ",
+        )[0]
+        for progress in ("phase", "processed", "seen", "confirmed"):
+            self.assertIn(
+                f"name = eu5ab_q_watchdog_last_{progress} "
+                f"value = var:eu5ab_q_{progress}",
+                snapshot,
+            )
+        self.assertIn(
+            "name = eu5ab_q_watchdog_stall_checks value = 0",
+            snapshot,
+        )
+
+        phase_reset = _blocks_for_token(
+            self.effects, "\neu5ab_reset_engine_priority_phase_progress = "
+        )[0]
+        profit_selection = _blocks_for_token(
+            self.effects, "\neu5ab_prepare_actual_profit_selection = "
+        )[0]
+        for structural_reset in (phase_reset, profit_selection):
+            self.assertIn(
+                "eu5ab_reset_engine_candidate_watchdog_progress = yes",
+                structural_reset,
+            )
+
+        clear = _blocks_for_token(
+            self.effects, "\neu5ab_clear_engine_candidate_queue = "
+        )[0]
+        for variable in (
+            "eu5ab_q_watchdog_last_phase",
+            "eu5ab_q_watchdog_last_processed",
+            "eu5ab_q_watchdog_last_seen",
+            "eu5ab_q_watchdog_last_confirmed",
+            "eu5ab_q_watchdog_stall_checks",
+            "eu5ab_q_watchdog_heartbeat",
+            "eu5ab_q_watchdog_last_heartbeat",
+        ):
+            self.assertIn(f"remove_variable = {variable}", clear)
+
     def test_empty_monthly_check_resets_stale_results_and_queue_display(self):
         monthly = _blocks_for_token(
             self.effects, "\neu5ab_run_regional_development_policy = "
@@ -1120,7 +1310,7 @@ class AutomationGeneratorTests(unittest.TestCase):
     def test_only_latest_unlocked_replacement_is_scored_and_upgrades_are_preferred(self):
         self.assertEqual(
             self.effects.count("eu5ab_candidate_is_latest_unlocked = yes"),
-            7,
+            13,
         )
         latest = _blocks_for_token(
             self.triggers, "\neu5ab_candidate_is_latest_unlocked = "

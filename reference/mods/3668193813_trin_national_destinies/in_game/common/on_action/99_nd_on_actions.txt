@@ -1,0 +1,675 @@
+﻿# ==========================================================================
+# WHY THESE HOOKS LOOK INDIRECT
+#
+# An on_action's `effect` is a SINGLE-VALUE field. When two files declare
+# `effect` for the same on_action the engine keeps one and silently discards
+# the other, logging only "There is more than one 'effect' defined using most
+# recent: <file>". Vanilla never does this: across all 164 vanilla on_actions
+# there are zero cases of two files declaring the same field. Paradox avoids
+# it with a chain: ai_personalities_setup.txt adds
+# `on_actions = { on_ai_personalities_game_start }` to on_game_start rather
+# than a second `effect`.
+#
+# This file used to declare `effect` directly on `on_game_start` (colliding
+# with _hardcoded.txt) and on `on_four_yearly_check_for_script` (colliding
+# with country_four_yearly.txt). Our file sorts before both alphabetically, so
+# vanilla parsed last and won, and BOTH of our effects were dropped: no
+# destiny trees for the 20 game-start tags below (the Austria/Bohemia/Poland
+# Workshop reports) and no BYZ achievement gate. It also used
+# `on_country_yearly_pulse`, which is not an engine on_action at all. The
+# name appears nowhere in vanilla, so it was never called and the DNM
+# succession chain never fired.
+#
+# Rules for editing this file:
+#   * Before declaring a field on a vanilla on_action, check that no vanilla
+#     file already declares that same field on it. `eu5-validate --checks
+#     on_actions` enforces this.
+#   * Engine periodic country hooks are `monthly_country_pulse`,
+#     `biyearly_country_pulse`, `yearly_country_pulse`,
+#     `four_yearly_country_pulse` (no `on_` prefix). An `on_`-prefixed pulse
+#     name is almost certainly invented and will never fire.
+#   * Slot ledger as of 2026-08-03: WE hold monthly_country_pulse.effect
+#     (bootstrap + DNM chain + Danube spark watch + AI formables),
+#     on_four_yearly_check_for_script.on_actions (BYZ achievement) and
+#     on_new_ruler.on_actions (Danube succession checkpoint). Still free:
+#     biyearly_country_pulse.effect, on_country_specific_pulse.{effect,
+#     on_actions}. Re-verify against vanilla after every patch.
+# ==========================================================================
+
+# Fire formation events at game start for tags that exist as already-formed countries.
+# Without this, players starting as e.g. Bohemia never get their destiny tree because
+# the formation event (which sets nd_TAG_formed) only fires when the country is formed
+# from an unformed state.
+#
+# Two deliberate details, both from players repeatedly reporting the destiny tree
+# missing for game-start tags (Workshop: Austria 2026-06-13, Bohemia 2026-07-16,
+# Bohemia + Poland 2026-07-27) even though this handler was supposed to cover them:
+#
+#  1. The `_formed` variables are set HERE, not left to the event's options. Destiny
+#     advance visibility keys off nd_TAG_formed, so tying it to the player answering
+#     a popup makes an entire content tree depend on a popup being delivered. Setting
+#     it directly makes the tree appear whatever happens to the event.
+#  2. The event fires on a 3-day delay rather than during game setup, so it arrives in
+#     a running game with a live event queue. The option still grants the timed
+#     modifier and sets nd_TAG_path_*, which the destiny branches need.
+#
+# Setting the variable twice (here and again in the event option) is harmless: the
+# guard below has already been evaluated, and set_variable is idempotent.
+#
+# The formation event's own fire-guard is a SEPARATE variable, nd_TAG_e1_done,
+# not nd_TAG_formed. Keeping them separate is what lets point 1 above stay true.
+# Formation events moved off fire_only_once on 2026-08-06 because it is per
+# CAMPAIGN, so a game-start tag burned the event for every later former
+# (Workshop report ewobmrk, Tibet). Had that guard reused nd_TAG_formed, this
+# pre-set would make the queued event fail its own trigger, and restoring the
+# event would have meant deleting the pre-set and putting destiny visibility
+# back at the mercy of a delivered popup: the exact bug points 1 and 2 exist to
+# prevent.
+#
+# DAH and YUA are the exception: their nd_<tag>.1 is an advance-gated DHE, not
+# a formation event, so nothing would ever set their variables. They keep the
+# pre-set and lost the day-3 call, which always failed the advance trigger.
+#
+# HOOK: monthly_country_pulse.effect (its `on_actions` is vanilla-owned).
+# Was on_game_start.effect, which vanilla discarded. Runs per country per
+# month, so a global run-once flag keeps the 20-tag sweep to a single
+# execution: the first country pulsed sets nd_bootstrap_done and every
+# later country-month short-circuits on one cheap check. The per-tag
+# `NOT = { has_variable = nd_TAG_formed }` guards remain, so a tag that
+# formed normally is never re-bootstrapped.
+#
+# Cost of moving off game start: the event now arrives within the first
+# month rather than on day 3. Upside: because the flag lives in the save,
+# an EXISTING save that never got bootstrapped is repaired on load.
+monthly_country_pulse = {
+	effect = {
+		if = {
+			limit = { NOT = { has_global_variable = nd_bootstrap_done } }
+			hidden_effect = { set_global_variable = nd_bootstrap_done }
+
+			if = {
+				limit = {
+					exists = c:BOH
+					NOT = { c:BOH = { has_variable = nd_boh_formed } }
+				}
+				c:BOH = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_boh_formed
+					}
+					trigger_event_non_silently = { id = nd_boh.1 days = 3 }
+				}
+			}
+			# BYZ deliberately NOT in on_game_start: vanilla 1.2 DLC ships the
+			# Byzantine succession crisis disaster + dense early-game content
+			# that makes the BYZ start uniquely about stabilization. Granting
+			# our timed modifier at game start would undercut that. Game-start
+			# BYZ players earn the formation event by reconquering the 3-city
+			# Komnenian core (see on_four_yearly_check_for_script below).
+			if = {
+				limit = {
+					exists = c:CHI
+					NOT = { c:CHI = { has_variable = nd_chi_formed } }
+				}
+				c:CHI = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_chi_formed
+					}
+					trigger_event_non_silently = { id = nd_chi.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:CSO
+					NOT = { c:CSO = { has_variable = nd_cso_formed } }
+				}
+				c:CSO = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_cso_formed
+					}
+					trigger_event_non_silently = { id = nd_cso.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:DAH
+					NOT = { c:DAH = { has_variable = nd_dah_formed } }
+				}
+				c:DAH = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_dah_formed
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = c:DLH
+					NOT = { c:DLH = { has_variable = nd_dlh_formed } }
+				}
+				c:DLH = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_dlh_formed
+					}
+					trigger_event_non_silently = { id = nd_dlh.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:ETH
+					NOT = { c:ETH = { has_variable = nd_eth_formed } }
+				}
+				c:ETH = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_eth_formed
+					}
+					trigger_event_non_silently = { id = nd_eth.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:FIN
+					NOT = { c:FIN = { has_variable = nd_fin_formed } }
+				}
+				c:FIN = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_fin_formed
+					}
+					trigger_event_non_silently = { id = nd_fin.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:HAB
+					NOT = { c:HAB = { has_variable = nd_hab_formed } }
+				}
+				c:HAB = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_hab_formed
+					}
+					trigger_event_non_silently = { id = nd_hab.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:JAP
+					NOT = { c:JAP = { has_variable = nd_jap_formed } }
+				}
+				c:JAP = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_jap_formed
+					}
+					trigger_event_non_silently = { id = nd_jap.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:KOJ
+					NOT = { c:KOJ = { has_variable = nd_koj_formed } }
+				}
+				c:KOJ = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_koj_formed
+					}
+					trigger_event_non_silently = { id = nd_koj.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:LAT
+					NOT = { c:LAT = { has_variable = nd_lat_formed } }
+				}
+				c:LAT = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_lat_formed
+					}
+					trigger_event_non_silently = { id = nd_lat.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:LIV
+					NOT = { c:LIV = { has_variable = nd_liv_formed } }
+				}
+				c:LIV = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_liv_formed
+					}
+					trigger_event_non_silently = { id = nd_liv.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:MAL
+					NOT = { c:MAL = { has_variable = nd_mal_formed } }
+				}
+				c:MAL = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_mal_formed
+					}
+					trigger_event_non_silently = { id = nd_mal.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:MGE
+					NOT = { c:MGE = { has_variable = nd_mge_formed } }
+				}
+				c:MGE = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_mge_formed
+					}
+					trigger_event_non_silently = { id = nd_mge.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:MIR
+					NOT = { c:MIR = { has_variable = nd_mir_formed } }
+				}
+				c:MIR = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_mir_formed
+					}
+					trigger_event_non_silently = { id = nd_mir.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:MOR
+					NOT = { c:MOR = { has_variable = nd_mor_formed } }
+				}
+				c:MOR = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_mor_formed
+					}
+					trigger_event_non_silently = { id = nd_mor.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:POL
+					NOT = { c:POL = { has_variable = nd_pol_formed } }
+				}
+				c:POL = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_pol_formed
+					}
+					trigger_event_non_silently = { id = nd_pol.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:SWI
+					NOT = { c:SWI = { has_variable = nd_swi_formed } }
+				}
+				c:SWI = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_swi_formed
+					}
+					trigger_event_non_silently = { id = nd_swi.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:TIB
+					NOT = { c:TIB = { has_variable = nd_tib_formed } }
+				}
+				c:TIB = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_tib_formed
+					}
+					trigger_event_non_silently = { id = nd_tib.1 days = 3 }
+				}
+			}
+			if = {
+				limit = {
+					exists = c:YUA
+					NOT = { c:YUA = { has_variable = nd_yua_formed } }
+				}
+				c:YUA = {
+					hidden_effect = {
+						set_variable = nd_formed
+						set_variable = nd_yua_formed
+					}
+				}
+			}
+
+			# NOTE: there used to be a `random_country = { limit = { always = yes }
+			# trigger_event_silently = nd_orphan_anchor.1 }` here, on the theory
+			# that the anchor event had to be TRIGGERED for its variable reads to
+			# count. That is false, and the 2026-07-29 log proved it: while this
+			# whole effect block was being silently discarded by the on_game_start
+			# field collision (so the call never loaded at all), the 25 variables
+			# already listed in the anchor produced no "set but never used"
+			# warnings, while the 9 variables missing from it did. The anchor works
+			# purely by EXISTING. The reachability check is static. Calling it
+			# also made the engine log "Event nd_orphan_anchor.1 is scripted as an
+			# orphan, but has callers", since `orphan = yes` promises no callers.
+		}
+
+
+		# Danubian Monarchy succession-question chain advancement.
+		# ----- THE REICH QUESTION, LIVE STATE (2026-08-24) -----
+		# A Monarchy that chose the Reich and is no longer a member left by
+		# a road the mod does not own: the vanilla leave button (hre.txt:363
+		# can_leave_trigger, open after 1400 without the Golden Bull), a
+		# peace term, the Swiss policy. The consequences are the break
+		# option's; nd_dnm.54 applies them in immediate and says so.
+		# nd_dnm_reich_broken is the once-guard (the break effect sets it).
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_in_reich
+				NOT = { has_variable = nd_dnm_reich_broken }
+				exists = international_organization:hre
+				NOT = { is_member_of_international_organization = international_organization:hre }
+			}
+			trigger_event_non_silently = nd_dnm.54
+		}
+		# The Empire can be destroyed outright (events/hre.txt:166). A
+		# Monarchy inside it is then simply sovereign: nd_dnm.55 clears the
+		# in-Reich marker, so this fires once.
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_in_reich
+				NOT = { exists = international_organization:hre }
+			}
+			trigger_event_non_silently = nd_dnm.55
+		}
+		# The Crown of Saint Stephen's grievance follows the live state:
+		# Hungary released, re-subjugated, welded, the Monarchy in or out.
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_formed
+			}
+			nd_dnm_crown_of_st_stephen_maintain_effect = yes
+		}
+		# Orphan cleanup from Hungary's side: the Monarchy is gone, and the
+		# grievance with it.
+		if = {
+			limit = {
+				tag = HUN
+				has_country_modifier = nd_dnm_crown_of_st_stephen
+				NOT = { exists = c:DNM }
+			}
+			remove_country_modifier = nd_dnm_crown_of_st_stephen
+		}
+
+		# The Reich situation's on_monthly used to do this, but coupling chain
+		# advancement to situation activity meant that if the situation ended
+		# early (strength path: 80% war score vs Emperor), the chain stopped
+		# firing. The chain is a SEPARATE internal pressure from the external
+		# pariah situation. It has to run regardless of situation state.
+		#
+		# Each chain step uses a TIMED variable set in nd_dnm.1: years = 2/5/8.
+		# When the timed var has decayed AND the matching _fired guard is unset,
+		# the event fires once and the guard is set. Sequential dependency on
+		# the previous step's _fired guard means events fire in narrative order
+		# even if game time jumps oddly.
+		# HOOK NOTE: this chain previously sat on `on_country_yearly_pulse`,
+		# which the engine does not know, so it never ran and
+		# nd_dnm_succession_step was never set, which in turn meant the
+		# Pragmatic Sanction disaster (can_start needs step >= 3) could never
+		# start and the Reich situation's legitimacy exit was unreachable.
+		# Monthly polling suits it better than yearly: each step waits on a
+		# timed variable (years = 2/5/8) and now fires promptly on decay.
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_formed
+				NOT = { has_variable = nd_dnm_chain_30_pending }
+				NOT = { has_variable = nd_dnm_chain_30_fired }
+			}
+			hidden_effect = { set_variable = nd_dnm_chain_30_fired }
+			trigger_event_non_silently = nd_dnm.30
+		}
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_chain_30_fired
+				NOT = { has_variable = nd_dnm_chain_31_pending }
+				NOT = { has_variable = nd_dnm_chain_31_fired }
+			}
+			hidden_effect = { set_variable = nd_dnm_chain_31_fired }
+			trigger_event_non_silently = nd_dnm.31
+		}
+		if = {
+			limit = {
+				tag = DNM
+				has_variable = nd_dnm_chain_31_fired
+				NOT = { has_variable = nd_dnm_chain_32_pending }
+				NOT = { has_variable = nd_dnm_chain_32_fired }
+			}
+			hidden_effect = { set_variable = nd_dnm_chain_32_fired }
+			trigger_event_non_silently = nd_dnm.32
+		}
+
+
+		# ===== SUCCESSION OF THE DANUBE: SPARK WATCH =====
+		# One cheap guarded call per crown-month until the question opens,
+		# then the global started-flag short-circuits it forever (single
+		# instance per campaign). Effect and design: PLAN.md section 13.
+		nd_dnb_spark_watch = yes
+
+
+		# ===== AI FORMABLE FORMATION (Layer 1, "opportunistic") =====
+		# Gated behind the nd_ai_formables game rule (off by default).
+		# Community-verified vanilla gap: the AI essentially never forms
+		# nations; nothing steers it toward any formable. This layer is
+		# the cheap half of the fix: an AI country that ALREADY satisfies
+		# a major formable's own can_form (engine trigger: potential +
+		# allow + location fraction + level + the vanilla formable game
+		# rule) takes it. No AI war behavior changes here: that is
+		# Layer 2 (ai_scripted_expansion_score/99_nd_ai_formables.txt,
+		# ambitious setting only).
+		#
+		# Curated pilot set (8 vanilla majors, keys verified against
+		# 00_formable_countries.txt, plus our own Danubian Monarchy since
+		# 2026-08-25): bounded on purpose (9 can_form evaluations per AI
+		# country per month, not 150). else_if chain: at most one
+		# formation per country per pulse.
+		#
+		# DNM (user ruling 2026-08-25): an AI crown that meets the
+		# Monarchy's requirements by any road, above all the Habsburg
+		# marriage road (the formable's allow accepts union juniors),
+		# forms it whenever this rule is on. Before this the only script
+		# that ever made an AI found the Monarchy was the Succession of
+		# the Danube's forced proclamation, so with that situation
+		# switched off (nd_danube_succession_rule) an AI union of the
+		# three crowns went nowhere. Listed before Germany because a
+		# Habsburg Austria that qualifies for both is the Danubian
+		# Monarchy first; Layer 2 steering stays clear of the Danube.
+		#
+		# RUNTIME-VERIFY on first launch (error.log): `can_form =
+		# formable_country:X` is an engine trigger with tooltip loc
+		# (country_triggers.txt:3449) but ZERO vanilla script usage, so
+		# this exact syntax is unverified until the game parses it.
+		# Fallback if rejected: location_progress_for_formable >= 1.0
+		# (vanilla-used, situation_triggers.txt:542) plus the formable's
+		# own potential conditions.
+		if = {
+			limit = {
+				is_ai = yes
+				OR = {
+					has_game_rule = nd_ai_formables_opportunistic
+					has_game_rule = nd_ai_formables_ambitious
+				}
+			}
+			if = {
+				limit = { can_form = formable_country:SPA_f }
+				form_country = formable_country:SPA_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:RUS_f }
+				form_country = formable_country:RUS_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:GBR_f }
+				form_country = formable_country:GBR_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:SCA_f }
+				form_country = formable_country:SCA_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:MUG_f }
+				form_country = formable_country:MUG_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:DNM_f }
+				form_country = formable_country:DNM_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:GER_f }
+				form_country = formable_country:GER_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:ITA_f }
+				form_country = formable_country:ITA_f
+			}
+			else_if = {
+				limit = { can_form = formable_country:NED_f }
+				form_country = formable_country:NED_f
+			}
+		}
+	}
+}
+
+
+# Achievement-triggered formation events for starting+formable overlaps.
+# The country-start player can't use the formable button (you can't form
+# what you already are), so we check four-yearly whether they have reached
+# the formable's imperial-reach allow conditions. When met, fire the
+# formation event chain. Variable check prevents re-firing.
+#
+# HOOK: vanilla owns on_four_yearly_check_for_script.effect, but its
+# `on_actions` field is free, so we chain to our own on_action exactly as
+# ai_personalities_setup.txt does. Cadence and scope are unchanged; the
+# effect simply now runs instead of being discarded.
+on_four_yearly_check_for_script = {
+	on_actions = { nd_on_four_yearly_check }
+}
+
+nd_on_four_yearly_check = {
+	effect = {
+		# BYZ achievement: 3-city Komnenian core (Constantinople + Athens +
+		# Iznik). Forces game-start BYZ to actually reconquer territory
+		# (meaningful imperial recovery beyond the starting position)
+		# before earning our formation event and content. Preserves the
+		# vanilla 1.2 DLC's stabilization-focused early game.
+		if = {
+			limit = {
+				exists = c:BYZ
+				NOT = { c:BYZ = { has_variable = nd_byz_formed } }
+				c:BYZ = {
+					# Orthodox is the canonical restoration, but d008 lets BYZ
+					# restore Hellenism (the old Roman religion). Accept both so a
+					# Hellenic revival isn't locked out of the formation event;
+					# nd_byz.1 offers a religion-appropriate choice for each.
+					OR = {
+						religion = religion:orthodox
+						religion = religion:hellenism_religion
+					}
+					owns = location:constantinople
+					owns = location:athens
+					owns = location:iznik
+				}
+			}
+			c:BYZ = { trigger_event_non_silently = nd_byz.1 }
+		}
+
+		# SCRIPT-FORMED TAG REPAIR (2026-08-08, Workshop report on JAP).
+		#
+		# Vanilla can create a country WITHOUT the player pressing the
+		# formable button: `form_country = formable_country:X_f` appears at
+		# 25 sites across situations, DHE chains, peace treaties and generic
+		# actions. sengoku.txt forms JAP from the shogunate leader when the
+		# Sengoku Jidai ends; rise_of_the_ottomans forms RUM; flavor chains
+		# form MOL, AYU, TUS and others.
+		#
+		# The formation markers are now set in each form_effect, which
+		# covers this as long as form_country runs form_effect. That has not
+		# been confirmed against a live game, and the failure is silent and
+		# total: the tag keeps every advance gated on its marker locked
+		# forever, which is exactly what was reported. So this repairs the
+		# state independently, on a cheap four-yearly cadence, for the 13
+		# mod tags vanilla can form by script.
+		#
+		# Self-healing by design: a save already broken by this bug is
+		# repaired within four years of loading. Costs nothing when the
+		# markers are set, because every branch tests for their absence.
+		# The bootstrap block on monthly_country_pulse cannot do this job:
+		# it is wrapped in a global run-once flag, so it fires on the first
+		# pulse of the campaign, centuries before any of these tags exist.
+		nd_repair_script_formed_effect = { TAG = ADU LTAG = adu }
+		nd_repair_script_formed_effect = { TAG = BNG LTAG = bng }
+		nd_repair_script_formed_effect = { TAG = CHI LTAG = chi }
+		nd_repair_script_formed_effect = { TAG = DLH LTAG = dlh }
+		nd_repair_script_formed_effect = { TAG = GBR LTAG = gbr }
+		nd_repair_script_formed_effect = { TAG = IRE LTAG = ire }
+		nd_repair_script_formed_effect = { TAG = JAP LTAG = jap }
+		nd_repair_script_formed_effect = { TAG = LAT LTAG = lat }
+		nd_repair_script_formed_effect = { TAG = MOL LTAG = mol }
+		nd_repair_script_formed_effect = { TAG = PGR LTAG = pgr }
+		nd_repair_script_formed_effect = { TAG = PRU LTAG = pru }
+		nd_repair_script_formed_effect = { TAG = RUM LTAG = rum }
+		nd_repair_script_formed_effect = { TAG = SWI LTAG = swi }
+		nd_repair_script_formed_effect = { TAG = TUS LTAG = tus }
+
+		# The event-formed tags. Their nd_<tag>.1 is an advance-gated DHE
+		# rather than a formation event, so they take the marker-only
+		# variant: setting the variable is the entire fix, and calling the
+		# DHE would just fail its own trigger.
+		#
+		# Until 2026-08-08 none of these had a formable file at all, so the
+		# only writer of nd_<tag>_formed was that DHE's options, behind an
+		# age-3 advance. The bureaucracy grant in each tag's auto_modifier
+		# reads that variable, so four bureaucracies per tag sat unreachable
+		# for most of a campaign. They now also set the markers in
+		# form_effect; this sweep is the belt to that pair of braces, and for
+		# MLC it is the only thing that works at all.
+		nd_repair_script_formed_marker_only = { TAG = AYU LTAG = ayu }
+		nd_repair_script_formed_marker_only = { TAG = BAH LTAG = bah }
+		nd_repair_script_formed_marker_only = { TAG = DAH LTAG = dah }
+		nd_repair_script_formed_marker_only = { TAG = MLC LTAG = mlc }
+		nd_repair_script_formed_marker_only = { TAG = MTM LTAG = mtm }
+		nd_repair_script_formed_marker_only = { TAG = YUA LTAG = yua }
+	}
+}
+
+
+# Succession of the Danube: the succession checkpoint. `on_new_ruler` is
+# declared once in vanilla (_hardcoded.txt, fields `events` + `effect`);
+# its `on_actions` field is free, so we chain exactly as
+# ai_personalities_setup.txt does on on_game_start (verified 2026-08-02,
+# PLAN.md section 13). Root = the country whose ruler changed;
+# scope:old_ruler / scope:new_ruler supplied by the engine.
+on_new_ruler = {
+	on_actions = { nd_dnb_on_new_ruler }
+}
+
+nd_dnb_on_new_ruler = {
+	effect = {
+		nd_dnb_succession_checkpoint = yes
+	}
+}

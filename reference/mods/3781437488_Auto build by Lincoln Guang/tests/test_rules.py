@@ -22,6 +22,7 @@ class AutomationRulesTests(unittest.TestCase):
         self.assertEqual(rules.cadence.deep_score_location_limit, 600)
         self.assertEqual(rules.cadence.deep_score_quota_multiplier, 8)
         self.assertEqual(rules.cadence.candidates_per_location, 3)
+        self.assertEqual(rules.cadence.actual_profit_candidates_per_location, 10)
         self.assertIn("wheat", rules.food_goods)
         self.assertIn("masonry", rules.construction_goods)
         self.assertIn("weaponry", rules.essential_goods)
@@ -130,6 +131,7 @@ class AutomationRulesTests(unittest.TestCase):
             "deep_score_location_limit",
             "deep_score_quota_multiplier",
             "candidates_per_location",
+            "actual_profit_candidates_per_location",
         ):
             raw["cadence"].pop(key)
         raw["thresholds"].pop("economic_score_scale")
@@ -147,6 +149,7 @@ class AutomationRulesTests(unittest.TestCase):
         self.assertEqual(rules.cadence.deep_score_location_limit, 600)
         self.assertEqual(rules.cadence.deep_score_quota_multiplier, 8)
         self.assertEqual(rules.cadence.candidates_per_location, 3)
+        self.assertEqual(rules.cadence.actual_profit_candidates_per_location, 10)
         self.assertEqual(rules.thresholds.upgrade_replacement_bonus, 5000)
         self.assertEqual(rules.location_scores.waiting_per_month, 8)
         self.assertEqual(rules.workforce_model.default_fill_deadline_months, 3)
@@ -203,6 +206,16 @@ class AutomationRulesTests(unittest.TestCase):
             ("deep_score_location_limit", 601, "cannot exceed 600"),
             ("deep_score_quota_multiplier", 0, "must be positive"),
             ("candidates_per_location", 2, "exactly three"),
+            (
+                "actual_profit_candidates_per_location",
+                2,
+                "cannot be below",
+            ),
+            (
+                "actual_profit_candidates_per_location",
+                31,
+                "cannot exceed 30",
+            ),
             ("location_cooldown_months", -1, "cannot be negative"),
             ("deep_score_quota_multiplier", "8", "must be an integer"),
         )

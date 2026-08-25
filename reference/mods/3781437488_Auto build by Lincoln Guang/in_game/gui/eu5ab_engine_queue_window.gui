@@ -270,6 +270,36 @@ widget = {
 			}
 		}
 
+
+		widget = {
+			size = { 0 0 }
+			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_profit_should_validate').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+			state = { name = _show duration = 0.1 next = eu5ab_q_profit_validate_round }
+			state = {
+				name = eu5ab_q_profit_validate_round
+				duration = 0.15
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_profit_validate_candidate')]"
+				on_finish = "[PdxGuiTriggerAllAnimations('eu5ab_q_probe_approved')]"
+				next = eu5ab_q_profit_validate_check
+			}
+			state = {
+				name = eu5ab_q_profit_validate_check
+				duration = 0.15
+				on_finish = "[GetScriptedGui('eu5ab_gui_queue_sync_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				next = eu5ab_q_profit_validate_round
+			}
+		}
+		widget = {
+			datamodel = "[GetPlayer.MakeScope.GetList('eu5ab_q_profit_locations')]"
+			item = {
+				widget = {
+					datacontext = "[Scope.GetLocation]"
+					datamodel = "[Location.MakeScope.GetList('eu5ab_q_profit_best_types')]"
+					item = { widget = { datacontext = "[Scope.GetBuildingType]" state = { name = eu5ab_q_profit_validate_candidate on_finish = "[GetScriptedGui('eu5ab_gui_queue_try_profit_candidate').Execute(GuiScope.SetRoot(Location.MakeScope).AddScope('eu5ab_candidate_building', BuildingType.MakeScope).AddScope('eu5ab_engine_country', GetPlayer.MakeScope).AddScope('eu5ab_engine_cost', MakeScopeValue(GetBuildOrExpandBuildingCost(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_income', MakeScopeValue(GetBuildingTypeIncomeToOwnerInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_profit', MakeScopeValue(GetBuildingTypeProfitInLocation(BuildingType.Self, Location.Self))).AddScope('eu5ab_engine_can_build', MakeScopeBool(CanBuildOrExpandBuilding(BuildingType.Self, Location.Self))).End)]" } } }
+				}
+			}
+		}
+
 		widget = {
 			size = { 0 0 }
 			visible = "[And(GetPlayer.Exists, GetScriptedGui('eu5ab_gui_queue_should_fire').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"

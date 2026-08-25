@@ -16,6 +16,24 @@ eu5ab_regional_development__fixed_annual_budget_on_changed = {
 	effect = { }
 }
 
+# Planning shortlist size is relevant only to supply-demand planning.
+eu5ab_regional_development__candidates_per_location_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 1
+	}
+	effect = { }
+}
+
+# Profit shortlist size is relevant only to predicted-profit selection.
+eu5ab_regional_development__actual_profit_candidates_per_location_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 2
+	}
+	effect = { }
+}
+
 # Display-only CMM row shown while the maximum-throughput preset is active.
 eu5ab_regional_development__performance_throughput_warning_summary_on_changed = {
 	scope = country
@@ -28,6 +46,50 @@ eu5ab_regional_development__performance_throughput_warning_summary_on_changed = 
 
 # Display-only CMM row shown while the maximum-throughput preset is active.
 eu5ab_regional_development__performance_throughput_warning_action_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 1
+	}
+	is_valid = { always = no }
+	effect = { }
+}
+
+# Display-only CMM row shown while the maximum-throughput preset is active.
+eu5ab_regional_development__performance_throughput_warning_planning_consequence_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 1
+	}
+	is_valid = { always = no }
+	effect = { }
+}
+
+# Display-only CMM row shown while the maximum-throughput preset is active.
+eu5ab_regional_development__performance_throughput_warning_profit_action_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 2
+	}
+	is_valid = { always = no }
+	effect = { }
+}
+
+# Display-only CMM row shown while the maximum-throughput preset is active.
+eu5ab_regional_development__performance_throughput_warning_profit_consequence_on_changed = {
+	scope = country
+	is_shown = {
+		"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3
+		"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 2
+	}
+	is_valid = { always = no }
+	effect = { }
+}
+
+# Display-only CMM row shown while the maximum-throughput preset is active.
+eu5ab_regional_development__performance_throughput_warning_common_action_on_changed = {
 	scope = country
 	is_shown = {
 		"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3
@@ -22927,35 +22989,39 @@ eu5ab_gui_queue_should_validate = {
 }
 
 eu5ab_gui_queue_phase_1_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 1 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 1 }
 }
 
 eu5ab_gui_queue_phase_2_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 2 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 2 }
 }
 
 eu5ab_gui_queue_phase_3_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 3 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 3 }
 }
 
 eu5ab_gui_queue_phase_4_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 4 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 4 }
 }
 
 eu5ab_gui_queue_phase_5_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 5 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 5 }
 }
 
 eu5ab_gui_queue_phase_6_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 6 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 6 }
 }
 
 eu5ab_gui_queue_phase_7_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 7 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 7 }
 }
 
 eu5ab_gui_queue_phase_8_should_validate = {
-	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } var:eu5ab_q_phase = 8 }
+	is_shown = { exists = var:eu5ab_q_active NOT = { exists = var:eu5ab_q_fire } NOT = { exists = var:eu5ab_q_profit_selecting } var:eu5ab_q_phase = 8 }
+}
+
+eu5ab_gui_queue_profit_should_validate = {
+	is_shown = { exists = var:eu5ab_q_active exists = var:eu5ab_q_profit_selecting NOT = { exists = var:eu5ab_q_fire } }
 }
 
 eu5ab_gui_queue_should_fire = {
@@ -23008,7 +23074,14 @@ eu5ab_gui_queue_try_candidate = {
 					set_variable = eu5ab_q_approved_emergency_override
 				}
 				else = { remove_variable = eu5ab_q_approved_emergency_override }
-				eu5ab_approve_engine_candidate = yes
+				if = {
+					limit = {
+						scope:eu5ab_engine_country.var:eu5ab_global_candidate_ranking_mode = 2
+						NOT = { scope:eu5ab_engine_country = { has_variable = eu5ab_q_profit_selecting } }
+					}
+					eu5ab_record_actual_profit_candidate = yes
+				}
+				else = { eu5ab_approve_engine_candidate = yes }
 			}
 			else_if = {
 				limit = { NOT = { scope:eu5ab_engine_can_build = yes } }
@@ -23030,6 +23103,50 @@ eu5ab_gui_queue_try_candidate = {
 				limit = { NOT = { eu5ab_engine_candidate_keeps_actual_cash_reserve = yes } }
 				scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_cash add = 1 } }
 			}
+		}
+	}
+}
+
+eu5ab_gui_queue_try_profit_candidate = {
+	saved_scopes = { eu5ab_candidate_building eu5ab_engine_country eu5ab_engine_cost eu5ab_engine_income eu5ab_engine_profit eu5ab_engine_can_build }
+	is_valid = { always = yes }
+	effect = {
+		save_scope_as = eu5ab_candidate_location
+		if = {
+			limit = {
+				scope:eu5ab_engine_country = { has_variable = eu5ab_q_active has_variable = eu5ab_q_phase has_variable = eu5ab_q_profit_selecting NOT = { exists = var:eu5ab_q_fire } }
+				NOT = { has_variable = eu5ab_q_profit_done }
+				is_target_in_variable_list = { name = eu5ab_q_profit_best_types target = scope:eu5ab_candidate_building }
+			}
+			set_variable = eu5ab_q_profit_done
+			scope:eu5ab_engine_country = { change_variable = { name = eu5ab_q_processed add = 1 } change_variable = { name = eu5ab_diag_engine_probes add = 1 } }
+			if = {
+				limit = {
+					NOT = { has_variable = eu5ab_q_location_approved }
+					NOT = { has_variable = eu5ab_action_taken }
+					eu5ab_engine_candidate_in_current_priority_phase = yes
+					num_civil_constructions < 1
+					scope:eu5ab_engine_country = {
+						var:eu5ab_q_approved < {
+							value = var:eu5ab_monthly_build_quota
+							subtract = var:eu5ab_constructions_started_this_tick
+						}
+					}
+					scope:eu5ab_engine_can_build = yes
+					eu5ab_engine_candidate_economically_sound = yes
+					eu5ab_engine_candidate_has_actual_budget = yes
+					eu5ab_engine_candidate_keeps_actual_cash_reserve = yes
+					eu5ab_engine_construction_materials_available = yes
+				}
+				if = { limit = { eu5ab_engine_candidate_uses_emergency_override = yes } set_variable = eu5ab_q_approved_emergency_override }
+				else = { remove_variable = eu5ab_q_approved_emergency_override }
+				eu5ab_approve_engine_candidate = yes
+			}
+			else_if = { limit = { NOT = { scope:eu5ab_engine_can_build = yes } } scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_vanilla add = 1 } } }
+			else_if = { limit = { NOT = { eu5ab_engine_candidate_economically_sound = yes } } scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_engine_economics add = 1 } } }
+			else_if = { limit = { NOT = { eu5ab_engine_construction_materials_available = yes } } scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_construction_materials add = 1 } } }
+			else_if = { limit = { NOT = { eu5ab_engine_candidate_has_actual_budget = yes } } scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_budget add = 1 } } }
+			else_if = { limit = { NOT = { eu5ab_engine_candidate_keeps_actual_cash_reserve = yes } } scope:eu5ab_engine_country = { change_variable = { name = eu5ab_diag_fail_cash add = 1 } } }
 		}
 	}
 }
@@ -23098,6 +23215,13 @@ eu5ab_gui_queue_sync_check = {
 			if = {
 				limit = { var:eu5ab_q_processed >= { value = var:eu5ab_q_expected } }
 				if = {
+					limit = {
+						var:eu5ab_global_candidate_ranking_mode = 2
+						NOT = { has_variable = eu5ab_q_profit_selecting }
+					}
+					eu5ab_prepare_actual_profit_selection = yes
+				}
+				else_if = {
 					limit = { var:eu5ab_q_approved <= 0 }
 					eu5ab_advance_engine_priority_phase = yes
 				}

@@ -184,9 +184,9 @@ class GeneratorTests(unittest.TestCase):
     def test_metadata_declares_cmf_hard_dependency(self):
         payload = json.loads(self.files[ROOT / ".metadata" / "metadata.json"])
         self.assertEqual(payload["name"], "EU5 Advanced Auto Build")
-        self.assertEqual(payload["version"], "0.9.2 Beta")
+        self.assertEqual(payload["version"], "0.9.3-beta")
         project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-        self.assertEqual(project["version"], "0.9.2b0")
+        self.assertEqual(project["version"], "0.9.3b0")
         self.assertEqual(project["requires-python"], ">=3.12")
         self.assertEqual(project["dependencies"], [])
         self.assertEqual(
@@ -330,6 +330,10 @@ class GeneratorTests(unittest.TestCase):
         warning_settings = (
             "performance_throughput_warning_summary",
             "performance_throughput_warning_action",
+            "performance_throughput_warning_planning_consequence",
+            "performance_throughput_warning_profit_action",
+            "performance_throughput_warning_profit_consequence",
+            "performance_throughput_warning_common_action",
         )
         for warning_setting in warning_settings:
             self.assertIn(f"setting_id = {warning_setting}", on_actions)
@@ -347,10 +351,38 @@ class GeneratorTests(unittest.TestCase):
             '"variable_map(cmm|flag:eu5ab_regional_development__performance_preset)" = 3',
             scripted_guis,
         )
+        for warning_setting in (
+            "performance_throughput_warning_action",
+            "performance_throughput_warning_planning_consequence",
+        ):
+            visibility = _blocks_for_token(
+                scripted_guis,
+                "eu5ab_regional_development__"
+                f"{warning_setting}_on_changed = ",
+            )[0]
+            self.assertIn(
+                '"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 1',
+                visibility,
+            )
+        for warning_setting in (
+            "performance_throughput_warning_profit_action",
+            "performance_throughput_warning_profit_consequence",
+        ):
+            visibility = _blocks_for_token(
+                scripted_guis,
+                "eu5ab_regional_development__"
+                f"{warning_setting}_on_changed = ",
+            )[0]
+            self.assertIn(
+                '"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 2',
+                visibility,
+            )
         advanced = {
             "parallel_location_scan": 1,
             "daily_location_task_limit": 30,
             "max_additions_per_run": 0,
+            "candidates_per_location": 3,
+            "actual_profit_candidates_per_location": 10,
             "early_stop_when_candidates_sufficient": 1,
         }
         for setting_id, default in advanced.items():
@@ -361,7 +393,11 @@ class GeneratorTests(unittest.TestCase):
                 flags=re.DOTALL,
             )
             self.assertIsNotNone(match, setting_id)
-        for daily, maximum in ((10, 30), (20, 50), (30, 0)):
+        for daily, maximum, planning_candidates, profit_candidates in (
+            (10, 30, 5, 15),
+            (20, 50, 4, 12),
+            (30, 0, 3, 10),
+        ):
             self.assertIn(
                 "key = flag:eu5ab_regional_development__daily_location_task_limit "
                 f"value = {daily}",
@@ -372,9 +408,54 @@ class GeneratorTests(unittest.TestCase):
                 f"value = {maximum}",
                 on_actions,
             )
+            self.assertIn(
+                "key = flag:eu5ab_regional_development__candidates_per_location "
+                f"value = {planning_candidates}",
+                on_actions,
+            )
+            self.assertIn(
+                "key = flag:eu5ab_regional_development__actual_profit_candidates_per_location "
+                f"value = {profit_candidates}",
+                on_actions,
+            )
+        for setting_id in (
+            "candidates_per_location",
+            "actual_profit_candidates_per_location",
+        ):
+            self.assertIn(
+                "var:cmf_callback = "
+                f"flag:eu5ab_regional_development__{setting_id}",
+                on_actions,
+            )
         self.assertIn(
             "key = flag:eu5ab_regional_development__performance_preset value = 4",
             on_actions,
+        )
+        for setting_id in (
+            "candidates_per_location",
+            "actual_profit_candidates_per_location",
+        ):
+            self.assertIn(
+                "mod_id = eu5ab_regional_development "
+                f"setting_id = {setting_id}",
+                on_actions,
+            )
+        planning_visibility = _blocks_for_token(
+            scripted_guis,
+            "eu5ab_regional_development__candidates_per_location_on_changed = ",
+        )[0]
+        self.assertIn(
+            '"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 1',
+            planning_visibility,
+        )
+        profit_visibility = _blocks_for_token(
+            scripted_guis,
+            "eu5ab_regional_development__"
+            "actual_profit_candidates_per_location_on_changed = ",
+        )[0]
+        self.assertIn(
+            '"variable_map(cmm|flag:eu5ab_regional_development__candidate_ranking_mode)" = 2',
+            profit_visibility,
         )
         self.assertIn('eu5ab_regional_development__performance_name: "性能优化"', chinese)
         self.assertIn('eu5ab_regional_development__performance_preset_option_1_name: "保守"', chinese)
@@ -383,11 +464,27 @@ class GeneratorTests(unittest.TestCase):
             "大量地点应用模板可能降低游戏性能。",
             chinese,
         )
-        self.assertIn("卡顿时请更换预设或降低「每轮最多新增」（0 为无限）。", chinese)
+        self.assertIn("供需规划卡顿：降低「规划候选数」。", chinese)
+        self.assertIn("后果：失败回退减少，可能漏掉后续可行项目。", chinese)
+        self.assertIn("预测利润择优卡顿：降低「利润候选数」。", chinese)
+        self.assertIn("后果：粗筛范围缩小，可能漏掉真实高利润建筑。", chinese)
+        self.assertIn("也可降低每天检查地点和每轮新增。", chinese)
+        self.assertIn('eu5ab_regional_development__candidates_per_location_name: "规划候选数"', chinese)
+        self.assertIn("仅在「供需规划」策略下显示并生效", chinese)
+        self.assertIn('eu5ab_regional_development__actual_profit_candidates_per_location_name: "利润候选数"', chinese)
+        self.assertIn("仅在「预测利润择优」策略下显示并生效", chinese)
         self.assertIn('eu5ab_regional_development__performance_preset_option_1_name: "Conservative"', english)
         self.assertIn('eu5ab_regional_development__performance_preset_option_3_name: "Maximum Throughput"', english)
         self.assertIn("Many templated locations can reduce game performance", english)
-        self.assertIn("If the game slows down, change preset or cap additions", english)
+        self.assertIn("Supply-Demand slowdown: lower Planning Candidates", english)
+        self.assertIn("Tradeoff: fewer fallbacks may miss later feasible projects", english)
+        self.assertIn("Profit-selection slowdown: lower Profit Candidates", english)
+        self.assertIn("Tradeoff: a smaller shortlist may miss truly profitable buildings", english)
+        self.assertIn("Also lower daily locations or additions per run", english)
+        self.assertIn('eu5ab_regional_development__candidates_per_location_name: "Planning Candidates per Location"', english)
+        self.assertIn("Shown and used only by Supply-Demand Planning", english)
+        self.assertIn('eu5ab_regional_development__actual_profit_candidates_per_location_name: "Profit Candidates per Location"', english)
+        self.assertIn("Shown and used only by Predicted Profit Selection", english)
 
     def test_generated_files_have_no_trailing_whitespace(self):
         for path, content in self.files.items():
@@ -497,6 +594,13 @@ class GeneratorTests(unittest.TestCase):
         self.assertIn("eu5ab_scan_regional_development_bucket = yes", event)
         self.assertIn("eu5ab_finish_regional_development_scan = yes", event)
         self.assertIn("var:eu5ab_scan_bucket_day < 20", event)
+        self.assertIn("namespace = eu5ab_queue_watchdog", event)
+        self.assertIn("eu5ab_queue_watchdog.1 = {", event)
+        self.assertIn("eu5ab_check_engine_candidate_queue_watchdog = yes", event)
+        self.assertIn(
+            "trigger_event_silently = { id = eu5ab_queue_watchdog.1 days = 2 }",
+            event,
+        )
         self.assertEqual(event.count("save_scope_as = actor"), 3)
         self.assertIn("namespace = eu5ab_worker", event)
         self.assertIn("type = location_event", event)
@@ -948,7 +1052,7 @@ class GeneratorTests(unittest.TestCase):
         )
         self.assertIn('tooltip = "eu5ab_custom_tab_tooltip"', main_gui)
         self.assertIn('tooltip = "eu5ab_presets_tab_tooltip"', main_gui)
-        self.assertIn('eu5ab_presets_tab: "内置预设"', zh_localization)
+        self.assertIn('eu5ab_presets_tab: "风味模板"', zh_localization)
         self.assertIn('eu5ab_presets_tab_tooltip: "按不同发展目标提供只读的建筑优先级。"', zh_localization)
         self.assertIn('eu5ab_custom_tab_tooltip: "自行设置建筑优先级和应用范围。"', zh_localization)
         self.assertIn('eu5ab_presets_tab: "Built-in Presets"', en_localization)
@@ -1255,6 +1359,7 @@ class GeneratorTests(unittest.TestCase):
             "setting_id = monthly_build_hard_cap",
             "setting_id = budget_mode",
             "setting_id = economic_metric",
+            "setting_id = candidate_ranking_mode",
             "setting_id = candidate_priority",
             "setting_id = emergency_food_exhaustion_override",
             "setting_id = emergency_food_stockpile_override",
@@ -1267,6 +1372,8 @@ class GeneratorTests(unittest.TestCase):
             "setting_id = price_max",
             "setting_id = allow_rgo",
             "setting_id = native_input_priority",
+            "setting_id = candidates_per_location",
+            "setting_id = actual_profit_candidates_per_location",
         ):
             self.assertIn(registration, on_actions)
 
@@ -1482,7 +1589,7 @@ class GeneratorTests(unittest.TestCase):
                 on_actions,
             )
         )
-        self.assertEqual(len(registered_settings), 29)
+        self.assertEqual(len(registered_settings), 36)
         for setting_id in registered_settings:
             for suffix in ("name", "desc"):
                 key = f"eu5ab_regional_development__{setting_id}_{suffix}"
@@ -1521,6 +1628,14 @@ class GeneratorTests(unittest.TestCase):
                 )
                 self.assertIn(priority_item_key, localization_keys)
                 self.assertIn(priority_item_key, english_keys)
+        for option in range(1, 3):
+            for suffix in ("name", "desc"):
+                ranking_option_key = (
+                    "eu5ab_regional_development__candidate_ranking_mode_"
+                    f"option_{option}_{suffix}"
+                )
+                self.assertIn(ranking_option_key, localization_keys)
+                self.assertIn(ranking_option_key, english_keys)
         priority_column_key = (
             "eu5ab_regional_development__candidate_priority_item_column_name"
         )
@@ -1531,6 +1646,7 @@ class GeneratorTests(unittest.TestCase):
             "eu5ab_regional_development__enabled_name",
             "eu5ab_regional_development__budget_mode_name",
             "eu5ab_regional_development__economic_metric_name",
+            "eu5ab_regional_development__candidate_ranking_mode_name",
             "eu5ab_regional_development__native_input_priority_name",
             "eu5ab_diagnostics_cmm_hint",
         ):
@@ -1551,6 +1667,64 @@ class GeneratorTests(unittest.TestCase):
             self.assertIn(f"\n{binding} = {{", scripted_guis)
         self.assertIn("GetVariableSystem.Clear('eu5ab_template_rules_visible')", gui)
         self.assertIn("GetVariableSystem.Set('eu5ab_window_open', '1')", gui)
+
+        self.assertIn('text = "eu5ab_ranking_mode_section_title"', gui)
+        self.assertIn('text = "eu5ab_ranking_mode_common_desc"', gui)
+        self.assertIn('text = "eu5ab_ranking_mode_composite_desc"', gui)
+        self.assertIn('text = "eu5ab_ranking_mode_actual_profit_desc"', gui)
+        self.assertIn('text = "eu5ab_ranking_mode_actual_profit_scope_desc"', gui)
+        self.assertIn("candidate_ranking_mode", gui)
+        self.assertIn(
+            'eu5ab_regional_development__candidate_ranking_mode_option_1_name: "供需规划"',
+            localization,
+        )
+        self.assertIn(
+            'eu5ab_regional_development__candidate_ranking_mode_option_1_name: "Supply-Demand"',
+            english,
+        )
+        self.assertNotIn("综合需求（默认）", localization)
+        self.assertNotIn("Composite Need (Default)", english)
+        self.assertNotIn("游戏实际利润优先", localization)
+        self.assertNotIn("Game Actual Profit First", english)
+        self.assertIn(
+            'eu5ab_regional_development__candidate_ranking_mode_option_2_name: "预测利润择优"',
+            localization,
+        )
+        self.assertIn(
+            'eu5ab_regional_development__candidate_ranking_mode_option_2_name: "Predicted Profit"',
+            english,
+        )
+        self.assertIn('eu5ab_ranking_mode_section_title: "建造决策策略"', localization)
+        self.assertIn(
+            "根据市场短缺、战略需求、配方效率、本地原料、商品价格和劳动力风险综合安排建造",
+            localization,
+        )
+        self.assertIn(
+            "再按照游戏预测月利润择优建造。利润相近时，0–10 建筑优先级会产生软性影响",
+            localization,
+        )
+        for rendered in (localization, english):
+            self.assertIn("eu5ab_ranking_mode_help", rendered)
+            self.assertIn("eu5ab_status_engine_queue_profit_ranking", rendered)
+        self.assertIn('eu5ab_template_rules_window_title: "建造报告"', localization)
+        self.assertIn('eu5ab_template_rules_window_title: "Construction Report"', english)
+        for outdated in (
+            "运行诊断",
+            "引擎验证",
+            "实际引擎查询",
+            "串行归并",
+            "队列总分",
+            "空槽：没有候选项目",
+        ):
+            self.assertNotIn(outdated, localization)
+        for outdated in (
+            "Runtime Diagnostics",
+            "Engine Validation",
+            "Actual Engine Queries",
+            "Queue Total",
+            "Empty slot: no candidate",
+        ):
+            self.assertNotIn(outdated, english)
 
     def test_building_rows_are_generated_once_for_active_template(self):
         gui = self.files[ROOT / "in_game" / "gui" / "eu5ab_template_buildings_window.gui"]
@@ -2070,9 +2244,9 @@ class GeneratorTests(unittest.TestCase):
         self.assertNotIn("原产月度上限", localization)
         self.assertIn("不再设置额外权重或月度上限", localization)
         self.assertIn('eu5ab_rgo_section_title: "原产"', localization)
-        self.assertIn("游戏原版自动化面板中的", localization)
+        self.assertIn("游戏原版自动化面板中关闭", localization)
         self.assertIn("自动扩建原产", localization)
-        self.assertIn("不要同时开启两套自动化", localization)
+        self.assertIn("避免两套自动化同时安排项目", localization)
         self.assertNotIn("RGO", localization)
         self.assertNotIn("ROG", localization)
 
@@ -2148,18 +2322,18 @@ class GeneratorTests(unittest.TestCase):
         self.assertIn("eu5ab_diag_candidate_rgo_value", rules_gui)
         self.assertIn("eu5ab_diag_candidate_empty_value", rules_gui)
         self.assertIn("eu5ab_diag_top_1_kind", rules_gui)
-        self.assertIn("空槽：没有候选项目", localization)
-        self.assertIn("Empty slot: no candidate", english)
-        self.assertIn("每个地点只保留", localization)
-        self.assertIn("Candidates from distinct locations", english)
+        self.assertIn("没有更多候选项目", localization)
+        self.assertIn("No more candidate projects", english)
+        self.assertIn("每个地点保留规划分最高的一个项目", localization)
+        self.assertIn("top three from different locations", english)
         self.assertIn("新增一级的劳动力预测不足", localization)
         self.assertIn("Next-Level Workforce Forecast Too Low", english)
-        self.assertIn("1,000个岗位", localization)
-        self.assertIn("1,000 jobs", english)
+        self.assertIn("1,000 个岗位", localization)
+        self.assertIn("1,000 workers", english)
         self.assertIn('text = "eu5ab_diag_candidates_not_scanned_full"', rules_gui)
         self.assertIn("eu5ab_diag_concurrent_limit_state", rules_gui)
-        self.assertIn("本轮同时建造名额已满，因此没有扫描新的候选项目", localization)
-        self.assertIn("The concurrent construction limit was full", english)
+        self.assertIn("同时建造名额已满，本轮没有继续寻找新项目", localization)
+        self.assertIn("All concurrent construction slots were full", english)
 
     def test_rgo_diagnostics_help_has_matching_rules_tooltip_template(self):
         rules_gui = self.files[
@@ -2172,6 +2346,20 @@ class GeneratorTests(unittest.TestCase):
         )
         self.assertIn(
             "tooltipwidget = { using = EU5ABRulesHelp_eu5ab_diag_rgo_title }",
+            rules_gui,
+        )
+
+    def test_ranking_mode_help_has_matching_rules_tooltip_template(self):
+        rules_gui = self.files[
+            ROOT / "in_game" / "gui" / "eu5ab_template_rules_window.gui"
+        ]
+
+        self.assertIn(
+            "template EU5ABRulesHelp_eu5ab_ranking_mode_section_title",
+            rules_gui,
+        )
+        self.assertIn(
+            "tooltipwidget = { using = EU5ABRulesHelp_eu5ab_ranking_mode_section_title }",
             rules_gui,
         )
 
@@ -2205,7 +2393,7 @@ class GeneratorTests(unittest.TestCase):
         self.assertIn("在建 [GetPlayer.MakeScope.GetVariable", localization)
         self.assertIn("本轮最多新增", localization)
         self.assertIn("上个月新增", localization)
-        self.assertIn("本轮预计新增", localization)
+        self.assertNotIn("本轮预计新增", localization)
 
     def test_preset_allowlist_overrides_global_zero_priority(self):
         triggers = self.files[
@@ -2341,12 +2529,12 @@ class GeneratorTests(unittest.TestCase):
         english = self.files[
             ROOT / "in_game" / "localization" / "english" / "eu5ab_l_english.yml"
         ]
-        self.assertIn('eu5ab_diag_failure_title: "上次月度检查：失败统计"', localization)
+        self.assertIn('eu5ab_diag_failure_title: "上次检查未通过的项目"', localization)
         self.assertIn("仅显示上一次月度检查的结果", localization)
         self.assertIn("不会跨月累计", localization)
         self.assertNotIn("最近 5 年失败统计", localization)
         self.assertIn(
-            'eu5ab_diag_failure_title: "Previous Monthly Check: Failures"',
+            'eu5ab_diag_failure_title: "Projects Rejected Last Check"',
             english,
         )
         self.assertIn("counts do not carry into later months", english)

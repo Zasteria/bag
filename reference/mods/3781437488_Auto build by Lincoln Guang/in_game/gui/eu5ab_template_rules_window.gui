@@ -1,4 +1,12 @@
-﻿template EU5ABRulesHelp_eu5ab_diag_overview_title {
+﻿template EU5ABRulesHelp_eu5ab_ranking_mode_section_title {
+	ConceptTooltipType = {
+		blockoverride "title_icon" { icon = { texture = "gfx/interface/icons/sort/development.dds" using = tooltip_concept_title_icon_size } }
+		blockoverride "title_text" { text = "eu5ab_ranking_mode_section_title" }
+		blockoverride "tooltip_content" { TooltipTextBlock = { blockoverride "text" { text = "eu5ab_ranking_mode_help" } } }
+	}
+}
+
+template EU5ABRulesHelp_eu5ab_diag_overview_title {
 	ConceptTooltipType = {
 		blockoverride "title_icon" { icon = { texture = "gfx/interface/icons/sort/development.dds" using = tooltip_concept_title_icon_size } }
 		blockoverride "title_text" { text = "eu5ab_diag_overview_title" }
@@ -110,6 +118,123 @@ window = {
 							margin = { 8 8 }
 							margin_right = 18
 							spacing = 8
+							vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = preferred
+					layoutstretchfactor_horizontal = 1
+					using = bg_square_wood_tile
+					using = bg_cabinet_card_frame
+					max_width = 2000
+					margin = { 10 6 }
+					spacing = 5
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 6
+						icon = {
+							size = { 28 28 }
+							texture = "gfx/interface/icons/sort/development.dds"
+							texture_density = 2
+						}
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 28 }
+							default_format = "#yellow_titles"
+							fontsize = 16
+							fontsize_min = 12
+							align = left|vcenter
+							text = "eu5ab_ranking_mode_section_title"
+						}
+
+						icon = {
+							size = { 24 24 }
+							texture = "gfx/interface/icons/flat_icons/tabicons/info_flat_icon.dds"
+							texture_density = 2
+							tooltipwidget = { using = EU5ABRulesHelp_eu5ab_ranking_mode_section_title }
+						}
+					}
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = preferred
+						spacing = 5
+hbox = {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = fixed
+		size = { -1 24 }
+		spacing = 6
+		visible = "[EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_global_candidate_ranking_mode').GetValue,'(CFixedPoint)1')]"
+		text_single = {
+			size = { 210 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = left|vcenter
+			elide = right
+			text = "eu5ab_ranking_mode_current_label"
+		}
+		text_single = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = right|vcenter
+			elide = right
+			text = "eu5ab_ranking_mode_composite_value"
+		}
+	}
+hbox = {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = fixed
+		size = { -1 24 }
+		spacing = 6
+		visible = "[EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_global_candidate_ranking_mode').GetValue,'(CFixedPoint)2')]"
+		text_single = {
+			size = { 210 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = left|vcenter
+			elide = right
+			text = "eu5ab_ranking_mode_current_label"
+		}
+		text_single = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = right|vcenter
+			elide = right
+			text = "eu5ab_ranking_mode_actual_profit_value"
+		}
+	}
+text_multi = {
+		layoutpolicy_horizontal = expanding
+		autoresize = yes
+		text = "eu5ab_ranking_mode_common_desc"
+	}
+text_multi = {
+		layoutpolicy_horizontal = expanding
+		autoresize = yes
+		visible = "[EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_global_candidate_ranking_mode').GetValue,'(CFixedPoint)1')]"
+		text = "eu5ab_ranking_mode_composite_desc"
+	}
+text_multi = {
+		layoutpolicy_horizontal = expanding
+		autoresize = yes
+		visible = "[EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_global_candidate_ranking_mode').GetValue,'(CFixedPoint)2')]"
+		text = "eu5ab_ranking_mode_actual_profit_desc"
+	}
+text_multi = {
+		layoutpolicy_horizontal = expanding
+		autoresize = yes
+		visible = "[EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_global_candidate_ranking_mode').GetValue,'(CFixedPoint)2')]"
+		text = "eu5ab_ranking_mode_actual_profit_scope_desc"
+	}
+					}
+				}
 							vbox = {
 		layoutpolicy_horizontal = expanding
 		layoutpolicy_vertical = preferred
@@ -673,6 +798,32 @@ hbox = {
 			align = right|vcenter
 			elide = right
 			text = "eu5ab_status_engine_queue_recovered"
+		}
+	}
+hbox = {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = fixed
+		size = { -1 24 }
+		spacing = 6
+		visible = "[And(Or(EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_diag_has_run').GetValue,'(CFixedPoint)1'),GreaterThan_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_diag_last_run_year').GetValue,'(CFixedPoint)0')),EqualTo_CFixedPoint(Player.MakeScope.GetVariable('eu5ab_diag_queue_state').GetValue,'(CFixedPoint)6'))]"
+		text_single = {
+			size = { 210 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = left|vcenter
+			elide = right
+			text = "eu5ab_diag_label_engine_queue"
+		}
+		text_single = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 22 }
+			autoresize = no
+			fontsize = 13
+			fontsize_min = 10
+			align = right|vcenter
+			elide = right
+			text = "eu5ab_status_engine_queue_profit_ranking"
 		}
 	}
 hbox = {

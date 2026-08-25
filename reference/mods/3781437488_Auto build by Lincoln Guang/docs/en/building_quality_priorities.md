@@ -1,36 +1,40 @@
-# Default Building-Quality Priorities
+# Recommended Building Priorities
 
 English | [Simplified Chinese](../zh-CN/building_quality_priorities.md)
 
-## Summary
+## How Priorities Work
 
-Automated construction uses a base building-quality priority from 0 to 10 for built-in presets and
-custom templates created with recommended defaults. A blank custom template instead initializes
-every building to 0:
+Each building has a recommended priority from 0 to 10. Built-in presets and custom templates created
+with recommended values use these priorities. A blank template starts with every building at 0 so the
+player can decide what it should build:
 
-- `0`: the default and a hard disable in custom templates when a building has no video score, user
-  override, or inherited score. A built-in preset may still opt in through its own explicit allowlist.
+- `0`: do not build automatically. A built-in preset may still enable a specific zero-priority building
+  when it is needed for that preset's purpose.
 - `2–4`: low demand, low efficiency, or useful only in limited or location-specific situations.
 - `5–7`: situationally useful through consistently strong.
 - `8–9`: core production-chain or high-impact local buildings.
 - `10`: top-priority foundational infrastructure across most situations.
 
-Each priority point contributes `+50` ranking score, for a full range of `0–500`. Inside the active
-ordinary-building feature class, this is enough to break ties between similar buildings after
-market-price proxy scoring, but it remains below a food crisis (`+6000–12000`), a
-construction-material shortage (`+3000–5000`), or an upstream supply break (`+3200`). The resulting
-within-class ordering is therefore "survival and bottlenecks > building quality > market-price
-proxy." Building quality cannot overtake the player's Automated Build Order or emergency food
-priority.
+In **Supply-Demand Planning**, each priority point adds 50 planning-score points. This separates
+similar buildings but remains weaker than food emergencies, construction-good shortages, and broken
+upstream supply. The overall order is therefore survival needs and production bottlenecks first,
+followed by building quality and market price. Building priority also cannot overtake Automated Build Order.
+Planning Candidates per Location (3–30) controls how many high-scoring projects per location and
+ordinary build type remain as fallbacks, and is shown and used only in this mode.
 
-## Video Evidence and Mapping Rules
+In **Predicted Profit Selection**, planning score first keeps the configured 3–30 Profit Candidates per
+location and current ordinary build type. The game-predicted monthly profit then determines the order. When profits
+are close, each priority point adds about 1% relative weight, up to about 10% at priority 10. A clearly
+larger predicted profit still wins. Profit Candidates per Location is shown and used only in this mode.
 
-The video-calibration seeds were inspired by EU5 content from
-[Shou Bianbian on Bilibili](https://space.bilibili.com/456154809).
+## Rating Sources and Inheritance
 
-The analysis used four transcripts under the repository-relative `source/` directory: the three-part building
-review series and a general farming guide. The building reviews determine quality
-scores, while the general guide calibrates production chains:
+The recommended values draw on EU5 building reviews and a farming guide from
+[Shou Bianbian on Bilibili](https://space.bilibili.com/456154809), together with the production chains
+and upgrade relationships defined by the game.
+
+The source material includes a three-part building review and a general farming guide. Building
+reviews set the starting priorities, while the broader guide helps check production-chain relationships:
 
 - Wool → cloth → fine cloth is a consistently strong chain: wool upstream buildings use 7, the cloth
   chain uses 8 throughout, and the fine-cloth chain uses 9 throughout.
@@ -47,26 +51,17 @@ Because the transcripts contain speech-recognition errors, names were corrected 
 definitions and actual upgrade relationships. The evidence labels below mean:
 
 - `Direct`: the video directly evaluates the building or an unambiguous equivalent function.
-- `Inherited`: the building inherits its predecessor's score through the vanilla `obsolete`
-  relationship. A merge with multiple predecessors takes the highest inherited score.
+- `Inherited`: the building inherits its predecessor's score through the game's upgrade relationship.
+  When several predecessors lead to one building, the highest score is used.
 - `Uncalibrated`: the video supplies no score and the building has no predecessor from which to
   inherit, so it is strictly zero.
 - `User override`: an explicit user value that takes precedence over video scores and inheritance.
 
-## Video-Calibrated Baseline and Catalog Buildings
+## Recommended Priorities
 
-The vanilla-data build produces 317 player-manageable buildings. The table below contains the
-56-entry video-calibrated baseline, castle-chain upgrades, and user-calibrated production-chain roots.
-All remaining buildings receive no subjective score: they either inherit through the real vanilla
-upgrade chain or remain zero when independent. The full table of effective values is in
-`policies/automation_rules.json`.
-
-The catalog data scans 465 building definitions and includes 317. It excludes 104
-event-only definitions, 32 estate-owned buildings, nine definitions with
-`country_potential = { always = no }`, and three proxies used only to represent building-obsolescence relationships. Among the
-317 included buildings, 31 use direct video calibration, eight use explicit user overrides, 66 inherit
-through upgrade chains, and 212 are independent uncalibrated buildings. The final values contain 63
-nonzero buildings and 254 zero-priority buildings.
+The table lists buildings with a direct source, a manual adjustment, or an important inherited value.
+Buildings without enough evidence and without a scored predecessor remain at 0 by default; players
+can still change them in a custom template.
 
 | Building ID | Score | Evidence | Rationale |
 | --- | ---: | --- | --- |
@@ -144,7 +139,12 @@ nonzero buildings and 254 zero-priority buildings.
 | `porcelain_manufactory` | 0 | Inherited | Its predecessor has no video score, so the entire porcelain upgrade chain remains zero. |
 | `perfumery` | 0 | Uncalibrated | No direct video score and no predecessor building, so automation disables it by default. |
 
-## Implementation
+## Developer Notes
+
+The catalog checks 465 building definitions and includes 317 that players can manage. It excludes
+event-only, estate-owned, permanently unavailable, and upgrade-proxy definitions. Of the included
+buildings, 31 use direct video ratings, eight have manual adjustments, 66 inherit through upgrade
+chains, and 212 have no rating source. The final set contains 63 nonzero priorities and 254 zeros.
 
 - `policies/automation_rules.json` stores the range, default, score multiplier, and effective overrides
   under `building_priorities`.

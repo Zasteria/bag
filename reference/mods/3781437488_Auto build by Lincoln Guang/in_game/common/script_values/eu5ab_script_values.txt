@@ -27220,6 +27220,554 @@ eu5ab_copied_preset_origin_score = {
 	}
 }
 
+eu5ab_default_candidate_configured_priority = {
+	value = 0
+	if = {
+		limit = { this = building_type:armory }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:barracks }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:bog_iron_smelter }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:cannon_foundry }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:cannon_workshop }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:cannons_factory }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:caravanserai }
+		add = 4
+	}
+	if = {
+		limit = { this = building_type:charcoal_maker }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:cloth_guild }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:cloth_manufactory }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:cloth_workshop }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:commerce_center }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:conscription_center }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:dyes_mill }
+		add = 4
+	}
+	if = {
+		limit = { this = building_type:dyes_workshop }
+		add = 4
+	}
+	if = {
+		limit = { this = building_type:dyesworks }
+		add = 4
+	}
+	if = {
+		limit = { this = building_type:farming_village }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:fiber_crops_farm }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:fine_cloth_guild }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:fine_cloth_manufactory }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:fine_cloth_mill }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:fine_cloth_workshop }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:fishing_village }
+		add = 5
+	}
+	if = {
+		limit = { this = building_type:glass_mill }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:glass_workshop }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:glassworks }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:granary }
+		add = 10
+	}
+	if = {
+		limit = { this = building_type:grand_marketplace }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:horse_breeders }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:improved_charcoal_maker }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:iron_foundry }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:iron_mill }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:irrigation_systems }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:jewelry_guild }
+		add = 2
+	}
+	if = {
+		limit = { this = building_type:local_smelters }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:lumber_mill }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:market_warehouse }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:marketplace }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:mason }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:merchants_quarters }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:naval_supplies_manufactory }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:naval_supplies_mill }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:naval_supplies_workshop }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:paper_guild }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:paper_manufactory }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:paper_mill }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:paper_workshop }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:printing_manufactory }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:printing_mill }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:printing_press_shop }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:rural_clothmaker }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:salt_collector }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:scriptorium }
+		add = 6
+	}
+	if = {
+		limit = { this = building_type:sheep_farms }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:stone_quarry }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:tar_kiln }
+		add = 3
+	}
+	if = {
+		limit = { this = building_type:textile_mill }
+		add = 8
+	}
+	if = {
+		limit = { this = building_type:tools_guild }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:tools_workshop }
+		add = 9
+	}
+	if = {
+		limit = { this = building_type:weapon_factory }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:weapon_manufactory }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:weapon_workshop }
+		add = 7
+	}
+	if = {
+		limit = { this = building_type:windmill }
+		add = 9
+	}
+}
+
+# The 0-10 value is kept separate from the composite score so the
+# predicted-profit strategy can use it as a bounded soft preference.
+eu5ab_current_candidate_configured_priority = {
+	value = 0
+	if = {
+		limit = { NOT = { scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100 } }
+		add = eu5ab_default_candidate_configured_priority
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 1
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_1_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_1_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_1_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 2
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_2_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_2_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_2_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 3
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_3_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_3_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_3_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 4
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_4_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_4_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_4_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 5
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_5_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_5_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_5_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 6
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_6_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_6_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_6_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 7
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_7_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_7_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_7_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 8
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_8_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_8_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_8_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 9
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_9_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_9_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_9_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 10
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_10_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_10_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_10_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 11
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_11_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_11_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_11_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 12
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_12_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_12_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_12_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 13
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_13_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_13_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_13_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 14
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_14_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_14_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_14_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 15
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_15_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_15_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_15_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 16
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_16_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_16_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_16_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 17
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_17_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_17_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_17_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 18
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_18_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_18_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_18_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 19
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_19_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_19_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_19_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:eu5ab_candidate_location.var:eu5ab_policy_id = 100
+			scope:eu5ab_candidate_location.var:eu5ab_template_slot = 20
+		}
+		scope:eu5ab_candidate_location.owner = {
+			if = {
+				limit = { has_variable_map = eu5ab_tpl_20_building_priorities is_key_in_variable_map = { name = eu5ab_tpl_20_building_priorities target = prev } }
+				add = {
+					value = "variable_map(eu5ab_tpl_20_building_priorities|prev)"
+				}
+			}
+		}
+	}
+	min = 0
+	max = 10
+}
+
 eu5ab_score_granary = {
 	value = 0
 	add = eu5ab_universal_need_score

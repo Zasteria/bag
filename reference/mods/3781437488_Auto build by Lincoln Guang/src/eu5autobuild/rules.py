@@ -85,6 +85,7 @@ class AutomationCadence:
     deep_score_location_limit: int
     deep_score_quota_multiplier: int
     candidates_per_location: int
+    actual_profit_candidates_per_location: int
 
     @classmethod
     def from_mapping(cls, raw: dict[str, Any]) -> "AutomationCadence":
@@ -101,6 +102,9 @@ class AutomationCadence:
                 raw, "deep_score_quota_multiplier", 8
             ),
             candidates_per_location=_int_setting(raw, "candidates_per_location", 3),
+            actual_profit_candidates_per_location=_int_setting(
+                raw, "actual_profit_candidates_per_location", 10
+            ),
         )
         if min(
             result.max_country_concurrent_projects,
@@ -108,6 +112,7 @@ class AutomationCadence:
             result.deep_score_location_limit,
             result.deep_score_quota_multiplier,
             result.candidates_per_location,
+            result.actual_profit_candidates_per_location,
         ) < 1:
             raise ValueError("Automation cadence build limits must be positive")
         if result.max_country_concurrent_projects > 600:
@@ -116,6 +121,12 @@ class AutomationCadence:
             raise ValueError("Deep-score location limit cannot exceed 600")
         if result.candidates_per_location != 3:
             raise ValueError("EU5AB requires exactly three retained candidates per location")
+        if result.actual_profit_candidates_per_location < result.candidates_per_location:
+            raise ValueError(
+                "Actual-profit candidate limit cannot be below the diagnostic candidate limit"
+            )
+        if result.actual_profit_candidates_per_location > 30:
+            raise ValueError("Actual-profit candidate limit cannot exceed 30")
         if result.location_cooldown_months < 0:
             raise ValueError("Automation location cooldown cannot be negative")
         return result
