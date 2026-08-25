@@ -40,6 +40,11 @@
 .PARAMETER Branch
     Branch to push to. Default is whatever is checked out.
 
+.PARAMETER Playset
+    Also refresh reference\playset - a text-only copy of every other mod you are
+    subscribed to, for reading and measuring. No textures, no sound, English and
+    Russian localization only. Needs Python on this box.
+
 .PARAMETER CheckPython
     Report which Python this script would use, and where it looked, then stop.
     Nothing is copied, committed or pushed.
@@ -61,6 +66,9 @@
 
 .EXAMPLE
     .\tools\sync_workshop.ps1 -SteamCmd C:\steamcmd\steamcmd.exe -Login myaccount
+
+.EXAMPLE
+    .\tools\sync_workshop.ps1 -Playset
 #>
 
 [CmdletBinding()]
@@ -70,6 +78,7 @@ param(
     [string]   $Login,
     [string[]] $Only,
     [string]   $Branch,
+    [switch]   $Playset,
     [switch]   $CheckPython,
     [switch]   $NoCommit,
     [switch]   $NoPush,
@@ -399,6 +408,10 @@ try {
         & $python (Join-Path $toolsDir 'refresh.py')
         Write-Host ''
         & $python (Join-Path $toolsDir 'workshop.py') 'record'
+        if ($Playset) {
+            Write-Host ''
+            & $python (Join-Path $toolsDir 'workshop.py') 'playset' '--from' $content
+        }
     } else {
         Write-Host ''
         Write-Host 'NO PYTHON FOUND ON THIS BOX.' -ForegroundColor Red
@@ -412,6 +425,9 @@ try {
         Write-Host ''
         Write-Host 'The update check is unaffected: it works out from git that these copies are' -ForegroundColor Yellow
         Write-Host 'current, whether or not `workshop.py record` ever ran here.' -ForegroundColor Yellow
+        if ($Playset) {
+            Write-Host '-Playset needs Python too, so the playset copies were not refreshed either.' -ForegroundColor Yellow
+        }
     }
 
     # ------------------------------------------------------------------ commit

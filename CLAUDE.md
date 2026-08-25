@@ -45,6 +45,9 @@ reference/game/main_menu/localization/        what the game calls its own concep
 reference/game/docs/                          the engine's own API dump — ask it with tools/api.py
 reference/mods/                               CMF, Construction Manager, Glorp UI,
                                               and the two mods being translated
+reference/playset/                            the owner's other subscribed mods,
+                                              text only — read when the question
+                                              is about the playset, not by default
 ```
 
 **Do not hardcode a mod's folder name, and do not trust a version written in
@@ -67,6 +70,12 @@ These files are here to be used — read, grepped, quoted, and copied from into 
 mod. The owner has settled that question; see `reference/README.md`. Do not stop
 mid-task to ask about it, and do not treat a mod arriving at a newer version as
 a problem to report — it is the normal state of this tree.
+
+`reference/playset/` is the rest of what the owner loads, copied text only and
+refreshed by `.\tools\sync_workshop.ps1 -Playset`. Nothing builds against it —
+`refs.mods()` does not see it and no generator reads it — and a mod there can
+vanish at the next sync. It is for the questions that need the whole load order:
+`tools/guicost.py` counts it, and it is where a mod nobody has looked at goes.
 
 What is deliberately absent: `gfx`, `events`, `decisions`, map data, and most of
 `common/`. Ask for those if a task needs them, and add them here afterwards.

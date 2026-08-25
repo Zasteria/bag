@@ -12,6 +12,7 @@ This tool is that loop, minus the parts a machine can do.
     python3 tools/workshop.py                    what the workshop has vs what is here
     python3 tools/workshop.py sync               copy the newer ones in, rebuild, commit
     python3 tools/workshop.py record             stamp the copies here as current
+    python3 tools/workshop.py playset            the rest of the playset, text only
 
 `status` needs no Steam, no account and no game — it asks Steam's public
 `GetPublishedFileDetails` for the tracked ids and compares the answer against
@@ -587,6 +588,117 @@ def stamped(argv: argparse.Namespace) -> int:
     return 0
 
 
+# ------------------------------------------------------------------ the playset
+
+# What a playset copy keeps. These mods are here to be read and measured — what
+# a `.gui` declares, what a `scripted_widget` keeps alive, how many filter chips
+# land on a busy tag — and none of that is in a texture. A whole playset copied
+# whole would be gigabytes of `.dds` nobody opens.
+PLAYSET_KEEP = {
+    ".txt", ".yml", ".yaml", ".gui", ".json", ".info", ".md",
+    ".gfx", ".asset", ".shader", ".fxh", ".csv", ".lua", ".toml", ".cfg",
+}
+PLAYSET_SKIP_DIRS = {"gfx", "sound", "music", "soundtrack", "map_data", ".git", "__pycache__"}
+# Localization in eleven languages is most of what a big mod weighs, and nine of
+# them answer no question anybody here asks.
+PLAYSET_LANGUAGES = {"english", "russian"}
+LANGUAGE_PARENT = "localization"
+
+
+def wanted_in_playset(path: Path, root: Path) -> bool:
+    """Is this one of the files a playset copy is for?"""
+    if path.suffix.lower() not in PLAYSET_KEEP:
+        return False
+    parts = path.relative_to(root).parts
+    if PLAYSET_SKIP_DIRS.intersection(parts):
+        return False
+    for index, part in enumerate(parts[:-1]):
+        if part == LANGUAGE_PARENT and index + 1 < len(parts) - 1:
+            if parts[index + 1].lower() not in PLAYSET_LANGUAGES:
+                return False
+    return True
+
+
+def copy_slim(source: Path, target: Path) -> tuple[int, int]:
+    """Copy the readable half of a mod. Returns (files, bytes)."""
+    if target.exists():
+        shutil.rmtree(target)
+    files = size = 0
+    for path in sorted(source.rglob("*")):
+        if not path.is_file() or not wanted_in_playset(path, source):
+            continue
+        destination = target / path.relative_to(source)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, destination)
+        files += 1
+        size += path.stat().st_size
+    return files, size
+
+
+def playset(argv: argparse.Namespace) -> int:
+    """Copy everything else the owner is subscribed to, text only."""
+    source_root = find_content(argv.source)
+    known = {item.id for item in tracked()}
+    refs.PLAYSET.mkdir(parents=True, exist_ok=True)
+
+    print("from:   %s" % source_root)
+    print("into:   %s" % refs.PLAYSET)
+    print()
+
+    seen: set[str] = set()
+    total_files = total_size = 0
+    for source in sorted(source_root.iterdir()):
+        if not source.is_dir() or not source.name.isdigit():
+            continue
+        if source.name in known:
+            continue     # these live in reference/mods/, whole
+        item = Tracked(id=source.name, key=source.name, reason="")
+        folder = folder_for(item, source, None)
+        seen.add(folder)
+        if argv.dry_run:
+            print("  %-46s would be copied" % folder)
+            continue
+        files, size = copy_slim(source, refs.PLAYSET / folder)
+        if not files:
+            shutil.rmtree(refs.PLAYSET / folder, ignore_errors=True)
+            seen.discard(folder)
+            print("  %-46s nothing readable in it, skipped" % folder)
+            continue
+        mounts = sorted(p.name for p in (refs.PLAYSET / folder).iterdir()
+                        if p.is_dir() and not p.name.startswith("."))
+        total_files += files
+        total_size += size
+        print("  %-46s %4d files %9s   %s" % (folder, files, human(size), ", ".join(mounts)))
+
+    if argv.dry_run:
+        print("\n--dry-run: nothing written.")
+        return 0
+
+    # A mod that left the playset leaves the tree: this is a picture of what the
+    # owner runs, and a copy nobody is subscribed to any more is a lie in it.
+    for folder in sorted(refs.PLAYSET.iterdir()):
+        if folder.is_dir() and folder.name not in seen:
+            shutil.rmtree(folder, ignore_errors=True)
+            print("  %-46s gone from the workshop folder, removed" % folder.name)
+
+    print()
+    print("%d mods, %s of text." % (len(seen), human(total_size)))
+    refs.INVENTORY.write_text(refs.table(), encoding="utf-8")
+
+    if argv.commit or argv.push:
+        git("add", "--", "reference")
+        if git("diff", "--cached", "--quiet", check=False).returncode:
+            git("commit", "-m", argv.message or "reference: the rest of the playset, text only")
+            print("committed.")
+        else:
+            print("nothing changed.")
+    if argv.push:
+        branch = argv.branch or git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
+        git("push", "-u", "origin", branch)
+        print("pushed to %s" % branch)
+    return 0
+
+
 # --------------------------------------------------------------------- the shell
 
 
@@ -624,8 +736,18 @@ def main(argv: list[str]) -> int:
     bring.add_argument("--dry-run", action="store_true")
     bring.set_defaults(run=sync)
 
+    rest = sub.add_parser("playset", help="copy the rest of the subscribed mods in, text only")
+    rest.add_argument("--from", dest="source", metavar="DIR",
+                      help="steamapps/workshop/content (or .../content/%s)" % APP_ID)
+    rest.add_argument("--commit", action="store_true")
+    rest.add_argument("--push", action="store_true")
+    rest.add_argument("--branch", metavar="NAME")
+    rest.add_argument("--message", metavar="TEXT")
+    rest.add_argument("--dry-run", action="store_true")
+    rest.set_defaults(run=playset)
+
     known = argv[1:] or ["status"]
-    if known[0] not in {"status", "record", "sync", "-h", "--help"}:
+    if known[0] not in {"status", "record", "sync", "playset", "-h", "--help"}:
         known = ["status", *known]
     parsed = parser.parse_args(known)
     if not hasattr(parsed, "run"):
