@@ -172,6 +172,64 @@ Still nothing builds and nothing is subsidised.
 **`rgo_bonus_filter/` — working, in use.** Two filter chips, one per building
 list. Nothing outstanding.
 
+### Somebody else published a Glorp UI hint addon too — and it is not the same mod
+
+`Glorp UI small fix` (workshop 3784988919, in `reference/` for comparison,
+version 0.1) appeared in late August 2026 and looks at first glance like our
+mod. It is not. Measured, not skimmed:
+
+| | `glorpui_hints` (ours) | `Glorp UI small fix` |
+| --- | --- | --- |
+| Russian keys | 1123 | 768 |
+| of them Glorp UI's own hint keys | 759 | 763 |
+| **new hint content** | **364 keys** | 5 |
+| languages | Russian | **10** (no English) |
+| gating | 253 lines by country trigger | 3 privileges by `has_advance` |
+| CMM setting | yes | no |
+
+**The overlap is the translation half only.** Both give Glorp UI's ~760
+`GLORP_UI_SVH_*` keys a Russian text, and on those keys whichever mod mounts
+later wins. The styles differ: he keeps Glorp UI's `[government_reform|e]`
+concept link and puts it in brackets after the name; ours replaces it with the
+Russian phrase and drops the link.
+
+**What our mod does that his does not exist to do at all:** the 364 keys of hint
+content from the twenty source kinds Glorp UI's generator never reads. His mod
+translates Glorp UI's list; ours also *extends* it. That half is untouched by
+him.
+
+**What he has that we do not**, and both are worth taking:
+
+- **Ten languages.** That was the owner's plan for ours and it is the one place
+  this mod is genuinely ahead.
+- **A gate for privileges locked behind an advance.** Glorp UI's
+  `glorpui_svh_privilege_takeable` filter reads a privilege's `potential`/`allow`
+  and nothing else, so a privilege whose only lock is an advance's
+  `unlock_estate_privilege` is recommended to a country that cannot take it. His
+  census is exact and reproduces here: **10 vanilla privileges are locked that
+  way**, four of them appear in Glorp UI's hints, and `ayans_privilege` is
+  already filtered by `has_or_had_tag = TUR` in its own potential — so **three
+  leak**: `peasants_yeomanry`, `jaysh_armies`, `ghazi_privilege`. He gates them
+  with a `customizable_localization` entry that returns the line or an empty
+  string. Our generator already gates 253 lines by country trigger; adding
+  `has_advance` to that machinery would cover these systematically rather than
+  as three special cases.
+- **Four Glorp UI keys whose Russian is broken grammar** — `GLORP_UI_AVG_CONTROL`
+  ("Средняя значение"), `GLORP_UI_AVG_PROXIMITY`, `SWAP_TO_AVG_CONTROL`,
+  `REFRESH_AVG_PROX` ("Обновить Средняя расстояние"). Note his file's header
+  claims they are *absent* from Glorp UI's Russian; they are not, they are
+  present and wrong. Same practical effect, different reason.
+
+**`TO_MOVE_FURTHER_TO_LEFT/RIGHT` we already fix**, in `ru_loc_fix`: vanilla's
+Russian references `$SOCIEALVALUE_..._GEN$` — a typo for `SOCIETALVALUE` — and
+we repair the reference. He repoints the key at
+`[SocietalValue.GetLeftLabelWithNoTooltip]` instead, for ten languages. Two
+routes to the same repair; ours does not need Glorp UI installed.
+
+**If both mods are loaded**, the later one wins every shared key, which means
+his three gated privileges silently ungate if ours mounts after him. Running
+both is not useful: pick one for the translation half, and ours for the content.
+
 **`glorpui_hints/` — merged, and confirmed in game.** It came in
 from the `EU5-filters` repository, where it lived as `glorpui_ru_svh_fix` (the
 missing Russian for Glorp UI's societal value hints) and `glorpui_svh_extra`

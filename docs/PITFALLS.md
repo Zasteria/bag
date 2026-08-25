@@ -399,6 +399,14 @@ exists for that; add to it rather than writing a new narrative each time.
 
 ## The reference tree changes under you
 
+**An addon answers to its base mod's name.** `3784988919_glorp_ui_small_fix`
+matches every hint that finds `3601047146_glorp_ui` — both folders contain
+`glorp` and `ui` — and the day it arrived, `refs.mod("glorp.ui")` stopped being
+able to answer at all and `glorpui_hints` failed to build. Folder names were
+never enough on their own; the fix is that a candidate declaring exactly the
+`id` asked for wins over one that merely reads like it. Expect more of this: an
+addon is usually named after what it is an addon to.
+
 **A folder name in `reference/mods/` is not a fact.** The owner refreshes these
 by hand, and the name arrives however the upload produced it: the same mod is
 `community_mod_framework` one time and `3692202776_community_mod_framework` the

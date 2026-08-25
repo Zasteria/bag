@@ -15,6 +15,7 @@ python3 tools/refresh.py
 | `3692202776_community_mod_framework` | `community_mod_framework` | 2.4.1 | 1.3.* |
 | `3736668860_construction_manager` | `romaimperator.construction_manager` | 2.2.12 | 1.3.* |
 | `3781437488_Auto build by Lincoln Guang` | `eu5ab_regional_development` | 0.9.3-beta | 1.3.* |
+| `3784988919_glorp_ui_small_fix` | no metadata | 0.1 | — |
 
 ## The rest of the playset
 
@@ -42,7 +43,6 @@ compiles from them.
 | `3779064076_rexbert_buymyart` | `rexbert.buymyart` | 1.0 | in_game |
 | `3780623638_nation_destinies_rus` | `nation_destinies_rus` | 1.3 | main_menu |
 | `3784699906_calidad_de_vida_eu5` | `calidad_de_vida_eu5` | 1.0.6 | in_game, loading_screen, main_menu |
-| `3784988919_glorp_ui_small_fix` | no metadata | 0.1 | in_game, main_menu |
 
 `reference/game/` holds 2384 files of EU5 itself — `in_game/gui/`, the parts
 of `in_game/common/` the mods here reason about, and the game's own
