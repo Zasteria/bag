@@ -3,7 +3,7 @@
 This repository holds five mods, four documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
-## The one job
+## The job
 
 **Make Europa Universalis V stay playable for longer than an hour.**
 
@@ -12,6 +12,12 @@ quietly worse, and by the third or fourth the game is a slideshow — slow ticks
 freezes, the lot. Reloading fixes it. He wants that first hour to last four.
 
 Everything below serves that. If a task does not, it is not this session's.
+
+There are **two faults under that one complaint**, and they are not the same
+fault. The first grows over hours and a reload clears it — that is the widget
+leak, and it is the base game's. The second is there in the first minute, on a
+freshly loaded save, and it is the playset's. Keep them apart: a measurement of
+one says nothing about the other.
 
 ## What is already known — do not measure it again
 
@@ -33,6 +39,33 @@ The short version:
 Five evenings of the owner's time went into those. Asking for any of it again is
 the worst thing this session can do.
 
+## The second job, added 2026-08-25
+
+**Panels open with a hitch under the playset and instantly in vanilla — on a save
+loaded a minute ago.** That is a *different* fault from the one above: this one
+does not grow, does not need three hours, and reloading does not clear it. Do not
+merge the two in your head.
+
+It has already been counted from the files, with no run spent — the section is
+[The second slowdown](HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute)
+and the tool is `python3 tools/guicost.py`. The short version:
+
+- Advanced Auto Build calls the script engine from its `.gui` files **4 719
+  times**; vanilla does it **nine** times in 387 files. All seven of its windows
+  are `scripted_widgets/`, so **14 125 widgets are live from load**, and
+  `eu5ab_engine_queue_window` runs eight self-restarting 0.15 s loops that price
+  every candidate building in every candidate location;
+- mods add **+42%** filter chips to the `building` tag, four of them ours, and
+  ours walk a province per building type;
+- **dead already:** Glorp's panels are lighter than vanilla's (0.78×), and no
+  mod's Russian localization has a single hard markup fault.
+
+**Ask for the bisect before anything else, because it is five minutes**: the same
+save and the same three panels, first with everything on, then with only Advanced
+Auto Build off, then with only `rgo_bonus_filter` off. Step 2 or step 3 naming
+the cause ends the question; if neither does, the instrument is
+`ScriptProfilerEntry`.
+
 ## The live hypothesis
 
 **Hover.** Every brush of the cursor builds a tooltip, and the defines say it is
@@ -46,7 +79,9 @@ so the setting tests the mod before it is written.
 
 ## What to do, in order
 
-1. **Ask whether the run happened.** The protocol is written out in
+0. **Ask for the five-minute bisect** in the section above. It costs almost
+   nothing and it can close the second job outright.
+1. **Ask whether the hover run happened.** The protocol is written out in
    [`HANDOFF.md`](HANDOFF.md#the-run-that-decides-it): paused, two minutes of
    mouse-sweeping with no clicks, tooltip settings changed, the same two minutes
    again, then `performance_degradation.log`. Every branch of the result already

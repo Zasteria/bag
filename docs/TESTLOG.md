@@ -340,8 +340,19 @@ none. The lead and the next run are in
 
 ## Waiting on a run
 
-The next session should start here rather than designing anything new. Both of
-these are prepared, both are cheap, and the owner has agreed to do the first.
+The next session should start here rather than designing anything new. All of
+these are prepared, all are cheap, and the owner has agreed to the hover one.
+
+**The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
+any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
+the playset — *on a save loaded a minute ago*, so it is not the widget leak.
+Counted from the files already; the candidates and the numbers are in
+[`HANDOFF.md`](HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute).
+Same save and the same three panels (country, diplomacy, a location's build
+panel), three times: everything on; then **only** Advanced Auto Build off; then
+Auto Build back on and **only** `rgo_bonus_filter` off. No log, no timing — the
+owner's own sense of the hitch is the measurement, because the difference he
+describes is one anybody can feel.
 
 **The hover test, and the tooltip settings with it.** One session, one save,
 paused throughout. Two minutes sweeping the mouse over the map and top bar with

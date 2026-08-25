@@ -329,6 +329,102 @@ all of it — widgets back to the 364 the process starts with, memory back to wh
 it was before any game was loaded. So **main menu, then load the save** is worth
 exactly as much as restarting the game and costs a fraction of the time.
 
+## The second slowdown — panels open slower with mods, from the first minute
+
+Reported 2026-08-25: *"открыть любую вкладку в ваниле происходит мгновенно, а вот
+с модами с микрозадержкой или даже фризом даже при только-только запущенном
+сохранении."* This is **not** the widget leak and must not be filed with it. The
+leak grows over hours and reloading clears it; this is present on a save loaded a
+minute ago, so it is a fixed per-frame or per-open cost that the playset adds.
+
+Nothing here needed a run. `tools/guicost.py` counts it from the files:
+
+```
+                          files  widgets GetScriptedGui   live  loops
+vanilla                     387    58354              9      0      0
+cmf                          44     7486             70     12      0
+construction_manager         20     4545            344      3      0
+glorp_ui                     49    13782             67      1      0
+national_destinies            3      251              0      0      0
+auto_build                    7    14125           4719      7     19
+mods/rgo_bonus_filter         2      207              4      0      0
+```
+
+**The one number that does not belong.** `GetScriptedGui('x')` in a `.gui` file
+runs a script trigger from the interface — the expensive kind of expression,
+because it enters the script engine. Vanilla uses it **nine times** in 387 files.
+Advanced Auto Build uses it **4 719 times** in seven, which is 2 166× vanilla's
+density per widget. Construction Manager is second at 344, itself 491×.
+
+**And all seven of Auto Build's windows are in `scripted_widgets/`,** so the
+engine instantiates them at load and never takes them down: **14 125 widgets
+live for the whole session** whether or not the player opens the mod. Vanilla's
+entire interface, statically, is about 27 800. CMF's twelve always-live windows
+come to 104 widgets and Construction Manager's three to 96 — those are probes,
+which is what a scripted widget is for. This is a different order of thing.
+
+**`eu5ab_engine_queue_window` is a background worker.** It is deliberately kept
+"visible" (`visible = "[EqualTo_CFixedPoint('(CFixedPoint)0', '(CFixedPoint)0')]"`
+— always true) and parked at `position = { -10000 1 }` so it keeps ticking
+offscreen. Inside are **eight phases**, each a self-restarting animation state at
+**0.15 s**, each walking a `datamodel` of the player's candidate locations × their
+candidate building types and running per pair:
+
+```
+GetBuildOrExpandBuildingCost           GetBuildingTypeIncomeToOwnerInLocation
+GetBuildingTypeProfitInLocation        CanBuildOrExpandBuilding
+```
+
+Each phase's gate is itself a `GetScriptedGui(...).IsShown(...)` evaluated every
+frame. That is a plausible cause of a hitch on any panel open, for the ordinary
+reason: the frame budget is already spent before the panel asks for anything.
+
+**Filter chips are the second cost, and this repository is in it.** Every chip
+whose `tag` matches a list is a trigger run once per item, every time the list
+draws. `python3 tools/guicost.py --filters`:
+
+| tag | vanilla | mods add |
+| --- | --- | --- |
+| building | 36 | +15 (+42%) |
+| town_rights | 21 | +7 (+33%) |
+| raw_goods | 15 | +4 (+27%) |
+| ruler | 27 | +5 (+19%) |
+| province | 8 | +1 (+12%) |
+
+Four of the fifteen added to `building` are ours. They are not cheap ones:
+`bag_rgo_has_local_bonus` walks `any_location_in_province` and evaluates a
+40-branch `OR` per location, per building type in the list. On a five-location
+province with a hundred buildable types that is thousands of trigger evaluations
+per open of the build panel.
+
+**Two hypotheses already dead, so nobody re-checks them:**
+
+- *Glorp draws heavier panels.* No. On the sixteen vanilla files it replaces,
+  Glorp's versions hold **3 850 widgets against vanilla's 4 956** — 0.78×. It
+  adds 33 files of its own (2 399 widgets) but replaces nothing with something
+  bigger.
+- *A mod's Russian localization is throwing parse errors on open.* No. The hard
+  rules of `mods/ru_loc_fix/tools/locscan.py` run over every mod's Russian files
+  find **zero** faults: CMF 94 keys, Construction Manager 451, Glorp 139,
+  National Destinies 40 719, Auto Build 1 241, and our own five mods. The broken
+  markup is the base game's alone.
+
+**The test, and it is five minutes, not an evening.** Both candidates are single
+mods, so a bisect settles it without any log reading:
+
+1. Load the save with the full playset, open the country panel, the diplomacy
+   panel and a location's build panel. Note the hitch.
+2. Turn off **only** Advanced Auto Build. Same save, same three panels.
+3. If it is still there, turn Auto Build back on and turn off **only**
+   `rgo_bonus_filter`. Same three panels.
+
+If step 2 is instant, the cause is named and the choice is the owner's: the mod
+or the responsiveness. If step 3 is instant, it is ours and it is fixable —
+those four chips can be made to cost a variable lookup instead of a province
+walk. If neither changes anything, the cost is spread across the playset and the
+next instrument is `ScriptProfilerEntry`, which the engine dumps expose with
+`GetAverageTimeExclusive`, `GetCallCount` and `GetFileAndLine`.
+
 ## Where to check things
 
 Everything a session needs is in `reference/` — the game's `gui` and the parts
