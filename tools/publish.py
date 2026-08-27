@@ -26,9 +26,9 @@ What it knows that a person cannot check by looking:
   cannot read makes the mod look older than whatever a subscriber already has;
 * **`id` has to be stable forever.** Change it after publishing and every
   subscriber has two mods, both mounted, fighting each other;
-* **a workshop page has one description and it holds 8000 characters.** Not one
-  per language — one. Two full translations of a real description do not fit,
-  and Steam does not say so, it truncates.
+* **a workshop page takes a description per language**, and a language with no
+  description falls back to the default one. So a mod shipping eleven languages
+  wants eleven descriptions, and this reports which ones are missing.
 
 The upload itself is in [`docs/WORKSHOP.md`](../docs/WORKSHOP.md).
 """
@@ -75,11 +75,9 @@ GAME_PARTS = {".metadata", "in_game", "main_menu", "loading_screen", "jomini",
 
 THUMBNAIL_LIMIT = 1_000_000     # the workshop's own ceiling
 THUMBNAIL_SIZE = (512, 512)     # what Paradox recommends
-# A workshop item's description field. One per item, not one per language.
+# One description field per language on the workshop page, each with this
+# ceiling. Steam does not refuse a longer one, it truncates it.
 DESCRIPTION_LIMIT = 8000
-# The file meant to be pasted into that field, as opposed to the per-language
-# ones the third-party uploader takes.
-STEAM_DESCRIPTION = "workshop/description_steam.bbcode"
 
 
 def png_size(data: bytes) -> tuple[int, int] | None:
@@ -132,14 +130,20 @@ def check(folder: Path) -> list[str]:
             problems.append("thumbnail.png %d байт, потолок мастерской %d"
                             % (len(raw), THUMBNAIL_LIMIT))
 
-    steam = folder / STEAM_DESCRIPTION
-    if steam.is_file():
-        length = len(steam.read_text(encoding="utf-8"))
+    for path in sorted((folder / "workshop").glob("description_*.bbcode")):
+        length = len(path.read_text(encoding="utf-8"))
         if length > DESCRIPTION_LIMIT:
             problems.append(
-                "%s — %d символов, а поле описания в мастерской держит %d. "
-                "Steam не откажет, он обрежет." % (STEAM_DESCRIPTION, length,
+                "workshop/%s — %d символов, а поле описания держит %d. "
+                "Steam не откажет, он обрежет." % (path.name, length,
                                                    DESCRIPTION_LIMIT))
+    described = {path.stem[len("description_"):]
+                 for path in (folder / "workshop").glob("description_*.bbcode")}
+    for language in languages(folder):
+        if described and language not in described:
+            problems.append("мод есть на языке %s, а описания для него нет — "
+                            "на странице подставится описание по умолчанию"
+                            % language)
 
     mounts = [p.name for p in folder.iterdir()
               if p.is_dir() and p.name in GAME_PARTS and p.name != ".metadata"]
@@ -172,21 +176,15 @@ def describe(folder: Path) -> None:
     print("  Версия:    %s   (для игры %s)"
           % (data.get("version"), data.get("supported_game_version")))
     print("  Языки:     %s" % (", ".join(languages(folder)) or "—"))
-    steam = folder / STEAM_DESCRIPTION
-    if steam.is_file():
-        print("  Описание:  %s — %d из %d символов."
-              % (STEAM_DESCRIPTION, len(steam.read_text(encoding="utf-8")),
-                 DESCRIPTION_LIMIT))
-        print("             Открой, скопируй целиком и вставь на странице мода.")
+    files = sorted((folder / "workshop").glob("description_*.bbcode"))
+    if files:
+        print("  Описание:  workshop/, по файлу на язык — вставляй каждый в "
+              "своё поле на странице:")
+        for path in files:
+            print("             %-34s %5d символов"
+                  % (path.name, len(path.read_text(encoding="utf-8"))))
     else:
-        print("  Описание:  нет %s" % STEAM_DESCRIPTION)
-    for rel in ("workshop/description_english.bbcode",
-                "workshop/description_russian.bbcode"):
-        path = folder / rel
-        if path.is_file():
-            print("             %s (%d) — для стороннего загрузчика, он берёт "
-                  "по файлу на язык"
-                  % (rel.split("/")[-1], len(path.read_text(encoding="utf-8"))))
+        print("  Описание:  нет ни одного workshop/description_*.bbcode")
     dependencies = [r.get("display_name") or r.get("id")
                     for r in data.get("relationships", [])
                     if r.get("rel_type") == "dependency"]
@@ -231,11 +229,9 @@ def write_manager_config(folder: Path, installed: Path, out: Path) -> str:
                         "Это единственная связь мода со своей страницей."
                         % (out, mod["id"]))
 
-    descriptions = {}
-    for language in ("english", "russian"):
-        path = folder / "workshop" / ("description_%s.bbcode" % language)
-        if path.is_file():
-            descriptions[language] = str(path.resolve())
+    descriptions = {
+        path.stem[len("description_"):]: str(path.resolve())
+        for path in sorted((folder / "workshop").glob("description_*.bbcode"))}
 
     config = {
         "game": APP_ID,
