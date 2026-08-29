@@ -35,7 +35,7 @@ into **ten languages** and adds three fixes of its own. It does *not* extend the
 hint lists — the 364 keys of extra sources below are this mod's alone — so the
 two overlap only on the translation half, where whichever mounts later wins.
 The full comparison, with numbers, is in
-[`HANDOFF.md`](../../docs/HANDOFF.md#somebody-else-published-a-glorp-ui-hint-addon-too--and-it-is-not-the-same-mod).
+[`the comparison`](../../docs/archive/glorpui_small_fix.md).
 
 **Both things worth taking from it have been taken**, and neither is his text:
 
@@ -250,7 +250,7 @@ value column. And where the modifier had nothing to declare, the honest
 already said.
 
 The attempt before that put it in a hover instead and failed differently — see
-[`PITFALLS.md`](../../docs/PITFALLS.md#localization). The line is back to the
+[`PITFALLS.md`](../../docs/pitfalls/localization.md). The line is back to the
 label, «(масштабируется)», and the number.
 
 ### Scaling versus conditional
@@ -527,7 +527,7 @@ this mod takes it to 136, of which 34 are the unfiltered block that is hidden
 unless the switch is on.
 
 That is worth keeping in mind against the open
-[panel-hitch question](../../docs/HANDOFF.md), whose live hypothesis is hover:
+[panel-hitch question](../../docs/investigations/panel_hitch.md), whose live hypothesis is hover:
 this is a hover-built tooltip that runs script. It has never been measured.
 
 ## Where the game files come from

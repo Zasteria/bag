@@ -170,6 +170,37 @@ python3 mods/ru_loc_fix/tools/generate.py     собрать мод
 Большая часть — законный перевод. Разбирать их стоит по одному, начиная с тех,
 что игра назвала в логах.
 
+## Что остаётся сыпаться в лог, и чего стоила бы каждая строка
+
+Замерено после второго круга и перенесено сюда из общего HANDOFF, когда тот был
+разобран. Почти ничего из этого — не локализация.
+
+**What still errors, and what each would need.** After round two lands, roughly
+12 000 lines an hour should remain, and almost none of it is localization:
+
+| | lines/hour | what it would take |
+| --- | --- | --- |
+| `ForeignCountryView` evaluated with no view context | 5 118 | vanilla's own `foreign_country_lateralview.gui`, which Glorp UI copies verbatim — the bug is Paradox's, and fixing it means carrying a copy of a large `.gui` |
+| `ActionGroup.GetActions` at `gui/shared/cards.gui:2363` | 2 476 | the same: a vanilla `.gui` |
+| `longname_ru_GEN` finding no entry for a country, in `game.log` | 4 108 | **nothing.** The file is in the tree now and the fault is not in it: `country_ru_flavor` ends in a `fallback = yes` entry and every one of its 218 suffixed keys exists, so the object being passed is an invalid country and that is the caller's doing |
+| character nicknames: `Select_CString(Character.IsFemale, …)` given a `Container` | ~1 300 | unknown. The same 180 keys work everywhere else, so it is one caller and nothing in the log says which |
+| `Custom()` handed a location where it wants a country, in `debug.log` | ~390 | unattributed. New in the second run, but the shape (`predlog_vvo`, `CL_tt`, `CL_tt`, `CL_PREP` in that order, 98 times over) matches no key this mod touches |
+| other mods' scripts, `D008_pronoia`, an audio arena, an input stack | ~50 | their authors', not ours |
+
+The `location_rank` errors of the first run — 484 lines — did not recur. If they
+come back: `LR_GEN` and its four siblings in
+`in_game/common/customizable_localization/ru_EU5_custom_loc.txt` test
+`location_rank = location_rank:x` with no fallback, so a location that has no
+rank at all falls through. That file is 49 653 lines and overriding it wholesale
+to add one fallback is not worth it.
+
+Ошибки `location_rank` первого прогона — 484 строки — больше не повторялись.
+Если вернутся: `LR_GEN` и четыре его собрата в
+`in_game/common/customizable_localization/ru_EU5_custom_loc.txt` проверяют
+`location_rank = location_rank:x` без запасной ветки, так что локация вовсе без
+ранга проваливается насквозь. Файл на 49 653 строки, и переопределять его
+целиком ради одной ветки не стоит.
+
 ## Проверено ли это в игре
 
 **Первый заход — да, вторая половина — нет.** Прогон 24 августа подтвердил

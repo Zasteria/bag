@@ -138,7 +138,7 @@ than as English. So "only 10%" is never a problem to solve by rushing coverage,
 and the completeness figure `scope.py` prints is a measure of work done, not of
 work owed. The one thing that must hold is the load order — ours later. The
 numbers are in
-[`HANDOFF.md`](../HANDOFF.md#somebody-else-has-translated-national-destinies-nearly-all-of-it),
+[`../archive/nd_ru_and_the_machine_translation.md`](../archive/nd_ru_and_the_machine_translation.md),
 and the decision is in that document's settled table: **it is not a question to
 put to the owner again.**
 
@@ -203,7 +203,7 @@ observation is `Glorp UI small fix`'s, which puts the verb last in exactly those
 four.
 
 **Ask the game for its own nouns.** See the concept-token entry in
-[`../PITFALLS.md`](../PITFALLS.md#localization): fourteen category nouns cost
+[`../PITFALLS.md`](../pitfalls/localization.md): fourteen category nouns cost
 nothing in eleven languages and came out more accurate than the hand written
 Russian they replaced.
 

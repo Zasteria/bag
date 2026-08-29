@@ -13,7 +13,7 @@ written down rather than kept in anyone's head.
 | | |
 | --- | --- |
 | **[`mods/`](mods/)** | The mods themselves, one folder each |
-| **[`docs/`](docs/)** | How EU5 modding works, what has already gone wrong, where each mod stands |
+| **[`docs/`](docs/)** | How EU5 modding works, what has already gone wrong, where each mod stands. Ask it with `python3 tools/kb.py`, rather than reading it |
 | **[`reference/`](reference/)** | The game's own files and three mods worth imitating, to check against |
 | **[`CLAUDE.md`](CLAUDE.md)** | Loaded automatically by Claude Code; the briefing a fresh session starts from |
 
@@ -25,7 +25,8 @@ written down rather than kept in anyone's head.
 | [`mods/goods_target/`](mods/goods_target/) | Build for a construction discount: keep building the producers of chosen goods until building everything else is cheap. An addon to Construction Manager | Paused: lists and readings work, nothing periodic does |
 | [`mods/auto_build_ru/`](mods/auto_build_ru/) | Russian localization for Advanced Auto Build, which ships English and Chinese only | Working |
 | [`mods/nd_ru/`](mods/nd_ru/) | Russian localization for National Destinies, which ships eleven languages all carrying the English text | In progress |
-| [`mods/glorpui_hints/`](mods/glorpui_hints/) | Russian for Glorp UI's societal value hints, which ship in English only, plus the twenty source kinds its generator does not read | Both halves worked separately; the merge is unrun |
+| [`mods/glorpui_hints/`](mods/glorpui_hints/) | The societal value hints, extended with the fourteen source kinds Glorp UI's generator does not read, gated by what the country can actually take | Working; the splice against Glorp UI's newest build is unrun |
+| [`mods/ru_loc_fix/`](mods/ru_loc_fix/) | Repairs the markup in the game's *own* Russian localization — 88% of a full `error.log` was the base game, not any mod | Working; round one confirmed in game |
 
 Each folder is a complete mod: copy the folder itself into
 `Documents/Paradox Interactive/Europa Universalis V/mod/`.
@@ -33,7 +34,7 @@ Each folder is a complete mod: copy the folder itself into
 One mod was removed: `where_to_produce`, a province-first "what is worth building
 here" table, which was built to completion without ever being loaded in game and
 then abandoned. What it taught, and where its working parts went, is in
-[`docs/HANDOFF.md`](docs/HANDOFF.md#why-where_to_produce-failed).
+[`docs/archive/where_to_produce.md`](docs/archive/where_to_produce.md).
 
 ## Docs
 
@@ -47,10 +48,18 @@ then abandoned. What it taught, and where its working parts went, is in
 - **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — mistakes already made, each with
   the symptom that gave it away. None of them raise an error you would notice,
   which is exactly why they are written down.
-- **[`docs/HANDOFF.md`](docs/HANDOFF.md)** — where each mod stands, what is
+- **[`docs/STATUS.md`](docs/STATUS.md)** — where each mod stands, what is
   broken, what has never been run.
-- **[`docs/SESSION_START.md`](docs/SESSION_START.md)** — the prompt to open a
-  new session with.
+- **[`docs/SETTLED.md`](docs/SETTLED.md)** — the questions the owner's test runs
+  have already answered. Short, and the one document worth reading in full:
+  every row cost him an evening.
+- **[`docs/SESSION_START.md`](docs/SESSION_START.md)** — how to open a new
+  session. It is one line now: name the mod and the task.
+
+**Do not read these documents end to end.** They are worth about ninety thousand
+tokens together, and a session that reads them pays for them again on every turn
+afterwards. `python3 tools/kb.py <words>` says which section answers a question
+and what it costs; `--show FILE:LINE` prints exactly that section.
 
 ## Reference
 

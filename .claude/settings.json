@@ -1,4 +1,30 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(python3 tools/kb.py:*)",
+      "Bash(python3 tools/api.py:*)",
+      "Bash(python3 tools/refs.py:*)",
+      "Bash(python3 tools/refresh.py:*)",
+      "Bash(python3 tools/check_docs.py:*)",
+      "Bash(python3 tools/check_cmm.py:*)",
+      "Bash(python3 tools/guicost.py:*)",
+      "Bash(python3 tools/playset.py:*)",
+      "Bash(python3 tools/publish.py:*)",
+      "Bash(python3 tools/workshop.py:*)",
+      "Bash(python3 mods/*/tools/*.py:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
