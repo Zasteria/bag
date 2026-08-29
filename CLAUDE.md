@@ -1,221 +1,109 @@
 # Working in this repository
 
-Mods for Europa Universalis V. This file is loaded automatically at the start of
-every session, so treat it as the briefing you would otherwise have to be given.
+Mods for Europa Universalis V. Six of them, in [`mods/`](mods/), plus the game's
+own files to grep and the tooling that rebuilds everything.
 
-## What this session is for
+## Do not read this repository. Ask it.
 
-**[`docs/NEXT_SESSION.md`](docs/NEXT_SESSION.md) — read it before anything else.**
-It names the one job in progress, what five evenings of the owner's testing have
-already settled, and what not to ask him to do again. The rest of this file is how
-to work here; that file is what to work on.
+The documents here are worth about ninety thousand tokens. Reading them is how a
+session spends its whole budget before writing a line — and pays for them again
+on every turn afterwards, because the context is resent each time. So:
 
-## Read these before touching anything
+    python3 tools/kb.py <words>            which section answers this, and what it costs
+    python3 tools/kb.py --show FILE:LINE   read exactly that section
+    python3 tools/kb.py --map              every document, every section, with sizes
 
-1. **[`docs/RESEARCH.md`](docs/RESEARCH.md)** — the index to how EU5 modding
-   actually works, split by subject: [`research/engine.md`](docs/research/engine.md)
-   for what the engine gives a mod, [`research/cmf.md`](docs/research/cmf.md) for
-   the framework and Construction Manager's automation,
-   [`research/translation.md`](docs/research/translation.md) for translating
-   somebody else's mod. Read the one the task needs, not all three. Nearly all of
-   it was learnt by getting it wrong first, so reading it is cheaper than
-   rediscovering it.
-2. **[`docs/HANDOFF.md`](docs/HANDOFF.md)** — where each mod stands right now,
-   what is broken, and what is untested. It opens with a table of questions the
-   owner's test runs have already answered; **never ask for a measurement listed
-   there.** Check the rest is current before trusting it.
-3. **[`docs/PITFALLS.md`](docs/PITFALLS.md)** — the specific mistakes already
-   made here, each with the symptom that gave it away. Most cost a full
-   test-in-game round trip. Scan it whenever something silently does nothing.
-4. **[`docs/WORKSHOP.md`](docs/WORKSHOP.md)** — only when the task is putting a
-   mod *out*: what the workshop reads, what it silently drops, and which parts
-   of the upload nobody here has done yet.
+**Open a whole document only when `kb.py` says the answer fills it.** Grep is
+the same instinct: `grep -rn` over `reference/` beats reading a game file.
 
-The mods live in [`mods/`](mods/), one folder each, and each carries its own
-README covering how that mod works and what is left to do.
+## Start of a task
 
-## The game files are in the repository
+1. **The task names a mod** → read `mods/<mod>/CLAUDE.md`, that one only. It
+   holds the state, the commands, and what fails silently in that mod.
+   [`docs/STATUS.md`](docs/STATUS.md) is the one-line-each index if you need to
+   pick.
+2. **The task names no mod** → [`docs/NEXT_SESSION.md`](docs/NEXT_SESSION.md) is
+   the job in progress.
+3. **Before designing any test** → [`docs/SETTLED.md`](docs/SETTLED.md). It is
+   short, every row cost the owner an evening, and asking for one of those
+   measurements again is the one thing this repository cannot afford.
 
-`reference/` holds the EU5 files and the mods worth imitating.
-**Grep it instead of asking for uploads or guessing.**
+Everything else is on demand: [`docs/PITFALLS.md`](docs/PITFALLS.md) when
+something silently does nothing, [`docs/RESEARCH.md`](docs/RESEARCH.md) for how
+the engine and CMF actually work, [`docs/CONVENTIONS.md`](docs/CONVENTIONS.md)
+for the reference tree and the rebuild loop,
+[`docs/WORKSHOP.md`](docs/WORKSHOP.md) when putting a mod out.
 
-```
-reference/game/in_game/gui/                   panels, widget types, gui/filters
-reference/game/in_game/common/                building_types, production_methods,
-                                              goods, scripted_effects,
-                                              scripted_triggers, on_action
-reference/game/main_menu/localization/        what the game calls its own concepts
-reference/game/docs/                          the engine's own API dump — ask it with tools/api.py
-reference/mods/                               CMF, Construction Manager, Glorp UI,
-                                              and the two mods being translated
-reference/playset/                            the owner's other subscribed mods,
-                                              text only — read when the question
-                                              is about the playset, not by default
-```
+## Rules that exist because breaking them is silent
 
-**Do not hardcode a mod's folder name, and do not trust a version written in
-prose.** These get refreshed whenever a mod updates — by
-`python3 tools/workshop.py sync` (or `.\tools\sync_workshop.ps1`, its twin on
-the machine that has Steam), or by hand, in which case the folder name arrives
-however the upload produced it: `community_mod_framework` one time,
-`3692202776_community_mod_framework` the next. Ask the tree instead:
+- **Only the player can run the game.** Nothing here can be tested from a
+  session. Say plainly what is verified and what is not. Build the smallest
+  thing that would show a signal and ask for one run — a whole feature finished
+  before its first load is how `where_to_produce` ended up with six suspects and
+  no way to choose between them.
+- **A run the player reports goes into [`docs/TESTLOG.md`](docs/TESTLOG.md) in
+  the same session.** They report it once, in passing. A session that does not
+  write it down leaves the next one calling the thing untested.
+- **A CMM macro called with an argument CMF does not declare fails silently**
+  and takes the rest of its effect with it. One `step` instead of `step_value`
+  cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
+  after touching any CMM call.
+- **Effects that merely do nothing log nothing.** `error.log` names the file and
+  line for GUI and script failures; an effect that never runs is invisible. Add
+  a `cmf_log` and have the player look, rather than guessing twice.
+- **A `building_type` filter receives `root` and nothing else** — not
+  `scope:target`, whatever vanilla's comment says. Reading it logs an error every
+  pass.
+- **A `customizable_localization` cannot be overridden.** First definition wins;
+  later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
+  another mod's rule is to take over the localization key it prints.
+- **Square brackets in a localization value are data function syntax**, so a
+  plain `[debug]` in a label renders as `ERROR:`. The same syntax is what lets a
+  row label read a global variable back.
+- **A CMF action bar element is drawn from localization**: `_icon` takes a
+  texticon like `@good!`, and `_color` must name one of CMF's palette entries or
+  the button is invisible in the bottom bars.
+- **Script and localization files carry a UTF-8 BOM**, and localization keys
+  take one leading space. The player plays in Russian: a key missing there shows
+  as the raw key on screen.
 
-```
-python3 tools/refs.py                                  what is there, with versions
-python3 tools/refs.py --path community_mod_framework   where it is right now
-```
+## Ask the game whether something exists
 
-In a tool, `import refs` and call `refs.known("cmf")`, which resolves the mod by
-the `id` inside its `metadata.json`. `reference/INVENTORY.md` is the same list,
-written by that tool.
+    python3 tools/api.py set_subsidized      an effect, trigger, target or GUI function
+    python3 tools/api.py --find subsid       substring, across every dump
 
-These files are here to be used — read, grepped, quoted, and copied from into a
-mod. The owner has settled that question; see `reference/README.md`. Do not stop
-mid-task to ask about it, and do not treat a mod arriving at a newer version as
-a problem to report — it is the normal state of this tree.
+**Never conclude from "no mod here uses it" that the engine lacks it** — that
+mistake cost a redesign. The dumps say what exists, not how it behaves; for
+behaviour verify against `reference/`, never from memory, and say plainly when
+something is unproven.
 
-`reference/playset/` is the rest of what the owner loads, copied text only and
-refreshed by `.\tools\sync_workshop.ps1 -Playset`. Nothing builds against it —
-`refs.mods()` does not see it and no generator reads it — and a mod there can
-vanish at the next sync. It is for the questions that need the whole load order:
-`tools/guicost.py` counts it, and it is where a mod nobody has looked at goes.
+Do not hardcode a reference folder's name and do not trust a version written in
+prose: `python3 tools/refs.py`, or `refs.known("cmf")` in a tool.
 
-What is deliberately absent: `gfx`, `events`, `decisions`, map data, and most of
-`common/`. Ask for those if a task needs them, and add them here afterwards.
+## Rebuilding
 
-## How to work here
+    python3 tools/refresh.py           rebuild every generated file, report what moved
 
-**Ask the game whether something exists.** It prints its own API, and the dumps
-are in `reference/game/docs/`:
-
-```
-python3 tools/api.py set_subsidized      an effect, trigger, target or GUI function by name
-python3 tools/api.py --find subsid       substring, across every dump
-```
-
-Never conclude from "no mod here uses it" that the engine lacks it — that
-mistake cost a redesign. What the dumps do not answer is *how* something
-behaves; for that, verify against vanilla and the reference mods, never from
-memory, and say plainly when something is unproven.
-
-**A macro called with an argument CMF does not declare fails silently** and
-takes the rest of its effect with it. `python3 tools/check_cmm.py
-mods/<mod>/in_game/common` checks a whole mod for it — run it after touching any
-CMM call.
-
-**Effects that merely do nothing log nothing.** `error.log` names the file and
-line for GUI failures and for script errors, but an effect that never runs is
-invisible. When something does nothing quietly, add a `cmf_log` and have the
-player look, rather than guessing twice.
-
-**Only the player can run the game.** Nothing here can be tested from a session.
-Say plainly what is verified and what is not, and prefer one change with a clear
-signal over several at once. Build the smallest thing that would show a signal
-and ask for a run — a whole feature finished before its first load is how
-`where_to_produce` ended up with six suspects and no way to choose between them.
-
-**When the player reports a run, write it into [`docs/TESTLOG.md`](docs/TESTLOG.md)
-in the same session.** They report it once, in passing; if a session does not
-record it, the next one goes on calling the thing untested.
-
-## The tools are part of the repository
-
-Every generator and checker lives in `mods/*/tools/` and is committed. **Nothing
-about them is carried in a session's head** — a fresh session gets them by
-reading the repository, and a rule they enforce today they will enforce next
-year. When a session learns a rule the hard way, the cheapest place to put it is
-inside the checker that would have caught it, not only in prose.
-
-At the top level, `tools/` is what every mod's tooling shares:
-
-| | |
-| --- | --- |
-| `refs.py` | where the reference tree is, resolved by mod id rather than folder name |
-| `refresh.py` | the one command to run after the owner refreshes `reference/` |
-| `api.py` | what the engine actually has: effects, triggers, on_actions, GUI functions |
-| `extract_game_files.py` | copy the game directories a task needs out of an EU5 install, straight into `reference/game/`. `extract_game_files.ps1` is the same thing for the Windows box that has the game; both read `game_files_manifest.txt`, so the list cannot drift |
-| `mods.py` | **the owner's own tool, and the one he runs.** A menu over the whole mod loop: what his subscription has that Steam has not downloaded, fetching those with steamcmd straight into the game's workshop folder, refreshing either copy in this repository, installing the mods we build into the game's own local mod folder, moving a mod between `reference/mods/` and `reference/playset/`, and committing and pushing. `mods.bat` in the repository root is what he double-clicks, `mods.ps1` is what that runs, and `find_python.ps1` is how both PowerShell scripts locate Python |
-| `workshop.py` | the same work without the menu — what the workshop has against what is here, and the commands that copy an update in, rebuild everything from it and push. `sync_workshop.ps1` is the unattended loop on the box that has Steam; both read `workshop_mods.txt`, so the list cannot drift |
-| `check_cmm.py` | every CMM call in a mod: CMF's declared arguments, and every localization key CMM will look for |
-| `check_docs.py` | the documents still describe files that exist |
-| `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
-| `guicost.py` | what the interface costs before anybody clicks: always-live windows, script calls from `.gui`, filter chips per tag |
-| `playset.py` | which mods the player actually runs, read out of the mount table in his own `debug.log` |
-| `publish.py` | whether a mod is fit to upload: the workshop's own tag vocabulary, the version format the launcher parses, the thumbnail, the BOM. How the upload itself works is [`docs/WORKSHOP.md`](docs/WORKSHOP.md) |
-
-`.claude/hooks/session-start.sh` runs the first two checkers at the start of
-every session and hands the result back as context, so a session begins knowing
-the state of the tree rather than what a document last remembered.
-
-`mods/nd_ru/tools/` is the fullest example:
-
-| | |
-| --- | --- |
-| `generate_ru.py` | собирает игровые файлы из `translations/` и отказывается писать сломанное |
-| `scope.py` | что осталось перевести, по файлам и по приоритету |
-| `term.py` | как игра сама называет своё понятие (advances — «Улучшения») |
-
-`generate_ru.py` уже дважды остановил ошибку, которую не заметил глаз: китайский
-иероглиф посреди русского слова и забытое английское слово в русской фразе. Обе
-проверки появились после того, как ошибка случилась, — это и есть способ здесь
-работать.
-
-## Generated files
-
-Anything named `*_generated_*` is written by a tool and must not be hand edited.
-After anything under `reference/` changes — a game patch, a mod update, an
-upload the owner did without saying so — one command rebuilds all of it and
-reports what moved:
-
-```
-python3 tools/refresh.py
-```
-
-Nothing else needs doing about a refresh, and nothing anywhere records a version
-by hand. Run it at the start of a session too: it is cheaper than believing a
-document. `--check` reports and then reverts, for when you only want to know.
-
-The owner does all of that from `.\tools\mods.ps1`, which is a menu rather than
-a command to remember, and which also updates his actual Steam copies — the
-repository is only one of the three places it touches. **Do not tell him to run
-the pieces by hand when the menu covers it**, and do not build a step that only
-a session can perform: he asked for a tool that outlives any interest in
-modding.
-
-Whether there is anything to refresh is its own question, and
-`python3 tools/workshop.py` answers it against Steam without needing the game,
-an account or the files. It runs on GitHub daily as well, and opens an issue
-naming the mod that moved — so an update the owner has not noticed is not a
-thing a session has to guess at.
-
-Each generator still runs on its own and takes an explicit path when you want a
-different copy of the files. The two translation generators are the ones run
-after the *mod each translates* updates rather than after a game patch, and they
-fail naming the keys when that mod's English file has moved.
-
-## Conventions
-
-- Script and localization files carry a UTF-8 BOM.
-- Localization: one leading space per key under the `l_<language>:` header, and
-  every language folder a mod ships is kept in step with the others. The player
-  plays in Russian, so a key missing there shows as the raw key on screen.
-  `glorpui_hints` ships all eleven the game has; the rest ship Russian.
-- **A word the game already has a name for is not translated by hand.**
-  `[religious_aspect|e]` resolves `game_concept_religious_aspect` in the
-  player's language for free, and is right where a synonym would be wrong.
-- Prefer adding to `gui/filters/` or to CMF's action bar over copying a vanilla
-  `.gui`. When a copy is unavoidable, copy the **window** and not the file's
-  `types` block — other mods restyle those types, and carrying vanilla's copies
-  clobbers them.
+Run it at the start of a session; it is cheaper than believing a document. The
+owner does this and the rest of his mod loop from `mods.bat`, a menu rather than
+a command to remember. **Do not tell him to run the pieces by hand when the menu
+covers it**, and do not build a step only a session can perform.
 
 ## Keeping this current
 
-When a session learns something that would have saved it time:
+Write it down in the same session it was learnt, in the smallest place that
+holds it — and keep that place small:
 
-- a rule about the engine or an API → `docs/RESEARCH.md`
-- a mistake and the symptom that revealed it → `docs/PITFALLS.md`
-- the state of a mod, or what is untested → `docs/HANDOFF.md`
-- new game or mod files that had to be uploaded → add them under `reference/`
-  and note it in `reference/README.md`
+| what | where |
+| --- | --- |
+| a rule about the engine or an API | `docs/RESEARCH.md` and the file it indexes |
+| a mistake and the symptom that revealed it | `docs/PITFALLS.md` |
+| a mod's state, or what is untested | `mods/<mod>/CLAUDE.md`, one line in `docs/STATUS.md` |
+| a measurement a run settled | `docs/TESTLOG.md`, and `docs/SETTLED.md` if it closes a question |
+| a rule a checker could enforce instead | the checker |
 
-Write it down in the same session it was learnt, while the detail is still exact.
+**Everything under `docs/` has a size budget and `tools/check_docs.py` enforces
+it.** A document that has outgrown its budget is not trimmed by deleting what it
+knows — it is split, and the finished half moves to `docs/archive/`, which
+`kb.py` still searches. The budget exists because this repository already grew
+past the point where a session could afford to read it once.

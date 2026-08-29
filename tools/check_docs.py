@@ -28,9 +28,36 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import kb  # noqa: E402
 import refs  # noqa: E402
 
 SKIP_DIRS = {".git", "reference", "__pycache__"}
+
+# What a document may cost to put in a context window, by the estimate in
+# `tools/kb.py`. The first pattern that matches a document owns it; anything
+# unmatched — `docs/archive/`, a mod's README — is unbudgeted, because nothing
+# routes a session into it and `kb.py` hands out its sections one at a time.
+#
+# This rule exists because the documents grew, quietly and each time for a good
+# reason, until reading the ones a session was told to read cost about forty
+# thousand tokens — a third of an hour's budget spent before any work, and paid
+# again on every turn after, because the context is resent each time.
+#
+# A document over budget is **not** fixed by deleting what it knows. It is
+# split, and the finished half moves to `docs/archive/`, which `kb.py` still
+# searches and no document routes anybody into.
+BUDGETS = (
+    ("CLAUDE.md", 1800),            # loaded automatically, every session, every turn
+    ("mods/*/CLAUDE.md", 1100),     # one is read whenever a task names that mod
+    ("docs/STATUS.md", 1000),
+    ("docs/SETTLED.md", 1600),      # the one document worth reading in full
+    ("docs/NEXT_SESSION.md", 1900),
+    ("docs/investigations/*.md", 4000),
+    ("docs/pitfalls/*.md", 6000),
+    ("docs/TESTLOG.md", 5000),      # grows with every run; archive when it trips
+    ("docs/research/*.md", 8000),
+    ("docs/*.md", 4000),
+)
 
 # A repository path written in a document: a link target, or a bare path in
 # backticks or a code block. No spaces — what follows a path is an argument or a
@@ -77,8 +104,31 @@ def check_path(text: str, document: Path) -> bool:
     return (refs.REPO / target).exists() or (document.parent / target).exists()
 
 
+def budget(path: Path) -> int | None:
+    where = path.relative_to(refs.REPO)
+    for pattern, allowance in BUDGETS:
+        if where.match(pattern) and where.as_posix().count("/") == pattern.count("/"):
+            return allowance
+    return None
+
+
+def check_budgets() -> list[str]:
+    over: list[str] = []
+    for path in documents():
+        allowance = budget(path)
+        if allowance is None:
+            continue
+        cost = kb.estimate(path.read_text(encoding="utf-8-sig"))
+        if cost > allowance:
+            over.append(
+                "%s: ~%d tokens, budget %d — split it, and move the finished half"
+                " to docs/archive/ (it stays searchable with tools/kb.py)"
+                % (path.relative_to(refs.REPO), cost, allowance))
+    return over
+
+
 def main(argv: list[str]) -> int:
-    problems: list[str] = []
+    problems: list[str] = check_budgets()
     notes: list[str] = []
 
     for path in documents():

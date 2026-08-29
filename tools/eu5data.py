@@ -5,7 +5,7 @@ argument for the copy in `reference/` — and it returns the goods catalogue plu
 every production method, resolved per building type.
 
 This outlived the mod it was written for. `where_to_produce` was removed in
-August 2026 without ever working in game (see `docs/HANDOFF.md`), but its data
+August 2026 without ever working in game (see `docs/archive/where_to_produce.md`), but its data
 layer was the half that was right: every number below was checked against the
 game, and re-deriving them would cost another set of tooltip readings.
 

@@ -1,0 +1,569 @@
+# Test log — runs before 2026-08-27
+
+Archived out of [`../TESTLOG.md`](../TESTLOG.md) so the live log stays the size
+of a thing a session can afford to read. Nothing here is superseded; it is
+simply finished. What these runs settled is in
+[`../SETTLED.md`](../SETTLED.md), and this is the evidence behind it.
+
+Ask for a run by name rather than reading the file:
+`python3 tools/kb.py <words>`.
+
+### 2026-08 — `nd_ru`, overriding a base mod's localization
+
+**Loaded:** National Destinies, then `nd_ru` below it in the playset.
+**Expected:** the Russian keys of `nd_ru` to replace National Destinies' own,
+which are English text under an `l_russian:` header.
+**Observed:** they did. Westphalia reads in Russian end to end.
+**Verdict:** the whole approach of the mod rests on this and it holds. Load order
+decides; `nd_ru` must sit after the base mod.
+
+### 2026-08 — `goods_target`, every good and a target each, with logs
+
+**Loaded:** game 1.3.11, the player's normal playset. Logs supplied.
+**Expected:** monthly checks counted in the settings tooltip, a target per row,
+readings updating monthly.
+**Observed, in four parts:**
+
+1. **Monthly checks: 0.** The pulse leaves no trace at all. The display path is
+   not the suspect — Construction Manager reads `var:` inside script values the
+   same way this does.
+2. **The Target column shows a raw key**, `bgt__construction__t…`.
+3. **The readings do not change from month to month.**
+4. **The game visibly loses ticks while the Mod Menu is open** — obvious with
+   the game unpaused, opening and closing the menu.
+
+**The logs say nothing about this mod.** Zero lines in `error.log`, its five
+rotations, `gui.log` or `game.log`; `debug.log` shows only that it mounted and
+that its `1.3.*` matched game 1.3.11. So none of the four is an error the engine
+noticed — all four are the silent kind.
+
+**Diagnosed from the logs and the reference tree, not guessed:**
+
+- The raw key is the **format keys**. `cmm_set_list_field_conditional_format`
+  makes the widget read `<mod>__<setting>__<field>_prefix` and `_postfix`, and
+  the `_high` / `_low` pair for the sign. CMF detects their existence by
+  comparing `Localize(key)` against the key itself, so a missing one renders as
+  its own name and logs nothing. `cm__auto_build_list__min_discount_*` is the
+  worked example.
+- The performance and the frozen readings are the same cause: each of the 74
+  row labels calls `ScriptValue('bgt_impact_<good>')`, and each of those does
+  four market and default price lookups. That is evaluated for every drawn row,
+  every frame. The version before this one had no reading in its rows and cost
+  nothing noticeable; the tooltip with five of them was also fine.
+
+**Not resolved:** why the monthly pulse never runs. `monthly_country_pulse`
+exists in the game's own dump, CMF chains it through `_cmf_on_monthly` into
+`cmf_monthly_human_country_pulse`, and this mod's *registration* leaf on
+`cmf_on_mod_registration` demonstrably works — so on_action merging from this
+mod's file works at least once.
+
+### 2026-08 — `goods_target`, the goods list
+
+**Expected:** a 28-row list with two ticks per row, and a monthly log line
+naming what is ticked.
+**Observed:** the list draws, the rows name their goods, a row can be selected
+and the game's own goods tooltip comes up on hover. Ticks can be set. **The log
+shows nothing new** — no monthly entries at all.
+**Verdict:** the list half works, including the `_on_changed` callback without
+which nothing would draw. Whether a tick reaches script is still unknown,
+because the only thing that would have said so was the log.
+**Two suspects, both removed rather than diagnosed:** the monthly effect was
+gated on `variable_map(cmm|flag:bgt__log_readings)`, and asking a variable map
+for a key it does not hold is an error rather than false — a setting left at its
+registered default may never have been written to the map. And the count was
+logged with `cmf_log_value = { value = var:... }`, a CMF macro taking `var:` in
+an argument, which is the shape that kills a CMM list on `item = var:x`.
+**Learnt:** the mod now counts into country variables that a script value reads
+back into the tooltip, so the next answer does not depend on the log at all.
+**Also asked for:** every good rather than the 28 construction ones (cannons
+were missing), and a target per good rather than one for all.
+
+### 2026-08 — `goods_target`, first load: do the readings match
+
+**Loaded:** the player's normal playset with `goods_target` added.
+**Expected:** a Mod Menu tab with two settings, and readings that agree with the
+game's own construction cost tooltip.
+**Observed:** both. The tab renders in Russian, and the tooltip of "Писать замеры
+в журнал" showed lumber -14.7%, masonry +22.1%, glass -33.0%, sand -18.7%,
+stone +1.1%. The player confirms the discount matched the game at the start of
+the run.
+**Verdict:** the measurement the whole mod rests on is right. Registration, the
+`capital.market.market_price` reading, the per-good script values and
+`GuiScope...ScriptValue` in a CMM tooltip all work.
+**Learnt:** the readings move every month, so a yearly log line is the wrong
+cadence — the probe moved to CMF's monthly pulse, which is also where
+Construction Manager's own dispatcher runs.
+
+### 2026-08 — logs from a live playset, checked for our own mods
+
+**Loaded:** the player's normal playset — CMF, Construction Manager, Glorp UI,
+National Destinies, our mods — while dumping `script_docs`.
+**Observed:** `error.log` carries no line mentioning `bag_rgo`, `eu5ab`, `nd_`
+or any `_ru_generated_` file. Its 164 repeated script errors come from another
+Russian localization mod (`common/customizable_localization/ru_EUN_custom_loc.txt`,
+"Event target link 'location_rank' returned an invalid object"), and `gui.log`
+only notes CMF and Glorp overriding vanilla types, which is what they are for.
+**Verdict:** nothing of ours errors at load or in play.
+
+### 2026-08 — `auto_build_ru`, does the game pick the file up
+
+**Loaded:** Advanced Auto Build with `auto_build_ru`.
+**Expected:** the mod's Mod Menu tab in Russian instead of raw keys.
+**Observed:** works as intended — reported by the player.
+**Verdict:** the mod is done. Adding keys for a language a base mod does not ship
+needs no dependency on it and no load-order care.
+**Since:** the base mod moved to 0.9.2 Beta, bringing 40 new keys. Those are
+translated but have not been on screen.
+
+### 2026-08 — `rgo_bonus_filter`, buildings panel chip
+
+**Expected:** a filter chip in the funnel menu of a location's buildings panel,
+leaving only buildings that gain efficiency from raw materials in the province.
+**Observed:** works. Lightly tested — not walked across many provinces.
+**Still unrun:** the second chip, in the build panel
+(`BuildInLocationLateralView`).
+
+### 2026-08 — `where_to_produce`, the good-first build
+
+**Expected:** for a chosen good, a ranked list of provinces.
+**Observed:** correct on screen — `Рудные горы / Оружейные заводы / 1.88% /
+4.075` read true against the game's own tooltip.
+**Note:** this build was then replaced by a province-first one that was never
+run, and the mod was removed. See
+[`HANDOFF.md`](../HANDOFF.md#why-where_to_produce-failed).
+
+### 2026-08-24 — logs from a live game, EU5 1.3.11
+
+The player sent a full `logs/` after a short session: main menu at 22:02, game
+from 22:05:17 to 22:08:32, Sweden, the playset below. Nothing was being tested;
+the question was where the errors come from and why the game slows down the
+longer it runs. Both were answered from the files, so this is the most useful
+run in this log so far.
+
+**Loaded:** Community Mod Framework, Autonomous Diplomats, Construction Manager,
+Goods Target, Glorp UI + two local `glorpui_*` addons, Quality of Life by Buddy,
+Integration Hotfix, Please Buy My Terrible Art, National Destinies + Nation
+Destinies Rus + `nd_ru`, OGAS Optimized, `auto_build_ru`, `rgo_bonus_filter`,
+`sheep_farm_food`. Game in Russian.
+
+**Observed — errors.** 39 289 lines across `error.log` and its five rotations.
+
+| source | lines |
+| --- | --- |
+| the game's own Russian localization | 34 700 (88%) |
+| `ForeignCountryView` with no context, vanilla GUI | 1 497 |
+| `location_rank` in `common/customizable_localization/ru_EU5_custom_loc.txt` | 484 |
+| everything else | ~2 600 |
+
+**31 350 of those were written in the single second 22:05:49**, all from five
+search-filter strings, and they rotated `error.log` five times over. Every error
+the game produced before that second is gone. That alone is a reason to fix
+them: the log is unusable for anything else while they are there.
+
+`game.log` carries 804 more the error log never sees — `Object of type
+'country' is not valid for 'longname_ru_GEN'` (576), `'CL_tt'` (152), `'CL_ACC'`
+(76) — all from the same custom localization file.
+
+**Observed — the slowdown.** `performance_degradation.log` samples every 3 600
+rendered frames, and the two in-game intervals are unambiguous:
+
+| | frames | GUI widgets | memory |
+| --- | --- | --- | --- |
+| after load | — | 37 768 | 12 675 MB |
+| +1 sample | 3 601 | 64 318 (+26 550) | 12 977 MB (+301) |
+| +1 sample | 3 601 | 98 195 (+33 877) | 13 214 MB (+237) |
+
+Seven to nine GUI widgets and roughly 280 MB per minute, steadily, while the
+frame time itself stays flat at 14–15 ms. So the degradation the player
+describes is not the renderer giving up: it is the process growing until the
+machine runs out of memory. It starts at 12.4 GB and gains ~280 MB a minute, and
+the machine had 20.5 GB free at launch — about an hour and a quarter to
+swapping. Reloading the save frees it, which is exactly what the player reports.
+
+**Verdict:** the errors are the game's, not the mods'; `ru_loc_fix` is the
+answer to 88% of them. The leak is a separate fault, is real, is measurable
+with the game's own counter, and is **not** attributed to anything yet — see
+[HANDOFF](../HANDOFF.md#the-memory-leak) for the next step, which is two short
+runs and one number.
+
+### 2026-08-24 (evening) — `ru_loc_fix` in game, an hour of play
+
+**The first thing this repository has fixed that the log can confirm.**
+
+**Loaded:** the same playset as the morning run, with `ru_loc_fix` added at the
+top. No time-acceleration mod this time; the player notes the game degrades
+without it too, and that the mod exists to paper over exactly this.
+
+**Expected:** no `FetchData failed for 'AddTextIf(EqualTo_string(` from the five
+search-filter strings, and no burst at load.
+**Observed:** zero. Not one `CUSTOM_SEARCH_FILTER` line anywhere in
+`error.log`, `gui.log` or `game.log`. The 31 350-lines-in-one-second burst is
+gone and `error.log` no longer rotates itself out of existence at startup.
+**Rate:** 39 289 errors in three minutes became 35 455 in an hour — about twenty
+times fewer per minute.
+
+**And the log became readable, which was the other half of the point.** Three
+keys nobody could see before now stand at the top, all with the same fault the
+filters had: `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST` 13 950 lines,
+`FILTER_BY_GOODS` 3 866, `MARKET_SURPLYS_INFO` 1 650. So the fault was never
+about filter strings; it is about reaching a Russian case through
+`$GOODS_..._RU_*$` from a panel where the reference loses the scope. Round two
+fixes those and eight more.
+
+**One thing the run settled that no amount of reading could.** `gui.log` still
+lists seventeen `Failed parsing localized text` lines for keys this mod repairs
+— and they are all stamped 23:12:33, sixteen seconds *before* the mod's
+localization is merged at 23:12:49. They are the frontend pass parsing vanilla's
+value. None of the seventeen appears again anywhere in the run. So a
+`Failed parsing localized text` at frontend load is not evidence of anything
+being broken in game.
+
+**Verdict:** the approach works and the tooling around it works. What it cannot
+do is tell in advance *which* of the ninety-odd keys that reference a declension
+helper will fail; only a run says that, which is what `fixes/observed.txt` is for.
+
+**Still not checked by eye:** whether the repaired sentences read correctly on
+screen. The log says they no longer fail; it does not say the Russian is right.
+The quickest look is a religion tooltip (harmony, purity, honor) and the goods
+filter chips in a location's buildings panel.
+
+### 2026-08-25 — the widget experiment, five blocks on one save
+
+The protocol from [`HANDOFF.md`](../HANDOFF.md#the-slowdown), run by the player on a
+loaded 1362 save: paused throughout except the last block, two minutes per
+activity, a short unpaused skip between blocks so the in-game date separates
+them in the log. One sampler row is 3 601 frames, about fifty seconds here.
+
+Only intervals *inside* one block are counted; a row whose date differs from the
+row before it spans the skip as well and is thrown out.
+
+| block | what was done | widgets | per frame |
+| --- | --- | --- | --- |
+| 1 | paused, hands off | **+0, +0, +0** | **0.00** |
+| 2 | clicking countries, opening diplomacy | +20 099 | +1.86 |
+| 3 | clicking locations, opening the build panel | +3 178 | +0.29 |
+| 4 | cycling map modes | +32 254 | +1.49 |
+| 5 | speed 7, panning the map, dismissing events | +27 566 in one row | — |
+
+**Three findings, and the first two are settled.**
+
+**Idle costs nothing at all.** Not "little" — three consecutive rows of exactly
++0 across 10 800 frames. Every widget this game accumulates is created by
+something the player did. (The first row of block 1 adds 9 624; that is the
+interface finishing its build after the save loaded, not idling.)
+
+**Widgets *are* released — but only on teardown.** Quitting the 1337 game at the
+start of the run took the count from 38 281 to 2 618 to 367 in two rows. Nothing
+comparable happens during play: the largest fall inside the session is −557.
+
+**It is not one window.** That was the hypothesis and it is wrong. Diplomacy
+panels and map modes leak at comparable rates — 1.86 and 1.49 widgets a frame,
+ten to seventeen thousand per fifty seconds of clicking — and the location panel
+leaks too, six times slower but never zero. Whatever is failing to release is
+shared by most of the interface, so bisecting panels further is a dead end.
+
+**A caveat about frame time, and it matters.** This run stayed at 14 ms
+throughout, at 175 000 widgets, where the hour-long run was at 17–21 ms with the
+same count. The difference is that this run was paused for all but the last
+block, and a paused game does no simulation. So this run says nothing about the
+frame-time cost of widgets; it was designed to measure accumulation and that is
+all it measured.
+
+**What it rules out for this repository:** `rgo_bonus_filter` adds to the
+location panel, and the location panel is the *lightest* of the three. Nothing
+of ours is implicated.
+
+**Next:** the remaining axis is mods against vanilla, and one run settles it —
+see [`HANDOFF.md`](../HANDOFF.md#the-slowdown).
+
+### 2026-08-25 — vanilla against the full playset, and the case closes
+
+The run before this one left one question: is the widget leak the mod set or the
+base game. This run answers it, and the answer is the base game.
+
+**What the file shows happened.** One process, two games. The first is the full
+playset — 37 768 widgets at 1337_04_01, 449 Gfx units, 843 trade wagons, the same
+three numbers to the unit as every modded run in this log. Then a return to the
+main menu, the playset changed, and a second new game: 36 977 widgets, 448 Gfx
+units, **713** trade wagons. A genuinely different and lighter data set, so the
+mods really did come off. (EU5 reloads a playset in place; the process never
+restarted.)
+
+**The same activity, both sides:**
+
+| | idle, paused | clicking countries and opening diplomacy |
+| --- | --- | --- |
+| full playset (1362 save) | +0 | +20 099 over 10 803 frames = **+1.86/frame** |
+| mods off (1337 start) | +0 | +21 472 over 10 803 frames = **+1.99/frame** |
+
+**Vanilla leaks at the same rate — slightly faster, if anything.** The two sides
+are not perfectly matched (a 1362 save knows more countries than a 1337 start),
+but the magnitudes are identical and the idle baseline is exactly zero in both.
+Nothing in the playset causes this, and nothing in this repository can fix it.
+
+**Confirmed again, twice in one file: the main menu releases everything.**
+Leaving a game took widgets from 37 768 to 2 618 to 364 — the same 364 the
+process starts with — and memory from 12 952 MB to 9 951 MB, which is what it
+was before any game was loaded. So quitting to the main menu and loading the save
+again is worth exactly as much as restarting the executable, and costs a
+fraction of the time.
+
+**Verdict:** a base-game defect, measured and quantified. The measurement is
+finished — but the investigation is *not*, and the owner said so plainly when
+this entry first ended with "so file a bug report". They already knew it was
+vanilla. What is wanted is a lever from the mod side, or evidence that there is
+none. The lead and the next run are in
+[`HANDOFF.md`](../HANDOFF.md#the-slowdown--it-is-the-base-game-and-the-hunt-is-for-a-lever).
+
+### 2026-08-25 — `glorpui_hints`, the merge, and a key on screen
+
+**Loaded:** the merged `glorpui_hints` in place of `glorpui_ru_svh_fix` and
+`glorpui_svh_extra`.
+**Expected:** the societal value tooltip to read in Russian and to carry the
+added block.
+**Observed:** it does. Screenshot of *Оборона*: Glorp UI's own list in Russian
+("Принять реформу правления Система гарнизонов +0.05"), and under it «Также
+влияет на смещение» with the four parliament issues about building forts and
+«Обороняющаяся сторона в войне +0.10», scrolled. The owner's words: "в целом всё
+работает как и раньше".
+**Verdict:** **the merge is confirmed.** Two mods in one folder under one id load
+and behave as the two did. Nothing in `glorpui_hints` is outstanding.
+
+**And the screenshot showed something else — three raw keys, none of them ours.**
+The tooltip read «Дальше продвинуться в сторону
+*SOCIEALVALUE_RIGHTITEM_WNTT_GEN*:», «При своём максимальном значении
+*SOCIEALVALUE_NAME_GEN* будет оказывать…» and «Поддержать *SOCIEALVALUE_VALUE_ACC*
+с помощью действий совета». That is the game's own Russian localization: it
+defines seven declension helpers spelled `SOCIETALVALUE_*` and references all
+seven as `SOCIEALVALUE_*` — a missing T — in twenty four keys. No overlap, so
+every reference resolves to nothing.
+
+`$NAME$` naming nothing neither errors nor logs: the engine prints the name in
+capitals and carries on. So this class was invisible to every rule
+`ru_loc_fix` had, and it took a screenshot to find one. It has a rule now
+(`missing_ref`), and finding it turned up **49 keys in thirteen references**,
+which `ru_loc_fix` repairs 45 of. Unfixed and reported: four culture tooltips
+whose nearest defined key belongs to a different people.
+
+**Riding on the same rule: `locscan.py` could not see 18 012 keys** — 3.4% of
+the tree — because its key regex rejected a line with a comment after the
+closing quote. `hre_tt: "0" #True` read as undefined, so every reference to it
+looked broken. Fixed; every other rule's count is unchanged, which is how we
+know the fix did not disturb them.
+
+**Untested:** all 45 repairs. Any run checks them — the three keys above are on
+the societal value tooltip, which is one hover away.
+
+### 2026-08-25 — `ru_loc_fix` round three, and the game files arrived
+
+**Loaded:** the playset with `ru_loc_fix` at 207 keys.
+**Expected:** the three raw keys on the societal value tooltip to become words.
+**Observed:** they did. The owner: "проверил, что ценности теперь отображаются
+правильно".
+**Verdict:** **round three confirmed.** `$SOCIEALVALUE_*$` was the fault and the
+rewrite to `$SOCIETALVALUE_*$` is the repair, on screen. That also settles the
+class: a `$NAME$` naming no key really does print the name, and repairing the
+reference really does fix it — which is what makes the other 21 repairs
+(`protestant_union.tt`, `catholic_league.tt`, `pirate_events.2.a`) worth
+believing without seeing each one.
+
+**And the game files came in**, by `tools/extract_game_files.ps1` on the owner's
+Windows box — 597 files, `in_game/common/` up from seven directories to
+thirty one. The PowerShell script had never been run when it was written; it
+works.
+
+**What the extraction missed, and it matters:** `static_modifiers` — 298 of the
+1405 societal value pushes, and the whole "scaling" half of `glorpui_hints`
+(fort maintenance, army size, at war, defender in war). The scan of what did
+arrive finds **1128 pushes across 22 source types**; the missing 298 are all
+that folder. It is not under `in_game/` at all, and the first sweep only looked
+there. Both scripts now search the whole install for a manifest directory that
+is not where it says, and sweep every `.txt` in the install rather than one
+mount — so re-running brings it. `modifier_type_definitions` is missing for the
+same reason.
+
+**Still untested:** nothing about `glorpui_hints` changed in this round, so its
+extra hint lists are still the ones built before any of this. Rebuilding them
+against the arrived files is the next thing, and it needs `static_modifiers`
+first.
+
+### 2026-08-25 — culture tooltips, and a theory that did not survive them
+
+**Loaded:** the playset, after the game files went into `reference/`.
+**Expected:** to find out whether the Russian culture tooltips resolve, since
+every `*_culture_tt` key in the game's Russian custom localization holds a bare
+number equal to its own line number minus two — 1755 of them, no exceptions.
+**Observed:** they resolve, completely. Screenshot of a location's culture list:
+*Вестфальск* opens a full culture tooltip (traditions 179.00, cultural influence
+71.63, language, culture groups, the eight countries it is primary for),
+*Германск* opens the culture group, *Нижнефранконск* the same. The owner: "вроде
+они работают как надо и раньше работали так же".
+**Verdict:** **the theory was wrong and this is closed.** The key on screen is
+`westphalian_cadj`, which is literally
+`#TOOLTIP:CULTURE,$westphalian_tt$, #L Вестфальск#!#!`, and `westphalian_tt`
+holds `"1052"` on line 1054 — so the number is exactly what the engine wants
+there, or it ignores the argument. Repairing 1755 keys would have fixed nothing
+and broken whatever it touched. `PITFALLS.md` carries the lesson: a pattern in
+the data explains a fault, it does not establish one.
+
+**And the rest of the game files arrived**, `static_modifiers` among them — not
+under `in_game/` but under `main_menu/common/`, found by the by-name search the
+last round added. The manifest now names the real paths. The source scan is
+complete for the first time: **1426 pushes across 23 source types**, up from
+1128.
+
+**So `glorpui_hints` was rebuilt from real game files** — the first time that
+has been possible in this repository rather than on the owner's machine. 243
+hint lines became **264**, 107 gated became **138**, and nothing was lost. The
+twelve new ones are five Italian and foreign leagues the game has added since
+the lists were last built, plus two placements of *Обороняющаяся сторона в войне*
+and *Парламент в столице*. Defensive goes from 9 lines to 15.
+
+**Untested:** the rebuilt lists. The visible change is the defensive axis
+growing by six lines and new international organizations appearing; one hover
+over a societal value shows it.
+
+### 2026-08-25 — the rebuilt hint lists
+
+**Loaded:** `glorpui_hints` with the lists rebuilt from the game files now in
+`reference/`.
+**Expected:** more lines per direction, and no raw keys from the 21 new gated
+entries.
+**Observed:** "всякого в списках действительно больше. Каких-то глючных ключей и
+т.п. не вижу. Всё работает ок."
+**Verdict:** **the rebuild is confirmed.** 264 hint lines and 138 gates render
+correctly, which also confirms the pipeline end to end for the first time inside
+this repository: game files in `reference/` → scan → generator → mod → screen.
+
+**English is out of scope by the owner's decision**, unless the mod is ever
+published: "английским языком заниматься не планирую, по крайней мере пока не
+появится желание выложить этот мод в общий доступ." The gap stays recorded in
+the mod's README; it is not work.
+
+### 2026-08-25 — the availability gates, first round
+
+**Loaded:** `glorpui_hints` with the four new gate kinds, on the owner's own
+save (a Catholic German county).
+**Expected:** organizations he cannot join and missions in a missions-off game
+to disappear; religious aspect lines to start appearing.
+**Observed:** "итальянские лиги пропали, миссии тоже". Both confirmed.
+**Verdict:** `can_join_international_organization` and
+`game_has_missions_enabled` both work as gates in a country scoped
+customizable localization. That is the mechanism proven, not just these two
+categories.
+
+**Religious aspects: still unknown, and not his fault.** He plays Catholic,
+where aspects are set by the Papacy rather than chosen, so the repaired
+`religion = religion:X` gate has nothing to show him either way. It needs a run
+as a religion that picks its own aspects — Lutheran was his example. Until then
+the `country_religion` repair is reasoned, not seen.
+
+**Two things still not filtered, both reported from the screen:**
+
+- **Cabinet actions.** *Дикастерия по евангелизации* and *Влияние Строгановых*
+  were on screen for a Catholic German county. They are `office_of_new_converts`
+  (`potential` wants a modifier on Kazan) and `stroganov_influences` (`potential`
+  wants the Stroganov variable) — national, and both carry a `potential` block
+  this mod was not reading. All eight cabinet actions that push have one.
+- **Parliament issues.** All four *Поддержка строительства …* lines showed at
+  once when only one can ever be valid: `promote_castle_building` requires
+  `has_advance = castle_advance` and forbids the better advances, and the other
+  three do the same one rung up. The gate was `has_parliament = yes` and nothing
+  else.
+
+Both are fixed in the same session: cabinet actions take `potential` + `allow`
+verbatim, parliament issues take `has_parliament = yes` plus the estate that
+raises the issue plus `potential` + `allow`. Gated lines 167 → **175**.
+
+**A bonus the verbatim copy brings:** two parliament issues carry
+`potential = { always = no }` with a comment saying they are event-driven.
+Copying `potential` drops them, which is right.
+
+**Untested:** the cabinet action and parliament issue gates. What to look for —
+*Дикастерия по евангелизации* and *Влияние Строгановых* gone, and exactly one
+*Поддержка строительства …* line instead of four.
+
+**The mod menu switch and the scaling hovers, both unrun.** Two mechanisms
+landed together and they fail differently, which is how to tell them apart:
+
+- **The switch.** `Подсказки общественных ценностей → Списки → Фильтрация →
+  Показывать всё без фильтра`, in CMF's mod menu. If the row is not there at
+  all, registration did not run. If the row is there and the tooltip does not
+  change, the `.gui` condition is wrong. Nothing else in the mod moves either
+  way.
+- **The hovers.** «(масштабируется)» and «(условие)» on the 41 scaled and
+  conditional lines. These are game concepts this mod defines. If they work, the
+  hover says what the modifier scales with and at what value it is at full size
+  — 100 army tradition, 200% of the fort limit, `army_size_percentage > 1.0` for
+  the expected-army one. If a text-only concept is not a thing, those 41 words
+  render bare or as `ERROR:` and nothing else is affected.
+
+### 2026-08-25 — the switch works, the two clever bits did not
+
+**Loaded:** `glorpui_hints` with the mod menu switch and the scaling hovers.
+**Expected:** a switch that restores the unfiltered pool, and a hover on
+«(масштабируется)» saying what the modifier scales with.
+**Observed:** **the switch works** — "переключатель есть и свою функцию он
+выполняет". The hovers do not, and they took text with them: on
+*Децентрализация* the *Парламент вне столицы* line rendered as a bare `+0.20`
+with no words at all, and on *Традиционализм* the *Доля крестьян в населении*
+line as a bare `до +0.10`. In the same list *Банкрот* and *Сословие Племена*
+rendered correctly.
+**Verdict:** two separate faults, both in the same commit, both silent.
+
+1. **A label that is nothing but a `$reference$` has no floor.** The labels had
+   been changed to the game's own `$STATIC_MODIFIER_NAME_x$` so a rename would
+   be followed for free. All three keys exist in the game's Russian files;
+   `is_bankrupt` rendered and `parliament_outside_capital` and
+   `peasants_percentage_in_country` rendered as nothing. What separates them is
+   **still unknown** — and the fix does not depend on knowing, because a label
+   made only of a reference loses the whole line when the reference fails.
+2. **A mod-defined game concept with no `texture` renders as nothing.** The
+   hovers were `[Concept('svx_scale_x','(масштабируется)')|e]` with the concepts
+   declared in the mod's own `game_concepts/`. The whole data block produced
+   empty output — visible on *Банкрот*, which kept its label and its value and
+   lost the word between them. Glorp UI's own concepts all carry a `texture`.
+
+**Both are backed out.** Labels are this mod's own strings again, and the
+explanation is inline in the same line, which cannot fail:
+«Превышен лимит крепостей *(масштабируется: максимум при
+used_fort_limit_percentage = 200%)*: +0.10» and «Армия больше ожидаемой *(при
+army_size_percentage > 1.0)*: +0.10». Where the game's files say nothing — every
+`static_modifier`, *Средняя грамотность* among them — it reads
+*(масштабируется, показан максимум)* and claims nothing more. A trigger that
+only repeats its own label gets no bracket at all.
+
+**And the checker that would have caught the first one is in.** Every hint label
+must carry literal text of its own; a label made only of markup and references
+fails the run. Its first version silently passed the very line it was written
+for — a non-greedy match started at an earlier `@hint!` and swallowed the whole
+entry before it — so it is verified in both directions now: clean on the real
+file, and failing on a planted reference-only label.
+
+**Untested:** the inline notes. Everything they replace was rendering before the
+change, so the risk is the wording rather than the mechanism.
+
+### 2026-08-25 — the inline scaling notes, rejected on sight
+
+**Loaded:** `glorpui_hints` with the explanation inline in each hint line.
+**Observed:** it does not fit. The screenshots show the *labels* truncated —
+*Традиции армии* as «Традиции армии ( …», *Во время войны* as «Во вр …», *Доля
+крестьян в населении* as «Доля …» — with the bracket spilling across the value
+column. And where a modifier declares nothing, "(масштабируется, показан
+максимум)" says what «до +0.10» already said. The owner: "чёт супер гига пупер
+фу… просто пара бесполезных слов".
+**Verdict:** **reverted.** The hint text is byte-identical to the 2026-08-25
+version he approved; only the switch's keys are new on top of it. The left half
+of a `TooltipScrolledStringPairList` row is narrow and truncates rather than
+wraps — in [`PITFALLS.md`](../PITFALLS.md#interface) now.
+
+The arithmetic behind the notes was correct and is kept in
+[`research/engine.md`](../research/engine.md): `auto_modifiers` declare
+`scales_with` and `potential_trigger`, `static_modifiers` declare neither. It is
+recorded rather than used, so a later session does not derive it a third time.
+
+**One correction from the owner, not acted on at his request.** He believes
+"expected army" is set by the estates — what they expect the country to field.
+The file says only `army_size_percentage > 1.0`, which is a ratio against
+something the modifier does not name, so both can be true and the file does not
+settle it. Nothing in the mod depends on this any more.

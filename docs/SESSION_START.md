@@ -1,77 +1,50 @@
-# Opening a new session
+# Как начинать сессию
 
-Claude Code loads [`../CLAUDE.md`](../CLAUDE.md) automatically, so a session
-already has the briefing before you type anything. What it does *not* have is a
-reason to read the rest before starting work — which is what this prompt is for.
+**Коротко: назови мод и задачу. Больше ничего не нужно.**
 
-Paste this as the first message:
+    работаем над glorpui_hints
+    nd_ru, возьми Ломбардию
+    вот error.log с последнего прогона
 
----
+Claude Code сам подхватывает [`../CLAUDE.md`](../CLAUDE.md) при старте, а хук
+начала сессии докладывает состояние дерева. `CLAUDE.md` — маршрутизатор: он
+говорит сессии открыть `mods/<мод>/CLAUDE.md` и ничего больше, а за остальным
+обращаться через `python3 tools/kb.py`.
 
-Это рабочий репозиторий для модов EU5. Здесь уже накоплены знания и лежат файлы
-игры — ничего загружать не нужно.
+## Чем этот файл был раньше, и почему это исправлено
 
-Прежде чем что-то делать:
+Здесь лежал стартовый промпт, который велел сессии прочитать `CLAUDE.md`,
+`docs/RESEARCH.md` и `docs/PITFALLS.md` **целиком**, а потом просмотреть
+`HANDOFF.md`. Это около четырнадцати тысяч токенов до первой строчки работы — и
+они оставались в контексте до конца сессии, то есть пересылались на каждом
+следующем запросе. Из-за этого пятичасового лимита хватало примерно на шесть
+запросов.
 
-1. Прочитай `CLAUDE.md`, `docs/RESEARCH.md` и `docs/PITFALLS.md` целиком.
-2. Просмотри `docs/HANDOFF.md` — состояние модов.
-3. Запусти `python3 tools/refresh.py`. Он покажет, что сейчас лежит в
-   `reference/` и с какими версиями, пересоберёт генерируемые файлы и назовёт
-   изменившиеся. Версии в тексте могли устареть — этот вывод не может.
+Знания никуда не делись, изменился способ доступа: документы теперь не читают, а
+спрашивают. `python3 tools/kb.py <слова>` показывает, какой раздел отвечает на
+вопрос и во что обойдётся его прочитать; `--show` печатает ровно этот раздел.
 
-Потом коротко ответь своими словами:
+## Что стоит сказать сессии, если это важно
 
-- что за проект и что в нём уже сделано;
-- три-четыре правила или грабли, которые ты считаешь самыми важными;
-- что лежит в `reference/` и когда ты туда полезешь;
-- чего ты **не** можешь (что проверяю в игре я, а не ты) и что тебе от меня
-  понадобится;
-- готов ли начинать.
+- **что уже проверено в игре** — если ты только что играл и что-то заметил,
+  скажи сразу: это дороже всего остального, и сессия обязана записать это в
+  `docs/TESTLOG.md` тем же заходом;
+- **сколько брать** — для `nd_ru` это обязательный вопрос: весь мод примерно
+  двадцать шесть сессий, поэтому объём режется по приоритету. Цифры — в
+  [`../mods/nd_ru/CLAUDE.md`](../mods/nd_ru/CLAUDE.md);
+- **если ответ звучит как догадка** — попроси проверить по `reference/` или
+  через `python3 tools/api.py`. Сессия обязана говорить прямо, что проверено, а
+  что нет.
 
-Не пересказывай файлы подряд — мне нужно понять, что ты действительно уловил.
-Дальше скажу, над чем работаем.
+## Одна сессия — одна задача
 
----
+Контекст пересылается целиком на каждом шаге, поэтому длинная сессия дорожает
+нелинейно: десятый запрос стоит заметно больше первого. Закончили мод — начинай
+новую сессию, ничего не теряется: всё, что сессия узнала, она обязана записать
+в репозиторий тем же заходом (куда именно — в таблице в конце `CLAUDE.md`).
 
-## Why it is worded that way
+## Если сессия всё-таки читает лишнее
 
-**"Прочитай целиком", not "ознакомься".** A session that skims picks the same
-wrong turns again; `PITFALLS.md` exists precisely because none of them announce
-themselves.
-
-**Asking for a summary in its own words** is the cheap check that reading
-happened. If the answer is generic, say so and have it read again before any
-work starts — that costs a minute and saves a round trip through the game.
-
-**Asking what it cannot do** surfaces the constraint that shapes everything
-here: only you can run the game. A session that has not registered that will
-report guesses as if they were verified.
-
-**Asking what it needs from you** gets the request for `error.log` and
-screenshots out of the way at the start, instead of three exchanges in.
-
-**`tools/refresh.py` instead of a paragraph about versions.** `reference/` is
-refreshed by hand and without notice, so a session that reads versions out of a
-document starts by mistrusting the tree, or worse, reports a routine mod update
-as a problem. One command makes the tree its own answer.
-
-## Если сессия про перевод крупного мода
-
-`nd_ru` — самый большой проект в репозитории, и его нельзя вести «на память».
-Такой сессии, помимо общего брифинга, нужно прочитать:
-
-1. [`../mods/nd_ru/README.md`](../mods/nd_ru/README.md) — три команды, которыми
-   ведётся работа, и что именно проверяет генератор.
-2. [`../mods/nd_ru/GLOSSARY.md`](../mods/nd_ru/GLOSSARY.md) — принятые термины.
-   Сверяться до перевода, а не после.
-
-И сразу спросить владельца, **какой объём брать в этот раз**: весь мод — около
-двадцати семи сессий, поэтому объём режется по приоритету, а не берётся целиком.
-Цифры для такого разговора — в [`HANDOFF.md`](HANDOFF.md).
-
-## If the session goes on long
-
-Context runs out well before a mod is finished. Before that happens, have it
-write down what it learnt — `RESEARCH.md` for a rule, `PITFALLS.md` for a
-mistake and its symptom, `HANDOFF.md` for the state of the work. Then start a
-fresh session with the prompt above; nothing is lost that was written down.
+Скажи ей: «не читай документы целиком, спрашивай `tools/kb.py`». Это правило
+есть в `CLAUDE.md` первым пунктом, но напоминание стоит десяти токенов, а
+прочитанный зря `PITFALLS.md` — десяти тысяч.

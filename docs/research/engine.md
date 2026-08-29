@@ -352,7 +352,7 @@ runs — `reference/` is not the playset, and `python3 tools/playset.py <logs>`
 reads the real one out of the mount table in his `debug.log`. It was
 written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
-[`HANDOFF.md`](../HANDOFF.md#the-second-slowdown--panels-open-slower-with-mods-from-the-first-minute).
+[`../investigations/panel_hitch.md`](../investigations/panel_hitch.md).
 
 ## Sorting
 
