@@ -764,6 +764,46 @@ are right. Quickest look: a religion tooltip (harmony, purity, honor), the goods
 filter chips in a location's buildings panel, and the price line in the build
 panel.
 
+### 2026-08-29 — `mods.bat`, an update run on the owner's own machine
+
+Not a game run — the mod menu, on the box that has Steam, reported by the owner
+in full. It is here because only he can run it and because two of the three
+things it found were invisible from a session.
+
+**Loaded:** `mods.bat → 2 → 3` (reference and playset both), against a Steam
+workshop folder that had Advanced Auto Build's 2026-08-28 build and Glorp UI's
+2026-08-28 build in it.
+**Expected:** the copies in `reference/` replaced, the generators rebuilt, and a
+report of what moved.
+**Observed:** the copies were replaced; **two generators failed and stopped the
+run**, and the run then ended by telling him the two mods it had just copied in
+were still behind.
+
+- `auto_build_ru` — `28 key(s) the base mod does not define`. The new Advanced
+  Auto Build deleted 28 keys, the ranking-mode block among them, and no key was
+  added or renamed. A deletion, and it stopped everything.
+- `glorpui_hints` — `Glorp UI writes a hint this mod cannot translate:
+  GLORP_UI_SVH_CENTRALIZATION_PV_PETTY_BUREAUCRACY: @hint! Grant
+  [ShowEstatePrivilegeName('petty_bureaucracy')]`. Glorp UI moved its hint
+  references to the engine's own data function.
+- `svx_unlock_gate.txt` changed in the same run, which is the quiet half: the
+  advance gates are found by a second regex that only knew the old shape, so it
+  matched nothing and wrote the file empty. Nothing errored.
+- `workshop.py record` then stamped both freshly copied mods `behind`, because
+  it dates a copy by `git log` and the copy was not committed yet.
+
+**Verdict:** all four are fixed and the exact run was replayed against files
+rewritten into the new shapes — refresh comes out green, with one note naming
+the nine dropped keys. Still his to confirm: that the real 2026-08-28 files
+behave the way the rewritten ones did, which is one `mods.bat → 2` away.
+
+**He also said the tool never actually updated a mod in Steam for him** — he
+still had to unsubscribe and resubscribe. It compared install dates, and Steam
+stamps a mod updated when it *notices* the update rather than when it downloads
+it. It compares build ids now (`manifest` against `hcontent_file`), and will
+re-fetch a mod on demand whatever the check says. Untested against a real
+`appworkshop_3450310.acf`; see [`HANDOFF.md`](HANDOFF.md#state).
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:

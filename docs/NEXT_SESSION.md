@@ -3,6 +3,25 @@
 This repository holds six mods, six documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
+## First, and it is not the job below: the update loop is fixed, the files are not
+
+2026-08-29 the owner ran `mods.bat → 2` and both translation generators stopped
+the run — Advanced Auto Build deleted 28 keys, Glorp UI changed the shape it
+writes hint references in, and a third fault emptied `svx_unlock_gate.txt`
+without saying anything. All of it is fixed and replayed against files rewritten
+into the new shapes; **the real 2026-08-28 files are still not in this tree.**
+Bringing them in is `mods.bat → 2` on his machine and it is the run that
+confirms the fix. The whole thing is in
+[`TESTLOG.md`](TESTLOG.md#2026-08-29--modsbat-an-update-run-on-the-owners-own-machine)
+and [`HANDOFF.md`](HANDOFF.md#state) — read those two before touching the mod
+menu, and do not ask him to re-measure anything they already record.
+
+The same run also carries the Steam-side rewrite: the menu compares build ids
+now rather than dates, and can re-fetch any mod on demand. That has never run
+against a real Steam install. If it works, unsubscribing and resubscribing stops
+being part of his life; if it does not, `HANDOFF.md` names the failure to look
+for.
+
 ## This session: get `glorpui_hints` into the workshop
 
 The mod is **finished as a piece of software** and unfinished as a *published*

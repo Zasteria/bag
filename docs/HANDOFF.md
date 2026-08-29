@@ -34,6 +34,51 @@ evidence that nothing can.
 
 ## State
 
+**The mod menu's update loop broke on somebody else's update, and is fixed.**
+2026-08-29: the owner ran `mods.bat → 2` against the 2026-08-28 builds of
+Advanced Auto Build and Glorp UI and both translation generators stopped the
+run. The whole run, and what each of the four faults was, is in
+[`TESTLOG.md`](TESTLOG.md#2026-08-29--modsbat-an-update-run-on-the-owners-own-machine);
+the rules that came out of them are in
+[`PITFALLS.md`](PITFALLS.md#the-reference-tree-changes-under-you). What matters
+here is what is now true and what is not:
+
+- **verified by replay** — the run was repeated against copies of both mods
+  rewritten into the new shapes. `tools/refresh.py` comes out green, with a note
+  naming the nine keys Advanced Auto Build deleted, and `glorpui_hints` rebuilds
+  all eleven languages and still finds all five advance-locked privileges;
+- **not verified** — the *real* 2026-08-28 files. They are not in this tree yet;
+  bringing them in is `mods.bat → 2` on his machine, and it is the next thing
+  that run should show;
+- **not verified at all** — the Steam side, below.
+
+**Updating a mod in Steam: rewritten, never run.** The owner's own report is
+that the menu never actually updated a workshop mod for him and he still
+unsubscribed and resubscribed. It compared *dates* — Steam's installed-at
+against the workshop's updated-at — and Steam stamps an item as updated when it
+notices the update, whether or not the files followed. It now compares **build
+ids**: `manifest` out of `appworkshop_3450310.acf` against `hcontent_file` out
+of `GetPublishedFileDetails`. Two that differ are two different sets of files and
+nothing about it is a guess; anything Steam has no build id for still falls back
+to dates, and the report says which of the two answered. With it:
+
+- any mod can be re-fetched on demand, whether or not the check thinks it is
+  behind — "ничего не отстаёт" was exactly the answer that used to be wrong;
+- what steamcmd actually brought back is compared against what the workshop
+  serves, and said out loud when they differ — that is the one case where
+  unsubscribing and resubscribing is still the answer;
+- copying into `reference/` stops first when the Steam folder itself is behind,
+  because that path copies out of the Steam folder and would otherwise bring in
+  the old version and rebuild every generator against it without a word.
+
+**None of that has run against a real `appworkshop_3450310.acf`.** It was
+exercised against a synthetic one — manifests read correctly, and a mod whose
+dates match but whose build id differs is correctly called outdated — and the
+field names are Steam's own. The first real run is the test. If Steam's record
+turns out to hold no `manifest` for these items, every mod falls back to dates
+and the menu says so on the line above the table; that is the failure to look
+for.
+
 **The reference tree moved, and nothing broke.** Construction Manager 2.2.12 and
 Community Mod Framework 2.4.1 came in, the second a real reorganisation of the
 CMM list code. `tools/refresh.py` rebuilds everything from them and reports

@@ -15,10 +15,15 @@ looks like this:
     @hint! Grant #TOOLTIP:ESTATE_PRIVILEGE,kormlenije #L $kormlenije$#!#!: #color_green +0.10#!\\n
            ^^^^^ ^-------------------- the reference -------------------^  ^-- the number --^
 
+Since 2026-08-28 Glorp UI writes the same reference as a data function instead,
+and both shapes are in the file:
+
+    @hint! Grant [ShowEstatePrivilegeName('petty_bureaucracy')]: #color_green +0.20#!\\n
+
 Everything language specific is the opener. The reference in the middle is what
 makes the privilege's name appear and hoverable, and the game resolves it in
-whatever language the player runs; the number is a number. So a language costs
-**three phrases**, held in `languages.py`, each written with a `{ref}`
+whatever language the player runs, in either shape; the number is a number. So
+a language costs **three phrases**, held in `languages.py`, each written with a `{ref}`
 placeholder so a language may put the opener after the object rather than in
 front of it — which German, Turkish, Japanese and Korean all want to.
 
@@ -43,13 +48,40 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import languages as svx_languages  # noqa: E402
 
+# Glorp UI writes the reference in either of two shapes, and has written both:
+# the `#TOOLTIP:` markup it started with, and, since 2026-08-28, the engine's
+# own `[ShowEstatePrivilegeName('petty_bureaucracy')]` data function. Both put
+# the object's name on screen in the player's language with the tooltip
+# attached, and both are copied through a translation byte for byte -- which is
+# the whole point of splitting a hint up. A shape neither covers raises
+# `Unrecognised` rather than being guessed at.
+REFERENCE = (
+    r"(?P<ref>"
+    r"#TOOLTIP:(?P<registry>[A-Z_]+),\S+ #L \$\S+\$#!#!"
+    r"|\[(?P<function>Show\w+?Name(?:WithNoTooltip)?)\('[^']+'\)\]"
+    r")"
+)
+
 # One hint, split into the four parts above. `tail` is the trailing game concept
 # token English carries ("... the Altepetl [government_reform|e]:"); the opener
 # in `languages.py` decides for itself whether its language wants one.
 HINT_RE = re.compile(
-    r'^@hint! (?P<opener>.*?)'
-    r'(?P<ref>#TOOLTIP:(?P<registry>[A-Z_]+),\S+ #L \$\S+\$#!#!)'
-    r'(?P<tail>[^:]*): (?P<value>.*)$')
+    r'^@hint! (?P<opener>.*?)' + REFERENCE + r'(?P<tail>[^:]*): (?P<value>.*)$')
+
+# `ShowEstatePrivilegeName` names the same registry the `#TOOLTIP:` form spells
+# `ESTATE_PRIVILEGE`, so the opener a hint wants is derived from the function
+# rather than tabulated: a form Glorp UI adopts for an object type this mod has
+# never seen then fails with "no opener for registry X" -- the same error, and
+# the same one-line fix in `languages.py` -- instead of silently going untranslated.
+FUNCTION_RE = re.compile(r"Show(\w+?)Name(?:WithNoTooltip)?$")
+
+
+def registry_of(match: "re.Match[str]") -> str:
+    """Which of `languages.py`'s hint openers this reference asks for."""
+    if match.group("registry"):
+        return match.group("registry")
+    body = FUNCTION_RE.match(match.group("function")).group(1)
+    return re.sub(r"(?<!^)(?=[A-Z])", "_", body).upper()
 
 ENTRY_RE = re.compile(r'^ (GLORP_UI_SVH_\w+): "(.*)"\s*$')
 
@@ -68,10 +100,10 @@ def translate(value: str, openers: dict[str, str]) -> str:
     match = HINT_RE.match(value)
     if not match:
         raise Unrecognised(value)
-    opener = openers.get(match.group("registry"))
+    registry = registry_of(match)
+    opener = openers.get(registry)
     if opener is None:
-        raise Unrecognised("no opener for registry %s: %s"
-                           % (match.group("registry"), value))
+        raise Unrecognised("no opener for registry %s: %s" % (registry, value))
     return "@hint! %s: %s" % (opener.format(ref=match.group("ref")),
                               match.group("value"))
 

@@ -13,7 +13,12 @@ Usage:
 
 It refuses to write a file that would show up wrong in game:
 
-* every key the base mod defines has to be translated, and nothing else may be;
+* every key the base mod defines has to be translated.  A key here the base mod
+  *no longer* defines is a different matter: it is a line the mod deleted, the
+  generated file never carries it, and nothing about the game is wrong -- so it
+  is reported and the run goes on.  ``--prune`` takes those lines out of
+  ``ru.yml``.  A rename shows up as both at once, and the missing half stops the
+  run, which is the case that actually needs a human;
 * a key whose English the base mod has *rewritten* is named, because the
   Russian under it may no longer say the same thing -- that is invisible
   otherwise, and 0.9.3 rewrote two of them under a translation that stayed
@@ -74,20 +79,27 @@ def read_yml(path: Path) -> dict[str, str]:
     return values
 
 
-def expand(source: dict[str, str], english: dict[str, str]) -> tuple[dict[str, str], list[str]]:
-    """Resolve ``{N}`` families against the numbers the base mod really uses."""
+def expand(source: dict[str, str],
+           english: dict[str, str]) -> tuple[dict[str, str], list[str], list[str]]:
+    """Resolve ``{N}`` families against the numbers the base mod really uses.
+
+    Returns the expanded translation, the problems that stop a run, and the
+    ``{N}`` families the base mod has stopped defining altogether -- which is a
+    deletion rather than a problem, and is reported with the other ones.
+    """
     by_family: dict[str, list[str]] = {}
     for key in english:
         by_family.setdefault(FAMILY.sub("{N}", key), []).append(key)
 
     out = {key: value for key, value in source.items() if "{N}" not in key}
     problems: list[str] = []
+    gone: list[str] = []
     for key, value in source.items():
         if "{N}" not in key:
             continue
         members = by_family.get(key)
         if not members:
-            problems.append(f"family {key} matches nothing in the base mod")
+            gone.append(key)
             continue
         filled = 0
         for member in members:
@@ -103,18 +115,18 @@ def expand(source: dict[str, str], english: dict[str, str]) -> tuple[dict[str, s
             filled += 1
         if not filled:
             problems.append(f"family {key} adds nothing every member is already written out")
-    return out, problems
+    return out, problems, gone
 
 
-def check(english: dict[str, str], russian: dict[str, str]) -> list[str]:
+def check(english: dict[str, str],
+          russian: dict[str, str]) -> tuple[list[str], list[str]]:
+    """The problems that stop a run, and the keys the base mod has dropped."""
     problems: list[str] = []
 
     missing = [k for k in english if k not in russian]
     if missing:
         problems.append(f"{len(missing)} key(s) not translated, first: {missing[:8]}")
-    extra = [k for k in russian if k not in english]
-    if extra:
-        problems.append(f"{len(extra)} key(s) the base mod does not define: {extra[:8]}")
+    gone = [k for k in russian if k not in english]
 
     for key, value in russian.items():
         if key not in english:
@@ -128,7 +140,22 @@ def check(english: dict[str, str], russian: dict[str, str]) -> list[str]:
             lost = sorted((want - got).elements())
             gained = sorted((got - want).elements())
             problems.append(f"{key}: markup changed (lost {lost}, added {gained})")
-    return problems
+    return problems, gone
+
+
+def prune(gone: list[str]) -> int:
+    """Take the dropped keys out of ``translations/ru.yml``. Returns how many."""
+    dropped = set(gone)
+    kept: list[str] = []
+    removed = 0
+    for line in SOURCE.read_text(encoding="utf-8-sig").splitlines():
+        match = KEY_LINE.match(line)
+        if match and match.group(1) in dropped:
+            removed += 1
+            continue
+        kept.append(line)
+    SOURCE.write_text("\ufeff" + "\n".join(kept) + "\n", encoding="utf-8")
+    return removed
 
 
 def fingerprint(value: str) -> str:
@@ -162,19 +189,35 @@ def main() -> int:
     accept = "--accept" in argv
     if accept:
         argv.remove("--accept")
+    pruning = "--prune" in argv
+    if pruning:
+        argv.remove("--prune")
     base = Path(argv[1]) if len(argv) > 1 else DEFAULT_BASE
     english_path = base / ENGLISH
     if not english_path.is_file():
         raise SystemExit(f"no English localization at {english_path}")
 
     english = read_yml(english_path)
-    russian, problems = expand(read_yml(SOURCE), english)
-    problems += check(english, russian)
+    russian, problems, gone = expand(read_yml(SOURCE), english)
+    more, dropped = check(english, russian)
+    problems += more
+    gone += dropped
     if problems:
         print(f"{len(problems)} problem(s):", file=sys.stderr)
         for problem in problems:
             print(f"  {problem}", file=sys.stderr)
+        if gone:
+            # Said here as well, because a rename is a missing key *and* a
+            # dropped one, and the dropped half is the clue to what it became.
+            print(f"  (and {len(gone)} key(s) the base mod no longer defines —"
+                  " a rename looks like this)", file=sys.stderr)
         return 1
+
+    if gone and pruning:
+        removed = prune(gone)
+        print(f"--prune: {removed} строк(и) убрано из "
+              f"{SOURCE.relative_to(REPO)}", file=sys.stderr)
+        gone = []
 
     recorded = read_fingerprints()
     current: dict[str, str] = {}
@@ -194,6 +237,17 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("﻿" + "\n".join(lines) + "\n", encoding="utf-8")
     print(f"{OUT.relative_to(REPO)}: {len(english)} keys")
+
+    if gone:
+        # Not a failure: the generated file is written from the base mod's own
+        # key list, so a translation of a key it has deleted is never emitted
+        # and nothing renders wrong. It is dead weight in ru.yml, and saying so
+        # once is cheaper than a run that stops the whole refresh.
+        print(f"базовый мод больше не определяет {len(gone)} ключ(ей) —"
+              " перевод под ними лежит зря:", file=sys.stderr)
+        for key in gone:
+            print(f"  {key}", file=sys.stderr)
+        print("  убрать их: generate_ru.py --prune", file=sys.stderr)
 
     if moved:
         print(f"английский оригинал изменился у {len(moved)} ключ(ей)"

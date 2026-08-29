@@ -374,11 +374,19 @@ One line of Glorp UI's English file:
        ^^^^^ ^-------------------- the reference -------------------^  ^-- the number --^
 ```
 
+Since 2026-08-28 Glorp UI writes the same reference as the engine's own data
+function instead, and the parser takes either:
+
+```
+@hint! Grant [ShowEstatePrivilegeName('petty_bureaucracy')]: #color_green +0.20#!\n
+```
+
 Only the opener is language specific. The reference is what makes the
 privilege's name appear and hover, and the game resolves it in whatever language
-the player runs. So the file is the English file with the opener replaced, which
-is also why a Glorp UI update that adds hints is picked up **in every language at
-once** without anyone noticing it happened.
+the player runs, in either shape, so it is copied through byte for byte. The
+file is therefore the English file with the opener replaced, which is also why a
+Glorp UI update that adds hints is picked up **in every language at once**
+without anyone noticing it happened.
 
 Each opener is written with a `{ref}` placeholder rather than as a prefix,
 because German, Turkish, Japanese and Korean all want the verb after the object:

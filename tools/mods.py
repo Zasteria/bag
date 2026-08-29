@@ -13,20 +13,34 @@ What it can do, in the order the work actually happens:
    tracks — and say which ones the workshop has moved on since Steam last
    downloaded them. That comparison is between Steam's own record of what is
    installed (`appworkshop_3450310.acf`) and Steam's public
-   `GetPublishedFileDetails`, so it is the real answer rather than a guess from
-   folder dates.
+   `GetPublishedFileDetails`, **by build id** — the `manifest` on one side
+   against `hcontent_file` on the other — rather than by dates. Dates are what
+   made this loop untrustworthy: Steam stamps an item as updated when it
+   notices the update, which is not the same as having downloaded it, so a mod
+   could read as current and load as the old version in game. Two build ids
+   that differ are two different sets of files, and nothing about that is a
+   guess. Anything Steam has no build id for falls back to the dates, and the
+   report says which of the two answered.
 
 2. **Download the ones he picks, into the game's own workshop folder**, so the
    next launch loads them. Steam itself will not be told to do this on demand —
    hence the unsubscribe-and-resubscribe dance this replaces — so it is done
    with `steamcmd` under his own account and the result is copied over
    `steamapps/workshop/content/3450310/<id>/`, which is where the game reads
-   mods from. Anonymous does not work for this app; that was measured.
+   mods from. Anonymous does not work for this app; that was measured. Any mod
+   can be re-fetched on demand, whether or not the check thinks it is behind —
+   "ничего не отстаёт" is exactly the answer that used to be wrong. What
+   steamcmd actually brought back is checked against what the workshop serves,
+   and written down here, because Steam's own record still names the build
+   *Steam* downloaded.
 
 3. **Update the copies in this repository**, either kind: `reference/mods/` for
    the mods something here is built against (whole, unedited) and
    `reference/playset/` for the rest (text only). Then rebuild everything
-   generated from them and say what moved.
+   generated from them and say what moved. This copies out of the Steam folder,
+   so a mod Steam has not actually fetched would be copied in stale and every
+   generator would rebuild against the old files without a word — it stops and
+   offers to download first instead.
 
 4. **Move a mod between those two**, which is the only decision in here that
    changes what this repository watches: promoting one adds it to
@@ -177,29 +191,47 @@ def parse_vdf(text: str) -> dict:
     return stack[0]
 
 
-def installed_times(content: Path) -> dict[str, int]:
-    """Workshop id -> when Steam says the copy on disk was updated.
+def installed_versions(content: Path) -> dict[str, tuple[int, str]]:
+    """Workshop id -> (when Steam says the copy on disk was updated, its manifest).
 
-    Steam keeps this in `appworkshop_<app>.acf` beside the content folder, and
-    it is the only honest local answer: file dates say when the download landed
-    here, which is not the same as which version it is.
+    Steam keeps both in `appworkshop_<app>.acf` beside the content folder, and
+    the manifest is the one that actually answers the question. A manifest id
+    names a *build*: the one Steam downloaded here, against the one
+    `GetPublishedFileDetails` says the workshop serves now. Two that differ mean
+    a different version on disk, and two that match mean the same files, whatever
+    either side's dates say.
+
+    The dates alone were never enough, and that is the owner's own complaint
+    rather than a worry: Steam stamps an item as updated when it *notices* the
+    update, which is not the same as having fetched it — so a mod could read as
+    current here and load as the old version in game, and the only way out was
+    to unsubscribe and resubscribe.
     """
     acf = content.parent.parent / ("appworkshop_%s.acf" % APP_ID)
-    times: dict[str, int] = {}
+    found: dict[str, tuple[int, str]] = {}
     if acf.is_file():
         data = parse_vdf(acf.read_text(encoding="utf-8", errors="replace"))
         for section in ("WorkshopItemsInstalled", "WorkshopItemDetails"):
             block = data.get("AppWorkshop", {}).get(section, {})
             for item, fields in block.items():
-                if isinstance(fields, dict) and fields.get("timeupdated"):
-                    times.setdefault(item, int(fields["timeupdated"]))
-    # Anything downloaded but not in the record falls back to the folder's date.
+                if not isinstance(fields, dict):
+                    continue
+                stamp, manifest = found.get(item, (0, ""))
+                try:
+                    stamp = stamp or int(fields.get("timeupdated") or 0)
+                except (TypeError, ValueError):
+                    pass
+                manifest = manifest or str(fields.get("manifest") or "")
+                if stamp or manifest:
+                    found[item] = (stamp, manifest)
+    # Anything downloaded but not in the record falls back to the folder's date,
+    # and has no manifest — so it is compared by date, as before.
     for folder in content.iterdir():
-        if folder.is_dir() and folder.name.isdigit() and folder.name not in times:
+        if folder.is_dir() and folder.name.isdigit() and folder.name not in found:
             newest = max((p.stat().st_mtime for p in folder.rglob("*") if p.is_file()),
                          default=folder.stat().st_mtime)
-            times[folder.name] = int(newest)
-    return times
+            found[folder.name] = (int(newest), "")
+    return found
 
 
 # ------------------------------------------------------------------- the model
@@ -215,15 +247,27 @@ class Mod:
 
     id: str
     title: str = ""
-    installed: int = 0          # what Steam has on disk
-    published: int = 0          # what the workshop has now
-    where: str = UNTRACKED      # reference / playset / not copied here
-    folder: Path | None = None  # the copy in this repository
+    installed: int = 0            # what Steam has on disk
+    published: int = 0            # what the workshop has now
+    installed_manifest: str = ""  # the build on disk, per Steam's own record
+    published_manifest: str = ""  # the build the workshop serves now
+    where: str = UNTRACKED        # reference / playset / not copied here
+    folder: Path | None = None    # the copy in this repository
     version: str | None = None
-    key: str = ""               # the name tools/workshop_mods.txt gives it
+    key: str = ""                 # the name tools/workshop_mods.txt gives it
+
+    @property
+    def by_manifest(self) -> bool:
+        """Can this be answered by build id rather than by date?"""
+        return bool(self.installed_manifest and self.published_manifest)
 
     @property
     def outdated(self) -> bool:
+        # Build ids when both sides have one: two that differ are two different
+        # sets of files, which is the question, and dates are a proxy for it that
+        # Steam gets wrong in both directions.
+        if self.by_manifest:
+            return self.installed_manifest != self.published_manifest
         return bool(self.published and self.installed and self.published > self.installed)
 
     @property
@@ -256,16 +300,27 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
         return world
 
     with Doing("читаю, что Steam установил") as step:
-        times = installed_times(content)
-        step.finish("%d мод(ов)" % len(times))
-    # What this tool put there itself. Steam's own record still names the
-    # version *it* downloaded, so without this a mod updated from here reads as
+        versions = installed_versions(content)
+        step.finish("%d мод(ов)" % len(versions))
+    # What this tool put there itself. Steam's own record still names the build
+    # *Steam* downloaded, so without this a mod updated from here reads as
     # outdated for ever — right up until Steam happens to fetch it again.
+    ours: dict[str, int] = {}
     for item, stamp in (configured.get("installed") or {}).items():
         try:
-            times[item] = max(times.get(item, 0), int(stamp))
+            ours[item] = int(stamp)
         except (TypeError, ValueError):
             continue
+    for item, manifest in (configured.get("installed_manifest") or {}).items():
+        stamp, steam = versions.get(item, (0, ""))
+        # Unless Steam has fetched the item since — then its record is the newer
+        # one and this note is about a build that is no longer on disk.
+        if steam and stamp > ours.get(item, 0):
+            continue
+        versions[item] = (stamp, str(manifest))
+    for item, stamp in ours.items():
+        was, manifest = versions.get(item, (0, ""))
+        versions[item] = (max(was, stamp), manifest)
     tracked = {item.id: item for item in workshop.tracked()}
     with Doing("сверяю с копиями в репозитории") as step:
         in_reference = workshop.local_copies()
@@ -279,7 +334,8 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
     for folder in sorted(content.iterdir()):
         if not folder.is_dir() or not folder.name.isdigit():
             continue
-        mod = Mod(id=folder.name, installed=times.get(folder.name, 0))
+        stamp, manifest = versions.get(folder.name, (0, ""))
+        mod = Mod(id=folder.name, installed=stamp, installed_manifest=manifest)
         if folder.name in tracked:
             mod.where, mod.key = REFERENCE, tracked[folder.name].key
             copy = in_reference.get(folder.name)
@@ -313,6 +369,7 @@ def gather(configured: dict, ask_steam: bool = True) -> World:
             detail = details.get(mod.id, {})
             mod.title = detail.get("title", "")
             mod.published = int(detail.get("time_updated") or 0)
+            mod.published_manifest = str(detail.get("hcontent_file") or "")
 
     world.mods.sort(key=lambda m: (m.where != REFERENCE, m.where != PLAYSET, m.name.lower()))
     return world
@@ -398,13 +455,18 @@ def when(stamp: int) -> str:
     return workshop.when(stamp) if stamp else "—"
 
 
-def pick(mods: list[Mod], prompt: str) -> list[Mod]:
-    """Numbers, ranges, or Enter for all of them."""
+def pick(mods: list[Mod], prompt: str, default_all: bool = True) -> list[Mod]:
+    """Numbers, ranges, or Enter for all of them.
+
+    `default_all=False` where "all of them" is not a sane default — re-fetching
+    the whole subscription is a gigabyte of downloads, and Enter should not be
+    how it starts.
+    """
     answer = ask(prompt)
     if answer in {"0", "н", "n"}:
         return []
     if not answer:
-        return list(mods)
+        return list(mods) if default_all else []
     chosen: list[Mod] = []
     for part in re.split(r"[,\s]+", answer):
         if not part:
@@ -511,6 +573,10 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
 
     downloaded = Path(binary).resolve().parent / "steamapps/workshop/content" / APP_ID
     got = [mod for mod in chosen if (downloaded / mod.id).is_dir()]
+    # What steamcmd actually came back with, out of its own record — the honest
+    # answer to "did the download work", rather than assuming it fetched what
+    # the workshop currently serves.
+    fetched = installed_versions(downloaded) if downloaded.is_dir() else {}
     if not got:
         say()
         say("steamcmd ничего не положил в %s" % downloaded)
@@ -526,6 +592,7 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
     if not yes("Скопировать туда %d, чтобы игра увидела новые версии?" % len(got)):
         return got
 
+    stale: list[Mod] = []
     for mod in got:
         target = content / mod.id
         with Doing("копирую %s" % mod.name[:40]) as step:
@@ -535,12 +602,34 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
             size = sum(p.stat().st_size for p in target.rglob("*") if p.is_file())
             mod.installed = mod.published or int(time.time())
             configured.setdefault("installed", {})[mod.id] = mod.installed
+            # Steam's own `appworkshop_*.acf` still names the build *it* last
+            # downloaded, and nothing here may rewrite that file. So what this
+            # tool put on disk is written down on this side instead, and the
+            # next check reads it back — otherwise a mod updated from here goes
+            # on reading as outdated for ever.
+            manifest = fetched.get(mod.id, (0, ""))[1]
+            if manifest:
+                mod.installed_manifest = manifest
+                configured.setdefault("installed_manifest", {})[mod.id] = manifest
+                if mod.published_manifest and manifest != mod.published_manifest:
+                    stale.append(mod)
             step.finish("%s -> %s" % (workshop.human(size), target))
     settings_write(configured)
     say()
     say("Готово. Игра берёт моды из этой папки, так что следующий запуск —")
     say("уже с новыми версиями. Лаунчер иногда показывает старый номер версии,")
     say("пока Steam не сверится сам; на то, что грузится, это не влияет.")
+    if stale:
+        # Worth saying out loud: it means the download succeeded and still did
+        # not bring the current build, which is the one case where a session of
+        # unsubscribing and resubscribing is still the answer.
+        say()
+        say("Но вот что скачалось не тем, что сейчас в мастерской:")
+        for mod in stale:
+            say("  %-46s steamcmd отдал сборку %s, в мастерской %s"
+                % (mod.name[:46], mod.installed_manifest, mod.published_manifest))
+        say("Обычно это кэш steamcmd. Повтори загрузку; если повторится —")
+        say("тогда и только тогда помогает отписка и подписка в Steam.")
     return got
 
 
@@ -568,8 +657,7 @@ def reference_is_current(mod: Mod) -> bool:
         return True                      # Steam did not answer; do not churn on a guess
     if workshop.committed_at(mod.folder) > mod.published:
         return True
-    return bool(workshop.git("status", "--porcelain", "--", str(mod.folder),
-                             check=False).stdout.strip())
+    return workshop.copied_since_commit(mod.folder)
 
 
 def update_reference(world: World, chosen: list[Mod] | None = None) -> list[str]:
@@ -950,30 +1038,58 @@ def show_updates(world: World) -> list[Mod]:
         return []
 
     outdated = world.outdated
+    by_date = [m for m in world.mods if m.installed and not m.by_manifest]
     say()
     say("Подписка: %d мод(ов). В reference: %d, в playset: %d."
         % (len(world.mods),
            sum(1 for m in world.mods if m.where == REFERENCE),
            sum(1 for m in world.mods if m.where == PLAYSET)))
+    if by_date:
+        # Sharpness worth naming: for the rest the answer is exact, and for
+        # these it is a date, which is the weaker question.
+        say("У %d мод(ов) Steam не записал номер сборки — они сверены по дате."
+            % len(by_date))
     if not outdated:
-        say("Обновлять нечего: у тебя стоят те же версии, что и в мастерской.")
+        say("Обновлять нечего: у тебя стоят те же сборки, что и в мастерской.")
         return []
 
     say()
     say("Отстают от мастерской:")
-    say("  %-3s %-46s %-17s %s" % ("#", "мод", "у тебя", "в мастерской"))
+    say("  %-3s %-46s %-17s %-17s %s"
+        % ("#", "мод", "у тебя", "в мастерской", "почему"))
     for number, mod in enumerate(outdated, 1):
-        say("  %-3d %-46s %-17s %s"
-            % (number, mod.name[:46], when(mod.installed), when(mod.published)))
+        # Said out loud because the dates can be identical and the mod still be
+        # a different build — which is precisely the case Steam gets wrong.
+        say("  %-3d %-46s %-17s %-17s %s"
+            % (number, mod.name[:46], when(mod.installed), when(mod.published),
+               "другая сборка" if mod.by_manifest else "мастерская новее по дате"))
     return outdated
 
 
 def screen_updates(world: World, configured: dict) -> None:
     outdated = show_updates(world)
-    if not outdated:
-        return
-    say()
-    chosen = pick(outdated, "Что скачать? [Enter — все, номера через запятую, 0 — назад]: ")
+    if outdated:
+        say()
+        chosen = pick(outdated,
+                      "Что скачать? [Enter — все, номера через запятую, 0 — назад]: ")
+    else:
+        # There is always something to do here, because "ничего не отстаёт" is
+        # exactly the answer that used to be wrong: Steam marks a mod updated
+        # when it notices the update, and the files may not have followed. So a
+        # mod can be re-fetched on demand whatever the check thinks — which is
+        # what unsubscribing and resubscribing was for.
+        if world.content is None or not world.mods:
+            return
+        say()
+        if not yes("Всё равно перекачать какой-нибудь мод заново?", default=False):
+            return
+        say()
+        for number, mod in enumerate(world.mods, 1):
+            say("  %-3d %-46s %-10s %s"
+                % (number, mod.name[:46], mod.where, when(mod.installed)))
+        say()
+        chosen = pick(world.mods, "Какие? [номера через запятую, 0 — назад]: ",
+                      default_all=False)
     if not chosen:
         return
     got = download(configured, chosen, world.content)
@@ -988,7 +1104,7 @@ def screen_updates(world: World, configured: dict) -> None:
         rebuild()
 
 
-def screen_repository(world: World) -> None:
+def screen_repository(world: World, configured: dict) -> None:
     say()
     say("Что обновить в репозитории из того, что уже скачано Steam:")
     say("  1  reference — пять модов целиком, те, на которых всё здесь держится")
@@ -1007,7 +1123,24 @@ def screen_repository(world: World) -> None:
         if behind:
             say("Отстают от мастерской копии в reference:")
             for mod in behind:
-                say("  %s" % mod.name)
+                say("  %s%s" % (mod.name,
+                                "   ← и в папке Steam тоже старая сборка"
+                                if mod.outdated else ""))
+            # The trap this walks into otherwise: this copies out of the Steam
+            # workshop folder, so a mod Steam has not actually fetched is copied
+            # in stale, the generators rebuild against the old files, and
+            # everything reads as done. Caught here rather than in a git diff.
+            stale = [mod for mod in behind if mod.outdated]
+            if stale:
+                say()
+                say("Копировать их сейчас — значит принести в репозиторий ту же")
+                say("старую версию: reference берётся из папки Steam, а не из сети.")
+                if yes("Сначала скачать свежие (%d)?" % len(stale)):
+                    got = download(configured, stale, world.content)
+                    if got:
+                        world.mods = gather(configured).mods
+                        behind = [m for m in world.mods
+                                  if m.id in {b.id for b in behind}]
             say()
             copied = update_reference(world, behind)
         else:
@@ -1119,7 +1252,7 @@ def menu(configured: dict) -> int:
                sum(1 for m in world.mods if m.where == PLAYSET),
                outdated))
         say("=" * 62)
-        say("  1  Проверить обновления в мастерской и скачать")
+        say("  1  Обновить моды в Steam: сверить сборки, скачать, заменить")
         say("  2  Обновить копии в репозитории (reference / playset)")
         say("  3  Мои моды: список, что где лежит, перенос между ними")
         say("  4  Поставить наши моды в игру")
@@ -1133,7 +1266,7 @@ def menu(configured: dict) -> int:
             screen_updates(world, configured)
             world = gather(configured)
         elif choice == "2":
-            screen_repository(world)
+            screen_repository(world, configured)
             world = gather(configured)
         elif choice == "3":
             screen_list(world, configured)

@@ -181,8 +181,16 @@ def check_english_is_glorp_uis_own(problems: list[str], glorp: Path) -> None:
 
 ADVANCE_BLOCK_RE = re.compile(r'([A-Za-z_][A-Za-z_0-9]*)\s*=\s*\{|[{}]')
 UNLOCKS_RE = re.compile(r'unlock_estate_privilege\s*=\s*([a-z_0-9]+)')
+# Which privilege a hint is about, in either shape Glorp UI has written the
+# reference in -- see `translate_hints.REFERENCE`. This one matters more than it
+# looks: a shape it misses matches nothing, `unlock_gates` comes back empty, and
+# the five advance-locked privileges quietly stop being held back. Nothing errors
+# and the mod ships recommending privileges the country cannot take, so
+# `check_gates_found_something` refuses a run whose two readings disagree.
 PRIVILEGE_HINT_RE = re.compile(
-    r'^ (GLORP_UI_SVH_\w+): "@hint! [^"]*#TOOLTIP:ESTATE_PRIVILEGE,(\w+) ', re.M)
+    r'^ (?P<key>GLORP_UI_SVH_\w+): "@hint! [^"]*?'
+    r'(?:#TOOLTIP:ESTATE_PRIVILEGE,(?P<tooltip>\w+) '
+    r"|\[ShowEstatePrivilegeName(?:WithNoTooltip)?\('(?P<function>\w+)'\)\])", re.M)
 
 
 def privileges_locked_behind_an_advance() -> dict[str, str]:
@@ -221,9 +229,40 @@ def unlock_gates(glorp: Path) -> dict[str, tuple[str, str]]:
     """Glorp UI hint key -> (privilege, advance), for hints that must wait."""
     locked = privileges_locked_behind_an_advance()
     source = (glorp / GLORP_HINTS_EN).read_text(encoding="utf-8-sig")
+    found = {match.group("key"): match.group("tooltip") or match.group("function")
+             for match in PRIVILEGE_HINT_RE.finditer(source)}
     return {key: (privilege, locked[privilege])
-            for key, privilege in PRIVILEGE_HINT_RE.findall(source)
-            if privilege in locked}
+            for key, privilege in found.items() if privilege in locked}
+
+
+def check_gates_found_something(problems: list[str], glorp: Path) -> None:
+    """`PRIVILEGE_HINT_RE` must see every privilege hint the parse sees.
+
+    The advance gates are the one thing here built by a regex of its own rather
+    than by the hint parse, and a reference shape it misses is silent: the gates
+    come back empty, `svx_unlock_gate.txt` is written with nothing in it, and
+    the mod ships recommending privileges an advance has not unlocked yet. That
+    is what Glorp UI moving from `#TOOLTIP:ESTATE_PRIVILEGE,x` to
+    `[ShowEstatePrivilegeName('x')]` would have done. So the two readings are
+    compared rather than trusted.
+    """
+    source = (glorp / GLORP_HINTS_EN).read_text(encoding="utf-8-sig")
+    parsed = set()
+    for line in source.split("\n"):
+        entry = translate_hints.ENTRY_RE.match(line)
+        if not entry or entry.group(1).startswith("GLORP_UI_SVH_BODY_"):
+            continue
+        hint = translate_hints.HINT_RE.match(entry.group(2))
+        if hint and translate_hints.registry_of(hint) == "ESTATE_PRIVILEGE":
+            parsed.add(entry.group(1))
+    scanned = {match.group("key") for match in PRIVILEGE_HINT_RE.finditer(source)}
+    if scanned == parsed:
+        return
+    missed = sorted(parsed - scanned)
+    problems.append(
+        "the advance gates read %d of Glorp UI's %d estate privilege hints — "
+        "PRIVILEGE_HINT_RE does not cover the shape of %s"
+        % (len(scanned), len(parsed), ", ".join(missed[:3]) or "the rest"))
 
 
 def render_unlock_gate(gates: dict[str, tuple[str, str]]) -> str:
@@ -700,6 +739,7 @@ def main(argv: list[str]) -> int:
 
     problems: list[str] = []
     check_glorp_list_is_current(problems, glorp)
+    check_gates_found_something(problems, glorp)
     check_english_is_glorp_uis_own(problems, glorp)
     check_catalog_concepts_exist(problems)
     check_languages_are_in_step(problems)

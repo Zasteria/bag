@@ -180,6 +180,21 @@ the first is language specific, so a language is a phrase table and the
 generator does the rest — which also means an update to the mod being extended
 is picked up in every language at once rather than in one.
 
+**The reference in the middle has more than one shape, and the engine's own is
+one of them.** Glorp UI wrote `#TOOLTIP:ESTATE_PRIVILEGE,petty_bureaucracy #L
+$petty_bureaucracy$#!#!` and now writes
+`[ShowEstatePrivilegeName('petty_bureaucracy')]`. Both render the object's name
+in the player's language with its tooltip attached; the second is a GUI function
+the engine declares, and there is one per object type —
+`python3 tools/api.py --find ShowEstatePrivilegeName` for the family, including
+the `...WithNoTooltip` variants. Either way it is copied through a translation
+byte for byte, so a parser wants to accept both and carry whichever it found
+into the output unchanged. Which opener a reference asks for is derived from the
+function name rather than tabulated: `ShowEstatePrivilegeName` is the registry
+the markup form spells `ESTATE_PRIVILEGE`, so an object type nobody has seen yet
+fails with "no opener for registry X" — a one-line fix in `languages.py` — rather
+than going untranslated.
+
 **Write the opener with a placeholder, not as a prefix.** `"Grant {ref}"` and
 `"{ref} gewähren"` are the same table entry; `"Grant "` and `"gewähren"` are not.
 German, Turkish, Japanese and Korean all want the verb after the object, and a
