@@ -34,6 +34,76 @@ evidence that nothing can.
 
 ## State
 
+**Glorp UI took the feature upstream, and `glorpui_hints` has to decide what it
+is now.** Their 2026-08-28 build ships the societal value hints **in all eleven
+languages**, with the verb-after-object opener design this mod worked out — the
+Korean is 179 keys identical to ours, the Russian is our own «Даровать
+привилегию» with guillemets added. The author had said something about
+integration in the workshop comments; this is it.
+
+What that leaves, measured rather than assumed
+(`python3 mods/glorpui_hints/tools/generate.py --conflicts`):
+
+- **the translation is now a duplicate.** In English 754 of 759 keys are
+  byte-identical to theirs — an override that changes nothing and pins their
+  file against every future update. In the other ten, 720 keys per language are
+  this mod's wording winning over Glorp UI's own. That is 7 920 keys of overlap
+  and it is the whole remaining conflict surface;
+- **the extra lists are still only here.** The game pushes societal values from
+  **1 426 places across 23 source types**
+  (`python3 mods/glorpui_hints/tools/scan_sources.py reference/game`). Glorp UI
+  covers three of them — laws, government reforms, estate privileges — which is
+  827 of those pushes and all 725 of their hints. This mod adds 264 lines from
+  fourteen more: religious aspects, parliament issues, international
+  organizations, buildings, employment systems, chivalric orders, cabinet
+  actions, subject types, estates, religious schools, missions, advances,
+  special statuses, parliament types, plus the scaled and conditional modifiers;
+- **the availability gates are still only here** — 252 of those lines are gated
+  by a country trigger, so hints for other religions, estates or subject types
+  drop out. Glorp UI's filter is one engine trigger, `is_implementable_in`;
+- **so is `SVX_REACHABLE`**, the list of what is not available now but could be;
+- **so is holding back the five advance-locked privileges.** Their filter is
+  unchanged by the update, so the finding it is built on still stands — and is
+  still unrun in game;
+- **the four repaired Russian interface keys are still broken on their side**
+  («Средняя значение», «Обновить Средняя расстояние»).
+
+**Settled 2026-08-30: Russian stays here, the other ten go to Glorp UI.** The
+owner prefers this mod's Russian to their copy of it and does not mind about the
+rest, so `SHIP_GLORP_HINTS` in `generate.py` is `["russian"]`. Ten languages ×
+759 keys of override are gone; what every language still carries is the ten keys
+this mod changes. Their two switches — Glorp UI's «показать недоступные» and this
+mod's `svx__show_all` — stay independent, also his call.
+
+**And what Glorp UI's own list misses, measured against the game's files.** This
+is what the owner reported as «постоянно чего-то не хватает», and it is exact:
+
+- **89 of the 429 (axis, policy) pairs the game pushes are not in their list at
+  all** — 21%, including the strongest tier. They are not scattered: **six law
+  files are missing whole**, every push in them —
+  `21_jurchen_confederation.txt` (35), `sikhism.txt` (35),
+  `31_catholic_church.txt` (12), `20_middle_kingdom.txt` (8),
+  `christian_tenets.txt` (6), `20_shogunate.txt` (5). Those are laws belonging to
+  an international organization or a religion rather than to the country's own
+  law list, which is what their generator reads. `sakoku_enabled` pushes
+  `inward` at `societal_value_large_monthly_move` and the word "sakoku" does not
+  appear in their file. **Reforms and privileges are complete** — 235 of 235 and
+  150 of 150 — so the gap is policies and only policies;
+- **their privilege gate cannot check an advance.** `is_locked_for` is the
+  engine trigger they use on laws, policies and reforms, and it does not support
+  `estate_privilege` (`python3 tools/api.py is_locked_for`). Their 150 privilege
+  blocks carry no lock check of any kind — 0 with `is_locked_for`, 0 with
+  `has_advance`, against 337 and 148 of their 340 policy blocks. Ten vanilla
+  privileges are unlocked by an advance, four of them push societal values, and
+  all four are recommended by Glorp UI to a country that cannot take them. Those
+  four are what this mod holds back.
+
+Neither mod covers `traits` (24 pushes), `regencies` (5), `disasters` (3) or
+`societal_values` (4) — and this mod's own modifier coverage is two hand-written
+lists in `languages.py`, `SCALED_KEYS` and `CONDITIONAL_KEYS`, so a static
+modifier outside them is dropped silently. The 89 policies are the biggest thing
+neither mod shows and nothing has been built for them.
+
 **The mod menu's update loop broke on somebody else's update, and is fixed.**
 2026-08-29: the owner ran `mods.bat → 2` against the 2026-08-28 builds of
 Advanced Auto Build and Glorp UI and both translation generators stopped the

@@ -804,6 +804,37 @@ it. It compares build ids now (`manifest` against `hcontent_file`), and will
 re-fetch a mod on demand whatever the check says. Untested against a real
 `appworkshop_3450310.acf`; see [`HANDOFF.md`](HANDOFF.md#state).
 
+### 2026-08-30 — `glorpui_hints` against Glorp UI's 2026-08-28 build, in game
+
+**Loaded:** the owner's playset, Glorp UI 2026-08-28 with `glorpui_hints` after it.
+**Observed, reported by the owner:** with Glorp UI's new «показать недоступные»
+switch **on**, the two mods conflict and something on Glorp UI's side breaks;
+with it **off**, everything is fine. He also reports their version of the
+feature has gaps and does not show everything worth using, and that with their
+filter off it is «совсем плохо».
+
+**Cause, found in the files and not guessed:** their update added one
+`TooltipScrolledStringPairList` per side that prints vanilla's own C++ hint blob
+(`[SocietalValue.GetLeftHint(Player.Self)]`) when the country variable
+`showUnavailableSocietalValueSuggestions` is set, and added
+`NOT = { has_variable = showUnavailableSocietalValueSuggestions }` to every one
+of their `glorpui_svh_visible_*` script values. So their switch is an either/or:
+their filtered lists off, vanilla's blob on. This mod replaces that whole
+`blockoverride`, and rebuilt their half from the entries its regex recognised —
+which the blob entry is not. Switch on: their lists gone (their own script
+values say so), their blob gone (this mod dropped it). Half the tooltip empty,
+nothing in `error.log`. «Совсем плохо» is vanilla's raw blob, which is what
+their switch shows.
+
+**Fixed:** their block is now spliced in byte for byte and the check compares
+text rather than parsed entries. Replaying the old behaviour against the new
+files reproduces the fault and the check now names it.
+
+**Verdict:** unrun. The fix has never been in game — the next load with their
+switch **on** is the test, and what should appear is vanilla's blob plus this
+mod's own lists, with Glorp UI's per-axis lists hidden by their own design.
+
+
 ## Never run
 
 Kept here so it is one list rather than scattered through prose:

@@ -3,7 +3,29 @@
 This repository holds six mods, six documents and a pile of history. Almost
 none of it is what the next session is for. This file says what is.
 
-## First, and it is not the job below: the update loop is fixed, the files are not
+## 2026-08-30: `glorpui_hints` changed, and the next load is the test
+
+Glorp UI's 2026-08-28 build is in the tree and two things came out of it. Both
+are pushed and **neither has been in game**:
+
+1. **The conflict is fixed.** Their new «показать недоступные» switch shows
+   vanilla's own hint blob and switches their filtered lists off; this mod was
+   dropping their blob entry, so the switch emptied half the tooltip. Their
+   block is spliced in byte for byte now. **On the next load, turn their switch
+   on**: vanilla's blob and this mod's lists should both appear, and Glorp UI's
+   per-axis lists should be gone — that last part is their own design, not a
+   fault.
+2. **This mod stopped translating their hints in ten languages**, because they
+   now ship all eleven themselves. Russian is still this mod's wording — that is
+   what to look at: the societal value tooltip should read exactly as it did.
+   The five advance-locked privileges must still not be offered.
+
+What their list is missing, measured rather than guessed, is in
+[`HANDOFF.md`](HANDOFF.md#state) — 89 policies from six law files, and no lock
+check on privileges at all. Nothing has been built for the 89; that is the next
+piece of work if he wants it.
+
+## Earlier: the update loop is fixed, the files are not
 
 2026-08-29 the owner ran `mods.bat → 2` and both translation generators stopped
 the run — Advanced Auto Build deleted 28 keys, Glorp UI changed the shape it
