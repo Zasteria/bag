@@ -18,7 +18,8 @@ Add `--check` to leave nothing changed on disk and only report, which is what a
 session should run before trusting anything a doc says about the tree.
 
 Add `--brief` to hear from a generator only when it has something to say — a
-failure, or a file it actually changed. That is the shape the mod menu wants:
+failure, a remark it made on stderr, or a file it actually changed. That is the
+shape the mod menu wants:
 the full report is reassuring the first time and noise the twentieth, and it
 reads as though the generators were rewriting mods that nobody touched.
 """
@@ -45,12 +46,20 @@ GENERATORS = (
 )
 
 
-def run(script: str) -> tuple[int, str]:
+def run(script: str) -> tuple[int, str, str]:
+    """The generator's exit code, what it reported, and what it warned about.
+
+    The two streams are kept apart because `--brief` is silent about a generator
+    that succeeded, and a generator that succeeded *with something to say* — a
+    base mod that deleted a key, an English original that moved — must not be
+    silenced along with it. Everything routine goes to stdout; anything that
+    wants a human goes to stderr.
+    """
     done = subprocess.run(
         [sys.executable, str(refs.REPO / script)],
         capture_output=True, text=True, cwd=refs.REPO,
     )
-    return done.returncode, (done.stdout + done.stderr).strip()
+    return done.returncode, done.stdout.strip(), done.stderr.strip()
 
 
 def changed_files() -> list[str]:
@@ -75,19 +84,24 @@ def main(argv: list[str]) -> int:
             print("  %-40s %-34s %s" % (mod.folder, mod.id or "(no metadata)", mod.version or "—"))
 
     failed = []
+    warned = []
     if not brief:
         print()
     for name, script in GENERATORS:
-        code, output = run(script)
+        code, output, warning = run(script)
         if code != 0:
             failed.append(name)
-        if brief and code == 0:
+        elif warning:
+            warned.append(name)
+        if brief and code == 0 and not warning:
             continue
-        print("%s %s" % ("ok " if code == 0 else "FAIL", name))
-        for line in output.splitlines():
+        print("%s %s" % ("FAIL" if code else ("note" if warning else "ok  "), name))
+        for line in (output + "\n" + warning).strip().splitlines():
             print("     %s" % line)
     if brief and not failed:
-        print("ok  %d генератор(ов) отработали" % len(GENERATORS))
+        print("ok  %d генератор(ов) отработали%s"
+              % (len(GENERATORS),
+                 ", %d с замечанием" % len(warned) if warned else ""))
 
     refs.INVENTORY.write_text(refs.table(), encoding="utf-8")
 

@@ -228,6 +228,21 @@ def committed_at(folder: Path) -> int:
         return 0
 
 
+def copied_since_commit(folder: Path) -> bool:
+    """Is there a copy in the working tree that git has not recorded yet?
+
+    Nothing under `reference/` is ever edited by hand — every file in it arrived
+    by being copied wholesale out of the workshop folder — so an uncommitted
+    change there means exactly one thing: the copy was refreshed and not
+    committed yet. Without this, a sync followed by `record` in the same breath
+    stamps the mod it has just brought in as `behind`, because git still has
+    only the old copy and `committed_at` is the old commit's date. That is what
+    told the owner two freshly copied mods were still out of date.
+    """
+    return bool(git("status", "--porcelain", "--", str(folder),
+                    check=False).stdout.strip())
+
+
 def record(ids: list[str] | None = None, synced: set[str] | None = None) -> dict:
     """Write down what the workshop has, and whether the copy here is that.
 
@@ -236,8 +251,10 @@ def record(ids: list[str] | None = None, synced: set[str] | None = None) -> dict
     - `sync` — this tool copied the folder in, so the two are the same thing;
     - `committed_after` — git recorded the copy here after the workshop's last
       update, so it cannot be behind;
-    - `behind` — neither, and the workshop has moved since the copy here was
-      committed. That is not a stamp, it is a finding: `status` reports it.
+    - `uncommitted` — git has not recorded the copy that is there, so something
+      copied it in and has not committed yet;
+    - `behind` — none of those, and the workshop has moved since the copy here
+      was committed. That is not a stamp, it is a finding: `status` reports it.
 
     Without this, a copy brought in the old way goes on being reported as an
     update that has not arrived yet.
@@ -260,6 +277,8 @@ def record(ids: list[str] | None = None, synced: set[str] | None = None) -> dict
             basis = "missing"
         elif moved and committed_at(mod.path) > moved:
             basis = "committed_after"
+        elif copied_since_commit(mod.path):
+            basis = "uncommitted"
         else:
             basis = "behind"
 
@@ -283,6 +302,7 @@ def record(ids: list[str] | None = None, synced: set[str] | None = None) -> dict
 CURRENT = "current"
 STALE = "workshop moved"
 BEHIND = "behind"
+UNCOMMITTED = "copied, not committed"
 UNRECORDED = "never recorded"
 HAND_COPIED = "copied by hand since"
 MISSING = "not in reference/"
@@ -312,6 +332,10 @@ def verdicts(offline: bool = False) -> list[tuple[Tracked, dict, dict, refs.Mod 
             # Python — one that never got to run `record` — still come out
             # current on the next check.
             verdict = CURRENT
+        elif copied_since_commit(mod.path):
+            # Copied in and not committed yet — which git cannot date, so it is
+            # said out loud rather than counted as either current or behind.
+            verdict = UNCOMMITTED
         elif not note.get("time_updated"):
             verdict = UNRECORDED
         elif note.get("basis") == "behind" and not (
@@ -347,6 +371,11 @@ def status(argv: argparse.Namespace) -> int:
                 verdict,
             ))
         print()
+
+    for item, detail, note, mod, verdict in rows:
+        if verdict == UNCOMMITTED:
+            print("%s was copied in and is not committed — `git status` for what it"
+                  " brought, then commit it" % item.key)
 
     for item, detail, note, mod, verdict in stale:
         if verdict == STALE:
@@ -592,6 +621,9 @@ def stamped(argv: argparse.Namespace) -> int:
         if entry.get("basis") == "behind":
             print("  %-22s recorded as behind — the copy here predates the workshop's %s"
                   % (item.key, when(entry.get("time_updated"))))
+        elif entry.get("basis") == "uncommitted":
+            print("  %-22s copied in, not committed yet — that is what will be recorded"
+                  % item.key)
     return 0
 
 

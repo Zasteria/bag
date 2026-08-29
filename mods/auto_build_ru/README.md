@@ -30,12 +30,14 @@ python3 mods/auto_build_ru/tools/generate_ru.py
 The base mod is found in `reference/` by itself, through `tools/refs.py`, so the
 folder it was uploaded under does not matter. A path argument still overrides it.
 Point it at a newer copy of the base mod after it updates: the tool fails, and
-names the keys, when the base mod has added, removed or renamed any.
+names the keys, when the base mod has added or renamed any. A key the base mod
+has *removed* is only reported — the generated file is written from the base
+mod's own key list, so a translation of a deleted key is never emitted and
+nothing is wrong on screen. `--prune` takes those lines out of `translations/ru.yml`.
 
 The tool refuses to write a file that would be wrong on screen:
 
-- every key the base mod defines is translated, and no key it does not define
-  is invented;
+- every key the base mod defines is translated;
 - the markup inside a value — `[data functions]`, `$key$` references,
   `@texticons!`, `#format` codes, `\n` — comes through unchanged, because the
   engine reads those rather than displaying them;

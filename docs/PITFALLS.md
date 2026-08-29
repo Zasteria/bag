@@ -507,6 +507,39 @@ raises `UnicodeEncodeError` and takes the rest of the run with it. The sync
 script sets `PYTHONUTF8=1` and `PYTHONIOENCODING=utf-8` before calling Python
 for exactly this.
 
+**A base mod that *deletes* a key stopped the whole update loop.** Advanced Auto
+Build's 2026-08-28 build dropped 28 keys, the ranking-mode block among them.
+`generate_ru.py` treated "a key here the base mod does not define" as the same
+class of fault as "a key the base mod defines and nobody translated" and refused
+to write anything — and because the mod menu runs every generator in one pass,
+one deleted feature in somebody else's mod stopped the owner's update. The
+generated file is written from the base mod's own key list, so a translation of
+a deleted key is never emitted and nothing renders wrong: it is dead weight, not
+a fault. It is now reported by name, the run goes on, and `--prune` takes the
+lines out of `ru.yml`. A *rename* still stops the run, because that half shows up
+as a missing key — which is the case that actually needs a human.
+
+**A regex that reads somebody else's file in one shape goes quiet when they
+change shape.** Glorp UI wrote its hint references as
+`#TOOLTIP:ESTATE_PRIVILEGE,petty_bureaucracy #L $petty_bureaucracy$#!#!` and now
+writes `[ShowEstatePrivilegeName('petty_bureaucracy')]` — the engine's own data
+function, which does the same job. Two things in `glorpui_hints` read that shape,
+and they failed differently: the hint parser raised, loudly, naming the line;
+`PRIVILEGE_HINT_RE`, which finds the privileges an advance locks, would simply
+have matched nothing, written an empty `svx_unlock_gate.txt`, and shipped a mod
+recommending privileges the country cannot take, with nothing in any log. **A
+loud failure is the lucky one.** Both shapes are accepted now, and
+`check_gates_found_something` compares the two readings against each other, so a
+third shape stops the run instead of emptying a file.
+
+**A copy synced and not yet committed reads as `behind`.** `record` dated a
+reference copy by `git log` — which still knows only the old commit — so the
+sync stamped two mods it had just brought in as out of date, and the run ended
+by telling the owner to run the sync he had just run. Nothing under `reference/`
+is ever hand-edited, so an uncommitted change there means exactly one thing: it
+was just copied in. That is now its own verdict (`uncommitted`), and it says
+"commit it" rather than "you are behind".
+
 **A version written in prose goes stale the moment the owner updates a mod.**
 That is not the owner's mistake to fix by annotating uploads; it is the
 document's mistake. Versions come from `python3 tools/refs.py`, and a mod
