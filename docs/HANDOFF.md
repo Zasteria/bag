@@ -34,6 +34,47 @@ evidence that nothing can.
 
 ## State
 
+**Glorp UI took the feature upstream, and `glorpui_hints` has to decide what it
+is now.** Their 2026-08-28 build ships the societal value hints **in all eleven
+languages**, with the verb-after-object opener design this mod worked out — the
+Korean is 179 keys identical to ours, the Russian is our own «Даровать
+привилегию» with guillemets added. The author had said something about
+integration in the workshop comments; this is it.
+
+What that leaves, measured rather than assumed
+(`python3 mods/glorpui_hints/tools/generate.py --conflicts`):
+
+- **the translation is now a duplicate.** In English 754 of 759 keys are
+  byte-identical to theirs — an override that changes nothing and pins their
+  file against every future update. In the other ten, 720 keys per language are
+  this mod's wording winning over Glorp UI's own. That is 7 920 keys of overlap
+  and it is the whole remaining conflict surface;
+- **the extra lists are still only here.** The game pushes societal values from
+  **1 426 places across 23 source types**
+  (`python3 mods/glorpui_hints/tools/scan_sources.py reference/game`). Glorp UI
+  covers three of them — laws, government reforms, estate privileges — which is
+  827 of those pushes and all 725 of their hints. This mod adds 264 lines from
+  fourteen more: religious aspects, parliament issues, international
+  organizations, buildings, employment systems, chivalric orders, cabinet
+  actions, subject types, estates, religious schools, missions, advances,
+  special statuses, parliament types, plus the scaled and conditional modifiers;
+- **the availability gates are still only here** — 252 of those lines are gated
+  by a country trigger, so hints for other religions, estates or subject types
+  drop out. Glorp UI's filter is one engine trigger, `is_implementable_in`;
+- **so is `SVX_REACHABLE`**, the list of what is not available now but could be;
+- **so is holding back the five advance-locked privileges.** Their filter is
+  unchanged by the update, so the finding it is built on still stands — and is
+  still unrun in game;
+- **the four repaired Russian interface keys are still broken on their side**
+  («Средняя значение», «Обновить Средняя расстояние»).
+
+**The open decision is whether to keep shipping their hint text at all.** Keeping
+it means this mod's wording wins in ten languages and their file is pinned;
+dropping it means shipping only the ten keys this mod actually changes (the five
+gated hints and their bodies) and letting Glorp UI's own text through. Nothing
+has been changed about it yet — it is the owner's call, because it decides whose
+words a player reads.
+
 **The mod menu's update loop broke on somebody else's update, and is fixed.**
 2026-08-29: the owner ran `mods.bat → 2` against the 2026-08-28 builds of
 Advanced Auto Build and Glorp UI and both translation generators stopped the

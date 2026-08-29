@@ -37,8 +37,61 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+sys.path.insert(0, os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))))), "tools"))
+
 import gates as svx_gates
 import languages as svx_languages
+import refs  # noqa: E402  the reference tree, resolved by mod id
+
+# Glorp UI's own version of the two templates this mod overrides.
+GLORP_HINTS_GUI = "in_game/gui/glorpUI_generated_societal_value_hints.gui"
+
+
+def blockoverride_body(text, template, block):
+    """The raw text inside `template <name> { ... blockoverride "<block>" { ... } }`.
+
+    Taken verbatim rather than parsed, because this mod replaces that block
+    wholesale and anything it fails to carry across is a piece of Glorp UI the
+    player stops getting. Glorp UI's 2026-08-28 build put one entry in there
+    that no parse here recognised - vanilla's own C++ hint blob behind their
+    `showUnavailableSocietalValueSuggestions` setting, which has neither a
+    `ScriptValue` nor a `Localize` - and the whole setting silently did nothing
+    for anyone running both mods. Copying the bytes cannot make that mistake.
+
+    Braces are matched with quoted strings and comments skipped; the file has
+    none inside a string today, and this does not depend on that staying true.
+    """
+    start = re.search(r"^template %s \{" % re.escape(template), text, re.M)
+    if not start:
+        raise SystemExit("%s: no template %s" % (GLORP_HINTS_GUI, template))
+    opener = re.compile(r'blockoverride "%s"\s*\{' % re.escape(block))
+    found = opener.search(text, start.end())
+    if not found:
+        raise SystemExit("%s: template %s has no blockoverride %r"
+                         % (GLORP_HINTS_GUI, template, block))
+    depth = 0
+    index = found.end() - 1
+    while index < len(text):
+        char = text[index]
+        if char == '"':
+            index = text.find('"', index + 1)
+            if index < 0:
+                break
+        elif char == "#":
+            index = text.find("\n", index)
+            if index < 0:
+                break
+            continue
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[found.end():index].strip("\n").rstrip()
+        index += 1
+    raise SystemExit("%s: blockoverride %r does not close" % (GLORP_HINTS_GUI, block))
 
 # Only one of these can be in force at a time, so a weaker one is pointless
 # while a stronger one is already active.
@@ -393,10 +446,16 @@ def main():
             "",
         ])
 
+    glorp_gui = (refs.known("glorp_ui") / GLORP_HINTS_GUI).read_text(
+        encoding="utf-8-sig")
+
     gui = [HEADER,
            "# Overrides Glorp UI's own override, so this mod must load AFTER Glorp UI.",
-           "# Glorp UI's takeable-only list is re-emitted first, unchanged in behaviour:",
-           "# same GLORP_UI_SVH_BODY_* body keys, same glorpui_svh_visible_* gate.",
+           "# Glorp UI's own block is copied in first, byte for byte, and this mod's",
+           "# lists are added after it. Verbatim rather than re-emitted: whatever",
+           "# Glorp UI puts in that block is theirs to decide, and anything a parse",
+           "# here failed to recognise would be a piece of their mod the player",
+           "# stops getting -- which is exactly what their 2026-08-28 build cost.",
            ""]
     # True while the mod menu switch is on. `CMMSettingIsRegistered` guards the
     # case CMF describes: the setting is read before registration has run, or
@@ -405,17 +464,19 @@ def main():
     show_all = ("And(CMMSettingIsRegistered('svx__show_all'),"
                 "CMMValueEqualsOne(CMMSettingValue('svx__show_all')))")
 
-    for side, index, block_name, vanilla_title in (
-            ("Left", 0, "societal_value_left_tooltip_extra", "TO_MOVE_FURTHER_TO_LEFT"),
-            ("Right", 1, "societal_value_right_tooltip_extra", "TO_MOVE_FURTHER_TO_RIGHT")):
-        gui.append("template SocietalValueCountry%s_tooltip {" % side)
+    for side, index, block_name in (
+            ("Left", 0, "societal_value_left_tooltip_extra"),
+            ("Right", 1, "societal_value_right_tooltip_extra")):
+        template = "SocietalValueCountry%s_tooltip" % side
+        gui.append("template %s {" % template)
         gui.append("\tusing = SocietalValue%s_tooltip" % side)
         gui.append("\tblockoverride \"%s\" {" % block_name)
+        gui.append(blockoverride_body(glorp_gui, template, block_name))
+        gui.append("")
+        gui.append("\t\t# --- everything below is this mod's ---")
+        gui.append("")
         for parts in pairs:
             direction = parts[index]
-            gui.append(scroll_list("glorpui_svh_visible_%s" % direction,
-                                   vanilla_title,
-                                   "GLORP_UI_SVH_BODY_%s" % direction.upper()))
             gui.append(scroll_list("svx_axis_%s" % parts[2], "SVX_ALSO_PUSHES",
                                    "SVX_BODY_%s" % direction.upper(), switch="off"))
             gui.append(scroll_list("svx_soon_visible_%s" % direction, "SVX_REACHABLE",

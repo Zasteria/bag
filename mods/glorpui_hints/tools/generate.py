@@ -48,6 +48,7 @@ sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(MOD.parent.parent / "tools"))
 
 import refs  # noqa: E402
+import generate_extra  # noqa: E402  for the verbatim block it splices in
 import languages as svx_languages  # noqa: E402
 import translate_hints  # noqa: E402
 
@@ -133,31 +134,39 @@ def entries(text: str) -> list[tuple[str, str, str, str]]:
 
 
 def check_glorp_list_is_current(problems: list[str], glorp: Path) -> None:
-    """Our re-emission of Glorp UI's list must still be Glorp UI's list.
+    """This mod's copy of Glorp UI's block must be Glorp UI's block, byte for byte.
 
-    Compared as an ordered sequence rather than as text: the mod interleaves two
-    lists of its own between Glorp UI's entries, so the file cannot match, but
-    Glorp UI's entries must appear in the same order and say the same thing.
+    The mod replaces that `blockoverride` wholesale, so whatever is not carried
+    across is a piece of Glorp UI the player stops getting. Compared as **text**
+    rather than as parsed entries, and that is the whole point: this check used
+    to compare what a regex recognised, and Glorp UI's 2026-08-28 build added an
+    entry with neither a `ScriptValue` nor a `Localize` in it — vanilla's own
+    hint blob behind their `showUnavailableSocietalValueSuggestions` setting.
+    The parse could not see it, the check passed, and their new setting silently
+    did nothing for anyone running both mods. Bytes cannot be blind that way.
     """
-    theirs = entries((glorp / GLORP_HINTS_GUI).read_text(encoding="utf-8-sig"))
-    ours = [entry for entry in entries(EXTRA_GUI.read_text(encoding="utf-8-sig"))
-            if entry[1].startswith("glorpui_svh_visible_")]
-    if ours == theirs:
-        return
-    theirs_set, ours_set = set(theirs), set(ours)
-    for entry in theirs:
-        if entry not in ours_set:
+    theirs_file = (glorp / GLORP_HINTS_GUI).read_text(encoding="utf-8-sig")
+    ours_file = EXTRA_GUI.read_text(encoding="utf-8-sig")
+    for template, block in (
+            ("SocietalValueCountryLeft_tooltip", "societal_value_left_tooltip_extra"),
+            ("SocietalValueCountryRight_tooltip", "societal_value_right_tooltip_extra")):
+        theirs = generate_extra.blockoverride_body(theirs_file, template, block)
+        ours = generate_extra.blockoverride_body(ours_file, template, block)
+        if ours.startswith(theirs):
+            continue
+        # Name the first line that differs; a whole block in a message is
+        # unreadable and the first difference is what has to be looked at.
+        for line_a, line_b in zip(ours.split("\n"), theirs.split("\n")):
+            if line_a != line_b:
+                problems.append(
+                    "%s: Glorp UI's block is no longer carried verbatim — rebuild"
+                    " with --game-files\n       theirs: %s\n       ours:   %s"
+                    % (template, line_b.strip()[:120], line_a.strip()[:120]))
+                break
+        else:
             problems.append(
-                "Glorp UI now lists %s (%s) in %s and this mod does not — "
-                "rebuild with --game-files" % (entry[3], entry[1], entry[0]))
-    for entry in ours:
-        if entry not in theirs_set:
-            problems.append(
-                "this mod re-emits %s (%s) in %s and Glorp UI no longer does"
-                % (entry[3], entry[1], entry[0]))
-    if not problems:
-        problems.append("Glorp UI's hint entries are the same but in a "
-                        "different order — rebuild with --game-files")
+                "%s: Glorp UI's block is longer than the copy here — rebuild with"
+                " --game-files" % template)
 
 
 def check_english_is_glorp_uis_own(problems: list[str], glorp: Path) -> None:
@@ -690,6 +699,13 @@ def glorp_localization(glorp: Path, language: str) -> dict[str, str]:
     return found
 
 
+def glorp_hints_text(glorp: Path, language: str) -> str:
+    """Glorp UI's own hint file in one language, empty when they ship none."""
+    path = (glorp / "main_menu/localization" / language
+            / translate_hints.output_name(language))
+    return path.read_text(encoding="utf-8-sig") if path.is_file() else ""
+
+
 def conflict_report(glorp: Path) -> int:
     """Every point where this mod writes over Glorp UI's own work.
 
@@ -703,59 +719,52 @@ def conflict_report(glorp: Path) -> int:
     print()
 
     # 1. The tooltip templates. The mod overrides Glorp UI's own override, so
-    #    whatever they put in that block is replaced wholesale by our copy.
-    theirs = entries((glorp / GLORP_HINTS_GUI).read_text(encoding="utf-8-sig"))
-    ours = entries(EXTRA_GUI.read_text(encoding="utf-8-sig"))
-    mine = [e for e in ours if e[1].startswith("glorpui_svh_visible_")]
+    #    whatever they put in that block is replaced wholesale by our copy —
+    #    compared as text, because a parse only sees the shapes it knows.
+    theirs_gui = (glorp / GLORP_HINTS_GUI).read_text(encoding="utf-8-sig")
+    ours_gui = EXTRA_GUI.read_text(encoding="utf-8-sig")
     print("1. %s" % Path(GLORP_HINTS_GUI).name)
-    print("   both mods define %s"
-          % ", ".join(sorted({e[0] for e in theirs} | {e[0] for e in ours})))
-    print("   Glorp UI's entries: %d   re-emitted here: %d   added here: %d"
-          % (len(theirs), len(mine), len(ours) - len(mine)))
-    if mine == theirs:
-        print("   → the copy here is their list, entry for entry, in order")
-    else:
-        for entry in theirs:
-            if entry not in mine:
-                print("   → THEIRS ONLY, this mod would drop it: %s (%s)"
-                      % (entry[3], entry[1]))
-        for entry in mine:
-            if entry not in theirs:
-                print("   → OURS ONLY, Glorp UI no longer has it: %s (%s)"
-                      % (entry[3], entry[1]))
-        if sorted(mine) == sorted(theirs):
-            print("   → same entries, different order")
-        print("   rebuild with --game-files")
+    for template, block in (
+            ("SocietalValueCountryLeft_tooltip", "societal_value_left_tooltip_extra"),
+            ("SocietalValueCountryRight_tooltip", "societal_value_right_tooltip_extra")):
+        theirs = generate_extra.blockoverride_body(theirs_gui, template, block)
+        ours = generate_extra.blockoverride_body(ours_gui, template, block)
+        lists = "TooltipScrolledStringPairList"
+        print("   %s: theirs %d lists, added here %d"
+              % (template, theirs.count(lists), ours.count(lists) - theirs.count(lists)))
+        print("   → %s" % ("their block is carried verbatim"
+                           if ours.startswith(theirs)
+                           else "THEIR BLOCK IS NOT CARRIED — rebuild with --game-files"))
 
-    # 2. The hint keys. Glorp UI ships them in English only; this mod ships all
-    #    eleven, so in English it overrides theirs and everywhere else it is the
-    #    only definition there is.
+    # 2. The hint keys, per language. Glorp UI shipped them in English only
+    #    until 2026-08-28 and now ships all eleven, so what used to be this
+    #    mod's whole reason for existing is now an override of their own work.
     print()
-    print("2. GLORP_UI_SVH_* localization keys")
-    source = {k: v for k, v in LOC_ENTRY_RE.findall(
-        (glorp / GLORP_HINTS_EN).read_text(encoding="utf-8-sig"))
-        if k.startswith("GLORP_UI_SVH_")}
-    rendered = {k: v for k, v in LOC_ENTRY_RE.findall(
-        hints_path("english").read_text(encoding="utf-8-sig"))}
-    bodies = [k for k in source if k.startswith("GLORP_UI_SVH_BODY_")]
-    print("   Glorp UI defines %d (of them %d BODY keys, English only)"
-          % (len(source), len(bodies)))
-    print("   this mod ships %d, in %d languages"
-          % (len(rendered), len(SHIP_GLORP_HINTS)))
-    stale = [k for k, v in source.items()
-             if k in rendered and rendered[k] != v
-             and not rendered[k].startswith("[Player.Custom(")]
-    added = [k for k in source if k not in rendered]
-    dead = [k for k in rendered if k not in source and not k.startswith("SVX_")]
-    for name, keys in (("would revert Glorp UI's own text", stale),
-                       ("Glorp UI has, this mod has not", added),
-                       ("this mod has, Glorp UI dropped", dead)):
-        if keys:
-            print("   → %d %s: %s%s"
-                  % (len(keys), name, ", ".join(sorted(keys)[:4]),
-                     " …" if len(keys) > 4 else ""))
-    if not (stale or added or dead):
-        print("   → every key here is the one Glorp UI defines")
+    print("2. GLORP_UI_SVH_* localization keys, per language")
+    print("   %-14s %8s %8s %8s %8s" % ("", "theirs", "ours", "same", "differ"))
+    for language in SHIP_GLORP_HINTS:
+        source = {k: v for k, v in LOC_ENTRY_RE.findall(
+            glorp_hints_text(glorp, language)) if k.startswith("GLORP_UI_SVH_")}
+        rendered = {k: v for k, v in LOC_ENTRY_RE.findall(
+            hints_path(language).read_text(encoding="utf-8-sig"))}
+        shared = [k for k in source if k in rendered]
+        # A key this mod deliberately turns into a dispatch is not an accident.
+        same = [k for k in shared if source[k] == rendered[k]]
+        differ = [k for k in shared
+                  if source[k] != rendered[k]
+                  and not rendered[k].startswith("[Player.Custom(")]
+        print("   %-14s %8d %8d %8d %8d"
+              % (language, len(source), len(rendered), len(same), len(differ)))
+        missing = [k for k in source if k not in rendered]
+        dead = [k for k in rendered if k not in source and not k.startswith("SVX_")]
+        if missing:
+            print("      → %d Glorp UI has and this mod has not: %s"
+                  % (len(missing), ", ".join(sorted(missing)[:3])))
+        if dead:
+            print("      → %d this mod has and Glorp UI dropped: %s"
+                  % (len(dead), ", ".join(sorted(dead)[:3])))
+    print("   `same` is an override that changes nothing and pins their file;")
+    print("   `differ` is this mod's wording winning over Glorp UI's own.")
 
     # 3. The handful of Glorp UI interface keys repaired by hand.
     print()

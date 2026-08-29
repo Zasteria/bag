@@ -532,6 +532,26 @@ loud failure is the lucky one.** Both shapes are accepted now, and
 `check_gates_found_something` compares the two readings against each other, so a
 third shape stops the run instead of emptying a file.
 
+**Re-emitting somebody else's block drops whatever your parse cannot see.**
+`glorpui_hints` replaces Glorp UI's `blockoverride` on the societal value
+tooltip wholesale, and it used to rebuild their half from the entries its regex
+recognised — a `ScriptValue(...)` gate, a title, a `Localize(...)` body. Glorp
+UI's 2026-08-28 build added one entry per side with **none of the three**:
+vanilla's own C++ hint blob, `[SocietalValue.GetLeftHint(Player.Self)]`, behind
+their new `showUnavailableSocietalValueSuggestions` setting. The parse could not
+see it, the check that compares the two lists compared parsed entries and passed,
+and the entry was silently dropped — so their new switch did nothing for anyone
+running both mods, and because the same setting also switches *their* per-axis
+lists off (`NOT = { has_variable = ... }` in every `glorpui_svh_visible_*`),
+turning it on made half the tooltip vanish. Nothing in `error.log`.
+
+The fix is not a better regex. **Copy the bytes**: the block is spliced in
+verbatim and the check compares text, so a shape nobody has thought of survives
+by default. This is the second time in two days that a parse of somebody else's
+file went quiet when they changed shape — the entry above it is the first. When
+this repository holds a copy of another mod's *structure* rather than its data,
+copy it, do not re-derive it.
+
 **A copy synced and not yet committed reads as `behind`.** `record` dated a
 reference copy by `git log` — which still knows only the old commit — so the
 sync stamped two mods it had just brought in as out of date, and the run ended
