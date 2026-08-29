@@ -119,8 +119,14 @@ def line_key(hint_key: str) -> str:
 
 
 def render(source: Path, language: str,
-           gated: dict[str, str] | None = None) -> tuple[str, int, int]:
+           gated: dict[str, str] | None = None,
+           only_gated: bool = False) -> tuple[str, int, int]:
     """The file's text for one language, and how many hints and bodies it holds.
+
+    `only_gated` keeps just the hints this mod actually changes and drops the
+    rest. Since 2026-08-28 Glorp UI ships its own hints in all eleven languages,
+    so re-emitting them is an override that changes nothing and pins their file
+    against their next update -- see `SHIP_GLORP_HINTS` in `generate.py`.
 
     `gated` names the hints that must not be suggested until an advance unlocks
     the privilege they are about. Such a hint's own key becomes a dispatch to a
@@ -143,13 +149,17 @@ def render(source: Path, language: str,
             continue
         match = ENTRY_RE.match(line)
         if not match:
-            out.append(line)
+            # Glorp UI's own comments and blank lines belong to Glorp UI's file;
+            # a file that keeps only what this mod changes keeps none of them.
+            if not only_gated or not out:
+                out.append(line)
             continue
         key, value = match.groups()
         if key.startswith("GLORP_UI_SVH_BODY_"):
             # Pure [Player.Custom('...')] concatenations — language independent.
-            bodies += 1
-            out.append(line)
+            if not only_gated:
+                bodies += 1
+                out.append(line)
             continue
         try:
             text = translate(value, openers)
@@ -158,15 +168,26 @@ def render(source: Path, language: str,
         if key in gated:
             out.append(' %s: "[Player.Custom(\'%s\')]"' % (key, gate_key(key)))
             out.append(' %s: "%s"' % (line_key(key), text))
-        else:
+        elif not only_gated:
             out.append(' %s: "%s"' % (key, text))
+        else:
+            continue
         translated += 1
 
-    out[0] = ("# Glorp UI's societal value hints in %s, written by "
-              "mods/glorpui_hints/tools/translate_hints.py. Do not edit by hand."
-              % language)
-    out.insert(1, "# Source: Glorp UI %s" % source.name)
-    return "\n".join(out), translated, bodies
+    if only_gated:
+        out[0] = ("# The few of Glorp UI's societal value hints this mod changes in"
+                  " %s, written by" % language)
+        out.insert(1, "# mods/glorpui_hints/tools/translate_hints.py. Do not edit"
+                      " by hand. Glorp UI ships the")
+        out.insert(2, "# rest in this language itself; only these wait for the"
+                      " advance that unlocks them.")
+    else:
+        out[0] = ("# Glorp UI's societal value hints in %s, written by "
+                  "mods/glorpui_hints/tools/translate_hints.py. Do not edit by hand."
+                  % language)
+        out.insert(1, "# Source: Glorp UI %s" % source.name)
+    # A file the game reads has to end with a newline like any other.
+    return "\n".join(out).rstrip("\n") + "\n", translated, bodies
 
 
 def main(argv: list[str]) -> int:

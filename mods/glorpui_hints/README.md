@@ -1,12 +1,27 @@
 # Glorp UI — Societal Value Hints
 
-One mod that does both halves of the societal value tooltip: it gives Glorp UI's
-own hint list a text in **all eleven languages the game ships**, and then adds
-the sources Glorp UI's generator never looks at.
+The societal value tooltip, with the sources Glorp UI's generator never looks
+at. Glorp UI reads laws, government reforms and estate privileges; the game
+pushes societal values from **23 source types in 1 426 places**, and the rest of
+them are here — religious aspects, parliament issues, international
+organizations, buildings, employment systems, chivalric orders, cabinet actions,
+subject types, estates, religious schools, missions, advances, special statuses,
+parliament types, and the modifiers that scale with the state of the country or
+switch on under a condition. Each line is gated on whether the country can
+actually reach it.
+
+**It also used to give Glorp UI's own list a text in all eleven languages**, and
+that is why it exists at all. Glorp UI's 2026-08-28 build ships those eleven
+itself, in the opener-per-language shape worked out here, so the mod stopped:
+Russian is still this mod's wording, and the other ten are Glorp UI's own. What
+remains everywhere is the handful of hints this mod *changes* — the privileges
+an advance has to unlock first, which Glorp UI still recommends to a country
+that cannot take them.
 
 Requires **Glorp UI** (`glorp.ui`) and must load **after** it — the mod overrides
-Glorp UI's own override of the tooltip templates. `.metadata/metadata.json`
-declares the dependency, so the launcher orders it.
+Glorp UI's own override of the tooltip templates, carrying their block across
+byte for byte. `.metadata/metadata.json` declares the dependency, so the
+launcher orders it.
 
 > **Confirmed in game, 2026-08-25.** Both blocks render in Russian on the
 > societal value tooltip. Everything the 2026-08-27 rewrite changed — eleven
@@ -289,8 +304,9 @@ python3 mods/glorpui_hints/tools/generate.py
 
 That is what `tools/refresh.py` runs, and it does two different jobs.
 
-**Glorp UI's hint text is regenerated every time, in all eleven languages**, out
-of its own English file — see
+**Glorp UI's hint text is regenerated every time, in the languages
+`SHIP_GLORP_HINTS` names** — Russian, since their 2026-08-28 build ships the
+other ten itself — out of its own English file, see
 [why a hint costs an opener](#why-a-hint-costs-an-opener-rather-than-a-translation).
 A Glorp UI update that adds hints is picked up with nobody noticing; one that
 writes a fourth shape fails the run and names the key.
@@ -333,11 +349,11 @@ python3 mods/glorpui_hints/tools/generate.py --conflicts
 
 1. **the two tooltip templates** — this mod's `blockoverride` replaces Glorp
    UI's wholesale, so their entries live here as a copy;
-2. **the `GLORP_UI_SVH_*` keys** — Glorp UI ships them in English only, so here
-   the copy overrides theirs in English and *is* the only definition in the
-   other ten. The 34 `..._BODY_*` keys are the ones that matter: they name which
-   `Player.Custom` rules a tooltip prints, so an old copy of one is a list of
-   Glorp UI's older rules;
+2. **the `GLORP_UI_SVH_*` keys in Russian** — 764 of them, against Glorp UI's own
+   759, which is this mod's wording winning over theirs. In the other ten
+   languages it is ten keys: the five hints held back until an advance unlocks
+   them, and their text. Until 2026-08-28 it was all eleven languages, 7 920
+   keys, most of which said exactly what Glorp UI's own file said;
 3. **four of Glorp UI's own interface keys**, repaired in Russian only.
 
 Run it before rebuilding against a new Glorp UI and again after: the first says
