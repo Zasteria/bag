@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import re
+import tempfile
 import tomllib
 import unittest
 
@@ -10,6 +11,7 @@ from src.eu5autobuild.generator import (
     TEMPLATE_NAME_CHOICES,
     _balanced_script,
     _slot_display_name_expr,
+    _write_generated_file,
     generated_files,
 )
 from src.eu5autobuild.policy import load_building_catalog, load_policies
@@ -184,9 +186,9 @@ class GeneratorTests(unittest.TestCase):
     def test_metadata_declares_cmf_hard_dependency(self):
         payload = json.loads(self.files[ROOT / ".metadata" / "metadata.json"])
         self.assertEqual(payload["name"], "EU5 Advanced Auto Build")
-        self.assertEqual(payload["version"], "0.9.3-beta")
+        self.assertEqual(payload["version"], "0.9.4-beta")
         project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
-        self.assertEqual(project["version"], "0.9.3b0")
+        self.assertEqual(project["version"], "0.9.4b0")
         self.assertEqual(project["requires-python"], ">=3.12")
         self.assertEqual(project["dependencies"], [])
         self.assertEqual(
@@ -1216,24 +1218,44 @@ class GeneratorTests(unittest.TestCase):
                 if line:
                     self.assertRegex(line, r"^ [A-Za-z0-9_]+:")
 
-    def test_non_chinese_languages_use_english_localization(self):
+    def test_supported_languages_merge_reviewed_translations_with_english(self):
         english = self.files[
             ROOT / "in_game" / "localization" / "english" / "eu5ab_l_english.yml"
         ]
-        _, separator, english_body = english.partition("\n")
-        self.assertTrue(separator)
+        english_keys = re.findall(r"^ ([A-Za-z0-9_]+):", english, flags=re.MULTILINE)
         for language in ENGLISH_FALLBACK_LANGUAGES:
-            expected = f"l_{language}:\n{english_body}"
+            in_game = self.files[
+                ROOT
+                / "in_game"
+                / "localization"
+                / language
+                / f"eu5ab_l_{language}.yml"
+            ]
+            self.assertTrue(in_game.startswith(f"l_{language}:\n"))
+            self.assertEqual(
+                re.findall(r"^ ([A-Za-z0-9_]+):", in_game, flags=re.MULTILINE),
+                english_keys,
+            )
+            self.assertNotEqual(in_game, english.replace("l_english:", f"l_{language}:", 1))
             for game_layer in ("in_game", "main_menu"):
                 with self.subTest(language=language, game_layer=game_layer):
-                    fallback = self.files[
+                    localized = self.files[
                         ROOT
                         / game_layer
                         / "localization"
                         / language
                         / f"eu5ab_l_{language}.yml"
                     ]
-                    self.assertEqual(fallback, expected)
+                    self.assertEqual(localized, in_game)
+
+    def test_generated_localization_uses_bom_and_crlf_on_every_platform(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "sample.yml"
+            _write_generated_file(path, 'l_test:\n sample: "Value"\n')
+            self.assertEqual(
+                path.read_bytes(),
+                b'\xef\xbb\xbfl_test:\r\n sample: "Value"\r\n',
+            )
 
     def test_windows_use_eu5_1_3_close_contract_and_player_context(self):
         for filename in [

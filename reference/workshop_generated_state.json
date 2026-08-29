@@ -3,13 +3,13 @@
  "app_id": "3450310",
  "mods": {
   "3601047146": {
-   "basis": "committed_after",
-   "file_size": "9077444",
+   "basis": "behind",
+   "file_size": "11326709",
    "folder": "3601047146_glorp_ui",
-   "hcontent_file": "4269972745836792774",
+   "hcontent_file": "5897724748715035157",
    "key": "glorp_ui",
    "mod_id": "glorp.ui",
-   "time_updated": 1786391217,
+   "time_updated": 1787959961,
    "title": "Glorp UI",
    "version": "10.08.26"
   },
@@ -47,16 +47,27 @@
    "version": "2.2.12"
   },
   "3781437488": {
-   "basis": "committed_after",
-   "file_size": "18452309",
+   "basis": "uncommitted",
+   "file_size": "22108892",
    "folder": "3781437488_Auto build by Lincoln Guang",
-   "hcontent_file": "8113132233502793417",
+   "hcontent_file": "6347889401929606104",
    "key": "auto_build",
    "mod_id": "eu5ab_regional_development",
-   "time_updated": 1787656407,
+   "time_updated": 1787894888,
    "title": "EU5 Advanced Auto Build",
-   "version": "0.9.3-beta"
+   "version": "0.9.4-beta"
+  },
+  "3784988919": {
+   "basis": "committed_after",
+   "file_size": "1816179",
+   "folder": "3784988919_glorp_ui_small_fix",
+   "hcontent_file": "855012407817415416",
+   "key": "glorp_ui_small_fix",
+   "mod_id": "",
+   "time_updated": 1786945724,
+   "title": "Glorp UI small fix",
+   "version": "0.1"
   }
  },
- "recorded": "2026-08-25 17:34"
+ "recorded": "2026-08-29 22:20"
 }

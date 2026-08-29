@@ -1,0 +1,16 @@
+# Repository tooling and documentation use LF on every platform.
+/.gitattributes text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+
+# Translation sources are platform-independent review files.
+/localization/translations/*.json text eol=lf
+
+# EU5 localization output is byte-sensitive: UTF-8 BOM is supplied by the
+# generator and CRLF is fixed here for every checkout.
+/in_game/localization/**/eu5ab_l_*.yml text eol=crlf
+/main_menu/localization/**/eu5ab_l_*.yml text eol=crlf
+
+# GitHub workflow files always use the native Actions line ending.
+/.github/workflows/*.yml text eol=lf

@@ -173,7 +173,7 @@ conditions, location queue availability, or this Mod's concurrent limit.
 
 RGO expansion is attempted only when all of the following are true:
 
-- The RGO is not fully expanded and its current workforce is at least 75% of capacity.
+- The RGO is not fully expanded and its current utilization meets the player-selected threshold (adjustable from 0% to 100% in 5% steps, default 75%).
 - Its raw material is a scarce food good, construction good, or current policy-priority good.
 - The treasury reserve and shared annual pool can cover the vanilla base cost of 100.
 

@@ -23,6 +23,12 @@ from .game_data import (
     workforce_model_as_json,
 )
 from .game_root import require_game_root
+from .localization import (
+    SUPPORTED_TRANSLATION_LANGUAGES,
+    load_translation_catalog,
+    render_translated_localization,
+    translation_report,
+)
 from .policy import BuildingCatalog, Policy, load_building_catalog, load_policies
 from .rules import (
     AutomationRules,
@@ -32,18 +38,8 @@ from .rules import (
 
 
 MOD_ID = "eu5ab_regional_development"
-MOD_VERSION = "0.9.3-beta"
-ENGLISH_FALLBACK_LANGUAGES = (
-    "braz_por",
-    "french",
-    "german",
-    "japanese",
-    "korean",
-    "polish",
-    "russian",
-    "spanish",
-    "turkish",
-)
+MOD_VERSION = "0.9.4-beta"
+ENGLISH_FALLBACK_LANGUAGES = SUPPORTED_TRANSLATION_LANGUAGES
 CUSTOM_POLICY_ID = "custom_template"
 CUSTOM_POLICY_VALUE = 100
 CANDIDATE_BUILDING_SCOPE = "eu5ab_candidate_building"
@@ -238,6 +234,7 @@ ROOT = Path(__file__).resolve().parents[2]
 POLICY_FILE = ROOT / "policies" / "templates.json"
 CATALOG_FILE = ROOT / "policies" / "building_catalog.json"
 RULES_FILE = ROOT / "policies" / "automation_rules.json"
+TRANSLATION_ROOT = ROOT / "localization" / "translations"
 
 
 def _gui_binary_call(function: str, expressions: list[str] | tuple[str, ...]) -> str:
@@ -288,7 +285,8 @@ def _normalize_generated_text(text: str) -> str:
 
 def _write_generated_file(path: Path, content: str) -> None:
     encoding = "utf-8-sig" if path.suffix in {".json", ".txt", ".gui", ".yml"} else "utf-8"
-    path.write_text(content.lstrip("\ufeff"), encoding=encoding)
+    newline = "\r\n" if path.suffix == ".yml" else None
+    path.write_text(content.lstrip("\ufeff"), encoding=encoding, newline=newline)
 
 
 def render_metadata() -> str:
@@ -10513,16 +10511,6 @@ def render_english_localization(policies: list[Policy], catalog: BuildingCatalog
     return "\n".join(english_lines) + "\n"
 
 
-def _render_english_localization_for_language(
-    english_localization: str,
-    language: str,
-) -> str:
-    header, separator, body = english_localization.partition("\n")
-    if header != "l_english:" or not separator:
-        raise ValueError("English localization is missing its language header")
-    return f"l_{language}:\n{body}"
-
-
 def generated_files(
     policies: list[Policy],
     catalog: BuildingCatalog | None = None,
@@ -10615,9 +10603,14 @@ def generated_files(
         ROOT / "main_menu" / "localization" / "english" / "eu5ab_l_english.yml": english_localization,
     }
     for language in ENGLISH_FALLBACK_LANGUAGES:
-        fallback_localization = _render_english_localization_for_language(
-            english_localization,
+        translation_catalog = load_translation_catalog(
+            TRANSLATION_ROOT / f"{language}.json",
             language,
+        )
+        translated_localization = render_translated_localization(
+            chinese_localization,
+            english_localization,
+            translation_catalog,
         )
         for game_layer in ("in_game", "main_menu"):
             files[
@@ -10626,7 +10619,7 @@ def generated_files(
                 / "localization"
                 / language
                 / f"eu5ab_l_{language}.yml"
-            ] = fallback_localization
+            ] = translated_localization
     return {path: _normalize_generated_text(content) for path, content in files.items()}
 
 
@@ -10674,6 +10667,35 @@ def main() -> None:
             path.parent.mkdir(parents=True, exist_ok=True)
             _write_generated_file(path, content)
         print(f"Generated {len(files)} files.")
+    else:
+        chinese_localization = files[
+            ROOT / "in_game" / "localization" / "simp_chinese" / "eu5ab_l_simp_chinese.yml"
+        ]
+        english_localization = files[
+            ROOT / "in_game" / "localization" / "english" / "eu5ab_l_english.yml"
+        ]
+        for language in ENGLISH_FALLBACK_LANGUAGES:
+            catalog = load_translation_catalog(
+                TRANSLATION_ROOT / f"{language}.json",
+                language,
+            )
+            report = translation_report(
+                chinese_localization,
+                english_localization,
+                catalog,
+            )
+            print(
+                f"{language}: translated={len(report.translated)} "
+                f"missing={len(report.missing)} changed={len(report.changed)} "
+                f"obsolete={len(report.obsolete)}"
+            )
+            for label, keys in (
+                ("missing", report.missing),
+                ("changed", report.changed),
+                ("obsolete", report.obsolete),
+            ):
+                if keys:
+                    print(f"  {label}: {', '.join(keys)}")
 
 
 if __name__ == "__main__":
