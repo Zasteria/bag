@@ -322,6 +322,28 @@ Glorp UI now lists GLORP_UI_SVH_BODY_NEWTHING (glorpui_svh_visible_hellenization
 in SocietalValueCountryRight_tooltip and this mod does not — rebuild with --game-files
 ```
 
+### What this mod writes over, listed
+
+Three surfaces, and it is worth knowing they are only three, because each one is
+a place where a Glorp UI update is reverted for anyone running both mods:
+
+```
+python3 mods/glorpui_hints/tools/generate.py --conflicts
+```
+
+1. **the two tooltip templates** — this mod's `blockoverride` replaces Glorp
+   UI's wholesale, so their entries live here as a copy;
+2. **the `GLORP_UI_SVH_*` keys** — Glorp UI ships them in English only, so here
+   the copy overrides theirs in English and *is* the only definition in the
+   other ten. The 34 `..._BODY_*` keys are the ones that matter: they name which
+   `Player.Custom` rules a tooltip prints, so an old copy of one is a list of
+   Glorp UI's older rules;
+3. **four of Glorp UI's own interface keys**, repaired in Russian only.
+
+Run it before rebuilding against a new Glorp UI and again after: the first says
+what their update changed, the second whether the rebuild picked it up. It also
+names a repair that has stopped being needed, which is a repair worth deleting.
+
 It also checks that every name the `.gui` reaches for resolves: each script value
 is defined here or by Glorp UI, each `[Localize(...)]` key exists, each
 `[Player.Custom(...)]` has a rule behind it, and each rule is actually printed by

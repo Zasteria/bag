@@ -23,6 +23,15 @@ files every run and fail naming the difference.
 
     python3 mods/glorpui_hints/tools/generate.py
     python3 mods/glorpui_hints/tools/generate.py --check    # write nothing
+
+And when Glorp UI has moved and the question is what that costs:
+
+    python3 mods/glorpui_hints/tools/generate.py --conflicts
+
+which lists the three — only three — places this mod writes over Glorp UI's own
+work, and says whether the copy here is still theirs. Run it before a rebuild
+and after one: the first says what their update changed, the second says whether
+the rebuild picked it up.
 """
 
 from __future__ import annotations
@@ -661,6 +670,110 @@ def check_hints_have_labels(problems: list[str], language: str) -> None:
         return
 
 
+# Somebody else's localization line, which is not written the way ours are:
+# Glorp UI ends several with a `# LOCK` marker *after* the closing quote, and a
+# parser that insists the quote is last reads none of them — the same mistake
+# `nation_destinies_rus` already cost this repository once.
+LOC_ENTRY_RE = re.compile(
+    r'^ (\w+):\s*(?:\d+\s+)?"(.*)"\s*(?:#.*)?$', re.M)
+
+
+def glorp_localization(glorp: Path, language: str) -> dict[str, str]:
+    """Every key Glorp UI itself defines in one language."""
+    found: dict[str, str] = {}
+    root = glorp / "main_menu/localization" / language
+    if not root.is_dir():
+        return found
+    for path in sorted(root.rglob("*.yml")):
+        found.update(dict(LOC_ENTRY_RE.findall(
+            path.read_text(encoding="utf-8-sig", errors="replace"))))
+    return found
+
+
+def conflict_report(glorp: Path) -> int:
+    """Every point where this mod writes over Glorp UI's own work.
+
+    Three surfaces, and nothing else — checked rather than remembered, because
+    each is a place where a Glorp UI update is silently reverted for anyone
+    running both mods. Print it whenever Glorp UI moves, and again after a
+    rebuild: the two runs say what the update changed and whether the rebuild
+    picked it up.
+    """
+    print("what this mod writes over, in %s" % glorp.name)
+    print()
+
+    # 1. The tooltip templates. The mod overrides Glorp UI's own override, so
+    #    whatever they put in that block is replaced wholesale by our copy.
+    theirs = entries((glorp / GLORP_HINTS_GUI).read_text(encoding="utf-8-sig"))
+    ours = entries(EXTRA_GUI.read_text(encoding="utf-8-sig"))
+    mine = [e for e in ours if e[1].startswith("glorpui_svh_visible_")]
+    print("1. %s" % Path(GLORP_HINTS_GUI).name)
+    print("   both mods define %s"
+          % ", ".join(sorted({e[0] for e in theirs} | {e[0] for e in ours})))
+    print("   Glorp UI's entries: %d   re-emitted here: %d   added here: %d"
+          % (len(theirs), len(mine), len(ours) - len(mine)))
+    if mine == theirs:
+        print("   → the copy here is their list, entry for entry, in order")
+    else:
+        for entry in theirs:
+            if entry not in mine:
+                print("   → THEIRS ONLY, this mod would drop it: %s (%s)"
+                      % (entry[3], entry[1]))
+        for entry in mine:
+            if entry not in theirs:
+                print("   → OURS ONLY, Glorp UI no longer has it: %s (%s)"
+                      % (entry[3], entry[1]))
+        if sorted(mine) == sorted(theirs):
+            print("   → same entries, different order")
+        print("   rebuild with --game-files")
+
+    # 2. The hint keys. Glorp UI ships them in English only; this mod ships all
+    #    eleven, so in English it overrides theirs and everywhere else it is the
+    #    only definition there is.
+    print()
+    print("2. GLORP_UI_SVH_* localization keys")
+    source = {k: v for k, v in LOC_ENTRY_RE.findall(
+        (glorp / GLORP_HINTS_EN).read_text(encoding="utf-8-sig"))
+        if k.startswith("GLORP_UI_SVH_")}
+    rendered = {k: v for k, v in LOC_ENTRY_RE.findall(
+        hints_path("english").read_text(encoding="utf-8-sig"))}
+    bodies = [k for k in source if k.startswith("GLORP_UI_SVH_BODY_")]
+    print("   Glorp UI defines %d (of them %d BODY keys, English only)"
+          % (len(source), len(bodies)))
+    print("   this mod ships %d, in %d languages"
+          % (len(rendered), len(SHIP_GLORP_HINTS)))
+    stale = [k for k, v in source.items()
+             if k in rendered and rendered[k] != v
+             and not rendered[k].startswith("[Player.Custom(")]
+    added = [k for k in source if k not in rendered]
+    dead = [k for k in rendered if k not in source and not k.startswith("SVX_")]
+    for name, keys in (("would revert Glorp UI's own text", stale),
+                       ("Glorp UI has, this mod has not", added),
+                       ("this mod has, Glorp UI dropped", dead)):
+        if keys:
+            print("   → %d %s: %s%s"
+                  % (len(keys), name, ", ".join(sorted(keys)[:4]),
+                     " …" if len(keys) > 4 else ""))
+    if not (stale or added or dead):
+        print("   → every key here is the one Glorp UI defines")
+
+    # 3. The handful of Glorp UI interface keys repaired by hand.
+    print()
+    print("3. Glorp UI's own interface keys, repaired here")
+    for language, fixes in sorted(svx_languages.GLORP_UI_FIXES.items()):
+        defined = glorp_localization(glorp, language)
+        for key, text in sorted(fixes.items()):
+            if key not in defined:
+                print("   → %s/%s: Glorp UI no longer defines it — drop the repair"
+                      % (language, key))
+            elif defined[key] == text:
+                print("   → %s/%s: Glorp UI now says the same thing — drop the repair"
+                      % (language, key))
+            else:
+                print("   %s/%s: theirs %r" % (language, key, defined[key][:60]))
+    return 0
+
+
 def rebuild_extra(game_files: Path) -> int:
     """Re-scan the game and rewrite the generated files, in every language."""
     # Beside the tool, not in the repository root: a crashed run used to leave
@@ -688,9 +801,15 @@ def main(argv: list[str]) -> int:
                              "hint lists; without it they are only checked")
     parser.add_argument("--check", action="store_true",
                         help="report, write nothing")
+    parser.add_argument("--conflicts", action="store_true",
+                        help="what this mod writes over in Glorp UI, and whether "
+                             "the copy here is still theirs")
     args = parser.parse_args(argv[1:])
 
     glorp = refs.known("glorp_ui")
+
+    if args.conflicts:
+        return conflict_report(glorp)
 
     if args.game_files:
         code = rebuild_extra(args.game_files)
