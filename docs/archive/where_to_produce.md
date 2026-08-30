@@ -1,5 +1,12 @@
 # Why `where_to_produce` failed
 
+**Picked up again in August 2026**, as a different mod with the same name:
+[`../../mods/where_to_produce/CLAUDE.md`](../../mods/where_to_produce/CLAUDE.md).
+It answers the opposite question — borders first, then one building and one
+method, then the locations ranked — and it is deliberately shipped before it is
+finished, which is the lesson below applied rather than repeated. Everything
+under this line is about the removed mod.
+
 The mod was removed in August 2026: a Mod Menu tab that ranked what was worth
 building in a province. It never worked in game, the owner stopped wanting it,
 and the reason was never established because it was never tested. Kept because
@@ -55,9 +62,7 @@ walking three pickers; and building straight from a row, since
 real construction and Construction Manager uses exactly that. The open question
 there was never the effect — it was *which* location of the province to build in.
 
-One thing the game files in `reference/` still cannot answer: a *method* locked
-behind an advance. `ProductionMethod.IsAvailable` exists as a GUI data function,
-so the game knows, but there is no script-side counterpart and neither
-`building_types/` nor `production_methods/` records the unlock. Answering it
-needs `common/advances/` and the technology folder beside it, which are not in
-the tree.
+One thing the game files in `reference/` could not answer when this was written:
+a *method* locked behind an advance. **Answered since** — `common/advances/` is
+in the tree now, and `docs/research/engine.md` records how. The rest of this file
+still stands.

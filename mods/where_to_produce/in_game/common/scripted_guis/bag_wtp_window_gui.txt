@@ -1,0 +1,177 @@
+﻿# The selection window's bridges into script.
+#
+# The window itself is a scripted widget, and its `visible` reads a variable on
+# the player rather than `GetVariableSystem`: a Mod Menu button is a script
+# effect, and script cannot touch the interface's own variable system. So the
+# button sets `bag_wtp_open` and the window watches it.
+#
+# The selection is kept twice, on purpose, and `bag_wtp_pick` / `bag_wtp_drop`
+# are the only two effects allowed to write it:
+#
+#   - `bag_wtp_picked`, a variable on the location. This is what the interface
+#     asks per row and what the map mode paints -- a map mode's `map_color` is a
+#     location-scoped trigger block, so a variable on the location is a colour on
+#     the map with nothing in between.
+#   - `bag_wtp_picked_locations`, a global list. This is what the ranking pass
+#     walks. There is no cheap "every location with variable X" iterator, and
+#     walking the world to find them would cost more than keeping the list.
+#
+# Two records of one fact drift the moment anything else writes either half.
+
+bag_wtp_open_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		set_variable = { name = bag_wtp_open value = 1 }
+	}
+}
+
+bag_wtp_close_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_variable = bag_wtp_open
+		# Emptying the datamodel is what actually frees the rows. The window is
+		# a scripted widget and never comes down; only the list it repeats over
+		# decides how much of it is alive.
+		bag_wtp_drop_browse = yes
+	}
+}
+
+# One location in or out.  `saved_scopes` is how a scripted GUI receives the
+# `AddScope` its button passed in.
+bag_wtp_toggle_location = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			bag_wtp_toggle_one = yes
+		}
+		bag_wtp_rebuild_browse = yes
+	}
+}
+
+# A whole province at once: if any of its locations is out, take them all in;
+# otherwise take them all out. On a row that reads better than a tri-state.
+bag_wtp_toggle_province = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			province = {
+				if = {
+					limit = {
+						any_location_in_province = {
+							is_land = yes
+							NOT = { has_variable = bag_wtp_picked }
+						}
+					}
+					every_location_in_province = {
+						limit = { is_land = yes }
+						bag_wtp_pick = yes
+					}
+				}
+				else = {
+					every_location_in_province = {
+						limit = { has_variable = bag_wtp_picked }
+						bag_wtp_drop = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+# Expand and collapse are stored on the province's capital location, because that
+# is a scope that certainly holds a variable and is reachable from the province
+# in the interface and in script alike. Advanced Auto Build does the same.
+bag_wtp_expand_province = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			set_variable = { name = bag_wtp_expanded value = 1 }
+		}
+	}
+}
+
+bag_wtp_collapse_province = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			remove_variable = bag_wtp_expanded
+		}
+	}
+}
+
+# Everything currently browsable, in one press.
+bag_wtp_pick_all = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		every_in_global_list = {
+			variable = bag_wtp_browse
+			every_location_in_province = {
+				limit = {
+					is_land = yes
+					NOT = { has_variable = bag_wtp_picked }
+				}
+				bag_wtp_pick = yes
+			}
+		}
+	}
+}
+
+# Clears the selection everywhere, not only inside what is being browsed --
+# otherwise a selection made under one set of ticked regions would survive
+# invisibly under another and quietly widen the next ranking.
+bag_wtp_clear_all = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		every_in_global_list = {
+			variable = bag_wtp_picked_locations
+			remove_variable = bag_wtp_picked
+		}
+		clear_global_variable_list = bag_wtp_picked_locations
+		set_global_variable = { name = bag_wtp_picked_count value = 0 }
+		bag_wtp_drop_browse = yes
+	}
+}

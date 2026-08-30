@@ -354,6 +354,38 @@ written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
 [`../investigations/panel_hitch.md`](../investigations/panel_hitch.md).
 
+## What gates a production method
+
+`common/advances/` is in the tree now, which answers what
+[`../archive/where_to_produce.md`](../archive/where_to_produce.md) recorded as
+unanswerable. `1_building_unlocks.txt` carries 119 `unlock_building = <type>`
+blocks, each with an `age = age_N_...`; `3_production_method_unlocks.txt` carries
+ten `unlock_production_method = <method>` the same way. So a method is available
+when its building is unlocked — `can_build_building` in **country** scope, which
+the trigger's own description says checks the country requirements — and, for
+those ten, when `has_advance` is true. There is still no script-side
+`ProductionMethod.IsAvailable`; this is the way round it.
+
+## Geography from script, and sorting a list
+
+`region:<key>` and `area:<key>` are ordinary scope links — the game's own script
+uses `region:italy_region` seventy times — and `every_location_in_region` /
+`every_location_in_area` walk them. `map_data` is not in `reference/`, so the
+membership is unknowable here, but the **keys** are: `region_names_l_*.yml` and
+`area_l_*.yml` carry every one, with the continent/subcontinent hierarchy in
+their comments. Two cautions, both paid for: the file's sections lie in places
+(five real regions sit under "Subcontinents", `poland` is a region without the
+`_region` suffix), and filtering water by name throws out
+`north_atlantic_islands_region`, which is dry land — the "Ocean Subcontinent"
+grouping is the thing that actually knows. A key that localization names but the
+map does not define fails at load, in `error.log`.
+
+`ordered_in_global_list` and its siblings take `order_by = <script value>` and
+sort **highest first**: vanilla writes `order_by = { value = X multiply = -1 }`
+on the one place it wants the weakest, and pairs `max = N` with
+`check_range_bounds = no` when the list may be shorter than asked for. So
+ranking needs no hand-written sort.
+
 ## Sorting
 
 Sorting is already data driven. `sort_by_key_button` entries name a sort key,

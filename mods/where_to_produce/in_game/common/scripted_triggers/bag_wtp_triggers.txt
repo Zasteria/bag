@@ -1,0 +1,25 @@
+﻿# Which locations the mod is willing to consider at all.
+#
+# `bag_wtp_in_zone` and `bag_wtp_can_build_something` are generated beside this,
+# from the continent list and from which buildings make which good.
+#
+# Scope: location
+bag_wtp_is_candidate = {
+	# Sea zones have no province to walk, and every method's script value walks
+	# the province. This is the guard, not a tidiness filter.
+	is_land = yes
+
+	bag_wtp_in_zone = yes
+
+	OR = {
+		# The default. The player is planning for ground he does not hold yet, and
+		# `can_build_building` answers for the location as it stands -- an unowned
+		# one fails it, which would empty the table for exactly the case the mod
+		# exists to serve.
+		NOT = { has_global_variable = bag_wtp_only_buildable }
+
+		# With the tick on, something producing the chosen good has to be startable
+		# here today.
+		bag_wtp_can_build_something = yes
+	}
+}

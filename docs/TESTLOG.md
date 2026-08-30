@@ -31,6 +31,98 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
+Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
+"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
+the mod's whole mechanism — the scoring, the picker, the window, the map mode.
+
+Four things the run asked for, all built and none of them loaded yet:
+
+- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
+  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
+  share a name, and the zone list had to become `continent`.
+- **Regions back beside the continents.** A ticked continent paints the whole
+  screen; the good case was one region ticked with its neighbours addable.
+- **Methods the age has not reached were being recommended.** The unlock data is
+  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
+  `3_production_method_unlocks.txt` gates ten methods directly, so
+  `can_build_building` in country scope plus `has_advance` answers "available to
+  me now". This is what `docs/archive/where_to_produce.md` recorded as
+  unanswerable; `common/advances/` was not in the tree then.
+- **The table ran out of rows before it ran out of answers.** Every location of a
+  province scores the same, so it now holds one row per province.
+
+**2026-08-30 — `where_to_produce`, third load. The map mode works; the design of
+the picker did not.** Five screenshots.
+
+- **The map mode paints**, and it is the thing the owner wanted: Wallachia green
+  as chosen, the ticked Carpathians dark as the zone. Its name showed as
+  `mapmode_bag_wtp_selection_name` — a map mode's name key is
+  `mapmode_<key>_name`, not `<key>`.
+- **The target picker opens and works, and closes after each pick.** That is the
+  generic action's lifecycle; `fire_generic_action` fires with a supplied target
+  rather than reopening the panel, so there is no script-side way to keep it up.
+  Area granularity is the mitigation.
+- **Asking the player for the production method was wrong.** Owner's words: the
+  mod is meant to find the best method for his ground, and asking him to guess it
+  first "полностью ломает конечную суть мода". Rebuilt: the good is the only
+  question, every method for it is scored per location, and the row names the
+  building that won.
+- **Six region groups were a bad frame.** Replaced by five continents, which also
+  removed the zone walk entirely — a location's continent is a plain trigger.
+- **The window listed nothing when no region was ticked**, so nothing could be
+  trimmed. It now lists the provinces something is picked in, which is its actual
+  job and what bounds it.
+
+**2026-08-30 — `where_to_produce`, second load. The data half works; the picker
+is capped at twenty.** Five screenshots.
+
+- **The result table reads.** "Бельцы — 9.25% (2/2)", fifty rows, descending.
+  That is a location name out of a global variable and two script values printed
+  from a localization key — the mechanism nothing in this repository had ever
+  done, and the reason the first `where_to_produce` was worth attempting again.
+- **The region lists render** with the game's own names ("Балканы", "Карпаты",
+  "Польша"), so a list row's label set to `flag:<game key>` works and arrives
+  translated. The ticks reach script: the zone came out at 260 locations in 53
+  provinces.
+- **A CMM dropdown is clickable only to its twentieth option.** Reported as
+  "некоторые здания просто не выбираются". Found in CMF: an option click runs
+  `CMM_MarkDropdownSelection_<index>` and CMF defines `_0` to `_19`. The
+  218-option method picker was replaced by two lists — 47 goods, then at most 20
+  ways to make the chosen one.
+- **The selection window's rows collapsed to zero height**, all but the one
+  expanded province, which piled them at the left edge. The item was wrapped in
+  a `widget`, which does not size itself to its child; Advanced Auto Build puts
+  the row type directly in `item`.
+- **The window was the wrong shape for the job anyway.** The owner wanted what
+  Advanced Auto Build actually does: the game's own target picker, which is a
+  `select_trigger` block inside a `generic_action` — search box, sortable list,
+  map highlight, and a map click picking the same thing a row does. AAB's
+  restriction to owned land is its own `interaction_source_list`, not the
+  engine's; vanilla's actions mostly give no source and filter with `visible`,
+  which runs in the candidate's scope.
+
+**2026-08-30 — `where_to_produce`, first load. The tab renders; no list on it
+does.** Screenshot: the Mod Menu tab "Где производить" shows the group "Здание и
+метод" with its three settings (the method dropdown, the tick, the button) and
+nothing else — no region groups, no result table. Diagnosed from the files, not
+guessed: `cmm_register_settings_list` declares `is_ordered` and the generated
+call omitted it, so all six region lists and the result list died at
+registration. Fixed; `tools/check_cmm.py` grew the missing-argument check that
+would have caught it.
+
+Two things the same screenshot settled without being asked:
+
+- **The method dropdown is unusable at 218 options**, and the label was the
+  reason. The control is about 165 pixels and elides the tail, so "good, icon,
+  building, method" showed the good — which repeats for twenty rows — and cut off
+  the method entirely. Relabelled to icon, building, method, and sorted by
+  building so one building's methods sit together. Better, and still not a
+  substitute for a real picker.
+- **Registration itself works.** The dropdown, the tick and the button all
+  rendered with their names and descriptions, so `cmf_on_mod_registration`, the
+  mod id, the tab and the group keys are all right.
+
 The three most recent. Everything before 2026-08-29 is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md) — same entries,
 moved rather than trimmed. Search both with `python3 tools/kb.py`.
@@ -179,6 +271,18 @@ this feature the first time.
 
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
+
+**`where_to_produce`, fifth load — one game, five minutes.**
+
+1. **Three tabs** at the top of the mod's page, and each list under the right one.
+2. **Ground tab**: five continents and, under them, one region list per
+   continent. Tick a region — the picker and the map should narrow to it.
+3. **Goods**: anything your age cannot make yet should be absent from both lists.
+   Tick "показывать методы, до которых ещё не дошла эпоха" and they should come
+   back.
+4. **Rank a good you can make**: the table should now name one province each
+   rather than repeating one province down the screen.
+5. **`error.log`** — 218 new country-scope triggers and the region lists are new.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
