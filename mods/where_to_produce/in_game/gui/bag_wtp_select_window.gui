@@ -127,47 +127,6 @@ types BagWtpSelectTypes {
 		}
 	}
 
-	# One column of the tree. The header names the level, the rows are whatever
-	# the column was given. A column with nothing in it stays -- an empty frame
-	# says "open something on the left" better than a gap does.
-	type bag_wtp_tree_column = vbox {
-		layoutpolicy_vertical = expanding
-		size = { 252 -1 }
-		spacing = 3
-
-		widget = {
-			layoutpolicy_horizontal = expanding
-			size = { -1 24 }
-
-			text_single = {
-				parentanchor = left|vcenter
-				widgetanchor = left|vcenter
-				autoresize = no
-				size = { 244 24 }
-				align = left|vcenter
-				elide = right
-				fontsize = 14
-				block "tree_column_header" { text = "bag_wtp_tree_regions_head" }
-			}
-		}
-
-		scrollbox = {
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-			blockoverride "scrollbox_content" {
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = preferred
-					margin = { 6 6 }
-					margin_right = 16
-					spacing = 2
-					ignoreinvisible = yes
-					block "tree_column_rows" {}
-				}
-			}
-		}
-	}
-
 	# The three geography rows are one shape three times: the name opens the next
 	# column, the button takes or drops everything inside, and hovering either
 	# hands the map the same geography the row stands for. `SetHighlight*` lives
@@ -491,40 +450,165 @@ window = {
 				# or drops its whole geography in one press, and hovering one shows
 				# it on the map -- `SetHighlight*` is on `PdxGuiWidget`, so it is
 				# the game's own highlighting rather than an imitation.
+				#
+				# Written out four times rather than through a column type: the
+				# rows lived in a `block` nested inside the `blockoverride` of the
+				# scrollbox, and that block never reached the instance. The header
+				# drew, the rows did not, and all four columns came up empty.
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
 					spacing = 6
 
-					bag_wtp_tree_column = {
-						blockoverride "tree_column_header" { text = "bag_wtp_tree_regions_head" }
-						blockoverride "tree_column_rows" {
-							datamodel = "[GetGlobalList('bag_wtp_tree_regions')]"
-							item = { bag_wtp_tree_region_entry = { datacontext = "[Scope.GetRegion]" } }
+					vbox = {
+						layoutpolicy_vertical = expanding
+						size = { 252 -1 }
+						spacing = 3
+
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 24 }
+							text_single = {
+								parentanchor = left|vcenter
+								widgetanchor = left|vcenter
+								autoresize = no
+								size = { 244 24 }
+								align = left|vcenter
+								elide = right
+								fontsize = 14
+								text = "bag_wtp_tree_regions_head"
+							}
+						}
+
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							blockoverride "scrollbox_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = preferred
+									margin = { 6 6 }
+									margin_right = 16
+									spacing = 2
+									ignoreinvisible = yes
+									datamodel = "[GetGlobalList('bag_wtp_tree_regions')]"
+									item = { bag_wtp_tree_region_entry = { datacontext = "[Scope.GetRegion]" } }
+								}
+							}
 						}
 					}
 
-					bag_wtp_tree_column = {
-						blockoverride "tree_column_header" { text = "bag_wtp_tree_areas_head" }
-						blockoverride "tree_column_rows" {
-							datamodel = "[GetGlobalList('bag_wtp_tree_areas')]"
-							item = { bag_wtp_tree_area_entry = { datacontext = "[Scope.GetArea]" } }
+					vbox = {
+						layoutpolicy_vertical = expanding
+						size = { 252 -1 }
+						spacing = 3
+
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 24 }
+							text_single = {
+								parentanchor = left|vcenter
+								widgetanchor = left|vcenter
+								autoresize = no
+								size = { 244 24 }
+								align = left|vcenter
+								elide = right
+								fontsize = 14
+								text = "bag_wtp_tree_areas_head"
+							}
+						}
+
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							blockoverride "scrollbox_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = preferred
+									margin = { 6 6 }
+									margin_right = 16
+									spacing = 2
+									ignoreinvisible = yes
+									datamodel = "[GetGlobalList('bag_wtp_tree_areas')]"
+									item = { bag_wtp_tree_area_entry = { datacontext = "[Scope.GetArea]" } }
+								}
+							}
 						}
 					}
 
-					bag_wtp_tree_column = {
-						blockoverride "tree_column_header" { text = "bag_wtp_tree_provinces_head" }
-						blockoverride "tree_column_rows" {
-							datamodel = "[GetGlobalList('bag_wtp_tree_provinces')]"
-							item = { bag_wtp_tree_province_entry = { datacontext = "[Scope.GetProvince]" } }
+					vbox = {
+						layoutpolicy_vertical = expanding
+						size = { 252 -1 }
+						spacing = 3
+
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 24 }
+							text_single = {
+								parentanchor = left|vcenter
+								widgetanchor = left|vcenter
+								autoresize = no
+								size = { 244 24 }
+								align = left|vcenter
+								elide = right
+								fontsize = 14
+								text = "bag_wtp_tree_provinces_head"
+							}
+						}
+
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							blockoverride "scrollbox_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = preferred
+									margin = { 6 6 }
+									margin_right = 16
+									spacing = 2
+									ignoreinvisible = yes
+									datamodel = "[GetGlobalList('bag_wtp_tree_provinces')]"
+									item = { bag_wtp_tree_province_entry = { datacontext = "[Scope.GetProvince]" } }
+								}
+							}
 						}
 					}
 
-					bag_wtp_tree_column = {
-						blockoverride "tree_column_header" { text = "bag_wtp_tree_locations_head" }
-						blockoverride "tree_column_rows" {
-							datamodel = "[GetGlobalList('bag_wtp_tree_locations')]"
-							item = { bag_wtp_select_location_entry = { datacontext = "[Scope.GetLocation]" } }
+					vbox = {
+						layoutpolicy_vertical = expanding
+						size = { 252 -1 }
+						spacing = 3
+
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { -1 24 }
+							text_single = {
+								parentanchor = left|vcenter
+								widgetanchor = left|vcenter
+								autoresize = no
+								size = { 244 24 }
+								align = left|vcenter
+								elide = right
+								fontsize = 14
+								text = "bag_wtp_tree_locations_head"
+							}
+						}
+
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							blockoverride "scrollbox_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = preferred
+									margin = { 6 6 }
+									margin_right = 16
+									spacing = 2
+									ignoreinvisible = yes
+									datamodel = "[GetGlobalList('bag_wtp_tree_locations')]"
+									item = { bag_wtp_select_location_entry = { datacontext = "[Scope.GetLocation]" } }
+								}
+							}
 						}
 					}
 				}

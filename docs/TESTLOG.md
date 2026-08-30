@@ -31,6 +31,32 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
+ranking was ranking the wrong thing.** Three screenshots.
+
+- **All four columns of the tree were empty, headers and all four frames drawn.**
+  That pairing is the diagnosis: the header's `blockoverride` reached the
+  instance and the rows' did not, because the rows' `block` was nested inside the
+  `blockoverride` of the scrollbox. A block inside a blockoverride never
+  resolves. The four columns are written out now, no column type at all.
+- **The goods icons still sat a column apart** after being given no width: the
+  spreading was the `icon` widget inside an hbox, not the hbox's size. They are
+  text icons now — `[Goods.GetIcon]`, which is what vanilla writes in its own
+  strings — and a text hugs its glyph.
+- **The ranking put forest villages at the top of a weapons search.** Not a bug
+  in the scoring; the scoring was answering the wrong question. A village wants
+  one raw material, so it reaches the full 10% anywhere, and it produces 0.2
+  weaponry a level against a weapon guild's 1.0 and a factory's 4.0. Ranking is
+  by **effective output** now — `output * (1 + bonus/100)`, the bonus being an
+  efficiency percentage and therefore a multiplier — and villages are scored on
+  their own side, so a row shows two answers: the best built-up building and the
+  best village.
+- **The Mod Menu table is gone.** It said the same thing as the window one line
+  at a time, and it was the only thing holding the answer to fifty rows.
+- **The owner uses the region lists and nothing else** to frame a search:
+  Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
+  That answers what six runs of "the region lists are untested" was asking.
+
 **2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
 is on screen; the map picker is the one thing left.** Owner: «в остальном —
 круто».
@@ -240,24 +266,20 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, ninth load — one game, five minutes.** The selection
-window is now a tree, which is the answer to four rounds of asking for the
-game's own geography panel.
+**`where_to_produce`, tenth load — one game, five minutes.**
 
-1. **Four columns**: Регионы → Области → Провинции → Локации. A name opens the
-   next column; the column to its right should fill with what is inside it.
-2. **«Всё» on any row** takes that whole region, area or province into the plan,
-   and a second press takes it back out. The map mode is where the result shows.
-3. **Hovering any row highlights it on the map** — region, area, province and
-   location alike. This is the piece of the game's own panel a mod can have.
-4. **The first column** is whatever the zone tab ticked: the ticked regions, or
-   every region of a ticked continent, or the whole world if nothing is ticked.
-5. **`gui.log`** should no longer carry `bag_wtp_select_window.gui` at all, and
-   `error.log` should stay as clean of this mod as it was.
-
-Not built, and now known to be unbuildable: clicking the map with the window
-open. The generic action's picker is the only channel script has, and it closes
-after each pick.
+1. **The tree fills.** Регионы → Области → Провинции → Локации, a name opening
+   the next column, «Всё» taking or dropping a whole geography, and hovering a
+   row highlighting it on the map.
+2. **A result row is two lines** — the built-up answer above, the village below,
+   each with its own bonus, method, `×` output and goods icons. A province with
+   only one of the two shows one line.
+3. **Nothing rural at the top** of a weapons search any more, and «Гильдия
+   ружейников» ahead of «Лесная деревня» where both are available.
+4. **The goods icons sit beside their count**, not a column away.
+5. **The Mod Menu tab has no table**, only the ticks and the three buttons.
+6. **`error.log` and `gui.log`** — the mod was clean in both last run apart from
+   124 layout lines that should now be gone.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

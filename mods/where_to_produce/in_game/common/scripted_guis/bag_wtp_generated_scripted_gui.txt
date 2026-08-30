@@ -123,17 +123,3 @@ bag_wtp__good_made_on_changed = {
 		bag_wtp_good_changed = yes
 	}
 }
-
-bag_wtp__result_on_changed = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		cmm_apply_list_change = {
-			setting = bag_wtp__result
-		}
-	}
-}

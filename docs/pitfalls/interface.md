@@ -26,6 +26,18 @@ them, load order deciding who loses. Copy the *window* and leave the types alone
 with fixed row heights and no `ignoreinvisible`, so hiding a row from the
 interface leaves a hole. Filter the data instead, or resize the list.
 
+**A `block` nested inside a `blockoverride` never reaches the instance.** A
+column type whose header was a plain `block` and whose rows were a `block` inside
+the `blockoverride` of its scrollbox drew four headers and not one row.
+`blockoverride` fills a block declared in the type it overrides; a block declared
+*inside* an override of another type is not one of those. Vanilla only ever
+nests a `blockoverride` in a `blockoverride`, never a `block`.
+
+**An `icon` in an hbox takes a share of the row; a text icon takes its glyph.**
+Two goods icons sat 77px apart at every size the container was given. The fix was
+not another size but `text_single` with `raw_text = "[Goods.GetIcon]"`, which is
+how vanilla writes goods into its own strings.
+
 **An anchor on a direct child of an hbox or vbox is refused, and says so 124
 times.** `gui.log`, not `error.log`: `Widget cannot have a position in a layout`,
 one line per row drawn, from a `parentanchor = vcenter` on a button inside a row.

@@ -11,14 +11,12 @@ bag_wtp_compute = {
 		# Nothing to answer for. Saying so beats ranking every location in the
 		# world by a score of zero.
 		bag_wtp_clear_rows = yes
-		bag_wtp_trim_rows = yes
 	}
 	else = {
 		bag_wtp_collect_candidates = yes
 		bag_wtp_score_candidates = yes
 		bag_wtp_clear_rows = yes
 		bag_wtp_fill_rows = yes
-		bag_wtp_trim_rows = yes
 	}
 
 	# One line, no arguments. The counts are on screen instead, in the button's

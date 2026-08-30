@@ -152,7 +152,6 @@ bag_wtp_good_changed = {
 	bag_wtp_read_good = yes
 	bag_wtp_only_one_good = yes
 	bag_wtp_clear_rows = yes
-	bag_wtp_trim_rows = yes
 }
 
 # A tick in the continent list. Nothing is walked; only what the pickers offer

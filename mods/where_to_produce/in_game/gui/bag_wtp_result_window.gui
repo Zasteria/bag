@@ -23,21 +23,19 @@ types BagWtpResultTypes {
 	# bonus, item by item: the number is `10% * what is here / what the method
 	# wants`, so an input missing from this row is the whole of the difference
 	# between the number and the method's ceiling.
-	type bag_wtp_result_goods_entry = widget {
-		size = { 26 26 }
-
-		# `Goods.Self` rather than `Scope.…`: the item sets `datacontext` to the
-		# goods, which is how vanilla reads a scope list -- `datamodel` over the
-		# list, `datacontext = "[Scope.Get<Type>]"` on the item, the object by its
-		# type name inside. Without the datacontext the icon drew nothing at all
-		# while the count beside it, off the same list, was right.
-		icon = {
-			size = { 24 24 }
-			parentanchor = center
-			widgetanchor = center
-			texture = "[GetGoodsIcon(Goods.Self)]"
-			tooltip = "[Goods.GetName]"
-		}
+	# One raw material the province supplies to the winning method. A text icon
+	# rather than an `icon` widget, because a text hugs its glyph and a widget in
+	# an hbox does not: two of these sat a column apart at every size the icon
+	# was given. `[Goods.GetIcon]` is the game's own idiom for it.
+	#
+	# The item sets `datacontext` to the goods and the type reads `Goods.`; a
+	# scope list read as `Scope.GetGoods` from inside the type drew nothing at
+	# all, while the count beside it, off the same list, was right.
+	type bag_wtp_result_goods_entry = text_single {
+		autoresize = yes
+		fontsize = 16
+		raw_text = "[Goods.GetIcon]"
+		tooltip = "[Goods.GetName]"
 	}
 
 	# One location of the province, under the expanded row. All of them score the
@@ -188,6 +186,129 @@ types BagWtpResultTypes {
 	# on the day the halves join, which is the day this mod plans for.
 	#
 	# Expansion is a variable on the row's own location, which is unique per row.
+	# One answer line: the bonus, the building and method, and the goods the bonus
+	# is made of. Two of these make a province row -- the built-up answer and the
+	# village one -- and each hides itself when its side found nothing.
+	#
+	# Written twice rather than once with a parameter: no `.gui` in the game or in
+	# CMF contains a `$` at all, so a type takes no arguments here.
+	#
+	# Nothing in the goods part has a size. An hbox given more width than its
+	# children spreads them across it, which is what put a column between two
+	# icons; a text hugs its glyphs, and a goods icon is a text icon like any
+	# other -- `[Goods.GetIcon]` is what vanilla writes in its own strings.
+	type bag_wtp_result_answer = hbox {
+		layoutpolicy_horizontal = expanding
+		spacing = 0
+		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+
+		text_single = {
+			size = { 70 30 }
+			autoresize = no
+			maximumsize = { 70 30 }
+			align = right|vcenter
+			text = "bag_wtp_result_bonus_value"
+			tooltip = "bag_wtp_result_bonus_tt"
+		}
+
+		widget = { size = { 10 30 } }
+
+		text_single = {
+			size = { -1 30 }
+			layoutpolicy_horizontal = expanding
+			autoresize = no
+			align = left|vcenter
+			elide = right
+			text = "bag_wtp_result_method_value"
+			tooltip = "bag_wtp_result_method_tt"
+		}
+
+		hbox = {
+			spacing = 4
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				autoresize = yes
+				fontsize = 13
+				text = "bag_wtp_result_goods_count"
+			}
+
+			hbox = {
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+				item = {
+					bag_wtp_result_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { size = { 12 30 } }
+	}
+
+	type bag_wtp_result_answer_rural = hbox {
+		layoutpolicy_horizontal = expanding
+		spacing = 0
+		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+
+		text_single = {
+			size = { 70 30 }
+			autoresize = no
+			maximumsize = { 70 30 }
+			align = right|vcenter
+			text = "bag_wtp_result_bonus_value_rural"
+			tooltip = "bag_wtp_result_bonus_tt"
+		}
+
+		widget = { size = { 10 30 } }
+
+		text_single = {
+			size = { -1 30 }
+			layoutpolicy_horizontal = expanding
+			autoresize = no
+			align = left|vcenter
+			elide = right
+			text = "bag_wtp_result_method_value_rural"
+			tooltip = "bag_wtp_result_method_tt"
+		}
+
+		hbox = {
+			spacing = 4
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				autoresize = yes
+				fontsize = 13
+				text = "bag_wtp_result_goods_count_rural"
+			}
+
+			hbox = {
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
+				item = {
+					bag_wtp_result_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { size = { 12 30 } }
+	}
+
+	# One province: what would be built there, in one line or two, and its
+	# locations under it once expanded.
+	#
+	# The scope is the location the ranking picked, because that is what carries
+	# the winning methods and the goods; the province is one promote away.
+	#
+	# The row is a province *definition*: the whole province as the map draws it,
+	# not the piece of it one country owns.
+	#
+	# Expansion is a variable on the row's own location, which is unique per row.
 	type bag_wtp_result_province_entry = vbox {
 		layoutpolicy_horizontal = expanding
 		layoutpolicy_vertical = preferred
@@ -195,11 +316,12 @@ types BagWtpResultTypes {
 
 		widget = {
 			layoutpolicy_horizontal = expanding
-			size = { -1 36 }
+			layoutpolicy_vertical = preferred
 			using = bg_paper_card
 
 			hbox = {
 				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = preferred
 				spacing = 0
 
 				widget = {
@@ -242,76 +364,18 @@ types BagWtpResultTypes {
 					text = "[Location.GetArea.GetNameWithNoTooltip]"
 				}
 
-				# The bonus this province gives the winning method, read straight off
-				# the location the ranking kept.
-				text_single = {
-					size = { 70 36 }
-					autoresize = no
-					maximumsize = { 70 36 }
-					align = right|vcenter
-					# In localization rather than here: a value mixing a data function
-					# with literal text is what a localization key is, and that form is
-					# on screen in this mod already.
-					text = "bag_wtp_result_bonus_value"
-					tooltip = "bag_wtp_result_bonus_tt"
-				}
-
-				widget = { size = { 10 36 } }
-
-				# The building and, after the colon, which of its methods won. That
-				# is the question the fifth run could not answer from the table: a
-				# building with three methods showed only its name.
-				text_single = {
-					size = { -1 36 }
+				# The two answers, one under the other. The built-up one first: it
+				# is what the ranking sorted on, and a village produces a fifth of
+				# what a workshop does.
+				vbox = {
 					layoutpolicy_horizontal = expanding
-					autoresize = no
-					align = left|vcenter
-					elide = right
-					text = "bag_wtp_result_method_value"
-					tooltip = "bag_wtp_result_method_tt"
+					layoutpolicy_vertical = preferred
+					spacing = 1
+					ignoreinvisible = yes
+
+					bag_wtp_result_answer = {}
+					bag_wtp_result_answer_rural = {}
 				}
-
-				# What the bonus is made of: how many of the method's raw materials
-				# this province supplies out of how many it could, then one icon
-				# each. The count is not decoration -- it is why a number sits
-				# below its method's ceiling, and it says in plain text what the
-				# icons say in pictures, which is what tells the two apart when one
-				# of them fails to draw.
-				widget = {
-					size = { 190 36 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_result_goods_tt"
-
-					# Placed, not laid out. In an hbox the count shifted right by a
-					# whole icon whenever a row had one raw material instead of two,
-					# because an hbox sizes itself to its children and everything
-					# after it moved.
-					text_single = {
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						position = { 0 0 }
-						size = { 40 36 }
-						autoresize = no
-						maximumsize = { 40 36 }
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_goods_count"
-					}
-
-					# No `size`: an hbox given more width than its children spreads them
-					# across it, which put a whole column between two icons. Left it
-					# to hug its content instead.
-					hbox = {
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						position = { 46 0 }
-						spacing = 2
-						datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-						item = { bag_wtp_result_goods_entry = { datacontext = "[Scope.GetGoods]" } }
-					}
-				}
-
-				widget = { size = { 12 36 } }
 			}
 		}
 
