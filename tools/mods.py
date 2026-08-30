@@ -855,7 +855,7 @@ GAME_FOLDER = "Paradox Interactive/Europa Universalis V/mod"
 
 
 def documents_dir() -> list[Path]:
-    """Every plausible Documents folder, the registry's answer first.
+    r"""Every plausible Documents folder, the registry's answer first.
 
     Windows lets Documents be moved, and OneDrive moves it without asking, so
     the literal `%USERPROFILE%\Documents` is a guess rather than an answer.
