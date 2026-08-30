@@ -4,27 +4,50 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `glorpui_hints` — one load, then the workshop
+## The job: `mods.bat`, and one run to confirm it
 
-The mod is finished as software and unfinished as a *published* one. Its brief
-is [`../mods/glorpui_hints/CLAUDE.md`](../mods/glorpui_hints/CLAUDE.md).
+**`glorpui_hints` is finished and confirmed** — the splice passed in game on
+2026-08-30 (`TESTLOG.md`). It only passed because the owner installed the build
+by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
+-old copy, and workshop mods were never refreshed either.
 
-**Deploy first. The 2026-08-30 run tested the 2026-08-25 build** — the folder
-`Documents/.../mod/glorpui_hints/` had never been refreshed, and `gui.log` proved
-it (`TESTLOG.md`). So the ask is `mods.bat → 4` **and then** the load, and the
-next logs get `python3 tools/which_build.py <logs folder>` before anything else
-is read into them.
+**Both halves are repaired, and neither has been run on his machine.** That is
+the whole of the next job: one pass through the menu, and read what it says.
 
-**The load itself is one thing.** Glorp UI's 2026-08-28 build has a «показать
-недоступные» switch that shows vanilla's own hint blob. This mod was dropping
-that blob entry, so the switch emptied half the tooltip; their block is spliced
-in byte for byte now, and none of it has been in game. **Turn their switch on.**
-Expected: vanilla's blob and this mod's own lists both present, Glorp UI's
-per-axis lists gone — that last part is their design, not a fault. What he saw
-on 2026-08-30 with the switch on — the whole «Дальше продвинуться» block gone —
-is precisely the old bug, so it is the symptom to watch disappear.
+**Пункт 1, the workshop.** The bug was that a failed steamcmd run looked exactly
+like a successful one. It asked only whether the item's folder existed in
+steamcmd's own directory — and it existed from the previous attempt, so an
+unfinished login still copied last week's files over the workshop folder. Now
+the folder is fingerprinted before and after the run (does it exist, newest file
+mtime, the manifest steamcmd recorded), steamcmd's exit code is read instead of
+thrown away, the cached copy is offered for deletion first, and **only a mod
+whose copy actually changed is copied onward.** Anything else is named on
+screen: «не скачался вовсе» or «steamcmd оставил то, что уже лежало».
 
-**Riding along on the same load, none of it needing a protocol:**
+**Пункт 4, our own mods.** The copy loop turned out to be sound — 42 files,
+`.metadata` + the mount folders, digest-identical afterwards. What was missing
+was any check that it landed: now the install is **read back off disk** and a
+mismatch says so in capitals with the path, the `git pull` reports the commit it
+moved to, and the screen names the branch and commit that were installed. A
+`game_mods` path set once with a typo is no longer created on the next run —
+that is the one way this could have silently installed into a folder the game
+never reads, and it now refuses instead.
+
+**And `mods.bat check` now answers it without the menu**, printing each of our
+mods against the game's folder — «совпадает» / «отличается» / «нет в игре» — and
+the repository's branch and commit. That is the line to paste into a chat before
+anybody theorises about a mod again.
+
+**What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
+the output of all three. If a mod still reads «отличается» after installing, the
+message names the folder and that is the next thing to look at. The logs from
+whatever run follows go through `python3 tools/which_build.py <logs folder>`
+first, as always now.
+
+## Then `glorpui_hints` goes out
+
+Nothing about the mod is outstanding. Riding along on whatever load comes next,
+none of it needing a protocol:
 
 - the five advance-gated privileges. Playing anyone but England, Morocco or the
   Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be offered,

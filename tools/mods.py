@@ -550,6 +550,27 @@ def steam_login(configured: dict) -> str | None:
     return login
 
 
+def steamcmd_state(downloaded: Path, ids: list[str]) -> dict[str, tuple[bool, int, str]]:
+    """What steamcmd's own download folder holds right now, per workshop id.
+
+    `(folder exists, newest file mtime, manifest steamcmd recorded)`. Taken
+    before and after a run, this is what separates "steamcmd fetched a new
+    build" from "steamcmd exited and left last week's copy exactly where it
+    was" — which look identical if all you ask is whether the folder is there.
+    """
+    known = installed_versions(downloaded) if downloaded.is_dir() else {}
+    state: dict[str, tuple[bool, int, str]] = {}
+    for item in ids:
+        folder = downloaded / item
+        if not folder.is_dir():
+            state[item] = (False, 0, "")
+            continue
+        newest = max((p.stat().st_mtime for p in folder.rglob("*") if p.is_file()),
+                     default=folder.stat().st_mtime)
+        state[item] = (True, int(newest), known.get(item, (0, ""))[1])
+    return state
+
+
 def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[Mod]:
     """Fetch these mods with steamcmd and put them where the game looks."""
     binary = steamcmd_path(configured)
@@ -560,6 +581,22 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
         say("без логина скачать нечего — Steam не отдаёт моды этой игры анонимно.")
         return []
 
+    downloaded = Path(binary).resolve().parent / "steamapps/workshop/content" / APP_ID
+
+    # steamcmd is happy to exit successfully having reused what it fetched last
+    # time, and this tool used to read "the folder is there" as "the download
+    # worked" — so a login that never completed still copied last week's files
+    # over the workshop folder, and the game went on loading the old version.
+    # Two things stop that: the cached copy goes first, and what came back is
+    # judged by what changed on disk rather than by what exists on it.
+    before = steamcmd_state(downloaded, [m.id for m in chosen])
+    cached = [m for m in chosen if before[m.id][0]]
+    if cached and yes("У steamcmd уже лежат %d из них. Стереть, чтобы он точно "
+                      "скачал заново?" % len(cached)):
+        for mod in cached:
+            shutil.rmtree(downloaded / mod.id, ignore_errors=True)
+        before = steamcmd_state(downloaded, [m.id for m in chosen])
+
     command = [binary, "+login", login]
     for mod in chosen:
         command += ["+workshop_download_item", APP_ID, mod.id]
@@ -569,24 +606,50 @@ def download(configured: dict, chosen: list[Mod], content: Path | None) -> list[
     say("steamcmd: качаю %d мод(ов) под аккаунтом %s" % (len(chosen), login))
     say("(если он спросит код Steam Guard — введи его прямо здесь)")
     say()
-    subprocess.run(command)
+    # Not captured on purpose: steamcmd asks for the Guard code on the console,
+    # and a captured run would hang with the prompt invisible. The exit code is
+    # read, which the old version threw away.
+    code = subprocess.run(command).returncode
 
-    downloaded = Path(binary).resolve().parent / "steamapps/workshop/content" / APP_ID
-    got = [mod for mod in chosen if (downloaded / mod.id).is_dir()]
-    # What steamcmd actually came back with, out of its own record — the honest
-    # answer to "did the download work", rather than assuming it fetched what
-    # the workshop currently serves.
+    after = steamcmd_state(downloaded, [m.id for m in chosen])
     fetched = installed_versions(downloaded) if downloaded.is_dir() else {}
-    if not got:
+
+    got: list[Mod] = []
+    unchanged: list[Mod] = []
+    missing: list[Mod] = []
+    for mod in chosen:
+        was, was_when, was_manifest = before[mod.id]
+        now, now_when, now_manifest = after[mod.id]
+        if not now:
+            missing.append(mod)
+        elif not was or now_when != was_when or now_manifest != was_manifest:
+            got.append(mod)
+        elif mod.published_manifest and now_manifest == mod.published_manifest:
+            # Untouched, but it is already the build the workshop serves.
+            got.append(mod)
+        else:
+            unchanged.append(mod)
+
+    say()
+    if code != 0:
+        say("steamcmd вышел с кодом %d — то есть с ошибкой." % code)
+    for mod in missing:
+        say("  %-46s не скачался вовсе" % mod.name[:46])
+    for mod in unchanged:
+        say("  %-46s steamcmd оставил то, что уже лежало" % mod.name[:46])
+    if missing or unchanged:
         say()
-        say("steamcmd ничего не положил в %s" % downloaded)
-        say("Смотри его вывод выше: чаще всего это незавершённый вход.")
+        say("Смотри вывод steamcmd выше. Чаще всего это незавершённый вход:")
+        say("логин без пароля, отменённый код Steam Guard, или аккаунт, на")
+        say("котором игра не куплена. Ничего из этого не копируется дальше.")
+    if not got:
         return []
 
     if content is None:
         say("папка мастерской Steam не найдена, копировать некуда.")
         return got
     say()
+    say("Скачалось: %d" % len(got))
     say("Куда: %s" % content)
     say("Это та папка, из которой игра читает моды мастерской — не копия репозитория.")
     if not yes("Скопировать туда %d, чтобы игра увидела новые версии?" % len(got)):
@@ -815,9 +878,11 @@ def game_mods_dir(configured: dict, make: bool = False) -> Path | None:
     """`Documents/Paradox Interactive/Europa Universalis V/mod`, or None."""
     given = configured.get("game_mods")
     if given:
+        # Deliberately not created. A path set once with a typo in it would
+        # otherwise be made real on the next run, and every install after that
+        # would land in a folder the game never reads — reporting success each
+        # time. It has to already exist, or it is not the game's folder.
         target = Path(given).expanduser()
-        if make:
-            target.mkdir(parents=True, exist_ok=True)
         return target if target.is_dir() else None
 
     for documents in documents_dir():
@@ -830,6 +895,13 @@ def game_mods_dir(configured: dict, make: bool = False) -> Path | None:
             target.mkdir(parents=True, exist_ok=True)
             return target
     return None
+
+
+def here() -> str:
+    """The branch and commit this repository is on, for saying what was installed."""
+    branch = workshop.git("rev-parse", "--abbrev-ref", "HEAD", check=False).stdout.strip()
+    commit = workshop.git("rev-parse", "--short", "HEAD", check=False).stdout.strip()
+    return "%s %s" % (branch or "?", commit or "?")
 
 
 def our_mods() -> list[refs.Mod]:
@@ -917,12 +989,20 @@ def screen_install(configured: dict) -> None:
 
     say()
     say("Папка модов игры: %s" % target)
+    say("Репозиторий: %s" % here())
     if yes("Сначала подтянуть свежее из GitHub (git pull)?"):
+        was = workshop.git("rev-parse", "HEAD", check=False).stdout.strip()
         with Doing("git pull") as step:
             done = workshop.git("pull", check=False)
             step.finish("готово" if done.returncode == 0 else "не вышло")
         if done.returncode != 0:
             say((done.stdout + done.stderr).strip())
+            say()
+            say("Дальше ставится то, что лежит здесь сейчас — то есть старое.")
+        else:
+            now = workshop.git("rev-parse", "HEAD", check=False).stdout.strip()
+            say("  %s" % ("подтянулось до %s" % here() if now != was
+                          else "и так последнее — %s" % here()))
 
     mods = our_mods()
     say()
@@ -951,6 +1031,7 @@ def screen_install(configured: dict) -> None:
         return
 
     say()
+    trouble = False
     for mod in chosen:
         if remove:
             there = target / mod.path.name
@@ -966,9 +1047,24 @@ def screen_install(configured: dict) -> None:
             step.finish("%d файлов, %s" % (files, workshop.human(size)))
         if unknown:
             say("     не знаю, что это, и потому не копировал: %s" % ", ".join(unknown))
+        # Read back rather than trust the loop above. Everything that has gone
+        # wrong here was silent — a folder the game does not read, a copy that
+        # half happened — and this is the one line that would have caught it.
+        state = installed_state(mod, target)
+        if state != "совпадает":
+            trouble = True
+            say("     ПРОВЕРКА НЕ ПРОШЛА: в игре «%s», а не «совпадает»." % state)
+            say("     Смотри сам: %s" % (target / mod.path.name))
 
     say()
+    if trouble:
+        say("Что-то не доехало. Пока это не сойдётся, игра грузит старую версию,")
+        say("и по ней ничего проверять нельзя. Логи потом читай через")
+        say("  python3 tools/which_build.py <папка с логами>")
+        say("— он скажет, какую сборку игра взяла на самом деле.")
+        return
     if not remove:
+        say("Поставлено из %s." % here())
         say("Готово. В игру уехало только то, что она читает — .metadata и папки")
         say("монтирования; генераторы, переводы-исходники и README остались здесь.")
         say("Если мод ставится впервые, включи его в лаунчере один раз; дальше")
@@ -1310,7 +1406,27 @@ def main(argv: list[str]) -> int:
 
     if parsed.command == "check":
         world = gather(configured)
-        return 1 if show_updates(world) else 0
+        behind = show_updates(world)
+        # The half nothing used to report without the menu. Twice a run has been
+        # read as a mod fault when the game was simply loading an older copy, so
+        # this is the line to paste into a chat before anybody theorises.
+        say()
+        target = game_mods_dir(configured)
+        if target is None:
+            say("Папка модов игры не найдена — наши моды в игру не поставлены.")
+            return 1
+        say("Наши моды в игре (%s), против репозитория на %s:" % (target, here()))
+        wrong = []
+        for mod in our_mods():
+            state = installed_state(mod, target)
+            say("  %-22s %s" % (mod.path.name, state))
+            if state != "совпадает":
+                wrong.append(mod.path.name)
+        if wrong:
+            say()
+            say("Игра грузит не то, что лежит здесь. Пока это так, проверять по")
+            say("ней нечего: mods.bat → 4 ставит заново.")
+        return 1 if (behind or wrong) else 0
 
     try:
         return menu(configured)

@@ -16,17 +16,15 @@ opener. Settled 2026-08-30: **Russian stays here, the other ten go back to
 them** — `SHIP_GLORP_HINTS` in `tools/generate.py` is `["russian"]`; he prefers
 this mod's Russian and does not mind about the rest.
 
-**Still unrun: the 2026-08-30 run loaded the 2026-08-25 build** out of
-`Documents/.../mod/glorpui_hints/`, which `gui.log` gives away by template line
-number. **Fingerprint every logs drop before reading it:**
-`python3 tools/which_build.py <logs folder>`.
+**The splice is confirmed in game, 2026-08-30.** With Glorp UI's «показать
+недоступные» on, vanilla's blob and this mod's lists both appear and Glorp UI's
+per-axis lists are hidden, which is their design. A few rows show in both blocks
+and that is left alone on purpose: de-duplicating would mean parsing their blob,
+which is what broke this the first time.
 
-The test is unchanged. Their «показать недоступные» switch shows vanilla's own
-hint blob; this mod was dropping that entry, so the switch emptied half the
-tooltip — exactly what the 2026-08-30 screenshots still show. Their block is
-spliced in byte for byte now. **Turn their switch on**: vanilla's blob and this
-mod's lists both present, Glorp UI's per-axis lists gone — their design, not a
-fault.
+**Read a logs drop with `python3 tools/which_build.py <logs folder>` first.**
+The run before this one loaded a five-day-old build and looked like a mod fault.
+`mods.bat` did not install this build either — the owner copied it by hand.
 
 **What is only here, and stays here:** the 264 extra lines; the availability
 gates (252 lines gated by a country trigger, 175 gated objects); `SVX_REACHABLE`;
