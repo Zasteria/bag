@@ -196,6 +196,12 @@ whatever order the copy felt like, and a `datamodel` draws its rows in the order
 its list holds them. Every hop is `ordered_*`, or the rank goes onto the item as
 a variable and the last hop sorts on that.
 
+**And nothing sorts on a fraction.** Every `order_by` in the game and in every
+mod in `reference/` ranks on numbers in the thousands — `military_strength`,
+`country_tax_base`, `population`, `pop_size`, or a score assembled out of
+`add = 12000`. A `where_to_produce` ranking whose values ran 0.3000 to 0.3129
+came back in the list's own order, sorted by nothing. Scale before ranking.
+
 **A generic action's `effect` is not in the actor's scope.** Every one of the
 game's five and every one of Advanced Auto Build's forty enters a named scope
 first — `scope:actor` for the country, `scope:<target_flag>` for what was

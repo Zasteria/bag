@@ -56,6 +56,14 @@ MOD_ID = "bag_wtp"
 LIST_CAP = 50
 RESULT_ROWS = 50
 
+# What `bag_wtp_m<n>` is multiplied by before anything ranks on it. A method's
+# output is a fraction of a unit and the differences between two provinces are
+# in its third decimal; nothing in the game or in `reference/` sorts on numbers
+# that small. At 1000 the largest method in the game comes to about 4950, which
+# is small enough to be nowhere near any fixed-point ceiling, and the smallest
+# difference the bonus can make is still worth about half a unit.
+RANK_SCALE = 1000
+
 # Raw materials a single method can want. The widest recipe in the game takes
 # five.
 MAX_INPUTS = 5
@@ -437,6 +445,11 @@ def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
 # standing for the instant between the click and the callback; the tick that is
 # not the stored answer wins and everything else is forced off, so the tick
 # visibly moves to one row and stays there.
+#
+# The `root`s below are safe and are the only ones left in this mod: everything
+# here is reached from a CMM callback, where `root` is the country. Nothing on
+# this page is reachable from a generic action, which is where `root` is not --
+# see the header of `{MOD_ID}_generated_score.txt`.
 """]
 
     order = [(kind, good) for kind in ("raw", "made") for good in split[kind]]
@@ -583,6 +596,16 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # `{MOD_ID}_m<n>` ranks -- effective output. `{MOD_ID}_b<n>` is the bonus the row
 # prints. Nothing reads `_b` until a method has won a row, so it costs nothing
 # per candidate.
+#
+# **`_m` is the output times {RANK_SCALE}, and that is what makes it sortable.** In its own
+# units a scriptorium runs from 0.3000 to 0.3129 across the whole of Europe, and
+# ranking on that came back in map order: every `order_by` in the game and in
+# every mod in `reference/` sorts on numbers in the thousands -- vanilla on
+# `military_strength` and `country_tax_base`, Advanced Auto Build on a score
+# built out of `add = 12000` -- and none on a fraction. Scaled, the same
+# scriptorium runs 300.00 to 312.88 and the provinces separate. Nothing prints
+# `_m`: the row's `×` is the method's own output, written out unscaled by
+# `{MOD_ID}_store_winner`.
 """.format(max=eu5data.RGO_MAX_BONUS)]
     for index, method in enumerate(rows, start=1):
         total = method.total_input
@@ -590,12 +613,13 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
                    f"output {method.output:g}, ceiling {ceiling:.2f}% "
                    f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
-        out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n\tvalue = {method.output:.4f}\n")
+        out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n"
+                   f"\tvalue = {method.output * RANK_SCALE:.4f}\n")
         for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
             share = eu5data.RGO_MAX_BONUS * amount / total
             out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
-\t\tadd = {method.output * share / 100:.6f}
+\t\tadd = {method.output * RANK_SCALE * share / 100:.4f}
 \t}}
 """)
         out.append("}\n")
@@ -666,8 +690,16 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
              if method.building_category in RURAL_CATEGORIES}
 
     out = [HEADER, f"""#
+# **The country is saved, not reached for.** Every method's availability is a
+# country trigger asked from inside a walk over locations, and it used to get
+# there with `root`. From a Mod Menu button `root` is the country; from a map
+# picker's generic action it is not, so the eleventh run's pass walked its
+# 44 locations, found no method available in any of them -- «нашёл 0» -- and the
+# window emptied itself the moment a border was drawn.
+#
 # Scope: country
 {MOD_ID}_score_candidates = {{
+\tsave_scope_as = {MOD_ID}_country
 """]
     for index, good in enumerate(order, start=1):
         keyword = "if" if index == 1 else "else_if"
@@ -691,7 +723,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{
 \t\t\t\tOR = {{
 \t\t\t\t\thas_global_variable = {MOD_ID}_any_method
-\t\t\t\t\troot = {{ {MOD_ID}_avail_{method_index} = yes }}
+\t\t\t\t\tscope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }}
 \t\t\t\t}}
 \t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}

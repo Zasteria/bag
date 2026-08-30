@@ -14,6 +14,13 @@ bag_wtp_compute = {
 	}
 	else = {
 		bag_wtp_collect_candidates = yes
+		# The province count beside the buttons, rebuilt here rather than only
+		# where a pick happens: it went stale between the eleventh run's second
+		# and third screenshots -- «44 лок. в 6 пров.» became «44 лок. в 0 пров.»
+		# with the selection untouched -- and a count that disagrees with the map
+		# is a bug report about the selection every time. It walks the picked
+		# locations, which this pass has walked already.
+		bag_wtp_rebuild_browse = yes
 		bag_wtp_score_candidates = yes
 		bag_wtp_clear_rows = yes
 		bag_wtp_fill_rows = yes

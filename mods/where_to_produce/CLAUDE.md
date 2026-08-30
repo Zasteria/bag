@@ -4,37 +4,38 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: eleven loads in, and the eleventh found the window ignoring the
-borders.** Picking areas inside the ticked region moved the count and nothing
-else, and the rows arrived in map order rather than in rank order. Both are
-fixed and neither is confirmed: **the twelfth run is what says so.**
+**State: twelve loads in.** The twelfth confirmed the map pickers now reach the
+pass and killed two more faults it exposed. Nothing since is confirmed: **the
+thirteenth run is what says so.**
 
-## What the twelfth run has to answer
+## What the twelfth run cost, and what the thirteenth has to answer
 
-Both of the eleventh's failures were the silent kind, and both are fixed blind
-— write-ups in `docs/TESTLOG.md` and `docs/PITFALLS.md`:
+The eleventh's scope fix worked — a pick re-ranks — and immediately showed two
+things behind it, both fixed blind:
 
-- **a generic action's `effect` is not in the country's scope**, so the pickers'
-  `bag_wtp_recompute_live` did nothing while the scope-agnostic count beside it
-  went on moving. Wrapped in `scope:actor` — **the one guess in this build**, and
-  `error.log` names it if it is wrong for an `owncountry` action.
-- **`every_in_global_list` undid the ranking** on the way into the window's
-  datamodel. That copy is `ordered_in_global_list` on `bag_wtp_rank_order` now.
+- **`root` was still assumed to be the country in 218 places.** The rule reached
+  the row pass and not the scoring pass beside it, so a pick reached the pass and
+  the pass found no method available anywhere: «обошёл 44 · нашёл 0», and a table
+  that emptied on every pick. The country is `save_scope_as` at the top of
+  `bag_wtp_score_candidates` now, and no `root` is left outside
+  `bag_wtp_generated_picker.txt`, which only CMM callbacks reach.
+- **`order_by` will not sort a fraction.** A scriptorium scores 0.3000 to 0.3129
+  across Europe and the rows came back in map order. `bag_wtp_m<n>` is the
+  output × `RANK_SCALE` (1000) now — 300.00 to 312.88 — and nothing prints it:
+  the row's `×` is the method's own output, written out unscaled.
 
-Two things in the window exist to be read rather than used. The **«№» column**:
-out of order down the window = the copy; in order with the bonus jumping about =
-`order_by` in `bag_wtp_fill_rows`. And **«обошёл · нашёл · пересчётов»** in the
-header: the third not moving on a pick = the scope again, moving while the rows
-do not = the datamodel.
+So the thirteenth wants the best bonus at «№» 1 and falling down the window,
+«нашёл» staying non-zero after a pick, and the counts agreeing with what was
+clicked. If the order is still wrong, the «№» tooltip carries the number the
+sort saw: two numbers in the right order under two rows in the wrong one means
+`order_by` is not the tool for this at all.
 
-Never judged, twice deferred: the two-line rows, villages not at the top of a
-weapons search, the goods icons beside their count, and the age filter.
+Never judged, three times deferred: the two-line rows, villages not at the top
+of a weapons search, the goods icons beside their count, and the age filter.
 
 **Two things are settled and not to be attempted again.** Clicking the map with
-a window open is impossible — the game's panels are view objects and no
-on_action carries a map click (`docs/research/interface.md`). And a geography
-tree of our own came up empty twice and is deleted: the game's target panel is
-how ground gets chosen here.
+a window open is impossible (`docs/research/interface.md`), and a geography tree
+of our own came up empty twice and is deleted.
 
 Only the goods and ground lists are still CMM's; the caps that shape them are in
 `docs/research/cmf.md`.
@@ -60,20 +61,17 @@ Only the goods and ground lists are still CMM's; the caps that shape them are in
 
 | on the winning location | is |
 | --- | --- |
-| `bag_wtp_best` | the effective output, `out * (1 + bonus/100)`, which is what the ranking sorts on |
-| `bag_wtp_rank` | the place it came in, 1 first — what the «№» column prints and what the copy into the window sorts on |
-| `bag_wtp_bt` | the building that won |
-| `bag_wtp_pm` | the method that won |
-| `bag_wtp_out` | what it produces a level, which is what `_best` is made of |
-| `bag_wtp_bonus` | the RGO bonus, which is what the row prints |
+| `bag_wtp_best` | `out * (1 + bonus/100) * RANK_SCALE` — what the ranking sorts on, never printed |
+| `bag_wtp_rank` | the place it came in, 1 first — the «№» column, and what the copy sorts on |
+| `bag_wtp_bt` / `_pm` | the building and the method that won |
+| `bag_wtp_out` | what it produces a level, unscaled — the row's `×` |
+| `bag_wtp_bonus` | the RGO bonus, which is the row's percentage |
 | `bag_wtp_goods` / `_all` | the raw materials the province supplies, and how many it could |
 
-Each of those has a `_rural` twin: villages are scored on their own side, and a
-row shows both answers.
-
-Each row reads those off its own scope: no globals per row, and no fifty-row
-ceiling but `RESULT_ROWS` in the generator. Not built: sorting or filtering
-inside the window, and any measure of a building's cost or its slot.
+Each has a `_rural` twin — villages are scored on their own side and a row shows
+both answers — and each row reads them off its own scope: no globals per row,
+and no ceiling but `RESULT_ROWS`. Not built: sorting or filtering inside the
+window, and any measure of a building's cost or its slot.
 
 **Built by** `python3 mods/where_to_produce/tools/generate.py`, from
 `tools/refresh.py`.

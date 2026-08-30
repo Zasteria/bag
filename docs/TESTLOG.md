@@ -31,6 +31,43 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, twelfth load. The pick reaches the pass now,
+and the two numbers put on the window for exactly this said which half of each
+remaining fault was lying.** Three screenshots, no logs. `books`, region
+Карпаты, Wallachia picked as one area.
+
+- **«Обошёл 44 · нашёл 0», and the window emptied on every pick.** The scope fix
+  landed — «пересчётов» went 4 → 11 and the walk found the right 44 locations —
+  but the pass found no method in any of them. `bag_wtp_score_N` asks each
+  method's advance with `root = { bag_wtp_avail_N = yes }`, and `root` inside a
+  generic action is not the country any more than the bare scope is. **The rule
+  had been applied to half the mod**: `root` was taken out of the row pass in
+  the eleventh build and left in all 218 places in the scoring pass. The country
+  is `save_scope_as` at the top of `bag_wtp_score_candidates` now and every one
+  of them reads `scope:bag_wtp_country`. Pressing «Считать» found the same 44
+  locations and 6 provinces, which is what proves the scope and nothing else was
+  the difference.
+- **The ranking was never sorting, and it is a matter of magnitude.** The «№»
+  column came out 1, 2, 3 down the window — so the copy was fine — while the
+  bonus went 0.00, 2.85, 2.85, 2.85, 0.00, 4.29, and the rows sat in
+  alphabetical order of the province *key* (east_muntenia, north_muntenia,
+  north_oltenia, south_muntenia, south_oltenia, west_muntenia). That is the
+  unordered walk, so `order_by` was doing nothing. The scriptorium is the only
+  book method this age unlocks, and in its own units it scores 0.3000 to 0.3129
+  across the whole of Europe. **Nothing in the game or in any mod in
+  `reference/` sorts on a fraction** — vanilla ranks on `military_strength` and
+  `country_tax_base`, Advanced Auto Build on a score built out of `add = 12000`.
+  `bag_wtp_m<n>` is the output times 1000 now: the same scriptorium runs 300.00
+  to 312.88 and the provinces separate. Nothing prints it.
+- **The «№» column and «обошёл · нашёл · пересчётов» did their job.** Both faults
+  were invisible without them and both were named by them in one run rather than
+  two: «пересчётов» rising with «нашёл 0» is the scope, and ranks in order with
+  a scrambled bonus is `order_by`.
+- **«44 лок. в 6 пров.» became «44 лок. в 0 пров.»** across a window close and a
+  «Считать», with the selection untouched. `bag_wtp_rebuild_browse` only ran
+  where a pick happened; it runs in the pass now. Not diagnosed further — the
+  browse list has had no other reader since the selection window was deleted.
+
 **2026-08-30 — `where_to_produce`, eleventh load. The window picked the ground
 up and then ignored it, and the ranking arrived in map order.** One screenshot,
 no logs.
@@ -59,12 +96,9 @@ Carpathia's seven areas and none of the three picked, was still in it.
   2.85% and 0.00% alternating down a list where every row was the same building,
   the same method and the same output. The copy is `ordered_in_global_list` now,
   each row carries the rank the pass gave it, and the window prints that rank.
-- **Two numbers now say which half failed**, because both failures wrote
-  nothing anywhere. The window's header carries «обошёл N · нашёл M ·
-  пересчётов K»: K counts the times a pick got past `recompute_live`'s own
-  guard. A pick that does not move K never reached the country's scope; a K that
-  moves while the rows do not is the datamodel. And ranks that do not read
-  1, 2, 3 down the window are the copy rather than the ranking.
+- **Two numbers were added to say which half failed**, because both failures
+  wrote nothing anywhere: the «№» column and «обошёл · нашёл · пересчётов». The
+  twelfth run above is what they bought.
 - **Found while reading, never reported:** `bag_wtp_can_build_something` is
   asked in a location's scope and read `global_var:bag_wtp_good_index`, which
   nothing ever wrote — the index is a country variable. Every branch missed, a
@@ -72,28 +106,7 @@ Carpathia's seven areas and none of the three picked, was still in it.
   built today" filtered nothing whatever it was set to. The index is mirrored
   into a global now.
 
-**2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
-other, the tree was still empty, and the selection window was the wrong idea.**
-Two screenshots.
-
-- **The province rows overlapped.** The card holding a row is a `widget`, and a
-  widget does not size itself to its child: it was given
-  `layoutpolicy_vertical = preferred` and no height when the row grew a second
-  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
-- **The tree columns were still empty** after being written out, so the block
-  nesting was not the fault either. Whatever it is, it is not worth another
-  round trip: the whole selection window is deleted.
-- **And the owner said what to do instead**: «нахрена для этого всего вообще
-  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
-  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
-  каждого изменения границ.» So the three map-picker buttons, the running count
-  and «Очистить выбор» are in the results window, and **every pick re-ranks
-  while that window is open** — the answer follows the borders as they are
-  drawn.
-- The scoring, the two-line row and the goods icons from the ninth build could
-  not be judged under rows that overlapped; they come back for the eleventh.
-
-Everything before 2026-08-29, and `where_to_produce`'s first nine loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first ten loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -245,26 +258,23 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twelfth load — one game, five minutes, and the header
-line answers most of it without a log.** Same shape as the eleventh: a region
-ticked, «Считать», then «Выбрать область» two or three times inside it.
+**`where_to_produce`, thirteenth load — one game, five minutes.** Same shape as
+the twelfth: a region ticked, `books` or anything else, «Считать», then «Выбрать
+область» once or twice inside it.
 
-1. **The ranking reads.** The «№» column should run 1, 2, 3 down the window and
-   the bonus should fall as it does. Numbers out of order = the copy into the
-   datamodel; numbers in order with the bonus jumping about = `order_by` in
-   `bag_wtp_fill_rows`.
-2. **Every pick re-ranks.** «пересчётов» in the header goes up by one per pick,
-   and the areas not picked leave the table. If the count moves and the rows do
-   not, it is the datamodel and not the script.
-3. **The rows read** — one province each, two lines where both a built-up
-   building and a village were found, nothing overlapping. Untested since the
-   ninth load, twice now.
-4. **Villages are not at the top** of a weapons search, and the goods icons sit
-   beside their `1/2` count rather than a column away. Also twice untested.
-5. **The age filter**, never once reported.
-6. **`error.log`** — `scope:actor` is the one guess in this build. If it is the
-   wrong name for an `owncountry` action the log says so by name, and
-   «пересчётов» stays at zero.
+1. **The ranking reads.** Best bonus at «№» 1 and falling down the window. If it
+   still does not, hover two «№» cells: the tooltip carries the number the sort
+   saw, and two numbers in the right order under two rows in the wrong one means
+   `order_by` is not the tool this engine gives for it.
+2. **A pick re-ranks and the table survives it.** «пересчётов» goes up by one,
+   «нашёл» stays non-zero, and only the picked areas are left in the table.
+3. **The counts agree**: «Выбрано» matches what was clicked, before and after a
+   «Считать».
+4. **The rows read** — one province each, two lines where both a built-up
+   building and a village were found, nothing overlapping. Never yet judged.
+5. **Villages are not at the top** of a weapons search, and the goods icons sit
+   beside their `1/2` count. Never yet judged.
+6. **The age filter**, never once reported.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

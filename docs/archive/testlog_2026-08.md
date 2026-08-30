@@ -926,3 +926,24 @@ ranking was ranking the wrong thing.** Three screenshots.
 - **The owner uses the region lists and nothing else** to frame a search:
   Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
   That answers what six runs of "the region lists are untested" was asking.
+
+### 2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
+other, the tree was still empty, and the selection window was the wrong idea.**
+Two screenshots.
+
+- **The province rows overlapped.** The card holding a row is a `widget`, and a
+  widget does not size itself to its child: it was given
+  `layoutpolicy_vertical = preferred` and no height when the row grew a second
+  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
+- **The tree columns were still empty** after being written out, so the block
+  nesting was not the fault either. Whatever it is, it is not worth another
+  round trip: the whole selection window is deleted.
+- **And the owner said what to do instead**: «нахрена для этого всего вообще
+  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
+  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
+  каждого изменения границ.» So the three map-picker buttons, the running count
+  and «Очистить выбор» are in the results window, and **every pick re-ranks
+  while that window is open** — the answer follows the borders as they are
+  drawn.
+- The scoring, the two-line row and the goods icons from the ninth build could
+  not be judged under rows that overlapped; they come back for the eleventh.

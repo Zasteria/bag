@@ -9,6 +9,11 @@
 # standing for the instant between the click and the callback; the tick that is
 # not the stored answer wins and everything else is forced off, so the tick
 # visibly moves to one row and stays there.
+#
+# The `root`s below are safe and are the only ones left in this mod: everything
+# here is reached from a CMM callback, where `root` is the country. Nothing on
+# this page is reachable from a generic action, which is where `root` is not --
+# see the header of `{MOD_ID}_generated_score.txt`.
 
 # Scope: country
 bag_wtp_register_good_raw_list = {
