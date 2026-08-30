@@ -31,6 +31,27 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, first load. The tab renders; no list on it
+does.** Screenshot: the Mod Menu tab "Где производить" shows the group "Здание и
+метод" with its three settings (the method dropdown, the tick, the button) and
+nothing else — no region groups, no result table. Diagnosed from the files, not
+guessed: `cmm_register_settings_list` declares `is_ordered` and the generated
+call omitted it, so all six region lists and the result list died at
+registration. Fixed; `tools/check_cmm.py` grew the missing-argument check that
+would have caught it.
+
+Two things the same screenshot settled without being asked:
+
+- **The method dropdown is unusable at 218 options**, and the label was the
+  reason. The control is about 165 pixels and elides the tail, so "good, icon,
+  building, method" showed the good — which repeats for twenty rows — and cut off
+  the method entirely. Relabelled to icon, building, method, and sorted by
+  building so one building's methods sit together. Better, and still not a
+  substitute for a real picker.
+- **Registration itself works.** The dropdown, the tick and the button all
+  rendered with their names and descriptions, so `cmf_on_mod_registration`, the
+  mod id, the tab and the group keys are all right.
+
 The three most recent. Everything before 2026-08-29 is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md) — same entries,
 moved rather than trimmed. Search both with `python3 tools/kb.py`.
@@ -180,24 +201,28 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, first load — one game, five minutes.** Written
-2026-08-30, never loaded. Enable it (it needs only CMF), open the Mod Menu,
+**`where_to_produce`, second load — one game, ten minutes.** The first load is
+above; everything below it is what that run could not reach. Enable it (it needs only CMF), open the Mod Menu,
 find "Где производить".
 
-1. **Do the region rows have names?** Under "Европа" there should be seventeen
-   rows reading "Северная Германия", "Франция" and so on. Raw keys instead, or
-   blank rows, means the label-from-a-flag mechanism is the fault.
-2. **Tick "Северная Германия"**, pick any method in the dropdown, press
-   "Считать".
-3. **Hover the button.** It prints three numbers: regions ticked, locations
-   considered, rows filled. Which one is the first zero is the whole diagnosis —
-   regions zero means the tick never reached script, locations zero means the
-   region walk did, rows zero means the ranking pass is the broken half.
-4. **Read the table.** Rows should read "<location> — <n.nn>% (m/k)". Numbers
-   without a name, or a name without numbers, separates the two halves of the
-   row label.
+1. **Are the six region groups there at all**, and do their rows read
+   "Северная Германия", "Франция"? Raw keys or blank rows would mean the
+   label-from-a-flag mechanism is the fault; groups missing entirely would mean
+   the registration is still dying.
+2. **Tick "Северная Германия"**, then press "Выбрать". A window should open
+   listing that region's provinces, each expandable into its locations. This is
+   the piece modelled on Advanced Auto Build and none of it has been loaded.
+3. **Open the Geography map modes and pick "Где производить".** Chosen locations
+   bright, the rest of the ticked regions dim. A mod-defined map mode is new
+   ground here — if the entry is absent, the file's shape is wrong rather than
+   its triggers.
+4. **Pick a method, press "Считать", read the table.** Rows should read
+   "<location> — <n.nn>% (m/k)". Hovering "Считать" prints regions ticked,
+   locations considered and rows filled; the first zero among them is the
+   diagnosis.
 5. **`error.log`** — seven of the seventy-seven region keys are unproven and
-   would complain here by name.
+   would complain here by name, and the window's widget types are copied from
+   another mod rather than verified.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

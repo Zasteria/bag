@@ -164,7 +164,10 @@ def methods(game: eu5data.Game) -> list[eu5data.Method]:
     would be offering a row that is always zero.
     """
     rows = [m for m in game.methods if m.raw_inputs(game.raw_goods)]
-    return sorted(rows, key=lambda m: (m.produced, m.building, m.key))
+    # By building, so a building's methods are adjacent and one scroll finds
+    # them. Sorting by the good put a building's methods far apart whenever it
+    # makes more than one thing, which is the case the picker is hardest for.
+    return sorted(rows, key=lambda m: (m.building, m.produced, m.key))
 
 
 # --------------------------------------------------------------------------
@@ -190,7 +193,12 @@ def zone_file(by_continent: dict[str, list[str]]) -> str:
         out.append(f"\n{MOD_ID}_register_{setting} = {{\n")
         out.append(f"\tcmm_register_settings_list = {{\n")
         out.append(f"\t\tmod_id = {MOD_ID}\n\t\tsetting_id = {setting}\n")
-        out.append(f"\t\ttab_id = plan\n\t\titem_count = {len(keys)}\n\t}}\n\n")
+        # `is_ordered` is not optional. CMF declares it, and a CMM macro called
+        # without an argument CMF declares dies silently and takes the rest of the
+        # effect with it -- which is how the first build registered no lists at
+        # all and put a tab on screen with only the dropdown on it.
+        out.append(f"\t\ttab_id = plan\n\t\titem_count = {len(keys)}\n"
+                   f"\t\tis_ordered = 0\n\t}}\n\n")
         for index, key in enumerate(keys, start=1):
             out.append(
                 f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
@@ -391,6 +399,8 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
     out.append(f"{MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_region_count }}\n")
     out.append(f"{MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}\n")
     out.append(f"{MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}\n")
+    out.append(f"{MOD_ID}_show_picked = {{ value = global_var:{MOD_ID}_picked_count }}\n")
+    out.append(f"{MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}\n")
     out.append(f"{MOD_ID}_show_ceiling = {{ value = global_var:{MOD_ID}_ceiling }}\n")
     return "".join(out)
 
@@ -412,6 +422,7 @@ def rows_file() -> str:
 \t\tsetting_id = result
 \t\ttab_id = plan
 \t\titem_count = {RESULT_ROWS}
+\t\tis_ordered = 0
 \t}}
 """]
     for row in range(1, RESULT_ROWS + 1):
@@ -523,7 +534,7 @@ def guis_file(by_continent: dict[str, list[str]]) -> str:
 \t\tcmm_apply_list_change = {{
 \t\t\tsetting = {MOD_ID}__zone_{slug}
 \t\t}}
-\t\t{MOD_ID}_rebuild_zone = yes
+\t\t{MOD_ID}_zone_changed = yes
 \t}}
 }}
 """)
@@ -558,10 +569,14 @@ def loc_file(language: str, rows: list[eu5data.Method], game: eu5data.Game) -> s
     out = [f"l_{language}:\n"]
 
     for index, method in enumerate(rows, start=1):
+        # The building first, then the method, and the good only as its icon.
+        # A CMM dropdown is about 165 pixels wide and elides the tail, so the
+        # first version -- good name, icon, building, method -- put the one field
+        # that repeats across twenty rows in front and cut off the only field
+        # that tells two rows apart. Whatever is most distinguishing has to lead.
         out.append(
             f" {MOD_ID}__method_option_{index}_name: "
-            f'"[ShowGoodsName(\'{method.produced}\')] @{method.produced}! '
-            f'${method.building}$ — ${method.key}$"\n'
+            f'"@{method.produced}! ${method.building}$ — ${method.key}$"\n'
         )
 
     out.append("\n")

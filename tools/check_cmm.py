@@ -82,10 +82,20 @@ def check(mod_common: Path, cmf_common: Path) -> list[str]:
             problems.append(f"unknown CMM effect: {name}")
             continue
         allowed = set(DECLARED_PLACEHOLDER.findall(block.group(1)))
-        extra = set(ARGUMENT.findall(body)) - allowed
+        supplied = set(ARGUMENT.findall(body))
+        extra = supplied - allowed
         if extra:
             problems.append("%s called with %s; CMF declares %s"
                             % (name, sorted(extra), sorted(allowed)))
+        # The mirror image, and it fails the same way. A macro has no defaults:
+        # an argument CMF declares and the call omits leaves `$name$` in the
+        # pasted text, and the whole effect dies from there on. `where_to_produce`
+        # lost every one of its lists to a missing `is_ordered` and showed a tab
+        # with the settings that came after it in the same effect simply absent.
+        missing = allowed - supplied
+        if missing:
+            problems.append("%s called without %s; CMF declares %s"
+                            % (name, sorted(missing), sorted(allowed)))
     return problems
 
 

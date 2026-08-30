@@ -17,6 +17,16 @@ searches like everything else:
 
 ## Script
 
+**A CMM macro called *without* an argument CMF declares fails exactly like one
+called with an argument it does not.** The known half of this rule was `step`
+where CMF wanted `step_value`; the other half cost `where_to_produce` a whole
+load. `cmm_register_settings_list` declares `is_ordered`, the call omitted it,
+`$is_ordered$` stayed in the pasted text, and every list registration died where
+it stood — taking the row labels and the field registration after it in the same
+effect. The symptom was a Mod Menu tab holding only the settings that happened to
+be registered by a *different* effect, with no error anywhere. `check_cmm.py`
+now reports both directions.
+
 **A CMM macro called with an argument CMF does not declare fails silently and
 takes the rest of its effect with it.** `step` where CMF declares `step_value`
 meant the setting never entered CMM's maps; syncing its alias then errored, and

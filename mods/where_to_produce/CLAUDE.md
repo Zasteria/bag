@@ -1,57 +1,65 @@
 # `where_to_produce` — brief
 
-A planning tool in the Mod Menu. Tick the regions you are planning inside, pick
-a building and the production method you mean to run it on, and get the
-locations inside those borders ranked by the production efficiency that method
-would gain from raw materials.
+A planning tool in the Mod Menu, plus a window and a map mode of its own. Choose
+the ground — regions, then provinces and locations inside them — pick a building
+and the production method you mean to run it on, and get those locations ranked
+by the RGO efficiency that method would gain.
 
-**State: written, never loaded once. Nothing here is confirmed in game.** This
-is the second attempt at the question; the first was
-[`../../docs/archive/where_to_produce.md`](../../docs/archive/where_to_produce.md),
-and it died because a whole feature was finished before its first load. Do not
-extend this before the run below has happened.
+**State: one load behind us, and it found a silent fault.** The first build put a
+tab on screen with only the dropdown on it: `cmm_register_settings_list` declares
+`is_ordered` and the call omitted it, so every list registration died where it
+stood and took the rest of its effect with it. Fixed, and
+`tools/check_cmm.py` now fails on a missing argument as well as an
+unknown one — it only ever checked the second direction. **Nothing since that
+load is confirmed.**
 
-**What the first run has to answer**, in the order the pass runs, and the button
-description on screen prints the first three as numbers:
+## What the next run has to answer
 
-1. Do the region rows carry names, or the raw keys? They are labelled by handing
-   CMM the game's own region key as a flag — documented, never done here.
-2. Does ticking a region reach script? "Отмечено регионов" above zero says yes.
-3. Does the walk find locations? "Рассмотрено локаций".
-4. Does the ranking fill rows? "Заполнено строк".
-5. Do the result rows read back a location name and two numbers out of global
-   variables? That is the one mechanism nothing in this repository has proved.
+The Mod Menu tab prints the counters the pass leaves behind; the button
+descriptions carry them.
 
-**Built by** `python3 mods/where_to_produce/tools/generate.py`, run from
-`tools/refresh.py` with everything else. It writes the 218-option method picker,
-the six region lists, the per-method weights, the bonus script value, the fifty
-result rows and both localizations, all from the game's own files.
+1. **Do the six region groups appear at all**, with named rows? That is what the
+   `is_ordered` fix was for.
+2. **"Выбрать локации"** — does the window open, and does it list the provinces
+   of the ticked regions?
+3. **Does the map mode exist?** Geography map modes, "Где производить". Bright is
+   chosen, dim is what you are choosing from.
+4. **Does the result table read back** a location name and two numbers out of
+   global variables? Still the one mechanism nothing here has proved.
+5. **`error.log`** — seven region keys are unproven, and the window's widget
+   types are copied from Advanced Auto Build rather than verified.
 
-## What is known to be unproven, beyond the run
+## What is known to be unproven
 
 - **Seven of the seventy-seven region keys** are named by the game's
-  localization but scoped into by nothing in `reference/`:
-  `central_africa_region`, `central_india_region`, `macaronesia_region`,
-  `micronesia_region`, `poland`, `polynesia_region`,
-  `southern_africa_islands_region`. `region:<key>` on a key the map does not
-  define fails at load, in `error.log`. The generator prints the list on every
-  rebuild.
-- **`can_build_building = global_var:bag_wtp_building`** — a global variable as
-  a trigger's target. Only reachable with the "только там, где уже можно
-  строить" tick on, so a failure there does not touch the default path.
-- **`ordered_in_global_list`** over a global variable list. The ordering itself
-  is not in doubt: the game's own script proves `order_by` sorts highest first
-  by writing `multiply = -1` where it wants the weakest.
+  localization but scoped into by nothing in `reference/`: `central_africa_region`,
+  `central_india_region`, `macaronesia_region`, `micronesia_region`, `poland`,
+  `polynesia_region`, `southern_africa_islands_region`. The generator prints them
+  on every rebuild.
+- **The whole window and the map mode.** Both are modelled on Advanced Auto
+  Build, which is the only working example of either shape in the tree. The map
+  mode's `index = 3` is copied from it and the two would collide if that mod were
+  ever enabled alongside.
+- **`can_build_building = global_var:bag_wtp_building`** — a global variable as a
+  trigger target, reachable only with the "только там, где уже можно строить"
+  tick on.
 
-## Two things that are settled and should not be re-litigated
+## Three things that are settled
 
-- **The fifty-row ceiling is CMM's, and only the result table pays it.** It is
-  an unrolled chain of `if`s ending at item 50, in two CMF files of about 3200
-  lines. Dropdowns have no cap at all — that is why the method picker is one
-  control with 218 options. Raising the table's ceiling means leaving CMM, not
-  editing a number: the owner knows and asked for the capped version first.
-- **The bonus is province-level.** The game credits a raw material worked
-  anywhere in the province, so every location of one province reads the same.
-  `rgo_bonus_filter` already matches that on screen.
+- **The window's cost is its datamodel, not its file.** 79 widgets per province
+  row, and a scripted widget never comes down — so `bag_wtp_browse` is filled
+  when the window opens and emptied when it closes. Leaving it full of a ticked
+  Europe is how this mod would become the thing
+  [`../../docs/investigations/panel_hitch.md`](../../docs/investigations/panel_hitch.md)
+  is about. The map's own tint reads `bag_wtp_in_zone` on the location instead,
+  so it survives the window closing.
+- **The selection is recorded twice and only `bag_wtp_pick` / `bag_wtp_drop` may
+  write it** — a variable on the location for the map and the interface, a global
+  list for the ranking walk. Anything writing one half desynchronises them.
+- **The bonus is province-level.** Every location of one province scores the
+  same; what separates them is building slots, which this version does not model.
+
+**Built by** `python3 mods/where_to_produce/tools/generate.py`, run from
+`tools/refresh.py`.
 
 Depth: [`README.md`](README.md). Anything else: `python3 tools/kb.py <words>`.

@@ -327,4 +327,6 @@ bag_wtp_show_wanted = { value = global_var:bag_wtp_wanted }
 bag_wtp_show_regions = { value = global_var:bag_wtp_region_count }
 bag_wtp_show_candidates = { value = global_var:bag_wtp_candidate_count }
 bag_wtp_show_found = { value = global_var:bag_wtp_found }
+bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
+bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
 bag_wtp_show_ceiling = { value = global_var:bag_wtp_ceiling }

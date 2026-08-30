@@ -14,7 +14,7 @@ bag_wtp__zone_africa_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_africa
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 
@@ -29,7 +29,7 @@ bag_wtp__zone_asia_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_asia
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 
@@ -44,7 +44,7 @@ bag_wtp__zone_oceania_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_oceania
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 
@@ -59,7 +59,7 @@ bag_wtp__zone_ocean_continent_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_ocean_continent
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 
@@ -74,7 +74,7 @@ bag_wtp__zone_america_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_america
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 
@@ -89,7 +89,7 @@ bag_wtp__zone_europe_on_changed = {
 		cmm_apply_list_change = {
 			setting = bag_wtp__zone_europe
 		}
-		bag_wtp_rebuild_zone = yes
+		bag_wtp_zone_changed = yes
 	}
 }
 

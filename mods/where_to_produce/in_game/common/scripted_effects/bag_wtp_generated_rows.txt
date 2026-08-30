@@ -15,6 +15,7 @@ bag_wtp_register_result_list = {
 		setting_id = result
 		tab_id = plan
 		item_count = 50
+		is_ordered = 0
 	}
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = result item = 1 value = flag:row_1 }
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = result item = 2 value = flag:row_2 }

@@ -28,6 +28,16 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
+	# Opens the selection window: the ticked regions' provinces, each expandable
+	# into its locations. Without touching it the ranking answers for the whole
+	# of the ticked regions, so this is narrowing rather than a required step.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = select
+		tab_id = plan
+		group_id = what
+	}
+
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run
@@ -38,8 +48,11 @@ bag_wtp_register = {
 	bag_wtp_register_zone_lists = yes
 	bag_wtp_register_result_list = yes
 
+	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes
 	bag_wtp_rebuild_zone = yes
+	bag_wtp_mark_zone = yes
+	bag_wtp_drop_browse = yes
 	bag_wtp_clear_rows = yes
 	bag_wtp_trim_rows = yes
 }

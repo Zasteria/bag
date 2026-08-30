@@ -1,14 +1,13 @@
 ﻿# The pass that answers the question, run when the player presses the button.
 #
-# Five steps, in this order, and each one logs what it produced. Nothing here is
-# on a pulse: an effect that never runs logs nothing at all, and the whole point
-# of the log line at the end is that a run of this mod either names three
-# numbers or says nothing, and those are distinguishable from outside.
+# Nothing here is on a pulse. Each step logs nothing of its own, but every one
+# of them leaves a number the button's own description prints, which is what
+# makes a failure locatable from outside: an effect that merely does nothing
+# logs nothing at all.
 #
 # Scope: country
 bag_wtp_compute = {
 	bag_wtp_sync = yes
-	bag_wtp_rebuild_zone = yes
 	bag_wtp_apply_method = yes
 	bag_wtp_count_wanted = yes
 	bag_wtp_collect_candidates = yes
@@ -25,15 +24,30 @@ bag_wtp_compute = {
 	cmf_log = { action = bag_wtp_log_run }
 }
 
-# Every location of every ticked region that the mod is willing to rank.
+# What gets ranked.
+#
+# The locations picked in the selection window, when there are any; otherwise
+# every land location of the ticked regions. The fallback is what makes the
+# regions usable on their own — tick Northern Germany, press the button, and the
+# whole region is answered for without opening the window at all. Picking
+# anything narrows it from there.
 # Scope: country
 bag_wtp_collect_candidates = {
 	clear_global_variable_list = bag_wtp_candidates
 	set_global_variable = { name = bag_wtp_candidate_count value = 0 }
 
-	every_in_global_list = {
-		variable = bag_wtp_regions
-		every_location_in_region = {
+	if = {
+		limit = { global_var:bag_wtp_picked_count > 0 }
+		every_in_global_list = {
+			variable = bag_wtp_picked_locations
+			limit = { bag_wtp_is_candidate = yes }
+			add_to_global_variable_list = { name = bag_wtp_candidates target = this }
+			change_global_variable = { name = bag_wtp_candidate_count add = 1 }
+		}
+	}
+	else = {
+		every_in_global_list = {
+			variable = bag_wtp_zone_locations
 			limit = { bag_wtp_is_candidate = yes }
 			add_to_global_variable_list = { name = bag_wtp_candidates target = this }
 			change_global_variable = { name = bag_wtp_candidate_count add = 1 }
@@ -48,10 +62,18 @@ bag_wtp_on_button = {
 		bag_wtp_compute = yes
 	}
 
+	# Opening the window is a script effect setting a variable the window watches,
+	# because a Mod Menu button cannot reach the interface's own variable system.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__select }
+		bag_wtp_rebuild_browse = yes
+		bag_wtp_open_window_effect = yes
+	}
+
 	# The two pickers auto-apply, so a change to either arrives here rather than
-	# through a list's `_on_changed`. Re-running the whole pass on a picker
-	# change would walk the regions on every click of the dropdown, so this only
-	# copies the value out; the table is rebuilt when the button is pressed.
+	# through a list's `_on_changed`. Re-running the whole pass on a picker change
+	# would walk the regions on every click of the dropdown, so this only copies
+	# the value out; the table is rebuilt when the button is pressed.
 	if = {
 		limit = {
 			OR = {
@@ -61,4 +83,10 @@ bag_wtp_on_button = {
 		}
 		bag_wtp_sync = yes
 	}
+}
+
+# The same thing the window's own scripted GUI does, reachable from an effect.
+# Scope: country
+bag_wtp_open_window_effect = {
+	set_variable = { name = bag_wtp_open value = 1 }
 }

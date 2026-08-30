@@ -1,0 +1,310 @@
+﻿# The selection window: the ticked regions' provinces, each expandable into its
+# locations, each location in or out of the plan.
+#
+# Modelled on Advanced Auto Build's `eu5ab_template_scope_window.gui`, which is
+# the only working example of this shape in the tree. One thing is deliberately
+# different, and it is the whole point: that window's datamodel is
+# `Player.GetProvinces`, so it can only ever offer land you already own. This one
+# reads a list script builds out of the ticked regions, so it offers ground you
+# are planning to take.
+#
+# `Region.GetAreas` and `Area.GetProvinces` do not exist as interface promotes --
+# `Country.GetProvinces` is the only province list the game hands out — which is
+# why the list is built in script and read back with `GetGlobalList`.
+
+types BagWtpSelectTypes {
+
+	# One location. `bag_wtp_picked` is a variable on the location itself, so the
+	# tick, the map colour and the ranking walk are all reading the same fact.
+	type bag_wtp_select_location_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 32 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		widget = {
+			size = { 40 32 }
+			icon = {
+				size = { 20 20 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
+		text_single = {
+			size = { 300 32 }
+			autoresize = no
+			maximumsize = { 300 32 }
+			align = left|vcenter
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 32 } }
+
+		button_regular = {
+			size = { 150 26 }
+			visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_picked').IsSet)]"
+			tooltip = "bag_wtp_add_location_tt"
+			text_single = {
+				size = { 142 22 }
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 142 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_add_location"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		button_regular = {
+			size = { 150 26 }
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_picked').IsSet]"
+			tooltip = "bag_wtp_remove_location_tt"
+			text_single = {
+				size = { 142 22 }
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 142 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_remove_location"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		widget = { size = { 12 32 } }
+	}
+
+	# One province: a header row that takes the whole province in or out, and the
+	# locations underneath once it is expanded. Expansion is a variable on the
+	# province's capital location, which is the trick Advanced Auto Build uses --
+	# a location certainly holds a variable and is reachable from the province on
+	# both sides.
+	type bag_wtp_select_province_entry = vbox {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = preferred
+		spacing = 2
+
+		widget = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 34 }
+			using = bg_paper_card
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 0
+
+				widget = {
+					size = { 40 34 }
+					button_square_plus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Not(Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet)]"
+						tooltip = "bag_wtp_expand_tt"
+						onclick = "[GetScriptedGui('bag_wtp_expand_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
+					}
+					button_square_minus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet]"
+						tooltip = "bag_wtp_collapse_tt"
+						onclick = "[GetScriptedGui('bag_wtp_collapse_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
+					}
+				}
+
+				text_single = {
+					size = { 220 34 }
+					autoresize = no
+					maximumsize = { 220 34 }
+					align = left|vcenter
+					elide = right
+					text = "[Province.GetCapital.GetArea.GetNameWithNoTooltip]"
+				}
+
+				text_single = { size = { 24 34 } autoresize = no align = center raw_text = "›" }
+
+				text_single = {
+					size = { -1 34 }
+					layoutpolicy_horizontal = expanding
+					autoresize = no
+					align = left|vcenter
+					elide = right
+					text = "[Province.GetName]"
+				}
+
+				button_regular = {
+					size = { 150 26 }
+					parentanchor = vcenter
+					tooltip = "bag_wtp_toggle_province_tt"
+					text_single = {
+						size = { 142 22 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 142 22 }
+						fontsize = 13
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_toggle_province"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_toggle_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
+				}
+
+				widget = { size = { 12 34 } }
+			}
+		}
+
+		vbox = {
+			visible = "[Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = preferred
+			ignoreinvisible = yes
+			margin_left = 20
+			datamodel = "[Province.GetLocations]"
+			item = { bag_wtp_select_location_entry = {} }
+		}
+	}
+}
+
+
+window = {
+	name = "bag_wtp_select_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	position = { 0 0 }
+	movable = yes
+	size = { 1100 700 }
+
+	# A Mod Menu button is a script effect, and script cannot reach
+	# `GetVariableSystem`. So the window watches a variable on the player instead,
+	# which the button sets and the close button clears.
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_open').IsSet]"
+
+	widget = {
+		size = { 1100 700 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_select_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				text_multi = {
+					size = { -1 40 }
+					autoresize = yes
+					align = center
+					text = "bag_wtp_select_window_desc"
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					text_single = {
+						size = { -1 32 }
+						layoutpolicy_horizontal = expanding
+						align = left|vcenter
+						text = "bag_wtp_select_summary"
+					}
+
+					button_regular = {
+						size = { 200 34 }
+						tooltip = "bag_wtp_pick_all_tt"
+						text_single = {
+							size = { 192 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 192 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_pick_all"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_pick_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					button_regular = {
+						size = { 200 34 }
+						tooltip = "bag_wtp_clear_all_tt"
+						text_single = {
+							size = { 192 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 192 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_clear_all"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_browse')]"
+							item = {
+								widget = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = preferred
+									datacontext = "[Scope.GetProvince]"
+									bag_wtp_select_province_entry = {}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

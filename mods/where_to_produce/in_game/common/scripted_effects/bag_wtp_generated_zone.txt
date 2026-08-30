@@ -16,6 +16,7 @@ bag_wtp_register_zone_africa = {
 		setting_id = zone_africa
 		tab_id = plan
 		item_count = 15
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_africa item = 1 value = region:central_africa_region }
@@ -64,6 +65,7 @@ bag_wtp_register_zone_asia = {
 		setting_id = zone_asia
 		tab_id = plan
 		item_count = 23
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_asia item = 1 value = region:hindustan_region }
@@ -128,6 +130,7 @@ bag_wtp_register_zone_oceania = {
 		setting_id = zone_oceania
 		tab_id = plan
 		item_count = 5
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_oceania item = 1 value = region:polynesia_region }
@@ -156,6 +159,7 @@ bag_wtp_register_zone_ocean_continent = {
 		setting_id = zone_ocean_continent
 		tab_id = plan
 		item_count = 3
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_ocean_continent item = 1 value = region:north_atlantic_islands_region }
@@ -180,6 +184,7 @@ bag_wtp_register_zone_america = {
 		setting_id = zone_america
 		tab_id = plan
 		item_count = 14
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_america item = 1 value = region:canada_region }
@@ -226,6 +231,7 @@ bag_wtp_register_zone_europe = {
 		setting_id = zone_europe
 		tab_id = plan
 		item_count = 17
+		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone_europe item = 1 value = region:balkan_region }
