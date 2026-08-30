@@ -179,6 +179,18 @@ ambiguous. What works is a probe whose failure modes are *separable* — a count
 that only the pulse can increment, shown through a path already proven to work,
 so the reading distinguishes "never ran" from "ran and could not be displayed".
 
+**Check which build answered before believing what a run showed.** Twice a
+report has been read as a fault in a mod whose files on disk were already right:
+the folder the game loads,
+`Documents/Paradox Interactive/Europa Universalis V/mod/<mod>/`, held an older
+build, so the run reproduced the bug the fix had removed. Nothing says so — a
+stale build is not an error, it is a different mod, and `error.log` is clean
+because the old mod was valid. `gui.log` gives it away by accident: it prints the
+file *and line* of every template that overrides another, and line numbers are a
+fingerprint. `python3 tools/which_build.py <logs folder>` matches them against
+this tree and every revision `git log` has, and names the commit that ran. Do
+that first, before reading anything else into a run.
+
 **Ask for the logs before theorising.** `error.log` being empty of your mod is
 itself a finding: it rules out every failure the engine notices and leaves only
 the silent classes — a missing localization key, an effect never called, a value

@@ -31,7 +31,7 @@ what actually appeared.
 
 ## Runs
 
-The four most recent. Everything before 2026-08-27 is in
+The five most recent. Everything before 2026-08-27 is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md) — same entries,
 moved rather than trimmed. Search both with `python3 tools/kb.py`.
 
@@ -234,6 +234,49 @@ files reproduces the fault and the check now names it.
 **Verdict:** unrun. The fix has never been in game — the next load with their
 switch **on** is the test, and what should appear is vanilla's blob plus this
 mod's own lists, with Glorp UI's per-axis lists hidden by their own design.
+
+
+### 2026-08-30 — the same switch, and `gui.log` named the build that answered
+
+**Reported by the owner**, two screenshots and the whole `logs/` folder. Playing
+Wallachia, both mods on, the *Наступление ↔ Оборона* tooltip. Switch **off**:
+«Дальше продвинуться в сторону обороны» with its one takeable line, and this
+mod's «Также влияет на смещение» under it — "the same as before the update, and
+it suited me". Switch **on**: the «Дальше продвинуться» block disappears
+outright; only this mod's block is left.
+
+**That is the pre-fix bug, exactly, and the run did not test the fix.**
+`gui.log` gives the line of every template that overrides another:
+
+```
+Template 'SocietalValueCountryLeft_tooltip'  at gui/svx_extra_societal_value_hints.gui:6
+Template 'SocietalValueCountryRight_tooltip' at gui/svx_extra_societal_value_hints.gui:964
+```
+
+The file in this tree puts them at **9** and **984**. Lines 6 and 964 are commit
+`012317f`, 2026-08-25 — the build with no blob block at all. The deploy in
+`Documents/.../mod/glorpui_hints/` was never refreshed after 2026-08-29. The same
+log fingerprints `glorpUI_generated_societal_value_hints.gui` at 3 and 261, which
+is the 2026-08-28 build in `reference/` byte for byte, so their half is the half
+we think it is.
+
+**Confirmed anyway,** because the 25 Aug build is a real build:
+
+| | |
+| --- | --- |
+| **the override chain** | `svx_… > glorpUI_… > shared/government_tooltips.gui`, both sides, no error. Load order is right and this mod does win the templates. |
+| **`error.log`, 356 lines** | not one names a `svx_` file, `svx_unlock_`, `country_religion`, `GLORP_UI_SVH_*` or `SVX_*`. The advance gate and the aspect gate log nothing; the one `jomini_trigger` line is another mod's event. |
+| **`ru_loc_fix` round two** | still 0, on a fourth run. `MARKET_SURPLYS_INFO` was 82 in the 07:44 logs of the same day and 0 in this one. |
+
+**Not confirmed:** the splice, the five advance-locked privileges as *shown*
+(Wallachia offers none of them either way), and `Inconsistent trigger scopes` —
+its repair is newer than the gui file, so the deployed build's provenance for
+`svx_extra_hint_loc.txt` is not pinned, and the Confucian Academy gate is on an
+axis Wallachia does not have.
+
+**Written down as a tool, not as a warning.** `python3 tools/which_build.py
+<logs folder>` fingerprints every gui file in a log against this tree and against
+`git log`, and says which commit ran. This is the second run lost this way.
 
 
 ## Waiting on a run
