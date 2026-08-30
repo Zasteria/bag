@@ -89,6 +89,40 @@ types BagWtpResultTypes {
 
 		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
 
+		# Whose it is today. A row is the whole province, so the locations under it
+		# can belong to two or three countries -- that is the split the ranking
+		# deliberately ignores, and this is where it is visible.
+		hbox = {
+			size = { 190 30 }
+			spacing = 4
+			visible = "[Location.HasOwner]"
+
+			country_flag_mini = {
+				datacontext = "[Location.GetOwner]"
+			}
+
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				autoresize = no
+				maximumsize = { 150 30 }
+				align = left|vcenter
+				elide = right
+				fontsize = 13
+				raw_text = "[Location.GetOwner.GetName]"
+			}
+		}
+
+		text_single = {
+			size = { 190 30 }
+			autoresize = no
+			maximumsize = { 190 30 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			visible = "[Not(Location.HasOwner)]"
+			text = "bag_wtp_result_unowned"
+		}
+
 		# The same two effects the selection window's rows call, so a location
 		# ticked here is ticked there, painted on the map, and inside the next
 		# ranking -- one fact, one pair of writers.
@@ -137,10 +171,13 @@ types BagWtpResultTypes {
 	# The scope is the location the ranking picked, because that is what carries
 	# the winning method and the goods; the province is one promote away.
 	#
-	# Expansion is a variable on the province's capital, the trick Advanced Auto
-	# Build uses -- a location certainly holds a variable and is reachable from
-	# the province on both sides. It is its own variable rather than the selection
-	# window's, so opening a row in one window does not open it in the other.
+	# The row is a province *definition*: the whole province as the map draws it,
+	# not the piece of it one country owns. The game splits a province by
+	# ownership and names the pieces "Moldavian province Bessarabia" -- ranking
+	# those separately would answer for half a province and would move the answer
+	# on the day the halves join, which is the day this mod plans for.
+	#
+	# Expansion is a variable on the row's own location, which is unique per row.
 	type bag_wtp_result_province_entry = vbox {
 		layoutpolicy_horizontal = expanding
 		layoutpolicy_vertical = preferred
@@ -161,17 +198,17 @@ types BagWtpResultTypes {
 						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
-						visible = "[Not(Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet)]"
+						visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet)]"
 						tooltip = "bag_wtp_result_expand_tt"
-						onclick = "[GetScriptedGui('bag_wtp_result_expand').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.GetProvince.GetCapital.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_result_expand').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 					}
 					button_square_minus = {
 						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
-						visible = "[Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
+						visible = "[Location.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
 						tooltip = "bag_wtp_result_collapse_tt"
-						onclick = "[GetScriptedGui('bag_wtp_result_collapse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.GetProvince.GetCapital.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_result_collapse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 					}
 				}
 
@@ -181,7 +218,7 @@ types BagWtpResultTypes {
 					maximumsize = { 190 36 }
 					align = left|vcenter
 					elide = right
-					text = "[Location.GetProvince.GetName]"
+					text = "[Location.GetProvinceDefinition.GetName]"
 					tooltip = "bag_wtp_result_province_tt"
 				}
 
@@ -224,14 +261,32 @@ types BagWtpResultTypes {
 					tooltip = "bag_wtp_result_method_tt"
 				}
 
-				# What the bonus is made of.
+				# What the bonus is made of: how many of the method's raw materials
+				# this province supplies out of how many it could, then one icon
+				# each. The count is not decoration -- it is why a number sits
+				# below its method's ceiling, and it says in plain text what the
+				# icons say in pictures, which is what tells the two apart when one
+				# of them fails to draw.
 				hbox = {
-					size = { 150 36 }
-					spacing = 2
+					size = { 190 36 }
+					spacing = 4
 					alwaystransparent = no
 					tooltip = "bag_wtp_result_goods_tt"
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-					item = { bag_wtp_result_goods_entry = {} }
+
+					text_single = {
+						size = { 46 36 }
+						autoresize = no
+						align = right|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_goods_count"
+					}
+
+					hbox = {
+						size = { 140 36 }
+						spacing = 2
+						datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+						item = { bag_wtp_result_goods_entry = {} }
+					}
 				}
 
 				widget = { size = { 12 36 } }
@@ -239,12 +294,12 @@ types BagWtpResultTypes {
 		}
 
 		vbox = {
-			visible = "[Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = preferred
 			ignoreinvisible = yes
 			margin_left = 20
-			datamodel = "[Location.GetProvince.GetLocations]"
+			datamodel = "[Location.GetProvinceDefinition.GetLocations]"
 			item = { bag_wtp_result_location_entry = {} }
 		}
 	}
@@ -257,6 +312,7 @@ window = {
 	allow_outside = yes
 	alwaystransparent = no
 	parentanchor = center
+	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
 	size = { 1180 720 }
@@ -296,9 +352,14 @@ window = {
 				margin = { 12 12 }
 				spacing = 6
 
+				# `autoresize` with no width bound is what broke the window: a long
+				# sentence laid itself out on one line, `allow_outside` let it draw
+				# past the frame, and every row stretched with it. A `text_multi`
+				# wraps only inside a `maximumsize`.
 				text_multi = {
-					size = { -1 40 }
+					layoutpolicy_horizontal = expanding
 					autoresize = yes
+					maximumsize = { 1130 80 }
 					align = center
 					text = "bag_wtp_result_window_desc"
 				}
@@ -308,6 +369,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
+					maximumsize = { 1130 60 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_results')))]"
 					text = "bag_wtp_result_window_empty"
@@ -350,7 +412,7 @@ window = {
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 150 24 }
+						size = { 190 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13

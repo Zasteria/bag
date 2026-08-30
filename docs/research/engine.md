@@ -152,6 +152,31 @@ would pick the bonus up.
 These are GUI data functions. There is no script-side counterpart in
 `common/scripted_triggers/`, so a filter `trigger` cannot call them directly.
 
+### A province is not a province definition
+
+The game splits a province by ownership. Half of Bessarabia under Moldavia is
+its own `province`, and the game names it that way on screen — «Молдавская
+провинция Бессарабия» — while the other half is a second province with its own
+name. What the map draws as one province is the `province_definition`, and both
+are reachable:
+
+| from a location | script | interface |
+| --- | --- | --- |
+| the owned piece | `province = { any_location_in_province = { … } }` | `Location.GetProvince` |
+| the whole province | `province_definition = { any_location_in_province_definition = { … } }` | `Location.GetProvinceDefinition` |
+
+`ProvinceDefinition` carries `GetName`, `GetLocations`, `GetNumLocations` and
+`GetArea`, so an interface can list the whole thing; the definition's name is the
+plain one, without the owner in front of it.
+
+**Which of the two the engine's own RGO bonus counts is not known.** The three
+tooltips the formula was verified against do not separate the cases, and
+`where_to_produce` answers for the definition on purpose: it is a planning tool,
+and the number for the ground *once it is yours* is the one a plan is made of.
+Settling it costs one hover — a building's RGO tooltip in a location whose
+province is currently split, checking whether it credits a good that only the
+other country's half produces.
+
 ### The formula behind the number
 
 The game shows the bonus only as tooltip text — "Coal in the Ore Mountains,

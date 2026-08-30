@@ -38,6 +38,7 @@ import refs  # noqa: E402
 SOURCES = (
     "CLAUDE.md",
     "docs/*.md",
+    "docs/pitfalls/*.md",
     "docs/research/*.md",
     "docs/investigations/*.md",
     "docs/archive/*.md",

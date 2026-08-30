@@ -570,7 +570,7 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
         for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
             share = eu5data.RGO_MAX_BONUS * amount / total
             out.append(f"""\tif = {{
-\t\tlimit = {{ province = {{ any_location_in_province = {{ raw_material = goods:{good} }} }} }}
+\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {share:.4f}
 \t}}
 """)
@@ -663,13 +663,18 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     for index, method in enumerate(rows, start=1):
         keyword = "if" if index == 1 else "else_if"
+        raw = sorted(method.raw_inputs(game.raw_goods))
         out.append(f"\t{keyword} = {{\n"
                    f"\t\tlimit = {{ var:{MOD_ID}_best_method = {index} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_bt value = building_type:{method.building} }}\n"
-                   f"\t\tset_variable = {{ name = {MOD_ID}_pm value = production_method:{method.key} }}\n")
-        for good in sorted(method.raw_inputs(game.raw_goods)):
+                   f"\t\tset_variable = {{ name = {MOD_ID}_pm value = production_method:{method.key} }}\n"
+                   # How many raw materials the method could take from the ground
+                   # at all. The row prints "supplied / this", which is the whole
+                   # reason a number sits below its method's ceiling.
+                   f"\t\tset_variable = {{ name = {MOD_ID}_goods_all value = {len(raw)} }}\n")
+        for good in raw:
             out.append(f"""\t\tif = {{
-\t\t\tlimit = {{ province = {{ any_location_in_province = {{ raw_material = goods:{good} }} }} }}
+\t\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\t\tadd_to_variable_list = {{ name = {MOD_ID}_goods target = goods:{good} }}
 \t\t}}
 """)
@@ -707,10 +712,10 @@ def rows_file() -> str:
 {MOD_ID}_clear_rows = {{
 \tset_global_variable = {{ name = {MOD_ID}_found value = 0 }}
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_row_provinces
+\t\tvariable = {MOD_ID}_row_taken_locations
 \t\tremove_variable = {MOD_ID}_row_taken
 \t}}
-\tclear_global_variable_list = {MOD_ID}_row_provinces
+\tclear_global_variable_list = {MOD_ID}_row_taken_locations
 \t# `_ranked` is the answer and survives; `_results` is the copy the window
 \t# repeats over, and it only exists while the window is open -- emptying the
 \t# datamodel is the only thing that frees a scripted widget's rows.
@@ -746,10 +751,18 @@ def rows_file() -> str:
 # a plain `var:`.
 # Scope: location
 {MOD_ID}_store_row = {{
-\t# One row per province. Every location of a province scores the same -- the
-\t# game credits a raw material worked anywhere in it -- so fifty rows of one
-\t# province is fifty ways of saying one thing, and the owner ran out of table
-\t# before he ran out of distinct answers.
+\t# One row per province definition -- the province as the map draws it, whole,
+\t# rather than the piece of it one country happens to own.
+\t#
+\t# The game splits a province by ownership: half of Bessarabia under Moldavia
+\t# is its own `province`, named "Moldavian province Bessarabia", and the other
+\t# half is another. Every location of one piece scores the same, so a row per
+\t# piece is several ways of saying one thing -- and worse, the number itself
+\t# would move on the day the pieces join, which is exactly the day this mod is
+\t# planning for. The definition is what the ground will be once it is yours.
+\t#
+\t# Taken is marked on the locations rather than on the definition: a location
+\t# certainly holds a variable, and this pass already has every one of them.
 \tif = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_found < {RESULT_ROWS}
@@ -758,11 +771,13 @@ def rows_file() -> str:
 \t\t\t# method to print, and a data function reading a variable that is not
 \t\t\t# there renders as `ERROR:`. An empty table is the honest answer.
 \t\t\tvar:{MOD_ID}_best_method > 0
-\t\t\tprovince = {{ NOT = {{ has_variable = {MOD_ID}_row_taken }} }}
+\t\t\tNOT = {{ has_variable = {MOD_ID}_row_taken }}
 \t\t}}
-\t\tprovince = {{
-\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
-\t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_provinces target = prev }} }}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
+\t\t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = prev }} }}
+\t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
 \t\t{MOD_ID}_store_winner = yes
@@ -872,7 +887,7 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # of them read as a recommendation of that one location.
         out.append(
             f" {MOD_ID}__result_i{row}_name: "
-            f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvince.GetName] — '
+            f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvinceDefinition.GetName] — '
             f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_bonus_{row}')|2]% — "
             f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetIcon] "
             f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetName]: "
@@ -881,7 +896,7 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # A CMM row draws its own tooltip from `<key>_desc` when one exists.
         out.append(
             f" {MOD_ID}__result_i{row}_desc: "
-            f'"#T [GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvince.GetName]#!\\n'
+            f'"#T [GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvinceDefinition.GetName]#!\\n'
             f"$bag_wtp_result_tt_area$: "
             f"[GetGlobalVariable('{MOD_ID}_row_{row}').GetLocation.GetArea.GetNameWithNoTooltip]\\n"
             f"$bag_wtp_result_tt_method$: "

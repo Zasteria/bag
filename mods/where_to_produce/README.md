@@ -58,6 +58,13 @@ about it surprise people:
   the province counts, so every location of one province scores the same. What
   separates them afterwards is building slots, which this version does not
   model.
+- **And the province is the whole province.** The game splits a province by
+  ownership — half of Bessarabia under Moldavia is its own `province`, named
+  «Молдавская провинция Бессарабия» — and this counts over the
+  `province_definition`, both halves. That is the number the ground gives once
+  it is yours, which is the only number a plan can be made of. Whether the
+  engine's own bonus counts the same way is an open question with a one-hover
+  test in `docs/research/engine.md`.
 
 ## What is deliberately not here yet
 
@@ -111,6 +118,8 @@ The owner does it from `mods.bat`.
 
 ## State
 
-Five loads in; the mechanism is confirmed, the results window is not. See
+Six loads in; the mechanism and the results window are confirmed, and what the
+sixth run changed — whole provinces, and a window that stays inside its frame —
+is not. See
 [`CLAUDE.md`](CLAUDE.md) for what the next run has to answer and what is known
 to be unproven.

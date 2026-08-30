@@ -213,6 +213,7 @@ window = {
 	allow_outside = yes
 	alwaystransparent = no
 	parentanchor = center
+	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
 	size = { 1100 700 }
@@ -255,9 +256,14 @@ window = {
 				margin = { 12 12 }
 				spacing = 6
 
+				# Bounded, and deliberately: `autoresize` with no `maximumsize` lays a
+				# long sentence out on one line, and `allow_outside` then draws it
+				# past the window frame with every row stretched to match. The
+				# results window was reported broken exactly that way.
 				text_multi = {
-					size = { -1 40 }
+					layoutpolicy_horizontal = expanding
 					autoresize = yes
+					maximumsize = { 1050 80 }
 					align = center
 					text = "bag_wtp_select_window_desc"
 				}

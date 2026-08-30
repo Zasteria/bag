@@ -14,11 +14,11 @@
 bag_wtp_m1 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.4275
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 7.8553
 	}
 }
@@ -28,11 +28,11 @@ bag_wtp_m1 = {
 bag_wtp_m2 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
 		add = 7.6899
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.5401
 	}
 }
@@ -42,15 +42,15 @@ bag_wtp_m2 = {
 bag_wtp_m3 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
 		add = 2.3810
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.9048
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 4.7619
 	}
 }
@@ -60,7 +60,7 @@ bag_wtp_m3 = {
 bag_wtp_m4 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:maize } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
 		add = 8.1239
 	}
 }
@@ -70,11 +70,11 @@ bag_wtp_m4 = {
 bag_wtp_m5 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8502
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 7.4098
 	}
 }
@@ -84,11 +84,11 @@ bag_wtp_m5 = {
 bag_wtp_m6 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8502
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 7.4098
 	}
 }
@@ -98,11 +98,11 @@ bag_wtp_m6 = {
 bag_wtp_m7 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8502
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 7.4098
 	}
 }
@@ -112,11 +112,11 @@ bag_wtp_m7 = {
 bag_wtp_m8 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.3304
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.0044
 	}
 }
@@ -126,11 +126,11 @@ bag_wtp_m8 = {
 bag_wtp_m9 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
 		add = 7.6915
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.5365
 	}
 }
@@ -140,15 +140,15 @@ bag_wtp_m9 = {
 bag_wtp_m10 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
 		add = 2.3806
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.9023
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 4.7613
 	}
 }
@@ -158,7 +158,7 @@ bag_wtp_m10 = {
 bag_wtp_m11 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:maize } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
 		add = 8.2342
 	}
 }
@@ -168,11 +168,11 @@ bag_wtp_m11 = {
 bag_wtp_m12 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8500
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 7.4060
 	}
 }
@@ -182,11 +182,11 @@ bag_wtp_m12 = {
 bag_wtp_m13 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8500
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 7.4060
 	}
 }
@@ -196,11 +196,11 @@ bag_wtp_m13 = {
 bag_wtp_m14 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8500
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 7.4060
 	}
 }
@@ -210,11 +210,11 @@ bag_wtp_m14 = {
 bag_wtp_m15 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.2227
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.1658
 	}
 }
@@ -224,11 +224,11 @@ bag_wtp_m15 = {
 bag_wtp_m16 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 0.9744
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.5383
 	}
 }
@@ -238,11 +238,11 @@ bag_wtp_m16 = {
 bag_wtp_m17 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.4946
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 7.4576
 	}
 }
@@ -252,11 +252,11 @@ bag_wtp_m17 = {
 bag_wtp_m18 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.3394
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.7840
 	}
 }
@@ -266,11 +266,11 @@ bag_wtp_m18 = {
 bag_wtp_m19 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.2193
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.9502
 	}
 }
@@ -280,11 +280,11 @@ bag_wtp_m19 = {
 bag_wtp_m20 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.7062
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.1243
 	}
 }
@@ -294,11 +294,11 @@ bag_wtp_m20 = {
 bag_wtp_m21 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 1.4388
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.8547
 	}
 }
@@ -308,19 +308,19 @@ bag_wtp_m21 = {
 bag_wtp_m22 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 2.5633
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.5401
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 2.5633
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 1.2817
 	}
 }
@@ -330,11 +330,11 @@ bag_wtp_m22 = {
 bag_wtp_m23 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -344,11 +344,11 @@ bag_wtp_m23 = {
 bag_wtp_m24 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -358,11 +358,11 @@ bag_wtp_m24 = {
 bag_wtp_m25 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 5.0000
 	}
 }
@@ -372,11 +372,11 @@ bag_wtp_m25 = {
 bag_wtp_m26 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 4.5440
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.9119
 	}
 }
@@ -386,7 +386,7 @@ bag_wtp_m26 = {
 bag_wtp_m27 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.4541
 	}
 }
@@ -396,11 +396,11 @@ bag_wtp_m27 = {
 bag_wtp_m28 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 2.4589
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.4820
 	}
 }
@@ -410,11 +410,11 @@ bag_wtp_m28 = {
 bag_wtp_m29 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.4535
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 4.5465
 	}
 }
@@ -424,11 +424,11 @@ bag_wtp_m29 = {
 bag_wtp_m30 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -438,11 +438,11 @@ bag_wtp_m30 = {
 bag_wtp_m31 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 5.0000
 	}
 }
@@ -452,11 +452,11 @@ bag_wtp_m31 = {
 bag_wtp_m32 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 7.2720
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 1.8152
 	}
 }
@@ -466,7 +466,7 @@ bag_wtp_m32 = {
 bag_wtp_m33 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 8.9978
 	}
 }
@@ -476,11 +476,11 @@ bag_wtp_m33 = {
 bag_wtp_m34 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.3051
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 2.1750
 	}
 }
@@ -490,7 +490,7 @@ bag_wtp_m34 = {
 bag_wtp_m35 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -500,7 +500,7 @@ bag_wtp_m35 = {
 bag_wtp_m36 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 10.0000
 	}
 }
@@ -510,7 +510,7 @@ bag_wtp_m36 = {
 bag_wtp_m37 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
 	}
 }
@@ -520,7 +520,7 @@ bag_wtp_m37 = {
 bag_wtp_m38 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -530,11 +530,11 @@ bag_wtp_m38 = {
 bag_wtp_m39 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 9.0062
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9938
 	}
 }
@@ -544,11 +544,11 @@ bag_wtp_m39 = {
 bag_wtp_m40 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.2697
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.7303
 	}
 }
@@ -558,11 +558,11 @@ bag_wtp_m40 = {
 bag_wtp_m41 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.8422
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 9.1578
 	}
 }
@@ -572,7 +572,7 @@ bag_wtp_m41 = {
 bag_wtp_m42 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 10.0000
 	}
 }
@@ -582,7 +582,7 @@ bag_wtp_m42 = {
 bag_wtp_m43 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
 	}
 }
@@ -592,7 +592,7 @@ bag_wtp_m43 = {
 bag_wtp_m44 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -602,7 +602,7 @@ bag_wtp_m44 = {
 bag_wtp_m45 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 10.0000
 	}
 }
@@ -612,7 +612,7 @@ bag_wtp_m45 = {
 bag_wtp_m46 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
 	}
 }
@@ -622,7 +622,7 @@ bag_wtp_m46 = {
 bag_wtp_m47 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -632,11 +632,11 @@ bag_wtp_m47 = {
 bag_wtp_m48 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 8.8229
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 1.1771
 	}
 }
@@ -646,11 +646,11 @@ bag_wtp_m48 = {
 bag_wtp_m49 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9079
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.0921
 	}
 }
@@ -660,11 +660,11 @@ bag_wtp_m49 = {
 bag_wtp_m50 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 1.1775
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 8.8225
 	}
 }
@@ -674,7 +674,7 @@ bag_wtp_m50 = {
 bag_wtp_m51 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -684,7 +684,7 @@ bag_wtp_m51 = {
 bag_wtp_m52 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -694,7 +694,7 @@ bag_wtp_m52 = {
 bag_wtp_m53 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.0000
 	}
 }
@@ -704,11 +704,11 @@ bag_wtp_m53 = {
 bag_wtp_m54 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.3252
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 9.6748
 	}
 }
@@ -718,7 +718,7 @@ bag_wtp_m54 = {
 bag_wtp_m55 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -728,11 +728,11 @@ bag_wtp_m55 = {
 bag_wtp_m56 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.4754
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 9.5246
 	}
 }
@@ -742,11 +742,11 @@ bag_wtp_m56 = {
 bag_wtp_m57 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.7754
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 9.2246
 	}
 }
@@ -756,11 +756,11 @@ bag_wtp_m57 = {
 bag_wtp_m58 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.8779
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 9.1221
 	}
 }
@@ -770,11 +770,11 @@ bag_wtp_m58 = {
 bag_wtp_m59 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.2453
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.5032
 	}
 }
@@ -784,7 +784,7 @@ bag_wtp_m59 = {
 bag_wtp_m60 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.4059
 	}
 }
@@ -794,11 +794,11 @@ bag_wtp_m60 = {
 bag_wtp_m61 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 1.9848
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 8.0152
 	}
 }
@@ -808,7 +808,7 @@ bag_wtp_m61 = {
 bag_wtp_m62 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 10.0000
 	}
 }
@@ -818,7 +818,7 @@ bag_wtp_m62 = {
 bag_wtp_m63 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fur } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
 		add = 10.0000
 	}
 }
@@ -828,7 +828,7 @@ bag_wtp_m63 = {
 bag_wtp_m64 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 10.0000
 	}
 }
@@ -838,7 +838,7 @@ bag_wtp_m64 = {
 bag_wtp_m65 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -848,7 +848,7 @@ bag_wtp_m65 = {
 bag_wtp_m66 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -858,11 +858,11 @@ bag_wtp_m66 = {
 bag_wtp_m67 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 1.9959
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 8.0041
 	}
 }
@@ -872,7 +872,7 @@ bag_wtp_m67 = {
 bag_wtp_m68 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 10.0000
 	}
 }
@@ -882,7 +882,7 @@ bag_wtp_m68 = {
 bag_wtp_m69 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 10.0000
 	}
 }
@@ -892,7 +892,7 @@ bag_wtp_m69 = {
 bag_wtp_m70 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.6331
 	}
 }
@@ -902,11 +902,11 @@ bag_wtp_m70 = {
 bag_wtp_m71 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.8199
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 9.1801
 	}
 }
@@ -916,11 +916,11 @@ bag_wtp_m71 = {
 bag_wtp_m72 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 1.8410
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 8.1590
 	}
 }
@@ -930,7 +930,7 @@ bag_wtp_m72 = {
 bag_wtp_m73 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 10.0000
 	}
 }
@@ -940,7 +940,7 @@ bag_wtp_m73 = {
 bag_wtp_m74 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fur } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
 		add = 10.0000
 	}
 }
@@ -950,7 +950,7 @@ bag_wtp_m74 = {
 bag_wtp_m75 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 10.0000
 	}
 }
@@ -960,7 +960,7 @@ bag_wtp_m75 = {
 bag_wtp_m76 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -970,7 +970,7 @@ bag_wtp_m76 = {
 bag_wtp_m77 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
 	}
 }
@@ -980,11 +980,11 @@ bag_wtp_m77 = {
 bag_wtp_m78 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 1.6678
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 2.7796
 	}
 }
@@ -994,23 +994,23 @@ bag_wtp_m78 = {
 bag_wtp_m79 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.7653
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 4.7048
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 0.5905
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.7653
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 1.1743
 	}
 }
@@ -1020,11 +1020,11 @@ bag_wtp_m79 = {
 bag_wtp_m80 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -1034,11 +1034,11 @@ bag_wtp_m80 = {
 bag_wtp_m81 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -1048,11 +1048,11 @@ bag_wtp_m81 = {
 bag_wtp_m82 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 5.5505
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 1.1127
 	}
 }
@@ -1062,7 +1062,7 @@ bag_wtp_m82 = {
 bag_wtp_m83 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 6.2486
 	}
 }
@@ -1072,11 +1072,11 @@ bag_wtp_m83 = {
 bag_wtp_m84 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 2.1031
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.9859
 	}
 }
@@ -1086,11 +1086,11 @@ bag_wtp_m84 = {
 bag_wtp_m85 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -1100,11 +1100,11 @@ bag_wtp_m85 = {
 bag_wtp_m86 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 5.0000
 	}
 }
@@ -1114,11 +1114,11 @@ bag_wtp_m86 = {
 bag_wtp_m87 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 5.4840
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 1.0940
 	}
 }
@@ -1128,7 +1128,7 @@ bag_wtp_m87 = {
 bag_wtp_m88 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 6.1600
 	}
 }
@@ -1138,23 +1138,23 @@ bag_wtp_m88 = {
 bag_wtp_m89 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.1864
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 3.5085
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 0.3424
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 3.5085
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.7153
 	}
 }
@@ -1164,11 +1164,11 @@ bag_wtp_m89 = {
 bag_wtp_m90 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
 		add = 3.0710
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:salt } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
 		add = 6.9290
 	}
 }
@@ -1178,7 +1178,7 @@ bag_wtp_m90 = {
 bag_wtp_m91 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:salt } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
 		add = 8.6098
 	}
 }
@@ -1188,7 +1188,7 @@ bag_wtp_m91 = {
 bag_wtp_m92 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -1198,11 +1198,11 @@ bag_wtp_m92 = {
 bag_wtp_m93 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 1.1511
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 7.6978
 	}
 }
@@ -1212,11 +1212,11 @@ bag_wtp_m93 = {
 bag_wtp_m94 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9080
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.1841
 	}
 }
@@ -1226,11 +1226,11 @@ bag_wtp_m94 = {
 bag_wtp_m95 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9455
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.1089
 	}
 }
@@ -1240,11 +1240,11 @@ bag_wtp_m95 = {
 bag_wtp_m96 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9697
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.0605
 	}
 }
@@ -1254,11 +1254,11 @@ bag_wtp_m96 = {
 bag_wtp_m97 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.2664
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 6.3267
 	}
 }
@@ -1268,19 +1268,19 @@ bag_wtp_m97 = {
 bag_wtp_m98 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.2196
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 0.4332
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6822
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.4367
 	}
 }
@@ -1290,23 +1290,23 @@ bag_wtp_m98 = {
 bag_wtp_m99 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.2239
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.2860
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 0.8566
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.1462
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 0.4294
 	}
 }
@@ -1316,19 +1316,19 @@ bag_wtp_m99 = {
 bag_wtp_m100 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.2157
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 		add = 0.4841
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.7201
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.3760
 	}
 }
@@ -1338,23 +1338,23 @@ bag_wtp_m100 = {
 bag_wtp_m101 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 		add = 0.1142
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.0698
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.0698
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.6348
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 0.5064
 	}
 }
@@ -1364,7 +1364,7 @@ bag_wtp_m101 = {
 bag_wtp_m102 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 10.0000
 	}
 }
@@ -1374,11 +1374,11 @@ bag_wtp_m102 = {
 bag_wtp_m103 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:horses } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
 		add = 1.6684
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.3316
 	}
 }
@@ -1388,7 +1388,7 @@ bag_wtp_m103 = {
 bag_wtp_m104 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:pepper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pepper } } }
 		add = 5.5477
 	}
 }
@@ -1398,7 +1398,7 @@ bag_wtp_m104 = {
 bag_wtp_m105 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 10.0000
 	}
 }
@@ -1408,7 +1408,7 @@ bag_wtp_m105 = {
 bag_wtp_m106 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 7.6868
 	}
 }
@@ -1418,7 +1418,7 @@ bag_wtp_m106 = {
 bag_wtp_m107 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:elephants } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:elephants } } }
 		add = 5.0060
 	}
 }
@@ -1428,7 +1428,7 @@ bag_wtp_m107 = {
 bag_wtp_m108 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:amber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
 		add = 10.0000
 	}
 }
@@ -1438,7 +1438,7 @@ bag_wtp_m108 = {
 bag_wtp_m109 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 10.0000
 	}
 }
@@ -1448,7 +1448,7 @@ bag_wtp_m109 = {
 bag_wtp_m110 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 		add = 10.0000
 	}
 }
@@ -1458,7 +1458,7 @@ bag_wtp_m110 = {
 bag_wtp_m111 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:goods_gold } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
 		add = 10.0000
 	}
 }
@@ -1468,7 +1468,7 @@ bag_wtp_m111 = {
 bag_wtp_m112 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
 		add = 10.0000
 	}
 }
@@ -1478,7 +1478,7 @@ bag_wtp_m112 = {
 bag_wtp_m113 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:pearls } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
 		add = 10.0000
 	}
 }
@@ -1488,7 +1488,7 @@ bag_wtp_m113 = {
 bag_wtp_m114 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:silver } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
 		add = 10.0000
 	}
 }
@@ -1498,7 +1498,7 @@ bag_wtp_m114 = {
 bag_wtp_m115 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 10.0000
 	}
 }
@@ -1508,7 +1508,7 @@ bag_wtp_m115 = {
 bag_wtp_m116 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 		add = 10.0000
 	}
 }
@@ -1518,11 +1518,11 @@ bag_wtp_m116 = {
 bag_wtp_m117 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 2.7469
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.5926
 	}
 }
@@ -1532,11 +1532,11 @@ bag_wtp_m117 = {
 bag_wtp_m118 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 2.6660
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.6666
 	}
 }
@@ -1546,11 +1546,11 @@ bag_wtp_m118 = {
 bag_wtp_m119 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 0.9677
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 8.4476
 	}
 }
@@ -1560,11 +1560,11 @@ bag_wtp_m119 = {
 bag_wtp_m120 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.1555
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.4598
 	}
 }
@@ -1574,11 +1574,11 @@ bag_wtp_m120 = {
 bag_wtp_m121 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 1.8809
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 7.0603
 	}
 }
@@ -1588,11 +1588,11 @@ bag_wtp_m121 = {
 bag_wtp_m122 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.0370
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.8296
 	}
 }
@@ -1602,11 +1602,11 @@ bag_wtp_m122 = {
 bag_wtp_m123 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.2390
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 6.8654
 	}
 }
@@ -1616,11 +1616,11 @@ bag_wtp_m123 = {
 bag_wtp_m124 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.3826
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.6597
 	}
 }
@@ -1630,11 +1630,11 @@ bag_wtp_m124 = {
 bag_wtp_m125 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 1.8655
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 7.4623
 	}
 }
@@ -1644,11 +1644,11 @@ bag_wtp_m125 = {
 bag_wtp_m126 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.2066
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.4133
 	}
 }
@@ -1658,11 +1658,11 @@ bag_wtp_m126 = {
 bag_wtp_m127 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 1.7952
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 7.1752
 	}
 }
@@ -1672,7 +1672,7 @@ bag_wtp_m127 = {
 bag_wtp_m128 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 9.1731
 	}
 }
@@ -1682,7 +1682,7 @@ bag_wtp_m128 = {
 bag_wtp_m129 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 9.1731
 	}
 }
@@ -1692,7 +1692,7 @@ bag_wtp_m129 = {
 bag_wtp_m130 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 9.1731
 	}
 }
@@ -1702,7 +1702,7 @@ bag_wtp_m130 = {
 bag_wtp_m131 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.8707
 	}
 }
@@ -1712,7 +1712,7 @@ bag_wtp_m131 = {
 bag_wtp_m132 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 9.1731
 	}
 }
@@ -1722,7 +1722,7 @@ bag_wtp_m132 = {
 bag_wtp_m133 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 8.9483
 	}
 }
@@ -1732,7 +1732,7 @@ bag_wtp_m133 = {
 bag_wtp_m134 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 8.9128
 	}
 }
@@ -1742,7 +1742,7 @@ bag_wtp_m134 = {
 bag_wtp_m135 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 8.8894
 	}
 }
@@ -1752,7 +1752,7 @@ bag_wtp_m135 = {
 bag_wtp_m136 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.8960
 	}
 }
@@ -1762,7 +1762,7 @@ bag_wtp_m136 = {
 bag_wtp_m137 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.9483
 	}
 }
@@ -1772,7 +1772,7 @@ bag_wtp_m137 = {
 bag_wtp_m138 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 8.9720
 	}
 }
@@ -1782,7 +1782,7 @@ bag_wtp_m138 = {
 bag_wtp_m139 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 8.9720
 	}
 }
@@ -1792,7 +1792,7 @@ bag_wtp_m139 = {
 bag_wtp_m140 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.6936
 	}
 }
@@ -1802,7 +1802,7 @@ bag_wtp_m140 = {
 bag_wtp_m141 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.9720
 	}
 }
@@ -1812,7 +1812,7 @@ bag_wtp_m141 = {
 bag_wtp_m142 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
 		add = 8.0991
 	}
 }
@@ -1822,7 +1822,7 @@ bag_wtp_m142 = {
 bag_wtp_m143 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 9.0675
 	}
 }
@@ -1832,7 +1832,7 @@ bag_wtp_m143 = {
 bag_wtp_m144 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 9.0675
 	}
 }
@@ -1842,7 +1842,7 @@ bag_wtp_m144 = {
 bag_wtp_m145 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.7991
 	}
 }
@@ -1852,7 +1852,7 @@ bag_wtp_m145 = {
 bag_wtp_m146 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 9.0675
 	}
 }
@@ -1862,7 +1862,7 @@ bag_wtp_m146 = {
 bag_wtp_m147 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
 		add = 8.0927
 	}
 }
@@ -1872,7 +1872,7 @@ bag_wtp_m147 = {
 bag_wtp_m148 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 9.7608
 	}
 }
@@ -1882,7 +1882,7 @@ bag_wtp_m148 = {
 bag_wtp_m149 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 5.1656
 	}
 }
@@ -1892,7 +1892,7 @@ bag_wtp_m149 = {
 bag_wtp_m150 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
 	}
 }
@@ -1902,7 +1902,7 @@ bag_wtp_m150 = {
 bag_wtp_m151 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 10.0000
 	}
 }
@@ -1912,7 +1912,7 @@ bag_wtp_m151 = {
 bag_wtp_m152 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.1283
 	}
 }
@@ -1922,11 +1922,11 @@ bag_wtp_m152 = {
 bag_wtp_m153 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
 		add = 8.3349
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:mercury } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:mercury } } }
 		add = 1.6651
 	}
 }
@@ -1936,11 +1936,11 @@ bag_wtp_m153 = {
 bag_wtp_m154 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 8.0078
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
 		add = 1.9922
 	}
 }
@@ -1950,7 +1950,7 @@ bag_wtp_m154 = {
 bag_wtp_m155 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.6667
 	}
 }
@@ -1960,11 +1960,11 @@ bag_wtp_m155 = {
 bag_wtp_m156 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 3.8484
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.5398
 	}
 }
@@ -1974,11 +1974,11 @@ bag_wtp_m156 = {
 bag_wtp_m157 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 2.7282
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 3.6361
 	}
 }
@@ -1988,11 +1988,11 @@ bag_wtp_m157 = {
 bag_wtp_m158 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 2.8567
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 3.8100
 	}
 }
@@ -2002,11 +2002,11 @@ bag_wtp_m158 = {
 bag_wtp_m159 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 3.3300
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.2536
 	}
 }
@@ -2016,7 +2016,7 @@ bag_wtp_m159 = {
 bag_wtp_m160 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6636
 	}
 }
@@ -2026,11 +2026,11 @@ bag_wtp_m160 = {
 bag_wtp_m161 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 7.5003
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.4997
 	}
 }
@@ -2040,7 +2040,7 @@ bag_wtp_m161 = {
 bag_wtp_m162 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 5.0000
 	}
 }
@@ -2050,11 +2050,11 @@ bag_wtp_m162 = {
 bag_wtp_m163 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 6.6633
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6684
 	}
 }
@@ -2064,7 +2064,7 @@ bag_wtp_m163 = {
 bag_wtp_m164 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.0910
 	}
 }
@@ -2074,7 +2074,7 @@ bag_wtp_m164 = {
 bag_wtp_m165 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -2084,7 +2084,7 @@ bag_wtp_m165 = {
 bag_wtp_m166 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8218
 	}
 }
@@ -2094,7 +2094,7 @@ bag_wtp_m166 = {
 bag_wtp_m167 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
 	}
 }
@@ -2104,11 +2104,11 @@ bag_wtp_m167 = {
 bag_wtp_m168 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.1969
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.6388
 	}
 }
@@ -2118,11 +2118,11 @@ bag_wtp_m168 = {
 bag_wtp_m169 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.4210
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.0526
 	}
 }
@@ -2132,7 +2132,7 @@ bag_wtp_m169 = {
 bag_wtp_m170 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
 	}
 }
@@ -2142,7 +2142,7 @@ bag_wtp_m170 = {
 bag_wtp_m171 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
 	}
 }
@@ -2152,11 +2152,11 @@ bag_wtp_m171 = {
 bag_wtp_m172 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.5482
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.0226
 	}
 }
@@ -2166,11 +2166,11 @@ bag_wtp_m172 = {
 bag_wtp_m173 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.0001
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.1962
 	}
 }
@@ -2180,11 +2180,11 @@ bag_wtp_m173 = {
 bag_wtp_m174 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.8261
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 0.7827
 	}
 }
@@ -2194,11 +2194,11 @@ bag_wtp_m174 = {
 bag_wtp_m175 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 8.6922
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 0.8718
 	}
 }
@@ -2208,7 +2208,7 @@ bag_wtp_m175 = {
 bag_wtp_m176 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
 	}
 }
@@ -2218,7 +2218,7 @@ bag_wtp_m176 = {
 bag_wtp_m177 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.4517
 	}
 }
@@ -2228,7 +2228,7 @@ bag_wtp_m177 = {
 bag_wtp_m178 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.6687
 	}
 }
@@ -2238,7 +2238,7 @@ bag_wtp_m178 = {
 bag_wtp_m179 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 8.3332
 	}
 }
@@ -2248,7 +2248,7 @@ bag_wtp_m179 = {
 bag_wtp_m180 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 8.5668
 	}
 }
@@ -2258,7 +2258,7 @@ bag_wtp_m180 = {
 bag_wtp_m181 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 7.3516
 	}
 }
@@ -2268,11 +2268,11 @@ bag_wtp_m181 = {
 bag_wtp_m182 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 4.1159
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:marble } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:marble } } }
 		add = 5.8841
 	}
 }
@@ -2282,7 +2282,7 @@ bag_wtp_m182 = {
 bag_wtp_m183 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
 	}
 }
@@ -2292,11 +2292,11 @@ bag_wtp_m183 = {
 bag_wtp_m184 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 3.0300
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 3.0300
 	}
 }
@@ -2306,7 +2306,7 @@ bag_wtp_m184 = {
 bag_wtp_m185 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 3.3333
 	}
 }
@@ -2316,11 +2316,11 @@ bag_wtp_m185 = {
 bag_wtp_m186 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 5.0000
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 5.0000
 	}
 }
@@ -2330,7 +2330,7 @@ bag_wtp_m186 = {
 bag_wtp_m187 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -2340,7 +2340,7 @@ bag_wtp_m187 = {
 bag_wtp_m188 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 3.7243
 	}
 }
@@ -2350,7 +2350,7 @@ bag_wtp_m188 = {
 bag_wtp_m189 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.0000
 	}
 }
@@ -2360,7 +2360,7 @@ bag_wtp_m189 = {
 bag_wtp_m190 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -2370,7 +2370,7 @@ bag_wtp_m190 = {
 bag_wtp_m191 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.0000
 	}
 }
@@ -2380,7 +2380,7 @@ bag_wtp_m191 = {
 bag_wtp_m192 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2390,11 +2390,11 @@ bag_wtp_m192 = {
 bag_wtp_m193 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 2.0001
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 7.9999
 	}
 }
@@ -2404,11 +2404,11 @@ bag_wtp_m193 = {
 bag_wtp_m194 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 2.0020
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 7.9980
 	}
 }
@@ -2418,7 +2418,7 @@ bag_wtp_m194 = {
 bag_wtp_m195 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2428,7 +2428,7 @@ bag_wtp_m195 = {
 bag_wtp_m196 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2438,11 +2438,11 @@ bag_wtp_m196 = {
 bag_wtp_m197 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 9.2593
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.7407
 	}
 }
@@ -2452,7 +2452,7 @@ bag_wtp_m197 = {
 bag_wtp_m198 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 10.0000
 	}
 }
@@ -2462,7 +2462,7 @@ bag_wtp_m198 = {
 bag_wtp_m199 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2472,7 +2472,7 @@ bag_wtp_m199 = {
 bag_wtp_m200 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 10.0000
 	}
 }
@@ -2482,7 +2482,7 @@ bag_wtp_m200 = {
 bag_wtp_m201 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2492,7 +2492,7 @@ bag_wtp_m201 = {
 bag_wtp_m202 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -2502,7 +2502,7 @@ bag_wtp_m202 = {
 bag_wtp_m203 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
 	}
 }
@@ -2512,7 +2512,7 @@ bag_wtp_m203 = {
 bag_wtp_m204 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
 	}
 }
@@ -2522,11 +2522,11 @@ bag_wtp_m204 = {
 bag_wtp_m205 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 1.8767
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.8767
 	}
 }
@@ -2536,11 +2536,11 @@ bag_wtp_m205 = {
 bag_wtp_m206 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 0.6537
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 9.3463
 	}
 }
@@ -2550,15 +2550,15 @@ bag_wtp_m206 = {
 bag_wtp_m207 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 		add = 1.3943
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6642
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 6.9415
 	}
 }
@@ -2568,11 +2568,11 @@ bag_wtp_m207 = {
 bag_wtp_m208 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 2.8609
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.3772
 	}
 }
@@ -2582,15 +2582,15 @@ bag_wtp_m208 = {
 bag_wtp_m209 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 2.7794
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 2.2206
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.7794
 	}
 }
@@ -2600,15 +2600,15 @@ bag_wtp_m209 = {
 bag_wtp_m210 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
 		add = 2.8586
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 2.3807
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.8586
 	}
 }
@@ -2618,11 +2618,11 @@ bag_wtp_m210 = {
 bag_wtp_m211 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:horses } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
 		add = 3.3333
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
 		add = 3.3333
 	}
 }
@@ -2632,11 +2632,11 @@ bag_wtp_m211 = {
 bag_wtp_m212 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
 		add = 8.2252
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.1190
 	}
 }
@@ -2646,11 +2646,11 @@ bag_wtp_m212 = {
 bag_wtp_m213 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
 		add = 6.6667
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.2182
 	}
 }
@@ -2660,11 +2660,11 @@ bag_wtp_m213 = {
 bag_wtp_m214 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.0597
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 8.2788
 	}
 }
@@ -2674,11 +2674,11 @@ bag_wtp_m214 = {
 bag_wtp_m215 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
 		add = 7.5997
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6017
 	}
 }
@@ -2688,11 +2688,11 @@ bag_wtp_m215 = {
 bag_wtp_m216 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
 		add = 6.2489
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.4984
 	}
 }
@@ -2702,11 +2702,11 @@ bag_wtp_m216 = {
 bag_wtp_m217 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6017
 	}
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 7.5997
 	}
 }
@@ -2716,7 +2716,7 @@ bag_wtp_m217 = {
 bag_wtp_m218 = {
 	value = 0
 	if = {
-		limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.3361
 	}
 }

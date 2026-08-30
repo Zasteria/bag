@@ -14,6 +14,8 @@ searches like everything else:
   `ERROR:`, and the theory about culture tooltips that did not survive a run.
 - [`pitfalls/reference_tree.md`](pitfalls/reference_tree.md) — what breaks when
   somebody else's mod updates under a generator.
+- [`pitfalls/interface.md`](pitfalls/interface.md) — windows that draw outside
+  themselves, skins that do nothing, view objects that resolve nowhere.
 
 ## Script
 
@@ -115,27 +117,6 @@ can take the whole effect down on a new game. Guard it with
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
-
-## Interface
-
-**View objects only resolve inside their own panel.** Reading
-`LocationProductionView.GetSelectedLocation` from a scripted widget returns null
-and logs once per frame. Vanilla never reads a `*View` outside its own file;
-elsewhere it only calls `Show<X>View(...)` to open one. If a probe has to watch a
-panel, it has to live in that panel.
-
-**Skins go on the widget, not in a `background` block.** `background = { using =
-bg_paper_card }` does nothing at all; vanilla writes `using = bg_paper_card` on
-the widget itself. Symptom: a window drawing its text straight onto the map.
-
-**Copying a vanilla `.gui` brings its `types` block with it.** Construction
-Manager and Glorp UI both restyle panels by redefining `types` from files of
-their own, so a copy carrying vanilla's versions of those same types clobbers
-them, load order deciding who loses. Copy the *window* and leave the types alone.
-
-**Hidden rows still occupy their cell.** The list bodies are `fixedgridbox`es
-with fixed row heights and no `ignoreinvisible`, so hiding a row from the
-interface leaves a hole. Filter the data instead, or resize the list.
 
 ## Publishing
 

@@ -31,6 +31,35 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, sixth load. The results window works; the
+province is not what the game says it is.** One screenshot, everything selected.
+Owner: «в целом вроде ок».
+
+- **The window renders and does its job.** Rows, the area, 10.00%, the building
+  **and the method after the colon** — and the methods differ between rows,
+  «Гильдия прядильщиков льна» against «…шерсти», which is the scoring choosing
+  per province in plain sight. The plus expands a row into its locations, each
+  with its raw material and «Добавить».
+- **A province is not a province.** Two rows, «Измаил» and «Молдавская провинция
+  Бессарабия», are two halves of one province split by ownership — the game
+  splits a `province` by owner and names the pieces that way. Ranking the halves
+  answers for half the ground, and the answer would move on the day they join,
+  which is the day the mod plans for. Now one row per `province_definition`,
+  scored over every location in it, with each location's owner shown under the
+  row. **Which of the two the engine's own bonus counts is still unknown** —
+  `docs/research/engine.md` has the one-hover test that would settle it.
+- **The window drew outside itself** — frame ending where it should, header and
+  rows carrying on past it over the game's top bar. One description line:
+  `autoresize` with no `maximumsize` does not wrap, it grows, and
+  `allow_outside = yes` let it drag every expanding row with it. Bounded now, in
+  both of this mod's windows, and `widgetanchor = center` added to match vanilla.
+  Advanced Auto Build has the same defect, which is where the shape came from.
+- **Unclear from the screenshot: the «Из чего» column looks empty.** The goods
+  icons in the *location* rows draw fine, so `GetGoodsIcon` works; if the column
+  is genuinely empty the fault is the `bag_wtp_goods` variable list. The row now
+  prints «supplied/total» beside the icons, which tells an empty list from an
+  icon that will not draw without another round trip.
+
 **2026-08-30 — `where_to_produce`, fifth load. The tabs and the table are on
 screen; the row says too little.** One screenshot of the «Расчёт» tab, cloth
 guild ranked.
@@ -223,24 +252,23 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, sixth load — one game, five minutes.** Tabs, the table and
-the per-province rows came back working from the fifth; this is the results
-window that answers what the row could not.
+**`where_to_produce`, seventh load — one game, five minutes.**
 
-1. **Press «Считать».** The results window should open by itself. «Открыть»
-   reopens it; the close button should leave it empty rather than open.
-2. **A row is a province** — name, area, the bonus, then the building **and the
-   method after the colon**, then an icon per raw material the province supplies.
-   For a cloth guild in Wallachia that icon is fibre crops, and that is the
-   «из чего» the fifth run asked for.
-3. **The plus opens the row** into the province's locations, each with what it
-   works now and «Добавить» / «Убрать». Adding one there should paint it on the
-   map exactly as the selection window does.
-4. **The table in the Mod Menu** should now read «Провинция — прибавка —
-   здание: метод», and hovering a row should give a tooltip.
-5. **`error.log`** — 380 lines of new GUI, and a GUI failure names its file and
-   its line. Still unanswered from the fifth load: the region lists, the age
-   filter, and whether the log is clean at all.
+1. **Одна строка на провинцию.** «Измаил» and «Молдавская провинция Бессарабия»
+   should now be a single row named plainly, «Бессарабия», and opening it should
+   list every location of both halves with the owner beside each.
+2. **«Из чего».** The column should read like «1/1» or «2/3» and carry that many
+   goods icons. A count with no icons, or «0/1», each name a different fault.
+3. **The window inside its frame** — nothing drawing past the right edge, in this
+   window and in the selection one.
+4. **One hover, and it settles a question this repository cannot answer from
+   files:** in a location whose province is split by a border, open a building's
+   RGO tooltip and see whether it credits a raw material that only the *other*
+   country's half produces. That says whether the game counts the whole province
+   or only the owned piece — and therefore whether the mod's number is today's or
+   tomorrow's.
+5. **`error.log`.** Still unanswered from the fifth load: the region lists and
+   the age filter.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
