@@ -31,139 +31,9 @@ what actually appeared.
 
 ## Runs
 
-The five most recent. Everything before 2026-08-27 is in
+The three most recent. Everything before 2026-08-29 is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md) — same entries,
 moved rather than trimmed. Search both with `python3 tools/kb.py`.
-
-### 2026-08-27 — a logs drop, and the error nobody would have seen
-
-**Not a designed run.** The player was asked to look at the eleven-language
-rebuild, said it "looks the same as before", and sent the whole `logs/` folder
-instead. It answered three things anyway, one of them a real bug.
-
-**What was loaded.** The 2026-08-25 build of `glorpui_hints`, out of
-`Documents/.../mod/glorpui_hints` — **not** the 2026-08-27 rebuild, which had
-not been installed. So "looks the same as before" is not evidence about the
-rewrite, and the axis he was looking at (*Миролюбие*) could not have shown a
-difference in any case: its extra block is two conditional lines,
-«В мирное время» and «Крепостей меньше половины лимита», and those words are
-identical in both builds. The catalogue lines are the ones that changed.
-
-Also loaded: `3784988919` (`Glorp UI small fix`), the rival addon, alongside
-ours. The screenshot shows **our** phrasing — «Даровать привилегию Религиозные
-дипломаты», «Принять реформу правления Дипломатические традиции» — where his
-says «Предоставить …» and «Добавить … ([government_reform|e])». So on this
-playset ours wins the shared keys. Worth knowing and worth not relying on: the
-mount lines interleave the two across several passes and the order is not
-obviously ours to control.
-
-| | |
-| --- | --- |
-| **`Missing loc key 'GLORP_UI_SVH_*'`** | **0.** Was 725 per load before this mod existed. The translation half does its whole job. |
-| **`ru_loc_fix` round two** | **confirmed.** All six keys it was to repair — `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`, `MARKET_SURPLYS_INFO`, `ALERT_HAS_UNMARRIED_CHILDREN`, `THIRD_DESTROY_BUILDING_EFFECT`, `DESTROY_BUILDING_EFFECT` — appear **0 times** in `error.log`. Round one was already confirmed; round two now is. |
-| **`glorpui_hints` gates** | **one broken gate, found only because the logs came.** |
-
-**The bug.** One line, once, in `error.log`:
-
-```
-[jomini_trigger.cpp:803]: is_core_of: Inconsistent trigger scopes (country vs.
-location) at common/customizable_localization/svx_extra_hint_loc.txt:3073
-```
-
-`svx_n_sinicized_004` is the Confucian Academy, and its gate is that building's
-own `allow` block copied verbatim. **A building's `allow` is evaluated on the
-location being built in**, not on the country — `is_core_of = owner`,
-`owner = { ... }`, `region`, `market`, `has_building`, `dominant_culture` — and
-all 179 of them were being pasted into a `type = country` customizable
-localization. `is_core_of` is simply the one strict enough to say so.
-
-On screen this shows as nothing at all: the gate does not answer, so the hint
-either never appears or always does, and no player would ever connect the two.
-
-**The repair is the exact question rather than a workaround.** Every building
-push here is a `capital_country_modifier` — the building has to be *in the
-capital* — so the block belongs in the capital's scope:
-`exists = capital capital = { ... }`. `capital` is a country → location event
-target (`python3 tools/api.py capital`) and the game writes `exists = capital`
-in front of it 76 times in its own `common/`.
-
-**And the rule went into the checker.** `check_gate_scopes` in
-`mods/glorpui_hints/tools/generate.py` reads **Supported Scopes** out of the
-engine's own trigger dump (`reference/game/docs/triggers.log`) and reports
-any trigger called in country scope
-that the engine does not allow there. It follows only the outer scope — a nested
-`capital = { ... }` is a different scope and is left alone, which is precisely
-what the repair is. Checked both ways: it catches the old line and passes the
-new one.
-
-**Still unrun, and unchanged by this:** everything the 2026-08-27 rebuild added.
-The cheapest single check is now known — turn the mod menu switch
-«Показывать всё без фильтра» on and hover **Децентрализация**: the subject type
-lines should read «**Тип ленника** …» where the old build said «Тип вассала».
-
-### 2026-08-27 — the concept tokens render, and in two languages
-
-**The change with the widest blast radius is confirmed.** Screenshots of the
-*Decentralization* tooltip with the mod menu switch «Показывать всё без фильтра»
-on, in Russian and then in English — the player switches language from the
-console on the fly, which turns out to make testing the other ten languages
-almost free.
-
-| expected | observed |
-| --- | --- |
-| the catalogue lines open with the game's own word for the category, from `[religious_aspect\|e]` and friends | **yes.** «**Религиозная особенность** Двенадцать представителей», «**Тип ленника** Феод / Пронии / Удж-бей / Вассал» — where the 2026-08-25 build said «Аспект веры» and «Тип вассала» |
-| the concept renders as an encyclopedia link, not plain text | **yes** — the category word is coloured and hoverable, the object name beside it is not |
-| English exists at all | **yes.** "Religious Aspect The Twelve Emissaries", "Subject Type Fiefdom". The old build shipped no English `SVX_*` keys, so this block would have been raw keys |
-| the English openers are Glorp UI's own | **yes** — "Enact the Traditional Distribution Policy" |
-| the unfiltered block replaces the two filtered ones | **yes**, and the block titles translate: «Влияет на смещение (без фильтра)» / "Pushes towards this (unfiltered)" |
-
-So `catalog` in `languages.py` stays a concept token, and the seven Russian
-terms it corrected are the game's own words on screen. **That was the one change
-that could have gone badly, and it did not.**
-
-**One thing the hot language switch does not do:** the vanilla block title
-«Дальше продвинуться в сторону децентрализации:» stayed Russian in the English
-screenshot while everything this mod owns switched. Not our key and not our bug
-— but it means a language switched from the console is not a clean test of
-*vanilla* strings, only of ours. A real check of another language wants a
-restart.
-
-**Still unconfirmed:** the five advance-gated privileges, the building `allow`
-repair from earlier today, and nine of the eleven languages.
-
-### 2026-08-27 — the upload button exists, and it is hidden
-
-Two screenshots, an hour apart, and the second corrected the first.
-
-**First read, wrong:** the launcher's «Модификации и дополнения» shows playsets,
-order and checkboxes and nothing about publishing, so EU5 was written up as
-having no first-party upload.
-
-**It has one.** The player found it: the same screen, the row **«Выбранные
-модификации: N/M»**, a small **sandbox icon** in that row next to the gear. It
-opens **Mod Tools**, with tabs *Create mod* and *Uploaded mods*, the whole of
-`metadata.json` as a form — Name, ID, Path, Version, Supported game version,
-Description, and the tag list as checkboxes — and a button reading **Upload New
-Mod**.
-
-It is documented, in one sentence, in the middle of a dev diary about writing
-events and situations:
-[Tinto Talks 85, Modding](https://forum.paradoxplaza.com/forum/developer-diary/tinto-talks-85-22nd-of-october-modding.1864004/)
-— *"navigate into the Mods & DLCs Menu in the top right corner and then open the
-Mod Tools view by clicking on the sandbox icon next to Selected Mods"*. That
-diary is otherwise entirely about authoring; publishing is that clause and the
-button in a screenshot. The wiki does not mention it at all, which is why it
-documents the third-party uploader instead — and why an hour went on finding a
-button that was on screen the whole time.
-
-**So the route is the game's own**, and the tag checkboxes in that form are the
-authoritative tag vocabulary — the same one four mods here were outside of.
-[PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager)
-stays as the fallback; `mods.bat → 5 → «к»` still writes its config.
-
-Also confirmed from the same screenshot: the load order the player actually
-runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
-after it, which is what the declared dependency is for.
 
 ### 2026-08-29 — `mods.bat`, an update run on the owner's own machine
 
@@ -277,6 +147,32 @@ axis Wallachia does not have.
 **Written down as a tool, not as a warning.** `python3 tools/which_build.py
 <logs folder>` fingerprints every gui file in a log against this tree and against
 `git log`, and says which commit ran. This is the second run lost this way.
+
+
+### 2026-08-30 — the splice, in game, and it works
+
+**Loaded:** the 2026-08-29 build, installed by hand from the repository because
+`mods.bat` did not do it (see below). Wallachia, *Наступление ↔ Оборона*, Glorp
+UI's «показать недоступные» **on**.
+
+**Observed:** «Дальше продвинуться в сторону обороны» is back and now carries
+vanilla's own unfiltered blob — five lines where the filtered list had one:
+«Добавить государственный принцип "Система гарнизонов"» +0.05, «…"Тактика
+асимметричной войны"» +0.10, «Установить политику "Оборонительная позиция"»
++0.10, «Содержание крепостей» and «Влияние совета», both (масштабируется).
+This mod's «Также влияет на смещение» sits under it with its four. Glorp UI's
+per-axis list is gone, which is their design.
+
+**Verdict: the splice is confirmed.** Vanilla's blob, this mod's lists, their
+lists hidden — exactly what was predicted, and the last thing this mod was
+waiting on. The owner: «вроде всё работает ок», and «наш мод более показателен и
+ясен визуально».
+
+**Known and deliberately not fixed:** a few rows appear in both blocks —
+«Содержание крепостей» is in vanilla's blob and in this mod's list. The owner
+was asked nothing and said to leave it: the blob is theirs to decide and
+de-duplicating across it would mean parsing it, which is the thing that broke
+this feature the first time.
 
 
 ## Waiting on a run

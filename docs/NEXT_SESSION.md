@@ -4,27 +4,37 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `glorpui_hints` — one load, then the workshop
+## The job: `mods.bat` does not install anything
 
-The mod is finished as software and unfinished as a *published* one. Its brief
-is [`../mods/glorpui_hints/CLAUDE.md`](../mods/glorpui_hints/CLAUDE.md).
+**`glorpui_hints` is finished and confirmed** — the splice passed in game on
+2026-08-30 (`TESTLOG.md`). What is left is getting it out, and that is blocked on
+the tool, not on the mod.
 
-**Deploy first. The 2026-08-30 run tested the 2026-08-25 build** — the folder
-`Documents/.../mod/glorpui_hints/` had never been refreshed, and `gui.log` proved
-it (`TESTLOG.md`). So the ask is `mods.bat → 4` **and then** the load, and the
-next logs get `python3 tools/which_build.py <logs folder>` before anything else
-is read into them.
+**What the owner reports, twice over.** `mods.bat` says `ok` and installs
+nothing. Two separate failures, both silent:
 
-**The load itself is one thing.** Glorp UI's 2026-08-28 build has a «показать
-недоступные» switch that shows vanilla's own hint blob. This mod was dropping
-that blob entry, so the switch emptied half the tooltip; their block is spliced
-in byte for byte now, and none of it has been in game. **Turn their switch on.**
-Expected: vanilla's blob and this mod's own lists both present, Glorp UI's
-per-axis lists gone — that last part is their design, not a fault. What he saw
-on 2026-08-30 with the switch on — the whole «Дальше продвинуться» block gone —
-is precisely the old bug, so it is the symptom to watch disappear.
+1. **Workshop mods are never refreshed.** The `workshop/` folder keeps the old
+   versions, so the game keeps loading them.
+2. **Our own mods are never copied into the game.** He installed
+   `glorpui_hints` through the menu twice, was told it worked, and both runs
+   loaded a build from days earlier. He has now copied it by hand, which is the
+   only reason 2026-08-30 tested the right files.
 
-**Riding along on the same load, none of it needing a protocol:**
+**What he wants it to be**, in his words: a replacement for updating through
+Steam. He picks a mod in a menu; it pulls that mod from `main` and **replaces**
+the copy in `Documents/Paradox Interactive/Europa Universalis V/mod/` outright,
+old files gone rather than written over. Same for pulling workshop updates down.
+
+`tools/mods.ps1` is the menu and `tools/workshop.py` is the half without one.
+Start by finding out what the install step actually does when it prints `ok` —
+that it reports success while copying nothing is the first thing to fix, because
+it is what cost the two runs. `python3 tools/which_build.py <logs folder>` on the
+next logs drop is how the fix gets confirmed.
+
+## Then `glorpui_hints` goes out
+
+Nothing about the mod is outstanding. Riding along on whatever load comes next,
+none of it needing a protocol:
 
 - the five advance-gated privileges. Playing anyone but England, Morocco or the
   Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be offered,
