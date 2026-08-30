@@ -4,32 +4,45 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `mods.bat` does not install anything
+## The job: `mods.bat`, and one run to confirm it
 
 **`glorpui_hints` is finished and confirmed** — the splice passed in game on
-2026-08-30 (`TESTLOG.md`). What is left is getting it out, and that is blocked on
-the tool, not on the mod.
+2026-08-30 (`TESTLOG.md`). It only passed because the owner installed the build
+by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
+-old copy, and workshop mods were never refreshed either.
 
-**What the owner reports, twice over.** `mods.bat` says `ok` and installs
-nothing. Two separate failures, both silent:
+**Both halves are repaired, and neither has been run on his machine.** That is
+the whole of the next job: one pass through the menu, and read what it says.
 
-1. **Workshop mods are never refreshed.** The `workshop/` folder keeps the old
-   versions, so the game keeps loading them.
-2. **Our own mods are never copied into the game.** He installed
-   `glorpui_hints` through the menu twice, was told it worked, and both runs
-   loaded a build from days earlier. He has now copied it by hand, which is the
-   only reason 2026-08-30 tested the right files.
+**Пункт 1, the workshop.** The bug was that a failed steamcmd run looked exactly
+like a successful one. It asked only whether the item's folder existed in
+steamcmd's own directory — and it existed from the previous attempt, so an
+unfinished login still copied last week's files over the workshop folder. Now
+the folder is fingerprinted before and after the run (does it exist, newest file
+mtime, the manifest steamcmd recorded), steamcmd's exit code is read instead of
+thrown away, the cached copy is offered for deletion first, and **only a mod
+whose copy actually changed is copied onward.** Anything else is named on
+screen: «не скачался вовсе» or «steamcmd оставил то, что уже лежало».
 
-**What he wants it to be**, in his words: a replacement for updating through
-Steam. He picks a mod in a menu; it pulls that mod from `main` and **replaces**
-the copy in `Documents/Paradox Interactive/Europa Universalis V/mod/` outright,
-old files gone rather than written over. Same for pulling workshop updates down.
+**Пункт 4, our own mods.** The copy loop turned out to be sound — 42 files,
+`.metadata` + the mount folders, digest-identical afterwards. What was missing
+was any check that it landed: now the install is **read back off disk** and a
+mismatch says so in capitals with the path, the `git pull` reports the commit it
+moved to, and the screen names the branch and commit that were installed. A
+`game_mods` path set once with a typo is no longer created on the next run —
+that is the one way this could have silently installed into a folder the game
+never reads, and it now refuses instead.
 
-`tools/mods.ps1` is the menu and `tools/workshop.py` is the half without one.
-Start by finding out what the install step actually does when it prints `ok` —
-that it reports success while copying nothing is the first thing to fix, because
-it is what cost the two runs. `python3 tools/which_build.py <logs folder>` on the
-next logs drop is how the fix gets confirmed.
+**And `mods.bat check` now answers it without the menu**, printing each of our
+mods against the game's folder — «совпадает» / «отличается» / «нет в игре» — and
+the repository's branch and commit. That is the line to paste into a chat before
+anybody theorises about a mod again.
+
+**What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
+the output of all three. If a mod still reads «отличается» after installing, the
+message names the folder and that is the next thing to look at. The logs from
+whatever run follows go through `python3 tools/which_build.py <logs folder>`
+first, as always now.
 
 ## Then `glorpui_hints` goes out
 
