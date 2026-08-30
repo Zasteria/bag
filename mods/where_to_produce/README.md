@@ -16,9 +16,11 @@ question, in a table.
    in the game that consumes a raw material, sorted by the good it produces and
    labelled `<good> <building> — <method>`.
 3. **Rank.** Press the button. Every location inside the ticked regions is
-   scored and the fifty best are listed, each with the efficiency the chosen
-   method would gain there and how many of the raw materials it wants that
-   province supplies, out of how many it wants in all.
+   scored, the best fifty provinces are listed, and the mod's own results window
+   opens on them: one row per province with the efficiency it would give, the
+   building and **which of its methods** won, and an icon for each raw material
+   the province supplies to that method. A row expands into the province's
+   locations, each with what it works now and a button to take it into the plan.
 
 ## Why it is not the game's own build panel
 
@@ -56,6 +58,13 @@ about it surprise people:
   the province counts, so every location of one province scores the same. What
   separates them afterwards is building slots, which this version does not
   model.
+- **And the province is the whole province.** The game splits a province by
+  ownership — half of Bessarabia under Moldavia is its own `province`, named
+  «Молдавская провинция Бессарабия» — and this counts over the
+  `province_definition`, both halves. That is the number the ground gives once
+  it is yours, which is the only number a plan can be made of. Whether the
+  engine's own bonus counts the same way is an open question with a one-hover
+  test in `docs/research/engine.md`.
 
 ## What is deliberately not here yet
 
@@ -64,19 +73,25 @@ capacity. Also the borders themselves are regions rather than anything painted
 on the map — that is the shape the owner asked for first, on the way to picking
 locations directly.
 
-## The fifty-row limit
+## Two places the answer is shown
 
-The result table holds fifty rows. That ceiling is CMF's, not this mod's, and it
-is in exactly one place: list items are initialised through an unrolled chain of
-`if`s that stops at item 50, because a CMM list ordinal has to be a literal —
-`item = var:x` is pasted verbatim into the macro and kills the load. The
-interface side has no cap, and neither do dropdowns.
+**A window of this mod's own** is the real one. A row there is a widget: it can
+carry the province and the method and an icon per good, and it opens into the
+province's locations. It repeats over `bag_wtp_results`, a plain global list, so
+nothing about CMF bounds it.
 
-Raising it means either carrying a fork of two CMF files (~3200 lines, which
-would ride over every other CMM mod in the playset on each CMF update) or
-leaving CMM for a window of this mod's own over a plain global list, which is
-what Construction Manager's hidden window already does. The second is the way,
-and it is the next structural job.
+**The fifty-row table in the Mod Menu** is the summary beside it, and fifty is
+CMF's ceiling rather than this mod's: list items are initialised through an
+unrolled chain of `if`s that stops at item 50, because a CMM list ordinal has to
+be a literal — `item = var:x` is pasted verbatim into the macro and kills the
+load. A row there is one localization key, which is the whole reason the window
+exists: a key cannot hold an icon without a global variable per slot per row, and
+it cannot expand at all.
+
+The ranking pass walks eight times fifty candidates to fill those fifty rows.
+`max` on `ordered_in_global_list` counts locations visited, not rows produced,
+and only the first location of each province takes a row — at `max = 50` the
+fifth run got about a dozen provinces into a table with fifty places.
 
 ## Layout
 
@@ -87,6 +102,9 @@ in_game/common/
   scripted_triggers/   which locations are worth ranking
   scripted_guis/       one _on_changed per list -- without them a list is invisible
   script_values/       the bonus, and the readings the row labels print
+in_game/gui/
+  bag_wtp_result_window.gui   the whole interface: the map pickers, and the
+                              ranked provinces under them
 main_menu/localization/{english,russian}/
 tools/generate.py      everything above that comes out of the game's own files
 ```
@@ -100,5 +118,8 @@ The owner does it from `mods.bat`.
 
 ## State
 
-Written, never loaded. See [`CLAUDE.md`](CLAUDE.md) for what the first run has
-to answer and what is known to be unproven.
+Ten loads in. The scoring, the whole-province rule and the results window are
+confirmed; the ranking by output, the two-line row and the pickers moving into
+that window are not. See [`CLAUDE.md`](CLAUDE.md). See
+[`CLAUDE.md`](CLAUDE.md) for what the next run has to answer and what is known
+to be unproven.

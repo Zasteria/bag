@@ -31,101 +31,89 @@ what actually appeared.
 
 ## Runs
 
-**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
-Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
-"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
-the mod's whole mechanism — the scoring, the picker, the window, the map mode.
+**2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
+other, the tree was still empty, and the selection window was the wrong idea.**
+Two screenshots.
 
-Four things the run asked for, all built and none of them loaded yet:
+- **The province rows overlapped.** The card holding a row is a `widget`, and a
+  widget does not size itself to its child: it was given
+  `layoutpolicy_vertical = preferred` and no height when the row grew a second
+  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
+- **The tree columns were still empty** after being written out, so the block
+  nesting was not the fault either. Whatever it is, it is not worth another
+  round trip: the whole selection window is deleted.
+- **And the owner said what to do instead**: «нахрена для этого всего вообще
+  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
+  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
+  каждого изменения границ.» So the three map-picker buttons, the running count
+  and «Очистить выбор» are in the results window, and **every pick re-ranks
+  while that window is open** — the answer follows the borders as they are
+  drawn.
+- The scoring, the two-line row and the goods icons from the ninth build could
+  not be judged under rows that overlapped; they come back for the eleventh.
 
-- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
-  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
-  share a name, and the zone list had to become `continent`.
-- **Regions back beside the continents.** A ticked continent paints the whole
-  screen; the good case was one region ticked with its neighbours addable.
-- **Methods the age has not reached were being recommended.** The unlock data is
-  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
-  `3_production_method_unlocks.txt` gates ten methods directly, so
-  `can_build_building` in country scope plus `has_advance` answers "available to
-  me now". This is what `docs/archive/where_to_produce.md` recorded as
-  unanswerable; `common/advances/` was not in the tree then.
-- **The table ran out of rows before it ran out of answers.** Every location of a
-  province scores the same, so it now holds one row per province.
+**2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
+ranking was ranking the wrong thing.** Three screenshots.
 
-**2026-08-30 — `where_to_produce`, third load. The map mode works; the design of
-the picker did not.** Five screenshots.
+- **All four columns of the tree were empty, headers and all four frames drawn.**
+  That pairing is the diagnosis: the header's `blockoverride` reached the
+  instance and the rows' did not, because the rows' `block` was nested inside the
+  `blockoverride` of the scrollbox. A block inside a blockoverride never
+  resolves. The four columns are written out now, no column type at all.
+- **The goods icons still sat a column apart** after being given no width: the
+  spreading was the `icon` widget inside an hbox, not the hbox's size. They are
+  text icons now — `[Goods.GetIcon]`, which is what vanilla writes in its own
+  strings — and a text hugs its glyph.
+- **The ranking put forest villages at the top of a weapons search.** Not a bug
+  in the scoring; the scoring was answering the wrong question. A village wants
+  one raw material, so it reaches the full 10% anywhere, and it produces 0.2
+  weaponry a level against a weapon guild's 1.0 and a factory's 4.0. Ranking is
+  by **effective output** now — `output * (1 + bonus/100)`, the bonus being an
+  efficiency percentage and therefore a multiplier — and villages are scored on
+  their own side, so a row shows two answers: the best built-up building and the
+  best village.
+- **The Mod Menu table is gone.** It said the same thing as the window one line
+  at a time, and it was the only thing holding the answer to fifty rows.
+- **The owner uses the region lists and nothing else** to frame a search:
+  Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
+  That answers what six runs of "the region lists are untested" was asking.
 
-- **The map mode paints**, and it is the thing the owner wanted: Wallachia green
-  as chosen, the ticked Carpathians dark as the zone. Its name showed as
-  `mapmode_bag_wtp_selection_name` — a map mode's name key is
-  `mapmode_<key>_name`, not `<key>`.
-- **The target picker opens and works, and closes after each pick.** That is the
-  generic action's lifecycle; `fire_generic_action` fires with a supplied target
-  rather than reopening the panel, so there is no script-side way to keep it up.
-  Area granularity is the mitigation.
-- **Asking the player for the production method was wrong.** Owner's words: the
-  mod is meant to find the best method for his ground, and asking him to guess it
-  first "полностью ломает конечную суть мода". Rebuilt: the good is the only
-  question, every method for it is scored per location, and the row names the
-  building that won.
-- **Six region groups were a bad frame.** Replaced by five continents, which also
-  removed the zone walk entirely — a location's continent is a plain trigger.
-- **The window listed nothing when no region was ticked**, so nothing could be
-  trimmed. It now lists the provinces something is picked in, which is its actual
-  job and what bounds it.
+**2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
+is on screen; the map picker is the one thing left.** Owner: «в остальном —
+круто».
 
-**2026-08-30 — `where_to_produce`, second load. The data half works; the picker
-is capped at twenty.** Five screenshots.
+- **The goods icons draw**, the lakes are gone from the expanded rows, the count
+  sits still. The `datacontext` on the datamodel item was the whole of the icon
+  fault.
+- **The whole-province rule is confirmed by eye**: Bessarabia is split by a
+  border and the horses in the far half count towards its number, which is what
+  the mod means by planning for the ground rather than the border. The engine's
+  own tooltip was not the thing compared, so *that* question stays open — it is
+  just no longer urgent.
+- **`error.log` carries nothing of this mod's**, first time it has been read for
+  it. 1706 of its 2742 lines are `jomini_custom_text.h` on vanilla Russian,
+  341 are a null promote in a loc string, and the four `Widget cannot have a
+  position in a layout` are Glorp UI's.
+- **`gui.log` had 124 lines that were ours**: `bag_wtp_select_window.gui:177`,
+  `Widget cannot have a position in a layout` — a `parentanchor` on a button that
+  is a direct child of an hbox. Anchors belong inside a plain widget; an hbox is
+  a layout and places its own children.
+- **The icons sat a column apart.** An hbox given more width than its children
+  spreads them across it. Left to hug its content now.
+- **And the ask, for the fourth time: the game's own map selection.** Both
+  screenshots are the same mechanism — `military_objective_group.gui`, driven by
+  `MilitaryObjectiveGroupView` with `GeographyGlue` rows. **Engine objects: a mod
+  cannot instantiate either**, and there is no on_action for a map click, so a
+  window of one's own cannot be told what the player clicked. What *is* reusable
+  is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
+  — the game's own map highlight, callable from any `.gui`.
 
-- **The result table reads.** "Бельцы — 9.25% (2/2)", fifty rows, descending.
-  That is a location name out of a global variable and two script values printed
-  from a localization key — the mechanism nothing in this repository had ever
-  done, and the reason the first `where_to_produce` was worth attempting again.
-- **The region lists render** with the game's own names ("Балканы", "Карпаты",
-  "Польша"), so a list row's label set to `flag:<game key>` works and arrives
-  translated. The ticks reach script: the zone came out at 260 locations in 53
-  provinces.
-- **A CMM dropdown is clickable only to its twentieth option.** Reported as
-  "некоторые здания просто не выбираются". Found in CMF: an option click runs
-  `CMM_MarkDropdownSelection_<index>` and CMF defines `_0` to `_19`. The
-  218-option method picker was replaced by two lists — 47 goods, then at most 20
-  ways to make the chosen one.
-- **The selection window's rows collapsed to zero height**, all but the one
-  expanded province, which piled them at the left edge. The item was wrapped in
-  a `widget`, which does not size itself to its child; Advanced Auto Build puts
-  the row type directly in `item`.
-- **The window was the wrong shape for the job anyway.** The owner wanted what
-  Advanced Auto Build actually does: the game's own target picker, which is a
-  `select_trigger` block inside a `generic_action` — search box, sortable list,
-  map highlight, and a map click picking the same thing a row does. AAB's
-  restriction to owned land is its own `interaction_source_list`, not the
-  engine's; vanilla's actions mostly give no source and filter with `visible`,
-  which runs in the candidate's scope.
-
-**2026-08-30 — `where_to_produce`, first load. The tab renders; no list on it
-does.** Screenshot: the Mod Menu tab "Где производить" shows the group "Здание и
-метод" with its three settings (the method dropdown, the tick, the button) and
-nothing else — no region groups, no result table. Diagnosed from the files, not
-guessed: `cmm_register_settings_list` declares `is_ordered` and the generated
-call omitted it, so all six region lists and the result list died at
-registration. Fixed; `tools/check_cmm.py` grew the missing-argument check that
-would have caught it.
-
-Two things the same screenshot settled without being asked:
-
-- **The method dropdown is unusable at 218 options**, and the label was the
-  reason. The control is about 165 pixels and elides the tail, so "good, icon,
-  building, method" showed the good — which repeats for twenty rows — and cut off
-  the method entirely. Relabelled to icon, building, method, and sorted by
-  building so one building's methods sit together. Better, and still not a
-  substitute for a real picker.
-- **Registration itself works.** The dropdown, the tick and the button all
-  rendered with their names and descriptions, so `cmf_on_mod_registration`, the
-  mod id, the tab and the group keys are all right.
-
-The three most recent. Everything before 2026-08-29 is in
-[`archive/testlog_2026-08.md`](archive/testlog_2026-08.md) — same entries,
-moved rather than trimmed. Search both with `python3 tools/kb.py`.
+Everything before 2026-08-29, and `where_to_produce`'s first seven loads — the
+map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
+turned the mod from asking for a method into finding one, and the four that
+confirmed the scoring, the tabs, the results window and whole provinces — is in
+[`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
+trimmed. Search both with `python3 tools/kb.py`.
 
 ### 2026-08-29 — `mods.bat`, an update run on the owner's own machine
 
@@ -272,17 +260,19 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, fifth load — one game, five minutes.**
+**`where_to_produce`, eleventh load — one game, five minutes.** One window now:
+the answer, with the borders picked in its own header.
 
-1. **Three tabs** at the top of the mod's page, and each list under the right one.
-2. **Ground tab**: five continents and, under them, one region list per
-   continent. Tick a region — the picker and the map should narrow to it.
-3. **Goods**: anything your age cannot make yet should be absent from both lists.
-   Tick "показывать методы, до которых ещё не дошла эпоха" and they should come
-   back.
-4. **Rank a good you can make**: the table should now name one province each
-   rather than repeating one province down the screen.
-5. **`error.log`** — 218 new country-scope triggers and the region lists are new.
+1. **The rows read**, one province each, two lines where both a built-up
+   building and a village were found, nothing overlapping.
+2. **The three «Выбрать…» buttons** are in the results window and open the
+   game's own target panel; the count beside them moves as you click.
+3. **Every pick re-ranks**: close the picker panel and the table under it should
+   already be the answer for the new borders, with no «Считать» pressed.
+4. **Villages are not at the top** of a weapons search, and the goods icons sit
+   beside their `1/2` count rather than a column away.
+5. **`error.log` and `gui.log`** — one window fewer, and the selection window's
+   124 layout lines should be gone with it.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

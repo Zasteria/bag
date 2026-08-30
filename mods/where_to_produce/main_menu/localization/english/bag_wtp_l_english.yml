@@ -65,18 +65,43 @@
 
  bag_wtp__run_name: "Find the best locations"
  bag_wtp__run_text: "Rank"
- bag_wtp__run_desc: "Walk the chosen locations, find each one the best method for making the chosen good, and fill the table below.\n\nYou do not pick the method: which recipe suits which ground is the question this mod exists to answer.\n\nWhat the last run saw:\n\nContinents ticked: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_regions')|0]\nLocations considered: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_candidates')|0]\nRows filled: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_found')|0]\n\nThose three are counted by the pass itself. The first zero among them is the diagnosis."
+ bag_wtp__run_desc: "Walk the chosen locations, find each one the best methods for making the chosen good, and open the results window.\n\nYou do not pick the method: which recipe suits which ground is the question this mod exists to answer. Two are found — the best built-up building and the best village, scored apart.\n\nWhat the last run saw:\n\nContinents ticked: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_regions')|0]\nLocations considered: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_candidates')|0]\nProvinces found: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_found')|0]\n\nThose three are counted by the pass itself. The first zero among them is the diagnosis."
 
- bag_wtp__result_name: "Best Locations"
- bag_wtp__result_item_column_name: "Location — efficiency — building"
- bag_wtp__result_desc: "Locations, best first. The figure is the production efficiency the best method here would gain from raw materials; the building is the one that gets it.\n\nThe game credits a raw material worked anywhere in the province, not only in the location itself, so every location of one province reads the same. What separates them is building slots, which this version does not model.\n\nThe table holds fifty rows and no more."
+
+ bag_wtp__show_name: "Show the results window"
+ bag_wtp__show_text: "Open"
+ bag_wtp__show_desc: "Opens the last run in a window of this mod's own: one row per province, naming the building and which of its methods won, with the raw materials the bonus is made of beside it. A row opens into the province's locations, each with what it works now and a button to take it into the plan.\n\nPressing Rank opens this window anyway; this button is for coming back to it."
+
+ bag_wtp_result_window_title: "Where To Produce — results"
+ bag_wtp_result_window_desc: "Provinces, best first. A row holds two answers: the best of the built-up buildings above, the best village below. The ranking is by what a method actually produces — the percentage is an efficiency bonus and the «×» after the method is its output per level, and a village makes a fifth of what a workshop does at the same percentage.\n\nA province counts whole, even where a border cuts it today. Open a row for its locations, what each works, and who holds it."
+ bag_wtp_result_window_empty: "Nothing yet. Tick a good on the Goods tab, some ground on the Land tab, and press Rank."
+
+ bag_wtp_result_bonus_value: "[Location.MakeScope.GetVariable('bag_wtp_bonus').GetValue|2]%"
+ bag_wtp_result_method_value: "[Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out').GetValue|2]"
+
+ bag_wtp_result_unowned: "Unowned"
+ bag_wtp_result_goods_count: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all').GetValue|0]"
+ bag_wtp_result_bonus_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bonus_rural').GetValue|2]%"
+ bag_wtp_result_method_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out_rural').GetValue|2]"
+ bag_wtp_result_goods_count_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all_rural').GetValue|0]"
+ bag_wtp_result_head_province: "Province"
+ bag_wtp_result_head_area: "Area"
+ bag_wtp_result_head_bonus: "Bonus"
+ bag_wtp_result_head_method: "Building and method (× per level)"
+ bag_wtp_result_head_goods: "Made of"
+
+ bag_wtp_result_province_tt: "The whole province, both sides of whatever border cuts it today. You build in one of its locations — open the row."
+ bag_wtp_result_bonus_tt: "The production efficiency this method gains from local raw materials.\n\nThe game computes it as 10% × (the method's inputs this province supplies) ÷ (all of the method's inputs). Everything counts towards the denominator, including inputs no mine or farm can ever supply — tools, for one — which is why some methods top out well below ten percent.\n\nIt is counted over the whole province. While a border cuts it the game scores your half alone and today's figure is lower; this is the figure you get once the province is yours."
+ bag_wtp_result_method_tt: "The building, the production method that turned out best here among those available to you now, and «×», what it produces per building level.\n\nThe upper line is the built-up buildings, the lower one the villages. They are scored apart on purpose: a village wants one raw material and so reaches 10% easily, but it produces a fifth as much, and in one list it buried the guilds.\n\nThe ranking is by output with the bonus applied — by what the method would really give here."
+ bag_wtp_result_goods_tt: "The raw materials this province supplies to the method — what the bonus is made of.\n\nThe figure on the left is how many of the method's raw inputs the province supplies, out of how many it could. Whatever is missing the province does not produce anywhere, and the bonus falls short of the method's ceiling by exactly that share."
+ bag_wtp_result_expand_tt: "Show the province's locations."
+ bag_wtp_result_collapse_tt: "Hide the province's locations."
+
 
  bag_wtp_log_run: "Where To Produce: ranked the locations"
 
- bag_wtp_select_window_title: "Where To Produce — choosing the ground"
- bag_wtp_select_window_desc: "The buttons open the game's own target picker: a searchable list, the map highlighted, and a click on the map picking the same thing a row does. Clicking toggles — a second click on the same ground takes it back out.\n\nBelow is what is already chosen, for taking single locations out."
  bag_wtp_select_summary: "Chosen: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_picked')|0] location(s) in [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_browse')|0] province(s)"
- bag_wtp_picker_hint: "Clicking toggles. The panel closes after each pick — that is how it is built, not a fault: to take several pieces at once, pick by area, of which there are few."
+ bag_wtp_picker_hint: "A click toggles. The panel closes after each pick -- that is how the game builds it, not a fault. The results window behind it re-ranks itself after every one."
 
  bag_wtp_map_pick_area: "Choose an area"
  bag_wtp_map_pick_area_desc: "The area picker: a searchable list and a click on the map. Clicking toggles — the area goes into the plan or comes out of it."
@@ -91,16 +116,11 @@
  bag_wtp_choose_location: "Choose a location"
  bag_wtp_choose_location_tt: "Click a location on the map or in the list. It goes into the plan, or comes out of it if it was already in."
 
+
  bag_wtp_add_location: "Add"
  bag_wtp_add_location_tt: "Take this location into the plan."
  bag_wtp_remove_location: "Remove"
  bag_wtp_remove_location_tt: "Take this location out of the plan."
- bag_wtp_toggle_province: "Whole province"
- bag_wtp_toggle_province_tt: "Take every location of this province in, or — if they are all in already — take them all out."
- bag_wtp_expand_tt: "Show this province's locations."
- bag_wtp_collapse_tt: "Hide this province's locations."
- bag_wtp_pick_all: "Take everything"
- bag_wtp_pick_all_tt: "Take every location of every province listed here into the plan."
  bag_wtp_clear_all: "Clear the choice"
  bag_wtp_clear_all_tt: "Empty the plan."
 

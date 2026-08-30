@@ -14,6 +14,8 @@ searches like everything else:
   `ERROR:`, and the theory about culture tooltips that did not survive a run.
 - [`pitfalls/reference_tree.md`](pitfalls/reference_tree.md) — what breaks when
   somebody else's mod updates under a generator.
+- [`pitfalls/interface.md`](pitfalls/interface.md) — windows that draw outside
+  themselves, skins that do nothing, view objects that resolve nowhere.
 
 ## Script
 
@@ -26,6 +28,15 @@ it stood — taking the row labels and the field registration after it in the sa
 effect. The symptom was a Mod Menu tab holding only the settings that happened to
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
+
+**`max` on an ordered iterator counts what it visits, not what you keep.**
+`where_to_produce` ranks locations and keeps one row per province, since every
+location of a province scores the same. With `max = 50` on
+`ordered_in_global_list` it filled about a dozen of its fifty rows and looked
+like a ranking that had run out of answers — the walk was spending its fifty on
+the other locations of the same provinces. Any pass that filters inside the loop
+has to ask for enough iterations to reach the rows it wants, and say in a comment
+what the ratio is.
 
 **A CMM macro called with an argument CMF does not declare fails silently and
 takes the rest of its effect with it.** `step` where CMF declares `step_value`
@@ -106,27 +117,6 @@ can take the whole effect down on a new game. Guard it with
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
-
-## Interface
-
-**View objects only resolve inside their own panel.** Reading
-`LocationProductionView.GetSelectedLocation` from a scripted widget returns null
-and logs once per frame. Vanilla never reads a `*View` outside its own file;
-elsewhere it only calls `Show<X>View(...)` to open one. If a probe has to watch a
-panel, it has to live in that panel.
-
-**Skins go on the widget, not in a `background` block.** `background = { using =
-bg_paper_card }` does nothing at all; vanilla writes `using = bg_paper_card` on
-the widget itself. Symptom: a window drawing its text straight onto the map.
-
-**Copying a vanilla `.gui` brings its `types` block with it.** Construction
-Manager and Glorp UI both restyle panels by redefining `types` from files of
-their own, so a copy carrying vanilla's versions of those same types clobbers
-them, load order deciding who loses. Copy the *window* and leave the types alone.
-
-**Hidden rows still occupy their cell.** The list bodies are `fixedgridbox`es
-with fixed row heights and no `ignoreinvisible`, so hiding a row from the
-interface leaves a hole. Filter the data instead, or resize the list.
 
 ## Publishing
 

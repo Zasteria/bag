@@ -45,14 +45,6 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Opens the map picker and the trimming window.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = select
-		tab_id = plan
-		group_id = what
-	}
-
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run
@@ -60,7 +52,15 @@ bag_wtp_register = {
 		group_id = what
 	}
 
-	bag_wtp_register_result_list = yes
+	# The answer in a window of the mod's own: one row per province, expandable
+	# into its locations, naming the method and the raw materials the bonus is
+	# made of. The button reopens it; pressing "run" opens it anyway.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = show
+		tab_id = plan
+		group_id = what
+	}
 
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes
@@ -69,7 +69,6 @@ bag_wtp_register = {
 	bag_wtp_refresh_goods = yes
 	bag_wtp_drop_browse = yes
 	bag_wtp_clear_rows = yes
-	bag_wtp_trim_rows = yes
 }
 
 # Copy the tick CMM keeps in its own variable map out to a plain global variable,

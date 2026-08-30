@@ -60,6 +60,13 @@ RESULT_ROWS = 50
 # five.
 MAX_INPUTS = 5
 
+# What counts as rural. `village_category` is the game's own: forest, market,
+# farming and fishing villages, thirteen methods between them, each producing a
+# fifth to a half of what a workshop of the same good does. They are scored on
+# their own side so a village never displaces a guild in the ranking, and shown
+# beside it because rural ground is built on too.
+RURAL_CATEGORIES = ("village_category",)
+
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
 CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
@@ -545,46 +552,69 @@ def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
 
 
 def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
-    """One script value per method: what it would earn in this location.
+    """Two script values per method: what it would be worth here, and the bonus.
 
-    The weights are constants -- a method's share of the ceiling per raw material
-    -- so each value is a sum of the ones the province can supply. No global
-    variable is involved any more, because the method is no longer something the
-    player chose; every method is scored and the best wins.
+    **What it is worth is what it produces, not what percentage it gains.** The
+    eighth run put a forest village at the top of a weaponry search: one raw
+    input, a full 10%, and 0.2 goods a level against a weapon guild's 1.0. The
+    bonus is production efficiency, so it multiplies output rather than standing
+    in for it:
+
+        effective output = output * (1 + bonus / 100)
+        RGO bonus %      = {max:g} * (input amounts the province supplies) / (all inputs)
+
+    Both divisions are done here, at generation time, so a location costs one
+    addition per raw material the method wants.
+
+    The province, not the location: the game credits a raw material worked
+    anywhere in it -- and the whole province definition, both sides of any border
+    that currently cuts it, because that is the ground once it is yours. Every
+    input counts towards the denominator, produced goods included: an RGO can
+    never supply tools, but tools still carry their weight, which is why a method
+    can top out well below {max:g}%.
     """
     out = [HEADER, f"""#
-# `RGO bonus % = {eu5data.RGO_MAX_BONUS:g} * (input amounts the province supplies) / (all input amounts)`,
-# with the division done here, once per method, at generation time.
-#
-# The province, not the location: the game credits a raw material worked anywhere
-# in the province, which is what its own tooltip says and what `rgo_bonus_filter`
-# already matches on screen. Every input counts towards the denominator, produced
-# goods included -- an RGO can never supply tools, but tools still carry their
-# weight, which is why a method can top out well below {eu5data.RGO_MAX_BONUS:g}%.
-"""]
+# `{MOD_ID}_m<n>` ranks -- effective output. `{MOD_ID}_b<n>` is the bonus the row
+# prints. Nothing reads `_b` until a method has won a row, so it costs nothing
+# per candidate.
+""".format(max=eu5data.RGO_MAX_BONUS)]
     for index, method in enumerate(rows, start=1):
         total = method.total_input
+        ceiling = method.ceiling(game.raw_goods)
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
-                   f"ceiling {method.ceiling(game.raw_goods):.2f}%\n")
-        out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n\tvalue = 0\n")
+                   f"output {method.output:g}, ceiling {ceiling:.2f}% "
+                   f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
+        out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n\tvalue = {method.output:.4f}\n")
         for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
             share = eu5data.RGO_MAX_BONUS * amount / total
             out.append(f"""\tif = {{
-\t\tlimit = {{ province = {{ any_location_in_province = {{ raw_material = goods:{good} }} }} }}
+\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
+\t\tadd = {method.output * share / 100:.6f}
+\t}}
+""")
+        out.append("}\n")
+        out.append(f"# Scope: location\n{MOD_ID}_b{index} = {{\n\tvalue = 0\n")
+        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
+            share = eu5data.RGO_MAX_BONUS * amount / total
+            out.append(f"""\tif = {{
+\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {share:.4f}
 \t}}
 """)
         out.append("}\n")
 
     out.append(f"""
-# What the ranking sorts on, and what the rows print. Both read back what the
-# scoring pass parked on the location and in global variables.
+# What the ranking sorts on: the better of the two answers this location has.
+# A province with nothing but a village to offer still deserves its row.
 # Scope: location
-{MOD_ID}_score = {{ value = var:{MOD_ID}_best }}
-""")
-    for row in range(1, RESULT_ROWS + 1):
-        out.append(f"{MOD_ID}_show_bonus_{row} = {{ value = global_var:{MOD_ID}_bonus_{row} }}\n")
-    out.append(f"""
+{MOD_ID}_score = {{
+\tvalue = var:{MOD_ID}_best
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_best < var:{MOD_ID}_best_rural }}
+\t\tvalue = var:{MOD_ID}_best_rural
+\t}}
+}}
+
 {MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
 {MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}
 {MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}
@@ -594,18 +624,27 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
     return "".join(out)
 
 
-def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
+def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+               game: eu5data.Game) -> str:
     """Finding the method, which is the thing the player should not have to do.
 
+    Two answers per location, not one: **the best village and the best of
+    everything else.** A village is a real option -- rural ground gets built on
+    too -- but it produces a fifth of what a guild does, so ranking them together
+    put forest villages at the top of a weapons search. They are scored apart and
+    the row shows both, which is what the eighth run asked for.
+
     One effect per good, walking the candidates once and keeping, per location,
-    the best of that good's methods and which method it was. The dispatch over
-    goods happens once rather than once per location, which is why it is out here
-    rather than inside the loop.
+    the best of that good's methods on each side. The dispatch over goods happens
+    once rather than once per location, which is why it is out here rather than
+    inside the loop.
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     by_good: dict[str, list[int]] = {}
     for index, method in enumerate(rows, start=1):
         by_good.setdefault(method.produced, []).append(index)
+    rural = {index for index, method in enumerate(rows, start=1)
+             if method.building_category in RURAL_CATEGORIES}
 
     out = [HEADER, f"""#
 # Scope: country
@@ -619,12 +658,16 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
 
     for index, good in enumerate(order, start=1):
         methods_for = by_good.get(good, [])
-        out.append(f"\n# {good}, made {len(methods_for)} way(s).\n"
+        village = [i for i in methods_for if i in rural]
+        out.append(f"\n# {good}, made {len(methods_for)} way(s), "
+                   f"{len(village)} of them in a village.\n"
                    f"# Scope: country\n{MOD_ID}_score_{index} = {{\n")
         out.append(f"\tevery_in_global_list = {{\n\t\tvariable = {MOD_ID}_candidates\n")
-        out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best value = 0 }}\n")
-        out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best_method value = 0 }}\n")
+        for suffix in ("", "_rural"):
+            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best{suffix} value = 0 }}\n")
+            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best_method{suffix} value = 0 }}\n")
         for method_index in methods_for:
+            suffix = "_rural" if method_index in rural else ""
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\tOR = {{
@@ -634,132 +677,133 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
 \t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_try > var:{MOD_ID}_best }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_best value = var:{MOD_ID}_try }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_best_method value = {method_index} }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_try > var:{MOD_ID}_best{suffix} }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_best{suffix} value = var:{MOD_ID}_try }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_best_method{suffix} value = {method_index} }}
 \t\t\t}}
 \t\t}}
 """)
         out.append("\t}\n}\n")
 
-    out.append(f"""
-# Which building won a row, printed by the row itself. One branch per method,
-# reached once per filled row rather than once per candidate.
+    for suffix, which in (("", "the best of everything but a village"),
+                          ("_rural", "the best village")):
+        out.append(f"""
+# What won here on the {"village" if suffix else "built-up"} side -- {which}.
+# Written onto the location, which is what the results window reads its row off.
+#
+# `{MOD_ID}_goods{suffix}` holds the raw materials this province supplies to that
+# method: the numerator of the bonus, item by item.
 # Scope: location
-{MOD_ID}_store_winner = {{
+{MOD_ID}_store_winner{suffix} = {{
+\tclear_variable_list = {MOD_ID}_goods{suffix}
+\tremove_variable = {MOD_ID}_bt{suffix}
+\tremove_variable = {MOD_ID}_pm{suffix}
 """)
-    for index, method in enumerate(rows, start=1):
-        keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_best_method = {index} }} "
-                   f"root = {{ set_global_variable = {{ name = {MOD_ID}_winner "
-                   f"value = building_type:{method.building} }} }} }}\n")
-    out.append("}\n")
+        for index, method in enumerate(rows, start=1):
+            if (index in rural) != bool(suffix):
+                continue
+            raw = sorted(method.raw_inputs(game.raw_goods))
+            out.append(f"\tif = {{\n"
+                       f"\t\tlimit = {{ var:{MOD_ID}_best_method{suffix} = {index} }}\n"
+                       f"\t\tset_variable = {{ name = {MOD_ID}_bt{suffix} value = building_type:{method.building} }}\n"
+                       f"\t\tset_variable = {{ name = {MOD_ID}_pm{suffix} value = production_method:{method.key} }}\n"
+                       f"\t\tset_variable = {{ name = {MOD_ID}_bonus{suffix} value = {MOD_ID}_b{index} }}\n"
+                       f"\t\tset_variable = {{ name = {MOD_ID}_out{suffix} value = {method.output:.4f} }}\n"
+                       f"\t\tset_variable = {{ name = {MOD_ID}_goods_all{suffix} value = {len(raw)} }}\n")
+            for good in raw:
+                out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
+\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_goods{suffix} target = goods:{good} }}
+\t\t}}
+""")
+            out.append("\t}\n")
+        out.append("}\n")
     return "".join(out)
 
 
 def rows_file() -> str:
+    """The ranking pass. One row per province definition, best first.
+
+    There is no Mod Menu table any more: it said the same thing as the window in
+    one line each, and it was the only thing holding the answer to fifty rows.
+    What is left is the list the window repeats over.
+    """
     out = [HEADER, f"""#
-# The result table, and the pass that fills it.
-#
 # Ranking is the engine's: `ordered_in_global_list` takes `order_by` as a script
 # value and sorts highest first -- vanilla proves the direction by writing
 # `multiply = -1` on the one place it wants the weakest -- and pairs `max` with
 # `check_range_bounds = no` when the list may be shorter than asked for.
 #
 # Scope: country
-{MOD_ID}_register_result_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = result
-\t\ttab_id = plan
-\t\titem_count = {RESULT_ROWS}
-\t\tis_ordered = 0
-\t}}
-"""]
-    for row in range(1, RESULT_ROWS + 1):
-        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                   f"setting_id = result item = {row} value = flag:row_{row} }}\n")
-    out.append("}\n")
-
-    out.append(f"""
-# Scope: country
 {MOD_ID}_clear_rows = {{
 \tset_global_variable = {{ name = {MOD_ID}_found value = 0 }}
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_row_provinces
+\t\tvariable = {MOD_ID}_row_taken_locations
 \t\tremove_variable = {MOD_ID}_row_taken
 \t}}
-\tclear_global_variable_list = {MOD_ID}_row_provinces
-""")
-    for row in range(1, RESULT_ROWS + 1):
-        out.append(f"\tremove_global_variable = {MOD_ID}_row_{row}\n")
-        out.append(f"\tremove_global_variable = {MOD_ID}_bt_{row}\n")
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = 0 }}\n")
-    out.append("}\n")
+\tclear_global_variable_list = {MOD_ID}_row_taken_locations
+\t# `_ranked` is the answer and survives; `_results` is the copy the window
+\t# repeats over, and it only exists while the window is open -- emptying the
+\t# datamodel is the only thing that frees a scripted widget's rows.
+\tclear_global_variable_list = {MOD_ID}_ranked
+\tclear_global_variable_list = {MOD_ID}_results
+}}
 
-    out.append(f"""
 # Scope: country
 {MOD_ID}_fill_rows = {{
+\t# `max` counts locations walked, not rows produced. Every location of a
+\t# province scores the same and only the first of them takes a row, so fifty
+\t# would have stopped at about a dozen provinces -- which is what the fifth run
+\t# showed. Eight locations per province is above the game's widest.
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\torder_by = {MOD_ID}_score
-\t\tmax = {RESULT_ROWS}
+\t\tmax = {RESULT_ROWS * 8}
 \t\tcheck_range_bounds = no
 \t\t{MOD_ID}_store_row = yes
 \t}}
 }}
 
-# Park one candidate in the slot its rank names, with the building that won it.
-# The row a candidate lands in is chosen by an `if` chain rather than a `switch`,
-# because the counter is a global and every `switch` in CMF and in the game reads
-# a plain `var:`.
+# Park one province's answer on the location the ranking kept, and remember that
+# location in rank order.
+#
+# One row per province definition -- the province as the map draws it, whole,
+# rather than the piece of it one country owns. The game splits a province by
+# ownership: half of Bessarabia under Moldavia is its own `province`, named
+# "Moldavian province Bessarabia", and the other half is another. Every location
+# of one piece scores the same, so a row per piece is several ways of saying one
+# thing -- and worse, the number itself would move on the day the pieces join,
+# which is exactly the day this mod is planning for.
+#
+# Taken is marked on the locations rather than on the definition: a location
+# certainly holds a variable, and this pass already has every one of them.
 # Scope: location
 {MOD_ID}_store_row = {{
-\t# One row per province. Every location of a province scores the same -- the
-\t# game credits a raw material worked anywhere in it -- so fifty rows of one
-\t# province is fifty ways of saying one thing, and the owner ran out of table
-\t# before he ran out of distinct answers.
 \tif = {{
-\t\tlimit = {{ province = {{ NOT = {{ has_variable = {MOD_ID}_row_taken }} }} }}
-\t\tprovince = {{
-\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
-\t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_provinces target = prev }} }}
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_found < {RESULT_ROWS}
+\t\t\t# Nothing won here on either side -- every method for this good is behind
+\t\t\t# an advance this country has not taken. A row for it would have no
+\t\t\t# building and no method to print.
+\t\t\tOR = {{
+\t\t\t\tvar:{MOD_ID}_best_method > 0
+\t\t\t\tvar:{MOD_ID}_best_method_rural > 0
+\t\t\t}}
+\t\t\tNOT = {{ has_variable = {MOD_ID}_row_taken }}
+\t\t}}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
+\t\t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = prev }} }}
+\t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
 \t\t{MOD_ID}_store_winner = yes
-\t\t{MOD_ID}_store_row_at = yes
+\t\t{MOD_ID}_store_winner_rural = yes
+\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_ranked target = prev }} }}
 \t}}
 }}
-
-# Scope: location
-{MOD_ID}_store_row_at = {{
-""")
-    for row in range(1, RESULT_ROWS + 1):
-        keyword = "if" if row == 1 else "else_if"
-        out.append(f"""\t{keyword} = {{
-\t\tlimit = {{ global_var:{MOD_ID}_found = {row} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_row_{row} value = this }}
-\t\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = var:{MOD_ID}_best }}
-\t\tset_global_variable = {{ name = {MOD_ID}_bt_{row} value = global_var:{MOD_ID}_winner }}
-\t}}
-""")
-    out.append("}\n")
-
-    out.append(f"""
-# Rows past the last result would otherwise show the previous run's location.
-# Scope: country
-{MOD_ID}_trim_rows = {{
-""")
-    for row in range(1, RESULT_ROWS + 1):
-        out.append(f"""\tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_found >= {row} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = result item = {row} }}
-\t}}
-\telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = result item = {row} }}
-\t}}
-""")
-    out.append("}\n")
+"""]
     return "".join(out)
 
 
@@ -782,7 +826,6 @@ def guis_file(by_continent) -> str:
         ("continent", f"{MOD_ID}_zone_changed = yes"),
         ("good_raw", f"{MOD_ID}_good_changed = yes"),
         ("good_made", f"{MOD_ID}_good_changed = yes"),
-        ("result", ""),
     ]):
         body = f"\t\t{after}\n" if after else ""
         out.append(f"""
@@ -809,6 +852,9 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
     Every name in here is the game's own, reached through `$key$` substitution or
     a data function, so this file needs no translating and cannot drift from what
     the game calls things.
+
+    The fifty result-row keys are gone with the table they labelled: the window
+    reads its row off the location's own scope and needs no key per row.
     """
     out = [f"l_{language}:\n"]
 
@@ -816,18 +862,6 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         for good in split[kind]:
             out.append(f" {MOD_ID}_good_{good}: "
                        f'"@{good}! [ShowGoodsName(\'{good}\')]"\n')
-
-    out.append("\n")
-    for row in range(1, RESULT_ROWS + 1):
-        # Square brackets in a localization value are data function syntax, so
-        # every one of these is code: the location and the winning building come
-        # out of global variables, the number out of a script value.
-        out.append(
-            f" {MOD_ID}__result_i{row}_name: "
-            f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetName] — '
-            f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_bonus_{row}')|2]% — "
-            f'[GetGlobalVariable(\'{MOD_ID}_bt_{row}\').GetBuildingType.GetName]"\n'
-        )
 
     return "".join(out)
 
@@ -843,7 +877,7 @@ def main() -> int:
     write(TRIGGERS_OUT, triggers_file(rows, split))
     write(PICKER_OUT, picker_file(split, rows))
     write(VALUES_OUT, values_file(rows, game))
-    write(SCORE_OUT, score_file(rows, split))
+    write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent))
     for language in LOC_LANGUAGES:
@@ -851,8 +885,10 @@ def main() -> int:
 
     print(f"{sum(len(v) for v in by_continent.values())} regions in "
           f"{len(by_continent)} lists, {len(UNLOCKS)} methods gated by an advance")
-    print(f"{len(rows)} methods scored, {len(split['raw'])} raw + {len(split['made'])} made goods, "
-          f"{len(CONTINENTS)} continents, {RESULT_ROWS} result rows")
+    rural = sum(1 for m in rows if m.building_category in RURAL_CATEGORIES)
+    print(f"{len(rows)} methods scored, {rural} of them in a village, "
+          f"{len(split['raw'])} raw + {len(split['made'])} made goods, "
+          f"{len(CONTINENTS)} continents, {RESULT_ROWS} provinces ranked")
     return 0
 
 

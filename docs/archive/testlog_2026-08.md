@@ -697,3 +697,176 @@ stays as the fallback; `mods.bat → 5 → «к»` still writes its config.
 Also confirmed from the same screenshot: the load order the player actually
 runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
 after it, which is what the declared dependency is for.
+
+## `where_to_produce`, the first seven loads
+
+Moved out of the live log when it outgrew its budget; the fourth and fifth
+runs are still there.
+
+**2026-08-30 — `where_to_produce`, third load. The map mode works; the design of
+the picker did not.** Five screenshots.
+
+- **The map mode paints**, and it is the thing the owner wanted: Wallachia green
+  as chosen, the ticked Carpathians dark as the zone. Its name showed as
+  `mapmode_bag_wtp_selection_name` — a map mode's name key is
+  `mapmode_<key>_name`, not `<key>`.
+- **The target picker opens and works, and closes after each pick.** That is the
+  generic action's lifecycle; `fire_generic_action` fires with a supplied target
+  rather than reopening the panel, so there is no script-side way to keep it up.
+  Area granularity is the mitigation.
+- **Asking the player for the production method was wrong.** Owner's words: the
+  mod is meant to find the best method for his ground, and asking him to guess it
+  first "полностью ломает конечную суть мода". Rebuilt: the good is the only
+  question, every method for it is scored per location, and the row names the
+  building that won.
+- **Six region groups were a bad frame.** Replaced by five continents, which also
+  removed the zone walk entirely — a location's continent is a plain trigger.
+- **The window listed nothing when no region was ticked**, so nothing could be
+  trimmed. It now lists the provinces something is picked in, which is its actual
+  job and what bounds it.
+
+**2026-08-30 — `where_to_produce`, second load. The data half works; the picker
+is capped at twenty.** Five screenshots.
+
+- **The result table reads.** "Бельцы — 9.25% (2/2)", fifty rows, descending.
+  That is a location name out of a global variable and two script values printed
+  from a localization key — the mechanism nothing in this repository had ever
+  done, and the reason the first `where_to_produce` was worth attempting again.
+- **The region lists render** with the game's own names ("Балканы", "Карпаты",
+  "Польша"), so a list row's label set to `flag:<game key>` works and arrives
+  translated. The ticks reach script: the zone came out at 260 locations in 53
+  provinces.
+- **A CMM dropdown is clickable only to its twentieth option.** Reported as
+  "некоторые здания просто не выбираются". Found in CMF: an option click runs
+  `CMM_MarkDropdownSelection_<index>` and CMF defines `_0` to `_19`. The
+  218-option method picker was replaced by two lists — 47 goods, then at most 20
+  ways to make the chosen one.
+- **The selection window's rows collapsed to zero height**, all but the one
+  expanded province, which piled them at the left edge. The item was wrapped in
+  a `widget`, which does not size itself to its child; Advanced Auto Build puts
+  the row type directly in `item`.
+- **The window was the wrong shape for the job anyway.** The owner wanted what
+  Advanced Auto Build actually does: the game's own target picker, which is a
+  `select_trigger` block inside a `generic_action` — search box, sortable list,
+  map highlight, and a map click picking the same thing a row does. AAB's
+  restriction to owned land is its own `interaction_source_list`, not the
+  engine's; vanilla's actions mostly give no source and filter with `visible`,
+  which runs in the candidate's scope.
+
+**2026-08-30 — `where_to_produce`, first load. The tab renders; no list on it
+does.** Screenshot: the Mod Menu tab "Где производить" shows the group "Здание и
+метод" with its three settings (the method dropdown, the tick, the button) and
+nothing else — no region groups, no result table. Diagnosed from the files, not
+guessed: `cmm_register_settings_list` declares `is_ordered` and the generated
+call omitted it, so all six region lists and the result list died at
+registration. Fixed; `tools/check_cmm.py` grew the missing-argument check that
+would have caught it.
+
+Two things the same screenshot settled without being asked:
+
+- **The method dropdown is unusable at 218 options**, and the label was the
+  reason. The control is about 165 pixels and elides the tail, so "good, icon,
+  building, method" showed the good — which repeats for twenty rows — and cut off
+  the method entirely. Relabelled to icon, building, method, and sorted by
+  building so one building's methods sit together. Better, and still not a
+  substitute for a real picker.
+- **Registration itself works.** The dropdown, the tick and the button all
+  rendered with their names and descriptions, so `cmf_on_mod_registration`, the
+  mod id, the tab and the group keys are all right.
+
+**2026-08-30 — `where_to_produce`, fifth load. The tabs and the table are on
+screen; the row says too little.** One screenshot of the «Расчёт» tab, cloth
+guild ranked.
+
+- **The three tabs render** — «Товар», «Земля», «Расчёт» — and the button and
+  the table are under the right one. The tab/setting key collision is behind us.
+- **The table fills**, one row per province: twelve different names down the
+  screen where the fourth run repeated one. The building prints
+  («Гильдия прядильщиков»).
+- **Every row reads 10.00%.** Not a bug: that method's only raw input is
+  `fiber_crops`, so any province with fibre crops is at the ceiling. It is,
+  though, the reason the ranking looks like it is not ranking — the row does not
+  say what the number is made of.
+- **What the owner asked for, off this screen:** the row names a location and he
+  reads it as a province («показывается только 1 какая-то локация»); he wants
+  the province, with its locations under it; which of the building's methods
+  won; and the goods the bonus is made of («должно показывать прядильные
+  культуры»).
+- Regions, the age filter and `error.log` were not reported and stay open.
+
+**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
+Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
+"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
+the mod's whole mechanism — the scoring, the picker, the window, the map mode.
+
+Four things the run asked for, all built and none of them loaded yet:
+
+- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
+  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
+  share a name, and the zone list had to become `continent`.
+- **Regions back beside the continents.** A ticked continent paints the whole
+  screen; the good case was one region ticked with its neighbours addable.
+- **Methods the age has not reached were being recommended.** The unlock data is
+  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
+  `3_production_method_unlocks.txt` gates ten methods directly, so
+  `can_build_building` in country scope plus `has_advance` answers "available to
+  me now". This is what `docs/archive/where_to_produce.md` recorded as
+  unanswerable; `common/advances/` was not in the tree then.
+- **The table ran out of rows before it ran out of answers.** Every location of a
+  province scores the same, so it now holds one row per province.
+
+**2026-08-30 — `where_to_produce`, sixth load. The results window works; the
+province is not what the game says it is.** One screenshot, everything selected.
+Owner: «в целом вроде ок».
+
+- **The window renders and does its job.** Rows, the area, 10.00%, the building
+  **and the method after the colon** — and the methods differ between rows,
+  «Гильдия прядильщиков льна» against «…шерсти», which is the scoring choosing
+  per province in plain sight. The plus expands a row into its locations, each
+  with its raw material and «Добавить».
+- **A province is not a province.** Two rows, «Измаил» and «Молдавская провинция
+  Бессарабия», are two halves of one province split by ownership — the game
+  splits a `province` by owner and names the pieces that way. Ranking the halves
+  answers for half the ground, and the answer would move on the day they join,
+  which is the day the mod plans for. Now one row per `province_definition`,
+  scored over every location in it, with each location's owner shown under the
+  row. **Which of the two the engine's own bonus counts is still unknown** —
+  `docs/research/engine.md` has the one-hover test that would settle it.
+- **The window drew outside itself** — frame ending where it should, header and
+  rows carrying on past it over the game's top bar. One description line:
+  `autoresize` with no `maximumsize` does not wrap, it grows, and
+  `allow_outside = yes` let it drag every expanding row with it. Bounded now, in
+  both of this mod's windows, and `widgetanchor = center` added to match vanilla.
+  Advanced Auto Build has the same defect, which is where the shape came from.
+- **Unclear from the screenshot: the «Из чего» column looks empty.** The goods
+  icons in the *location* rows draw fine, so `GetGoodsIcon` works; if the column
+  is genuinely empty the fault is the `bag_wtp_goods` variable list. The row now
+  prints «supplied/total» beside the icons, which tells an empty list from an
+  icon that will not draw without another round trip.
+
+**2026-08-30 — `where_to_produce`, seventh load. Whole provinces and the frame
+hold; the goods icons do not.** Two screenshots, «в целом вроде ок».
+
+- **The window is inside its frame** and **a row is one whole province** —
+  «Бессарабия» as a single row, its locations under it with the owner's flag
+  beside each. The owner's flag: «нахер не нужно, но и не мешает, пусть
+  останется».
+- **The goods icons never drew, and the count off the same list did.** «1/2» and
+  «2/2» print correctly beside an empty space — so `bag_wtp_goods` holds the
+  right items and `GetDataModelSize` reads them. What was missing is the
+  `datacontext` on the datamodel item: the province rows work because they carry
+  one, and this one addressed `Scope.GetGoods` from inside the type instead.
+  Vanilla's own scope lists set `datacontext = "[Scope.Get<Type>]"` on the item
+  and then use the type name, `GetGoodsIcon(Goods.Self)`.
+- **Lakes and sea zones were in the expanded rows**, a screenful of «Ничья земля»
+  under every coastal province. `ProvinceDefinition.GetLocations` hands out
+  everything. Hidden now on `Location.IsPossibleToOwn`, and the whole mod's
+  notion of ground moved from `is_land` to `is_ownable` — "not sea, lake or an
+  impassable" — so nothing unbuildable enters the plan through the map picker
+  either.
+- **The count drifted with the number of icons**, «1/2» sitting a few pixels
+  right of «2/2». An hbox sizes itself to its children, so one icon fewer moved
+  everything after it. Placed in a plain `widget` now.
+- **The method in the row is enough on its own** — the owner reads the recipe off
+  its tooltip. The icons stay because a method with several inputs still needs
+  them, and the count says what the icons cannot when they fail to draw.

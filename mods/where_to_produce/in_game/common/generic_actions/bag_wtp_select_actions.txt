@@ -37,7 +37,7 @@ bag_wtp_select_location = {
 		column = { data = name }
 		column = { data = population }
 		visible = {
-			is_land = yes
+			is_ownable = yes
 			bag_wtp_in_zone = yes
 		}
 		enabled = { always = yes }
@@ -49,6 +49,8 @@ bag_wtp_select_location = {
 			bag_wtp_toggle_one = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -74,7 +76,7 @@ bag_wtp_select_province = {
 		column = { data = population }
 		visible = {
 			any_location_in_province = {
-				is_land = yes
+				is_ownable = yes
 				bag_wtp_in_zone = yes
 			}
 		}
@@ -87,6 +89,8 @@ bag_wtp_select_province = {
 			bag_wtp_toggle_province_scope = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -112,7 +116,7 @@ bag_wtp_select_area = {
 		column = { data = population }
 		visible = {
 			any_location_in_area = {
-				is_land = yes
+				is_ownable = yes
 				bag_wtp_in_zone = yes
 			}
 		}
@@ -125,6 +129,8 @@ bag_wtp_select_area = {
 			bag_wtp_toggle_area_scope = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }
