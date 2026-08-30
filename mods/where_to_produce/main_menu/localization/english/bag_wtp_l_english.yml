@@ -68,8 +68,36 @@
  bag_wtp__run_desc: "Walk the chosen locations, find each one the best method for making the chosen good, and fill the table below.\n\nYou do not pick the method: which recipe suits which ground is the question this mod exists to answer.\n\nWhat the last run saw:\n\nContinents ticked: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_regions')|0]\nLocations considered: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_candidates')|0]\nRows filled: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_found')|0]\n\nThose three are counted by the pass itself. The first zero among them is the diagnosis."
 
  bag_wtp__result_name: "Best Locations"
- bag_wtp__result_item_column_name: "Location — efficiency — building"
- bag_wtp__result_desc: "Locations, best first. The figure is the production efficiency the best method here would gain from raw materials; the building is the one that gets it.\n\nThe game credits a raw material worked anywhere in the province, not only in the location itself, so every location of one province reads the same. What separates them is building slots, which this version does not model.\n\nThe table holds fifty rows and no more."
+ bag_wtp__result_item_column_name: "Province — bonus — building: method"
+ bag_wtp__result_desc: "Provinces, best first. The figure is the production efficiency the best method here would gain from local raw materials; after it, the building and the method that gets it.\n\nThe game credits a raw material worked anywhere in the province, so every location of one province reads the same — the row speaks for the whole province.\n\nFifty rows and no more: that is the Mod Menu list's ceiling. The goods icons, the province's locations and what each of them works are in the results window, under Open."
+
+ bag_wtp__show_name: "Show the results window"
+ bag_wtp__show_text: "Open"
+ bag_wtp__show_desc: "Opens the last run in a window of this mod's own: one row per province, naming the building and which of its methods won, with the raw materials the bonus is made of beside it. A row opens into the province's locations, each with what it works now and a button to take it into the plan.\n\nPressing Rank opens this window anyway; this button is for coming back to it."
+
+ bag_wtp_result_window_title: "Where To Produce — results"
+ bag_wtp_result_window_desc: "Provinces, best first. The percentage is the production efficiency the winning method gains from local raw materials; the icons on the right are what it is made of.\n\nYou build in a location, but the game credits a raw material worked anywhere in the province, so every location of one province scores the same. Open a row to see them and take the ones you want into the plan."
+ bag_wtp_result_window_empty: "Nothing yet. Tick a good on the Goods tab, some ground on the Land tab, and press Rank."
+
+ bag_wtp_result_bonus_value: "[Location.MakeScope.GetVariable('bag_wtp_best').GetValue|2]%"
+ bag_wtp_result_method_value: "[Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm').GetProductionMethod.GetName]"
+
+ bag_wtp_result_head_province: "Province"
+ bag_wtp_result_head_area: "Area"
+ bag_wtp_result_head_bonus: "Bonus"
+ bag_wtp_result_head_method: "Building and method"
+ bag_wtp_result_head_goods: "Made of"
+
+ bag_wtp_result_province_tt: "The province the bonus was computed for. You build in one of its locations — open the row."
+ bag_wtp_result_bonus_tt: "The production efficiency this method gains from local raw materials.\n\nThe game computes it as 10% × (the method's inputs this province supplies) ÷ (all of the method's inputs). Everything counts towards the denominator, including inputs no mine or farm can ever supply — tools, for one — which is why some methods top out well below ten percent."
+ bag_wtp_result_method_tt: "The building, and the production method that turned out best here among those available to you now.\n\nWhere a building has several methods this is not the first of them, but the one whose inputs this province feeds best."
+ bag_wtp_result_goods_tt: "The raw materials this province supplies to the method — what the bonus is made of. Whatever is missing here the province does not produce, and the bonus falls short of the method's ceiling by exactly that share."
+ bag_wtp_result_expand_tt: "Show the province's locations."
+ bag_wtp_result_collapse_tt: "Hide the province's locations."
+
+ bag_wtp_result_tt_area: "Area"
+ bag_wtp_result_tt_method: "Building and method"
+ bag_wtp_result_tt_window: "The goods icons and the province's locations are in the results window, under Open."
 
  bag_wtp_log_run: "Where To Produce: ranked the locations"
 

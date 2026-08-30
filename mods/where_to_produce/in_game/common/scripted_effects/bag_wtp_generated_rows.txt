@@ -76,164 +76,223 @@ bag_wtp_clear_rows = {
 		remove_variable = bag_wtp_row_taken
 	}
 	clear_global_variable_list = bag_wtp_row_provinces
+	# `_ranked` is the answer and survives; `_results` is the copy the window
+	# repeats over, and it only exists while the window is open -- emptying the
+	# datamodel is the only thing that frees a scripted widget's rows.
+	clear_global_variable_list = bag_wtp_ranked
+	clear_global_variable_list = bag_wtp_results
 	remove_global_variable = bag_wtp_row_1
 	remove_global_variable = bag_wtp_bt_1
+	remove_global_variable = bag_wtp_pm_1
 	set_global_variable = { name = bag_wtp_bonus_1 value = 0 }
 	remove_global_variable = bag_wtp_row_2
 	remove_global_variable = bag_wtp_bt_2
+	remove_global_variable = bag_wtp_pm_2
 	set_global_variable = { name = bag_wtp_bonus_2 value = 0 }
 	remove_global_variable = bag_wtp_row_3
 	remove_global_variable = bag_wtp_bt_3
+	remove_global_variable = bag_wtp_pm_3
 	set_global_variable = { name = bag_wtp_bonus_3 value = 0 }
 	remove_global_variable = bag_wtp_row_4
 	remove_global_variable = bag_wtp_bt_4
+	remove_global_variable = bag_wtp_pm_4
 	set_global_variable = { name = bag_wtp_bonus_4 value = 0 }
 	remove_global_variable = bag_wtp_row_5
 	remove_global_variable = bag_wtp_bt_5
+	remove_global_variable = bag_wtp_pm_5
 	set_global_variable = { name = bag_wtp_bonus_5 value = 0 }
 	remove_global_variable = bag_wtp_row_6
 	remove_global_variable = bag_wtp_bt_6
+	remove_global_variable = bag_wtp_pm_6
 	set_global_variable = { name = bag_wtp_bonus_6 value = 0 }
 	remove_global_variable = bag_wtp_row_7
 	remove_global_variable = bag_wtp_bt_7
+	remove_global_variable = bag_wtp_pm_7
 	set_global_variable = { name = bag_wtp_bonus_7 value = 0 }
 	remove_global_variable = bag_wtp_row_8
 	remove_global_variable = bag_wtp_bt_8
+	remove_global_variable = bag_wtp_pm_8
 	set_global_variable = { name = bag_wtp_bonus_8 value = 0 }
 	remove_global_variable = bag_wtp_row_9
 	remove_global_variable = bag_wtp_bt_9
+	remove_global_variable = bag_wtp_pm_9
 	set_global_variable = { name = bag_wtp_bonus_9 value = 0 }
 	remove_global_variable = bag_wtp_row_10
 	remove_global_variable = bag_wtp_bt_10
+	remove_global_variable = bag_wtp_pm_10
 	set_global_variable = { name = bag_wtp_bonus_10 value = 0 }
 	remove_global_variable = bag_wtp_row_11
 	remove_global_variable = bag_wtp_bt_11
+	remove_global_variable = bag_wtp_pm_11
 	set_global_variable = { name = bag_wtp_bonus_11 value = 0 }
 	remove_global_variable = bag_wtp_row_12
 	remove_global_variable = bag_wtp_bt_12
+	remove_global_variable = bag_wtp_pm_12
 	set_global_variable = { name = bag_wtp_bonus_12 value = 0 }
 	remove_global_variable = bag_wtp_row_13
 	remove_global_variable = bag_wtp_bt_13
+	remove_global_variable = bag_wtp_pm_13
 	set_global_variable = { name = bag_wtp_bonus_13 value = 0 }
 	remove_global_variable = bag_wtp_row_14
 	remove_global_variable = bag_wtp_bt_14
+	remove_global_variable = bag_wtp_pm_14
 	set_global_variable = { name = bag_wtp_bonus_14 value = 0 }
 	remove_global_variable = bag_wtp_row_15
 	remove_global_variable = bag_wtp_bt_15
+	remove_global_variable = bag_wtp_pm_15
 	set_global_variable = { name = bag_wtp_bonus_15 value = 0 }
 	remove_global_variable = bag_wtp_row_16
 	remove_global_variable = bag_wtp_bt_16
+	remove_global_variable = bag_wtp_pm_16
 	set_global_variable = { name = bag_wtp_bonus_16 value = 0 }
 	remove_global_variable = bag_wtp_row_17
 	remove_global_variable = bag_wtp_bt_17
+	remove_global_variable = bag_wtp_pm_17
 	set_global_variable = { name = bag_wtp_bonus_17 value = 0 }
 	remove_global_variable = bag_wtp_row_18
 	remove_global_variable = bag_wtp_bt_18
+	remove_global_variable = bag_wtp_pm_18
 	set_global_variable = { name = bag_wtp_bonus_18 value = 0 }
 	remove_global_variable = bag_wtp_row_19
 	remove_global_variable = bag_wtp_bt_19
+	remove_global_variable = bag_wtp_pm_19
 	set_global_variable = { name = bag_wtp_bonus_19 value = 0 }
 	remove_global_variable = bag_wtp_row_20
 	remove_global_variable = bag_wtp_bt_20
+	remove_global_variable = bag_wtp_pm_20
 	set_global_variable = { name = bag_wtp_bonus_20 value = 0 }
 	remove_global_variable = bag_wtp_row_21
 	remove_global_variable = bag_wtp_bt_21
+	remove_global_variable = bag_wtp_pm_21
 	set_global_variable = { name = bag_wtp_bonus_21 value = 0 }
 	remove_global_variable = bag_wtp_row_22
 	remove_global_variable = bag_wtp_bt_22
+	remove_global_variable = bag_wtp_pm_22
 	set_global_variable = { name = bag_wtp_bonus_22 value = 0 }
 	remove_global_variable = bag_wtp_row_23
 	remove_global_variable = bag_wtp_bt_23
+	remove_global_variable = bag_wtp_pm_23
 	set_global_variable = { name = bag_wtp_bonus_23 value = 0 }
 	remove_global_variable = bag_wtp_row_24
 	remove_global_variable = bag_wtp_bt_24
+	remove_global_variable = bag_wtp_pm_24
 	set_global_variable = { name = bag_wtp_bonus_24 value = 0 }
 	remove_global_variable = bag_wtp_row_25
 	remove_global_variable = bag_wtp_bt_25
+	remove_global_variable = bag_wtp_pm_25
 	set_global_variable = { name = bag_wtp_bonus_25 value = 0 }
 	remove_global_variable = bag_wtp_row_26
 	remove_global_variable = bag_wtp_bt_26
+	remove_global_variable = bag_wtp_pm_26
 	set_global_variable = { name = bag_wtp_bonus_26 value = 0 }
 	remove_global_variable = bag_wtp_row_27
 	remove_global_variable = bag_wtp_bt_27
+	remove_global_variable = bag_wtp_pm_27
 	set_global_variable = { name = bag_wtp_bonus_27 value = 0 }
 	remove_global_variable = bag_wtp_row_28
 	remove_global_variable = bag_wtp_bt_28
+	remove_global_variable = bag_wtp_pm_28
 	set_global_variable = { name = bag_wtp_bonus_28 value = 0 }
 	remove_global_variable = bag_wtp_row_29
 	remove_global_variable = bag_wtp_bt_29
+	remove_global_variable = bag_wtp_pm_29
 	set_global_variable = { name = bag_wtp_bonus_29 value = 0 }
 	remove_global_variable = bag_wtp_row_30
 	remove_global_variable = bag_wtp_bt_30
+	remove_global_variable = bag_wtp_pm_30
 	set_global_variable = { name = bag_wtp_bonus_30 value = 0 }
 	remove_global_variable = bag_wtp_row_31
 	remove_global_variable = bag_wtp_bt_31
+	remove_global_variable = bag_wtp_pm_31
 	set_global_variable = { name = bag_wtp_bonus_31 value = 0 }
 	remove_global_variable = bag_wtp_row_32
 	remove_global_variable = bag_wtp_bt_32
+	remove_global_variable = bag_wtp_pm_32
 	set_global_variable = { name = bag_wtp_bonus_32 value = 0 }
 	remove_global_variable = bag_wtp_row_33
 	remove_global_variable = bag_wtp_bt_33
+	remove_global_variable = bag_wtp_pm_33
 	set_global_variable = { name = bag_wtp_bonus_33 value = 0 }
 	remove_global_variable = bag_wtp_row_34
 	remove_global_variable = bag_wtp_bt_34
+	remove_global_variable = bag_wtp_pm_34
 	set_global_variable = { name = bag_wtp_bonus_34 value = 0 }
 	remove_global_variable = bag_wtp_row_35
 	remove_global_variable = bag_wtp_bt_35
+	remove_global_variable = bag_wtp_pm_35
 	set_global_variable = { name = bag_wtp_bonus_35 value = 0 }
 	remove_global_variable = bag_wtp_row_36
 	remove_global_variable = bag_wtp_bt_36
+	remove_global_variable = bag_wtp_pm_36
 	set_global_variable = { name = bag_wtp_bonus_36 value = 0 }
 	remove_global_variable = bag_wtp_row_37
 	remove_global_variable = bag_wtp_bt_37
+	remove_global_variable = bag_wtp_pm_37
 	set_global_variable = { name = bag_wtp_bonus_37 value = 0 }
 	remove_global_variable = bag_wtp_row_38
 	remove_global_variable = bag_wtp_bt_38
+	remove_global_variable = bag_wtp_pm_38
 	set_global_variable = { name = bag_wtp_bonus_38 value = 0 }
 	remove_global_variable = bag_wtp_row_39
 	remove_global_variable = bag_wtp_bt_39
+	remove_global_variable = bag_wtp_pm_39
 	set_global_variable = { name = bag_wtp_bonus_39 value = 0 }
 	remove_global_variable = bag_wtp_row_40
 	remove_global_variable = bag_wtp_bt_40
+	remove_global_variable = bag_wtp_pm_40
 	set_global_variable = { name = bag_wtp_bonus_40 value = 0 }
 	remove_global_variable = bag_wtp_row_41
 	remove_global_variable = bag_wtp_bt_41
+	remove_global_variable = bag_wtp_pm_41
 	set_global_variable = { name = bag_wtp_bonus_41 value = 0 }
 	remove_global_variable = bag_wtp_row_42
 	remove_global_variable = bag_wtp_bt_42
+	remove_global_variable = bag_wtp_pm_42
 	set_global_variable = { name = bag_wtp_bonus_42 value = 0 }
 	remove_global_variable = bag_wtp_row_43
 	remove_global_variable = bag_wtp_bt_43
+	remove_global_variable = bag_wtp_pm_43
 	set_global_variable = { name = bag_wtp_bonus_43 value = 0 }
 	remove_global_variable = bag_wtp_row_44
 	remove_global_variable = bag_wtp_bt_44
+	remove_global_variable = bag_wtp_pm_44
 	set_global_variable = { name = bag_wtp_bonus_44 value = 0 }
 	remove_global_variable = bag_wtp_row_45
 	remove_global_variable = bag_wtp_bt_45
+	remove_global_variable = bag_wtp_pm_45
 	set_global_variable = { name = bag_wtp_bonus_45 value = 0 }
 	remove_global_variable = bag_wtp_row_46
 	remove_global_variable = bag_wtp_bt_46
+	remove_global_variable = bag_wtp_pm_46
 	set_global_variable = { name = bag_wtp_bonus_46 value = 0 }
 	remove_global_variable = bag_wtp_row_47
 	remove_global_variable = bag_wtp_bt_47
+	remove_global_variable = bag_wtp_pm_47
 	set_global_variable = { name = bag_wtp_bonus_47 value = 0 }
 	remove_global_variable = bag_wtp_row_48
 	remove_global_variable = bag_wtp_bt_48
+	remove_global_variable = bag_wtp_pm_48
 	set_global_variable = { name = bag_wtp_bonus_48 value = 0 }
 	remove_global_variable = bag_wtp_row_49
 	remove_global_variable = bag_wtp_bt_49
+	remove_global_variable = bag_wtp_pm_49
 	set_global_variable = { name = bag_wtp_bonus_49 value = 0 }
 	remove_global_variable = bag_wtp_row_50
 	remove_global_variable = bag_wtp_bt_50
+	remove_global_variable = bag_wtp_pm_50
 	set_global_variable = { name = bag_wtp_bonus_50 value = 0 }
 }
 
 # Scope: country
 bag_wtp_fill_rows = {
+	# `max` counts locations walked, not rows produced. Every location of a
+	# province scores the same and only the first of them takes a row, so fifty
+	# would have stopped at about a dozen provinces -- which is what the fifth run
+	# showed. Eight locations per province is above the game's widest.
 	ordered_in_global_list = {
 		variable = bag_wtp_candidates
 		order_by = bag_wtp_score
-		max = 50
+		max = 400
 		check_range_bounds = no
 		bag_wtp_store_row = yes
 	}
@@ -250,13 +309,25 @@ bag_wtp_store_row = {
 	# province is fifty ways of saying one thing, and the owner ran out of table
 	# before he ran out of distinct answers.
 	if = {
-		limit = { province = { NOT = { has_variable = bag_wtp_row_taken } } }
+		limit = {
+			global_var:bag_wtp_found < 50
+			# Nothing won here -- every method for this good is behind an advance
+			# this country has not taken. A row for it would have no building and no
+			# method to print, and a data function reading a variable that is not
+			# there renders as `ERROR:`. An empty table is the honest answer.
+			var:bag_wtp_best_method > 0
+			province = { NOT = { has_variable = bag_wtp_row_taken } }
+		}
 		province = {
 			set_variable = { name = bag_wtp_row_taken value = 1 }
 			root = { add_to_global_variable_list = { name = bag_wtp_row_provinces target = prev } }
 		}
 		change_global_variable = { name = bag_wtp_found add = 1 }
 		bag_wtp_store_winner = yes
+		# In rank order, and the window shows it in that order. The location is the
+		# province's best-ranked one, and it carries the answer for the whole
+		# province on its own variables.
+		root = { add_to_global_variable_list = { name = bag_wtp_ranked target = prev } }
 		bag_wtp_store_row_at = yes
 	}
 }
@@ -267,301 +338,351 @@ bag_wtp_store_row_at = {
 		limit = { global_var:bag_wtp_found = 1 }
 		set_global_variable = { name = bag_wtp_row_1 value = this }
 		set_global_variable = { name = bag_wtp_bonus_1 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_1 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_1 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_1 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 2 }
 		set_global_variable = { name = bag_wtp_row_2 value = this }
 		set_global_variable = { name = bag_wtp_bonus_2 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_2 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_2 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_2 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 3 }
 		set_global_variable = { name = bag_wtp_row_3 value = this }
 		set_global_variable = { name = bag_wtp_bonus_3 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_3 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_3 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_3 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 4 }
 		set_global_variable = { name = bag_wtp_row_4 value = this }
 		set_global_variable = { name = bag_wtp_bonus_4 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_4 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_4 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_4 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 5 }
 		set_global_variable = { name = bag_wtp_row_5 value = this }
 		set_global_variable = { name = bag_wtp_bonus_5 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_5 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_5 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_5 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 6 }
 		set_global_variable = { name = bag_wtp_row_6 value = this }
 		set_global_variable = { name = bag_wtp_bonus_6 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_6 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_6 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_6 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 7 }
 		set_global_variable = { name = bag_wtp_row_7 value = this }
 		set_global_variable = { name = bag_wtp_bonus_7 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_7 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_7 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_7 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 8 }
 		set_global_variable = { name = bag_wtp_row_8 value = this }
 		set_global_variable = { name = bag_wtp_bonus_8 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_8 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_8 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_8 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 9 }
 		set_global_variable = { name = bag_wtp_row_9 value = this }
 		set_global_variable = { name = bag_wtp_bonus_9 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_9 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_9 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_9 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 10 }
 		set_global_variable = { name = bag_wtp_row_10 value = this }
 		set_global_variable = { name = bag_wtp_bonus_10 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_10 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_10 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_10 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 11 }
 		set_global_variable = { name = bag_wtp_row_11 value = this }
 		set_global_variable = { name = bag_wtp_bonus_11 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_11 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_11 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_11 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 12 }
 		set_global_variable = { name = bag_wtp_row_12 value = this }
 		set_global_variable = { name = bag_wtp_bonus_12 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_12 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_12 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_12 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 13 }
 		set_global_variable = { name = bag_wtp_row_13 value = this }
 		set_global_variable = { name = bag_wtp_bonus_13 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_13 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_13 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_13 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 14 }
 		set_global_variable = { name = bag_wtp_row_14 value = this }
 		set_global_variable = { name = bag_wtp_bonus_14 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_14 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_14 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_14 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 15 }
 		set_global_variable = { name = bag_wtp_row_15 value = this }
 		set_global_variable = { name = bag_wtp_bonus_15 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_15 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_15 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_15 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 16 }
 		set_global_variable = { name = bag_wtp_row_16 value = this }
 		set_global_variable = { name = bag_wtp_bonus_16 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_16 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_16 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_16 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 17 }
 		set_global_variable = { name = bag_wtp_row_17 value = this }
 		set_global_variable = { name = bag_wtp_bonus_17 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_17 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_17 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_17 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 18 }
 		set_global_variable = { name = bag_wtp_row_18 value = this }
 		set_global_variable = { name = bag_wtp_bonus_18 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_18 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_18 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_18 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 19 }
 		set_global_variable = { name = bag_wtp_row_19 value = this }
 		set_global_variable = { name = bag_wtp_bonus_19 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_19 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_19 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_19 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 20 }
 		set_global_variable = { name = bag_wtp_row_20 value = this }
 		set_global_variable = { name = bag_wtp_bonus_20 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_20 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_20 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_20 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 21 }
 		set_global_variable = { name = bag_wtp_row_21 value = this }
 		set_global_variable = { name = bag_wtp_bonus_21 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_21 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_21 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_21 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 22 }
 		set_global_variable = { name = bag_wtp_row_22 value = this }
 		set_global_variable = { name = bag_wtp_bonus_22 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_22 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_22 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_22 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 23 }
 		set_global_variable = { name = bag_wtp_row_23 value = this }
 		set_global_variable = { name = bag_wtp_bonus_23 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_23 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_23 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_23 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 24 }
 		set_global_variable = { name = bag_wtp_row_24 value = this }
 		set_global_variable = { name = bag_wtp_bonus_24 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_24 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_24 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_24 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 25 }
 		set_global_variable = { name = bag_wtp_row_25 value = this }
 		set_global_variable = { name = bag_wtp_bonus_25 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_25 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_25 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_25 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 26 }
 		set_global_variable = { name = bag_wtp_row_26 value = this }
 		set_global_variable = { name = bag_wtp_bonus_26 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_26 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_26 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_26 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 27 }
 		set_global_variable = { name = bag_wtp_row_27 value = this }
 		set_global_variable = { name = bag_wtp_bonus_27 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_27 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_27 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_27 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 28 }
 		set_global_variable = { name = bag_wtp_row_28 value = this }
 		set_global_variable = { name = bag_wtp_bonus_28 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_28 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_28 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_28 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 29 }
 		set_global_variable = { name = bag_wtp_row_29 value = this }
 		set_global_variable = { name = bag_wtp_bonus_29 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_29 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_29 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_29 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 30 }
 		set_global_variable = { name = bag_wtp_row_30 value = this }
 		set_global_variable = { name = bag_wtp_bonus_30 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_30 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_30 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_30 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 31 }
 		set_global_variable = { name = bag_wtp_row_31 value = this }
 		set_global_variable = { name = bag_wtp_bonus_31 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_31 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_31 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_31 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 32 }
 		set_global_variable = { name = bag_wtp_row_32 value = this }
 		set_global_variable = { name = bag_wtp_bonus_32 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_32 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_32 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_32 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 33 }
 		set_global_variable = { name = bag_wtp_row_33 value = this }
 		set_global_variable = { name = bag_wtp_bonus_33 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_33 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_33 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_33 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 34 }
 		set_global_variable = { name = bag_wtp_row_34 value = this }
 		set_global_variable = { name = bag_wtp_bonus_34 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_34 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_34 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_34 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 35 }
 		set_global_variable = { name = bag_wtp_row_35 value = this }
 		set_global_variable = { name = bag_wtp_bonus_35 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_35 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_35 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_35 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 36 }
 		set_global_variable = { name = bag_wtp_row_36 value = this }
 		set_global_variable = { name = bag_wtp_bonus_36 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_36 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_36 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_36 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 37 }
 		set_global_variable = { name = bag_wtp_row_37 value = this }
 		set_global_variable = { name = bag_wtp_bonus_37 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_37 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_37 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_37 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 38 }
 		set_global_variable = { name = bag_wtp_row_38 value = this }
 		set_global_variable = { name = bag_wtp_bonus_38 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_38 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_38 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_38 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 39 }
 		set_global_variable = { name = bag_wtp_row_39 value = this }
 		set_global_variable = { name = bag_wtp_bonus_39 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_39 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_39 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_39 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 40 }
 		set_global_variable = { name = bag_wtp_row_40 value = this }
 		set_global_variable = { name = bag_wtp_bonus_40 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_40 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_40 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_40 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 41 }
 		set_global_variable = { name = bag_wtp_row_41 value = this }
 		set_global_variable = { name = bag_wtp_bonus_41 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_41 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_41 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_41 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 42 }
 		set_global_variable = { name = bag_wtp_row_42 value = this }
 		set_global_variable = { name = bag_wtp_bonus_42 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_42 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_42 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_42 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 43 }
 		set_global_variable = { name = bag_wtp_row_43 value = this }
 		set_global_variable = { name = bag_wtp_bonus_43 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_43 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_43 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_43 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 44 }
 		set_global_variable = { name = bag_wtp_row_44 value = this }
 		set_global_variable = { name = bag_wtp_bonus_44 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_44 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_44 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_44 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 45 }
 		set_global_variable = { name = bag_wtp_row_45 value = this }
 		set_global_variable = { name = bag_wtp_bonus_45 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_45 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_45 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_45 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 46 }
 		set_global_variable = { name = bag_wtp_row_46 value = this }
 		set_global_variable = { name = bag_wtp_bonus_46 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_46 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_46 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_46 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 47 }
 		set_global_variable = { name = bag_wtp_row_47 value = this }
 		set_global_variable = { name = bag_wtp_bonus_47 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_47 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_47 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_47 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 48 }
 		set_global_variable = { name = bag_wtp_row_48 value = this }
 		set_global_variable = { name = bag_wtp_bonus_48 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_48 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_48 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_48 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 49 }
 		set_global_variable = { name = bag_wtp_row_49 value = this }
 		set_global_variable = { name = bag_wtp_bonus_49 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_49 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_49 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_49 value = var:bag_wtp_pm }
 	}
 	else_if = {
 		limit = { global_var:bag_wtp_found = 50 }
 		set_global_variable = { name = bag_wtp_row_50 value = this }
 		set_global_variable = { name = bag_wtp_bonus_50 value = var:bag_wtp_best }
-		set_global_variable = { name = bag_wtp_bt_50 value = global_var:bag_wtp_winner }
+		set_global_variable = { name = bag_wtp_bt_50 value = var:bag_wtp_bt }
+		set_global_variable = { name = bag_wtp_pm_50 value = var:bag_wtp_pm }
 	}
 }
 

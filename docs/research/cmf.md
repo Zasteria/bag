@@ -104,9 +104,17 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
-**A tab and a setting may not share a name.** Both derive
-`<mod_id>__<id>_name`, so a tab `zone` and a list `zone` collide on one
-localization key and one of them wins silently. Tabs otherwise cost nothing: a
+**A row has a tooltip of its own.** `cmm_list_setting.gui` draws it from
+`CMMLocalizedSuffixText(Key, '_desc')` and shows it only when
+`CMMHasLocalizedSuffixText` says the key resolves, so defining
+`<mod>__<setting>_i<n>_desc` gives row *n* a tooltip and defining nothing gives
+it none. It is the only place a CMM row can say more than its one line.
+
+**A tab and a setting may not share a name, and neither may two settings.** All
+of them derive `<mod_id>__<id>_name`, so a tab `zone` and a list `zone` collide
+on one localization key and one of them wins silently — and so do a list
+`result` and a button `result`, which is how `where_to_produce`'s window button
+came to be called `show`. Tabs otherwise cost nothing: a
 `tab_id` on each setting is the whole of it, and it is the cure for a mod page
 that scrolls past four groups to reach the fifth.
 

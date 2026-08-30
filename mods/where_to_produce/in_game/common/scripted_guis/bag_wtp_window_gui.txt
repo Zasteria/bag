@@ -175,3 +175,65 @@ bag_wtp_clear_all = {
 		bag_wtp_drop_browse = yes
 	}
 }
+
+# The results window. Opening copies the ranked answer into the list the window
+# repeats over and closing empties it again: a scripted widget never comes down,
+# so the datamodel is the only thing that decides how many rows are alive.
+bag_wtp_open_result_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_show_results = yes
+		set_variable = { name = bag_wtp_result_open value = 1 }
+	}
+}
+
+bag_wtp_close_result_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_variable = bag_wtp_result_open
+		bag_wtp_hide_results = yes
+	}
+}
+
+# Expansion is kept on the province's capital, as in the selection window, but
+# under a name of its own so opening a row in one window does not open it in the
+# other.
+bag_wtp_result_expand = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			set_variable = { name = bag_wtp_res_expanded value = 1 }
+		}
+	}
+}
+
+bag_wtp_result_collapse = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			remove_variable = bag_wtp_res_expanded
+		}
+	}
+}

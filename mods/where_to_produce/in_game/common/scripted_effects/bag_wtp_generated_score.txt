@@ -3573,226 +3573,2514 @@ bag_wtp_score_47 = {
 	}
 }
 
-# Which building won a row, printed by the row itself. One branch per method,
-# reached once per filled row rather than once per candidate.
+# What won here, written onto the location itself. One branch per method, reached
+# once per row that survives rather than once per candidate.
+#
+# On the location rather than in globals because the results window reads a row
+# straight off its own scope: `Location.MakeScope.GetVariable('bag_wtp_pm')` is
+# the method, and `GetList('bag_wtp_goods')` is what the bonus is made of. The
+# fifty CMM rows copy these into globals of their own afterwards, since a
+# localization key has no scope to read from.
+#
+# `bag_wtp_goods` holds the raw materials this province actually supplies to the
+# winning method -- the numerator of the bonus, item by item. Inputs the province
+# cannot supply are absent, which is the difference between the number and the
+# method's ceiling.
 # Scope: location
 bag_wtp_store_winner = {
-	if = { limit = { var:bag_wtp_best_method = 1 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 2 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 3 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 4 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 5 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 6 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 7 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:beer_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 8 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 9 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 10 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 11 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 12 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 13 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 14 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 15 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 16 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:brewery_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 17 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:market_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 18 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:printing_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 19 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:printing_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 20 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:printing_press_shop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 21 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:scriptorium } } }
-	else_if = { limit = { var:bag_wtp_best_method = 22 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_foundry } } }
-	else_if = { limit = { var:bag_wtp_best_method = 23 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 24 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 25 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 26 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 27 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 28 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 29 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 30 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 31 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 32 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 33 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 34 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cannons_factory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 35 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:clay_pit } } }
-	else_if = { limit = { var:bag_wtp_best_method = 36 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 37 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 38 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 39 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 40 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 41 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 42 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 43 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 44 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 45 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:rural_clothmaker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 46 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:rural_clothmaker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 47 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:rural_clothmaker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 48 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:textile_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 49 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:textile_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 50 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:textile_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 51 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:charcoal_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 52 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:improved_charcoal_maker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 53 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:cotton_plantation } } }
-	else_if = { limit = { var:bag_wtp_best_method = 54 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:dyes_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 55 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:dyes_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 56 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:dyes_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 57 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:dyes_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 58 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:dyesworks } } }
-	else_if = { limit = { var:bag_wtp_best_method = 59 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fiber_crops_farm } } }
-	else_if = { limit = { var:bag_wtp_best_method = 60 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:shoen } } }
-	else_if = { limit = { var:bag_wtp_best_method = 61 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 62 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 63 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 64 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 65 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 66 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 67 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 68 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 69 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 70 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 71 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 72 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 73 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 74 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 75 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 76 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 77 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fine_cloth_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 78 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:firearms_factory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 79 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:firearms_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 80 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:gun_smith } } }
-	else_if = { limit = { var:bag_wtp_best_method = 81 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:gun_smith } } }
-	else_if = { limit = { var:bag_wtp_best_method = 82 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:gun_smith } } }
-	else_if = { limit = { var:bag_wtp_best_method = 83 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:gun_smith } } }
-	else_if = { limit = { var:bag_wtp_best_method = 84 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:gun_smith } } }
-	else_if = { limit = { var:bag_wtp_best_method = 85 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:guns_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 86 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:guns_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 87 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:guns_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 88 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:guns_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 89 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:hand_cannon_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 90 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fishing_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 91 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fishing_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 92 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fruit_orchard } } }
-	else_if = { limit = { var:bag_wtp_best_method = 93 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:furniture_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 94 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:furniture_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 95 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:furniture_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 96 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:furniture_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 97 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:glass_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 98 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:glass_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 99 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:glass_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 100 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:glass_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 101 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:glassworks } } }
-	else_if = { limit = { var:bag_wtp_best_method = 102 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:rural_glassmaker } } }
-	else_if = { limit = { var:bag_wtp_best_method = 103 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:horse_breeders } } }
-	else_if = { limit = { var:bag_wtp_best_method = 104 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:perfumery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 105 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:bog_iron_smelter } } }
-	else_if = { limit = { var:bag_wtp_best_method = 106 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:shoen } } }
-	else_if = { limit = { var:bag_wtp_best_method = 107 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:elephant_hunting_grounds } } }
-	else_if = { limit = { var:bag_wtp_best_method = 108 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 109 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 110 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 111 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 112 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 113 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 114 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:jewelry_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 115 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:market_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 116 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:pounamou_carver } } }
-	else_if = { limit = { var:bag_wtp_best_method = 117 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:lacquerware_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 118 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:lacquerware_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 119 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:forest_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 120 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 121 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 122 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 123 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 124 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 125 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tannery_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 126 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tanning_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 127 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tanning_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 128 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 129 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 130 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 131 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 132 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 133 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 134 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 135 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 136 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 137 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distiller_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 138 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 139 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 140 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 141 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 142 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 143 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 144 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 145 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 146 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 147 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:distillers_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 148 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:farming_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 149 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:shoen } } }
-	else_if = { limit = { var:bag_wtp_best_method = 150 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:mason } } }
-	else_if = { limit = { var:bag_wtp_best_method = 151 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:mason } } }
-	else_if = { limit = { var:bag_wtp_best_method = 152 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:shoen } } }
-	else_if = { limit = { var:bag_wtp_best_method = 153 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:apothecary } } }
-	else_if = { limit = { var:bag_wtp_best_method = 154 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:apothecary } } }
-	else_if = { limit = { var:bag_wtp_best_method = 155 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fishing_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 156 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:naval_supplies_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 157 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:naval_supplies_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 158 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:naval_supplies_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 159 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:naval_supplies_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 160 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 161 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 162 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 163 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 164 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 165 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 166 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 167 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:paper_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 168 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:porcelain_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 169 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:porcelain_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 170 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:fishing_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 171 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:market_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 172 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:pottery_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 173 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:pottery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 174 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:pottery_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 175 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:pottery_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 176 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:salt_collector } } }
-	else_if = { limit = { var:bag_wtp_best_method = 177 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:putrefaction_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 178 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:putrefaction_works } } }
-	else_if = { limit = { var:bag_wtp_best_method = 179 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:saltpeter_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 180 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:saltpeter_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 181 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:sand_pit } } }
-	else_if = { limit = { var:bag_wtp_best_method = 182 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:ablaq_palace } } }
-	else_if = { limit = { var:bag_wtp_best_method = 183 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:lucca_silk_production_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 184 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:schwaz_mine } } }
-	else_if = { limit = { var:bag_wtp_best_method = 185 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:slave_center } } }
-	else_if = { limit = { var:bag_wtp_best_method = 186 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:steel_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 187 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:stone_quarry } } }
-	else_if = { limit = { var:bag_wtp_best_method = 188 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:stone_quarry } } }
-	else_if = { limit = { var:bag_wtp_best_method = 189 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:sugar_plantation } } }
-	else_if = { limit = { var:bag_wtp_best_method = 190 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tar_kiln } } }
-	else_if = { limit = { var:bag_wtp_best_method = 191 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tobacco_plantation } } }
-	else_if = { limit = { var:bag_wtp_best_method = 192 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:forest_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 193 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:iron_foundry } } }
-	else_if = { limit = { var:bag_wtp_best_method = 194 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:iron_mill } } }
-	else_if = { limit = { var:bag_wtp_best_method = 195 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:market_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 196 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tatara } } }
-	else_if = { limit = { var:bag_wtp_best_method = 197 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tools_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 198 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tools_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 199 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tools_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 200 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tools_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 201 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tools_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 202 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:forest_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 203 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:market_village } } }
-	else_if = { limit = { var:bag_wtp_best_method = 204 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:tatara } } }
-	else_if = { limit = { var:bag_wtp_best_method = 205 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_factory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 206 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 207 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 208 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_guild } } }
-	else_if = { limit = { var:bag_wtp_best_method = 209 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 210 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:weapon_workshop } } }
-	else_if = { limit = { var:bag_wtp_best_method = 211 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:eng_royal_forest } } }
-	else_if = { limit = { var:bag_wtp_best_method = 212 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 213 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 214 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery } } }
-	else_if = { limit = { var:bag_wtp_best_method = 215 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 216 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 217 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:winery_manufactory } } }
-	else_if = { limit = { var:bag_wtp_best_method = 218 } root = { set_global_variable = { name = bag_wtp_winner value = building_type:sheep_farms } } }
+	clear_variable_list = bag_wtp_goods
+	if = {
+		limit = { var:bag_wtp_best_method = 1 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:bavarian_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 2 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:fruit_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fruit }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 3 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:honey_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:beeswax }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 4 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:maize_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:maize } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:maize }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 5 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:millet_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 6 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 7 }
+		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_beer_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 8 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:bavarian_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 9 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:fruit_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fruit }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 10 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:honey_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:beeswax }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 11 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:maize_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:maize } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:maize }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 12 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:millet_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 13 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 14 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_brewery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 15 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:brewery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 16 }
+		set_variable = { name = bag_wtp_bt value = building_type:brewery_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:brewery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 17 }
+		set_variable = { name = bag_wtp_bt value = building_type:market_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_millet_brewery }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 18 }
+		set_variable = { name = bag_wtp_bt value = building_type:printing_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:printing_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 19 }
+		set_variable = { name = bag_wtp_bt value = building_type:printing_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:printing_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 20 }
+		set_variable = { name = bag_wtp_bt value = building_type:printing_press_shop }
+		set_variable = { name = bag_wtp_pm value = production_method:printing_press_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 21 }
+		set_variable = { name = bag_wtp_bt value = building_type:scriptorium }
+		set_variable = { name = bag_wtp_pm value = production_method:scriptorium_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 22 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_foundry }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_foundry_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 23 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_ammunition_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 24 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_ammunition_lead_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 25 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_ammunition_stone_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 26 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_bronze_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 27 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 28 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_maker_lumber_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 29 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_workshop_ammunition_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 30 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_workshop_ammunition_lead_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 31 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_workshop_ammunition_stone_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 32 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_workshop_bronze_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 33 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cannon_workshop_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 34 }
+		set_variable = { name = bag_wtp_bt value = building_type:cannons_factory }
+		set_variable = { name = bag_wtp_pm value = production_method:gun_factory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 35 }
+		set_variable = { name = bag_wtp_bt value = building_type:clay_pit }
+		set_variable = { name = bag_wtp_pm value = production_method:clay_pit_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 36 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:cotton_cloth_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:cotton }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 37 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_cloth_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 38 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_cloth_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 39 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:cotton_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:cotton }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 40 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 41 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 42 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:cotton_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:cotton }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 43 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 44 }
+		set_variable = { name = bag_wtp_bt value = building_type:cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 45 }
+		set_variable = { name = bag_wtp_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_cotton_clothmaker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:cotton }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 46 }
+		set_variable = { name = bag_wtp_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_fiber_clothmaker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 47 }
+		set_variable = { name = bag_wtp_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_wool_clothmaker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 48 }
+		set_variable = { name = bag_wtp_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:cotton_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:cotton }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 49 }
+		set_variable = { name = bag_wtp_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 50 }
+		set_variable = { name = bag_wtp_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 51 }
+		set_variable = { name = bag_wtp_bt value = building_type:charcoal_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:char_coal_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 52 }
+		set_variable = { name = bag_wtp_bt value = building_type:improved_charcoal_maker }
+		set_variable = { name = bag_wtp_pm value = production_method:improved_char_coal_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 53 }
+		set_variable = { name = bag_wtp_bt value = building_type:cotton_plantation }
+		set_variable = { name = bag_wtp_pm value = production_method:cotton_plantation_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 54 }
+		set_variable = { name = bag_wtp_bt value = building_type:dyes_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:alum_dyes_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 55 }
+		set_variable = { name = bag_wtp_bt value = building_type:dyes_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:dyes_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 56 }
+		set_variable = { name = bag_wtp_bt value = building_type:dyes_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:dyesmill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 57 }
+		set_variable = { name = bag_wtp_bt value = building_type:dyes_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:dyes_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 58 }
+		set_variable = { name = bag_wtp_bt value = building_type:dyesworks }
+		set_variable = { name = bag_wtp_pm value = production_method:dyesworks_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 59 }
+		set_variable = { name = bag_wtp_bt value = building_type:fiber_crops_farm }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_farm_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 60 }
+		set_variable = { name = bag_wtp_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_pm value = production_method:shoen_fiber_crops_farm_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 61 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:alum_fine_cloth_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 62 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:base_fine_cloth_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 63 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:fur_trim_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fur }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 64 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:silk_weavers_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:silk }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 65 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:spanish_cloth_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 66 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_weavers_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 67 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:alum_fine_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 68 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:base_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 69 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:silk_cloth_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:silk }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 70 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:fine_cloth_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 71 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:silk_cloth_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:silk }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 72 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:alum_fine_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 73 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:base_fine_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 74 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:fur_trim_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fur }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 75 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:silk_weavers_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:silk }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 76 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:spanish_cloth_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 77 }
+		set_variable = { name = bag_wtp_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:wool_weavers_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wool }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 78 }
+		set_variable = { name = bag_wtp_bt value = building_type:firearms_factory }
+		set_variable = { name = bag_wtp_pm value = production_method:firearms_factory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 79 }
+		set_variable = { name = bag_wtp_bt value = building_type:firearms_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:firearms_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 80 }
+		set_variable = { name = bag_wtp_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_guild_ammunition_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 81 }
+		set_variable = { name = bag_wtp_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_guild_ammunition_lead_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 82 }
+		set_variable = { name = bag_wtp_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_guild_bronze_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 83 }
+		set_variable = { name = bag_wtp_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_guild_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 84 }
+		set_variable = { name = bag_wtp_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_guild_lumber_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 85 }
+		set_variable = { name = bag_wtp_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_workshop_ammunition_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 86 }
+		set_variable = { name = bag_wtp_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_workshop_ammunition_lead_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 87 }
+		set_variable = { name = bag_wtp_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_workshop_bronze_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 88 }
+		set_variable = { name = bag_wtp_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:guns_workshop_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 89 }
+		set_variable = { name = bag_wtp_bt value = building_type:hand_cannon_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:hand_cannon_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 90 }
+		set_variable = { name = bag_wtp_bt value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_pm value = production_method:arctic_fishing_village_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:ivory }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:salt } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:salt }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 91 }
+		set_variable = { name = bag_wtp_bt value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_pm value = production_method:fishing_village_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:salt } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:salt }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 92 }
+		set_variable = { name = bag_wtp_bt value = building_type:fruit_orchard }
+		set_variable = { name = bag_wtp_pm value = production_method:fruit_orchard_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 93 }
+		set_variable = { name = bag_wtp_bt value = building_type:furniture_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:furniture_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 94 }
+		set_variable = { name = bag_wtp_bt value = building_type:furniture_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:furniture_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 95 }
+		set_variable = { name = bag_wtp_bt value = building_type:furniture_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:furniture_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 96 }
+		set_variable = { name = bag_wtp_bt value = building_type:furniture_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:furniture_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 97 }
+		set_variable = { name = bag_wtp_bt value = building_type:glass_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:glass_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 98 }
+		set_variable = { name = bag_wtp_bt value = building_type:glass_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:metal_glass_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 99 }
+		set_variable = { name = bag_wtp_bt value = building_type:glass_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:glassmill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 100 }
+		set_variable = { name = bag_wtp_bt value = building_type:glass_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:metal_glass_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lead }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 101 }
+		set_variable = { name = bag_wtp_bt value = building_type:glassworks }
+		set_variable = { name = bag_wtp_pm value = production_method:glassworks_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:alum }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 102 }
+		set_variable = { name = bag_wtp_bt value = building_type:rural_glassmaker }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_glassmaker_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 103 }
+		set_variable = { name = bag_wtp_bt value = building_type:horse_breeders }
+		set_variable = { name = bag_wtp_pm value = production_method:horse_breeders_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:horses } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:horses }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 104 }
+		set_variable = { name = bag_wtp_bt value = building_type:perfumery }
+		set_variable = { name = bag_wtp_pm value = production_method:perfumery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:pepper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:pepper }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 105 }
+		set_variable = { name = bag_wtp_bt value = building_type:bog_iron_smelter }
+		set_variable = { name = bag_wtp_pm value = production_method:bog_iron_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 106 }
+		set_variable = { name = bag_wtp_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_pm value = production_method:shoen_ironsand_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 107 }
+		set_variable = { name = bag_wtp_bt value = building_type:elephant_hunting_grounds }
+		set_variable = { name = bag_wtp_pm value = production_method:elephant_hunting_grounds_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:elephants } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:elephants }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 108 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:amber_enhancement }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:amber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:amber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 109 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:copper_base }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 110 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:gems_enhancement }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:gems }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 111 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:gold_base }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:goods_gold }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 112 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:ivory_enhancement }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:ivory }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 113 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:pearls_enhancement }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:pearls } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:pearls }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 114 }
+		set_variable = { name = bag_wtp_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:silver_base }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:silver } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:silver }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 115 }
+		set_variable = { name = bag_wtp_bt value = building_type:market_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_jewelry_carver }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 116 }
+		set_variable = { name = bag_wtp_bt value = building_type:pounamou_carver }
+		set_variable = { name = bag_wtp_pm value = production_method:pounamou_carver_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:gems }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 117 }
+		set_variable = { name = bag_wtp_bt value = building_type:lacquerware_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:lacquerware_shop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 118 }
+		set_variable = { name = bag_wtp_bt value = building_type:lacquerware_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:lacquerware_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 119 }
+		set_variable = { name = bag_wtp_bt value = building_type:forest_village }
+		set_variable = { name = bag_wtp_pm value = production_method:forest_tannery }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 120 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery }
+		set_variable = { name = bag_wtp_pm value = production_method:leather_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 121 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery }
+		set_variable = { name = bag_wtp_pm value = production_method:tannery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 122 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:leather_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 123 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:tannery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 124 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:leather_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 125 }
+		set_variable = { name = bag_wtp_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:tannery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 126 }
+		set_variable = { name = bag_wtp_bt value = building_type:tanning_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:leather_livestock_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 127 }
+		set_variable = { name = bag_wtp_bt value = building_type:tanning_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:leather_wildgame_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sand }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 128 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:potato_distillery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:potato }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 129 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_distillery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 130 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:scottish_whisky_distillery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 131 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:sugar_distillery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sugar }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 132 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_distillery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 133 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:potato_distillery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:potato }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 134 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_distillery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 135 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:scottish_whisky_distillery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:millet }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 136 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:sugar_distillery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sugar }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 137 }
+		set_variable = { name = bag_wtp_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_distillery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 138 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:potato_liquor_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:potato }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 139 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_liquor_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 140 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:sugar_liquor_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sugar }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 141 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_liquor_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 142 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:wine_liquor_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wine }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 143 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:potato_liquor_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:potato }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 144 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_liquor_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 145 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:sugar_liquor_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:sugar }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 146 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:wheat_liquor_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wheat }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 147 }
+		set_variable = { name = bag_wtp_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:wine_liquor_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wine }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 148 }
+		set_variable = { name = bag_wtp_bt value = building_type:farming_village }
+		set_variable = { name = bag_wtp_pm value = production_method:farming_village_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 149 }
+		set_variable = { name = bag_wtp_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_pm value = production_method:shoen_lumbermills_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 150 }
+		set_variable = { name = bag_wtp_bt value = building_type:mason }
+		set_variable = { name = bag_wtp_pm value = production_method:clay_bricks }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 151 }
+		set_variable = { name = bag_wtp_bt value = building_type:mason }
+		set_variable = { name = bag_wtp_pm value = production_method:stone_bricks }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 152 }
+		set_variable = { name = bag_wtp_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_pm value = production_method:shoen_masonry_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 153 }
+		set_variable = { name = bag_wtp_bt value = building_type:apothecary }
+		set_variable = { name = bag_wtp_pm value = production_method:ancient_medicine_apotechary }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:ivory }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:mercury } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:mercury }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 154 }
+		set_variable = { name = bag_wtp_bt value = building_type:apothecary }
+		set_variable = { name = bag_wtp_pm value = production_method:natural_medicine_apotechary }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wild_game }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 155 }
+		set_variable = { name = bag_wtp_bt value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_pm value = production_method:coastal_boatyard }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 156 }
+		set_variable = { name = bag_wtp_bt value = building_type:naval_supplies_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:naval_supplies_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 157 }
+		set_variable = { name = bag_wtp_bt value = building_type:naval_supplies_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:naval_supplies_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 158 }
+		set_variable = { name = bag_wtp_bt value = building_type:naval_supplies_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:naval_supplies_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 159 }
+		set_variable = { name = bag_wtp_bt value = building_type:naval_supplies_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:naval_supplies_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 160 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_guild_cloth_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 161 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_guild_fiber_pulp_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 162 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_guild_leather_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 163 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 164 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 165 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_wood_pulp_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 166 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_workshop_cloth_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 167 }
+		set_variable = { name = bag_wtp_bt value = building_type:paper_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:paper_workshop_fiber_pulp_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 168 }
+		set_variable = { name = bag_wtp_bt value = building_type:porcelain_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:porcelain_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 169 }
+		set_variable = { name = bag_wtp_bt value = building_type:porcelain_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:porcelain_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 170 }
+		set_variable = { name = bag_wtp_bt value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_pottery_maker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 171 }
+		set_variable = { name = bag_wtp_bt value = building_type:market_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_pottery_maker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 172 }
+		set_variable = { name = bag_wtp_bt value = building_type:pottery_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:pottery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 173 }
+		set_variable = { name = bag_wtp_bt value = building_type:pottery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:pottery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 174 }
+		set_variable = { name = bag_wtp_bt value = building_type:pottery_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:pottery_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 175 }
+		set_variable = { name = bag_wtp_bt value = building_type:pottery_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:pottery_w_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 176 }
+		set_variable = { name = bag_wtp_bt value = building_type:salt_collector }
+		set_variable = { name = bag_wtp_pm value = production_method:salt_collector_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:clay }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 177 }
+		set_variable = { name = bag_wtp_bt value = building_type:putrefaction_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:putrefaction_mill_demands }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 178 }
+		set_variable = { name = bag_wtp_bt value = building_type:putrefaction_works }
+		set_variable = { name = bag_wtp_pm value = production_method:putrefaction_demands }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 179 }
+		set_variable = { name = bag_wtp_bt value = building_type:saltpeter_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:saltpeter_guild_demands }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 180 }
+		set_variable = { name = bag_wtp_bt value = building_type:saltpeter_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:saltpeter_workshop_demands }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:livestock }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 181 }
+		set_variable = { name = bag_wtp_bt value = building_type:sand_pit }
+		set_variable = { name = bag_wtp_pm value = production_method:sand_pit_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 182 }
+		set_variable = { name = bag_wtp_bt value = building_type:ablaq_palace }
+		set_variable = { name = bag_wtp_pm value = production_method:ablaq_palace_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:marble } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:marble }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 183 }
+		set_variable = { name = bag_wtp_bt value = building_type:lucca_silk_production_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:fiber_crops_silk_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fiber_crops }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 184 }
+		set_variable = { name = bag_wtp_bt value = building_type:schwaz_mine }
+		set_variable = { name = bag_wtp_pm value = production_method:schwaz_mine_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 185 }
+		set_variable = { name = bag_wtp_bt value = building_type:slave_center }
+		set_variable = { name = bag_wtp_pm value = production_method:slave_center_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 186 }
+		set_variable = { name = bag_wtp_bt value = building_type:steel_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:steel_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 187 }
+		set_variable = { name = bag_wtp_bt value = building_type:stone_quarry }
+		set_variable = { name = bag_wtp_pm value = production_method:crude_quarry_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 188 }
+		set_variable = { name = bag_wtp_bt value = building_type:stone_quarry }
+		set_variable = { name = bag_wtp_pm value = production_method:stone_quarry_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 189 }
+		set_variable = { name = bag_wtp_bt value = building_type:sugar_plantation }
+		set_variable = { name = bag_wtp_pm value = production_method:sugar_plantation_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 190 }
+		set_variable = { name = bag_wtp_bt value = building_type:tar_kiln }
+		set_variable = { name = bag_wtp_pm value = production_method:tar_kiln_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 191 }
+		set_variable = { name = bag_wtp_bt value = building_type:tobacco_plantation }
+		set_variable = { name = bag_wtp_pm value = production_method:tobacco_plantation_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 192 }
+		set_variable = { name = bag_wtp_bt value = building_type:forest_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_blacksmith }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 193 }
+		set_variable = { name = bag_wtp_bt value = building_type:iron_foundry }
+		set_variable = { name = bag_wtp_pm value = production_method:iron_foundry_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 194 }
+		set_variable = { name = bag_wtp_bt value = building_type:iron_mill }
+		set_variable = { name = bag_wtp_pm value = production_method:iron_mill_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 195 }
+		set_variable = { name = bag_wtp_bt value = building_type:market_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_blacksmith }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 196 }
+		set_variable = { name = bag_wtp_bt value = building_type:tatara }
+		set_variable = { name = bag_wtp_pm value = production_method:tamagahane_blacksmith }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 197 }
+		set_variable = { name = bag_wtp_bt value = building_type:tools_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:bronze_tools_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:tin }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 198 }
+		set_variable = { name = bag_wtp_bt value = building_type:tools_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:copper_tools_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:copper }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 199 }
+		set_variable = { name = bag_wtp_bt value = building_type:tools_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:metalwork_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 200 }
+		set_variable = { name = bag_wtp_bt value = building_type:tools_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:stone_tools_guild_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 201 }
+		set_variable = { name = bag_wtp_bt value = building_type:tools_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:metalwork_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 202 }
+		set_variable = { name = bag_wtp_bt value = building_type:forest_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_weaponmaker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 203 }
+		set_variable = { name = bag_wtp_bt value = building_type:market_village }
+		set_variable = { name = bag_wtp_pm value = production_method:rural_weaponmaker }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 204 }
+		set_variable = { name = bag_wtp_bt value = building_type:tatara }
+		set_variable = { name = bag_wtp_pm value = production_method:tamagahane_bladesmith }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 205 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_factory }
+		set_variable = { name = bag_wtp_pm value = production_method:weapon_factory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 206 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:pre_columbian_weapon_smith_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 207 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:weapon_guild_obsidian_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:gems }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:stone }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 208 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_guild }
+		set_variable = { name = bag_wtp_pm value = production_method:weapon_smith_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 209 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:weapon_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 210 }
+		set_variable = { name = bag_wtp_bt value = building_type:weapon_workshop }
+		set_variable = { name = bag_wtp_pm value = production_method:weapon_workshop_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:coal }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:iron }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 211 }
+		set_variable = { name = bag_wtp_bt value = building_type:eng_royal_forest }
+		set_variable = { name = bag_wtp_pm value = production_method:eng_royal_forest_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:horses } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:horses }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:wine } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:wine }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 212 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery }
+		set_variable = { name = bag_wtp_pm value = production_method:fruit_winery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fruit }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 213 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery }
+		set_variable = { name = bag_wtp_pm value = production_method:honey_winery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:beeswax }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 214 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_winery_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 215 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:fruit_winery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:fruit } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:fruit }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 216 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:honey_winery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:beeswax } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:beeswax }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 217 }
+		set_variable = { name = bag_wtp_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_pm value = production_method:rice_winery_manufactory_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:rice }
+		}
+	}
+	else_if = {
+		limit = { var:bag_wtp_best_method = 218 }
+		set_variable = { name = bag_wtp_bt value = building_type:sheep_farms }
+		set_variable = { name = bag_wtp_pm value = production_method:sheep_farm_maintenance }
+		if = {
+			limit = { province = { any_location_in_province = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_goods target = goods:lumber }
+		}
+	}
 }

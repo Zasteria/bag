@@ -4,58 +4,79 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: four loads behind us, and the fourth was the first where the owner said
-everything worked.** The goods tick moves, the scoring picks the method, the map
-picker chooses ground, the map mode paints. What is in this build on top of that
-run has not been loaded yet.
+**State: five loads in.** The fifth put the three tabs, the goods filter and the
+per-province table on screen and they work. What it showed is that the *row* was
+the limit: one line of text can name a location and a building and nothing else,
+and the owner needed the province, the method, and what the number is made of.
 
-## What the fifth run has to answer
+## What the sixth run has to answer
 
-Everything below came out of the fourth run's feedback and none of it is tested.
+The answer now has a window of its own, `bag_wtp_result_window.gui`, and the
+CMM table stands beside it as a fifty-row summary. None of this has been loaded.
 
-1. **Tabs.** Goods, ground and the answer are three tabs now, not five groups on
-   one scroll. A tab is just a `tab_id`, but the tab key and a setting key are
-   both `<mod>__<id>_name`, so the zone setting had to be renamed `continent` to
-   stop the tab and the list colliding on one key.
-2. **Regions are back, beside the continents.** Five region lists on the ground
-   tab; a ticked region wins over its continent. Ticking Europe painted the whole
-   screen and the good case was one region.
-3. **Availability.** Only methods whose building this country has unlocked are
-   scored — `can_build_building` in country scope, plus `has_advance` for the ten
-   methods the game gates directly. A tick turns it off for planning ages ahead.
-   Goods nothing available can make are hidden from the pickers.
-4. **One row per province.** Every location of a province scores identically, so
-   fifty rows were fifty ways of saying one thing and the table ran out before
-   the distinct answers did.
+1. **The window opens** — «Считать» opens it, «Открыть» reopens it, and the
+   close button empties it.
+2. **A row is a province**: name, area, the bonus, the building **and which of
+   its methods won**, then an icon per raw material the province supplies to that
+   method. That last one is «из чего» — the numerator of the bonus, item by item.
+3. **A row expands** into the province's locations, each with what it works now
+   and the same «Добавить» / «Убрать» buttons the selection window has.
+4. **The table under the button** now names the province and the method too, and
+   its rows have a tooltip.
+5. **`error.log`** — the window is 380 lines of new GUI, and GUI failures do name
+   their file and line.
+
+Still open from the fifth build: the region lists, the age filter, `error.log`.
 
 ## Two CMM caps, neither written near the call that cares
 
 - **A list is good to 50 rows** (`CMM_MarkListPosition_*` and the item chain are
-  both unrolled to fifty).
+  both unrolled to fifty). The window has no such cap; it is bounded by the
+  ranking pass instead.
 - **A dropdown is clickable only to its twentieth option**
   (`CMM_MarkDropdownSelection_0` … `_19`). Every picker here is a list.
+- **A button and a list may not share a setting id** — same `<mod>__<id>_name`
+  collision as a tab and a setting. The window's button is `show`, not `result`.
 
 ## Settled, and not to be re-litigated
 
 - **The map picker closes after each pick.** That is the generic action's
   lifecycle; `fire_generic_action` executes with a supplied target rather than
   reopening the panel. Area granularity is the answer.
-- **The window lists the provinces something is picked in** — its job is trimming
-  a plan drawn on the map, and that also bounds a datamodel whose row is ~104
-  widgets behind a scripted widget that never comes down.
+- **A window's datamodel is what costs.** A scripted widget never comes down, so
+  only the list it repeats over decides how many rows are alive. The selection
+  window lists just the provinces something is picked in; the results window
+  keeps `bag_wtp_ranked` and fills `bag_wtp_results` from it on opening, emptying
+  it again on closing.
 - **The selection is recorded twice** — a variable on the location for the map
   and the interface, a global list for the ranking — and only `bag_wtp_pick` /
   `bag_wtp_drop` may write it.
 - **No marked zone.** A location's continent and region are plain triggers, so
   nothing is written onto a continent's locations in advance.
-- **The bonus is province-level**, which is why the table is per province.
+- **The bonus is province-level**, which is why a row is a province. What would
+  separate two locations of one province is building slots, and the game exposes
+  no slot count to script or to the interface — `--find slot` has nothing.
+
+## The answer lives on the location
+
+`bag_wtp_fill_rows` parks it there and everything else reads it back:
+
+| on the winning location | is |
+| --- | --- |
+| `bag_wtp_best` | the bonus, in percent |
+| `bag_wtp_bt` | the building that won |
+| `bag_wtp_pm` | the method that won |
+| `bag_wtp_goods` | the raw materials the province supplies to it |
+
+The window reads those off its own row scope. The fifty CMM rows copy them into
+globals of their own (`bag_wtp_row_N`, `_bt_N`, `_pm_N`, `_bonus_N`), because a
+localization key has no scope to read from.
 
 ## Still wanted, not built
 
-- Icons in a result row for the winning building and the goods its method eats.
-  A CMM row is one localization key, so per-row icons need one global per slot
-  per row — about 250 variables. The good's icon is in the pickers already.
-- A tighter reason than "the table holds fifty".
+- The window is capped at fifty provinces only because the CMM table beside it
+  is. Dropping the table lifts it.
+- Sorting or filtering inside the window; it shows the ranking and nothing else.
 
 **Built by** `python3 mods/where_to_produce/tools/generate.py`, from
 `tools/refresh.py`.

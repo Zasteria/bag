@@ -1,0 +1,385 @@
+﻿# The results window: the ranked provinces, each one saying what would be built
+# there, with which method, and out of which raw materials.
+#
+# Why not the CMM table it stands beside: a CMM list row is one localization key
+# and nothing else. It cannot hold an icon per row without a global variable per
+# slot, it cannot expand, and it stops at fifty. Everything the fifth run asked
+# for -- the province rather than one of its locations, which of the building's
+# methods won, and what the bonus is actually made of -- is a datamodel away
+# here and a rewrite of CMF away there.
+#
+# Every row reads its own scope. `bag_wtp_fill_rows` parks the answer on the
+# location itself -- `bag_wtp_bt`, `bag_wtp_pm`, and the `bag_wtp_goods` list --
+# and `bag_wtp_results` is that location per province, in rank order.
+#
+# Shape and idiom follow `bag_wtp_select_window.gui`, which is in game and works:
+# the item type carries its own `datacontext` (a wrapping `widget` collapses the
+# row to zero height), and the window watches a variable on the player because a
+# Mod Menu button is a script effect and script cannot reach `GetVariableSystem`.
+
+types BagWtpResultTypes {
+
+	# One raw material the province supplies to the winning method. These are the
+	# bonus, item by item: the number is `10% * what is here / what the method
+	# wants`, so an input missing from this row is the whole of the difference
+	# between the number and the method's ceiling.
+	type bag_wtp_result_goods_entry = widget {
+		size = { 26 26 }
+
+		icon = {
+			size = { 24 24 }
+			parentanchor = center
+			widgetanchor = center
+			texture = "[GetGoodsIcon(Scope.GetGoods)]"
+			tooltip = "[Scope.GetGoods.GetName]"
+		}
+	}
+
+	# One location of the province, under the expanded row. All of them score the
+	# same -- the game credits a raw material worked anywhere in the province --
+	# so what is worth saying about each is what it works now and whether it is in
+	# the plan.
+	type bag_wtp_result_location_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 30 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		widget = {
+			size = { 36 30 }
+			icon = {
+				size = { 18 18 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
+		text_single = {
+			size = { 240 30 }
+			autoresize = no
+			maximumsize = { 240 30 }
+			align = left|vcenter
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		widget = {
+			size = { 28 30 }
+			visible = "[Location.HasRawMaterial]"
+			icon = {
+				size = { 22 22 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[GetGoodsIcon(Location.GetRawMaterial)]"
+				tooltip = "[Location.GetRawMaterial.GetName]"
+			}
+		}
+
+		text_single = {
+			size = { 200 30 }
+			autoresize = no
+			maximumsize = { 200 30 }
+			align = left|vcenter
+			elide = right
+			visible = "[Location.HasRawMaterial]"
+			text = "[Location.GetRawMaterial.GetName]"
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
+
+		# The same two effects the selection window's rows call, so a location
+		# ticked here is ticked there, painted on the map, and inside the next
+		# ranking -- one fact, one pair of writers.
+		button_regular = {
+			size = { 140 24 }
+			visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_picked').IsSet)]"
+			tooltip = "bag_wtp_add_location_tt"
+			text_single = {
+				size = { 132 20 }
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 132 20 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_add_location"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		button_regular = {
+			size = { 140 24 }
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_picked').IsSet]"
+			tooltip = "bag_wtp_remove_location_tt"
+			text_single = {
+				size = { 132 20 }
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 132 20 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_remove_location"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+		}
+
+		widget = { size = { 12 30 } }
+	}
+
+	# One province: the answer on one line, its locations under it once expanded.
+	# The scope is the location the ranking picked, because that is what carries
+	# the winning method and the goods; the province is one promote away.
+	#
+	# Expansion is a variable on the province's capital, the trick Advanced Auto
+	# Build uses -- a location certainly holds a variable and is reachable from
+	# the province on both sides. It is its own variable rather than the selection
+	# window's, so opening a row in one window does not open it in the other.
+	type bag_wtp_result_province_entry = vbox {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = preferred
+		spacing = 2
+
+		widget = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 36 }
+			using = bg_paper_card
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 0
+
+				widget = {
+					size = { 38 36 }
+					button_square_plus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Not(Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet)]"
+						tooltip = "bag_wtp_result_expand_tt"
+						onclick = "[GetScriptedGui('bag_wtp_result_expand').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.GetProvince.GetCapital.MakeScope).End)]"
+					}
+					button_square_minus = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						visible = "[Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
+						tooltip = "bag_wtp_result_collapse_tt"
+						onclick = "[GetScriptedGui('bag_wtp_result_collapse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.GetProvince.GetCapital.MakeScope).End)]"
+					}
+				}
+
+				text_single = {
+					size = { 190 36 }
+					autoresize = no
+					maximumsize = { 190 36 }
+					align = left|vcenter
+					elide = right
+					text = "[Location.GetProvince.GetName]"
+					tooltip = "bag_wtp_result_province_tt"
+				}
+
+				text_single = {
+					size = { 130 36 }
+					autoresize = no
+					maximumsize = { 130 36 }
+					align = left|vcenter
+					elide = right
+					fontsize = 13
+					text = "[Location.GetArea.GetNameWithNoTooltip]"
+				}
+
+				# The bonus this province gives the winning method, read straight off
+				# the location the ranking kept.
+				text_single = {
+					size = { 70 36 }
+					autoresize = no
+					maximumsize = { 70 36 }
+					align = right|vcenter
+					# In localization rather than here: a value mixing a data function
+					# with literal text is what a localization key is, and that form is
+					# on screen in this mod already.
+					text = "bag_wtp_result_bonus_value"
+					tooltip = "bag_wtp_result_bonus_tt"
+				}
+
+				widget = { size = { 10 36 } }
+
+				# The building and, after the colon, which of its methods won. That
+				# is the question the fifth run could not answer from the table: a
+				# building with three methods showed only its name.
+				text_single = {
+					size = { -1 36 }
+					layoutpolicy_horizontal = expanding
+					autoresize = no
+					align = left|vcenter
+					elide = right
+					text = "bag_wtp_result_method_value"
+					tooltip = "bag_wtp_result_method_tt"
+				}
+
+				# What the bonus is made of.
+				hbox = {
+					size = { 150 36 }
+					spacing = 2
+					alwaystransparent = no
+					tooltip = "bag_wtp_result_goods_tt"
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+					item = { bag_wtp_result_goods_entry = {} }
+				}
+
+				widget = { size = { 12 36 } }
+			}
+		}
+
+		vbox = {
+			visible = "[Location.GetProvince.GetCapital.MakeScope.GetVariable('bag_wtp_res_expanded').IsSet]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = preferred
+			ignoreinvisible = yes
+			margin_left = 20
+			datamodel = "[Location.GetProvince.GetLocations]"
+			item = { bag_wtp_result_location_entry = {} }
+		}
+	}
+}
+
+
+window = {
+	name = "bag_wtp_result_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	position = { 0 0 }
+	movable = yes
+	size = { 1180 720 }
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
+
+	widget = {
+		size = { 1180 720 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_result_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_result_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				text_multi = {
+					size = { -1 40 }
+					autoresize = yes
+					align = center
+					text = "bag_wtp_result_window_desc"
+				}
+
+				# Nothing computed yet, or nothing survived the filters. Without this
+				# the window is an empty box and says nothing about why.
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_results')))]"
+					text = "bag_wtp_result_window_empty"
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_left = 38
+					spacing = 0
+					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_results'))]"
+
+					text_single = {
+						size = { 190 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_province"
+					}
+					text_single = {
+						size = { 130 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_area"
+					}
+					text_single = {
+						size = { 70 24 }
+						autoresize = no
+						align = right|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_bonus"
+					}
+					widget = { size = { 10 24 } }
+					text_single = {
+						size = { -1 24 }
+						layoutpolicy_horizontal = expanding
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_method"
+					}
+					text_single = {
+						size = { 150 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_goods"
+					}
+					widget = { size = { 12 24 } }
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_results')]"
+							item = {
+								bag_wtp_result_province_entry = {
+									datacontext = "[Scope.GetLocation]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

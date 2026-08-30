@@ -60,6 +60,16 @@ bag_wtp_register = {
 		group_id = what
 	}
 
+	# The answer in a window of the mod's own: one row per province, expandable
+	# into its locations, naming the method and the raw materials the bonus is
+	# made of. The button reopens it; pressing "run" opens it anyway.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = show
+		tab_id = plan
+		group_id = what
+	}
+
 	bag_wtp_register_result_list = yes
 
 	bag_wtp_init_counters = yes

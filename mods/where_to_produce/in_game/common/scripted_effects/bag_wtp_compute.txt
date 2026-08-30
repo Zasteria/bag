@@ -64,6 +64,15 @@ bag_wtp_on_button = {
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__run }
 		bag_wtp_compute = yes
+		# Straight into the answer. The fifty CMM rows under the button say the
+		# same thing in one line each; the window is where a row can name the
+		# method, show the goods and open into the province's locations.
+		bag_wtp_open_result_window_effect = yes
+	}
+
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__show }
+		bag_wtp_open_result_window_effect = yes
 	}
 
 	# Opening the window is a script effect setting a variable the window watches,
@@ -92,4 +101,34 @@ bag_wtp_on_button = {
 # Scope: country
 bag_wtp_open_window_effect = {
 	set_variable = { name = bag_wtp_open value = 1 }
+}
+
+# The results window's list, filled on opening and emptied on closing.
+#
+# `bag_wtp_ranked` is the answer and survives; `bag_wtp_results` is what the
+# window repeats over. They are two lists rather than one because the window is
+# a scripted widget and never comes down: an item stays instantiated for as long
+# as it is in the datamodel, whether the window is on screen or not, so the copy
+# exists only while the window is open.
+# Scope: country
+bag_wtp_show_results = {
+	clear_global_variable_list = bag_wtp_results
+	every_in_global_list = {
+		variable = bag_wtp_ranked
+		add_to_global_variable_list = { name = bag_wtp_results target = this }
+	}
+}
+
+# Scope: country
+bag_wtp_hide_results = {
+	clear_global_variable_list = bag_wtp_results
+}
+
+# The same thing the window's own scripted GUI does, reachable from an effect --
+# a Mod Menu button is script, and script cannot reach the interface's variable
+# system.
+# Scope: country
+bag_wtp_open_result_window_effect = {
+	bag_wtp_show_results = yes
+	set_variable = { name = bag_wtp_result_open value = 1 }
 }

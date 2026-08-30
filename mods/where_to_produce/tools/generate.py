@@ -594,7 +594,8 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
     return "".join(out)
 
 
-def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
+def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+               game: eu5data.Game) -> str:
     """Finding the method, which is the thing the player should not have to do.
 
     One effect per good, walking the candidates once and keeping, per location,
@@ -643,16 +644,36 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
         out.append("\t}\n}\n")
 
     out.append(f"""
-# Which building won a row, printed by the row itself. One branch per method,
-# reached once per filled row rather than once per candidate.
+# What won here, written onto the location itself. One branch per method, reached
+# once per row that survives rather than once per candidate.
+#
+# On the location rather than in globals because the results window reads a row
+# straight off its own scope: `Location.MakeScope.GetVariable('{MOD_ID}_pm')` is
+# the method, and `GetList('{MOD_ID}_goods')` is what the bonus is made of. The
+# fifty CMM rows copy these into globals of their own afterwards, since a
+# localization key has no scope to read from.
+#
+# `{MOD_ID}_goods` holds the raw materials this province actually supplies to the
+# winning method -- the numerator of the bonus, item by item. Inputs the province
+# cannot supply are absent, which is the difference between the number and the
+# method's ceiling.
 # Scope: location
 {MOD_ID}_store_winner = {{
+\tclear_variable_list = {MOD_ID}_goods
 """)
     for index, method in enumerate(rows, start=1):
         keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_best_method = {index} }} "
-                   f"root = {{ set_global_variable = {{ name = {MOD_ID}_winner "
-                   f"value = building_type:{method.building} }} }} }}\n")
+        out.append(f"\t{keyword} = {{\n"
+                   f"\t\tlimit = {{ var:{MOD_ID}_best_method = {index} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_bt value = building_type:{method.building} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_pm value = production_method:{method.key} }}\n")
+        for good in sorted(method.raw_inputs(game.raw_goods)):
+            out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ province = {{ any_location_in_province = {{ raw_material = goods:{good} }} }} }}
+\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_goods target = goods:{good} }}
+\t\t}}
+""")
+        out.append("\t}\n")
     out.append("}\n")
     return "".join(out)
 
@@ -690,20 +711,30 @@ def rows_file() -> str:
 \t\tremove_variable = {MOD_ID}_row_taken
 \t}}
 \tclear_global_variable_list = {MOD_ID}_row_provinces
+\t# `_ranked` is the answer and survives; `_results` is the copy the window
+\t# repeats over, and it only exists while the window is open -- emptying the
+\t# datamodel is the only thing that frees a scripted widget's rows.
+\tclear_global_variable_list = {MOD_ID}_ranked
+\tclear_global_variable_list = {MOD_ID}_results
 """)
     for row in range(1, RESULT_ROWS + 1):
         out.append(f"\tremove_global_variable = {MOD_ID}_row_{row}\n")
         out.append(f"\tremove_global_variable = {MOD_ID}_bt_{row}\n")
+        out.append(f"\tremove_global_variable = {MOD_ID}_pm_{row}\n")
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = 0 }}\n")
     out.append("}\n")
 
     out.append(f"""
 # Scope: country
 {MOD_ID}_fill_rows = {{
+\t# `max` counts locations walked, not rows produced. Every location of a
+\t# province scores the same and only the first of them takes a row, so fifty
+\t# would have stopped at about a dozen provinces -- which is what the fifth run
+\t# showed. Eight locations per province is above the game's widest.
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\torder_by = {MOD_ID}_score
-\t\tmax = {RESULT_ROWS}
+\t\tmax = {RESULT_ROWS * 8}
 \t\tcheck_range_bounds = no
 \t\t{MOD_ID}_store_row = yes
 \t}}
@@ -720,13 +751,25 @@ def rows_file() -> str:
 \t# province is fifty ways of saying one thing, and the owner ran out of table
 \t# before he ran out of distinct answers.
 \tif = {{
-\t\tlimit = {{ province = {{ NOT = {{ has_variable = {MOD_ID}_row_taken }} }} }}
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_found < {RESULT_ROWS}
+\t\t\t# Nothing won here -- every method for this good is behind an advance
+\t\t\t# this country has not taken. A row for it would have no building and no
+\t\t\t# method to print, and a data function reading a variable that is not
+\t\t\t# there renders as `ERROR:`. An empty table is the honest answer.
+\t\t\tvar:{MOD_ID}_best_method > 0
+\t\t\tprovince = {{ NOT = {{ has_variable = {MOD_ID}_row_taken }} }}
+\t\t}}
 \t\tprovince = {{
 \t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
 \t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_provinces target = prev }} }}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
 \t\t{MOD_ID}_store_winner = yes
+\t\t# In rank order, and the window shows it in that order. The location is the
+\t\t# province's best-ranked one, and it carries the answer for the whole
+\t\t# province on its own variables.
+\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_ranked target = prev }} }}
 \t\t{MOD_ID}_store_row_at = yes
 \t}}
 }}
@@ -740,7 +783,8 @@ def rows_file() -> str:
 \t\tlimit = {{ global_var:{MOD_ID}_found = {row} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_row_{row} value = this }}
 \t\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = var:{MOD_ID}_best }}
-\t\tset_global_variable = {{ name = {MOD_ID}_bt_{row} value = global_var:{MOD_ID}_winner }}
+\t\tset_global_variable = {{ name = {MOD_ID}_bt_{row} value = var:{MOD_ID}_bt }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pm_{row} value = var:{MOD_ID}_pm }}
 \t}}
 """)
     out.append("}\n")
@@ -820,13 +864,31 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
     out.append("\n")
     for row in range(1, RESULT_ROWS + 1):
         # Square brackets in a localization value are data function syntax, so
-        # every one of these is code: the location and the winning building come
-        # out of global variables, the number out of a script value.
+        # every one of these is code: the province, the building and the method
+        # come out of global variables, the number out of a script value.
+        #
+        # The province, not the location it was found through: the bonus is the
+        # province's, every location in it scores the same, and a row naming one
+        # of them read as a recommendation of that one location.
         out.append(
             f" {MOD_ID}__result_i{row}_name: "
-            f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetName] — '
+            f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvince.GetName] — '
             f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_bonus_{row}')|2]% — "
-            f'[GetGlobalVariable(\'{MOD_ID}_bt_{row}\').GetBuildingType.GetName]"\n'
+            f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetIcon] "
+            f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetName]: "
+            f'[GetGlobalVariable(\'{MOD_ID}_pm_{row}\').GetProductionMethod.GetName]"\n'
+        )
+        # A CMM row draws its own tooltip from `<key>_desc` when one exists.
+        out.append(
+            f" {MOD_ID}__result_i{row}_desc: "
+            f'"#T [GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetProvince.GetName]#!\\n'
+            f"$bag_wtp_result_tt_area$: "
+            f"[GetGlobalVariable('{MOD_ID}_row_{row}').GetLocation.GetArea.GetNameWithNoTooltip]\\n"
+            f"$bag_wtp_result_tt_method$: "
+            f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetIcon] "
+            f"[GetGlobalVariable('{MOD_ID}_bt_{row}').GetBuildingType.GetName]: "
+            f"[GetGlobalVariable('{MOD_ID}_pm_{row}').GetProductionMethod.GetName]\\n"
+            f'$bag_wtp_result_tt_window$"\n'
         )
 
     return "".join(out)
@@ -843,7 +905,7 @@ def main() -> int:
     write(TRIGGERS_OUT, triggers_file(rows, split))
     write(PICKER_OUT, picker_file(split, rows))
     write(VALUES_OUT, values_file(rows, game))
-    write(SCORE_OUT, score_file(rows, split))
+    write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent))
     for language in LOC_LANGUAGES:

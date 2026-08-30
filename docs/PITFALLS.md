@@ -27,6 +27,15 @@ effect. The symptom was a Mod Menu tab holding only the settings that happened t
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
 
+**`max` on an ordered iterator counts what it visits, not what you keep.**
+`where_to_produce` ranks locations and keeps one row per province, since every
+location of a province scores the same. With `max = 50` on
+`ordered_in_global_list` it filled about a dozen of its fifty rows and looked
+like a ranking that had run out of answers — the walk was spending its fifty on
+the other locations of the same provinces. Any pass that filters inside the loop
+has to ask for enough iterations to reach the rows it wants, and say in a comment
+what the ratio is.
+
 **A CMM macro called with an argument CMF does not declare fails silently and
 takes the rest of its effect with it.** `step` where CMF declares `step_value`
 meant the setting never entered CMM's maps; syncing its alias then errored, and
