@@ -71,6 +71,11 @@ bag_wtp_register_result_list = {
 # Scope: country
 bag_wtp_clear_rows = {
 	set_global_variable = { name = bag_wtp_found value = 0 }
+	every_in_global_list = {
+		variable = bag_wtp_row_provinces
+		remove_variable = bag_wtp_row_taken
+	}
+	clear_global_variable_list = bag_wtp_row_provinces
 	remove_global_variable = bag_wtp_row_1
 	remove_global_variable = bag_wtp_bt_1
 	set_global_variable = { name = bag_wtp_bonus_1 value = 0 }
@@ -230,7 +235,6 @@ bag_wtp_fill_rows = {
 		order_by = bag_wtp_score
 		max = 50
 		check_range_bounds = no
-		change_global_variable = { name = bag_wtp_found add = 1 }
 		bag_wtp_store_row = yes
 	}
 }
@@ -241,7 +245,24 @@ bag_wtp_fill_rows = {
 # a plain `var:`.
 # Scope: location
 bag_wtp_store_row = {
-	bag_wtp_store_winner = yes
+	# One row per province. Every location of a province scores the same -- the
+	# game credits a raw material worked anywhere in it -- so fifty rows of one
+	# province is fifty ways of saying one thing, and the owner ran out of table
+	# before he ran out of distinct answers.
+	if = {
+		limit = { province = { NOT = { has_variable = bag_wtp_row_taken } } }
+		province = {
+			set_variable = { name = bag_wtp_row_taken value = 1 }
+			root = { add_to_global_variable_list = { name = bag_wtp_row_provinces target = prev } }
+		}
+		change_global_variable = { name = bag_wtp_found add = 1 }
+		bag_wtp_store_winner = yes
+		bag_wtp_store_row_at = yes
+	}
+}
+
+# Scope: location
+bag_wtp_store_row_at = {
 	if = {
 		limit = { global_var:bag_wtp_found = 1 }
 		set_global_variable = { name = bag_wtp_row_1 value = this }

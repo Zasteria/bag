@@ -104,6 +104,12 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
+**A tab and a setting may not share a name.** Both derive
+`<mod_id>__<id>_name`, so a tab `zone` and a list `zone` collide on one
+localization key and one of them wins silently. Tabs otherwise cost nothing: a
+`tab_id` on each setting is the whole of it, and it is the cure for a mod page
+that scrolls past four groups to reach the fifth.
+
 **A dropdown is clickable to twenty options, whatever its count says.** An
 option's click runs `CMMExecuteGuiSuffix('CMM_MarkDropdownSelection_',
 <widget index>)`, and CMF defines `CMM_MarkDropdownSelection_0` … `_19` and no

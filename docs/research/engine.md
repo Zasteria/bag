@@ -354,6 +354,18 @@ written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
 [`../investigations/panel_hitch.md`](../investigations/panel_hitch.md).
 
+## What gates a production method
+
+`common/advances/` is in the tree now, which answers what
+[`../archive/where_to_produce.md`](../archive/where_to_produce.md) recorded as
+unanswerable. `1_building_unlocks.txt` carries 119 `unlock_building = <type>`
+blocks, each with an `age = age_N_...`; `3_production_method_unlocks.txt` carries
+ten `unlock_production_method = <method>` the same way. So a method is available
+when its building is unlocked — `can_build_building` in **country** scope, which
+the trigger's own description says checks the country requirements — and, for
+those ten, when `has_advance` is true. There is still no script-side
+`ProductionMethod.IsAvailable`; this is the way round it.
+
 ## Geography from script, and sorting a list
 
 `region:<key>` and `area:<key>` are ordinary scope links — the game's own script

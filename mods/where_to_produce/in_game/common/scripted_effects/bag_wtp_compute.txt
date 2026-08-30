@@ -49,6 +49,11 @@ bag_wtp_collect_candidates = {
 			change_global_variable = { name = bag_wtp_candidate_count add = 1 }
 		}
 	}
+	else_if = {
+		# A ticked region is the finer frame and wins over its continent.
+		limit = { global_var:bag_wtp_region_count > 0 }
+		bag_wtp_collect_regions = yes
+	}
 	else = {
 		bag_wtp_collect_zone = yes
 	}
@@ -72,8 +77,14 @@ bag_wtp_on_button = {
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
 	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
+		limit = {
+			OR = {
+				var:cmf_callback = flag:bag_wtp__buildable_only
+				var:cmf_callback = flag:bag_wtp__any_method
+			}
+		}
 		bag_wtp_sync = yes
+		bag_wtp_refresh_goods = yes
 	}
 }
 

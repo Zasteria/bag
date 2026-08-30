@@ -31,6 +31,27 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
+Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
+"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
+the mod's whole mechanism — the scoring, the picker, the window, the map mode.
+
+Four things the run asked for, all built and none of them loaded yet:
+
+- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
+  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
+  share a name, and the zone list had to become `continent`.
+- **Regions back beside the continents.** A ticked continent paints the whole
+  screen; the good case was one region ticked with its neighbours addable.
+- **Methods the age has not reached were being recommended.** The unlock data is
+  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
+  `3_production_method_unlocks.txt` gates ten methods directly, so
+  `can_build_building` in country scope plus `has_advance` answers "available to
+  me now". This is what `docs/archive/where_to_produce.md` recorded as
+  unanswerable; `common/advances/` was not in the tree then.
+- **The table ran out of rows before it ran out of answers.** Every location of a
+  province scores the same, so it now holds one row per province.
+
 **2026-08-30 — `where_to_produce`, third load. The map mode works; the design of
 the picker did not.** Five screenshots.
 
@@ -251,19 +272,17 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, fourth load — one game, ten minutes.**
+**`where_to_produce`, fifth load — one game, five minutes.**
 
-1. **Tick a good in either list**; the tick should move rather than add when you
-   tick a second anywhere.
-2. **Tick a continent, press "Считать"** with nothing chosen on the map. The
-   table should fill with that continent's best locations, each naming a
-   building. This is the first run of the scoring pass, and of "the mod picks the
-   method".
-3. **Press "Выбрать" → "Выбрать область"**, pick one, and check the window's list
-   now holds that area's provinces so single locations can be taken back out.
-4. **Geography map modes → "Где производить"** should now be named.
-5. **`error.log`** — the per-good buildability triggers and the scoring effects
-   are new and large.
+1. **Three tabs** at the top of the mod's page, and each list under the right one.
+2. **Ground tab**: five continents and, under them, one region list per
+   continent. Tick a region — the picker and the map should narrow to it.
+3. **Goods**: anything your age cannot make yet should be absent from both lists.
+   Tick "показывать методы, до которых ещё не дошла эпоха" and they should come
+   back.
+4. **Rank a good you can make**: the table should now name one province each
+   rather than repeating one province down the screen.
+5. **`error.log`** — 218 new country-scope triggers and the region lists are new.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

@@ -4,27 +4,27 @@
 bag_wtp_register_zone_list = {
 	cmm_register_settings_list = {
 		mod_id = bag_wtp
-		setting_id = zone
-		tab_id = plan
+		setting_id = continent
+		tab_id = zone
 		item_count = 5
 		is_ordered = 0
 	}
 
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone item = 1 value = continent:europe }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone item = 2 value = continent:asia }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone item = 3 value = continent:africa }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone item = 4 value = continent:america }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = zone item = 5 value = continent:oceania }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = continent item = 1 value = continent:europe }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = continent item = 2 value = continent:asia }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = continent item = 3 value = continent:africa }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = continent item = 4 value = continent:america }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = continent item = 5 value = continent:oceania }
 
-	set_variable = { name = bag_wtp__zone_i1_name value = flag:europe }
-	set_variable = { name = bag_wtp__zone_i2_name value = flag:asia }
-	set_variable = { name = bag_wtp__zone_i3_name value = flag:africa }
-	set_variable = { name = bag_wtp__zone_i4_name value = flag:america }
-	set_variable = { name = bag_wtp__zone_i5_name value = flag:oceania }
+	set_variable = { name = bag_wtp__continent_i1_name value = flag:europe }
+	set_variable = { name = bag_wtp__continent_i2_name value = flag:asia }
+	set_variable = { name = bag_wtp__continent_i3_name value = flag:africa }
+	set_variable = { name = bag_wtp__continent_i4_name value = flag:america }
+	set_variable = { name = bag_wtp__continent_i5_name value = flag:oceania }
 
 	cmm_register_list_bool_field = {
 		mod_id = bag_wtp
-		setting_id = zone
+		setting_id = continent
 		field_id = pick
 		default_value = 0
 	}
@@ -37,8 +37,8 @@ bag_wtp_rebuild_zone = {
 
 	if = {
 		# Registration may not have completed yet on the first pass.
-		limit = { has_variable_list = cmm_list_items_bag_wtp__zone }
-		cmm_build_list_bool_list = { setting = bag_wtp__zone field_slot = 1 list_name = bag_wtp_zone_ticks }
+		limit = { has_variable_list = cmm_list_items_bag_wtp__continent }
+		cmm_build_list_bool_list = { setting = bag_wtp__continent field_slot = 1 list_name = bag_wtp_zone_ticks }
 		every_in_list = {
 			variable = bag_wtp_zone_ticks
 			add_to_global_variable_list = { name = bag_wtp_continents target = this }

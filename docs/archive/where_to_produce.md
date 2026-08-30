@@ -62,9 +62,7 @@ walking three pickers; and building straight from a row, since
 real construction and Construction Manager uses exactly that. The open question
 there was never the effect — it was *which* location of the province to build in.
 
-One thing the game files in `reference/` still cannot answer: a *method* locked
-behind an advance. `ProductionMethod.IsAvailable` exists as a GUI data function,
-so the game knows, but there is no script-side counterpart and neither
-`building_types/` nor `production_methods/` records the unlock. Answering it
-needs `common/advances/` and the technology folder beside it, which are not in
-the tree.
+One thing the game files in `reference/` could not answer when this was written:
+a *method* locked behind an advance. **Answered since** — `common/advances/` is
+in the tree now, and `docs/research/engine.md` records how. The rest of this file
+still stands.

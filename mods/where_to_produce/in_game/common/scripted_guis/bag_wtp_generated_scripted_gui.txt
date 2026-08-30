@@ -4,7 +4,7 @@
 # slider and button settings auto-apply and reach `cmf_on_callback`, and a list
 # reaches neither until `cmm_apply_list_change` is called here.
 
-bag_wtp__zone_on_changed = {
+bag_wtp__region_africa_on_changed = {
 	scope = country
 
 	is_shown = {
@@ -13,7 +13,82 @@ bag_wtp__zone_on_changed = {
 
 	effect = {
 		cmm_apply_list_change = {
-			setting = bag_wtp__zone
+			setting = bag_wtp__region_africa
+		}
+		bag_wtp_zone_changed = yes
+	}
+}
+
+bag_wtp__region_asia_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__region_asia
+		}
+		bag_wtp_zone_changed = yes
+	}
+}
+
+bag_wtp__region_oceania_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__region_oceania
+		}
+		bag_wtp_zone_changed = yes
+	}
+}
+
+bag_wtp__region_america_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__region_america
+		}
+		bag_wtp_zone_changed = yes
+	}
+}
+
+bag_wtp__region_europe_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__region_europe
+		}
+		bag_wtp_zone_changed = yes
+	}
+}
+
+bag_wtp__continent_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__continent
 		}
 		bag_wtp_zone_changed = yes
 	}

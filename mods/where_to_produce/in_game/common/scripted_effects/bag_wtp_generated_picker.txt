@@ -15,7 +15,7 @@ bag_wtp_register_good_raw_list = {
 	cmm_register_settings_list = {
 		mod_id = bag_wtp
 		setting_id = good_raw
-		tab_id = plan
+		tab_id = goods
 		item_count = 25
 		is_ordered = 0
 	}
@@ -85,7 +85,7 @@ bag_wtp_register_good_made_list = {
 	cmm_register_settings_list = {
 		mod_id = bag_wtp
 		setting_id = good_made
-		tab_id = plan
+		tab_id = goods
 		item_count = 22
 		is_ordered = 0
 	}
@@ -457,5 +457,342 @@ bag_wtp_only_one_good = {
 	if = {
 		limit = { NOT = { var:bag_wtp_good_index = 47 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = good_made field_id = pick item = 22 value = 0 }
+	}
+}
+
+# Hide the goods this country cannot make anything of yet. A good whose every
+# recipe is three ages away is a row that can only disappoint, and the owner
+# named tobacco and silk as the shape of it -- both real, both made by
+# plantations, and both worth hiding until the plantation is unlocked.
+# Scope: country
+bag_wtp_refresh_goods = {
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_35 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 1 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 1 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_51 = yes bag_wtp_avail_52 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 2 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 2 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_53 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 3 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 3 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_54 = yes bag_wtp_avail_55 = yes bag_wtp_avail_56 = yes bag_wtp_avail_57 = yes bag_wtp_avail_58 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 4 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 4 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_59 = yes bag_wtp_avail_60 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 5 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 5 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_90 = yes bag_wtp_avail_91 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 6 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 6 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_92 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 7 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 7 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_103 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 8 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 8 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_104 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 9 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 9 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_105 = yes bag_wtp_avail_106 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 10 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 10 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_107 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 11 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 11 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_148 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 12 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 12 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_149 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 13 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 13 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_153 = yes bag_wtp_avail_154 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 14 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 14 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_176 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 15 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 15 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_177 = yes bag_wtp_avail_178 = yes bag_wtp_avail_179 = yes bag_wtp_avail_180 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 16 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 16 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_181 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 17 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 17 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_182 = yes bag_wtp_avail_183 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 18 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 18 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_184 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 19 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 19 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_187 = yes bag_wtp_avail_188 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 20 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 20 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_189 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 21 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 21 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_191 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 22 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 22 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_211 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 23 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 23 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_212 = yes bag_wtp_avail_213 = yes bag_wtp_avail_214 = yes bag_wtp_avail_215 = yes bag_wtp_avail_216 = yes bag_wtp_avail_217 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 24 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 24 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_218 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_raw item = 25 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_raw item = 25 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_1 = yes bag_wtp_avail_2 = yes bag_wtp_avail_3 = yes bag_wtp_avail_4 = yes bag_wtp_avail_5 = yes bag_wtp_avail_6 = yes bag_wtp_avail_7 = yes bag_wtp_avail_8 = yes bag_wtp_avail_9 = yes bag_wtp_avail_10 = yes bag_wtp_avail_11 = yes bag_wtp_avail_12 = yes bag_wtp_avail_13 = yes bag_wtp_avail_14 = yes bag_wtp_avail_15 = yes bag_wtp_avail_16 = yes bag_wtp_avail_17 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 1 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 1 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_18 = yes bag_wtp_avail_19 = yes bag_wtp_avail_20 = yes bag_wtp_avail_21 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 2 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 2 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_22 = yes bag_wtp_avail_23 = yes bag_wtp_avail_24 = yes bag_wtp_avail_25 = yes bag_wtp_avail_26 = yes bag_wtp_avail_27 = yes bag_wtp_avail_28 = yes bag_wtp_avail_29 = yes bag_wtp_avail_30 = yes bag_wtp_avail_31 = yes bag_wtp_avail_32 = yes bag_wtp_avail_33 = yes bag_wtp_avail_34 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 3 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 3 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_36 = yes bag_wtp_avail_37 = yes bag_wtp_avail_38 = yes bag_wtp_avail_39 = yes bag_wtp_avail_40 = yes bag_wtp_avail_41 = yes bag_wtp_avail_42 = yes bag_wtp_avail_43 = yes bag_wtp_avail_44 = yes bag_wtp_avail_45 = yes bag_wtp_avail_46 = yes bag_wtp_avail_47 = yes bag_wtp_avail_48 = yes bag_wtp_avail_49 = yes bag_wtp_avail_50 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 4 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 4 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_61 = yes bag_wtp_avail_62 = yes bag_wtp_avail_63 = yes bag_wtp_avail_64 = yes bag_wtp_avail_65 = yes bag_wtp_avail_66 = yes bag_wtp_avail_67 = yes bag_wtp_avail_68 = yes bag_wtp_avail_69 = yes bag_wtp_avail_70 = yes bag_wtp_avail_71 = yes bag_wtp_avail_72 = yes bag_wtp_avail_73 = yes bag_wtp_avail_74 = yes bag_wtp_avail_75 = yes bag_wtp_avail_76 = yes bag_wtp_avail_77 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 5 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 5 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_78 = yes bag_wtp_avail_79 = yes bag_wtp_avail_80 = yes bag_wtp_avail_81 = yes bag_wtp_avail_82 = yes bag_wtp_avail_83 = yes bag_wtp_avail_84 = yes bag_wtp_avail_85 = yes bag_wtp_avail_86 = yes bag_wtp_avail_87 = yes bag_wtp_avail_88 = yes bag_wtp_avail_89 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 6 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 6 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_93 = yes bag_wtp_avail_94 = yes bag_wtp_avail_95 = yes bag_wtp_avail_96 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 7 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 7 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_97 = yes bag_wtp_avail_98 = yes bag_wtp_avail_99 = yes bag_wtp_avail_100 = yes bag_wtp_avail_101 = yes bag_wtp_avail_102 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 8 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 8 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_108 = yes bag_wtp_avail_109 = yes bag_wtp_avail_110 = yes bag_wtp_avail_111 = yes bag_wtp_avail_112 = yes bag_wtp_avail_113 = yes bag_wtp_avail_114 = yes bag_wtp_avail_115 = yes bag_wtp_avail_116 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 9 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 9 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_117 = yes bag_wtp_avail_118 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 10 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 10 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_119 = yes bag_wtp_avail_120 = yes bag_wtp_avail_121 = yes bag_wtp_avail_122 = yes bag_wtp_avail_123 = yes bag_wtp_avail_124 = yes bag_wtp_avail_125 = yes bag_wtp_avail_126 = yes bag_wtp_avail_127 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 11 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 11 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_128 = yes bag_wtp_avail_129 = yes bag_wtp_avail_130 = yes bag_wtp_avail_131 = yes bag_wtp_avail_132 = yes bag_wtp_avail_133 = yes bag_wtp_avail_134 = yes bag_wtp_avail_135 = yes bag_wtp_avail_136 = yes bag_wtp_avail_137 = yes bag_wtp_avail_138 = yes bag_wtp_avail_139 = yes bag_wtp_avail_140 = yes bag_wtp_avail_141 = yes bag_wtp_avail_142 = yes bag_wtp_avail_143 = yes bag_wtp_avail_144 = yes bag_wtp_avail_145 = yes bag_wtp_avail_146 = yes bag_wtp_avail_147 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 12 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 12 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_150 = yes bag_wtp_avail_151 = yes bag_wtp_avail_152 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 13 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 13 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_155 = yes bag_wtp_avail_156 = yes bag_wtp_avail_157 = yes bag_wtp_avail_158 = yes bag_wtp_avail_159 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 14 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 14 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_160 = yes bag_wtp_avail_161 = yes bag_wtp_avail_162 = yes bag_wtp_avail_163 = yes bag_wtp_avail_164 = yes bag_wtp_avail_165 = yes bag_wtp_avail_166 = yes bag_wtp_avail_167 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 15 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 15 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_168 = yes bag_wtp_avail_169 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 16 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 16 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_170 = yes bag_wtp_avail_171 = yes bag_wtp_avail_172 = yes bag_wtp_avail_173 = yes bag_wtp_avail_174 = yes bag_wtp_avail_175 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 17 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 17 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_185 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 18 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 18 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_186 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 19 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 19 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_190 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 20 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 20 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_192 = yes bag_wtp_avail_193 = yes bag_wtp_avail_194 = yes bag_wtp_avail_195 = yes bag_wtp_avail_196 = yes bag_wtp_avail_197 = yes bag_wtp_avail_198 = yes bag_wtp_avail_199 = yes bag_wtp_avail_200 = yes bag_wtp_avail_201 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 21 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 21 }
+	}
+	if = {
+		limit = { OR = { has_global_variable = bag_wtp_any_method bag_wtp_avail_202 = yes bag_wtp_avail_203 = yes bag_wtp_avail_204 = yes bag_wtp_avail_205 = yes bag_wtp_avail_206 = yes bag_wtp_avail_207 = yes bag_wtp_avail_208 = yes bag_wtp_avail_209 = yes bag_wtp_avail_210 = yes } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = good_made item = 22 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = good_made item = 22 }
 	}
 }

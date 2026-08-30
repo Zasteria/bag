@@ -160,6 +160,7 @@ bag_wtp_good_changed = {
 # Scope: country
 bag_wtp_zone_changed = {
 	bag_wtp_rebuild_zone = yes
+	bag_wtp_rebuild_regions = yes
 }
 
 # Make sure every counter the interface prints exists before anything reads it.
@@ -178,6 +179,10 @@ bag_wtp_init_counters = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_zone_count } }
 		set_global_variable = { name = bag_wtp_zone_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_region_count } }
+		set_global_variable = { name = bag_wtp_region_count value = 0 }
 	}
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_candidate_count } }
