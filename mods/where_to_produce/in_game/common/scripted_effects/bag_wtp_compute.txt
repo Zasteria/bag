@@ -88,10 +88,17 @@ bag_wtp_on_button = {
 # Every change of the borders re-ranks, so the window answers as the plan is
 # drawn rather than after another press. Only while it is open: the pass walks
 # every candidate, and there is no reason to pay for it against a closed window.
+#
+# `bag_wtp_live_runs` counts the times this got past its own guard, and the
+# window prints it. It is there because the guard is the exact place the map
+# pickers used to fall over: reached in the wrong scope, `has_variable` says no
+# and the effect returns having done nothing, which logs nothing. A number on
+# screen that does not move after a pick says so in one glance.
 # Scope: country
 bag_wtp_recompute_live = {
 	if = {
 		limit = { has_variable = bag_wtp_result_open }
+		change_global_variable = { name = bag_wtp_live_runs add = 1 }
 		bag_wtp_compute = yes
 		bag_wtp_show_results = yes
 	}
@@ -104,11 +111,23 @@ bag_wtp_recompute_live = {
 # a scripted widget and never comes down: an item stays instantiated for as long
 # as it is in the datamodel, whether the window is on screen or not, so the copy
 # exists only while the window is open.
+#
+# **The copy is ordered, and that is the whole of it.** It used to be
+# `every_in_global_list`, and an unordered iterator promises nothing about the
+# order it hands things back in -- the window draws its rows in the order the
+# list holds them, so a ranking done in `bag_wtp_fill_rows` arrived on screen
+# shuffled back into roughly map order. Each row carries the rank the pass gave
+# it, and the copy sorts on that.
 # Scope: country
 bag_wtp_show_results = {
 	clear_global_variable_list = bag_wtp_results
-	every_in_global_list = {
+	ordered_in_global_list = {
 		variable = bag_wtp_ranked
+		order_by = bag_wtp_rank_order
+		# The row count the pass itself wrote, rather than a fifty repeated from the
+		# generator: the two lists are filled in the same pass and cannot disagree.
+		max = bag_wtp_show_found
+		check_range_bounds = no
 		add_to_global_variable_list = { name = bag_wtp_results target = this }
 	}
 }

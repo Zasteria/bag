@@ -1,4 +1,4 @@
-# Pitfalls
+﻿# Pitfalls
 
 Mistakes already made in this repository, each with the symptom that gave it
 away. Every one of them cost at least one round trip through the game, because
@@ -28,6 +28,29 @@ it stood — taking the row labels and the field registration after it in the sa
 effect. The symptom was a Mod Menu tab holding only the settings that happened to
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
+
+**A generic action's `effect` does not run in the actor's scope.** The three map
+pickers in `where_to_produce` ended with two scripted effects written for a
+country and no wrapper. The first was scope-agnostic line by line and ran
+anyway — the count it maintains went on moving on screen, which is what made the
+whole thing look like it was working. The second opened with `has_variable` on a
+country variable, got no, and returned having done nothing at all. Symptom: a
+selection that is visibly registered and an answer that never changes. Vanilla
+writes `scope:actor = { … }` around every one of its five actions' effects and
+Advanced Auto Build's forty touch nothing but `scope:target_location`; **not one
+existing action anywhere relies on the bare scope**, which is the tell. Wrap it,
+and prefer `scope:` and `this` over `root` inside anything an action can call.
+
+**An unordered iterator will undo a ranking, and nothing says so.**
+`where_to_produce` sorts with `ordered_in_global_list` into one global list and
+then copied that list into the window's datamodel with `every_in_global_list`.
+The rows came out grouped by area — map order — with the ranked numbers
+alternating down the column. `every_*` promises nothing about order and is not
+wrong to reorder; a window draws its rows in the order the list holds them, so
+every hop between lists has to be `ordered_*` or the ranking only exists in the
+half of the pipeline that did the sorting. Cheapest guard: write the rank onto
+the row and print it, so a shuffle is visible instead of looking like a ranking
+nobody understands.
 
 **`max` on an ordered iterator counts what it visits, not what you keep.**
 `where_to_produce` ranks locations and keeps one row per province, since every

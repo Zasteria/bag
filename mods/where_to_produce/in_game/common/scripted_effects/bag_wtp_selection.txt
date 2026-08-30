@@ -191,4 +191,15 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_variable = bag_wtp_good_index } }
 		set_variable = { name = bag_wtp_good_index value = 0 }
 	}
+	# The same number as a global, because a location-scoped trigger cannot read
+	# a country variable and `bag_wtp_can_build_something` is asked in a
+	# location's own scope.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_good_index } }
+		set_global_variable = { name = bag_wtp_good_index value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_live_runs } }
+		set_global_variable = { name = bag_wtp_live_runs value = 0 }
+	}
 }

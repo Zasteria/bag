@@ -1,4 +1,4 @@
-# Test log
+﻿# Test log
 
 What has actually been in the game, and what it showed.
 
@@ -31,6 +31,47 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, eleventh load. The window picked the ground
+up and then ignored it, and the ranking arrived in map order.** One screenshot,
+no logs.
+
+Region «Карпаты» ticked in the Mod Menu, `books` the good, «Считать» pressed —
+and the table was the region, correctly. Then «Выбрать область» three times:
+Валахия, Молдавия, Трансильвания. The header count moved to «127 лок. в 26
+пров.» and **the table did not change at all** — Северный Альфёльд, another of
+Carpathia's seven areas and none of the three picked, was still in it.
+
+- **A generic action's `effect` does not run in the country's scope.** The
+  three map pickers ended with `bag_wtp_rebuild_browse` and
+  `bag_wtp_recompute_live`, unwrapped. The first survived it — every line in it
+  is scope-agnostic, which is why the count on screen kept moving and made the
+  selection look like it had landed. The second opens with
+  `has_variable = bag_wtp_result_open`, a country variable, got no, and returned
+  having done nothing. Vanilla wraps all five of its own actions' effects in
+  `scope:actor` and Advanced Auto Build's forty touch nothing but
+  `scope:target_location`; not one of them relies on the bare scope. Wrapped
+  now.
+- **The ranking was ranking, and then an unordered copy shuffled it.**
+  `bag_wtp_fill_rows` sorts with `ordered_in_global_list` into `bag_wtp_ranked`;
+  `bag_wtp_show_results` then copied that into the window's datamodel with
+  `every_in_global_list`, which promises nothing about order. On screen the rows
+  came out clustered by area — the shape of map order, not of a ranking — with
+  2.85% and 0.00% alternating down a list where every row was the same building,
+  the same method and the same output. The copy is `ordered_in_global_list` now,
+  each row carries the rank the pass gave it, and the window prints that rank.
+- **Two numbers now say which half failed**, because both failures wrote
+  nothing anywhere. The window's header carries «обошёл N · нашёл M ·
+  пересчётов K»: K counts the times a pick got past `recompute_live`'s own
+  guard. A pick that does not move K never reached the country's scope; a K that
+  moves while the rows do not is the datamodel. And ranks that do not read
+  1, 2, 3 down the window are the copy rather than the ranking.
+- **Found while reading, never reported:** `bag_wtp_can_build_something` is
+  asked in a location's scope and read `global_var:bag_wtp_good_index`, which
+  nothing ever wrote — the index is a country variable. Every branch missed, a
+  scripted trigger of unmatched `if`s comes back true, and "only where it can be
+  built today" filtered nothing whatever it was set to. The index is mirrored
+  into a global now.
+
 **2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
 other, the tree was still empty, and the selection window was the wrong idea.**
 Two screenshots.
@@ -52,63 +93,7 @@ Two screenshots.
 - The scoring, the two-line row and the goods icons from the ninth build could
   not be judged under rows that overlapped; they come back for the eleventh.
 
-**2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
-ranking was ranking the wrong thing.** Three screenshots.
-
-- **All four columns of the tree were empty, headers and all four frames drawn.**
-  That pairing is the diagnosis: the header's `blockoverride` reached the
-  instance and the rows' did not, because the rows' `block` was nested inside the
-  `blockoverride` of the scrollbox. A block inside a blockoverride never
-  resolves. The four columns are written out now, no column type at all.
-- **The goods icons still sat a column apart** after being given no width: the
-  spreading was the `icon` widget inside an hbox, not the hbox's size. They are
-  text icons now — `[Goods.GetIcon]`, which is what vanilla writes in its own
-  strings — and a text hugs its glyph.
-- **The ranking put forest villages at the top of a weapons search.** Not a bug
-  in the scoring; the scoring was answering the wrong question. A village wants
-  one raw material, so it reaches the full 10% anywhere, and it produces 0.2
-  weaponry a level against a weapon guild's 1.0 and a factory's 4.0. Ranking is
-  by **effective output** now — `output * (1 + bonus/100)`, the bonus being an
-  efficiency percentage and therefore a multiplier — and villages are scored on
-  their own side, so a row shows two answers: the best built-up building and the
-  best village.
-- **The Mod Menu table is gone.** It said the same thing as the window one line
-  at a time, and it was the only thing holding the answer to fifty rows.
-- **The owner uses the region lists and nothing else** to frame a search:
-  Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
-  That answers what six runs of "the region lists are untested" was asking.
-
-**2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
-is on screen; the map picker is the one thing left.** Owner: «в остальном —
-круто».
-
-- **The goods icons draw**, the lakes are gone from the expanded rows, the count
-  sits still. The `datacontext` on the datamodel item was the whole of the icon
-  fault.
-- **The whole-province rule is confirmed by eye**: Bessarabia is split by a
-  border and the horses in the far half count towards its number, which is what
-  the mod means by planning for the ground rather than the border. The engine's
-  own tooltip was not the thing compared, so *that* question stays open — it is
-  just no longer urgent.
-- **`error.log` carries nothing of this mod's**, first time it has been read for
-  it. 1706 of its 2742 lines are `jomini_custom_text.h` on vanilla Russian,
-  341 are a null promote in a loc string, and the four `Widget cannot have a
-  position in a layout` are Glorp UI's.
-- **`gui.log` had 124 lines that were ours**: `bag_wtp_select_window.gui:177`,
-  `Widget cannot have a position in a layout` — a `parentanchor` on a button that
-  is a direct child of an hbox. Anchors belong inside a plain widget; an hbox is
-  a layout and places its own children.
-- **The icons sat a column apart.** An hbox given more width than its children
-  spreads them across it. Left to hug its content now.
-- **And the ask, for the fourth time: the game's own map selection.** Both
-  screenshots are the same mechanism — `military_objective_group.gui`, driven by
-  `MilitaryObjectiveGroupView` with `GeographyGlue` rows. **Engine objects: a mod
-  cannot instantiate either**, and there is no on_action for a map click, so a
-  window of one's own cannot be told what the player clicked. What *is* reusable
-  is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
-  — the game's own map highlight, callable from any `.gui`.
-
-Everything before 2026-08-29, and `where_to_produce`'s first seven loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first nine loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -260,19 +245,26 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, eleventh load — one game, five minutes.** One window now:
-the answer, with the borders picked in its own header.
+**`where_to_produce`, twelfth load — one game, five minutes, and the header
+line answers most of it without a log.** Same shape as the eleventh: a region
+ticked, «Считать», then «Выбрать область» two or three times inside it.
 
-1. **The rows read**, one province each, two lines where both a built-up
-   building and a village were found, nothing overlapping.
-2. **The three «Выбрать…» buttons** are in the results window and open the
-   game's own target panel; the count beside them moves as you click.
-3. **Every pick re-ranks**: close the picker panel and the table under it should
-   already be the answer for the new borders, with no «Считать» pressed.
+1. **The ranking reads.** The «№» column should run 1, 2, 3 down the window and
+   the bonus should fall as it does. Numbers out of order = the copy into the
+   datamodel; numbers in order with the bonus jumping about = `order_by` in
+   `bag_wtp_fill_rows`.
+2. **Every pick re-ranks.** «пересчётов» in the header goes up by one per pick,
+   and the areas not picked leave the table. If the count moves and the rows do
+   not, it is the datamodel and not the script.
+3. **The rows read** — one province each, two lines where both a built-up
+   building and a village were found, nothing overlapping. Untested since the
+   ninth load, twice now.
 4. **Villages are not at the top** of a weapons search, and the goods icons sit
-   beside their `1/2` count rather than a column away.
-5. **`error.log` and `gui.log`** — one window fewer, and the selection window's
-   124 layout lines should be gone with it.
+   beside their `1/2` count rather than a column away. Also twice untested.
+5. **The age filter**, never once reported.
+6. **`error.log`** — `scope:actor` is the one guess in this build. If it is the
+   wrong name for an `owncountry` action the log says so by name, and
+   «пересчётов» stays at zero.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

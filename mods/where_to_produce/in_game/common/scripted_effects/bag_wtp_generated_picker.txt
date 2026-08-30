@@ -218,6 +218,12 @@ bag_wtp_read_good = {
 		set_variable = { name = bag_wtp_good_index value = 0 }
 	}
 
+	# The same number as a global. `bag_wtp_can_build_something` is asked in a
+	# location's own scope, where a country variable is not reachable, and it was
+	# reading a global nothing ever wrote -- so every branch missed, the trigger
+	# came back true, and "only where it can be built today" filtered nothing.
+	set_global_variable = { name = bag_wtp_good_index value = var:bag_wtp_good_index }
+
 	if = { limit = { var:bag_wtp_good_index = 1 } set_global_variable = { name = bag_wtp_good value = goods:clay } }
 	else_if = { limit = { var:bag_wtp_good_index = 2 } set_global_variable = { name = bag_wtp_good value = goods:coal } }
 	else_if = { limit = { var:bag_wtp_good_index = 3 } set_global_variable = { name = bag_wtp_good value = goods:cotton } }

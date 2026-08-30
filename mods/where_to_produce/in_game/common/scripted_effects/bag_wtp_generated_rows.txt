@@ -11,6 +11,7 @@ bag_wtp_clear_rows = {
 	every_in_global_list = {
 		variable = bag_wtp_row_taken_locations
 		remove_variable = bag_wtp_row_taken
+		remove_variable = bag_wtp_rank
 	}
 	clear_global_variable_list = bag_wtp_row_taken_locations
 	# `_ranked` is the answer and survives; `_results` is the copy the window
@@ -65,12 +66,16 @@ bag_wtp_store_row = {
 		province_definition = {
 			every_location_in_province_definition = {
 				set_variable = { name = bag_wtp_row_taken value = 1 }
-				root = { add_to_global_variable_list = { name = bag_wtp_row_taken_locations target = prev } }
+				add_to_global_variable_list = { name = bag_wtp_row_taken_locations target = this }
 			}
 		}
 		change_global_variable = { name = bag_wtp_found add = 1 }
+		# The place in the ranking, written down where the row can print it. The
+		# order a list is built in is not an order anything downstream promises to
+		# keep, so the answer says its own rank rather than relying on where it sits.
+		set_variable = { name = bag_wtp_rank value = global_var:bag_wtp_found }
 		bag_wtp_store_winner = yes
 		bag_wtp_store_winner_rural = yes
-		root = { add_to_global_variable_list = { name = bag_wtp_ranked target = prev } }
+		add_to_global_variable_list = { name = bag_wtp_ranked target = this }
 	}
 }

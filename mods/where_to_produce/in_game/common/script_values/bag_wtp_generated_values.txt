@@ -5003,8 +5003,21 @@ bag_wtp_score = {
 	}
 }
 
+# The place the ranking gave this location, turned upside down, because
+# `ordered_in_global_list` sorts **highest first** and rank 1 has to come out
+# first. Ranking a list and then copying it with `every_in_global_list` is what
+# lost the order once already: an unordered iterator promises nothing about the
+# order it hands things back in, and the window draws its rows in the order the
+# list holds them.
+# Scope: location
+bag_wtp_rank_order = {
+	value = 0
+	subtract = var:bag_wtp_rank
+}
+
 bag_wtp_show_regions = { value = global_var:bag_wtp_zone_count }
 bag_wtp_show_candidates = { value = global_var:bag_wtp_candidate_count }
 bag_wtp_show_found = { value = global_var:bag_wtp_found }
 bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
 bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
+bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }

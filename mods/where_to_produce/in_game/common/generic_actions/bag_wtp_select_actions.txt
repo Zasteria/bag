@@ -48,9 +48,18 @@ bag_wtp_select_location = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_one = yes
 		}
-		bag_wtp_rebuild_browse = yes
-		# The plan changed, so the answer has: re-rank while the window is open.
-		bag_wtp_recompute_live = yes
+		# `scope:actor` and not the scope this block opens in. A generic action's
+		# effect does not run in the country's scope -- vanilla wraps every one of
+		# its own in `scope:actor`, and Advanced Auto Build never touches anything
+		# but `scope:target_location`. Without it `bag_wtp_recompute_live` asks
+		# `has_variable = bag_wtp_result_open` of something that is not the country,
+		# gets no, and returns having done nothing at all, which is the one kind of
+		# failure that logs nothing.
+		scope:actor = {
+			bag_wtp_rebuild_browse = yes
+			# The plan changed, so the answer has: re-rank while the window is open.
+			bag_wtp_recompute_live = yes
+		}
 	}
 
 	ai_will_do = { value = 0 }
@@ -88,9 +97,18 @@ bag_wtp_select_province = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_province_scope = yes
 		}
-		bag_wtp_rebuild_browse = yes
-		# The plan changed, so the answer has: re-rank while the window is open.
-		bag_wtp_recompute_live = yes
+		# `scope:actor` and not the scope this block opens in. A generic action's
+		# effect does not run in the country's scope -- vanilla wraps every one of
+		# its own in `scope:actor`, and Advanced Auto Build never touches anything
+		# but `scope:target_location`. Without it `bag_wtp_recompute_live` asks
+		# `has_variable = bag_wtp_result_open` of something that is not the country,
+		# gets no, and returns having done nothing at all, which is the one kind of
+		# failure that logs nothing.
+		scope:actor = {
+			bag_wtp_rebuild_browse = yes
+			# The plan changed, so the answer has: re-rank while the window is open.
+			bag_wtp_recompute_live = yes
+		}
 	}
 
 	ai_will_do = { value = 0 }
@@ -128,9 +146,18 @@ bag_wtp_select_area = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_area_scope = yes
 		}
-		bag_wtp_rebuild_browse = yes
-		# The plan changed, so the answer has: re-rank while the window is open.
-		bag_wtp_recompute_live = yes
+		# `scope:actor` and not the scope this block opens in. A generic action's
+		# effect does not run in the country's scope -- vanilla wraps every one of
+		# its own in `scope:actor`, and Advanced Auto Build never touches anything
+		# but `scope:target_location`. Without it `bag_wtp_recompute_live` asks
+		# `has_variable = bag_wtp_result_open` of something that is not the country,
+		# gets no, and returns having done nothing at all, which is the one kind of
+		# failure that logs nothing.
+		scope:actor = {
+			bag_wtp_rebuild_browse = yes
+			# The plan changed, so the answer has: re-rank while the window is open.
+			bag_wtp_recompute_live = yes
+		}
 	}
 
 	ai_will_do = { value = 0 }

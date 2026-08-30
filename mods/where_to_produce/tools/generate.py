@@ -507,6 +507,12 @@ def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
 \t\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
 \t}}
 
+\t# The same number as a global. `{MOD_ID}_can_build_something` is asked in a
+\t# location's own scope, where a country variable is not reachable, and it was
+\t# reading a global nothing ever wrote -- so every branch missed, the trigger
+\t# came back true, and "only where it can be built today" filtered nothing.
+\tset_global_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_index }}
+
 """)
     for good, index in ((g, index_of[g]) for _, g in order):
         keyword = "if" if index == 1 else "else_if"
@@ -615,11 +621,24 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t}}
 }}
 
+# The place the ranking gave this location, turned upside down, because
+# `ordered_in_global_list` sorts **highest first** and rank 1 has to come out
+# first. Ranking a list and then copying it with `every_in_global_list` is what
+# lost the order once already: an unordered iterator promises nothing about the
+# order it hands things back in, and the window draws its rows in the order the
+# list holds them.
+# Scope: location
+{MOD_ID}_rank_order = {{
+\tvalue = 0
+\tsubtract = var:{MOD_ID}_rank
+}}
+
 {MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
 {MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}
 {MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}
 {MOD_ID}_show_picked = {{ value = global_var:{MOD_ID}_picked_count }}
 {MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}
+{MOD_ID}_show_live = {{ value = global_var:{MOD_ID}_live_runs }}
 """)
     return "".join(out)
 
@@ -740,6 +759,7 @@ def rows_file() -> str:
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_row_taken_locations
 \t\tremove_variable = {MOD_ID}_row_taken
+\t\tremove_variable = {MOD_ID}_rank
 \t}}
 \tclear_global_variable_list = {MOD_ID}_row_taken_locations
 \t# `_ranked` is the answer and survives; `_results` is the copy the window
@@ -794,13 +814,17 @@ def rows_file() -> str:
 \t\tprovince_definition = {{
 \t\t\tevery_location_in_province_definition = {{
 \t\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
-\t\t\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = prev }} }}
+\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = this }}
 \t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
+\t\t# The place in the ranking, written down where the row can print it. The
+\t\t# order a list is built in is not an order anything downstream promises to
+\t\t# keep, so the answer says its own rank rather than relying on where it sits.
+\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
 \t\t{MOD_ID}_store_winner = yes
 \t\t{MOD_ID}_store_winner_rural = yes
-\t\troot = {{ add_to_global_variable_list = {{ name = {MOD_ID}_ranked target = prev }} }}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
 \t}}
 }}
 """]
