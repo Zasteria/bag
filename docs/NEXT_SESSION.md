@@ -9,12 +9,20 @@ This file is the part that is live. What has already been settled is in
 The mod is finished as software and unfinished as a *published* one. Its brief
 is [`../mods/glorpui_hints/CLAUDE.md`](../mods/glorpui_hints/CLAUDE.md).
 
-**The next load is the test, and it is one thing.** Glorp UI's 2026-08-28 build
-has a «показать недоступные» switch that shows vanilla's own hint blob. This mod
-was dropping that blob entry, so the switch emptied half the tooltip; their block
-is spliced in byte for byte now, and none of it has been in game. **Turn their
-switch on.** Expected: vanilla's blob and this mod's own lists both present,
-Glorp UI's per-axis lists gone — that last part is their design, not a fault.
+**Deploy first. The 2026-08-30 run tested the 2026-08-25 build** — the folder
+`Documents/.../mod/glorpui_hints/` had never been refreshed, and `gui.log` proved
+it (`TESTLOG.md`). So the ask is `mods.bat → 4` **and then** the load, and the
+next logs get `python3 tools/which_build.py <logs folder>` before anything else
+is read into them.
+
+**The load itself is one thing.** Glorp UI's 2026-08-28 build has a «показать
+недоступные» switch that shows vanilla's own hint blob. This mod was dropping
+that blob entry, so the switch emptied half the tooltip; their block is spliced
+in byte for byte now, and none of it has been in game. **Turn their switch on.**
+Expected: vanilla's blob and this mod's own lists both present, Glorp UI's
+per-axis lists gone — that last part is their design, not a fault. What he saw
+on 2026-08-30 with the switch on — the whole «Дальше продвинуться» block gone —
+is precisely the old bug, so it is the symptom to watch disappear.
 
 **Riding along on the same load, none of it needing a protocol:**
 
@@ -22,11 +30,8 @@ Glorp UI's per-axis lists gone — that last part is their design, not a fault.
   Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be offered,
   and `error.log` must not carry `svx_unlock_`;
 - `error.log` must no longer carry `Inconsistent trigger scopes` — a building's
-  `allow` was being copied into country scope;
-- `ru_loc_fix` round two: `error.log` must no longer carry
-  `RGO_BUILD_GOODS_PRICE_IMPACT_ON_COST`, `FILTER_BY_GOODS`,
-  `MARKET_SURPLYS_INFO`, `ALERT_HAS_UNMARRIED_CHILDREN`,
-  `THIRD_DESTROY_BUILDING_EFFECT` or `DESTROY_BUILDING_EFFECT`;
+  `allow` was being copied into country scope. Clean on 2026-08-30, but on an
+  axis Wallachia does not have, so it is still open;
 - nine of the eleven languages, which is a console switch each. **A hot switch
   does not re-resolve vanilla strings**, only the mod's, so a real check of one
   wants a restart;

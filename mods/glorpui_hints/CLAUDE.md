@@ -11,29 +11,33 @@ fourteen more** and gates them by whether the country can actually take them.
 ## State
 
 **Glorp UI took the translation half upstream.** Their 2026-08-28 build ships
-the hints in all eleven languages, with this mod's verb-after-object opener
-design. Settled 2026-08-30: **Russian stays here, the other ten go back to
-them** — `SHIP_GLORP_HINTS` in `tools/generate.py` is `["russian"]`. The owner
-prefers this mod's Russian and does not mind about the rest.
+the hints in all eleven languages, with this mod's verb-after-object
+opener. Settled 2026-08-30: **Russian stays here, the other ten go back to
+them** — `SHIP_GLORP_HINTS` in `tools/generate.py` is `["russian"]`; he prefers
+this mod's Russian and does not mind about the rest.
 
-**Unrun, and the next load is the test.** Their new «показать недоступные»
-switch shows vanilla's own hint blob; this mod was dropping that blob entry, so
-the switch emptied half the tooltip. Their block is spliced in byte for byte
-now. **Turn their switch on**: vanilla's blob and this mod's lists should both
-appear, and Glorp UI's per-axis lists should be gone — that last part is their
-design, not a fault.
+**Still unrun: the 2026-08-30 run loaded the 2026-08-25 build** out of
+`Documents/.../mod/glorpui_hints/`, which `gui.log` gives away by template line
+number. **Fingerprint every logs drop before reading it:**
+`python3 tools/which_build.py <logs folder>`.
+
+The test is unchanged. Their «показать недоступные» switch shows vanilla's own
+hint blob; this mod was dropping that entry, so the switch emptied half the
+tooltip — exactly what the 2026-08-30 screenshots still show. Their block is
+spliced in byte for byte now. **Turn their switch on**: vanilla's blob and this
+mod's lists both present, Glorp UI's per-axis lists gone — their design, not a
+fault.
 
 **What is only here, and stays here:** the 264 extra lines; the availability
 gates (252 lines gated by a country trigger, 175 gated objects); `SVX_REACHABLE`;
 holding back the five advance-locked privileges; four repaired Russian keys of
 Glorp UI's own interface.
 
-**One gate has never been seen and cannot be by this owner.** The religious
-aspect gate — he plays Catholic, where aspects are set by the Papacy, so there
-is nothing for it to show either way. It needs a run as a religion that picks
-its own aspects.
+**One gate cannot be seen by this owner.** The religious aspect gate — he plays
+Catholic, where the Papacy sets aspects, so there is nothing for it to show
+either way. It needs a run as a religion that picks its own.
 
-**Known gap, not yet work:** the added lines are Russian only. An English game
+**Known gap:** the added lines are Russian only. An English game
 renders the two new blocks as raw keys.
 
 ## The open piece of work

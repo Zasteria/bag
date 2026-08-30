@@ -84,6 +84,7 @@ caught it, not only in prose.
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
 | `guicost.py` | what the interface costs before anybody clicks |
 | `playset.py` | which mods the player actually runs, from the mount table in his `debug.log` |
+| `which_build.py` | which *build* of them ran, fingerprinted from the template line numbers in his `gui.log` |
 | `publish.py` | whether a mod is fit to upload |
 
 `.claude/hooks/session-start.sh` runs the first checkers at the start of every
