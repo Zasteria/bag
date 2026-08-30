@@ -1,5 +1,12 @@
 # Why `where_to_produce` failed
 
+**Picked up again in August 2026**, as a different mod with the same name:
+[`../../mods/where_to_produce/CLAUDE.md`](../../mods/where_to_produce/CLAUDE.md).
+It answers the opposite question — borders first, then one building and one
+method, then the locations ranked — and it is deliberately shipped before it is
+finished, which is the lesson below applied rather than repeated. Everything
+under this line is about the removed mod.
+
 The mod was removed in August 2026: a Mod Menu tab that ranked what was worth
 building in a province. It never worked in game, the owner stopped wanting it,
 and the reason was never established because it was never tested. Kept because

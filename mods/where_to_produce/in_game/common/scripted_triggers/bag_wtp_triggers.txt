@@ -1,0 +1,18 @@
+﻿# Which locations of a ticked region the table is willing to rank.
+#
+# Scope: location
+bag_wtp_is_candidate = {
+	# Sea zones have no province to walk, and the bonus script value walks the
+	# province on every candidate. This is the guard, not a tidiness filter.
+	is_land = yes
+
+	OR = {
+		# The default. The player is planning for ground he does not hold yet, and
+		# `can_build_building` answers for the location as it stands -- an unowned
+		# one fails it, which would empty the table for exactly the case the mod
+		# exists to serve.
+		NOT = { has_global_variable = bag_wtp_only_buildable }
+
+		can_build_building = global_var:bag_wtp_building
+	}
+}

@@ -180,6 +180,25 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
+**`where_to_produce`, first load — one game, five minutes.** Written
+2026-08-30, never loaded. Enable it (it needs only CMF), open the Mod Menu,
+find "Где производить".
+
+1. **Do the region rows have names?** Under "Европа" there should be seventeen
+   rows reading "Северная Германия", "Франция" and so on. Raw keys instead, or
+   blank rows, means the label-from-a-flag mechanism is the fault.
+2. **Tick "Северная Германия"**, pick any method in the dropdown, press
+   "Считать".
+3. **Hover the button.** It prints three numbers: regions ticked, locations
+   considered, rows filled. Which one is the first zero is the whole diagnosis —
+   regions zero means the tick never reached script, locations zero means the
+   region walk did, rows zero means the ranking pass is the broken half.
+4. **Read the table.** Rows should read "<location> — <n.nn>% (m/k)". Numbers
+   without a name, or a name without numbers, separates the two halves of the
+   row label.
+5. **`error.log`** — seven of the seventy-seven region keys are unproven and
+   would complain here by name.
+
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
 the playset — *on a save loaded a minute ago*, so it is not the widget leak.

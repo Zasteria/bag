@@ -1,0 +1,64 @@
+﻿# The pass that answers the question, run when the player presses the button.
+#
+# Five steps, in this order, and each one logs what it produced. Nothing here is
+# on a pulse: an effect that never runs logs nothing at all, and the whole point
+# of the log line at the end is that a run of this mod either names three
+# numbers or says nothing, and those are distinguishable from outside.
+#
+# Scope: country
+bag_wtp_compute = {
+	bag_wtp_sync = yes
+	bag_wtp_rebuild_zone = yes
+	bag_wtp_apply_method = yes
+	bag_wtp_count_wanted = yes
+	bag_wtp_collect_candidates = yes
+	bag_wtp_clear_rows = yes
+	bag_wtp_fill_rows = yes
+	bag_wtp_trim_rows = yes
+
+	# One line, no arguments. The counts are on screen instead, in the button's
+	# own description, read back through script values -- `goods_target` learnt
+	# that the hard way: a CMF macro pastes its arguments verbatim, which is the
+	# same shape that kills a CMM list on `item = var:x`, and a log call that
+	# swallows itself takes the rest of the effect with it. This line says only
+	# that the pass ran, which is the one thing the log is needed for.
+	cmf_log = { action = bag_wtp_log_run }
+}
+
+# Every location of every ticked region that the mod is willing to rank.
+# Scope: country
+bag_wtp_collect_candidates = {
+	clear_global_variable_list = bag_wtp_candidates
+	set_global_variable = { name = bag_wtp_candidate_count value = 0 }
+
+	every_in_global_list = {
+		variable = bag_wtp_regions
+		every_location_in_region = {
+			limit = { bag_wtp_is_candidate = yes }
+			add_to_global_variable_list = { name = bag_wtp_candidates target = this }
+			change_global_variable = { name = bag_wtp_candidate_count add = 1 }
+		}
+	}
+}
+
+# Scope: country
+bag_wtp_on_button = {
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__run }
+		bag_wtp_compute = yes
+	}
+
+	# The two pickers auto-apply, so a change to either arrives here rather than
+	# through a list's `_on_changed`. Re-running the whole pass on a picker
+	# change would walk the regions on every click of the dropdown, so this only
+	# copies the value out; the table is rebuilt when the button is pressed.
+	if = {
+		limit = {
+			OR = {
+				var:cmf_callback = flag:bag_wtp__method
+				var:cmf_callback = flag:bag_wtp__buildable_only
+			}
+		}
+		bag_wtp_sync = yes
+	}
+}

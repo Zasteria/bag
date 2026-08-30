@@ -104,6 +104,36 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
+**Where the 50 actually lives, and what it does not cover.** The ceiling is
+script side only, and it is two files: `cmm_core_list_setting_init_effects.txt`
+and `..._runtime_effects.txt` unroll a chain of `if`s to item 50, about nine
+times over — once for row metadata and identity, once per field type. The
+unrolling is forced, not lazy: an ordinal has to be a literal. **The interface
+has no cap** (`cmm_list_setting.gui` binds
+`CMMHomeScope.GetList(Concatenate('cmm_list_items_', Scope.GetFlagName))`), and
+**a dropdown has no cap at all** — `_cmm_register_dropdown_setting_internal`
+stores `option_count` in a variable map and the GUI repeats over it, so a picker
+with 218 options is one control rather than five lists. Raising the list ceiling
+means replacing those two CMF files wholesale, which rides over every other CMM
+mod in the playset on each CMF update; the way out is a window of one's own over
+a plain global list, which Construction Manager already demonstrates.
+
+**A row's label is a variable, not a key.** `CMMLocalizedSuffix(Key, Suffix)`
+expands to `CMMVar(Concatenate(Key, Suffix)).GetFlagName`, and
+`_cmm_initialize_list_item_metadata` defaults that variable to a flag of its own
+name. So a static list is labelled by defining `<mod>__<setting>_i<n>_name` in
+localization, and a row can be *re*labelled with any other key by setting the
+variable — `set_variable = { name = <mod>__<setting>_i<n>_name value = flag:X }`
+makes the row read whatever `X` localizes to, in every language, which is how a
+list of the game's own regions costs no translation.
+
+**How script reads a setting back.** `cmm_sync_setting_alias = { setting = ...
+alias = ... }` copies out of the `cmm` map into a plain variable — global if the
+setting was registered `global`, per country otherwise, which is what decides
+whether a location-scoped trigger can see it. `cmm_sync_dropdown_option_alias`
+sets or removes a variable per option index. And `cmf_on_callback` names what
+changed in `var:cmf_callback`, as a flag.
+
 **A list holds at most 50 items.** CMF documents `item_count` as `1..50`, and it
 is not advice: `cmm_core_list_setting_init_effects.txt` initialises items
 through an unrolled chain of `if`s that stops at 50. A longer list registers its
