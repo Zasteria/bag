@@ -26,6 +26,13 @@ them, load order deciding who loses. Copy the *window* and leave the types alone
 with fixed row heights and no `ignoreinvisible`, so hiding a row from the
 interface leaves a hole. Filter the data instead, or resize the list.
 
+**A `widget` does not size itself to its child, so `layoutpolicy_vertical =
+preferred` on one collapses whatever is inside it.** `where_to_produce`'s result
+rows overlapped into a smear the moment a row grew a second line: the card is a
+`widget` with `using = bg_paper_card`, and it was given a policy instead of a
+height. A container that must grow with its content is a `vbox`; a `widget`
+needs a number.
+
 **A `block` nested inside a `blockoverride` never reaches the instance.** A
 column type whose header was a plain `block` and whose rows were a `block` inside
 the `blockoverride` of its scrollbox drew four headers and not one row.

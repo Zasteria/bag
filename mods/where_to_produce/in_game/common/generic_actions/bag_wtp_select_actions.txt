@@ -49,6 +49,8 @@ bag_wtp_select_location = {
 			bag_wtp_toggle_one = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -87,6 +89,8 @@ bag_wtp_select_province = {
 			bag_wtp_toggle_province_scope = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -125,6 +129,8 @@ bag_wtp_select_area = {
 			bag_wtp_toggle_area_scope = yes
 		}
 		bag_wtp_rebuild_browse = yes
+		# The plan changed, so the answer has: re-rank while the window is open.
+		bag_wtp_recompute_live = yes
 	}
 
 	ai_will_do = { value = 0 }

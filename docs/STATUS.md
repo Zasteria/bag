@@ -12,7 +12,7 @@ state, the commands, and what fails silently in that mod.
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | nine loads in; ranking rebuilt around what a method produces, villages scored apart, the Mod Menu table dropped, the tree rebuilt after coming up empty | the two-line row, effective output, the tree's four columns |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | ten loads in; one window now — the answer, with the map pickers in its header and a re-rank after every pick. The selection tree failed twice and is deleted | rows that no longer overlap, live re-ranking, the pickers moved |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped

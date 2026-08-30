@@ -103,8 +103,8 @@ in_game/common/
   scripted_guis/       one _on_changed per list -- without them a list is invisible
   script_values/       the bonus, and the readings the row labels print
 in_game/gui/
-  bag_wtp_select_window.gui   the plan: provinces picked on the map, trimmed here
-  bag_wtp_result_window.gui   the answer: provinces ranked, expandable, with icons
+  bag_wtp_result_window.gui   the whole interface: the map pickers, and the
+                              ranked provinces under them
 main_menu/localization/{english,russian}/
 tools/generate.py      everything above that comes out of the game's own files
 ```
@@ -118,8 +118,8 @@ The owner does it from `mods.bat`.
 
 ## State
 
-Six loads in; the mechanism and the results window are confirmed, and what the
-sixth run changed — whole provinces, and a window that stays inside its frame —
-is not. See
+Ten loads in. The scoring, the whole-province rule and the results window are
+confirmed; the ranking by output, the two-line row and the pickers moving into
+that window are not. See [`CLAUDE.md`](CLAUDE.md). See
 [`CLAUDE.md`](CLAUDE.md) for what the next run has to answer and what is known
 to be unproven.

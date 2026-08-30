@@ -87,7 +87,6 @@ ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
 VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
 TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_triggers.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
-TREE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_tree.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -353,51 +352,6 @@ def zone_file() -> str:
 \t}}
 }}
 """)
-    return "".join(out)
-
-
-def tree_file(by_continent: dict[str, list[str]]) -> str:
-    """The first column of the selection tree: which regions are on offer.
-
-    The ticked ones, or -- when nothing is ticked -- every region of a ticked
-    continent, or every region there is. The mapping from region to continent is
-    the game's own, read out of its localization, so a patch that adds a region
-    puts it in the right column by itself.
-
-    A list of regions rather than a walk: `Region.GetAreas` is not an interface
-    promote, so every level of the tree is a global list script fills and the
-    window repeats over.
-    """
-    out = [HEADER, f"""#
-# Scope: country
-{MOD_ID}_tree_build_regions = {{
-\tclear_global_variable_list = {MOD_ID}_tree_regions
-
-\tif = {{
-\t\t# What the zone tab ticked, when it ticked anything.
-\t\tlimit = {{ global_var:{MOD_ID}_region_count > 0 }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_regions
-\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_tree_regions target = this }}
-\t\t}}
-\t}}
-\telse_if = {{
-\t\tlimit = {{ global_var:{MOD_ID}_zone_count > 0 }}
-"""]
-    for continent, keys in by_continent.items():
-        out.append(f"""\t\tif = {{
-\t\t\tlimit = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_continents target = continent:{continent} }} }}
-""")
-        for key in keys:
-            out.append(f"\t\t\tadd_to_global_variable_list = "
-                       f"{{ name = {MOD_ID}_tree_regions target = region:{key} }}\n")
-        out.append("\t\t}\n")
-    out.append("\t}\n\telse = {\n\t\t# Nothing ticked at all: the whole world is on offer.\n")
-    for continent, keys in by_continent.items():
-        for key in keys:
-            out.append(f"\t\tadd_to_global_variable_list = "
-                       f"{{ name = {MOD_ID}_tree_regions target = region:{key} }}\n")
-    out.append("\t}\n}\n")
     return "".join(out)
 
 
@@ -920,7 +874,6 @@ def main() -> int:
     by_continent = regions()
     write(ZONE_OUT, zone_file())
     write(REGION_OUT, region_file(by_continent))
-    write(TREE_OUT, tree_file(by_continent))
     write(TRIGGERS_OUT, triggers_file(rows, split))
     write(PICKER_OUT, picker_file(split, rows))
     write(VALUES_OUT, values_file(rows, game))

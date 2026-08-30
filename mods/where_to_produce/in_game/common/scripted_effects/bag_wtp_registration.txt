@@ -45,14 +45,6 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Opens the map picker and the trimming window.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = select
-		tab_id = plan
-		group_id = what
-	}
-
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run

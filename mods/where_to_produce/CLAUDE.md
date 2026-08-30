@@ -4,29 +4,29 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: nine loads in.** The answer half is confirmed; the ninth run found the
-tree empty, the icons still spread, and the ranking answering the wrong question.
-All three are rebuilt and untested.
+**State: ten loads in, and the mod is one window.** The tenth run found the
+result rows collapsed into each other and the selection tree still empty; the
+tree and its whole window are deleted, and the map-picker buttons moved into the
+results window, where **every pick re-ranks** while it is open.
 
-## What the tenth run has to answer
+## What the eleventh run has to answer
 
-1. **The tree fills.** Its four columns were written out; a `block` nested inside
-   a `blockoverride` never reached the instance, which is why headers drew and
-   rows did not.
-2. **A result row is two lines** — the best built-up building and the best
-   village, each with its own bonus, method, `×` output and goods.
-3. **Villages no longer top a weapons search.** Ranking is by effective output,
-   `output * (1 + bonus/100)`, not by the bonus alone.
-4. **The Mod Menu table is gone**; the window is the only place the answer is.
-5. **The goods icons sit beside their count** — text icons now, not `icon`
-   widgets, which take a share of an hbox rather than their glyph.
+1. **The rows read** — one province, two lines where a built-up building and a
+   village were both found. They overlapped because a `widget` does not size
+   itself to its child; every height is a number now.
+2. **The three «Выбрать…» buttons** sit in the results window with the running
+   count and «Очистить выбор».
+3. **The answer follows the borders**: after a pick, no «Считать» needed.
+4. **Villages are not at the top** of a weapons search — ranking is by effective
+   output, `output * (1 + bonus/100)` — and the goods icons sit beside their
+   count.
+5. Never yet reported: the age filter.
 
-**Clicking the map with a window open is not possible** and is not to be
-attempted again — see `docs/research/interface.md`. The game's own panels are
-view objects, and no on_action carries a map click.
-
-**The region lists are how the owner frames every search** (Карпаты, then the map
-picker for the provinces beside it). Confirmed in use, ninth run.
+**Two things are settled and not to be attempted again.** Clicking the map with
+a window open is impossible (`docs/research/interface.md`: the game's own
+panels are view objects, no on_action carries a map click). And a geography tree
+of our own was tried twice, came up empty both times, and was deleted — the
+game's target panel, which closes after each pick, is how ground is chosen here.
 
 ## CMM caps, none written near the call that cares
 
@@ -41,19 +41,18 @@ left on the tab.
 - **The map picker closes after each pick** — the generic action's lifecycle,
   not a fault, and the only map-click channel a mod has at all.
 - **A window's datamodel is what costs.** A scripted widget never comes down, so
-  only the list it repeats over decides how many rows are alive. Both windows
-  fill their lists on opening and empty them on closing.
+  only the list it repeats over decides how many rows are alive. The window
+  fills `bag_wtp_results` on opening and empties it on closing.
 - **The selection is recorded twice** — a variable on the location, a global list
   for the ranking — and only `bag_wtp_pick` / `bag_wtp_drop` may write it.
-- **No marked zone.** A location's continent and region are plain triggers.
 - **The bonus is province-level**, which is why a row is a province rather than a
   location: what would separate two of its locations is building slots, and the
   game exposes no slot count at all.
 - **And the province is the `province_definition`**, not the `province`: the
   latter is one owner's piece of it. A planning tool answers for the ground as it
   will be, not for the border as it stands.
-- **The owner's flag under an expanded row stays.** «Нахер не нужно, но и не
-  мешает» — asked and answered, seventh run.
+- **The owner's flag under an expanded row stays** — asked and answered, seventh
+  run.
 
 ## The answer lives on the location
 

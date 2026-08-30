@@ -19,6 +19,34 @@
 
 types BagWtpResultTypes {
 
+	# Injected into the bottom of the game's own target picker, through
+	# `bottom_widget` in each action's `select_trigger`. It carries the running
+	# count, so the panel says what the clicking has done without closing it to go
+	# and look. It lived in the selection window until that window was deleted;
+	# the three actions still name it.
+	type bag_wtp_select_footer = widget {
+		size = { 420 72 }
+
+		vbox = {
+			margin = { 8 6 }
+			spacing = 2
+			layoutpolicy_horizontal = expanding
+
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				align = left|vcenter
+				text = "bag_wtp_select_summary"
+			}
+
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				maximumsize = { 404 48 }
+				text = "bag_wtp_picker_hint"
+			}
+		}
+	}
+
 	# One raw material the province supplies to the winning method. These are the
 	# bonus, item by item: the number is `10% * what is here / what the method
 	# wants`, so an input missing from this row is the whole of the difference
@@ -172,7 +200,7 @@ types BagWtpResultTypes {
 			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 		}
 
-		widget = { size = { 12 30 } }
+		widget = { size = { 12 28 } }
 	}
 
 	# One province: the answer on one line, its locations under it once expanded.
@@ -199,22 +227,23 @@ types BagWtpResultTypes {
 	# other -- `[Goods.GetIcon]` is what vanilla writes in its own strings.
 	type bag_wtp_result_answer = hbox {
 		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
 		spacing = 0
 		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 
 		text_single = {
-			size = { 70 30 }
+			size = { 70 28 }
 			autoresize = no
-			maximumsize = { 70 30 }
+			maximumsize = { 70 28 }
 			align = right|vcenter
 			text = "bag_wtp_result_bonus_value"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
-		widget = { size = { 10 30 } }
+		widget = { size = { 10 28 } }
 
 		text_single = {
-			size = { -1 30 }
+			size = { -1 28 }
 			layoutpolicy_horizontal = expanding
 			autoresize = no
 			align = left|vcenter
@@ -250,22 +279,23 @@ types BagWtpResultTypes {
 
 	type bag_wtp_result_answer_rural = hbox {
 		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
 		spacing = 0
 		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
 
 		text_single = {
-			size = { 70 30 }
+			size = { 70 28 }
 			autoresize = no
-			maximumsize = { 70 30 }
+			maximumsize = { 70 28 }
 			align = right|vcenter
 			text = "bag_wtp_result_bonus_value_rural"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
-		widget = { size = { 10 30 } }
+		widget = { size = { 10 28 } }
 
 		text_single = {
-			size = { -1 30 }
+			size = { -1 28 }
 			layoutpolicy_horizontal = expanding
 			autoresize = no
 			align = left|vcenter
@@ -296,7 +326,7 @@ types BagWtpResultTypes {
 			}
 		}
 
-		widget = { size = { 12 30 } }
+		widget = { size = { 12 28 } }
 	}
 
 	# One province: what would be built there, in one line or two, and its
@@ -314,18 +344,22 @@ types BagWtpResultTypes {
 		layoutpolicy_vertical = preferred
 		spacing = 2
 
+		# 60 tall, always: a `widget` does not size itself to its child, so the
+		# card and everything in it collapsed into one another the moment the row
+		# grew a second line. Two answer lines at 28 fit; one leaves a gap, which
+		# is cheaper than rows that overlap.
 		widget = {
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = preferred
+			size = { -1 60 }
 			using = bg_paper_card
 
 			hbox = {
 				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = preferred
+				size = { -1 60 }
 				spacing = 0
 
 				widget = {
-					size = { 38 36 }
+					size = { 38 60 }
 					button_square_plus = {
 						size = { 26 26 }
 						parentanchor = center
@@ -345,9 +379,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 190 36 }
+					size = { 190 60 }
 					autoresize = no
-					maximumsize = { 190 36 }
+					maximumsize = { 190 60 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -355,9 +389,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 130 36 }
+					size = { 130 60 }
 					autoresize = no
-					maximumsize = { 130 36 }
+					maximumsize = { 130 60 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
@@ -369,8 +403,8 @@ types BagWtpResultTypes {
 				# what a workshop does.
 				vbox = {
 					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = preferred
-					spacing = 1
+					size = { -1 60 }
+					spacing = 2
 					ignoreinvisible = yes
 
 					bag_wtp_result_answer = {}
@@ -448,6 +482,110 @@ window = {
 					maximumsize = { 1130 80 }
 					align = center
 					text = "bag_wtp_result_window_desc"
+				}
+
+				# The borders, picked here rather than in a window of their own. Each
+				# button hands the game one of this mod's generic actions and the
+				# game answers with its own target panel: a searchable list, the map
+				# highlighted, and a click on the map picking the same thing a row
+				# does. The actions toggle, so clicking is cumulative -- and every
+				# pick re-ranks, so the table under these buttons is the answer for
+				# the borders as they stand.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					action_button = {
+						size = { 210 34 }
+						title = "bag_wtp_map_pick_area"
+						description = "bag_wtp_map_pick_area_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_area" }
+						tooltip = "bag_wtp_map_pick_area_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 202 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 202 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_area"
+						}
+					}
+
+					action_button = {
+						size = { 210 34 }
+						title = "bag_wtp_map_pick_province"
+						description = "bag_wtp_map_pick_province_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_province" }
+						tooltip = "bag_wtp_map_pick_province_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 202 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 202 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_province"
+						}
+					}
+
+					action_button = {
+						size = { 210 34 }
+						title = "bag_wtp_map_pick_location"
+						description = "bag_wtp_map_pick_location_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_location" }
+						tooltip = "bag_wtp_map_pick_location_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 202 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 202 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_location"
+						}
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+					text_single = {
+						size = { 260 34 }
+						autoresize = no
+						maximumsize = { 260 34 }
+						align = right|vcenter
+						fontsize = 13
+						text = "bag_wtp_select_summary"
+					}
+
+					button_regular = {
+						size = { 150 30 }
+						tooltip = "bag_wtp_clear_all_tt"
+						text_single = {
+							size = { 142 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 142 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_clear_all"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
 				}
 
 				# Nothing computed yet, or nothing survived the filters. Without this

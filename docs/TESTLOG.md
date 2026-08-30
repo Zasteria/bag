@@ -31,6 +31,27 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
+other, the tree was still empty, and the selection window was the wrong idea.**
+Two screenshots.
+
+- **The province rows overlapped.** The card holding a row is a `widget`, and a
+  widget does not size itself to its child: it was given
+  `layoutpolicy_vertical = preferred` and no height when the row grew a second
+  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
+- **The tree columns were still empty** after being written out, so the block
+  nesting was not the fault either. Whatever it is, it is not worth another
+  round trip: the whole selection window is deleted.
+- **And the owner said what to do instead**: «нахрена для этого всего вообще
+  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
+  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
+  каждого изменения границ.» So the three map-picker buttons, the running count
+  and «Очистить выбор» are in the results window, and **every pick re-ranks
+  while that window is open** — the answer follows the borders as they are
+  drawn.
+- The scoring, the two-line row and the goods icons from the ninth build could
+  not be judged under rows that overlapped; they come back for the eleventh.
+
 **2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
 ranking was ranking the wrong thing.** Three screenshots.
 
@@ -87,37 +108,10 @@ is on screen; the map picker is the one thing left.** Owner: «в остальн
   is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
   — the game's own map highlight, callable from any `.gui`.
 
-**2026-08-30 — `where_to_produce`, seventh load. Whole provinces and the frame
-hold; the goods icons do not.** Two screenshots, «в целом вроде ок».
-
-- **The window is inside its frame** and **a row is one whole province** —
-  «Бессарабия» as a single row, its locations under it with the owner's flag
-  beside each. The owner's flag: «нахер не нужно, но и не мешает, пусть
-  останется».
-- **The goods icons never drew, and the count off the same list did.** «1/2» and
-  «2/2» print correctly beside an empty space — so `bag_wtp_goods` holds the
-  right items and `GetDataModelSize` reads them. What was missing is the
-  `datacontext` on the datamodel item: the province rows work because they carry
-  one, and this one addressed `Scope.GetGoods` from inside the type instead.
-  Vanilla's own scope lists set `datacontext = "[Scope.Get<Type>]"` on the item
-  and then use the type name, `GetGoodsIcon(Goods.Self)`.
-- **Lakes and sea zones were in the expanded rows**, a screenful of «Ничья земля»
-  under every coastal province. `ProvinceDefinition.GetLocations` hands out
-  everything. Hidden now on `Location.IsPossibleToOwn`, and the whole mod's
-  notion of ground moved from `is_land` to `is_ownable` — "not sea, lake or an
-  impassable" — so nothing unbuildable enters the plan through the map picker
-  either.
-- **The count drifted with the number of icons**, «1/2» sitting a few pixels
-  right of «2/2». An hbox sizes itself to its children, so one icon fewer moved
-  everything after it. Placed in a plain `widget` now.
-- **The method in the row is enough on its own** — the owner reads the recipe off
-  its tooltip. The icons stay because a method with several inputs still needs
-  them, and the count says what the icons cannot when they fail to draw.
-
-Everything before 2026-08-29, and `where_to_produce`'s first six loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first seven loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
-turned the mod from asking for a method into finding one, and the three that
-confirmed the scoring, the tabs and the results window — is in
+turned the mod from asking for a method into finding one, and the four that
+confirmed the scoring, the tabs, the results window and whole provinces — is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
 trimmed. Search both with `python3 tools/kb.py`.
 
@@ -266,20 +260,19 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, tenth load — one game, five minutes.**
+**`where_to_produce`, eleventh load — one game, five minutes.** One window now:
+the answer, with the borders picked in its own header.
 
-1. **The tree fills.** Регионы → Области → Провинции → Локации, a name opening
-   the next column, «Всё» taking or dropping a whole geography, and hovering a
-   row highlighting it on the map.
-2. **A result row is two lines** — the built-up answer above, the village below,
-   each with its own bonus, method, `×` output and goods icons. A province with
-   only one of the two shows one line.
-3. **Nothing rural at the top** of a weapons search any more, and «Гильдия
-   ружейников» ahead of «Лесная деревня» where both are available.
-4. **The goods icons sit beside their count**, not a column away.
-5. **The Mod Menu tab has no table**, only the ticks and the three buttons.
-6. **`error.log` and `gui.log`** — the mod was clean in both last run apart from
-   124 layout lines that should now be gone.
+1. **The rows read**, one province each, two lines where both a built-up
+   building and a village were found, nothing overlapping.
+2. **The three «Выбрать…» buttons** are in the results window and open the
+   game's own target panel; the count beside them moves as you click.
+3. **Every pick re-ranks**: close the picker panel and the table under it should
+   already be the answer for the new borders, with no «Считать» pressed.
+4. **Villages are not at the top** of a weapons search, and the goods icons sit
+   beside their `1/2` count rather than a column away.
+5. **`error.log` and `gui.log`** — one window fewer, and the selection window's
+   124 layout lines should be gone with it.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

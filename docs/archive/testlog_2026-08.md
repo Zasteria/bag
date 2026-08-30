@@ -698,7 +698,7 @@ Also confirmed from the same screenshot: the load order the player actually
 runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
 after it, which is what the declared dependency is for.
 
-## `where_to_produce`, the first six loads
+## `where_to_produce`, the first seven loads
 
 Moved out of the live log when it outgrew its budget; the fourth and fifth
 runs are still there.
@@ -843,3 +843,30 @@ Owner: «в целом вроде ок».
   is genuinely empty the fault is the `bag_wtp_goods` variable list. The row now
   prints «supplied/total» beside the icons, which tells an empty list from an
   icon that will not draw without another round trip.
+
+**2026-08-30 — `where_to_produce`, seventh load. Whole provinces and the frame
+hold; the goods icons do not.** Two screenshots, «в целом вроде ок».
+
+- **The window is inside its frame** and **a row is one whole province** —
+  «Бессарабия» as a single row, its locations under it with the owner's flag
+  beside each. The owner's flag: «нахер не нужно, но и не мешает, пусть
+  останется».
+- **The goods icons never drew, and the count off the same list did.** «1/2» and
+  «2/2» print correctly beside an empty space — so `bag_wtp_goods` holds the
+  right items and `GetDataModelSize` reads them. What was missing is the
+  `datacontext` on the datamodel item: the province rows work because they carry
+  one, and this one addressed `Scope.GetGoods` from inside the type instead.
+  Vanilla's own scope lists set `datacontext = "[Scope.Get<Type>]"` on the item
+  and then use the type name, `GetGoodsIcon(Goods.Self)`.
+- **Lakes and sea zones were in the expanded rows**, a screenful of «Ничья земля»
+  under every coastal province. `ProvinceDefinition.GetLocations` hands out
+  everything. Hidden now on `Location.IsPossibleToOwn`, and the whole mod's
+  notion of ground moved from `is_land` to `is_ownable` — "not sea, lake or an
+  impassable" — so nothing unbuildable enters the plan through the map picker
+  either.
+- **The count drifted with the number of icons**, «1/2» sitting a few pixels
+  right of «2/2». An hbox sizes itself to its children, so one icon fewer moved
+  everything after it. Placed in a plain `widget` now.
+- **The method in the row is enough on its own** — the owner reads the recipe off
+  its tooltip. The icons stay because a method with several inputs still needs
+  them, and the count says what the icons cannot when they fail to draw.
