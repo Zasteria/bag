@@ -80,12 +80,12 @@ bag_wtp_toggle_province = {
 				if = {
 					limit = {
 						any_location_in_province = {
-							is_land = yes
+							is_ownable = yes
 							NOT = { has_variable = bag_wtp_picked }
 						}
 					}
 					every_location_in_province = {
-						limit = { is_land = yes }
+						limit = { is_ownable = yes }
 						bag_wtp_pick = yes
 					}
 				}
@@ -146,7 +146,7 @@ bag_wtp_pick_all = {
 			variable = bag_wtp_browse
 			every_location_in_province = {
 				limit = {
-					is_land = yes
+					is_ownable = yes
 					NOT = { has_variable = bag_wtp_picked }
 				}
 				bag_wtp_pick = yes

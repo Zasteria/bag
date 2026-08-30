@@ -31,6 +31,33 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, seventh load. Whole provinces and the frame
+hold; the goods icons do not.** Two screenshots, «в целом вроде ок».
+
+- **The window is inside its frame** and **a row is one whole province** —
+  «Бессарабия» as a single row, its locations under it with the owner's flag
+  beside each. The owner's flag: «нахер не нужно, но и не мешает, пусть
+  останется».
+- **The goods icons never drew, and the count off the same list did.** «1/2» and
+  «2/2» print correctly beside an empty space — so `bag_wtp_goods` holds the
+  right items and `GetDataModelSize` reads them. What was missing is the
+  `datacontext` on the datamodel item: the province rows work because they carry
+  one, and this one addressed `Scope.GetGoods` from inside the type instead.
+  Vanilla's own scope lists set `datacontext = "[Scope.Get<Type>]"` on the item
+  and then use the type name, `GetGoodsIcon(Goods.Self)`.
+- **Lakes and sea zones were in the expanded rows**, a screenful of «Ничья земля»
+  under every coastal province. `ProvinceDefinition.GetLocations` hands out
+  everything. Hidden now on `Location.IsPossibleToOwn`, and the whole mod's
+  notion of ground moved from `is_land` to `is_ownable` — "not sea, lake or an
+  impassable" — so nothing unbuildable enters the plan through the map picker
+  either.
+- **The count drifted with the number of icons**, «1/2» sitting a few pixels
+  right of «2/2». An hbox sizes itself to its children, so one icon fewer moved
+  everything after it. Placed in a plain `widget` now.
+- **The method in the row is enough on its own** — the owner reads the recipe off
+  its tooltip. The icons stay because a method with several inputs still needs
+  them, and the count says what the icons cannot when they fail to draw.
+
 **2026-08-30 — `where_to_produce`, sixth load. The results window works; the
 province is not what the game says it is.** One screenshot, everything selected.
 Owner: «в целом вроде ок».
@@ -60,50 +87,10 @@ Owner: «в целом вроде ок».
   prints «supplied/total» beside the icons, which tells an empty list from an
   icon that will not draw without another round trip.
 
-**2026-08-30 — `where_to_produce`, fifth load. The tabs and the table are on
-screen; the row says too little.** One screenshot of the «Расчёт» tab, cloth
-guild ranked.
-
-- **The three tabs render** — «Товар», «Земля», «Расчёт» — and the button and
-  the table are under the right one. The tab/setting key collision is behind us.
-- **The table fills**, one row per province: twelve different names down the
-  screen where the fourth run repeated one. The building prints
-  («Гильдия прядильщиков»).
-- **Every row reads 10.00%.** Not a bug: that method's only raw input is
-  `fiber_crops`, so any province with fibre crops is at the ceiling. It is,
-  though, the reason the ranking looks like it is not ranking — the row does not
-  say what the number is made of.
-- **What the owner asked for, off this screen:** the row names a location and he
-  reads it as a province («показывается только 1 какая-то локация»); he wants
-  the province, with its locations under it; which of the building's methods
-  won; and the goods the bonus is made of («должно показывать прядильные
-  культуры»).
-- Regions, the age filter and `error.log` were not reported and stay open.
-
-**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
-Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
-"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
-the mod's whole mechanism — the scoring, the picker, the window, the map mode.
-
-Four things the run asked for, all built and none of them loaded yet:
-
-- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
-  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
-  share a name, and the zone list had to become `continent`.
-- **Regions back beside the continents.** A ticked continent paints the whole
-  screen; the good case was one region ticked with its neighbours addable.
-- **Methods the age has not reached were being recommended.** The unlock data is
-  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
-  `3_production_method_unlocks.txt` gates ten methods directly, so
-  `can_build_building` in country scope plus `has_advance` answers "available to
-  me now". This is what `docs/archive/where_to_produce.md` recorded as
-  unanswerable; `common/advances/` was not in the tree then.
-- **The table ran out of rows before it ran out of answers.** Every location of a
-  province scores the same, so it now holds one row per province.
-
-Everything before 2026-08-29, and `where_to_produce`'s first three loads — the
-map mode, the twenty-option dropdown, the missing `is_ordered`, and the run that
-turned the mod from asking for a method into finding one — is in
+Everything before 2026-08-29, and `where_to_produce`'s first five loads — the
+map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
+turned the mod from asking for a method into finding one, and the two that
+confirmed the scoring and the tabs — is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
 trimmed. Search both with `python3 tools/kb.py`.
 
@@ -252,22 +239,17 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, seventh load — one game, five minutes.**
+**`where_to_produce`, eighth load — one game, three minutes.**
 
-1. **Одна строка на провинцию.** «Измаил» and «Молдавская провинция Бессарабия»
-   should now be a single row named plainly, «Бессарабия», and opening it should
-   list every location of both halves with the owner beside each.
-2. **«Из чего».** The column should read like «1/1» or «2/3» and carry that many
-   goods icons. A count with no icons, or «0/1», each name a different fault.
-3. **The window inside its frame** — nothing drawing past the right edge, in this
-   window and in the selection one.
-4. **One hover, and it settles a question this repository cannot answer from
-   files:** in a location whose province is split by a border, open a building's
-   RGO tooltip and see whether it credits a raw material that only the *other*
-   country's half produces. That says whether the game counts the whole province
-   or only the owned piece — and therefore whether the mod's number is today's or
-   tomorrow's.
-5. **`error.log`.** Still unanswered from the fifth load: the region lists and
+1. **The «Из чего» column carries icons** — one per raw material, matching the
+   count beside it. Nothing there again means the fault is not the datacontext.
+2. **No lakes** under an expanded province, and none offered by the map picker.
+3. **«1/2» and «2/2» start at the same x.**
+4. **One hover, still unanswered and still worth a run:** in a province split by
+   a border, does the game's own RGO tooltip credit a good that only the other
+   half produces? That says whether this mod's number is today's or the one it
+   will be after the conquest. `docs/research/engine.md` has it written out.
+5. **`error.log`**, and the two things never yet reported: the region lists and
    the age filter.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:

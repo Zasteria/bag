@@ -37,7 +37,7 @@ bag_wtp_select_location = {
 		column = { data = name }
 		column = { data = population }
 		visible = {
-			is_land = yes
+			is_ownable = yes
 			bag_wtp_in_zone = yes
 		}
 		enabled = { always = yes }
@@ -74,7 +74,7 @@ bag_wtp_select_province = {
 		column = { data = population }
 		visible = {
 			any_location_in_province = {
-				is_land = yes
+				is_ownable = yes
 				bag_wtp_in_zone = yes
 			}
 		}
@@ -112,7 +112,7 @@ bag_wtp_select_area = {
 		column = { data = population }
 		visible = {
 			any_location_in_area = {
-				is_land = yes
+				is_ownable = yes
 				bag_wtp_in_zone = yes
 			}
 		}

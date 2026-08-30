@@ -6,8 +6,10 @@
 # Scope: location
 bag_wtp_is_candidate = {
 	# Sea zones have no province to walk, and every method's script value walks
-	# the province. This is the guard, not a tidiness filter.
-	is_land = yes
+	# the province. This is the guard, not a tidiness filter -- and `is_ownable`
+	# is the whole of it: "not sea, lake or an impassable", which is also exactly
+	# the ground a building can stand on.
+	is_ownable = yes
 
 	bag_wtp_in_zone = yes
 

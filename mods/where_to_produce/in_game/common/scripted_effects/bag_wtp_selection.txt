@@ -70,12 +70,12 @@ bag_wtp_toggle_province_scope = {
 	if = {
 		limit = {
 			any_location_in_province = {
-				is_land = yes
+				is_ownable = yes
 				NOT = { has_variable = bag_wtp_picked }
 			}
 		}
 		every_location_in_province = {
-			limit = { is_land = yes }
+			limit = { is_ownable = yes }
 			bag_wtp_pick = yes
 		}
 	}
@@ -92,12 +92,12 @@ bag_wtp_toggle_area_scope = {
 	if = {
 		limit = {
 			any_location_in_area = {
-				is_land = yes
+				is_ownable = yes
 				NOT = { has_variable = bag_wtp_picked }
 			}
 		}
 		every_location_in_area = {
-			limit = { is_land = yes }
+			limit = { is_ownable = yes }
 			bag_wtp_pick = yes
 		}
 	}

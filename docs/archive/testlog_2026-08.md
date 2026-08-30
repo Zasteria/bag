@@ -698,7 +698,7 @@ Also confirmed from the same screenshot: the load order the player actually
 runs puts `Glorp UI` at 3 and `Glorp UI - Societal Value Hints` at 4, directly
 after it, which is what the declared dependency is for.
 
-## `where_to_produce`, the first three loads
+## `where_to_produce`, the first five loads
 
 Moved out of the live log when it outgrew its budget; the fourth and fifth
 runs are still there.
@@ -773,3 +773,44 @@ Two things the same screenshot settled without being asked:
 - **Registration itself works.** The dropdown, the tick and the button all
   rendered with their names and descriptions, so `cmf_on_mod_registration`, the
   mod id, the tab and the group keys are all right.
+
+**2026-08-30 — `where_to_produce`, fifth load. The tabs and the table are on
+screen; the row says too little.** One screenshot of the «Расчёт» tab, cloth
+guild ranked.
+
+- **The three tabs render** — «Товар», «Земля», «Расчёт» — and the button and
+  the table are under the right one. The tab/setting key collision is behind us.
+- **The table fills**, one row per province: twelve different names down the
+  screen where the fourth run repeated one. The building prints
+  («Гильдия прядильщиков»).
+- **Every row reads 10.00%.** Not a bug: that method's only raw input is
+  `fiber_crops`, so any province with fibre crops is at the ceiling. It is,
+  though, the reason the ranking looks like it is not ranking — the row does not
+  say what the number is made of.
+- **What the owner asked for, off this screen:** the row names a location and he
+  reads it as a province («показывается только 1 какая-то локация»); he wants
+  the province, with its locations under it; which of the building's methods
+  won; and the goods the bonus is made of («должно показывать прядильные
+  культуры»).
+- Regions, the age filter and `error.log` were not reported and stay open.
+
+**2026-08-30 — `where_to_produce`, fourth load. Everything asked for worked.**
+Owner: the goods tick moves; the ranking "работает, подбирает"; the map picker
+"выбирается всё как надо"; nothing worth pulling out of `error.log`. That closes
+the mod's whole mechanism — the scoring, the picker, the window, the map mode.
+
+Four things the run asked for, all built and none of them loaded yet:
+
+- **Tabs.** Five groups on one scroll. A CMM tab is just a `tab_id`, but a tab
+  key and a setting key are both `<mod>__<id>_name` — so a tab and a list may not
+  share a name, and the zone list had to become `continent`.
+- **Regions back beside the continents.** A ticked continent paints the whole
+  screen; the good case was one region ticked with its neighbours addable.
+- **Methods the age has not reached were being recommended.** The unlock data is
+  in the tree now: `1_building_unlocks.txt` gates 119 buildings by age and
+  `3_production_method_unlocks.txt` gates ten methods directly, so
+  `can_build_building` in country scope plus `has_advance` answers "available to
+  me now". This is what `docs/archive/where_to_produce.md` recorded as
+  unanswerable; `common/advances/` was not in the tree then.
+- **The table ran out of rows before it ran out of answers.** Every location of a
+  province scores the same, so it now holds one row per province.

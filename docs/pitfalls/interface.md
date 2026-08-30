@@ -26,6 +26,25 @@ them, load order deciding who loses. Copy the *window* and leave the types alone
 with fixed row heights and no `ignoreinvisible`, so hiding a row from the
 interface leaves a hole. Filter the data instead, or resize the list.
 
+**A datamodel item needs a `datacontext` of its own, or the object it repeats
+over is not there.** `where_to_produce`'s results row drew its goods icons off
+`Scope.GetGoods` from inside the item's type and drew nothing at all — while the
+count beside it, `GetDataModelSize` over the same list, was right, which is what
+proved the list was fine and the item was not. Vanilla's shape, on every scope
+list it repeats over: `datamodel = "[X.MakeScope.GetList('name')]"`, then
+`item = { row_type = { datacontext = "[Scope.GetGoods]" } }`, then the object by
+its type name inside the type — `GetGoodsIcon(Goods.Self)`, `Goods.GetName`.
+
+**An hbox sizes itself to its children, so anything after a datamodel moves with
+it.** A count printed before a row of icons sat a few pixels further right on
+rows with one icon than on rows with two. Fixed positions inside a plain
+`widget` are what hold a column still.
+
+**`GetLocations` hands out lakes, sea zones and impassables.** A province's
+locations are not all ground: `ProvinceDefinition.GetLocations` filled the
+expanded rows with «Ничья земля». `Location.IsPossibleToOwn` is the interface's
+filter and `is_ownable` — "not sea, lake or an impassable" — is script's.
+
 **A `text_multi` with `autoresize` and no `maximumsize` does not wrap — it grows,
 and `allow_outside` lets it drag the window apart.** `where_to_produce`'s results
 window looked "broken at the top right": the frame ended where it should, and the

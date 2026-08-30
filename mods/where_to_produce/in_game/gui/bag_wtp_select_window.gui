@@ -44,6 +44,9 @@ types BagWtpSelectTypes {
 	# One location. `bag_wtp_picked` is a variable on the location itself, so the
 	# tick, the map colour and the ranking walk are all reading the same fact.
 	type bag_wtp_select_location_entry = hbox {
+		# Lakes, sea zones and impassables come with `GetLocations` and are not
+		# ground anybody builds on. The parent has `ignoreinvisible`.
+		visible = "[Location.IsPossibleToOwn]"
 		layoutpolicy_horizontal = expanding
 		size = { -1 32 }
 		spacing = 0
