@@ -1,24 +1,22 @@
-﻿# The selection, the zone it is chosen from, and the list the window draws.
+﻿# The selection, and the list the window draws.
 #
-# Three pieces of state, and they are kept apart on purpose:
+# The selection is recorded twice, and only `bag_wtp_pick` and `bag_wtp_drop` may
+# write it:
 #
-#   `bag_wtp_picked`      variable on a location -- it is in the plan
-#   `bag_wtp_in_zone`     variable on a location -- it is inside the ticked
-#                         regions, so it is something to choose from
-#   `bag_wtp_browse`      global list of provinces, the window's datamodel
+#   `bag_wtp_picked`            a variable on the location -- what the map mode
+#                               paints and what the window's rows ask
+#   `bag_wtp_picked_locations`  a global list -- what the ranking walks
 #
-# The first two are variables because the map mode reads them: `map_color` is a
-# location-scoped trigger block, so a variable on the location is a colour on the
-# map with nothing in between. Each has a global list beside it holding the same
-# locations, because there is no cheap "every location with variable X" iterator
-# and walking the world to find them would cost more than keeping the list.
+# The variable exists because a map mode's `map_color` is a location-scoped
+# trigger block, so a variable on the location is a colour on the map with
+# nothing in between. The list exists because there is no cheap "every location
+# with variable X" iterator and walking the world to find them would cost more
+# than keeping the list. Two records of one fact drift the moment anything else
+# writes either half.
 #
-# `bag_wtp_browse` exists **only while the window is open**, and that is not
-# tidiness. A scripted widget is registered for the session and never comes down,
-# and this window's row is 79 widgets repeated once per province in that list --
-# so a list left full of a ticked Europe would leave tens of thousands of live
-# widgets behind a closed window, which is the exact shape of the cost this
-# repository already has an investigation open about. Empty list, no rows.
+# There is no marked zone any more. A location's continent is one plain trigger,
+# so "is this inside the ticked continents" is asked where it matters instead of
+# being written onto every location of a continent in advance.
 
 # Scope: location
 bag_wtp_pick = {
@@ -52,115 +50,9 @@ bag_wtp_drop = {
 	}
 }
 
-# Mark every land location of the ticked regions. Runs when a region tick
-# changes, which is the only thing that moves the answer.
-# Scope: country
-bag_wtp_mark_zone = {
-	every_in_global_list = {
-		variable = bag_wtp_zone_locations
-		remove_variable = bag_wtp_in_zone
-	}
-	clear_global_variable_list = bag_wtp_zone_locations
-	set_global_variable = { name = bag_wtp_zone_count value = 0 }
-
-	every_in_global_list = {
-		variable = bag_wtp_regions
-		every_location_in_region = {
-			limit = { is_land = yes }
-			set_variable = { name = bag_wtp_in_zone value = 1 }
-			add_to_global_variable_list = { name = bag_wtp_zone_locations target = this }
-			change_global_variable = { name = bag_wtp_zone_count add = 1 }
-		}
-	}
-}
-
-# The provinces the window lists: every province holding a marked location, once
-# each. Built when the window opens, emptied when it closes.
-#
-# Provinces rather than locations at the top level because that is the unit the
-# bonus is actually computed over -- the game credits a raw material worked
-# anywhere in the province, so every location of one province scores the same,
-# and a flat list of locations would repeat one number down the screen.
-# Scope: country
-bag_wtp_rebuild_browse = {
-	clear_global_variable_list = bag_wtp_browse
-	set_global_variable = { name = bag_wtp_browse_count value = 0 }
-
-	every_in_global_list = {
-		variable = bag_wtp_zone_locations
-		province = {
-			if = {
-				limit = {
-					NOT = {
-						is_target_in_global_variable_list = {
-							name = bag_wtp_browse
-							target = this
-						}
-					}
-				}
-				add_to_global_variable_list = { name = bag_wtp_browse target = this }
-				change_global_variable = { name = bag_wtp_browse_count add = 1 }
-			}
-		}
-	}
-}
-
-# Scope: country
-bag_wtp_drop_browse = {
-	clear_global_variable_list = bag_wtp_browse
-	set_global_variable = { name = bag_wtp_browse_count value = 0 }
-}
-
-# Make sure every counter the interface prints exists before anything reads it.
-# A script value reading a global variable that was never set shows as a blank
-# rather than as an error, which is the hardest kind of nothing to diagnose.
-# Scope: country
-bag_wtp_init_counters = {
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_picked_count } }
-		set_global_variable = { name = bag_wtp_picked_count value = 0 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_browse_count } }
-		set_global_variable = { name = bag_wtp_browse_count value = 0 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_zone_count } }
-		set_global_variable = { name = bag_wtp_zone_count value = 0 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_ceiling } }
-		set_global_variable = { name = bag_wtp_ceiling value = 0 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_candidate_count } }
-		set_global_variable = { name = bag_wtp_candidate_count value = 0 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_wanted } }
-		set_global_variable = { name = bag_wtp_wanted value = 0 }
-	}
-}
-
-# What a change to any region tick means. The zone marks move; the window's
-# province list is rebuilt only if the window is open, because that list is what
-# decides how many rows of it are alive.
-# Scope: country
-bag_wtp_zone_changed = {
-	bag_wtp_rebuild_zone = yes
-	bag_wtp_mark_zone = yes
-	if = {
-		limit = { has_variable = bag_wtp_open }
-		bag_wtp_rebuild_browse = yes
-	}
-	else = {
-		bag_wtp_drop_browse = yes
-	}
-}
-
 # The three toggles the map picker runs. Each adds what is not yet in the plan
 # and removes what is, so a second click on the same ground undoes the first and
-# there is nothing to "save" at the end.
+# there is nothing to save at the end.
 
 # Scope: location
 bag_wtp_toggle_one = {
@@ -217,15 +109,82 @@ bag_wtp_toggle_area_scope = {
 	}
 }
 
-# Changing the good invalidates whatever recipe was ticked underneath it: the
-# rows now say something else entirely. Clearing the row rather than leaving it
-# is the difference between an empty answer and a wrong one.
+# The provinces the window lists: the ones something is picked in.
+#
+# That is the window's whole job -- taking single locations back out of a plan
+# drawn on the map -- and it is what keeps the list bounded. Listing a ticked
+# continent's provinces instead would be some hundreds of rows at 79 widgets
+# each, behind a window that is a scripted widget and never comes down.
 # Scope: country
-bag_wtp_recipe_reset = {
-	set_variable = { name = bag_wtp_recipe_row value = 0 }
-	set_variable = { name = bag_wtp_method_index value = 0 }
-	bag_wtp_only_one_recipe = yes
-	bag_wtp_clear_weights = yes
-	set_global_variable = { name = bag_wtp_wanted value = 0 }
-	set_global_variable = { name = bag_wtp_ceiling value = 0 }
+bag_wtp_rebuild_browse = {
+	clear_global_variable_list = bag_wtp_browse
+	set_global_variable = { name = bag_wtp_browse_count value = 0 }
+
+	every_in_global_list = {
+		variable = bag_wtp_picked_locations
+		province = {
+			if = {
+				limit = {
+					NOT = {
+						is_target_in_global_variable_list = {
+							name = bag_wtp_browse
+							target = this
+						}
+					}
+				}
+				add_to_global_variable_list = { name = bag_wtp_browse target = this }
+				change_global_variable = { name = bag_wtp_browse_count add = 1 }
+			}
+		}
+	}
+}
+
+# Scope: country
+bag_wtp_drop_browse = {
+	clear_global_variable_list = bag_wtp_browse
+	set_global_variable = { name = bag_wtp_browse_count value = 0 }
+}
+
+# A tick in either goods list. The answer moved, so everything downstream of it
+# is stale.
+# Scope: country
+bag_wtp_good_changed = {
+	bag_wtp_read_good = yes
+	bag_wtp_only_one_good = yes
+	bag_wtp_clear_rows = yes
+	bag_wtp_trim_rows = yes
+}
+
+# A tick in the continent list. Nothing is walked; only what the pickers offer
+# changes.
+# Scope: country
+bag_wtp_zone_changed = {
+	bag_wtp_rebuild_zone = yes
+}
+
+# Make sure every counter the interface prints exists before anything reads it.
+# A script value reading a global variable that was never set shows as a blank
+# rather than as an error, which is the hardest kind of nothing to diagnose.
+# Scope: country
+bag_wtp_init_counters = {
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_picked_count } }
+		set_global_variable = { name = bag_wtp_picked_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_browse_count } }
+		set_global_variable = { name = bag_wtp_browse_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_zone_count } }
+		set_global_variable = { name = bag_wtp_zone_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_candidate_count } }
+		set_global_variable = { name = bag_wtp_candidate_count value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_variable = bag_wtp_good_index } }
+		set_variable = { name = bag_wtp_good_index value = 0 }
+	}
 }

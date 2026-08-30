@@ -1,26 +1,32 @@
 #!/usr/bin/env python3
 """Generate everything `where_to_produce` cannot write by hand.
 
-Four things come out of the game's own files rather than out of a list somebody
-typed, so a patch that renames a region or adds a production method is picked up
-by a rebuild:
+The mod answers one question: **for this good, where is the best place to make
+it, and with what.** The player names a good; the mod finds, per location, the
+best production method available for that good there, and ranks the locations by
+what that method would earn from the raw materials the province supplies.
 
-  - **The picker.** Two lists: the 47 goods an RGO can help make, and the ways
-    the chosen one is made -- at most 20, relabelled per good by pointing each
-    row's `_name` variable at a different key. Not a dropdown: CMF handles an
-    option click through `CMM_MarkDropdownSelection_<index>` and defines twenty
-    of them, so a dropdown is only clickable to its twentieth option.
-  - **The region picker.** The regions of the world, grouped by continent, read
-    out of the game's own `region_names_l_english.yml`. Six lists, none of them
-    near CMM's fifty-item ceiling. Seventy of the seventy-seven are proved real
-    by the game's own script scoping into them; the rest are printed on every
-    rebuild, because a localization file can name a key the map does not define.
-  - **The weights.** Choosing a method sets one global variable per raw material
-    it consumes, already divided by the method's total input weight and
-    multiplied by the ceiling. The bonus script value is then a plain sum, and
-    the formula lives in exactly one place.
-  - **The result rows.** Fifty of them, each reading back a location and a
-    number the ranking pass parked in global variables.
+Choosing the method was the player's job for one round and it should not have
+been: knowing which recipe suits which ground *is* the question the mod exists to
+answer, so asking it back was asking the player to do the work first.
+
+Four things come out of the game's own files rather than out of a list somebody
+typed, so a patch that adds a method or renames a region is picked up by a
+rebuild:
+
+  - **The good picker.** Two lists, split the way the goods themselves are: the
+    25 raw materials an RGO can also make, and the 22 things only a workshop
+    makes. Lists rather than dropdowns -- CMF handles a dropdown option click
+    through `CMM_MarkDropdownSelection_<index>` and defines twenty of them, so a
+    dropdown is silently unclickable past its twentieth option. A list is handled
+    to fifty.
+  - **The zone.** The five land continents, ticked. Not a walk: a location's
+    continent is one plain trigger, so nothing has to be marked in advance.
+  - **The scoring.** One script value per method giving what it would earn here,
+    and one effect per good that runs its methods over the candidates and keeps
+    the best. That is where "the mod finds the method" actually happens.
+  - **The result rows.** Fifty of them, each reading back a location, a number
+    and the building that won it.
 
 The formula is `eu5data.Method.bonus`, verified to the digit against three
 in-game tooltips at 1.3.10. See `docs/research/engine.md`.
@@ -43,37 +49,32 @@ import refs  # noqa: E402
 
 MOD_ID = "bag_wtp"
 
-# How many rows the result table has. CMF initialises list items through an
-# unrolled chain of `if`s that ends at fifty, so a taller list would register its
-# count and then leave the rest uninitialised -- counted, undrawn, and silent
-# about it. Raising this means leaving CMM, not editing this number.
+# How many rows any list has at most. CMF initialises list items through an
+# unrolled chain of `if`s that ends at fifty, and handles a row click through
+# `CMM_MarkListPosition_*`, which is unrolled to the same fifty. Raising this
+# means leaving CMM, not editing this number.
+LIST_CAP = 50
 RESULT_ROWS = 50
 
 # Raw materials a single method can want. The widest recipe in the game takes
-# five, and the row tooltip names them all.
+# five.
 MAX_INPUTS = 5
 
-# How tall the recipe list is: the most (building, method) pairs any one good is
-# made by. Liquor is the widest at twenty, which is inside a CMM list's fifty.
-MAX_RECIPES = 20
+# The land continents, in the order the game's own localization lists them. The
+# ocean continent is not offered: nothing is built there.
+CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
 
 ZONE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_zone.txt"
-METHOD_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_method.txt"
-ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
 PICKER_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_picker.txt"
+SCORE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_score.txt"
+ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
 VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
+TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_triggers.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
 BOM = "﻿"
-
-# The subcontinent the open-water regions are filed under. Dropping them by name
-# is what a first attempt did, and it threw out `north_atlantic_islands_region`
-# -- Iceland and the Faroes, dry land the game's own script scopes into. The
-# file's own grouping is the thing that actually knows.
-OPEN_WATER_GROUP = "Ocean Subcontinent"
-
 HEADER = "# Generated by mods/where_to_produce/tools/generate.py. Do not edit by hand.\n"
 
 
@@ -83,254 +84,263 @@ def write(path: Path, body: str) -> None:
 
 
 # --------------------------------------------------------------------------
-# The game's regions
-
-
-def regions() -> dict[str, list[str]]:
-    """Continent -> region keys, read off the game's own region localization.
-
-    The file carries the hierarchy in its comments -- continent at one indent,
-    subcontinent at the next, region keys under both -- and it is the only place
-    in `reference/` that knows it, because `map_data` is not in the tree. The
-    keys themselves are what matters; `region:<key>` is an ordinary scope link
-    the game's own script uses several hundred times.
-    """
-    path = refs.GAME_LOCALIZATION / "english/region_names_l_english.yml"
-    lines = path.read_text(encoding="utf-8-sig").splitlines()
-
-    out: dict[str, list[str]] = {}
-    seen: set[str] = set()
-    section = continent = group = None
-    for line in lines:
-        stripped = line.strip()
-        if not stripped or stripped.startswith("l_english"):
-            continue
-        indent = len(line) - len(line.lstrip())
-        if stripped.startswith("#"):
-            name = stripped.lstrip("#").strip()
-            if indent <= 1:
-                section, continent, group = name, None, None
-            elif indent <= 2:
-                continent, group = name, None
-            else:
-                group = name
-            continue
-        match = re.match(r"^([a-z0-9_]+):", stripped)
-        if not match or continent is None:
-            continue
-        key = match.group(1)
-
-        # The file's own sections are not to be trusted on their own: five real
-        # regions are filed under "Subcontinents" -- `hindustan_region` and
-        # `north_atlantic_islands_region` among them, and the game's script scopes
-        # into both -- so the suffix has to be honoured wherever it appears. What
-        # the sections do settle is the other direction: a key in the Regions
-        # section is a region even without the suffix, which is how `poland` gets
-        # in.
-        if not (key.endswith("_region") or section == "Regions"):
-            # Continents and subcontinents themselves are not offered: ticking
-            # "Europe" and ticking every European region would be two ways to say
-            # the same thing, and one of them would silently double the walk.
-            continue
-        if group == OPEN_WATER_GROUP or key in seen:
-            continue
-        seen.add(key)
-        out.setdefault(continent, []).append(key)
-
-    over = {c: len(r) for c, r in out.items() if len(r) > RESULT_ROWS}
-    if over:
-        raise SystemExit(f"a continent has more regions than a CMM list holds: {over}")
-    return out
-
-
-def unproven(offered: set[str]) -> list[str]:
-    """Offered region keys that nothing in `reference/` ever scopes into.
-
-    These come out of a localization file, and a localization file can name a key
-    the map does not define. `region:<key>` on a key that is not a region fails at
-    load -- loudly, in `error.log`, which is the good kind of failure, but it is
-    still worth knowing which rows are the suspects before the game says so.
-    """
-    used: set[str] = set()
-    for root in (refs.GAME / "in_game", refs.MODS):
-        for path in root.rglob("*.txt"):
-            used.update(re.findall(r"region:([a-z0-9_]+)", path.read_text(
-                encoding="utf-8-sig", errors="ignore")))
-    return sorted(offered - used)
-
-
-# --------------------------------------------------------------------------
-# The methods worth offering
+# What the game offers
 
 
 def methods(game: eu5data.Game) -> list[eu5data.Method]:
-    """Every method that could gain something from an RGO, in picker order.
+    """Every method that could gain something from an RGO.
 
-    A method with no raw-material input can never take the bonus, so offering it
-    would be offering a row that is always zero.
+    A method with no raw-material input can never take the bonus, so scoring it
+    would be scoring a zero.
     """
     rows = [m for m in game.methods if m.raw_inputs(game.raw_goods)]
-    # By building, so a building's methods are adjacent and one scroll finds
-    # them. Sorting by the good put a building's methods far apart whenever it
-    # makes more than one thing, which is the case the picker is hardest for.
-    return sorted(rows, key=lambda m: (m.building, m.produced, m.key))
+    return sorted(rows, key=lambda m: (m.produced, m.building, m.key))
+
+
+def goods_split(rows: list[eu5data.Method], game: eu5data.Game) -> dict[str, list[str]]:
+    """The goods worth asking about, split into the two piles the player thinks in.
+
+    A raw material is something an RGO also produces -- so a mason's yard and a
+    quarry both make masonry, and the question "where should I make it" is a
+    different one from "where should I make cannons".
+    """
+    goods = sorted({m.produced for m in rows})
+    split = {
+        "raw": [g for g in goods if g in game.raw_goods],
+        "made": [g for g in goods if g not in game.raw_goods],
+    }
+    over = {k: len(v) for k, v in split.items() if len(v) > LIST_CAP}
+    if over:
+        raise SystemExit(f"a goods list is taller than CMM holds: {over}")
+    return split
 
 
 # --------------------------------------------------------------------------
 # Output
 
 
-def zone_file(by_continent: dict[str, list[str]]) -> str:
-    out = [HEADER, """#
-# The region pickers. One list per continent, each row a region, one tick per
-# row. Row labels are the game's own region keys handed to CMM as flags, so the
-# names arrive translated in whatever language the player runs and nothing here
-# has to carry a copy of them.
-#
-# Item ordinals are literals throughout: a CMM list macro pastes `item = var:x`
-# verbatim and the load dies on it.
-#
+def zone_file() -> str:
+    """The zone: the continents to look inside, ticked.
+
+    There is nothing to walk here. A location's continent is a plain trigger --
+    `continent = continent:europe`, which vanilla uses seventy times -- so
+    membership is asked at the moment it matters instead of being marked onto
+    every location of a continent in advance. An earlier version did the walk,
+    and ticking Europe would have meant setting a variable on some thousands of
+    locations for nothing.
+    """
+    out = [HEADER, f"""#
 # Scope: country
+{MOD_ID}_register_zone_list = {{
+\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = zone
+\t\ttab_id = plan
+\t\titem_count = {len(CONTINENTS)}
+\t\tis_ordered = 0
+\t}}
+
 """]
-
-    for continent, keys in by_continent.items():
-        slug = re.sub(r"[^a-z0-9]+", "_", continent.lower()).strip("_")
-        setting = f"zone_{slug}"
-        out.append(f"\n{MOD_ID}_register_{setting} = {{\n")
-        out.append(f"\tcmm_register_settings_list = {{\n")
-        out.append(f"\t\tmod_id = {MOD_ID}\n\t\tsetting_id = {setting}\n")
-        # `is_ordered` is not optional. CMF declares it, and a CMM macro called
-        # without an argument CMF declares dies silently and takes the rest of the
-        # effect with it -- which is how the first build registered no lists at
-        # all and put a tab on screen with only the dropdown on it.
-        out.append(f"\t\ttab_id = plan\n\t\titem_count = {len(keys)}\n"
-                   f"\t\tis_ordered = 0\n\t}}\n\n")
-        for index, key in enumerate(keys, start=1):
-            out.append(
-                f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                f"setting_id = {setting} item = {index} value = region:{key} }}\n"
-            )
-        out.append("\n")
-        for index, key in enumerate(keys, start=1):
-            out.append(
-                f"\tset_variable = {{ name = {MOD_ID}__{setting}_i{index}_name "
-                f"value = flag:{key} }}\n"
-            )
-        out.append(f"\n\tcmm_register_list_bool_field = {{\n")
-        out.append(f"\t\tmod_id = {MOD_ID}\n\t\tsetting_id = {setting}\n")
-        out.append("\t\tfield_id = pick\n\t\tdefault_value = 0\n\t}\n}\n")
-
-    out.append(f"\n# Scope: country\n{MOD_ID}_register_zone_lists = {{\n")
-    for continent in by_continent:
-        slug = re.sub(r"[^a-z0-9]+", "_", continent.lower()).strip("_")
-        out.append(f"\t{MOD_ID}_register_zone_{slug} = yes\n")
-    out.append("}\n")
-
+    for index, key in enumerate(CONTINENTS, start=1):
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                   f"setting_id = zone item = {index} value = continent:{key} }}\n")
+    out.append("\n")
+    for index, key in enumerate(CONTINENTS, start=1):
+        # The game's own key, so the row arrives named in the player's language
+        # and nothing here carries a copy of it.
+        out.append(f"\tset_variable = {{ name = {MOD_ID}__zone_i{index}_name "
+                   f"value = flag:{key} }}\n")
     out.append(f"""
-# Collect the ticked regions of every list into one global list the ranking pass
-# walks. `cmm_build_list_bool_list` clears the list it writes into, so each list
-# is read into its own and they are merged here rather than appended.
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = zone
+\t\tfield_id = pick
+\t\tdefault_value = 0
+\t}}
+}}
+
 # Scope: country
 {MOD_ID}_rebuild_zone = {{
-\tclear_global_variable_list = {MOD_ID}_regions
-\tset_global_variable = {{ name = {MOD_ID}_region_count value = 0 }}
-""")
-    for continent in by_continent:
-        slug = re.sub(r"[^a-z0-9]+", "_", continent.lower()).strip("_")
-        setting = f"zone_{slug}"
-        out.append(f"""\tif = {{
+\tclear_global_variable_list = {MOD_ID}_continents
+\tset_global_variable = {{ name = {MOD_ID}_zone_count value = 0 }}
+
+\tif = {{
 \t\t# Registration may not have completed yet on the first pass.
-\t\tlimit = {{ has_variable_list = cmm_list_items_{MOD_ID}__{setting} }}
-\t\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__{setting} field_slot = 1 list_name = {MOD_ID}_zone_{slug} }}
+\t\tlimit = {{ has_variable_list = cmm_list_items_{MOD_ID}__zone }}
+\t\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__zone field_slot = 1 list_name = {MOD_ID}_zone_ticks }}
 \t\tevery_in_list = {{
-\t\t\tvariable = {MOD_ID}_zone_{slug}
-\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_regions target = this }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_region_count add = 1 }}
+\t\t\tvariable = {MOD_ID}_zone_ticks
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_continents target = this }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_zone_count add = 1 }}
 \t\t}}
 \t}}
+}}
+
+# Every land location of the ticked continents, for when the player ranks a whole
+# continent without narrowing it first.
+# Scope: country
+{MOD_ID}_collect_zone = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_continents
+\t\tevery_location_in_continent = {{
+\t\t\tlimit = {{ {MOD_ID}_is_candidate = yes }}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_candidate_count add = 1 }}
+\t\t}}
+\t}}
+}}
 """)
-    out.append("}\n")
     return "".join(out)
 
 
-def method_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
+def triggers_file(rows, split) -> str:
     out = [HEADER, f"""#
-# What choosing a method means in script.
+# Whether the map picker and the ranking offer this location at all.
 #
-# The bonus a location gets is
+# The ticked continents narrow it; with nothing ticked the whole world is on
+# offer, because a picker that shows nothing until a checkbox somewhere else is
+# set looks broken rather than empty. Ownership is deliberately never asked --
+# the whole use is planning for ground that is not yours yet.
 #
-#     RGO bonus % = {eu5data.RGO_MAX_BONUS:g} * (input amounts the province supplies) / (all input amounts)
+# Scope: location
+{MOD_ID}_in_zone = {{
+\tOR = {{
+\t\tglobal_var:{MOD_ID}_zone_count = 0
+"""]
+    for key in CONTINENTS:
+        out.append(f"""\t\tAND = {{
+\t\t\tcontinent = continent:{key}
+\t\t\tis_target_in_global_variable_list = {{ name = {MOD_ID}_continents target = continent:{key} }}
+\t\t}}
+""")
+    out.append("\t}\n}\n")
+
+    # "Only where it can be built today", per good. `can_build_building` is the
+    # documented trigger and takes a literal building type, so the alternative --
+    # walking `any_building_type` and asking what it produces -- would have needed
+    # a trigger that does not exist.
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    by_good: dict[str, list[str]] = {}
+    for method in rows:
+        by_good.setdefault(method.produced, [])
+        if method.building not in by_good[method.produced]:
+            by_good[method.produced].append(method.building)
+
+    out.append(f"""
+# Scope: location
+{MOD_ID}_can_build_something = {{
+""")
+    for index, good in enumerate(order, start=1):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
+                   f"{MOD_ID}_can_build_{index} = yes }}\n")
+    out.append("}\n")
+
+    for index, good in enumerate(order, start=1):
+        out.append(f"\n# {good}\n# Scope: location\n{MOD_ID}_can_build_{index} = {{\n\tOR = {{\n")
+        for building in sorted(by_good.get(good, [])):
+            out.append(f"\t\tcan_build_building = building_type:{building}\n")
+        out.append("\t}\n}\n")
+
+    return "".join(out)
+
+
+def picker_file(split: dict[str, list[str]]) -> str:
+    """The good picker: two lists, and only one tick standing across both."""
+    out = [HEADER, """#
+# Two lists rather than a dropdown, and not by preference: CMF handles a dropdown
+# option click through `CMM_MarkDropdownSelection_<index>` and defines exactly
+# twenty of them, so the twenty-first option onwards renders, scrolls, and
+# silently keeps the old selection.
 #
-# and the division is done here, once, rather than in the script value that runs
-# per location. Each branch below sets one weight per raw material the method
-# consumes, already worth its share of the ceiling, so the script value is a
-# plain sum of the weights whose material the province has.
-#
-# Every input counts towards the denominator, produced goods included -- an RGO
-# can never supply tools, but tools still carry their weight. That is why a
-# method can top out well below {eu5data.RGO_MAX_BONUS:g}%.
-#
-# Scope: country
+# One answer across both lists. Ticking a second row anywhere leaves two ticks
+# standing for the instant between the click and the callback; the tick that is
+# not the stored answer wins and everything else is forced off, so the tick
+# visibly moves to one row and stays there.
 """]
 
-    used = sorted({g for m in rows for g in m.raw_inputs(game.raw_goods)})
+    order = [(kind, good) for kind in ("raw", "made") for good in split[kind]]
+    index_of = {good: i for i, (_, good) in enumerate(order, start=1)}
 
-    out.append(f"\n{MOD_ID}_clear_weights = {{\n")
-    for good in used:
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_w_{good} value = 0 }}\n")
+    for kind in ("raw", "made"):
+        goods = split[kind]
+        out.append(f"""
+# Scope: country
+{MOD_ID}_register_good_{kind}_list = {{
+\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = good_{kind}
+\t\ttab_id = plan
+\t\titem_count = {len(goods)}
+\t\tis_ordered = 0
+\t}}
+
+""")
+        for row, good in enumerate(goods, start=1):
+            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                       f"setting_id = good_{kind} item = {row} value = goods:{good} }}\n")
+        out.append("\n")
+        for row, good in enumerate(goods, start=1):
+            out.append(f"\tset_variable = {{ name = {MOD_ID}__good_{kind}_i{row}_name "
+                       f"value = flag:{MOD_ID}_good_{good} }}\n")
+        out.append(f"""
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = good_{kind}
+\t\tfield_id = pick
+\t\tdefault_value = 0
+\t}}
+}}
+""")
+
+    out.append(f"""
+# Read both lists and settle on one good.
+# Scope: country
+{MOD_ID}_read_good = {{
+\tset_variable = {{ name = {MOD_ID}_good_new value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_tick_count value = 0 }}
+""")
+    for kind in ("raw", "made"):
+        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__good_{kind} field_slot = 1 list_name = {MOD_ID}_good_{kind}_ticks }}
+\tevery_in_list = {{
+\t\tvariable = {MOD_ID}_good_{kind}_ticks
+\t\troot = {{ change_variable = {{ name = {MOD_ID}_tick_count add = 1 }} }}
+""")
+        for good in split[kind]:
+            index = index_of[good]
+            out.append(f"\t\tif = {{ limit = {{ this = goods:{good} }} root = {{ "
+                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_good_index = {index} }} }} "
+                       f"set_variable = {{ name = {MOD_ID}_good_new value = {index} }} }} }} }}\n")
+        out.append("\t}\n")
+    out.append(f"""
+\t# A tick that is not the stored answer is the new answer. Nothing new ticked
+\t# means the player unticked the old one, and the answer goes with it.
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_good_new > 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_new }}
+\t}}
+\telse_if = {{
+\t\tlimit = {{ var:{MOD_ID}_tick_count = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+\t}}
+
+""")
+    for good, index in ((g, index_of[g]) for _, g in order):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {index} }} "
+                   f"set_global_variable = {{ name = {MOD_ID}_good value = goods:{good} }} }}\n")
     out.append("}\n")
 
     out.append(f"""
-# Read the method dropdown back and apply it. The index is whatever
-# `cmm_sync_setting_alias` last copied out of CMM's map, so a branch missing
-# here means the dropdown and this file disagree about how many options exist --
-# which is why the fallback logs rather than doing nothing.
+# Force every row but the answer off.
 # Scope: country
-{MOD_ID}_apply_method = {{
-\t{MOD_ID}_clear_weights = yes
-
-\t# Nothing picked is a real state -- the recipe list is empty until a good is
-\t# chosen -- and a `switch` with no branch for the value it is handed is not.
-\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_method_index > 0 }}
-\tswitch = {{
-\t\ttrigger = var:{MOD_ID}_method_index
+{MOD_ID}_only_one_good = {{
 """)
-
-    for index, method in enumerate(rows, start=1):
-        total = method.total_input
-        out.append(f"\t\t{index} = {{\n")
-        out.append(f"\t\t\tset_global_variable = {{ name = {MOD_ID}_building value = building_type:{method.building} }}\n")
-        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
-            share = eu5data.RGO_MAX_BONUS * amount / total
-            out.append(
-                f"\t\t\tset_global_variable = {{ name = {MOD_ID}_w_{good} value = {share:.4f} }}\n"
-            )
-        # What the row tooltip names. Stored as scopes rather than as text so the
-        # localization can print them in the player's own language.
-        for slot, good in enumerate(sorted(method.raw_inputs(game.raw_goods)), start=1):
-            out.append(
-                f"\t\t\tset_global_variable = {{ name = {MOD_ID}_wants_{slot} value = goods:{good} }}\n"
-            )
-        for slot in range(len(method.raw_inputs(game.raw_goods)) + 1, MAX_INPUTS + 1):
-            out.append(f"\t\t\tremove_global_variable = {MOD_ID}_wants_{slot}\n")
-        out.append(f"\t\t\tset_global_variable = {{ name = {MOD_ID}_ceiling value = {method.ceiling(game.raw_goods):.4f} }}\n")
-        out.append("\t\t}\n")
-
-    out.append("\t}\n\t}\n}\n")
-
-    out.append(f"""
-# How many raw materials the chosen method wants. The row label prints it as the
-# denominator, so a location is read as "three of the four it could have" rather
-# than as a bare percentage.
-# Scope: country
-{MOD_ID}_count_wanted = {{
-\tset_global_variable = {{ name = {MOD_ID}_wanted value = 0 }}
-""")
-    for slot in range(1, MAX_INPUTS + 1):
-        out.append(f"""\tif = {{
-\t\tlimit = {{ has_global_variable = {MOD_ID}_wants_{slot} }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_wanted add = 1 }}
+    for kind in ("raw", "made"):
+        for row, good in enumerate(split[kind], start=1):
+            out.append(f"""\tif = {{
+\t\tlimit = {{ NOT = {{ var:{MOD_ID}_good_index = {index_of[good]} }} }}
+\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = good_{kind} field_id = pick item = {row} value = 0 }}
 \t}}
 """)
     out.append("}\n")
@@ -338,66 +348,107 @@ def method_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 
 
 def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
-    used = sorted({g for m in rows for g in m.raw_inputs(game.raw_goods)})
+    """One script value per method: what it would earn in this location.
+
+    The weights are constants -- a method's share of the ceiling per raw material
+    -- so each value is a sum of the ones the province can supply. No global
+    variable is involved any more, because the method is no longer something the
+    player chose; every method is scored and the best wins.
+    """
     out = [HEADER, f"""#
-# The number every location in the selection is ranked by.
+# `RGO bonus % = {eu5data.RGO_MAX_BONUS:g} * (input amounts the province supplies) / (all input amounts)`,
+# with the division done here, once per method, at generation time.
 #
-# One branch per raw material any offered method consumes. The weight is zero
-# unless the chosen method wants that material, so this sums to the bonus of
-# whichever method is selected without knowing which one it is.
-#
-# The province, not the location: the game credits a raw material worked
-# anywhere in the province, which is what its own tooltip says and what
-# `rgo_bonus_filter` already matches on screen.
-#
-# Scope: location
-{MOD_ID}_rgo_bonus = {{
-\tvalue = 0
+# The province, not the location: the game credits a raw material worked anywhere
+# in the province, which is what its own tooltip says and what `rgo_bonus_filter`
+# already matches on screen. Every input counts towards the denominator, produced
+# goods included -- an RGO can never supply tools, but tools still carry their
+# weight, which is why a method can top out well below {eu5data.RGO_MAX_BONUS:g}%.
 """]
-    for good in used:
-        out.append(f"""\tif = {{
+    for index, method in enumerate(rows, start=1):
+        total = method.total_input
+        out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
+                   f"ceiling {method.ceiling(game.raw_goods):.2f}%\n")
+        out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n\tvalue = 0\n")
+        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
+            share = eu5data.RGO_MAX_BONUS * amount / total
+            out.append(f"""\tif = {{
 \t\tlimit = {{ province = {{ any_location_in_province = {{ raw_material = goods:{good} }} }} }}
-\t\tadd = global_var:{MOD_ID}_w_{good}
+\t\tadd = {share:.4f}
 \t}}
 """)
-    out.append("}\n")
+        out.append("}\n")
 
     out.append(f"""
-# How many of the chosen method's raw materials this province supplies, and how
-# many it wants. The row label prints both, so a location that reaches 5% out of
-# a possible 10% does not read the same as one that reaches 5% out of 5%.
+# What the ranking sorts on, and what the rows print. Both read back what the
+# scoring pass parked on the location and in global variables.
 # Scope: location
-{MOD_ID}_matched_count = {{
-\tvalue = 0
-""")
-    for slot in range(1, MAX_INPUTS + 1):
-        out.append(f"""\tif = {{
-\t\tlimit = {{
-\t\t\thas_global_variable = {MOD_ID}_wants_{slot}
-\t\t\tprovince = {{ any_location_in_province = {{ raw_material = global_var:{MOD_ID}_wants_{slot} }} }}
-\t\t}}
-\t\tadd = 1
-\t}}
-""")
-    out.append("}\n")
-
-    out.append(f"""
-# Read the parked results back for the row labels. A localization value cannot
-# reach a global variable's number directly, but it can run a script value, and
-# `goods_target` already prints its readings this way.
-# Scope: country
+{MOD_ID}_score = {{ value = var:{MOD_ID}_best }}
 """)
     for row in range(1, RESULT_ROWS + 1):
         out.append(f"{MOD_ID}_show_bonus_{row} = {{ value = global_var:{MOD_ID}_bonus_{row} }}\n")
-    for row in range(1, RESULT_ROWS + 1):
-        out.append(f"{MOD_ID}_show_matched_{row} = {{ value = global_var:{MOD_ID}_matched_{row} }}\n")
-    out.append(f"\n{MOD_ID}_show_wanted = {{ value = global_var:{MOD_ID}_wanted }}\n")
-    out.append(f"{MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_region_count }}\n")
-    out.append(f"{MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}\n")
-    out.append(f"{MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}\n")
-    out.append(f"{MOD_ID}_show_picked = {{ value = global_var:{MOD_ID}_picked_count }}\n")
-    out.append(f"{MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}\n")
-    out.append(f"{MOD_ID}_show_ceiling = {{ value = global_var:{MOD_ID}_ceiling }}\n")
+    out.append(f"""
+{MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
+{MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}
+{MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}
+{MOD_ID}_show_picked = {{ value = global_var:{MOD_ID}_picked_count }}
+{MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}
+""")
+    return "".join(out)
+
+
+def score_file(rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
+    """Finding the method, which is the thing the player should not have to do.
+
+    One effect per good, walking the candidates once and keeping, per location,
+    the best of that good's methods and which method it was. The dispatch over
+    goods happens once rather than once per location, which is why it is out here
+    rather than inside the loop.
+    """
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    by_good: dict[str, list[int]] = {}
+    for index, method in enumerate(rows, start=1):
+        by_good.setdefault(method.produced, []).append(index)
+
+    out = [HEADER, f"""#
+# Scope: country
+{MOD_ID}_score_candidates = {{
+"""]
+    for index, good in enumerate(order, start=1):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {index} }} "
+                   f"{MOD_ID}_score_{index} = yes }}\n")
+    out.append("}\n")
+
+    for index, good in enumerate(order, start=1):
+        methods_for = by_good.get(good, [])
+        out.append(f"\n# {good}, made {len(methods_for)} way(s).\n"
+                   f"# Scope: country\n{MOD_ID}_score_{index} = {{\n")
+        out.append(f"\tevery_in_global_list = {{\n\t\tvariable = {MOD_ID}_candidates\n")
+        out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best value = 0 }}\n")
+        out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best_method value = 0 }}\n")
+        for method_index in methods_for:
+            out.append(f"""\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_try > var:{MOD_ID}_best }}
+\t\t\tset_variable = {{ name = {MOD_ID}_best value = var:{MOD_ID}_try }}
+\t\t\tset_variable = {{ name = {MOD_ID}_best_method value = {method_index} }}
+\t\t}}
+""")
+        out.append("\t}\n}\n")
+
+    out.append(f"""
+# Which building won a row, printed by the row itself. One branch per method,
+# reached once per filled row rather than once per candidate.
+# Scope: location
+{MOD_ID}_store_winner = {{
+""")
+    for index, method in enumerate(rows, start=1):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_best_method = {index} }} "
+                   f"root = {{ set_global_variable = {{ name = {MOD_ID}_winner "
+                   f"value = building_type:{method.building} }} }} }}\n")
+    out.append("}\n")
     return "".join(out)
 
 
@@ -406,10 +457,9 @@ def rows_file() -> str:
 # The result table, and the pass that fills it.
 #
 # Ranking is the engine's: `ordered_in_global_list` takes `order_by` as a script
-# value and `position` as a rank, so nothing here sorts by hand. One block per
-# row, each asking for the next best candidate; `check_range_bounds = no` is
-# what keeps a selection shorter than the table from logging an error per
-# missing row.
+# value and sorts highest first -- vanilla proves the direction by writing
+# `multiply = -1` on the one place it wants the weakest -- and pairs `max` with
+# `check_range_bounds = no` when the list may be shorter than asked for.
 #
 # Scope: country
 {MOD_ID}_register_result_list = {{
@@ -422,10 +472,8 @@ def rows_file() -> str:
 \t}}
 """]
     for row in range(1, RESULT_ROWS + 1):
-        out.append(
-            f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-            f"setting_id = result item = {row} value = flag:row_{row} }}\n"
-        )
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                   f"setting_id = result item = {row} value = flag:row_{row} }}\n")
     out.append("}\n")
 
     out.append(f"""
@@ -435,27 +483,16 @@ def rows_file() -> str:
 """)
     for row in range(1, RESULT_ROWS + 1):
         out.append(f"\tremove_global_variable = {MOD_ID}_row_{row}\n")
+        out.append(f"\tremove_global_variable = {MOD_ID}_bt_{row}\n")
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = 0 }}\n")
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_matched_{row} value = 0 }}\n")
     out.append("}\n")
 
     out.append(f"""
-# One sorted pass, and the rank is a running count rather than a `position`.
-#
-# `order_by` sorts highest first -- the game's own script proves it by writing
-# `multiply = -1` on the one place it wants the weakest -- and `max` with
-# `check_range_bounds = no` is the pairing vanilla uses when the list may be
-# shorter than the number asked for.
-#
-# The row a candidate lands in is chosen by an `if` chain rather than a `switch`,
-# because the counter is a global and every `switch` in CMF and in the game reads
-# a plain `var:`. Fifty branches of a construct that certainly works beat one of a
-# construct that probably does.
 # Scope: country
 {MOD_ID}_fill_rows = {{
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\torder_by = {MOD_ID}_rgo_bonus
+\t\torder_by = {MOD_ID}_score
 \t\tmax = {RESULT_ROWS}
 \t\tcheck_range_bounds = no
 \t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
@@ -463,18 +500,21 @@ def rows_file() -> str:
 \t}}
 }}
 
-# Park one candidate in the slot its rank names. Runs once per candidate, in the
-# location's own scope, which is where both script values want to be evaluated.
+# Park one candidate in the slot its rank names, with the building that won it.
+# The row a candidate lands in is chosen by an `if` chain rather than a `switch`,
+# because the counter is a global and every `switch` in CMF and in the game reads
+# a plain `var:`.
 # Scope: location
 {MOD_ID}_store_row = {{
+\t{MOD_ID}_store_winner = yes
 """)
     for row in range(1, RESULT_ROWS + 1):
         keyword = "if" if row == 1 else "else_if"
         out.append(f"""\t{keyword} = {{
 \t\tlimit = {{ global_var:{MOD_ID}_found = {row} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_row_{row} value = this }}
-\t\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = {MOD_ID}_rgo_bonus }}
-\t\tset_global_variable = {{ name = {MOD_ID}_matched_{row} value = {MOD_ID}_matched_count }}
+\t\tset_global_variable = {{ name = {MOD_ID}_bonus_{row} value = var:{MOD_ID}_best }}
+\t\tset_global_variable = {{ name = {MOD_ID}_bt_{row} value = global_var:{MOD_ID}_winner }}
 \t}}
 """)
     out.append("}\n")
@@ -497,7 +537,7 @@ def rows_file() -> str:
     return "".join(out)
 
 
-def guis_file(by_continent: dict[str, list[str]]) -> str:
+def guis_file() -> str:
     """One `_on_changed` per list, and they are not optional.
 
     Registering a list marks the setting as having a scripted GUI, and CMM then
@@ -505,21 +545,21 @@ def guis_file(by_continent: dict[str, list[str]]) -> str:
     the whole widget is hidden, header included -- and because a list is filed
     under a group named after itself, the group header still renders, so a
     missing callback looks like an empty list rather than a missing one.
-
-    They are also the only path a click on a list takes into script: bool,
-    dropdown, numeric, slider and button settings auto-apply and reach
-    `cmf_on_callback`, and a list reaches nothing until `cmm_apply_list_change`
-    is called here.
     """
     out = [HEADER, """#
-# The lists' change callbacks, one per list. See the generator's docstring for
-# why a list without one of these is invisible rather than merely inert.
+# A list reaches nothing but its own `_on_changed`: bool, dropdown, numeric,
+# slider and button settings auto-apply and reach `cmf_on_callback`, and a list
+# reaches neither until `cmm_apply_list_change` is called here.
 """]
-
-    for continent in by_continent:
-        slug = re.sub(r"[^a-z0-9]+", "_", continent.lower()).strip("_")
+    for setting, after in (
+        ("zone", f"{MOD_ID}_zone_changed = yes"),
+        ("good_raw", f"{MOD_ID}_good_changed = yes"),
+        ("good_made", f"{MOD_ID}_good_changed = yes"),
+        ("result", ""),
+    ):
+        body = f"\t\t{after}\n" if after else ""
         out.append(f"""
-{MOD_ID}__zone_{slug}_on_changed = {{
+{MOD_ID}__{setting}_on_changed = {{
 \tscope = country
 
 \tis_shown = {{
@@ -528,280 +568,38 @@ def guis_file(by_continent: dict[str, list[str]]) -> str:
 
 \teffect = {{
 \t\tcmm_apply_list_change = {{
-\t\t\tsetting = {MOD_ID}__zone_{slug}
+\t\t\tsetting = {MOD_ID}__{setting}
 \t\t}}
-\t\t{MOD_ID}_zone_changed = yes
-\t}}
-}}
-""")
-
-    out.append(f"""
-# Picking a good rewrites the recipe list underneath it, so the two callbacks are
-# not symmetrical: the first refills, the second only reads.
-{MOD_ID}__good_on_changed = {{
-\tscope = country
-
-\tis_shown = {{
-\t\talways = yes
-\t}}
-
-\teffect = {{
-\t\tcmm_apply_list_change = {{
-\t\t\tsetting = {MOD_ID}__good
-\t\t}}
-\t\t{MOD_ID}_read_good = yes
-\t\t{MOD_ID}_only_one_good = yes
-\t\t{MOD_ID}_fill_recipes = yes
-\t\t{MOD_ID}_recipe_reset = yes
-\t}}
-}}
-
-{MOD_ID}__recipe_on_changed = {{
-\tscope = country
-
-\tis_shown = {{
-\t\talways = yes
-\t}}
-
-\teffect = {{
-\t\tcmm_apply_list_change = {{
-\t\t\tsetting = {MOD_ID}__recipe
-\t\t}}
-\t\t{MOD_ID}_read_recipe = yes
-\t\t{MOD_ID}_only_one_recipe = yes
-\t\t{MOD_ID}_apply_method = yes
-\t\t{MOD_ID}_count_wanted = yes
-\t}}
-}}
-""")
-
-    out.append(f"""
-# The result table is read-only -- there is nothing to tick in it. It still needs
-# a callback, because that is what makes the rows visible at all.
-{MOD_ID}__result_on_changed = {{
-\tscope = country
-
-\tis_shown = {{
-\t\talways = yes
-\t}}
-
-\teffect = {{
-\t\tcmm_apply_list_change = {{
-\t\t\tsetting = {MOD_ID}__result
-\t\t}}
-\t}}
+{body}\t}}
 }}
 """)
     return "".join(out)
 
 
-def picker_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
-    """The two-step picker: a good, then one of the ways that good is made.
-
-    A flat list of 218 was unusable for two reasons the game found for us. A CMM
-    dropdown renders every option but only the first twenty can be clicked --
-    CMF handles an option click through `CMM_MarkDropdownSelection_<index>` and
-    defines exactly twenty of them, so anything past the twentieth silently keeps
-    the old selection. And at about 165 pixels the control elides everything
-    after the first field anyway.
-
-    So both steps are lists, which CMF handles to fifty (`CMM_MarkListPosition_*`
-    is unrolled to fifty, matching the item cap). 47 goods and at most 20 recipes
-    per good both fit. The recipe rows are relabelled per good at runtime by
-    pointing each row's `_name` variable at a different localization key, which is
-    the same mechanism that puts the game's own region names on the region rows.
-    """
-    goods = sorted({m.produced for m in rows})
-    by_good: dict[str, list[int]] = {}
-    for index, method in enumerate(rows, start=1):
-        by_good.setdefault(method.produced, []).append(index)
-    for good in goods:
-        by_good[good].sort(key=lambda i: (rows[i - 1].building, rows[i - 1].key))
-
-    widest = max(len(v) for v in by_good.values())
-    if widest > MAX_RECIPES:
-        raise SystemExit(f"a good is made {widest} ways; the recipe list holds {MAX_RECIPES}")
-    if len(goods) > RESULT_ROWS:
-        raise SystemExit(f"{len(goods)} goods; a CMM list holds {RESULT_ROWS}")
-
-    out = [HEADER, f"""#
-# See the generator's `picker_file` for why neither step is a dropdown.
-#
-# Scope: country
-{MOD_ID}_register_good_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good
-\t\ttab_id = plan
-\t\titem_count = {len(goods)}
-\t\tis_ordered = 0
-\t}}
-
-"""]
-    for index, good in enumerate(goods, start=1):
-        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                   f"setting_id = good item = {index} value = goods:{good} }}\n")
-    out.append("\n")
-    for index, good in enumerate(goods, start=1):
-        out.append(f"\tset_variable = {{ name = {MOD_ID}__good_i{index}_name "
-                   f"value = flag:{MOD_ID}_good_{good} }}\n")
-    out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
-}}
-
-# The recipe list is registered at its full height once and rewritten in place:
-# CMM's dynamic builder only runs before the list is initialised, so a list whose
-# contents change has to be born at its widest.
-# Scope: country
-{MOD_ID}_register_recipe_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = recipe
-\t\ttab_id = plan
-\t\titem_count = {MAX_RECIPES}
-\t\tis_ordered = 0
-\t}}
-
-""")
-    for row in range(1, MAX_RECIPES + 1):
-        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                   f"setting_id = recipe item = {row} value = flag:{MOD_ID}_row_{row} }}\n")
-    out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = recipe
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
-}}
-
-# Which good is ticked. The ticked rows come back as the goods themselves, so
-# this is a chain over the catalogue rather than over row ordinals.
-# Scope: country
-{MOD_ID}_read_good = {{
-\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__good field_slot = 1 list_name = {MOD_ID}_good_ticks }}
-\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_good_ticks
-""")
-    for index, good in enumerate(goods, start=1):
-        keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t\t{keyword} = {{ limit = {{ this = goods:{good} }} "
-                   f"root = {{ set_variable = {{ name = {MOD_ID}_good_index value = {index} }} }} }}\n")
-    out.append("\t}\n}\n")
-
-    out.append(f"""
-# Fill the recipe list for whichever good is ticked: each row's label points at
-# the key for one (building, method) pair, and each row remembers which method
-# that is. Rows the good does not reach are hidden rather than left showing the
-# previous good's.
-# Scope: country
-{MOD_ID}_fill_recipes = {{
-\tswitch = {{
-\t\ttrigger = var:{MOD_ID}_good_index
-""")
-    for index, good in enumerate(goods, start=1):
-        out.append(f"\t\t{index} = {{ {MOD_ID}_fill_recipes_{index} = yes }}\n")
-    out.append("\t}\n}\n")
-
-    for index, good in enumerate(goods, start=1):
-        recipes = by_good[good]
-        out.append(f"\n# {good}: {len(recipes)} way(s) to make it.\n"
-                   f"# Scope: country\n{MOD_ID}_fill_recipes_{index} = {{\n")
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_recipe_count value = {len(recipes)} }}\n")
-        for row, method_index in enumerate(recipes, start=1):
-            out.append(f"\tset_variable = {{ name = {MOD_ID}__recipe_i{row}_name "
-                       f"value = flag:{MOD_ID}_recipe_{method_index} }}\n")
-            out.append(f"\tset_global_variable = {{ name = {MOD_ID}_row_method_{row} value = {method_index} }}\n")
-            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = recipe item = {row} }}\n")
-        for row in range(len(recipes) + 1, MAX_RECIPES + 1):
-            out.append(f"\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = recipe item = {row} }}\n")
-        out.append("}\n")
-
-    out.append(f"""
-# Which recipe row is ticked, and therefore which method. The rows carry fixed
-# flags, so this is twenty branches rather than one per method.
-# Scope: country
-{MOD_ID}_read_recipe = {{
-\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__recipe field_slot = 1 list_name = {MOD_ID}_recipe_ticks }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_recipe_ticks
-""")
-    for row in range(1, MAX_RECIPES + 1):
-        keyword = "if" if row == 1 else "else_if"
-        out.append(f"\t\t{keyword} = {{ limit = {{ this = flag:{MOD_ID}_row_{row} }} root = {{ "
-                   f"set_variable = {{ name = {MOD_ID}_method_index "
-                   f"value = global_var:{MOD_ID}_row_method_{row} }} "
-                   f"set_variable = {{ name = {MOD_ID}_recipe_row value = {row} }} }} }}\n")
-    out.append("\t}\n}\n")
-
-    # One answer per list. Ticking a second row leaves two ticks standing for the
-    # instant between the click and this; whichever is later in row order wins and
-    # the rest are forced off, so the tick visibly moves to one row and stays
-    # there. Deterministic, and it needs no comparison between a scope and a
-    # variable holding one -- the shape that left the first `where_to_produce`
-    # with six suspects and no way to choose between them.
-    for setting, count, kept in (("good", len(goods), "good_index"),
-                                 ("recipe", MAX_RECIPES, "recipe_row")):
-        out.append(f"""
-# Leave only the winning tick standing in the {setting} list.
-# Scope: country
-{MOD_ID}_only_one_{setting} = {{
-""")
-        for item in range(1, count + 1):
-            out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_{kept} = {item} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = {setting} field_id = pick item = {item} value = 0 }}
-\t}}
-""")
-        out.append("}\n")
-
-    return "".join(out)
-
-
-def loc_file(language: str, rows: list[eu5data.Method], game: eu5data.Game) -> str:
+def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
     """The generated keys, identical in every language.
 
-    Every name in here is the game's own, reached through `$key$` substitution
-    for buildings and methods and through a data function for goods, so this file
-    needs no translating and cannot drift from what the game calls things.
+    Every name in here is the game's own, reached through `$key$` substitution or
+    a data function, so this file needs no translating and cannot drift from what
+    the game calls things.
     """
     out = [f"l_{language}:\n"]
 
-    # The goods, for the first step of the picker.
-    for good in sorted({m.produced for m in rows}):
-        out.append(
-            f" {MOD_ID}_good_{good}: "
-            f'"@{good}! [ShowGoodsName(\'{good}\')]"\n'
-        )
-
-    out.append("\n")
-    # One key per (building, method) pair, for the second. A recipe row points
-    # its label variable at one of these, which is how the same twenty rows say
-    # something different for each good. The building leads because a row is
-    # about a fifth of the panel wide and the tail is elided.
-    for index, method in enumerate(rows, start=1):
-        out.append(
-            f" {MOD_ID}_recipe_{index}: "
-            f'"${method.building}$ — ${method.key}$"\n'
-        )
+    for kind in ("raw", "made"):
+        for good in split[kind]:
+            out.append(f" {MOD_ID}_good_{good}: "
+                       f'"@{good}! [ShowGoodsName(\'{good}\')]"\n')
 
     out.append("\n")
     for row in range(1, RESULT_ROWS + 1):
         # Square brackets in a localization value are data function syntax, so
-        # every one of these is code: the location comes out of a global
-        # variable, the two numbers out of script values.
+        # every one of these is code: the location and the winning building come
+        # out of global variables, the number out of a script value.
         out.append(
             f" {MOD_ID}__result_i{row}_name: "
             f'"[GetGlobalVariable(\'{MOD_ID}_row_{row}\').GetLocation.GetName] — '
-            f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_bonus_{row}')|2]% "
-            f"([GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_matched_{row}')|0]"
-            f'/[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue(\'{MOD_ID}_show_wanted\')|0])"\n'
+            f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_show_bonus_{row}')|2]% — "
+            f'[GetGlobalVariable(\'{MOD_ID}_bt_{row}\').GetBuildingType.GetName]"\n'
         )
 
     return "".join(out)
@@ -810,24 +608,20 @@ def loc_file(language: str, rows: list[eu5data.Method], game: eu5data.Game) -> s
 def main() -> int:
     game = eu5data.load_game()
     rows = methods(game)
-    by_continent = regions()
+    split = goods_split(rows, game)
 
-    write(ZONE_OUT, zone_file(by_continent))
-    write(METHOD_OUT, method_file(rows, game))
+    write(ZONE_OUT, zone_file())
+    write(TRIGGERS_OUT, triggers_file(rows, split))
+    write(PICKER_OUT, picker_file(split))
     write(VALUES_OUT, values_file(rows, game))
+    write(SCORE_OUT, score_file(rows, split))
     write(ROWS_OUT, rows_file())
-    write(PICKER_OUT, picker_file(rows, game))
-    write(GUIS_OUT, guis_file(by_continent))
+    write(GUIS_OUT, guis_file())
     for language in LOC_LANGUAGES:
-        write(Path(str(LOC_OUT) % (language, language)), loc_file(language, rows, game))
+        write(Path(str(LOC_OUT) % (language, language)), loc_file(language, rows, split))
 
-    offered = {k for keys in by_continent.values() for k in keys}
-    print(f"{len(rows)} methods, {len(offered)} regions in {len(by_continent)} lists, "
-          f"{RESULT_ROWS} result rows")
-    suspects = unproven(offered)
-    if suspects:
-        print(f"     {len(offered) - len(suspects)} regions the game's own script scopes into; "
-              f"unproven: {', '.join(suspects)}")
+    print(f"{len(rows)} methods scored, {len(split['raw'])} raw + {len(split['made'])} made goods, "
+          f"{len(CONTINENTS)} continents, {RESULT_ROWS} result rows")
     return 0
 
 

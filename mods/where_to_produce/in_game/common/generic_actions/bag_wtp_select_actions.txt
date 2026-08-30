@@ -38,7 +38,7 @@ bag_wtp_select_location = {
 		column = { data = population }
 		visible = {
 			is_land = yes
-			bag_wtp_offered = yes
+			bag_wtp_in_zone = yes
 		}
 		enabled = { always = yes }
 		tooltip_msg_key = bag_wtp_choose_location_tt
@@ -48,6 +48,7 @@ bag_wtp_select_location = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_one = yes
 		}
+		bag_wtp_rebuild_browse = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -74,7 +75,7 @@ bag_wtp_select_province = {
 		visible = {
 			any_location_in_province = {
 				is_land = yes
-				bag_wtp_offered = yes
+				bag_wtp_in_zone = yes
 			}
 		}
 		enabled = { always = yes }
@@ -85,6 +86,7 @@ bag_wtp_select_province = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_province_scope = yes
 		}
+		bag_wtp_rebuild_browse = yes
 	}
 
 	ai_will_do = { value = 0 }
@@ -111,7 +113,7 @@ bag_wtp_select_area = {
 		visible = {
 			any_location_in_area = {
 				is_land = yes
-				bag_wtp_offered = yes
+				bag_wtp_in_zone = yes
 			}
 		}
 		enabled = { always = yes }
@@ -122,6 +124,7 @@ bag_wtp_select_area = {
 		scope:bag_wtp_target ?= {
 			bag_wtp_toggle_area_scope = yes
 		}
+		bag_wtp_rebuild_browse = yes
 	}
 
 	ai_will_do = { value = 0 }

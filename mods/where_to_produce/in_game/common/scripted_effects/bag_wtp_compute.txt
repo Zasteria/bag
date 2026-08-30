@@ -1,36 +1,40 @@
-﻿# The pass that answers the question, run when the player presses the button.
+﻿# The pass that answers the question.
 #
-# Nothing here is on a pulse. Each step logs nothing of its own, but every one
-# of them leaves a number the button's own description prints, which is what
-# makes a failure locatable from outside: an effect that merely does nothing
-# logs nothing at all.
+# Four steps. Nothing is on a pulse; each leaves a number the button's own
+# description prints, which is what makes a failure locatable from outside, since
+# an effect that merely does nothing logs nothing at all.
 #
 # Scope: country
 bag_wtp_compute = {
-	bag_wtp_sync = yes
-	bag_wtp_apply_method = yes
-	bag_wtp_count_wanted = yes
-	bag_wtp_collect_candidates = yes
-	bag_wtp_clear_rows = yes
-	bag_wtp_fill_rows = yes
-	bag_wtp_trim_rows = yes
+	if = {
+		limit = { var:bag_wtp_good_index = 0 }
+		# Nothing to answer for. Saying so beats ranking every location in the
+		# world by a score of zero.
+		bag_wtp_clear_rows = yes
+		bag_wtp_trim_rows = yes
+	}
+	else = {
+		bag_wtp_collect_candidates = yes
+		bag_wtp_score_candidates = yes
+		bag_wtp_clear_rows = yes
+		bag_wtp_fill_rows = yes
+		bag_wtp_trim_rows = yes
+	}
 
 	# One line, no arguments. The counts are on screen instead, in the button's
 	# own description, read back through script values -- `goods_target` learnt
 	# that the hard way: a CMF macro pastes its arguments verbatim, which is the
 	# same shape that kills a CMM list on `item = var:x`, and a log call that
-	# swallows itself takes the rest of the effect with it. This line says only
-	# that the pass ran, which is the one thing the log is needed for.
+	# swallows itself takes the rest of the effect with it.
 	cmf_log = { action = bag_wtp_log_run }
 }
 
 # What gets ranked.
 #
-# The locations picked in the selection window, when there are any; otherwise
-# every land location of the ticked regions. The fallback is what makes the
-# regions usable on their own — tick Northern Germany, press the button, and the
-# whole region is answered for without opening the window at all. Picking
-# anything narrows it from there.
+# The locations picked on the map, when there are any; otherwise every land
+# location of the ticked continents. The fallback is what makes the continents
+# usable on their own — tick Europe, press the button, and the whole of it is
+# answered for without opening the picker at all. Picking narrows it from there.
 # Scope: country
 bag_wtp_collect_candidates = {
 	clear_global_variable_list = bag_wtp_candidates
@@ -46,12 +50,7 @@ bag_wtp_collect_candidates = {
 		}
 	}
 	else = {
-		every_in_global_list = {
-			variable = bag_wtp_zone_locations
-			limit = { bag_wtp_is_candidate = yes }
-			add_to_global_variable_list = { name = bag_wtp_candidates target = this }
-			change_global_variable = { name = bag_wtp_candidate_count add = 1 }
-		}
+		bag_wtp_collect_zone = yes
 	}
 }
 
@@ -70,8 +69,8 @@ bag_wtp_on_button = {
 		bag_wtp_open_window_effect = yes
 	}
 
-	# The tick auto-applies and arrives here; the two picker lists do not, because
-	# a list reaches nothing but its own `_on_changed`.
+	# The tick auto-applies and arrives here; the lists do not, because a list
+	# reaches nothing but its own `_on_changed`.
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
 		bag_wtp_sync = yes

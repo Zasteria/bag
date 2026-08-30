@@ -1,21 +1,25 @@
 ﻿# Settings, registered on CMF's mod registration hook.
 #
 # Everything the player touches is here; everything that depends on the game's
-# own data -- how many methods the dropdown offers, which regions exist -- is
-# generated beside it, so a patch that adds either is picked up by a rebuild
-# rather than by an edit.
+# own data -- which goods exist, which buildings make them, what each method is
+# worth -- is generated beside it, so a patch that adds any of those is picked up
+# by a rebuild rather than by an edit.
 #
 # Scope: country
 bag_wtp_register = {
 	cmf_register_mod = { mod_id = bag_wtp }
 
-	# Which good, then which of the ways it is made. Two lists rather than one
-	# dropdown, and not by preference: CMF handles a dropdown option click through
+	# What you want made, in the two piles goods come in. Lists rather than
+	# dropdowns: CMF handles a dropdown option click through
 	# `CMM_MarkDropdownSelection_<index>` and defines exactly twenty of them, so
-	# the twenty-first option onwards silently keeps the old selection. A list is
-	# handled to fifty, and 47 goods and at most 20 recipes per good both fit.
-	bag_wtp_register_good_list = yes
-	bag_wtp_register_recipe_list = yes
+	# the twenty-first option onwards silently keeps the old selection.
+	bag_wtp_register_good_raw_list = yes
+	bag_wtp_register_good_made_list = yes
+
+	# Where to look. Continents rather than the world's seventy-seven regions:
+	# the fine choosing happens on the map afterwards, and a region list six
+	# groups deep was a worse way to say "Europe".
+	bag_wtp_register_zone_list = yes
 
 	# Off by default, and deliberately. The player plans for land he does not own
 	# yet, and `can_build_building` answers for the location as it stands today --
@@ -29,9 +33,7 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Opens the selection window: the ticked regions' provinces, each expandable
-	# into its locations. Without touching it the ranking answers for the whole
-	# of the ticked regions, so this is narrowing rather than a required step.
+	# Opens the map picker and the trimming window.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = select
@@ -46,22 +48,18 @@ bag_wtp_register = {
 		group_id = what
 	}
 
-	bag_wtp_register_zone_lists = yes
 	bag_wtp_register_result_list = yes
 
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes
-	bag_wtp_fill_recipes = yes
 	bag_wtp_rebuild_zone = yes
-	bag_wtp_mark_zone = yes
 	bag_wtp_drop_browse = yes
 	bag_wtp_clear_rows = yes
 	bag_wtp_trim_rows = yes
 }
 
-# Copy the two settings CMM keeps in its own variable map out to plain variables
-# the rest of this mod can read. A dropdown and a bool auto-apply and reach
-# `cmf_on_callback`, so this runs from there as well as at registration.
+# Copy the tick CMM keeps in its own variable map out to a plain global variable,
+# which is what a location-scoped trigger can read.
 # Scope: country
 bag_wtp_sync = {
 	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }

@@ -18,7 +18,7 @@ bag_wtp_selection = {
 		else_if = {
 			# Inside the ticked regions but not chosen — the ground you are
 			# choosing from, so that the selection reads against something.
-			limit = { has_variable = bag_wtp_in_zone }
+			limit = { bag_wtp_in_zone = yes }
 			value = define:NMapColors|MAP_COLOR_LOW
 		}
 		else = { value = define:NMapColors|DEFAULT_COLOR }
@@ -30,7 +30,7 @@ bag_wtp_selection = {
 			value = bag_wtp_map_picked_tt
 		}
 		else_if = {
-			limit = { has_variable = bag_wtp_in_zone }
+			limit = { bag_wtp_in_zone = yes }
 			value = bag_wtp_map_browsable_tt
 		}
 		else = { value = bag_wtp_map_outside_tt }

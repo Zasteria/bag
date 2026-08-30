@@ -1,66 +1,54 @@
 # `where_to_produce` — brief
 
-A planning tool in the Mod Menu, plus a window and a map mode of its own. Choose
-the ground — regions, then provinces and locations inside them — pick a building
-and the production method you mean to run it on, and get those locations ranked
-by the RGO efficiency that method would gain.
+Name a good and the ground; the mod finds each location the best production
+method for that good and ranks the locations by what that method would earn from
+the raw materials the province supplies.
 
-**State: two loads behind us, and between them the data half is proved.** The
-result table read back location names and numbers out of global variables on
-screen — "Бельцы — 9.25% (2/2)" — which was the one mechanism nothing here had
-ever done. The region lists render with the game's own names. What those loads
-broke, and what replaced it, is in `docs/TESTLOG.md`.
+**State: three loads behind us. The data half is proved; the interface has been
+rebuilt twice on what the loads found.** The result table read back location
+names and numbers out of global variables on screen — "Бельцы — 9.25% (2/2)" —
+and the map mode paints. `docs/TESTLOG.md` has the rest.
 
-**Two CMM caps, and neither is written near the call that cares.** A list is
-good to 50 rows; **a dropdown is clickable only to its twentieth option**,
-because CMF handles an option click through `CMM_MarkDropdownSelection_<index>`
-and defines twenty of them. A 218-option dropdown renders and scrolls and
-silently refuses the 21st onwards. That is why the picker is two lists.
+**The mod no longer asks which method to use.** It did for one round, and that
+was the design error: knowing which recipe suits which ground *is* the question,
+so asking it back made the player do the work first. Every method for the chosen
+good is now scored per location and the best wins; the row names the building
+that won it.
 
-**Untested: the map picker and everything around it.**
+## Two CMM caps, neither written near the call that cares
+
+- **A list is good to 50 rows.** `cmm_register_settings_list` initialises items
+  through an unrolled chain ending at 50, and handles a row click through
+  `CMM_MarkListPosition_*`, unrolled to the same 50.
+- **A dropdown is clickable only to its twentieth option.** An option click runs
+  `CMM_MarkDropdownSelection_<index>` and CMF defines twenty. A 218-option
+  dropdown renders and scrolls all of them and silently refuses the 21st onwards.
+  That is why every picker here is a list.
 
 ## What the next run has to answer
 
-1. **The map picker.** Three buttons in the selection window hand the game one of
-   this mod's generic actions; the game answers with its own target panel —
-   search, list, map highlight, map click. Does the panel open, does clicking add
-   ground, and **does it stay open for a second click**? That last one is the
-   only thing the files in `reference/` cannot say, and every clicking toggle is
-   written so that the answer does not change the design either way.
-2. **The picker funnel.** Tick a good; the second list should refill with the
-   ways that good is made and hide the rest. Tick a recipe; a second tick
-   anywhere in either list should move rather than add.
-3. **The window's rows.** They collapsed to zero height last time because the
-   item was wrapped in a `widget`, which does not size to its child.
-4. **The map mode.** Geography map modes, "Где производить".
+1. **The two goods lists**, and one tick moving across both.
+2. **The map picker.** Three buttons hand the game one of this mod's generic
+   actions and it answers with its own target panel. Confirmed working; confirmed
+   to close after each pick, which is the action lifecycle and not fixable from
+   script — `fire_generic_action` executes with a supplied target rather than
+   reopening the panel.
+3. **The window's list** now holds the provinces something is picked in, which is
+   what makes it a trimming tool and what keeps it bounded.
+4. **The ranking with no method chosen** — one script value per method, one
+   effect per good keeping the best.
 
-## What is known to be unproven
+## What is settled and should not be re-litigated
 
-- **Seven of the seventy-seven region keys** are named by the game's
-  localization but scoped into by nothing in `reference/`: `central_africa_region`,
-  `central_india_region`, `macaronesia_region`, `micronesia_region`, `poland`,
-  `polynesia_region`, `southern_africa_islands_region`. The generator prints them
-  on every rebuild.
-- **The whole window and the map mode.** Both are modelled on Advanced Auto
-  Build, which is the only working example of either shape in the tree. The map
-  mode's `index = 3` is copied from it and the two would collide if that mod were
-  ever enabled alongside.
-- **`can_build_building = global_var:bag_wtp_building`** — a global variable as a
-  trigger target, reachable only with the "только там, где уже можно строить"
-  tick on.
-
-## Three things that are settled
-
-- **The window's cost is its datamodel, not its file.** 79 widgets per province
-  row, and a scripted widget never comes down — so `bag_wtp_browse` is filled
-  when the window opens and emptied when it closes. Leaving it full of a ticked
-  Europe is how this mod would become the thing
-  [`../../docs/investigations/panel_hitch.md`](../../docs/investigations/panel_hitch.md)
-  is about. The map's own tint reads `bag_wtp_in_zone` on the location instead,
-  so it survives the window closing.
-- **The selection is recorded twice and only `bag_wtp_pick` / `bag_wtp_drop` may
-  write it** — a variable on the location for the map and the interface, a global
-  list for the ranking walk. Anything writing one half desynchronises them.
+- **The window's cost is its datamodel.** 104 widgets per province row, and a
+  scripted widget never comes down, so `bag_wtp_browse` holds only the picked
+  provinces and is emptied when the window closes.
+- **The selection is recorded twice** — a variable on the location for the map
+  and the interface, a global list for the ranking — and only `bag_wtp_pick` /
+  `bag_wtp_drop` may write it.
+- **There is no marked zone.** A location's continent is one plain trigger
+  (`continent = continent:europe`, which vanilla uses seventy times), so nothing
+  is written onto a continent's locations in advance.
 - **The bonus is province-level.** Every location of one province scores the
   same; what separates them is building slots, which this version does not model.
 

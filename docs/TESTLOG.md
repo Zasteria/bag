@@ -31,6 +31,28 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, third load. The map mode works; the design of
+the picker did not.** Five screenshots.
+
+- **The map mode paints**, and it is the thing the owner wanted: Wallachia green
+  as chosen, the ticked Carpathians dark as the zone. Its name showed as
+  `mapmode_bag_wtp_selection_name` — a map mode's name key is
+  `mapmode_<key>_name`, not `<key>`.
+- **The target picker opens and works, and closes after each pick.** That is the
+  generic action's lifecycle; `fire_generic_action` fires with a supplied target
+  rather than reopening the panel, so there is no script-side way to keep it up.
+  Area granularity is the mitigation.
+- **Asking the player for the production method was wrong.** Owner's words: the
+  mod is meant to find the best method for his ground, and asking him to guess it
+  first "полностью ломает конечную суть мода". Rebuilt: the good is the only
+  question, every method for it is scored per location, and the row names the
+  building that won.
+- **Six region groups were a bad frame.** Replaced by five continents, which also
+  removed the zone walk entirely — a location's continent is a plain trigger.
+- **The window listed nothing when no region was ticked**, so nothing could be
+  trimmed. It now lists the provinces something is picked in, which is its actual
+  job and what bounds it.
+
 **2026-08-30 — `where_to_produce`, second load. The data half works; the picker
 is capped at twenty.** Five screenshots.
 
@@ -229,43 +251,19 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, third load — one game, ten minutes.** The two loads above
-proved the data half and killed two designs; this one is about the map picker.
+**`where_to_produce`, fourth load — one game, ten minutes.**
 
-1. **Open the Mod Menu tab, tick a good in "1. Что хотите производить".** The
-   list under it should refill with the ways that good is made and hide the rest.
-   Tick one. Ticking a second row anywhere should move the tick, not add one.
-2. **Press "Выбрать" and then "Выбрать области на карте".** The game's own target
-   panel should open. Click an area — on the map or in the list. **Then click
-   another.** Whether the panel survives the first click is the one thing the
-   files cannot answer; everything is written to toggle, so either answer works,
-   but which it is decides whether this is finished or needs a second pass.
-3. **Check that ground you do not own is offered.** That is the whole point of
-   not copying AAB's source list.
-4. **Geography map modes → "Где производить".** Chosen bright, the rest of the
-   ticked regions dim.
-5. **The window's own list** should now show one row per province rather than a
-   stack of zero-high rows. Enable it (it needs only CMF), open the Mod Menu,
-find "Где производить".
-
-1. **Are the six region groups there at all**, and do their rows read
-   "Северная Германия", "Франция"? Raw keys or blank rows would mean the
-   label-from-a-flag mechanism is the fault; groups missing entirely would mean
-   the registration is still dying.
-2. **Tick "Северная Германия"**, then press "Выбрать". A window should open
-   listing that region's provinces, each expandable into its locations. This is
-   the piece modelled on Advanced Auto Build and none of it has been loaded.
-3. **Open the Geography map modes and pick "Где производить".** Chosen locations
-   bright, the rest of the ticked regions dim. A mod-defined map mode is new
-   ground here — if the entry is absent, the file's shape is wrong rather than
-   its triggers.
-4. **Pick a method, press "Считать", read the table.** Rows should read
-   "<location> — <n.nn>% (m/k)". Hovering "Считать" prints regions ticked,
-   locations considered and rows filled; the first zero among them is the
-   diagnosis.
-5. **`error.log`** — seven of the seventy-seven region keys are unproven and
-   would complain here by name, and the window's widget types are copied from
-   another mod rather than verified.
+1. **Tick a good in either list**; the tick should move rather than add when you
+   tick a second anywhere.
+2. **Tick a continent, press "Считать"** with nothing chosen on the map. The
+   table should fill with that continent's best locations, each naming a
+   building. This is the first run of the scoring pass, and of "the mod picks the
+   method".
+3. **Press "Выбрать" → "Выбрать область"**, pick one, and check the window's list
+   now holds that area's provinces so single locations can be taken back out.
+4. **Geography map modes → "Где производить"** should now be named.
+5. **`error.log`** — the per-good buildability triggers and the scoring effects
+   are new and large.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

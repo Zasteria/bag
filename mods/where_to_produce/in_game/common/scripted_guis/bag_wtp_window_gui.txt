@@ -58,14 +58,9 @@ bag_wtp_toggle_location = {
 
 	effect = {
 		scope:wtp_location = {
-			if = {
-				limit = { has_variable = bag_wtp_picked }
-				bag_wtp_drop = yes
-			}
-			else = {
-				bag_wtp_pick = yes
-			}
+			bag_wtp_toggle_one = yes
 		}
+		bag_wtp_rebuild_browse = yes
 	}
 }
 
@@ -148,9 +143,14 @@ bag_wtp_pick_all = {
 
 	effect = {
 		every_in_global_list = {
-			variable = bag_wtp_zone_locations
-			limit = { NOT = { has_variable = bag_wtp_picked } }
-			bag_wtp_pick = yes
+			variable = bag_wtp_browse
+			every_location_in_province = {
+				limit = {
+					is_land = yes
+					NOT = { has_variable = bag_wtp_picked }
+				}
+				bag_wtp_pick = yes
+			}
 		}
 	}
 }
@@ -172,5 +172,6 @@ bag_wtp_clear_all = {
 		}
 		clear_global_variable_list = bag_wtp_picked_locations
 		set_global_variable = { name = bag_wtp_picked_count value = 0 }
+		bag_wtp_drop_browse = yes
 	}
 }
