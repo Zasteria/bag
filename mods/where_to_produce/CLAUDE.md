@@ -5,29 +5,34 @@ the ground — regions, then provinces and locations inside them — pick a buil
 and the production method you mean to run it on, and get those locations ranked
 by the RGO efficiency that method would gain.
 
-**State: one load behind us, and it found a silent fault.** The first build put a
-tab on screen with only the dropdown on it: `cmm_register_settings_list` declares
-`is_ordered` and the call omitted it, so every list registration died where it
-stood and took the rest of its effect with it. Fixed, and
-`tools/check_cmm.py` now fails on a missing argument as well as an
-unknown one — it only ever checked the second direction. **Nothing since that
-load is confirmed.**
+**State: two loads behind us, and between them the data half is proved.** The
+result table read back location names and numbers out of global variables on
+screen — "Бельцы — 9.25% (2/2)" — which was the one mechanism nothing here had
+ever done. The region lists render with the game's own names. What those loads
+broke, and what replaced it, is in `docs/TESTLOG.md`.
+
+**Two CMM caps, and neither is written near the call that cares.** A list is
+good to 50 rows; **a dropdown is clickable only to its twentieth option**,
+because CMF handles an option click through `CMM_MarkDropdownSelection_<index>`
+and defines twenty of them. A 218-option dropdown renders and scrolls and
+silently refuses the 21st onwards. That is why the picker is two lists.
+
+**Untested: the map picker and everything around it.**
 
 ## What the next run has to answer
 
-The Mod Menu tab prints the counters the pass leaves behind; the button
-descriptions carry them.
-
-1. **Do the six region groups appear at all**, with named rows? That is what the
-   `is_ordered` fix was for.
-2. **"Выбрать локации"** — does the window open, and does it list the provinces
-   of the ticked regions?
-3. **Does the map mode exist?** Geography map modes, "Где производить". Bright is
-   chosen, dim is what you are choosing from.
-4. **Does the result table read back** a location name and two numbers out of
-   global variables? Still the one mechanism nothing here has proved.
-5. **`error.log`** — seven region keys are unproven, and the window's widget
-   types are copied from Advanced Auto Build rather than verified.
+1. **The map picker.** Three buttons in the selection window hand the game one of
+   this mod's generic actions; the game answers with its own target panel —
+   search, list, map highlight, map click. Does the panel open, does clicking add
+   ground, and **does it stay open for a second click**? That last one is the
+   only thing the files in `reference/` cannot say, and every clicking toggle is
+   written so that the answer does not change the design either way.
+2. **The picker funnel.** Tick a good; the second list should refill with the
+   ways that good is made and hide the rest. Tick a recipe; a second tick
+   anywhere in either list should move rather than add.
+3. **The window's rows.** They collapsed to zero height last time because the
+   item was wrapped in a `widget`, which does not size to its child.
+4. **The map mode.** Geography map modes, "Где производить".
 
 ## What is known to be unproven
 

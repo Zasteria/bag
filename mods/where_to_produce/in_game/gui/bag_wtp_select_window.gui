@@ -14,6 +14,33 @@
 
 types BagWtpSelectTypes {
 
+	# Injected into the bottom of the game's own target picker, through
+	# `bottom_widget` in the action's `select_trigger`. Advanced Auto Build puts a
+	# hint line there; this puts the running count, so the panel says what the
+	# clicking has actually done without closing it to go and look.
+	type bag_wtp_select_footer = widget {
+		size = { 420 72 }
+
+		vbox = {
+			margin = { 8 6 }
+			spacing = 2
+			layoutpolicy_horizontal = expanding
+
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				align = left|vcenter
+				text = "bag_wtp_select_summary"
+			}
+
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				maximumsize = { 404 48 }
+				text = "bag_wtp_picker_hint"
+			}
+		}
+	}
+
 	# One location. `bag_wtp_picked` is a variable on the location itself, so the
 	# tick, the map colour and the ranking walk are all reading the same fact.
 	type bag_wtp_select_location_entry = hbox {
@@ -235,6 +262,81 @@ window = {
 					text = "bag_wtp_select_window_desc"
 				}
 
+				# The map picker. Each of these hands the game one of this mod's generic
+				# actions, and the game answers with its own target panel: a searchable
+				# list, the map highlighted, and a click on the map picking the same
+				# thing a row does. The actions toggle, so clicking is cumulative and
+				# there is nothing to save at the end.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					action_button = {
+						size = { 220 36 }
+						title = "bag_wtp_map_pick_area"
+						description = "bag_wtp_map_pick_area_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_area" }
+						tooltip = "bag_wtp_map_pick_area_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 212 32 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 212 32 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_area"
+						}
+					}
+
+					action_button = {
+						size = { 220 36 }
+						title = "bag_wtp_map_pick_province"
+						description = "bag_wtp_map_pick_province_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_province" }
+						tooltip = "bag_wtp_map_pick_province_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 212 32 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 212 32 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_province"
+						}
+					}
+
+					action_button = {
+						size = { 220 36 }
+						title = "bag_wtp_map_pick_location"
+						description = "bag_wtp_map_pick_location_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_location" }
+						tooltip = "bag_wtp_map_pick_location_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 212 32 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 212 32 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_location"
+						}
+					}
+
+					expand = {}
+				}
+
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
@@ -293,12 +395,13 @@ window = {
 							spacing = 3
 							ignoreinvisible = yes
 							datamodel = "[GetGlobalList('bag_wtp_browse')]"
+							# The datacontext goes on the type instance itself. Wrapping it in
+							# a `widget` is what collapsed every row to zero height: a widget
+							# does not size itself to its child, and only the one expanded
+							# province had anything pushing it open.
 							item = {
-								widget = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = preferred
+								bag_wtp_select_province_entry = {
 									datacontext = "[Scope.GetProvince]"
-									bag_wtp_select_province_entry = {}
 								}
 							}
 						}

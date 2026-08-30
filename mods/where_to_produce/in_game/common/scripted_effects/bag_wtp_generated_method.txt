@@ -67,6 +67,11 @@ bag_wtp_clear_weights = {
 # Scope: country
 bag_wtp_apply_method = {
 	bag_wtp_clear_weights = yes
+
+	# Nothing picked is a real state -- the recipe list is empty until a good is
+	# chosen -- and a `switch` with no branch for the value it is handed is not.
+	if = {
+		limit = { var:bag_wtp_method_index > 0 }
 	switch = {
 		trigger = var:bag_wtp_method_index
 		1 = {
@@ -2383,20 +2388,6 @@ bag_wtp_apply_method = {
 			set_global_variable = { name = bag_wtp_ceiling value = 9.2014 }
 		}
 	}
-}
-
-# The picker itself. Its option count is this file's business rather than the
-# registration's: a patch that adds a production method changes both, and they
-# have to change together or the dropdown offers a branch that does not exist.
-# Scope: country
-bag_wtp_register_method_setting = {
-	cmm_register_dropdown_setting = {
-		mod_id = bag_wtp
-		setting_id = method
-		tab_id = plan
-		group_id = what
-		default_index = 1
-		option_count = 218
 	}
 }
 

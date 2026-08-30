@@ -31,6 +31,34 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, second load. The data half works; the picker
+is capped at twenty.** Five screenshots.
+
+- **The result table reads.** "Бельцы — 9.25% (2/2)", fifty rows, descending.
+  That is a location name out of a global variable and two script values printed
+  from a localization key — the mechanism nothing in this repository had ever
+  done, and the reason the first `where_to_produce` was worth attempting again.
+- **The region lists render** with the game's own names ("Балканы", "Карпаты",
+  "Польша"), so a list row's label set to `flag:<game key>` works and arrives
+  translated. The ticks reach script: the zone came out at 260 locations in 53
+  provinces.
+- **A CMM dropdown is clickable only to its twentieth option.** Reported as
+  "некоторые здания просто не выбираются". Found in CMF: an option click runs
+  `CMM_MarkDropdownSelection_<index>` and CMF defines `_0` to `_19`. The
+  218-option method picker was replaced by two lists — 47 goods, then at most 20
+  ways to make the chosen one.
+- **The selection window's rows collapsed to zero height**, all but the one
+  expanded province, which piled them at the left edge. The item was wrapped in
+  a `widget`, which does not size itself to its child; Advanced Auto Build puts
+  the row type directly in `item`.
+- **The window was the wrong shape for the job anyway.** The owner wanted what
+  Advanced Auto Build actually does: the game's own target picker, which is a
+  `select_trigger` block inside a `generic_action` — search box, sortable list,
+  map highlight, and a map click picking the same thing a row does. AAB's
+  restriction to owned land is its own `interaction_source_list`, not the
+  engine's; vanilla's actions mostly give no source and filter with `visible`,
+  which runs in the candidate's scope.
+
 **2026-08-30 — `where_to_produce`, first load. The tab renders; no list on it
 does.** Screenshot: the Mod Menu tab "Где производить" shows the group "Здание и
 метод" with its three settings (the method dropdown, the tick, the button) and
@@ -201,8 +229,23 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, second load — one game, ten minutes.** The first load is
-above; everything below it is what that run could not reach. Enable it (it needs only CMF), open the Mod Menu,
+**`where_to_produce`, third load — one game, ten minutes.** The two loads above
+proved the data half and killed two designs; this one is about the map picker.
+
+1. **Open the Mod Menu tab, tick a good in "1. Что хотите производить".** The
+   list under it should refill with the ways that good is made and hide the rest.
+   Tick one. Ticking a second row anywhere should move the tick, not add one.
+2. **Press "Выбрать" and then "Выбрать области на карте".** The game's own target
+   panel should open. Click an area — on the map or in the list. **Then click
+   another.** Whether the panel survives the first click is the one thing the
+   files cannot answer; everything is written to toggle, so either answer works,
+   but which it is decides whether this is finished or needs a second pass.
+3. **Check that ground you do not own is offered.** That is the whole point of
+   not copying AAB's source list.
+4. **Geography map modes → "Где производить".** Chosen bright, the rest of the
+   ticked regions dim.
+5. **The window's own list** should now show one row per province rather than a
+   stack of zero-high rows. Enable it (it needs only CMF), open the Mod Menu,
 find "Где производить".
 
 1. **Are the six region groups there at all**, and do their rows read

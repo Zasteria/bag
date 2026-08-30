@@ -93,6 +93,44 @@ bag_wtp__zone_europe_on_changed = {
 	}
 }
 
+# Picking a good rewrites the recipe list underneath it, so the two callbacks are
+# not symmetrical: the first refills, the second only reads.
+bag_wtp__good_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__good
+		}
+		bag_wtp_read_good = yes
+		bag_wtp_only_one_good = yes
+		bag_wtp_fill_recipes = yes
+		bag_wtp_recipe_reset = yes
+	}
+}
+
+bag_wtp__recipe_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__recipe
+		}
+		bag_wtp_read_recipe = yes
+		bag_wtp_only_one_recipe = yes
+		bag_wtp_apply_method = yes
+		bag_wtp_count_wanted = yes
+	}
+}
+
 # The result table is read-only -- there is nothing to tick in it. It still needs
 # a callback, because that is what makes the rows visible at all.
 bag_wtp__result_on_changed = {

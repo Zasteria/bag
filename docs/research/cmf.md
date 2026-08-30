@@ -104,6 +104,17 @@ Item ordinals must be literals — `item = var:x` is pasted into the macro verba
 and dies at load with "More than one colon in event target link". CMF turns
 counters into literals with a `switch`, and so should anything built on it.
 
+**A dropdown is clickable to twenty options, whatever its count says.** An
+option's click runs `CMMExecuteGuiSuffix('CMM_MarkDropdownSelection_',
+<widget index>)`, and CMF defines `CMM_MarkDropdownSelection_0` … `_19` and no
+more. A dropdown registered with 218 options renders all 218 and scrolls through
+them; clicking the twenty-first and beyond executes a scripted GUI that does not
+exist, so the selection silently stays where it was. The equivalent for a list,
+`CMM_MarkListPosition_*`, is unrolled to fifty and matches the item cap — so a
+list is good to 50 and a dropdown to 20, and neither number is written anywhere
+near the registration call that would care. `where_to_produce` found this by
+having a player report that some rows "just would not pick".
+
 **Where the 50 actually lives, and what it does not cover.** The ceiling is
 script side only, and it is two files: `cmm_core_list_setting_init_effects.txt`
 and `..._runtime_effects.txt` unroll a chain of `if`s to item 50, about nine

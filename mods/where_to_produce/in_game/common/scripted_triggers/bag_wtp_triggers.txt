@@ -16,3 +16,18 @@ bag_wtp_is_candidate = {
 		can_build_building = global_var:bag_wtp_building
 	}
 }
+
+# Whether the map picker offers this location at all.
+#
+# The ticked regions narrow it; with nothing ticked the whole world is on offer,
+# because a picker that shows nothing until a checkbox somewhere else is set
+# looks broken rather than empty. Ownership is deliberately not asked -- the
+# whole use is planning for ground that is not yours yet.
+#
+# Scope: location
+bag_wtp_offered = {
+	OR = {
+		global_var:bag_wtp_zone_count = 0
+		has_variable = bag_wtp_in_zone
+	}
+}

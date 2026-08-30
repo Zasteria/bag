@@ -5,10 +5,11 @@ Four things come out of the game's own files rather than out of a list somebody
 typed, so a patch that renames a region or adds a production method is picked up
 by a rebuild:
 
-  - **The method picker.** One dropdown option per (building type, production
-    method) pair that consumes something an RGO can supply -- 218 of them at
-    1.3.10. Dropdowns have no item cap in CMM, so this is one control rather
-    than a chain of pickers.
+  - **The picker.** Two lists: the 47 goods an RGO can help make, and the ways
+    the chosen one is made -- at most 20, relabelled per good by pointing each
+    row's `_name` variable at a different key. Not a dropdown: CMF handles an
+    option click through `CMM_MarkDropdownSelection_<index>` and defines twenty
+    of them, so a dropdown is only clickable to its twentieth option.
   - **The region picker.** The regions of the world, grouped by continent, read
     out of the game's own `region_names_l_english.yml`. Six lists, none of them
     near CMM's fifty-item ceiling. Seventy of the seventy-seven are proved real
@@ -52,9 +53,14 @@ RESULT_ROWS = 50
 # five, and the row tooltip names them all.
 MAX_INPUTS = 5
 
+# How tall the recipe list is: the most (building, method) pairs any one good is
+# made by. Liquor is the widest at twenty, which is inside a CMM list's fifty.
+MAX_RECIPES = 20
+
 ZONE_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_zone.txt"
 METHOD_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_method.txt"
 ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
+PICKER_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_picker.txt"
 VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
@@ -282,6 +288,11 @@ def method_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # Scope: country
 {MOD_ID}_apply_method = {{
 \t{MOD_ID}_clear_weights = yes
+
+\t# Nothing picked is a real state -- the recipe list is empty until a good is
+\t# chosen -- and a `switch` with no branch for the value it is handed is not.
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_method_index > 0 }}
 \tswitch = {{
 \t\ttrigger = var:{MOD_ID}_method_index
 """)
@@ -306,24 +317,9 @@ def method_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
         out.append(f"\t\t\tset_global_variable = {{ name = {MOD_ID}_ceiling value = {method.ceiling(game.raw_goods):.4f} }}\n")
         out.append("\t\t}\n")
 
-    out.append("\t}\n}\n")
+    out.append("\t}\n\t}\n}\n")
 
     out.append(f"""
-# The picker itself. Its option count is this file's business rather than the
-# registration's: a patch that adds a production method changes both, and they
-# have to change together or the dropdown offers a branch that does not exist.
-# Scope: country
-{MOD_ID}_register_method_setting = {{
-\tcmm_register_dropdown_setting = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = method
-\t\ttab_id = plan
-\t\tgroup_id = what
-\t\tdefault_index = 1
-\t\toption_count = {len(rows)}
-\t}}
-}}
-
 # How many raw materials the chosen method wants. The row label prints it as the
 # denominator, so a location is read as "three of the four it could have" rather
 # than as a bare percentage.
@@ -540,6 +536,46 @@ def guis_file(by_continent: dict[str, list[str]]) -> str:
 """)
 
     out.append(f"""
+# Picking a good rewrites the recipe list underneath it, so the two callbacks are
+# not symmetrical: the first refills, the second only reads.
+{MOD_ID}__good_on_changed = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\tcmm_apply_list_change = {{
+\t\t\tsetting = {MOD_ID}__good
+\t\t}}
+\t\t{MOD_ID}_read_good = yes
+\t\t{MOD_ID}_only_one_good = yes
+\t\t{MOD_ID}_fill_recipes = yes
+\t\t{MOD_ID}_recipe_reset = yes
+\t}}
+}}
+
+{MOD_ID}__recipe_on_changed = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\tcmm_apply_list_change = {{
+\t\t\tsetting = {MOD_ID}__recipe
+\t\t}}
+\t\t{MOD_ID}_read_recipe = yes
+\t\t{MOD_ID}_only_one_recipe = yes
+\t\t{MOD_ID}_apply_method = yes
+\t\t{MOD_ID}_count_wanted = yes
+\t}}
+}}
+""")
+
+    out.append(f"""
 # The result table is read-only -- there is nothing to tick in it. It still needs
 # a callback, because that is what makes the rows visible at all.
 {MOD_ID}__result_on_changed = {{
@@ -559,6 +595,175 @@ def guis_file(by_continent: dict[str, list[str]]) -> str:
     return "".join(out)
 
 
+def picker_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
+    """The two-step picker: a good, then one of the ways that good is made.
+
+    A flat list of 218 was unusable for two reasons the game found for us. A CMM
+    dropdown renders every option but only the first twenty can be clicked --
+    CMF handles an option click through `CMM_MarkDropdownSelection_<index>` and
+    defines exactly twenty of them, so anything past the twentieth silently keeps
+    the old selection. And at about 165 pixels the control elides everything
+    after the first field anyway.
+
+    So both steps are lists, which CMF handles to fifty (`CMM_MarkListPosition_*`
+    is unrolled to fifty, matching the item cap). 47 goods and at most 20 recipes
+    per good both fit. The recipe rows are relabelled per good at runtime by
+    pointing each row's `_name` variable at a different localization key, which is
+    the same mechanism that puts the game's own region names on the region rows.
+    """
+    goods = sorted({m.produced for m in rows})
+    by_good: dict[str, list[int]] = {}
+    for index, method in enumerate(rows, start=1):
+        by_good.setdefault(method.produced, []).append(index)
+    for good in goods:
+        by_good[good].sort(key=lambda i: (rows[i - 1].building, rows[i - 1].key))
+
+    widest = max(len(v) for v in by_good.values())
+    if widest > MAX_RECIPES:
+        raise SystemExit(f"a good is made {widest} ways; the recipe list holds {MAX_RECIPES}")
+    if len(goods) > RESULT_ROWS:
+        raise SystemExit(f"{len(goods)} goods; a CMM list holds {RESULT_ROWS}")
+
+    out = [HEADER, f"""#
+# See the generator's `picker_file` for why neither step is a dropdown.
+#
+# Scope: country
+{MOD_ID}_register_good_list = {{
+\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = good
+\t\ttab_id = plan
+\t\titem_count = {len(goods)}
+\t\tis_ordered = 0
+\t}}
+
+"""]
+    for index, good in enumerate(goods, start=1):
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                   f"setting_id = good item = {index} value = goods:{good} }}\n")
+    out.append("\n")
+    for index, good in enumerate(goods, start=1):
+        out.append(f"\tset_variable = {{ name = {MOD_ID}__good_i{index}_name "
+                   f"value = flag:{MOD_ID}_good_{good} }}\n")
+    out.append(f"""
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = good
+\t\tfield_id = pick
+\t\tdefault_value = 0
+\t}}
+}}
+
+# The recipe list is registered at its full height once and rewritten in place:
+# CMM's dynamic builder only runs before the list is initialised, so a list whose
+# contents change has to be born at its widest.
+# Scope: country
+{MOD_ID}_register_recipe_list = {{
+\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = recipe
+\t\ttab_id = plan
+\t\titem_count = {MAX_RECIPES}
+\t\tis_ordered = 0
+\t}}
+
+""")
+    for row in range(1, MAX_RECIPES + 1):
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                   f"setting_id = recipe item = {row} value = flag:{MOD_ID}_row_{row} }}\n")
+    out.append(f"""
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = recipe
+\t\tfield_id = pick
+\t\tdefault_value = 0
+\t}}
+}}
+
+# Which good is ticked. The ticked rows come back as the goods themselves, so
+# this is a chain over the catalogue rather than over row ordinals.
+# Scope: country
+{MOD_ID}_read_good = {{
+\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__good field_slot = 1 list_name = {MOD_ID}_good_ticks }}
+\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+\tevery_in_list = {{
+\t\tvariable = {MOD_ID}_good_ticks
+""")
+    for index, good in enumerate(goods, start=1):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t\t{keyword} = {{ limit = {{ this = goods:{good} }} "
+                   f"root = {{ set_variable = {{ name = {MOD_ID}_good_index value = {index} }} }} }}\n")
+    out.append("\t}\n}\n")
+
+    out.append(f"""
+# Fill the recipe list for whichever good is ticked: each row's label points at
+# the key for one (building, method) pair, and each row remembers which method
+# that is. Rows the good does not reach are hidden rather than left showing the
+# previous good's.
+# Scope: country
+{MOD_ID}_fill_recipes = {{
+\tswitch = {{
+\t\ttrigger = var:{MOD_ID}_good_index
+""")
+    for index, good in enumerate(goods, start=1):
+        out.append(f"\t\t{index} = {{ {MOD_ID}_fill_recipes_{index} = yes }}\n")
+    out.append("\t}\n}\n")
+
+    for index, good in enumerate(goods, start=1):
+        recipes = by_good[good]
+        out.append(f"\n# {good}: {len(recipes)} way(s) to make it.\n"
+                   f"# Scope: country\n{MOD_ID}_fill_recipes_{index} = {{\n")
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_recipe_count value = {len(recipes)} }}\n")
+        for row, method_index in enumerate(recipes, start=1):
+            out.append(f"\tset_variable = {{ name = {MOD_ID}__recipe_i{row}_name "
+                       f"value = flag:{MOD_ID}_recipe_{method_index} }}\n")
+            out.append(f"\tset_global_variable = {{ name = {MOD_ID}_row_method_{row} value = {method_index} }}\n")
+            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = recipe item = {row} }}\n")
+        for row in range(len(recipes) + 1, MAX_RECIPES + 1):
+            out.append(f"\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = recipe item = {row} }}\n")
+        out.append("}\n")
+
+    out.append(f"""
+# Which recipe row is ticked, and therefore which method. The rows carry fixed
+# flags, so this is twenty branches rather than one per method.
+# Scope: country
+{MOD_ID}_read_recipe = {{
+\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__recipe field_slot = 1 list_name = {MOD_ID}_recipe_ticks }}
+\tevery_in_list = {{
+\t\tvariable = {MOD_ID}_recipe_ticks
+""")
+    for row in range(1, MAX_RECIPES + 1):
+        keyword = "if" if row == 1 else "else_if"
+        out.append(f"\t\t{keyword} = {{ limit = {{ this = flag:{MOD_ID}_row_{row} }} root = {{ "
+                   f"set_variable = {{ name = {MOD_ID}_method_index "
+                   f"value = global_var:{MOD_ID}_row_method_{row} }} "
+                   f"set_variable = {{ name = {MOD_ID}_recipe_row value = {row} }} }} }}\n")
+    out.append("\t}\n}\n")
+
+    # One answer per list. Ticking a second row leaves two ticks standing for the
+    # instant between the click and this; whichever is later in row order wins and
+    # the rest are forced off, so the tick visibly moves to one row and stays
+    # there. Deterministic, and it needs no comparison between a scope and a
+    # variable holding one -- the shape that left the first `where_to_produce`
+    # with six suspects and no way to choose between them.
+    for setting, count, kept in (("good", len(goods), "good_index"),
+                                 ("recipe", MAX_RECIPES, "recipe_row")):
+        out.append(f"""
+# Leave only the winning tick standing in the {setting} list.
+# Scope: country
+{MOD_ID}_only_one_{setting} = {{
+""")
+        for item in range(1, count + 1):
+            out.append(f"""\tif = {{
+\t\tlimit = {{ NOT = {{ var:{MOD_ID}_{kept} = {item} }} }}
+\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = {setting} field_id = pick item = {item} value = 0 }}
+\t}}
+""")
+        out.append("}\n")
+
+    return "".join(out)
+
+
 def loc_file(language: str, rows: list[eu5data.Method], game: eu5data.Game) -> str:
     """The generated keys, identical in every language.
 
@@ -568,15 +773,22 @@ def loc_file(language: str, rows: list[eu5data.Method], game: eu5data.Game) -> s
     """
     out = [f"l_{language}:\n"]
 
-    for index, method in enumerate(rows, start=1):
-        # The building first, then the method, and the good only as its icon.
-        # A CMM dropdown is about 165 pixels wide and elides the tail, so the
-        # first version -- good name, icon, building, method -- put the one field
-        # that repeats across twenty rows in front and cut off the only field
-        # that tells two rows apart. Whatever is most distinguishing has to lead.
+    # The goods, for the first step of the picker.
+    for good in sorted({m.produced for m in rows}):
         out.append(
-            f" {MOD_ID}__method_option_{index}_name: "
-            f'"@{method.produced}! ${method.building}$ — ${method.key}$"\n'
+            f" {MOD_ID}_good_{good}: "
+            f'"@{good}! [ShowGoodsName(\'{good}\')]"\n'
+        )
+
+    out.append("\n")
+    # One key per (building, method) pair, for the second. A recipe row points
+    # its label variable at one of these, which is how the same twenty rows say
+    # something different for each good. The building leads because a row is
+    # about a fifth of the panel wide and the tail is elided.
+    for index, method in enumerate(rows, start=1):
+        out.append(
+            f" {MOD_ID}_recipe_{index}: "
+            f'"${method.building}$ — ${method.key}$"\n'
         )
 
     out.append("\n")
@@ -604,6 +816,7 @@ def main() -> int:
     write(METHOD_OUT, method_file(rows, game))
     write(VALUES_OUT, values_file(rows, game))
     write(ROWS_OUT, rows_file())
+    write(PICKER_OUT, picker_file(rows, game))
     write(GUIS_OUT, guis_file(by_continent))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)), loc_file(language, rows, game))

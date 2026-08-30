@@ -157,3 +157,75 @@ bag_wtp_zone_changed = {
 		bag_wtp_drop_browse = yes
 	}
 }
+
+# The three toggles the map picker runs. Each adds what is not yet in the plan
+# and removes what is, so a second click on the same ground undoes the first and
+# there is nothing to "save" at the end.
+
+# Scope: location
+bag_wtp_toggle_one = {
+	if = {
+		limit = { has_variable = bag_wtp_picked }
+		bag_wtp_drop = yes
+	}
+	else = {
+		bag_wtp_pick = yes
+	}
+}
+
+# Scope: province
+bag_wtp_toggle_province_scope = {
+	if = {
+		limit = {
+			any_location_in_province = {
+				is_land = yes
+				NOT = { has_variable = bag_wtp_picked }
+			}
+		}
+		every_location_in_province = {
+			limit = { is_land = yes }
+			bag_wtp_pick = yes
+		}
+	}
+	else = {
+		every_location_in_province = {
+			limit = { has_variable = bag_wtp_picked }
+			bag_wtp_drop = yes
+		}
+	}
+}
+
+# Scope: area
+bag_wtp_toggle_area_scope = {
+	if = {
+		limit = {
+			any_location_in_area = {
+				is_land = yes
+				NOT = { has_variable = bag_wtp_picked }
+			}
+		}
+		every_location_in_area = {
+			limit = { is_land = yes }
+			bag_wtp_pick = yes
+		}
+	}
+	else = {
+		every_location_in_area = {
+			limit = { has_variable = bag_wtp_picked }
+			bag_wtp_drop = yes
+		}
+	}
+}
+
+# Changing the good invalidates whatever recipe was ticked underneath it: the
+# rows now say something else entirely. Clearing the row rather than leaving it
+# is the difference between an empty answer and a wrong one.
+# Scope: country
+bag_wtp_recipe_reset = {
+	set_variable = { name = bag_wtp_recipe_row value = 0 }
+	set_variable = { name = bag_wtp_method_index value = 0 }
+	bag_wtp_only_one_recipe = yes
+	bag_wtp_clear_weights = yes
+	set_global_variable = { name = bag_wtp_wanted value = 0 }
+	set_global_variable = { name = bag_wtp_ceiling value = 0 }
+}
