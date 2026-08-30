@@ -31,6 +31,36 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
+is on screen; the map picker is the one thing left.** Owner: «в остальном —
+круто».
+
+- **The goods icons draw**, the lakes are gone from the expanded rows, the count
+  sits still. The `datacontext` on the datamodel item was the whole of the icon
+  fault.
+- **The whole-province rule is confirmed by eye**: Bessarabia is split by a
+  border and the horses in the far half count towards its number, which is what
+  the mod means by planning for the ground rather than the border. The engine's
+  own tooltip was not the thing compared, so *that* question stays open — it is
+  just no longer urgent.
+- **`error.log` carries nothing of this mod's**, first time it has been read for
+  it. 1706 of its 2742 lines are `jomini_custom_text.h` on vanilla Russian,
+  341 are a null promote in a loc string, and the four `Widget cannot have a
+  position in a layout` are Glorp UI's.
+- **`gui.log` had 124 lines that were ours**: `bag_wtp_select_window.gui:177`,
+  `Widget cannot have a position in a layout` — a `parentanchor` on a button that
+  is a direct child of an hbox. Anchors belong inside a plain widget; an hbox is
+  a layout and places its own children.
+- **The icons sat a column apart.** An hbox given more width than its children
+  spreads them across it. Left to hug its content now.
+- **And the ask, for the fourth time: the game's own map selection.** Both
+  screenshots are the same mechanism — `military_objective_group.gui`, driven by
+  `MilitaryObjectiveGroupView` with `GeographyGlue` rows. **Engine objects: a mod
+  cannot instantiate either**, and there is no on_action for a map click, so a
+  window of one's own cannot be told what the player clicked. What *is* reusable
+  is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
+  — the game's own map highlight, callable from any `.gui`.
+
 **2026-08-30 — `where_to_produce`, seventh load. Whole provinces and the frame
 hold; the goods icons do not.** Two screenshots, «в целом вроде ок».
 
@@ -58,39 +88,10 @@ hold; the goods icons do not.** Two screenshots, «в целом вроде ок
   its tooltip. The icons stay because a method with several inputs still needs
   them, and the count says what the icons cannot when they fail to draw.
 
-**2026-08-30 — `where_to_produce`, sixth load. The results window works; the
-province is not what the game says it is.** One screenshot, everything selected.
-Owner: «в целом вроде ок».
-
-- **The window renders and does its job.** Rows, the area, 10.00%, the building
-  **and the method after the colon** — and the methods differ between rows,
-  «Гильдия прядильщиков льна» against «…шерсти», which is the scoring choosing
-  per province in plain sight. The plus expands a row into its locations, each
-  with its raw material and «Добавить».
-- **A province is not a province.** Two rows, «Измаил» and «Молдавская провинция
-  Бессарабия», are two halves of one province split by ownership — the game
-  splits a `province` by owner and names the pieces that way. Ranking the halves
-  answers for half the ground, and the answer would move on the day they join,
-  which is the day the mod plans for. Now one row per `province_definition`,
-  scored over every location in it, with each location's owner shown under the
-  row. **Which of the two the engine's own bonus counts is still unknown** —
-  `docs/research/engine.md` has the one-hover test that would settle it.
-- **The window drew outside itself** — frame ending where it should, header and
-  rows carrying on past it over the game's top bar. One description line:
-  `autoresize` with no `maximumsize` does not wrap, it grows, and
-  `allow_outside = yes` let it drag every expanding row with it. Bounded now, in
-  both of this mod's windows, and `widgetanchor = center` added to match vanilla.
-  Advanced Auto Build has the same defect, which is where the shape came from.
-- **Unclear from the screenshot: the «Из чего» column looks empty.** The goods
-  icons in the *location* rows draw fine, so `GetGoodsIcon` works; if the column
-  is genuinely empty the fault is the `bag_wtp_goods` variable list. The row now
-  prints «supplied/total» beside the icons, which tells an empty list from an
-  icon that will not draw without another round trip.
-
-Everything before 2026-08-29, and `where_to_produce`'s first five loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first six loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
-turned the mod from asking for a method into finding one, and the two that
-confirmed the scoring and the tabs — is in
+turned the mod from asking for a method into finding one, and the three that
+confirmed the scoring, the tabs and the results window — is in
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
 trimmed. Search both with `python3 tools/kb.py`.
 
@@ -239,18 +240,24 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, eighth load — one game, three minutes.**
+**`where_to_produce`, ninth load — one game, five minutes.** The selection
+window is now a tree, which is the answer to four rounds of asking for the
+game's own geography panel.
 
-1. **The «Из чего» column carries icons** — one per raw material, matching the
-   count beside it. Nothing there again means the fault is not the datacontext.
-2. **No lakes** under an expanded province, and none offered by the map picker.
-3. **«1/2» and «2/2» start at the same x.**
-4. **One hover, still unanswered and still worth a run:** in a province split by
-   a border, does the game's own RGO tooltip credit a good that only the other
-   half produces? That says whether this mod's number is today's or the one it
-   will be after the conquest. `docs/research/engine.md` has it written out.
-5. **`error.log`**, and the two things never yet reported: the region lists and
-   the age filter.
+1. **Four columns**: Регионы → Области → Провинции → Локации. A name opens the
+   next column; the column to its right should fill with what is inside it.
+2. **«Всё» on any row** takes that whole region, area or province into the plan,
+   and a second press takes it back out. The map mode is where the result shows.
+3. **Hovering any row highlights it on the map** — region, area, province and
+   location alike. This is the piece of the game's own panel a mod can have.
+4. **The first column** is whatever the zone tab ticked: the ticked regions, or
+   every region of a ticked continent, or the whole world if nothing is ticked.
+5. **`gui.log`** should no longer carry `bag_wtp_select_window.gui` at all, and
+   `error.log` should stay as clean of this mod as it was.
+
+Not built, and now known to be unbuildable: clicking the map with the window
+open. The generic action's picker is the only channel script has, and it closes
+after each pick.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

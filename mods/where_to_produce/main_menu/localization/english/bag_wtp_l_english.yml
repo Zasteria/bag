@@ -104,7 +104,7 @@
  bag_wtp_log_run: "Where To Produce: ranked the locations"
 
  bag_wtp_select_window_title: "Where To Produce — choosing the ground"
- bag_wtp_select_window_desc: "The buttons open the game's own target picker: a searchable list, the map highlighted, and a click on the map picking the same thing a row does. Clicking toggles — a second click on the same ground takes it back out.\n\nBelow is what is already chosen, for taking single locations out."
+ bag_wtp_select_window_desc: "Four columns: region → area → province → locations. A name opens the next column, All takes that whole geography into the plan (or puts it back if it is already taken), and hovering a row highlights it on the map.\n\nThe buttons above open the game's own target panel — a searchable list and a click on the map. It closes after each pick: that is how the game builds it, not a fault."
  bag_wtp_select_summary: "Chosen: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_picked')|0] location(s) in [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_browse')|0] province(s)"
  bag_wtp_picker_hint: "Clicking toggles. The panel closes after each pick — that is how it is built, not a fault: to take several pieces at once, pick by area, of which there are few."
 
@@ -121,16 +121,21 @@
  bag_wtp_choose_location: "Choose a location"
  bag_wtp_choose_location_tt: "Click a location on the map or in the list. It goes into the plan, or comes out of it if it was already in."
 
+ bag_wtp_tree_regions_head: "Regions"
+ bag_wtp_tree_areas_head: "Areas"
+ bag_wtp_tree_provinces_head: "Provinces"
+ bag_wtp_tree_locations_head: "Locations"
+ bag_wtp_tree_take: "All"
+ bag_wtp_tree_open_tt: "Show what is inside it in the next column. Hovering highlights it on the map."
+ bag_wtp_tree_open_province_tt: "Show the province's locations in the last column. Hovering highlights the province on the map."
+ bag_wtp_tree_take_tt: "Take everything here into the plan, or put it all back if it is all taken already.\n\nLakes, sea zones and impassables are never taken."
+
  bag_wtp_add_location: "Add"
  bag_wtp_add_location_tt: "Take this location into the plan."
  bag_wtp_remove_location: "Remove"
  bag_wtp_remove_location_tt: "Take this location out of the plan."
- bag_wtp_toggle_province: "Whole province"
- bag_wtp_toggle_province_tt: "Take every location of this province in, or — if they are all in already — take them all out."
- bag_wtp_expand_tt: "Show this province's locations."
- bag_wtp_collapse_tt: "Hide this province's locations."
  bag_wtp_pick_all: "Take everything"
- bag_wtp_pick_all_tt: "Take every location of every province listed here into the plan."
+ bag_wtp_pick_all_tt: "Take every location of every region in the first column into the plan."
  bag_wtp_clear_all: "Clear the choice"
  bag_wtp_clear_all_tt: "Empty the plan."
 

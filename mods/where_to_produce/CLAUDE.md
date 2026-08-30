@@ -4,25 +4,28 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: seven loads in, and the shape is right** — whole provinces, the window
-inside its frame, one row per province with the method named. The owner: «в целом
-вроде ок». What the seventh run found is fixed and untested.
+**State: eight loads in, and the answer half is finished** — icons, whole
+provinces, no lakes, the window inside its frame, `error.log` clean of this mod
+for the first time. «В остальном — круто.»
 
-## What the eighth run has to answer
+## What the ninth run has to answer
 
-1. **The «Из чего» icons**, which drew nothing while the count off the same list
-   was right: the datamodel item had no `datacontext` of its own.
-2. **No lakes.** `GetLocations` hands out sea zones, lakes and impassables; they
-   are hidden on `Location.IsPossibleToOwn`, and the mod's notion of ground is
-   `is_ownable` now rather than `is_land`, so none of them reaches the plan
-   through the map picker either.
-3. **«1/2» and «2/2» start at the same x**, the count being placed in a widget
-   rather than laid out in an hbox that resizes with its icons.
-4. **One hover still open:** in a province split by a border, does the game's own
-   RGO tooltip credit a good only the other half produces? That says whether this
-   mod's number is today's or the one after the conquest.
-5. Still open from the fifth build: the region lists, the age filter,
-   `error.log`.
+The selection window is a **tree** now: Регионы → Области → Провинции → Локации,
+four columns, a name opening the next one, «Всё» on any row taking or dropping
+that whole geography, and hovering any row highlighting it on the map.
+
+1. **The columns fill** as rows are opened, and the first one holds what the zone
+   tab ticked (or a whole continent's regions, or the world).
+2. **«Всё» toggles**, and the mod's map mode shows the result.
+3. **The hover highlight** is the game's own — `PdxGuiWidget.SetHighlight*`.
+4. **`gui.log` no longer names `bag_wtp_select_window.gui`**: a button anchored
+   inside an hbox logged 124 lines last run.
+5. Still never reported: the region lists, the age filter.
+
+**Clicking the map with a window open is not possible** and is not to be
+attempted again — see `docs/research/interface.md`. The game's own panels are
+view objects, and no on_action carries a map click. The generic action's picker,
+which closes after each pick, is the whole of what script has.
 
 ## Three CMM caps, none written near the call that cares
 
@@ -35,12 +38,10 @@ bounds it.
 ## Settled, and not to be re-litigated
 
 - **The map picker closes after each pick** — the generic action's lifecycle,
-  not a fault. Area granularity is the answer.
+  not a fault, and the only map-click channel a mod has at all.
 - **A window's datamodel is what costs.** A scripted widget never comes down, so
-  only the list it repeats over decides how many rows are alive. The selection
-  window lists just the provinces something is picked in; the results window
-  keeps `bag_wtp_ranked` and fills `bag_wtp_results` from it on opening, emptying
-  it again on closing.
+  only the list it repeats over decides how many rows are alive. Both windows
+  fill their lists on opening and empty them on closing.
 - **The selection is recorded twice** — a variable on the location for the map
   and the interface, a global list for the ranking — and only `bag_wtp_pick` /
   `bag_wtp_drop` may write it.

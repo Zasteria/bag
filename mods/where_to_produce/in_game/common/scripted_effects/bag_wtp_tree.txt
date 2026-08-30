@@ -1,0 +1,129 @@
+﻿# The selection tree: region, area, province, location, one column each.
+#
+# This is the shape the owner asked for three times, taken from the game's own
+# «Ковровая осада» panel: a geography opened one level at a time, any level
+# selectable in one click, the map showing what a row is. That panel is
+# `MilitaryObjectiveGroupView` with `GeographyGlue` rows -- engine objects a mod
+# cannot instantiate, so the tree is rebuilt here over global lists.
+#
+# Why lists rather than a walk in the interface: `Region.GetAreas` and
+# `Area.GetProvinces` are not interface promotes, so nothing but script can go
+# down a level. And why one open node per level rather than a nested tree: the
+# interface has no way to ask whether two scopes are the same, so a row cannot
+# tell whether it is the open one. Four columns need no such question.
+#
+# Scope: country
+bag_wtp_tree_refresh = {
+	bag_wtp_tree_build_regions = yes
+	bag_wtp_tree_close_region = yes
+}
+
+# Everything below the regions column, emptied. Also the whole tree's cleanup:
+# a datamodel is what keeps rows alive, so closing the window empties these.
+# Scope: country
+bag_wtp_tree_close_region = {
+	clear_global_variable_list = bag_wtp_tree_areas
+	remove_global_variable = bag_wtp_tree_region
+	bag_wtp_tree_close_area = yes
+}
+
+# Scope: country
+bag_wtp_tree_close_area = {
+	clear_global_variable_list = bag_wtp_tree_provinces
+	remove_global_variable = bag_wtp_tree_area
+	bag_wtp_tree_close_province = yes
+}
+
+# Scope: country
+bag_wtp_tree_close_province = {
+	clear_global_variable_list = bag_wtp_tree_locations
+	remove_global_variable = bag_wtp_tree_province
+}
+
+# Scope: country
+bag_wtp_tree_drop = {
+	clear_global_variable_list = bag_wtp_tree_regions
+	bag_wtp_tree_close_region = yes
+}
+
+# One region opened: its areas become the second column.
+# Scope: country
+bag_wtp_tree_fill_areas = {
+	clear_global_variable_list = bag_wtp_tree_areas
+	scope:wtp_region = {
+		set_global_variable = { name = bag_wtp_tree_region value = this }
+		every_area_in_region = {
+			limit = { any_location_in_area = { is_ownable = yes } }
+			add_to_global_variable_list = { name = bag_wtp_tree_areas target = this }
+		}
+	}
+}
+
+# One area opened: its provinces become the third column.
+# Scope: country
+bag_wtp_tree_fill_provinces = {
+	clear_global_variable_list = bag_wtp_tree_provinces
+	scope:wtp_area = {
+		set_global_variable = { name = bag_wtp_tree_area value = this }
+		every_province_in_area = {
+			limit = { any_location_in_province = { is_ownable = yes } }
+			add_to_global_variable_list = { name = bag_wtp_tree_provinces target = this }
+		}
+	}
+}
+
+# A whole region in or out, the same toggle the province and area rows use: if
+# anything in it is still out, take it all; otherwise put it all back.
+# Scope: region
+bag_wtp_toggle_region_scope = {
+	if = {
+		limit = {
+			any_location_in_region = {
+				is_ownable = yes
+				NOT = { has_variable = bag_wtp_picked }
+			}
+		}
+		every_location_in_region = {
+			limit = { is_ownable = yes }
+			bag_wtp_pick = yes
+		}
+	}
+	else = {
+		every_location_in_region = {
+			limit = { has_variable = bag_wtp_picked }
+			bag_wtp_drop = yes
+		}
+	}
+}
+
+# Everything the tree currently offers, in one press -- which is what "take all"
+# means once the window lists the ground rather than the plan.
+# Scope: country
+bag_wtp_tree_pick_all = {
+	every_in_global_list = {
+		variable = bag_wtp_tree_regions
+		every_location_in_region = {
+			limit = {
+				is_ownable = yes
+				NOT = { has_variable = bag_wtp_picked }
+			}
+			bag_wtp_pick = yes
+		}
+	}
+}
+
+# One province opened: its locations become the fourth column. A list rather
+# than `GetGlobalVariable(...).GetProvince.GetLocations` in the window, because
+# an unset variable there is a null promote logged every frame -- and because
+# the filtering belongs here, where `is_ownable` is one word.
+# Scope: country
+bag_wtp_tree_fill_locations = {
+	clear_global_variable_list = bag_wtp_tree_locations
+	scope:wtp_province = {
+		set_global_variable = { name = bag_wtp_tree_province value = this }
+		every_location_in_province = {
+			limit = { is_ownable = yes }
+			add_to_global_variable_list = { name = bag_wtp_tree_locations target = this }
+		}
+	}
+}

@@ -26,6 +26,16 @@ them, load order deciding who loses. Copy the *window* and leave the types alone
 with fixed row heights and no `ignoreinvisible`, so hiding a row from the
 interface leaves a hole. Filter the data instead, or resize the list.
 
+**An anchor on a direct child of an hbox or vbox is refused, and says so 124
+times.** `gui.log`, not `error.log`: `Widget cannot have a position in a layout`,
+one line per row drawn, from a `parentanchor = vcenter` on a button inside a row.
+A layout places its own children; anchors belong to children of a plain
+`widget`. Glorp UI has four of the same in `glorpUI_country_header.gui`.
+
+**An hbox with a fixed width spreads its children across it.** Two goods icons
+26px wide sat 77px apart inside an hbox told to be 144 wide. A container that
+should hug its content gets no `size` at all.
+
 **A datamodel item needs a `datacontext` of its own, or the object it repeats
 over is not there.** `where_to_produce`'s results row drew its goods icons off
 `Scope.GetGoods` from inside the item's type and drew nothing at all — while the

@@ -100,6 +100,9 @@ bag_wtp_on_button = {
 # The same thing the window's own scripted GUI does, reachable from an effect.
 # Scope: country
 bag_wtp_open_window_effect = {
+	# The tree is built on opening: its first column is whatever the zone tab
+	# ticked, and that may have changed since the last time.
+	bag_wtp_tree_refresh = yes
 	set_variable = { name = bag_wtp_open value = 1 }
 }
 

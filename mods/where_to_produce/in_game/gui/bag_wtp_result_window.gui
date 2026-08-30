@@ -298,11 +298,13 @@ types BagWtpResultTypes {
 						text = "bag_wtp_result_goods_count"
 					}
 
+					# No `size`: an hbox given more width than its children spreads them
+					# across it, which put a whole column between two icons. Left it
+					# to hug its content instead.
 					hbox = {
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						position = { 46 0 }
-						size = { 144 36 }
 						spacing = 2
 						datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
 						item = { bag_wtp_result_goods_entry = { datacontext = "[Scope.GetGoods]" } }

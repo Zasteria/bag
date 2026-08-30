@@ -26,6 +26,7 @@ bag_wtp_open_window = {
 	}
 
 	effect = {
+		bag_wtp_tree_refresh = yes
 		set_variable = { name = bag_wtp_open value = 1 }
 	}
 }
@@ -43,6 +44,7 @@ bag_wtp_close_window = {
 		# a scripted widget and never comes down; only the list it repeats over
 		# decides how much of it is alive.
 		bag_wtp_drop_browse = yes
+		bag_wtp_tree_drop = yes
 	}
 }
 
@@ -64,75 +66,6 @@ bag_wtp_toggle_location = {
 	}
 }
 
-# A whole province at once: if any of its locations is out, take them all in;
-# otherwise take them all out. On a row that reads better than a tri-state.
-bag_wtp_toggle_province = {
-	scope = country
-	saved_scopes = { wtp_location }
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		scope:wtp_location = {
-			province = {
-				if = {
-					limit = {
-						any_location_in_province = {
-							is_ownable = yes
-							NOT = { has_variable = bag_wtp_picked }
-						}
-					}
-					every_location_in_province = {
-						limit = { is_ownable = yes }
-						bag_wtp_pick = yes
-					}
-				}
-				else = {
-					every_location_in_province = {
-						limit = { has_variable = bag_wtp_picked }
-						bag_wtp_drop = yes
-					}
-				}
-			}
-		}
-	}
-}
-
-# Expand and collapse are stored on the province's capital location, because that
-# is a scope that certainly holds a variable and is reachable from the province
-# in the interface and in script alike. Advanced Auto Build does the same.
-bag_wtp_expand_province = {
-	scope = country
-	saved_scopes = { wtp_location }
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		scope:wtp_location = {
-			set_variable = { name = bag_wtp_expanded value = 1 }
-		}
-	}
-}
-
-bag_wtp_collapse_province = {
-	scope = country
-	saved_scopes = { wtp_location }
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		scope:wtp_location = {
-			remove_variable = bag_wtp_expanded
-		}
-	}
-}
-
 # Everything currently browsable, in one press.
 bag_wtp_pick_all = {
 	scope = country
@@ -142,16 +75,7 @@ bag_wtp_pick_all = {
 	}
 
 	effect = {
-		every_in_global_list = {
-			variable = bag_wtp_browse
-			every_location_in_province = {
-				limit = {
-					is_ownable = yes
-					NOT = { has_variable = bag_wtp_picked }
-				}
-				bag_wtp_pick = yes
-			}
-		}
+		bag_wtp_tree_pick_all = yes
 	}
 }
 
@@ -234,6 +158,95 @@ bag_wtp_result_collapse = {
 	effect = {
 		scope:wtp_location = {
 			remove_variable = bag_wtp_res_expanded
+		}
+	}
+}
+
+# The selection tree's bridges. Each opens one level or takes one whole
+# geography; `saved_scopes` is how the row hands its own scope in.
+bag_wtp_tree_open_region = {
+	scope = country
+	saved_scopes = { wtp_region }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_tree_close_area = yes
+		bag_wtp_tree_fill_areas = yes
+	}
+}
+
+bag_wtp_tree_open_area = {
+	scope = country
+	saved_scopes = { wtp_area }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_tree_fill_provinces = yes
+		# The locations column belongs to a province of the area just closed.
+		bag_wtp_tree_close_province = yes
+	}
+}
+
+bag_wtp_tree_open_province = {
+	scope = country
+	saved_scopes = { wtp_province }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_tree_fill_locations = yes
+	}
+}
+
+bag_wtp_tree_take_region = {
+	scope = country
+	saved_scopes = { wtp_region }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_region = {
+			bag_wtp_toggle_region_scope = yes
+		}
+	}
+}
+
+bag_wtp_tree_take_area = {
+	scope = country
+	saved_scopes = { wtp_area }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_area = {
+			bag_wtp_toggle_area_scope = yes
+		}
+	}
+}
+
+bag_wtp_tree_take_province = {
+	scope = country
+	saved_scopes = { wtp_province }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_province = {
+			bag_wtp_toggle_province_scope = yes
 		}
 	}
 }

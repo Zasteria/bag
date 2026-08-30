@@ -43,19 +43,20 @@ types BagWtpSelectTypes {
 
 	# One location. `bag_wtp_picked` is a variable on the location itself, so the
 	# tick, the map colour and the ranking walk are all reading the same fact.
+	# One location, in the tree's fourth column. Narrow: the column is 252 wide,
+	# where this row used to have a window to itself. The list it repeats over is
+	# already filtered to ownable ground, so no lake reaches it.
 	type bag_wtp_select_location_entry = hbox {
-		# Lakes, sea zones and impassables come with `GetLocations` and are not
-		# ground anybody builds on. The parent has `ignoreinvisible`.
-		visible = "[Location.IsPossibleToOwn]"
 		layoutpolicy_horizontal = expanding
-		size = { -1 32 }
+		size = { -1 28 }
 		spacing = 0
 		using = bg_number_container_bckg
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
 
 		widget = {
-			size = { 40 32 }
+			size = { 26 28 }
 			icon = {
-				size = { 20 20 }
+				size = { 18 18 }
 				parentanchor = center
 				widgetanchor = center
 				texture = "[Location.GetRankIcon]"
@@ -64,26 +65,39 @@ types BagWtpSelectTypes {
 		}
 
 		text_single = {
-			size = { 300 32 }
+			size = { 104 28 }
 			autoresize = no
-			maximumsize = { 300 32 }
+			maximumsize = { 104 28 }
 			align = left|vcenter
 			elide = right
+			fontsize = 13
 			text = "[Location.GetName]"
 		}
 
-		widget = { layoutpolicy_horizontal = expanding size = { -1 32 } }
+		widget = {
+			size = { 24 28 }
+			visible = "[Location.HasRawMaterial]"
+			icon = {
+				size = { 18 18 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[GetGoodsIcon(Location.GetRawMaterial)]"
+				tooltip = "[Location.GetRawMaterial.GetName]"
+			}
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 
 		button_regular = {
-			size = { 150 26 }
+			size = { 76 26 }
 			visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_picked').IsSet)]"
 			tooltip = "bag_wtp_add_location_tt"
 			text_single = {
-				size = { 142 22 }
+				size = { 70 22 }
 				parentanchor = center
 				widgetanchor = center
 				autoresize = no
-				maximumsize = { 142 22 }
+				maximumsize = { 70 22 }
 				fontsize = 13
 				fontsize_min = 10
 				align = center|nobaseline
@@ -94,15 +108,15 @@ types BagWtpSelectTypes {
 		}
 
 		button_regular = {
-			size = { 150 26 }
+			size = { 76 26 }
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_picked').IsSet]"
 			tooltip = "bag_wtp_remove_location_tt"
 			text_single = {
-				size = { 142 22 }
+				size = { 70 22 }
 				parentanchor = center
 				widgetanchor = center
 				autoresize = no
-				maximumsize = { 142 22 }
+				maximumsize = { 70 22 }
 				fontsize = 13
 				fontsize_min = 10
 				align = center|nobaseline
@@ -111,100 +125,180 @@ types BagWtpSelectTypes {
 			}
 			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
 		}
-
-		widget = { size = { 12 32 } }
 	}
 
-	# One province: a header row that takes the whole province in or out, and the
-	# locations underneath once it is expanded. Expansion is a variable on the
-	# province's capital location, which is the trick Advanced Auto Build uses --
-	# a location certainly holds a variable and is reachable from the province on
-	# both sides.
-	type bag_wtp_select_province_entry = vbox {
-		layoutpolicy_horizontal = expanding
-		layoutpolicy_vertical = preferred
-		spacing = 2
+	# One column of the tree. The header names the level, the rows are whatever
+	# the column was given. A column with nothing in it stays -- an empty frame
+	# says "open something on the left" better than a gap does.
+	type bag_wtp_tree_column = vbox {
+		layoutpolicy_vertical = expanding
+		size = { 252 -1 }
+		spacing = 3
 
 		widget = {
 			layoutpolicy_horizontal = expanding
-			size = { -1 34 }
-			using = bg_paper_card
+			size = { -1 24 }
 
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				spacing = 0
-
-				widget = {
-					size = { 40 34 }
-					button_square_plus = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						visible = "[Not(Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet)]"
-						tooltip = "bag_wtp_expand_tt"
-						onclick = "[GetScriptedGui('bag_wtp_expand_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
-					}
-					button_square_minus = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						visible = "[Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet]"
-						tooltip = "bag_wtp_collapse_tt"
-						onclick = "[GetScriptedGui('bag_wtp_collapse_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
-					}
-				}
-
-				text_single = {
-					size = { 220 34 }
-					autoresize = no
-					maximumsize = { 220 34 }
-					align = left|vcenter
-					elide = right
-					text = "[Province.GetCapital.GetArea.GetNameWithNoTooltip]"
-				}
-
-				text_single = { size = { 24 34 } autoresize = no align = center raw_text = "›" }
-
-				text_single = {
-					size = { -1 34 }
-					layoutpolicy_horizontal = expanding
-					autoresize = no
-					align = left|vcenter
-					elide = right
-					text = "[Province.GetName]"
-				}
-
-				button_regular = {
-					size = { 150 26 }
-					parentanchor = vcenter
-					tooltip = "bag_wtp_toggle_province_tt"
-					text_single = {
-						size = { 142 22 }
-						parentanchor = center
-						widgetanchor = center
-						autoresize = no
-						maximumsize = { 142 22 }
-						fontsize = 13
-						fontsize_min = 10
-						align = center|nobaseline
-						elide = right
-						text = "bag_wtp_toggle_province"
-					}
-					onclick = "[GetScriptedGui('bag_wtp_toggle_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Province.GetCapital.MakeScope).End)]"
-				}
-
-				widget = { size = { 12 34 } }
+			text_single = {
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				size = { 244 24 }
+				align = left|vcenter
+				elide = right
+				fontsize = 14
+				block "tree_column_header" { text = "bag_wtp_tree_regions_head" }
 			}
 		}
 
-		vbox = {
-			visible = "[Province.GetCapital.MakeScope.GetVariable('bag_wtp_expanded').IsSet]"
+		scrollbox = {
 			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = preferred
-			ignoreinvisible = yes
-			margin_left = 20
-			datamodel = "[Province.GetLocations]"
-			item = { bag_wtp_select_location_entry = {} }
+			layoutpolicy_vertical = expanding
+			blockoverride "scrollbox_content" {
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = preferred
+					margin = { 6 6 }
+					margin_right = 16
+					spacing = 2
+					ignoreinvisible = yes
+					block "tree_column_rows" {}
+				}
+			}
+		}
+	}
+
+	# The three geography rows are one shape three times: the name opens the next
+	# column, the button takes or drops everything inside, and hovering either
+	# hands the map the same geography the row stands for. `SetHighlight*` lives
+	# on `PdxGuiWidget`, so this is the game's own highlight, not an imitation of
+	# it.
+	type bag_wtp_tree_region_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 2
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightRegion(Region.Self)]"
+
+		button_regular = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 26 }
+			tooltip = "bag_wtp_tree_open_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 160 22 }
+				size = { 160 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = left|nobaseline
+				elide = right
+				raw_text = "[Region.GetNameWithNoTooltip]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_open_region').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_region', Region.MakeScope).End)]"
+		}
+
+		button_regular = {
+			size = { 46 26 }
+			tooltip = "bag_wtp_tree_take_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 42 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_tree_take"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_take_region').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_region', Region.MakeScope).End)]"
+		}
+	}
+
+	type bag_wtp_tree_area_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 2
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightArea(Area.Self)]"
+
+		button_regular = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 26 }
+			tooltip = "bag_wtp_tree_open_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 160 22 }
+				size = { 160 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = left|nobaseline
+				elide = right
+				raw_text = "[Area.GetNameWithNoTooltip]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_open_area').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_area', Area.MakeScope).End)]"
+		}
+
+		button_regular = {
+			size = { 46 26 }
+			tooltip = "bag_wtp_tree_take_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 42 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_tree_take"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_take_area').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_area', Area.MakeScope).End)]"
+		}
+	}
+
+	type bag_wtp_tree_province_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 2
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightProvince(Province.Self)]"
+
+		button_regular = {
+			layoutpolicy_horizontal = expanding
+			size = { -1 26 }
+			tooltip = "bag_wtp_tree_open_province_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 160 22 }
+				size = { 160 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = left|nobaseline
+				elide = right
+				raw_text = "[Province.GetNameWithNoTooltip]"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_open_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_province', Province.MakeScope).End)]"
+		}
+
+		button_regular = {
+			size = { 46 26 }
+			tooltip = "bag_wtp_tree_take_tt"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = no
+				maximumsize = { 42 22 }
+				fontsize = 13
+				fontsize_min = 10
+				align = center|nobaseline
+				elide = right
+				text = "bag_wtp_tree_take"
+			}
+			onclick = "[GetScriptedGui('bag_wtp_tree_take_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_province', Province.MakeScope).End)]"
 		}
 	}
 }
@@ -392,27 +486,45 @@ window = {
 					}
 				}
 
-				scrollbox = {
+				# The tree: region, area, province, location, one column each, the
+				# next filled by opening a row in the one before it. Any row takes
+				# or drops its whole geography in one press, and hovering one shows
+				# it on the map -- `SetHighlight*` is on `PdxGuiWidget`, so it is
+				# the game's own highlighting rather than an imitation.
+				hbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
-					blockoverride "scrollbox_content" {
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = preferred
-							margin = { 10 8 }
-							margin_right = 20
-							spacing = 3
-							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_browse')]"
-							# The datacontext goes on the type instance itself. Wrapping it in
-							# a `widget` is what collapsed every row to zero height: a widget
-							# does not size itself to its child, and only the one expanded
-							# province had anything pushing it open.
-							item = {
-								bag_wtp_select_province_entry = {
-									datacontext = "[Scope.GetProvince]"
-								}
-							}
+					spacing = 6
+
+					bag_wtp_tree_column = {
+						blockoverride "tree_column_header" { text = "bag_wtp_tree_regions_head" }
+						blockoverride "tree_column_rows" {
+							datamodel = "[GetGlobalList('bag_wtp_tree_regions')]"
+							item = { bag_wtp_tree_region_entry = { datacontext = "[Scope.GetRegion]" } }
+						}
+					}
+
+					bag_wtp_tree_column = {
+						blockoverride "tree_column_header" { text = "bag_wtp_tree_areas_head" }
+						blockoverride "tree_column_rows" {
+							datamodel = "[GetGlobalList('bag_wtp_tree_areas')]"
+							item = { bag_wtp_tree_area_entry = { datacontext = "[Scope.GetArea]" } }
+						}
+					}
+
+					bag_wtp_tree_column = {
+						blockoverride "tree_column_header" { text = "bag_wtp_tree_provinces_head" }
+						blockoverride "tree_column_rows" {
+							datamodel = "[GetGlobalList('bag_wtp_tree_provinces')]"
+							item = { bag_wtp_tree_province_entry = { datacontext = "[Scope.GetProvince]" } }
+						}
+					}
+
+					bag_wtp_tree_column = {
+						blockoverride "tree_column_header" { text = "bag_wtp_tree_locations_head" }
+						blockoverride "tree_column_rows" {
+							datamodel = "[GetGlobalList('bag_wtp_tree_locations')]"
+							item = { bag_wtp_select_location_entry = { datacontext = "[Scope.GetLocation]" } }
 						}
 					}
 				}
