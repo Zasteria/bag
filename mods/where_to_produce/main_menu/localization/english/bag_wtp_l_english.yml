@@ -170,12 +170,17 @@
  bag_wtp_map_pick_province_desc: "The same, one province at a time. A click toggles all of its land locations at once."
  bag_wtp_map_pick_location: "Choose a location"
  bag_wtp_map_pick_location_desc: "The same, one location at a time, for trimming the edges of a plan drawn in areas."
+ bag_wtp_map_pick_market: "Choose a market"
+ bag_wtp_map_pick_market_desc: "A whole market's land at once, from a list of the markets your country is in. A market is not drawn on the map, so this one has no map click. For a realm large enough to hold several markets, where each one wants its own balance of production."
  bag_wtp_choose_area: "Choose an area"
  bag_wtp_choose_area_tt: "Click an area on the map or in the list. It goes into the plan, or comes out of it if it was already in."
  bag_wtp_choose_province: "Choose a province"
  bag_wtp_choose_province_tt: "Click a province on the map or in the list. Its land locations go into the plan, or come out of it if they were already in."
  bag_wtp_choose_location: "Choose a location"
  bag_wtp_choose_location_tt: "Click a location on the map or in the list. It goes into the plan, or comes out of it if it was already in."
+ bag_wtp_choose_market: "Choose a market"
+ bag_wtp_choose_market_tt: "Pick a market from the list. Every land location in it goes into the plan, or comes out of it if it was already in."
+ bag_wtp_no_markets: "Your country is in no market."
 
 
  bag_wtp_add_location: "Add"

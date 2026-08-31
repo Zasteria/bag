@@ -44,13 +44,11 @@ earns its own bonus over its own output:
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
 
 **The twenty-sixth load passed on everything and the owner is satisfied with the
-functionality.** The twenty-fifth's three complaints were a silk weaver offered
-where there is no silk (the fed floor is half the recipe's possible bonus now,
-`generate.fed_floor`), «Из чего» centred rather than left in its column (a sized
-hbox spreads its children; it is a `widget` with an anchored child now), and the
-buildable tick not re-ranking the open window. All three hold. Two name columns
-narrowed to pay for the method column had to be given their width back and a
-spacer; one alignment question is open in `TESTLOG.md`.
+functionality** — the fed floor is half a recipe's possible bonus now
+(`generate.fed_floor`), «Из чего» is a `widget` with an anchored child rather
+than a sized hbox that centred it, and the buildable tick re-ranks the open
+window. Two name columns narrowed to pay for the method column had to be given
+their width back and a spacer; one alignment question is open in `TESTLOG.md`.
 
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
@@ -58,14 +56,17 @@ exceptions are at the top of `TESTLOG.md`.
 **The next thing is not another fix.** Two jobs are open and the owner has
 chosen the second:
 
-**The honest market balance, for his own land.** Asked for on 2026-08-31, and
-the survey is [`investigations/market_truth.md`](investigations/market_truth.md)
-— what the engine hands over as a number, what it only formats as a tooltip, and
-the three slices to build it in, each checkable against a figure the game
-already prints. **The pop-demand half is a reimplementation of the game's demand
-model** and the file says so; the reason it is buildable at all is that a market
-wholly inside one country is its own answer key. Read that file before touching
-any of it.
+**A market is a fourth thing to pick**, built the same day and unrun: «Выбрать
+рынок» takes a whole market's land into the plan, from a list of the markets the
+player's country is in — for a realm with several markets, each wanting its own
+balance of production. It is the one picker that names its own candidates, since
+a market is not drawn on the map.
+
+**What it replaced:** an own-land production and consumption table, dropped by
+the owner on reading the survey. That survey is
+[`investigations/market_truth.md`](investigations/market_truth.md) and is worth
+keeping: the engine gives no per-country goods figure at all, and the pop-demand
+half would be a reimplementation of the game's demand model.
 
 **And the goal the mod was for**, below — ask him before designing any of it, the
 shape is his sentence, not a spec.

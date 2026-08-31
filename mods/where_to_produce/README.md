@@ -118,6 +118,26 @@ main_menu/localization/{english,russian}/
 tools/generate.py      everything above that comes out of the game's own files
 ```
 
+## The answer lives on the location
+
+`bag_wtp_fill_rows` parks it there; everything else reads it back:
+
+| on the winning location | is |
+| --- | --- |
+| `bag_wtp_best` | `out * (1 + bonus/100) * RANK_SCALE` — what the ranking sorts on, never printed |
+| `bag_wtp_rank` | the place it came in, 1 first — the «№» column |
+| `bag_wtp_bt` / `_pm` | the building and the method that won |
+| `bag_wtp_out` / `_bonus` | what it makes a level unscaled — the row's `×` — and the RGO bonus, its percentage |
+| `bag_wtp_goods` / `_all` | the raw materials the province supplies, and how many it could |
+
+`bag_wtp_mid_*` and `bag_wtp_end_*` are the same for the other two columns, plus
+`bag_wtp_mid_age`; `_any_best*` is each column's unfed fallback, printed only,
+and `bag_wtp_row_end` is which column the row prints. An urban right's are
+`bag_wtp_r_*_<k>` for slot `k` of three (script has no list of tuples),
+`_r_good_<k>` the good and `_r_total` what the ranking sorts on. All have a
+`_rural` twin, all are read off the row's own scope: no globals per row, no
+ceiling but `RESULT_ROWS`. Not built: what a building costs.
+
 ## Rebuilding
 
     python3 mods/where_to_produce/tools/generate.py

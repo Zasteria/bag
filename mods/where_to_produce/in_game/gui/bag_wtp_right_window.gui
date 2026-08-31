@@ -448,7 +448,7 @@ window = {
 					spacing = 8
 
 					action_button = {
-						size = { 210 34 }
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_area"
 						description = "bag_wtp_map_pick_area_desc"
 						actor = "[Player]"
@@ -456,10 +456,10 @@ window = {
 						tooltip = "bag_wtp_map_pick_area_desc"
 						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
@@ -469,7 +469,7 @@ window = {
 					}
 
 					action_button = {
-						size = { 210 34 }
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_province"
 						description = "bag_wtp_map_pick_province_desc"
 						actor = "[Player]"
@@ -477,10 +477,10 @@ window = {
 						tooltip = "bag_wtp_map_pick_province_desc"
 						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
@@ -490,7 +490,7 @@ window = {
 					}
 
 					action_button = {
-						size = { 210 34 }
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_location"
 						description = "bag_wtp_map_pick_location_desc"
 						actor = "[Player]"
@@ -498,15 +498,36 @@ window = {
 						tooltip = "bag_wtp_map_pick_location_desc"
 						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
 							elide = right
 							text = "bag_wtp_map_pick_location"
+						}
+					}
+
+					action_button = {
+						size = { 164 34 }
+						title = "bag_wtp_map_pick_market"
+						description = "bag_wtp_map_pick_market_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_market" }
+						tooltip = "bag_wtp_map_pick_market_desc"
+						using = bg_button_flavor_1
+						text_single = {
+							size = { 156 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 156 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_market"
 						}
 					}
 

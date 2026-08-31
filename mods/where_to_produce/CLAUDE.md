@@ -4,11 +4,11 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: twenty-five loads in, and a row answers in three ages** — «Сейчас»,
+**State: twenty-six loads in, and a row answers in three ages** — «Сейчас»,
 «По пути» (the best this ground ever feeds, and the last age it can be built),
 «В конце». **Two «Считать» buttons, not three sort headers:** one orders by
-today, the other by the end and breaks its ties on «По пути», the only column
-with anything to say where a ladder ends early.
+today, the other by the end and breaks ties on «По пути», the only column with
+anything to say where a ladder ends early.
 
 ## Where it stands
 
@@ -26,10 +26,14 @@ panel), so a `Method` is the pair: `eu5data.Method.shares`, and why in
 
 **Urban rights** are two lists on the Goods tab and a window of their own, on the
 same two buttons and fallbacks but with no «По пути» column, only the tiebreak. A
-right's country gate is its own `potential` or its advance's, never
-`has_advance`, so most countries see none of the three. Numbers and the deferred
-level rights:
+right's gate is its own `potential` or its advance's, never `has_advance`, so
+most countries see none of the three. Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
+
+**Four pickers, and the market one names its own candidates**: a market is not
+drawn on the map, so `bag_wtp_select_market` fills `interaction_source_list` from
+`every_market_present_in_country` and is a list with no map click — vanilla's
+only `looking_for_a = market` does the same.
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography
@@ -40,8 +44,8 @@ tree of our own, empty twice. Picker caps: `docs/research/cmf.md`.
 - **A window's datamodel is what costs**: a scripted widget never comes down, so
   only the list it repeats over decides how many rows live. Filled on opening,
   emptied on closing.
-- **The selection is recorded twice** — a location variable and a global list —
-  and only `bag_wtp_pick` / `_drop` writes it.
+- **The selection is recorded twice**, a location variable and a global list, and
+  only `bag_wtp_pick` / `_drop` writes it.
 - **Every column in both windows is a fixed width and none expands**; one that
   hugs its content is a `widget` with an anchored child, never a sized hbox.
   Three ways to lose a column to that, in `docs/pitfalls/interface.md`.
@@ -54,23 +58,10 @@ tree of our own, empty twice. Picker caps: `docs/research/cmf.md`.
 
 ## The answer lives on the location
 
-`bag_wtp_fill_rows` parks it there; everything else reads it back:
-
-| on the winning location | is |
-| --- | --- |
-| `bag_wtp_best` | `out * (1 + bonus/100) * RANK_SCALE` — what the ranking sorts on, never printed |
-| `bag_wtp_rank` | the place it came in, 1 first — the «№» column |
-| `bag_wtp_bt` / `_pm` | the building and the method that won |
-| `bag_wtp_out` / `_bonus` | what it makes a level unscaled — the row's `×` — and the RGO bonus, its percentage |
-| `bag_wtp_goods` / `_all` | the raw materials the province supplies, and how many it could |
-
-`bag_wtp_mid_*` and `bag_wtp_end_*` are the same for the other two columns, plus
-`bag_wtp_mid_age`; `_any_best*` is each column's unfed fallback, printed only,
-and `bag_wtp_row_end` is which column the row prints. An urban right's are
-`bag_wtp_r_*_<k>` for slot `k` of three (script has no list of tuples),
-`_r_good_<k>` the good and `_r_total` what the ranking sorts on. All have a
-`_rural` twin, all are read off the row's own scope: no globals per row, no
-ceiling but `RESULT_ROWS`. Not built: what a building costs.
+`bag_wtp_fill_rows` parks it there and everything else reads it back — every
+variable named, and the `_rural`, `mid_`, `end_` and urban-right twins, in
+[`README.md`](README.md#the-answer-lives-on-the-location). No globals per row,
+no ceiling but `RESULT_ROWS`. Not built: what a building costs.
 
 **Built by** `generate.py`, from `tools/refresh.py`. Depth:
 [`README.md`](README.md). Anything else: `python3 tools/kb.py <words>`.

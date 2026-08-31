@@ -213,15 +213,25 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-seventh load.** Layout only, and one glance answers
-it — this is not worth a run of its own, it rides along with whatever comes next.
+**`where_to_produce`, twenty-seventh load.** A new picker and two layout
+questions. One session with the mod page open answers all of it.
 
-1. **«Восточная Мунтения» no longer touches «Валахия»**, and «Трансильвания» no
-   longer touches its percentage. Both columns have their width back and eight
-   pixels of their own after them.
-2. **«Из чего»: are the count and the icons under their heading, or still a
-   dozen pixels right of it?** The middle columns look right and this one cannot
-   be called from a screenshot at the size sent. If it is still off, say so and
+1. **«Выбрать рынок» is there and works.** Fourth button in the row, in the goods
+   window and the rights window both. It opens a *list only* — a market is not
+   drawn on the map, so there is no map click and no highlight, and that is the
+   engine's shape, not a fault. Picking one should put every land location of
+   that market into the plan and re-rank on the spot; picking it again should
+   take them out. «Выбрано: N лок. в M пров.» is the number to watch.
+   - If the list is empty and says «Ваша страна не входит ни в один рынок», the
+     source list is wrong and that is the thing to report.
+   - If the panel opens but the plan does not change, the effect never reached
+     the country's scope — the «пересчётов» counter will not have moved.
+2. **The four buttons still read.** They lost 46 pixels each to make room:
+   «Выбрать провинцию» is the longest and the one to check for a truncation.
+3. **«Восточная Мунтения» no longer touches «Валахия»**, and «Трансильвания» no
+   longer touches its percentage.
+4. **«Из чего»: is it under its heading, or still a dozen pixels right of it?**
+   Cannot be called from a screenshot at the size sent. If still off, say so and
    nothing else — the header and the rows add up to the same numbers, so the
    cause is inside the scrollbox and it is one number to move.
 

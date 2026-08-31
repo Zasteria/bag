@@ -162,3 +162,56 @@ bag_wtp_select_area = {
 
 	ai_will_do = { value = 0 }
 }
+
+# One market, all of its land locations at once.
+#
+# **The one picker that has to name its own candidates.** An area, a province and
+# a location are ground and the panel finds them itself; a market is not drawn on
+# the map, and vanilla's only `looking_for_a = market` -- the burgher capital
+# mission -- fills `interaction_source_list` from
+# `every_market_present_in_country`. This does the same, so the list is the
+# markets the player's own land sits in, which is exactly the case it was asked
+# for: one country, several markets, and a production balance wanted per market
+# rather than per realm.
+bag_wtp_select_market = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = market
+		target_flag = bag_wtp_target
+		interaction_source_list = {
+			scope:actor = {
+				every_market_present_in_country = {
+					add_to_list = source
+				}
+			}
+		}
+		name = bag_wtp_choose_market
+		none_available_msg_key = bag_wtp_no_markets
+		map_mode = bag_wtp_selection
+		bottom_widget = bag_wtp_select_footer
+		column = { data = name }
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp_choose_market_tt
+	}
+
+	effect = {
+		scope:bag_wtp_target ?= {
+			bag_wtp_toggle_market_scope = yes
+		}
+		# `scope:actor` and not the scope this block opens in -- the same reason as
+		# the three above, and the same silent failure if it is left out.
+		scope:actor = {
+			bag_wtp_rebuild_browse = yes
+			bag_wtp_recompute_live = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}

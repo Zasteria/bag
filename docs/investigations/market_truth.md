@@ -1,5 +1,14 @@
 # The honest market balance, for one country's own land
 
+**Dropped on 2026-08-31, by the owner, on reading this file: «я думаю это пока
+того не стоит».** What was built instead is a fourth picker — «Выбрать рынок» —
+so that the mod's own question can be asked over one market's ground. The market
+panel's «Local balance» column, which he had been misreading as including
+imports, answers the rest.
+
+Kept because the survey below is the expensive part and the next person to want
+this will want it again, not because anything here is planned.
+
 What the owner asked for on 2026-08-31: a table saying how much of each good
 **his own territory** makes and eats, with imports and exports taken out — so
 that "no shortage of masonry" cannot mean "no shortage as long as the neighbour

@@ -109,6 +109,33 @@ bag_wtp_toggle_area_scope = {
 	}
 }
 
+# Scope: market
+#
+# A market is not ground, so `bag_wtp_in_zone` is not asked of it -- the ticked
+# continents frame where a *search* looks, and a market the player picked by name
+# is the frame itself. Its locations are filtered on `is_ownable` like every
+# other picker's, which drops the sea zones a market certainly contains.
+bag_wtp_toggle_market_scope = {
+	if = {
+		limit = {
+			any_location_in_market = {
+				is_ownable = yes
+				NOT = { has_variable = bag_wtp_picked }
+			}
+		}
+		every_location_in_market = {
+			limit = { is_ownable = yes }
+			bag_wtp_pick = yes
+		}
+	}
+	else = {
+		every_location_in_market = {
+			limit = { has_variable = bag_wtp_picked }
+			bag_wtp_drop = yes
+		}
+	}
+}
+
 # The provinces the window lists: the ones something is picked in.
 #
 # That is the window's whole job -- taking single locations back out of a plan
