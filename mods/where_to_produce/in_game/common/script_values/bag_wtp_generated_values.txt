@@ -6168,9 +6168,25 @@ bag_wtp_rank_order = {
 
 # What the rights pass ranks on: every good of the bundle, each at its best
 # method here, added through its price. Already scaled -- `_best` is.
+#
+# «На конец» adds the road there, shrunk until it can only break a tie -- and
+# the tie it breaks is the whole table at once, because where no surviving
+# recipe can be fed every province is worth exactly zero. A hundred-thousandth
+# of a bundle's total is at most 0.065 and the smallest step a bundle's own
+# total takes is about 0.6.
+# Scope: location
+bag_wtp_r_mid_tiebreak = {
+	value = var:bag_wtp_r_mid_total
+	multiply = 0.00001
+}
+
 # Scope: location
 bag_wtp_r_score = {
 	value = var:bag_wtp_r_total
+	if = {
+		limit = { has_global_variable = bag_wtp_rank_by_end }
+		add = bag_wtp_r_mid_tiebreak
+	}
 }
 
 bag_wtp_show_regions = { value = global_var:bag_wtp_zone_count }

@@ -242,21 +242,21 @@ bag_wtp_refresh_rights = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_common item = 9 }
 	}
 	if = {
-		limit = { OR = { has_global_variable = bag_wtp_any_method AND = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } } } }
+		limit = { AND = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } } }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 1 }
 	}
 	else = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 1 }
 	}
 	if = {
-		limit = { OR = { has_global_variable = bag_wtp_any_method AND = { has_advance = advance:scandinavian_bergslag_privileges_advance } } }
+		limit = { always = yes }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 2 }
 	}
 	else = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 2 }
 	}
 	if = {
-		limit = { OR = { has_global_variable = bag_wtp_any_method AND = { has_advance = advance:scandinavian_tar_privileges_advance } } }
+		limit = { always = yes }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 3 }
 	}
 	else = {
@@ -288,6 +288,7 @@ bag_wtp_score_right_1 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -297,26 +298,59 @@ bag_wtp_score_right_1 = {
 	bag_wtp_score_29 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3750 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3750 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -325,26 +359,59 @@ bag_wtp_score_right_1 = {
 	bag_wtp_score_30 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.6600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.6600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -353,26 +420,59 @@ bag_wtp_score_right_1 = {
 	bag_wtp_score_18 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.6000 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.6000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -385,6 +485,7 @@ bag_wtp_score_right_2 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -394,26 +495,59 @@ bag_wtp_score_right_2 = {
 	bag_wtp_score_32 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -422,26 +556,59 @@ bag_wtp_score_right_2 = {
 	bag_wtp_score_36 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -450,26 +617,59 @@ bag_wtp_score_right_2 = {
 	bag_wtp_score_42 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.1200 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.1200 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -482,6 +682,7 @@ bag_wtp_score_right_3 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -491,26 +692,59 @@ bag_wtp_score_right_3 = {
 	bag_wtp_score_27 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -519,26 +753,59 @@ bag_wtp_score_right_3 = {
 	bag_wtp_score_4 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.4800 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -547,26 +814,59 @@ bag_wtp_score_right_3 = {
 	bag_wtp_score_40 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.2400 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -579,6 +879,7 @@ bag_wtp_score_right_4 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -588,26 +889,59 @@ bag_wtp_score_right_4 = {
 	bag_wtp_score_26 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.2400 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -616,26 +950,59 @@ bag_wtp_score_right_4 = {
 	bag_wtp_score_37 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.3000 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -644,26 +1011,59 @@ bag_wtp_score_right_4 = {
 	bag_wtp_score_24 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.2400 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -676,6 +1076,7 @@ bag_wtp_score_right_5 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -685,26 +1086,59 @@ bag_wtp_score_right_5 = {
 	bag_wtp_score_34 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.6000 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.6000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -717,6 +1151,7 @@ bag_wtp_score_right_6 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -726,26 +1161,59 @@ bag_wtp_score_right_6 = {
 	bag_wtp_score_33 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3750 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3750 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -754,26 +1222,59 @@ bag_wtp_score_right_6 = {
 	bag_wtp_score_38 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.1250 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.1250 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -786,6 +1287,7 @@ bag_wtp_score_right_7 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -795,26 +1297,59 @@ bag_wtp_score_right_7 = {
 	bag_wtp_score_39 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3900 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3900 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -823,26 +1358,59 @@ bag_wtp_score_right_7 = {
 	bag_wtp_score_45 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.2600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.2600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -855,6 +1423,7 @@ bag_wtp_score_right_8 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -864,26 +1433,59 @@ bag_wtp_score_right_8 = {
 	bag_wtp_score_29 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -892,26 +1494,59 @@ bag_wtp_score_right_8 = {
 	bag_wtp_score_4 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.4800 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -920,26 +1555,59 @@ bag_wtp_score_right_8 = {
 	bag_wtp_score_30 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.7200 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.7200 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -952,6 +1620,7 @@ bag_wtp_score_right_9 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -961,26 +1630,59 @@ bag_wtp_score_right_9 = {
 	bag_wtp_score_46 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3900 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3900 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -993,6 +1695,7 @@ bag_wtp_score_right_10 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -1002,26 +1705,59 @@ bag_wtp_score_right_10 = {
 	bag_wtp_score_28 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.4800 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -1030,26 +1766,59 @@ bag_wtp_score_right_10 = {
 	bag_wtp_score_31 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -1058,26 +1827,59 @@ bag_wtp_score_right_10 = {
 	bag_wtp_score_47 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_3 = 0 }
+				set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_3 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_3 = 0 }
-			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_3 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_3 }
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
 	}
@@ -1090,6 +1892,7 @@ bag_wtp_score_right_11 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -1099,26 +1902,59 @@ bag_wtp_score_right_11 = {
 	bag_wtp_score_46 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3300 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3300 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -1131,6 +1967,7 @@ bag_wtp_score_right_12 = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
 		set_variable = { name = bag_wtp_r_method_1 value = 0 }
 		set_variable = { name = bag_wtp_r_method_2 value = 0 }
 		set_variable = { name = bag_wtp_r_method_3 value = 0 }
@@ -1140,26 +1977,59 @@ bag_wtp_score_right_12 = {
 	bag_wtp_score_39 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_1 = 0 }
-			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 0.3600 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -1168,26 +2038,59 @@ bag_wtp_score_right_12 = {
 	bag_wtp_score_45 = yes
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
-		set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
 		if = {
-			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
-			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
 		}
-		# Nothing the ground feeds, on either side: the slot keeps its building and
-		# its icon and says 0.00%, rather than dropping a good out of the bundle --
-		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-		# worth nothing to the ranking and a row where every slot is like this is
-		# still filtered out whole.
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
 		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
 		}
-		if = {
-			limit = { var:bag_wtp_r_method_2 = 0 }
-			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
-		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 0.2400 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}

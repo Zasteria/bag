@@ -60,7 +60,12 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
 		hbox = {
+			size = { 190 28 }
+			maximumsize = { 190 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
@@ -129,7 +134,12 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
 		hbox = {
+			size = { 190 28 }
+			maximumsize = { 190 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
@@ -198,7 +208,12 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
 		hbox = {
+			size = { 190 28 }
+			maximumsize = { 190 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"

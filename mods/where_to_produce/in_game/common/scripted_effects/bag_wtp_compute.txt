@@ -103,12 +103,7 @@ bag_wtp_on_button = {
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
 	if = {
-		limit = {
-			OR = {
-				var:cmf_callback = flag:bag_wtp__buildable_only
-				var:cmf_callback = flag:bag_wtp__any_method
-			}
-		}
+		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
 		bag_wtp_sync = yes
 		bag_wtp_refresh_goods = yes
 		bag_wtp_refresh_rights = yes

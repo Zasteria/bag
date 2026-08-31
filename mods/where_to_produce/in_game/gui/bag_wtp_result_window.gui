@@ -339,7 +339,12 @@ types BagWtpResultTypes {
 			}
 		}
 
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
 		hbox = {
+			size = { 190 28 }
+			maximumsize = { 190 28 }
 			spacing = 4
 			ignoreinvisible = yes
 			alwaystransparent = no
@@ -508,7 +513,12 @@ types BagWtpResultTypes {
 			}
 		}
 
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
 		hbox = {
+			size = { 190 28 }
+			maximumsize = { 190 28 }
 			spacing = 4
 			ignoreinvisible = yes
 			alwaystransparent = no

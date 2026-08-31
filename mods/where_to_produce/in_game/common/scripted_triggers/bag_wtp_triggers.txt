@@ -85,6 +85,14 @@ bag_wtp_right_row_is_worth_it = {
 		var:bag_wtp_r_bonus_1 > 0
 		var:bag_wtp_r_bonus_2 > 0
 		var:bag_wtp_r_bonus_3 > 0
+		# Ranked for the last age, every bonus in the table can be zero -- no
+		# recipe that survives is fed anywhere -- and then what keeps a row is
+		# what the ground gives on the way there. Without this the whole table
+		# empties itself exactly where the plan needs it most.
+		AND = {
+			has_global_variable = bag_wtp_rank_by_end
+			var:bag_wtp_r_mid_total > 0
+		}
 		AND = {
 			var:bag_wtp_r_goods_all_1 = 0
 			var:bag_wtp_r_goods_all_2 = 0

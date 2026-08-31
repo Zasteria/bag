@@ -31,6 +31,33 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
+the rights window was answering the wrong question.** Three screenshots, fine
+cloth and cannons, and a weaponry right.
+
+- **The pairs read correctly.** «Гильдия портных: Гильдия ткачей шёлка ×0.90 +
+  Красители с квасцами», «Здание пушкарей: Железные стволы ×1.16 + Железные
+  снаряды», with both slots' raw materials counted.
+- **«Считать» looked like it was sorting by the endgame** — 1.78% above 7.14%.
+  It was not: the ranking is by effective output and always has been, so ×0.90
+  at 1.78% (0.916) outranks ×0.70 at 7.14% (0.750). Settled at the eighth run,
+  when a forest village at 10% topped a weapons search; the owner reached the
+  same reading himself from the cannons table.
+- **«На конец» did nothing at all in the rights window.** The bundle pass read
+  `bag_wtp_best_method` and nothing else, so both buttons gave the same table in
+  the same order, showing first-age buildings. It reads the column the button
+  names now, falls back the same way, and breaks its ties on «По пути» — with
+  the row filter widened, or the table would empty itself exactly where a ladder
+  ends early.
+- **«Права: считать методы будущих эпох» is deleted.** Owner: «нафига вообще
+  нужна?» — right twice over: since the twentieth load it reached no method at
+  all, and a right should obey the same two buttons a good does. A unique right
+  is still gated on `potential` — a tag is a fact about the country — but never
+  on the advance that unlocks it.
+- **«Из чего» sat far right of its header** in the rights window: the block was
+  sized by its own icons and started wherever the expanding method column
+  stopped. It is 190 wide in both windows now, like the header.
+
 **2026-08-31 — `where_to_produce`, twenty-first load. The two-slot question is
 answered, from the game's own panel.** Three screenshots.
 
@@ -87,70 +114,6 @@ right.
   wool workshop unlocks in the fifth. Sorting by «В конце» breaks its ties on
   it, so the top row is the province that ends best and, among equals, is best
   on the road there.
-
-**2026-08-31 — `where_to_produce`, nineteenth load. The fed-first rule is right
-and the second column was hiding behind it.** Two screenshots, fine cloth in
-the Carpathians again.
-
-- **Wool is back, exactly as asked.** «Гильдия портных: Мериносовая шерсть
-  ×0.50» at 10.00% down the table, where the eighteenth run had one silk row at
-  0.00%. Owner: «Теперь он показывает мне варианты с шерсть… Пустых и
-  бесполезных провинций не показывается. Оружие и другие товары появились в
-  списках.» Urban rights use wool too.
-- **And the «В конце» column went blank on almost every row** — one province in
-  the whole table had a figure. Not a display fault: **fine cloth from wool has
-  no rung above the workshop.** The manufactory and the mill take only silk or
-  cloth, so once the wool workshop is obsolete a wool province has no fine cloth
-  recipe it can feed, and the fed-first rule correctly found nothing. A blank
-  cell said that no better than it said "nothing changes here", which is what it
-  had meant the day before. The far column now always prints: the fed survivor
-  where there is one, the best survivor at 0.00% where there is not.
-- **Weapons showed no far column at all**, same cause, same fix.
-- **Two ticks nobody could tell apart.** «Ранжировать по последней эпохе» and
-  «Считать методы, до которых не дошла эпоха» sat together and read alike, and
-  with both on the table still offered workshops — which was right (the ladder
-  ends there for wool) and looked wrong. Owner: «кнопку сортировки… нужно
-  перенести в само окно результатов и делать это прямо там». Done: the two
-  number columns are the buttons, and the ranking follows whichever was clicked.
-  The unreached-methods tick stays on the mod page.
-- **Right-aligned numbers against left-aligned names** read «1Восточная
-  Мунтения». Every column is left-aligned now.
-
-**2026-08-31 — `where_to_produce`, eighteenth load. The second column works,
-and it brought back three things the first column had been hiding.** Five
-screenshots, Wallachia, 1369, 127 locations in 26 provinces.
-
-- **Both columns render and both ticks work.** «Прибавка» and «В конце» side by
-  side, «Ранжировать по последней эпохе» visibly reorders and the re-rank
-  counter moves with it. Paper: `2.49% -> 10.00%` on lumber-only provinces,
-  `10.00% -> 10.00%` on Северная Олтения, which supplies both fiber and lumber.
-  The ladder arithmetic is right on screen.
-- **Ranking by the last age had no tiebreak**, so the 10.00 -> 10.00 province
-  sat below a 2.49 -> 10.00 one. Owner: «конечный в приоритете, а начальный
-  бонус — вторичным в счёте». Fixed with a thousandth of the near score added
-  to the far one: the smallest step a raw material makes in the endgame set is
-  1.9, so it can only order ties.
-- **Cannons and firearms were not in the goods list at all** — hidden because
-  no building for them is unlocked in the second age. That hiding is gone: every
-  good some building makes is offered now, whatever the age, which also means a
-  good another mod adds a building for.
-- **Fine cloth answered with silk weavers at 0.00% in a wool country**, one row
-  in the whole Carpathians. Not a bug in the arithmetic — 0.70 a level unfed
-  beats 0.50 at the full ten percent — but the wrong answer: the game would run
-  the recipe the market can feed, and the market is fed by the ground. **A
-  method whose raw materials the province supplies none of is no longer an
-  answer**; the wool provinces come back with wool weavers at 10%.
-- **`fine_cloth_guild` runs two methods at once, not one.** The owner said cloth
-  and jewelry have «улучшения» and cannons and firearms have ammunition; the
-  files agree — eight buildings carry two `unique_production_methods` blocks,
-  and a building runs one method from each. The mod treats them as alternatives
-  and so understates both the output and the inputs of exactly those eight.
-  Unbuilt, and the one thing here that needs a measurement before it can be:
-  [`investigations/production_ladder.md`](investigations/production_ladder.md).
-- **The rights window still answers for today only**, and its bundle showed
-  weaponry alone until «Считать методы, до которых не дошла эпоха» was ticked —
-  firearms and cannons have no unlocked building in the second age. It has no
-  second column yet; that tick is what stands in for one.
 
 **2026-08-31 — `where_to_produce`, seventeenth load. The registration fix holds,
 two things are confirmed after weeks of «never reported», and the filter that
@@ -223,22 +186,18 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-second load.** All of it new, none loaded.
+**`where_to_produce`, twenty-third load.** All of it new, none loaded.
 
-1. **Two «Считать» buttons on the mod page** — «Считать» and «На конец» — and
-   no sort buttons in the window's header. The second orders by «В конце» and
-   breaks its ties by «По пути».
-2. **The eight two-slot buildings.** Fine cloth, jewelry, cannons, firearms now
-   answer as a pair: «Гильдия портных: Мериносовая шерсть + Красители с
-   квасцами ×0.70», with both slots' raw materials in «Из чего». Fine cloth in
-   the Carpathians is the case to look at — Западная Мунтения should now count
-   its dyes.
-3. **Cannons and firearms** are worth a look for the same reason: their second
-   slot is ammunition, and lead or saltpetre in the province should now show.
-4. **The rights window's columns line up with its headers.**
-5. **Nothing in `error.log`** naming `bag_wtp` — the pair keys are new and every
-   `production_method:` reference was checked against the game's own list, but
-   only a load proves it.
+1. **The rights window obeys both buttons.** «Считать» and «На конец» must give
+   different tables — the second showing the buildings that survive to the last
+   age, ordered by them, and by «По пути» where they are all zero.
+2. **One tick left on the mod page**, «Только там, где здание вообще может
+   стоять». The rights one is gone.
+3. **«Уникальные права» still empty for Wallachia** — the list gates on
+   `potential` alone now, so this is the check that dropping the advance gate
+   did not open the floodgates.
+4. **«Из чего» sits under its header** in both windows.
+5. **Nothing in `error.log`** naming `bag_wtp`.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

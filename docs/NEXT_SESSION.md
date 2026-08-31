@@ -39,24 +39,26 @@ through `python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## `where_to_produce`: three ages on a row, and the pairs are in
 
-Twenty-one loads. A row answers in three ages — «Сейчас», «По пути» (the best
+Twenty-two loads. A row answers in three ages — «Сейчас», «По пути» (the best
 this ground ever feeds, and the last age it can be built), «В конце» — because
-the end alone cannot order a table where every wool province ends at 0.00%.
-Two «Считать» buttons choose the order; the sort buttons that were in the
-window's header for one load are gone.
+the end alone cannot order a table where every wool province ends at 0.00%. Two
+«Считать» buttons choose the order.
 
-**And the two-slot question is settled**, from the game's own build panel: each
-slot earns its own bonus over its own output, so the eight buildings that have
-two (fine cloth, jewelry, cannons, firearms) are one method of the summed output
-at the blended bonus.
+**The two-slot question is settled**, from the game's own build panel: each slot
+earns its own bonus over its own output, so the eight buildings that have two
+(fine cloth, jewelry, cannons, firearms) are one method of the summed output at
+the blended bonus, and the twenty-second run confirmed the rows.
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
-None of that has been loaded — [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
 
-**Where this is going**, in the owner's words: the mod should eventually take a
-stretch of land, work out every province's limits, and lay out *all* the
-production for it — best goods first, then the rest — with a cap of three or
-four buildings a province and a rule for the provinces everything wants. Nothing
-of that is built; it is the reason the answer has to be right per province first.
+**The rights window now obeys the same two buttons** — it read today's answer
+whichever was pressed — and the tick that used to stand in for that is deleted.
+Unloaded: [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+
+**Where this is going**, in the owner's words: the mod should take a stretch of
+land, work out every province's limits and lay out *all* its production — best
+goods first, then the rest — with a cap of three or four buildings a province
+and a rule for the provinces everything wants. None of it is built; it is why
+the per-province answer has to be right first.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -118,10 +120,9 @@ none of it needing a protocol:
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
   rewritten copies and the run confirms it. It is also the first real test of the
-  Steam-side rewrite — build ids instead of dates. The whole story is in
-  [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md). Note that entry 2
-  copies mods and does **not** re-extract the game, so a manifest entry alone
-  brings nothing into `reference/`.
+  Steam-side rewrite — build ids instead of dates:
+  [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md). Entry 2 copies
+  mods and does **not** re-extract the game.
 - **The panel-open bisect — five minutes, no log to read.**
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md) has the
   protocol. It can close that job outright.

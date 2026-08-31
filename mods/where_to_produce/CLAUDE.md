@@ -5,7 +5,7 @@ method and ranks the locations by what that method would earn from the raw
 materials the province supplies — **in two ages: what you can build now, and
 what the ground gives once every advance is in.**
 
-**State: twenty-one loads in, and a row answers in three ages** — «Сейчас»,
+**State: twenty-two loads in, and a row answers in three ages** — «Сейчас»,
 «По пути» (the best this ground ever feeds, and the last age it can be built),
 «В конце». **Two «Считать» buttons, not three sort headers:** one orders by
 today, the other by the end and breaks its ties on «По пути», which is the only
@@ -25,8 +25,8 @@ at the summed output and the output-weighted blend of the two bonuses. The
 arithmetic is `eu5data.Method.shares`; why:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**The rights window still has one age** to the goods window's three, which is
-all `bag_wtp__any_method` is still for.
+**The rights window obeys the same two buttons**, on the same fallbacks; it has
+no «По пути» column of its own, only the tiebreak.
 
 **Urban rights** are two lists on the Goods tab and a window of their own: a
 bundle is a different question in a different unit. The numbers and the deferred

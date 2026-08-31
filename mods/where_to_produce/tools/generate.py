@@ -787,9 +787,25 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 
 # What the rights pass ranks on: every good of the bundle, each at its best
 # method here, added through its price. Already scaled -- `_best` is.
+#
+# «На конец» adds the road there, shrunk until it can only break a tie -- and
+# the tie it breaks is the whole table at once, because where no surviving
+# recipe can be fed every province is worth exactly zero. A hundred-thousandth
+# of a bundle's total is at most 0.065 and the smallest step a bundle's own
+# total takes is about 0.6.
+# Scope: location
+{MOD_ID}_r_mid_tiebreak = {{
+\tvalue = var:{MOD_ID}_r_mid_total
+\tmultiply = 0.00001
+}}
+
 # Scope: location
 {MOD_ID}_r_score = {{
 \tvalue = var:{MOD_ID}_r_total
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tadd = {MOD_ID}_r_mid_tiebreak
+\t}}
 }}
 
 {MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
@@ -1269,14 +1285,13 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     for kind, group in kinds.items():
         for row, right in enumerate(group, start=1):
-            gates = []
-            if right.potential:
-                gates.append(right.potential)
-            if right.advance and not right.general:
-                gates.append(f"has_advance = advance:{right.advance}")
-            shown = ("always = yes" if not gates
-                     else "OR = { has_global_variable = %s_any_method AND = { %s } }"
-                          % (MOD_ID, " ".join(gates)))
+            # `potential` only, and never the unlocking advance. Whether a
+            # right *could ever* be yours is a fact about the country -- a tag,
+            # a religion -- and hiding one because you have not taken its
+            # advance yet is hiding the plan from the planner, the same mistake
+            # the goods list made until the eighteenth run.
+            shown = ("always = yes" if not right.potential
+                     else "AND = { %s }" % right.potential)
             out.append(f"""\tif = {{
 \t\tlimit = {{ {shown} }}
 \t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
@@ -1310,6 +1325,7 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tset_variable = {{ name = {MOD_ID}_r_total value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_r_mid_total value = 0 }}
 """)
         for k in slots:
             out.append(f"\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = 0 }}\n")
@@ -1323,26 +1339,59 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_score_{index_of[good]} = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method }}
-\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best }}
+\t\t# **A right obeys the same two buttons as a good.** «Считать» reads the
+\t\t# answer available today, «На конец» the one that survives every advance.
+\t\t# The twenty-second run pressed the second and got the first, because this
+\t\t# read `_best_method` and nothing else.
+\t\t#
+\t\t# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+\t\t# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+\t\t# nothing to the ranking and a row of nothing but those still goes.
 \t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_best_rural > var:{MOD_ID}_best }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method_rural }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best_rural }}
+\t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rank_by_end }} }}
+			set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method }}
+			set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best }}
+			if = {{
+				limit = {{ var:{MOD_ID}_best_rural > var:{MOD_ID}_best }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method_rural }}
+				set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best_rural }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method_rural }}
+			}}
 \t\t}}
-\t\t# Nothing the ground feeds, on either side: the slot keeps its building and
-\t\t# its icon and says 0.00%, rather than dropping a good out of the bundle --
-\t\t# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
-\t\t# worth nothing to the ranking and a row where every slot is like this is
-\t\t# still filtered out whole.
+\t\telse = {{
+			set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_best_method }}
+			set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_end_best }}
+			if = {{
+				limit = {{ var:{MOD_ID}_end_best_rural > var:{MOD_ID}_end_best }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_best_method_rural }}
+				set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_end_best_rural }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_any_best_method }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_any_best_method_rural }}
+			}}
+\t\t}}
+\t\t# And the road there, summed the same way. It only ever breaks a tie, and
+\t\t# the ties it breaks are the ones «На конец» leaves: where nothing that
+\t\t# survives can be fed, every province in the table is worth exactly zero.
+\t\tset_variable = {{ name = {MOD_ID}_r_mid_{k} value = var:{MOD_ID}_mid_best }}
 \t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method }}
+\t\t\tlimit = {{ var:{MOD_ID}_mid_best_rural > var:{MOD_ID}_mid_best }}
+\t\t\tset_variable = {{ name = {MOD_ID}_r_mid_{k} value = var:{MOD_ID}_mid_best_rural }}
 \t\t}}
-\t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method_rural }}
-\t\t}}
+\t\tchange_variable = {{ name = {MOD_ID}_r_mid_{k} multiply = {weight:.4f} }}
+\t\tchange_variable = {{ name = {MOD_ID}_r_mid_total add = var:{MOD_ID}_r_mid_{k} }}
 \t\tchange_variable = {{ name = {MOD_ID}_r_val_{k} multiply = {weight:.4f} }}
 \t\tchange_variable = {{ name = {MOD_ID}_r_total add = var:{MOD_ID}_r_val_{k} }}
 \t}}

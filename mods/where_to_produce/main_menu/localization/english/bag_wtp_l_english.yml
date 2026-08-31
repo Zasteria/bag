@@ -34,8 +34,6 @@
  bag_wtp__region_oceania_item_column_name: "Region"
  bag_wtp__region_oceania__pick_name: "Look here"
  bag_wtp__region_oceania__pick_desc: "Look inside this region. A region is the fine frame and a continent the rough one; tick either or both, and a ticked region wins."
- bag_wtp__any_method_name: "Rights: score methods of later ages"
- bag_wtp__any_method_desc: "For the urban rights window only. The goods table has three columns — «Now», «At the end», «On the way» — and they answer for every age between them; this no longer touches it at all.\n\nThe rights window has no such columns yet: without this it answers for today alone, and a good of the bundle whose building is not unlocked sits at zero. Turn it on to read a right as it will work later.\n\nThe goods list hides nothing either way: every good some building makes is on it."
 
  # Group headers. A list is filed under a group named after itself, so these are
  # not duplicates of the setting names.

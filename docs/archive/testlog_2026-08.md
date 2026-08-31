@@ -1230,3 +1230,67 @@ waiting on. The owner: «вроде всё работает ок», and «наш
 was asked nothing and said to leave it: the blob is theirs to decide and
 de-duplicating across it would mean parsing it, which is the thing that broke
 this feature the first time.
+
+**2026-08-31 — `where_to_produce`, nineteenth load. The fed-first rule is right
+and the second column was hiding behind it.** Two screenshots, fine cloth in
+the Carpathians again.
+
+- **Wool is back, exactly as asked.** «Гильдия портных: Мериносовая шерсть
+  ×0.50» at 10.00% down the table, where the eighteenth run had one silk row at
+  0.00%. Owner: «Теперь он показывает мне варианты с шерсть… Пустых и
+  бесполезных провинций не показывается. Оружие и другие товары появились в
+  списках.» Urban rights use wool too.
+- **And the «В конце» column went blank on almost every row** — one province in
+  the whole table had a figure. Not a display fault: **fine cloth from wool has
+  no rung above the workshop.** The manufactory and the mill take only silk or
+  cloth, so once the wool workshop is obsolete a wool province has no fine cloth
+  recipe it can feed, and the fed-first rule correctly found nothing. A blank
+  cell said that no better than it said "nothing changes here", which is what it
+  had meant the day before. The far column now always prints: the fed survivor
+  where there is one, the best survivor at 0.00% where there is not.
+- **Weapons showed no far column at all**, same cause, same fix.
+- **Two ticks nobody could tell apart.** «Ранжировать по последней эпохе» and
+  «Считать методы, до которых не дошла эпоха» sat together and read alike, and
+  with both on the table still offered workshops — which was right (the ladder
+  ends there for wool) and looked wrong. Owner: «кнопку сортировки… нужно
+  перенести в само окно результатов и делать это прямо там». Done: the two
+  number columns are the buttons, and the ranking follows whichever was clicked.
+  The unreached-methods tick stays on the mod page.
+- **Right-aligned numbers against left-aligned names** read «1Восточная
+  Мунтения». Every column is left-aligned now.
+
+**2026-08-31 — `where_to_produce`, eighteenth load. The second column works,
+and it brought back three things the first column had been hiding.** Five
+screenshots, Wallachia, 1369, 127 locations in 26 provinces.
+
+- **Both columns render and both ticks work.** «Прибавка» and «В конце» side by
+  side, «Ранжировать по последней эпохе» visibly reorders and the re-rank
+  counter moves with it. Paper: `2.49% -> 10.00%` on lumber-only provinces,
+  `10.00% -> 10.00%` on Северная Олтения, which supplies both fiber and lumber.
+  The ladder arithmetic is right on screen.
+- **Ranking by the last age had no tiebreak**, so the 10.00 -> 10.00 province
+  sat below a 2.49 -> 10.00 one. Owner: «конечный в приоритете, а начальный
+  бонус — вторичным в счёте». Fixed with a thousandth of the near score added
+  to the far one: the smallest step a raw material makes in the endgame set is
+  1.9, so it can only order ties.
+- **Cannons and firearms were not in the goods list at all** — hidden because
+  no building for them is unlocked in the second age. That hiding is gone: every
+  good some building makes is offered now, whatever the age, which also means a
+  good another mod adds a building for.
+- **Fine cloth answered with silk weavers at 0.00% in a wool country**, one row
+  in the whole Carpathians. Not a bug in the arithmetic — 0.70 a level unfed
+  beats 0.50 at the full ten percent — but the wrong answer: the game would run
+  the recipe the market can feed, and the market is fed by the ground. **A
+  method whose raw materials the province supplies none of is no longer an
+  answer**; the wool provinces come back with wool weavers at 10%.
+- **`fine_cloth_guild` runs two methods at once, not one.** The owner said cloth
+  and jewelry have «улучшения» and cannons and firearms have ammunition; the
+  files agree — eight buildings carry two `unique_production_methods` blocks,
+  and a building runs one method from each. The mod treats them as alternatives
+  and so understates both the output and the inputs of exactly those eight.
+  Unbuilt, and the one thing here that needs a measurement before it can be:
+  [`investigations/production_ladder.md`](investigations/production_ladder.md).
+- **The rights window still answers for today only**, and its bundle showed
+  weaponry alone until «Считать методы, до которых не дошла эпоха» was ticked —
+  firearms and cannons have no unlocked building in the second age. It has no
+  second column yet; that tick is what stands in for one.

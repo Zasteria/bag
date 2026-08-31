@@ -42,17 +42,6 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Off by default: a recommendation three ages away is not a recommendation.
-	# With it on, the table scores every method in the game, which is what to use
-	# when planning several ages ahead rather than this decade.
-	cmm_register_global_bool_setting = {
-		mod_id = bag_wtp
-		setting_id = any_method
-		tab_id = plan
-		group_id = what
-		default_value = 0
-	}
-
 	# Two buttons, and they are the whole of the mod's two questions. «Считать
 	# сейчас» ranks by what you could build today -- the fast answer. «Считать на
 	# конец игры» ranks by what the ground gives once every advance is in, and
@@ -112,7 +101,6 @@ bag_wtp_register = {
 # Scope: country
 bag_wtp_sync = {
 	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }
-	cmm_sync_bool_alias = { setting = bag_wtp__any_method alias = bag_wtp_any_method }
 	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
 	# buttons set and clear it themselves, so no CMM setting has to agree with it.
 	# It was a tick on this page for one load and three buttons in the results
