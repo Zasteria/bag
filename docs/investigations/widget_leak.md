@@ -153,3 +153,20 @@ not design a different test until that one has been run.
 If hover is confirmed, the defines mod is small: one file at
 `common/defines/jomini/00_tooltips.txt` inside a mod, the whole `NTooltip` block
 copied and `OPEN_DELAYED_TIME` raised. Then measure again.
+
+## The rows moved out of `SETTLED.md`
+
+Moved here on 2026-08-31 when that file outgrew its budget. Each one cost
+the owner an evening and none of them is to be measured again.
+
+| question | answer | where |
+| --- | --- | --- |
+| Is the slowdown memory running out? | No. The working set peaks and then falls; what grows without limit is the widget count. | TESTLOG 2026-08-24 evening |
+| Do map icons / units / game time cause the widget growth? | No. It scales with neither game days nor unit count. | [investigations/widget_leak.md](investigations/widget_leak.md) |
+| Does idling cost anything? | No — exactly +0, twice, across 10 800 frames each. | TESTLOG 2026-08-25 |
+| Is it one bad window? | No. Diplomacy +1.86/frame, map modes +1.49, locations +0.29; none zero. | TESTLOG 2026-08-25 |
+| Is it the mod set? | No. Vanilla leaks +1.99/frame against the playset's +1.86. | TESTLOG 2026-08-25 vanilla |
+| Is it anything in this repository? | No. `rgo_bonus_filter` lives in the lightest panel of the three. | same |
+| Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
+| Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
+
