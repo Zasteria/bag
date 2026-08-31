@@ -4,7 +4,7 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province supplies.
 
-**State: twenty-three loads in, and a row answers in three ages** — «Сейчас»,
+**State: twenty-four loads in, and a row answers in three ages** — «Сейчас»,
 «По пути» (the best this ground ever feeds, and the last age it can be built),
 «В конце». **Two «Считать» buttons, not three sort headers:** one orders by
 today, the other by the end and breaks its ties on «По пути», which is the only
@@ -12,10 +12,10 @@ column with anything to say where a ladder ends early.
 
 ## Where it stands
 
-**A method the province feeds nothing of is not an answer**, and where nothing
-is fed there is no row. Every column keeps a fed answer for the ranking and an
-unfed one for printing, so a cell says 0.00% where a blank would have lied — a
-ladder can end early: wool fine cloth stops at the workshop.
+**A method the province feeds nothing of is not an answer**, and where nothing is
+fed there is no row. Every column keeps a fed answer for the ranking and an unfed
+one for printing, so a cell says 0.00% where a blank would lie — a ladder can end
+early: wool fine cloth stops at the workshop.
 
 **A building runs one method out of each of its slots**, and eight have two —
 fine cloth, jewelry, cannons, firearms. **Each slot earns its own bonus over its
@@ -24,9 +24,8 @@ output and blended bonus: `eu5data.Method.shares`, and why in
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **The rights window obeys the same two buttons**, on the same fallbacks; it has
-no «По пути» column of its own, only the tiebreak. A right's country gate is its
-own `potential` or, where it has none, its unlocking advance's — never
-`has_advance`.
+no «По пути» column, only the tiebreak. A right's country gate is its own
+`potential` or its advance's — never `has_advance`.
 
 **Urban rights** are two lists on the Goods tab and a window of their own: a
 bundle is a different question in a different unit, and «Считать» answers
@@ -44,7 +43,9 @@ tree of our own — empty twice, deleted. Picker caps: `docs/research/cmf.md`.
   only the list it repeats over decides how many rows live; a window's list is
   filled on opening and emptied on closing.
 - **The selection is recorded twice** — a location variable and a global list —
-  and only `bag_wtp_pick` / `_drop` may write it.
+  and only `bag_wtp_pick` / `_drop` writes it.
+- **Every column in both windows is a fixed width; none expands.** Two ways to
+  lose a row to that, both in `docs/PITFALLS.md`.
 - **The bonus is province-level** — which is why a row is a province, and the
   `province_definition` at that: the whole ground, not one owner's piece. What
   would separate two of its locations is building slots, which the game hides.
@@ -72,8 +73,8 @@ For an urban right the same six are `bag_wtp_r_*_<k>` for slot `k` of the
 bundle, `bag_wtp_r_good_<k>` naming the good and `bag_wtp_r_total` the sum the
 ranking sorts on. Three slots: script has no list of tuples.
 
-All have a `_rural` twin, and a row reads them off its own scope: no globals per
-row, no ceiling but `RESULT_ROWS`. Not built: what a building costs to put up.
+All have a `_rural` twin and are read off the row's own scope: no globals per
+row, no ceiling but `RESULT_ROWS`. Not built: what a building costs.
 
 **Built by** `python3 mods/where_to_produce/tools/generate.py`, from
 `tools/refresh.py`.

@@ -28,12 +28,6 @@ against the last link and voids the whole trigger — `where_to_produce`'s
 sat in `error.log` unread because it names a generated file and a line number
 rather than the setting it broke. `trigger_else = { always = no }` closes it.
 
-**An expanding column does not line up between a header and a row.** It is as
-wide as whatever is left, and a row inside a scrollbox has less left than a
-header outside one — by the content margin and the scrollbar. Every column after
-the expanding one then sits somewhere else in the two. Give the column a fixed
-width and put the slack in a spacer at the far right.
-
 **A CMM macro called *without* an argument CMF declares fails exactly like one
 called with an argument it does not.** The known half of this rule was `step`
 where CMF wanted `step_value`; the other half cost `where_to_produce` a whole

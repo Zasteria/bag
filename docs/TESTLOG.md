@@ -31,6 +31,28 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-fourth load. The fixed-width columns
+ate the building's name.** Two screenshots, fine cloth and textile.
+
+- **A row printed «± Красители с квасцами» and nothing else** — no building, no
+  method, no «×». The cause is one line: the method cell was given a size of its
+  own, and a child carrying `layoutpolicy_horizontal = expanding` inside a sized
+  hbox gets **no width at all**, so the text elided to nothing. The improvement
+  beside it survived because it was `autoresize = yes`. Every column in both
+  windows carries an explicit width now and none of them expands; the slack goes
+  to a spacer at the far right, and the row's widths add up to the header's to
+  the pixel (762 after the area column in the goods window, 700 per slot in the
+  rights one).
+- **Two spacers where the header had one.** «В конце» was followed by 10px in a
+  row and 6 in the header, and a second 6 had crept in before «По пути»: four
+  and six pixels, and every column after them out of line. That is the whole of
+  the «Из чего» drift.
+- **Fifty pixels moved from «Из чего» to «Здание и метод»**, which is where the
+  long names are: a building, a method and an improvement in one cell.
+- **Urban rights work on both buttons**, owner's words, and the unique list is
+  empty again — which for Wallachia is the right answer, since the two
+  Scandinavian privileges gate on a culture group and the Byzantine one on a tag.
+
 **2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
 work and the two tables differ; unique rights arrived in Wallachia; the goods
 table ranked for the last age still named first-age buildings; «Из чего» still
@@ -212,17 +234,20 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-fourth load.** All of it new, none loaded.
+**`where_to_produce`, twenty-fifth load.** Layout only, plus the two lines the
+twenty-third asked for and the twenty-fourth could not show.
 
-1. **`error.log` has no `PostValidate` line naming the mod.** The `Flag … never
-   used` warnings stay; they are CMM's.
-2. **«Уникальные права» empty for Wallachia again**, and a Scandinavian country
-   would see the two privileges without having taken their advance.
-3. **A good ranked «На конец» names the endgame building** — «Фабрика тонкого
-   сукна», not «Гильдия портных» — with the endgame goods icons beside it.
-   «Считать» still names today's.
-4. **«Из чего» sits under its header** in both windows, and the columns before it
-   line up too.
+1. **A row names its building again** — «Гильдия портных: Гильдия ткачей шёлка
+   ×0.90 + Красители с квасцами», with the «×» — under «Считать» and under «На
+   конец» both. Under «На конец» the building must be the endgame one.
+2. **Every column sits under its heading**, «Из чего» included, in the goods
+   window and in the rights window.
+3. **`error.log` has no `PostValidate` line naming the mod** (the `Flag … never
+   used` warnings are CMM's and stay).
+4. **The buildable tick actually filters now** — with it on, provinces with no
+   town drop out. It has never once worked, in two different ways.
+5. **A Scandinavian country sees the two privileges** without having taken their
+   advance; Wallachia still sees none.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

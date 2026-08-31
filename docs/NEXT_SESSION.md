@@ -39,20 +39,21 @@ through `python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## `where_to_produce`: three ages on a row, and the pairs are in
 
-Twenty-three loads. A row answers in three ages — «Сейчас», «По пути» (the best
+Twenty-four loads. A row answers in three ages — «Сейчас», «По пути» (the best
 this ground ever feeds, and the last age it can be built), «В конце» — because
 the end alone cannot order a table where every wool province ends at 0.00%. Two
 «Считать» buttons choose the order and which age the row names.
 
 **The two-slot question is settled** from the game's own build panel — each slot
-earns its own bonus over its own output — and the twenty-second run confirmed the
-rows: [`investigations/production_ladder.md`](investigations/production_ladder.md).
+earns its own bonus over its own output:
+[`investigations/production_ladder.md`](investigations/production_ladder.md).
 
-**The rights window obeys the same two buttons**, and a right's country gate is
-its advance's `potential` rather than `has_advance` — what keeps the Scandinavian
-privileges out of a Wallachian list. **And the one real line the logs have ever
-carried about this mod is fixed**: a `trigger_if` chain ending on an `else_if`
-voided the buildable filter. Unloaded:
+**The rights window obeys both buttons and is confirmed.** **Two faults are
+fixed and neither loaded:** a `trigger_if` chain ending on an `else_if` voided
+the buildable filter (`error.log` said so for two runs), and an expanding child
+of a sized hbox gets no width — which erased the building's name from every row
+of the twenty-fourth load. Both are written up under
+[`pitfalls/interface.md`](pitfalls/interface.md); what to look at next is
 [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
 
 **Where this is going**, in the owner's words: take a stretch of land, work out

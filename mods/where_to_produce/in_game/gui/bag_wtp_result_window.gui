@@ -258,8 +258,6 @@ types BagWtpResultTypes {
 			tooltip = "bag_wtp_result_end_tt"
 		}
 
-		widget = { size = { 10 28 } }
-
 		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
 		# and the last age it can still be built in. It is the column that
 		# decides between provinces whose endgame answer is the same 0.00% --
@@ -267,9 +265,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 98 28 }
+			size = { 88 28 }
 			autoresize = no
-			maximumsize = { 98 28 }
+			maximumsize = { 88 28 }
 			align = left|vcenter
 			fontsize = 12
 			fontsize_min = 9
@@ -295,15 +293,20 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 240 28 }
-			maximumsize = { 240 28 }
+			size = { 350 28 }
+			maximumsize = { 350 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
+			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+			# inside an hbox that has a size of its own leaves the child at zero
+			# width, and a text at zero width elides to nothing: the twenty-fourth
+			# run had rows whose building had no name and no «×», with only the
+			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { -1 28 }
-				layoutpolicy_horizontal = expanding
+				size = { 240 28 }
 				autoresize = no
+				maximumsize = { 240 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
@@ -312,8 +315,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				autoresize = yes
-				maximumsize = { 150 28 }
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -323,9 +327,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { -1 28 }
-				layoutpolicy_horizontal = expanding
+				size = { 240 28 }
 				autoresize = no
+				maximumsize = { 240 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
@@ -334,8 +338,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				autoresize = yes
-				maximumsize = { 150 28 }
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -349,8 +354,8 @@ types BagWtpResultTypes {
 		# to its icons it started wherever the expanding method column stopped,
 		# and that is a different place on every row.
 		hbox = {
-			size = { 190 28 }
-			maximumsize = { 190 28 }
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
 			ignoreinvisible = yes
 			alwaystransparent = no
@@ -439,8 +444,6 @@ types BagWtpResultTypes {
 			tooltip = "bag_wtp_result_end_tt_rural"
 		}
 
-		widget = { size = { 10 28 } }
-
 		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
 		# and the last age it can still be built in. It is the column that
 		# decides between provinces whose endgame answer is the same 0.00% --
@@ -448,9 +451,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 98 28 }
+			size = { 88 28 }
 			autoresize = no
-			maximumsize = { 98 28 }
+			maximumsize = { 88 28 }
 			align = left|vcenter
 			fontsize = 12
 			fontsize_min = 9
@@ -476,15 +479,20 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 240 28 }
-			maximumsize = { 240 28 }
+			size = { 350 28 }
+			maximumsize = { 350 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
+			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+			# inside an hbox that has a size of its own leaves the child at zero
+			# width, and a text at zero width elides to nothing: the twenty-fourth
+			# run had rows whose building had no name and no «×», with only the
+			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { -1 28 }
-				layoutpolicy_horizontal = expanding
+				size = { 240 28 }
 				autoresize = no
+				maximumsize = { 240 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
@@ -493,8 +501,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				autoresize = yes
-				maximumsize = { 150 28 }
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -504,9 +513,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { -1 28 }
-				layoutpolicy_horizontal = expanding
+				size = { 240 28 }
 				autoresize = no
+				maximumsize = { 240 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
@@ -515,8 +524,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				autoresize = yes
-				maximumsize = { 150 28 }
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -530,8 +540,8 @@ types BagWtpResultTypes {
 		# to its icons it started wherever the expanding method column stopped,
 		# and that is a different place on every row.
 		hbox = {
-			size = { 190 28 }
-			maximumsize = { 190 28 }
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
 			ignoreinvisible = yes
 			alwaystransparent = no
@@ -652,9 +662,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 190 60 }
+					size = { 160 60 }
 					autoresize = no
-					maximumsize = { 190 60 }
+					maximumsize = { 160 60 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -662,9 +672,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 130 60 }
+					size = { 110 60 }
 					autoresize = no
-					maximumsize = { 130 60 }
+					maximumsize = { 110 60 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
@@ -918,14 +928,14 @@ window = {
 						text = "bag_wtp_result_head_rank"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 160 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_province"
 					}
 					text_single = {
-						size = { 130 24 }
+						size = { 110 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -955,7 +965,7 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 98 24 }
+						size = { 88 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -964,15 +974,15 @@ window = {
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { 240 24 }
+						size = { 350 24 }
 						autoresize = no
-						maximumsize = { 240 24 }
+						maximumsize = { 350 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 140 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13

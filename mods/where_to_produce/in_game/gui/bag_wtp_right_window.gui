@@ -54,8 +54,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 340 28 }
-			maximumsize = { 340 28 }
+			size = { 350 28 }
+			maximumsize = { 350 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -67,8 +67,8 @@ types BagWtpRightTypes {
 		# to its icons it started wherever the expanding method column stopped,
 		# and that is a different place on every row.
 		hbox = {
-			size = { 190 28 }
-			maximumsize = { 190 28 }
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
@@ -132,8 +132,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 340 28 }
-			maximumsize = { 340 28 }
+			size = { 350 28 }
+			maximumsize = { 350 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -145,8 +145,8 @@ types BagWtpRightTypes {
 		# to its icons it started wherever the expanding method column stopped,
 		# and that is a different place on every row.
 		hbox = {
-			size = { 190 28 }
-			maximumsize = { 190 28 }
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
@@ -210,8 +210,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 340 28 }
-			maximumsize = { 340 28 }
+			size = { 350 28 }
+			maximumsize = { 350 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -223,8 +223,8 @@ types BagWtpRightTypes {
 		# to its icons it started wherever the expanding method column stopped,
 		# and that is a different place on every row.
 		hbox = {
-			size = { 190 28 }
-			maximumsize = { 190 28 }
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
@@ -300,9 +300,9 @@ types BagWtpRightTypes {
 				}
 
 				text_single = {
-					size = { 190 116 }
+					size = { 160 116 }
 					autoresize = no
-					maximumsize = { 190 116 }
+					maximumsize = { 160 116 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -310,9 +310,9 @@ types BagWtpRightTypes {
 				}
 
 				text_single = {
-					size = { 130 116 }
+					size = { 110 116 }
 					autoresize = no
-					maximumsize = { 130 116 }
+					maximumsize = { 110 116 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
@@ -575,14 +575,14 @@ window = {
 						text = "bag_wtp_result_head_rank"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 160 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_province"
 					}
 					text_single = {
-						size = { 130 24 }
+						size = { 110 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -612,15 +612,15 @@ window = {
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { 340 24 }
+						size = { 350 24 }
 						autoresize = no
-						maximumsize = { 340 24 }
+						maximumsize = { 350 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 140 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
