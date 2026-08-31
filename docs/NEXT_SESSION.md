@@ -15,21 +15,17 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one: it asked only whether the item's folder existed in steamcmd's own
-directory, and it did from the previous attempt, so an unfinished login still
-copied last week's files over the workshop folder. The folder is fingerprinted
-before and after now, the exit code read, the cached copy offered for deletion
-first, and **only a mod whose copy actually changed is copied onward**.
+successful one — it asked only whether the item's folder existed, and it did from
+the previous attempt — so an unfinished login copied last week's files over the
+workshop folder. The folder is fingerprinted before and after now, the exit code
+read, and **only a mod whose copy actually changed is copied onward**.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
 landed. The install is **read back off disk** now, a mismatch says so with the
-path, and the screen names the branch and commit installed. A `game_mods` path
-typo'd once — the one way this could install into a folder the game never reads —
-is refused rather than created.
+path, and the screen names the branch and commit installed.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's branch and commit — the line to
-paste before anybody theorises about a mod again.
+against the game's folder and the repository's branch and commit.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
 the output of all three. If a mod still reads «отличается» after installing, the
@@ -59,8 +55,20 @@ spacer; one alignment question is open in `TESTLOG.md`.
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**So the next thing is the goal itself, not another fix.** Ask him before
-designing any of it — the shape below is his sentence, not a spec.
+**The next thing is not another fix.** Two jobs are open and the owner has
+chosen the second:
+
+**The honest market balance, for his own land.** Asked for on 2026-08-31, and
+the survey is [`investigations/market_truth.md`](investigations/market_truth.md)
+— what the engine hands over as a number, what it only formats as a tooltip, and
+the three slices to build it in, each checkable against a figure the game
+already prints. **The pop-demand half is a reimplementation of the game's demand
+model** and the file says so; the reason it is buildable at all is that a market
+wholly inside one country is its own answer key. Read that file before touching
+any of it.
+
+**And the goal the mod was for**, below — ask him before designing any of it, the
+shape is his sentence, not a spec.
 
 **Where this is going**, in the owner's words: take a stretch of land, work out
 every province's limits and lay out *all* its production — best goods first, then
@@ -95,9 +103,8 @@ none of it needing a protocol:
 - nine of the eleven languages, a console switch each. **A hot switch does not
   re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
 - the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care. **If they are still not visible next time, offer to
-  drop them** — another mod's interface, and the only thing here outside this
-  mod's stated scope.
+  modes and does not care. **If still not visible next time, offer to drop
+  them** — another mod's interface, and outside this mod's stated scope.
 
 ### Then publish
 
@@ -116,9 +123,8 @@ are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it, as it does the Steam-side rewrite
-  ([`archive/testlog_2026-08.md`](archive/testlog_2026-08.md)). Entry 2 does
-  **not** re-extract the game.
+  rewritten copies and the run confirms it. Entry 2 does **not** re-extract the
+  game.
 - **The panel-open bisect — five minutes, no log to read**, protocol in
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
   that job outright.
