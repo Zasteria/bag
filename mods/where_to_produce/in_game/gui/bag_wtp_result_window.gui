@@ -235,7 +235,7 @@ types BagWtpResultTypes {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value"
 			tooltip = "bag_wtp_result_bonus_tt"
@@ -249,7 +249,7 @@ types BagWtpResultTypes {
 			size = { 86 28 }
 			autoresize = no
 			maximumsize = { 86 28 }
-			align = right|vcenter
+			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value_end"
@@ -356,7 +356,7 @@ types BagWtpResultTypes {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
 			text = "bag_wtp_result_bonus_value_rural"
 			tooltip = "bag_wtp_result_bonus_tt"
@@ -370,7 +370,7 @@ types BagWtpResultTypes {
 			size = { 86 28 }
 			autoresize = no
 			maximumsize = { 86 28 }
-			align = right|vcenter
+			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet]"
 			text = "bag_wtp_result_bonus_value_end_rural"
@@ -525,7 +525,7 @@ types BagWtpResultTypes {
 					size = { 34 60 }
 					autoresize = no
 					maximumsize = { 34 60 }
-					align = right|vcenter
+					align = left|vcenter
 					fontsize = 13
 					text = "bag_wtp_result_rank_value"
 					tooltip = "bag_wtp_result_rank_tt"
@@ -790,7 +790,7 @@ window = {
 					text_single = {
 						size = { 34 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_rank"
 					}
@@ -808,22 +808,66 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
 					}
-					text_single = {
-						size = { 70 24 }
-						autoresize = no
-						align = right|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_bonus"
+					# Both number columns are buttons, and clicking one sorts the
+					# table by it. `button_regular` because it is the one button
+					# this window already proves; the mark beside the label is
+					# drawn from a global variable, and if that ever fails to
+					# read the buttons still sort, because they do not read it.
+					button_regular = {
+						size = { 76 24 }
+						tooltip = "bag_wtp_result_head_bonus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_sort_by_near').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						text_single = {
+							size = { 68 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = left|nobaseline
+							fontsize = 13
+							fontsize_min = 10
+							elide = right
+							text = "bag_wtp_result_head_bonus"
+						}
+						text_single = {
+							size = { 68 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = right|nobaseline
+							fontsize = 13
+							visible = "[Not(GetGlobalVariable('bag_wtp_rank_by_end').IsSet)]"
+							text = "bag_wtp_result_head_sorted"
+						}
 					}
-					text_single = {
-						size = { 86 24 }
-						autoresize = no
-						align = right|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_end"
+
+					button_regular = {
+						size = { 90 24 }
 						tooltip = "bag_wtp_result_head_end_tt"
+						onclick = "[GetScriptedGui('bag_wtp_sort_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						text_single = {
+							size = { 82 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = left|nobaseline
+							fontsize = 13
+							fontsize_min = 10
+							elide = right
+							text = "bag_wtp_result_head_end"
+						}
+						text_single = {
+							size = { 82 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = right|nobaseline
+							fontsize = 13
+							visible = "[GetGlobalVariable('bag_wtp_rank_by_end').IsSet]"
+							text = "bag_wtp_result_head_sorted"
+						}
 					}
-					widget = { size = { 10 24 } }
 					text_single = {
 						size = { -1 24 }
 						layoutpolicy_horizontal = expanding

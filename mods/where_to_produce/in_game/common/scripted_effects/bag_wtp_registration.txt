@@ -53,22 +53,6 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Which of the row's two numbers the ranking sorts on. Off: what you could
-	# build this decade. On: what the last age would give -- the ordering a plan
-	# wants, because a province that comes first with the guild and fortieth with
-	# the mill is the one this mod exists to catch, and it only shows up if
-	# something sorts on the far column.
-	#
-	# Off by default: the near column is the answer to "where do I put this now",
-	# which is still the commoner question.
-	cmm_register_global_bool_setting = {
-		mod_id = bag_wtp
-		setting_id = rank_by_end
-		tab_id = plan
-		group_id = what
-		default_value = 0
-	}
-
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run
@@ -113,5 +97,10 @@ bag_wtp_register = {
 bag_wtp_sync = {
 	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }
 	cmm_sync_bool_alias = { setting = bag_wtp__any_method alias = bag_wtp_any_method }
-	cmm_sync_bool_alias = { setting = bag_wtp__rank_by_end alias = bag_wtp_rank_by_end }
+	# `bag_wtp_rank_by_end` is not here and must not be: which column the table
+	# sorts on is a property of the table, so it is a header the player clicks in
+	# the results window and a global variable this mod owns outright. It was a
+	# tick on the mod page for one load, and the nineteenth run's verdict was
+	# that two ticks whose names both start with "the last age" are two ticks
+	# nobody can tell apart.
 }

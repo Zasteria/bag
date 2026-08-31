@@ -39,13 +39,12 @@ through `python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## `where_to_produce`: two ages on a row, and eight buildings modelled wrong
 
-Eighteen loads. The second column is on screen and right — what the ground gives
-now and what it gives once every advance is in, the game's own `obsolete` ladder
-behind it. Three things changed on the back of that run and none is loaded: ties
-in the far column break on the near one, every good is offered whatever the age,
-and **a recipe the province supplies nothing for is no longer an answer** (fine
-cloth had been answering silk at 0.00% in a wool country — the rule the whole
-mod is about, broken).
+Nineteen loads, and both columns are confirmed: what the ground gives now, and
+what it gives once every advance is in, on the game's own `obsolete` ladder.
+Since that run, unloaded: the far column always prints (0.00% where the ground
+feeds no survivor — wool fine cloth has no rung above the workshop, and a blank
+cell could not say so), sorting moved out of the mod page onto the two column
+headers, and every column is left-aligned.
 
 **One thing wants a measurement before it can be built.** Eight buildings — fine
 cloth, jewelry, cannons, firearms — run two methods at once and the mod models

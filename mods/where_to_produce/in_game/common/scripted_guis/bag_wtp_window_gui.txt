@@ -59,6 +59,45 @@ bag_wtp_clear_all = {
 	}
 }
 
+# Which column the table sorts on, clicked on the column itself.
+#
+# It lives here rather than on the mod page because that is where the question
+# is asked: the player is looking at two numbers and wants the other one to
+# decide the order. On the page it was a tick sitting beside «Считать методы, до
+# которых не дошла эпоха», and the nineteenth run could not tell the two apart.
+#
+# The variable is this mod's own -- no `cmm_sync_bool_alias` -- so nothing has to
+# agree with CMM about it. Re-ranking is the whole effect: the answer is already
+# computed and only its order changes, but `bag_wtp_compute` is what owns the
+# order, so it runs again.
+# Scope: country
+bag_wtp_sort_by_near = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_global_variable = bag_wtp_rank_by_end
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# Scope: country
+bag_wtp_sort_by_end = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
+		bag_wtp_recompute_live = yes
+	}
+}
+
 # The results window. Opening copies the ranked answer into the list the window
 # repeats over and closing empties it again: a scripted widget never comes down,
 # so the datamodel is the only thing that decides how many rows are alive.

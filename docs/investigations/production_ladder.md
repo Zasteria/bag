@@ -85,6 +85,16 @@ raw material makes is 0.56 across all methods and 1.9 in the endgame set, so it
 never turns on rounding. Where nothing is fed there is no row, which is what the
 zero-bonus filter did with those rows anyway.
 
+**A ladder can end early, and then the far column is 0.00% rather than blank.**
+Fine cloth from wool has no rung above the workshop: `fine_cloth_manufactory`
+and `fine_cloth_mill` take only silk or cloth. So in a wool country the fed
+answer for the last age is *nothing*, and the nineteenth run got a column that
+was blank almost everywhere — which had meant "this province does not change"
+the day before. The far column now always prints something: the best survivor
+the ground feeds, or, where it feeds none, the best survivor at 0.00%. Only the
+fed figure reaches `order_by`, so an unfeedable mill can be read off a row and
+can never rank one.
+
 **Eight buildings run two methods at once, and the mod models one.** A building
 may carry more than one `unique_production_methods` block, and each block is a
 slot: the building runs one method from *each*, not one in total.

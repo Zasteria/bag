@@ -813,7 +813,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     last = endgame(rows, game)
 
     def keep(indent: str, prefix: str, suffix: str, method_index: int,
-             floor: float) -> str:
+             floor: float | None) -> str:
         """Is this the best of its side so far, and can this ground feed it?
 
         `floor` is what `_m<n>` comes to where the province supplies none of the
@@ -834,8 +834,9 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         0.56 across all methods, both far above the fixed point, so this
         comparison never turns on rounding.
         """
+        fed = f"var:{MOD_ID}_try > {floor:.4f} " if floor is not None else ""
         return (f"""{indent}if = {{
-{indent}\tlimit = {{ var:{MOD_ID}_try > {floor:.4f} var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
+{indent}\tlimit = {{ {fed}var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = var:{MOD_ID}_try }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = {method_index} }}
 {indent}}}
@@ -866,7 +867,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"{len(village)} of them in a village.\n"
                    f"# Scope: country\n{MOD_ID}_score_{index} = {{\n")
         out.append(f"\tevery_in_global_list = {{\n\t\tvariable = {MOD_ID}_candidates\n")
-        for prefix in ("", "end_"):
+        for prefix in ("", "end_", "end_any_"):
             for suffix in ("", "_rural"):
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = 0 }}\n")
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = 0 }}\n")
@@ -884,6 +885,12 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 # that does not move as the ages pass.
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}\n")
                 out.append(keep("\t\t", "end_", suffix, method_index, floor))
+                # And the same without the floor. The far column is a column,
+                # not a ranking: it has to print something for every row, and
+                # "the mill this ground cannot feed" at 0.00% is an answer --
+                # it is the answer for wool fine cloth, whose recipes stop at
+                # the workshop. Only `_end_best` reaches `order_by`.
+                out.append(keep("\t\t", "end_any_", suffix, method_index, None))
                 out.append(f"\t\tif = {{\n\t\t\tlimit = {{\n{available}\t\t\t}}\n")
                 out.append(keep("\t\t\t", "", suffix, method_index, floor))
                 out.append("\t\t}\n")
@@ -905,8 +912,10 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         forms the mod already proves in game.
         """
         raw = sorted(method.raw_inputs(game.raw_goods))
-        guard = (f"var:{MOD_ID}_{prefix}best_method{suffix} = {index}"
-                 + (f" NOT = {{ var:{MOD_ID}_best_method{suffix} = {index} }}" if prefix else ""))
+        # The endgame half keys on `_end_show`, which is the fed answer where
+        # there is one and the unfed one otherwise -- see below.
+        guard = (f"var:{MOD_ID}_end_show{suffix} = {index}" if prefix
+                 else f"var:{MOD_ID}_best_method{suffix} = {index}")
         body = [f"\tif = {{\n"
                 f"\t\tlimit = {{ {guard} }}\n"
                 f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bt{suffix} value = building_type:{method.building} }}\n"
@@ -955,13 +964,24 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same, for the answer the last age gives -- the best of the methods nothing
 # obsoletes, whether this country can build it yet or not.
 #
-# **Written only where it differs from the answer above.** Where the two agree --
-# a village, or a country that has already reached the end of that ladder -- the
-# row has one thing to say and says it once: the window draws the second line on
-# `{MOD_ID}_end_bt` being set, so an unset one is the row saying "this does not
-# change".
+# **Always written, even where the ground cannot feed it.** The nineteenth run
+# asked for two columns that are always both there, and it was right: fine cloth
+# from wool has no rung above the workshop -- the manufactory and the mill take
+# only silk or cloth -- so a wool province's honest answer for the last age is
+# "the silk mill, at 0.00%", and a blank cell said that no better than it said
+# "nothing changes here".
+#
+# `_end_show` is what gets printed: the fed answer where the ground feeds one of
+# the survivors, the best survivor otherwise. `_end_best` is untouched by the
+# fallback and stays what `order_by` sorts on, so an unfeedable mill can be read
+# off a row and can never rank one.
 # Scope: location
 {MOD_ID}_store_winner_end{suffix} = {{
+\tset_variable = {{ name = {MOD_ID}_end_show{suffix} value = var:{MOD_ID}_end_best_method{suffix} }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_end_show{suffix} = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_end_show{suffix} value = var:{MOD_ID}_end_any_best_method{suffix} }}
+\t}}
 \tclear_variable_list = {MOD_ID}_end_goods{suffix}
 \tremove_variable = {MOD_ID}_end_bt{suffix}
 \tremove_variable = {MOD_ID}_end_pm{suffix}
