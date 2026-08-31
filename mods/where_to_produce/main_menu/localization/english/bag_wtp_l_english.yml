@@ -34,8 +34,8 @@
  bag_wtp__region_oceania_item_column_name: "Region"
  bag_wtp__region_oceania__pick_name: "Look here"
  bag_wtp__region_oceania__pick_desc: "Look inside this region. A region is the fine frame and a continent the rough one; tick either or both, and a ticked region wins."
- bag_wtp__any_method_name: "Score methods your age has not reached"
- bag_wtp__any_method_desc: "Off: the «Bonus» column holds only methods whose building is already unlocked for you. It does not need to hold more — «At the end» beside it already answers for the last age, whatever age you are in.\n\nOn: that column scores every method in the game too. What it is still for is the urban rights window, which has no second column yet and answers for today alone until it does.\n\nThe goods list itself hides nothing either way: every good some building makes is on it, cannons and firearms in the first age included."
+ bag_wtp__any_method_name: "Rights: score methods of later ages"
+ bag_wtp__any_method_desc: "For the urban rights window only. The goods table has three columns — «Now», «At the end», «On the way» — and they answer for every age between them; this no longer touches it at all.\n\nThe rights window has no such columns yet: without this it answers for today alone, and a good of the bundle whose building is not unlocked sits at zero. Turn it on to read a right as it will work later.\n\nThe goods list hides nothing either way: every good some building makes is on it."
 
  # Group headers. A list is filed under a group named after itself, so these are
  # not duplicates of the setting names.
@@ -113,6 +113,10 @@
  bag_wtp_result_goods_count: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all').GetValue|0]"
  bag_wtp_result_bonus_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bonus_rural').GetValue|2]%"
  bag_wtp_result_method_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out_rural').GetValue|2]"
+ bag_wtp_result_mid_value: "[Location.MakeScope.GetVariable('bag_wtp_mid_bonus').GetValue|2]% until [Location.MakeScope.GetVariable('bag_wtp_mid_age').GetValue|0]"
+ bag_wtp_result_mid_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_mid_bonus_rural').GetValue|2]% until [Location.MakeScope.GetVariable('bag_wtp_mid_age_rural').GetValue|0]"
+ bag_wtp_result_mid_tt: "[Location.MakeScope.GetVariable('bag_wtp_mid_bt').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_mid_pm').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_mid_out').GetValue|2] per level at [Location.MakeScope.GetVariable('bag_wtp_mid_bonus').GetValue|2]% — the best this ground ever feeds, in any age.\n\nIt can be built until age [Location.MakeScope.GetVariable('bag_wtp_mid_age').GetValue|0], and after that the building that replaces it may want other raw materials — which is the whole reason this column is here."
+ bag_wtp_result_mid_tt_rural: "[Location.MakeScope.GetVariable('bag_wtp_mid_bt_rural').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_mid_pm_rural').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_mid_out_rural').GetValue|2] per level at [Location.MakeScope.GetVariable('bag_wtp_mid_bonus_rural').GetValue|2]% — the best village recipe this ground ever feeds.\n\nBuildable until age [Location.MakeScope.GetVariable('bag_wtp_mid_age_rural').GetValue|0]."
  bag_wtp_result_goods_count_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all_rural').GetValue|0]"
 
  # The second age of a row. `bag_wtp_end_*` is written only where the method that
@@ -131,6 +135,8 @@
  bag_wtp_result_head_sorted: "▼"
  bag_wtp_result_head_bonus_tt: "The production efficiency this method gains from local raw materials, for the best building you could put up today.\n\nThe game computes it as 10% × (the method's inputs this province supplies) ÷ (all of the method's inputs). Everything counts towards the denominator, including inputs no mine or farm can ever supply — tools, for one — which is why some methods top out well below ten percent.\n\nIt is counted over the whole province. While a border cuts it the game scores your half alone and today's figure is lower; this is the figure you get once the province is yours.\n\n**Click to sort the table by this column.**"
  bag_wtp_result_head_end: "At the end"
+ bag_wtp_result_head_mid: "On the way"
+ bag_wtp_result_head_mid_tt: "The best this ground ever feeds — in any age, whether the building is unlocked for you or not — and the last age it can still be built in.\n\nThis is the column that decides a plan when «At the end» is 0.00% everywhere. Fine cloth is the case: from wool it stops at the workshop, because the manufactory and the mill take only silk or cloth. A wool province is then ten percent until the fifth age and nothing after it, and «5» is what that says.\n\nSorting by «At the end» already breaks its ties on this column, so the first row is the province that ends best and, of those, does best on the way there.\n\n**Click to sort the table by this column.**"
  bag_wtp_result_head_method: "Building and method (× per level)"
  bag_wtp_result_head_goods: "Made of"
 

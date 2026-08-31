@@ -304,6 +304,19 @@ bag_wtp_score_right_1 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3750 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -319,6 +332,19 @@ bag_wtp_score_right_1 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.6600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -333,6 +359,19 @@ bag_wtp_score_right_1 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.6000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -362,6 +401,19 @@ bag_wtp_score_right_2 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -377,6 +429,19 @@ bag_wtp_score_right_2 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -391,6 +456,19 @@ bag_wtp_score_right_2 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.1200 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -420,6 +498,19 @@ bag_wtp_score_right_3 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -435,6 +526,19 @@ bag_wtp_score_right_3 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -449,6 +553,19 @@ bag_wtp_score_right_3 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -478,6 +595,19 @@ bag_wtp_score_right_4 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -493,6 +623,19 @@ bag_wtp_score_right_4 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -507,6 +650,19 @@ bag_wtp_score_right_4 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -536,6 +692,19 @@ bag_wtp_score_right_5 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.6000 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -564,6 +733,19 @@ bag_wtp_score_right_6 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3750 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -578,6 +760,19 @@ bag_wtp_score_right_6 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.1250 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
@@ -607,6 +802,19 @@ bag_wtp_score_right_7 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3900 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -621,6 +829,19 @@ bag_wtp_score_right_7 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.2600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
@@ -650,6 +871,19 @@ bag_wtp_score_right_8 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -665,6 +899,19 @@ bag_wtp_score_right_8 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -679,6 +926,19 @@ bag_wtp_score_right_8 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.7200 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -708,6 +968,19 @@ bag_wtp_score_right_9 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3900 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -736,6 +1009,19 @@ bag_wtp_score_right_10 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.4800 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -751,6 +1037,19 @@ bag_wtp_score_right_10 = {
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
 	}
@@ -765,6 +1064,19 @@ bag_wtp_score_right_10 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_3 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_3 = 0 }
+			set_variable = { name = bag_wtp_r_method_3 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_3 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_3 }
@@ -794,6 +1106,19 @@ bag_wtp_score_right_11 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3300 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -822,6 +1147,19 @@ bag_wtp_score_right_12 = {
 			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
 		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_1 = 0 }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+		}
 		change_variable = { name = bag_wtp_r_val_1 multiply = 0.3600 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
 	}
@@ -836,6 +1174,19 @@ bag_wtp_score_right_12 = {
 			limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
 			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
 			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+		}
+		# Nothing the ground feeds, on either side: the slot keeps its building and
+		# its icon and says 0.00%, rather than dropping a good out of the bundle --
+		# the twentieth run asked for exactly that. `_val` stays 0, so the slot is
+		# worth nothing to the ranking and a row where every slot is like this is
+		# still filtered out whole.
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+		}
+		if = {
+			limit = { var:bag_wtp_r_method_2 = 0 }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
 		}
 		change_variable = { name = bag_wtp_r_val_2 multiply = 0.2400 }
 		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }

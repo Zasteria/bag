@@ -245,15 +245,37 @@ types BagWtpResultTypes {
 		# something to say: `bag_wtp_end_bt` is written only when the method that
 		# survives every advance is not the method winning today. An empty cell
 		# here is the row saying "this province does not change".
+		widget = { size = { 6 28 } }
+
 		text_single = {
-			size = { 86 28 }
+			size = { 80 28 }
 			autoresize = no
-			maximumsize = { 86 28 }
+			maximumsize = { 80 28 }
 			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value_end"
 			tooltip = "bag_wtp_result_end_tt"
+		}
+
+		widget = { size = { 10 28 } }
+
+		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
+		# and the last age it can still be built in. It is the column that
+		# decides between provinces whose endgame answer is the same 0.00% --
+		# ten percent until the fifth age is a plan; nothing at all is not.
+		widget = { size = { 6 28 } }
+
+		text_single = {
+			size = { 98 28 }
+			autoresize = no
+			maximumsize = { 98 28 }
+			align = left|vcenter
+			fontsize = 12
+			fontsize_min = 9
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_mid_bt').IsSet]"
+			text = "bag_wtp_result_mid_value"
+			tooltip = "bag_wtp_result_mid_tt"
 		}
 
 		widget = { size = { 10 28 } }
@@ -366,15 +388,37 @@ types BagWtpResultTypes {
 		# something to say: `bag_wtp_end_bt` is written only when the method that
 		# survives every advance is not the method winning today. An empty cell
 		# here is the row saying "this province does not change".
+		widget = { size = { 6 28 } }
+
 		text_single = {
-			size = { 86 28 }
+			size = { 80 28 }
 			autoresize = no
-			maximumsize = { 86 28 }
+			maximumsize = { 80 28 }
 			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet]"
 			text = "bag_wtp_result_bonus_value_end_rural"
 			tooltip = "bag_wtp_result_end_tt_rural"
+		}
+
+		widget = { size = { 10 28 } }
+
+		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
+		# and the last age it can still be built in. It is the column that
+		# decides between provinces whose endgame answer is the same 0.00% --
+		# ten percent until the fifth age is a plan; nothing at all is not.
+		widget = { size = { 6 28 } }
+
+		text_single = {
+			size = { 98 28 }
+			autoresize = no
+			maximumsize = { 98 28 }
+			align = left|vcenter
+			fontsize = 12
+			fontsize_min = 9
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_mid_bt_rural').IsSet]"
+			text = "bag_wtp_result_mid_value_rural"
+			tooltip = "bag_wtp_result_mid_tt_rural"
 		}
 
 		widget = { size = { 10 28 } }
@@ -781,9 +825,12 @@ window = {
 					text = "bag_wtp_result_window_empty"
 				}
 
+				# 48, not 38: the rows below sit inside a scrollbox whose content
+				# carries a 10px margin, and for two runs every column header was
+				# ten pixels left of the column it names.
 				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_left = 38
+					margin_left = 48
 					spacing = 0
 					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_results'))]"
 
@@ -808,57 +855,59 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
 					}
-					# Both number columns are buttons, and clicking one sorts the
-					# table by it. `button_regular` because it is the one button
-					# this window already proves; the mark beside the label is
-					# drawn from a global variable, and if that ever fails to
-					# read the buttons still sort, because they do not read it.
+					# The three number columns are buttons: clicking one sorts the
+					# table by it, and the mark moves to it. Ranking by «В конце»
+					# breaks its ties on «По пути», which is the whole point of
+					# having the middle one -- see bag_wtp_generated_values.txt.
+					#
+					# The mark is drawn from a global variable; if it never shows
+					# up the buttons still sort, because they do not read it.
 					button_regular = {
-						size = { 76 24 }
+						size = { 70 24 }
 						tooltip = "bag_wtp_result_head_bonus_tt"
 						onclick = "[GetScriptedGui('bag_wtp_sort_by_near').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
 						text_single = {
-							size = { 68 22 }
+							size = { 58 20 }
 							parentanchor = center
 							widgetanchor = center
 							autoresize = no
 							align = left|nobaseline
 							fontsize = 13
-							fontsize_min = 10
+							fontsize_min = 9
 							elide = right
 							text = "bag_wtp_result_head_bonus"
 						}
 						text_single = {
-							size = { 68 22 }
+							size = { 58 20 }
 							parentanchor = center
 							widgetanchor = center
 							autoresize = no
 							align = right|nobaseline
 							fontsize = 13
-							visible = "[Not(GetGlobalVariable('bag_wtp_rank_by_end').IsSet)]"
+							visible = "[Not(Or(GetGlobalVariable('bag_wtp_rank_by_mid').IsSet, GetGlobalVariable('bag_wtp_rank_by_end').IsSet))]"
 							text = "bag_wtp_result_head_sorted"
 						}
 					}
-
+					widget = { size = { 6 24 } }
 					button_regular = {
-						size = { 90 24 }
+						size = { 80 24 }
 						tooltip = "bag_wtp_result_head_end_tt"
 						onclick = "[GetScriptedGui('bag_wtp_sort_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
 						text_single = {
-							size = { 82 22 }
+							size = { 68 20 }
 							parentanchor = center
 							widgetanchor = center
 							autoresize = no
 							align = left|nobaseline
 							fontsize = 13
-							fontsize_min = 10
+							fontsize_min = 9
 							elide = right
 							text = "bag_wtp_result_head_end"
 						}
 						text_single = {
-							size = { 82 22 }
+							size = { 68 20 }
 							parentanchor = center
 							widgetanchor = center
 							autoresize = no
@@ -868,6 +917,35 @@ window = {
 							text = "bag_wtp_result_head_sorted"
 						}
 					}
+					widget = { size = { 6 24 } }
+					button_regular = {
+						size = { 98 24 }
+						tooltip = "bag_wtp_result_head_mid_tt"
+						onclick = "[GetScriptedGui('bag_wtp_sort_by_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						text_single = {
+							size = { 86 20 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = left|nobaseline
+							fontsize = 13
+							fontsize_min = 9
+							elide = right
+							text = "bag_wtp_result_head_mid"
+						}
+						text_single = {
+							size = { 86 20 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							align = right|nobaseline
+							fontsize = 13
+							visible = "[GetGlobalVariable('bag_wtp_rank_by_mid').IsSet]"
+							text = "bag_wtp_result_head_sorted"
+						}
+					}
+					widget = { size = { 10 24 } }
 					text_single = {
 						size = { -1 24 }
 						layoutpolicy_horizontal = expanding

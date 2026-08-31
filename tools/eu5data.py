@@ -119,6 +119,15 @@ CATEGORY_GROUPS = (
 )
 
 
+# The game's six ages, in order, and the number the mod prints. A building's
+# age comes from the advance that unlocks it; one no advance names is a starting
+# building and counts as age 0.
+AGES = {name: number for number, name in enumerate(
+    ("age_1_traditions", "age_2_renaissance", "age_3_discovery",
+     "age_4_reformation", "age_5_absolutism", "age_6_revolutions"), start=1)}
+LAST_AGE = 6
+
+
 @dataclass
 class Method:
     """One production method, as offered by one building type."""
@@ -197,6 +206,27 @@ class Game:
     # mill, thirty chains of it, and every production chain ends in a mill or a
     # factory. A building in here is one nobody builds at the end of a game.
     obsoleted: set[str] = field(default_factory=set)
+    # What replaces each building, the same ladder read the other way.
+    successor: dict[str, str] = field(default_factory=dict)
+    # Which age unlocks each building, 1..6, or 0 for one you start with. Read
+    # off the advance carrying `unlock_building`; a building no advance names is
+    # a starting one.
+    unlock_age: dict[str, int] = field(default_factory=dict)
+
+    def last_age(self, method: "Method") -> int:
+        """The last age this method can still be built in, 1..6.
+
+        A building stops being buildable when its successor's advance lands, so
+        the answer is that advance's age minus nothing -- the successor unlocks
+        *in* that age, and by the end of it the old one is gone. A building
+        nothing replaces lasts to the sixth.
+
+        This is what turns "10%" into "10% until the fifth age": wool fine cloth
+        is a workshop, the manufactory that obsoletes it unlocks in the fifth,
+        and after that a wool province has no fine cloth recipe at all.
+        """
+        after = self.successor.get(method.building)
+        return min(self.unlock_age.get(after, LAST_AGE), LAST_AGE) if after else LAST_AGE
 
     def endgame_methods(self) -> list[Method]:
         """The methods still buildable once every advance is in.
@@ -404,7 +434,15 @@ def load_game(common: Path | None = None) -> Game:
             ))
     obsoleted = {str(scalar(entries, "obsolete")) for entries in buildings.values()
                  if scalar(entries, "obsolete")}
+    successor = {str(scalar(entries, "obsolete")): name
+                 for name, entries in buildings.items() if scalar(entries, "obsolete")}
+    unlock_age: dict[str, int] = {}
+    for entries in load_dir(common / "advances").values():
+        age = AGES.get(str(scalar(entries, "age")), 0)
+        for building in find(entries, "unlock_building"):
+            building = str(building)
+            unlock_age[building] = min(unlock_age.get(building, LAST_AGE), age)
     return Game(raw_goods=raw, methods=methods, all_goods=goods, prices=price,
-                obsoleted=obsoleted,
+                obsoleted=obsoleted, successor=successor, unlock_age=unlock_age,
                 town_rights=_town_rights(common / "town_rights",
                                          common / "advances"))

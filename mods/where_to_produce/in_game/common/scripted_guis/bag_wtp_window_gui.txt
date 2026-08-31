@@ -79,6 +79,22 @@ bag_wtp_sort_by_near = {
 	}
 
 	effect = {
+		remove_global_variable = bag_wtp_rank_by_mid
+		remove_global_variable = bag_wtp_rank_by_end
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# Scope: country
+bag_wtp_sort_by_mid = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		set_global_variable = { name = bag_wtp_rank_by_mid value = 1 }
 		remove_global_variable = bag_wtp_rank_by_end
 		bag_wtp_recompute_live = yes
 	}
@@ -94,6 +110,7 @@ bag_wtp_sort_by_end = {
 
 	effect = {
 		set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
+		remove_global_variable = bag_wtp_rank_by_mid
 		bag_wtp_recompute_live = yes
 	}
 }

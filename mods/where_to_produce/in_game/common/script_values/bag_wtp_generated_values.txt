@@ -5002,8 +5002,9 @@ bag_wtp_b218 = {
 	}
 }
 
-# The better of the two answers this location has, in each age. A province with
-# nothing but a village to offer still deserves its row.
+# The better of the two sides -- built-up and village -- in each of the three
+# ages a row carries. A province with nothing but a village to offer still
+# deserves its row.
 # Scope: location
 bag_wtp_near_score = {
 	value = 0
@@ -5014,6 +5015,19 @@ bag_wtp_near_score = {
 	if = {
 		limit = { var:bag_wtp_best < var:bag_wtp_best_rural }
 		value = var:bag_wtp_best_rural
+	}
+}
+
+# Scope: location
+bag_wtp_mid_score = {
+	value = 0
+	if = {
+		limit = { var:bag_wtp_mid_best >= var:bag_wtp_mid_best_rural }
+		value = var:bag_wtp_mid_best
+	}
+	if = {
+		limit = { var:bag_wtp_mid_best < var:bag_wtp_mid_best_rural }
+		value = var:bag_wtp_mid_best_rural
 	}
 }
 
@@ -5030,30 +5044,51 @@ bag_wtp_end_score = {
 	}
 }
 
-# **The near answer, shrunk until it can only break a tie.** Ranking by the last
-# age puts every province that reaches the same endgame percentage on the same
-# number -- the eighteenth run's paper table had 2.49% -> 10.00% above
-# 10.00% -> 10.00%, in an order nothing chose -- and of two provinces that end
-# equal, the one that is already good is the one to take.
+# **A column shrunk until it can only break a tie in the column above it.**
+# Ranking by the last age puts every province that reaches the same endgame
+# percentage on one number -- and where fine cloth ends in silk, that number is
+# 0.00% for the whole table. What separates them then is the road there: ten
+# percent until the fifth age beats nothing at all, and that is the choice the
+# twentieth run asked to be able to make.
 #
-# A thousandth of a near score is at most 0.495, and the smallest step any raw
-# material makes in the endgame set is 1.9. So this orders ties and can never
+# A ten-thousandth of a score is at most 0.495 and the smallest step any raw
+# material makes in the endgame set is 1.9, so this orders ties and can never
 # reorder anything that is not tied.
+# Scope: location
+bag_wtp_mid_tiebreak = {
+	value = bag_wtp_mid_score
+	multiply = 0.0001
+}
+
 # Scope: location
 bag_wtp_near_tiebreak = {
 	value = bag_wtp_near_score
 	multiply = 0.0001
 }
 
-# What the ranking sorts on, and which age that is is the player's:
-# `bag_wtp_rank_by_end` is the tick. One operation per branch, because a script
-# value that quietly does nothing logs nothing.
+# What the ranking sorts on, and which of the three columns that is belongs to
+# the player: the column headers are the buttons, and each sets one of these two
+# globals and clears the other. Neither set is «Сейчас».
+#
+# One operation per branch, because a script value that quietly does nothing
+# logs nothing.
 # Scope: location
 bag_wtp_score = {
 	value = 0
 	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+		limit = {
+			NOT = { has_global_variable = bag_wtp_rank_by_mid }
+			NOT = { has_global_variable = bag_wtp_rank_by_end }
+		}
 		value = bag_wtp_near_score
+	}
+	if = {
+		limit = { has_global_variable = bag_wtp_rank_by_mid }
+		value = bag_wtp_mid_score
+	}
+	if = {
+		limit = { has_global_variable = bag_wtp_rank_by_mid }
+		add = bag_wtp_near_tiebreak
 	}
 	if = {
 		limit = { has_global_variable = bag_wtp_rank_by_end }
@@ -5061,7 +5096,7 @@ bag_wtp_score = {
 	}
 	if = {
 		limit = { has_global_variable = bag_wtp_rank_by_end }
-		add = bag_wtp_near_tiebreak
+		add = bag_wtp_mid_tiebreak
 	}
 }
 

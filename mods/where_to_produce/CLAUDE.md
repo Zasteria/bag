@@ -5,18 +5,19 @@ method and ranks the locations by what that method would earn from the raw
 materials the province supplies — **in two ages: what you can build now, and
 what the ground gives once every advance is in.**
 
-**State: nineteen loads in, both columns confirmed on screen.** A good or a
-whole urban right, a window each; the ranking sorts, a pick re-ranks live, the
-pickers stay folded, «Открыть» reopens the last result. **Which column sorts is
-a header the player clicks**, in the window, not a tick on the page.
+**State: twenty loads in, and a row now answers in three ages** — «Сейчас»,
+«По пути» (the best this ground ever feeds, and the last age it can be built),
+«В конце». Each is a header the player clicks to sort by, in the window; sorting
+by the last breaks ties on the middle one, which is the only column with
+anything to say where a ladder ends early.
 
 ## Where it stands
 
 **A method the province feeds nothing of is not an answer**, and where nothing
-is fed there is no row — the eighteenth run had fine cloth answering silk at
-0.00% in a wool country. **The far column is exempt** and always prints, at
-0.00% where no survivor is fed: a ladder can end early (wool fine cloth stops at
-the workshop) and a blank cell cannot say so.
+is fed there is no row. Every column keeps a fed answer for the ranking and an
+unfed one for the printing, so a cell says 0.00% where a blank would have lied —
+a ladder can end early: wool fine cloth stops at the workshop, because the
+manufactory takes only silk or cloth.
 
 **Eight buildings run two methods at once and the mod models one** — fine cloth,
 jewelry, cannons, firearms: a second `unique_production_methods` block is a
@@ -24,10 +25,8 @@ second slot, and the building runs one from each. It understates their output
 and their inputs. The fix fits and waits on one tooltip:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Never reported**, both from the seventeenth run: no province at 0.00% on every
-good of a bundle, and «Уникальные права» empty for all but Byzantines and
-Scandinavians. **The rights window still has one age** to the goods window's
-two, which is all `bag_wtp__any_method` is still for.
+**The rights window still has one age** to the goods window's three, which is
+all `bag_wtp__any_method` is still for.
 
 **Urban rights** are two lists on the Goods tab and a window of their own: a
 bundle is a different question in a different unit. The numbers and the deferred
@@ -60,13 +59,14 @@ tree of our own — empty twice, deleted. Picker caps: `docs/research/cmf.md`.
 | on the winning location | is |
 | --- | --- |
 | `bag_wtp_best` | `out * (1 + bonus/100) * RANK_SCALE` — what the ranking sorts on, never printed |
-| `bag_wtp_rank` | the place it came in, 1 first — the «№» column, and what the copy sorts on |
+| `bag_wtp_rank` | the place it came in, 1 first — the «№» column |
 | `bag_wtp_bt` / `_pm` | the building and the method that won |
 | `bag_wtp_out` | what it makes a level, unscaled — the row's `×` |
 | `bag_wtp_bonus` | the RGO bonus, the row's percentage |
 | `bag_wtp_goods` / `_all` | the raw materials the province supplies, and how many it could |
 
-Each has a `bag_wtp_end_*` twin: the same six for the last age.
+`bag_wtp_mid_*` and `bag_wtp_end_*` are the same for the other two columns, plus
+`bag_wtp_mid_age`; `_any_best*` is each column's unfed fallback, printed only.
 
 For an urban right the same six are `bag_wtp_r_*_<k>` for slot `k` of the
 bundle, `bag_wtp_r_good_<k>` naming the good and `bag_wtp_r_total` the sum the

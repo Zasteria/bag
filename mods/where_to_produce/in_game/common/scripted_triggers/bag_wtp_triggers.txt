@@ -52,11 +52,18 @@ bag_wtp_row_is_worth_it = {
 		# have already answered.
 		var:bag_wtp_end_bonus > 0
 		var:bag_wtp_end_bonus_rural > 0
+		# And the middle column, which is the only one with anything to say where
+		# a ladder ends early: wool fine cloth is ten percent until the fifth age
+		# and nothing after it.
+		var:bag_wtp_mid_bonus > 0
+		var:bag_wtp_mid_bonus_rural > 0
 		AND = {
 			var:bag_wtp_goods_all = 0
 			var:bag_wtp_goods_all_rural = 0
 			var:bag_wtp_end_goods_all = 0
 			var:bag_wtp_end_goods_all_rural = 0
+			var:bag_wtp_mid_bonus = 0
+			var:bag_wtp_mid_bonus_rural = 0
 		}
 	}
 }

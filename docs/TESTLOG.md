@@ -31,6 +31,36 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twentieth load. Everything asked for works,
+and the middle age is missing.** Four screenshots, fine cloth and a weaponry
+right.
+
+- **Confirmed:** the far column prints 0.00% on every row; the sort buttons
+  work and the mark follows them; two ticks on the page instead of three; no
+  province at 0.00% in a rights table; «Уникальные права» empty for Wallachia.
+- **Sorting appeared to do nothing with «Считать методы…» on**, and it was not a
+  fault: with that tick the near column already held the best method of any age,
+  which is the same ordering the far column gives. Two states saying one thing.
+  The tick no longer touches the goods pass at all — the third column replaces
+  it — and it is named for the rights window, which is all it still does.
+- **Every column header sat ten pixels left of its column.** The rows are inside
+  a scrollbox whose content carries a 10px margin and the header is not;
+  `margin_left` is 48 now, and the three sort buttons have gaps between them.
+- **A good of a bundle vanished when the ground fed it nothing** — Северная
+  Мунтения showed мебель and керамика but not кожа. Owner: it should stay, at
+  0%, and only a row where *every* good is fed nothing should go. A slot now
+  falls back to the best available method whether it is fed or not; its value to
+  the ranking stays zero.
+- **And the ask this run is really about.** «В конце» is 0.00% for every wool
+  province, so it cannot order them, and what the owner wants ordered is
+  precisely that: where to build so that nothing is rebuilt, taking the best the
+  ground gives *along the way*. There is now a third column, «По пути»: the best
+  recipe this ground ever feeds in any age, and the last age it can be built —
+  `10.00% до 5` for wool fine cloth, because the manufactory that obsoletes the
+  wool workshop unlocks in the fifth. Sorting by «В конце» breaks its ties on
+  it, so the top row is the province that ends best and, among equals, is best
+  on the road there.
+
 **2026-08-31 — `where_to_produce`, nineteenth load. The fed-first rule is right
 and the second column was hiding behind it.** Two screenshots, fine cloth in
 the Carpathians again.
@@ -166,34 +196,26 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twentieth load.** What the nineteenth run asked for, none
-of it loaded, plus the two tails nobody has reported yet.
+**`where_to_produce`, twenty-first load.** All of it new since the twentieth,
+none of it loaded.
 
-1. **The «В конце» column has a figure on every row**, including 0.00% where the
-   ground feeds nothing that survives to the last age. Fine cloth in a wool
-   country is the case that should read 0.00% down the table.
-2. **The two number columns are buttons.** Clicking «Сейчас» or «В конце» sorts
-   the table by that column and the «▼» moves to it. If the mark never appears
-   but the sorting works, it is `GetGlobalVariable(...).IsSet` in the header and
-   nothing else — say so and it comes out.
-3. **«Ранжировать по последней эпохе» is gone from the mod page.** Only
-   «Считать методы, до которых не дошла эпоха» is left there, and it is for the
-   rights window.
-4. **Every column reads left-aligned**, and the rank no longer touches the
-   province name.
-5. **One tooltip settles the eight two-slot buildings.** Open the build panel on
-   a fine cloth guild, or a cannon maker, in a province that supplies one of its
-   raw materials, and read the game's own production-efficiency figure. Whether
-   it counts the inputs of both slots together or only one is the whole
-   question —
+1. **The third column «По пути»** — a percentage and an age on every row. Fine
+   cloth in the Carpathians should read `10.00% до 5` on the wool provinces and
+   `0.81% до 6` where there are dyes.
+2. **Sorting by «В конце» now orders the wool provinces sensibly** rather than
+   leaving them in whatever order the tie fell in — the tie is broken by «По
+   пути».
+3. **The columns line up with their headers**, and the three sort buttons have
+   air between them.
+4. **A bundle keeps all its goods** in the rights window, showing 0% for the one
+   the ground does not feed; a row where none is fed still disappears.
+5. **The page tick is named «Права: считать методы будущих эпох»** and touches
+   nothing but the rights window.
+6. **One tooltip settles the eight two-slot buildings.** Build panel on a fine
+   cloth guild, or a cannon maker, in a province that supplies one of its raw
+   materials: read the game's own production-efficiency figure. Whether it
+   counts the inputs of both slots or one is the whole question —
    [`investigations/production_ladder.md`](investigations/production_ladder.md).
-6. **No province at 0.00% on every good** at the bottom of a rights table, and
-   **«Уникальные права» empty** for Wallachia — both from the seventeenth run,
-   neither reported since.
-
-What is left after that is not a run but a decision: whether an ownership half
-belongs in the buildable tick, and whether level rights get a table of their own
-— [`investigations/town_rights.md`](investigations/town_rights.md).
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

@@ -39,12 +39,11 @@ through `python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## `where_to_produce`: two ages on a row, and eight buildings modelled wrong
 
-Nineteen loads, and both columns are confirmed: what the ground gives now, and
-what it gives once every advance is in, on the game's own `obsolete` ladder.
-Since that run, unloaded: the far column always prints (0.00% where the ground
-feeds no survivor — wool fine cloth has no rung above the workshop, and a blank
-cell could not say so), sorting moved out of the mod page onto the two column
-headers, and every column is left-aligned.
+Twenty loads. A row answers in three ages now — «Сейчас», «По пути», «В конце»
+— because the last one alone cannot order a table where every wool province ends
+at 0.00%: what separates them is ten percent until the fifth age, which is what
+the middle column says. Sorting by the end breaks ties on it. Unloaded, all of
+it, with the column alignment and the rights-bundle fix.
 
 **One thing wants a measurement before it can be built.** Eight buildings — fine
 cloth, jewelry, cannons, firearms — run two methods at once and the mod models

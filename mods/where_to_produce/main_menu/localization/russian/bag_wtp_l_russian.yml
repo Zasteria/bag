@@ -34,8 +34,8 @@
  bag_wtp__region_oceania_item_column_name: "Регион"
  bag_wtp__region_oceania__pick_name: "Искать здесь"
  bag_wtp__region_oceania__pick_desc: "Искать внутри этого региона. Регион — точная рамка, континент — грубая; отмечать можно и то и другое, отмеченный регион берёт верх."
- bag_wtp__any_method_name: "Считать методы, до которых не дошла эпоха"
- bag_wtp__any_method_desc: "Выключено: в колонке «Прибавка» — только методы, здание которых вам уже доступно. Большего ей и не нужно: соседняя «В конце» и так отвечает за последнюю эпоху, в какой бы вы ни были.\n\nВключено: та же колонка считает и все остальные методы игры. По-настоящему галка нужна теперь окну городских прав — у него второй колонки пока нет, и без неё оно отвечает только за сегодня.\n\nСписок товаров не прячет ничего в любом случае: там каждый товар, который делает хоть какое-то здание, включая пушки и огнестрел в первую эпоху."
+ bag_wtp__any_method_name: "Права: считать методы будущих эпох"
+ bag_wtp__any_method_desc: "Только для окна городских прав. У таблицы товаров три колонки — «Сейчас», «В конце», «По пути», — и они отвечают за все эпохи сами; на неё эта галка больше не влияет никак.\n\nУ окна прав таких колонок пока нет: без галки оно отвечает только за сегодня, и товар пучка, здание которого ещё не открыто, остаётся с нулём. Включите её, чтобы посмотреть право так, как оно будет работать позже.\n\nСписок товаров не прячет ничего в любом случае: там каждый товар, который делает хоть какое-то здание."
 
  # Заголовки групп. Список хранится в группе, названной его же именем, поэтому
  # это не дубликаты названий настроек.
@@ -113,6 +113,10 @@
  bag_wtp_result_goods_count: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all').GetValue|0]"
  bag_wtp_result_bonus_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bonus_rural').GetValue|2]%"
  bag_wtp_result_method_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out_rural').GetValue|2]"
+ bag_wtp_result_mid_value: "[Location.MakeScope.GetVariable('bag_wtp_mid_bonus').GetValue|2]% до [Location.MakeScope.GetVariable('bag_wtp_mid_age').GetValue|0]"
+ bag_wtp_result_mid_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_mid_bonus_rural').GetValue|2]% до [Location.MakeScope.GetVariable('bag_wtp_mid_age_rural').GetValue|0]"
+ bag_wtp_result_mid_tt: "[Location.MakeScope.GetVariable('bag_wtp_mid_bt').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_mid_pm').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_mid_out').GetValue|2] за уровень при [Location.MakeScope.GetVariable('bag_wtp_mid_bonus').GetValue|2]% — лучшее, что эта земля вообще кормит, в любую эпоху.\n\nСтроить его можно до [Location.MakeScope.GetVariable('bag_wtp_mid_age').GetValue|0]-й эпохи, а здание, которое придёт ему на смену, может захотеть уже другое сырьё — ради этого колонка и существует."
+ bag_wtp_result_mid_tt_rural: "[Location.MakeScope.GetVariable('bag_wtp_mid_bt_rural').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_mid_pm_rural').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_mid_out_rural').GetValue|2] за уровень при [Location.MakeScope.GetVariable('bag_wtp_mid_bonus_rural').GetValue|2]% — лучшее сельское, что кормит эта земля.\n\nСтроить можно до [Location.MakeScope.GetVariable('bag_wtp_mid_age_rural').GetValue|0]-й эпохи."
  bag_wtp_result_goods_count_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all_rural').GetValue|0]"
 
  # Вторая эпоха той же строки. `bag_wtp_end_*` пишется только там, где метод,
@@ -131,6 +135,8 @@
  bag_wtp_result_head_sorted: "▼"
  bag_wtp_result_head_bonus_tt: "Прибавка к эффективности от местного сырья — для лучшего здания, которое можно поставить уже сегодня.\n\nИгра считает её как 10% × (входы метода, которые даёт эта провинция) ÷ (все входы метода). В знаменатель идёт всё, включая то, чего не даст ни одна шахта и ни одно поле — например, инструменты, — поэтому потолок у многих методов сильно ниже десяти процентов.\n\nСчитается по всей провинции целиком. Пока её режет граница, игра считает только вашу половину и сегодняшнее число меньше; здесь — то, что вы получите, когда провинция станет вашей.\n\n**Нажмите, чтобы сортировать таблицу по этой колонке.**"
  bag_wtp_result_head_end: "В конце"
+ bag_wtp_result_head_mid: "По пути"
+ bag_wtp_result_head_mid_tt: "Лучшее, что эта земля вообще кормит — в любую эпоху, открыто вам здание или ещё нет, — и последняя эпоха, в которую его ещё можно построить.\n\nЭта колонка и решает, когда «В конце» везде 0.00%. Тонкое сукно — как раз такой случай: из шерсти оно заканчивается на мастерской, потому что мануфактура и фабрика берут только шёлк или сукно. Шерстяная провинция даёт десять процентов до пятой эпохи и ничего после — «5» об этом и говорит.\n\nСортировка по «В конце» уже разводит ничьи по этой колонке: сверху окажется провинция, которая лучше всех в конце, а среди равных — та, что лучше по дороге туда.\n\n**Нажмите, чтобы сортировать таблицу по этой колонке.**"
  bag_wtp_result_head_method: "Здание и метод (× за уровень)"
  bag_wtp_result_head_goods: "Из чего"
 
