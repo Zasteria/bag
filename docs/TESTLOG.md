@@ -29,7 +29,42 @@ what actually appeared.
   nothing at all, so "log clean" is itself worth recording: it says the failure
   is the silent kind and the next step is a `cmf_log`, not another guess.
 
+**Do not ask for logs by default.** The owner said so on 2026-08-31 — a zip is
+his time and the session's tokens both — and three loads running the answer was
+"clean". Ask when something *did nothing* and the reason has to be either a GUI
+error or a silent effect, when a crash or a load failure is in play, or when a
+`cmf_log` was added for this run. A layout question, a number that looks wrong,
+a filter that filters: the screenshot already says it.
+
 ## Runs
+
+**2026-08-31 — `where_to_produce`, twenty-sixth load. All four fixes hold.**
+Three screenshots, fine cloth, and the owner's verdict: «если не придираться к
+этим злосчастным столбикам и выравниваниям, сейчас меня устраивает функционал».
+
+- **No silk weaver where there is no silk.** Западная Мунтения now reads
+  «Гильдия портных: Мериносовая шерсть ×0.70 + Красители с квасцами», **9.43%**,
+  «2/3» — and the two icons say why the old answer was wrong in a way nobody had
+  spotted: **the province works wool *and* dyes**. Silk never had anything to do
+  with it. 7.14 (wool) + 2.29 (dyes) = 9.43, the recipe fed on both halves; the
+  silk one won before only because 0.90 a level unfed beat 0.70 a level at 7.14%.
+  «В конце» is «Фабрики тонкого сукна ×4.00», 0.63%, «1/1». The wool provinces
+  behind it are untouched at 7.14% «1/3», and the count went 13 → 12.
+- **The buildable tick re-ranks the open window** — third screenshot, «Обошёл 8 ·
+  нашёл 5 · пересчётов 4», five provinces left standing with the window never
+  closed.
+- **`error.log` is clean**: not one `bag_wtp` line beyond the `Flag … never used`
+  and `Variable … used but never set` noise. The two `PostValidate` lines are
+  `qol_vassal_test_events`, another mod's.
+- **Two columns I narrowed were narrowed too far.** «Восточная Мунтения» abuts
+  «Валахия» and «Трансильвания» abuts its percentage: `elide` fills a column to
+  the last pixel and then touches the next one, so width alone can never fix it.
+  Both got their width back and a spacer of their own, paid for out of the method
+  column, and the row still adds up to what the header does.
+- **Not settled: whether «Из чего» is now under its heading.** The middle columns
+  read as aligned in the screenshots and that one may still sit a dozen pixels
+  right, which is too fine to call at this resolution. One glance on the next run
+  answers it.
 
 **2026-08-31 — `where_to_produce`, twenty-fifth load, with logs.** Two
 screenshots of fine cloth, «Считать» and «На конец».
@@ -178,29 +213,17 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-sixth load.** Four things, all of them the
-twenty-fifth run's own complaints, and one screenshot of fine cloth answers all
-but the last.
+**`where_to_produce`, twenty-seventh load.** Layout only, and one glance answers
+it — this is not worth a run of its own, it rides along with whatever comes next.
 
-1. **No silk weaver where there is no silk.** Западная Мунтения came first at
-   1.78% on «Гильдия ткачей шёлка»; it should now read «Гильдия портных» with
-   «Красители с квасцами» at about 2.29% and «1/2», the recipe whose raw half is
-   the dyes the province actually works. Nothing at all in that row is also an
-   answer, and a worse one to hear about — say which it is. The wool provinces
-   at 7.14% must be exactly where they were.
-2. **«Из чего» starts at its header**, not half a column right of it, on a row
-   with one icon and on a row with none — in both windows.
-3. **«Здание и метод» is 428 wide against 350** and the whole row still adds up:
-   every column under its own heading, nothing elided that was not elided
-   before. «Область» lost 14 pixels and «Сейчас», «В конце», «По пути» six each,
-   so a truncated area name or a clipped percentage is the thing to look for.
-4. **The buildable tick re-ranks the open window.** Tick it with the results
-   window in front: provinces without a town must leave the table there and
-   then, with no closing and reopening.
-
-And still unrun, unchanged: **a Scandinavian country sees its two privileges**
-without having taken the advance. Wallachia seeing none is confirmed and is the
-right answer.
+1. **«Восточная Мунтения» no longer touches «Валахия»**, and «Трансильвания» no
+   longer touches its percentage. Both columns have their width back and eight
+   pixels of their own after them.
+2. **«Из чего»: are the count and the icons under their heading, or still a
+   dozen pixels right of it?** The middle columns look right and this one cannot
+   be called from a screenshot at the size sent. If it is still off, say so and
+   nothing else — the header and the rows add up to the same numbers, so the
+   cause is inside the scrollbox and it is one number to move.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

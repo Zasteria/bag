@@ -293,8 +293,8 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 428 28 }
-			maximumsize = { 428 28 }
+			size = { 394 28 }
+			maximumsize = { 394 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -304,9 +304,9 @@ types BagWtpResultTypes {
 			# run had rows whose building had no name and no «×», with only the
 			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { 296 28 }
+				size = { 262 28 }
 				autoresize = no
-				maximumsize = { 296 28 }
+				maximumsize = { 262 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
@@ -327,9 +327,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 296 28 }
+				size = { 262 28 }
 				autoresize = no
-				maximumsize = { 296 28 }
+				maximumsize = { 262 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
@@ -484,8 +484,8 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 428 28 }
-			maximumsize = { 428 28 }
+			size = { 394 28 }
+			maximumsize = { 394 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -495,9 +495,9 @@ types BagWtpResultTypes {
 			# run had rows whose building had no name and no «×», with only the
 			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { 296 28 }
+				size = { 262 28 }
 				autoresize = no
-				maximumsize = { 296 28 }
+				maximumsize = { 262 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
@@ -518,9 +518,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 296 28 }
+				size = { 262 28 }
 				autoresize = no
-				maximumsize = { 296 28 }
+				maximumsize = { 262 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
@@ -672,24 +672,34 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 150 60 }
+					size = { 160 60 }
 					autoresize = no
-					maximumsize = { 150 60 }
+					maximumsize = { 160 60 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
 					tooltip = "bag_wtp_result_province_tt"
 				}
 
+				# A gap of its own after each name, because `elide` fills the
+				# column to the last pixel and then abuts the next one: «Восточная
+				# Мунтения» ran into «Валахия» and «Трансильвания» into the
+				# percentage. Width alone cannot fix that -- there is always a
+				# longer name -- so the separation is a spacer, and the header
+				# carries the same two.
+				widget = { size = { 8 60 } }
+
 				text_single = {
-					size = { 96 60 }
+					size = { 104 60 }
 					autoresize = no
-					maximumsize = { 96 60 }
+					maximumsize = { 104 60 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
 					text = "[Location.GetArea.GetNameWithNoTooltip]"
 				}
+
+				widget = { size = { 8 60 } }
 
 				# The two answers, one under the other. The built-up one first: it
 				# is what the ranking sorted on, and a village produces a fifth of
@@ -938,19 +948,21 @@ window = {
 						text = "bag_wtp_result_head_rank"
 					}
 					text_single = {
-						size = { 150 24 }
+						size = { 160 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_province"
 					}
+					widget = { size = { 8 24 } }
 					text_single = {
-						size = { 96 24 }
+						size = { 104 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
 					}
+					widget = { size = { 8 24 } }
 					# Plain labels again. Sorting is not a property of a column any
 					# more: it belongs to which of the two «Считать» buttons was
 					# pressed, and those live on the mod page where the question
@@ -984,9 +996,9 @@ window = {
 					}
 					widget = { size = { 8 24 } }
 					text_single = {
-						size = { 428 24 }
+						size = { 394 24 }
 						autoresize = no
-						maximumsize = { 428 24 }
+						maximumsize = { 394 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"

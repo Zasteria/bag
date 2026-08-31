@@ -62,7 +62,13 @@ brought three complaints, all three fixed and none loaded:
 - **the buildable tick not re-ranking the open window.** It calls
   `bag_wtp_recompute_live` like the map pickers do.
 
-What to look at next is [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+**All four passed on the twenty-sixth load and the owner is satisfied with the
+functionality.** Two name columns had been narrowed too far and are repaired;
+one alignment question is open. `TESTLOG.md`, and **do not ask him for logs
+unless something did nothing** — the rule is at the top of that file.
+
+**Which means the next thing is the goal itself, not another fix.** Ask him
+before designing any of it — the shape below is his sentence, not a spec.
 
 **Where this is going**, in the owner's words: take a stretch of land, work out
 every province's limits and lay out *all* its production — best goods first, then
