@@ -54,8 +54,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 350 28 }
-			maximumsize = { 350 28 }
+			size = { 470 28 }
+			maximumsize = { 470 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -63,28 +63,35 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
-		# 190 wide, which is what the header gives «Из чего». Left to size itself
-		# to its icons it started wherever the expanding method column stopped,
-		# and that is a different place on every row.
-		hbox = {
-			size = { 140 28 }
-			maximumsize = { 140 28 }
-			spacing = 4
+		# «Из чего», pinned to the left edge of its column.
+		#
+		# **A plain `widget`, not an hbox.** An hbox given a width spreads its
+		# children across it: the count and the icons drifted apart, and the pair
+		# of them sat centred in a column whose header is left-aligned. A `widget`
+		# places its children where their anchor says, and the hbox inside it has
+		# no width of its own, so it hugs what it holds.
+		widget = {
+			size = { 110 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_right_goods_count_1"
-			}
-
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_1')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				parentanchor = left|vcenter
+				spacing = 4
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_right_goods_count_1"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_1')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
@@ -132,8 +139,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 350 28 }
-			maximumsize = { 350 28 }
+			size = { 470 28 }
+			maximumsize = { 470 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -141,28 +148,35 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
-		# 190 wide, which is what the header gives «Из чего». Left to size itself
-		# to its icons it started wherever the expanding method column stopped,
-		# and that is a different place on every row.
-		hbox = {
-			size = { 140 28 }
-			maximumsize = { 140 28 }
-			spacing = 4
+		# «Из чего», pinned to the left edge of its column.
+		#
+		# **A plain `widget`, not an hbox.** An hbox given a width spreads its
+		# children across it: the count and the icons drifted apart, and the pair
+		# of them sat centred in a column whose header is left-aligned. A `widget`
+		# places its children where their anchor says, and the hbox inside it has
+		# no width of its own, so it hugs what it holds.
+		widget = {
+			size = { 110 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_right_goods_count_2"
-			}
-
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_2')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				parentanchor = left|vcenter
+				spacing = 4
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_right_goods_count_2"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_2')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
@@ -210,8 +224,8 @@ types BagWtpRightTypes {
 		# -- an expanding column is as wide as what is left, and a row inside a
 		# scrollbox has less left than the header does.
 		text_single = {
-			size = { 350 28 }
-			maximumsize = { 350 28 }
+			size = { 470 28 }
+			maximumsize = { 470 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -219,28 +233,35 @@ types BagWtpRightTypes {
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
-		# 190 wide, which is what the header gives «Из чего». Left to size itself
-		# to its icons it started wherever the expanding method column stopped,
-		# and that is a different place on every row.
-		hbox = {
-			size = { 140 28 }
-			maximumsize = { 140 28 }
-			spacing = 4
+		# «Из чего», pinned to the left edge of its column.
+		#
+		# **A plain `widget`, not an hbox.** An hbox given a width spreads its
+		# children across it: the count and the icons drifted apart, and the pair
+		# of them sat centred in a column whose header is left-aligned. A `widget`
+		# places its children where their anchor says, and the hbox inside it has
+		# no width of its own, so it hugs what it holds.
+		widget = {
+			size = { 110 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_right_goods_count_3"
-			}
-
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_3')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				parentanchor = left|vcenter
+				spacing = 4
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_right_goods_count_3"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_3')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
@@ -426,19 +447,18 @@ window = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
 
-					action_button = {
-						size = { 210 34 }
+					action_button_regular = {
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_area"
 						description = "bag_wtp_map_pick_area_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_area" }
 						tooltip = "bag_wtp_map_pick_area_desc"
-						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
@@ -447,19 +467,18 @@ window = {
 						}
 					}
 
-					action_button = {
-						size = { 210 34 }
+					action_button_regular = {
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_province"
 						description = "bag_wtp_map_pick_province_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_province" }
 						tooltip = "bag_wtp_map_pick_province_desc"
-						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
@@ -468,24 +487,43 @@ window = {
 						}
 					}
 
-					action_button = {
-						size = { 210 34 }
+					action_button_regular = {
+						size = { 164 34 }
 						title = "bag_wtp_map_pick_location"
 						description = "bag_wtp_map_pick_location_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_location" }
 						tooltip = "bag_wtp_map_pick_location_desc"
-						using = bg_button_flavor_1
 						text_single = {
-							size = { 202 30 }
+							size = { 156 30 }
 							parentanchor = center
 							autoresize = no
-							maximumsize = { 202 30 }
+							maximumsize = { 156 30 }
 							fontsize = 14
 							fontsize_min = 10
 							align = center|nobaseline
 							elide = right
 							text = "bag_wtp_map_pick_location"
+						}
+					}
+
+					action_button_regular = {
+						size = { 164 34 }
+						title = "bag_wtp_map_pick_market"
+						description = "bag_wtp_map_pick_market_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_market" }
+						tooltip = "bag_wtp_map_pick_market_desc"
+						text_single = {
+							size = { 156 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 156 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_market"
 						}
 					}
 
@@ -563,10 +601,22 @@ window = {
 				# carries a 10px margin, and the header does not.
 				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_left = 48
+					margin_left = 10
 					spacing = 0
 					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_right_results'))]"
 
+					# The column the +/- buttons live in. It had no heading and the
+					# empty corner read as a column out of line rather than as a
+					# column without a name. `margin_left` drops from 48 to 10 --
+					# the scrollbox's own content margin -- and this 38 makes the
+					# difference back up, so «№» has not moved a pixel.
+					text_single = {
+						size = { 38 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_expand"
+					}
 					text_single = {
 						size = { 34 24 }
 						autoresize = no
@@ -612,15 +662,15 @@ window = {
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { 350 24 }
+						size = { 470 24 }
 						autoresize = no
-						maximumsize = { 350 24 }
+						maximumsize = { 470 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 140 24 }
+						size = { 110 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13

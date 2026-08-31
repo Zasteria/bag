@@ -158,6 +158,46 @@ def methods(game: eu5data.Game) -> list[eu5data.Method]:
     return sorted(rows, key=lambda m: (m.produced, m.building, m.key))
 
 
+def fed_floor(method: eu5data.Method, game: eu5data.Game) -> float:
+    """The `_m` a method has to beat before this ground counts as feeding it.
+
+    **Half the bonus the recipe could ever earn, and that is the whole rule.**
+    Before it the floor was the unbonused output, so one input out of three was
+    enough: the twenty-fifth run's fine cloth put silk weavers at the top of a
+    province that has dyes and no silk -- the silk half of the recipe unfed, the
+    dyeing half fed, 1.78% of a possible 10 -- and the player's answer was that
+    a silk weaver where there is no silk is not an answer at all. It is not a
+    number the market can be asked about; the ground is what this mod can see,
+    and a recipe whose bulk has to be shipped in is one the ground did not earn.
+
+    Two things fall out of it that are worth keeping straight:
+
+    - **an input the RGOs cannot supply does not count against a method.** The
+      ceiling is already only what raw materials could ever add, so fine cloth
+      from cloth -- cloth is made, not dug -- asks only for its dyes and passes
+      on them. That is the answer the same province gets instead of the silk.
+    - **a method with one raw input is unchanged**, because half of its ceiling
+      is cleared by that one input or by nothing at all. The rule bites exactly
+      where the eighteenth run's did not: recipes with a main ingredient and a
+      garnish.
+
+    The floor is put midway between the two nearest sums the goods can actually
+    make, rather than at half the ceiling itself, so no combination of inputs can
+    land on the boundary and be decided by the fixed point. The narrowest that
+    gap gets is 0.12 of a scaled point, on the cannon maker's four inputs, against
+    0.00025 of rounding in the `.4f` the script values are written with.
+    """
+    shares = sorted(v for good, v in method.shares().items()
+                    if good in game.raw_goods)
+    sums = {0.0}
+    for share in shares:
+        sums |= {s + share for s in sums}
+    target = sum(shares) / 2
+    below = max((s for s in sums if s < target), default=0.0)
+    above = min((s for s in sums if s >= target), default=target)
+    return method.output * RANK_SCALE * (1 + (below + above) / 2 / 100)
+
+
 def endgame(rows: list[eu5data.Method], game: eu5data.Game) -> set[int]:
     """Which of `rows` are still buildable once every advance is in, by index.
 
@@ -845,11 +885,11 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     road there** -- which is what the twentieth run asked for in as many words.
 
     **A method the ground cannot feed is not an answer**, so every one of the
-    three keeps only methods whose raw materials this province supplies -- asked
-    as `_try > <the method's unbonused output>`, a literal. Each also keeps an
-    `_any_` twin without that floor, which nothing ranks on: a column has to
-    print something, and "the mill you cannot feed, at 0.00%" is an answer where
-    a blank cell is not.
+    three keeps only methods this province supplies the bulk of the raw materials
+    for -- asked as `_try > <a literal>`, the literal being `fed_floor`. Each
+    also keeps an `_any_` twin without that floor, which nothing ranks on: a
+    column has to print something, and "the mill you cannot feed, at 0.00%" is an
+    answer where a blank cell is not.
 
     All of it in one walk: a method's `_m<n>` is computed once and offered to
     every answer it qualifies for.
@@ -869,17 +909,17 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
              floor: float | None) -> str:
         """Is this the best of its side so far, and can this ground feed it?
 
-        `floor` is what `_m<n>` comes to where the province supplies none of the
-        method's raw materials -- the output alone, unbonused. Anything above it
-        means at least one input is worked here.
+        `floor` is `fed_floor`: the `_m<n>` of a method the province supplies
+        exactly half the possible bonus of. Anything above it is a recipe this
+        ground supplies the bulk of.
 
-        Without it the eighteenth run's fine cloth answered with silk weavers at
-        0.00% in provinces full of wool: 0.70 a level unfed beats 0.50 a level at
-        the full ten percent, so the ranking preferred a recipe the ground cannot
-        supply and buried every province that could have run the other one. The
-        smallest step any raw material adds is 0.56 across all methods and 1.9 in
-        the endgame set, both far above the fixed point, so this never turns on
-        rounding.
+        Without any floor the eighteenth run's fine cloth answered with silk
+        weavers at 0.00% in provinces full of wool: 0.70 a level unfed beats 0.50
+        a level at the full ten percent, so the ranking preferred a recipe the
+        ground cannot supply and buried every province that could have run the
+        other one. With a floor at the unbonused output it did the same thing
+        again on one input out of three -- the twenty-fifth run, and why the
+        floor is where it is now.
         """
         fed = f"var:{MOD_ID}_try > {floor:.4f} " if floor is not None else ""
         return (f"""{indent}if = {{
@@ -921,7 +961,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
         for method_index in methods_for:
             suffix = "_rural" if method_index in rural else ""
-            floor = rows[method_index - 1].output * RANK_SCALE
+            floor = fed_floor(rows[method_index - 1], game)
             out.append(f"\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}\n")
             # «По пути»: every age, so no gate at all.
             out.append(keep("\t\t", "mid_", suffix, method_index, floor))

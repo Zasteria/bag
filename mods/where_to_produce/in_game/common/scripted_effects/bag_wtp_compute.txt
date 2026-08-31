@@ -102,11 +102,19 @@ bag_wtp_on_button = {
 
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
+	#
+	# **And it re-ranks, because it changes which provinces are candidates at
+	# all.** Every other tick here only decides what the *next* press answers;
+	# this one drops provinces out of the table that is already on screen, and
+	# the twenty-fifth run had to close the window and open it again to see the
+	# filter take. `bag_wtp_recompute_live` costs nothing against a closed
+	# window -- it is the same guard the map pickers go through.
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
 		bag_wtp_sync = yes
 		bag_wtp_refresh_goods = yes
 		bag_wtp_refresh_rights = yes
+		bag_wtp_recompute_live = yes
 	}
 
 }

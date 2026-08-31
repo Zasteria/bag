@@ -162,3 +162,61 @@ bag_wtp_select_area = {
 
 	ai_will_do = { value = 0 }
 }
+
+# One market, all of its land locations at once.
+#
+# **A market is drawn on the map after all**, which the twenty-seventh run
+# settled: hovering outlines the market's own borders and a click takes it, the
+# same as an area. What it still needs is its candidates named --
+# `interaction_source_list`, as vanilla's only `looking_for_a = market` does --
+# and **that list is every market in the world**, not the ones the player is
+# already in. Narrowing it to `every_market_present_in_country` was the first
+# attempt and it made the neighbour's market unclickable, which is precisely the
+# market somebody planning a conquest wants to lay out. The ticked continents
+# still frame it, the way they frame the other three.
+bag_wtp_select_market = {
+	type = owncountry
+	show_in_gui_list = no
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { always = yes }
+	allow = { always = yes }
+
+	select_trigger = {
+		looking_for_a = market
+		target_flag = bag_wtp_target
+		interaction_source_list = {
+			every_market_in_world = {
+				add_to_list = source
+			}
+		}
+		name = bag_wtp_choose_market
+		none_available_msg_key = bag_wtp_no_markets
+		map_mode = bag_wtp_selection
+		bottom_widget = bag_wtp_select_footer
+		column = { data = name }
+		visible = {
+			any_location_in_market = {
+				is_ownable = yes
+				bag_wtp_in_zone = yes
+			}
+		}
+		enabled = { always = yes }
+		tooltip_msg_key = bag_wtp_choose_market_tt
+	}
+
+	effect = {
+		scope:bag_wtp_target ?= {
+			bag_wtp_toggle_market_scope = yes
+		}
+		# `scope:actor` and not the scope this block opens in -- the same reason as
+		# the three above, and the same silent failure if it is left out.
+		scope:actor = {
+			bag_wtp_rebuild_browse = yes
+			bag_wtp_recompute_live = yes
+		}
+	}
+
+	ai_will_do = { value = 0 }
+}

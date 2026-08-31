@@ -53,7 +53,12 @@ A layout places its own children; anchors belong to children of a plain
 
 **An hbox with a fixed width spreads its children across it.** Two goods icons
 26px wide sat 77px apart inside an hbox told to be 144 wide. A container that
-should hug its content gets no `size` at all.
+should hug its content gets no `size` at all — and where the column *must* have a
+width, because it has to line up with a header, the width goes on a plain
+`widget` and the content inside it gets `parentanchor = left|vcenter`. With one
+child the spread reads as centring rather than as a gap: `where_to_produce`'s
+«Из чего» sat half a column right of its heading for two runs, further on the
+rows with fewer icons, and `ignoreinvisible` is what left it holding one child.
 
 **A datamodel item needs a `datacontext` of its own, or the object it repeats
 over is not there.** `where_to_produce`'s results row drew its goods icons off

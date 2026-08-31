@@ -174,3 +174,23 @@ json.
 ругать его не надо: он переводит те же 759 ключей на десять языков и больше
 ничего не делает. Кто встал позже, тот и выиграл эти ключи; остальное у нас
 своё. Если человек поставит оба, поломки не будет.
+
+## Putting `glorpui_hints` out, in order
+
+Moved here from [`NEXT_SESSION.md`](NEXT_SESSION.md), which only points at
+it now. The steps are the same for any mod; the mod-specific parts are the
+two Required Items in step 5.
+
+`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready.
+
+1. merge the branch, then `mods.bat → 4` with the `git pull`;
+2. load once and check the list above;
+3. in game: mods screen → «Выбранные модификации» row → **sandbox icon** → Mod
+   Tools → *Create mod*, filled from `metadata.json` (the table is in
+   [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
+4. check the page is not empty and that `relationships` survived in
+   `.metadata/metadata.json` — both are known ways this tool has misbehaved. The
+   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager);
+   `mods.bat → 5 → «к»` writes its config;
+5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
+   as Required Items, and **hidden first**.

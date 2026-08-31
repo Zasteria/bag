@@ -15,22 +15,17 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one: it asked only whether the item's folder existed in steamcmd's
-own directory, and it did from the previous attempt, so an unfinished login
-still copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code read, the cached copy offered
-for deletion first, and **only a mod whose copy actually changed is copied
-onward**; anything else is named on screen.
+successful one — it asked only whether the item's folder existed, and it did from
+the previous attempt — so an unfinished login copied last week's files over the
+workshop folder. The folder is fingerprinted before and after now, the exit code
+read, and **only a mod whose copy actually changed is copied onward**.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
 landed. The install is **read back off disk** now, a mismatch says so with the
-path, and the screen names the branch and commit installed. A `game_mods` path
-typo'd once — the one way this could install into a folder the game never reads
-— is refused rather than created.
+path, and the screen names the branch and commit installed.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's branch and commit — the line to
-paste before anybody theorises about a mod again.
+against the game's folder and the repository's branch and commit.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
 the output of all three. If a mod still reads «отличается» after installing, the
@@ -48,19 +43,37 @@ the end alone cannot order a table where every wool province ends at 0.00%. Two
 earns its own bonus over its own output:
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
 
-**The rights window obeys both buttons and is confirmed.** **Two faults are
-fixed and neither loaded:** a `trigger_if` chain ending on an `else_if` voided
-the buildable filter (`error.log` said so for two runs), and an expanding child
-of a sized hbox gets no width — which erased the building's name from every row
-of the twenty-fourth load. Both are written up under
-[`pitfalls/interface.md`](pitfalls/interface.md); what to look at next is
-[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+**The twenty-sixth load passed on everything and the owner is satisfied with the
+functionality** — the fed floor is half a recipe's possible bonus now
+(`generate.fed_floor`), «Из чего» is a `widget` with an anchored child rather
+than a sized hbox that centred it, and the buildable tick re-ranks the open
+window. Two name columns narrowed to pay for the method column had to be given
+their width back and a spacer; one alignment question is open in `TESTLOG.md`.
 
-**Where this is going**, in the owner's words: take a stretch of land, work out
-every province's limits and lay out *all* its production — best goods first,
-then the rest — with a cap of three or four buildings a province and a rule for
-the ones everything wants. None of it is built; it is why the per-province
-answer has to be right first.
+**Do not ask him for logs unless something did nothing** — the rule and its
+exceptions are at the top of `TESTLOG.md`.
+
+**The next thing is not another fix.** Two jobs are open and the owner has
+chosen the second:
+
+**The picking is done and the owner is content with the functionality.** A
+market is a fourth thing to pick and it turned out to be a map region like the
+others — hover and it outlines, click and it is yours. Any market in the world
+now, not only the ones the country sits in. The picker buttons are the game's
+solid `action_button_regular` rather than the transparent flavour ones copied
+from Advanced Auto Build, and the corner above the +/- buttons has a heading.
+
+**So the next job is the one the mod was built for:
+[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md)** — every
+building for every good, placed once over one stretch of ground, with a cap per
+province, the RGOs already there counted, and a rule for the province every good
+wants. **Read that file first.** It ends in five questions that are the owner's
+to answer, and asking them is the first move rather than the second; it also
+names the trap — a whole feature finished before its first load, which is how
+this mod's predecessor died.
+
+**Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
+about `where_to_produce` is confirmed.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -89,31 +102,19 @@ none of it needing a protocol:
 - nine of the eleven languages, a console switch each. **A hot switch does not
   re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
 - the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care. **If they are still not visible next time, offer to
-  drop them** — another mod's interface, and the only thing here outside this
-  mod's stated scope.
+  modes and does not care. **If still not visible next time, offer to drop
+  them** — another mod's interface, and outside this mod's stated scope.
 
 ### Then publish
 
-`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready.
-
-1. merge the branch, then `mods.bat → 4` with the `git pull`;
-2. load once and check the list above;
-3. in game: mods screen → «Выбранные модификации» row → **sandbox icon** → Mod
-   Tools → *Create mod*, filled from `metadata.json` (the table is in
-   [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
-4. check the page is not empty and that `relationships` survived in
-   `.metadata/metadata.json` — both are known ways this tool has misbehaved. The
-   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager);
-   `mods.bat → 5 → «к»` writes its config;
-5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
-   as Required Items, and **hidden first**.
+`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready, and the
+five steps — merge, load, Mod Tools, check the page, Required Items by hand —
+are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 ### Deliberately not done
 
 - **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod goes
-  out.
+  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second goes out.
 - **Reviewing the ten new translations with somebody who speaks them.** A
   correction goes in `languages.py`, never in a generated `.yml`.
 
@@ -121,9 +122,8 @@ none of it needing a protocol:
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it, as it does the Steam-side rewrite
-  ([`archive/testlog_2026-08.md`](archive/testlog_2026-08.md)). Entry 2 does
-  **not** re-extract the game.
+  rewritten copies and the run confirms it. Entry 2 does **not** re-extract the
+  game.
 - **The panel-open bisect — five minutes, no log to read**, protocol in
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
   that job outright.
