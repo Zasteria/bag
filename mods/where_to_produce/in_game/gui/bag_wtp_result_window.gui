@@ -412,7 +412,7 @@ types BagWtpResultTypes {
 			}
 		}
 
-		widget = { size = { 8 28 } }
+		widget = { size = { 4 28 } }
 		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
@@ -603,7 +603,7 @@ types BagWtpResultTypes {
 			}
 		}
 
-		widget = { size = { 8 28 } }
+		widget = { size = { 4 28 } }
 		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
@@ -798,14 +798,13 @@ window = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
 
-					action_button = {
+					action_button_regular = {
 						size = { 164 34 }
 						title = "bag_wtp_map_pick_area"
 						description = "bag_wtp_map_pick_area_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_area" }
 						tooltip = "bag_wtp_map_pick_area_desc"
-						using = bg_button_flavor_1
 						text_single = {
 							size = { 156 30 }
 							parentanchor = center
@@ -819,14 +818,13 @@ window = {
 						}
 					}
 
-					action_button = {
+					action_button_regular = {
 						size = { 164 34 }
 						title = "bag_wtp_map_pick_province"
 						description = "bag_wtp_map_pick_province_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_province" }
 						tooltip = "bag_wtp_map_pick_province_desc"
-						using = bg_button_flavor_1
 						text_single = {
 							size = { 156 30 }
 							parentanchor = center
@@ -840,14 +838,13 @@ window = {
 						}
 					}
 
-					action_button = {
+					action_button_regular = {
 						size = { 164 34 }
 						title = "bag_wtp_map_pick_location"
 						description = "bag_wtp_map_pick_location_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_location" }
 						tooltip = "bag_wtp_map_pick_location_desc"
-						using = bg_button_flavor_1
 						text_single = {
 							size = { 156 30 }
 							parentanchor = center
@@ -861,14 +858,13 @@ window = {
 						}
 					}
 
-					action_button = {
+					action_button_regular = {
 						size = { 164 34 }
 						title = "bag_wtp_map_pick_market"
 						description = "bag_wtp_map_pick_market_desc"
 						actor = "[Player]"
 						left_action = { action_name = "bag_wtp_select_market" }
 						tooltip = "bag_wtp_map_pick_market_desc"
-						using = bg_button_flavor_1
 						text_single = {
 							size = { 156 30 }
 							parentanchor = center
@@ -959,10 +955,22 @@ window = {
 				# ten pixels left of the column it names.
 				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_left = 48
+					margin_left = 10
 					spacing = 0
 					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_results'))]"
 
+					# The column the +/- buttons live in. It had no heading and the
+					# empty corner read as a column out of line rather than as a
+					# column without a name. `margin_left` drops from 48 to 10 --
+					# the scrollbox's own content margin -- and this 38 makes the
+					# difference back up, so «№» has not moved a pixel.
+					text_single = {
+						size = { 38 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_expand"
+					}
 					text_single = {
 						size = { 34 24 }
 						autoresize = no
@@ -1033,7 +1041,7 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_goods"
 					}
-					widget = { size = { 8 24 } }
+					widget = { size = { 4 24 } }
 					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 

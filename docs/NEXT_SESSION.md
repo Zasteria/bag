@@ -56,26 +56,24 @@ exceptions are at the top of `TESTLOG.md`.
 **The next thing is not another fix.** Two jobs are open and the owner has
 chosen the second:
 
-**A market is a fourth thing to pick**, built the same day and unrun: «Выбрать
-рынок» takes a whole market's land into the plan, from a list of the markets the
-player's country is in — for a realm with several markets, each wanting its own
-balance of production. It is the one picker that names its own candidates, since
-a market is not drawn on the map.
+**The picking is done and the owner is content with the functionality.** A
+market is a fourth thing to pick and it turned out to be a map region like the
+others — hover and it outlines, click and it is yours. Any market in the world
+now, not only the ones the country sits in. The picker buttons are the game's
+solid `action_button_regular` rather than the transparent flavour ones copied
+from Advanced Auto Build, and the corner above the +/- buttons has a heading.
 
-**What it replaced:** an own-land production and consumption table, dropped by
-the owner on reading the survey. That survey is
-[`investigations/market_truth.md`](investigations/market_truth.md) and is worth
-keeping: the engine gives no per-country goods figure at all, and the pop-demand
-half would be a reimplementation of the game's demand model.
+**So the next job is the one the mod was built for:
+[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md)** — every
+building for every good, placed once over one stretch of ground, with a cap per
+province, the RGOs already there counted, and a rule for the province every good
+wants. **Read that file first.** It ends in five questions that are the owner's
+to answer, and asking them is the first move rather than the second; it also
+names the trap — a whole feature finished before its first load, which is how
+this mod's predecessor died.
 
-**And the goal the mod was for**, below — ask him before designing any of it, the
-shape is his sentence, not a spec.
-
-**Where this is going**, in the owner's words: take a stretch of land, work out
-every province's limits and lay out *all* its production — best goods first, then
-the rest — capped at three or four buildings a province, with a rule for the ones
-everything wants. None of it is built; it is why the per-province answer has to
-be right first.
+**Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
+about `where_to_produce` is confirmed.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):

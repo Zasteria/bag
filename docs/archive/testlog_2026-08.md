@@ -1388,3 +1388,37 @@ method, bonus and materials, «Ценность» ranking them.
   the game's own condition passes — the silk monopoly carries
   `potential = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }` and the
   Scandinavian privileges carry an advance nobody else takes.
+
+## `where_to_produce`, the twenty-first load
+
+Moved out of [`../TESTLOG.md`](../TESTLOG.md) when it outgrew its budget a
+second time. This is the run that settled the two-slot question; the working of
+it is in
+[`../investigations/production_ladder.md`](../investigations/production_ladder.md).
+
+**2026-08-31 — `where_to_produce`, twenty-first load. The two-slot question is
+answered, from the game's own panel.** Three screenshots.
+
+- **Confirmed:** «По пути» prints `10.00% до 5` on the wool provinces and
+  `0.81% до 6` where there are dyes; sorting by «В конце» orders them; a bundle
+  keeps every good, at 0% where the ground feeds it nothing; alignment is better.
+- **Each production slot earns its own bonus, over its own output.** A tailors'
+  guild in Dordrecht: the tooltip is headed «Производственная эффективность
+  метода "Красители с квасцами"» and lists «Добыча ресурса "Красители"…
+  +10.01%» under it. Not the building's efficiency — the method's. So the eight
+  two-slot buildings are now one method of the summed output at the
+  output-weighted blend of the two bonuses, and the owner's own reading of the
+  screenshot said the same thing before the arithmetic did.
+- **Which explains what he noticed first:** Западная Мунтения showed «1/1» and
+  the wool icon while the province also supplies dyes. The dyes feed the
+  *improvement* slot, which the mod was not modelling. That row is a pair now.
+- **The «×» is per building level.** The panel showed 0.76 against the method's
+  0.2: four levels, an age multiplier, and efficiency multiplying output but not
+  inputs. Nothing there separates provinces, so the mod keeps the per-level
+  figure.
+- **Three sort buttons in a header were one control too many.** Owner: «Я хочу
+  иметь ровно две кнопки расчитать» — one for what you can build now, one aimed
+  at the end of the game, both filling the same three columns. The headers are
+  plain labels again and the second «Считать» is on the mod page.
+- **The rights window's header lined up with nothing.** Same 10px scrollbox
+  margin as the goods window, now fixed, and its columns read left too.

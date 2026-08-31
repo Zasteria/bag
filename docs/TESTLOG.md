@@ -38,6 +38,36 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-seventh load. The market picker works,
+and it is drawn on the map after all.** One screenshot, fine cloth, «На конец».
+
+- **A market *is* a map region to the picker.** Hovering outlines the market's own
+  borders and a click takes it — no list needed, the same feel as an area. The
+  file said the opposite for one commit; a market not being drawn on the map was
+  a guess from vanilla's one usage and it was wrong.
+- **But only the markets `interaction_source_list` names are clickable**, and it
+  named `every_market_present_in_country`, so the neighbour's market could not be
+  taken — which is exactly the market somebody planning a conquest wants to lay
+  out. It is `every_market_in_world` now, framed by the ticked continents the way
+  the other three pickers are.
+- **The picking works and the owner is happy with it**: «В остальном всё чётко,
+  удобно, классно.» Selection, re-rank and the counters all followed.
+- **The four picker buttons were transparent and dreary** — an `action_button`
+  with `bg_button_flavor_1`, copied from Advanced Auto Build, which is a flavour
+  background over a bare button. They are `action_button_regular` now, which is
+  the game's own type using `button_regular_texture`: the same solid look as
+  «Очистить выбор» beside them.
+- **The corner above the +/- buttons was empty** and read as a column out of
+  line. It has a «+» heading now; `margin_left` went 48 → 10 and the new 38-wide
+  cell makes the difference back, so «№» has not moved.
+- **And the goods row was four pixels wider than the scrollbox it sits in** —
+  1104 against 1100 — which nothing had noticed. The trailing spacer pays it
+  back.
+- **Still open: «Из чего» reads as sitting right of its heading.** Measured out
+  of the file, the header and the row are identical column for column, so this is
+  not a width. What is left is a constant inset the rows have and the header does
+  not, and `margin_left` is the one number that moves it.
+
 **2026-08-31 — `where_to_produce`, twenty-sixth load. All four fixes hold.**
 Three screenshots, fine cloth, and the owner's verdict: «если не придираться к
 этим злосчастным столбикам и выравниваниям, сейчас меня устраивает функционал».
@@ -174,34 +204,7 @@ cloth and cannons, and a weaponry right.
   sized by its own icons and started wherever the expanding method column
   stopped. It is 190 wide in both windows now, like the header.
 
-**2026-08-31 — `where_to_produce`, twenty-first load. The two-slot question is
-answered, from the game's own panel.** Three screenshots.
-
-- **Confirmed:** «По пути» prints `10.00% до 5` on the wool provinces and
-  `0.81% до 6` where there are dyes; sorting by «В конце» orders them; a bundle
-  keeps every good, at 0% where the ground feeds it nothing; alignment is better.
-- **Each production slot earns its own bonus, over its own output.** A tailors'
-  guild in Dordrecht: the tooltip is headed «Производственная эффективность
-  метода "Красители с квасцами"» and lists «Добыча ресурса "Красители"…
-  +10.01%» under it. Not the building's efficiency — the method's. So the eight
-  two-slot buildings are now one method of the summed output at the
-  output-weighted blend of the two bonuses, and the owner's own reading of the
-  screenshot said the same thing before the arithmetic did.
-- **Which explains what he noticed first:** Западная Мунтения showed «1/1» and
-  the wool icon while the province also supplies dyes. The dyes feed the
-  *improvement* slot, which the mod was not modelling. That row is a pair now.
-- **The «×» is per building level.** The panel showed 0.76 against the method's
-  0.2: four levels, an age multiplier, and efficiency multiplying output but not
-  inputs. Nothing there separates provinces, so the mod keeps the per-level
-  figure.
-- **Three sort buttons in a header were one control too many.** Owner: «Я хочу
-  иметь ровно две кнопки расчитать» — one for what you can build now, one aimed
-  at the end of the game, both filling the same three columns. The headers are
-  plain labels again and the second «Считать» is on the mod page.
-- **The rights window's header lined up with nothing.** Same 10px scrollbox
-  margin as the goods window, now fixed, and its columns read left too.
-
-Everything before 2026-08-29, and `where_to_produce`'s first twenty loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first twenty-one loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -213,27 +216,24 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-seventh load.** A new picker and two layout
-questions. One session with the mod page open answers all of it.
+**`where_to_produce`, twenty-eighth load.** Four small things and one question,
+all of it one glance with the results window open. Not worth a run of its own.
 
-1. **«Выбрать рынок» is there and works.** Fourth button in the row, in the goods
-   window and the rights window both. It opens a *list only* — a market is not
-   drawn on the map, so there is no map click and no highlight, and that is the
-   engine's shape, not a fault. Picking one should put every land location of
-   that market into the plan and re-rank on the spot; picking it again should
-   take them out. «Выбрано: N лок. в M пров.» is the number to watch.
-   - If the list is empty and says «Ваша страна не входит ни в один рынок», the
-     source list is wrong and that is the thing to report.
-   - If the panel opens but the plan does not change, the effect never reached
-     the country's scope — the «пересчётов» counter will not have moved.
-2. **The four buttons still read.** They lost 46 pixels each to make room:
-   «Выбрать провинцию» is the longest and the one to check for a truncation.
-3. **«Восточная Мунтения» no longer touches «Валахия»**, and «Трансильвания» no
-   longer touches its percentage.
-4. **«Из чего»: is it under its heading, or still a dozen pixels right of it?**
-   Cannot be called from a screenshot at the size sent. If still off, say so and
-   nothing else — the header and the rows add up to the same numbers, so the
-   cause is inside the scrollbox and it is one number to move.
+1. **Any market can be taken now**, the neighbour's included — the list is every
+   market in the world, framed by the ticked continents. Hover a market you hold
+   nothing in and it should outline and click like the rest.
+2. **The four picker buttons look like «Очистить выбор»** — solid, not
+   transparent. Same in the rights window.
+3. **The corner above the +/- buttons has a «+» in it** and «№» has not moved.
+4. **«Восточная Мунтения» does not touch «Валахия»**, «Трансильвания» does not
+   touch its percentage, and the row is four pixels narrower than it was.
+5. **The one question: «Из чего».** The header and the row are identical column
+   for column in the file, so if the icons still sit right of the heading, the
+   cause is a constant inset the rows carry and the header does not. **What
+   settles it in one look:** does «Сейчас» sit exactly over its percentages? If
+   yes, the drift starts somewhere in the middle and I have the wrong model of
+   it; if «Сейчас» is *also* slightly left of its numbers, every heading is, and
+   `margin_left` is the one number to move.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

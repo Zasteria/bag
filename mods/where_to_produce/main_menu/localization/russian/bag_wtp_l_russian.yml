@@ -133,6 +133,7 @@
  bag_wtp_result_bonus_value_end_rural: "→ [Location.MakeScope.GetVariable('bag_wtp_end_bonus_rural').GetValue|2]%"
  bag_wtp_result_method_value_end_rural: "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_end_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_end_out_rural').GetValue|2]"
  bag_wtp_result_goods_count_end_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_end_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_end_goods_all_rural').GetValue|0]"
+ bag_wtp_result_head_expand: "+"
  bag_wtp_result_head_rank: "№"
  bag_wtp_result_head_province: "Провинция"
  bag_wtp_result_head_area: "Область"

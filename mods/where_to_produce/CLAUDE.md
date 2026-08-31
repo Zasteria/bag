@@ -4,7 +4,7 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: twenty-six loads in, and a row answers in three ages** — «Сейчас»,
+**State: twenty-seven loads in, and a row answers in three ages** — «Сейчас»,
 «По пути» (the best this ground ever feeds, and the last age it can be built),
 «В конце». **Two «Считать» buttons, not three sort headers:** one orders by
 today, the other by the end and breaks ties on «По пути», the only column with
@@ -30,10 +30,10 @@ right's gate is its own `potential` or its advance's, never `has_advance`, so
 most countries see none of the three. Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
-**Four pickers, and the market one names its own candidates**: a market is not
-drawn on the map, so `bag_wtp_select_market` fills `interaction_source_list` from
-`every_market_present_in_country` and is a list with no map click — vanilla's
-only `looking_for_a = market` does the same.
+**Four pickers, and the market one names its own candidates**: hovering outlines
+a market like an area, but only what `interaction_source_list` holds can be
+clicked, so `bag_wtp_select_market` fills it from `every_market_in_world` — the
+neighbour's market is exactly the one a conquest is planned on.
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography

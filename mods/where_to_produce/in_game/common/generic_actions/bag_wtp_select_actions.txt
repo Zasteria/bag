@@ -165,14 +165,15 @@ bag_wtp_select_area = {
 
 # One market, all of its land locations at once.
 #
-# **The one picker that has to name its own candidates.** An area, a province and
-# a location are ground and the panel finds them itself; a market is not drawn on
-# the map, and vanilla's only `looking_for_a = market` -- the burgher capital
-# mission -- fills `interaction_source_list` from
-# `every_market_present_in_country`. This does the same, so the list is the
-# markets the player's own land sits in, which is exactly the case it was asked
-# for: one country, several markets, and a production balance wanted per market
-# rather than per realm.
+# **A market is drawn on the map after all**, which the twenty-seventh run
+# settled: hovering outlines the market's own borders and a click takes it, the
+# same as an area. What it still needs is its candidates named --
+# `interaction_source_list`, as vanilla's only `looking_for_a = market` does --
+# and **that list is every market in the world**, not the ones the player is
+# already in. Narrowing it to `every_market_present_in_country` was the first
+# attempt and it made the neighbour's market unclickable, which is precisely the
+# market somebody planning a conquest wants to lay out. The ticked continents
+# still frame it, the way they frame the other three.
 bag_wtp_select_market = {
 	type = owncountry
 	show_in_gui_list = no
@@ -186,10 +187,8 @@ bag_wtp_select_market = {
 		looking_for_a = market
 		target_flag = bag_wtp_target
 		interaction_source_list = {
-			scope:actor = {
-				every_market_present_in_country = {
-					add_to_list = source
-				}
+			every_market_in_world = {
+				add_to_list = source
 			}
 		}
 		name = bag_wtp_choose_market
@@ -197,6 +196,12 @@ bag_wtp_select_market = {
 		map_mode = bag_wtp_selection
 		bottom_widget = bag_wtp_select_footer
 		column = { data = name }
+		visible = {
+			any_location_in_market = {
+				is_ownable = yes
+				bag_wtp_in_zone = yes
+			}
+		}
 		enabled = { always = yes }
 		tooltip_msg_key = bag_wtp_choose_market_tt
 	}
