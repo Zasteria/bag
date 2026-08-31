@@ -36,6 +36,8 @@
  bag_wtp__region_oceania__pick_desc: "Look inside this region. A region is the fine frame and a continent the rough one; tick either or both, and a ticked region wins."
  bag_wtp__any_method_name: "Show methods your age has not reached"
  bag_wtp__any_method_desc: "Off: only methods whose building is already unlocked for you are scored — a recommendation from the sixth age is not a recommendation.\n\nTurn it on when planning several ages ahead."
+ bag_wtp__rank_by_end_name: "Rank by the last age"
+ bag_wtp__rank_by_end_desc: "Off, and by default: the table is ordered by what you could build now.\n\nOn: it is ordered by the «At the end» column — what the province would give once every advance is in. That is the ordering a plan wants. A province that comes first with the guild and fortieth with the mill is the thing this costs an evening to discover in game, and it only shows up if something sorts on the far column.\n\nBoth numbers are on every row either way; this only decides which one the ranking obeys."
 
  # Group headers. A list is filed under a group named after itself, so these are
  # not duplicates of the setting names.
@@ -103,7 +105,7 @@
  bag_wtp_right_goods_count_3: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_r_goods_3'))]/[Location.MakeScope.GetVariable('bag_wtp_r_goods_all_3').GetValue|0]"
 
  bag_wtp_result_window_title: "Where To Produce — results"
- bag_wtp_result_window_desc: "Provinces, best first. A row holds two answers: the best of the built-up buildings above, the best village below. The ranking is by what a method actually produces — the percentage is an efficiency bonus and the «×» after the method is its output per level, and a village makes a fifth of what a workshop does at the same percentage.\n\nA province counts whole, even where a border cuts it today. Open a row for its locations, what each works, and who holds it."
+ bag_wtp_result_window_desc: "Provinces, best first. A row holds two answers: the best of the built-up buildings above, the best village below — and each of them in two ages, what you could build now and what the province gives once every advance is in. The ranking is by what a method actually produces — the percentage is an efficiency bonus and the «×» after the method is its output per level, and a village makes a fifth of what a workshop does at the same percentage.\n\nA province counts whole, even where a border cuts it today. Open a row for its locations, what each works, and who holds it."
  bag_wtp_result_window_empty: "Nothing here. Tick a good on the Goods tab, some ground on the Land tab, and press Rank.\n\nIf you have: nowhere in the chosen ground supplies a single raw material this good's methods want. «Show provinces with no local bonus» on the Answer tab lists them anyway."
 
  bag_wtp_result_bonus_value: "[Location.MakeScope.GetVariable('bag_wtp_bonus').GetValue|2]%"
@@ -114,15 +116,26 @@
  bag_wtp_result_bonus_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bonus_rural').GetValue|2]%"
  bag_wtp_result_method_value_rural: "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out_rural').GetValue|2]"
  bag_wtp_result_goods_count_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_goods_all_rural').GetValue|0]"
+
+ # The second age of a row. `bag_wtp_end_*` is written only where the method that
+ # survives every advance is not the one winning today, so an empty cell here
+ # says the province does not change rather than that nothing was found.
+ bag_wtp_result_bonus_value_end: "→ [Location.MakeScope.GetVariable('bag_wtp_end_bonus').GetValue|2]%"
+ bag_wtp_result_method_value_end: "[Location.MakeScope.GetVariable('bag_wtp_end_bt').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_end_bt').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_end_pm').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_end_out').GetValue|2]"
+ bag_wtp_result_goods_count_end: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_end_goods'))]/[Location.MakeScope.GetVariable('bag_wtp_end_goods_all').GetValue|0]"
+ bag_wtp_result_bonus_value_end_rural: "→ [Location.MakeScope.GetVariable('bag_wtp_end_bonus_rural').GetValue|2]%"
+ bag_wtp_result_method_value_end_rural: "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_end_pm_rural').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_end_out_rural').GetValue|2]"
+ bag_wtp_result_goods_count_end_rural: "[GetDataModelSize(Location.MakeScope.GetList('bag_wtp_end_goods_rural'))]/[Location.MakeScope.GetVariable('bag_wtp_end_goods_all_rural').GetValue|0]"
  bag_wtp_result_head_rank: "#"
  bag_wtp_result_head_province: "Province"
  bag_wtp_result_head_area: "Area"
  bag_wtp_result_head_bonus: "Bonus"
+ bag_wtp_result_head_end: "At the end"
  bag_wtp_result_head_method: "Building and method (× per level)"
  bag_wtp_result_head_goods: "Made of"
 
  bag_wtp_result_rank_value: "[Location.MakeScope.GetVariable('bag_wtp_rank').GetValue|0]"
- bag_wtp_result_rank_tt: "Where this province came in the ranking. Rank 1 is the best effective output the pass found.\n\nIt is printed rather than left to the row's position because the two are not the same promise: the ranking is done in script and the window draws the list in whatever order it holds. If these numbers do not run 1, 2, 3 down the window, it is the list that is out of order and not the ranking.\n\nWhat the ranking sorted on here: [Location.MakeScope.GetVariable('bag_wtp_best').GetValue|2] — the method's output per level times a thousand, with the bonus applied. If two rows are out of order and these two numbers say they should not be, the sort is the fault and not the copy."
+ bag_wtp_result_rank_tt: "Where this province came in the ranking. Rank 1 is the best effective output the pass found.\n\nIt is printed rather than left to the row's position because the two are not the same promise: the ranking is done in script and the window draws the list in whatever order it holds. If these numbers do not run 1, 2, 3 down the window, it is the list that is out of order and not the ranking.\n\nWhat the ranking sorted on here: [Location.MakeScope.GetVariable('bag_wtp_best').GetValue|2] — the method's output per level times a thousand, with the bonus applied. The same figure for the last age is [Location.MakeScope.GetVariable('bag_wtp_end_best').GetValue|2], and «Rank by the last age» on the Answer tab is what makes the ranking obey that one instead. If two rows are out of order and these two numbers say they should not be, the sort is the fault and not the copy."
  bag_wtp_result_pass_summary: "Walked [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_candidates')|0] · found [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_found')|0] · re-ranked [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_live')|0]×"
  bag_wtp_result_pass_tt: "What the last pass did: how many locations it walked, how many provinces it found a row for, and how many times a pick has re-ranked the table since the game loaded.\n\nThe third number is the one to watch after choosing on the map. If it does not go up, the pick never reached the pass and the table below is the answer to an older question."
  bag_wtp_result_province_tt: "The whole province, both sides of whatever border cuts it today. You build in one of its locations — open the row."
@@ -130,6 +143,9 @@
  bag_wtp_result_method_tt: "The building, the production method that turned out best here among those available to you now, and «×», what it produces per building level.\n\nThe upper line is the built-up buildings, the lower one the villages. They are scored apart on purpose: a village wants one raw material and so reaches 10% easily, but it produces a fifth as much, and in one list it buried the guilds.\n\nThe ranking is by output with the bonus applied — by what the method would really give here."
  bag_wtp_result_goods_tt: "The raw materials this province supplies to the method — what the bonus is made of.\n\nThe figure on the left is how many of the method's raw inputs the province supplies, out of how many it could. Whatever is missing the province does not produce anywhere, and the bonus falls short of the method's ceiling by exactly that share."
  bag_wtp_result_expand_tt: "Show the province's locations."
+ bag_wtp_result_head_end_tt: "What the same province would give once every advance is in — the best of the methods nothing makes obsolete.\n\nThe game's own ladder is guild → workshop → manufactory → mill, and along it the recipe's inputs move, not merely its output. Bronze cannons want copper and tin; the cannon factory that replaces them wants lead and saltpetre. Paper starts on cloth and ends on pure lumber. Fourteen of the forty-two goods shift their inputs along the ladder and five change them outright — and for those the province that suits the guild is not the province that suits the mill.\n\nEmpty means the two ages agree here: the same method wins now and at the end.\n\n«Rank by the last age» on the Answer tab sorts the table on this column instead."
+ bag_wtp_result_end_tt: "What this province gives in the last age: [Location.MakeScope.GetVariable('bag_wtp_end_bt').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_end_pm').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_end_out').GetValue|2] per level, at [Location.MakeScope.GetVariable('bag_wtp_end_bonus').GetValue|2]% — made of [GetDataModelSize(Location.MakeScope.GetList('bag_wtp_end_goods'))] of the [Location.MakeScope.GetVariable('bag_wtp_end_goods_all').GetValue|0] raw materials it wants.\n\nThis building is not gated on your ages here: it is what will stand once nothing obsoletes it. The near column is what you could build now."
+ bag_wtp_result_end_tt_rural: "What this village ground gives in the last age: [Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').GetBuildingType.GetName], [Location.MakeScope.GetVariable('bag_wtp_end_pm_rural').GetProductionMethod.GetName], ×[Location.MakeScope.GetVariable('bag_wtp_end_out_rural').GetValue|2] per level, at [Location.MakeScope.GetVariable('bag_wtp_end_bonus_rural').GetValue|2]% — made of [GetDataModelSize(Location.MakeScope.GetList('bag_wtp_end_goods_rural'))] of the [Location.MakeScope.GetVariable('bag_wtp_end_goods_all_rural').GetValue|0] raw materials it wants.\n\nUsually empty: a village is obsoleted by nothing, so the answer it gives now is the answer it gives at the end."
  bag_wtp_result_collapse_tt: "Hide the province's locations."
 
 

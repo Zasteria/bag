@@ -96,11 +96,21 @@ bag_wtp_on_button = {
 			OR = {
 				var:cmf_callback = flag:bag_wtp__buildable_only
 				var:cmf_callback = flag:bag_wtp__any_method
+				var:cmf_callback = flag:bag_wtp__rank_by_end
 			}
 		}
 		bag_wtp_sync = yes
 		bag_wtp_refresh_goods = yes
 		bag_wtp_refresh_rights = yes
+	}
+
+	# Which column the ranking sorts on is the one tick that changes the answer
+	# already on screen rather than the next one, so it re-ranks where the others
+	# do not. `bag_wtp_recompute_live` costs nothing against a closed window: it
+	# is the same guard the map pickers run through.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__rank_by_end }
+		bag_wtp_recompute_live = yes
 	}
 
 }

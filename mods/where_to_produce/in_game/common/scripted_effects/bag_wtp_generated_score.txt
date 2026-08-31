@@ -68,6 +68,16 @@ bag_wtp_score_1 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m35 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 35 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -75,7 +85,6 @@ bag_wtp_score_1 = {
 					scope:bag_wtp_country = { bag_wtp_avail_35 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m35 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -94,6 +103,10 @@ bag_wtp_score_2 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -108,6 +121,12 @@ bag_wtp_score_2 = {
 				set_variable = { name = bag_wtp_best_method value = 51 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m52 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 52 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -115,7 +134,6 @@ bag_wtp_score_2 = {
 					scope:bag_wtp_country = { bag_wtp_avail_52 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m52 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -134,6 +152,16 @@ bag_wtp_score_3 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m53 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 53 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -141,7 +169,6 @@ bag_wtp_score_3 = {
 					scope:bag_wtp_country = { bag_wtp_avail_53 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m53 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -160,6 +187,10 @@ bag_wtp_score_4 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -188,6 +219,12 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_best_method value = 55 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m56 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 56 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -195,7 +232,6 @@ bag_wtp_score_4 = {
 					scope:bag_wtp_country = { bag_wtp_avail_56 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m56 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -242,6 +278,16 @@ bag_wtp_score_5 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m59 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 59 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -249,12 +295,17 @@ bag_wtp_score_5 = {
 					scope:bag_wtp_country = { bag_wtp_avail_59 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m59 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 59 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m60 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 60 }
 		}
 		if = {
 			limit = {
@@ -263,7 +314,6 @@ bag_wtp_score_5 = {
 					scope:bag_wtp_country = { bag_wtp_avail_60 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m60 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -282,6 +332,16 @@ bag_wtp_score_6 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m90 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 90 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -289,12 +349,17 @@ bag_wtp_score_6 = {
 					scope:bag_wtp_country = { bag_wtp_avail_90 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m90 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 90 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m91 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 91 }
 		}
 		if = {
 			limit = {
@@ -303,7 +368,6 @@ bag_wtp_score_6 = {
 					scope:bag_wtp_country = { bag_wtp_avail_91 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m91 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -322,6 +386,16 @@ bag_wtp_score_7 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m92 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 92 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -329,7 +403,6 @@ bag_wtp_score_7 = {
 					scope:bag_wtp_country = { bag_wtp_avail_92 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m92 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -348,6 +421,16 @@ bag_wtp_score_8 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m103 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 103 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -355,7 +438,6 @@ bag_wtp_score_8 = {
 					scope:bag_wtp_country = { bag_wtp_avail_103 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m103 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -374,6 +456,16 @@ bag_wtp_score_9 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m104 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 104 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -381,7 +473,6 @@ bag_wtp_score_9 = {
 					scope:bag_wtp_country = { bag_wtp_avail_104 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m104 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -400,6 +491,16 @@ bag_wtp_score_10 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m105 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 105 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -407,12 +508,17 @@ bag_wtp_score_10 = {
 					scope:bag_wtp_country = { bag_wtp_avail_105 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m105 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 105 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m106 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 106 }
 		}
 		if = {
 			limit = {
@@ -421,7 +527,6 @@ bag_wtp_score_10 = {
 					scope:bag_wtp_country = { bag_wtp_avail_106 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m106 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -440,6 +545,16 @@ bag_wtp_score_11 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m107 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 107 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -447,7 +562,6 @@ bag_wtp_score_11 = {
 					scope:bag_wtp_country = { bag_wtp_avail_107 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m107 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -466,6 +580,16 @@ bag_wtp_score_12 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m148 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 148 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -473,7 +597,6 @@ bag_wtp_score_12 = {
 					scope:bag_wtp_country = { bag_wtp_avail_148 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m148 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -492,6 +615,16 @@ bag_wtp_score_13 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m149 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 149 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -499,7 +632,6 @@ bag_wtp_score_13 = {
 					scope:bag_wtp_country = { bag_wtp_avail_149 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m149 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -518,6 +650,16 @@ bag_wtp_score_14 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m153 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 153 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -525,12 +667,17 @@ bag_wtp_score_14 = {
 					scope:bag_wtp_country = { bag_wtp_avail_153 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m153 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 153 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m154 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 154 }
 		}
 		if = {
 			limit = {
@@ -539,7 +686,6 @@ bag_wtp_score_14 = {
 					scope:bag_wtp_country = { bag_wtp_avail_154 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m154 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -558,6 +704,16 @@ bag_wtp_score_15 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m176 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 176 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -565,7 +721,6 @@ bag_wtp_score_15 = {
 					scope:bag_wtp_country = { bag_wtp_avail_176 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m176 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -584,6 +739,16 @@ bag_wtp_score_16 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m177 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 177 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -591,7 +756,6 @@ bag_wtp_score_16 = {
 					scope:bag_wtp_country = { bag_wtp_avail_177 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m177 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -652,6 +816,16 @@ bag_wtp_score_17 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m181 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 181 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -659,7 +833,6 @@ bag_wtp_score_17 = {
 					scope:bag_wtp_country = { bag_wtp_avail_181 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m181 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -678,6 +851,16 @@ bag_wtp_score_18 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m182 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 182 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -685,12 +868,17 @@ bag_wtp_score_18 = {
 					scope:bag_wtp_country = { bag_wtp_avail_182 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m182 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 182 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m183 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 183 }
 		}
 		if = {
 			limit = {
@@ -699,7 +887,6 @@ bag_wtp_score_18 = {
 					scope:bag_wtp_country = { bag_wtp_avail_183 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m183 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -718,6 +905,16 @@ bag_wtp_score_19 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m184 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 184 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -725,7 +922,6 @@ bag_wtp_score_19 = {
 					scope:bag_wtp_country = { bag_wtp_avail_184 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m184 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -744,6 +940,16 @@ bag_wtp_score_20 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m187 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 187 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -751,12 +957,17 @@ bag_wtp_score_20 = {
 					scope:bag_wtp_country = { bag_wtp_avail_187 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m187 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 187 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m188 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 188 }
 		}
 		if = {
 			limit = {
@@ -765,7 +976,6 @@ bag_wtp_score_20 = {
 					scope:bag_wtp_country = { bag_wtp_avail_188 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m188 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -784,6 +994,16 @@ bag_wtp_score_21 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m189 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 189 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -791,7 +1011,6 @@ bag_wtp_score_21 = {
 					scope:bag_wtp_country = { bag_wtp_avail_189 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m189 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -810,6 +1029,16 @@ bag_wtp_score_22 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m191 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 191 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -817,7 +1046,6 @@ bag_wtp_score_22 = {
 					scope:bag_wtp_country = { bag_wtp_avail_191 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m191 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -836,6 +1064,16 @@ bag_wtp_score_23 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m211 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 211 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -843,7 +1081,6 @@ bag_wtp_score_23 = {
 					scope:bag_wtp_country = { bag_wtp_avail_211 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m211 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -862,6 +1099,10 @@ bag_wtp_score_24 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -904,6 +1145,12 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_best_method value = 214 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m215 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 215 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -911,12 +1158,17 @@ bag_wtp_score_24 = {
 					scope:bag_wtp_country = { bag_wtp_avail_215 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m215 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 215 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m216 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 216 }
 		}
 		if = {
 			limit = {
@@ -925,12 +1177,17 @@ bag_wtp_score_24 = {
 					scope:bag_wtp_country = { bag_wtp_avail_216 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m216 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 216 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m217 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 217 }
 		}
 		if = {
 			limit = {
@@ -939,7 +1196,6 @@ bag_wtp_score_24 = {
 					scope:bag_wtp_country = { bag_wtp_avail_217 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m217 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -958,6 +1214,16 @@ bag_wtp_score_25 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m218 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 218 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -965,7 +1231,6 @@ bag_wtp_score_25 = {
 					scope:bag_wtp_country = { bag_wtp_avail_218 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m218 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -984,6 +1249,10 @@ bag_wtp_score_26 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -1194,6 +1463,12 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_best_method value = 15 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m16 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 16 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1201,12 +1476,17 @@ bag_wtp_score_26 = {
 					scope:bag_wtp_country = { bag_wtp_avail_16 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m16 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 16 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m17 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 17 }
 		}
 		if = {
 			limit = {
@@ -1215,7 +1495,6 @@ bag_wtp_score_26 = {
 					scope:bag_wtp_country = { bag_wtp_avail_17 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m17 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -1234,6 +1513,10 @@ bag_wtp_score_27 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -1248,6 +1531,12 @@ bag_wtp_score_27 = {
 				set_variable = { name = bag_wtp_best_method value = 18 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m19 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 19 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1255,7 +1544,6 @@ bag_wtp_score_27 = {
 					scope:bag_wtp_country = { bag_wtp_avail_19 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m19 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -1302,6 +1590,10 @@ bag_wtp_score_28 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -1470,6 +1762,12 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_best_method value = 33 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m34 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 34 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1477,7 +1775,6 @@ bag_wtp_score_28 = {
 					scope:bag_wtp_country = { bag_wtp_avail_34 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m34 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -1496,6 +1793,10 @@ bag_wtp_score_29 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -1622,6 +1923,12 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_best_method value = 44 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m45 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 45 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1629,12 +1936,17 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_45 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m45 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 45 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m46 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 46 }
 		}
 		if = {
 			limit = {
@@ -1643,12 +1955,17 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_46 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m46 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 46 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m47 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 47 }
 		}
 		if = {
 			limit = {
@@ -1657,12 +1974,17 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_47 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m47 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 47 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m48 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 48 }
 		}
 		if = {
 			limit = {
@@ -1671,12 +1993,17 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_48 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m48 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 48 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m49 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 49 }
 		}
 		if = {
 			limit = {
@@ -1685,12 +2012,17 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_49 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m49 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 49 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m50 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 50 }
 		}
 		if = {
 			limit = {
@@ -1699,7 +2031,6 @@ bag_wtp_score_29 = {
 					scope:bag_wtp_country = { bag_wtp_avail_50 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m50 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -1718,6 +2049,10 @@ bag_wtp_score_30 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -1844,6 +2179,12 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_best_method value = 69 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m70 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 70 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1851,12 +2192,17 @@ bag_wtp_score_30 = {
 					scope:bag_wtp_country = { bag_wtp_avail_70 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m70 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 70 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m71 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 71 }
 		}
 		if = {
 			limit = {
@@ -1865,7 +2211,6 @@ bag_wtp_score_30 = {
 					scope:bag_wtp_country = { bag_wtp_avail_71 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m71 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -1968,6 +2313,16 @@ bag_wtp_score_31 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m78 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 78 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -1975,7 +2330,6 @@ bag_wtp_score_31 = {
 					scope:bag_wtp_country = { bag_wtp_avail_78 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m78 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2148,6 +2502,10 @@ bag_wtp_score_32 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -2176,6 +2534,12 @@ bag_wtp_score_32 = {
 				set_variable = { name = bag_wtp_best_method value = 94 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m95 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 95 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2183,7 +2547,6 @@ bag_wtp_score_32 = {
 					scope:bag_wtp_country = { bag_wtp_avail_95 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m95 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2216,6 +2579,10 @@ bag_wtp_score_33 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -2244,6 +2611,12 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_best_method value = 98 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m99 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 99 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2251,7 +2624,6 @@ bag_wtp_score_33 = {
 					scope:bag_wtp_country = { bag_wtp_avail_99 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m99 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2286,6 +2658,12 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_best_method value = 101 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m102 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 102 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2293,7 +2671,6 @@ bag_wtp_score_33 = {
 					scope:bag_wtp_country = { bag_wtp_avail_102 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m102 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2312,6 +2689,16 @@ bag_wtp_score_34 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m108 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 108 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2319,12 +2706,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_108 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m108 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 108 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m109 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 109 }
 		}
 		if = {
 			limit = {
@@ -2333,12 +2725,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_109 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m109 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 109 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m110 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 110 }
 		}
 		if = {
 			limit = {
@@ -2347,12 +2744,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_110 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m110 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 110 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m111 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 111 }
 		}
 		if = {
 			limit = {
@@ -2361,12 +2763,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_111 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m111 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 111 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m112 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 112 }
 		}
 		if = {
 			limit = {
@@ -2375,12 +2782,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_112 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m112 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 112 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m113 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 113 }
 		}
 		if = {
 			limit = {
@@ -2389,12 +2801,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_113 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m113 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 113 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m114 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 114 }
 		}
 		if = {
 			limit = {
@@ -2403,12 +2820,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_114 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m114 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 114 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m115 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 115 }
 		}
 		if = {
 			limit = {
@@ -2417,12 +2839,17 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_115 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m115 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 115 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m116 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 116 }
 		}
 		if = {
 			limit = {
@@ -2431,7 +2858,6 @@ bag_wtp_score_34 = {
 					scope:bag_wtp_country = { bag_wtp_avail_116 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m116 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2450,6 +2876,10 @@ bag_wtp_score_35 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -2464,6 +2894,12 @@ bag_wtp_score_35 = {
 				set_variable = { name = bag_wtp_best_method value = 117 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m118 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 118 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2471,7 +2907,6 @@ bag_wtp_score_35 = {
 					scope:bag_wtp_country = { bag_wtp_avail_118 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m118 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2490,6 +2925,16 @@ bag_wtp_score_36 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m119 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 119 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2497,7 +2942,6 @@ bag_wtp_score_36 = {
 					scope:bag_wtp_country = { bag_wtp_avail_119 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m119 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -2560,6 +3004,12 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_best_method value = 123 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m124 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 124 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2567,12 +3017,17 @@ bag_wtp_score_36 = {
 					scope:bag_wtp_country = { bag_wtp_avail_124 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m124 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 124 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m125 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 125 }
 		}
 		if = {
 			limit = {
@@ -2581,7 +3036,6 @@ bag_wtp_score_36 = {
 					scope:bag_wtp_country = { bag_wtp_avail_125 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m125 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2628,6 +3082,10 @@ bag_wtp_score_37 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -2698,6 +3156,12 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_best_method value = 132 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m133 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 133 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2705,12 +3169,17 @@ bag_wtp_score_37 = {
 					scope:bag_wtp_country = { bag_wtp_avail_133 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m133 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 133 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m134 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 134 }
 		}
 		if = {
 			limit = {
@@ -2719,12 +3188,17 @@ bag_wtp_score_37 = {
 					scope:bag_wtp_country = { bag_wtp_avail_134 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m134 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 134 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m135 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 135 }
 		}
 		if = {
 			limit = {
@@ -2733,12 +3207,17 @@ bag_wtp_score_37 = {
 					scope:bag_wtp_country = { bag_wtp_avail_135 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m135 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 135 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m136 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 136 }
 		}
 		if = {
 			limit = {
@@ -2747,12 +3226,17 @@ bag_wtp_score_37 = {
 					scope:bag_wtp_country = { bag_wtp_avail_136 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m136 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 136 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m137 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 137 }
 		}
 		if = {
 			limit = {
@@ -2761,7 +3245,6 @@ bag_wtp_score_37 = {
 					scope:bag_wtp_country = { bag_wtp_avail_137 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m137 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2920,6 +3403,16 @@ bag_wtp_score_38 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m150 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 150 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2927,12 +3420,17 @@ bag_wtp_score_38 = {
 					scope:bag_wtp_country = { bag_wtp_avail_150 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m150 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 150 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m151 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 151 }
 		}
 		if = {
 			limit = {
@@ -2941,12 +3439,17 @@ bag_wtp_score_38 = {
 					scope:bag_wtp_country = { bag_wtp_avail_151 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m151 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 151 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m152 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 152 }
 		}
 		if = {
 			limit = {
@@ -2955,7 +3458,6 @@ bag_wtp_score_38 = {
 					scope:bag_wtp_country = { bag_wtp_avail_152 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m152 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -2974,6 +3476,16 @@ bag_wtp_score_39 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m155 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 155 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -2981,7 +3493,6 @@ bag_wtp_score_39 = {
 					scope:bag_wtp_country = { bag_wtp_avail_155 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m155 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -3016,6 +3527,12 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_best_method value = 157 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m158 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 158 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3023,7 +3540,6 @@ bag_wtp_score_39 = {
 					scope:bag_wtp_country = { bag_wtp_avail_158 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m158 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3056,6 +3572,10 @@ bag_wtp_score_40 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -3112,6 +3632,12 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_best_method value = 163 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m164 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 164 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3119,12 +3645,17 @@ bag_wtp_score_40 = {
 					scope:bag_wtp_country = { bag_wtp_avail_164 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m164 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 164 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m165 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 165 }
 		}
 		if = {
 			limit = {
@@ -3133,7 +3664,6 @@ bag_wtp_score_40 = {
 					scope:bag_wtp_country = { bag_wtp_avail_165 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m165 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3180,6 +3710,10 @@ bag_wtp_score_41 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		if = {
 			limit = {
 				OR = {
@@ -3194,6 +3728,12 @@ bag_wtp_score_41 = {
 				set_variable = { name = bag_wtp_best_method value = 168 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m169 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 169 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3201,7 +3741,6 @@ bag_wtp_score_41 = {
 					scope:bag_wtp_country = { bag_wtp_avail_169 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m169 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3220,6 +3759,16 @@ bag_wtp_score_42 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m170 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 170 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3227,12 +3776,17 @@ bag_wtp_score_42 = {
 					scope:bag_wtp_country = { bag_wtp_avail_170 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m170 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 170 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m171 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 171 }
 		}
 		if = {
 			limit = {
@@ -3241,7 +3795,6 @@ bag_wtp_score_42 = {
 					scope:bag_wtp_country = { bag_wtp_avail_171 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m171 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -3276,6 +3829,12 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_best_method value = 173 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m174 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 174 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3283,7 +3842,6 @@ bag_wtp_score_42 = {
 					scope:bag_wtp_country = { bag_wtp_avail_174 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m174 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3316,6 +3874,16 @@ bag_wtp_score_43 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m185 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 185 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3323,7 +3891,6 @@ bag_wtp_score_43 = {
 					scope:bag_wtp_country = { bag_wtp_avail_185 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m185 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3342,6 +3909,16 @@ bag_wtp_score_44 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m186 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 186 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3349,7 +3926,6 @@ bag_wtp_score_44 = {
 					scope:bag_wtp_country = { bag_wtp_avail_186 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m186 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3368,6 +3944,16 @@ bag_wtp_score_45 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m190 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 190 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3375,7 +3961,6 @@ bag_wtp_score_45 = {
 					scope:bag_wtp_country = { bag_wtp_avail_190 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m190 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3394,6 +3979,16 @@ bag_wtp_score_46 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m192 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 192 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3401,7 +3996,6 @@ bag_wtp_score_46 = {
 					scope:bag_wtp_country = { bag_wtp_avail_192 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m192 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
@@ -3422,6 +4016,12 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_best_method value = 193 }
 			}
 		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m194 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 194 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3429,12 +4029,17 @@ bag_wtp_score_46 = {
 					scope:bag_wtp_country = { bag_wtp_avail_194 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m194 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 194 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m195 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 195 }
 		}
 		if = {
 			limit = {
@@ -3443,12 +4048,17 @@ bag_wtp_score_46 = {
 					scope:bag_wtp_country = { bag_wtp_avail_195 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m195 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 195 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m196 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 196 }
 		}
 		if = {
 			limit = {
@@ -3457,7 +4067,6 @@ bag_wtp_score_46 = {
 					scope:bag_wtp_country = { bag_wtp_avail_196 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m196 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -3546,6 +4155,16 @@ bag_wtp_score_47 = {
 		set_variable = { name = bag_wtp_best_method value = 0 }
 		set_variable = { name = bag_wtp_best_rural value = 0 }
 		set_variable = { name = bag_wtp_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best value = 0 }
+		set_variable = { name = bag_wtp_end_best_method value = 0 }
+		set_variable = { name = bag_wtp_end_best_rural value = 0 }
+		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
+		set_variable = { name = bag_wtp_try value = bag_wtp_m202 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 202 }
+		}
 		if = {
 			limit = {
 				OR = {
@@ -3553,12 +4172,17 @@ bag_wtp_score_47 = {
 					scope:bag_wtp_country = { bag_wtp_avail_202 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m202 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 202 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m203 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method_rural value = 203 }
 		}
 		if = {
 			limit = {
@@ -3567,12 +4191,17 @@ bag_wtp_score_47 = {
 					scope:bag_wtp_country = { bag_wtp_avail_203 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m203 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 203 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m204 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 204 }
 		}
 		if = {
 			limit = {
@@ -3581,12 +4210,17 @@ bag_wtp_score_47 = {
 					scope:bag_wtp_country = { bag_wtp_avail_204 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m204 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 204 }
 			}
+		}
+		set_variable = { name = bag_wtp_try value = bag_wtp_m205 }
+		if = {
+			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
+			set_variable = { name = bag_wtp_end_best_method value = 205 }
 		}
 		if = {
 			limit = {
@@ -3595,7 +4229,6 @@ bag_wtp_score_47 = {
 					scope:bag_wtp_country = { bag_wtp_avail_205 = yes }
 				}
 			}
-			set_variable = { name = bag_wtp_try value = bag_wtp_m205 }
 			if = {
 				limit = { var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
@@ -6857,6 +7490,1254 @@ bag_wtp_store_winner_rural = {
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 			add_to_variable_list = { name = bag_wtp_goods_rural target = goods:lumber }
+		}
+	}
+}
+
+# The same, for the answer the last age gives -- the best of the methods nothing
+# obsoletes, whether this country can build it yet or not.
+#
+# **Written only where it differs from the answer above.** Where the two agree --
+# a village, or a country that has already reached the end of that ladder -- the
+# row has one thing to say and says it once: the window draws the second line on
+# `bag_wtp_end_bt` being set, so an unset one is the row saying "this does not
+# change".
+# Scope: location
+bag_wtp_store_winner_end = {
+	clear_variable_list = bag_wtp_end_goods
+	remove_variable = bag_wtp_end_bt
+	remove_variable = bag_wtp_end_pm
+	set_variable = { name = bag_wtp_end_bonus value = 0 }
+	set_variable = { name = bag_wtp_end_out value = 0 }
+	set_variable = { name = bag_wtp_end_goods_all value = 0 }
+	if = {
+		limit = { var:bag_wtp_end_best_method = 16 NOT = { var:bag_wtp_best_method = 16 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:brewery_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:brewery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b16 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 19 NOT = { var:bag_wtp_best_method = 19 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:printing_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:printing_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b19 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 34 NOT = { var:bag_wtp_best_method = 34 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:cannons_factory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:gun_factory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b34 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:saltpeter }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 35 NOT = { var:bag_wtp_best_method = 35 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:clay_pit }
+		set_variable = { name = bag_wtp_end_pm value = production_method:clay_pit_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b35 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 45 NOT = { var:bag_wtp_best_method = 45 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rural_cotton_clothmaker }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b45 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:cotton }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 46 NOT = { var:bag_wtp_best_method = 46 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rural_fiber_clothmaker }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b46 }
+		set_variable = { name = bag_wtp_end_out value = 0.4000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 47 NOT = { var:bag_wtp_best_method = 47 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:rural_clothmaker }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rural_wool_clothmaker }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b47 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 48 NOT = { var:bag_wtp_best_method = 48 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:cotton_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b48 }
+		set_variable = { name = bag_wtp_end_out value = 3.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:cotton }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 49 NOT = { var:bag_wtp_best_method = 49 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fiber_crops_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b49 }
+		set_variable = { name = bag_wtp_end_out value = 2.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 50 NOT = { var:bag_wtp_best_method = 50 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:textile_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:wool_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b50 }
+		set_variable = { name = bag_wtp_end_out value = 2.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 52 NOT = { var:bag_wtp_best_method = 52 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:improved_charcoal_maker }
+		set_variable = { name = bag_wtp_end_pm value = production_method:improved_char_coal_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b52 }
+		set_variable = { name = bag_wtp_end_out value = 1.2000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 53 NOT = { var:bag_wtp_best_method = 53 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:cotton_plantation }
+		set_variable = { name = bag_wtp_end_pm value = production_method:cotton_plantation_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b53 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 56 NOT = { var:bag_wtp_best_method = 56 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:dyes_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:dyesmill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b56 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 59 NOT = { var:bag_wtp_best_method = 59 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:fiber_crops_farm }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fiber_crops_farm_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b59 }
+		set_variable = { name = bag_wtp_end_out value = 0.8000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 60 NOT = { var:bag_wtp_best_method = 60 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_end_pm value = production_method:shoen_fiber_crops_farm_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b60 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 70 NOT = { var:bag_wtp_best_method = 70 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fine_cloth_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b70 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 71 NOT = { var:bag_wtp_best_method = 71 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:silk_cloth_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b71 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 78 NOT = { var:bag_wtp_best_method = 78 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:firearms_factory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:firearms_factory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b78 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:saltpeter }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 92 NOT = { var:bag_wtp_best_method = 92 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:fruit_orchard }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fruit_orchard_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b92 }
+		set_variable = { name = bag_wtp_end_out value = 0.3000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 95 NOT = { var:bag_wtp_best_method = 95 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:furniture_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:furniture_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b95 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 99 NOT = { var:bag_wtp_best_method = 99 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:glass_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:glassmill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b99 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 5 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 102 NOT = { var:bag_wtp_best_method = 102 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:rural_glassmaker }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rural_glassmaker_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b102 }
+		set_variable = { name = bag_wtp_end_out value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 103 NOT = { var:bag_wtp_best_method = 103 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:horse_breeders }
+		set_variable = { name = bag_wtp_end_pm value = production_method:horse_breeders_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b103 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:horses }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 104 NOT = { var:bag_wtp_best_method = 104 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:perfumery }
+		set_variable = { name = bag_wtp_end_pm value = production_method:perfumery_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b104 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pepper } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:pepper }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 105 NOT = { var:bag_wtp_best_method = 105 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:bog_iron_smelter }
+		set_variable = { name = bag_wtp_end_pm value = production_method:bog_iron_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b105 }
+		set_variable = { name = bag_wtp_end_out value = 0.3000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 106 NOT = { var:bag_wtp_best_method = 106 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_end_pm value = production_method:shoen_ironsand_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b106 }
+		set_variable = { name = bag_wtp_end_out value = 0.3000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 107 NOT = { var:bag_wtp_best_method = 107 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:elephant_hunting_grounds }
+		set_variable = { name = bag_wtp_end_pm value = production_method:elephant_hunting_grounds_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b107 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:elephants } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:elephants }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 108 NOT = { var:bag_wtp_best_method = 108 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:amber_enhancement }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b108 }
+		set_variable = { name = bag_wtp_end_out value = 0.1000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:amber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 109 NOT = { var:bag_wtp_best_method = 109 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:copper_base }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b109 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:copper }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 110 NOT = { var:bag_wtp_best_method = 110 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:gems_enhancement }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b110 }
+		set_variable = { name = bag_wtp_end_out value = 0.1000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:gems }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 111 NOT = { var:bag_wtp_best_method = 111 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:gold_base }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b111 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:goods_gold }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 112 NOT = { var:bag_wtp_best_method = 112 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:ivory_enhancement }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b112 }
+		set_variable = { name = bag_wtp_end_out value = 0.1000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:ivory }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 113 NOT = { var:bag_wtp_best_method = 113 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:pearls_enhancement }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b113 }
+		set_variable = { name = bag_wtp_end_out value = 0.1000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:pearls }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 114 NOT = { var:bag_wtp_best_method = 114 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:silver_base }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b114 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:silver }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 116 NOT = { var:bag_wtp_best_method = 116 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:pounamou_carver }
+		set_variable = { name = bag_wtp_end_pm value = production_method:pounamou_carver_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b116 }
+		set_variable = { name = bag_wtp_end_out value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:gems }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 118 NOT = { var:bag_wtp_best_method = 118 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:lacquerware_manufactory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:lacquerware_manufactory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b118 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 124 NOT = { var:bag_wtp_best_method = 124 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:leather_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b124 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 125 NOT = { var:bag_wtp_best_method = 125 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:tannery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b125 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 133 NOT = { var:bag_wtp_best_method = 133 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:potato_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b133 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:potato }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 134 NOT = { var:bag_wtp_best_method = 134 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rice_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b134 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:rice }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 135 NOT = { var:bag_wtp_best_method = 135 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:scottish_whisky_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b135 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:millet }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 136 NOT = { var:bag_wtp_best_method = 136 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:sugar_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b136 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:sugar }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 137 NOT = { var:bag_wtp_best_method = 137 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:wheat_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b137 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 149 NOT = { var:bag_wtp_best_method = 149 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_end_pm value = production_method:shoen_lumbermills_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b149 }
+		set_variable = { name = bag_wtp_end_out value = 0.6000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 150 NOT = { var:bag_wtp_best_method = 150 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:mason }
+		set_variable = { name = bag_wtp_end_pm value = production_method:clay_bricks }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b150 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:clay }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 151 NOT = { var:bag_wtp_best_method = 151 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:mason }
+		set_variable = { name = bag_wtp_end_pm value = production_method:stone_bricks }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b151 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 152 NOT = { var:bag_wtp_best_method = 152 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:shoen }
+		set_variable = { name = bag_wtp_end_pm value = production_method:shoen_masonry_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b152 }
+		set_variable = { name = bag_wtp_end_out value = 0.8000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 153 NOT = { var:bag_wtp_best_method = 153 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:apothecary }
+		set_variable = { name = bag_wtp_end_pm value = production_method:ancient_medicine_apotechary }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b153 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:ivory }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:mercury } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:mercury }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 154 NOT = { var:bag_wtp_best_method = 154 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:apothecary }
+		set_variable = { name = bag_wtp_end_pm value = production_method:natural_medicine_apotechary }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b154 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 158 NOT = { var:bag_wtp_best_method = 158 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:naval_supplies_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:naval_supplies_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b158 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 164 NOT = { var:bag_wtp_best_method = 164 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:paper_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:paper_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b164 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 165 NOT = { var:bag_wtp_best_method = 165 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:paper_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:paper_wood_pulp_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b165 }
+		set_variable = { name = bag_wtp_end_out value = 4.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 169 NOT = { var:bag_wtp_best_method = 169 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:porcelain_manufactory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:porcelain_manufactory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b169 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:clay }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 174 NOT = { var:bag_wtp_best_method = 174 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:pottery_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:pottery_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b174 }
+		set_variable = { name = bag_wtp_end_out value = 3.2500 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:clay }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 176 NOT = { var:bag_wtp_best_method = 176 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:salt_collector }
+		set_variable = { name = bag_wtp_end_pm value = production_method:salt_collector_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b176 }
+		set_variable = { name = bag_wtp_end_out value = 0.3000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:clay }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 177 NOT = { var:bag_wtp_best_method = 177 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:putrefaction_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:putrefaction_mill_demands }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b177 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:livestock }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 181 NOT = { var:bag_wtp_best_method = 181 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:sand_pit }
+		set_variable = { name = bag_wtp_end_pm value = production_method:sand_pit_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b181 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 182 NOT = { var:bag_wtp_best_method = 182 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:ablaq_palace }
+		set_variable = { name = bag_wtp_end_pm value = production_method:ablaq_palace_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b182 }
+		set_variable = { name = bag_wtp_end_out value = 0.3500 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:marble } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:marble }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 183 NOT = { var:bag_wtp_best_method = 183 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:lucca_silk_production_guild }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fiber_crops_silk_guild_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b183 }
+		set_variable = { name = bag_wtp_end_out value = 0.6000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fiber_crops }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 184 NOT = { var:bag_wtp_best_method = 184 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:schwaz_mine }
+		set_variable = { name = bag_wtp_end_pm value = production_method:schwaz_mine_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b184 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 185 NOT = { var:bag_wtp_best_method = 185 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:slave_center }
+		set_variable = { name = bag_wtp_end_pm value = production_method:slave_center_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b185 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 186 NOT = { var:bag_wtp_best_method = 186 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:steel_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:steel_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b186 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 187 NOT = { var:bag_wtp_best_method = 187 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:stone_quarry }
+		set_variable = { name = bag_wtp_end_pm value = production_method:crude_quarry_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b187 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 188 NOT = { var:bag_wtp_best_method = 188 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:stone_quarry }
+		set_variable = { name = bag_wtp_end_pm value = production_method:stone_quarry_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b188 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 189 NOT = { var:bag_wtp_best_method = 189 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:sugar_plantation }
+		set_variable = { name = bag_wtp_end_pm value = production_method:sugar_plantation_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b189 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 190 NOT = { var:bag_wtp_best_method = 190 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tar_kiln }
+		set_variable = { name = bag_wtp_end_pm value = production_method:tar_kiln_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b190 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 191 NOT = { var:bag_wtp_best_method = 191 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tobacco_plantation }
+		set_variable = { name = bag_wtp_end_pm value = production_method:tobacco_plantation_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b191 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 194 NOT = { var:bag_wtp_best_method = 194 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:iron_mill }
+		set_variable = { name = bag_wtp_end_pm value = production_method:iron_mill_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b194 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 196 NOT = { var:bag_wtp_best_method = 196 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tatara }
+		set_variable = { name = bag_wtp_end_pm value = production_method:tamagahane_blacksmith }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b196 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 204 NOT = { var:bag_wtp_best_method = 204 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:tatara }
+		set_variable = { name = bag_wtp_end_pm value = production_method:tamagahane_bladesmith }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b204 }
+		set_variable = { name = bag_wtp_end_out value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 205 NOT = { var:bag_wtp_best_method = 205 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:weapon_factory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:weapon_factory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b205 }
+		set_variable = { name = bag_wtp_end_out value = 4.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:coal }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 211 NOT = { var:bag_wtp_best_method = 211 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:eng_royal_forest }
+		set_variable = { name = bag_wtp_end_pm value = production_method:eng_royal_forest_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b211 }
+		set_variable = { name = bag_wtp_end_out value = 1.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:horses }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:wine }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 215 NOT = { var:bag_wtp_best_method = 215 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:fruit_winery_manufactory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b215 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:fruit }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 216 NOT = { var:bag_wtp_best_method = 216 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:honey_winery_manufactory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b216 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:beeswax }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 217 NOT = { var:bag_wtp_best_method = 217 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:winery_manufactory }
+		set_variable = { name = bag_wtp_end_pm value = production_method:rice_winery_manufactory_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b217 }
+		set_variable = { name = bag_wtp_end_out value = 2.0000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:rice }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method = 218 NOT = { var:bag_wtp_best_method = 218 } }
+		set_variable = { name = bag_wtp_end_bt value = building_type:sheep_farms }
+		set_variable = { name = bag_wtp_end_pm value = production_method:sheep_farm_maintenance }
+		set_variable = { name = bag_wtp_end_bonus value = bag_wtp_b218 }
+		set_variable = { name = bag_wtp_end_out value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods target = goods:lumber }
+		}
+	}
+}
+
+# The same, for the answer the last age gives -- the best of the methods nothing
+# obsoletes, whether this country can build it yet or not.
+#
+# **Written only where it differs from the answer above.** Where the two agree --
+# a village, or a country that has already reached the end of that ladder -- the
+# row has one thing to say and says it once: the window draws the second line on
+# `bag_wtp_end_bt` being set, so an unset one is the row saying "this does not
+# change".
+# Scope: location
+bag_wtp_store_winner_end_rural = {
+	clear_variable_list = bag_wtp_end_goods_rural
+	remove_variable = bag_wtp_end_bt_rural
+	remove_variable = bag_wtp_end_pm_rural
+	set_variable = { name = bag_wtp_end_bonus_rural value = 0 }
+	set_variable = { name = bag_wtp_end_out_rural value = 0 }
+	set_variable = { name = bag_wtp_end_goods_all_rural value = 0 }
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 17 NOT = { var:bag_wtp_best_method_rural = 17 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:market_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_millet_brewery }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b17 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:millet }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 90 NOT = { var:bag_wtp_best_method_rural = 90 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:arctic_fishing_village_maintenance }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b90 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:ivory }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:salt }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 91 NOT = { var:bag_wtp_best_method_rural = 91 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:fishing_village_maintenance }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b91 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:salt }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 115 NOT = { var:bag_wtp_best_method_rural = 115 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:market_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_jewelry_carver }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b115 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.1000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 119 NOT = { var:bag_wtp_best_method_rural = 119 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:forest_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:forest_tannery }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b119 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 148 NOT = { var:bag_wtp_best_method_rural = 148 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:farming_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:farming_village_maintenance }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b148 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:clay }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 155 NOT = { var:bag_wtp_best_method_rural = 155 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:coastal_boatyard }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b155 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 170 NOT = { var:bag_wtp_best_method_rural = 170 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:fishing_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_pottery_maker }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b170 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:clay }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 171 NOT = { var:bag_wtp_best_method_rural = 171 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:market_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_pottery_maker }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b171 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:clay }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 192 NOT = { var:bag_wtp_best_method_rural = 192 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:forest_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_blacksmith }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b192 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 195 NOT = { var:bag_wtp_best_method_rural = 195 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:market_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_blacksmith }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b195 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.5000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:iron }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 202 NOT = { var:bag_wtp_best_method_rural = 202 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:forest_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_weaponmaker }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b202 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_end_best_method_rural = 203 NOT = { var:bag_wtp_best_method_rural = 203 } }
+		set_variable = { name = bag_wtp_end_bt_rural value = building_type:market_village }
+		set_variable = { name = bag_wtp_end_pm_rural value = production_method:rural_weaponmaker }
+		set_variable = { name = bag_wtp_end_bonus_rural value = bag_wtp_b203 }
+		set_variable = { name = bag_wtp_end_out_rural value = 0.2000 }
+		set_variable = { name = bag_wtp_end_goods_all_rural value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_end_goods_rural target = goods:lumber }
 		}
 	}
 }

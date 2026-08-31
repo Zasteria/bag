@@ -229,98 +229,236 @@ types BagWtpResultTypes {
 		layoutpolicy_horizontal = expanding
 		size = { -1 28 }
 		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
 
 		text_single = {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
 			align = right|vcenter
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
+		# The second age of the same line, and it is drawn only where it has
+		# something to say: `bag_wtp_end_bt` is written only when the method that
+		# survives every advance is not the method winning today. An empty cell
+		# here is the row saying "this province does not change".
+		text_single = {
+			size = { 86 28 }
+			autoresize = no
+			maximumsize = { 86 28 }
+			align = right|vcenter
+			fontsize = 13
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet]"
+			text = "bag_wtp_result_bonus_value_end"
+			tooltip = "bag_wtp_result_end_tt"
+		}
+
 		widget = { size = { 10 28 } }
 
-		text_single = {
-			size = { -1 28 }
+		# The method the near column won with -- or, where there is no near
+		# column, the one the far column did. Two texts rather than one because a
+		# localization value cannot branch; `ignoreinvisible` is what keeps the
+		# hidden one from holding the width open.
+		hbox = {
 			layoutpolicy_horizontal = expanding
-			autoresize = no
-			align = left|vcenter
-			elide = right
-			text = "bag_wtp_result_method_value"
-			tooltip = "bag_wtp_result_method_tt"
+			size = { -1 28 }
+			spacing = 0
+			ignoreinvisible = yes
+
+			text_single = {
+				size = { -1 28 }
+				layoutpolicy_horizontal = expanding
+				autoresize = no
+				align = left|vcenter
+				elide = right
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+				text = "bag_wtp_result_method_value"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { -1 28 }
+				layoutpolicy_horizontal = expanding
+				autoresize = no
+				align = left|vcenter
+				elide = right
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
+				text = "bag_wtp_result_method_value_end"
+				tooltip = "bag_wtp_result_end_tt"
+			}
 		}
 
 		hbox = {
 			spacing = 4
+			ignoreinvisible = yes
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_result_goods_count"
+			hbox = {
+				spacing = 4
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
 			}
 
+			# The raw materials the *last* method wants, which are not always the
+			# ones today's does: bronze cannons want copper and tin and the cannon
+			# factory that replaces them wants lead and saltpetre.
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				spacing = 4
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_end"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
 		}
 
-		widget = { size = { 12 30 } }
+		widget = { size = { 12 28 } }
 	}
 
 	type bag_wtp_result_answer_rural = hbox {
 		layoutpolicy_horizontal = expanding
 		size = { -1 28 }
 		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
 
 		text_single = {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
 			align = right|vcenter
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
 			text = "bag_wtp_result_bonus_value_rural"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
+		# The second age of the same line, and it is drawn only where it has
+		# something to say: `bag_wtp_end_bt` is written only when the method that
+		# survives every advance is not the method winning today. An empty cell
+		# here is the row saying "this province does not change".
+		text_single = {
+			size = { 86 28 }
+			autoresize = no
+			maximumsize = { 86 28 }
+			align = right|vcenter
+			fontsize = 13
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet]"
+			text = "bag_wtp_result_bonus_value_end_rural"
+			tooltip = "bag_wtp_result_end_tt_rural"
+		}
+
 		widget = { size = { 10 28 } }
 
-		text_single = {
-			size = { -1 28 }
+		# The method the near column won with -- or, where there is no near
+		# column, the one the far column did. Two texts rather than one because a
+		# localization value cannot branch; `ignoreinvisible` is what keeps the
+		# hidden one from holding the width open.
+		hbox = {
 			layoutpolicy_horizontal = expanding
-			autoresize = no
-			align = left|vcenter
-			elide = right
-			text = "bag_wtp_result_method_value_rural"
-			tooltip = "bag_wtp_result_method_tt"
+			size = { -1 28 }
+			spacing = 0
+			ignoreinvisible = yes
+
+			text_single = {
+				size = { -1 28 }
+				layoutpolicy_horizontal = expanding
+				autoresize = no
+				align = left|vcenter
+				elide = right
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+				text = "bag_wtp_result_method_value_rural"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { -1 28 }
+				layoutpolicy_horizontal = expanding
+				autoresize = no
+				align = left|vcenter
+				elide = right
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
+				text = "bag_wtp_result_method_value_end_rural"
+				tooltip = "bag_wtp_result_end_tt_rural"
+			}
 		}
 
 		hbox = {
 			spacing = 4
+			ignoreinvisible = yes
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_result_goods_count_rural"
+			hbox = {
+				spacing = 4
+				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_rural"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
 			}
 
+			# The raw materials the *last* method wants, which are not always the
+			# ones today's does: bronze cannons want copper and tin and the cannon
+			# factory that replaces them wants lead and saltpetre.
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				spacing = 4
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_end_rural"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods_rural')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
@@ -676,6 +814,14 @@ window = {
 						align = right|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_bonus"
+					}
+					text_single = {
+						size = { 86 24 }
+						autoresize = no
+						align = right|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_end"
+						tooltip = "bag_wtp_result_head_end_tt"
 					}
 					widget = { size = { 10 24 } }
 					text_single = {

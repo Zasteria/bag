@@ -191,6 +191,25 @@ class Game:
     # checks it against this rather than against its own memory: a good that a
     # patch renames goes silently dead otherwise.
     all_goods: set[str] = field(default_factory=set)
+    # Buildings some later building makes obsolete, read off `obsolete` -- "what
+    # building type this one makes obsolete", per `building_types/readme.txt`.
+    # It is the game's own upgrade ladder: guild -> workshop -> manufactory ->
+    # mill, thirty chains of it, and every production chain ends in a mill or a
+    # factory. A building in here is one nobody builds at the end of a game.
+    obsoleted: set[str] = field(default_factory=set)
+
+    def endgame_methods(self) -> list[Method]:
+        """The methods still buildable once every advance is in.
+
+        The ladder is not cosmetic: along it the *inputs* move, so the province
+        that suits a recipe now need not suit the one that replaces it. Bronze
+        cannons want copper and tin, the cannon factory that obsoletes them wants
+        lead and saltpetre; paper starts on cloth and rags and ends on pure
+        lumber. Fourteen of forty-two goods shift their input mix along their
+        ladder and five change it outright, which is why "best now" and "best at
+        the end" are two answers rather than one.
+        """
+        return [m for m in self.methods if m.building not in self.obsoleted]
 
     def group_of(self, good: str) -> str:
         """Which picker group a good belongs in, or "" if none fits."""
@@ -355,8 +374,10 @@ def load_game(common: Path | None = None) -> Game:
     goods, raw, price = _goods(common / "goods")
     shared = load_dir(common / "production_methods")
 
+    buildings = load_dir(common / "building_types")
+
     methods: list[Method] = []
-    for building, entries in load_dir(common / "building_types").items():
+    for building, entries in buildings.items():
         blocks: list[tuple[str, list]] = []
         for block in find(entries, "unique_production_methods"):
             blocks += [(name, body) for name, body in block if isinstance(body, list)]
@@ -381,6 +402,9 @@ def load_game(common: Path | None = None) -> Game:
                 output=float(output) if output and NUMBER_RE.match(output) else 0.0,
                 inputs=_inputs(body, goods),
             ))
+    obsoleted = {str(scalar(entries, "obsolete")) for entries in buildings.values()
+                 if scalar(entries, "obsolete")}
     return Game(raw_goods=raw, methods=methods, all_goods=goods, prices=price,
+                obsoleted=obsoleted,
                 town_rights=_town_rights(common / "town_rights",
                                          common / "advances"))

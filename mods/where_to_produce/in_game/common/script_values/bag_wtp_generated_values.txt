@@ -5004,12 +5004,46 @@ bag_wtp_b218 = {
 
 # What the ranking sorts on: the better of the two answers this location has.
 # A province with nothing but a village to offer still deserves its row.
+#
+# **Which column, though, is the player's.** Off -- and by default -- this ranks
+# what he could build this decade. On `bag_wtp_rank_by_end` it ranks what the
+# last age would give, which is the ordering a plan wants: a province that is
+# first with the guild and fortieth with the mill is the one thing this mod
+# exists to catch, and it only shows up if something sorts on the far column.
+#
+# Four flat branches rather than an `if` inside an `if`: nothing in the game or
+# in `reference/` nests one in a script value, and a `value =` inside a limited
+# branch overriding the one above it is the form this file already proves.
 # Scope: location
 bag_wtp_score = {
-	value = var:bag_wtp_best
+	value = 0
 	if = {
-		limit = { var:bag_wtp_best < var:bag_wtp_best_rural }
+		limit = {
+			NOT = { has_global_variable = bag_wtp_rank_by_end }
+			var:bag_wtp_best >= var:bag_wtp_best_rural
+		}
+		value = var:bag_wtp_best
+	}
+	if = {
+		limit = {
+			NOT = { has_global_variable = bag_wtp_rank_by_end }
+			var:bag_wtp_best < var:bag_wtp_best_rural
+		}
 		value = var:bag_wtp_best_rural
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_rank_by_end
+			var:bag_wtp_end_best >= var:bag_wtp_end_best_rural
+		}
+		value = var:bag_wtp_end_best
+	}
+	if = {
+		limit = {
+			has_global_variable = bag_wtp_rank_by_end
+			var:bag_wtp_end_best < var:bag_wtp_end_best_rural
+		}
+		value = var:bag_wtp_end_best_rural
 	}
 }
 

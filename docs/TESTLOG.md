@@ -242,18 +242,27 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, eighteenth load — two lines, and the mod is done for now.**
+**`where_to_produce`, eighteenth load — three lines now, and the third is new
+work.**
 
 1. **No province at 0.00% on every good** at the bottom of a rights table. The
    filter exists this time.
 2. **Two rights lists**, «Городские права» with nine and «Уникальные права»
    which for Wallachia should be empty — three exist and all three are somebody
    else's. Never reported either way.
+3. **The «В конце» column**, which has never been loaded at all. One good is
+   enough to see it, and `cannons` or `paper` is the good to pick: both change
+   their raw materials along the ladder, so the two columns should name
+   different buildings, different percentages and different goods icons. What
+   each cell means is in
+   [`investigations/production_ladder.md`](investigations/production_ladder.md).
+   Worth reporting: whether the column is empty on `cloth` (it should be — the
+   recipe does not change), whether «Ранжировать по последней эпохе» on the
+   Answer tab visibly reorders the table, and whether the pass got slower.
 
-Everything else in this mod has been confirmed in game. What is left is not a
-run but a decision: whether an ownership half belongs in the buildable tick
-(`can_build_building` cannot ask it from a location scope), and whether level
-rights get a table of their own —
+What is left after that is not a run but a decision: whether an ownership half
+belongs in the buildable tick (`can_build_building` cannot ask it from a
+location scope), and whether level rights get a table of their own —
 [`investigations/town_rights.md`](investigations/town_rights.md).
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:

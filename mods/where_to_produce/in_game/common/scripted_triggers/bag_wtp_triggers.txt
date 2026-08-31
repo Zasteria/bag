@@ -45,9 +45,18 @@ bag_wtp_row_is_worth_it = {
 	OR = {
 		var:bag_wtp_bonus > 0
 		var:bag_wtp_bonus_rural > 0
+		# The endgame column counts too: a province that gives nothing to the
+		# guild and 10% to the mill is exactly the row somebody planning for the
+		# whole game came here for. `_end_bonus` is zero where that column has
+		# nothing to add -- the same method won both -- and then the two above
+		# have already answered.
+		var:bag_wtp_end_bonus > 0
+		var:bag_wtp_end_bonus_rural > 0
 		AND = {
 			var:bag_wtp_goods_all = 0
 			var:bag_wtp_goods_all_rural = 0
+			var:bag_wtp_end_goods_all = 0
+			var:bag_wtp_end_goods_all_rural = 0
 		}
 	}
 }

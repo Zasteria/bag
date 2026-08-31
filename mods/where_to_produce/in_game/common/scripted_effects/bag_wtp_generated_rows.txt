@@ -57,12 +57,18 @@ bag_wtp_store_row = {
 	if = {
 		limit = {
 			global_var:bag_wtp_found < 50
-			# Nothing won here on either side -- every method for this good is behind
-			# an advance this country has not taken. A row for it would have no
-			# building and no method to print.
+			# Nothing won here on either side and in neither age -- which now means
+			# the good is made in no building this location could ever hold. A row
+			# for it would have no building and no method to print.
+			#
+			# The endgame halves are in the OR on purpose: in the first age most
+			# goods have nothing available yet, and dropping those rows would empty
+			# the second column exactly where it is worth most.
 			OR = {
 				var:bag_wtp_best_method > 0
 				var:bag_wtp_best_method_rural > 0
+				var:bag_wtp_end_best_method > 0
+				var:bag_wtp_end_best_method_rural > 0
 			}
 			NOT = { has_variable = bag_wtp_row_taken }
 		}
@@ -77,6 +83,8 @@ bag_wtp_store_row = {
 		# bonus is not known until the method that won is.
 		bag_wtp_store_winner = yes
 		bag_wtp_store_winner_rural = yes
+		bag_wtp_store_winner_end = yes
+		bag_wtp_store_winner_end_rural = yes
 		if = {
 			limit = { bag_wtp_row_is_worth_it = yes }
 			change_global_variable = { name = bag_wtp_found add = 1 }

@@ -15,18 +15,18 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed in steamcmd's
-own directory, and it existed from the previous attempt, so an unfinished login
+successful one: it asked only whether the item's folder existed in steamcmd's
+own directory, and it did from the previous attempt, so an unfinished login
 still copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code is read, the cached copy is
-offered for deletion first, and **only a mod whose copy actually changed is
-copied onward**; anything else is named on screen.
+fingerprinted before and after now, the exit code read, the cached copy offered
+for deletion first, and **only a mod whose copy actually changed is copied
+onward**; anything else is named on screen.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
 landed. The install is **read back off disk** now, a mismatch says so with the
 path, and the screen names the branch and commit installed. A `game_mods` path
-set once with a typo — the one way this could have installed into a folder the
-game never reads — is refused rather than created.
+typo'd once — the one way this could install into a folder the game never reads
+— is refused rather than created.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
 against the game's folder and the repository's branch and commit — the line to
@@ -34,36 +34,35 @@ paste before anybody theorises about a mod again.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
 the output of all three. If a mod still reads «отличается» after installing, the
-message names the folder and that is the next thing to look at. The logs from
-whatever run follows go through `python3 tools/which_build.py <logs folder>`
-first, as always now.
+message names the folder to look at. The logs from whatever run follows go
+through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce` is done for now
+## `where_to_produce`: one column that has never been loaded
 
 Seventeen loads, confirmed end to end: a good or a whole urban right, a window
-each, live re-ranking as the borders are drawn, the pickers folded, the age
-filter moving the answer. Two lines go into the eighteenth load and neither is
-structural — [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run) has them.
+each, live re-ranking, the pickers folded, the age filter moving the answer.
 
-**What is left is decisions, not runs.** Both are written up in
+**And then, on 2026-08-31, a second column** — what the ground gives now, and
+what it gives once every advance is in, with a tick choosing which the ranking
+obeys. Planning for the whole game is not the age filter turned off: the ladder
+moves a recipe's *inputs*, so the province that suits the guild need not suit
+the mill ([`investigations/production_ladder.md`](investigations/production_ladder.md)).
+**None of it has been in game**: third line of the eighteenth load,
+[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+
+**What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
 
-- **Level rights** — Flemish cloth and the marketplace charters. Deferred by the
-  owner on 2026-08-31. They are a quantity where the output rights are a ratio,
-  so they want their own number and probably their own table.
-- **Whether the buildable tick should ask about ownership.** It asks
-  `can_build_building` in the *location's* scope, which is about the location and
-  not about the player; the label says so now. Adding an owner half means asking
-  the country from a trigger that has no country, and is not a five-minute
-  change.
-- **`town_right_efficiency_penalty`**, referenced by eleven rights and defined in
-  nothing `reference/` holds. One `grep` on the owner's install. It changes no
-  ranking — it is a constant — and answers «is this right worth taking at all».
+- **Level rights**, deferred by the owner on 2026-08-31: a quantity where the
+  output rights are a ratio, so they want their own number and table.
+- **Whether the buildable tick should ask about ownership** — an owner half
+  means asking the country from a trigger that has none.
+- **`town_right_efficiency_penalty`**, in eleven rights and in no file
+  `reference/` holds: one `grep` on the owner's install.
 
-**And one thing about the tooling**, found on 2026-08-31: `mods.bat → 2` copies
-mods and does not run `tools/extract_game_files.py`, so a manifest entry alone
-does not bring a game folder into `reference/`. Which menu entry is supposed to
-run the extractor is open.
+**And about the tooling**, 2026-08-31: `mods.bat → 2` copies mods and does not
+run `tools/extract_game_files.py`, so a manifest entry alone does not bring a
+game folder into `reference/`. Which entry should run the extractor is open.
 
 ## Then `glorpui_hints` goes out
 
@@ -80,9 +79,9 @@ none of it needing a protocol:
   does not re-resolve vanilla strings**, only the mod's, so a real check of one
   wants a restart;
 - the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care about them. **If they are still not visible next time,
-  offer to drop them** — they are another mod's interface and the only thing here
-  outside this mod's stated scope.
+  modes and does not care. **If they are still not visible next time, offer to
+  drop them** — another mod's interface, and the only thing here outside this
+  mod's stated scope.
 
 ### Then publish
 
