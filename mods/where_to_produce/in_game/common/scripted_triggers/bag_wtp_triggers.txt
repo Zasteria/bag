@@ -45,9 +45,25 @@ bag_wtp_row_is_worth_it = {
 	OR = {
 		var:bag_wtp_bonus > 0
 		var:bag_wtp_bonus_rural > 0
+		# The endgame column counts too: a province that gives nothing to the
+		# guild and 10% to the mill is exactly the row somebody planning for the
+		# whole game came here for. `_end_bonus` is zero where that column has
+		# nothing to add -- the same method won both -- and then the two above
+		# have already answered.
+		var:bag_wtp_end_bonus > 0
+		var:bag_wtp_end_bonus_rural > 0
+		# And the middle column, which is the only one with anything to say where
+		# a ladder ends early: wool fine cloth is ten percent until the fifth age
+		# and nothing after it.
+		var:bag_wtp_mid_bonus > 0
+		var:bag_wtp_mid_bonus_rural > 0
 		AND = {
 			var:bag_wtp_goods_all = 0
 			var:bag_wtp_goods_all_rural = 0
+			var:bag_wtp_end_goods_all = 0
+			var:bag_wtp_end_goods_all_rural = 0
+			var:bag_wtp_mid_bonus = 0
+			var:bag_wtp_mid_bonus_rural = 0
 		}
 	}
 }
@@ -69,6 +85,14 @@ bag_wtp_right_row_is_worth_it = {
 		var:bag_wtp_r_bonus_1 > 0
 		var:bag_wtp_r_bonus_2 > 0
 		var:bag_wtp_r_bonus_3 > 0
+		# Ranked for the last age, every bonus in the table can be zero -- no
+		# recipe that survives is fed anywhere -- and then what keeps a row is
+		# what the ground gives on the way there. Without this the whole table
+		# empties itself exactly where the plan needs it most.
+		AND = {
+			has_global_variable = bag_wtp_rank_by_end
+			var:bag_wtp_r_mid_total > 0
+		}
 		AND = {
 			var:bag_wtp_r_goods_all_1 = 0
 			var:bag_wtp_r_goods_all_2 = 0

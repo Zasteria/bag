@@ -12,15 +12,24 @@ question, in a table.
 1. **Borders.** Tick regions, in six lists grouped by continent. Every region in
    the game is there, owned or not — the point is planning for ground you do not
    hold yet.
-2. **Building and method.** One dropdown, 218 entries: every production method
-   in the game that consumes a raw material, sorted by the good it produces and
-   labelled `<good> <building> — <method>`.
+2. **What you want made.** A good, in two lists — the raw materials an RGO also
+   produces and the things only a workshop makes — or a whole urban right, which
+   is a bundle of two or three goods. Choosing the recipe is the mod's job, not
+   yours: it scores all 218 methods that consume a raw material and keeps the
+   best per location.
 3. **Rank.** Press the button. Every location inside the ticked regions is
    scored, the best fifty provinces are listed, and the mod's own results window
    opens on them: one row per province with the efficiency it would give, the
    building and **which of its methods** won, and an icon for each raw material
    the province supplies to that method. A row expands into the province's
    locations, each with what it works now and a button to take it into the plan.
+4. **In two ages.** Each row carries the answer twice: what you could build now,
+   and what the ground gives once every advance is in — the best of the methods
+   nothing makes obsolete. The second is written only where it differs, so an
+   empty cell means the province does not change. It is not decoration: along
+   the game's ladder the *inputs* move, not merely the output, so for a third of
+   the goods the province that suits the guild is not the one that suits the
+   mill. `docs/investigations/production_ladder.md` has the numbers.
 
 ## Why it is not the game's own build panel
 
@@ -68,10 +77,10 @@ about it surprise people:
 
 ## What is deliberately not here yet
 
-Town rights, upgrades, priorities, mass distribution, and building-slot
-capacity. Also the borders themselves are regions rather than anything painted
-on the map — that is the shape the owner asked for first, on the way to picking
-locations directly.
+Priorities, mass distribution, building-slot capacity, and any measure of what a
+building costs to put up. The ranking still walks the fifty best provinces by
+the *near* column unless told otherwise, so a province that is poor now and
+first in the last age is only found with «Rank by the last age» ticked.
 
 ## Two places the answer is shown
 

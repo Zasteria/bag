@@ -21,6 +21,13 @@ searches like everything else:
 
 ## Script
 
+**A `trigger_if` chain must end in a `trigger_else`.** Ending on a
+`trigger_else_if` logs `PostValidate of trigger 'trigger_else_if' returned false`
+against the last link and voids the whole trigger — `where_to_produce`'s
+«only where the building can stand» filtered nothing for two loads, and the line
+sat in `error.log` unread because it names a generated file and a line number
+rather than the setting it broke. `trigger_else = { always = no }` closes it.
+
 **A CMM macro called *without* an argument CMF declares fails exactly like one
 called with an argument it does not.** The known half of this rule was `step`
 where CMF wanted `step_value`; the other half cost `where_to_produce` a whole

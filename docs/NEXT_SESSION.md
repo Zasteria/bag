@@ -15,18 +15,18 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed in steamcmd's
-own directory, and it existed from the previous attempt, so an unfinished login
+successful one: it asked only whether the item's folder existed in steamcmd's
+own directory, and it did from the previous attempt, so an unfinished login
 still copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code is read, the cached copy is
-offered for deletion first, and **only a mod whose copy actually changed is
-copied onward**; anything else is named on screen.
+fingerprinted before and after now, the exit code read, the cached copy offered
+for deletion first, and **only a mod whose copy actually changed is copied
+onward**; anything else is named on screen.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
 landed. The install is **read back off disk** now, a mismatch says so with the
 path, and the screen names the branch and commit installed. A `game_mods` path
-set once with a typo — the one way this could have installed into a folder the
-game never reads — is refused rather than created.
+typo'd once — the one way this could install into a folder the game never reads
+— is refused rather than created.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
 against the game's folder and the repository's branch and commit — the line to
@@ -34,36 +34,46 @@ paste before anybody theorises about a mod again.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
 the output of all three. If a mod still reads «отличается» after installing, the
-message names the folder and that is the next thing to look at. The logs from
-whatever run follows go through `python3 tools/which_build.py <logs folder>`
-first, as always now.
+message names the folder to look at. The logs from whatever run follows go
+through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce` is done for now
+## `where_to_produce`: three ages on a row, and the pairs are in
 
-Seventeen loads, confirmed end to end: a good or a whole urban right, a window
-each, live re-ranking as the borders are drawn, the pickers folded, the age
-filter moving the answer. Two lines go into the eighteenth load and neither is
-structural — [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run) has them.
+Twenty-four loads. A row answers in three ages — «Сейчас», «По пути» (the best
+this ground ever feeds, and the last age it can be built), «В конце» — because
+the end alone cannot order a table where every wool province ends at 0.00%. Two
+«Считать» buttons choose the order and which age the row names.
 
-**What is left is decisions, not runs.** Both are written up in
+**The two-slot question is settled** from the game's own build panel — each slot
+earns its own bonus over its own output:
+[`investigations/production_ladder.md`](investigations/production_ladder.md).
+
+**The rights window obeys both buttons and is confirmed.** **Two faults are
+fixed and neither loaded:** a `trigger_if` chain ending on an `else_if` voided
+the buildable filter (`error.log` said so for two runs), and an expanding child
+of a sized hbox gets no width — which erased the building's name from every row
+of the twenty-fourth load. Both are written up under
+[`pitfalls/interface.md`](pitfalls/interface.md); what to look at next is
+[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+
+**Where this is going**, in the owner's words: take a stretch of land, work out
+every province's limits and lay out *all* its production — best goods first,
+then the rest — with a cap of three or four buildings a province and a rule for
+the ones everything wants. None of it is built; it is why the per-province
+answer has to be right first.
+
+**What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
 
-- **Level rights** — Flemish cloth and the marketplace charters. Deferred by the
-  owner on 2026-08-31. They are a quantity where the output rights are a ratio,
-  so they want their own number and probably their own table.
-- **Whether the buildable tick should ask about ownership.** It asks
-  `can_build_building` in the *location's* scope, which is about the location and
-  not about the player; the label says so now. Adding an owner half means asking
-  the country from a trigger that has no country, and is not a five-minute
-  change.
-- **`town_right_efficiency_penalty`**, referenced by eleven rights and defined in
-  nothing `reference/` holds. One `grep` on the owner's install. It changes no
-  ranking — it is a constant — and answers «is this right worth taking at all».
+- **Level rights**, deferred 2026-08-31: a quantity where the output rights are
+  a ratio, so they want their own number and table.
+- **Whether the buildable tick should ask about ownership** — that means asking
+  the country from a trigger that has none.
+- **`town_right_efficiency_penalty`**, in eleven rights and in no file
+  `reference/` holds: one `grep` on the owner's install.
 
-**And one thing about the tooling**, found on 2026-08-31: `mods.bat → 2` copies
-mods and does not run `tools/extract_game_files.py`, so a manifest entry alone
-does not bring a game folder into `reference/`. Which menu entry is supposed to
-run the extractor is open.
+Which menu entry should run `tools/extract_game_files.py` is still open — no
+entry does today.
 
 ## Then `glorpui_hints` goes out
 
@@ -76,17 +86,16 @@ none of it needing a protocol:
 - `error.log` must no longer carry `Inconsistent trigger scopes` — a building's
   `allow` was being copied into country scope. Clean on 2026-08-30, but on an
   axis Wallachia does not have, so it is still open;
-- nine of the eleven languages, which is a console switch each. **A hot switch
-  does not re-resolve vanilla strings**, only the mod's, so a real check of one
-  wants a restart;
+- nine of the eleven languages, a console switch each. **A hot switch does not
+  re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
 - the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care about them. **If they are still not visible next time,
-  offer to drop them** — they are another mod's interface and the only thing here
-  outside this mod's stated scope.
+  modes and does not care. **If they are still not visible next time, offer to
+  drop them** — another mod's interface, and the only thing here outside this
+  mod's stated scope.
 
 ### Then publish
 
-`python3 tools/publish.py glorpui_hints` says `ok` and everything is ready.
+`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready.
 
 1. merge the branch, then `mods.bat → 4` with the `git pull`;
 2. load once and check the list above;
@@ -95,38 +104,36 @@ none of it needing a protocol:
    [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
 4. check the page is not empty and that `relationships` survived in
    `.metadata/metadata.json` — both are known ways this tool has misbehaved. The
-   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager),
-   and `mods.bat → 5 → «к»` writes its config;
+   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager);
+   `mods.bat → 5 → «к»` writes its config;
 5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
    as Required Items, and **hidden first**.
 
 ### Deliberately not done
 
-- **A thumbnail for the other five mods.** Only `glorpui_hints` has one.
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod is
-  ready to go out.
-- **Reviewing the ten new translations with somebody who speaks them.** Nobody
-  has read them. A correction goes in `languages.py`, never in a generated
-  `.yml`.
+- **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
+  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod goes
+  out.
+- **Reviewing the ten new translations with somebody who speaks them.** A
+  correction goes in `languages.py`, never in a generated `.yml`.
 
 ## Also waiting on the owner, all of it cheap
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it. It now also carries the
-  four folders added to the manifest for `where_to_produce`, `town_rights` among
-  them, and nothing of the urban-rights job can start before it. The same run is the
-  first real test of the Steam-side rewrite — build ids instead of dates. The
-  whole story is [`TESTLOG.md`](TESTLOG.md#2026-08-29--modsbat-an-update-run-on-the-owners-own-machine).
-- **The panel-open bisect — five minutes, no log to read.**
-  [`investigations/panel_hitch.md`](investigations/panel_hitch.md) has the
-  protocol. It can close that job outright.
-- **The hover run.** [`investigations/widget_leak.md`](investigations/widget_leak.md)
-  has it written out, and every branch of the result already has its next step.
-  **Do not design a different test until that one has been run.**
+  rewritten copies and the run confirms it, as it does the Steam-side rewrite
+  ([`archive/testlog_2026-08.md`](archive/testlog_2026-08.md)). Entry 2 does
+  **not** re-extract the game.
+- **The panel-open bisect — five minutes, no log to read**, protocol in
+  [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
+  that job outright.
+- **The hover run**, written out in
+  [`investigations/widget_leak.md`](investigations/widget_leak.md), every branch
+  of the result with its next step already. **Do not design a different test
+  until it has been run.**
 
 ## Before asking him for anything
 
 Read [`SETTLED.md`](SETTLED.md). And walk the protocol as the person who has to
 do it: *"sit on the map and open nothing"* is impossible while events fire, which
-is why everything is paused now. He cannot be asked to run the same thing twice.
+is why everything is paused now. He cannot be asked to run a thing twice.

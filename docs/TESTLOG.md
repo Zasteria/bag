@@ -31,6 +31,138 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-fourth load. The fixed-width columns
+ate the building's name.** Two screenshots, fine cloth and textile.
+
+- **A row printed «± Красители с квасцами» and nothing else** — no building, no
+  method, no «×». The cause is one line: the method cell was given a size of its
+  own, and a child carrying `layoutpolicy_horizontal = expanding` inside a sized
+  hbox gets **no width at all**, so the text elided to nothing. The improvement
+  beside it survived because it was `autoresize = yes`. Every column in both
+  windows carries an explicit width now and none of them expands; the slack goes
+  to a spacer at the far right, and the row's widths add up to the header's to
+  the pixel (762 after the area column in the goods window, 700 per slot in the
+  rights one).
+- **Two spacers where the header had one.** «В конце» was followed by 10px in a
+  row and 6 in the header, and a second 6 had crept in before «По пути»: four
+  and six pixels, and every column after them out of line. That is the whole of
+  the «Из чего» drift.
+- **Fifty pixels moved from «Из чего» to «Здание и метод»**, which is where the
+  long names are: a building, a method and an improvement in one cell.
+- **Urban rights work on both buttons**, owner's words, and the unique list is
+  empty again — which for Wallachia is the right answer, since the two
+  Scandinavian privileges gate on a culture group and the Byzantine one on a tag.
+
+**2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
+work and the two tables differ; unique rights arrived in Wallachia; the goods
+table ranked for the last age still named first-age buildings; «Из чего» still
+sits away from its header.
+
+- **`error.log` carries one real line and no more:** `PostValidate of trigger
+  'trigger_else_if' returned false at bag_wtp_generated_triggers.txt:107` — the
+  last link of the `bag_wtp_can_build_something` chain, which ended on an
+  `else_if` with no `trigger_else` after it. Everything else naming the mod is
+  `Flag 'bag_wtp_good_*' is set but is never used`, which is CMM's list flags and
+  is cosmetic. The chain ends `trigger_else = { always = no }` now.
+- **Dropping the advance gate let the Scandinavian privileges into a Wallachian
+  list.** Those two rights carry no `potential` of their own; what keeps them out
+  is `culture = { has_culture_group = culture_group:scandinavian_group }` on the
+  *advance* that unlocks them. A right inherits its advance's `potential` now —
+  a country gate that is a fact rather than a thing you have not got round to.
+- **Ranked for the last age, the row still named the building you can build
+  today.** The order followed the button and the printing did not: the method
+  column reads the near column whenever it is set, and it always is. `row_end` is
+  written on the row now and the window reads the column the button asked for,
+  goods icons included.
+- **«Из чего» drifts because the method column expands.** An expanding column is
+  as wide as what is left, and a row inside a scrollbox has less left than the
+  header — by the scrollbar and the content margin. Both windows give the method
+  column a fixed width and put the slack in a spacer at the far right.
+
+**2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
+the rights window was answering the wrong question.** Three screenshots, fine
+cloth and cannons, and a weaponry right.
+
+- **The pairs read correctly.** «Гильдия портных: Гильдия ткачей шёлка ×0.90 +
+  Красители с квасцами», «Здание пушкарей: Железные стволы ×1.16 + Железные
+  снаряды», with both slots' raw materials counted.
+- **«Считать» looked like it was sorting by the endgame** — 1.78% above 7.14%.
+  It was not: the ranking is by effective output and always has been, so ×0.90
+  at 1.78% (0.916) outranks ×0.70 at 7.14% (0.750). Settled at the eighth run,
+  when a forest village at 10% topped a weapons search; the owner reached the
+  same reading himself from the cannons table.
+- **«На конец» did nothing at all in the rights window.** The bundle pass read
+  `bag_wtp_best_method` and nothing else, so both buttons gave the same table in
+  the same order, showing first-age buildings. It reads the column the button
+  names now, falls back the same way, and breaks its ties on «По пути» — with
+  the row filter widened, or the table would empty itself exactly where a ladder
+  ends early.
+- **«Права: считать методы будущих эпох» is deleted.** Owner: «нафига вообще
+  нужна?» — right twice over: since the twentieth load it reached no method at
+  all, and a right should obey the same two buttons a good does. A unique right
+  is still gated on `potential` — a tag is a fact about the country — but never
+  on the advance that unlocks it.
+- **«Из чего» sat far right of its header** in the rights window: the block was
+  sized by its own icons and started wherever the expanding method column
+  stopped. It is 190 wide in both windows now, like the header.
+
+**2026-08-31 — `where_to_produce`, twenty-first load. The two-slot question is
+answered, from the game's own panel.** Three screenshots.
+
+- **Confirmed:** «По пути» prints `10.00% до 5` on the wool provinces and
+  `0.81% до 6` where there are dyes; sorting by «В конце» orders them; a bundle
+  keeps every good, at 0% where the ground feeds it nothing; alignment is better.
+- **Each production slot earns its own bonus, over its own output.** A tailors'
+  guild in Dordrecht: the tooltip is headed «Производственная эффективность
+  метода "Красители с квасцами"» and lists «Добыча ресурса "Красители"…
+  +10.01%» under it. Not the building's efficiency — the method's. So the eight
+  two-slot buildings are now one method of the summed output at the
+  output-weighted blend of the two bonuses, and the owner's own reading of the
+  screenshot said the same thing before the arithmetic did.
+- **Which explains what he noticed first:** Западная Мунтения showed «1/1» and
+  the wool icon while the province also supplies dyes. The dyes feed the
+  *improvement* slot, which the mod was not modelling. That row is a pair now.
+- **The «×» is per building level.** The panel showed 0.76 against the method's
+  0.2: four levels, an age multiplier, and efficiency multiplying output but not
+  inputs. Nothing there separates provinces, so the mod keeps the per-level
+  figure.
+- **Three sort buttons in a header were one control too many.** Owner: «Я хочу
+  иметь ровно две кнопки расчитать» — one for what you can build now, one aimed
+  at the end of the game, both filling the same three columns. The headers are
+  plain labels again and the second «Считать» is on the mod page.
+- **The rights window's header lined up with nothing.** Same 10px scrollbox
+  margin as the goods window, now fixed, and its columns read left too.
+
+**2026-08-31 — `where_to_produce`, twentieth load. Everything asked for works,
+and the middle age is missing.** Four screenshots, fine cloth and a weaponry
+right.
+
+- **Confirmed:** the far column prints 0.00% on every row; the sort buttons
+  work and the mark follows them; two ticks on the page instead of three; no
+  province at 0.00% in a rights table; «Уникальные права» empty for Wallachia.
+- **Sorting appeared to do nothing with «Считать методы…» on**, and it was not a
+  fault: with that tick the near column already held the best method of any age,
+  which is the same ordering the far column gives. Two states saying one thing.
+  The tick no longer touches the goods pass at all — the third column replaces
+  it — and it is named for the rights window, which is all it still does.
+- **Every column header sat ten pixels left of its column.** The rows are inside
+  a scrollbox whose content carries a 10px margin and the header is not;
+  `margin_left` is 48 now, and the three sort buttons have gaps between them.
+- **A good of a bundle vanished when the ground fed it nothing** — Северная
+  Мунтения showed мебель and керамика but not кожа. Owner: it should stay, at
+  0%, and only a row where *every* good is fed nothing should go. A slot now
+  falls back to the best available method whether it is fed or not; its value to
+  the ranking stays zero.
+- **And the ask this run is really about.** «В конце» is 0.00% for every wool
+  province, so it cannot order them, and what the owner wants ordered is
+  precisely that: where to build so that nothing is rebuilt, taking the best the
+  ground gives *along the way*. There is now a third column, «По пути»: the best
+  recipe this ground ever feeds in any age, and the last age it can be built —
+  `10.00% до 5` for wool fine cloth, because the manufactory that obsoletes the
+  wool workshop unlocks in the fifth. Sorting by «В конце» breaks its ties on
+  it, so the top row is the province that ends best and, among equals, is best
+  on the road there.
+
 **2026-08-31 — `where_to_produce`, seventeenth load. The registration fix holds,
 two things are confirmed after weeks of «never reported», and the filter that
 was meant to be fixed was never written.** Owner: «Список теперь сохраняется
@@ -97,164 +229,25 @@ confirmed the scoring, the tabs, the results window and whole provinces — is i
 [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
 trimmed. Search both with `python3 tools/kb.py`.
 
-### 2026-08-29 — `mods.bat`, an update run on the owner's own machine
-
-Not a game run — the mod menu, on the box that has Steam, reported by the owner
-in full. It is here because only he can run it and because two of the three
-things it found were invisible from a session.
-
-**Loaded:** `mods.bat → 2 → 3` (reference and playset both), against a Steam
-workshop folder that had Advanced Auto Build's 2026-08-28 build and Glorp UI's
-2026-08-28 build in it.
-**Expected:** the copies in `reference/` replaced, the generators rebuilt, and a
-report of what moved.
-**Observed:** the copies were replaced; **two generators failed and stopped the
-run**, and the run then ended by telling him the two mods it had just copied in
-were still behind.
-
-- `auto_build_ru` — `28 key(s) the base mod does not define`. The new Advanced
-  Auto Build deleted 28 keys, the ranking-mode block among them, and no key was
-  added or renamed. A deletion, and it stopped everything.
-- `glorpui_hints` — `Glorp UI writes a hint this mod cannot translate:
-  GLORP_UI_SVH_CENTRALIZATION_PV_PETTY_BUREAUCRACY: @hint! Grant
-  [ShowEstatePrivilegeName('petty_bureaucracy')]`. Glorp UI moved its hint
-  references to the engine's own data function.
-- `svx_unlock_gate.txt` changed in the same run, which is the quiet half: the
-  advance gates are found by a second regex that only knew the old shape, so it
-  matched nothing and wrote the file empty. Nothing errored.
-- `workshop.py record` then stamped both freshly copied mods `behind`, because
-  it dates a copy by `git log` and the copy was not committed yet.
-
-**Verdict:** all four are fixed and the exact run was replayed against files
-rewritten into the new shapes — refresh comes out green, with one note naming
-the nine dropped keys. Still his to confirm: that the real 2026-08-28 files
-behave the way the rewritten ones did, which is one `mods.bat → 2` away.
-
-**He also said the tool never actually updated a mod in Steam for him** — he
-still had to unsubscribe and resubscribe. It compared install dates, and Steam
-stamps a mod updated when it *notices* the update rather than when it downloads
-it. It compares build ids now (`manifest` against `hcontent_file`), and will
-re-fetch a mod on demand whatever the check says. Untested against a real
-`appworkshop_3450310.acf`; see [`STATUS.md`](STATUS.md).
-
-### 2026-08-30 — `glorpui_hints` against Glorp UI's 2026-08-28 build, in game
-
-**Loaded:** the owner's playset, Glorp UI 2026-08-28 with `glorpui_hints` after it.
-**Observed, reported by the owner:** with Glorp UI's new «показать недоступные»
-switch **on**, the two mods conflict and something on Glorp UI's side breaks;
-with it **off**, everything is fine. He also reports their version of the
-feature has gaps and does not show everything worth using, and that with their
-filter off it is «совсем плохо».
-
-**Cause, found in the files and not guessed:** their update added one
-`TooltipScrolledStringPairList` per side that prints vanilla's own C++ hint blob
-(`[SocietalValue.GetLeftHint(Player.Self)]`) when the country variable
-`showUnavailableSocietalValueSuggestions` is set, and added
-`NOT = { has_variable = showUnavailableSocietalValueSuggestions }` to every one
-of their `glorpui_svh_visible_*` script values. So their switch is an either/or:
-their filtered lists off, vanilla's blob on. This mod replaces that whole
-`blockoverride`, and rebuilt their half from the entries its regex recognised —
-which the blob entry is not. Switch on: their lists gone (their own script
-values say so), their blob gone (this mod dropped it). Half the tooltip empty,
-nothing in `error.log`. «Совсем плохо» is vanilla's raw blob, which is what
-their switch shows.
-
-**Fixed:** their block is now spliced in byte for byte and the check compares
-text rather than parsed entries. Replaying the old behaviour against the new
-files reproduces the fault and the check now names it.
-
-**Verdict:** unrun. The fix has never been in game — the next load with their
-switch **on** is the test, and what should appear is vanilla's blob plus this
-mod's own lists, with Glorp UI's per-axis lists hidden by their own design.
-
-
-### 2026-08-30 — the same switch, and `gui.log` named the build that answered
-
-**Reported by the owner**, two screenshots and the whole `logs/` folder. Playing
-Wallachia, both mods on, the *Наступление ↔ Оборона* tooltip. Switch **off**:
-«Дальше продвинуться в сторону обороны» with its one takeable line, and this
-mod's «Также влияет на смещение» under it — "the same as before the update, and
-it suited me". Switch **on**: the «Дальше продвинуться» block disappears
-outright; only this mod's block is left.
-
-**That is the pre-fix bug, exactly, and the run did not test the fix.**
-`gui.log` gives the line of every template that overrides another:
-
-```
-Template 'SocietalValueCountryLeft_tooltip'  at gui/svx_extra_societal_value_hints.gui:6
-Template 'SocietalValueCountryRight_tooltip' at gui/svx_extra_societal_value_hints.gui:964
-```
-
-The file in this tree puts them at **9** and **984**. Lines 6 and 964 are commit
-`012317f`, 2026-08-25 — the build with no blob block at all. The deploy in
-`Documents/.../mod/glorpui_hints/` was never refreshed after 2026-08-29. The same
-log fingerprints `glorpUI_generated_societal_value_hints.gui` at 3 and 261, which
-is the 2026-08-28 build in `reference/` byte for byte, so their half is the half
-we think it is.
-
-**Confirmed anyway,** because the 25 Aug build is a real build:
-
-| | |
-| --- | --- |
-| **the override chain** | `svx_… > glorpUI_… > shared/government_tooltips.gui`, both sides, no error. Load order is right and this mod does win the templates. |
-| **`error.log`, 356 lines** | not one names a `svx_` file, `svx_unlock_`, `country_religion`, `GLORP_UI_SVH_*` or `SVX_*`. The advance gate and the aspect gate log nothing; the one `jomini_trigger` line is another mod's event. |
-| **`ru_loc_fix` round two** | still 0, on a fourth run. `MARKET_SURPLYS_INFO` was 82 in the 07:44 logs of the same day and 0 in this one. |
-
-**Not confirmed:** the splice, the five advance-locked privileges as *shown*
-(Wallachia offers none of them either way), and `Inconsistent trigger scopes` —
-its repair is newer than the gui file, so the deployed build's provenance for
-`svx_extra_hint_loc.txt` is not pinned, and the Confucian Academy gate is on an
-axis Wallachia does not have.
-
-**Written down as a tool, not as a warning.** `python3 tools/which_build.py
-<logs folder>` fingerprints every gui file in a log against this tree and against
-`git log`, and says which commit ran. This is the second run lost this way.
-
-
-### 2026-08-30 — the splice, in game, and it works
-
-**Loaded:** the 2026-08-29 build, installed by hand from the repository because
-`mods.bat` did not do it (see below). Wallachia, *Наступление ↔ Оборона*, Glorp
-UI's «показать недоступные» **on**.
-
-**Observed:** «Дальше продвинуться в сторону обороны» is back and now carries
-vanilla's own unfiltered blob — five lines where the filtered list had one:
-«Добавить государственный принцип "Система гарнизонов"» +0.05, «…"Тактика
-асимметричной войны"» +0.10, «Установить политику "Оборонительная позиция"»
-+0.10, «Содержание крепостей» and «Влияние совета», both (масштабируется).
-This mod's «Также влияет на смещение» sits under it with its four. Glorp UI's
-per-axis list is gone, which is their design.
-
-**Verdict: the splice is confirmed.** Vanilla's blob, this mod's lists, their
-lists hidden — exactly what was predicted, and the last thing this mod was
-waiting on. The owner: «вроде всё работает ок», and «наш мод более показателен и
-ясен визуально».
-
-**Known and deliberately not fixed:** a few rows appear in both blocks —
-«Содержание крепостей» is in vanilla's blob and in this mod's list. The owner
-was asked nothing and said to leave it: the blob is theirs to decide and
-de-duplicating across it would mean parsing it, which is the thing that broke
-this feature the first time.
-
-
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, eighteenth load — two lines, and the mod is done for now.**
+**`where_to_produce`, twenty-fifth load.** Layout only, plus the two lines the
+twenty-third asked for and the twenty-fourth could not show.
 
-1. **No province at 0.00% on every good** at the bottom of a rights table. The
-   filter exists this time.
-2. **Two rights lists**, «Городские права» with nine and «Уникальные права»
-   which for Wallachia should be empty — three exist and all three are somebody
-   else's. Never reported either way.
-
-Everything else in this mod has been confirmed in game. What is left is not a
-run but a decision: whether an ownership half belongs in the buildable tick
-(`can_build_building` cannot ask it from a location scope), and whether level
-rights get a table of their own —
-[`investigations/town_rights.md`](investigations/town_rights.md).
+1. **A row names its building again** — «Гильдия портных: Гильдия ткачей шёлка
+   ×0.90 + Красители с квасцами», with the «×» — under «Считать» and under «На
+   конец» both. Under «На конец» the building must be the endgame one.
+2. **Every column sits under its heading**, «Из чего» included, in the goods
+   window and in the rights window.
+3. **`error.log` has no `PostValidate` line naming the mod** (the `Flag … never
+   used` warnings are CMM's and stay).
+4. **The buildable tick actually filters now** — with it on, provinces with no
+   town drop out. It has never once worked, in two different ways.
+5. **A Scandinavian country sees the two privileges** without having taken their
+   advance; Wallachia still sees none.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

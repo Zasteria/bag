@@ -158,6 +158,28 @@ def methods(game: eu5data.Game) -> list[eu5data.Method]:
     return sorted(rows, key=lambda m: (m.produced, m.building, m.key))
 
 
+def endgame(rows: list[eu5data.Method], game: eu5data.Game) -> set[int]:
+    """Which of `rows` are still buildable once every advance is in, by index.
+
+    The game's own ladder, read off `obsolete`: guild -> workshop -> manufactory
+    -> mill, thirty chains of it, and a building somebody obsoletes is one nobody
+    builds at the end. Ninety-four of the two hundred and eighteen methods
+    survive it, and no method that does not survive can beat one that does --
+    checked at full bonus over every good and both sides -- so "the best of the
+    survivors" is the answer the last age gives.
+
+    **This is a second answer, not a better one.** Along the ladder the inputs
+    move: bronze cannons want copper and tin, the cannon factory that replaces
+    them wants lead and saltpetre; paper starts on cloth and ends on pure lumber;
+    silk fine cloth tops out at 10% and the fine cloth mill at 0.63%. Fourteen of
+    the forty-two goods shift their mix, five change it outright -- and for those
+    the province that suits the guild is not the province that suits the mill,
+    which is the whole reason a row carries both numbers.
+    """
+    return {index for index, method in enumerate(rows, start=1)
+            if method.building not in game.obsoleted}
+
+
 def goods_split(rows: list[eu5data.Method], game: eu5data.Game) -> dict[str, list[str]]:
     """The goods worth asking about, split into the two piles the player thinks in.
 
@@ -440,6 +462,11 @@ def triggers_file(rows, split, game) -> str:
         first = False
         out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
                    f"{MOD_ID}_can_build_{index} = yes }}\n")
+    # **A `trigger_if` chain has to end in a `trigger_else`.** Without one the
+    # game logs `PostValidate of trigger 'trigger_else_if' returned false` at the
+    # last link and the whole trigger is void -- which is the twenty-third run's
+    # one real line in `error.log`. Nothing ticked means nothing to build.
+    out.append("\ttrigger_else = { always = no }\n")
     out.append("}\n")
 
     for index, good in enumerate(order, start=1):
@@ -580,24 +607,25 @@ def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
     out.append("}\n")
 
     out.append(f"""
-# Hide the goods this country cannot make anything of yet. A good whose every
-# recipe is three ages away is a row that can only disappoint, and the owner
-# named tobacco and silk as the shape of it -- both real, both made by
-# plantations, and both worth hiding until the plantation is unlocked.
+# Every good stays on the list, whatever age this country is in.
+#
+# Until the eighteenth run a good whose every recipe was still behind an advance
+# was hidden here, and the owner went looking for cannons and firearms in the
+# second age and found neither. Hiding was the right answer when a row could
+# only say what you can build today; it is the wrong one now that a row also
+# says what the ground gives at the end of the game, which is the same whatever
+# age you are in -- and it was always the wrong one for a good another mod adds
+# a building for.
+#
+# What is still not offered is a good no building makes at all: `goods_split`
+# only ever lists what some method produces, so a pure RGO material is absent
+# because there is nothing to choose, not because it is hidden.
 # Scope: country
 {MOD_ID}_refresh_goods = {{
 """)
     for kind in ("raw", "made"):
-        for row, good in enumerate(split[kind], start=1):
-            available = " ".join(f"{MOD_ID}_avail_{i} = yes" for i in by_good_index.get(good, []))
-            out.append(f"""\tif = {{
-\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_any_method {available} }} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}
-\t}}
-\telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}
-\t}}
-""")
+        for row, _ in enumerate(split[kind], start=1):
+            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}\n")
     out.append("}\n")
     return "".join(out)
 
@@ -640,15 +668,18 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # `{MOD_ID}_store_winner`.
 """.format(max=eu5data.RGO_MAX_BONUS)]
     for index, method in enumerate(rows, start=1):
-        total = method.total_input
         ceiling = method.ceiling(game.raw_goods)
+        # What one raw material is worth here, in bonus points. For a building
+        # that runs two methods at once this is already blended across the two
+        # -- see `eu5data.Method.shares`.
+        shares = {good: share for good, share in method.shares().items()
+                  if good in game.raw_goods}
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
                    f"output {method.output:g}, ceiling {ceiling:.2f}% "
                    f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
         out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n"
                    f"\tvalue = {method.output * RANK_SCALE:.4f}\n")
-        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
-            share = eu5data.RGO_MAX_BONUS * amount / total
+        for good, share in sorted(shares.items()):
             out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {method.output * RANK_SCALE * share / 100:.4f}
@@ -656,8 +687,7 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 """)
         out.append("}\n")
         out.append(f"# Scope: location\n{MOD_ID}_b{index} = {{\n\tvalue = 0\n")
-        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
-            share = eu5data.RGO_MAX_BONUS * amount / total
+        for good, share in sorted(shares.items()):
             out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {share:.4f}
@@ -666,14 +696,85 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
         out.append("}\n")
 
     out.append(f"""
-# What the ranking sorts on: the better of the two answers this location has.
-# A province with nothing but a village to offer still deserves its row.
+# The better of the two sides -- built-up and village -- in each of the three
+# ages a row carries. A province with nothing but a village to offer still
+# deserves its row.
 # Scope: location
-{MOD_ID}_score = {{
-\tvalue = var:{MOD_ID}_best
+{MOD_ID}_near_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_best >= var:{MOD_ID}_best_rural }}
+\t\tvalue = var:{MOD_ID}_best
+\t}}
 \tif = {{
 \t\tlimit = {{ var:{MOD_ID}_best < var:{MOD_ID}_best_rural }}
 \t\tvalue = var:{MOD_ID}_best_rural
+\t}}
+}}
+
+# Scope: location
+{MOD_ID}_mid_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_mid_best >= var:{MOD_ID}_mid_best_rural }}
+\t\tvalue = var:{MOD_ID}_mid_best
+\t}}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_mid_best < var:{MOD_ID}_mid_best_rural }}
+\t\tvalue = var:{MOD_ID}_mid_best_rural
+\t}}
+}}
+
+# Scope: location
+{MOD_ID}_end_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_end_best >= var:{MOD_ID}_end_best_rural }}
+\t\tvalue = var:{MOD_ID}_end_best
+\t}}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_end_best < var:{MOD_ID}_end_best_rural }}
+\t\tvalue = var:{MOD_ID}_end_best_rural
+\t}}
+}}
+
+# **A column shrunk until it can only break a tie in the column above it.**
+# Ranking by the last age puts every province that reaches the same endgame
+# percentage on one number -- and where fine cloth ends in silk, that number is
+# 0.00% for the whole table. What separates them then is the road there: ten
+# percent until the fifth age beats nothing at all, and that is the choice the
+# twentieth run asked to be able to make.
+#
+# A ten-thousandth of a score is at most 0.495 and the smallest step any raw
+# material makes in the endgame set is 1.9, so this orders ties and can never
+# reorder anything that is not tied.
+# Scope: location
+{MOD_ID}_mid_tiebreak = {{
+\tvalue = {MOD_ID}_mid_score
+\tmultiply = 0.0001
+}}
+
+# What the ranking sorts on. Two orders, one per «Считать» button: what you
+# could build today, or what the ground gives at the end -- and where the end
+# cannot tell two provinces apart, which it cannot whenever a ladder runs out
+# (0.00% in every wool province for fine cloth), the road there decides.
+#
+# One operation per branch, because a script value that quietly does nothing
+# logs nothing.
+# Scope: location
+{MOD_ID}_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rank_by_end }} }}
+\t\tvalue = {MOD_ID}_near_score
+\t}}
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tvalue = {MOD_ID}_end_score
+\t}}
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tadd = {MOD_ID}_mid_tiebreak
 \t}}
 }}
 
@@ -691,9 +792,25 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 
 # What the rights pass ranks on: every good of the bundle, each at its best
 # method here, added through its price. Already scaled -- `_best` is.
+#
+# «На конец» adds the road there, shrunk until it can only break a tie -- and
+# the tie it breaks is the whole table at once, because where no surviving
+# recipe can be fed every province is worth exactly zero. A hundred-thousandth
+# of a bundle's total is at most 0.065 and the smallest step a bundle's own
+# total takes is about 0.6.
+# Scope: location
+{MOD_ID}_r_mid_tiebreak = {{
+\tvalue = var:{MOD_ID}_r_mid_total
+\tmultiply = 0.00001
+}}
+
 # Scope: location
 {MOD_ID}_r_score = {{
 \tvalue = var:{MOD_ID}_r_total
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tadd = {MOD_ID}_r_mid_tiebreak
+\t}}
 }}
 
 {MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
@@ -710,16 +827,32 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                game: eu5data.Game) -> str:
     """Finding the method, which is the thing the player should not have to do.
 
-    Two answers per location, not one: **the best village and the best of
-    everything else.** A village is a real option -- rural ground gets built on
-    too -- but it produces a fifth of what a guild does, so ranking them together
-    put forest villages at the top of a weapons search. They are scored apart and
-    the row shows both, which is what the eighth run asked for.
+    **Two axes, and a row carries both.** Across one: the best village and the
+    best of everything else, scored apart because a village produces a fifth of
+    what a guild does and buried the guilds when they shared a list. Across the
+    other, three ages of the same question:
 
-    One effect per good, walking the candidates once and keeping, per location,
-    the best of that good's methods on each side. The dispatch over goods happens
-    once rather than once per location, which is why it is out here rather than
-    inside the loop.
+    | prefix | column | the best method that is |
+    | --- | --- | --- |
+    | none | «Сейчас» | unlocked for this country today |
+    | `mid_` | «По пути» | unlocked in *any* age -- and until which age it lasts |
+    | `end_` | «В конце» | still buildable once every advance is in |
+
+    The third column is what makes this a planning tool rather than a table.
+    Fine cloth from wool has no rung above the workshop, so «В конце» is 0.00%
+    in every wool province and choosing between them needs the other number:
+    ten percent, until the fifth age. **Rank by the end, break the ties by the
+    road there** -- which is what the twentieth run asked for in as many words.
+
+    **A method the ground cannot feed is not an answer**, so every one of the
+    three keeps only methods whose raw materials this province supplies -- asked
+    as `_try > <the method's unbonused output>`, a literal. Each also keeps an
+    `_any_` twin without that floor, which nothing ranks on: a column has to
+    print something, and "the mill you cannot feed, at 0.00%" is an answer where
+    a blank cell is not.
+
+    All of it in one walk: a method's `_m<n>` is computed once and offered to
+    every answer it qualifies for.
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     by_good: dict[str, list[int]] = {}
@@ -727,6 +860,34 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         by_good.setdefault(method.produced, []).append(index)
     rural = {index for index, method in enumerate(rows, start=1)
              if method.building_category in RURAL_CATEGORIES}
+    last = endgame(rows, game)
+
+    # Every answer a candidate carries, and what it is allowed to keep.
+    ANSWERS = ("", "any_", "mid_", "end_", "end_any_")
+
+    def keep(indent: str, prefix: str, suffix: str, method_index: int,
+             floor: float | None) -> str:
+        """Is this the best of its side so far, and can this ground feed it?
+
+        `floor` is what `_m<n>` comes to where the province supplies none of the
+        method's raw materials -- the output alone, unbonused. Anything above it
+        means at least one input is worked here.
+
+        Without it the eighteenth run's fine cloth answered with silk weavers at
+        0.00% in provinces full of wool: 0.70 a level unfed beats 0.50 a level at
+        the full ten percent, so the ranking preferred a recipe the ground cannot
+        supply and buried every province that could have run the other one. The
+        smallest step any raw material adds is 0.56 across all methods and 1.9 in
+        the endgame set, both far above the fixed point, so this never turns on
+        rounding.
+        """
+        fed = f"var:{MOD_ID}_try > {floor:.4f} " if floor is not None else ""
+        return (f"""{indent}if = {{
+{indent}\tlimit = {{ {fed}var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
+{indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = var:{MOD_ID}_try }}
+{indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = {method_index} }}
+{indent}}}
+""")
 
     out = [HEADER, f"""#
 # **The country is saved, not reached for.** Every method's availability is a
@@ -753,68 +914,102 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"{len(village)} of them in a village.\n"
                    f"# Scope: country\n{MOD_ID}_score_{index} = {{\n")
         out.append(f"\tevery_in_global_list = {{\n\t\tvariable = {MOD_ID}_candidates\n")
-        for suffix in ("", "_rural"):
-            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best{suffix} value = 0 }}\n")
-            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_best_method{suffix} value = 0 }}\n")
+        for prefix in ANSWERS:
+            for suffix in ("", "_rural"):
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = 0 }}\n")
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = 0 }}\n")
+
         for method_index in methods_for:
             suffix = "_rural" if method_index in rural else ""
+            floor = rows[method_index - 1].output * RANK_SCALE
+            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}\n")
+            # «По пути»: every age, so no gate at all.
+            out.append(keep("\t\t", "mid_", suffix, method_index, floor))
+            if method_index in last:
+                out.append(keep("\t\t", "end_", suffix, method_index, floor))
+                out.append(keep("\t\t", "end_any_", suffix, method_index, None))
             out.append(f"""\t\tif = {{
-\t\t\tlimit = {{
-\t\t\t\tOR = {{
-\t\t\t\t\thas_global_variable = {MOD_ID}_any_method
-\t\t\t\t\tscope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }}
-\t\t\t\t}}
-\t\t\t}}
-\t\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_try > var:{MOD_ID}_best{suffix} }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_best{suffix} value = var:{MOD_ID}_try }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_best_method{suffix} value = {method_index} }}
-\t\t\t}}
-\t\t}}
+\t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
+            out.append(keep("\t\t\t", "", suffix, method_index, floor))
+            out.append(keep("\t\t\t", "any_", suffix, method_index, None))
+            out.append("\t\t}\n")
         out.append("\t}\n}\n")
 
-    for suffix, which in (("", "the best of everything but a village"),
-                          ("_rural", "the best village")):
-        out.append(f"""
-# What won here on the {"village" if suffix else "built-up"} side -- {which}.
-# Written onto the location, which is what the results window reads its row off.
-#
-# `{MOD_ID}_goods{suffix}` holds the raw materials this province supplies to that
-# method: the numerator of the bonus, item by item.
-# Scope: location
-{MOD_ID}_store_winner{suffix} = {{
-\tclear_variable_list = {MOD_ID}_goods{suffix}
-\tremove_variable = {MOD_ID}_bt{suffix}
-\tremove_variable = {MOD_ID}_pm{suffix}
-\t# Zeroed, not merely left: nothing sets these when no method won on this side,
-\t# and the window only guards on `_bt`. A number left over from the last run is
-\t# invisible there and wrong to anything that reads it -- which the filter on
-\t# provinces with no bonus at all now does.
-\tset_variable = {{ name = {MOD_ID}_bonus{suffix} value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_out{suffix} value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_goods_all{suffix} value = 0 }}
-""")
-        for index, method in enumerate(rows, start=1):
-            if (index in rural) != bool(suffix):
-                continue
-            raw = sorted(method.raw_inputs(game.raw_goods))
-            out.append(f"\tif = {{\n"
-                       f"\t\tlimit = {{ var:{MOD_ID}_best_method{suffix} = {index} }}\n"
-                       f"\t\tset_variable = {{ name = {MOD_ID}_bt{suffix} value = building_type:{method.building} }}\n"
-                       f"\t\tset_variable = {{ name = {MOD_ID}_pm{suffix} value = production_method:{method.key} }}\n"
-                       f"\t\tset_variable = {{ name = {MOD_ID}_bonus{suffix} value = {MOD_ID}_b{index} }}\n"
-                       f"\t\tset_variable = {{ name = {MOD_ID}_out{suffix} value = {method.output:.4f} }}\n"
-                       f"\t\tset_variable = {{ name = {MOD_ID}_goods_all{suffix} value = {len(raw)} }}\n")
+    def park(prefix: str, index: int, method: eu5data.Method, suffix: str) -> str:
+        """One winner, written onto the location the window reads its row off.
+
+        Each column keys on its own `_show`, which is the fed answer where the
+        ground feeds one and the unfed one otherwise. `«По пути»` carries an age
+        instead of a goods list: it is a number and a deadline, and the icons
+        beside it would be the same icons twice.
+        """
+        raw = sorted(method.raw_inputs(game.raw_goods))
+        # `_pm2` is the improvement half, and only eight buildings have one. The
+        # key of a pair is "base+improvement" and names no production method the
+        # game knows, so each half is written on its own.
+        improvement = (f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}pm2{suffix} "
+                       f"value = production_method:{method.parts[1].key} }}\n"
+                       if len(method.parts) > 1 else "")
+        body = [f"\tif = {{\n"
+                f"\t\tlimit = {{ var:{MOD_ID}_{prefix}show{suffix} = {index} }}\n"
+                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bt{suffix} value = building_type:{method.building} }}\n"
+                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}pm{suffix} value = production_method:{method.parts[0].key} }}\n"
+                + improvement
+                + f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bonus{suffix} value = {MOD_ID}_b{index} }}\n"
+                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}out{suffix} value = {method.output:.4f} }}\n"]
+        if prefix == "mid_":
+            body.append(f"\t\tset_variable = {{ name = {MOD_ID}_mid_age{suffix} value = {game.last_age(method)} }}\n")
+        else:
+            body.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}goods_all{suffix} value = {len(raw)} }}\n")
             for good in raw:
-                out.append(f"""\t\tif = {{
+                body.append(f"""\t\tif = {{
 \t\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
-\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_goods{suffix} target = goods:{good} }}
+\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_{prefix}goods{suffix} target = goods:{good} }}
 \t\t}}
 """)
-            out.append("\t}\n")
-        out.append("}\n")
+        body.append("\t}\n")
+        return "".join(body)
+
+    # column prefix -> (what it is, the fed answer, the unfed fallback, which
+    # methods can appear in it)
+    COLUMNS = (
+        ("", "what you could build today", "best_method", "any_best_method", None),
+        ("mid_", "the best this ground ever feeds, and until when", "mid_best_method", None, None),
+        ("end_", "what stands once every advance is in", "end_best_method", "end_any_best_method", last),
+    )
+    for prefix, what, fed, unfed, only in COLUMNS:
+        for suffix in ("", "_rural"):
+            age = (f"\tset_variable = {{ name = {MOD_ID}_mid_age{suffix} value = 0 }}\n"
+                   if prefix == "mid_" else "")
+            fallback = (f"""\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_{prefix}show{suffix} = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_{prefix}show{suffix} value = var:{MOD_ID}_{unfed}{suffix} }}
+\t}}
+""" if unfed else "")
+            out.append(f"""
+# {what.capitalize()}, on the {"village" if suffix else "built-up"} side.
+# Scope: location
+{MOD_ID}_store_winner_{prefix or "now_"}{suffix.lstrip("_") or "town"} = {{
+\tset_variable = {{ name = {MOD_ID}_{prefix}show{suffix} value = var:{MOD_ID}_{fed}{suffix} }}
+{fallback}\tclear_variable_list = {MOD_ID}_{prefix}goods{suffix}
+\tremove_variable = {MOD_ID}_{prefix}bt{suffix}
+\tremove_variable = {MOD_ID}_{prefix}pm{suffix}
+\tremove_variable = {MOD_ID}_{prefix}pm2{suffix}
+\t# Zeroed rather than left: nothing sets these where no method won at all, the
+\t# window guards only on `_bt`, and a number left over from the last run is
+\t# invisible there and wrong to everything that reads it.
+\tset_variable = {{ name = {MOD_ID}_{prefix}bonus{suffix} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_{prefix}out{suffix} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_{prefix}goods_all{suffix} value = 0 }}
+{age}""")
+            for index, method in enumerate(rows, start=1):
+                if (index in rural) != bool(suffix):
+                    continue
+                if only is not None and index not in only:
+                    continue
+                out.append(park(prefix, index, method, suffix))
+            out.append("}\n")
     return "".join(out)
 
 
@@ -883,12 +1078,20 @@ def rows_file() -> str:
 \tif = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_found < {RESULT_ROWS}
-\t\t\t# Nothing won here on either side -- every method for this good is behind
-\t\t\t# an advance this country has not taken. A row for it would have no
-\t\t\t# building and no method to print.
+\t\t\t# Nothing won here on either side and in neither age -- which now means
+\t\t\t# the good is made in no building this location could ever hold. A row
+\t\t\t# for it would have no building and no method to print.
+\t\t\t#
+\t\t\t# The endgame halves are in the OR on purpose: in the first age most
+\t\t\t# goods have nothing available yet, and dropping those rows would empty
+\t\t\t# the second column exactly where it is worth most.
 \t\t\tOR = {{
 \t\t\t\tvar:{MOD_ID}_best_method > 0
 \t\t\t\tvar:{MOD_ID}_best_method_rural > 0
+\t\t\t\tvar:{MOD_ID}_mid_best_method > 0
+\t\t\t\tvar:{MOD_ID}_mid_best_method_rural > 0
+\t\t\t\tvar:{MOD_ID}_end_best_method > 0
+\t\t\t\tvar:{MOD_ID}_end_best_method_rural > 0
 \t\t\t}}
 \t\t\tNOT = {{ has_variable = {MOD_ID}_row_taken }}
 \t\t}}
@@ -901,8 +1104,25 @@ def rows_file() -> str:
 \t\t# The winners are parked first and the row decided afterwards, because
 \t\t# «is this province worth a row» is a question about the bonus, and the
 \t\t# bonus is not known until the method that won is.
-\t\t{MOD_ID}_store_winner = yes
-\t\t{MOD_ID}_store_winner_rural = yes
+\t\t# Which of the three the row *names* follows the button. Ranked for the
+\t\t# last age and still reading «Гильдия портных» off the near column is what
+\t\t# the twenty-third run saw: the order was right and the building was the one
+\t\t# you can build today. A variable on the row rather than a global read from
+\t\t# the window, because a location variable is the one thing the GUI is proven
+\t\t# to read.
+\t\tif = {{
+\t\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\t\tset_variable = {{ name = {MOD_ID}_row_end value = 1 }}
+\t\t}}
+\t\telse = {{
+\t\t\tremove_variable = {MOD_ID}_row_end
+\t\t}}
+\t\t{MOD_ID}_store_winner_now_town = yes
+\t\t{MOD_ID}_store_winner_now_rural = yes
+\t\t{MOD_ID}_store_winner_mid_town = yes
+\t\t{MOD_ID}_store_winner_mid_rural = yes
+\t\t{MOD_ID}_store_winner_end_town = yes
+\t\t{MOD_ID}_store_winner_end_rural = yes
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_row_is_worth_it = yes }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
@@ -1083,14 +1303,13 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     for kind, group in kinds.items():
         for row, right in enumerate(group, start=1):
-            gates = []
-            if right.potential:
-                gates.append(right.potential)
-            if right.advance and not right.general:
-                gates.append(f"has_advance = advance:{right.advance}")
-            shown = ("always = yes" if not gates
-                     else "OR = { has_global_variable = %s_any_method AND = { %s } }"
-                          % (MOD_ID, " ".join(gates)))
+            # `potential` only, and never the unlocking advance. Whether a
+            # right *could ever* be yours is a fact about the country -- a tag,
+            # a religion -- and hiding one because you have not taken its
+            # advance yet is hiding the plan from the planner, the same mistake
+            # the goods list made until the eighteenth run.
+            shown = ("always = yes" if not right.potential
+                     else "AND = { %s }" % right.potential)
             out.append(f"""\tif = {{
 \t\tlimit = {{ {shown} }}
 \t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
@@ -1124,6 +1343,7 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tset_variable = {{ name = {MOD_ID}_r_total value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_r_mid_total value = 0 }}
 """)
         for k in slots:
             out.append(f"\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = 0 }}\n")
@@ -1137,13 +1357,59 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_score_{index_of[good]} = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method }}
-\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best }}
+\t\t# **A right obeys the same two buttons as a good.** «Считать» reads the
+\t\t# answer available today, «На конец» the one that survives every advance.
+\t\t# The twenty-second run pressed the second and got the first, because this
+\t\t# read `_best_method` and nothing else.
+\t\t#
+\t\t# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+\t\t# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+\t\t# nothing to the ranking and a row of nothing but those still goes.
 \t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_best_rural > var:{MOD_ID}_best }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method_rural }}
-\t\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best_rural }}
+\t\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rank_by_end }} }}
+			set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method }}
+			set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best }}
+			if = {{
+				limit = {{ var:{MOD_ID}_best_rural > var:{MOD_ID}_best }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method_rural }}
+				set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best_rural }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_any_best_method_rural }}
+			}}
 \t\t}}
+\t\telse = {{
+			set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_best_method }}
+			set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_end_best }}
+			if = {{
+				limit = {{ var:{MOD_ID}_end_best_rural > var:{MOD_ID}_end_best }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_best_method_rural }}
+				set_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_end_best_rural }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_any_best_method }}
+			}}
+			if = {{
+				limit = {{ var:{MOD_ID}_r_method_{k} = 0 }}
+				set_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_end_any_best_method_rural }}
+			}}
+\t\t}}
+\t\t# And the road there, summed the same way. It only ever breaks a tie, and
+\t\t# the ties it breaks are the ones «На конец» leaves: where nothing that
+\t\t# survives can be fed, every province in the table is worth exactly zero.
+\t\tset_variable = {{ name = {MOD_ID}_r_mid_{k} value = var:{MOD_ID}_mid_best }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_mid_best_rural > var:{MOD_ID}_mid_best }}
+\t\t\tset_variable = {{ name = {MOD_ID}_r_mid_{k} value = var:{MOD_ID}_mid_best_rural }}
+\t\t}}
+\t\tchange_variable = {{ name = {MOD_ID}_r_mid_{k} multiply = {weight:.4f} }}
+\t\tchange_variable = {{ name = {MOD_ID}_r_mid_total add = var:{MOD_ID}_r_mid_{k} }}
 \t\tchange_variable = {{ name = {MOD_ID}_r_val_{k} multiply = {weight:.4f} }}
 \t\tchange_variable = {{ name = {MOD_ID}_r_total add = var:{MOD_ID}_r_val_{k} }}
 \t}}
@@ -1169,7 +1435,7 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\tif = {{\n"
                    f"\t\tlimit = {{ var:{MOD_ID}_w_method = {i} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_bt value = building_type:{method.building} }}\n"
-                   f"\t\tset_variable = {{ name = {MOD_ID}_w_pm value = production_method:{method.key} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_pm value = production_method:{method.parts[0].key} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_bonus value = {MOD_ID}_b{i} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_out value = {method.output:.4f} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_goods_all value = {len(raw)} }}\n")

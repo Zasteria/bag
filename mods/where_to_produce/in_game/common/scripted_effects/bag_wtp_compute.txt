@@ -79,8 +79,19 @@ bag_wtp_collect_candidates = {
 bag_wtp_on_button = {
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__run }
+		remove_global_variable = bag_wtp_rank_by_end
 		bag_wtp_compute = yes
 		# Straight into the answer: the window is the only place it is shown.
+		bag_wtp_open_result_window_effect = yes
+	}
+
+	# The same pass, ordered by the last age instead -- and by what the ground
+	# gives on the way there wherever the last age cannot tell two provinces
+	# apart. The flag stays set, so a pick on the map re-ranks the same way.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__run_end }
+		set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
+		bag_wtp_compute = yes
 		bag_wtp_open_result_window_effect = yes
 	}
 
@@ -92,12 +103,7 @@ bag_wtp_on_button = {
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
 	if = {
-		limit = {
-			OR = {
-				var:cmf_callback = flag:bag_wtp__buildable_only
-				var:cmf_callback = flag:bag_wtp__any_method
-			}
-		}
+		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
 		bag_wtp_sync = yes
 		bag_wtp_refresh_goods = yes
 		bag_wtp_refresh_rights = yes

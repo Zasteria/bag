@@ -1,4 +1,4 @@
-# Pitfalls — the interface
+﻿# Pitfalls — the interface
 
 Split out of [`../PITFALLS.md`](../PITFALLS.md) when it outgrew its budget. Same
 rule as the rest of that file: every entry here cost a round trip through the
@@ -88,3 +88,16 @@ defect from the same shape, which is where this mod copied it from.
 **Vanilla pairs `parentanchor = center` with `widgetanchor = center`**, and every
 centred window in the game does. With only the first, a window's top-left corner
 is what lands in the middle of the screen.
+
+**An expanding column does not line up between a header and a row.** It is as
+wide as whatever is left, and a row inside a scrollbox has less left than a
+header outside one — by the content margin and the scrollbar. Every column after
+the expanding one then sits somewhere else in the two. Give the column a fixed
+width and put the slack in a spacer at the far right.
+
+**And then `layoutpolicy_horizontal = expanding` inside a sized hbox leaves the
+child at zero width** — a text so sized elides to nothing at all, which reads
+exactly like a variable that failed to print. `where_to_produce` lost the
+building's name and its «×» that way and kept the `autoresize = yes` widget
+beside it, which is what made it look like a scripting fault. Inside a parent
+with a size of its own, size the children too.

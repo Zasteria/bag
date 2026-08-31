@@ -1091,3 +1091,206 @@ other way.
 - **`tools/check_script.py` is the answer to both**, and runs from
   `refresh.py`: a doubled byte order mark and an effect's `if` inside
   `common/scripted_triggers/` are each one regex, and each cost a run.
+
+### 2026-08-29 — `mods.bat`, an update run on the owner's own machine
+
+Not a game run — the mod menu, on the box that has Steam, reported by the owner
+in full. It is here because only he can run it and because two of the three
+things it found were invisible from a session.
+
+**Loaded:** `mods.bat → 2 → 3` (reference and playset both), against a Steam
+workshop folder that had Advanced Auto Build's 2026-08-28 build and Glorp UI's
+2026-08-28 build in it.
+**Expected:** the copies in `reference/` replaced, the generators rebuilt, and a
+report of what moved.
+**Observed:** the copies were replaced; **two generators failed and stopped the
+run**, and the run then ended by telling him the two mods it had just copied in
+were still behind.
+
+- `auto_build_ru` — `28 key(s) the base mod does not define`. The new Advanced
+  Auto Build deleted 28 keys, the ranking-mode block among them, and no key was
+  added or renamed. A deletion, and it stopped everything.
+- `glorpui_hints` — `Glorp UI writes a hint this mod cannot translate:
+  GLORP_UI_SVH_CENTRALIZATION_PV_PETTY_BUREAUCRACY: @hint! Grant
+  [ShowEstatePrivilegeName('petty_bureaucracy')]`. Glorp UI moved its hint
+  references to the engine's own data function.
+- `svx_unlock_gate.txt` changed in the same run, which is the quiet half: the
+  advance gates are found by a second regex that only knew the old shape, so it
+  matched nothing and wrote the file empty. Nothing errored.
+- `workshop.py record` then stamped both freshly copied mods `behind`, because
+  it dates a copy by `git log` and the copy was not committed yet.
+
+**Verdict:** all four are fixed and the exact run was replayed against files
+rewritten into the new shapes — refresh comes out green, with one note naming
+the nine dropped keys. Still his to confirm: that the real 2026-08-28 files
+behave the way the rewritten ones did, which is one `mods.bat → 2` away.
+
+**He also said the tool never actually updated a mod in Steam for him** — he
+still had to unsubscribe and resubscribe. It compared install dates, and Steam
+stamps a mod updated when it *notices* the update rather than when it downloads
+it. It compares build ids now (`manifest` against `hcontent_file`), and will
+re-fetch a mod on demand whatever the check says. Untested against a real
+`appworkshop_3450310.acf`; see [`STATUS.md`](STATUS.md).
+
+### 2026-08-30 — `glorpui_hints` against Glorp UI's 2026-08-28 build, in game
+
+**Loaded:** the owner's playset, Glorp UI 2026-08-28 with `glorpui_hints` after it.
+**Observed, reported by the owner:** with Glorp UI's new «показать недоступные»
+switch **on**, the two mods conflict and something on Glorp UI's side breaks;
+with it **off**, everything is fine. He also reports their version of the
+feature has gaps and does not show everything worth using, and that with their
+filter off it is «совсем плохо».
+
+**Cause, found in the files and not guessed:** their update added one
+`TooltipScrolledStringPairList` per side that prints vanilla's own C++ hint blob
+(`[SocietalValue.GetLeftHint(Player.Self)]`) when the country variable
+`showUnavailableSocietalValueSuggestions` is set, and added
+`NOT = { has_variable = showUnavailableSocietalValueSuggestions }` to every one
+of their `glorpui_svh_visible_*` script values. So their switch is an either/or:
+their filtered lists off, vanilla's blob on. This mod replaces that whole
+`blockoverride`, and rebuilt their half from the entries its regex recognised —
+which the blob entry is not. Switch on: their lists gone (their own script
+values say so), their blob gone (this mod dropped it). Half the tooltip empty,
+nothing in `error.log`. «Совсем плохо» is vanilla's raw blob, which is what
+their switch shows.
+
+**Fixed:** their block is now spliced in byte for byte and the check compares
+text rather than parsed entries. Replaying the old behaviour against the new
+files reproduces the fault and the check now names it.
+
+**Verdict:** unrun. The fix has never been in game — the next load with their
+switch **on** is the test, and what should appear is vanilla's blob plus this
+mod's own lists, with Glorp UI's per-axis lists hidden by their own design.
+
+
+### 2026-08-30 — the same switch, and `gui.log` named the build that answered
+
+**Reported by the owner**, two screenshots and the whole `logs/` folder. Playing
+Wallachia, both mods on, the *Наступление ↔ Оборона* tooltip. Switch **off**:
+«Дальше продвинуться в сторону обороны» with its one takeable line, and this
+mod's «Также влияет на смещение» under it — "the same as before the update, and
+it suited me". Switch **on**: the «Дальше продвинуться» block disappears
+outright; only this mod's block is left.
+
+**That is the pre-fix bug, exactly, and the run did not test the fix.**
+`gui.log` gives the line of every template that overrides another:
+
+```
+Template 'SocietalValueCountryLeft_tooltip'  at gui/svx_extra_societal_value_hints.gui:6
+Template 'SocietalValueCountryRight_tooltip' at gui/svx_extra_societal_value_hints.gui:964
+```
+
+The file in this tree puts them at **9** and **984**. Lines 6 and 964 are commit
+`012317f`, 2026-08-25 — the build with no blob block at all. The deploy in
+`Documents/.../mod/glorpui_hints/` was never refreshed after 2026-08-29. The same
+log fingerprints `glorpUI_generated_societal_value_hints.gui` at 3 and 261, which
+is the 2026-08-28 build in `reference/` byte for byte, so their half is the half
+we think it is.
+
+**Confirmed anyway,** because the 25 Aug build is a real build:
+
+| | |
+| --- | --- |
+| **the override chain** | `svx_… > glorpUI_… > shared/government_tooltips.gui`, both sides, no error. Load order is right and this mod does win the templates. |
+| **`error.log`, 356 lines** | not one names a `svx_` file, `svx_unlock_`, `country_religion`, `GLORP_UI_SVH_*` or `SVX_*`. The advance gate and the aspect gate log nothing; the one `jomini_trigger` line is another mod's event. |
+| **`ru_loc_fix` round two** | still 0, on a fourth run. `MARKET_SURPLYS_INFO` was 82 in the 07:44 logs of the same day and 0 in this one. |
+
+**Not confirmed:** the splice, the five advance-locked privileges as *shown*
+(Wallachia offers none of them either way), and `Inconsistent trigger scopes` —
+its repair is newer than the gui file, so the deployed build's provenance for
+`svx_extra_hint_loc.txt` is not pinned, and the Confucian Academy gate is on an
+axis Wallachia does not have.
+
+**Written down as a tool, not as a warning.** `python3 tools/which_build.py
+<logs folder>` fingerprints every gui file in a log against this tree and against
+`git log`, and says which commit ran. This is the second run lost this way.
+
+
+### 2026-08-30 — the splice, in game, and it works
+
+**Loaded:** the 2026-08-29 build, installed by hand from the repository because
+`mods.bat` did not do it (see below). Wallachia, *Наступление ↔ Оборона*, Glorp
+UI's «показать недоступные» **on**.
+
+**Observed:** «Дальше продвинуться в сторону обороны» is back and now carries
+vanilla's own unfiltered blob — five lines where the filtered list had one:
+«Добавить государственный принцип "Система гарнизонов"» +0.05, «…"Тактика
+асимметричной войны"» +0.10, «Установить политику "Оборонительная позиция"»
++0.10, «Содержание крепостей» and «Влияние совета», both (масштабируется).
+This mod's «Также влияет на смещение» sits under it with its four. Glorp UI's
+per-axis list is gone, which is their design.
+
+**Verdict: the splice is confirmed.** Vanilla's blob, this mod's lists, their
+lists hidden — exactly what was predicted, and the last thing this mod was
+waiting on. The owner: «вроде всё работает ок», and «наш мод более показателен и
+ясен визуально».
+
+**Known and deliberately not fixed:** a few rows appear in both blocks —
+«Содержание крепостей» is in vanilla's blob and in this mod's list. The owner
+was asked nothing and said to leave it: the blob is theirs to decide and
+de-duplicating across it would mean parsing it, which is the thing that broke
+this feature the first time.
+
+**2026-08-31 — `where_to_produce`, nineteenth load. The fed-first rule is right
+and the second column was hiding behind it.** Two screenshots, fine cloth in
+the Carpathians again.
+
+- **Wool is back, exactly as asked.** «Гильдия портных: Мериносовая шерсть
+  ×0.50» at 10.00% down the table, where the eighteenth run had one silk row at
+  0.00%. Owner: «Теперь он показывает мне варианты с шерсть… Пустых и
+  бесполезных провинций не показывается. Оружие и другие товары появились в
+  списках.» Urban rights use wool too.
+- **And the «В конце» column went blank on almost every row** — one province in
+  the whole table had a figure. Not a display fault: **fine cloth from wool has
+  no rung above the workshop.** The manufactory and the mill take only silk or
+  cloth, so once the wool workshop is obsolete a wool province has no fine cloth
+  recipe it can feed, and the fed-first rule correctly found nothing. A blank
+  cell said that no better than it said "nothing changes here", which is what it
+  had meant the day before. The far column now always prints: the fed survivor
+  where there is one, the best survivor at 0.00% where there is not.
+- **Weapons showed no far column at all**, same cause, same fix.
+- **Two ticks nobody could tell apart.** «Ранжировать по последней эпохе» and
+  «Считать методы, до которых не дошла эпоха» sat together and read alike, and
+  with both on the table still offered workshops — which was right (the ladder
+  ends there for wool) and looked wrong. Owner: «кнопку сортировки… нужно
+  перенести в само окно результатов и делать это прямо там». Done: the two
+  number columns are the buttons, and the ranking follows whichever was clicked.
+  The unreached-methods tick stays on the mod page.
+- **Right-aligned numbers against left-aligned names** read «1Восточная
+  Мунтения». Every column is left-aligned now.
+
+**2026-08-31 — `where_to_produce`, eighteenth load. The second column works,
+and it brought back three things the first column had been hiding.** Five
+screenshots, Wallachia, 1369, 127 locations in 26 provinces.
+
+- **Both columns render and both ticks work.** «Прибавка» and «В конце» side by
+  side, «Ранжировать по последней эпохе» visibly reorders and the re-rank
+  counter moves with it. Paper: `2.49% -> 10.00%` on lumber-only provinces,
+  `10.00% -> 10.00%` on Северная Олтения, which supplies both fiber and lumber.
+  The ladder arithmetic is right on screen.
+- **Ranking by the last age had no tiebreak**, so the 10.00 -> 10.00 province
+  sat below a 2.49 -> 10.00 one. Owner: «конечный в приоритете, а начальный
+  бонус — вторичным в счёте». Fixed with a thousandth of the near score added
+  to the far one: the smallest step a raw material makes in the endgame set is
+  1.9, so it can only order ties.
+- **Cannons and firearms were not in the goods list at all** — hidden because
+  no building for them is unlocked in the second age. That hiding is gone: every
+  good some building makes is offered now, whatever the age, which also means a
+  good another mod adds a building for.
+- **Fine cloth answered with silk weavers at 0.00% in a wool country**, one row
+  in the whole Carpathians. Not a bug in the arithmetic — 0.70 a level unfed
+  beats 0.50 at the full ten percent — but the wrong answer: the game would run
+  the recipe the market can feed, and the market is fed by the ground. **A
+  method whose raw materials the province supplies none of is no longer an
+  answer**; the wool provinces come back with wool weavers at 10%.
+- **`fine_cloth_guild` runs two methods at once, not one.** The owner said cloth
+  and jewelry have «улучшения» and cannons and firearms have ammunition; the
+  files agree — eight buildings carry two `unique_production_methods` blocks,
+  and a building runs one method from each. The mod treats them as alternatives
+  and so understates both the output and the inputs of exactly those eight.
+  Unbuilt, and the one thing here that needs a measurement before it can be:
+  [`investigations/production_ladder.md`](investigations/production_ladder.md).
+- **The rights window still answers for today only**, and its bundle showed
+  weaponry alone until «Считать методы, до которых не дошла эпоха» was ticked —
+  firearms and cannons have no unlocked building in the second age. It has no
+  second column yet; that tick is what stands in for one.

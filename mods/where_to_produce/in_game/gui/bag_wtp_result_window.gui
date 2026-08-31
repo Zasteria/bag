@@ -229,104 +229,372 @@ types BagWtpResultTypes {
 		layoutpolicy_horizontal = expanding
 		size = { -1 28 }
 		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
 
 		text_single = {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
-		widget = { size = { 10 28 } }
+		# The second age of the same line, and it is drawn only where it has
+		# something to say: `bag_wtp_end_bt` is written only when the method that
+		# survives every advance is not the method winning today. An empty cell
+		# here is the row saying "this province does not change".
+		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
+			size = { 80 28 }
 			autoresize = no
+			maximumsize = { 80 28 }
 			align = left|vcenter
-			elide = right
-			text = "bag_wtp_result_method_value"
-			tooltip = "bag_wtp_result_method_tt"
+			fontsize = 13
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet]"
+			text = "bag_wtp_result_bonus_value_end"
+			tooltip = "bag_wtp_result_end_tt"
 		}
 
+		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
+		# and the last age it can still be built in. It is the column that
+		# decides between provinces whose endgame answer is the same 0.00% --
+		# ten percent until the fifth age is a plan; nothing at all is not.
+		widget = { size = { 6 28 } }
+
+		text_single = {
+			size = { 88 28 }
+			autoresize = no
+			maximumsize = { 88 28 }
+			align = left|vcenter
+			fontsize = 12
+			fontsize_min = 9
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_mid_bt').IsSet]"
+			text = "bag_wtp_result_mid_value"
+			tooltip = "bag_wtp_result_mid_tt"
+		}
+
+		widget = { size = { 10 28 } }
+
+		# The method the near column won with -- or, where there is no near
+		# column, the one the far column did. Two texts rather than one because a
+		# localization value cannot branch; `ignoreinvisible` is what keeps the
+		# hidden one from holding the width open.
+		#
+		# «+ улучшение» is the second half of a pair: eight buildings run a base
+		# method and an improvement at once, and the row's percentage and «×»
+		# already count both.
+		# **Fixed, not expanding.** An expanding column is as wide as whatever is
+		# left, and what is left differs between the header and a row inside a
+		# scrollbox -- by the scrollbar and the content margin. So every column
+		# after it landed somewhere else in the two, and «Из чего» is where you
+		# see it. The slack goes to a spacer at the far right, where nothing has
+		# to line up against anything.
 		hbox = {
+			size = { 350 28 }
+			maximumsize = { 350 28 }
+			spacing = 0
+			ignoreinvisible = yes
+
+			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+			# inside an hbox that has a size of its own leaves the child at zero
+			# width, and a text at zero width elides to nothing: the twenty-fourth
+			# run had rows whose building had no name and no «×», with only the
+			# autoresized «+ улучшение» beside it to prove the row was there.
+			text_single = {
+				size = { 240 28 }
+				autoresize = no
+				maximumsize = { 240 28 }
+				align = left|vcenter
+				elide = right
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
+				text = "bag_wtp_result_method_value"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
+				text = "bag_wtp_result_method2_value"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { 240 28 }
+				autoresize = no
+				maximumsize = { 240 28 }
+				align = left|vcenter
+				elide = right
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
+				text = "bag_wtp_result_method_value_end"
+				tooltip = "bag_wtp_result_end_tt"
+			}
+
+			text_single = {
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
+				text = "bag_wtp_result_method2_value_end"
+				tooltip = "bag_wtp_result_end_tt"
+			}
+		}
+
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
+		hbox = {
+			size = { 140 28 }
+			maximumsize = { 140 28 }
 			spacing = 4
+			ignoreinvisible = yes
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_result_goods_count"
-			}
-
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				spacing = 4
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
-		}
 
-		widget = { size = { 12 30 } }
-	}
-
-	type bag_wtp_result_answer_rural = hbox {
-		layoutpolicy_horizontal = expanding
-		size = { -1 28 }
-		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
-
-		text_single = {
-			size = { 70 28 }
-			autoresize = no
-			maximumsize = { 70 28 }
-			align = right|vcenter
-			text = "bag_wtp_result_bonus_value_rural"
-			tooltip = "bag_wtp_result_bonus_tt"
-		}
-
-		widget = { size = { 10 28 } }
-
-		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
-			autoresize = no
-			align = left|vcenter
-			elide = right
-			text = "bag_wtp_result_method_value_rural"
-			tooltip = "bag_wtp_result_method_tt"
-		}
-
-		hbox = {
-			spacing = 4
-			alwaystransparent = no
-			tooltip = "bag_wtp_result_goods_tt"
-
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_result_goods_count_rural"
-			}
-
+			# The raw materials the *last* method wants, which are not always the
+			# ones today's does: bronze cannons want copper and tin and the cannon
+			# factory that replaces them wants lead and saltpetre.
 			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
+				spacing = 4
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_end"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
 					}
 				}
 			}
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
+	}
+
+	type bag_wtp_result_answer_rural = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 0
+		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
+
+		text_single = {
+			size = { 70 28 }
+			autoresize = no
+			maximumsize = { 70 28 }
+			align = left|vcenter
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+			text = "bag_wtp_result_bonus_value_rural"
+			tooltip = "bag_wtp_result_bonus_tt"
+		}
+
+		# The second age of the same line, and it is drawn only where it has
+		# something to say: `bag_wtp_end_bt` is written only when the method that
+		# survives every advance is not the method winning today. An empty cell
+		# here is the row saying "this province does not change".
+		widget = { size = { 6 28 } }
+
+		text_single = {
+			size = { 80 28 }
+			autoresize = no
+			maximumsize = { 80 28 }
+			align = left|vcenter
+			fontsize = 13
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet]"
+			text = "bag_wtp_result_bonus_value_end_rural"
+			tooltip = "bag_wtp_result_end_tt_rural"
+		}
+
+		# «По пути»: the best this ground ever feeds, whatever age it belongs to,
+		# and the last age it can still be built in. It is the column that
+		# decides between provinces whose endgame answer is the same 0.00% --
+		# ten percent until the fifth age is a plan; nothing at all is not.
+		widget = { size = { 6 28 } }
+
+		text_single = {
+			size = { 88 28 }
+			autoresize = no
+			maximumsize = { 88 28 }
+			align = left|vcenter
+			fontsize = 12
+			fontsize_min = 9
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_mid_bt_rural').IsSet]"
+			text = "bag_wtp_result_mid_value_rural"
+			tooltip = "bag_wtp_result_mid_tt_rural"
+		}
+
+		widget = { size = { 10 28 } }
+
+		# The method the near column won with -- or, where there is no near
+		# column, the one the far column did. Two texts rather than one because a
+		# localization value cannot branch; `ignoreinvisible` is what keeps the
+		# hidden one from holding the width open.
+		#
+		# «+ улучшение» is the second half of a pair: eight buildings run a base
+		# method and an improvement at once, and the row's percentage and «×»
+		# already count both.
+		# **Fixed, not expanding.** An expanding column is as wide as whatever is
+		# left, and what is left differs between the header and a row inside a
+		# scrollbox -- by the scrollbar and the content margin. So every column
+		# after it landed somewhere else in the two, and «Из чего» is where you
+		# see it. The slack goes to a spacer at the far right, where nothing has
+		# to line up against anything.
+		hbox = {
+			size = { 350 28 }
+			maximumsize = { 350 28 }
+			spacing = 0
+			ignoreinvisible = yes
+
+			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+			# inside an hbox that has a size of its own leaves the child at zero
+			# width, and a text at zero width elides to nothing: the twenty-fourth
+			# run had rows whose building had no name and no «×», with only the
+			# autoresized «+ улучшение» beside it to prove the row was there.
+			text_single = {
+				size = { 240 28 }
+				autoresize = no
+				maximumsize = { 240 28 }
+				align = left|vcenter
+				elide = right
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
+				text = "bag_wtp_result_method_value_rural"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"
+				text = "bag_wtp_result_method2_value_rural"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
+				size = { 240 28 }
+				autoresize = no
+				maximumsize = { 240 28 }
+				align = left|vcenter
+				elide = right
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
+				text = "bag_wtp_result_method_value_end_rural"
+				tooltip = "bag_wtp_result_end_tt_rural"
+			}
+
+			text_single = {
+				size = { 110 28 }
+				autoresize = no
+				maximumsize = { 110 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"
+				text = "bag_wtp_result_method2_value_end_rural"
+				tooltip = "bag_wtp_result_end_tt_rural"
+			}
+		}
+
+		# 190 wide, which is what the header gives «Из чего». Left to size itself
+		# to its icons it started wherever the expanding method column stopped,
+		# and that is a different place on every row.
+		hbox = {
+			size = { 140 28 }
+			maximumsize = { 140 28 }
+			spacing = 4
+			ignoreinvisible = yes
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			hbox = {
+				spacing = 4
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_rural"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+			}
+
+			# The raw materials the *last* method wants, which are not always the
+			# ones today's does: bronze cannons want copper and tin and the cannon
+			# factory that replaces them wants lead and saltpetre.
+			hbox = {
+				spacing = 4
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
+
+				text_single = {
+					autoresize = yes
+					fontsize = 13
+					text = "bag_wtp_result_goods_count_end_rural"
+				}
+
+				hbox = {
+					spacing = 1
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods_rural')]"
+					item = {
+						bag_wtp_result_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+			}
+		}
+
+		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	# One province: what would be built there, in one line or two, and its
@@ -387,16 +655,16 @@ types BagWtpResultTypes {
 					size = { 34 60 }
 					autoresize = no
 					maximumsize = { 34 60 }
-					align = right|vcenter
+					align = left|vcenter
 					fontsize = 13
 					text = "bag_wtp_result_rank_value"
 					tooltip = "bag_wtp_result_rank_tt"
 				}
 
 				text_single = {
-					size = { 190 60 }
+					size = { 160 60 }
 					autoresize = no
-					maximumsize = { 190 60 }
+					maximumsize = { 160 60 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -404,9 +672,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 130 60 }
+					size = { 110 60 }
 					autoresize = no
-					maximumsize = { 130 60 }
+					maximumsize = { 110 60 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
@@ -643,57 +911,85 @@ window = {
 					text = "bag_wtp_result_window_empty"
 				}
 
+				# 48, not 38: the rows below sit inside a scrollbox whose content
+				# carries a 10px margin, and for two runs every column header was
+				# ten pixels left of the column it names.
 				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_left = 38
+					margin_left = 48
 					spacing = 0
 					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_results'))]"
 
 					text_single = {
 						size = { 34 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_rank"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 160 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_province"
 					}
 					text_single = {
-						size = { 130 24 }
+						size = { 110 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
 					}
+					# Plain labels again. Sorting is not a property of a column any
+					# more: it belongs to which of the two «Считать» buttons was
+					# pressed, and those live on the mod page where the question
+					# is asked. Three buttons in a header was one control too
+					# many, and the twenty-first run said so.
 					text_single = {
 						size = { 70 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_bonus"
+						tooltip = "bag_wtp_result_head_bonus_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 80 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_end"
+						tooltip = "bag_wtp_result_head_end_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 88 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_mid"
+						tooltip = "bag_wtp_result_head_mid_tt"
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { -1 24 }
-						layoutpolicy_horizontal = expanding
+						size = { 350 24 }
 						autoresize = no
+						maximumsize = { 350 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 190 24 }
+						size = { 140 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_goods"
 					}
 					widget = { size = { 12 24 } }
+					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 
 				scrollbox = {
