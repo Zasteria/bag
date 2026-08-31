@@ -12,7 +12,7 @@ state, the commands, and what fails silently in that mod.
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | twelve loads in; a pick re-ranks now, and the twelfth showed the pass finding no method (a `root` left in 218 places) and `order_by` refusing to sort a fraction. Both fixed, neither confirmed | that «нашёл» stays non-zero after a pick, and that the bonus falls down the window |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | thirteen loads in, and confirmed working: the ranking sorts, a pick re-ranks, the two-line row reads. Urban rights are the next feature and wait on one reference refresh | the 0.00% filter, the folded pickers, and the age filter |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped

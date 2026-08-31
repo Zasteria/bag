@@ -1,4 +1,4 @@
-# Next session: the job in progress
+﻿# Next session: the job in progress
 
 Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
@@ -14,35 +14,56 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 **Both halves are repaired, and neither has been run on his machine.** That is
 the whole of the next job: one pass through the menu, and read what it says.
 
-**Пункт 1, the workshop.** The bug was that a failed steamcmd run looked exactly
-like a successful one. It asked only whether the item's folder existed in
-steamcmd's own directory — and it existed from the previous attempt, so an
-unfinished login still copied last week's files over the workshop folder. Now
-the folder is fingerprinted before and after the run (does it exist, newest file
-mtime, the manifest steamcmd recorded), steamcmd's exit code is read instead of
-thrown away, the cached copy is offered for deletion first, and **only a mod
-whose copy actually changed is copied onward.** Anything else is named on
-screen: «не скачался вовсе» or «steamcmd оставил то, что уже лежало».
+**Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
+successful one — it asked only whether the item's folder existed in steamcmd's
+own directory, and it existed from the previous attempt, so an unfinished login
+still copied last week's files over the workshop folder. The folder is
+fingerprinted before and after now, the exit code is read, the cached copy is
+offered for deletion first, and **only a mod whose copy actually changed is
+copied onward**; anything else is named on screen.
 
-**Пункт 4, our own mods.** The copy loop turned out to be sound — 42 files,
-`.metadata` + the mount folders, digest-identical afterwards. What was missing
-was any check that it landed: now the install is **read back off disk** and a
-mismatch says so in capitals with the path, the `git pull` reports the commit it
-moved to, and the screen names the branch and commit that were installed. A
-`game_mods` path set once with a typo is no longer created on the next run —
-that is the one way this could have silently installed into a folder the game
-never reads, and it now refuses instead.
+**Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
+landed. The install is **read back off disk** now, a mismatch says so with the
+path, and the screen names the branch and commit installed. A `game_mods` path
+set once with a typo — the one way this could have installed into a folder the
+game never reads — is refused rather than created.
 
-**And `mods.bat check` now answers it without the menu**, printing each of our
-mods against the game's folder — «совпадает» / «отличается» / «нет в игре» — and
-the repository's branch and commit. That is the line to paste into a chat before
-anybody theorises about a mod again.
+**And `mods.bat check` answers it without the menu**, printing each of our mods
+against the game's folder and the repository's branch and commit — the line to
+paste before anybody theorises about a mod again.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
 the output of all three. If a mod still reads «отличается» after installing, the
 message names the folder and that is the next thing to look at. The logs from
 whatever run follows go through `python3 tools/which_build.py <logs folder>`
 first, as always now.
+
+## `where_to_produce` wants one extraction run, and only then the town rights
+
+The owner asked for urban rights — the **Городские права** a location can be
+granted, which trade a small penalty on all production for a large bonus to one
+bundle of goods, and so want a mode that ranks ground for the *bundle* rather
+than for one good. Nine general production rights, each naming its bundle in
+localization — tools; jewelry; weaponry+firearms+cannons; paper+books+dyes;
+leather+pottery+furniture; liquor+beer+wine; cloth+fine cloth; naval
+supplies+tar; masonry+glass — plus country-unique ones, of which Flemish Cloth
+Industry gives no efficiency at all, only `+5` to a building limit, which is a
+different kind of answer and may not belong in the same table.
+
+**The numbers are not in `reference/`.** The engine's side is all there —
+`has_town_rights`, `every_town_rights_in_location`, `grant_town_rights`, a
+`town_rights_type` target — but `common/town_rights` was never extracted, so
+what each right modifies, by how much, and what gates it are unknown here.
+Reading the bundles out of localization prose is the mistake this repository has
+a rule against.
+
+`town_rights` is in `tools/game_files_manifest.txt` now, so **the `mods.bat → 2`
+already waiting below brings it in** — along with `goods`, `production_methods`
+and `building_types`, which `where_to_produce` has read all along and which no
+manifest entry covered, so an extraction run would have dropped them. After that
+the bundles and their percentages generate like everything else; the design
+question worth settling first is whether a bundle is a third goods list or a
+mode over the two that exist.
 
 ## Then `glorpui_hints` goes out
 
@@ -92,7 +113,9 @@ none of it needing a protocol:
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the real run is what confirms it. The same run is the
+  rewritten copies and the run confirms it. It now also carries the
+  four folders added to the manifest for `where_to_produce`, `town_rights` among
+  them, and nothing of the urban-rights job can start before it. The same run is the
   first real test of the Steam-side rewrite — build ids instead of dates. The
   whole story is [`TESTLOG.md`](TESTLOG.md#2026-08-29--modsbat-an-update-run-on-the-owners-own-machine).
 - **The panel-open bisect — five minutes, no log to read.**

@@ -95,6 +95,7 @@ ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
 VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
 TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_triggers.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
+LAYOUT_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_layout.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -749,6 +750,13 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_variable_list = {MOD_ID}_goods{suffix}
 \tremove_variable = {MOD_ID}_bt{suffix}
 \tremove_variable = {MOD_ID}_pm{suffix}
+\t# Zeroed, not merely left: nothing sets these when no method won on this side,
+\t# and the window only guards on `_bt`. A number left over from the last run is
+\t# invisible there and wrong to anything that reads it -- which the filter on
+\t# provinces with no bonus at all now does.
+\tset_variable = {{ name = {MOD_ID}_bonus{suffix} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_out{suffix} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_goods_all{suffix} value = 0 }}
 """)
         for index, method in enumerate(rows, start=1):
             if (index in rural) != bool(suffix):
@@ -849,17 +857,69 @@ def rows_file() -> str:
 \t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = this }}
 \t\t\t}}
 \t\t}}
-\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
-\t\t# The place in the ranking, written down where the row can print it. The
-\t\t# order a list is built in is not an order anything downstream promises to
-\t\t# keep, so the answer says its own rank rather than relying on where it sits.
-\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
+\t\t# The winners are parked first and the row decided afterwards, because
+\t\t# «is this province worth a row» is a question about the bonus, and the
+\t\t# bonus is not known until the method that won is.
 \t\t{MOD_ID}_store_winner = yes
 \t\t{MOD_ID}_store_winner_rural = yes
-\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_row_is_worth_it = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
+\t\t\t# The place in the ranking, written down where the row can print it. The
+\t\t\t# order a list is built in is not an order anything downstream promises
+\t\t\t# to keep, so the answer says its own rank rather than where it sits.
+\t\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
+\t\t}}
 \t}}
 }}
 """]
+    return "".join(out)
+
+
+def list_settings(by_continent) -> list[tuple[str, str, str]]:
+    """Every list this mod registers: its tab, its id, and what a tick in it runs.
+
+    One table, two readers -- the `_on_changed` callbacks and the collapse pass
+    below both have to name every list, and a list named in one and not the
+    other is the kind of omission nothing reports.
+    """
+    return ([("zone", f"region_{c}", f"{MOD_ID}_zone_changed = yes") for c in by_continent]
+            + [("zone", "continent", f"{MOD_ID}_zone_changed = yes"),
+               ("goods", "good_raw", f"{MOD_ID}_good_changed = yes"),
+               ("goods", "good_made", f"{MOD_ID}_good_changed = yes")])
+
+
+def layout_file(by_continent) -> str:
+    """The pickers, folded shut the first time the mod page is built.
+
+    Seven region lists and two goods lists, all open, is a page the owner scrolls
+    through to reach anything -- and the answer he wants is two ticks in it.
+    CMM keeps a group's folded state in `cmm_group_collapsed`, a variable map on
+    the player keyed by `<mod>__<tab>__<group>`, and a list is filed under a
+    group named after itself, so the key is knowable from here. `_on_changed`'s
+    table is the same table, which is why both read `list_settings`.
+
+    **This writes into CMF's own data, which no macro covers.** The map is
+    documented in `cmm_settings_pane.gui` as what the header button toggles, and
+    CMM_ToggleGroupCollapsed writes it exactly this way; it is a contract with a
+    comment rather than with a macro, and a CMF that renames it would leave the
+    groups open rather than break anything.
+
+    Once, and then never again: `bag_wtp_folded_once` is what makes it a default
+    rather than a decision retaken at every save load.
+    """
+    out = [HEADER, f"""#
+# Scope: country
+{MOD_ID}_fold_pickers = {{
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_folded_once }} }}
+\t\tset_variable = {{ name = {MOD_ID}_folded_once value = 1 }}
+"""]
+    for tab, setting, _ in list_settings(by_continent):
+        out.append(f"\t\tadd_to_variable_map = {{ name = cmm_group_collapsed "
+                   f"key = flag:{MOD_ID}__{tab}__{setting} value = 1 }}\n")
+    out.append("\t}\n}\n")
     return "".join(out)
 
 
@@ -877,12 +937,7 @@ def guis_file(by_continent) -> str:
 # slider and button settings auto-apply and reach `cmf_on_callback`, and a list
 # reaches neither until `cmm_apply_list_change` is called here.
 """]
-    for setting, after in (
-        [(f"region_{c}", f"{MOD_ID}_zone_changed = yes") for c in by_continent] + [
-        ("continent", f"{MOD_ID}_zone_changed = yes"),
-        ("good_raw", f"{MOD_ID}_good_changed = yes"),
-        ("good_made", f"{MOD_ID}_good_changed = yes"),
-    ]):
+    for _, setting, after in list_settings(by_continent):
         body = f"\t\t{after}\n" if after else ""
         out.append(f"""
 {MOD_ID}__{setting}_on_changed = {{
@@ -936,6 +991,7 @@ def main() -> int:
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent))
+    write(LAYOUT_OUT, layout_file(by_continent))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)), loc_file(language, rows, split))
 

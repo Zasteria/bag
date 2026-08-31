@@ -25,3 +25,29 @@ bag_wtp_is_candidate = {
 		bag_wtp_can_build_something = yes
 	}
 }
+
+# Whether a province has earned a row at all.
+#
+# The twelfth run's table ended in a tail of provinces at 0.00% and «0/2» --
+# every one of them the same building, the same method and the same output as
+# the rows above, and none of them supplying a single one of the method's raw
+# materials. Ranked correctly and worth nothing: they are the ground where this
+# good has no reason to be made.
+#
+# The tick brings them back, and there is one case where they come back anyway:
+# a method that wants no raw material at all can never earn a bonus, so
+# filtering on the bonus would empty the table rather than trim it. `_goods_all`
+# is how many inputs the winning method has, and zero on both sides means there
+# was nothing to find here rather than nothing found.
+# Scope: location
+bag_wtp_row_is_worth_it = {
+	OR = {
+		has_global_variable = bag_wtp_show_flat
+		var:bag_wtp_bonus > 0
+		var:bag_wtp_bonus_rural > 0
+		AND = {
+			var:bag_wtp_goods_all = 0
+			var:bag_wtp_goods_all_rural = 0
+		}
+	}
+}

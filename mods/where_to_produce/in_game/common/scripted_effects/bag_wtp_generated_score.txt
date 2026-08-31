@@ -3685,6 +3685,13 @@ bag_wtp_store_winner = {
 	clear_variable_list = bag_wtp_goods
 	remove_variable = bag_wtp_bt
 	remove_variable = bag_wtp_pm
+	# Zeroed, not merely left: nothing sets these when no method won on this side,
+	# and the window only guards on `_bt`. A number left over from the last run is
+	# invisible there and wrong to anything that reads it -- which the filter on
+	# provinces with no bonus at all now does.
+	set_variable = { name = bag_wtp_bonus value = 0 }
+	set_variable = { name = bag_wtp_out value = 0 }
+	set_variable = { name = bag_wtp_goods_all value = 0 }
 	if = {
 		limit = { var:bag_wtp_best_method = 1 }
 		set_variable = { name = bag_wtp_bt value = building_type:beer_workshop }
@@ -6677,6 +6684,13 @@ bag_wtp_store_winner_rural = {
 	clear_variable_list = bag_wtp_goods_rural
 	remove_variable = bag_wtp_bt_rural
 	remove_variable = bag_wtp_pm_rural
+	# Zeroed, not merely left: nothing sets these when no method won on this side,
+	# and the window only guards on `_bt`. A number left over from the last run is
+	# invisible there and wrong to anything that reads it -- which the filter on
+	# provinces with no bonus at all now does.
+	set_variable = { name = bag_wtp_bonus_rural value = 0 }
+	set_variable = { name = bag_wtp_out_rural value = 0 }
+	set_variable = { name = bag_wtp_goods_all_rural value = 0 }
 	if = {
 		limit = { var:bag_wtp_best_method_rural = 17 }
 		set_variable = { name = bag_wtp_bt_rural value = building_type:market_village }

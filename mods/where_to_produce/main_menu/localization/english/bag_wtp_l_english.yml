@@ -56,6 +56,8 @@
  bag_wtp__continent__pick_name: "Look here"
  bag_wtp__continent__pick_desc: "Where to look at all. This is the rough frame; the fine choosing happens on the map afterwards.\n\nWith nothing ticked the whole world is offered."
 
+ bag_wtp__show_flat_name: "Show provinces with no local bonus"
+ bag_wtp__show_flat_desc: "Off: a province is left out when the winning method finds none of the raw materials it wants anywhere in it — the tail of 0.00% rows at «0/2», ranked correctly and worth nothing, since they are the same building at the same output as the rows above.\n\nOn: every province the search walked that has any method at all.\n\nA method that wants no raw material cannot earn a bonus anywhere, and those provinces are shown whatever this is set to — otherwise the tick would empty the table rather than trim it."
  bag_wtp__buildable_only_name: "Only where it can be built today"
  bag_wtp__buildable_only_desc: "Leave this off while planning for land you do not hold yet.\n\nThe game answers 'can this be built here' for the location as it stands, and an unowned location fails that question whatever its raw materials are. With this off the table ranks the ground itself, which is the point of planning ahead of a conquest.\n\nTurn it on once the land is yours and you want the list narrowed to what you could start today."
 
@@ -74,7 +76,7 @@
 
  bag_wtp_result_window_title: "Where To Produce — results"
  bag_wtp_result_window_desc: "Provinces, best first. A row holds two answers: the best of the built-up buildings above, the best village below. The ranking is by what a method actually produces — the percentage is an efficiency bonus and the «×» after the method is its output per level, and a village makes a fifth of what a workshop does at the same percentage.\n\nA province counts whole, even where a border cuts it today. Open a row for its locations, what each works, and who holds it."
- bag_wtp_result_window_empty: "Nothing yet. Tick a good on the Goods tab, some ground on the Land tab, and press Rank."
+ bag_wtp_result_window_empty: "Nothing here. Tick a good on the Goods tab, some ground on the Land tab, and press Rank.\n\nIf you have: nowhere in the chosen ground supplies a single raw material this good's methods want. «Show provinces with no local bonus» on the Answer tab lists them anyway."
 
  bag_wtp_result_bonus_value: "[Location.MakeScope.GetVariable('bag_wtp_bonus').GetValue|2]%"
  bag_wtp_result_method_value: "[Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out').GetValue|2]"

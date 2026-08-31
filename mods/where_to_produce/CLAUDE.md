@@ -4,34 +4,33 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: twelve loads in.** The twelfth confirmed the map pickers now reach the
-pass and killed two more faults it exposed. Nothing since is confirmed: **the
-thirteenth run is what says so.**
+**State: thirteen loads in, and it does what it was built for.** The owner:
+«В целом вроде как всё починилось, что мне нужно было. Я выбирал области — всё
+обновлялось сразу же.» The ranking sorts, a pick re-ranks while the window is
+open, and the two-line row reads — the village where it belongs, under the guild
+rather than above it.
 
-## What the twelfth run cost, and what the thirteenth has to answer
+## What the fourteenth run has to answer
 
-The eleventh's scope fix worked — a pick re-ranks — and immediately showed two
-things behind it, both fixed blind:
+Nothing structural, for the first time. Three changes went in on the thirteenth
+run's remarks, none of them seen in game:
 
-- **`root` was still assumed to be the country in 218 places.** The rule reached
-  the row pass and not the scoring pass beside it, so a pick reached the pass and
-  the pass found no method available anywhere: «обошёл 44 · нашёл 0», and a table
-  that emptied on every pick. The country is `save_scope_as` at the top of
-  `bag_wtp_score_candidates` now, and no `root` is left outside
-  `bag_wtp_generated_picker.txt`, which only CMM callbacks reach.
-- **`order_by` will not sort a fraction.** A scriptorium scores 0.3000 to 0.3129
-  across Europe and the rows came back in map order. `bag_wtp_m<n>` is the
-  output × `RANK_SCALE` (1000) now — 300.00 to 312.88 — and nothing prints it:
-  the row's `×` is the method's own output, written out unscaled.
+- **Provinces with no local bonus are out of the table.** The tail of «0.00% …
+  0/2» rows is the same building at the same output as the rows above it, with
+  none of the method's raw materials anywhere in the province. `bag_wtp_show_flat`
+  on the Answer tab brings them back, and a method that wants no raw material at
+  all is shown regardless — otherwise the tick would empty the table rather than
+  trim it.
+- **The pickers are folded on first sight of the mod page** and the player's own
+  folding is his afterwards. `bag_wtp_fold_pickers` writes CMM's own
+  `cmm_group_collapsed` map, which no macro covers: it is a contract with a
+  comment in `cmm_settings_pane.gui`, and a CMF that renamed it would leave the
+  groups open rather than break anything.
+- **`bag_wtp_store_winner` zeroes the fields it may not set.** They were left
+  from the previous pass, invisible because the window guards on `_bt` — and the
+  new filter reads them.
 
-So the thirteenth wants the best bonus at «№» 1 and falling down the window,
-«нашёл» staying non-zero after a pick, and the counts agreeing with what was
-clicked. If the order is still wrong, the «№» tooltip carries the number the
-sort saw: two numbers in the right order under two rows in the wrong one means
-`order_by` is not the tool for this at all.
-
-Never judged, three times deferred: the two-line rows, villages not at the top
-of a weapons search, the goods icons beside their count, and the age filter.
+And the age filter, never once reported in thirteen loads.
 
 **Two things are settled and not to be attempted again.** Clicking the map with
 a window open is impossible (`docs/research/interface.md`), and a geography tree

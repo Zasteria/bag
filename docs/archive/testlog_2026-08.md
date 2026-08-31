@@ -947,3 +947,41 @@ Two screenshots.
   drawn.
 - The scoring, the two-line row and the goods icons from the ninth build could
   not be judged under rows that overlapped; they come back for the eleventh.
+
+### 2026-08-30 — `where_to_produce`, eleventh load. The window picked the ground
+up and then ignored it, and the ranking arrived in map order.** One screenshot,
+no logs.
+
+Region «Карпаты» ticked in the Mod Menu, `books` the good, «Считать» pressed —
+and the table was the region, correctly. Then «Выбрать область» three times:
+Валахия, Молдавия, Трансильвания. The header count moved to «127 лок. в 26
+пров.» and **the table did not change at all** — Северный Альфёльд, another of
+Carpathia's seven areas and none of the three picked, was still in it.
+
+- **A generic action's `effect` does not run in the country's scope.** The
+  three map pickers ended with `bag_wtp_rebuild_browse` and
+  `bag_wtp_recompute_live`, unwrapped. The first survived it — every line in it
+  is scope-agnostic, which is why the count on screen kept moving and made the
+  selection look like it had landed. The second opens with
+  `has_variable = bag_wtp_result_open`, a country variable, got no, and returned
+  having done nothing. Vanilla wraps all five of its own actions' effects in
+  `scope:actor` and Advanced Auto Build's forty touch nothing but
+  `scope:target_location`; not one of them relies on the bare scope. Wrapped
+  now.
+- **The ranking was ranking, and then an unordered copy shuffled it.**
+  `bag_wtp_fill_rows` sorts with `ordered_in_global_list` into `bag_wtp_ranked`;
+  `bag_wtp_show_results` then copied that into the window's datamodel with
+  `every_in_global_list`, which promises nothing about order. On screen the rows
+  came out clustered by area — the shape of map order, not of a ranking — with
+  2.85% and 0.00% alternating down a list where every row was the same building,
+  the same method and the same output. The copy is `ordered_in_global_list` now,
+  each row carries the rank the pass gave it, and the window prints that rank.
+- **Two numbers were added to say which half failed**, because both failures
+  wrote nothing anywhere: the «№» column and «обошёл · нашёл · пересчётов». The
+  twelfth run above is what they bought.
+- **Found while reading, never reported:** `bag_wtp_can_build_something` is
+  asked in a location's scope and read `global_var:bag_wtp_good_index`, which
+  nothing ever wrote — the index is a country variable. Every branch missed, a
+  scripted trigger of unmatched `if`s comes back true, and "only where it can be
+  built today" filtered nothing whatever it was set to. The index is mirrored
+  into a global now.
