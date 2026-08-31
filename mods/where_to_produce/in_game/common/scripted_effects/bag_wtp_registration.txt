@@ -53,9 +53,25 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
+	# Two buttons, and they are the whole of the mod's two questions. «Считать
+	# сейчас» ranks by what you could build today -- the fast answer. «Считать на
+	# конец игры» ranks by what the ground gives once every advance is in, and
+	# breaks the ties that leaves (0.00% everywhere, when a ladder ends early) by
+	# what it gives on the way there.
+	#
+	# Both fill the same three columns; only the order differs. Sorting used to
+	# be three buttons in the results window's header, and the twenty-first run's
+	# verdict was that this is the place for it and two is the number.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run
+		tab_id = plan
+		group_id = what
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = run_end
 		tab_id = plan
 		group_id = what
 	}
@@ -97,10 +113,9 @@ bag_wtp_register = {
 bag_wtp_sync = {
 	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }
 	cmm_sync_bool_alias = { setting = bag_wtp__any_method alias = bag_wtp_any_method }
-	# `bag_wtp_rank_by_end` is not here and must not be: which column the table
-	# sorts on is a property of the table, so it is a header the player clicks in
-	# the results window and a global variable this mod owns outright. It was a
-	# tick on the mod page for one load, and the nineteenth run's verdict was
-	# that two ticks whose names both start with "the last age" are two ticks
-	# nobody can tell apart.
+	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
+	# buttons set and clear it themselves, so no CMM setting has to agree with it.
+	# It was a tick on this page for one load and three buttons in the results
+	# window's header for another; a button that already says "calculate" is the
+	# honest place for "calculate for what".
 }

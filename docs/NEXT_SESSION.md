@@ -37,23 +37,26 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: two ages on a row, and eight buildings modelled wrong
+## `where_to_produce`: three ages on a row, and the pairs are in
 
-Twenty loads. A row answers in three ages now — «Сейчас», «По пути», «В конце»
-— because the last one alone cannot order a table where every wool province ends
-at 0.00%: what separates them is ten percent until the fifth age, which is what
-the middle column says. Sorting by the end breaks ties on it. Unloaded, all of
-it, with the column alignment and the rights-bundle fix.
+Twenty-one loads. A row answers in three ages — «Сейчас», «По пути» (the best
+this ground ever feeds, and the last age it can be built), «В конце» — because
+the end alone cannot order a table where every wool province ends at 0.00%.
+Two «Считать» buttons choose the order; the sort buttons that were in the
+window's header for one load are gone.
 
-**One thing wants a measurement before it can be built.** Eight buildings — fine
-cloth, jewelry, cannons, firearms — run two methods at once and the mod models
-one, so it understates their output and their inputs. Whether the bonus counts
-both slots' inputs or one slot's is unknown, and **one hover on a fine cloth
-guild's build panel settles it**: line 5 of
-[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run), the whole of it in
+**And the two-slot question is settled**, from the game's own build panel: each
+slot earns its own bonus over its own output, so the eight buildings that have
+two (fine cloth, jewelry, cannons, firearms) are one method of the summed output
+at the blended bonus.
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
-After that the rights window is the odd one out — one age to the goods window's
-two, which is why its bundle showed weaponry alone in the second age.
+None of that has been loaded — [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+
+**Where this is going**, in the owner's words: the mod should eventually take a
+stretch of land, work out every province's limits, and lay out *all* the
+production for it — best goods first, then the rest — with a cap of three or
+four buildings a province and a rule for the provinces everything wants. Nothing
+of that is built; it is the reason the answer has to be right per province first.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):

@@ -646,13 +646,13 @@ bag_wtp_avail_28 = {
 	can_build_building = building_type:cannon_maker
 }
 bag_wtp_avail_29 = {
-	can_build_building = building_type:cannon_workshop
+	can_build_building = building_type:cannon_maker
 }
 bag_wtp_avail_30 = {
-	can_build_building = building_type:cannon_workshop
+	can_build_building = building_type:cannon_maker
 }
 bag_wtp_avail_31 = {
-	can_build_building = building_type:cannon_workshop
+	can_build_building = building_type:cannon_maker
 }
 bag_wtp_avail_32 = {
 	can_build_building = building_type:cannon_workshop
@@ -661,97 +661,97 @@ bag_wtp_avail_33 = {
 	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_34 = {
-	can_build_building = building_type:cannons_factory
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_35 = {
-	can_build_building = building_type:clay_pit
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_36 = {
-	can_build_building = building_type:cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_37 = {
-	can_build_building = building_type:cloth_guild
+	can_build_building = building_type:cannon_workshop
 }
 bag_wtp_avail_38 = {
-	can_build_building = building_type:cloth_guild
+	can_build_building = building_type:cannons_factory
 }
 bag_wtp_avail_39 = {
-	can_build_building = building_type:cloth_manufactory
+	can_build_building = building_type:clay_pit
 }
 bag_wtp_avail_40 = {
-	can_build_building = building_type:cloth_manufactory
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_41 = {
-	can_build_building = building_type:cloth_manufactory
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_42 = {
-	can_build_building = building_type:cloth_workshop
+	can_build_building = building_type:cloth_guild
 }
 bag_wtp_avail_43 = {
-	can_build_building = building_type:cloth_workshop
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_44 = {
-	can_build_building = building_type:cloth_workshop
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_45 = {
-	can_build_building = building_type:rural_clothmaker
+	can_build_building = building_type:cloth_manufactory
 }
 bag_wtp_avail_46 = {
-	can_build_building = building_type:rural_clothmaker
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_47 = {
-	can_build_building = building_type:rural_clothmaker
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_48 = {
-	can_build_building = building_type:textile_mill
+	can_build_building = building_type:cloth_workshop
 }
 bag_wtp_avail_49 = {
-	can_build_building = building_type:textile_mill
+	can_build_building = building_type:rural_clothmaker
 }
 bag_wtp_avail_50 = {
-	can_build_building = building_type:textile_mill
+	can_build_building = building_type:rural_clothmaker
 }
 bag_wtp_avail_51 = {
-	can_build_building = building_type:charcoal_maker
+	can_build_building = building_type:rural_clothmaker
 }
 bag_wtp_avail_52 = {
-	can_build_building = building_type:improved_charcoal_maker
+	can_build_building = building_type:textile_mill
 }
 bag_wtp_avail_53 = {
-	can_build_building = building_type:cotton_plantation
+	can_build_building = building_type:textile_mill
 }
 bag_wtp_avail_54 = {
-	can_build_building = building_type:dyes_guild
+	can_build_building = building_type:textile_mill
 }
 bag_wtp_avail_55 = {
-	can_build_building = building_type:dyes_guild
+	can_build_building = building_type:charcoal_maker
 }
 bag_wtp_avail_56 = {
-	can_build_building = building_type:dyes_mill
+	can_build_building = building_type:improved_charcoal_maker
 }
 bag_wtp_avail_57 = {
-	can_build_building = building_type:dyes_workshop
+	can_build_building = building_type:cotton_plantation
 }
 bag_wtp_avail_58 = {
-	can_build_building = building_type:dyesworks
+	can_build_building = building_type:dyes_guild
 }
 bag_wtp_avail_59 = {
-	can_build_building = building_type:fiber_crops_farm
+	can_build_building = building_type:dyes_guild
 }
 bag_wtp_avail_60 = {
-	can_build_building = building_type:shoen
+	can_build_building = building_type:dyes_mill
 }
 bag_wtp_avail_61 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:dyes_workshop
 }
 bag_wtp_avail_62 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:dyesworks
 }
 bag_wtp_avail_63 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:fiber_crops_farm
 }
 bag_wtp_avail_64 = {
-	can_build_building = building_type:fine_cloth_guild
+	can_build_building = building_type:shoen
 }
 bag_wtp_avail_65 = {
 	can_build_building = building_type:fine_cloth_guild
@@ -760,466 +760,534 @@ bag_wtp_avail_66 = {
 	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_67 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_68 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_69 = {
-	can_build_building = building_type:fine_cloth_manufactory
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_70 = {
-	can_build_building = building_type:fine_cloth_mill
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_71 = {
-	can_build_building = building_type:fine_cloth_mill
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_72 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_73 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_74 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_75 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_76 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_guild
 }
 bag_wtp_avail_77 = {
-	can_build_building = building_type:fine_cloth_workshop
+	can_build_building = building_type:fine_cloth_manufactory
 }
 bag_wtp_avail_78 = {
-	can_build_building = building_type:firearms_factory
+	can_build_building = building_type:fine_cloth_manufactory
 }
 bag_wtp_avail_79 = {
-	can_build_building = building_type:firearms_manufactory
+	can_build_building = building_type:fine_cloth_manufactory
 }
 bag_wtp_avail_80 = {
-	can_build_building = building_type:gun_smith
+	can_build_building = building_type:fine_cloth_manufactory
 }
 bag_wtp_avail_81 = {
-	can_build_building = building_type:gun_smith
+	can_build_building = building_type:fine_cloth_mill
 }
 bag_wtp_avail_82 = {
-	can_build_building = building_type:gun_smith
+	can_build_building = building_type:fine_cloth_mill
 }
 bag_wtp_avail_83 = {
-	can_build_building = building_type:gun_smith
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_84 = {
-	can_build_building = building_type:gun_smith
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_85 = {
-	can_build_building = building_type:guns_workshop
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_86 = {
-	can_build_building = building_type:guns_workshop
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_87 = {
-	can_build_building = building_type:guns_workshop
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_88 = {
-	can_build_building = building_type:guns_workshop
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_89 = {
-	can_build_building = building_type:hand_cannon_guild
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_90 = {
-	can_build_building = building_type:fishing_village
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_91 = {
-	can_build_building = building_type:fishing_village
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_92 = {
-	can_build_building = building_type:fruit_orchard
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_93 = {
-	can_build_building = building_type:furniture_guild
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_94 = {
-	can_build_building = building_type:furniture_manufactory
+	can_build_building = building_type:fine_cloth_workshop
 }
 bag_wtp_avail_95 = {
-	can_build_building = building_type:furniture_mill
+	can_build_building = building_type:firearms_factory
 }
 bag_wtp_avail_96 = {
-	can_build_building = building_type:furniture_workshop
+	can_build_building = building_type:firearms_manufactory
 }
 bag_wtp_avail_97 = {
-	can_build_building = building_type:glass_guild
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_98 = {
-	can_build_building = building_type:glass_guild
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_99 = {
-	can_build_building = building_type:glass_mill
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_100 = {
-	can_build_building = building_type:glass_workshop
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_101 = {
-	can_build_building = building_type:glassworks
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_102 = {
-	can_build_building = building_type:rural_glassmaker
+	can_build_building = building_type:gun_smith
 }
 bag_wtp_avail_103 = {
-	can_build_building = building_type:horse_breeders
+	can_build_building = building_type:guns_workshop
 }
 bag_wtp_avail_104 = {
-	can_build_building = building_type:perfumery
+	can_build_building = building_type:guns_workshop
 }
 bag_wtp_avail_105 = {
-	can_build_building = building_type:bog_iron_smelter
+	can_build_building = building_type:guns_workshop
 }
 bag_wtp_avail_106 = {
-	can_build_building = building_type:shoen
+	can_build_building = building_type:guns_workshop
 }
 bag_wtp_avail_107 = {
-	can_build_building = building_type:elephant_hunting_grounds
+	can_build_building = building_type:hand_cannon_guild
 }
 bag_wtp_avail_108 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_109 = {
-	can_build_building = building_type:jewelry_guild
-	has_advance = copperworking
-}
-bag_wtp_avail_110 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_111 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_112 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_113 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_114 = {
-	can_build_building = building_type:jewelry_guild
-}
-bag_wtp_avail_115 = {
-	can_build_building = building_type:market_village
-}
-bag_wtp_avail_116 = {
-	can_build_building = building_type:pounamou_carver
-}
-bag_wtp_avail_117 = {
-	can_build_building = building_type:lacquerware_guild
-}
-bag_wtp_avail_118 = {
-	can_build_building = building_type:lacquerware_manufactory
-}
-bag_wtp_avail_119 = {
-	can_build_building = building_type:forest_village
-}
-bag_wtp_avail_120 = {
-	can_build_building = building_type:tannery
-}
-bag_wtp_avail_121 = {
-	can_build_building = building_type:tannery
-}
-bag_wtp_avail_122 = {
-	can_build_building = building_type:tannery_manufactory
-}
-bag_wtp_avail_123 = {
-	can_build_building = building_type:tannery_manufactory
-}
-bag_wtp_avail_124 = {
-	can_build_building = building_type:tannery_mill
-}
-bag_wtp_avail_125 = {
-	can_build_building = building_type:tannery_mill
-}
-bag_wtp_avail_126 = {
-	can_build_building = building_type:tanning_workshop
-}
-bag_wtp_avail_127 = {
-	can_build_building = building_type:tanning_workshop
-}
-bag_wtp_avail_128 = {
-	can_build_building = building_type:distiller_manufactory
-}
-bag_wtp_avail_129 = {
-	can_build_building = building_type:distiller_manufactory
-}
-bag_wtp_avail_130 = {
-	can_build_building = building_type:distiller_manufactory
-	has_advance = scottish_whisky
-}
-bag_wtp_avail_131 = {
-	can_build_building = building_type:distiller_manufactory
-}
-bag_wtp_avail_132 = {
-	can_build_building = building_type:distiller_manufactory
-}
-bag_wtp_avail_133 = {
-	can_build_building = building_type:distiller_mill
-}
-bag_wtp_avail_134 = {
-	can_build_building = building_type:distiller_mill
-}
-bag_wtp_avail_135 = {
-	can_build_building = building_type:distiller_mill
-	has_advance = scottish_whisky
-}
-bag_wtp_avail_136 = {
-	can_build_building = building_type:distiller_mill
-}
-bag_wtp_avail_137 = {
-	can_build_building = building_type:distiller_mill
-}
-bag_wtp_avail_138 = {
-	can_build_building = building_type:distillers_guild
-}
-bag_wtp_avail_139 = {
-	can_build_building = building_type:distillers_guild
-}
-bag_wtp_avail_140 = {
-	can_build_building = building_type:distillers_guild
-}
-bag_wtp_avail_141 = {
-	can_build_building = building_type:distillers_guild
-}
-bag_wtp_avail_142 = {
-	can_build_building = building_type:distillers_guild
-}
-bag_wtp_avail_143 = {
-	can_build_building = building_type:distillers_workshop
-}
-bag_wtp_avail_144 = {
-	can_build_building = building_type:distillers_workshop
-}
-bag_wtp_avail_145 = {
-	can_build_building = building_type:distillers_workshop
-}
-bag_wtp_avail_146 = {
-	can_build_building = building_type:distillers_workshop
-}
-bag_wtp_avail_147 = {
-	can_build_building = building_type:distillers_workshop
-}
-bag_wtp_avail_148 = {
-	can_build_building = building_type:farming_village
-}
-bag_wtp_avail_149 = {
-	can_build_building = building_type:shoen
-}
-bag_wtp_avail_150 = {
-	can_build_building = building_type:mason
-}
-bag_wtp_avail_151 = {
-	can_build_building = building_type:mason
-}
-bag_wtp_avail_152 = {
-	can_build_building = building_type:shoen
-}
-bag_wtp_avail_153 = {
-	can_build_building = building_type:apothecary
-}
-bag_wtp_avail_154 = {
-	can_build_building = building_type:apothecary
-}
-bag_wtp_avail_155 = {
 	can_build_building = building_type:fishing_village
 }
+bag_wtp_avail_109 = {
+	can_build_building = building_type:fishing_village
+}
+bag_wtp_avail_110 = {
+	can_build_building = building_type:fruit_orchard
+}
+bag_wtp_avail_111 = {
+	can_build_building = building_type:furniture_guild
+}
+bag_wtp_avail_112 = {
+	can_build_building = building_type:furniture_manufactory
+}
+bag_wtp_avail_113 = {
+	can_build_building = building_type:furniture_mill
+}
+bag_wtp_avail_114 = {
+	can_build_building = building_type:furniture_workshop
+}
+bag_wtp_avail_115 = {
+	can_build_building = building_type:glass_guild
+}
+bag_wtp_avail_116 = {
+	can_build_building = building_type:glass_guild
+}
+bag_wtp_avail_117 = {
+	can_build_building = building_type:glass_mill
+}
+bag_wtp_avail_118 = {
+	can_build_building = building_type:glass_workshop
+}
+bag_wtp_avail_119 = {
+	can_build_building = building_type:glassworks
+}
+bag_wtp_avail_120 = {
+	can_build_building = building_type:rural_glassmaker
+}
+bag_wtp_avail_121 = {
+	can_build_building = building_type:horse_breeders
+}
+bag_wtp_avail_122 = {
+	can_build_building = building_type:perfumery
+}
+bag_wtp_avail_123 = {
+	can_build_building = building_type:bog_iron_smelter
+}
+bag_wtp_avail_124 = {
+	can_build_building = building_type:shoen
+}
+bag_wtp_avail_125 = {
+	can_build_building = building_type:elephant_hunting_grounds
+}
+bag_wtp_avail_126 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_127 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_128 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_129 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_130 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_131 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_132 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_133 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_134 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_135 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_136 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_137 = {
+	can_build_building = building_type:jewelry_guild
+}
+bag_wtp_avail_138 = {
+	can_build_building = building_type:market_village
+}
+bag_wtp_avail_139 = {
+	can_build_building = building_type:pounamou_carver
+}
+bag_wtp_avail_140 = {
+	can_build_building = building_type:lacquerware_guild
+}
+bag_wtp_avail_141 = {
+	can_build_building = building_type:lacquerware_manufactory
+}
+bag_wtp_avail_142 = {
+	can_build_building = building_type:forest_village
+}
+bag_wtp_avail_143 = {
+	can_build_building = building_type:tannery
+}
+bag_wtp_avail_144 = {
+	can_build_building = building_type:tannery
+}
+bag_wtp_avail_145 = {
+	can_build_building = building_type:tannery_manufactory
+}
+bag_wtp_avail_146 = {
+	can_build_building = building_type:tannery_manufactory
+}
+bag_wtp_avail_147 = {
+	can_build_building = building_type:tannery_mill
+}
+bag_wtp_avail_148 = {
+	can_build_building = building_type:tannery_mill
+}
+bag_wtp_avail_149 = {
+	can_build_building = building_type:tanning_workshop
+}
+bag_wtp_avail_150 = {
+	can_build_building = building_type:tanning_workshop
+}
+bag_wtp_avail_151 = {
+	can_build_building = building_type:distiller_manufactory
+}
+bag_wtp_avail_152 = {
+	can_build_building = building_type:distiller_manufactory
+}
+bag_wtp_avail_153 = {
+	can_build_building = building_type:distiller_manufactory
+	has_advance = scottish_whisky
+}
+bag_wtp_avail_154 = {
+	can_build_building = building_type:distiller_manufactory
+}
+bag_wtp_avail_155 = {
+	can_build_building = building_type:distiller_manufactory
+}
 bag_wtp_avail_156 = {
-	can_build_building = building_type:naval_supplies_guild
+	can_build_building = building_type:distiller_mill
 }
 bag_wtp_avail_157 = {
-	can_build_building = building_type:naval_supplies_manufactory
+	can_build_building = building_type:distiller_mill
 }
 bag_wtp_avail_158 = {
-	can_build_building = building_type:naval_supplies_mill
+	can_build_building = building_type:distiller_mill
+	has_advance = scottish_whisky
 }
 bag_wtp_avail_159 = {
-	can_build_building = building_type:naval_supplies_workshop
+	can_build_building = building_type:distiller_mill
 }
 bag_wtp_avail_160 = {
+	can_build_building = building_type:distiller_mill
+}
+bag_wtp_avail_161 = {
+	can_build_building = building_type:distillers_guild
+}
+bag_wtp_avail_162 = {
+	can_build_building = building_type:distillers_guild
+}
+bag_wtp_avail_163 = {
+	can_build_building = building_type:distillers_guild
+}
+bag_wtp_avail_164 = {
+	can_build_building = building_type:distillers_guild
+}
+bag_wtp_avail_165 = {
+	can_build_building = building_type:distillers_guild
+}
+bag_wtp_avail_166 = {
+	can_build_building = building_type:distillers_workshop
+}
+bag_wtp_avail_167 = {
+	can_build_building = building_type:distillers_workshop
+}
+bag_wtp_avail_168 = {
+	can_build_building = building_type:distillers_workshop
+}
+bag_wtp_avail_169 = {
+	can_build_building = building_type:distillers_workshop
+}
+bag_wtp_avail_170 = {
+	can_build_building = building_type:distillers_workshop
+}
+bag_wtp_avail_171 = {
+	can_build_building = building_type:farming_village
+}
+bag_wtp_avail_172 = {
+	can_build_building = building_type:shoen
+}
+bag_wtp_avail_173 = {
+	can_build_building = building_type:mason
+}
+bag_wtp_avail_174 = {
+	can_build_building = building_type:mason
+}
+bag_wtp_avail_175 = {
+	can_build_building = building_type:shoen
+}
+bag_wtp_avail_176 = {
+	can_build_building = building_type:apothecary
+}
+bag_wtp_avail_177 = {
+	can_build_building = building_type:apothecary
+}
+bag_wtp_avail_178 = {
+	can_build_building = building_type:fishing_village
+}
+bag_wtp_avail_179 = {
+	can_build_building = building_type:naval_supplies_guild
+}
+bag_wtp_avail_180 = {
+	can_build_building = building_type:naval_supplies_manufactory
+}
+bag_wtp_avail_181 = {
+	can_build_building = building_type:naval_supplies_mill
+}
+bag_wtp_avail_182 = {
+	can_build_building = building_type:naval_supplies_workshop
+}
+bag_wtp_avail_183 = {
 	can_build_building = building_type:paper_guild
 	has_advance = paper_guild_cloth_maintenance_advance
 }
-bag_wtp_avail_161 = {
+bag_wtp_avail_184 = {
 	can_build_building = building_type:paper_guild
 	has_advance = paper_guild_fiber_pulp_maintenance_advance
 }
-bag_wtp_avail_162 = {
+bag_wtp_avail_185 = {
 	can_build_building = building_type:paper_guild
 }
-bag_wtp_avail_163 = {
+bag_wtp_avail_186 = {
 	can_build_building = building_type:paper_manufactory
 }
-bag_wtp_avail_164 = {
+bag_wtp_avail_187 = {
 	can_build_building = building_type:paper_mill
 }
-bag_wtp_avail_165 = {
+bag_wtp_avail_188 = {
 	can_build_building = building_type:paper_mill
 	has_advance = paper_guild_wood_pulp_maintenance_advance
 }
-bag_wtp_avail_166 = {
-	can_build_building = building_type:paper_workshop
-}
-bag_wtp_avail_167 = {
-	can_build_building = building_type:paper_workshop
-}
-bag_wtp_avail_168 = {
-	can_build_building = building_type:porcelain_guild
-}
-bag_wtp_avail_169 = {
-	can_build_building = building_type:porcelain_manufactory
-}
-bag_wtp_avail_170 = {
-	can_build_building = building_type:fishing_village
-}
-bag_wtp_avail_171 = {
-	can_build_building = building_type:market_village
-}
-bag_wtp_avail_172 = {
-	can_build_building = building_type:pottery_guild
-}
-bag_wtp_avail_173 = {
-	can_build_building = building_type:pottery_manufactory
-}
-bag_wtp_avail_174 = {
-	can_build_building = building_type:pottery_mill
-}
-bag_wtp_avail_175 = {
-	can_build_building = building_type:pottery_workshop
-}
-bag_wtp_avail_176 = {
-	can_build_building = building_type:salt_collector
-}
-bag_wtp_avail_177 = {
-	can_build_building = building_type:putrefaction_mill
-}
-bag_wtp_avail_178 = {
-	can_build_building = building_type:putrefaction_works
-}
-bag_wtp_avail_179 = {
-	can_build_building = building_type:saltpeter_guild
-}
-bag_wtp_avail_180 = {
-	can_build_building = building_type:saltpeter_workshop
-}
-bag_wtp_avail_181 = {
-	can_build_building = building_type:sand_pit
-}
-bag_wtp_avail_182 = {
-	can_build_building = building_type:ablaq_palace
-}
-bag_wtp_avail_183 = {
-	can_build_building = building_type:lucca_silk_production_guild
-}
-bag_wtp_avail_184 = {
-	can_build_building = building_type:schwaz_mine
-}
-bag_wtp_avail_185 = {
-	can_build_building = building_type:slave_center
-}
-bag_wtp_avail_186 = {
-	can_build_building = building_type:steel_mill
-}
-bag_wtp_avail_187 = {
-	can_build_building = building_type:stone_quarry
-}
-bag_wtp_avail_188 = {
-	can_build_building = building_type:stone_quarry
-}
 bag_wtp_avail_189 = {
-	can_build_building = building_type:sugar_plantation
+	can_build_building = building_type:paper_workshop
 }
 bag_wtp_avail_190 = {
-	can_build_building = building_type:tar_kiln
+	can_build_building = building_type:paper_workshop
 }
 bag_wtp_avail_191 = {
-	can_build_building = building_type:tobacco_plantation
+	can_build_building = building_type:porcelain_guild
 }
 bag_wtp_avail_192 = {
-	can_build_building = building_type:forest_village
+	can_build_building = building_type:porcelain_manufactory
 }
 bag_wtp_avail_193 = {
-	can_build_building = building_type:iron_foundry
+	can_build_building = building_type:fishing_village
 }
 bag_wtp_avail_194 = {
-	can_build_building = building_type:iron_mill
-}
-bag_wtp_avail_195 = {
 	can_build_building = building_type:market_village
 }
+bag_wtp_avail_195 = {
+	can_build_building = building_type:pottery_guild
+}
 bag_wtp_avail_196 = {
-	can_build_building = building_type:tatara
+	can_build_building = building_type:pottery_manufactory
 }
 bag_wtp_avail_197 = {
-	can_build_building = building_type:tools_guild
+	can_build_building = building_type:pottery_mill
 }
 bag_wtp_avail_198 = {
+	can_build_building = building_type:pottery_workshop
+}
+bag_wtp_avail_199 = {
+	can_build_building = building_type:salt_collector
+}
+bag_wtp_avail_200 = {
+	can_build_building = building_type:putrefaction_mill
+}
+bag_wtp_avail_201 = {
+	can_build_building = building_type:putrefaction_works
+}
+bag_wtp_avail_202 = {
+	can_build_building = building_type:saltpeter_guild
+}
+bag_wtp_avail_203 = {
+	can_build_building = building_type:saltpeter_workshop
+}
+bag_wtp_avail_204 = {
+	can_build_building = building_type:sand_pit
+}
+bag_wtp_avail_205 = {
+	can_build_building = building_type:ablaq_palace
+}
+bag_wtp_avail_206 = {
+	can_build_building = building_type:lucca_silk_production_guild
+}
+bag_wtp_avail_207 = {
+	can_build_building = building_type:schwaz_mine
+}
+bag_wtp_avail_208 = {
+	can_build_building = building_type:slave_center
+}
+bag_wtp_avail_209 = {
+	can_build_building = building_type:steel_mill
+}
+bag_wtp_avail_210 = {
+	can_build_building = building_type:stone_quarry
+}
+bag_wtp_avail_211 = {
+	can_build_building = building_type:stone_quarry
+}
+bag_wtp_avail_212 = {
+	can_build_building = building_type:sugar_plantation
+}
+bag_wtp_avail_213 = {
+	can_build_building = building_type:tar_kiln
+}
+bag_wtp_avail_214 = {
+	can_build_building = building_type:tobacco_plantation
+}
+bag_wtp_avail_215 = {
+	can_build_building = building_type:forest_village
+}
+bag_wtp_avail_216 = {
+	can_build_building = building_type:iron_foundry
+}
+bag_wtp_avail_217 = {
+	can_build_building = building_type:iron_mill
+}
+bag_wtp_avail_218 = {
+	can_build_building = building_type:market_village
+}
+bag_wtp_avail_219 = {
+	can_build_building = building_type:tatara
+}
+bag_wtp_avail_220 = {
+	can_build_building = building_type:tools_guild
+}
+bag_wtp_avail_221 = {
 	can_build_building = building_type:tools_guild
 	has_advance = copperworking
 }
-bag_wtp_avail_199 = {
+bag_wtp_avail_222 = {
 	can_build_building = building_type:tools_guild
 }
-bag_wtp_avail_200 = {
+bag_wtp_avail_223 = {
 	can_build_building = building_type:tools_guild
 }
-bag_wtp_avail_201 = {
+bag_wtp_avail_224 = {
 	can_build_building = building_type:tools_workshop
 }
-bag_wtp_avail_202 = {
+bag_wtp_avail_225 = {
 	can_build_building = building_type:forest_village
 }
-bag_wtp_avail_203 = {
+bag_wtp_avail_226 = {
 	can_build_building = building_type:market_village
 }
-bag_wtp_avail_204 = {
+bag_wtp_avail_227 = {
 	can_build_building = building_type:tatara
 }
-bag_wtp_avail_205 = {
+bag_wtp_avail_228 = {
 	can_build_building = building_type:weapon_factory
 }
-bag_wtp_avail_206 = {
+bag_wtp_avail_229 = {
 	can_build_building = building_type:weapon_guild
 }
-bag_wtp_avail_207 = {
+bag_wtp_avail_230 = {
 	can_build_building = building_type:weapon_guild
 	has_advance = refined_obsidian_weaponry
 }
-bag_wtp_avail_208 = {
+bag_wtp_avail_231 = {
 	can_build_building = building_type:weapon_guild
 }
-bag_wtp_avail_209 = {
+bag_wtp_avail_232 = {
 	can_build_building = building_type:weapon_manufactory
 }
-bag_wtp_avail_210 = {
+bag_wtp_avail_233 = {
 	can_build_building = building_type:weapon_workshop
 }
-bag_wtp_avail_211 = {
+bag_wtp_avail_234 = {
 	can_build_building = building_type:eng_royal_forest
 }
-bag_wtp_avail_212 = {
+bag_wtp_avail_235 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_213 = {
+bag_wtp_avail_236 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_214 = {
+bag_wtp_avail_237 = {
 	can_build_building = building_type:winery
 }
-bag_wtp_avail_215 = {
+bag_wtp_avail_238 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_216 = {
+bag_wtp_avail_239 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_217 = {
+bag_wtp_avail_240 = {
 	can_build_building = building_type:winery_manufactory
 }
-bag_wtp_avail_218 = {
+bag_wtp_avail_241 = {
 	can_build_building = building_type:sheep_farms
 }

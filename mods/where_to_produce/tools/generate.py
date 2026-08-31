@@ -663,15 +663,18 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # `{MOD_ID}_store_winner`.
 """.format(max=eu5data.RGO_MAX_BONUS)]
     for index, method in enumerate(rows, start=1):
-        total = method.total_input
         ceiling = method.ceiling(game.raw_goods)
+        # What one raw material is worth here, in bonus points. For a building
+        # that runs two methods at once this is already blended across the two
+        # -- see `eu5data.Method.shares`.
+        shares = {good: share for good, share in method.shares().items()
+                  if good in game.raw_goods}
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
                    f"output {method.output:g}, ceiling {ceiling:.2f}% "
                    f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
         out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n"
                    f"\tvalue = {method.output * RANK_SCALE:.4f}\n")
-        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
-            share = eu5data.RGO_MAX_BONUS * amount / total
+        for good, share in sorted(shares.items()):
             out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {method.output * RANK_SCALE * share / 100:.4f}
@@ -679,8 +682,7 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 """)
         out.append("}\n")
         out.append(f"# Scope: location\n{MOD_ID}_b{index} = {{\n\tvalue = 0\n")
-        for good, amount in sorted(method.raw_inputs(game.raw_goods).items()):
-            share = eu5data.RGO_MAX_BONUS * amount / total
+        for good, share in sorted(shares.items()):
             out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
 \t\tadd = {share:.4f}
@@ -747,15 +749,10 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \tmultiply = 0.0001
 }}
 
-# Scope: location
-{MOD_ID}_near_tiebreak = {{
-\tvalue = {MOD_ID}_near_score
-\tmultiply = 0.0001
-}}
-
-# What the ranking sorts on, and which of the three columns that is belongs to
-# the player: the column headers are the buttons, and each sets one of these two
-# globals and clears the other. Neither set is «Сейчас».
+# What the ranking sorts on. Two orders, one per «Считать» button: what you
+# could build today, or what the ground gives at the end -- and where the end
+# cannot tell two provinces apart, which it cannot whenever a ladder runs out
+# (0.00% in every wool province for fine cloth), the road there decides.
 #
 # One operation per branch, because a script value that quietly does nothing
 # logs nothing.
@@ -763,19 +760,8 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 {MOD_ID}_score = {{
 \tvalue = 0
 \tif = {{
-\t\tlimit = {{
-\t\t\tNOT = {{ has_global_variable = {MOD_ID}_rank_by_mid }}
-\t\t\tNOT = {{ has_global_variable = {MOD_ID}_rank_by_end }}
-\t\t}}
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rank_by_end }} }}
 \t\tvalue = {MOD_ID}_near_score
-\t}}
-\tif = {{
-\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_mid }}
-\t\tvalue = {MOD_ID}_mid_score
-\t}}
-\tif = {{
-\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_mid }}
-\t\tadd = {MOD_ID}_near_tiebreak
 \t}}
 \tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
@@ -938,11 +924,18 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         beside it would be the same icons twice.
         """
         raw = sorted(method.raw_inputs(game.raw_goods))
+        # `_pm2` is the improvement half, and only eight buildings have one. The
+        # key of a pair is "base+improvement" and names no production method the
+        # game knows, so each half is written on its own.
+        improvement = (f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}pm2{suffix} "
+                       f"value = production_method:{method.parts[1].key} }}\n"
+                       if len(method.parts) > 1 else "")
         body = [f"\tif = {{\n"
                 f"\t\tlimit = {{ var:{MOD_ID}_{prefix}show{suffix} = {index} }}\n"
                 f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bt{suffix} value = building_type:{method.building} }}\n"
-                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}pm{suffix} value = production_method:{method.key} }}\n"
-                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bonus{suffix} value = {MOD_ID}_b{index} }}\n"
+                f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}pm{suffix} value = production_method:{method.parts[0].key} }}\n"
+                + improvement
+                + f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}bonus{suffix} value = {MOD_ID}_b{index} }}\n"
                 f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}out{suffix} value = {method.output:.4f} }}\n"]
         if prefix == "mid_":
             body.append(f"\t\tset_variable = {{ name = {MOD_ID}_mid_age{suffix} value = {game.last_age(method)} }}\n")
@@ -981,6 +974,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {fallback}\tclear_variable_list = {MOD_ID}_{prefix}goods{suffix}
 \tremove_variable = {MOD_ID}_{prefix}bt{suffix}
 \tremove_variable = {MOD_ID}_{prefix}pm{suffix}
+\tremove_variable = {MOD_ID}_{prefix}pm2{suffix}
 \t# Zeroed rather than left: nothing sets these where no method won at all, the
 \t# window guards only on `_bt`, and a number left over from the last run is
 \t# invisible there and wrong to everything that reads it.
@@ -1374,7 +1368,7 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\tif = {{\n"
                    f"\t\tlimit = {{ var:{MOD_ID}_w_method = {i} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_bt value = building_type:{method.building} }}\n"
-                   f"\t\tset_variable = {{ name = {MOD_ID}_w_pm value = production_method:{method.key} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_pm value = production_method:{method.parts[0].key} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_bonus value = {MOD_ID}_b{i} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_out value = {method.output:.4f} }}\n"
                    f"\t\tset_variable = {{ name = {MOD_ID}_w_goods_all value = {len(raw)} }}\n")

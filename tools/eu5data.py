@@ -35,6 +35,7 @@ tools carry nearly half its weight.
 
 from __future__ import annotations
 
+import itertools
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -129,8 +130,35 @@ LAST_AGE = 6
 
 
 @dataclass
+class Part:
+    """One method in one of a building's slots."""
+
+    key: str
+    output: float
+    inputs: dict[str, float] = field(default_factory=dict)
+
+    @property
+    def total_input(self) -> float:
+        return sum(self.inputs.values())
+
+
+@dataclass
 class Method:
-    """One production method, as offered by one building type."""
+    """What one building actually runs: one method out of each of its slots.
+
+    **A building with two `unique_production_methods` blocks runs one method
+    from each**, not one in total -- a tailors' guild weaves *and* finishes, a
+    cannon maker casts barrels *and* makes shot. Eight buildings are like that
+    (fine cloth, jewelry, cannons, firearms) and for them a `Method` is the
+    pair. Everything else has a single part and reads exactly as before.
+
+    **Each part earns its own RGO bonus.** The game shows it in as many words:
+    the tooltip on a tailors' guild is headed «Производственная эффективность
+    метода "Красители с квасцами"» and gives that method +10.01% for dyes worked
+    in the province -- the improvement's bonus, not the building's. So the two
+    parts are two efficiencies over two outputs, and what a province is worth is
+    their sum.
+    """
 
     key: str
     building: str
@@ -138,6 +166,7 @@ class Method:
     produced: str
     output: float
     inputs: dict[str, float] = field(default_factory=dict)
+    parts: list[Part] = field(default_factory=list)
 
     @property
     def total_input(self) -> float:
@@ -147,13 +176,34 @@ class Method:
         """Inputs an RGO could supply. The rest can never be sourced locally."""
         return {g: a for g, a in self.inputs.items() if g in raw_goods}
 
+    def shares(self) -> dict[str, float]:
+        """How much bonus each good is worth here, in points of `RGO_MAX_BONUS`.
+
+        For one part this is the plain formula: a good's share of the inputs,
+        times ten. For two it is each part's share of its *own* inputs, weighted
+        by how much of the building's output that part makes -- because the
+        parts' efficiencies apply to their own outputs and then add:
+
+            o1(1+b1/100) + o2(1+b2/100) = (o1+o2)(1 + b/100),
+            b = (o1*b1 + o2*b2) / (o1+o2)
+
+        So the pair behaves exactly like one method of output `o1+o2` at this
+        blended bonus, and everything downstream -- the ranking, the script
+        values, the row -- needs no notion of parts at all.
+        """
+        out: dict[str, float] = {}
+        for part in self.parts:
+            if not part.total_input or not self.output:
+                continue
+            weight = part.output / self.output
+            for good, amount in part.inputs.items():
+                out[good] = out.get(good, 0.0) + (
+                    weight * RGO_MAX_BONUS * amount / part.total_input)
+        return out
+
     def bonus(self, available: set[str]) -> float:
-        """The RGO bonus this method gets where `available` is produced."""
-        total = self.total_input
-        if not total:
-            return 0.0
-        covered = sum(a for g, a in self.inputs.items() if g in available)
-        return RGO_MAX_BONUS * covered / total
+        """The RGO bonus this building gets where `available` is produced."""
+        return sum(v for g, v in self.shares().items() if g in available)
 
     def ceiling(self, raw_goods: set[str]) -> float:
         """The best this method could ever reach, with every RGO input present."""
@@ -408,29 +458,51 @@ def load_game(common: Path | None = None) -> Game:
 
     methods: list[Method] = []
     for building, entries in buildings.items():
-        blocks: list[tuple[str, list]] = []
+        # One list per slot. A `unique_production_methods` block is a slot -- the
+        # building runs one method out of each -- and the shared
+        # `possible_production_methods` are one slot between them. No building in
+        # the game mixes the two, and none has two shared blocks, so this is the
+        # whole of it.
+        slots: list[list[tuple[str, list]]] = []
         for block in find(entries, "unique_production_methods"):
-            blocks += [(name, body) for name, body in block if isinstance(body, list)]
+            slot = [(name, body) for name, body in block
+                    if isinstance(body, list) and scalar(body, "produced")]
+            if slot:
+                slots.append(slot)
+        shared_slot: list[tuple[str, list]] = []
         for block in find(entries, "possible_production_methods"):
             for key, value in block:
                 name = value if key is None else key
-                if name in shared:
-                    blocks.append((name, shared[name]))
-
-        for name, body in blocks:
-            produced = scalar(body, "produced")
-            if produced is None:
                 # Upkeep only. The game gates its shovel badge on IsProducing,
                 # and a building that outputs nothing has no efficiency to gain.
-                continue
-            output = scalar(body, "output")
+                if name in shared and scalar(shared[name], "produced"):
+                    shared_slot.append((name, shared[name]))
+        if shared_slot:
+            slots.append(shared_slot)
+        if not slots:
+            continue
+
+        category = scalar(entries, "category") or ""
+        for combination in itertools.product(*slots):
+            parts = []
+            for name, body in combination:
+                output = scalar(body, "output")
+                parts.append(Part(
+                    key=name,
+                    output=float(output) if output and NUMBER_RE.match(output) else 0.0,
+                    inputs=_inputs(body, goods)))
+            merged: dict[str, float] = {}
+            for part in parts:
+                for good, amount in part.inputs.items():
+                    merged[good] = merged.get(good, 0.0) + amount
             methods.append(Method(
-                key=name,
+                key="+".join(part.key for part in parts),
                 building=building,
-                building_category=scalar(entries, "category") or "",
-                produced=produced,
-                output=float(output) if output and NUMBER_RE.match(output) else 0.0,
-                inputs=_inputs(body, goods),
+                building_category=category,
+                produced=scalar(combination[0][1], "produced"),
+                output=sum(part.output for part in parts),
+                inputs=merged,
+                parts=parts,
             ))
     obsoleted = {str(scalar(entries, "obsolete")) for entries in buildings.values()
                  if scalar(entries, "obsolete")}

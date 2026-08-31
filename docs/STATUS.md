@@ -12,7 +12,7 @@ state, the commands, and what fails silently in that mod.
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | twenty loads in: a good or a whole urban right, a window each, live re-ranking, three ages on every row, sorted by clicking a column | the two-slot buildings, the zero-bonus filter for rights, and the general/unique split |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | twenty-one loads in: a good or a whole urban right, a window each, live re-ranking, three ages on every row, two «Считать» buttons | the paired two-slot methods, and everything of the twenty-second load |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped

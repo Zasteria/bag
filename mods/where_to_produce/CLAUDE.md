@@ -5,24 +5,24 @@ method and ranks the locations by what that method would earn from the raw
 materials the province supplies — **in two ages: what you can build now, and
 what the ground gives once every advance is in.**
 
-**State: twenty loads in, and a row now answers in three ages** — «Сейчас»,
+**State: twenty-one loads in, and a row answers in three ages** — «Сейчас»,
 «По пути» (the best this ground ever feeds, and the last age it can be built),
-«В конце». Each is a header the player clicks to sort by, in the window; sorting
-by the last breaks ties on the middle one, which is the only column with
-anything to say where a ladder ends early.
+«В конце». **Two «Считать» buttons, not three sort headers:** one orders by
+today, the other by the end and breaks its ties on «По пути», which is the only
+column with anything to say where a ladder ends early.
 
 ## Where it stands
 
 **A method the province feeds nothing of is not an answer**, and where nothing
 is fed there is no row. Every column keeps a fed answer for the ranking and an
-unfed one for the printing, so a cell says 0.00% where a blank would have lied —
-a ladder can end early: wool fine cloth stops at the workshop, because the
-manufactory takes only silk or cloth.
+unfed one for printing, so a cell says 0.00% where a blank would have lied — a
+ladder can end early: wool fine cloth stops at the workshop.
 
-**Eight buildings run two methods at once and the mod models one** — fine cloth,
-jewelry, cannons, firearms: a second `unique_production_methods` block is a
-second slot, and the building runs one from each. It understates their output
-and their inputs. The fix fits and waits on one tooltip:
+**A building runs one method out of each of its slots**, and eight of them have
+two — fine cloth, jewelry, cannons, firearms. **Each slot earns its own bonus
+over its own output** (settled from the game's panel), so a `Method` is the pair,
+at the summed output and the output-weighted blend of the two bonuses. The
+arithmetic is `eu5data.Method.shares`; why:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **The rights window still has one age** to the goods window's three, which is

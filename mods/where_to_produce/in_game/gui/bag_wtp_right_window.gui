@@ -43,7 +43,7 @@ types BagWtpRightTypes {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
 			text = "bag_wtp_right_bonus_1"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
@@ -112,7 +112,7 @@ types BagWtpRightTypes {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
 			text = "bag_wtp_right_bonus_2"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
@@ -181,7 +181,7 @@ types BagWtpRightTypes {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
-			align = right|vcenter
+			align = left|vcenter
 			text = "bag_wtp_right_bonus_3"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
@@ -266,7 +266,7 @@ types BagWtpRightTypes {
 					size = { 34 116 }
 					autoresize = no
 					maximumsize = { 34 116 }
-					align = right|vcenter
+					align = left|vcenter
 					fontsize = 13
 					text = "bag_wtp_result_rank_value"
 					tooltip = "bag_wtp_result_rank_tt"
@@ -298,7 +298,7 @@ types BagWtpRightTypes {
 					size = { 78 116 }
 					autoresize = no
 					maximumsize = { 78 116 }
-					align = right|vcenter
+					align = left|vcenter
 					text = "bag_wtp_right_total_value"
 					tooltip = "bag_wtp_right_total_tt"
 				}
@@ -532,16 +532,18 @@ window = {
 					text = "bag_wtp_right_window_empty"
 				}
 
+				# 48, not 38: the rows below sit inside a scrollbox whose content
+				# carries a 10px margin, and the header does not.
 				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_left = 38
+					margin_left = 48
 					spacing = 0
 					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_right_results'))]"
 
 					text_single = {
 						size = { 34 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_rank"
 					}
@@ -562,7 +564,7 @@ window = {
 					text_single = {
 						size = { 78 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_right_head_total"
 					}
@@ -577,7 +579,7 @@ window = {
 					text_single = {
 						size = { 70 24 }
 						autoresize = no
-						align = right|vcenter
+						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_bonus"
 					}

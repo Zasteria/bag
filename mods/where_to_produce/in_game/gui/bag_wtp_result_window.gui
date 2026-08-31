@@ -284,6 +284,10 @@ types BagWtpResultTypes {
 		# column, the one the far column did. Two texts rather than one because a
 		# localization value cannot branch; `ignoreinvisible` is what keeps the
 		# hidden one from holding the width open.
+		#
+		# «+ улучшение» is the second half of a pair: eight buildings run a base
+		# method and an improvement at once, and the row's percentage and «×»
+		# already count both.
 		hbox = {
 			layoutpolicy_horizontal = expanding
 			size = { -1 28 }
@@ -302,6 +306,17 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
+				autoresize = yes
+				maximumsize = { 150 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet, Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
+				text = "bag_wtp_result_method2_value"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
 				size = { -1 28 }
 				layoutpolicy_horizontal = expanding
 				autoresize = no
@@ -309,6 +324,17 @@ types BagWtpResultTypes {
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
 				text = "bag_wtp_result_method_value_end"
+				tooltip = "bag_wtp_result_end_tt"
+			}
+
+			text_single = {
+				autoresize = yes
+				maximumsize = { 150 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
+				text = "bag_wtp_result_method2_value_end"
 				tooltip = "bag_wtp_result_end_tt"
 			}
 		}
@@ -427,6 +453,10 @@ types BagWtpResultTypes {
 		# column, the one the far column did. Two texts rather than one because a
 		# localization value cannot branch; `ignoreinvisible` is what keeps the
 		# hidden one from holding the width open.
+		#
+		# «+ улучшение» is the second half of a pair: eight buildings run a base
+		# method and an improvement at once, and the row's percentage and «×»
+		# already count both.
 		hbox = {
 			layoutpolicy_horizontal = expanding
 			size = { -1 28 }
@@ -445,6 +475,17 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
+				autoresize = yes
+				maximumsize = { 150 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet, Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"
+				text = "bag_wtp_result_method2_value_rural"
+				tooltip = "bag_wtp_result_method_tt"
+			}
+
+			text_single = {
 				size = { -1 28 }
 				layoutpolicy_horizontal = expanding
 				autoresize = no
@@ -452,6 +493,17 @@ types BagWtpResultTypes {
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
 				text = "bag_wtp_result_method_value_end_rural"
+				tooltip = "bag_wtp_result_end_tt_rural"
+			}
+
+			text_single = {
+				autoresize = yes
+				maximumsize = { 150 28 }
+				align = left|vcenter
+				elide = right
+				fontsize = 12
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"
+				text = "bag_wtp_result_method2_value_end_rural"
 				tooltip = "bag_wtp_result_end_tt_rural"
 			}
 		}
@@ -855,95 +907,36 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
 					}
-					# The three number columns are buttons: clicking one sorts the
-					# table by it, and the mark moves to it. Ranking by «В конце»
-					# breaks its ties on «По пути», which is the whole point of
-					# having the middle one -- see bag_wtp_generated_values.txt.
-					#
-					# The mark is drawn from a global variable; if it never shows
-					# up the buttons still sort, because they do not read it.
-					button_regular = {
+					# Plain labels again. Sorting is not a property of a column any
+					# more: it belongs to which of the two «Считать» buttons was
+					# pressed, and those live on the mod page where the question
+					# is asked. Three buttons in a header was one control too
+					# many, and the twenty-first run said so.
+					text_single = {
 						size = { 70 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_bonus"
 						tooltip = "bag_wtp_result_head_bonus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_sort_by_near').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-						text_single = {
-							size = { 58 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = left|nobaseline
-							fontsize = 13
-							fontsize_min = 9
-							elide = right
-							text = "bag_wtp_result_head_bonus"
-						}
-						text_single = {
-							size = { 58 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = right|nobaseline
-							fontsize = 13
-							visible = "[Not(Or(GetGlobalVariable('bag_wtp_rank_by_mid').IsSet, GetGlobalVariable('bag_wtp_rank_by_end').IsSet))]"
-							text = "bag_wtp_result_head_sorted"
-						}
 					}
 					widget = { size = { 6 24 } }
-					button_regular = {
+					text_single = {
 						size = { 80 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_end"
 						tooltip = "bag_wtp_result_head_end_tt"
-						onclick = "[GetScriptedGui('bag_wtp_sort_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-						text_single = {
-							size = { 68 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = left|nobaseline
-							fontsize = 13
-							fontsize_min = 9
-							elide = right
-							text = "bag_wtp_result_head_end"
-						}
-						text_single = {
-							size = { 68 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = right|nobaseline
-							fontsize = 13
-							visible = "[GetGlobalVariable('bag_wtp_rank_by_end').IsSet]"
-							text = "bag_wtp_result_head_sorted"
-						}
 					}
 					widget = { size = { 6 24 } }
-					button_regular = {
+					text_single = {
 						size = { 98 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_mid"
 						tooltip = "bag_wtp_result_head_mid_tt"
-						onclick = "[GetScriptedGui('bag_wtp_sort_by_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-						text_single = {
-							size = { 86 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = left|nobaseline
-							fontsize = 13
-							fontsize_min = 9
-							elide = right
-							text = "bag_wtp_result_head_mid"
-						}
-						text_single = {
-							size = { 86 20 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							align = right|nobaseline
-							fontsize = 13
-							visible = "[GetGlobalVariable('bag_wtp_rank_by_mid').IsSet]"
-							text = "bag_wtp_result_head_sorted"
-						}
 					}
 					widget = { size = { 10 24 } }
 					text_single = {

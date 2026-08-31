@@ -1567,9 +1567,81 @@ bag_wtp_store_scratch = {
 	if = {
 		limit = { var:bag_wtp_w_method = 23 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_ammunition_iron_maintenance }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_bronze_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b23 }
-		set_variable = { name = bag_wtp_w_out value = 0.1600 }
+		set_variable = { name = bag_wtp_w_out value = 1.1600 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 24 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b24 }
+		set_variable = { name = bag_wtp_w_out value = 1.1200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 25 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b25 }
+		set_variable = { name = bag_wtp_w_out value = 1.0870 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:stone }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 26 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b26 }
+		set_variable = { name = bag_wtp_w_out value = 1.1600 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
@@ -1581,12 +1653,16 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 24 }
+		limit = { var:bag_wtp_w_method = 27 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_ammunition_lead_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b24 }
-		set_variable = { name = bag_wtp_w_out value = 0.1200 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b27 }
+		set_variable = { name = bag_wtp_w_out value = 1.1200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
@@ -1597,12 +1673,16 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 25 }
+		limit = { var:bag_wtp_w_method = 28 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_ammunition_stone_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b25 }
-		set_variable = { name = bag_wtp_w_out value = 0.0870 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b28 }
+		set_variable = { name = bag_wtp_w_out value = 1.0870 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
@@ -1613,40 +1693,12 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 26 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_bronze_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b26 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 27 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b27 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 28 }
+		limit = { var:bag_wtp_w_method = 29 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_lumber_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b28 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b29 }
+		set_variable = { name = bag_wtp_w_out value = 0.2600 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
@@ -1655,18 +1707,6 @@ bag_wtp_store_scratch = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
 		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 29 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_ammunition_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b29 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
-		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
@@ -1674,14 +1714,22 @@ bag_wtp_store_scratch = {
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 30 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_ammunition_lead_maintenance }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_lumber_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b30 }
-		set_variable = { name = bag_wtp_w_out value = 0.1500 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_out value = 0.2200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
 		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
@@ -1690,11 +1738,19 @@ bag_wtp_store_scratch = {
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 31 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_ammunition_stone_maintenance }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_maker }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_maker_lumber_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b31 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_out value = 0.1870 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
@@ -1709,11 +1765,19 @@ bag_wtp_store_scratch = {
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_bronze_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b32 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_out value = 1.3000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
 		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
@@ -1723,20 +1787,112 @@ bag_wtp_store_scratch = {
 	if = {
 		limit = { var:bag_wtp_w_method = 33 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_bronze_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b33 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_out value = 1.2500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
 		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
 		}
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 34 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b34 }
+		set_variable = { name = bag_wtp_w_out value = 1.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:stone }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 35 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b35 }
+		set_variable = { name = bag_wtp_w_out value = 1.3000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 36 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b36 }
+		set_variable = { name = bag_wtp_w_out value = 1.2500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 37 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:cannon_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:cannon_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b37 }
+		set_variable = { name = bag_wtp_w_out value = 1.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:stone }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 38 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cannons_factory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:gun_factory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b34 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b38 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1749,10 +1905,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 35 }
+		limit = { var:bag_wtp_w_method = 39 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:clay_pit }
 		set_variable = { name = bag_wtp_w_pm value = production_method:clay_pit_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b35 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b39 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1761,10 +1917,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 36 }
+		limit = { var:bag_wtp_w_method = 40 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cotton_cloth_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b36 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b40 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1773,10 +1929,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 37 }
+		limit = { var:bag_wtp_w_method = 41 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_cloth_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b37 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b41 }
 		set_variable = { name = bag_wtp_w_out value = 0.8000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1785,10 +1941,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 38 }
+		limit = { var:bag_wtp_w_method = 42 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wool_cloth_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b38 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b42 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1797,10 +1953,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 39 }
+		limit = { var:bag_wtp_w_method = 43 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cotton_cloth_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b39 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b43 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1813,10 +1969,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 40 }
+		limit = { var:bag_wtp_w_method = 44 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_cloth_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b40 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b44 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1829,10 +1985,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 41 }
+		limit = { var:bag_wtp_w_method = 45 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wool_cloth_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b41 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b45 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1845,10 +2001,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 42 }
+		limit = { var:bag_wtp_w_method = 46 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cotton_cloth_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b42 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b46 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1857,10 +2013,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 43 }
+		limit = { var:bag_wtp_w_method = 47 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_cloth_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b43 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b47 }
 		set_variable = { name = bag_wtp_w_out value = 0.9000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1869,10 +2025,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 44 }
+		limit = { var:bag_wtp_w_method = 48 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wool_cloth_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b44 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b48 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1881,10 +2037,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 45 }
+		limit = { var:bag_wtp_w_method = 49 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:rural_clothmaker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_cotton_clothmaker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b45 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b49 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1893,10 +2049,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 46 }
+		limit = { var:bag_wtp_w_method = 50 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:rural_clothmaker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_fiber_clothmaker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b46 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b50 }
 		set_variable = { name = bag_wtp_w_out value = 0.4000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1905,10 +2061,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 47 }
+		limit = { var:bag_wtp_w_method = 51 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:rural_clothmaker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_wool_clothmaker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b47 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b51 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1917,10 +2073,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 48 }
+		limit = { var:bag_wtp_w_method = 52 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:textile_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cotton_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b48 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b52 }
 		set_variable = { name = bag_wtp_w_out value = 3.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1933,10 +2089,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 49 }
+		limit = { var:bag_wtp_w_method = 53 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:textile_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b49 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b53 }
 		set_variable = { name = bag_wtp_w_out value = 2.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1949,10 +2105,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 50 }
+		limit = { var:bag_wtp_w_method = 54 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:textile_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wool_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b50 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b54 }
 		set_variable = { name = bag_wtp_w_out value = 2.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -1965,10 +2121,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 51 }
+		limit = { var:bag_wtp_w_method = 55 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:charcoal_maker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:char_coal_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b51 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b55 }
 		set_variable = { name = bag_wtp_w_out value = 0.8000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1977,10 +2133,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 52 }
+		limit = { var:bag_wtp_w_method = 56 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:improved_charcoal_maker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:improved_char_coal_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b52 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b56 }
 		set_variable = { name = bag_wtp_w_out value = 1.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -1989,10 +2145,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 53 }
+		limit = { var:bag_wtp_w_method = 57 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:cotton_plantation }
 		set_variable = { name = bag_wtp_w_pm value = production_method:cotton_plantation_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b53 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b57 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2001,71 +2157,11 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 54 }
+		limit = { var:bag_wtp_w_method = 58 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:alum_dyes_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b54 }
-		set_variable = { name = bag_wtp_w_out value = 0.3000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 55 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:dyes_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b55 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 56 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:dyesmill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b56 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 57 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:dyes_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b57 }
-		set_variable = { name = bag_wtp_w_out value = 0.4000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 58 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:dyesworks }
-		set_variable = { name = bag_wtp_w_pm value = production_method:dyesworks_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b58 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
@@ -2078,9 +2174,69 @@ bag_wtp_store_scratch = {
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 59 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:dyes_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b59 }
+		set_variable = { name = bag_wtp_w_out value = 0.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 60 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:dyesmill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b60 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 61 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:dyes_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:dyes_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b61 }
+		set_variable = { name = bag_wtp_w_out value = 0.4000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 62 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:dyesworks }
+		set_variable = { name = bag_wtp_w_pm value = production_method:dyesworks_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b62 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 63 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fiber_crops_farm }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_farm_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b59 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b63 }
 		set_variable = { name = bag_wtp_w_out value = 0.8000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2093,10 +2249,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 60 }
+		limit = { var:bag_wtp_w_method = 64 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:shoen }
 		set_variable = { name = bag_wtp_w_pm value = production_method:shoen_fiber_crops_farm_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b60 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b64 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2105,11 +2261,11 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 61 }
+		limit = { var:bag_wtp_w_method = 65 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:alum_fine_cloth_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b61 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b65 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
@@ -2121,11 +2277,11 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 62 }
+		limit = { var:bag_wtp_w_method = 66 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:base_fine_cloth_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b62 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b66 }
+		set_variable = { name = bag_wtp_w_out value = 0.6000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
@@ -2133,11 +2289,11 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 63 }
+		limit = { var:bag_wtp_w_method = 67 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:fur_trim_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b63 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b67 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
@@ -2145,48 +2301,12 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 64 }
+		limit = { var:bag_wtp_w_method = 68 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b64 }
-		set_variable = { name = bag_wtp_w_out value = 0.7000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 65 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b65 }
-		set_variable = { name = bag_wtp_w_out value = 0.5000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 66 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b66 }
-		set_variable = { name = bag_wtp_w_out value = 0.5000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 67 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:alum_fine_cloth_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b67 }
-		set_variable = { name = bag_wtp_w_out value = 0.4000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b68 }
+		set_variable = { name = bag_wtp_w_out value = 0.9000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
@@ -2195,26 +2315,22 @@ bag_wtp_store_scratch = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
 		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 68 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:base_cloth_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b68 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
 		}
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 69 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:silk_cloth_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b69 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_out value = 0.8000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
@@ -2222,26 +2338,14 @@ bag_wtp_store_scratch = {
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 70 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b70 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 71 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:silk_cloth_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b71 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_out value = 0.9000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
 		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
@@ -2249,11 +2353,115 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
+		limit = { var:bag_wtp_w_method = 71 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b71 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
 		limit = { var:bag_wtp_w_method = 72 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:alum_fine_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b72 }
-		set_variable = { name = bag_wtp_w_out value = 0.2500 }
+		set_variable = { name = bag_wtp_w_out value = 0.6000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 73 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b73 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 74 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b74 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 75 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b75 }
+		set_variable = { name = bag_wtp_w_out value = 0.6000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 76 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b76 }
+		set_variable = { name = bag_wtp_w_out value = 0.7000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 77 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b77 }
+		set_variable = { name = bag_wtp_w_out value = 2.4000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
@@ -2265,11 +2473,11 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 73 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:base_fine_cloth_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b73 }
-		set_variable = { name = bag_wtp_w_out value = 0.1200 }
+		limit = { var:bag_wtp_w_method = 78 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b78 }
+		set_variable = { name = bag_wtp_w_out value = 2.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
@@ -2277,11 +2485,103 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 74 }
+		limit = { var:bag_wtp_w_method = 79 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_cloth_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b79 }
+		set_variable = { name = bag_wtp_w_out value = 2.4000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 80 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_cloth_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b80 }
+		set_variable = { name = bag_wtp_w_out value = 2.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 81 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b81 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 82 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_cloth_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b82 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 83 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:fur_trim_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b74 }
-		set_variable = { name = bag_wtp_w_out value = 0.2500 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b83 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 84 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b84 }
+		set_variable = { name = bag_wtp_w_out value = 0.7200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 85 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:fine_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b85 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
@@ -2289,46 +2589,166 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 75 }
+		limit = { var:bag_wtp_w_method = 86 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b75 }
-		set_variable = { name = bag_wtp_w_out value = 0.8000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b86 }
+		set_variable = { name = bag_wtp_w_out value = 1.0500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 76 }
+		limit = { var:bag_wtp_w_method = 87 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b87 }
+		set_variable = { name = bag_wtp_w_out value = 0.9200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 88 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silk_weavers_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b88 }
+		set_variable = { name = bag_wtp_w_out value = 1.0500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silk }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 89 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b76 }
-		set_variable = { name = bag_wtp_w_out value = 0.6000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b89 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 77 }
+		limit = { var:bag_wtp_w_method = 90 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b90 }
+		set_variable = { name = bag_wtp_w_out value = 0.7200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 91 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:spanish_cloth_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b91 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 92 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b77 }
-		set_variable = { name = bag_wtp_w_out value = 0.6000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b92 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:alum }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 78 }
+		limit = { var:bag_wtp_w_method = 93 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b93 }
+		set_variable = { name = bag_wtp_w_out value = 0.7200 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:dyes }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 94 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:fine_cloth_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wool_weavers_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b94 }
+		set_variable = { name = bag_wtp_w_out value = 0.8500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:fur }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wool }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 95 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:firearms_factory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:firearms_factory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b78 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b95 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2341,10 +2761,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 79 }
+		limit = { var:bag_wtp_w_method = 96 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:firearms_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:firearms_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b79 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b96 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 5 }
 		if = {
@@ -2369,11 +2789,59 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 80 }
+		limit = { var:bag_wtp_w_method = 97 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_ammunition_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b80 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b97 }
+		set_variable = { name = bag_wtp_w_out value = 1.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 98 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b98 }
+		set_variable = { name = bag_wtp_w_out value = 1.1600 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 99 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b99 }
+		set_variable = { name = bag_wtp_w_out value = 1.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
@@ -2385,12 +2853,16 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 81 }
+		limit = { var:bag_wtp_w_method = 100 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_ammunition_lead_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b81 }
-		set_variable = { name = bag_wtp_w_out value = 0.1600 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b100 }
+		set_variable = { name = bag_wtp_w_out value = 1.1600 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
@@ -2401,40 +2873,12 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 82 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_bronze_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b82 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 83 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b83 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 84 }
+		limit = { var:bag_wtp_w_method = 101 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
 		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_lumber_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b84 }
-		set_variable = { name = bag_wtp_w_out value = 0.1500 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b101 }
+		set_variable = { name = bag_wtp_w_out value = 0.3500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
@@ -2443,13 +2887,89 @@ bag_wtp_store_scratch = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
 		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 85 }
+		limit = { var:bag_wtp_w_method = 102 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:gun_smith }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_guild_lumber_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b102 }
+		set_variable = { name = bag_wtp_w_out value = 0.3100 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lumber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 103 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_ammunition_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b85 }
-		set_variable = { name = bag_wtp_w_out value = 0.2500 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b103 }
+		set_variable = { name = bag_wtp_w_out value = 1.3500 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 104 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_bronze_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b104 }
+		set_variable = { name = bag_wtp_w_out value = 1.3000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 4 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:saltpeter }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 105 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b105 }
+		set_variable = { name = bag_wtp_w_out value = 1.2500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
@@ -2461,12 +2981,16 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 86 }
+		limit = { var:bag_wtp_w_method = 106 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_ammunition_lead_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b86 }
-		set_variable = { name = bag_wtp_w_out value = 0.2000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_iron_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b106 }
+		set_variable = { name = bag_wtp_w_out value = 1.2000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 3 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:lead }
@@ -2477,38 +3001,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 87 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_bronze_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b87 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:tin }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 88 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:guns_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:guns_workshop_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b88 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:iron }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 89 }
+		limit = { var:bag_wtp_w_method = 107 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:hand_cannon_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:hand_cannon_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b89 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b107 }
 		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 5 }
 		if = {
@@ -2533,10 +3029,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 90 }
+		limit = { var:bag_wtp_w_method = 108 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fishing_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:arctic_fishing_village_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b90 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b108 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2549,10 +3045,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 91 }
+		limit = { var:bag_wtp_w_method = 109 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fishing_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fishing_village_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b91 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b109 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2561,10 +3057,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 92 }
+		limit = { var:bag_wtp_w_method = 110 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fruit_orchard }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fruit_orchard_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b92 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b110 }
 		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2573,10 +3069,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 93 }
+		limit = { var:bag_wtp_w_method = 111 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:furniture_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:furniture_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b93 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b111 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2589,10 +3085,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 94 }
+		limit = { var:bag_wtp_w_method = 112 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:furniture_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:furniture_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b94 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b112 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2605,10 +3101,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 95 }
+		limit = { var:bag_wtp_w_method = 113 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:furniture_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:furniture_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b95 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b113 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2621,10 +3117,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 96 }
+		limit = { var:bag_wtp_w_method = 114 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:furniture_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:furniture_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b96 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b114 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2637,10 +3133,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 97 }
+		limit = { var:bag_wtp_w_method = 115 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:glass_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:glass_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b97 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b115 }
 		set_variable = { name = bag_wtp_w_out value = 0.7500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2653,10 +3149,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 98 }
+		limit = { var:bag_wtp_w_method = 116 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:glass_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:metal_glass_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b98 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b116 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 4 }
 		if = {
@@ -2677,10 +3173,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 99 }
+		limit = { var:bag_wtp_w_method = 117 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:glass_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:glassmill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b99 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b117 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 5 }
 		if = {
@@ -2705,10 +3201,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 100 }
+		limit = { var:bag_wtp_w_method = 118 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:glass_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:metal_glass_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b100 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b118 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 4 }
 		if = {
@@ -2729,10 +3225,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 101 }
+		limit = { var:bag_wtp_w_method = 119 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:glassworks }
 		set_variable = { name = bag_wtp_w_pm value = production_method:glassworks_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b101 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b119 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 5 }
 		if = {
@@ -2757,10 +3253,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 102 }
+		limit = { var:bag_wtp_w_method = 120 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:rural_glassmaker }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_glassmaker_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b102 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b120 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2769,10 +3265,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 103 }
+		limit = { var:bag_wtp_w_method = 121 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:horse_breeders }
 		set_variable = { name = bag_wtp_w_pm value = production_method:horse_breeders_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b103 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b121 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2785,10 +3281,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 104 }
+		limit = { var:bag_wtp_w_method = 122 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:perfumery }
 		set_variable = { name = bag_wtp_w_pm value = production_method:perfumery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b104 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b122 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2797,10 +3293,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 105 }
+		limit = { var:bag_wtp_w_method = 123 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:bog_iron_smelter }
 		set_variable = { name = bag_wtp_w_pm value = production_method:bog_iron_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b105 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b123 }
 		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2809,10 +3305,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 106 }
+		limit = { var:bag_wtp_w_method = 124 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:shoen }
 		set_variable = { name = bag_wtp_w_pm value = production_method:shoen_ironsand_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b106 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b124 }
 		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2821,10 +3317,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 107 }
+		limit = { var:bag_wtp_w_method = 125 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:elephant_hunting_grounds }
 		set_variable = { name = bag_wtp_w_pm value = production_method:elephant_hunting_grounds_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b107 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b125 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2833,94 +3329,202 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 108 }
+		limit = { var:bag_wtp_w_method = 126 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:amber_enhancement }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b108 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:copper_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b126 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:amber }
 		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 109 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:copper_base }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b109 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 110 }
+		limit = { var:bag_wtp_w_method = 127 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:gems_enhancement }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b110 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:copper_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b127 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:gems }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 111 }
+		limit = { var:bag_wtp_w_method = 128 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:gold_base }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b111 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:copper_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b128 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:goods_gold }
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
 		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 112 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:ivory_enhancement }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b112 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:ivory }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 113 }
+		limit = { var:bag_wtp_w_method = 129 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:pearls_enhancement }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b113 }
-		set_variable = { name = bag_wtp_w_out value = 0.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_pm value = production_method:copper_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b129 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:copper }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:pearls }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 114 }
+		limit = { var:bag_wtp_w_method = 130 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:gold_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b130 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:amber }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:goods_gold }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 131 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:gold_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b131 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:gems }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:goods_gold }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 132 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:gold_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b132 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:goods_gold }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:ivory }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 133 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:gold_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b133 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:goods_gold }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:pearls }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 134 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:silver_base }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b114 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b134 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:amber }
+		}
 		if = {
 			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
 			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silver }
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 115 }
+		limit = { var:bag_wtp_w_method = 135 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silver_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b135 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:gems }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silver }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 136 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silver_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b136 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:ivory }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silver }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 137 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:jewelry_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:silver_base }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b137 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:pearls }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:silver }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 138 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:market_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_jewelry_carver }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b115 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b138 }
 		set_variable = { name = bag_wtp_w_out value = 0.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2929,10 +3533,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 116 }
+		limit = { var:bag_wtp_w_method = 139 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:pounamou_carver }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pounamou_carver_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b116 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b139 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -2941,10 +3545,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 117 }
+		limit = { var:bag_wtp_w_method = 140 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:lacquerware_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:lacquerware_shop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b117 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b140 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2957,10 +3561,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 118 }
+		limit = { var:bag_wtp_w_method = 141 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:lacquerware_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:lacquerware_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b118 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b141 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2973,10 +3577,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 119 }
+		limit = { var:bag_wtp_w_method = 142 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:forest_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:forest_tannery }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b119 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b142 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -2989,330 +3593,330 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 120 }
+		limit = { var:bag_wtp_w_method = 143 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tannery }
 		set_variable = { name = bag_wtp_w_pm value = production_method:leather_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b120 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 121 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tannery }
-		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b121 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 122 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:leather_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b122 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 123 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b123 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 124 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:leather_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b124 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 125 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b125 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 126 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tanning_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:leather_livestock_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b126 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 127 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:tanning_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:leather_wildgame_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b127 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 2 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
-		}
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 128 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:potato_distillery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b128 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 129 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:rice_distillery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b129 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 130 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:scottish_whisky_distillery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b130 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:millet }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 131 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_distillery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b131 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 132 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
-		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_distillery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b132 }
-		set_variable = { name = bag_wtp_w_out value = 2.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 133 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:potato_distillery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b133 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 134 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:rice_distillery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b134 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 135 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:scottish_whisky_distillery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b135 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:millet }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 136 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_distillery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b136 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 137 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
-		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_distillery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b137 }
-		set_variable = { name = bag_wtp_w_out value = 4.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 138 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:potato_liquor_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b138 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 139 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:rice_liquor_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b139 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 140 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_liquor_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b140 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 141 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_liquor_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b141 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 142 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
-		set_variable = { name = bag_wtp_w_pm value = production_method:wine_liquor_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b142 }
-		set_variable = { name = bag_wtp_w_out value = 1.0000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
-		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wine }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_w_method = 143 }
-		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
-		set_variable = { name = bag_wtp_w_pm value = production_method:potato_liquor_workshop_maintenance }
 		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b143 }
-		set_variable = { name = bag_wtp_w_out value = 1.1000 }
-		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
-			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
 		}
 	}
 	if = {
 		limit = { var:bag_wtp_w_method = 144 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tannery }
+		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b144 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 145 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:leather_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b145 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 146 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_manufactory_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b146 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 147 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:leather_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b147 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 148 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tannery_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:tannery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b148 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 149 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tanning_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:leather_livestock_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b149 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:livestock }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 150 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:tanning_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:leather_wildgame_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b150 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 2 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sand }
+		}
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wild_game }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 151 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:potato_distillery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b151 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 152 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:rice_distillery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b152 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 153 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:scottish_whisky_distillery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b153 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:millet }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 154 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_distillery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b154 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 155 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_manufactory }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_distillery_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b155 }
+		set_variable = { name = bag_wtp_w_out value = 2.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 156 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:potato_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b156 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 157 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:rice_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b157 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 158 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:scottish_whisky_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b158 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:millet }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 159 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b159 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 160 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distiller_mill }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_distillery_mill_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b160 }
+		set_variable = { name = bag_wtp_w_out value = 4.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 161 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:potato_liquor_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b161 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 162 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:rice_liquor_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b162 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:rice }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 163 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_liquor_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b163 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:sugar }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 164 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_liquor_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b164 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wheat }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 165 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_guild }
+		set_variable = { name = bag_wtp_w_pm value = production_method:wine_liquor_guild_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b165 }
+		set_variable = { name = bag_wtp_w_out value = 1.0000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:wine }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 166 }
+		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
+		set_variable = { name = bag_wtp_w_pm value = production_method:potato_liquor_workshop_maintenance }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b166 }
+		set_variable = { name = bag_wtp_w_out value = 1.1000 }
+		set_variable = { name = bag_wtp_w_goods_all value = 1 }
+		if = {
+			limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
+			add_to_variable_list = { name = bag_wtp_w_goods target = goods:potato }
+		}
+	}
+	if = {
+		limit = { var:bag_wtp_w_method = 167 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rice_liquor_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b144 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b167 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3321,10 +3925,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 145 }
+		limit = { var:bag_wtp_w_method = 168 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_liquor_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b145 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b168 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3333,10 +3937,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 146 }
+		limit = { var:bag_wtp_w_method = 169 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wheat_liquor_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b146 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b169 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3345,10 +3949,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 147 }
+		limit = { var:bag_wtp_w_method = 170 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:distillers_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:wine_liquor_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b147 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b170 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3357,10 +3961,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 148 }
+		limit = { var:bag_wtp_w_method = 171 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:farming_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:farming_village_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b148 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b171 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3369,10 +3973,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 149 }
+		limit = { var:bag_wtp_w_method = 172 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:shoen }
 		set_variable = { name = bag_wtp_w_pm value = production_method:shoen_lumbermills_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b149 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b172 }
 		set_variable = { name = bag_wtp_w_out value = 0.6000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3381,10 +3985,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 150 }
+		limit = { var:bag_wtp_w_method = 173 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:mason }
 		set_variable = { name = bag_wtp_w_pm value = production_method:clay_bricks }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b150 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b173 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3393,10 +3997,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 151 }
+		limit = { var:bag_wtp_w_method = 174 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:mason }
 		set_variable = { name = bag_wtp_w_pm value = production_method:stone_bricks }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b151 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b174 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3405,10 +4009,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 152 }
+		limit = { var:bag_wtp_w_method = 175 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:shoen }
 		set_variable = { name = bag_wtp_w_pm value = production_method:shoen_masonry_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b152 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b175 }
 		set_variable = { name = bag_wtp_w_out value = 0.8000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3417,10 +4021,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 153 }
+		limit = { var:bag_wtp_w_method = 176 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:apothecary }
 		set_variable = { name = bag_wtp_w_pm value = production_method:ancient_medicine_apotechary }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b153 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b176 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3433,10 +4037,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 154 }
+		limit = { var:bag_wtp_w_method = 177 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:apothecary }
 		set_variable = { name = bag_wtp_w_pm value = production_method:natural_medicine_apotechary }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b154 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b177 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3449,10 +4053,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 155 }
+		limit = { var:bag_wtp_w_method = 178 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fishing_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:coastal_boatyard }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b155 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b178 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3461,10 +4065,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 156 }
+		limit = { var:bag_wtp_w_method = 179 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:naval_supplies_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:naval_supplies_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b156 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b179 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3477,10 +4081,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 157 }
+		limit = { var:bag_wtp_w_method = 180 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:naval_supplies_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:naval_supplies_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b157 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b180 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3493,10 +4097,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 158 }
+		limit = { var:bag_wtp_w_method = 181 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:naval_supplies_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:naval_supplies_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b158 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b181 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3509,10 +4113,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 159 }
+		limit = { var:bag_wtp_w_method = 182 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:naval_supplies_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:naval_supplies_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b159 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b182 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3525,10 +4129,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 160 }
+		limit = { var:bag_wtp_w_method = 183 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_guild_cloth_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b160 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b183 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3537,10 +4141,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 161 }
+		limit = { var:bag_wtp_w_method = 184 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_guild_fiber_pulp_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b161 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b184 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3553,10 +4157,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 162 }
+		limit = { var:bag_wtp_w_method = 185 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_guild_leather_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b162 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b185 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3565,10 +4169,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 163 }
+		limit = { var:bag_wtp_w_method = 186 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b163 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b186 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3581,10 +4185,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 164 }
+		limit = { var:bag_wtp_w_method = 187 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b164 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b187 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3593,10 +4197,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 165 }
+		limit = { var:bag_wtp_w_method = 188 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_wood_pulp_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b165 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b188 }
 		set_variable = { name = bag_wtp_w_out value = 4.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3605,10 +4209,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 166 }
+		limit = { var:bag_wtp_w_method = 189 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_workshop_cloth_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b166 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b189 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3617,10 +4221,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 167 }
+		limit = { var:bag_wtp_w_method = 190 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:paper_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:paper_workshop_fiber_pulp_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b167 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b190 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3629,10 +4233,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 168 }
+		limit = { var:bag_wtp_w_method = 191 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:porcelain_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:porcelain_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b168 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b191 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3645,10 +4249,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 169 }
+		limit = { var:bag_wtp_w_method = 192 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:porcelain_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:porcelain_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b169 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b192 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3661,10 +4265,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 170 }
+		limit = { var:bag_wtp_w_method = 193 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:fishing_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_pottery_maker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b170 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b193 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3673,10 +4277,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 171 }
+		limit = { var:bag_wtp_w_method = 194 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:market_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_pottery_maker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b171 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b194 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3685,10 +4289,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 172 }
+		limit = { var:bag_wtp_w_method = 195 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:pottery_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pottery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b172 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b195 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3701,10 +4305,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 173 }
+		limit = { var:bag_wtp_w_method = 196 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:pottery_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pottery_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b173 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b196 }
 		set_variable = { name = bag_wtp_w_out value = 1.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3717,10 +4321,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 174 }
+		limit = { var:bag_wtp_w_method = 197 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:pottery_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pottery_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b174 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b197 }
 		set_variable = { name = bag_wtp_w_out value = 3.2500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3733,10 +4337,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 175 }
+		limit = { var:bag_wtp_w_method = 198 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:pottery_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pottery_w_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b175 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b198 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3749,10 +4353,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 176 }
+		limit = { var:bag_wtp_w_method = 199 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:salt_collector }
 		set_variable = { name = bag_wtp_w_pm value = production_method:salt_collector_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b176 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b199 }
 		set_variable = { name = bag_wtp_w_out value = 0.3000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3761,10 +4365,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 177 }
+		limit = { var:bag_wtp_w_method = 200 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:putrefaction_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:putrefaction_mill_demands }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b177 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b200 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3773,10 +4377,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 178 }
+		limit = { var:bag_wtp_w_method = 201 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:putrefaction_works }
 		set_variable = { name = bag_wtp_w_pm value = production_method:putrefaction_demands }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b178 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b201 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3785,10 +4389,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 179 }
+		limit = { var:bag_wtp_w_method = 202 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:saltpeter_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:saltpeter_guild_demands }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b179 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b202 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3797,10 +4401,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 180 }
+		limit = { var:bag_wtp_w_method = 203 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:saltpeter_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:saltpeter_workshop_demands }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b180 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b203 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3809,10 +4413,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 181 }
+		limit = { var:bag_wtp_w_method = 204 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:sand_pit }
 		set_variable = { name = bag_wtp_w_pm value = production_method:sand_pit_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b181 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b204 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3821,10 +4425,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 182 }
+		limit = { var:bag_wtp_w_method = 205 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:ablaq_palace }
 		set_variable = { name = bag_wtp_w_pm value = production_method:ablaq_palace_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b182 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b205 }
 		set_variable = { name = bag_wtp_w_out value = 0.3500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3837,10 +4441,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 183 }
+		limit = { var:bag_wtp_w_method = 206 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:lucca_silk_production_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fiber_crops_silk_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b183 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b206 }
 		set_variable = { name = bag_wtp_w_out value = 0.6000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3849,10 +4453,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 184 }
+		limit = { var:bag_wtp_w_method = 207 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:schwaz_mine }
 		set_variable = { name = bag_wtp_w_pm value = production_method:schwaz_mine_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b184 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b207 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3865,10 +4469,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 185 }
+		limit = { var:bag_wtp_w_method = 208 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:slave_center }
 		set_variable = { name = bag_wtp_w_pm value = production_method:slave_center_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b185 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b208 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3877,10 +4481,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 186 }
+		limit = { var:bag_wtp_w_method = 209 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:steel_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:steel_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b186 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b209 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3893,10 +4497,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 187 }
+		limit = { var:bag_wtp_w_method = 210 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:stone_quarry }
 		set_variable = { name = bag_wtp_w_pm value = production_method:crude_quarry_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b187 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b210 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3905,10 +4509,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 188 }
+		limit = { var:bag_wtp_w_method = 211 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:stone_quarry }
 		set_variable = { name = bag_wtp_w_pm value = production_method:stone_quarry_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b188 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b211 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3917,10 +4521,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 189 }
+		limit = { var:bag_wtp_w_method = 212 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:sugar_plantation }
 		set_variable = { name = bag_wtp_w_pm value = production_method:sugar_plantation_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b189 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b212 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3929,10 +4533,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 190 }
+		limit = { var:bag_wtp_w_method = 213 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tar_kiln }
 		set_variable = { name = bag_wtp_w_pm value = production_method:tar_kiln_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b190 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b213 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3941,10 +4545,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 191 }
+		limit = { var:bag_wtp_w_method = 214 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tobacco_plantation }
 		set_variable = { name = bag_wtp_w_pm value = production_method:tobacco_plantation_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b191 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b214 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3953,10 +4557,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 192 }
+		limit = { var:bag_wtp_w_method = 215 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:forest_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_blacksmith }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b192 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b215 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -3965,10 +4569,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 193 }
+		limit = { var:bag_wtp_w_method = 216 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:iron_foundry }
 		set_variable = { name = bag_wtp_w_pm value = production_method:iron_foundry_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b193 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b216 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3981,10 +4585,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 194 }
+		limit = { var:bag_wtp_w_method = 217 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:iron_mill }
 		set_variable = { name = bag_wtp_w_pm value = production_method:iron_mill_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b194 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b217 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -3997,10 +4601,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 195 }
+		limit = { var:bag_wtp_w_method = 218 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:market_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_blacksmith }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b195 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b218 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4009,10 +4613,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 196 }
+		limit = { var:bag_wtp_w_method = 219 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tatara }
 		set_variable = { name = bag_wtp_w_pm value = production_method:tamagahane_blacksmith }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b196 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b219 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4021,10 +4625,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 197 }
+		limit = { var:bag_wtp_w_method = 220 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tools_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:bronze_tools_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b197 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b220 }
 		set_variable = { name = bag_wtp_w_out value = 0.6000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4037,10 +4641,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 198 }
+		limit = { var:bag_wtp_w_method = 221 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tools_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:copper_tools_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b198 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b221 }
 		set_variable = { name = bag_wtp_w_out value = 0.5500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4049,10 +4653,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 199 }
+		limit = { var:bag_wtp_w_method = 222 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tools_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:metalwork_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b199 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b222 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4061,10 +4665,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 200 }
+		limit = { var:bag_wtp_w_method = 223 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tools_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:stone_tools_guild_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b200 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b223 }
 		set_variable = { name = bag_wtp_w_out value = 0.2500 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4073,10 +4677,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 201 }
+		limit = { var:bag_wtp_w_method = 224 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tools_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:metalwork_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b201 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b224 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4085,10 +4689,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 202 }
+		limit = { var:bag_wtp_w_method = 225 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:forest_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_weaponmaker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b202 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b225 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4097,10 +4701,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 203 }
+		limit = { var:bag_wtp_w_method = 226 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:market_village }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rural_weaponmaker }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b203 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b226 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4109,10 +4713,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 204 }
+		limit = { var:bag_wtp_w_method = 227 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:tatara }
 		set_variable = { name = bag_wtp_w_pm value = production_method:tamagahane_bladesmith }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b204 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b227 }
 		set_variable = { name = bag_wtp_w_out value = 0.2000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {
@@ -4121,10 +4725,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 205 }
+		limit = { var:bag_wtp_w_method = 228 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_factory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:weapon_factory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b205 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b228 }
 		set_variable = { name = bag_wtp_w_out value = 4.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4137,10 +4741,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 206 }
+		limit = { var:bag_wtp_w_method = 229 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:pre_columbian_weapon_smith_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b206 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b229 }
 		set_variable = { name = bag_wtp_w_out value = 0.4000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4153,10 +4757,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 207 }
+		limit = { var:bag_wtp_w_method = 230 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:weapon_guild_obsidian_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b207 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b230 }
 		set_variable = { name = bag_wtp_w_out value = 0.4000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
@@ -4173,10 +4777,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 208 }
+		limit = { var:bag_wtp_w_method = 231 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_guild }
 		set_variable = { name = bag_wtp_w_pm value = production_method:weapon_smith_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b208 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b231 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4189,10 +4793,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 209 }
+		limit = { var:bag_wtp_w_method = 232 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:weapon_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b209 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b232 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
@@ -4209,10 +4813,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 210 }
+		limit = { var:bag_wtp_w_method = 233 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:weapon_workshop }
 		set_variable = { name = bag_wtp_w_pm value = production_method:weapon_workshop_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b210 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b233 }
 		set_variable = { name = bag_wtp_w_out value = 1.1000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 3 }
 		if = {
@@ -4229,10 +4833,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 211 }
+		limit = { var:bag_wtp_w_method = 234 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:eng_royal_forest }
 		set_variable = { name = bag_wtp_w_pm value = production_method:eng_royal_forest_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b211 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b234 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4245,10 +4849,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 212 }
+		limit = { var:bag_wtp_w_method = 235 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fruit_winery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b212 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b235 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4261,10 +4865,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 213 }
+		limit = { var:bag_wtp_w_method = 236 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery }
 		set_variable = { name = bag_wtp_w_pm value = production_method:honey_winery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b213 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b236 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4277,10 +4881,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 214 }
+		limit = { var:bag_wtp_w_method = 237 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rice_winery_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b214 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b237 }
 		set_variable = { name = bag_wtp_w_out value = 1.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4293,10 +4897,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 215 }
+		limit = { var:bag_wtp_w_method = 238 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:fruit_winery_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b215 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b238 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4309,10 +4913,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 216 }
+		limit = { var:bag_wtp_w_method = 239 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:honey_winery_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b216 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b239 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4325,10 +4929,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 217 }
+		limit = { var:bag_wtp_w_method = 240 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:winery_manufactory }
 		set_variable = { name = bag_wtp_w_pm value = production_method:rice_winery_manufactory_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b217 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b240 }
 		set_variable = { name = bag_wtp_w_out value = 2.0000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 2 }
 		if = {
@@ -4341,10 +4945,10 @@ bag_wtp_store_scratch = {
 		}
 	}
 	if = {
-		limit = { var:bag_wtp_w_method = 218 }
+		limit = { var:bag_wtp_w_method = 241 }
 		set_variable = { name = bag_wtp_w_bt value = building_type:sheep_farms }
 		set_variable = { name = bag_wtp_w_pm value = production_method:sheep_farm_maintenance }
-		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b218 }
+		set_variable = { name = bag_wtp_w_bonus value = bag_wtp_b241 }
 		set_variable = { name = bag_wtp_w_out value = 0.5000 }
 		set_variable = { name = bag_wtp_w_goods_all value = 1 }
 		if = {

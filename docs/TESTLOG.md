@@ -31,6 +31,33 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-first load. The two-slot question is
+answered, from the game's own panel.** Three screenshots.
+
+- **Confirmed:** «По пути» prints `10.00% до 5` on the wool provinces and
+  `0.81% до 6` where there are dyes; sorting by «В конце» orders them; a bundle
+  keeps every good, at 0% where the ground feeds it nothing; alignment is better.
+- **Each production slot earns its own bonus, over its own output.** A tailors'
+  guild in Dordrecht: the tooltip is headed «Производственная эффективность
+  метода "Красители с квасцами"» and lists «Добыча ресурса "Красители"…
+  +10.01%» under it. Not the building's efficiency — the method's. So the eight
+  two-slot buildings are now one method of the summed output at the
+  output-weighted blend of the two bonuses, and the owner's own reading of the
+  screenshot said the same thing before the arithmetic did.
+- **Which explains what he noticed first:** Западная Мунтения showed «1/1» and
+  the wool icon while the province also supplies dyes. The dyes feed the
+  *improvement* slot, which the mod was not modelling. That row is a pair now.
+- **The «×» is per building level.** The panel showed 0.76 against the method's
+  0.2: four levels, an age multiplier, and efficiency multiplying output but not
+  inputs. Nothing there separates provinces, so the mod keeps the per-level
+  figure.
+- **Three sort buttons in a header were one control too many.** Owner: «Я хочу
+  иметь ровно две кнопки расчитать» — one for what you can build now, one aimed
+  at the end of the game, both filling the same three columns. The headers are
+  plain labels again and the second «Считать» is on the mod page.
+- **The rights window's header lined up with nothing.** Same 10px scrollbox
+  margin as the goods window, now fixed, and its columns read left too.
+
 **2026-08-31 — `where_to_produce`, twentieth load. Everything asked for works,
 and the middle age is missing.** Four screenshots, fine cloth and a weaponry
 right.
@@ -196,26 +223,22 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-first load.** All of it new since the twentieth,
-none of it loaded.
+**`where_to_produce`, twenty-second load.** All of it new, none loaded.
 
-1. **The third column «По пути»** — a percentage and an age on every row. Fine
-   cloth in the Carpathians should read `10.00% до 5` on the wool provinces and
-   `0.81% до 6` where there are dyes.
-2. **Sorting by «В конце» now orders the wool provinces sensibly** rather than
-   leaving them in whatever order the tie fell in — the tie is broken by «По
-   пути».
-3. **The columns line up with their headers**, and the three sort buttons have
-   air between them.
-4. **A bundle keeps all its goods** in the rights window, showing 0% for the one
-   the ground does not feed; a row where none is fed still disappears.
-5. **The page tick is named «Права: считать методы будущих эпох»** and touches
-   nothing but the rights window.
-6. **One tooltip settles the eight two-slot buildings.** Build panel on a fine
-   cloth guild, or a cannon maker, in a province that supplies one of its raw
-   materials: read the game's own production-efficiency figure. Whether it
-   counts the inputs of both slots or one is the whole question —
-   [`investigations/production_ladder.md`](investigations/production_ladder.md).
+1. **Two «Считать» buttons on the mod page** — «Считать» and «На конец» — and
+   no sort buttons in the window's header. The second orders by «В конце» and
+   breaks its ties by «По пути».
+2. **The eight two-slot buildings.** Fine cloth, jewelry, cannons, firearms now
+   answer as a pair: «Гильдия портных: Мериносовая шерсть + Красители с
+   квасцами ×0.70», with both slots' raw materials in «Из чего». Fine cloth in
+   the Carpathians is the case to look at — Западная Мунтения should now count
+   its dyes.
+3. **Cannons and firearms** are worth a look for the same reason: their second
+   slot is ammunition, and lead or saltpetre in the province should now show.
+4. **The rights window's columns line up with its headers.**
+5. **Nothing in `error.log`** naming `bag_wtp` — the pair keys are new and every
+   `production_method:` reference was checked against the game's own list, but
+   only a load proves it.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under
