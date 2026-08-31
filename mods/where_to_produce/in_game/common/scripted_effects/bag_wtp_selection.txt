@@ -146,12 +146,43 @@ bag_wtp_drop_browse = {
 }
 
 # A tick in either goods list. The answer moved, so everything downstream of it
-# is stale.
+# is stale -- and a good and an urban right are two answers to one question, so
+# choosing either drops the other.
 # Scope: country
 bag_wtp_good_changed = {
 	bag_wtp_read_good = yes
 	bag_wtp_only_one_good = yes
+	if = {
+		limit = { var:bag_wtp_good_index > 0 }
+		bag_wtp_drop_right = yes
+	}
 	bag_wtp_clear_rows = yes
+}
+
+# A tick in the rights list.
+# Scope: country
+bag_wtp_right_changed = {
+	bag_wtp_read_right = yes
+	bag_wtp_only_one_right = yes
+	if = {
+		limit = { var:bag_wtp_right_index > 0 }
+		bag_wtp_drop_good = yes
+	}
+	bag_wtp_clear_rows = yes
+}
+
+# Scope: country
+bag_wtp_drop_right = {
+	set_variable = { name = bag_wtp_right_index value = 0 }
+	set_global_variable = { name = bag_wtp_right_index value = 0 }
+	bag_wtp_only_one_right = yes
+}
+
+# Scope: country
+bag_wtp_drop_good = {
+	set_variable = { name = bag_wtp_good_index value = 0 }
+	set_global_variable = { name = bag_wtp_good_index value = 0 }
+	bag_wtp_only_one_good = yes
 }
 
 # A tick in the continent list. Nothing is walked; only what the pickers offer
@@ -190,6 +221,14 @@ bag_wtp_init_counters = {
 	if = {
 		limit = { NOT = { has_variable = bag_wtp_good_index } }
 		set_variable = { name = bag_wtp_good_index value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_variable = bag_wtp_right_index } }
+		set_variable = { name = bag_wtp_right_index value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_right_index } }
+		set_global_variable = { name = bag_wtp_right_index value = 0 }
 	}
 	# The same number as a global, because a location-scoped trigger cannot read
 	# a country variable and `bag_wtp_can_build_something` is asked in a

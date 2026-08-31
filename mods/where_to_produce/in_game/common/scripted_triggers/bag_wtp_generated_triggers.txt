@@ -40,7 +40,19 @@ bag_wtp_in_zone = {
 
 # Scope: location
 bag_wtp_can_build_something = {
-	if = { limit = { global_var:bag_wtp_good_index = 1 } bag_wtp_can_build_1 = yes }
+	if = { limit = { global_var:bag_wtp_right_index = 1 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_30 = yes bag_wtp_can_build_18 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 2 } OR = { bag_wtp_can_build_32 = yes bag_wtp_can_build_36 = yes bag_wtp_can_build_42 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 3 } OR = { bag_wtp_can_build_27 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_40 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 4 } OR = { bag_wtp_can_build_26 = yes bag_wtp_can_build_37 = yes bag_wtp_can_build_24 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 5 } OR = { bag_wtp_can_build_34 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 6 } OR = { bag_wtp_can_build_33 = yes bag_wtp_can_build_38 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 7 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 8 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_30 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 9 } OR = { bag_wtp_can_build_46 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 10 } OR = { bag_wtp_can_build_28 = yes bag_wtp_can_build_31 = yes bag_wtp_can_build_47 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 11 } OR = { bag_wtp_can_build_46 = yes } }
+	else_if = { limit = { global_var:bag_wtp_right_index = 12 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
+	else_if = { limit = { global_var:bag_wtp_good_index = 1 } bag_wtp_can_build_1 = yes }
 	else_if = { limit = { global_var:bag_wtp_good_index = 2 } bag_wtp_can_build_2 = yes }
 	else_if = { limit = { global_var:bag_wtp_good_index = 3 } bag_wtp_can_build_3 = yes }
 	else_if = { limit = { global_var:bag_wtp_good_index = 4 } bag_wtp_can_build_4 = yes }

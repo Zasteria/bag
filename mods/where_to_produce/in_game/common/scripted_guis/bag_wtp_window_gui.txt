@@ -70,11 +70,13 @@ bag_wtp_open_result_window = {
 	}
 
 	effect = {
-		bag_wtp_show_results = yes
-		set_variable = { name = bag_wtp_result_open value = 1 }
+		bag_wtp_open_result_window_effect = yes
 	}
 }
 
+# Both windows close through this. Only one of them is ever open -- a good and an
+# urban right are two answers to one question and only one can be ticked -- so
+# clearing both flags is one line rather than a branch.
 bag_wtp_close_result_window = {
 	scope = country
 
@@ -84,6 +86,7 @@ bag_wtp_close_result_window = {
 
 	effect = {
 		remove_variable = bag_wtp_result_open
+		remove_variable = bag_wtp_right_open
 		bag_wtp_hide_results = yes
 	}
 }

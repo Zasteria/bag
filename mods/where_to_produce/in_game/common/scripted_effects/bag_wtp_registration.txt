@@ -16,6 +16,13 @@ bag_wtp_register = {
 	bag_wtp_register_good_raw_list = yes
 	bag_wtp_register_good_made_list = yes
 
+	# And the third way of naming what you want made: an urban right, which is a
+	# bundle of two or three goods rather than one. It answers a different
+	# question and it answers it in a window of its own -- a right's own
+	# percentage is the same everywhere and re-ranks nothing, so only the bundle
+	# is worth a pass. `docs/investigations/town_rights.md` has the whole of it.
+	bag_wtp_register_right_list = yes
+
 	# Where to look. Continents rather than the world's seventy-seven regions:
 	# the fine choosing happens on the map afterwards, and a region list six
 	# groups deep was a worse way to say "Europe".
@@ -72,6 +79,7 @@ bag_wtp_register = {
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
 	bag_wtp_refresh_goods = yes
+	bag_wtp_refresh_rights = yes
 	bag_wtp_drop_browse = yes
 	bag_wtp_clear_rows = yes
 }

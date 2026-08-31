@@ -72,44 +72,7 @@ compiles from.
   all unfolded. They are folded once now, the first time a player sees the page,
   and his own folding is his after that.
 
-**2026-08-30 — `where_to_produce`, twelfth load. The pick reaches the pass now,
-and the two numbers put on the window for exactly this said which half of each
-remaining fault was lying.** Three screenshots, no logs. `books`, region
-Карпаты, Wallachia picked as one area.
-
-- **«Обошёл 44 · нашёл 0», and the window emptied on every pick.** The scope fix
-  landed — «пересчётов» went 4 → 11 and the walk found the right 44 locations —
-  but the pass found no method in any of them. `bag_wtp_score_N` asks each
-  method's advance with `root = { bag_wtp_avail_N = yes }`, and `root` inside a
-  generic action is not the country any more than the bare scope is. **The rule
-  had been applied to half the mod**: `root` was taken out of the row pass in
-  the eleventh build and left in all 218 places in the scoring pass. The country
-  is `save_scope_as` at the top of `bag_wtp_score_candidates` now and every one
-  of them reads `scope:bag_wtp_country`. Pressing «Считать» found the same 44
-  locations and 6 provinces, which is what proves the scope and nothing else was
-  the difference.
-- **The ranking was never sorting, and it is a matter of magnitude.** The «№»
-  column came out 1, 2, 3 down the window — so the copy was fine — while the
-  bonus went 0.00, 2.85, 2.85, 2.85, 0.00, 4.29, and the rows sat in
-  alphabetical order of the province *key* (east_muntenia, north_muntenia,
-  north_oltenia, south_muntenia, south_oltenia, west_muntenia). That is the
-  unordered walk, so `order_by` was doing nothing. The scriptorium is the only
-  book method this age unlocks, and in its own units it scores 0.3000 to 0.3129
-  across the whole of Europe. **Nothing in the game or in any mod in
-  `reference/` sorts on a fraction** — vanilla ranks on `military_strength` and
-  `country_tax_base`, Advanced Auto Build on a score built out of `add = 12000`.
-  `bag_wtp_m<n>` is the output times 1000 now: the same scriptorium runs 300.00
-  to 312.88 and the provinces separate. Nothing prints it.
-- **The «№» column and «обошёл · нашёл · пересчётов» did their job.** Both faults
-  were invisible without them and both were named by them in one run rather than
-  two: «пересчётов» rising with «нашёл 0» is the scope, and ranks in order with
-  a scrambled bonus is `order_by`.
-- **«44 лок. в 6 пров.» became «44 лок. в 0 пров.»** across a window close and a
-  «Считать», with the selection untouched. `bag_wtp_rebuild_browse` only ran
-  where a pick happened; it runs in the pass now. Not diagnosed further — the
-  browse list has had no other reader since the selection window was deleted.
-
-Everything before 2026-08-29, and `where_to_produce`'s first eleven loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first twelve loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -261,13 +224,23 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, fifteenth load — nothing structural on it yet.** The
-pickers folded shut on first sight of the mod page and staying where the player
-leaves them afterwards, which the fourteenth run did not report; and the age
-filter, which has never once been reported in fourteen loads. Town rights are
-designed but not built —
-[`investigations/town_rights.md`](investigations/town_rights.md) — and want one
-decision from the owner before they are.
+**`where_to_produce`, fifteenth load — the urban rights, first sight.** Tick a
+right on the Goods tab instead of a good; it is a third list there and it drops
+whatever good was ticked.
+
+1. **The list draws at all.** Twelve rows, each iconed by the first good of its
+   bundle and named by the game. The one guess in the build is
+   `town_rights_type:<key>` as a value a CMM list item can hold — if it cannot,
+   this is where `error.log` says so and the list is empty or absent.
+2. **«Считать» opens the other window**, «Где производить — городские права»,
+   and not the first one. Only one of the two is ever open.
+3. **A row is the bundle**: one line per good — good, bonus, building and
+   method, and the raw materials — and «Ценность» on the left, which is what the
+   rows are ranked on. Rights with one good draw one line and rights with three
+   draw three, nothing overlapping.
+4. **A pick still re-ranks** and «№» still runs 1, 2, 3 down the window.
+5. Carried over, still never judged: the pickers folding shut on first sight of
+   the mod page, and the age filter.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

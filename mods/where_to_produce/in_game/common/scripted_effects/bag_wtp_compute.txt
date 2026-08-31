@@ -7,6 +7,17 @@
 # Scope: country
 bag_wtp_compute = {
 	if = {
+		# An urban right: a bundle of two or three goods, its own pass and its own
+		# window. A right and a good are two answers to one question and only one
+		# of them can be ticked, so this branch and the next never both run.
+		limit = { var:bag_wtp_right_index > 0 }
+		bag_wtp_collect_candidates = yes
+		bag_wtp_rebuild_browse = yes
+		bag_wtp_score_right = yes
+		bag_wtp_clear_rows = yes
+		bag_wtp_fill_rows_right = yes
+	}
+	else_if = {
 		limit = { var:bag_wtp_good_index = 0 }
 		# Nothing to answer for. Saying so beats ranking every location in the
 		# world by a score of zero.
@@ -89,6 +100,7 @@ bag_wtp_on_button = {
 		}
 		bag_wtp_sync = yes
 		bag_wtp_refresh_goods = yes
+		bag_wtp_refresh_rights = yes
 	}
 
 }
@@ -105,7 +117,12 @@ bag_wtp_on_button = {
 # Scope: country
 bag_wtp_recompute_live = {
 	if = {
-		limit = { has_variable = bag_wtp_result_open }
+		limit = {
+			OR = {
+				has_variable = bag_wtp_result_open
+				has_variable = bag_wtp_right_open
+			}
+		}
 		change_global_variable = { name = bag_wtp_live_runs add = 1 }
 		bag_wtp_compute = yes
 		bag_wtp_show_results = yes
@@ -129,6 +146,12 @@ bag_wtp_recompute_live = {
 # Scope: country
 bag_wtp_show_results = {
 	clear_global_variable_list = bag_wtp_results
+	clear_global_variable_list = bag_wtp_right_results
+
+	# One list per window, and the closed one's is empty. Both windows are
+	# scripted widgets and neither ever comes down, so a row of the window that
+	# is not on screen is a row that is alive and costing anyway -- pointing both
+	# at one list would keep fifty rows of each instantiated at all times.
 	ordered_in_global_list = {
 		variable = bag_wtp_ranked
 		order_by = bag_wtp_rank_order
@@ -136,20 +159,39 @@ bag_wtp_show_results = {
 		# generator: the two lists are filled in the same pass and cannot disagree.
 		max = bag_wtp_show_found
 		check_range_bounds = no
-		add_to_global_variable_list = { name = bag_wtp_results target = this }
+		if = {
+			limit = { global_var:bag_wtp_right_index > 0 }
+			add_to_global_variable_list = { name = bag_wtp_right_results target = this }
+		}
+		else = {
+			add_to_global_variable_list = { name = bag_wtp_results target = this }
+		}
 	}
 }
 
 # Scope: country
 bag_wtp_hide_results = {
 	clear_global_variable_list = bag_wtp_results
+	clear_global_variable_list = bag_wtp_right_results
 }
 
 # The same thing the window's own scripted GUI does, reachable from an effect --
 # a Mod Menu button is script, and script cannot reach the interface's variable
 # system.
+#
+# Which of the two windows opens is which question was asked. They share the
+# ranked list, the live re-rank and the map pickers, and differ only in what a
+# row draws: one method for a good, or one per good of a right's bundle.
 # Scope: country
 bag_wtp_open_result_window_effect = {
 	bag_wtp_show_results = yes
-	set_variable = { name = bag_wtp_result_open value = 1 }
+	if = {
+		limit = { var:bag_wtp_right_index > 0 }
+		remove_variable = bag_wtp_result_open
+		set_variable = { name = bag_wtp_right_open value = 1 }
+	}
+	else = {
+		remove_variable = bag_wtp_right_open
+		set_variable = { name = bag_wtp_result_open value = 1 }
+	}
 }

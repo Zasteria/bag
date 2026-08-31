@@ -38,7 +38,7 @@ message names the folder and that is the next thing to look at. The logs from
 whatever run follows go through `python3 tools/which_build.py <logs folder>`
 first, as always now.
 
-## `where_to_produce`: town rights are designed, not built
+## `where_to_produce`: urban rights are built, not loaded
 
 The owner copied `common/town_rights` into `reference/` by hand on 2026-08-31,
 because `mods.bat → 2` turned out to copy mods and not to re-extract the game.
@@ -53,9 +53,11 @@ goods does; adding a bundle's goods needs `default_market_price` from
 and a `+5 levels` right is a quantity where the others are ratios, so it gets
 its own number and never a shared one.
 
-**Waiting on the owner:** whether level rights belong in the same table at all,
-and one `grep` for `town_right_efficiency_penalty`, which is referenced by
-eleven rights and defined in nothing `reference/` holds.
+**Built 2026-08-31 and never loaded**: the output half — a third list on the
+Goods tab and a window of its own. Level rights are deferred by the owner. The
+fifteenth-load protocol is in [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run), and
+one `grep` for `town_right_efficiency_penalty` is still outstanding: eleven
+rights reference it and nothing `reference/` holds defines it.
 
 **And a smaller thing worth fixing while there:** which `mods.bat` entry runs
 `tools/extract_game_files.py`. Пункт 2 does not, and the manifest is only worth

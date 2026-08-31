@@ -5025,6 +5025,13 @@ bag_wtp_rank_order = {
 	subtract = var:bag_wtp_rank
 }
 
+# What the rights pass ranks on: every good of the bundle, each at its best
+# method here, added through its price. Already scaled -- `_best` is.
+# Scope: location
+bag_wtp_r_score = {
+	value = var:bag_wtp_r_total
+}
+
 bag_wtp_show_regions = { value = global_var:bag_wtp_zone_count }
 bag_wtp_show_candidates = { value = global_var:bag_wtp_candidate_count }
 bag_wtp_show_found = { value = global_var:bag_wtp_found }

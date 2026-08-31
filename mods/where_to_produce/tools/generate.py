@@ -75,6 +75,21 @@ MAX_INPUTS = 5
 # beside it because rural ground is built on too.
 RURAL_CATEGORIES = ("village_category",)
 
+# How many goods one urban right can favour. Three is the widest in the game --
+# paper, books and dyes; cloth, fine cloth and dyes; three weapons; three
+# drinks -- and a row holds a fixed number of answers rather than a variable
+# one, because script has no list of tuples and the answers are flat variables
+# on the location.
+RIGHT_SLOTS = 3
+
+# A bundle's total is a sum of `RANK_SCALE`d outputs times market prices, and it
+# runs an order of magnitude higher than a single good's: textile rights with
+# every input present come to 64 680, against a single method's 4 950. Whether
+# the engine's fixed point is 32-bit is not knowable from here and 21 474 is
+# where a 32-bit one ends, so the weights carry a tenth of `RANK_SCALE` -- worst
+# case 6 468, and the smallest difference the bonus can make is still about 4.6.
+RIGHT_SCALE = RANK_SCALE // 10
+
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
 CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
@@ -96,6 +111,7 @@ VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
 TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_triggers.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
 LAYOUT_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_layout.txt"
+RIGHTS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rights.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -364,7 +380,7 @@ def zone_file() -> str:
     return "".join(out)
 
 
-def triggers_file(rows, split) -> str:
+def triggers_file(rows, split, game) -> str:
     out = [HEADER, f"""#
 # Whether the map picker and the ranking offer this location at all.
 #
@@ -405,9 +421,14 @@ def triggers_file(rows, split) -> str:
 # Scope: location
 {MOD_ID}_can_build_something = {{
 """)
-    for index, good in enumerate(order, start=1):
+    for index, right in enumerate(output_rights(rows, game), start=1):
         keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
+        inner = " ".join(f"{MOD_ID}_can_build_{order.index(g) + 1} = yes"
+                         for g in sorted(right.output) if g in order)
+        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_right_index = {index} }} "
+                   f"OR = {{ {inner} }} }}\n")
+    for index, good in enumerate(order, start=1):
+        out.append(f"\telse_if = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
                    f"{MOD_ID}_can_build_{index} = yes }}\n")
     out.append("}\n")
 
@@ -658,6 +679,13 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \tsubtract = var:{MOD_ID}_rank
 }}
 
+# What the rights pass ranks on: every good of the bundle, each at its best
+# method here, added through its price. Already scaled -- `_best` is.
+# Scope: location
+{MOD_ID}_r_score = {{
+\tvalue = var:{MOD_ID}_r_total
+}}
+
 {MOD_ID}_show_regions = {{ value = global_var:{MOD_ID}_zone_count }}
 {MOD_ID}_show_candidates = {{ value = global_var:{MOD_ID}_candidate_count }}
 {MOD_ID}_show_found = {{ value = global_var:{MOD_ID}_found }}
@@ -877,6 +905,333 @@ def rows_file() -> str:
     return "".join(out)
 
 
+def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5data.TownRight]:
+    """The urban rights this mod answers for: the ones that raise an output.
+
+    A right that grants building levels instead is a quantity where these are
+    ratios, and `docs/investigations/town_rights.md` is why the two must not
+    share a number. Flemish cloth and the four marketplace charters are left out
+    rather than scored badly.
+
+    A good the game makes no method for would be an empty slot on every row, so
+    it is dropped from the bundle, and a right left with nothing is dropped
+    whole.
+    """
+    made = {m.produced for m in rows}
+    keep = []
+    for right in game.town_rights:
+        bundle = {g: v for g, v in right.output.items() if g in made}
+        if bundle:
+            keep.append(eu5data.TownRight(key=right.key, output=bundle,
+                                          levels=right.levels, penalty=right.penalty))
+    return keep
+
+
+def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                game: eu5data.Game) -> str:
+    """Ranking ground for a whole urban right rather than for one good.
+
+    **A right's percentage re-ranks nothing.** `+20% books` is the same +20% in
+    every location on the map, and so is the efficiency penalty eleven of the
+    seventeen share: multiply every candidate by one number and the order is
+    what it was. What re-ranks is the *bundle*. Eight of the nine general rights
+    favour two or three goods at once and a province's RGO bonus is per good --
+    it can supply lumber and not dyes -- so «where do Printing Rights go» has a
+    different answer from «where do I make books», and it is the only question
+    here worth a pass of its own.
+
+    **Goods are added through their price.** Four books a level and 0.3 masonry
+    a level are not one number, which is the same mistake as ranking a forest
+    village above a weapon guild. `default_market_price` is the weight, so the
+    total a row carries is what the ground would earn a level rather than how
+    many things it would make.
+
+    Per candidate the pass reuses the per-good scorers already generated: each
+    good of the bundle in turn, the better of its built-up and village answers
+    kept in a slot, the slot values summed. The winning method is resolved into
+    a building and a bonus only for the provinces that take a row, because the
+    dispatch over 218 methods is far too wide to run per candidate.
+    """
+    rights = output_rights(rows, game)
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    index_of = {good: i for i, good in enumerate(order, start=1)}
+    by_good_index: dict[str, list[int]] = {}
+    for i, method in enumerate(rows, start=1):
+        by_good_index.setdefault(method.produced, []).append(i)
+    slots = range(1, RIGHT_SLOTS + 1)
+
+    out = [HEADER, f"""#
+# Scope: country
+{MOD_ID}_register_right_list = {{
+\tcmm_register_settings_list = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = right
+\t\ttab_id = {TAB_GOODS}
+\t\titem_count = {len(rights)}
+\t\tis_ordered = 0
+\t}}
+
+"""]
+    for row, right in enumerate(rights, start=1):
+        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} setting_id = right "
+                   f"item = {row} value = town_rights_type:{right.key} }}\n")
+    out.append("\n")
+    for row, right in enumerate(rights, start=1):
+        out.append(f"\tset_variable = {{ name = {MOD_ID}__right_i{row}_name "
+                   f"value = flag:{MOD_ID}_right_{right.key} }}\n")
+    out.append(f"""
+\tcmm_register_list_bool_field = {{
+\t\tmod_id = {MOD_ID}
+\t\tsetting_id = right
+\t\tfield_id = pick
+\t\tdefault_value = 0
+\t}}
+}}
+
+# Which right is ticked, settled exactly as the good is: a tick that is not the
+# stored answer is the new answer, and nothing ticked at all means the player
+# unticked the one that was.
+# Scope: country
+{MOD_ID}_read_right = {{
+\tset_variable = {{ name = {MOD_ID}_right_new value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_right_ticks value = 0 }}
+\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__right field_slot = 1 list_name = {MOD_ID}_right_ticked }}
+\tevery_in_list = {{
+\t\tvariable = {MOD_ID}_right_ticked
+\t\troot = {{ change_variable = {{ name = {MOD_ID}_right_ticks add = 1 }} }}
+""")
+    for index, right in enumerate(rights, start=1):
+        out.append(f"\t\tif = {{ limit = {{ this = town_rights_type:{right.key} }} root = {{ "
+                   f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_right_index = {index} }} }} "
+                   f"set_variable = {{ name = {MOD_ID}_right_new value = {index} }} }} }} }}\n")
+    out.append(f"""\t}}
+
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_right_new > 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_new }}
+\t}}
+\telse_if = {{
+\t\tlimit = {{ var:{MOD_ID}_right_ticks = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_right_index value = 0 }}
+\t}}
+
+\t# Readable from a location's own scope, where a country variable is not.
+\tset_global_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_index }}
+}}
+
+# Force every row but the answer off.
+# Scope: country
+{MOD_ID}_only_one_right = {{
+""")
+    for row in range(1, len(rights) + 1):
+        out.append(f"""\tif = {{
+\t\tlimit = {{ NOT = {{ var:{MOD_ID}_right_index = {row} }} }}
+\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = right field_id = pick item = {row} value = 0 }}
+\t}}
+""")
+    out.append("}\n")
+
+    out.append(f"""
+# Hide a right whose every method is still ages away, the same as the goods
+# lists do -- a right that can only disappoint is a row worth not drawing.
+# Scope: country
+{MOD_ID}_refresh_rights = {{
+""")
+    for row, right in enumerate(rights, start=1):
+        avail = " ".join(f"{MOD_ID}_avail_{i} = yes"
+                         for good in sorted(right.output)
+                         for i in by_good_index.get(good, []))
+        out.append(f"""\tif = {{
+\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_any_method {avail} }} }}
+\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right item = {row} }}
+\t}}
+\telse = {{
+\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = right item = {row} }}
+\t}}
+""")
+    out.append("}\n")
+
+    # ---- the pass -------------------------------------------------------
+    out.append(f"""
+# Score every candidate for the ticked right.
+# Scope: country
+{MOD_ID}_score_right = {{
+""")
+    for index in range(1, len(rights) + 1):
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_right_index = {index} }} "
+                   f"{MOD_ID}_score_right_{index} = yes }}\n")
+    out.append("}\n")
+
+    for index, right in enumerate(rights, start=1):
+        bundle = sorted(right.output)
+        pretty = ", ".join("%s +%g%%" % (g, right.output[g] * 100) for g in bundle)
+        out.append(f"""
+# {right.key} -- {pretty}
+# Scope: country
+{MOD_ID}_score_right_{index} = {{
+\tsave_scope_as = {MOD_ID}_country
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tset_variable = {{ name = {MOD_ID}_r_total value = 0 }}
+""")
+        for k in slots:
+            out.append(f"\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = 0 }}\n")
+        out.append("\t}\n")
+
+        for k, good in enumerate(bundle, start=1):
+            weight = (game.prices.get(good, 1.0) * (1 + right.output[good])
+                      * RIGHT_SCALE / RANK_SCALE)
+            out.append(f"""
+\t# {good}: price {game.prices.get(good, 1.0):g} x (1 + {right.output[good]:g})
+\t{MOD_ID}_score_{index_of[good]} = yes
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method }}
+\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_best_rural > var:{MOD_ID}_best }}
+\t\t\tset_variable = {{ name = {MOD_ID}_r_method_{k} value = var:{MOD_ID}_best_method_rural }}
+\t\t\tset_variable = {{ name = {MOD_ID}_r_val_{k} value = var:{MOD_ID}_best_rural }}
+\t\t}}
+\t\tchange_variable = {{ name = {MOD_ID}_r_val_{k} multiply = {weight:.4f} }}
+\t\tchange_variable = {{ name = {MOD_ID}_r_total add = var:{MOD_ID}_r_val_{k} }}
+\t}}
+""")
+        out.append("}\n")
+
+    # ---- resolving one winning method into what a row prints ------------
+    out.append(f"""
+# One method, read out of `{MOD_ID}_w_method` into scratch. A dispatch over every
+# method in the game is too wide to run per candidate, so it runs only for the
+# provinces that took a row -- fifty of them, three slots each.
+# Scope: location
+{MOD_ID}_store_scratch = {{
+\tclear_variable_list = {MOD_ID}_w_goods
+\tremove_variable = {MOD_ID}_w_bt
+\tremove_variable = {MOD_ID}_w_pm
+\tset_variable = {{ name = {MOD_ID}_w_bonus value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_w_out value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_w_goods_all value = 0 }}
+""")
+    for i, method in enumerate(rows, start=1):
+        raw = sorted(method.raw_inputs(game.raw_goods))
+        out.append(f"\tif = {{\n"
+                   f"\t\tlimit = {{ var:{MOD_ID}_w_method = {i} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_bt value = building_type:{method.building} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_pm value = production_method:{method.key} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_bonus value = {MOD_ID}_b{i} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_out value = {method.output:.4f} }}\n"
+                   f"\t\tset_variable = {{ name = {MOD_ID}_w_goods_all value = {len(raw)} }}\n")
+        for good in raw:
+            out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
+\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_w_goods target = goods:{good} }}
+\t\t}}
+""")
+        out.append("\t}\n")
+    out.append("}\n")
+
+    for k in slots:
+        out.append(f"""
+# Scratch into slot {k}.
+# Scope: location
+{MOD_ID}_slot_{k}_from_scratch = {{
+\tclear_variable_list = {MOD_ID}_r_goods_{k}
+\tremove_variable = {MOD_ID}_r_bt_{k}
+\tremove_variable = {MOD_ID}_r_pm_{k}
+\tset_variable = {{ name = {MOD_ID}_r_bonus_{k} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_r_out_{k} value = 0 }}
+\tset_variable = {{ name = {MOD_ID}_r_goods_all_{k} value = 0 }}
+\tif = {{
+\t\tlimit = {{ has_variable = {MOD_ID}_w_bt }}
+\t\tset_variable = {{ name = {MOD_ID}_r_bt_{k} value = var:{MOD_ID}_w_bt }}
+\t\tset_variable = {{ name = {MOD_ID}_r_pm_{k} value = var:{MOD_ID}_w_pm }}
+\t\tset_variable = {{ name = {MOD_ID}_r_bonus_{k} value = var:{MOD_ID}_w_bonus }}
+\t\tset_variable = {{ name = {MOD_ID}_r_out_{k} value = var:{MOD_ID}_w_out }}
+\t\tset_variable = {{ name = {MOD_ID}_r_goods_all_{k} value = var:{MOD_ID}_w_goods_all }}
+\t\tevery_in_list = {{
+\t\t\tvariable = {MOD_ID}_w_goods
+\t\t\tprev = {{ add_to_variable_list = {{ name = {MOD_ID}_r_goods_{k} target = prev }} }}
+\t\t}}
+\t}}
+}}
+""")
+
+    # Which good sits in which slot, per right -- the row prints its name.
+    out.append(f"""
+# The goods of the ticked right, parked on the winning location so the row can
+# name them. Written per row rather than per candidate, like everything else
+# here.
+# Scope: location
+{MOD_ID}_store_right_goods = {{
+""")
+    for index, right in enumerate(rights, start=1):
+        bundle = sorted(right.output)
+        out.append(f"\tif = {{\n\t\tlimit = {{ global_var:{MOD_ID}_right_index = {index} }}\n")
+        for k in slots:
+            if k <= len(bundle):
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_r_good_{k} value = goods:{bundle[k - 1]} }}\n")
+            else:
+                out.append(f"\t\tremove_variable = {MOD_ID}_r_good_{k}\n")
+        out.append("\t}\n")
+    out.append("}\n")
+
+    out.append(f"""
+# Park the whole answer for one province, slot by slot.
+# Scope: location
+{MOD_ID}_store_right_row = {{
+""")
+    for k in slots:
+        out.append(f"""\tset_variable = {{ name = {MOD_ID}_w_method value = var:{MOD_ID}_r_method_{k} }}
+\t{MOD_ID}_store_scratch = yes
+\t{MOD_ID}_slot_{k}_from_scratch = yes
+""")
+    out.append(f"""\t{MOD_ID}_store_right_goods = yes
+\t# What the row prints: the ranking number back in the unit it names, which is
+\t# what one level of the whole bundle would earn here.
+\tset_variable = {{ name = {MOD_ID}_r_value value = var:{MOD_ID}_r_total }}
+\tchange_variable = {{ name = {MOD_ID}_r_value divide = {RIGHT_SCALE} }}
+}}
+
+# The ranking pass for a right. One row per province definition, as for a good,
+# and the same fifty.
+# Scope: country
+{MOD_ID}_fill_rows_right = {{
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\torder_by = {MOD_ID}_r_score
+\t\tmax = {RESULT_ROWS * 8}
+\t\tcheck_range_bounds = no
+\t\t{MOD_ID}_store_right_row_if_worth_it = yes
+\t}}
+}}
+
+# Scope: location
+{MOD_ID}_store_right_row_if_worth_it = {{
+\tif = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_found < {RESULT_ROWS}
+\t\t\t# Nothing in the bundle can be made here at all.
+\t\t\tvar:{MOD_ID}_r_total > 0
+\t\t\tNOT = {{ has_variable = {MOD_ID}_row_taken }}
+\t\t}}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tset_variable = {{ name = {MOD_ID}_row_taken value = 1 }}
+\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = this }}
+\t\t\t}}
+\t\t}}
+\t\t{MOD_ID}_store_right_row = yes
+\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
+\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
+\t}}
+}}
+""")
+    return "".join(out)
+
+
 def list_settings(by_continent) -> list[tuple[str, str, str]]:
     """Every list this mod registers: its tab, its id, and what a tick in it runs.
 
@@ -887,7 +1242,8 @@ def list_settings(by_continent) -> list[tuple[str, str, str]]:
     return ([("zone", f"region_{c}", f"{MOD_ID}_zone_changed = yes") for c in by_continent]
             + [("zone", "continent", f"{MOD_ID}_zone_changed = yes"),
                ("goods", "good_raw", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "good_made", f"{MOD_ID}_good_changed = yes")])
+               ("goods", "good_made", f"{MOD_ID}_good_changed = yes"),
+               ("goods", "right", f"{MOD_ID}_right_changed = yes")])
 
 
 def layout_file(by_continent) -> str:
@@ -957,7 +1313,8 @@ def guis_file(by_continent) -> str:
     return "".join(out)
 
 
-def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[str]]) -> str:
+def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[str]],
+             game: eu5data.Game) -> str:
     """The generated keys, identical in every language.
 
     Every name in here is the game's own, reached through `$key$` substitution or
@@ -974,6 +1331,13 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
             out.append(f" {MOD_ID}_good_{good}: "
                        f'"@{good}! [ShowGoodsName(\'{good}\')]"\n')
 
+    # A right is named by the game and iconed by the first good it favours, so
+    # this needs no translating either.
+    for right in output_rights(rows, game):
+        icon = sorted(right.output)[0]
+        out.append(f" {MOD_ID}_right_{right.key}: "
+                   f'"@{icon}! [ShowTownRightsName(\'{right.key}\')]"\n')
+
     return "".join(out)
 
 
@@ -985,22 +1349,25 @@ def main() -> int:
     by_continent = regions()
     write(ZONE_OUT, zone_file())
     write(REGION_OUT, region_file(by_continent))
-    write(TRIGGERS_OUT, triggers_file(rows, split))
+    write(TRIGGERS_OUT, triggers_file(rows, split, game))
     write(PICKER_OUT, picker_file(split, rows))
     write(VALUES_OUT, values_file(rows, game))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
     write(GUIS_OUT, guis_file(by_continent))
     write(LAYOUT_OUT, layout_file(by_continent))
+    write(RIGHTS_OUT, rights_file(rows, split, game))
     for language in LOC_LANGUAGES:
-        write(Path(str(LOC_OUT) % (language, language)), loc_file(language, rows, split))
+        write(Path(str(LOC_OUT) % (language, language)),
+              loc_file(language, rows, split, game))
 
     print(f"{sum(len(v) for v in by_continent.values())} regions in "
           f"{len(by_continent)} lists, {len(UNLOCKS)} methods gated by an advance")
     rural = sum(1 for m in rows if m.building_category in RURAL_CATEGORIES)
     print(f"{len(rows)} methods scored, {rural} of them in a village, "
           f"{len(split['raw'])} raw + {len(split['made'])} made goods, "
-          f"{len(CONTINENTS)} continents, {RESULT_ROWS} provinces ranked")
+          f"{len(CONTINENTS)} continents, {RESULT_ROWS} provinces ranked, "
+          f"{len(output_rights(rows, game))} urban rights")
     return 0
 
 
