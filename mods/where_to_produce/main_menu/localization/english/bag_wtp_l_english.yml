@@ -56,8 +56,8 @@
  bag_wtp__continent__pick_name: "Look here"
  bag_wtp__continent__pick_desc: "Where to look at all. This is the rough frame; the fine choosing happens on the map afterwards.\n\nWith nothing ticked the whole world is offered."
 
- bag_wtp__buildable_only_name: "Only where it can be built today"
- bag_wtp__buildable_only_desc: "Leave this off while planning for land you do not hold yet.\n\nThe game answers 'can this be built here' for the location as it stands, and an unowned location fails that question whatever its raw materials are. With this off the table ranks the ground itself, which is the point of planning ahead of a conquest.\n\nTurn it on once the land is yours and you want the list narrowed to what you could start today."
+ bag_wtp__buildable_only_name: "Only where the building could stand at all"
+ bag_wtp__buildable_only_desc: "Off, and by default: every location of the chosen ground is ranked, yours and anybody else's. That is the planning mode, and it is what this mod is for.\n\nOn: the location has to pass the game's own «can this be built here», which is about the location and not about you — its rank, its terrain, what the building needs. A province with no town in it drops out; a province across a border does not. Ownership is not part of it.\n\nUntil 2026-08-31 this tick did nothing at all: the trigger behind it was written with an effect's `if` and came back true everywhere."
 
  bag_wtp__select_name: "Choose the ground on the map"
  bag_wtp__select_text: "Choose"

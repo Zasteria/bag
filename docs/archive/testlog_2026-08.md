@@ -1063,3 +1063,31 @@ compiles from.
 - **The mod page is a page to scroll.** Seven region lists and two goods lists,
   all unfolded. They are folded once now, the first time a player sees the page,
   and his own folding is his after that.
+
+### 2026-08-31 — `where_to_produce`, fifteenth load. The rights window never
+loaded, and the logs named both faults at once.** A right ticked, Карпаты
+ticked, «Считать» pressed, nothing on screen. Logs supplied — first time this
+mod has been diagnosed entirely from them, and neither fault was findable any
+other way.
+
+- **`gui/bag_wtp_right_window.gui:17 - '﻿' is not a valid widget/type/property`,
+  then `Could not find widget 'bag_wtp_right_window'`.** The file carried
+  **two** byte order marks: the header string in the generator already began
+  with one and it was written through `encoding='utf-8-sig'`, which adds
+  another. The second is a character in the text, the parser abandons the file
+  at it, and every type in it goes missing — so «Считать» set the variable the
+  window watches and there was no window. Nothing about the file looked wrong
+  from here.
+- **`Unknown trigger type: else_if` — 59 times, and it is not new.** A trigger's
+  conditional is `trigger_if` / `trigger_else_if` / `trigger_else`: `if` is an
+  *effect* in the engine's dump and `else_if` is not in it at all.
+  `bag_wtp_can_build_something` has been an `if`/`else_if` chain since it was
+  written, so it came back **true for every location** and «only where it can be
+  built today» has never filtered anything — through fifteen loads, while the
+  tick sat on the "never reported" list as though it were merely untested.
+- **The one guess in the build was right**: `town_rights_type:<key>` stores fine
+  as a CMM list item value. Nothing in any of the five `error.log`s mentions the
+  rights list, its registration, or its localization.
+- **`tools/check_script.py` is the answer to both**, and runs from
+  `refresh.py`: a doubled byte order mark and an effect's `if` inside
+  `common/scripted_triggers/` are each one regex, and each cost a run.

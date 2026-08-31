@@ -51,3 +51,28 @@ bag_wtp_row_is_worth_it = {
 		}
 	}
 }
+
+# The same question for an urban right's row, asked of the whole bundle.
+#
+# The sixteenth run's table ended in a province at 0.00% on all three goods and
+# «0/2» three times over: the bundle can be made there and none of it is made
+# any better there than anywhere else. Ranked correctly by «Ценность», since
+# every method still produces, and worth nothing to somebody choosing where a
+# right should go.
+#
+# A slot whose method wants no raw material can never earn a bonus, so a row
+# where every slot is like that is kept -- otherwise the filter would empty the
+# table rather than trim it.
+# Scope: location
+bag_wtp_right_row_is_worth_it = {
+	OR = {
+		var:bag_wtp_r_bonus_1 > 0
+		var:bag_wtp_r_bonus_2 > 0
+		var:bag_wtp_r_bonus_3 > 0
+		AND = {
+			var:bag_wtp_r_goods_all_1 = 0
+			var:bag_wtp_r_goods_all_2 = 0
+			var:bag_wtp_r_goods_all_3 = 0
+		}
+	}
+}

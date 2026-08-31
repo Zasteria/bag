@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Two ways a mod file fails at load, both findable from here.
+"""Three ways a mod file fails at load, all findable from here.
 
 Every other checker in this tree answers a question about one mod's meaning.
 This one answers a question about the file: the game read it and gave up, and
@@ -20,6 +20,16 @@ character in the text, and the interface parser answers
 file — every type in it missing, the window never found. Writing a string that
 already begins with `﻿` through `encoding='utf-8-sig'` is how it happens,
 and nothing about the file looks wrong afterwards.
+
+**A name that nothing defines is not an error the game reports usefully.**
+`bag_wtp_store_right_row_if_worth_it` called `bag_wtp_right_row_is_worth_it` and
+the patch that was to have written that trigger died half way; the call stayed,
+the definition never existed, and the `limit` it sat in passed for every
+province. The symptom was a filter that filtered nothing — which is the same
+symptom as the `trigger_if` rule above, and cost a run of its own. Every
+`<name> = yes` in a mod's own `common/` has to resolve: to something the mod
+defines, to something a mod in `reference/` defines (CMF's macros), or to an
+effect or trigger in the engine's own dumps.
 
     python3 tools/check_script.py                 every mod in mods/
     python3 tools/check_script.py mods/<mod>      one of them
@@ -46,6 +56,63 @@ PARSED = ("*.txt", "*.gui")
 # translator's rewrite list are `.txt` in the same repository and are nobody's
 # game files; asking them for a byte order mark is noise.
 MOUNTS = ("in_game", "main_menu", "loading_screen")
+
+# `<name> = { ... }` at the top of a line is a definition; `<name> = yes` is a
+# call. `yes` is also how a hundred ordinary keys are written -- `always = yes`,
+# `is_ownable = yes` -- so a call only counts as unresolved when nothing in the
+# game, in `reference/`, or in the mod itself defines it.
+DEFINITION = re.compile(r'^(\w+)\s*=\s*\{', re.M)
+CALL = re.compile(r'(?<![\w.:])(\w+)\s*=\s*yes\b')
+
+
+def known_names() -> set[str]:
+    """Everything a call may legitimately name, gathered once.
+
+    The engine's own dumps carry `## <name>` per effect and trigger, which is
+    where `always`, `is_ownable` and the rest come from; `reference/mods/` is
+    where CMF's macros and every other mod's scripted effects live.
+    """
+    names: set[str] = set()
+    for log in ("effects.log", "triggers.log"):
+        path = REPO / "reference/game/docs" / log
+        if path.is_file():
+            names.update(line[3:].strip()
+                         for line in path.read_text(encoding="utf-8", errors="replace").splitlines()
+                         if line.startswith("## "))
+    for base in ((REPO / "reference/game/in_game/common"),
+                 *(p / "in_game/common" for p in (REPO / "reference/mods").glob("*"))):
+        if not base.is_dir():
+            continue
+        for path in base.rglob("*.txt"):
+            names.update(DEFINITION.findall(path.read_text(encoding="utf-8-sig",
+                                                           errors="replace")))
+    return names
+
+
+def unresolved(root: Path, known: set[str]) -> list[str]:
+    """Calls in this mod's own `common/` that name nothing that exists."""
+    defined: set[str] = set()
+    sources: list[tuple[Path, str]] = []
+    for path in sorted((root / "in_game/common").rglob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        defined.update(DEFINITION.findall(text))
+        sources.append((path, text))
+    if not defined:
+        return []
+    # Only names in this mod's own namespace: `always = yes` is the engine's and
+    # a call into another mod is that mod's business.
+    prefixes = tuple(sorted({n.split("_")[0] + "_" for n in defined}))
+    found = []
+    for path, text in sources:
+        for match in CALL.finditer(text):
+            name = match.group(1)
+            if name in defined or name in known or not name.startswith(prefixes):
+                continue
+            line = text[:match.start()].count("\n") + 1
+            found.append(f"{path.relative_to(REPO)}:{line}: `{name}` is called and "
+                         f"nothing defines it — the block it sits in passes or "
+                         f"does nothing, and the game says so nowhere useful")
+    return found
 
 
 def problems(root: Path) -> list[str]:
@@ -86,11 +153,13 @@ def problems(root: Path) -> list[str]:
 
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
+    known = known_names()
     total = 0
     for root in roots:
         if not root.is_dir():
             continue
-        found = problems(root if root.is_absolute() else REPO / root)
+        root = root if root.is_absolute() else REPO / root
+        found = problems(root) + unresolved(root, known)
         total += len(found)
         for line in found:
             print(line)

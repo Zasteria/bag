@@ -4,45 +4,40 @@ Name a good and the ground; the mod finds each location the best production
 method **available to you now** and ranks the locations by what that method would
 earn from the raw materials the province supplies.
 
-**State: sixteen loads in.** It answers for a single good and for a whole urban
-right, in a window each. The ranking sorts, a pick re-ranks while a window is
-open, and the two-line row reads — the village under the guild.
+**State: seventeen loads in, and confirmed in game end to end.** It answers for
+a single good and for a whole urban right, in a window each; the ranking sorts,
+a pick re-ranks live, the pickers stay folded, the age filter moves the answer
+as ages pass, and «Открыть» reopens the last result.
 
 ## Where it stands
 
-Unjudged: the **pickers folding shut** on first sight of the mod page and
-staying where the player leaves them after (`bag_wtp_fold_pickers` writes CMM's
-own `cmm_group_collapsed` map, which no macro covers — a contract with a comment
-in `cmm_settings_pane.gui`); and the **age filter**, never once reported.
+Two things go into the next load and neither is structural: **no province at
+0.00% on every good of a bundle** — the trigger that filters them was called and
+never written until the seventeenth run — and **the two rights lists**, of which
+«Уникальные права» should be empty for anyone but a Byzantine or a Scandinavian.
 
-**Urban rights work, sixteenth load.** Two lists on the Goods tab — nine general
-ones and the country-specific ones, split on `unlock_town_rights` rather than on
-opinion — and a **second window**, because a bundle of two or three goods is a
-different question in a different unit. A unique right is offered only where the
-game's own `potential` or unlocking advance says it could be held. The numbers
-behind the ranking:
+**Urban rights: two lists on the Goods tab** — nine general and the
+country-specific ones, split on `unlock_town_rights` rather than on opinion —
+and a **second window**, because a bundle of two or three goods is a different
+question in a different unit. A unique right is offered only where the game's
+own `potential` or unlocking advance says it could be held. The numbers:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
 One button, not two: «Считать» answers whichever of a good and a right is
-ticked, and opens the matching window. They cannot both be ticked, so a second
-button would have nothing to decide.
+ticked, and they cannot both be ticked.
 
-**`cmf_on_mod_registration` fires every time the mod page is opened**, not only
-on a new game or a save load, so `bag_wtp_register` must destroy nothing: it
-used to end with `bag_wtp_clear_rows` and threw the answer away on the way to
-the button that reopens it.
+**`cmf_on_mod_registration` fires every time the mod page is opened**, so
+`bag_wtp_register` must destroy nothing.
 
 **Two things are settled and not to be attempted again.** Clicking the map with
 a window open is impossible (`docs/research/interface.md`), and a geography tree
-of our own came up empty twice and is deleted.
-
-Only the goods and ground lists are still CMM's; the caps that shape them are in
-`docs/research/cmf.md`.
+of our own came up empty twice and is deleted. Only the pickers are still CMM's;
+their caps are in `docs/research/cmf.md`.
 
 ## Settled, and not to be re-litigated
 
-- **The map picker closes after each pick** — the generic action's lifecycle,
-  not a fault, and the only map-click channel a mod has at all.
+- **The map picker closes after each pick** — the action's lifecycle, not a
+  fault, and the only map-click channel a mod has.
 - **A window's datamodel is what costs.** A scripted widget never comes down, so
   only the list it repeats over decides how many rows are alive; each window's
   list is filled on opening and emptied on closing.
@@ -50,8 +45,11 @@ Only the goods and ground lists are still CMM's; the caps that shape them are in
   for the ranking — and only `bag_wtp_pick` / `bag_wtp_drop` may write it.
 - **The bonus is province-level**, which is why a row is a province: what would
   separate two of its locations is building slots, and the game exposes none.
+- **The buildable tick is about the location, not the owner.** `can_build_building`
+  is asked in the location's scope: rank, terrain, what the building needs. A
+  province with no town drops out; one across a border does not.
 - **And the province is the `province_definition`** — the `province` is one
-  owner's piece of it, and this answers for the ground, not for today's border.
+  owner's piece of it, and this answers for the ground, not today's border.
 - **The owner's flag under an expanded row stays** — seventh run.
 
 ## The answer lives on the location

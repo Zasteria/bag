@@ -40,6 +40,14 @@ the rows themselves left on screen because the newer of the two windows' lists
 had been forgotten in that same `clear_rows`. Registration is for making things
 exist. Anything it destroys, it destroys on a schedule nobody chose.
 
+**A call to a name nothing defines is not reported where you would look.** The
+patch that was to write `bag_wtp_right_row_is_worth_it` died half way; the
+`limit = { bag_wtp_right_row_is_worth_it = yes }` that called it survived,
+passed for every province, and the filter filtered nothing — the same symptom as
+the `trigger_if` fault below and a run of its own to find. `check_script.py`
+resolves every `<name> = yes` in a mod's own `common/` against the mod, the mods
+in `reference/`, and the engine's own effect and trigger dumps.
+
 **A trigger's conditional is `trigger_if`, and nothing else is.** `if` is an
 *effect* in the engine's own dump and `else_if` is not in it at all. Written
 inside `common/scripted_triggers/` they log `Unknown trigger type: else_if` once

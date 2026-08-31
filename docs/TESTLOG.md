@@ -31,6 +31,36 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, seventeenth load. The registration fix holds,
+two things are confirmed after weeks of «never reported», and the filter that
+was meant to be fixed was never written.** Owner: «Список теперь сохраняется
+после закрытия и открытия окна мода… Думаю основной пул задач для этой сессии
+был выполнен.»
+
+- **The counters are honest.** «Обошёл 127 · нашёл 19 · пересчётов 3», «в 26
+  пров.», «№» running 16…19 down the visible part. Opening the mod page no
+  longer throws the answer away, and «Открыть» reopens the last result — which
+  is the whole of what that button is for.
+- **Confirmed, both long outstanding:** the pickers stay folded («свёрнутые
+  списки давно проверены — они сохраняются свёрнутыми»), and **the age filter
+  works** — «метода производств и домики действительно меняются на более крутые
+  и расчёт идёт уже от них». Seventeen loads to get that one reported.
+- **Южная Олтения at 0.00% on all three goods is still there**, and the reason
+  is not the filter's logic. `bag_wtp_right_row_is_worth_it` is *called* by the
+  generated pass and **nothing defines it**: the patch that was to have written
+  the trigger died half way through and only the call survived. An undefined
+  name in a `limit` does not stop anything — the limit passes, and the symptom
+  is a filter that filters nothing, exactly as the `trigger_if` fault looked.
+  Written now, and `tools/check_script.py` refuses an unresolved call: every
+  `<name> = yes` in a mod's own `common/` must resolve to the mod, to a mod in
+  `reference/`, or to the engine's dumps.
+- **And the buildable tick does not mean what it said.** «При её включении —
+  показывается всё равно не только моя земля, но и чужая. Основное что она
+  фильтрует — наличие городов в провинции.» He is right and the label was wrong:
+  `can_build_building` is asked in the *location's* scope and answers about the
+  location — its rank, its terrain, what the building needs — not about who owns
+  it. It reads «Только там, где здание вообще может стоять» now, and says so.
+
 **2026-08-31 — `where_to_produce`, sixteenth load. The rights window works, and
 one screenshot carried three faults at once.** «Вроде как работает… выглядит
 наглядно и понятно.» The bundle rows read: three goods, each with its own
@@ -60,35 +90,7 @@ method, bonus and materials, «Ценность» ranking them.
   `potential = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }` and the
   Scandinavian privileges carry an advance nobody else takes.
 
-**2026-08-31 — `where_to_produce`, fifteenth load. The rights window never
-loaded, and the logs named both faults at once.** A right ticked, Карпаты
-ticked, «Считать» pressed, nothing on screen. Logs supplied — first time this
-mod has been diagnosed entirely from them, and neither fault was findable any
-other way.
-
-- **`gui/bag_wtp_right_window.gui:17 - '﻿' is not a valid widget/type/property`,
-  then `Could not find widget 'bag_wtp_right_window'`.** The file carried
-  **two** byte order marks: the header string in the generator already began
-  with one and it was written through `encoding='utf-8-sig'`, which adds
-  another. The second is a character in the text, the parser abandons the file
-  at it, and every type in it goes missing — so «Считать» set the variable the
-  window watches and there was no window. Nothing about the file looked wrong
-  from here.
-- **`Unknown trigger type: else_if` — 59 times, and it is not new.** A trigger's
-  conditional is `trigger_if` / `trigger_else_if` / `trigger_else`: `if` is an
-  *effect* in the engine's dump and `else_if` is not in it at all.
-  `bag_wtp_can_build_something` has been an `if`/`else_if` chain since it was
-  written, so it came back **true for every location** and «only where it can be
-  built today» has never filtered anything — through fifteen loads, while the
-  tick sat on the "never reported" list as though it were merely untested.
-- **The one guess in the build was right**: `town_rights_type:<key>` stores fine
-  as a CMM list item value. Nothing in any of the five `error.log`s mentions the
-  rights list, its registration, or its localization.
-- **`tools/check_script.py` is the answer to both**, and runs from
-  `refresh.py`: a doubled byte order mark and an effect's `if` inside
-  `common/scripted_triggers/` are each one regex, and each cost a run.
-
-Everything before 2026-08-29, and `where_to_produce`'s first fourteen loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first fifteen loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -240,21 +242,19 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, seventeenth load — the counters should stop lying.**
+**`where_to_produce`, eighteenth load — two lines, and the mod is done for now.**
 
-1. **Open the mod page with a result already computed.** «Обошёл · нашёл ·
-   пересчётов» keeps its numbers, «Выбрано» keeps its provinces, and «Открыть»
-   reopens the table with its «№» column intact. That is the whole of the
-   registration fix, and every one of those was zero before it.
+1. **No province at 0.00% on every good** at the bottom of a rights table. The
+   filter exists this time.
 2. **Two rights lists**, «Городские права» with nine and «Уникальные права»
-   which for Wallachia should be **empty** — three exist and all three belong to
-   somebody else.
-3. **No 0.00%-on-everything province** at the bottom of a rights table.
-4. **«Только там, где можно построить сегодня» filters something**, for the
-   first time in the mod's life: tick it with a good chosen and «нашёл» should
-   fall. Off is the planning mode — ground you do not hold yet.
-5. Carried over, never judged: the pickers folding shut on first sight of the
-   mod page, and the age filter.
+   which for Wallachia should be empty — three exist and all three are somebody
+   else's. Never reported either way.
+
+Everything else in this mod has been confirmed in game. What is left is not a
+run but a decision: whether an ownership half belongs in the buildable tick
+(`can_build_building` cannot ask it from a location scope), and whether level
+rights get a table of their own —
+[`investigations/town_rights.md`](investigations/town_rights.md).
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

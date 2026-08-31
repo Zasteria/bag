@@ -38,32 +38,32 @@ message names the folder and that is the next thing to look at. The logs from
 whatever run follows go through `python3 tools/which_build.py <logs folder>`
 first, as always now.
 
-## `where_to_produce`: urban rights are built, not loaded
+## `where_to_produce` is done for now
 
-The owner copied `common/town_rights` into `reference/` by hand on 2026-08-31,
-because `mods.bat → 2` turned out to copy mods and not to re-extract the game.
-So the data is here and the arithmetic is settled:
-[`investigations/town_rights.md`](investigations/town_rights.md) is the whole
-of it, and it is short.
+Seventeen loads, confirmed end to end: a good or a whole urban right, a window
+each, live re-ranking as the borders are drawn, the pickers folded, the age
+filter moving the answer. Two lines go into the eighteenth load and neither is
+structural — [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run) has them.
 
-The three findings that decide the build: a right's percentage is the same in
-every location and so **re-ranks nothing** — only the bundle of two or three
-goods does; adding a bundle's goods needs `default_market_price` from
-`common/goods`, or it is books-plus-masonry and the ninth run's mistake again;
-and a `+5 levels` right is a quantity where the others are ratios, so it gets
-its own number and never a shared one.
+**What is left is decisions, not runs.** Both are written up in
+[`investigations/town_rights.md`](investigations/town_rights.md):
 
-**Built 2026-08-31 and never loaded**: the output half — a third list on the
-Goods tab and a window of its own. Level rights are deferred by the owner. The
-fifteenth-load protocol is in [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run), and
-one `grep` for `town_right_efficiency_penalty` is still outstanding: eleven
-rights reference it and nothing `reference/` holds defines it.
+- **Level rights** — Flemish cloth and the marketplace charters. Deferred by the
+  owner on 2026-08-31. They are a quantity where the output rights are a ratio,
+  so they want their own number and probably their own table.
+- **Whether the buildable tick should ask about ownership.** It asks
+  `can_build_building` in the *location's* scope, which is about the location and
+  not about the player; the label says so now. Adding an owner half means asking
+  the country from a trigger that has no country, and is not a five-minute
+  change.
+- **`town_right_efficiency_penalty`**, referenced by eleven rights and defined in
+  nothing `reference/` holds. One `grep` on the owner's install. It changes no
+  ranking — it is a constant — and answers «is this right worth taking at all».
 
-**And a smaller thing worth fixing while there:** which `mods.bat` entry runs
-`tools/extract_game_files.py`. Пункт 2 does not, and the manifest is only worth
-something if something runs it — the four folders added for `where_to_produce`
-(`goods`, `production_methods`, `building_types`, `town_rights`) are three that
-the mod has compiled from since its first commit and that no entry covered.
+**And one thing about the tooling**, found on 2026-08-31: `mods.bat → 2` copies
+mods and does not run `tools/extract_game_files.py`, so a manifest entry alone
+does not bring a game folder into `reference/`. Which menu entry is supposed to
+run the extractor is open.
 
 ## Then `glorpui_hints` goes out
 
