@@ -31,6 +31,34 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, fifteenth load. The rights window never
+loaded, and the logs named both faults at once.** A right ticked, Карпаты
+ticked, «Считать» pressed, nothing on screen. Logs supplied — first time this
+mod has been diagnosed entirely from them, and neither fault was findable any
+other way.
+
+- **`gui/bag_wtp_right_window.gui:17 - '﻿' is not a valid widget/type/property`,
+  then `Could not find widget 'bag_wtp_right_window'`.** The file carried
+  **two** byte order marks: the header string in the generator already began
+  with one and it was written through `encoding='utf-8-sig'`, which adds
+  another. The second is a character in the text, the parser abandons the file
+  at it, and every type in it goes missing — so «Считать» set the variable the
+  window watches and there was no window. Nothing about the file looked wrong
+  from here.
+- **`Unknown trigger type: else_if` — 59 times, and it is not new.** A trigger's
+  conditional is `trigger_if` / `trigger_else_if` / `trigger_else`: `if` is an
+  *effect* in the engine's dump and `else_if` is not in it at all.
+  `bag_wtp_can_build_something` has been an `if`/`else_if` chain since it was
+  written, so it came back **true for every location** and «only where it can be
+  built today» has never filtered anything — through fifteen loads, while the
+  tick sat on the "never reported" list as though it were merely untested.
+- **The one guess in the build was right**: `town_rights_type:<key>` stores fine
+  as a CMM list item value. Nothing in any of the five `error.log`s mentions the
+  rights list, its registration, or its localization.
+- **`tools/check_script.py` is the answer to both**, and runs from
+  `refresh.py`: a doubled byte order mark and an effect's `if` inside
+  `common/scripted_triggers/` are each one regex, and each cost a run.
+
 **2026-08-31 — `where_to_produce`, fourteenth load. The filter works and the
 offer to defeat it was the litter.** Owner: «Хвосты ушли… Хотя я абсолютно не
 понимаю нахера вообще есть возможность смотреть на эти пустые хвосты — выглядит
@@ -224,21 +252,20 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, fifteenth load — the urban rights, first sight.** Tick a
-right on the Goods tab instead of a good; it is a third list there and it drops
-whatever good was ticked.
+**`where_to_produce`, sixteenth load — the urban rights, second attempt.** The
+window that did not parse is one byte lighter and the trigger that never
+filtered is written the way a trigger is written.
 
-1. **The list draws at all.** Twelve rows, each iconed by the first good of its
-   bundle and named by the game. The one guess in the build is
-   `town_rights_type:<key>` as a value a CMM list item can hold — if it cannot,
-   this is where `error.log` says so and the list is empty or absent.
-2. **«Считать» opens the other window**, «Где производить — городские права»,
-   and not the first one. Only one of the two is ever open.
-3. **A row is the bundle**: one line per good — good, bonus, building and
-   method, and the raw materials — and «Ценность» on the left, which is what the
-   rows are ranked on. Rights with one good draw one line and rights with three
-   draw three, nothing overlapping.
-4. **A pick still re-ranks** and «№» still runs 1, 2, 3 down the window.
+1. **The rights window draws.** Tick a right on the Goods tab — twelve rows,
+   iconed by the first good of the bundle — then «Считать», and «Где производить
+   — городские права» opens instead of the usual one.
+2. **A row is the bundle**: one line per good, each with good, bonus, building
+   and method, and «Ценность» on the left, which is what the rows are ranked on.
+   One-good rights draw one line and three-good rights draw three.
+3. **A pick still re-ranks**, and «№» still runs 1, 2, 3 down the window.
+4. **«Только там, где можно построить сегодня» filters something**, for the
+   first time in the mod's life. Tick it with a good chosen and the province
+   count should fall.
 5. Carried over, still never judged: the pickers folding shut on first sight of
    the mod page, and the age filter.
 

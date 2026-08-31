@@ -31,6 +31,24 @@ effect. The symptom was a Mod Menu tab holding only the settings that happened t
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
 
+**A trigger's conditional is `trigger_if`, and nothing else is.** `if` is an
+*effect* in the engine's own dump and `else_if` is not in it at all. Written
+inside `common/scripted_triggers/` they log `Unknown trigger type: else_if` once
+per line and leave a scripted trigger that comes back **true no matter what** —
+the worst failure a filter can have, because it filters nothing and looks
+correct. `where_to_produce`'s "only where it can be built today" was that from
+the day it was written, through fifteen loads, and the tick was on the list of
+things "never reported" the whole time. The forms are `trigger_if`,
+`trigger_else_if`, `trigger_else`; `tools/check_script.py` refuses the others.
+
+**A file carries one byte order mark, at byte zero.** A second one is a
+character in the text and the interface parser answers `'﻿' is not a valid
+widget/type/property`, then abandons the file — every type in it missing, the
+window never found, and the only symptom in game a button that does nothing.
+Writing a string that already begins with a BOM through `encoding='utf-8-sig'`
+is how it happens, and nothing about the file looks wrong afterwards.
+`tools/check_script.py` counts them.
+
 **A ranking on fractions does not sort.** `where_to_produce` ranked provinces on
 a method's effective output, which for the one book method a 1369 country has
 unlocked runs 0.3000 to 0.3129 across the whole of Europe. The rows came back in

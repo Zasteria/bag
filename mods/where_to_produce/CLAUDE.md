@@ -16,14 +16,18 @@ player leaves them after (`bag_wtp_fold_pickers` writes CMM's own
 `cmm_group_collapsed` map, which no macro covers — a contract with a comment in
 `cmm_settings_pane.gui`); and the **age filter**, never once reported.
 
-**Urban rights are built and have never been loaded.** A third list on the Goods
-tab, exclusive with the two goods lists, and a **second window** — a bundle of
-two or three goods is a different question in a different unit, so it is not a
-third line on the first window. A right's own percentage re-ranks nothing (it is
-the same everywhere); what ranks is the bundle, added through the goods' market
-prices. Level rights — Flemish cloth, the marketplace charters — are deliberately
-out. All of it, with the numbers:
+**Urban rights: built, loaded once, and the window did not parse.** A third list
+on the Goods tab, exclusive with the two goods lists, and a **second window** —
+a bundle of two or three goods is a different question in a different unit. The
+fifteenth load found the window carrying two byte order marks, which makes the
+interface abandon the file whole, and `bag_wtp_can_build_something` written with
+an effect's `if`, which makes a trigger true for everything. Both fixed, both
+now refused by `tools/check_script.py`, neither confirmed. The numbers behind
+the ranking:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
+
+One button, not two: «Считать» answers whichever of a good and a right is
+ticked, and opens the matching window. They cannot both be ticked.
 
 **Two things are settled and not to be attempted again.** Clicking the map with
 a window open is impossible (`docs/research/interface.md`), and a geography tree

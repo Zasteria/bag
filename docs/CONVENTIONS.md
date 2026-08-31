@@ -1,4 +1,4 @@
-# Conventions, and how the loop around the mods works
+﻿# Conventions, and how the loop around the mods works
 
 Read this when the task is about the repository itself — a generator, the
 reference tree, an upload, the owner's menu. A task inside one mod does not need
@@ -81,6 +81,7 @@ caught it, not only in prose.
 | `workshop.py` | the same work without the menu; `sync_workshop.ps1` is the unattended loop |
 | `check_cmm.py` | every CMM call in a mod against CMF's declared arguments, and every localization key CMM will look for |
 | `check_docs.py` | the documents still describe files that exist, and stay inside their size budget |
+| `check_script.py` | two ways a mod file dies at load and nothing else notices: an effect's `if` inside a trigger, and a doubled byte order mark. Runs from `refresh.py` |
 | `eu5data.py` | the game's goods, methods and building types, and the RGO formula |
 | `guicost.py` | what the interface costs before anybody clicks |
 | `playset.py` | which mods the player actually runs, from the mount table in his `debug.log` |

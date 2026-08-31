@@ -418,17 +418,27 @@ def triggers_file(rows, split, game) -> str:
             by_good[method.produced].append(method.building)
 
     out.append(f"""
+# **`trigger_if`, not `if`.** A trigger has its own conditional: `if` is an
+# effect and `else_if` is nothing at all, which the game says once per line at
+# load -- `Unknown trigger type: else_if` -- and the whole of this then came
+# back true, so "only where it can be built today" filtered nothing whatever it
+# was set to, for as long as the tick has existed.
+#
 # Scope: location
 {MOD_ID}_can_build_something = {{
 """)
+    first = True
     for index, right in enumerate(output_rights(rows, game), start=1):
-        keyword = "if" if index == 1 else "else_if"
+        keyword = "trigger_if" if first else "trigger_else_if"
+        first = False
         inner = " ".join(f"{MOD_ID}_can_build_{order.index(g) + 1} = yes"
                          for g in sorted(right.output) if g in order)
         out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_right_index = {index} }} "
                    f"OR = {{ {inner} }} }}\n")
     for index, good in enumerate(order, start=1):
-        out.append(f"\telse_if = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
+        keyword = "trigger_if" if first else "trigger_else_if"
+        first = False
+        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
                    f"{MOD_ID}_can_build_{index} = yes }}\n")
     out.append("}\n")
 
