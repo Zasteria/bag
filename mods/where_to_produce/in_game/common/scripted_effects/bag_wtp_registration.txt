@@ -45,18 +45,6 @@ bag_wtp_register = {
 		default_value = 0
 	}
 
-	# Off by default, which means the tail of provinces at 0.00% is not shown.
-	# They are ranked correctly and worth nothing: the same building, the same
-	# method and the same output as the rows above them, with none of the raw
-	# materials that method wants anywhere in the province.
-	cmm_register_global_bool_setting = {
-		mod_id = bag_wtp
-		setting_id = show_flat
-		tab_id = plan
-		group_id = what
-		default_value = 0
-	}
-
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = run
@@ -94,5 +82,4 @@ bag_wtp_register = {
 bag_wtp_sync = {
 	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }
 	cmm_sync_bool_alias = { setting = bag_wtp__any_method alias = bag_wtp_any_method }
-	cmm_sync_bool_alias = { setting = bag_wtp__show_flat alias = bag_wtp_show_flat }
 }

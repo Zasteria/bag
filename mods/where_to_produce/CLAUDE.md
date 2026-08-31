@@ -10,27 +10,25 @@ earn from the raw materials the province supplies.
 open, and the two-line row reads — the village where it belongs, under the guild
 rather than above it.
 
-## What the fourteenth run has to answer
+## Where it stands
 
-Nothing structural, for the first time. Three changes went in on the thirteenth
-run's remarks, none of them seen in game:
+The fourteenth run took the tail of «0.00% … 0/2» provinces out of the table and
+refused the tick that would have brought them back — the offer was the litter,
+not the rows. A method that wants no raw material can earn no bonus anywhere and
+is shown regardless, which is a branch in `bag_wtp_row_is_worth_it`.
 
-- **Provinces with no local bonus are out of the table.** The tail of «0.00% …
-  0/2» rows is the same building at the same output as the rows above it, with
-  none of the method's raw materials anywhere in the province. `bag_wtp_show_flat`
-  on the Answer tab brings them back, and a method that wants no raw material at
-  all is shown regardless — otherwise the tick would empty the table rather than
-  trim it.
-- **The pickers are folded on first sight of the mod page** and the player's own
-  folding is his afterwards. `bag_wtp_fold_pickers` writes CMM's own
-  `cmm_group_collapsed` map, which no macro covers: it is a contract with a
-  comment in `cmm_settings_pane.gui`, and a CMF that renamed it would leave the
-  groups open rather than break anything.
-- **`bag_wtp_store_winner` zeroes the fields it may not set.** They were left
-  from the previous pass, invisible because the window guards on `_bt` — and the
-  new filter reads them.
+Unjudged: the **pickers folding shut** on first sight of the mod page and staying
+where the player leaves them after (`bag_wtp_fold_pickers` writes CMM's own
+`cmm_group_collapsed` map, which no macro covers — a contract with a comment in
+`cmm_settings_pane.gui`, and a CMF that renamed it would leave the groups open
+rather than break anything). And the **age filter**, never once reported.
 
-And the age filter, never once reported in thirteen loads.
+**Town rights are next, designed and not built.** What the seventeen production
+rights grant, why a right's percentage can re-rank nothing, why a bundle needs
+the goods' market prices, and why a `+5 levels` right is a different unit that
+must not be added to the others:
+[`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
+One decision from the owner first.
 
 **Two things are settled and not to be attempted again.** Clicking the map with
 a window open is impossible (`docs/research/interface.md`), and a geography tree

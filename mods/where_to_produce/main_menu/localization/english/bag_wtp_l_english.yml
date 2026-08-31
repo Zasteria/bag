@@ -56,8 +56,6 @@
  bag_wtp__continent__pick_name: "Look here"
  bag_wtp__continent__pick_desc: "Where to look at all. This is the rough frame; the fine choosing happens on the map afterwards.\n\nWith nothing ticked the whole world is offered."
 
- bag_wtp__show_flat_name: "Show provinces with no local bonus"
- bag_wtp__show_flat_desc: "Off: a province is left out when the winning method finds none of the raw materials it wants anywhere in it — the tail of 0.00% rows at «0/2», ranked correctly and worth nothing, since they are the same building at the same output as the rows above.\n\nOn: every province the search walked that has any method at all.\n\nA method that wants no raw material cannot earn a bonus anywhere, and those provinces are shown whatever this is set to — otherwise the tick would empty the table rather than trim it."
  bag_wtp__buildable_only_name: "Only where it can be built today"
  bag_wtp__buildable_only_desc: "Leave this off while planning for land you do not hold yet.\n\nThe game answers 'can this be built here' for the location as it stands, and an unowned location fails that question whatever its raw materials are. With this off the table ranks the ground itself, which is the point of planning ahead of a conquest.\n\nTurn it on once the land is yours and you want the list narrowed to what you could start today."
 

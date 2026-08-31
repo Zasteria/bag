@@ -38,32 +38,30 @@ message names the folder and that is the next thing to look at. The logs from
 whatever run follows go through `python3 tools/which_build.py <logs folder>`
 first, as always now.
 
-## `where_to_produce` wants one extraction run, and only then the town rights
+## `where_to_produce`: town rights are designed, not built
 
-The owner asked for urban rights — the **Городские права** a location can be
-granted, which trade a small penalty on all production for a large bonus to one
-bundle of goods, and so want a mode that ranks ground for the *bundle* rather
-than for one good. Nine general production rights, each naming its bundle in
-localization — tools; jewelry; weaponry+firearms+cannons; paper+books+dyes;
-leather+pottery+furniture; liquor+beer+wine; cloth+fine cloth; naval
-supplies+tar; masonry+glass — plus country-unique ones, of which Flemish Cloth
-Industry gives no efficiency at all, only `+5` to a building limit, which is a
-different kind of answer and may not belong in the same table.
+The owner copied `common/town_rights` into `reference/` by hand on 2026-08-31,
+because `mods.bat → 2` turned out to copy mods and not to re-extract the game.
+So the data is here and the arithmetic is settled:
+[`investigations/town_rights.md`](investigations/town_rights.md) is the whole
+of it, and it is short.
 
-**The numbers are not in `reference/`.** The engine's side is all there —
-`has_town_rights`, `every_town_rights_in_location`, `grant_town_rights`, a
-`town_rights_type` target — but `common/town_rights` was never extracted, so
-what each right modifies, by how much, and what gates it are unknown here.
-Reading the bundles out of localization prose is the mistake this repository has
-a rule against.
+The three findings that decide the build: a right's percentage is the same in
+every location and so **re-ranks nothing** — only the bundle of two or three
+goods does; adding a bundle's goods needs `default_market_price` from
+`common/goods`, or it is books-plus-masonry and the ninth run's mistake again;
+and a `+5 levels` right is a quantity where the others are ratios, so it gets
+its own number and never a shared one.
 
-`town_rights` is in `tools/game_files_manifest.txt` now, so **the `mods.bat → 2`
-already waiting below brings it in** — along with `goods`, `production_methods`
-and `building_types`, which `where_to_produce` has read all along and which no
-manifest entry covered, so an extraction run would have dropped them. After that
-the bundles and their percentages generate like everything else; the design
-question worth settling first is whether a bundle is a third goods list or a
-mode over the two that exist.
+**Waiting on the owner:** whether level rights belong in the same table at all,
+and one `grep` for `town_right_efficiency_penalty`, which is referenced by
+eleven rights and defined in nothing `reference/` holds.
+
+**And a smaller thing worth fixing while there:** which `mods.bat` entry runs
+`tools/extract_game_files.py`. Пункт 2 does not, and the manifest is only worth
+something if something runs it — the four folders added for `where_to_produce`
+(`goods`, `production_methods`, `building_types`, `town_rights`) are three that
+the mod has compiled from since its first commit and that no entry covered.
 
 ## Then `glorpui_hints` goes out
 

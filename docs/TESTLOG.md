@@ -31,6 +31,23 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, fourteenth load. The filter works and the
+offer to defeat it was the litter.** Owner: «Хвосты ушли… Хотя я абсолютно не
+понимаю нахера вообще есть возможность смотреть на эти пустые хвосты — выглядит
+как просто мусорная часть мода.» The tick is gone; the one case it protected —
+a method that wants no raw material and so can earn no bonus anywhere — is a
+branch in `bag_wtp_row_is_worth_it` and needs no setting.
+
+**`mods.bat → 2` does not re-extract the game.** «Ничего нового там не было,
+только копирование модов в плейсет и референс.» Adding a folder to
+`tools/game_files_manifest.txt` is therefore not enough to get it into
+`reference/`, and the owner copied `common/town_rights` in by hand instead.
+Which menu entry runs `extract_game_files` — and whether one exists — is the
+open question; the manifest entries for `goods`, `production_methods`,
+`building_types` and `town_rights` are right either way, since without them the
+next real extraction would have deleted three folders `where_to_produce`
+compiles from.
+
 **2026-08-30 — `where_to_produce`, thirteenth load. It works.** Owner: «В целом
 вроде как всё починилось, что мне нужно было. Я выбирал области — всё
 обновлялось сразу же.» Two screenshots.
@@ -244,11 +261,13 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, fourteenth load — and it is no longer a bug hunt.** What
-is on it: the tail of 0.00% provinces gone and the tick on the Answer tab
-bringing them back; the pickers folded shut on first sight of the mod page and
-staying where the player leaves them afterwards; and the age filter, which has
-never once been reported in fourteen loads.
+**`where_to_produce`, fifteenth load — nothing structural on it yet.** The
+pickers folded shut on first sight of the mod page and staying where the player
+leaves them afterwards, which the fourteenth run did not report; and the age
+filter, which has never once been reported in fourteen loads. Town rights are
+designed but not built —
+[`investigations/town_rights.md`](investigations/town_rights.md) — and want one
+decision from the owner before they are.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

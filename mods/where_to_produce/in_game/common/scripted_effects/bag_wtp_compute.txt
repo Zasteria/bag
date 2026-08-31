@@ -91,13 +91,6 @@ bag_wtp_on_button = {
 		bag_wtp_refresh_goods = yes
 	}
 
-	# Which rows are kept, not which ground is walked: the pass answers the same
-	# question and keeps more of it, so the table re-ranks where it stands.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__show_flat }
-		bag_wtp_sync = yes
-		bag_wtp_recompute_live = yes
-	}
 }
 
 # Every change of the borders re-ranks, so the window answers as the plan is
