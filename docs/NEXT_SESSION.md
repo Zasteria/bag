@@ -15,18 +15,17 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one: it asked only whether the item's folder existed in steamcmd's
-own directory, and it did from the previous attempt, so an unfinished login
-still copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code read, the cached copy offered
-for deletion first, and **only a mod whose copy actually changed is copied
-onward**; anything else is named on screen.
+successful one: it asked only whether the item's folder existed in steamcmd's own
+directory, and it did from the previous attempt, so an unfinished login still
+copied last week's files over the workshop folder. The folder is fingerprinted
+before and after now, the exit code read, the cached copy offered for deletion
+first, and **only a mod whose copy actually changed is copied onward**.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
 landed. The install is **read back off disk** now, a mismatch says so with the
 path, and the screen names the branch and commit installed. A `game_mods` path
-typo'd once — the one way this could install into a folder the game never reads
-— is refused rather than created.
+typo'd once — the one way this could install into a folder the game never reads —
+is refused rather than created.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
 against the game's folder and the repository's branch and commit — the line to
@@ -48,19 +47,28 @@ the end alone cannot order a table where every wool province ends at 0.00%. Two
 earns its own bonus over its own output:
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
 
-**The rights window obeys both buttons and is confirmed.** **Two faults are
-fixed and neither loaded:** a `trigger_if` chain ending on an `else_if` voided
-the buildable filter (`error.log` said so for two runs), and an expanding child
-of a sized hbox gets no width — which erased the building's name from every row
-of the twenty-fourth load. Both are written up under
-[`pitfalls/interface.md`](pitfalls/interface.md); what to look at next is
-[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+**The twenty-fifth load confirmed the building's name and the columns**, and
+brought three complaints, all three fixed and none loaded:
+
+- **a silk weaver offered where there is no silk.** The floor a method has to
+  clear to count as fed was one point above nothing, so one input of three
+  bought a recipe whose bulk the province cannot supply. It is half the bonus
+  the recipe could ever earn now (`generate.fed_floor`), and the same province
+  gets the cloth-and-dyes recipe it can actually feed instead;
+- **«Из чего» centred in its column**, because an hbox with a width spreads what
+  it holds and `ignoreinvisible` left it one child. Both windows' goods columns
+  are plain `widget`s with an anchored child now, and «Здание и метод» took the
+  width back — 428 against 350 in the goods window, 470 in the rights one;
+- **the buildable tick not re-ranking the open window.** It calls
+  `bag_wtp_recompute_live` like the map pickers do.
+
+What to look at next is [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
 
 **Where this is going**, in the owner's words: take a stretch of land, work out
-every province's limits and lay out *all* its production — best goods first,
-then the rest — with a cap of three or four buildings a province and a rule for
-the ones everything wants. None of it is built; it is why the per-province
-answer has to be right first.
+every province's limits and lay out *all* its production — best goods first, then
+the rest — capped at three or four buildings a province, with a rule for the ones
+everything wants. None of it is built; it is why the per-province answer has to
+be right first.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -95,25 +103,14 @@ none of it needing a protocol:
 
 ### Then publish
 
-`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready.
-
-1. merge the branch, then `mods.bat → 4` with the `git pull`;
-2. load once and check the list above;
-3. in game: mods screen → «Выбранные модификации» row → **sandbox icon** → Mod
-   Tools → *Create mod*, filled from `metadata.json` (the table is in
-   [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
-4. check the page is not empty and that `relationships` survived in
-   `.metadata/metadata.json` — both are known ways this tool has misbehaved. The
-   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager);
-   `mods.bat → 5 → «к»` writes its config;
-5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
-   as Required Items, and **hidden first**.
+`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready, and the
+five steps — merge, load, Mod Tools, check the page, Required Items by hand —
+are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 ### Deliberately not done
 
 - **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod goes
-  out.
+  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second goes out.
 - **Reviewing the ten new translations with somebody who speaks them.** A
   correction goes in `languages.py`, never in a generated `.yml`.
 

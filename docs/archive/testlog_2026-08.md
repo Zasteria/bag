@@ -1294,3 +1294,97 @@ screenshots, Wallachia, 1369, 127 locations in 26 provinces.
   weaponry alone until «Считать методы, до которых не дошла эпоха» was ticked —
   firearms and cannons have no unlocked building in the second age. It has no
   second column yet; that tick is what stands in for one.
+
+## `where_to_produce`, the sixteenth to the twentieth load
+
+Moved out of [`../TESTLOG.md`](../TESTLOG.md) when it outgrew its budget.
+Every fault named here was fixed in the session that recorded it.
+
+**2026-08-31 — `where_to_produce`, twentieth load. Everything asked for works,
+and the middle age is missing.** Four screenshots, fine cloth and a weaponry
+right.
+
+- **Confirmed:** the far column prints 0.00% on every row; the sort buttons
+  work and the mark follows them; two ticks on the page instead of three; no
+  province at 0.00% in a rights table; «Уникальные права» empty for Wallachia.
+- **Sorting appeared to do nothing with «Считать методы…» on**, and it was not a
+  fault: with that tick the near column already held the best method of any age,
+  which is the same ordering the far column gives. Two states saying one thing.
+  The tick no longer touches the goods pass at all — the third column replaces
+  it — and it is named for the rights window, which is all it still does.
+- **Every column header sat ten pixels left of its column.** The rows are inside
+  a scrollbox whose content carries a 10px margin and the header is not;
+  `margin_left` is 48 now, and the three sort buttons have gaps between them.
+- **A good of a bundle vanished when the ground fed it nothing** — Северная
+  Мунтения showed мебель and керамика but not кожа. Owner: it should stay, at
+  0%, and only a row where *every* good is fed nothing should go. A slot now
+  falls back to the best available method whether it is fed or not; its value to
+  the ranking stays zero.
+- **And the ask this run is really about.** «В конце» is 0.00% for every wool
+  province, so it cannot order them, and what the owner wants ordered is
+  precisely that: where to build so that nothing is rebuilt, taking the best the
+  ground gives *along the way*. There is now a third column, «По пути»: the best
+  recipe this ground ever feeds in any age, and the last age it can be built —
+  `10.00% до 5` for wool fine cloth, because the manufactory that obsoletes the
+  wool workshop unlocks in the fifth. Sorting by «В конце» breaks its ties on
+  it, so the top row is the province that ends best and, among equals, is best
+  on the road there.
+
+**2026-08-31 — `where_to_produce`, seventeenth load. The registration fix holds,
+two things are confirmed after weeks of «never reported», and the filter that
+was meant to be fixed was never written.** Owner: «Список теперь сохраняется
+после закрытия и открытия окна мода… Думаю основной пул задач для этой сессии
+был выполнен.»
+
+- **The counters are honest.** «Обошёл 127 · нашёл 19 · пересчётов 3», «в 26
+  пров.», «№» running 16…19 down the visible part. Opening the mod page no
+  longer throws the answer away, and «Открыть» reopens the last result — which
+  is the whole of what that button is for.
+- **Confirmed, both long outstanding:** the pickers stay folded («свёрнутые
+  списки давно проверены — они сохраняются свёрнутыми»), and **the age filter
+  works** — «метода производств и домики действительно меняются на более крутые
+  и расчёт идёт уже от них». Seventeen loads to get that one reported.
+- **Южная Олтения at 0.00% on all three goods is still there**, and the reason
+  is not the filter's logic. `bag_wtp_right_row_is_worth_it` is *called* by the
+  generated pass and **nothing defines it**: the patch that was to have written
+  the trigger died half way through and only the call survived. An undefined
+  name in a `limit` does not stop anything — the limit passes, and the symptom
+  is a filter that filters nothing, exactly as the `trigger_if` fault looked.
+  Written now, and `tools/check_script.py` refuses an unresolved call: every
+  `<name> = yes` in a mod's own `common/` must resolve to the mod, to a mod in
+  `reference/`, or to the engine's dumps.
+- **And the buildable tick does not mean what it said.** «При её включении —
+  показывается всё равно не только моя земля, но и чужая. Основное что она
+  фильтрует — наличие городов в провинции.» He is right and the label was wrong:
+  `can_build_building` is asked in the *location's* scope and answers about the
+  location — its rank, its terrain, what the building needs — not about who owns
+  it. It reads «Только там, где здание вообще может стоять» now, and says so.
+
+**2026-08-31 — `where_to_produce`, sixteenth load. The rights window works, and
+one screenshot carried three faults at once.** «Вроде как работает… выглядит
+наглядно и понятно.» The bundle rows read: three goods, each with its own
+method, bonus and materials, «Ценность» ranking them.
+
+- **«Обошёл 127 · нашёл 0 · пересчётов 3», «в 0 пров.», and «№» reading 0 on
+  every row — with rows on screen.** All one cause: `bag_wtp_register` ended
+  with `bag_wtp_drop_browse` and `bag_wtp_clear_rows`, and **CMF's registration
+  hook fires again every time the mod page is opened**. Opening the menu wiped
+  the answer, zeroed the counters and took the rank off every location. The
+  owner had already described the symptom without connecting it: «если закрыть
+  окно cmm и открыть мод заново — расчёт сбросится». Registration touches
+  nothing now.
+- **The rows survived that wipe because `bag_wtp_clear_rows` did not know about
+  `bag_wtp_right_results`** — a second window's list added and not added to the
+  one effect that empties them. Hence a table of rows whose rank had just been
+  removed.
+- **A province at 0.00% on all three goods, «0/2» three times.** The good pass
+  has filtered those since the fourteenth run; the rights pass had no equivalent
+  and `var:bag_wtp_r_total > 0` is true of any province where the bundle can be
+  made at all. `bag_wtp_right_row_is_worth_it` now asks the bundle's bonuses.
+- **And the rights list wanted splitting.** «Мне за валахию не особо то надо
+  видеть монополию константинополя.» Two lists now, and the split is the game's
+  data rather than an opinion: a right `town_rights_enable` unlocks is general
+  (nine of them), anything else is unique. A unique right is offered only where
+  the game's own condition passes — the silk monopoly carries
+  `potential = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }` and the
+  Scandinavian privileges carry an advance nobody else takes.

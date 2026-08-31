@@ -232,9 +232,9 @@ types BagWtpResultTypes {
 		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
 
 		text_single = {
-			size = { 70 28 }
+			size = { 64 28 }
 			autoresize = no
-			maximumsize = { 70 28 }
+			maximumsize = { 64 28 }
 			align = left|vcenter
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 			text = "bag_wtp_result_bonus_value"
@@ -248,9 +248,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 80 28 }
+			size = { 74 28 }
 			autoresize = no
-			maximumsize = { 80 28 }
+			maximumsize = { 74 28 }
 			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet]"
@@ -265,9 +265,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 88 28 }
+			size = { 82 28 }
 			autoresize = no
-			maximumsize = { 88 28 }
+			maximumsize = { 82 28 }
 			align = left|vcenter
 			fontsize = 12
 			fontsize_min = 9
@@ -276,7 +276,7 @@ types BagWtpResultTypes {
 			tooltip = "bag_wtp_result_mid_tt"
 		}
 
-		widget = { size = { 10 28 } }
+		widget = { size = { 8 28 } }
 
 		# The method the near column won with -- or, where there is no near
 		# column, the one the far column did. Two texts rather than one because a
@@ -293,8 +293,8 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 350 28 }
-			maximumsize = { 350 28 }
+			size = { 428 28 }
+			maximumsize = { 428 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -304,9 +304,9 @@ types BagWtpResultTypes {
 			# run had rows whose building had no name and no «×», with only the
 			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { 240 28 }
+				size = { 296 28 }
 				autoresize = no
-				maximumsize = { 240 28 }
+				maximumsize = { 296 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
@@ -315,9 +315,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 110 28 }
+				size = { 132 28 }
 				autoresize = no
-				maximumsize = { 110 28 }
+				maximumsize = { 132 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -327,9 +327,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 240 28 }
+				size = { 296 28 }
 				autoresize = no
-				maximumsize = { 240 28 }
+				maximumsize = { 296 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
@@ -338,9 +338,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 110 28 }
+				size = { 132 28 }
 				autoresize = no
-				maximumsize = { 110 28 }
+				maximumsize = { 132 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -350,18 +350,22 @@ types BagWtpResultTypes {
 			}
 		}
 
-		# 190 wide, which is what the header gives «Из чего». Left to size itself
-		# to its icons it started wherever the expanding method column stopped,
-		# and that is a different place on every row.
-		hbox = {
-			size = { 140 28 }
-			maximumsize = { 140 28 }
-			spacing = 4
-			ignoreinvisible = yes
+		# «Из чего», pinned to the left edge of its column.
+		#
+		# **A plain `widget`, not an hbox.** An hbox given a width spreads its
+		# children across it, and with `ignoreinvisible` only one of these two is
+		# ever a child -- so the icons sat centred in the column, half of it right
+		# of the header on a row with one icon and further still on a row with
+		# none, which is what the twenty-fifth run's screenshots show. A `widget`
+		# puts its children where their anchor says and nowhere else, and an anchor
+		# is allowed here precisely because the parent is not a layout.
+		widget = {
+			size = { 110 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
+				parentanchor = left|vcenter
 				spacing = 4
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
 
@@ -386,6 +390,7 @@ types BagWtpResultTypes {
 			# ones today's does: bronze cannons want copper and tin and the cannon
 			# factory that replaces them wants lead and saltpetre.
 			hbox = {
+				parentanchor = left|vcenter
 				spacing = 4
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
 
@@ -407,7 +412,7 @@ types BagWtpResultTypes {
 			}
 		}
 
-		widget = { size = { 12 28 } }
+		widget = { size = { 8 28 } }
 		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
@@ -418,9 +423,9 @@ types BagWtpResultTypes {
 		visible = "[Or(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet, Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
 
 		text_single = {
-			size = { 70 28 }
+			size = { 64 28 }
 			autoresize = no
-			maximumsize = { 70 28 }
+			maximumsize = { 64 28 }
 			align = left|vcenter
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
 			text = "bag_wtp_result_bonus_value_rural"
@@ -434,9 +439,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 80 28 }
+			size = { 74 28 }
 			autoresize = no
-			maximumsize = { 80 28 }
+			maximumsize = { 74 28 }
 			align = left|vcenter
 			fontsize = 13
 			visible = "[Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet]"
@@ -451,9 +456,9 @@ types BagWtpResultTypes {
 		widget = { size = { 6 28 } }
 
 		text_single = {
-			size = { 88 28 }
+			size = { 82 28 }
 			autoresize = no
-			maximumsize = { 88 28 }
+			maximumsize = { 82 28 }
 			align = left|vcenter
 			fontsize = 12
 			fontsize_min = 9
@@ -462,7 +467,7 @@ types BagWtpResultTypes {
 			tooltip = "bag_wtp_result_mid_tt_rural"
 		}
 
-		widget = { size = { 10 28 } }
+		widget = { size = { 8 28 } }
 
 		# The method the near column won with -- or, where there is no near
 		# column, the one the far column did. Two texts rather than one because a
@@ -479,8 +484,8 @@ types BagWtpResultTypes {
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
 		hbox = {
-			size = { 350 28 }
-			maximumsize = { 350 28 }
+			size = { 428 28 }
+			maximumsize = { 428 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -490,9 +495,9 @@ types BagWtpResultTypes {
 			# run had rows whose building had no name and no «×», with only the
 			# autoresized «+ улучшение» beside it to prove the row was there.
 			text_single = {
-				size = { 240 28 }
+				size = { 296 28 }
 				autoresize = no
-				maximumsize = { 240 28 }
+				maximumsize = { 296 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
@@ -501,9 +506,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 110 28 }
+				size = { 132 28 }
 				autoresize = no
-				maximumsize = { 110 28 }
+				maximumsize = { 132 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -513,9 +518,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 240 28 }
+				size = { 296 28 }
 				autoresize = no
-				maximumsize = { 240 28 }
+				maximumsize = { 296 28 }
 				align = left|vcenter
 				elide = right
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
@@ -524,9 +529,9 @@ types BagWtpResultTypes {
 			}
 
 			text_single = {
-				size = { 110 28 }
+				size = { 132 28 }
 				autoresize = no
-				maximumsize = { 110 28 }
+				maximumsize = { 132 28 }
 				align = left|vcenter
 				elide = right
 				fontsize = 12
@@ -536,18 +541,22 @@ types BagWtpResultTypes {
 			}
 		}
 
-		# 190 wide, which is what the header gives «Из чего». Left to size itself
-		# to its icons it started wherever the expanding method column stopped,
-		# and that is a different place on every row.
-		hbox = {
-			size = { 140 28 }
-			maximumsize = { 140 28 }
-			spacing = 4
-			ignoreinvisible = yes
+		# «Из чего», pinned to the left edge of its column.
+		#
+		# **A plain `widget`, not an hbox.** An hbox given a width spreads its
+		# children across it, and with `ignoreinvisible` only one of these two is
+		# ever a child -- so the icons sat centred in the column, half of it right
+		# of the header on a row with one icon and further still on a row with
+		# none, which is what the twenty-fifth run's screenshots show. A `widget`
+		# puts its children where their anchor says and nowhere else, and an anchor
+		# is allowed here precisely because the parent is not a layout.
+		widget = {
+			size = { 110 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
+				parentanchor = left|vcenter
 				spacing = 4
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
 
@@ -572,6 +581,7 @@ types BagWtpResultTypes {
 			# ones today's does: bronze cannons want copper and tin and the cannon
 			# factory that replaces them wants lead and saltpetre.
 			hbox = {
+				parentanchor = left|vcenter
 				spacing = 4
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
 
@@ -593,7 +603,7 @@ types BagWtpResultTypes {
 			}
 		}
 
-		widget = { size = { 12 28 } }
+		widget = { size = { 8 28 } }
 		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
@@ -662,9 +672,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 160 60 }
+					size = { 150 60 }
 					autoresize = no
-					maximumsize = { 160 60 }
+					maximumsize = { 150 60 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -672,9 +682,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 110 60 }
+					size = { 96 60 }
 					autoresize = no
-					maximumsize = { 110 60 }
+					maximumsize = { 96 60 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
@@ -928,14 +938,14 @@ window = {
 						text = "bag_wtp_result_head_rank"
 					}
 					text_single = {
-						size = { 160 24 }
+						size = { 150 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_province"
 					}
 					text_single = {
-						size = { 110 24 }
+						size = { 96 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -947,7 +957,7 @@ window = {
 					# is asked. Three buttons in a header was one control too
 					# many, and the twenty-first run said so.
 					text_single = {
-						size = { 70 24 }
+						size = { 64 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -956,7 +966,7 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 80 24 }
+						size = { 74 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -965,30 +975,30 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 88 24 }
+						size = { 82 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_mid"
 						tooltip = "bag_wtp_result_head_mid_tt"
 					}
-					widget = { size = { 10 24 } }
+					widget = { size = { 8 24 } }
 					text_single = {
-						size = { 350 24 }
+						size = { 428 24 }
 						autoresize = no
-						maximumsize = { 350 24 }
+						maximumsize = { 428 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
 					text_single = {
-						size = { 140 24 }
+						size = { 110 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_goods"
 					}
-					widget = { size = { 12 24 } }
+					widget = { size = { 8 24 } }
 					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 
