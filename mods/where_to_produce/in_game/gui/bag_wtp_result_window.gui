@@ -288,9 +288,15 @@ types BagWtpResultTypes {
 		# «+ улучшение» is the second half of a pair: eight buildings run a base
 		# method and an improvement at once, and the row's percentage and «×»
 		# already count both.
+		# **Fixed, not expanding.** An expanding column is as wide as whatever is
+		# left, and what is left differs between the header and a row inside a
+		# scrollbox -- by the scrollbar and the content margin. So every column
+		# after it landed somewhere else in the two, and «Из чего» is where you
+		# see it. The slack goes to a spacer at the far right, where nothing has
+		# to line up against anything.
 		hbox = {
-			layoutpolicy_horizontal = expanding
-			size = { -1 28 }
+			size = { 240 28 }
+			maximumsize = { 240 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -300,7 +306,7 @@ types BagWtpResultTypes {
 				autoresize = no
 				align = left|vcenter
 				elide = right
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
 				text = "bag_wtp_result_method_value"
 				tooltip = "bag_wtp_result_method_tt"
 			}
@@ -311,7 +317,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet, Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
 				text = "bag_wtp_result_method2_value"
 				tooltip = "bag_wtp_result_method_tt"
 			}
@@ -322,7 +328,7 @@ types BagWtpResultTypes {
 				autoresize = no
 				align = left|vcenter
 				elide = right
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
 				text = "bag_wtp_result_method_value_end"
 				tooltip = "bag_wtp_result_end_tt"
 			}
@@ -333,7 +339,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
+				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
 				text = "bag_wtp_result_method2_value_end"
 				tooltip = "bag_wtp_result_end_tt"
 			}
@@ -352,7 +358,7 @@ types BagWtpResultTypes {
 
 			hbox = {
 				spacing = 4
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
 
 				text_single = {
 					autoresize = yes
@@ -376,7 +382,7 @@ types BagWtpResultTypes {
 			# factory that replaces them wants lead and saltpetre.
 			hbox = {
 				spacing = 4
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet)]"
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
 
 				text_single = {
 					autoresize = yes
@@ -397,6 +403,7 @@ types BagWtpResultTypes {
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	type bag_wtp_result_answer_rural = hbox {
@@ -462,9 +469,15 @@ types BagWtpResultTypes {
 		# «+ улучшение» is the second half of a pair: eight buildings run a base
 		# method and an improvement at once, and the row's percentage and «×»
 		# already count both.
+		# **Fixed, not expanding.** An expanding column is as wide as whatever is
+		# left, and what is left differs between the header and a row inside a
+		# scrollbox -- by the scrollbar and the content margin. So every column
+		# after it landed somewhere else in the two, and «Из чего» is where you
+		# see it. The slack goes to a spacer at the far right, where nothing has
+		# to line up against anything.
 		hbox = {
-			layoutpolicy_horizontal = expanding
-			size = { -1 28 }
+			size = { 240 28 }
+			maximumsize = { 240 28 }
 			spacing = 0
 			ignoreinvisible = yes
 
@@ -474,7 +487,7 @@ types BagWtpResultTypes {
 				autoresize = no
 				align = left|vcenter
 				elide = right
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
 				text = "bag_wtp_result_method_value_rural"
 				tooltip = "bag_wtp_result_method_tt"
 			}
@@ -485,7 +498,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet, Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"
 				text = "bag_wtp_result_method2_value_rural"
 				tooltip = "bag_wtp_result_method_tt"
 			}
@@ -496,7 +509,7 @@ types BagWtpResultTypes {
 				autoresize = no
 				align = left|vcenter
 				elide = right
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
 				text = "bag_wtp_result_method_value_end_rural"
 				tooltip = "bag_wtp_result_end_tt_rural"
 			}
@@ -507,7 +520,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"
+				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"
 				text = "bag_wtp_result_method2_value_end_rural"
 				tooltip = "bag_wtp_result_end_tt_rural"
 			}
@@ -526,7 +539,7 @@ types BagWtpResultTypes {
 
 			hbox = {
 				spacing = 4
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
 
 				text_single = {
 					autoresize = yes
@@ -550,7 +563,7 @@ types BagWtpResultTypes {
 			# factory that replaces them wants lead and saltpetre.
 			hbox = {
 				spacing = 4
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet)]"
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
 
 				text_single = {
 					autoresize = yes
@@ -571,6 +584,7 @@ types BagWtpResultTypes {
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	# One province: what would be built there, in one line or two, and its
@@ -950,9 +964,9 @@ window = {
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { -1 24 }
-						layoutpolicy_horizontal = expanding
+						size = { 240 24 }
 						autoresize = no
+						maximumsize = { 240 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
@@ -965,6 +979,7 @@ window = {
 						text = "bag_wtp_result_head_goods"
 					}
 					widget = { size = { 12 24 } }
+					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 
 				scrollbox = {

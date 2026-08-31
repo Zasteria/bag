@@ -105,6 +105,7 @@ bag_wtp_can_build_something = {
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 45 } bag_wtp_can_build_45 = yes }
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 46 } bag_wtp_can_build_46 = yes }
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 47 } bag_wtp_can_build_47 = yes }
+	trigger_else = { always = no }
 }
 
 # clay

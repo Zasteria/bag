@@ -50,9 +50,12 @@ types BagWtpRightTypes {
 
 		widget = { size = { 10 28 } }
 
+		# Fixed, so the columns after it sit in the same place as their headers
+		# -- an expanding column is as wide as what is left, and a row inside a
+		# scrollbox has less left than the header does.
 		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
+			size = { 340 28 }
+			maximumsize = { 340 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -88,6 +91,7 @@ types BagWtpRightTypes {
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	# One good of the right's bundle: which good, its best method here, the bonus
@@ -124,9 +128,12 @@ types BagWtpRightTypes {
 
 		widget = { size = { 10 28 } }
 
+		# Fixed, so the columns after it sit in the same place as their headers
+		# -- an expanding column is as wide as what is left, and a row inside a
+		# scrollbox has less left than the header does.
 		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
+			size = { 340 28 }
+			maximumsize = { 340 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -162,6 +169,7 @@ types BagWtpRightTypes {
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	# One good of the right's bundle: which good, its best method here, the bonus
@@ -198,9 +206,12 @@ types BagWtpRightTypes {
 
 		widget = { size = { 10 28 } }
 
+		# Fixed, so the columns after it sit in the same place as their headers
+		# -- an expanding column is as wide as what is left, and a row inside a
+		# scrollbox has less left than the header does.
 		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
+			size = { 340 28 }
+			maximumsize = { 340 28 }
 			autoresize = no
 			align = left|vcenter
 			elide = right
@@ -236,6 +247,7 @@ types BagWtpRightTypes {
 		}
 
 		widget = { size = { 12 28 } }
+		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
 	# One province: the bundle, one line per good, and its locations under it once
@@ -600,9 +612,9 @@ window = {
 					}
 					widget = { size = { 10 24 } }
 					text_single = {
-						size = { -1 24 }
-						layoutpolicy_horizontal = expanding
+						size = { 340 24 }
 						autoresize = no
+						maximumsize = { 340 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
@@ -615,6 +627,7 @@ window = {
 						text = "bag_wtp_result_head_goods"
 					}
 					widget = { size = { 12 24 } }
+					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 
 				scrollbox = {

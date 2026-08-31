@@ -249,14 +249,14 @@ bag_wtp_refresh_rights = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 1 }
 	}
 	if = {
-		limit = { always = yes }
+		limit = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 2 }
 	}
 	else = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 2 }
 	}
 	if = {
-		limit = { always = yes }
+		limit = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 3 }
 	}
 	else = {

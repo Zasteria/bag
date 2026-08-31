@@ -363,12 +363,13 @@ def _goods(goods_dir: Path) -> tuple[set[str], set[str], dict[str, float]]:
 
 
 def _raw_potentials(rights_dir: Path) -> dict[str, str]:
-    """Each right's `potential` block, as text, to be re-emitted verbatim.
+    """Each block's `potential`, as text, to be re-emitted verbatim.
 
     The loader turns a file into a structure, and what is wanted here is the
     trigger exactly as the game wrote it -- `OR = { has_or_had_tag = BYZ ... }`
     goes straight into a scripted trigger of ours. `potential` is country
-    scoped, per `town_rights/readme.txt`, which is what makes that safe.
+    scoped, on a town right per `town_rights/readme.txt` and on an advance
+    likewise, which is what makes that safe.
     """
     import re as _re
     out: dict[str, str] = {}
@@ -419,10 +420,18 @@ def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
         return []
     unlocked = _unlocked_by(advances_dir)
     potentials = _raw_potentials(rights_dir)
+    # An advance's own `potential` is the country gate on the right it unlocks.
+    # The Scandinavian privileges carry none of their own: what keeps them out of
+    # a Wallachian list is `culture = { has_culture_group = ... }` on the advance,
+    # and asking `has_advance` instead hides a right from anyone who has not taken
+    # it yet -- which hides the plan from the planner.
+    advance_gates = _raw_potentials(advances_dir)
     out: list[TownRight] = []
     for name, entries in load_dir(rights_dir).items():
-        right = TownRight(key=name, advance=unlocked.get(name, ""),
-                          potential=potentials.get(name, ""))
+        advance = unlocked.get(name, "")
+        right = TownRight(key=name, advance=advance,
+                          potential=potentials.get(name, "")
+                          or advance_gates.get(advance, ""))
         for block in find(entries, "location_modifier"):
             for key, value in block:
                 if key is None or not isinstance(value, str):

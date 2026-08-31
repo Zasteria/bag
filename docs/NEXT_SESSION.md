@@ -39,34 +39,35 @@ through `python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## `where_to_produce`: three ages on a row, and the pairs are in
 
-Twenty-two loads. A row answers in three ages — «Сейчас», «По пути» (the best
+Twenty-three loads. A row answers in three ages — «Сейчас», «По пути» (the best
 this ground ever feeds, and the last age it can be built), «В конце» — because
 the end alone cannot order a table where every wool province ends at 0.00%. Two
-«Считать» buttons choose the order.
+«Считать» buttons choose the order and which age the row names.
 
-**The two-slot question is settled**, from the game's own build panel: each slot
-earns its own bonus over its own output, so the eight buildings that have two
-(fine cloth, jewelry, cannons, firearms) are one method of the summed output at
-the blended bonus, and the twenty-second run confirmed the rows.
-[`investigations/production_ladder.md`](investigations/production_ladder.md).
+**The two-slot question is settled** from the game's own build panel — each slot
+earns its own bonus over its own output — and the twenty-second run confirmed the
+rows: [`investigations/production_ladder.md`](investigations/production_ladder.md).
 
-**The rights window now obeys the same two buttons** — it read today's answer
-whichever was pressed — and the tick that used to stand in for that is deleted.
-Unloaded: [`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+**The rights window obeys the same two buttons**, and a right's country gate is
+its advance's `potential` rather than `has_advance` — what keeps the Scandinavian
+privileges out of a Wallachian list. **And the one real line the logs have ever
+carried about this mod is fixed**: a `trigger_if` chain ending on an `else_if`
+voided the buildable filter. Unloaded:
+[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
 
-**Where this is going**, in the owner's words: the mod should take a stretch of
-land, work out every province's limits and lay out *all* its production — best
-goods first, then the rest — with a cap of three or four buildings a province
-and a rule for the provinces everything wants. None of it is built; it is why
-the per-province answer has to be right first.
+**Where this is going**, in the owner's words: take a stretch of land, work out
+every province's limits and lay out *all* its production — best goods first,
+then the rest — with a cap of three or four buildings a province and a rule for
+the ones everything wants. None of it is built; it is why the per-province
+answer has to be right first.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
 
-- **Level rights**, deferred by the owner on 2026-08-31: a quantity where the
-  output rights are a ratio, so they want their own number and table.
-- **Whether the buildable tick should ask about ownership** — an owner half
-  means asking the country from a trigger that has none.
+- **Level rights**, deferred 2026-08-31: a quantity where the output rights are
+  a ratio, so they want their own number and table.
+- **Whether the buildable tick should ask about ownership** — that means asking
+  the country from a trigger that has none.
 - **`town_right_efficiency_penalty`**, in eleven rights and in no file
   `reference/` holds: one `grep` on the owner's install.
 
@@ -93,7 +94,7 @@ none of it needing a protocol:
 
 ### Then publish
 
-`python3 tools/publish.py glorpui_hints` says `ok` and everything is ready.
+`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready.
 
 1. merge the branch, then `mods.bat → 4` with the `git pull`;
 2. load once and check the list above;
@@ -119,13 +120,12 @@ none of it needing a protocol:
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it. It is also the first real test of the
-  Steam-side rewrite — build ids instead of dates:
-  [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md). Entry 2 copies
-  mods and does **not** re-extract the game.
-- **The panel-open bisect — five minutes, no log to read.**
-  [`investigations/panel_hitch.md`](investigations/panel_hitch.md) has the
-  protocol. It can close that job outright.
+  rewritten copies and the run confirms it, as it does the Steam-side rewrite
+  ([`archive/testlog_2026-08.md`](archive/testlog_2026-08.md)). Entry 2 does
+  **not** re-extract the game.
+- **The panel-open bisect — five minutes, no log to read**, protocol in
+  [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
+  that job outright.
 - **The hover run**, written out in
   [`investigations/widget_leak.md`](investigations/widget_leak.md), every branch
   of the result with its next step already. **Do not design a different test

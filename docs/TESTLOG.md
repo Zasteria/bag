@@ -31,6 +31,32 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
+work and the two tables differ; unique rights arrived in Wallachia; the goods
+table ranked for the last age still named first-age buildings; «Из чего» still
+sits away from its header.
+
+- **`error.log` carries one real line and no more:** `PostValidate of trigger
+  'trigger_else_if' returned false at bag_wtp_generated_triggers.txt:107` — the
+  last link of the `bag_wtp_can_build_something` chain, which ended on an
+  `else_if` with no `trigger_else` after it. Everything else naming the mod is
+  `Flag 'bag_wtp_good_*' is set but is never used`, which is CMM's list flags and
+  is cosmetic. The chain ends `trigger_else = { always = no }` now.
+- **Dropping the advance gate let the Scandinavian privileges into a Wallachian
+  list.** Those two rights carry no `potential` of their own; what keeps them out
+  is `culture = { has_culture_group = culture_group:scandinavian_group }` on the
+  *advance* that unlocks them. A right inherits its advance's `potential` now —
+  a country gate that is a fact rather than a thing you have not got round to.
+- **Ranked for the last age, the row still named the building you can build
+  today.** The order followed the button and the printing did not: the method
+  column reads the near column whenever it is set, and it always is. `row_end` is
+  written on the row now and the window reads the column the button asked for,
+  goods icons included.
+- **«Из чего» drifts because the method column expands.** An expanding column is
+  as wide as what is left, and a row inside a scrollbox has less left than the
+  header — by the scrollbar and the content margin. Both windows give the method
+  column a fixed width and put the slack in a spacer at the far right.
+
 **2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
 the rights window was answering the wrong question.** Three screenshots, fine
 cloth and cannons, and a weaponry right.
@@ -186,18 +212,17 @@ trimmed. Search both with `python3 tools/kb.py`.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, twenty-third load.** All of it new, none loaded.
+**`where_to_produce`, twenty-fourth load.** All of it new, none loaded.
 
-1. **The rights window obeys both buttons.** «Считать» and «На конец» must give
-   different tables — the second showing the buildings that survive to the last
-   age, ordered by them, and by «По пути» where they are all zero.
-2. **One tick left on the mod page**, «Только там, где здание вообще может
-   стоять». The rights one is gone.
-3. **«Уникальные права» still empty for Wallachia** — the list gates on
-   `potential` alone now, so this is the check that dropping the advance gate
-   did not open the floodgates.
-4. **«Из чего» sits under its header** in both windows.
-5. **Nothing in `error.log`** naming `bag_wtp`.
+1. **`error.log` has no `PostValidate` line naming the mod.** The `Flag … never
+   used` warnings stay; they are CMM's.
+2. **«Уникальные права» empty for Wallachia again**, and a Scandinavian country
+   would see the two privileges without having taken their advance.
+3. **A good ranked «На конец» names the endgame building** — «Фабрика тонкого
+   сукна», not «Гильдия портных» — with the endgame goods icons beside it.
+   «Считать» still names today's.
+4. **«Из чего» sits under its header** in both windows, and the columns before it
+   line up too.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

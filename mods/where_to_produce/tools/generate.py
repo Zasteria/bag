@@ -462,6 +462,11 @@ def triggers_file(rows, split, game) -> str:
         first = False
         out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
                    f"{MOD_ID}_can_build_{index} = yes }}\n")
+    # **A `trigger_if` chain has to end in a `trigger_else`.** Without one the
+    # game logs `PostValidate of trigger 'trigger_else_if' returned false` at the
+    # last link and the whole trigger is void -- which is the twenty-third run's
+    # one real line in `error.log`. Nothing ticked means nothing to build.
+    out.append("\ttrigger_else = { always = no }\n")
     out.append("}\n")
 
     for index, good in enumerate(order, start=1):
@@ -1099,6 +1104,19 @@ def rows_file() -> str:
 \t\t# The winners are parked first and the row decided afterwards, because
 \t\t# «is this province worth a row» is a question about the bonus, and the
 \t\t# bonus is not known until the method that won is.
+\t\t# Which of the three the row *names* follows the button. Ranked for the
+\t\t# last age and still reading «Гильдия портных» off the near column is what
+\t\t# the twenty-third run saw: the order was right and the building was the one
+\t\t# you can build today. A variable on the row rather than a global read from
+\t\t# the window, because a location variable is the one thing the GUI is proven
+\t\t# to read.
+\t\tif = {{
+\t\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\t\tset_variable = {{ name = {MOD_ID}_row_end value = 1 }}
+\t\t}}
+\t\telse = {{
+\t\t\tremove_variable = {MOD_ID}_row_end
+\t\t}}
 \t\t{MOD_ID}_store_winner_now_town = yes
 \t\t{MOD_ID}_store_winner_now_rural = yes
 \t\t{MOD_ID}_store_winner_mid_town = yes

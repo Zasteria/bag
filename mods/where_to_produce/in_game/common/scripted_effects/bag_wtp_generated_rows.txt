@@ -83,6 +83,19 @@ bag_wtp_store_row = {
 		# The winners are parked first and the row decided afterwards, because
 		# «is this province worth a row» is a question about the bonus, and the
 		# bonus is not known until the method that won is.
+		# Which of the three the row *names* follows the button. Ranked for the
+		# last age and still reading «Гильдия портных» off the near column is what
+		# the twenty-third run saw: the order was right and the building was the one
+		# you can build today. A variable on the row rather than a global read from
+		# the window, because a location variable is the one thing the GUI is proven
+		# to read.
+		if = {
+			limit = { has_global_variable = bag_wtp_rank_by_end }
+			set_variable = { name = bag_wtp_row_end value = 1 }
+		}
+		else = {
+			remove_variable = bag_wtp_row_end
+		}
 		bag_wtp_store_winner_now_town = yes
 		bag_wtp_store_winner_now_rural = yes
 		bag_wtp_store_winner_mid_town = yes
