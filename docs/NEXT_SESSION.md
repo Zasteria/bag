@@ -47,28 +47,20 @@ the end alone cannot order a table where every wool province ends at 0.00%. Two
 earns its own bonus over its own output:
 [`investigations/production_ladder.md`](investigations/production_ladder.md).
 
-**The twenty-fifth load confirmed the building's name and the columns**, and
-brought three complaints, all three fixed and none loaded:
+**The twenty-sixth load passed on everything and the owner is satisfied with the
+functionality.** The twenty-fifth's three complaints were a silk weaver offered
+where there is no silk (the fed floor is half the recipe's possible bonus now,
+`generate.fed_floor`), «Из чего» centred rather than left in its column (a sized
+hbox spreads its children; it is a `widget` with an anchored child now), and the
+buildable tick not re-ranking the open window. All three hold. Two name columns
+narrowed to pay for the method column had to be given their width back and a
+spacer; one alignment question is open in `TESTLOG.md`.
 
-- **a silk weaver offered where there is no silk.** The floor a method has to
-  clear to count as fed was one point above nothing, so one input of three
-  bought a recipe whose bulk the province cannot supply. It is half the bonus
-  the recipe could ever earn now (`generate.fed_floor`), and the same province
-  gets the cloth-and-dyes recipe it can actually feed instead;
-- **«Из чего» centred in its column**, because an hbox with a width spreads what
-  it holds and `ignoreinvisible` left it one child. Both windows' goods columns
-  are plain `widget`s with an anchored child now, and «Здание и метод» took the
-  width back — 428 against 350 in the goods window, 470 in the rights one;
-- **the buildable tick not re-ranking the open window.** It calls
-  `bag_wtp_recompute_live` like the map pickers do.
+**Do not ask him for logs unless something did nothing** — the rule and its
+exceptions are at the top of `TESTLOG.md`.
 
-**All four passed on the twenty-sixth load and the owner is satisfied with the
-functionality.** Two name columns had been narrowed too far and are repaired;
-one alignment question is open. `TESTLOG.md`, and **do not ask him for logs
-unless something did nothing** — the rule is at the top of that file.
-
-**Which means the next thing is the goal itself, not another fix.** Ask him
-before designing any of it — the shape below is his sentence, not a spec.
+**So the next thing is the goal itself, not another fix.** Ask him before
+designing any of it — the shape below is his sentence, not a spec.
 
 **Where this is going**, in the owner's words: take a stretch of land, work out
 every province's limits and lay out *all* its production — best goods first, then
