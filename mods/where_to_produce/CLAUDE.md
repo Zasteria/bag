@@ -5,27 +5,32 @@ method and ranks the locations by what that method would earn from the raw
 materials the province supplies — **in two ages: what you can build now, and
 what the ground gives once every advance is in.**
 
-**State: seventeen loads in, confirmed end to end at the seventeenth.** A good
-or a whole urban right, a window each; the ranking sorts, a pick re-ranks live,
-the pickers stay folded, and «Открыть» reopens the last result.
+**State: eighteen loads in, and the second column is confirmed on screen.** A
+good or a whole urban right, a window each; the ranking sorts, a pick re-ranks
+live, the pickers stay folded, «Открыть» reopens the last result, and every row
+carries both ages — `bag_wtp__rank_by_end` picks which the ranking obeys, with
+the near column breaking its ties.
 
 ## Where it stands
 
-**Three things go into the eighteenth load, none structural.** Two are the
-seventeenth run's: no province at 0.00% on every good of a bundle, and
-«Уникальные права» being empty for anyone but a Byzantine or a Scandinavian.
+**A method the province feeds nothing of is not an answer** — since the
+eighteenth run, where fine cloth came back as silk at 0.00% in a wool country.
+Where nothing is fed there is no row.
 
-**The third is the whole second column, and none of it has been in game.** It
-holds the best of the methods nothing obsoletes, written onto a row only where
-it differs from the near one — an empty cell means the province does not change
-— and `bag_wtp__rank_by_end` picks the column the ranking obeys. The near one
-still decides which fifty provinces get a row: the known hole. All of it:
+**Eight buildings run two methods at once and the mod models one** — fine
+cloth, jewelry, cannons and firearms carry a second
+`unique_production_methods` block, and the building runs one from each. It
+understates their output and their inputs. The fix fits the existing shape and
+waits on one tooltip:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Urban rights** are two lists on the Goods tab, split on `unlock_town_rights`,
-and a window of their own: a bundle of two or three goods is a different
-question in a different unit, and a unique right is offered only where the game
-says it could be held. The numbers and the deferred level rights:
+**Never reported**, both from the seventeenth run: no province at 0.00% on every
+good of a bundle, and «Уникальные права» empty for all but Byzantines and
+Scandinavians. **And the rights window has one age** to the goods window's two.
+
+**Urban rights** are two lists on the Goods tab and a window of their own: a
+bundle of two or three goods is a different question in a different unit. The
+numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 One button, not two: «Считать» answers whichever is ticked, and both cannot be.
 
@@ -34,15 +39,13 @@ One button, not two: «Считать» answers whichever is ticked, and both ca
 
 **Not to be attempted again:** clicking the map with a window open
 (`docs/research/interface.md`), and a geography tree of our own — empty twice,
-deleted. Only the pickers are CMM's; their caps: `docs/research/cmf.md`.
+deleted. The pickers' CMM caps: `docs/research/cmf.md`.
 
 ## Settled, and not to be re-litigated
 
-- **The map picker closes after each pick** — the action's lifecycle, and the
-  only map-click channel a mod has.
 - **A window's datamodel is what costs.** A scripted widget never comes down, so
-  only the list it repeats over decides how many rows are alive; a window's list
-  is filled on opening and emptied on closing.
+  only the list it repeats over decides how many rows live; a window's list is
+  filled on opening and emptied on closing.
 - **The selection is recorded twice** — a variable on the location, a global
   list for the ranking — and only `bag_wtp_pick` / `_drop` may write it.
 - **The bonus is province-level** — which is why a row is a province, and the
@@ -73,7 +76,7 @@ ranking sorts on. Three slots: script has no list of tuples.
 
 All have a `_rural` twin too, and a row reads them off its own scope: no globals
 per row, no ceiling but `RESULT_ROWS`. Not built: sorting inside a window, and
-any measure of a building's cost.
+what a building costs to put up.
 
 **Built by** `python3 mods/where_to_produce/tools/generate.py`, from
 `tools/refresh.py`.

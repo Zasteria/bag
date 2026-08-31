@@ -602,24 +602,25 @@ def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
     out.append("}\n")
 
     out.append(f"""
-# Hide the goods this country cannot make anything of yet. A good whose every
-# recipe is three ages away is a row that can only disappoint, and the owner
-# named tobacco and silk as the shape of it -- both real, both made by
-# plantations, and both worth hiding until the plantation is unlocked.
+# Every good stays on the list, whatever age this country is in.
+#
+# Until the eighteenth run a good whose every recipe was still behind an advance
+# was hidden here, and the owner went looking for cannons and firearms in the
+# second age and found neither. Hiding was the right answer when a row could
+# only say what you can build today; it is the wrong one now that a row also
+# says what the ground gives at the end of the game, which is the same whatever
+# age you are in -- and it was always the wrong one for a good another mod adds
+# a building for.
+#
+# What is still not offered is a good no building makes at all: `goods_split`
+# only ever lists what some method produces, so a pure RGO material is absent
+# because there is nothing to choose, not because it is hidden.
 # Scope: country
 {MOD_ID}_refresh_goods = {{
 """)
     for kind in ("raw", "made"):
-        for row, good in enumerate(split[kind], start=1):
-            available = " ".join(f"{MOD_ID}_avail_{i} = yes" for i in by_good_index.get(good, []))
-            out.append(f"""\tif = {{
-\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_any_method {available} }} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}
-\t}}
-\telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}
-\t}}
-""")
+        for row, _ in enumerate(split[kind], start=1):
+            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}\n")
     out.append("}\n")
     return "".join(out)
 
@@ -688,48 +689,66 @@ def values_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
         out.append("}\n")
 
     out.append(f"""
-# What the ranking sorts on: the better of the two answers this location has.
-# A province with nothing but a village to offer still deserves its row.
+# The better of the two answers this location has, in each age. A province with
+# nothing but a village to offer still deserves its row.
+# Scope: location
+{MOD_ID}_near_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_best >= var:{MOD_ID}_best_rural }}
+\t\tvalue = var:{MOD_ID}_best
+\t}}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_best < var:{MOD_ID}_best_rural }}
+\t\tvalue = var:{MOD_ID}_best_rural
+\t}}
+}}
+
+# Scope: location
+{MOD_ID}_end_score = {{
+\tvalue = 0
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_end_best >= var:{MOD_ID}_end_best_rural }}
+\t\tvalue = var:{MOD_ID}_end_best
+\t}}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_end_best < var:{MOD_ID}_end_best_rural }}
+\t\tvalue = var:{MOD_ID}_end_best_rural
+\t}}
+}}
+
+# **The near answer, shrunk until it can only break a tie.** Ranking by the last
+# age puts every province that reaches the same endgame percentage on the same
+# number -- the eighteenth run's paper table had 2.49% -> 10.00% above
+# 10.00% -> 10.00%, in an order nothing chose -- and of two provinces that end
+# equal, the one that is already good is the one to take.
 #
-# **Which column, though, is the player's.** Off -- and by default -- this ranks
-# what he could build this decade. On `{MOD_ID}_rank_by_end` it ranks what the
-# last age would give, which is the ordering a plan wants: a province that is
-# first with the guild and fortieth with the mill is the one thing this mod
-# exists to catch, and it only shows up if something sorts on the far column.
-#
-# Four flat branches rather than an `if` inside an `if`: nothing in the game or
-# in `reference/` nests one in a script value, and a `value =` inside a limited
-# branch overriding the one above it is the form this file already proves.
+# A thousandth of a near score is at most 0.495, and the smallest step any raw
+# material makes in the endgame set is 1.9. So this orders ties and can never
+# reorder anything that is not tied.
+# Scope: location
+{MOD_ID}_near_tiebreak = {{
+\tvalue = {MOD_ID}_near_score
+\tmultiply = 0.0001
+}}
+
+# What the ranking sorts on, and which age that is is the player's:
+# `{MOD_ID}_rank_by_end` is the tick. One operation per branch, because a script
+# value that quietly does nothing logs nothing.
 # Scope: location
 {MOD_ID}_score = {{
 \tvalue = 0
 \tif = {{
-\t\tlimit = {{
-\t\t\tNOT = {{ has_global_variable = {MOD_ID}_rank_by_end }}
-\t\t\tvar:{MOD_ID}_best >= var:{MOD_ID}_best_rural
-\t\t}}
-\t\tvalue = var:{MOD_ID}_best
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_rank_by_end }} }}
+\t\tvalue = {MOD_ID}_near_score
 \t}}
 \tif = {{
-\t\tlimit = {{
-\t\t\tNOT = {{ has_global_variable = {MOD_ID}_rank_by_end }}
-\t\t\tvar:{MOD_ID}_best < var:{MOD_ID}_best_rural
-\t\t}}
-\t\tvalue = var:{MOD_ID}_best_rural
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tvalue = {MOD_ID}_end_score
 \t}}
 \tif = {{
-\t\tlimit = {{
-\t\t\thas_global_variable = {MOD_ID}_rank_by_end
-\t\t\tvar:{MOD_ID}_end_best >= var:{MOD_ID}_end_best_rural
-\t\t}}
-\t\tvalue = var:{MOD_ID}_end_best
-\t}}
-\tif = {{
-\t\tlimit = {{
-\t\t\thas_global_variable = {MOD_ID}_rank_by_end
-\t\t\tvar:{MOD_ID}_end_best < var:{MOD_ID}_end_best_rural
-\t\t}}
-\t\tvalue = var:{MOD_ID}_end_best_rural
+\t\tlimit = {{ has_global_variable = {MOD_ID}_rank_by_end }}
+\t\tadd = {MOD_ID}_near_tiebreak
 \t}}
 }}
 
@@ -793,10 +812,30 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
              if method.building_category in RURAL_CATEGORIES}
     last = endgame(rows, game)
 
-    def keep(indent: str, prefix: str, suffix: str, method_index: int) -> str:
-        """Is this the best of its side so far? Then it is the answer so far."""
+    def keep(indent: str, prefix: str, suffix: str, method_index: int,
+             floor: float) -> str:
+        """Is this the best of its side so far, and can this ground feed it?
+
+        `floor` is what `_m<n>` comes to where the province supplies none of the
+        method's raw materials -- the output alone, unbonused. Anything above it
+        means at least one input is worked here, so **`> floor` is "the ground
+        feeds this recipe"**, asked against a literal rather than against a
+        second script value.
+
+        Without it the eighteenth run's fine cloth answered with silk weavers at
+        0.00% in provinces full of wool: 0.70 a level unfed beats 0.50 a level at
+        the full ten percent, so the ranking preferred a recipe the ground cannot
+        supply and buried every province that could have run the other one. The
+        market makes the same argument -- what is not produced on your land is
+        rarely on your market either -- but the arithmetic settles it alone: a
+        row nobody can feed is not an answer to "where should I make this".
+
+        The smallest step any raw material adds is 1.9 in the endgame set and
+        0.56 across all methods, both far above the fixed point, so this
+        comparison never turns on rounding.
+        """
         return (f"""{indent}if = {{
-{indent}\tlimit = {{ var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
+{indent}\tlimit = {{ var:{MOD_ID}_try > {floor:.4f} var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = var:{MOD_ID}_try }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = {method_index} }}
 {indent}}}
@@ -834,6 +873,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
         for method_index in methods_for:
             suffix = "_rural" if method_index in rural else ""
+            floor = rows[method_index - 1].output * RANK_SCALE
             available = (f"\t\t\t\tOR = {{\n"
                          f"\t\t\t\t\thas_global_variable = {MOD_ID}_any_method\n"
                          f"\t\t\t\t\tscope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }}\n"
@@ -843,16 +883,16 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 # second column's candidate, and the second column is the one
                 # that does not move as the ages pass.
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}\n")
-                out.append(keep("\t\t", "end_", suffix, method_index))
+                out.append(keep("\t\t", "end_", suffix, method_index, floor))
                 out.append(f"\t\tif = {{\n\t\t\tlimit = {{\n{available}\t\t\t}}\n")
-                out.append(keep("\t\t\t", "", suffix, method_index))
+                out.append(keep("\t\t\t", "", suffix, method_index, floor))
                 out.append("\t\t}\n")
             else:
                 # Obsoleted by something later, so it can only ever be an answer
                 # for now -- and not even that until its building is unlocked.
                 out.append(f"\t\tif = {{\n\t\t\tlimit = {{\n{available}\t\t\t}}\n")
                 out.append(f"\t\t\tset_variable = {{ name = {MOD_ID}_try value = {MOD_ID}_m{method_index} }}\n")
-                out.append(keep("\t\t\t", "", suffix, method_index))
+                out.append(keep("\t\t\t", "", suffix, method_index, floor))
                 out.append("\t\t}\n")
         out.append("\t}\n}\n")
 

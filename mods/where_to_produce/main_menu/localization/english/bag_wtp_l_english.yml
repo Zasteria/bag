@@ -34,8 +34,8 @@
  bag_wtp__region_oceania_item_column_name: "Region"
  bag_wtp__region_oceania__pick_name: "Look here"
  bag_wtp__region_oceania__pick_desc: "Look inside this region. A region is the fine frame and a continent the rough one; tick either or both, and a ticked region wins."
- bag_wtp__any_method_name: "Show methods your age has not reached"
- bag_wtp__any_method_desc: "Off: only methods whose building is already unlocked for you are scored — a recommendation from the sixth age is not a recommendation.\n\nTurn it on when planning several ages ahead."
+ bag_wtp__any_method_name: "Score methods your age has not reached"
+ bag_wtp__any_method_desc: "Off: the «Bonus» column holds only methods whose building is already unlocked for you. It does not need to hold more — «At the end» beside it already answers for the last age, whatever age you are in.\n\nOn: that column scores every method in the game too. What it is still for is the urban rights window, which has no second column yet and answers for today alone until it does.\n\nThe goods list itself hides nothing either way: every good some building makes is on it, cannons and firearms in the first age included."
  bag_wtp__rank_by_end_name: "Rank by the last age"
  bag_wtp__rank_by_end_desc: "Off, and by default: the table is ordered by what you could build now.\n\nOn: it is ordered by the «At the end» column — what the province would give once every advance is in. That is the ordering a plan wants. A province that comes first with the guild and fortieth with the mill is the thing this costs an evening to discover in game, and it only shows up if something sorts on the far column.\n\nBoth numbers are on every row either way; this only decides which one the ranking obeys."
 
@@ -106,7 +106,7 @@
 
  bag_wtp_result_window_title: "Where To Produce — results"
  bag_wtp_result_window_desc: "Provinces, best first. A row holds two answers: the best of the built-up buildings above, the best village below — and each of them in two ages, what you could build now and what the province gives once every advance is in. The ranking is by what a method actually produces — the percentage is an efficiency bonus and the «×» after the method is its output per level, and a village makes a fifth of what a workshop does at the same percentage.\n\nA province counts whole, even where a border cuts it today. Open a row for its locations, what each works, and who holds it."
- bag_wtp_result_window_empty: "Nothing here. Tick a good on the Goods tab, some ground on the Land tab, and press Rank.\n\nIf you have: nowhere in the chosen ground supplies a single raw material this good's methods want. «Show provinces with no local bonus» on the Answer tab lists them anyway."
+ bag_wtp_result_window_empty: "Nothing here. Tick a good on the Goods tab, some ground on the Land tab, and press Rank.\n\nIf you have: nowhere in the chosen ground supplies a single raw material any of this good's recipes want, in either age. A recipe the ground cannot feed is not offered — it would be a row at 0.00%, and the game would run a different recipe anyway — so «nothing here» means the good belongs somewhere else."
 
  bag_wtp_result_bonus_value: "[Location.MakeScope.GetVariable('bag_wtp_bonus').GetValue|2]%"
  bag_wtp_result_method_value: "[Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetIcon] [Location.MakeScope.GetVariable('bag_wtp_bt').GetBuildingType.GetName]: [Location.MakeScope.GetVariable('bag_wtp_pm').GetProductionMethod.GetName]  ×[Location.MakeScope.GetVariable('bag_wtp_out').GetValue|2]"

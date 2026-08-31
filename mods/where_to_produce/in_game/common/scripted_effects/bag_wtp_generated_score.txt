@@ -74,7 +74,7 @@ bag_wtp_score_1 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m35 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 35 }
 		}
@@ -86,7 +86,7 @@ bag_wtp_score_1 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 35 }
 			}
@@ -116,14 +116,14 @@ bag_wtp_score_2 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m51 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 51 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m52 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1200.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 52 }
 		}
@@ -135,7 +135,7 @@ bag_wtp_score_2 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 52 }
 			}
@@ -158,7 +158,7 @@ bag_wtp_score_3 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m53 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 53 }
 		}
@@ -170,7 +170,7 @@ bag_wtp_score_3 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 53 }
 			}
@@ -200,7 +200,7 @@ bag_wtp_score_4 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m54 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 54 }
 			}
@@ -214,14 +214,14 @@ bag_wtp_score_4 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m55 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 55 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m56 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 56 }
 		}
@@ -233,7 +233,7 @@ bag_wtp_score_4 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 56 }
 			}
@@ -247,7 +247,7 @@ bag_wtp_score_4 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m57 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 57 }
 			}
@@ -261,7 +261,7 @@ bag_wtp_score_4 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m58 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 58 }
 			}
@@ -284,7 +284,7 @@ bag_wtp_score_5 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m59 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 59 }
 		}
@@ -296,14 +296,14 @@ bag_wtp_score_5 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 59 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m60 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 60 }
 		}
@@ -315,7 +315,7 @@ bag_wtp_score_5 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 60 }
 			}
@@ -338,7 +338,7 @@ bag_wtp_score_6 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m90 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 90 }
 		}
@@ -350,14 +350,14 @@ bag_wtp_score_6 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 90 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m91 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 91 }
 		}
@@ -369,7 +369,7 @@ bag_wtp_score_6 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 91 }
 			}
@@ -392,7 +392,7 @@ bag_wtp_score_7 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m92 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 92 }
 		}
@@ -404,7 +404,7 @@ bag_wtp_score_7 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 92 }
 			}
@@ -427,7 +427,7 @@ bag_wtp_score_8 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m103 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 103 }
 		}
@@ -439,7 +439,7 @@ bag_wtp_score_8 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 103 }
 			}
@@ -462,7 +462,7 @@ bag_wtp_score_9 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m104 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 104 }
 		}
@@ -474,7 +474,7 @@ bag_wtp_score_9 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 104 }
 			}
@@ -497,7 +497,7 @@ bag_wtp_score_10 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m105 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 105 }
 		}
@@ -509,14 +509,14 @@ bag_wtp_score_10 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 105 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m106 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 106 }
 		}
@@ -528,7 +528,7 @@ bag_wtp_score_10 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 106 }
 			}
@@ -551,7 +551,7 @@ bag_wtp_score_11 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m107 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 107 }
 		}
@@ -563,7 +563,7 @@ bag_wtp_score_11 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 107 }
 			}
@@ -586,7 +586,7 @@ bag_wtp_score_12 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m148 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 148 }
 		}
@@ -598,7 +598,7 @@ bag_wtp_score_12 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 148 }
 			}
@@ -621,7 +621,7 @@ bag_wtp_score_13 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m149 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 149 }
 		}
@@ -633,7 +633,7 @@ bag_wtp_score_13 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 149 }
 			}
@@ -656,7 +656,7 @@ bag_wtp_score_14 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m153 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 153 }
 		}
@@ -668,14 +668,14 @@ bag_wtp_score_14 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 153 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m154 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 154 }
 		}
@@ -687,7 +687,7 @@ bag_wtp_score_14 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 154 }
 			}
@@ -710,7 +710,7 @@ bag_wtp_score_15 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m176 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 176 }
 		}
@@ -722,7 +722,7 @@ bag_wtp_score_15 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 176 }
 			}
@@ -745,7 +745,7 @@ bag_wtp_score_16 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m177 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 177 }
 		}
@@ -757,7 +757,7 @@ bag_wtp_score_16 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 177 }
 			}
@@ -771,7 +771,7 @@ bag_wtp_score_16 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m178 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 178 }
 			}
@@ -785,7 +785,7 @@ bag_wtp_score_16 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m179 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 179 }
 			}
@@ -799,7 +799,7 @@ bag_wtp_score_16 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m180 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 180 }
 			}
@@ -822,7 +822,7 @@ bag_wtp_score_17 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m181 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 181 }
 		}
@@ -834,7 +834,7 @@ bag_wtp_score_17 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 181 }
 			}
@@ -857,7 +857,7 @@ bag_wtp_score_18 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m182 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 350.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 182 }
 		}
@@ -869,14 +869,14 @@ bag_wtp_score_18 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 350.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 182 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m183 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 183 }
 		}
@@ -888,7 +888,7 @@ bag_wtp_score_18 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 183 }
 			}
@@ -911,7 +911,7 @@ bag_wtp_score_19 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m184 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 184 }
 		}
@@ -923,7 +923,7 @@ bag_wtp_score_19 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 184 }
 			}
@@ -946,7 +946,7 @@ bag_wtp_score_20 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m187 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 187 }
 		}
@@ -958,14 +958,14 @@ bag_wtp_score_20 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 187 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m188 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 188 }
 		}
@@ -977,7 +977,7 @@ bag_wtp_score_20 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 188 }
 			}
@@ -1000,7 +1000,7 @@ bag_wtp_score_21 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m189 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 189 }
 		}
@@ -1012,7 +1012,7 @@ bag_wtp_score_21 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 189 }
 			}
@@ -1035,7 +1035,7 @@ bag_wtp_score_22 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m191 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 191 }
 		}
@@ -1047,7 +1047,7 @@ bag_wtp_score_22 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 191 }
 			}
@@ -1070,7 +1070,7 @@ bag_wtp_score_23 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m211 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 211 }
 		}
@@ -1082,7 +1082,7 @@ bag_wtp_score_23 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 211 }
 			}
@@ -1112,7 +1112,7 @@ bag_wtp_score_24 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m212 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 212 }
 			}
@@ -1126,7 +1126,7 @@ bag_wtp_score_24 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m213 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 213 }
 			}
@@ -1140,14 +1140,14 @@ bag_wtp_score_24 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m214 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 214 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m215 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 215 }
 		}
@@ -1159,14 +1159,14 @@ bag_wtp_score_24 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 215 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m216 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 216 }
 		}
@@ -1178,14 +1178,14 @@ bag_wtp_score_24 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 216 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m217 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 217 }
 		}
@@ -1197,7 +1197,7 @@ bag_wtp_score_24 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 217 }
 			}
@@ -1220,7 +1220,7 @@ bag_wtp_score_25 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m218 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 218 }
 		}
@@ -1232,7 +1232,7 @@ bag_wtp_score_25 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 218 }
 			}
@@ -1262,7 +1262,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m1 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 1 }
 			}
@@ -1276,7 +1276,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m2 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 2 }
 			}
@@ -1290,7 +1290,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m3 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 3 }
 			}
@@ -1304,7 +1304,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m4 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 4 }
 			}
@@ -1318,7 +1318,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m5 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 5 }
 			}
@@ -1332,7 +1332,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m6 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 6 }
 			}
@@ -1346,7 +1346,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m7 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 7 }
 			}
@@ -1360,7 +1360,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m8 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 8 }
 			}
@@ -1374,7 +1374,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m9 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 9 }
 			}
@@ -1388,7 +1388,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m10 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 10 }
 			}
@@ -1402,7 +1402,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m11 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 11 }
 			}
@@ -1416,7 +1416,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m12 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 12 }
 			}
@@ -1430,7 +1430,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m13 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 13 }
 			}
@@ -1444,7 +1444,7 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m14 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 14 }
 			}
@@ -1458,14 +1458,14 @@ bag_wtp_score_26 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m15 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 15 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m16 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 16 }
 		}
@@ -1477,14 +1477,14 @@ bag_wtp_score_26 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 16 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m17 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 17 }
 		}
@@ -1496,7 +1496,7 @@ bag_wtp_score_26 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 17 }
 			}
@@ -1526,14 +1526,14 @@ bag_wtp_score_27 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m18 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 18 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m19 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 19 }
 		}
@@ -1545,7 +1545,7 @@ bag_wtp_score_27 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 19 }
 			}
@@ -1559,7 +1559,7 @@ bag_wtp_score_27 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m20 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 20 }
 			}
@@ -1573,7 +1573,7 @@ bag_wtp_score_27 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m21 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 21 }
 			}
@@ -1603,7 +1603,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m22 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 22 }
 			}
@@ -1617,7 +1617,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m23 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 160.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 23 }
 			}
@@ -1631,7 +1631,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m24 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 120.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 24 }
 			}
@@ -1645,7 +1645,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m25 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 87.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 25 }
 			}
@@ -1659,7 +1659,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m26 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 26 }
 			}
@@ -1673,7 +1673,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m27 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 27 }
 			}
@@ -1687,7 +1687,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m28 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 28 }
 			}
@@ -1701,7 +1701,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m29 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 29 }
 			}
@@ -1715,7 +1715,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m30 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 150.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 30 }
 			}
@@ -1729,7 +1729,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m31 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 31 }
 			}
@@ -1743,7 +1743,7 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m32 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 32 }
 			}
@@ -1757,14 +1757,14 @@ bag_wtp_score_28 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m33 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 33 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m34 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 34 }
 		}
@@ -1776,7 +1776,7 @@ bag_wtp_score_28 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 34 }
 			}
@@ -1806,7 +1806,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m36 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 36 }
 			}
@@ -1820,7 +1820,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m37 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 37 }
 			}
@@ -1834,7 +1834,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m38 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 38 }
 			}
@@ -1848,7 +1848,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m39 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 39 }
 			}
@@ -1862,7 +1862,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m40 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 40 }
 			}
@@ -1876,7 +1876,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m41 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 41 }
 			}
@@ -1890,7 +1890,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m42 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 42 }
 			}
@@ -1904,7 +1904,7 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m43 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 900.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 43 }
 			}
@@ -1918,14 +1918,14 @@ bag_wtp_score_29 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m44 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 44 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m45 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 45 }
 		}
@@ -1937,14 +1937,14 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 45 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m46 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 46 }
 		}
@@ -1956,14 +1956,14 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 46 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m47 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 47 }
 		}
@@ -1975,14 +1975,14 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 47 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m48 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 3000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 48 }
 		}
@@ -1994,14 +1994,14 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 3000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 48 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m49 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 49 }
 		}
@@ -2013,14 +2013,14 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 49 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m50 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 50 }
 		}
@@ -2032,7 +2032,7 @@ bag_wtp_score_29 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 50 }
 			}
@@ -2062,7 +2062,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m61 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 61 }
 			}
@@ -2076,7 +2076,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m62 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 62 }
 			}
@@ -2090,7 +2090,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m63 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 63 }
 			}
@@ -2104,7 +2104,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m64 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 700.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 64 }
 			}
@@ -2118,7 +2118,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m65 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 65 }
 			}
@@ -2132,7 +2132,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m66 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 66 }
 			}
@@ -2146,7 +2146,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m67 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 67 }
 			}
@@ -2160,7 +2160,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m68 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 68 }
 			}
@@ -2174,14 +2174,14 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m69 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 69 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m70 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 70 }
 		}
@@ -2193,14 +2193,14 @@ bag_wtp_score_30 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 70 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m71 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 71 }
 		}
@@ -2212,7 +2212,7 @@ bag_wtp_score_30 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 71 }
 			}
@@ -2226,7 +2226,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m72 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 250.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 72 }
 			}
@@ -2240,7 +2240,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m73 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 120.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 73 }
 			}
@@ -2254,7 +2254,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m74 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 250.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 74 }
 			}
@@ -2268,7 +2268,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m75 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 75 }
 			}
@@ -2282,7 +2282,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m76 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 76 }
 			}
@@ -2296,7 +2296,7 @@ bag_wtp_score_30 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m77 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 77 }
 			}
@@ -2319,7 +2319,7 @@ bag_wtp_score_31 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m78 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 78 }
 		}
@@ -2331,7 +2331,7 @@ bag_wtp_score_31 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 78 }
 			}
@@ -2345,7 +2345,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m79 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 79 }
 			}
@@ -2359,7 +2359,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m80 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 80 }
 			}
@@ -2373,7 +2373,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m81 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 160.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 81 }
 			}
@@ -2387,7 +2387,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m82 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 82 }
 			}
@@ -2401,7 +2401,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m83 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 83 }
 			}
@@ -2415,7 +2415,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m84 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 150.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 84 }
 			}
@@ -2429,7 +2429,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m85 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 250.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 85 }
 			}
@@ -2443,7 +2443,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m86 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 86 }
 			}
@@ -2457,7 +2457,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m87 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 87 }
 			}
@@ -2471,7 +2471,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m88 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 88 }
 			}
@@ -2485,7 +2485,7 @@ bag_wtp_score_31 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m89 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 300.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 89 }
 			}
@@ -2515,7 +2515,7 @@ bag_wtp_score_32 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m93 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 93 }
 			}
@@ -2529,14 +2529,14 @@ bag_wtp_score_32 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m94 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 94 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m95 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 95 }
 		}
@@ -2548,7 +2548,7 @@ bag_wtp_score_32 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 95 }
 			}
@@ -2562,7 +2562,7 @@ bag_wtp_score_32 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m96 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 96 }
 			}
@@ -2592,7 +2592,7 @@ bag_wtp_score_33 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m97 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 750.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 97 }
 			}
@@ -2606,14 +2606,14 @@ bag_wtp_score_33 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m98 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 98 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m99 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 99 }
 		}
@@ -2625,7 +2625,7 @@ bag_wtp_score_33 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 99 }
 			}
@@ -2639,7 +2639,7 @@ bag_wtp_score_33 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m100 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 100 }
 			}
@@ -2653,14 +2653,14 @@ bag_wtp_score_33 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m101 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 101 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m102 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 102 }
 		}
@@ -2672,7 +2672,7 @@ bag_wtp_score_33 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 102 }
 			}
@@ -2695,7 +2695,7 @@ bag_wtp_score_34 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m108 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 108 }
 		}
@@ -2707,14 +2707,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 108 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m109 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 109 }
 		}
@@ -2726,14 +2726,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 109 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m110 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 110 }
 		}
@@ -2745,14 +2745,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 110 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m111 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 111 }
 		}
@@ -2764,14 +2764,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 111 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m112 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 112 }
 		}
@@ -2783,14 +2783,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 112 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m113 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 113 }
 		}
@@ -2802,14 +2802,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 113 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m114 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 114 }
 		}
@@ -2821,14 +2821,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 114 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m115 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 115 }
 		}
@@ -2840,14 +2840,14 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 100.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 115 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m116 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 116 }
 		}
@@ -2859,7 +2859,7 @@ bag_wtp_score_34 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 116 }
 			}
@@ -2889,14 +2889,14 @@ bag_wtp_score_35 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m117 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 117 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m118 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 118 }
 		}
@@ -2908,7 +2908,7 @@ bag_wtp_score_35 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 118 }
 			}
@@ -2931,7 +2931,7 @@ bag_wtp_score_36 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m119 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 119 }
 		}
@@ -2943,7 +2943,7 @@ bag_wtp_score_36 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 119 }
 			}
@@ -2957,7 +2957,7 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m120 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 120 }
 			}
@@ -2971,7 +2971,7 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m121 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 121 }
 			}
@@ -2985,7 +2985,7 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m122 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 122 }
 			}
@@ -2999,14 +2999,14 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m123 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 123 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m124 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 124 }
 		}
@@ -3018,14 +3018,14 @@ bag_wtp_score_36 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 124 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m125 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 125 }
 		}
@@ -3037,7 +3037,7 @@ bag_wtp_score_36 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 125 }
 			}
@@ -3051,7 +3051,7 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m126 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 126 }
 			}
@@ -3065,7 +3065,7 @@ bag_wtp_score_36 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m127 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 127 }
 			}
@@ -3095,7 +3095,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m128 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 128 }
 			}
@@ -3109,7 +3109,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m129 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 129 }
 			}
@@ -3123,7 +3123,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m130 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 130 }
 			}
@@ -3137,7 +3137,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m131 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 131 }
 			}
@@ -3151,14 +3151,14 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m132 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 132 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m133 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 133 }
 		}
@@ -3170,14 +3170,14 @@ bag_wtp_score_37 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 133 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m134 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 134 }
 		}
@@ -3189,14 +3189,14 @@ bag_wtp_score_37 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 134 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m135 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 135 }
 		}
@@ -3208,14 +3208,14 @@ bag_wtp_score_37 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 135 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m136 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 136 }
 		}
@@ -3227,14 +3227,14 @@ bag_wtp_score_37 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 136 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m137 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 137 }
 		}
@@ -3246,7 +3246,7 @@ bag_wtp_score_37 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 137 }
 			}
@@ -3260,7 +3260,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m138 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 138 }
 			}
@@ -3274,7 +3274,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m139 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 139 }
 			}
@@ -3288,7 +3288,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m140 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 140 }
 			}
@@ -3302,7 +3302,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m141 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 141 }
 			}
@@ -3316,7 +3316,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m142 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 142 }
 			}
@@ -3330,7 +3330,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m143 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 143 }
 			}
@@ -3344,7 +3344,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m144 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 144 }
 			}
@@ -3358,7 +3358,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m145 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 145 }
 			}
@@ -3372,7 +3372,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m146 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 146 }
 			}
@@ -3386,7 +3386,7 @@ bag_wtp_score_37 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m147 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 147 }
 			}
@@ -3409,7 +3409,7 @@ bag_wtp_score_38 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m150 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 150 }
 		}
@@ -3421,14 +3421,14 @@ bag_wtp_score_38 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 150 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m151 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 151 }
 		}
@@ -3440,14 +3440,14 @@ bag_wtp_score_38 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 151 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m152 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 152 }
 		}
@@ -3459,7 +3459,7 @@ bag_wtp_score_38 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 800.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 152 }
 			}
@@ -3482,7 +3482,7 @@ bag_wtp_score_39 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m155 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 155 }
 		}
@@ -3494,7 +3494,7 @@ bag_wtp_score_39 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 155 }
 			}
@@ -3508,7 +3508,7 @@ bag_wtp_score_39 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m156 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 156 }
 			}
@@ -3522,14 +3522,14 @@ bag_wtp_score_39 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m157 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 157 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m158 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 158 }
 		}
@@ -3541,7 +3541,7 @@ bag_wtp_score_39 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 158 }
 			}
@@ -3555,7 +3555,7 @@ bag_wtp_score_39 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m159 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 159 }
 			}
@@ -3585,7 +3585,7 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m160 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 160 }
 			}
@@ -3599,7 +3599,7 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m161 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 161 }
 			}
@@ -3613,7 +3613,7 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m162 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 162 }
 			}
@@ -3627,14 +3627,14 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m163 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 163 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m164 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 164 }
 		}
@@ -3646,14 +3646,14 @@ bag_wtp_score_40 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 164 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m165 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 165 }
 		}
@@ -3665,7 +3665,7 @@ bag_wtp_score_40 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 165 }
 			}
@@ -3679,7 +3679,7 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m166 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 166 }
 			}
@@ -3693,7 +3693,7 @@ bag_wtp_score_40 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m167 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 167 }
 			}
@@ -3723,14 +3723,14 @@ bag_wtp_score_41 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m168 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 168 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m169 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 169 }
 		}
@@ -3742,7 +3742,7 @@ bag_wtp_score_41 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 169 }
 			}
@@ -3765,7 +3765,7 @@ bag_wtp_score_42 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m170 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 170 }
 		}
@@ -3777,14 +3777,14 @@ bag_wtp_score_42 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 170 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m171 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 171 }
 		}
@@ -3796,7 +3796,7 @@ bag_wtp_score_42 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 171 }
 			}
@@ -3810,7 +3810,7 @@ bag_wtp_score_42 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m172 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 172 }
 			}
@@ -3824,14 +3824,14 @@ bag_wtp_score_42 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m173 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 173 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m174 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 3250.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 174 }
 		}
@@ -3843,7 +3843,7 @@ bag_wtp_score_42 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 3250.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 174 }
 			}
@@ -3857,7 +3857,7 @@ bag_wtp_score_42 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m175 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 175 }
 			}
@@ -3880,7 +3880,7 @@ bag_wtp_score_43 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m185 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 185 }
 		}
@@ -3892,7 +3892,7 @@ bag_wtp_score_43 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 185 }
 			}
@@ -3915,7 +3915,7 @@ bag_wtp_score_44 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m186 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 186 }
 		}
@@ -3927,7 +3927,7 @@ bag_wtp_score_44 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 186 }
 			}
@@ -3950,7 +3950,7 @@ bag_wtp_score_45 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m190 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 190 }
 		}
@@ -3962,7 +3962,7 @@ bag_wtp_score_45 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 190 }
 			}
@@ -3985,7 +3985,7 @@ bag_wtp_score_46 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m192 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 192 }
 		}
@@ -3997,7 +3997,7 @@ bag_wtp_score_46 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 192 }
 			}
@@ -4011,14 +4011,14 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m193 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 193 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m194 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 194 }
 		}
@@ -4030,14 +4030,14 @@ bag_wtp_score_46 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 194 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m195 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 195 }
 		}
@@ -4049,14 +4049,14 @@ bag_wtp_score_46 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 195 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m196 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 196 }
 		}
@@ -4068,7 +4068,7 @@ bag_wtp_score_46 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 500.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 196 }
 			}
@@ -4082,7 +4082,7 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m197 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 600.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 197 }
 			}
@@ -4096,7 +4096,7 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m198 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 550.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 198 }
 			}
@@ -4110,7 +4110,7 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m199 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 199 }
 			}
@@ -4124,7 +4124,7 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m200 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 250.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 200 }
 			}
@@ -4138,7 +4138,7 @@ bag_wtp_score_46 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m201 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 201 }
 			}
@@ -4161,7 +4161,7 @@ bag_wtp_score_47 = {
 		set_variable = { name = bag_wtp_end_best_method_rural value = 0 }
 		set_variable = { name = bag_wtp_try value = bag_wtp_m202 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 202 }
 		}
@@ -4173,14 +4173,14 @@ bag_wtp_score_47 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 202 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m203 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best_rural }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best_rural }
 			set_variable = { name = bag_wtp_end_best_rural value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method_rural value = 203 }
 		}
@@ -4192,14 +4192,14 @@ bag_wtp_score_47 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best_rural }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best_rural }
 				set_variable = { name = bag_wtp_best_rural value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method_rural value = 203 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m204 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 204 }
 		}
@@ -4211,14 +4211,14 @@ bag_wtp_score_47 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 200.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 204 }
 			}
 		}
 		set_variable = { name = bag_wtp_try value = bag_wtp_m205 }
 		if = {
-			limit = { var:bag_wtp_try > var:bag_wtp_end_best }
+			limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_end_best }
 			set_variable = { name = bag_wtp_end_best value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_end_best_method value = 205 }
 		}
@@ -4230,7 +4230,7 @@ bag_wtp_score_47 = {
 				}
 			}
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 4000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 205 }
 			}
@@ -4244,7 +4244,7 @@ bag_wtp_score_47 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m206 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 206 }
 			}
@@ -4258,7 +4258,7 @@ bag_wtp_score_47 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m207 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 400.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 207 }
 			}
@@ -4272,7 +4272,7 @@ bag_wtp_score_47 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m208 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 208 }
 			}
@@ -4286,7 +4286,7 @@ bag_wtp_score_47 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m209 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 2000.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 209 }
 			}
@@ -4300,7 +4300,7 @@ bag_wtp_score_47 = {
 			}
 			set_variable = { name = bag_wtp_try value = bag_wtp_m210 }
 			if = {
-				limit = { var:bag_wtp_try > var:bag_wtp_best }
+				limit = { var:bag_wtp_try > 1100.0000 var:bag_wtp_try > var:bag_wtp_best }
 				set_variable = { name = bag_wtp_best value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_best_method value = 210 }
 			}

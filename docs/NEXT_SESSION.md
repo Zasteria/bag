@@ -37,18 +37,25 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: one column that has never been loaded
+## `where_to_produce`: two ages on a row, and eight buildings modelled wrong
 
-Seventeen loads, confirmed end to end: a good or a whole urban right, a window
-each, live re-ranking, the pickers folded, the age filter moving the answer.
+Eighteen loads. The second column is on screen and right — what the ground gives
+now and what it gives once every advance is in, the game's own `obsolete` ladder
+behind it. Three things changed on the back of that run and none is loaded: ties
+in the far column break on the near one, every good is offered whatever the age,
+and **a recipe the province supplies nothing for is no longer an answer** (fine
+cloth had been answering silk at 0.00% in a wool country — the rule the whole
+mod is about, broken).
 
-**And then, on 2026-08-31, a second column** — what the ground gives now, and
-what it gives once every advance is in, with a tick choosing which the ranking
-obeys. Planning for the whole game is not the age filter turned off: the ladder
-moves a recipe's *inputs*, so the province that suits the guild need not suit
-the mill ([`investigations/production_ladder.md`](investigations/production_ladder.md)).
-**None of it has been in game**: third line of the eighteenth load,
-[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run).
+**One thing wants a measurement before it can be built.** Eight buildings — fine
+cloth, jewelry, cannons, firearms — run two methods at once and the mod models
+one, so it understates their output and their inputs. Whether the bonus counts
+both slots' inputs or one slot's is unknown, and **one hover on a fine cloth
+guild's build panel settles it**: line 5 of
+[`TESTLOG.md`](TESTLOG.md#waiting-on-a-run), the whole of it in
+[`investigations/production_ladder.md`](investigations/production_ladder.md).
+After that the rights window is the odd one out — one age to the goods window's
+two, which is why its bundle showed weaponry alone in the second age.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -60,9 +67,8 @@ the mill ([`investigations/production_ladder.md`](investigations/production_ladd
 - **`town_right_efficiency_penalty`**, in eleven rights and in no file
   `reference/` holds: one `grep` on the owner's install.
 
-**And about the tooling**, 2026-08-31: `mods.bat → 2` copies mods and does not
-run `tools/extract_game_files.py`, so a manifest entry alone does not bring a
-game folder into `reference/`. Which entry should run the extractor is open.
+Which menu entry should run `tools/extract_game_files.py` is still open — no
+entry does today.
 
 ## Then `glorpui_hints` goes out
 
@@ -75,9 +81,8 @@ none of it needing a protocol:
 - `error.log` must no longer carry `Inconsistent trigger scopes` — a building's
   `allow` was being copied into country scope. Clean on 2026-08-30, but on an
   axis Wallachia does not have, so it is still open;
-- nine of the eleven languages, which is a console switch each. **A hot switch
-  does not re-resolve vanilla strings**, only the mod's, so a real check of one
-  wants a restart;
+- nine of the eleven languages, a console switch each. **A hot switch does not
+  re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
 - the four repaired Glorp UI interface keys. The player could not find those map
   modes and does not care. **If they are still not visible next time, offer to
   drop them** — another mod's interface, and the only thing here outside this
@@ -94,38 +99,38 @@ none of it needing a protocol:
    [`WORKSHOP.md`](WORKSHOP.md)) → **Upload New Mod**;
 4. check the page is not empty and that `relationships` survived in
    `.metadata/metadata.json` — both are known ways this tool has misbehaved. The
-   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager),
-   and `mods.bat → 5 → «к»` writes its config;
+   fallback is [PDX Workshop Manager](https://github.com/kaiser-chris/pdx-workshop-manager);
+   `mods.bat → 5 → «к»` writes its config;
 5. on the workshop page, by hand: **Glorp UI** and **Community Mod Framework**
    as Required Items, and **hidden first**.
 
 ### Deliberately not done
 
-- **A thumbnail for the other five mods.** Only `glorpui_hints` has one.
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod is
-  ready to go out.
-- **Reviewing the ten new translations with somebody who speaks them.** Nobody
-  has read them. A correction goes in `languages.py`, never in a generated
-  `.yml`.
+- **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
+  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second mod goes
+  out.
+- **Reviewing the ten new translations with somebody who speaks them.** A
+  correction goes in `languages.py`, never in a generated `.yml`.
 
 ## Also waiting on the owner, all of it cheap
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it. It now also carries the
-  four folders added to the manifest for `where_to_produce`, `town_rights` among
-  them, and nothing of the urban-rights job can start before it. The same run is the
-  first real test of the Steam-side rewrite — build ids instead of dates. The
-  whole story is [`TESTLOG.md`](TESTLOG.md#2026-08-29--modsbat-an-update-run-on-the-owners-own-machine).
+  rewritten copies and the run confirms it. It is also the first real test of the
+  Steam-side rewrite — build ids instead of dates. The whole story is in
+  [`archive/testlog_2026-08.md`](archive/testlog_2026-08.md). Note that entry 2
+  copies mods and does **not** re-extract the game, so a manifest entry alone
+  brings nothing into `reference/`.
 - **The panel-open bisect — five minutes, no log to read.**
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md) has the
   protocol. It can close that job outright.
-- **The hover run.** [`investigations/widget_leak.md`](investigations/widget_leak.md)
-  has it written out, and every branch of the result already has its next step.
-  **Do not design a different test until that one has been run.**
+- **The hover run**, written out in
+  [`investigations/widget_leak.md`](investigations/widget_leak.md), every branch
+  of the result with its next step already. **Do not design a different test
+  until it has been run.**
 
 ## Before asking him for anything
 
 Read [`SETTLED.md`](SETTLED.md). And walk the protocol as the person who has to
 do it: *"sit on the map and open nothing"* is impossible while events fire, which
-is why everything is paused now. He cannot be asked to run the same thing twice.
+is why everything is paused now. He cannot be asked to run a thing twice.

@@ -21,6 +21,7 @@ game.
 | Can a mod free widgets? | No. `dump_data_types` has no `Destroy`/`Clear`/`Free`/`Collect`/`Prune` on any GUI type. | research/engine.md |
 | Is there a widget limit or pool size to raise? | No. `NGUI` in `00_defines.txt` is twenty lines of name lengths, queue sizes and alert thresholds. Nothing about pools, caches or arenas. | research/engine.md |
 | What does `where_to_produce`'s buildable tick filter on? | The location, not the owner. `can_build_building` is asked in the location's scope and answers about its rank, terrain and the building's requirements; a province with no town drops out, a province across a border does not. | TESTLOG 2026-08-31, seventeenth load |
+| Why does `where_to_produce`'s map picker close after each pick? | The generic action's own lifecycle, not a fault. It is the only map-click channel a mod has, and clicking the map with a window open is impossible. | research/interface.md |
 | Does the age filter work? | Yes. Methods and buildings change to the better ones as ages pass and the ranking follows. Seventeen loads to get it reported. | TESTLOG 2026-08-31 |
 | Why keep `nd_ru` when `nation_destinies_rus` translates 93% of the mod? | **Because that one is Google's machine translation and behind on versions.** The owner loads `nd_ru` *after* it on purpose: where ours has a key, his good translation wins; everywhere else the machine one fills in. This was decided before this repository existed, and has now been asked twice. | [archive](archive/nd_ru_and_the_machine_translation.md) |
 

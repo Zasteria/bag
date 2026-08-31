@@ -71,6 +71,50 @@ all, so with the tick off a province that is poor now and first at the end is
 never seen. **That is the known hole in this feature** and the reason the tick
 exists.
 
+## Two things the eighteenth run turned up
+
+**A recipe the ground cannot feed is not an answer.** Fine cloth in the
+Carpathians came back as one row: silk weavers at 0.00%, in a country whose
+provinces are full of wool. The arithmetic was right — silk weavers make 0.70 a
+level and wool weavers 0.50, so 0.70 unfed beats 0.55 at the full ten percent —
+and the answer was still wrong, because the game would run the recipe the market
+can feed and the market is fed by the ground. The pass now keeps a method only
+where the province supplies at least one of its raw materials, asked as
+`_try > <the method's unbonused output>`: a literal, and the smallest step any
+raw material makes is 0.56 across all methods and 1.9 in the endgame set, so it
+never turns on rounding. Where nothing is fed there is no row, which is what the
+zero-bonus filter did with those rows anyway.
+
+**Eight buildings run two methods at once, and the mod models one.** A building
+may carry more than one `unique_production_methods` block, and each block is a
+slot: the building runs one method from *each*, not one in total.
+
+| building | slot 1 | slot 2 |
+| --- | --- | --- |
+| `fine_cloth_guild`, `_workshop` | the weave: silk, wool, cloth | the finish: dyes, alum, fur |
+| `fine_cloth_manufactory` | silk or cloth | dyes, or dyes + alum |
+| `cannon_maker`, `cannon_workshop` | the barrel: bronze, iron, wood | the ammunition: stone, lead, iron |
+| `gun_smith`, `guns_workshop` | the gun | the ammunition |
+| `jewelry_guild` | 3 ways | 4 ways |
+
+So a fine cloth guild on silk and alum makes 0.7 + 0.2 a level and wants silk,
+alum and dyes; the mod says 0.7 and silk. It understates the output and the
+inputs of exactly the eight, and the owner named all three families of them
+unprompted from playing.
+
+The shape of the fix is cheap and already fits: generate the **combination** of
+the slots as one synthetic method — nine for a cannon maker, twelve for a fine
+cloth guild, about seventy across the eight — with the outputs summed and the
+inputs merged, and print the pair.
+
+**What is not cheap is knowing whether the merge is what the game does.** The
+bonus is `10 * supplied / all inputs`, verified against three tooltips, all of
+them on buildings with one slot. With two slots the denominator is either the
+union of both methods' inputs or one method's alone, and the two give different
+percentages. One hover on a fine cloth guild's build panel settles it, and until
+it is settled the combination is not worth building — a wrong denominator would
+be wrong on the eight buildings a player cares most about.
+
 ## Not answered here
 
 - **Whether a building upgrades in place or has to be rebuilt.** `obsolete` says

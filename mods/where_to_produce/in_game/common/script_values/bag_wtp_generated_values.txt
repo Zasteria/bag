@@ -5002,48 +5002,66 @@ bag_wtp_b218 = {
 	}
 }
 
-# What the ranking sorts on: the better of the two answers this location has.
-# A province with nothing but a village to offer still deserves its row.
+# The better of the two answers this location has, in each age. A province with
+# nothing but a village to offer still deserves its row.
+# Scope: location
+bag_wtp_near_score = {
+	value = 0
+	if = {
+		limit = { var:bag_wtp_best >= var:bag_wtp_best_rural }
+		value = var:bag_wtp_best
+	}
+	if = {
+		limit = { var:bag_wtp_best < var:bag_wtp_best_rural }
+		value = var:bag_wtp_best_rural
+	}
+}
+
+# Scope: location
+bag_wtp_end_score = {
+	value = 0
+	if = {
+		limit = { var:bag_wtp_end_best >= var:bag_wtp_end_best_rural }
+		value = var:bag_wtp_end_best
+	}
+	if = {
+		limit = { var:bag_wtp_end_best < var:bag_wtp_end_best_rural }
+		value = var:bag_wtp_end_best_rural
+	}
+}
+
+# **The near answer, shrunk until it can only break a tie.** Ranking by the last
+# age puts every province that reaches the same endgame percentage on the same
+# number -- the eighteenth run's paper table had 2.49% -> 10.00% above
+# 10.00% -> 10.00%, in an order nothing chose -- and of two provinces that end
+# equal, the one that is already good is the one to take.
 #
-# **Which column, though, is the player's.** Off -- and by default -- this ranks
-# what he could build this decade. On `bag_wtp_rank_by_end` it ranks what the
-# last age would give, which is the ordering a plan wants: a province that is
-# first with the guild and fortieth with the mill is the one thing this mod
-# exists to catch, and it only shows up if something sorts on the far column.
-#
-# Four flat branches rather than an `if` inside an `if`: nothing in the game or
-# in `reference/` nests one in a script value, and a `value =` inside a limited
-# branch overriding the one above it is the form this file already proves.
+# A thousandth of a near score is at most 0.495, and the smallest step any raw
+# material makes in the endgame set is 1.9. So this orders ties and can never
+# reorder anything that is not tied.
+# Scope: location
+bag_wtp_near_tiebreak = {
+	value = bag_wtp_near_score
+	multiply = 0.0001
+}
+
+# What the ranking sorts on, and which age that is is the player's:
+# `bag_wtp_rank_by_end` is the tick. One operation per branch, because a script
+# value that quietly does nothing logs nothing.
 # Scope: location
 bag_wtp_score = {
 	value = 0
 	if = {
-		limit = {
-			NOT = { has_global_variable = bag_wtp_rank_by_end }
-			var:bag_wtp_best >= var:bag_wtp_best_rural
-		}
-		value = var:bag_wtp_best
+		limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+		value = bag_wtp_near_score
 	}
 	if = {
-		limit = {
-			NOT = { has_global_variable = bag_wtp_rank_by_end }
-			var:bag_wtp_best < var:bag_wtp_best_rural
-		}
-		value = var:bag_wtp_best_rural
+		limit = { has_global_variable = bag_wtp_rank_by_end }
+		value = bag_wtp_end_score
 	}
 	if = {
-		limit = {
-			has_global_variable = bag_wtp_rank_by_end
-			var:bag_wtp_end_best >= var:bag_wtp_end_best_rural
-		}
-		value = var:bag_wtp_end_best
-	}
-	if = {
-		limit = {
-			has_global_variable = bag_wtp_rank_by_end
-			var:bag_wtp_end_best < var:bag_wtp_end_best_rural
-		}
-		value = var:bag_wtp_end_best_rural
+		limit = { has_global_variable = bag_wtp_rank_by_end }
+		add = bag_wtp_near_tiebreak
 	}
 }
 
