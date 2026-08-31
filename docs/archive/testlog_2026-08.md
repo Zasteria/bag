@@ -1,4 +1,4 @@
-# Test log — runs before 2026-08-27
+﻿# Test log — runs before 2026-08-27
 
 Archived out of [`../TESTLOG.md`](../TESTLOG.md) so the live log stays the size
 of a thing a session can afford to read. Nothing here is superseded; it is
@@ -870,3 +870,224 @@ hold; the goods icons do not.** Two screenshots, «в целом вроде ок
 - **The method in the row is enough on its own** — the owner reads the recipe off
   its tooltip. The icons stay because a method with several inputs still needs
   them, and the count says what the icons cannot when they fail to draw.
+
+### 2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
+is on screen; the map picker is the one thing left.** Owner: «в остальном —
+круто».
+
+- **The goods icons draw**, the lakes are gone from the expanded rows, the count
+  sits still. The `datacontext` on the datamodel item was the whole of the icon
+  fault.
+- **The whole-province rule is confirmed by eye**: Bessarabia is split by a
+  border and the horses in the far half count towards its number, which is what
+  the mod means by planning for the ground rather than the border. The engine's
+  own tooltip was not the thing compared, so *that* question stays open — it is
+  just no longer urgent.
+- **`error.log` carries nothing of this mod's**, first time it has been read for
+  it. 1706 of its 2742 lines are `jomini_custom_text.h` on vanilla Russian,
+  341 are a null promote in a loc string, and the four `Widget cannot have a
+  position in a layout` are Glorp UI's.
+- **`gui.log` had 124 lines that were ours**: `bag_wtp_select_window.gui:177`,
+  `Widget cannot have a position in a layout` — a `parentanchor` on a button that
+  is a direct child of an hbox. Anchors belong inside a plain widget; an hbox is
+  a layout and places its own children.
+- **The icons sat a column apart.** An hbox given more width than its children
+  spreads them across it. Left to hug its content now.
+- **And the ask, for the fourth time: the game's own map selection.** Both
+  screenshots are the same mechanism — `military_objective_group.gui`, driven by
+  `MilitaryObjectiveGroupView` with `GeographyGlue` rows. **Engine objects: a mod
+  cannot instantiate either**, and there is no on_action for a map click, so a
+  window of one's own cannot be told what the player clicked. What *is* reusable
+  is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
+  — the game's own map highlight, callable from any `.gui`.
+
+### 2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
+ranking was ranking the wrong thing.** Three screenshots.
+
+- **All four columns of the tree were empty, headers and all four frames drawn.**
+  That pairing is the diagnosis: the header's `blockoverride` reached the
+  instance and the rows' did not, because the rows' `block` was nested inside the
+  `blockoverride` of the scrollbox. A block inside a blockoverride never
+  resolves. The four columns are written out now, no column type at all.
+- **The goods icons still sat a column apart** after being given no width: the
+  spreading was the `icon` widget inside an hbox, not the hbox's size. They are
+  text icons now — `[Goods.GetIcon]`, which is what vanilla writes in its own
+  strings — and a text hugs its glyph.
+- **The ranking put forest villages at the top of a weapons search.** Not a bug
+  in the scoring; the scoring was answering the wrong question. A village wants
+  one raw material, so it reaches the full 10% anywhere, and it produces 0.2
+  weaponry a level against a weapon guild's 1.0 and a factory's 4.0. Ranking is
+  by **effective output** now — `output * (1 + bonus/100)`, the bonus being an
+  efficiency percentage and therefore a multiplier — and villages are scored on
+  their own side, so a row shows two answers: the best built-up building and the
+  best village.
+- **The Mod Menu table is gone.** It said the same thing as the window one line
+  at a time, and it was the only thing holding the answer to fifty rows.
+- **The owner uses the region lists and nothing else** to frame a search:
+  Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
+  That answers what six runs of "the region lists are untested" was asking.
+
+### 2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
+other, the tree was still empty, and the selection window was the wrong idea.**
+Two screenshots.
+
+- **The province rows overlapped.** The card holding a row is a `widget`, and a
+  widget does not size itself to its child: it was given
+  `layoutpolicy_vertical = preferred` and no height when the row grew a second
+  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
+- **The tree columns were still empty** after being written out, so the block
+  nesting was not the fault either. Whatever it is, it is not worth another
+  round trip: the whole selection window is deleted.
+- **And the owner said what to do instead**: «нахрена для этого всего вообще
+  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
+  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
+  каждого изменения границ.» So the three map-picker buttons, the running count
+  and «Очистить выбор» are in the results window, and **every pick re-ranks
+  while that window is open** — the answer follows the borders as they are
+  drawn.
+- The scoring, the two-line row and the goods icons from the ninth build could
+  not be judged under rows that overlapped; they come back for the eleventh.
+
+### 2026-08-30 — `where_to_produce`, eleventh load. The window picked the ground
+up and then ignored it, and the ranking arrived in map order.** One screenshot,
+no logs.
+
+Region «Карпаты» ticked in the Mod Menu, `books` the good, «Считать» pressed —
+and the table was the region, correctly. Then «Выбрать область» three times:
+Валахия, Молдавия, Трансильвания. The header count moved to «127 лок. в 26
+пров.» and **the table did not change at all** — Северный Альфёльд, another of
+Carpathia's seven areas and none of the three picked, was still in it.
+
+- **A generic action's `effect` does not run in the country's scope.** The
+  three map pickers ended with `bag_wtp_rebuild_browse` and
+  `bag_wtp_recompute_live`, unwrapped. The first survived it — every line in it
+  is scope-agnostic, which is why the count on screen kept moving and made the
+  selection look like it had landed. The second opens with
+  `has_variable = bag_wtp_result_open`, a country variable, got no, and returned
+  having done nothing. Vanilla wraps all five of its own actions' effects in
+  `scope:actor` and Advanced Auto Build's forty touch nothing but
+  `scope:target_location`; not one of them relies on the bare scope. Wrapped
+  now.
+- **The ranking was ranking, and then an unordered copy shuffled it.**
+  `bag_wtp_fill_rows` sorts with `ordered_in_global_list` into `bag_wtp_ranked`;
+  `bag_wtp_show_results` then copied that into the window's datamodel with
+  `every_in_global_list`, which promises nothing about order. On screen the rows
+  came out clustered by area — the shape of map order, not of a ranking — with
+  2.85% and 0.00% alternating down a list where every row was the same building,
+  the same method and the same output. The copy is `ordered_in_global_list` now,
+  each row carries the rank the pass gave it, and the window prints that rank.
+- **Two numbers were added to say which half failed**, because both failures
+  wrote nothing anywhere: the «№» column and «обошёл · нашёл · пересчётов». The
+  twelfth run above is what they bought.
+- **Found while reading, never reported:** `bag_wtp_can_build_something` is
+  asked in a location's scope and read `global_var:bag_wtp_good_index`, which
+  nothing ever wrote — the index is a country variable. Every branch missed, a
+  scripted trigger of unmatched `if`s comes back true, and "only where it can be
+  built today" filtered nothing whatever it was set to. The index is mirrored
+  into a global now.
+
+### 2026-08-30 — `where_to_produce`, twelfth load. The pick reaches the pass now,
+and the two numbers put on the window for exactly this said which half of each
+remaining fault was lying.** Three screenshots, no logs. `books`, region
+Карпаты, Wallachia picked as one area.
+
+- **«Обошёл 44 · нашёл 0», and the window emptied on every pick.** The scope fix
+  landed — «пересчётов» went 4 → 11 and the walk found the right 44 locations —
+  but the pass found no method in any of them. `bag_wtp_score_N` asks each
+  method's advance with `root = { bag_wtp_avail_N = yes }`, and `root` inside a
+  generic action is not the country any more than the bare scope is. **The rule
+  had been applied to half the mod**: `root` was taken out of the row pass in
+  the eleventh build and left in all 218 places in the scoring pass. The country
+  is `save_scope_as` at the top of `bag_wtp_score_candidates` now and every one
+  of them reads `scope:bag_wtp_country`. Pressing «Считать» found the same 44
+  locations and 6 provinces, which is what proves the scope and nothing else was
+  the difference.
+- **The ranking was never sorting, and it is a matter of magnitude.** The «№»
+  column came out 1, 2, 3 down the window — so the copy was fine — while the
+  bonus went 0.00, 2.85, 2.85, 2.85, 0.00, 4.29, and the rows sat in
+  alphabetical order of the province *key* (east_muntenia, north_muntenia,
+  north_oltenia, south_muntenia, south_oltenia, west_muntenia). That is the
+  unordered walk, so `order_by` was doing nothing. The scriptorium is the only
+  book method this age unlocks, and in its own units it scores 0.3000 to 0.3129
+  across the whole of Europe. **Nothing in the game or in any mod in
+  `reference/` sorts on a fraction** — vanilla ranks on `military_strength` and
+  `country_tax_base`, Advanced Auto Build on a score built out of `add = 12000`.
+  `bag_wtp_m<n>` is the output times 1000 now: the same scriptorium runs 300.00
+  to 312.88 and the provinces separate. Nothing prints it.
+- **The «№» column and «обошёл · нашёл · пересчётов» did their job.** Both faults
+  were invisible without them and both were named by them in one run rather than
+  two: «пересчётов» rising with «нашёл 0» is the scope, and ranks in order with
+  a scrambled bonus is `order_by`.
+- **«44 лок. в 6 пров.» became «44 лок. в 0 пров.»** across a window close and a
+  «Считать», with the selection untouched. `bag_wtp_rebuild_browse` only ran
+  where a pick happened; it runs in the pass now. Not diagnosed further — the
+  browse list has had no other reader since the selection window was deleted.
+
+### 2026-08-31 — `where_to_produce`, fourteenth load. The filter works and the
+offer to defeat it was the litter.** Owner: «Хвосты ушли… Хотя я абсолютно не
+понимаю нахера вообще есть возможность смотреть на эти пустые хвосты — выглядит
+как просто мусорная часть мода.» The tick is gone; the one case it protected —
+a method that wants no raw material and so can earn no bonus anywhere — is a
+branch in `bag_wtp_row_is_worth_it` and needs no setting.
+
+**`mods.bat → 2` does not re-extract the game.** «Ничего нового там не было,
+только копирование модов в плейсет и референс.» Adding a folder to
+`tools/game_files_manifest.txt` is therefore not enough to get it into
+`reference/`, and the owner copied `common/town_rights` in by hand instead.
+Which menu entry runs `extract_game_files` — and whether one exists — is the
+open question; the manifest entries for `goods`, `production_methods`,
+`building_types` and `town_rights` are right either way, since without them the
+next real extraction would have deleted three folders `where_to_produce`
+compiles from.
+
+**2026-08-30 — `where_to_produce`, thirteenth load. It works.** Owner: «В целом
+вроде как всё починилось, что мне нужно было. Я выбирал области — всё
+обновлялось сразу же.» Two screenshots.
+
+- **The ranking sorts and the pick re-ranks.** «Обошёл 127 · нашёл 19 ·
+  пересчётов 3» and again at 10, the areas following each pick, and the «№»
+  column running 1…19 with the bonus falling down it. Both of the twelfth run's
+  faults are closed: `order_by` sorts once the values are in the thousands, and
+  the pass reaches the country from a generic action.
+- **The two-line row reads**, first time it has been judged: «Гильдия
+  ружейников: Кузнецы-клиночники ×1.00» at 2.37% over «Лесная деревня: Сельский
+  оружейник ×0.20» at 10.00%, with the goods icons beside their `1/2` and `1/1`.
+  Which also settles the ninth run's question: **the village is no longer at the
+  top of a weapons search** — 0.22 effective against the guild's 1.0237 — and it
+  is on the row where it belongs rather than above it.
+- **The tail of 0.00% rows is noise.** Nineteen provinces found, and the ones
+  after about ten were all «0.00% … ×0.30 … 0/2» — the same building at the same
+  output as the rows above, supplying none of its raw materials. Filtered now,
+  with a tick on the Answer tab to bring them back, and shown regardless when
+  the winning method wants no raw material at all.
+- **The mod page is a page to scroll.** Seven region lists and two goods lists,
+  all unfolded. They are folded once now, the first time a player sees the page,
+  and his own folding is his after that.
+
+### 2026-08-31 — `where_to_produce`, fifteenth load. The rights window never
+loaded, and the logs named both faults at once.** A right ticked, Карпаты
+ticked, «Считать» pressed, nothing on screen. Logs supplied — first time this
+mod has been diagnosed entirely from them, and neither fault was findable any
+other way.
+
+- **`gui/bag_wtp_right_window.gui:17 - '﻿' is not a valid widget/type/property`,
+  then `Could not find widget 'bag_wtp_right_window'`.** The file carried
+  **two** byte order marks: the header string in the generator already began
+  with one and it was written through `encoding='utf-8-sig'`, which adds
+  another. The second is a character in the text, the parser abandons the file
+  at it, and every type in it goes missing — so «Считать» set the variable the
+  window watches and there was no window. Nothing about the file looked wrong
+  from here.
+- **`Unknown trigger type: else_if` — 59 times, and it is not new.** A trigger's
+  conditional is `trigger_if` / `trigger_else_if` / `trigger_else`: `if` is an
+  *effect* in the engine's dump and `else_if` is not in it at all.
+  `bag_wtp_can_build_something` has been an `if`/`else_if` chain since it was
+  written, so it came back **true for every location** and «only where it can be
+  built today» has never filtered anything — through fifteen loads, while the
+  tick sat on the "never reported" list as though it were merely untested.
+- **The one guess in the build was right**: `town_rights_type:<key>` stores fine
+  as a CMM list item value. Nothing in any of the five `error.log`s mentions the
+  rights list, its registration, or its localization.
+- **`tools/check_script.py` is the answer to both**, and runs from
+  `refresh.py`: a doubled byte order mark and an effect's `if` inside
+  `common/scripted_triggers/` are each one regex, and each cost a run.

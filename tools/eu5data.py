@@ -152,9 +152,41 @@ class Method:
 
 
 @dataclass
+class TownRight:
+    """One urban right, and the goods whose output it raises.
+
+    Only the output half is read. A right that grants building levels instead --
+    Flemish cloth, the marketplace charters -- is a quantity where these are
+    ratios, and `docs/investigations/town_rights.md` is why the two must not
+    share a number. `levels` is kept so the omission is visible rather than
+    silent.
+    """
+    key: str
+    output: dict[str, float] = field(default_factory=dict)
+    levels: dict[str, float] = field(default_factory=dict)
+    penalty: bool = False
+    # The advance that unlocks it, from `unlock_town_rights` in `common/advances`,
+    # and the country condition the right carries itself. Both are how a right
+    # that is somebody else's is kept off this country's list: Constantinople's
+    # silk monopoly says `has_or_had_tag = BYZ`, and the Scandinavian privileges
+    # say nothing but come from an advance only a Scandinavian takes.
+    advance: str = ""
+    potential: str = ""
+
+    @property
+    def general(self) -> bool:
+        """Everybody's, eventually: the nine that one age-3 advance unlocks."""
+        return self.advance == "town_rights_enable"
+
+
+@dataclass
 class Game:
     raw_goods: set[str]
     methods: list[Method]
+    # What a unit of each good sells for, `default_market_price`. The only
+    # honest way to add one good's output to another's.
+    prices: dict[str, float] = field(default_factory=dict)
+    town_rights: list[TownRight] = field(default_factory=list)
     # Every good in the catalogue, raw and produced alike. A mod naming a good
     # checks it against this rather than against its own memory: a good that a
     # patch renames goes silently dead otherwise.
@@ -214,24 +246,113 @@ def _inputs(entries, goods: set[str]) -> dict[str, float]:
     return out
 
 
-def _goods(goods_dir: Path) -> tuple[set[str], set[str]]:
-    """All goods, and the subset an RGO can produce.
+def _goods(goods_dir: Path) -> tuple[set[str], set[str], dict[str, float]]:
+    """All goods, the subset an RGO can produce, and what each is worth.
 
-    `category` defaults to raw_material when absent, per goods/readme.txt.
+    `category` defaults to raw_material when absent and `default_market_price`
+    to 1, both per goods/readme.txt. The price is what makes goods addable: four
+    books a level and 0.3 masonry a level are not one number without it.
     """
-    every, raw = set(), set()
+    every, raw, price = set(), set(), {}
     for name, entries in load_dir(goods_dir).items():
         every.add(name)
         if all(c == "raw_material" for c in find(entries, "category")):
             raw.add(name)
-    return every, raw
+        found = [float(v) for v in find(entries, "default_market_price")]
+        price[name] = found[0] if found else 1.0
+    return every, raw, price
+
+
+def _raw_potentials(rights_dir: Path) -> dict[str, str]:
+    """Each right's `potential` block, as text, to be re-emitted verbatim.
+
+    The loader turns a file into a structure, and what is wanted here is the
+    trigger exactly as the game wrote it -- `OR = { has_or_had_tag = BYZ ... }`
+    goes straight into a scripted trigger of ours. `potential` is country
+    scoped, per `town_rights/readme.txt`, which is what makes that safe.
+    """
+    import re as _re
+    out: dict[str, str] = {}
+    if not rights_dir.is_dir():
+        return out
+    for path in sorted(rights_dir.glob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig")
+        for match in _re.finditer(r"^(\w+)\s*=\s*\{", text, _re.M):
+            depth, i = 0, match.end() - 1
+            while i < len(text):
+                depth += (text[i] == "{") - (text[i] == "}")
+                if depth == 0 and text[i] == "}":
+                    break
+                i += 1
+            body = text[match.end():i]
+            block = _re.search(r"potential\s*=\s*\{", body)
+            if not block:
+                continue
+            depth, j = 0, block.end() - 1
+            while j < len(body):
+                depth += (body[j] == "{") - (body[j] == "}")
+                if depth == 0 and body[j] == "}":
+                    break
+                j += 1
+            out[match.group(1)] = " ".join(body[block.end():j].split())
+    return out
+
+
+def _unlocked_by(advances_dir: Path) -> dict[str, str]:
+    """Which advance unlocks each town right, by `unlock_town_rights`."""
+    out: dict[str, str] = {}
+    if not advances_dir.is_dir():
+        return out
+    for name, entries in load_dir(advances_dir).items():
+        for right in find(entries, "unlock_town_rights"):
+            out.setdefault(str(right), name)
+    return out
+
+
+def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
+    """Every urban right, with the goods it raises and the levels it grants.
+
+    Read from the game rather than from `town_rights_l_english.yml`, which names
+    every bundle in prose and is exactly the source this repository has a rule
+    against believing.
+    """
+    if not rights_dir.is_dir():
+        return []
+    unlocked = _unlocked_by(advances_dir)
+    potentials = _raw_potentials(rights_dir)
+    out: list[TownRight] = []
+    for name, entries in load_dir(rights_dir).items():
+        right = TownRight(key=name, advance=unlocked.get(name, ""),
+                          potential=potentials.get(name, ""))
+        for block in find(entries, "location_modifier"):
+            for key, value in block:
+                if key is None or not isinstance(value, str):
+                    continue
+                if key == "local_production_efficiency":
+                    right.penalty = True
+                    continue
+                if not key.startswith("local_"):
+                    continue
+                try:
+                    amount = float(value)
+                except ValueError:
+                    continue
+                body = key[len("local_"):]
+                if body.endswith("_output_modifier"):
+                    right.output[body[:-len("_output_modifier")]] = amount
+                elif body.endswith("_building_levels"):
+                    good = body[:-len("_building_levels")]
+                    right.levels[good.removesuffix("_guild")] = amount
+        if right.output or right.levels:
+            out.append(right)
+    return sorted(out, key=lambda r: r.key)
 
 
 def load_game(common: Path | None = None) -> Game:
     if common is None:
         import refs  # local: only needed when no explicit copy was named
         common = refs.GAME_COMMON
-    goods, raw = _goods(common / "goods")
+    goods, raw, price = _goods(common / "goods")
     shared = load_dir(common / "production_methods")
 
     methods: list[Method] = []
@@ -260,4 +381,6 @@ def load_game(common: Path | None = None) -> Game:
                 output=float(output) if output and NUMBER_RE.match(output) else 0.0,
                 inputs=_inputs(body, goods),
             ))
-    return Game(raw_goods=raw, methods=methods, all_goods=goods)
+    return Game(raw_goods=raw, methods=methods, all_goods=goods, prices=price,
+                town_rights=_town_rights(common / "town_rights",
+                                         common / "advances"))

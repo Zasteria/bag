@@ -1,4 +1,4 @@
-# Community Mod Framework, and building on it
+﻿# Community Mod Framework, and building on it
 
 The framework both interface mods here depend on: its hooks, its Mod Menu
 settings, the parts of its list machinery that fail without a word, and how
@@ -128,6 +128,11 @@ exist, so the selection silently stays where it was. The equivalent for a list,
 list is good to 50 and a dropdown to 20, and neither number is written anywhere
 near the registration call that would care. `where_to_produce` found this by
 having a player report that some rows "just would not pick".
+
+**A button and a list may not share a `setting_id`.** Both want
+`<mod>__<id>_name`, and the second registration loses — the same collision a tab
+and a setting have. Symptom: one of the two renders under the other's label, or
+not at all.
 
 **Where the 50 actually lives, and what it does not cover.** The ceiling is
 script side only, and it is two files: `cmm_core_list_setting_init_effects.txt`

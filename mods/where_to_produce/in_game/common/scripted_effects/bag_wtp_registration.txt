@@ -16,6 +16,14 @@ bag_wtp_register = {
 	bag_wtp_register_good_raw_list = yes
 	bag_wtp_register_good_made_list = yes
 
+	# And the third way of naming what you want made: an urban right, which is a
+	# bundle of two or three goods rather than one. It answers a different
+	# question and it answers it in a window of its own -- a right's own
+	# percentage is the same everywhere and re-ranks nothing, so only the bundle
+	# is worth a pass. `docs/investigations/town_rights.md` has the whole of it.
+	bag_wtp_register_right_common_list = yes
+	bag_wtp_register_right_unique_list = yes
+
 	# Where to look. Continents rather than the world's seventy-seven regions:
 	# the fine choosing happens on the map afterwards, and a region list six
 	# groups deep was a worse way to say "Europe".
@@ -62,13 +70,25 @@ bag_wtp_register = {
 		group_id = what
 	}
 
+	# Every picker folded shut, once, the first time this player sees the page.
+	# Seven region lists and two goods lists all open is a page to scroll rather
+	# than a page to read; after this the player's own folding is his.
+	bag_wtp_fold_pickers = yes
+
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
 	bag_wtp_refresh_goods = yes
-	bag_wtp_drop_browse = yes
-	bag_wtp_clear_rows = yes
+	bag_wtp_refresh_rights = yes
+
+	# **Nothing here throws the answer away.** This runs on CMF's registration
+	# hook, and the fifteenth run showed that hook firing again every time the
+	# mod page is opened: it used to end with `bag_wtp_drop_browse` and
+	# `bag_wtp_clear_rows`, so opening the menu to press «Открыть» wiped the
+	# result that button exists to reopen, zeroed the counters beside it, and
+	# took the rank off every row. On a new game there is nothing to clear --
+	# `bag_wtp_init_counters` makes the numbers exist and the lists start empty.
 }
 
 # Copy the tick CMM keeps in its own variable map out to a plain global variable,

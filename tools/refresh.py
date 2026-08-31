@@ -106,6 +106,19 @@ def main(argv: list[str]) -> int:
 
     refs.INVENTORY.write_text(refs.table(), encoding="utf-8")
 
+    # Two ways a mod file fails at load and nothing here would notice: a
+    # trigger written with an effect's `if`, and a doubled byte order mark. Both
+    # cost a run on 2026-08-31 and both are one regex, so they are checked on
+    # every refresh rather than remembered.
+    code, output, warning = run("tools/check_script.py")
+    line = (output + "\n" + warning).strip().splitlines()
+    if code != 0:
+        failed.append("check_script")
+    if code != 0 or not brief:
+        print()
+        for text in line:
+            print("%s %s" % ("FAIL" if code else "    ", text))
+
     after = [path for path in changed_files() if path not in before]
     print()
     if after:

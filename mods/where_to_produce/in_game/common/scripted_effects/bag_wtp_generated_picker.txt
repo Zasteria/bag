@@ -9,6 +9,11 @@
 # standing for the instant between the click and the callback; the tick that is
 # not the stored answer wins and everything else is forced off, so the tick
 # visibly moves to one row and stays there.
+#
+# The `root`s below are safe and are the only ones left in this mod: everything
+# here is reached from a CMM callback, where `root` is the country. Nothing on
+# this page is reachable from a generic action, which is where `root` is not --
+# see the header of `{MOD_ID}_generated_score.txt`.
 
 # Scope: country
 bag_wtp_register_good_raw_list = {
@@ -217,6 +222,12 @@ bag_wtp_read_good = {
 		limit = { var:bag_wtp_tick_count = 0 }
 		set_variable = { name = bag_wtp_good_index value = 0 }
 	}
+
+	# The same number as a global. `bag_wtp_can_build_something` is asked in a
+	# location's own scope, where a country variable is not reachable, and it was
+	# reading a global nothing ever wrote -- so every branch missed, the trigger
+	# came back true, and "only where it can be built today" filtered nothing.
+	set_global_variable = { name = bag_wtp_good_index value = var:bag_wtp_good_index }
 
 	if = { limit = { var:bag_wtp_good_index = 1 } set_global_variable = { name = bag_wtp_good value = goods:clay } }
 	else_if = { limit = { var:bag_wtp_good_index = 2 } set_global_variable = { name = bag_wtp_good value = goods:coal } }

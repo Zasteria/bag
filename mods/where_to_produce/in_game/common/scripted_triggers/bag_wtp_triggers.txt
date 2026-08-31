@@ -25,3 +25,54 @@ bag_wtp_is_candidate = {
 		bag_wtp_can_build_something = yes
 	}
 }
+
+# Whether a province has earned a row at all.
+#
+# The twelfth run's table ended in a tail of provinces at 0.00% and «0/2» --
+# every one of them the same building, the same method and the same output as
+# the rows above, and none of them supplying a single one of the method's raw
+# materials. Ranked correctly and worth nothing: they are the ground where this
+# good has no reason to be made, and the thirteenth run's verdict on offering to
+# show them anyway was that the offer is the litter, not the rows.
+#
+# There is one case where they appear regardless: a method that wants no raw
+# material can never earn a bonus anywhere, so filtering on the bonus would
+# empty the table rather than trim it. `_goods_all` is how many inputs the
+# winning method has, and zero on both sides means there was nothing to find
+# here rather than nothing found.
+# Scope: location
+bag_wtp_row_is_worth_it = {
+	OR = {
+		var:bag_wtp_bonus > 0
+		var:bag_wtp_bonus_rural > 0
+		AND = {
+			var:bag_wtp_goods_all = 0
+			var:bag_wtp_goods_all_rural = 0
+		}
+	}
+}
+
+# The same question for an urban right's row, asked of the whole bundle.
+#
+# The sixteenth run's table ended in a province at 0.00% on all three goods and
+# «0/2» three times over: the bundle can be made there and none of it is made
+# any better there than anywhere else. Ranked correctly by «Ценность», since
+# every method still produces, and worth nothing to somebody choosing where a
+# right should go.
+#
+# A slot whose method wants no raw material can never earn a bonus, so a row
+# where every slot is like that is kept -- otherwise the filter would empty the
+# table rather than trim it.
+# Scope: location
+bag_wtp_right_row_is_worth_it = {
+	OR = {
+		var:bag_wtp_r_bonus_1 > 0
+		var:bag_wtp_r_bonus_2 > 0
+		var:bag_wtp_r_bonus_3 > 0
+		AND = {
+			var:bag_wtp_r_goods_all_1 = 0
+			var:bag_wtp_r_goods_all_2 = 0
+			var:bag_wtp_r_goods_all_3 = 0
+		}
+	}
+}

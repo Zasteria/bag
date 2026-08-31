@@ -1,4 +1,4 @@
-# Test log
+﻿# Test log
 
 What has actually been in the game, and what it showed.
 
@@ -31,84 +31,66 @@ what actually appeared.
 
 ## Runs
 
-**2026-08-30 — `where_to_produce`, tenth load. The rows collapsed into each
-other, the tree was still empty, and the selection window was the wrong idea.**
-Two screenshots.
+**2026-08-31 — `where_to_produce`, seventeenth load. The registration fix holds,
+two things are confirmed after weeks of «never reported», and the filter that
+was meant to be fixed was never written.** Owner: «Список теперь сохраняется
+после закрытия и открытия окна мода… Думаю основной пул задач для этой сессии
+был выполнен.»
 
-- **The province rows overlapped.** The card holding a row is a `widget`, and a
-  widget does not size itself to its child: it was given
-  `layoutpolicy_vertical = preferred` and no height when the row grew a second
-  line. Fixed heights all the way down now — 60 for the card, 28 per answer.
-- **The tree columns were still empty** after being written out, so the block
-  nesting was not the fault either. Whatever it is, it is not worth another
-  round trip: the whole selection window is deleted.
-- **And the owner said what to do instead**: «нахрена для этого всего вообще
-  целое отдельное окно? Просто засунь кнопки „выбрать…“ в окно результатов.
-  Чтобы я прямо там выбирал и он мне прямо сразу показывал результаты после
-  каждого изменения границ.» So the three map-picker buttons, the running count
-  and «Очистить выбор» are in the results window, and **every pick re-ranks
-  while that window is open** — the answer follows the borders as they are
-  drawn.
-- The scoring, the two-line row and the goods icons from the ninth build could
-  not be judged under rows that overlapped; they come back for the eleventh.
+- **The counters are honest.** «Обошёл 127 · нашёл 19 · пересчётов 3», «в 26
+  пров.», «№» running 16…19 down the visible part. Opening the mod page no
+  longer throws the answer away, and «Открыть» reopens the last result — which
+  is the whole of what that button is for.
+- **Confirmed, both long outstanding:** the pickers stay folded («свёрнутые
+  списки давно проверены — они сохраняются свёрнутыми»), and **the age filter
+  works** — «метода производств и домики действительно меняются на более крутые
+  и расчёт идёт уже от них». Seventeen loads to get that one reported.
+- **Южная Олтения at 0.00% on all three goods is still there**, and the reason
+  is not the filter's logic. `bag_wtp_right_row_is_worth_it` is *called* by the
+  generated pass and **nothing defines it**: the patch that was to have written
+  the trigger died half way through and only the call survived. An undefined
+  name in a `limit` does not stop anything — the limit passes, and the symptom
+  is a filter that filters nothing, exactly as the `trigger_if` fault looked.
+  Written now, and `tools/check_script.py` refuses an unresolved call: every
+  `<name> = yes` in a mod's own `common/` must resolve to the mod, to a mod in
+  `reference/`, or to the engine's dumps.
+- **And the buildable tick does not mean what it said.** «При её включении —
+  показывается всё равно не только моя земля, но и чужая. Основное что она
+  фильтрует — наличие городов в провинции.» He is right and the label was wrong:
+  `can_build_building` is asked in the *location's* scope and answers about the
+  location — its rank, its terrain, what the building needs — not about who owns
+  it. It reads «Только там, где здание вообще может стоять» now, and says so.
 
-**2026-08-30 — `where_to_produce`, ninth load. The tree came up empty, and the
-ranking was ranking the wrong thing.** Three screenshots.
+**2026-08-31 — `where_to_produce`, sixteenth load. The rights window works, and
+one screenshot carried three faults at once.** «Вроде как работает… выглядит
+наглядно и понятно.» The bundle rows read: three goods, each with its own
+method, bonus and materials, «Ценность» ranking them.
 
-- **All four columns of the tree were empty, headers and all four frames drawn.**
-  That pairing is the diagnosis: the header's `blockoverride` reached the
-  instance and the rows' did not, because the rows' `block` was nested inside the
-  `blockoverride` of the scrollbox. A block inside a blockoverride never
-  resolves. The four columns are written out now, no column type at all.
-- **The goods icons still sat a column apart** after being given no width: the
-  spreading was the `icon` widget inside an hbox, not the hbox's size. They are
-  text icons now — `[Goods.GetIcon]`, which is what vanilla writes in its own
-  strings — and a text hugs its glyph.
-- **The ranking put forest villages at the top of a weapons search.** Not a bug
-  in the scoring; the scoring was answering the wrong question. A village wants
-  one raw material, so it reaches the full 10% anywhere, and it produces 0.2
-  weaponry a level against a weapon guild's 1.0 and a factory's 4.0. Ranking is
-  by **effective output** now — `output * (1 + bonus/100)`, the bonus being an
-  efficiency percentage and therefore a multiplier — and villages are scored on
-  their own side, so a row shows two answers: the best built-up building and the
-  best village.
-- **The Mod Menu table is gone.** It said the same thing as the window one line
-  at a time, and it was the only thing holding the answer to fifty rows.
-- **The owner uses the region lists and nothing else** to frame a search:
-  Карпаты in Europe, then the map picker for Валахия, Молдова, Трансильвания.
-  That answers what six runs of "the region lists are untested" was asking.
+- **«Обошёл 127 · нашёл 0 · пересчётов 3», «в 0 пров.», and «№» reading 0 on
+  every row — with rows on screen.** All one cause: `bag_wtp_register` ended
+  with `bag_wtp_drop_browse` and `bag_wtp_clear_rows`, and **CMF's registration
+  hook fires again every time the mod page is opened**. Opening the menu wiped
+  the answer, zeroed the counters and took the rank off every location. The
+  owner had already described the symptom without connecting it: «если закрыть
+  окно cmm и открыть мод заново — расчёт сбросится». Registration touches
+  nothing now.
+- **The rows survived that wipe because `bag_wtp_clear_rows` did not know about
+  `bag_wtp_right_results`** — a second window's list added and not added to the
+  one effect that empties them. Hence a table of rows whose rank had just been
+  removed.
+- **A province at 0.00% on all three goods, «0/2» three times.** The good pass
+  has filtered those since the fourteenth run; the rights pass had no equivalent
+  and `var:bag_wtp_r_total > 0` is true of any province where the bundle can be
+  made at all. `bag_wtp_right_row_is_worth_it` now asks the bundle's bonuses.
+- **And the rights list wanted splitting.** «Мне за валахию не особо то надо
+  видеть монополию константинополя.» Two lists now, and the split is the game's
+  data rather than an opinion: a right `town_rights_enable` unlocks is general
+  (nine of them), anything else is unique. A unique right is offered only where
+  the game's own condition passes — the silk monopoly carries
+  `potential = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }` and the
+  Scandinavian privileges carry an advance nobody else takes.
 
-**2026-08-30 — `where_to_produce`, eighth load, with logs. Everything asked for
-is on screen; the map picker is the one thing left.** Owner: «в остальном —
-круто».
-
-- **The goods icons draw**, the lakes are gone from the expanded rows, the count
-  sits still. The `datacontext` on the datamodel item was the whole of the icon
-  fault.
-- **The whole-province rule is confirmed by eye**: Bessarabia is split by a
-  border and the horses in the far half count towards its number, which is what
-  the mod means by planning for the ground rather than the border. The engine's
-  own tooltip was not the thing compared, so *that* question stays open — it is
-  just no longer urgent.
-- **`error.log` carries nothing of this mod's**, first time it has been read for
-  it. 1706 of its 2742 lines are `jomini_custom_text.h` on vanilla Russian,
-  341 are a null promote in a loc string, and the four `Widget cannot have a
-  position in a layout` are Glorp UI's.
-- **`gui.log` had 124 lines that were ours**: `bag_wtp_select_window.gui:177`,
-  `Widget cannot have a position in a layout` — a `parentanchor` on a button that
-  is a direct child of an hbox. Anchors belong inside a plain widget; an hbox is
-  a layout and places its own children.
-- **The icons sat a column apart.** An hbox given more width than its children
-  spreads them across it. Left to hug its content now.
-- **And the ask, for the fourth time: the game's own map selection.** Both
-  screenshots are the same mechanism — `military_objective_group.gui`, driven by
-  `MilitaryObjectiveGroupView` with `GeographyGlue` rows. **Engine objects: a mod
-  cannot instantiate either**, and there is no on_action for a map click, so a
-  window of one's own cannot be told what the player clicked. What *is* reusable
-  is `PdxGuiWidget.SetHighlight{Region,Area,Province,ProvinceDefinition,Location}`
-  — the game's own map highlight, callable from any `.gui`.
-
-Everything before 2026-08-29, and `where_to_produce`'s first seven loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first fifteen loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -260,19 +242,19 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, eleventh load — one game, five minutes.** One window now:
-the answer, with the borders picked in its own header.
+**`where_to_produce`, eighteenth load — two lines, and the mod is done for now.**
 
-1. **The rows read**, one province each, two lines where both a built-up
-   building and a village were found, nothing overlapping.
-2. **The three «Выбрать…» buttons** are in the results window and open the
-   game's own target panel; the count beside them moves as you click.
-3. **Every pick re-ranks**: close the picker panel and the table under it should
-   already be the answer for the new borders, with no «Считать» pressed.
-4. **Villages are not at the top** of a weapons search, and the goods icons sit
-   beside their `1/2` count rather than a column away.
-5. **`error.log` and `gui.log`** — one window fewer, and the selection window's
-   124 layout lines should be gone with it.
+1. **No province at 0.00% on every good** at the bottom of a rights table. The
+   filter exists this time.
+2. **Two rights lists**, «Городские права» with nine and «Уникальные права»
+   which for Wallachia should be empty — three exist and all three are somebody
+   else's. Never reported either way.
+
+Everything else in this mod has been confirmed in game. What is left is not a
+run but a decision: whether an ownership half belongs in the buildable tick
+(`can_build_building` cannot ask it from a location scope), and whether level
+rights get a table of their own —
+[`investigations/town_rights.md`](investigations/town_rights.md).
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

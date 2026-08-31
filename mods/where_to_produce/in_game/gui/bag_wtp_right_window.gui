@@ -1,242 +1,50 @@
-﻿# The results window: the ranked provinces, each one saying what would be built
-# there, with which method, and out of which raw materials.
+﻿# The rights window: the same ranked provinces, answering for a whole urban
+# right instead of for one good.
 #
-# Why not the CMM table it stands beside: a CMM list row is one localization key
-# and nothing else. It cannot hold an icon per row without a global variable per
-# slot, it cannot expand, and it stops at fifty. Everything the fifth run asked
-# for -- the province rather than one of its locations, which of the building's
-# methods won, and what the bonus is actually made of -- is a datamodel away
-# here and a rewrite of CMF away there.
+# It is a second window rather than a third line on the first, because it is a
+# different question with a different unit. A row here is the bundle -- two or
+# three goods, each with its own best method and its own bonus -- and the number
+# it is ranked on is what one level of all of them would earn, market prices
+# included. `docs/investigations/town_rights.md` is why that has to be a price
+# and not a count of things made.
 #
-# Every row reads its own scope. `bag_wtp_fill_rows` parks the answer on the
-# location itself -- `bag_wtp_bt`, `bag_wtp_pm`, and the `bag_wtp_goods` list --
-# and `bag_wtp_results` is that location per province, in rank order.
-#
-# Shape and idiom follow `bag_wtp_select_window.gui`, which is in game and works:
-# the item type carries its own `datacontext` (a wrapping `widget` collapses the
-# row to zero height), and the window watches a variable on the player because a
-# Mod Menu button is a script effect and script cannot reach `GetVariableSystem`.
+# What it shares with `bag_wtp_result_window.gui` it does not redeclare: the
+# picker footer, the goods text icon and the expanded location row are types in
+# that file and types are global. The two windows also share the ranked list,
+# the map pickers and the live re-rank; only one is ever open, because only one
+# of a good and a right can be ticked.
 
-types BagWtpResultTypes {
+types BagWtpRightTypes {
 
-	# Injected into the bottom of the game's own target picker, through
-	# `bottom_widget` in each action's `select_trigger`. It carries the running
-	# count, so the panel says what the clicking has done without closing it to go
-	# and look. It lived in the selection window until that window was deleted;
-	# the three actions still name it.
-	type bag_wtp_select_footer = widget {
-		size = { 420 72 }
-
-		vbox = {
-			margin = { 8 6 }
-			spacing = 2
-			layoutpolicy_horizontal = expanding
-
-			text_single = {
-				layoutpolicy_horizontal = expanding
-				align = left|vcenter
-				text = "bag_wtp_select_summary"
-			}
-
-			text_multi = {
-				layoutpolicy_horizontal = expanding
-				autoresize = yes
-				maximumsize = { 404 48 }
-				text = "bag_wtp_picker_hint"
-			}
-		}
-	}
-
-	# One raw material the province supplies to the winning method. These are the
-	# bonus, item by item: the number is `10% * what is here / what the method
-	# wants`, so an input missing from this row is the whole of the difference
-	# between the number and the method's ceiling.
-	# One raw material the province supplies to the winning method. A text icon
-	# rather than an `icon` widget, because a text hugs its glyph and a widget in
-	# an hbox does not: two of these sat a column apart at every size the icon
-	# was given. `[Goods.GetIcon]` is the game's own idiom for it.
+	# One good of the right's bundle: which good, its best method here, the bonus
+	# that method earns, and the raw materials the bonus is made of. Three of
+	# these make a province row and each hides itself when its slot is empty --
+	# a right favours one, two or three goods and the widest in the game is three.
 	#
-	# The item sets `datacontext` to the goods and the type reads `Goods.`; a
-	# scope list read as `Scope.GetGoods` from inside the type drew nothing at
-	# all, while the count beside it, off the same list, was right.
-	type bag_wtp_result_goods_entry = text_single {
-		autoresize = yes
-		fontsize = 16
-		raw_text = "[Goods.GetIcon]"
-		tooltip = "[Goods.GetName]"
-	}
-
-	# One location of the province, under the expanded row. All of them score the
-	# same -- the game credits a raw material worked anywhere in the province --
-	# so what is worth saying about each is what it works now and whether it is in
-	# the plan.
-	type bag_wtp_result_location_entry = hbox {
-		# Lakes, sea zones and impassables are in `GetLocations` and are not ground
-		# anybody builds on: they arrived as a screenful of «Ничья земля» under
-		# every coastal province. The parent has `ignoreinvisible`, so a hidden row
-		# takes no space.
-		visible = "[Location.IsPossibleToOwn]"
+	# Written out three times rather than once with a parameter: no `.gui` in the
+	# game or in CMF contains a `$` at all, so a type takes no arguments here.
+	type bag_wtp_right_slot_1 = hbox {
 		layoutpolicy_horizontal = expanding
-		size = { -1 30 }
+		size = { -1 28 }
 		spacing = 0
-		using = bg_number_container_bckg
-
-		widget = {
-			size = { 36 30 }
-			icon = {
-				size = { 18 18 }
-				parentanchor = center
-				widgetanchor = center
-				texture = "[Location.GetRankIcon]"
-				tooltipwidget = { using = location_simple_tooltip }
-			}
-		}
+		visible = "[Location.MakeScope.GetVariable('bag_wtp_r_bt_1').IsSet]"
 
 		text_single = {
-			size = { 240 30 }
+			size = { 118 28 }
 			autoresize = no
-			maximumsize = { 240 30 }
-			align = left|vcenter
-			elide = right
-			text = "[Location.GetName]"
-		}
-
-		widget = {
-			size = { 28 30 }
-			visible = "[Location.HasRawMaterial]"
-			icon = {
-				size = { 22 22 }
-				parentanchor = center
-				widgetanchor = center
-				texture = "[GetGoodsIcon(Location.GetRawMaterial)]"
-				tooltip = "[Location.GetRawMaterial.GetName]"
-			}
-		}
-
-		text_single = {
-			size = { 200 30 }
-			autoresize = no
-			maximumsize = { 200 30 }
-			align = left|vcenter
-			elide = right
-			visible = "[Location.HasRawMaterial]"
-			text = "[Location.GetRawMaterial.GetName]"
-		}
-
-		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
-
-		# Whose it is today. A row is the whole province, so the locations under it
-		# can belong to two or three countries -- that is the split the ranking
-		# deliberately ignores, and this is where it is visible.
-		hbox = {
-			size = { 190 30 }
-			spacing = 4
-			visible = "[Location.HasOwner]"
-
-			country_flag_mini = {
-				datacontext = "[Location.GetOwner]"
-			}
-
-			text_single = {
-				layoutpolicy_horizontal = expanding
-				autoresize = no
-				maximumsize = { 150 30 }
-				align = left|vcenter
-				elide = right
-				fontsize = 13
-				raw_text = "[Location.GetOwner.GetName]"
-			}
-		}
-
-		text_single = {
-			size = { 190 30 }
-			autoresize = no
-			maximumsize = { 190 30 }
+			maximumsize = { 118 28 }
 			align = left|vcenter
 			elide = right
 			fontsize = 13
-			visible = "[Not(Location.HasOwner)]"
-			text = "bag_wtp_result_unowned"
+			text = "bag_wtp_right_good_1"
 		}
-
-		# The same two effects the selection window's rows call, so a location
-		# ticked here is ticked there, painted on the map, and inside the next
-		# ranking -- one fact, one pair of writers.
-		button_regular = {
-			size = { 140 24 }
-			visible = "[Not(Location.MakeScope.GetVariable('bag_wtp_picked').IsSet)]"
-			tooltip = "bag_wtp_add_location_tt"
-			text_single = {
-				size = { 132 20 }
-				parentanchor = center
-				widgetanchor = center
-				autoresize = no
-				maximumsize = { 132 20 }
-				fontsize = 13
-				fontsize_min = 10
-				align = center|nobaseline
-				elide = right
-				text = "bag_wtp_add_location"
-			}
-			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
-		}
-
-		button_regular = {
-			size = { 140 24 }
-			visible = "[Location.MakeScope.GetVariable('bag_wtp_picked').IsSet]"
-			tooltip = "bag_wtp_remove_location_tt"
-			text_single = {
-				size = { 132 20 }
-				parentanchor = center
-				widgetanchor = center
-				autoresize = no
-				maximumsize = { 132 20 }
-				fontsize = 13
-				fontsize_min = 10
-				align = center|nobaseline
-				elide = right
-				text = "bag_wtp_remove_location"
-			}
-			onclick = "[GetScriptedGui('bag_wtp_toggle_location').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
-		}
-
-		widget = { size = { 12 28 } }
-	}
-
-	# One province: the answer on one line, its locations under it once expanded.
-	# The scope is the location the ranking picked, because that is what carries
-	# the winning method and the goods; the province is one promote away.
-	#
-	# The row is a province *definition*: the whole province as the map draws it,
-	# not the piece of it one country owns. The game splits a province by
-	# ownership and names the pieces "Moldavian province Bessarabia" -- ranking
-	# those separately would answer for half a province and would move the answer
-	# on the day the halves join, which is the day this mod plans for.
-	#
-	# Expansion is a variable on the row's own location, which is unique per row.
-	# One answer line: the bonus, the building and method, and the goods the bonus
-	# is made of. Two of these make a province row -- the built-up answer and the
-	# village one -- and each hides itself when its side found nothing.
-	#
-	# Written twice rather than once with a parameter: no `.gui` in the game or in
-	# CMF contains a `$` at all, so a type takes no arguments here.
-	#
-	# Nothing in the goods part has a size. An hbox given more width than its
-	# children spreads them across it, which is what put a column between two
-	# icons; a text hugs its glyphs, and a goods icon is a text icon like any
-	# other -- `[Goods.GetIcon]` is what vanilla writes in its own strings.
-	type bag_wtp_result_answer = hbox {
-		layoutpolicy_horizontal = expanding
-		size = { -1 28 }
-		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt').IsSet]"
 
 		text_single = {
 			size = { 70 28 }
 			autoresize = no
 			maximumsize = { 70 28 }
 			align = right|vcenter
-			text = "bag_wtp_result_bonus_value"
+			text = "bag_wtp_right_bonus_1"
 			tooltip = "bag_wtp_result_bonus_tt"
 		}
 
@@ -248,7 +56,7 @@ types BagWtpResultTypes {
 			autoresize = no
 			align = left|vcenter
 			elide = right
-			text = "bag_wtp_result_method_value"
+			text = "bag_wtp_right_method_1"
 			tooltip = "bag_wtp_result_method_tt"
 		}
 
@@ -260,64 +68,12 @@ types BagWtpResultTypes {
 			text_single = {
 				autoresize = yes
 				fontsize = 13
-				text = "bag_wtp_result_goods_count"
+				text = "bag_wtp_right_goods_count_1"
 			}
 
 			hbox = {
 				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-				item = {
-					bag_wtp_result_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
-					}
-				}
-			}
-		}
-
-		widget = { size = { 12 30 } }
-	}
-
-	type bag_wtp_result_answer_rural = hbox {
-		layoutpolicy_horizontal = expanding
-		size = { -1 28 }
-		spacing = 0
-		visible = "[Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet]"
-
-		text_single = {
-			size = { 70 28 }
-			autoresize = no
-			maximumsize = { 70 28 }
-			align = right|vcenter
-			text = "bag_wtp_result_bonus_value_rural"
-			tooltip = "bag_wtp_result_bonus_tt"
-		}
-
-		widget = { size = { 10 28 } }
-
-		text_single = {
-			size = { -1 28 }
-			layoutpolicy_horizontal = expanding
-			autoresize = no
-			align = left|vcenter
-			elide = right
-			text = "bag_wtp_result_method_value_rural"
-			tooltip = "bag_wtp_result_method_tt"
-		}
-
-		hbox = {
-			spacing = 4
-			alwaystransparent = no
-			tooltip = "bag_wtp_result_goods_tt"
-
-			text_single = {
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_result_goods_count_rural"
-			}
-
-			hbox = {
-				spacing = 1
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_1')]"
 				item = {
 					bag_wtp_result_goods_entry = {
 						datacontext = "[Scope.GetGoods]"
@@ -329,37 +85,165 @@ types BagWtpResultTypes {
 		widget = { size = { 12 28 } }
 	}
 
-	# One province: what would be built there, in one line or two, and its
-	# locations under it once expanded.
+	# One good of the right's bundle: which good, its best method here, the bonus
+	# that method earns, and the raw materials the bonus is made of. Three of
+	# these make a province row and each hides itself when its slot is empty --
+	# a right favours one, two or three goods and the widest in the game is three.
 	#
-	# The scope is the location the ranking picked, because that is what carries
-	# the winning methods and the goods; the province is one promote away.
+	# Written out three times rather than once with a parameter: no `.gui` in the
+	# game or in CMF contains a `$` at all, so a type takes no arguments here.
+	type bag_wtp_right_slot_2 = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 0
+		visible = "[Location.MakeScope.GetVariable('bag_wtp_r_bt_2').IsSet]"
+
+		text_single = {
+			size = { 118 28 }
+			autoresize = no
+			maximumsize = { 118 28 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "bag_wtp_right_good_2"
+		}
+
+		text_single = {
+			size = { 70 28 }
+			autoresize = no
+			maximumsize = { 70 28 }
+			align = right|vcenter
+			text = "bag_wtp_right_bonus_2"
+			tooltip = "bag_wtp_result_bonus_tt"
+		}
+
+		widget = { size = { 10 28 } }
+
+		text_single = {
+			size = { -1 28 }
+			layoutpolicy_horizontal = expanding
+			autoresize = no
+			align = left|vcenter
+			elide = right
+			text = "bag_wtp_right_method_2"
+			tooltip = "bag_wtp_result_method_tt"
+		}
+
+		hbox = {
+			spacing = 4
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				autoresize = yes
+				fontsize = 13
+				text = "bag_wtp_right_goods_count_2"
+			}
+
+			hbox = {
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_2')]"
+				item = {
+					bag_wtp_result_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { size = { 12 28 } }
+	}
+
+	# One good of the right's bundle: which good, its best method here, the bonus
+	# that method earns, and the raw materials the bonus is made of. Three of
+	# these make a province row and each hides itself when its slot is empty --
+	# a right favours one, two or three goods and the widest in the game is three.
 	#
-	# The row is a province *definition*: the whole province as the map draws it,
-	# not the piece of it one country owns.
-	#
-	# Expansion is a variable on the row's own location, which is unique per row.
-	type bag_wtp_result_province_entry = vbox {
+	# Written out three times rather than once with a parameter: no `.gui` in the
+	# game or in CMF contains a `$` at all, so a type takes no arguments here.
+	type bag_wtp_right_slot_3 = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 28 }
+		spacing = 0
+		visible = "[Location.MakeScope.GetVariable('bag_wtp_r_bt_3').IsSet]"
+
+		text_single = {
+			size = { 118 28 }
+			autoresize = no
+			maximumsize = { 118 28 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "bag_wtp_right_good_3"
+		}
+
+		text_single = {
+			size = { 70 28 }
+			autoresize = no
+			maximumsize = { 70 28 }
+			align = right|vcenter
+			text = "bag_wtp_right_bonus_3"
+			tooltip = "bag_wtp_result_bonus_tt"
+		}
+
+		widget = { size = { 10 28 } }
+
+		text_single = {
+			size = { -1 28 }
+			layoutpolicy_horizontal = expanding
+			autoresize = no
+			align = left|vcenter
+			elide = right
+			text = "bag_wtp_right_method_3"
+			tooltip = "bag_wtp_result_method_tt"
+		}
+
+		hbox = {
+			spacing = 4
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				autoresize = yes
+				fontsize = 13
+				text = "bag_wtp_right_goods_count_3"
+			}
+
+			hbox = {
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_3')]"
+				item = {
+					bag_wtp_result_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { size = { 12 28 } }
+	}
+
+	# One province: the bundle, one line per good, and its locations under it once
+	# expanded. 116 tall so three lines at 28 fit -- a `widget` does not size
+	# itself to its child, which is what collapsed the first window's rows into
+	# each other on the tenth run, so every height here is a number.
+	type bag_wtp_right_province_entry = vbox {
 		layoutpolicy_horizontal = expanding
 		layoutpolicy_vertical = preferred
 		spacing = 2
 
-		# 60 tall, always: a `widget` does not size itself to its child, so the
-		# card and everything in it collapsed into one another the moment the row
-		# grew a second line. Two answer lines at 28 fit; one leaves a gap, which
-		# is cheaper than rows that overlap.
 		widget = {
 			layoutpolicy_horizontal = expanding
-			size = { -1 60 }
+			size = { -1 116 }
 			using = bg_paper_card
 
 			hbox = {
 				layoutpolicy_horizontal = expanding
-				size = { -1 60 }
+				size = { -1 116 }
 				spacing = 0
 
 				widget = {
-					size = { 38 60 }
+					size = { 38 116 }
 					button_square_plus = {
 						size = { 26 26 }
 						parentanchor = center
@@ -378,15 +262,10 @@ types BagWtpResultTypes {
 					}
 				}
 
-				# The place the ranking gave this row, printed rather than implied.
-				# The order a row sits in is the order the datamodel's list holds
-				# it, and a list copied with an unordered iterator came out in map
-				# order; with the number on the row, a shuffle is visible instead
-				# of being mistaken for a ranking nobody understands.
 				text_single = {
-					size = { 34 60 }
+					size = { 34 116 }
 					autoresize = no
-					maximumsize = { 34 60 }
+					maximumsize = { 34 116 }
 					align = right|vcenter
 					fontsize = 13
 					text = "bag_wtp_result_rank_value"
@@ -394,9 +273,9 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 190 60 }
+					size = { 190 116 }
 					autoresize = no
-					maximumsize = { 190 60 }
+					maximumsize = { 190 116 }
 					align = left|vcenter
 					elide = right
 					text = "[Location.GetProvinceDefinition.GetName]"
@@ -404,26 +283,37 @@ types BagWtpResultTypes {
 				}
 
 				text_single = {
-					size = { 130 60 }
+					size = { 130 116 }
 					autoresize = no
-					maximumsize = { 130 60 }
+					maximumsize = { 130 116 }
 					align = left|vcenter
 					elide = right
 					fontsize = 13
 					text = "[Location.GetArea.GetNameWithNoTooltip]"
 				}
 
-				# The two answers, one under the other. The built-up one first: it
-				# is what the ranking sorted on, and a village produces a fifth of
-				# what a workshop does.
+				# What the whole bundle would earn a level here, which is what the
+				# rows are ranked on.
+				text_single = {
+					size = { 78 116 }
+					autoresize = no
+					maximumsize = { 78 116 }
+					align = right|vcenter
+					text = "bag_wtp_right_total_value"
+					tooltip = "bag_wtp_right_total_tt"
+				}
+
+				widget = { size = { 10 116 } }
+
 				vbox = {
 					layoutpolicy_horizontal = expanding
-					size = { -1 60 }
+					size = { -1 116 }
 					spacing = 2
 					ignoreinvisible = yes
 
-					bag_wtp_result_answer = {}
-					bag_wtp_result_answer_rural = {}
+					bag_wtp_right_slot_1 = {}
+					bag_wtp_right_slot_2 = {}
+					bag_wtp_right_slot_3 = {}
 				}
 			}
 		}
@@ -440,9 +330,8 @@ types BagWtpResultTypes {
 	}
 }
 
-
 window = {
-	name = "bag_wtp_result_window"
+	name = "bag_wtp_right_window"
 	datacontext = "[GetPlayer]"
 	allow_outside = yes
 	alwaystransparent = no
@@ -450,13 +339,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1180 720 }
+	size = { 1320 760 }
 
-	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
-	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 
 	widget = {
-		size = { 1180 720 }
+		size = { 1320 760 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -476,7 +365,7 @@ window = {
 			using = window_margin_alt
 
 			window_header_alt = {
-				blockoverride "header_text" { text = "bag_wtp_result_window_title" }
+				blockoverride "header_text" { text = "bag_wtp_right_window_title" }
 				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
 			}
 
@@ -494,9 +383,9 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 80 }
+					maximumsize = { 1270 80 }
 					align = center
-					text = "bag_wtp_result_window_desc"
+					text = "bag_wtp_right_window_desc"
 				}
 
 				# The borders, picked here rather than in a window of their own. Each
@@ -637,17 +526,17 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 60 }
+					maximumsize = { 1270 60 }
 					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_results')))]"
-					text = "bag_wtp_result_window_empty"
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_right_results')))]"
+					text = "bag_wtp_right_window_empty"
 				}
 
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					margin_left = 38
 					spacing = 0
-					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_results'))]"
+					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_right_results'))]"
 
 					text_single = {
 						size = { 34 24 }
@@ -669,6 +558,21 @@ window = {
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_result_head_area"
+					}
+					text_single = {
+						size = { 78 24 }
+						autoresize = no
+						align = right|vcenter
+						fontsize = 13
+						text = "bag_wtp_right_head_total"
+					}
+					widget = { size = { 10 24 } }
+					text_single = {
+						size = { 118 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_right_head_good"
 					}
 					text_single = {
 						size = { 70 24 }
@@ -707,9 +611,9 @@ window = {
 							margin_right = 20
 							spacing = 3
 							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_results')]"
+							datamodel = "[GetGlobalList('bag_wtp_right_results')]"
 							item = {
-								bag_wtp_result_province_entry = {
+								bag_wtp_right_province_entry = {
 									datacontext = "[Scope.GetLocation]"
 								}
 							}

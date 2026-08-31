@@ -1,4 +1,4 @@
-# How the engine works
+﻿# How the engine works
 
 What EU5 itself gives a mod: where to ask what exists, how a mod is
 laid out, how the interface is put together, and where the numbers live.
@@ -189,7 +189,24 @@ map does not define fails at load, in `error.log`.
 sort **highest first**: vanilla writes `order_by = { value = X multiply = -1 }`
 on the one place it wants the weakest, and pairs `max = N` with
 `check_range_bounds = no` when the list may be shorter than asked for. So
-ranking needs no hand-written sort.
+ranking needs no hand-written sort — but the ranking lasts exactly as far as the
+next `every_*`. An unordered iterator gives no order back, so a list ranked into
+`A` and copied into `B` with `every_in_global_list` reaches an interface in
+whatever order the copy felt like, and a `datamodel` draws its rows in the order
+its list holds them. Every hop is `ordered_*`, or the rank goes onto the item as
+a variable and the last hop sorts on that.
+
+**And nothing sorts on a fraction.** Every `order_by` in the game and in every
+mod in `reference/` ranks on numbers in the thousands — `military_strength`,
+`country_tax_base`, `population`, `pop_size`, or a score assembled out of
+`add = 12000`. A `where_to_produce` ranking whose values ran 0.3000 to 0.3129
+came back in the list's own order, sorted by nothing. Scale before ranking.
+
+**A generic action's `effect` is not in the actor's scope.** Every one of the
+game's five and every one of Advanced Auto Build's forty enters a named scope
+first — `scope:actor` for the country, `scope:<target_flag>` for what was
+clicked. Nothing anywhere relies on the bare scope, and an effect written for a
+country runs there without complaint until it asks for a country variable.
 
 ## Sorting
 

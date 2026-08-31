@@ -1,4 +1,4 @@
-# What to copy out of an EU5 install, and who wants it.
+﻿# What to copy out of an EU5 install, and who wants it.
 #
 # Read by both tools/extract_game_files.py and tools/extract_game_files.ps1, so
 # adding a directory here adds it to both. One path per line, relative to the
@@ -33,3 +33,7 @@ in_game/common/regencies                    # glorpui_hints: scanned, currently 
 in_game/common/disasters                    # glorpui_hints: scanned, currently not listed
 in_game/common/script_values                # glorpui_hints: societal_value_monthly_move and its siblings
 in_game/common/cultures                     # ru_loc_fix: the four culture tooltip repairs it refuses without it
+in_game/common/goods                        # where_to_produce: which goods exist, and which an RGO yields
+in_game/common/production_methods           # where_to_produce: what each method wants and makes
+in_game/common/building_types               # where_to_produce: which methods a building offers, and its category
+in_game/common/town_rights                  # where_to_produce: the goods each urban right favours, and by how much
