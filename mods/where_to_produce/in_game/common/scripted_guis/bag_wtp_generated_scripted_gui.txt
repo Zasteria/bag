@@ -124,7 +124,7 @@ bag_wtp__good_made_on_changed = {
 	}
 }
 
-bag_wtp__right_on_changed = {
+bag_wtp__right_common_on_changed = {
 	scope = country
 
 	is_shown = {
@@ -133,7 +133,22 @@ bag_wtp__right_on_changed = {
 
 	effect = {
 		cmm_apply_list_change = {
-			setting = bag_wtp__right
+			setting = bag_wtp__right_common
+		}
+		bag_wtp_right_changed = yes
+	}
+}
+
+bag_wtp__right_unique_on_changed = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		cmm_apply_list_change = {
+			setting = bag_wtp__right_unique
 		}
 		bag_wtp_right_changed = yes
 	}

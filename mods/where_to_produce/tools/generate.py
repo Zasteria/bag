@@ -845,6 +845,9 @@ def rows_file() -> str:
 \t# datamodel is the only thing that frees a scripted widget's rows.
 \tclear_global_variable_list = {MOD_ID}_ranked
 \tclear_global_variable_list = {MOD_ID}_results
+\t# Both windows' lists, and forgetting the second one is what left the rights
+\t# window drawing rows whose rank had just been taken off them.
+\tclear_global_variable_list = {MOD_ID}_right_results
 }}
 
 # Scope: country
@@ -933,7 +936,9 @@ def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5dat
         bundle = {g: v for g, v in right.output.items() if g in made}
         if bundle:
             keep.append(eu5data.TownRight(key=right.key, output=bundle,
-                                          levels=right.levels, penalty=right.penalty))
+                                          levels=right.levels, penalty=right.penalty,
+                                          advance=right.advance,
+                                          potential=right.potential))
     return keep
 
 
@@ -963,6 +968,13 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     dispatch over 218 methods is far too wide to run per candidate.
     """
     rights = output_rights(rows, game)
+    # Two lists, because the owner asked for two: everybody's nine, which one
+    # age-3 advance unlocks, and the country-specific ones. What makes the split
+    # data rather than opinion is `unlock_town_rights` -- a right the general
+    # advance names is general and anything else is not.
+    kinds = {"common": [r for r in rights if r.general],
+             "unique": [r for r in rights if not r.general]}
+    index_of_right = {r.key: i for i, r in enumerate(rights, start=1)}
     order = [good for kind in ("raw", "made") for good in split[kind]]
     index_of = {good: i for i, good in enumerate(order, start=1)}
     by_good_index: dict[str, list[int]] = {}
@@ -970,33 +982,42 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         by_good_index.setdefault(method.produced, []).append(i)
     slots = range(1, RIGHT_SLOTS + 1)
 
-    out = [HEADER, f"""#
+    out = [HEADER, """#
+# Two lists rather than one: the nine an age-3 advance gives everybody, and the
+# handful that belong to one country or culture. Ticking either is one answer,
+# the way the two goods lists are.
+"""]
+    for kind, group in kinds.items():
+        out.append(f"""
 # Scope: country
-{MOD_ID}_register_right_list = {{
+{MOD_ID}_register_right_{kind}_list = {{
 \tcmm_register_settings_list = {{
 \t\tmod_id = {MOD_ID}
-\t\tsetting_id = right
+\t\tsetting_id = right_{kind}
 \t\ttab_id = {TAB_GOODS}
-\t\titem_count = {len(rights)}
+\t\titem_count = {max(len(group), 1)}
 \t\tis_ordered = 0
 \t}}
 
-"""]
-    for row, right in enumerate(rights, start=1):
-        out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} setting_id = right "
-                   f"item = {row} value = town_rights_type:{right.key} }}\n")
-    out.append("\n")
-    for row, right in enumerate(rights, start=1):
-        out.append(f"\tset_variable = {{ name = {MOD_ID}__right_i{row}_name "
-                   f"value = flag:{MOD_ID}_right_{right.key} }}\n")
-    out.append(f"""
+""")
+        for row, right in enumerate(group, start=1):
+            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
+                       f"setting_id = right_{kind} item = {row} "
+                       f"value = town_rights_type:{right.key} }}\n")
+        out.append("\n")
+        for row, right in enumerate(group, start=1):
+            out.append(f"\tset_variable = {{ name = {MOD_ID}__right_{kind}_i{row}_name "
+                       f"value = flag:{MOD_ID}_right_{right.key} }}\n")
+        out.append(f"""
 \tcmm_register_list_bool_field = {{
 \t\tmod_id = {MOD_ID}
-\t\tsetting_id = right
+\t\tsetting_id = right_{kind}
 \t\tfield_id = pick
 \t\tdefault_value = 0
 \t}}
 }}
+""")
+    out.append(f"""
 
 # Which right is ticked, settled exactly as the good is: a tick that is not the
 # stored answer is the new answer, and nothing ticked at all means the player
@@ -1005,16 +1026,20 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_read_right = {{
 \tset_variable = {{ name = {MOD_ID}_right_new value = 0 }}
 \tset_variable = {{ name = {MOD_ID}_right_ticks value = 0 }}
-\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__right field_slot = 1 list_name = {MOD_ID}_right_ticked }}
+""")
+    for kind, group in kinds.items():
+        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__right_{kind} field_slot = 1 list_name = {MOD_ID}_right_ticked }}
 \tevery_in_list = {{
 \t\tvariable = {MOD_ID}_right_ticked
 \t\troot = {{ change_variable = {{ name = {MOD_ID}_right_ticks add = 1 }} }}
 """)
-    for index, right in enumerate(rights, start=1):
-        out.append(f"\t\tif = {{ limit = {{ this = town_rights_type:{right.key} }} root = {{ "
-                   f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_right_index = {index} }} }} "
-                   f"set_variable = {{ name = {MOD_ID}_right_new value = {index} }} }} }} }}\n")
-    out.append(f"""\t}}
+        for right in group:
+            index = index_of_right[right.key]
+            out.append(f"\t\tif = {{ limit = {{ this = town_rights_type:{right.key} }} root = {{ "
+                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_right_index = {index} }} }} "
+                       f"set_variable = {{ name = {MOD_ID}_right_new value = {index} }} }} }} }}\n")
+        out.append("\t}\n")
+    out.append(f"""
 
 \tif = {{
 \t\tlimit = {{ var:{MOD_ID}_right_new > 0 }}
@@ -1033,30 +1058,45 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_only_one_right = {{
 """)
-    for row in range(1, len(rights) + 1):
-        out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_right_index = {row} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = right field_id = pick item = {row} value = 0 }}
+    for kind, group in kinds.items():
+        for row, right in enumerate(group, start=1):
+            out.append(f"""\tif = {{
+\t\tlimit = {{ NOT = {{ var:{MOD_ID}_right_index = {index_of_right[right.key]} }} }}
+\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = right_{kind} field_id = pick item = {row} value = 0 }}
 \t}}
 """)
     out.append("}\n")
 
     out.append(f"""
-# Hide a right whose every method is still ages away, the same as the goods
-# lists do -- a right that can only disappoint is a row worth not drawing.
+# What this country is offered.
+#
+# The nine general ones stay on the page whatever the age: they are everybody's,
+# one advance away, and this mod is for planning ahead -- hiding them until age
+# three would leave an empty list where the answer belongs. **A unique right is
+# another matter.** Wallachia has no business being shown Constantinople's silk
+# monopoly, and the game already says so: the monopoly carries
+# `potential = {{ OR = {{ has_or_had_tag = BYZ has_or_had_tag = ROM }} }}` and the
+# Scandinavian privileges carry an advance nobody else takes. Both are asked
+# here, and neither is this mod's opinion about who owns what.
 # Scope: country
 {MOD_ID}_refresh_rights = {{
 """)
-    for row, right in enumerate(rights, start=1):
-        avail = " ".join(f"{MOD_ID}_avail_{i} = yes"
-                         for good in sorted(right.output)
-                         for i in by_good_index.get(good, []))
-        out.append(f"""\tif = {{
-\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_any_method {avail} }} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right item = {row} }}
+    for kind, group in kinds.items():
+        for row, right in enumerate(group, start=1):
+            gates = []
+            if right.potential:
+                gates.append(right.potential)
+            if right.advance and not right.general:
+                gates.append(f"has_advance = advance:{right.advance}")
+            shown = ("always = yes" if not gates
+                     else "OR = { has_global_variable = %s_any_method AND = { %s } }"
+                          % (MOD_ID, " ".join(gates)))
+            out.append(f"""\tif = {{
+\t\tlimit = {{ {shown} }}
+\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
 \t}}
 \telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = right item = {row} }}
+\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
 \t}}
 """)
     out.append("}\n")
@@ -1232,10 +1272,16 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_row_taken_locations target = this }}
 \t\t\t}}
 \t\t}}
+\t\t# The winners are parked before the province is judged: «is this ground
+\t\t# worth a row» is a question about the bonuses, and a bonus is not known
+\t\t# until the method that won it is.
 \t\t{MOD_ID}_store_right_row = yes
-\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
-\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
-\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_right_row_is_worth_it = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_found add = 1 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_rank value = global_var:{MOD_ID}_found }}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ranked target = this }}
+\t\t}}
 \t}}
 }}
 """)
@@ -1253,7 +1299,8 @@ def list_settings(by_continent) -> list[tuple[str, str, str]]:
             + [("zone", "continent", f"{MOD_ID}_zone_changed = yes"),
                ("goods", "good_raw", f"{MOD_ID}_good_changed = yes"),
                ("goods", "good_made", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "right", f"{MOD_ID}_right_changed = yes")])
+               ("goods", "right_common", f"{MOD_ID}_right_changed = yes"),
+               ("goods", "right_unique", f"{MOD_ID}_right_changed = yes")])
 
 
 def layout_file(by_continent) -> str:

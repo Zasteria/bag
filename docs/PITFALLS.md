@@ -31,6 +31,15 @@ effect. The symptom was a Mod Menu tab holding only the settings that happened t
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
 
+**`cmf_on_mod_registration` fires every time the mod page is opened.** Not on a
+new game, a save load and a country transfer only, whatever it reads like:
+`where_to_produce`'s registration ended with a `clear_rows`, and the result the
+player had just computed was gone by the time he reached the button that
+reopens it — the counters beside it zeroed, the rank taken off every row, and
+the rows themselves left on screen because the newer of the two windows' lists
+had been forgotten in that same `clear_rows`. Registration is for making things
+exist. Anything it destroys, it destroys on a schedule nobody chose.
+
 **A trigger's conditional is `trigger_if`, and nothing else is.** `if` is an
 *effect* in the engine's own dump and `else_if` is not in it at all. Written
 inside `common/scripted_triggers/` they log `Unknown trigger type: else_if` once

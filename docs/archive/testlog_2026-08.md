@@ -1022,3 +1022,44 @@ remaining fault was lying.** Three screenshots, no logs. `books`, region
   «Считать», with the selection untouched. `bag_wtp_rebuild_browse` only ran
   where a pick happened; it runs in the pass now. Not diagnosed further — the
   browse list has had no other reader since the selection window was deleted.
+
+### 2026-08-31 — `where_to_produce`, fourteenth load. The filter works and the
+offer to defeat it was the litter.** Owner: «Хвосты ушли… Хотя я абсолютно не
+понимаю нахера вообще есть возможность смотреть на эти пустые хвосты — выглядит
+как просто мусорная часть мода.» The tick is gone; the one case it protected —
+a method that wants no raw material and so can earn no bonus anywhere — is a
+branch in `bag_wtp_row_is_worth_it` and needs no setting.
+
+**`mods.bat → 2` does not re-extract the game.** «Ничего нового там не было,
+только копирование модов в плейсет и референс.» Adding a folder to
+`tools/game_files_manifest.txt` is therefore not enough to get it into
+`reference/`, and the owner copied `common/town_rights` in by hand instead.
+Which menu entry runs `extract_game_files` — and whether one exists — is the
+open question; the manifest entries for `goods`, `production_methods`,
+`building_types` and `town_rights` are right either way, since without them the
+next real extraction would have deleted three folders `where_to_produce`
+compiles from.
+
+**2026-08-30 — `where_to_produce`, thirteenth load. It works.** Owner: «В целом
+вроде как всё починилось, что мне нужно было. Я выбирал области — всё
+обновлялось сразу же.» Two screenshots.
+
+- **The ranking sorts and the pick re-ranks.** «Обошёл 127 · нашёл 19 ·
+  пересчётов 3» and again at 10, the areas following each pick, and the «№»
+  column running 1…19 with the bonus falling down it. Both of the twelfth run's
+  faults are closed: `order_by` sorts once the values are in the thousands, and
+  the pass reaches the country from a generic action.
+- **The two-line row reads**, first time it has been judged: «Гильдия
+  ружейников: Кузнецы-клиночники ×1.00» at 2.37% over «Лесная деревня: Сельский
+  оружейник ×0.20» at 10.00%, with the goods icons beside their `1/2` and `1/1`.
+  Which also settles the ninth run's question: **the village is no longer at the
+  top of a weapons search** — 0.22 effective against the guild's 1.0237 — and it
+  is on the row where it belongs rather than above it.
+- **The tail of 0.00% rows is noise.** Nineteen provinces found, and the ones
+  after about ten were all «0.00% … ×0.30 … 0/2» — the same building at the same
+  output as the rows above, supplying none of its raw materials. Filtered now,
+  with a tick on the Answer tab to bring them back, and shown regardless when
+  the winning method wants no raw material at all.
+- **The mod page is a page to scroll.** Seven region lists and two goods lists,
+  all unfolded. They are folded once now, the first time a player sees the page,
+  and his own folding is his after that.

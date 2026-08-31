@@ -31,6 +31,35 @@ what actually appeared.
 
 ## Runs
 
+**2026-08-31 — `where_to_produce`, sixteenth load. The rights window works, and
+one screenshot carried three faults at once.** «Вроде как работает… выглядит
+наглядно и понятно.» The bundle rows read: three goods, each with its own
+method, bonus and materials, «Ценность» ranking them.
+
+- **«Обошёл 127 · нашёл 0 · пересчётов 3», «в 0 пров.», and «№» reading 0 on
+  every row — with rows on screen.** All one cause: `bag_wtp_register` ended
+  with `bag_wtp_drop_browse` and `bag_wtp_clear_rows`, and **CMF's registration
+  hook fires again every time the mod page is opened**. Opening the menu wiped
+  the answer, zeroed the counters and took the rank off every location. The
+  owner had already described the symptom without connecting it: «если закрыть
+  окно cmm и открыть мод заново — расчёт сбросится». Registration touches
+  nothing now.
+- **The rows survived that wipe because `bag_wtp_clear_rows` did not know about
+  `bag_wtp_right_results`** — a second window's list added and not added to the
+  one effect that empties them. Hence a table of rows whose rank had just been
+  removed.
+- **A province at 0.00% on all three goods, «0/2» three times.** The good pass
+  has filtered those since the fourteenth run; the rights pass had no equivalent
+  and `var:bag_wtp_r_total > 0` is true of any province where the bundle can be
+  made at all. `bag_wtp_right_row_is_worth_it` now asks the bundle's bonuses.
+- **And the rights list wanted splitting.** «Мне за валахию не особо то надо
+  видеть монополию константинополя.» Two lists now, and the split is the game's
+  data rather than an opinion: a right `town_rights_enable` unlocks is general
+  (nine of them), anything else is unique. A unique right is offered only where
+  the game's own condition passes — the silk monopoly carries
+  `potential = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }` and the
+  Scandinavian privileges carry an advance nobody else takes.
+
 **2026-08-31 — `where_to_produce`, fifteenth load. The rights window never
 loaded, and the logs named both faults at once.** A right ticked, Карпаты
 ticked, «Считать» pressed, nothing on screen. Logs supplied — first time this
@@ -59,48 +88,7 @@ other way.
   `refresh.py`: a doubled byte order mark and an effect's `if` inside
   `common/scripted_triggers/` are each one regex, and each cost a run.
 
-**2026-08-31 — `where_to_produce`, fourteenth load. The filter works and the
-offer to defeat it was the litter.** Owner: «Хвосты ушли… Хотя я абсолютно не
-понимаю нахера вообще есть возможность смотреть на эти пустые хвосты — выглядит
-как просто мусорная часть мода.» The tick is gone; the one case it protected —
-a method that wants no raw material and so can earn no bonus anywhere — is a
-branch in `bag_wtp_row_is_worth_it` and needs no setting.
-
-**`mods.bat → 2` does not re-extract the game.** «Ничего нового там не было,
-только копирование модов в плейсет и референс.» Adding a folder to
-`tools/game_files_manifest.txt` is therefore not enough to get it into
-`reference/`, and the owner copied `common/town_rights` in by hand instead.
-Which menu entry runs `extract_game_files` — and whether one exists — is the
-open question; the manifest entries for `goods`, `production_methods`,
-`building_types` and `town_rights` are right either way, since without them the
-next real extraction would have deleted three folders `where_to_produce`
-compiles from.
-
-**2026-08-30 — `where_to_produce`, thirteenth load. It works.** Owner: «В целом
-вроде как всё починилось, что мне нужно было. Я выбирал области — всё
-обновлялось сразу же.» Two screenshots.
-
-- **The ranking sorts and the pick re-ranks.** «Обошёл 127 · нашёл 19 ·
-  пересчётов 3» and again at 10, the areas following each pick, and the «№»
-  column running 1…19 with the bonus falling down it. Both of the twelfth run's
-  faults are closed: `order_by` sorts once the values are in the thousands, and
-  the pass reaches the country from a generic action.
-- **The two-line row reads**, first time it has been judged: «Гильдия
-  ружейников: Кузнецы-клиночники ×1.00» at 2.37% over «Лесная деревня: Сельский
-  оружейник ×0.20» at 10.00%, with the goods icons beside their `1/2` and `1/1`.
-  Which also settles the ninth run's question: **the village is no longer at the
-  top of a weapons search** — 0.22 effective against the guild's 1.0237 — and it
-  is on the row where it belongs rather than above it.
-- **The tail of 0.00% rows is noise.** Nineteen provinces found, and the ones
-  after about ten were all «0.00% … ×0.30 … 0/2» — the same building at the same
-  output as the rows above, supplying none of its raw materials. Filtered now,
-  with a tick on the Answer tab to bring them back, and shown regardless when
-  the winning method wants no raw material at all.
-- **The mod page is a page to scroll.** Seven region lists and two goods lists,
-  all unfolded. They are folded once now, the first time a player sees the page,
-  and his own folding is his after that.
-
-Everything before 2026-08-29, and `where_to_produce`'s first twelve loads — the
+Everything before 2026-08-29, and `where_to_produce`'s first fourteen loads — the
 map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
 turned the mod from asking for a method into finding one, and the four that
 confirmed the scoring, the tabs, the results window and whole provinces — is in
@@ -252,22 +240,21 @@ this feature the first time.
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, sixteenth load — the urban rights, second attempt.** The
-window that did not parse is one byte lighter and the trigger that never
-filtered is written the way a trigger is written.
+**`where_to_produce`, seventeenth load — the counters should stop lying.**
 
-1. **The rights window draws.** Tick a right on the Goods tab — twelve rows,
-   iconed by the first good of the bundle — then «Считать», and «Где производить
-   — городские права» opens instead of the usual one.
-2. **A row is the bundle**: one line per good, each with good, bonus, building
-   and method, and «Ценность» on the left, which is what the rows are ranked on.
-   One-good rights draw one line and three-good rights draw three.
-3. **A pick still re-ranks**, and «№» still runs 1, 2, 3 down the window.
+1. **Open the mod page with a result already computed.** «Обошёл · нашёл ·
+   пересчётов» keeps its numbers, «Выбрано» keeps its provinces, and «Открыть»
+   reopens the table with its «№» column intact. That is the whole of the
+   registration fix, and every one of those was zero before it.
+2. **Two rights lists**, «Городские права» with nine and «Уникальные права»
+   which for Wallachia should be **empty** — three exist and all three belong to
+   somebody else.
+3. **No 0.00%-on-everything province** at the bottom of a rights table.
 4. **«Только там, где можно построить сегодня» filters something**, for the
-   first time in the mod's life. Tick it with a good chosen and the province
-   count should fall.
-5. Carried over, still never judged: the pickers folding shut on first sight of
-   the mod page, and the age filter.
+   first time in the mod's life: tick it with a good chosen and «нашёл» should
+   fall. Off is the planning mode — ground you do not hold yet.
+5. Carried over, never judged: the pickers folding shut on first sight of the
+   mod page, and the age filter.
 
 **The panel-open bisect — five minutes, no log to read.** Reported 2026-08-25:
 any tab opens instantly in vanilla and with a hitch, sometimes a freeze, under

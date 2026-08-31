@@ -19,6 +19,9 @@ bag_wtp_clear_rows = {
 	# datamodel is the only thing that frees a scripted widget's rows.
 	clear_global_variable_list = bag_wtp_ranked
 	clear_global_variable_list = bag_wtp_results
+	# Both windows' lists, and forgetting the second one is what left the rights
+	# window drawing rows whose rank had just been taken off them.
+	clear_global_variable_list = bag_wtp_right_results
 }
 
 # Scope: country

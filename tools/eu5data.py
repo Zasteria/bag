@@ -165,6 +165,18 @@ class TownRight:
     output: dict[str, float] = field(default_factory=dict)
     levels: dict[str, float] = field(default_factory=dict)
     penalty: bool = False
+    # The advance that unlocks it, from `unlock_town_rights` in `common/advances`,
+    # and the country condition the right carries itself. Both are how a right
+    # that is somebody else's is kept off this country's list: Constantinople's
+    # silk monopoly says `has_or_had_tag = BYZ`, and the Scandinavian privileges
+    # say nothing but come from an advance only a Scandinavian takes.
+    advance: str = ""
+    potential: str = ""
+
+    @property
+    def general(self) -> bool:
+        """Everybody's, eventually: the nine that one age-3 advance unlocks."""
+        return self.advance == "town_rights_enable"
 
 
 @dataclass
@@ -251,7 +263,53 @@ def _goods(goods_dir: Path) -> tuple[set[str], set[str], dict[str, float]]:
     return every, raw, price
 
 
-def _town_rights(rights_dir: Path) -> list[TownRight]:
+def _raw_potentials(rights_dir: Path) -> dict[str, str]:
+    """Each right's `potential` block, as text, to be re-emitted verbatim.
+
+    The loader turns a file into a structure, and what is wanted here is the
+    trigger exactly as the game wrote it -- `OR = { has_or_had_tag = BYZ ... }`
+    goes straight into a scripted trigger of ours. `potential` is country
+    scoped, per `town_rights/readme.txt`, which is what makes that safe.
+    """
+    import re as _re
+    out: dict[str, str] = {}
+    if not rights_dir.is_dir():
+        return out
+    for path in sorted(rights_dir.glob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig")
+        for match in _re.finditer(r"^(\w+)\s*=\s*\{", text, _re.M):
+            depth, i = 0, match.end() - 1
+            while i < len(text):
+                depth += (text[i] == "{") - (text[i] == "}")
+                if depth == 0 and text[i] == "}":
+                    break
+                i += 1
+            body = text[match.end():i]
+            block = _re.search(r"potential\s*=\s*\{", body)
+            if not block:
+                continue
+            depth, j = 0, block.end() - 1
+            while j < len(body):
+                depth += (body[j] == "{") - (body[j] == "}")
+                if depth == 0 and body[j] == "}":
+                    break
+                j += 1
+            out[match.group(1)] = " ".join(body[block.end():j].split())
+    return out
+
+
+def _unlocked_by(advances_dir: Path) -> dict[str, str]:
+    """Which advance unlocks each town right, by `unlock_town_rights`."""
+    out: dict[str, str] = {}
+    if not advances_dir.is_dir():
+        return out
+    for name, entries in load_dir(advances_dir).items():
+        for right in find(entries, "unlock_town_rights"):
+            out.setdefault(str(right), name)
+    return out
+
+
+def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
     """Every urban right, with the goods it raises and the levels it grants.
 
     Read from the game rather than from `town_rights_l_english.yml`, which names
@@ -260,9 +318,12 @@ def _town_rights(rights_dir: Path) -> list[TownRight]:
     """
     if not rights_dir.is_dir():
         return []
+    unlocked = _unlocked_by(advances_dir)
+    potentials = _raw_potentials(rights_dir)
     out: list[TownRight] = []
     for name, entries in load_dir(rights_dir).items():
-        right = TownRight(key=name)
+        right = TownRight(key=name, advance=unlocked.get(name, ""),
+                          potential=potentials.get(name, ""))
         for block in find(entries, "location_modifier"):
             for key, value in block:
                 if key is None or not isinstance(value, str):
@@ -321,4 +382,5 @@ def load_game(common: Path | None = None) -> Game:
                 inputs=_inputs(body, goods),
             ))
     return Game(raw_goods=raw, methods=methods, all_goods=goods, prices=price,
-                town_rights=_town_rights(common / "town_rights"))
+                town_rights=_town_rights(common / "town_rights",
+                                         common / "advances"))
