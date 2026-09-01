@@ -25,19 +25,20 @@ no «По пути» column. A right's gate is its own `potential`, never `has_a
 Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
-**Four pickers, and the market one names its own candidates**: only what
-`interaction_source_list` holds is clickable, so `bag_wtp_select_market` fills it
-from `every_market_in_world` (`docs/SETTLED.md`).
+**Four pickers**, and only what `interaction_source_list` holds is clickable
+(`docs/SETTLED.md`).
 
-**The whole-map plan is decided per location**, in six steps written out on its
-own button and in the investigation. **An entry is a building and a location
-holds one of each** — but the next location may take that building on another
-method, which is how four villages split a market village's four recipes.
-**Every building is one `can_build_building` allows there** (terrain, rank,
-`location_potential`; never an advance, so it holds for unowned ground and for
-the endgame). **The two sides are the building's own rank gates**, not
-`village_category`. **A right is all or nothing**, and a town's. **The scarce go
-first**: sweeps run in tiers of how few locations could host a good.
+**The whole-map plan is decided per location**, in six steps on its own button.
+**Read [`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+before changing any of it** — the owner stopped the iterating on 2026-09-01 and
+that file is the specification he wants agreed first, with four questions only he
+can answer. **An entry is a building and a location holds
+one of each**; the next location may take that building on another method.
+**Every building is one `can_build_building` allows there** — terrain, rank,
+`location_potential`, never an advance. **The sides are the building's own rank
+gates**, not `village_category`. **A right is all or nothing**, and a town's.
+**The scarce go first**, in sweep tiers — each with its own budget, which one
+load spent for all six.
 Urban rights take a town list whole, chosen per province. Every condition is a
 location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
 **The expensive button** — 241 recipes a location. All of it in

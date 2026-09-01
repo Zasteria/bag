@@ -38,6 +38,41 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-third load. The sweep guard ate the
+plan, and the owner called a halt to iterating.** Three screenshots, Westphalia,
+caps 3/3, rights on; and the ranking checked separately on stone.
+
+- **«Локаций 48 (городских 7) · провинций 8 · мест 144 · товаров 27 · прав
+  выдано 1 · зданий 28 в 20 локациях · лимиты 3/3 · кругов 12».** Twenty-eight
+  buildings out of a hundred and forty-four places, most locations holding one
+  thing, whole provinces cut short.
+- **«Кругов 12» is the diagnosis and it is in the line.** `PLAN_ROUNDS` is 12 and
+  the sweep counter was **one counter shared by all six scarcity tiers**, so the
+  scarce tiers spent the budget and the last tier — the one that fills the ground
+  — never ran. Each tier has its own budget now.
+- **The ranking's buildability gate works and is visibly right.** Stone in
+  Westphalia: the wholly flat province is gone, and Sauerland stayed with 3.72%.
+  **But Sauerland has seven locations and one of them is flat**, and the row said
+  nothing about that: «мне должно предлагаться конкретнее место». A row prints
+  `n/m` now — how many of the province's locations can hold the winning building
+  — counted for free off the winners the scoring pass already wrote.
+- **«Обошёл 48 · нашёл 1»** for stone across the whole of Westphalia. One
+  province. That is the gate being strict, and it is worth knowing whether it is
+  too strict before anything else is built on top of it.
+- **Only one urban right granted** (tools, in Münster). All-or-nothing plus
+  buildability is a hard filter and Westphalia is a poor ground for bundles, but
+  whether that is right or too strict is not settled.
+- **The picker says «48 лок. в 31 пров.» and the plan says «провинций 8».** They
+  count different things — the picker counts `province`, the owner-split piece,
+  and the plan counts `province_definition` — and neither label says so.
+- **The plan's icons ran together.** 26-wide cells at 2 spacing; 32 at 6 now.
+- **And the owner's instruction:** «Мне кажется нам нужно сначала вывести точную и
+  доходчивую формулу приоритетов и выгоды постройки производства, нежели вот так
+  вот долбить всё туда-сюда.» No more counters, no more rounds of guessing —
+  agree the formula first. It is written out in
+  [`investigations/plan_formula.md`](investigations/plan_formula.md) and that
+  document is the next session's first move.
+
 **2026-09-01 — `where_to_produce`, thirty-second load. The buildability gate
 holds, and the owner took the model apart one level further.** Two screenshots,
 Westphalia, 48 locations, caps 3/3.
@@ -178,35 +213,6 @@ Wallachia and more, with logs.
   since choosing ground meant opening the other window and coming back; and a
   better name for «не больше стольких провинций на товар», which read as «не
   больше сельских».
-
-**2026-09-01 — `where_to_produce`, twenty-eighth load. The whole-map plan runs,
-and the owner's verdict is «получилось даже более менее сносно, я ожидал большой
-лажи».** Three screenshots, Wallachia, caps 3/3.
-
-- **The pass survives a button press and nothing was reported slow.** 44
-  locations, 132 rooms, **30 of the 47 goods makeable on that ground**, 90
-  buildings in 31 locations at 3 per good. The window drew, the counters read,
-  the map mode painted. Everything built on 2026-09-01 is now loaded except the
-  «Открыть» button and the caps at anything but 3.
-- **The per-good number was the binding constraint, not the caps.** Raising the
-  urban cap 3 → 5 changed nothing; raising «зданий на товар» to 10 filled the
-  ground exactly — **132 buildings in all 44 locations**. So the caps were never
-  reached and the ceiling the plan actually ran into was its own rounds.
-- **Locations were left empty at 3 per good**, 13 of the 44, and the owner's
-  ruling is that **no location in the plan's ground should ever be left empty**:
-  what a displaced building leaves behind is exactly what should cascade into the
-  poorer ground.
-- **And the one-good-per-province rule was the wrong rule.** It was built to
-  spread a good across provinces; the owner plays the opposite way — «вся
-  сельская местность в одной провинции в большинстве случаев получит линейку
-  домиков одинаковую», a province specialises and its locations repeat it. He
-  read the scatter on the screenshot as a fault before realising the rows were
-  grouped: what he expected under Западная Мунтения was «ряд почти одинаковых
-  товаров». The rule is inverted rather than tuned — see
-  [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
-- **Asked for besides:** urban rights in the plan, with first pick of the ground
-  and a switch to leave them out.
-- No logs asked for and none needed: nothing did nothing.
 
 ## Waiting on a run
 

@@ -72,7 +72,15 @@ wording decides something.
   second-strongest excluding the first). So "this good's best free location" is
   one engine-side sort, not a walk.
 
-## The design, as the thirty-second run left it
+## Read the formula first
+
+**[`plan_formula.md`](plan_formula.md) is what a building is worth and who gets
+the ground first**, written on 2026-09-01 when the owner called a halt to
+iterating: «нам нужно сначала вывести точную и доходчивую формулу приоритетов и
+выгоды». Agree it with him before writing another line of the allocation. This
+file is how the thing is put together; that one is what it is trying to do.
+
+## The design, as the thirty-third run left it
 
 Marked where it is a proposal of ours rather than his answer. The six steps in
 order, which is also what the «План» button's tooltip says:

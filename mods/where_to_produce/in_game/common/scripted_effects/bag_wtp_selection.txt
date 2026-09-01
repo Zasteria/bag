@@ -329,6 +329,10 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_tier } }
 		set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_tsweeps } }
+		set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	}
 	# `bag_wtp_found` is the ranking's, and it was never initialised: the results
 	# window's summary reads it through `bag_wtp_show_found`, and with no run yet
 	# the log carried «Value of wrong type in 'bag_wtp_show_found:0'» once a frame

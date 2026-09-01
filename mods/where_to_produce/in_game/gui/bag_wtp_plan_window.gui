@@ -24,7 +24,7 @@ types BagWtpPlanTypes {
 	# without anything linking them. A row of forty-seven possible goods has no
 	# space for words, so both names are tooltips.
 	type bag_wtp_plan_goods_entry = widget {
-		size = { 26 20 }
+		size = { 32 20 }
 		text_single = {
 			parentanchor = center
 			autoresize = yes
@@ -39,7 +39,7 @@ types BagWtpPlanTypes {
 	# `alertmanager.gui` -- so an `icon` with `texture = "[...GetIcon]"` draws
 	# nothing at all, which is what the thirty-second load showed.
 	type bag_wtp_plan_building_entry = widget {
-		size = { 26 20 }
+		size = { 32 20 }
 		text_single = {
 			parentanchor = center
 			autoresize = yes
@@ -224,7 +224,7 @@ types BagWtpPlanTypes {
 				spacing = 0
 
 				hbox = {
-					spacing = 2
+					spacing = 6
 					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_goods')]"
 					item = {
 						bag_wtp_plan_goods_entry = {
@@ -234,7 +234,7 @@ types BagWtpPlanTypes {
 				}
 
 				hbox = {
-					spacing = 2
+					spacing = 6
 					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_builds')]"
 					item = {
 						bag_wtp_plan_building_entry = {

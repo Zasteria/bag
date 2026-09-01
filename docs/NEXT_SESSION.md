@@ -42,25 +42,28 @@ one alignment question is open in `TESTLOG.md` and nothing else is.
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**The whole-map plan is the job, and the whole of it is
-[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md), whose
-design section is now the six steps the «План» button also prints.** Five loads
-in. The thirty-second confirmed the buildability gate and turned over two more
-rules, both his: **uniqueness is per location, not per province** — a market
-village makes four things, so four villages of a province may take one each —
-and **a good only one place can hold must take it first**, which is now scarcity
-tiers over the sweeps. The province lists are gone; the plan decides per location
-and a province looks coherent only where it deserves to.
+**The whole-map plan is the job, and the next session's first move is
+[`investigations/plan_formula.md`](investigations/plan_formula.md) — not code.**
+The owner stopped the iterating himself on 2026-09-01, after six loads: «нам
+нужно сначала вывести точную и доходчивую формулу приоритетов и выгоды
+постройки производства, нежели вот так вот долбить всё туда-сюда». That file is
+the specification — what one building in one location is worth, what the ground
+can hold, and who claims it first — with four questions at the end that are his
+alone. **Put those four to him and settle them before touching the allocation.**
+[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md) is how the
+thing is built; the formula is what it is for.
 
-**The ranking beside the plan was cheating the same way** and now is not: a stone
-quarry on flat ground was offered because the province works wood.
-`can_build_building` gates all three of its ages.
+**And he asked for no more counters until it works.**
 
-**Nothing since the thirty-second load has been loaded.** Ask for one press and
-read: whether a village's neighbours now differ where the ground is tight,
-whether the building icons draw at all (they were a `texture` and should have
-been `raw_text` — a building icon is a texticon), and what «прав выдано» says,
-since Westphalia legitimately supports no whole bundle.
+**Six loads in, and the thirty-third found the guard eating the plan**: one sweep
+counter shared by all six scarcity tiers, so the last tier — the one that fills
+the ground — never ran, and twenty-eight buildings landed in a hundred and
+forty-four places. Fixed, unloaded, and worth one press before any design work:
+it is the difference between «план почти пуст» and a plan.
+
+Also unloaded: the `n/m` on a ranking row — how many of a province's locations
+can hold the winning building, his Sauerland question — and the plan's icons
+given room to breathe.
 
 Not built on purpose: **the demand knob** — «я выбираю товар и щёлкаю +1» — which
 under the province model is a floor in provinces, one CMF numeric field and one

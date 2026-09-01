@@ -1678,11 +1678,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for tier in PLAN_TIERS:
         out.append(f"""\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = {tier} }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
+\t# **The guard is per tier and not across them.** It was one counter for all
+\t# {len(PLAN_TIERS)} of them for one load, and the thirty-third run spent it on the scarce
+\t# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+\t# and forty-four places, most locations holding one thing. The last tier --
+\t# the one that fills the ground -- never ran at all.
+\tset_global_variable = {{ name = {MOD_ID}_plan_tsweeps value = 0 }}
 \twhile = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_plan_go = 1
-\t\t\tglobal_var:{MOD_ID}_plan_sweeps < {PLAN_ROUNDS}
+\t\t\tglobal_var:{MOD_ID}_plan_tsweeps < {PLAN_ROUNDS}
 \t\t}}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_tsweeps add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_sweeps add = 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_added value = 0 }}
 """)
@@ -1935,6 +1942,40 @@ def rows_file() -> str:
 \t\telse = {{
 \t\t\tremove_variable = {MOD_ID}_row_end
 \t\t}}
+\t\t# **How many of the province's locations can actually hold this answer.**
+\t\t# Every location of a province scores the same -- the bonus is the whole
+\t\t# province's -- but they do not all pass `can_build_building`: the owner
+\t\t# found a quarry offered for Sauerland where one of its seven locations is
+\t\t# flat. The scoring pass has already asked that question of every
+\t\t# candidate, so the count is free: the locations whose own winner is the
+\t\t# same method as this row's are the ones the building may stand in.
+\t\tset_global_variable = {{ name = {MOD_ID}_fit_method value = var:{MOD_ID}_best_method }}
+\t\tset_global_variable = {{ name = {MOD_ID}_fit_method_rural value = var:{MOD_ID}_best_method_rural }}
+\t\tset_global_variable = {{ name = {MOD_ID}_fit_n value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_fit_all value = 0 }}
+\t\tprovince_definition = {{
+\t\t\tevery_location_in_province_definition = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_best_method }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_fit_all add = 1 }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tOR = {{
+\t\t\t\t\t\t\tAND = {{
+\t\t\t\t\t\t\t\tglobal_var:{MOD_ID}_fit_method > 0
+\t\t\t\t\t\t\t\tvar:{MOD_ID}_best_method = global_var:{MOD_ID}_fit_method
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\tAND = {{
+\t\t\t\t\t\t\t\tglobal_var:{MOD_ID}_fit_method_rural > 0
+\t\t\t\t\t\t\t\tvar:{MOD_ID}_best_method_rural = global_var:{MOD_ID}_fit_method_rural
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t}}
+\t\t\t\t\t}}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_fit_n add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_fit value = global_var:{MOD_ID}_fit_n }}
+\t\tset_variable = {{ name = {MOD_ID}_fit_of value = global_var:{MOD_ID}_fit_all }}
 \t\t{MOD_ID}_store_winner_now_town = yes
 \t\t{MOD_ID}_store_winner_now_rural = yes
 \t\t{MOD_ID}_store_winner_mid_town = yes

@@ -1,4 +1,4 @@
-﻿# Test log — runs before 2026-09
+﻿# Test log — the runs before the plan settled
 
 Archived out of [`../TESTLOG.md`](../TESTLOG.md) so the live log stays the size
 of a thing a session can afford to read. Nothing here is superseded; it is
@@ -1595,3 +1595,32 @@ and it is drawn on the map after all.** One screenshot, fine cloth, «На ко�
   of the file, the header and the row are identical column for column, so this is
   not a width. What is left is a constant inset the rows have and the header does
   not, and `margin_left` is the one number that moves it.
+
+**2026-09-01 — `where_to_produce`, twenty-eighth load. The whole-map plan runs,
+and the owner's verdict is «получилось даже более менее сносно, я ожидал большой
+лажи».** Three screenshots, Wallachia, caps 3/3.
+
+- **The pass survives a button press and nothing was reported slow.** 44
+  locations, 132 rooms, **30 of the 47 goods makeable on that ground**, 90
+  buildings in 31 locations at 3 per good. The window drew, the counters read,
+  the map mode painted. Everything built on 2026-09-01 is now loaded except the
+  «Открыть» button and the caps at anything but 3.
+- **The per-good number was the binding constraint, not the caps.** Raising the
+  urban cap 3 → 5 changed nothing; raising «зданий на товар» to 10 filled the
+  ground exactly — **132 buildings in all 44 locations**. So the caps were never
+  reached and the ceiling the plan actually ran into was its own rounds.
+- **Locations were left empty at 3 per good**, 13 of the 44, and the owner's
+  ruling is that **no location in the plan's ground should ever be left empty**:
+  what a displaced building leaves behind is exactly what should cascade into the
+  poorer ground.
+- **And the one-good-per-province rule was the wrong rule.** It was built to
+  spread a good across provinces; the owner plays the opposite way — «вся
+  сельская местность в одной провинции в большинстве случаев получит линейку
+  домиков одинаковую», a province specialises and its locations repeat it. He
+  read the scatter on the screenshot as a fault before realising the rows were
+  grouped: what he expected under Западная Мунтения was «ряд почти одинаковых
+  товаров». The rule is inverted rather than tuned — see
+  [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
+- **Asked for besides:** urban rights in the plan, with first pick of the ground
+  and a switch to leave them out.
+- No logs asked for and none needed: nothing did nothing.

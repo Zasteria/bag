@@ -5505,11 +5505,18 @@ bag_wtp_plan_place_rights = {
 bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes
@@ -5566,11 +5573,18 @@ bag_wtp_plan_allocate = {
 	}
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes
@@ -5627,11 +5641,18 @@ bag_wtp_plan_allocate = {
 	}
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes
@@ -5688,11 +5709,18 @@ bag_wtp_plan_allocate = {
 	}
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes
@@ -5749,11 +5777,18 @@ bag_wtp_plan_allocate = {
 	}
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes
@@ -5810,11 +5845,18 @@ bag_wtp_plan_allocate = {
 	}
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
 	while = {
 		limit = {
 			global_var:bag_wtp_plan_go = 1
-			global_var:bag_wtp_plan_sweeps < 12
+			global_var:bag_wtp_plan_tsweeps < 12
 		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
 		bag_wtp_plan_pick_1 = yes

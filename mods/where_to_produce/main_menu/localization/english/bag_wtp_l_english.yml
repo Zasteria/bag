@@ -261,3 +261,6 @@
  bag_wtp__plan_run_end_name: "Plan the whole map for the end of the game"
  bag_wtp__plan_run_end_text: "For the end"
  bag_wtp__plan_run_end_desc: "The same plan, made out of the buildings that stand once every advance is in, rather than the ones you could put up today.\n\nThis is the button a plan actually wants. Along the game's ladder — guild, workshop, manufactory, mill — a recipe's *inputs* move and not merely its output, so for a third of the goods the province that suits the guild is not the one that suits the mill. A plan you build once and never rebuild should be made for the end.\n\n«Re-plan» in the window keeps whichever of the two you last pressed."
+ bag_wtp_result_head_fit: "Fits"
+ bag_wtp_result_fit_value: "[Location.MakeScope.GetVariable('bag_wtp_fit').GetValue|0]/[Location.MakeScope.GetVariable('bag_wtp_fit_of').GetValue|0]"
+ bag_wtp_result_fit_tt: "How many of this province's locations can actually hold the building above, out of how many were looked at.\n\nEvery location of a province is worth the same to a good — the bonus is counted over the whole province — but they are not interchangeable: the game's own «can this be built here» asks the terrain, the rank and whatever else the building requires. Sauerland has seven locations and one of them is flat, so a quarry answers for six of them.\n\nOpen the row to see which."
