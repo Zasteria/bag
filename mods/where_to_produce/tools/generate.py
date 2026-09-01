@@ -107,6 +107,12 @@ PLAN_ROWS = 150
 # in the whole ground takes it before a good with forty gets its second, which is
 # the owner's «жёстко зарезервировать слоты». 0 is the last tier and means
 # everything.
+# What a building the ground does not feed is worth against one it does. The
+# bonus itself is only a ten per cent band, so a penalty has to be an outright
+# divisor rather than a difference in bonus: the owner wants the unfed case
+# minimised, not forbidden.
+UNFED_PENALTY = 2
+
 PLAN_TIERS = (1, 2, 4, 8, 16, 0)
 
 # The pass after all of them, with the quota lifted rather than a candidate count
@@ -1140,7 +1146,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             for suffix in ("", "_rural"):
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = 0 }}\n")
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = 0 }}\n")
-        for prefix in ("pnow", "pend"):
+        for prefix in ("pnow", "pend", "pnowany", "pendany"):
             for side, _ in PLAN_SIDES:
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{side} value = 0 }}\n")
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{side} value = 0 }}\n")
@@ -1166,9 +1172,21 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 out.append(keep("\t\t", "end_any_", suffix, method_index, None, stands))
             # The plan's endgame side needs no availability: it is what stands
             # once every advance is in.
+            # **The plan keeps an unfloored twin of each side and the ranking
+            # does not.** `fed_floor` is right for an answer to «where should I
+            # make wine» and wrong for «fill this ground»: the owner settled it
+            # on 2026-09-01 -- «бонус от рго это приоритет, а не железное
+            # правило, без которого в локации домика существовать не может».
+            # A location no RGO helps still has to be filled, and a right's
+            # bundle goes up whether the ground feeds it or not.
+            #
+            # The floored answer is still what wins wherever there is one, so
+            # the twenty-fifth run's silk weaver in a wool province stays
+            # buried: the twin is a fallback, never a rival.
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where) and method_index in last:
                     out.append(keep("\t\t", "pend", side, method_index, floor, stands))
+                    out.append(keep("\t\t", "pendany", side, method_index, None, stands))
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
@@ -1177,6 +1195,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where):
                     out.append(keep("\t\t\t", "pnow", side, method_index, floor, stands))
+                    out.append(keep("\t\t\t", "pnowany", side, method_index, None, stands))
             out.append("\t\t}\n")
         out.append("\t}\n}\n")
 
@@ -1610,12 +1629,42 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendbest_method_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendbest_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
+\t\t\t# **Nothing the ground feeds: take the recipe it does not.** A location
+\t\t\t# no RGO helps still has to be filled, and a granted right's bundle goes
+\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01. The
+\t\t\t# fallback is divided by {UNFED_PENALTY} so that it is genuinely last in the
+\t\t\t# queue: everything the ground earns is placed before anything it does
+\t\t\t# not, which is «свести к минимуму» rather than forbid.
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_p{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanybest_t }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendanybest_method_t }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_pr{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanybest_r }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendanybest_method_r }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
+\t\t\t}}
 \t\t}}
 \t\telse = {{
 \t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowbest_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowbest_method_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowbest_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowbest_method_r }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_p{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanybest_t }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowanybest_method_t }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_pr{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanybest_r }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowanybest_method_r }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
+\t\t\t}}
 \t\t}}
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}

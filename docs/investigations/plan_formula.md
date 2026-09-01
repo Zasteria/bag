@@ -55,11 +55,14 @@ For a good `g` in a candidate location `L`, in the province `P` that holds `L`:
 
 ```
 admissible(g, L)  =  can_build_building(best method's building, L)
-                  ∧  bonus ≥ fed_floor(method)
                   ∧  L does not already hold that building type
                   ∧  load(L) < cap(L)
 
-worth(g, L)       =  output × (1 + bonus/100)                      ≤ +10%
+worth(g, L)       =  output × (1 + bonus/100)            of the best method
+                                                         the ground FEEDS,
+                  =  output × (1 + bonus/100) ÷ 2        of the best method
+                                                         it does not, where
+                                                         it feeds none
 
 priority(g, L)    =  worth(g, L) ÷ (1 + already(g, P))
 
@@ -70,6 +73,26 @@ quota             =  capacity_left_after_rights ÷ (goods with any admissible L)
 `already(g, P)` is how many of that good the plan has already put in this
 province; `rgo(g)` is how many locations of the ground already yield it as an
 RGO; `weight(g)` is the owner's own knob, 1 by default.
+
+**`fed_floor` is not in the plan's admissibility and must never be put back
+there.** Settled 2026-09-01: «бонус от рго это приоритет, а не железное правило,
+без которого в локации домика существовать не может какого-либо, просто это
+должно свестись к минимуму». A location no RGO helps still has to be filled, and
+a granted right's bundle goes up whether the ground feeds it or not. So the floor
+survives only as an ordering: the fed recipe wins wherever there is one — which
+keeps the twenty-fifth run's silk weaver out of a wool province — and the unfed
+one is used as a fallback at half weight, so everything the ground earns is
+placed before anything it does not.
+
+**It costs about thirty per cent of the scoring pass**, 1296 comparisons a
+location against 1681, because each plan side now keeps an unfloored best beside
+its floored one. The ranking's own `any_` twins cannot be reused: they are split
+by `building_category` and the plan's sides are split by the building's rank.
+
+One thing improves for free. `_ng(g)`, the count the scarcity tiers order by, used
+to conflate "the ground does not feed it" with "it cannot stand here". It is now
+purely the second, which is what the tiers were always for — «здания у которых
+жёсткие условия аля болотное железо».
 
 **The divisor is the whole of the fix for the screenshot.** Every location of a
 province is worth exactly the same to a good — the bonus is a
@@ -97,6 +120,12 @@ That is his answer 4 in one line, and it needs no separate rule for either case.
 | 2 | **goods few locations can host**, sweeps at 1, 2, 4, 8, 16 candidates | bog iron has one building and it wants wetlands |
 | 3 | **everyone else, round by round, to `need(g)`** | the quota above |
 | 4 | **the rooms still empty, quotas lifted** | nothing the ground can feed is left out |
+
+**A right's whole bundle is placed, bonus or no bonus.** «Есть права — есть
+здания из прав обязательно + пара исключений.» The two exceptions are his own:
+a good he has raised by hand, and a good whose conditions are hard enough that it
+has nowhere else at all — bog iron is the case. Neither is built, and until they
+are, a right's buildings are simply first and nothing displaces them.
 
 **A right is granted whether or not its bundle fits.** That is the owner's
 answer 2 and it reverses what the code does today: «каждому городу будет выдано

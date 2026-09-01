@@ -10,18 +10,20 @@ materials the province works.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is not an answer** — the bar is half
-the bonus it could ever earn (`generate.fed_floor`). **And since the
-thirty-second load a recipe whose building cannot stand there is not one either**:
-`can_build_building` gates every answer the ranking gives, in all three ages.
+**A recipe the province mostly cannot feed is not an answer to the ranking** —
+the bar is half the bonus it could ever earn (`generate.fed_floor`). **The plan
+does not use that bar as a gate and must not be made to**: there the bonus is a
+priority, not a precondition, and an unfed recipe is the fallback at half weight
+so ground no RGO helps still fills. **And a recipe whose building cannot stand
+there is no answer to either**: `can_build_building`, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
-earning its own bonus over its own output, so a `Method` is the pair
-(`eu5data.Method.shares`):
+earning its own bonus over its own output, so a `Method` is the pair:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
-no «По пути» column. A right's gate is its own `potential`, never `has_advance`.
+no «По пути» column. A right's gate is its own `potential`, never `has_advance`;
+in the plan every town gets one and its whole bundle goes up, bonus or not.
 Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
@@ -35,10 +37,8 @@ before changing any of it**: it is the derived formula and the three
 measurements that force it, of which the one to carry in your head is that **the
 RGO bonus is a ten per cent band**, so it is a tie-break and never a ranking.
 **An entry is a building and a location holds one of each**; the next location
-may take that building on another method. **Every building is one
-`can_build_building` allows there** — terrain, rank, `location_potential`, never
-an advance. **The sides are the building's own rank gates**, not
-`village_category`. Every condition is a location variable — **a
+may take that building on another method. **The sides are the building's own
+rank gates**, not `village_category`. Every condition is a location variable — **a
 `province_definition` holds none** (`docs/PITFALLS.md`). **The expensive
 button** — 241 recipes a location. How it is put together:
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
