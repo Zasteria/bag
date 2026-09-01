@@ -269,15 +269,91 @@ in game — CMM settings, tooltips, filter chips. Both mods in this repository d
 the same and work. Advanced Auto Build ships a byte-identical second copy under
 `in_game/localization/`; nothing here needs it, and no reference mod does that.
 
+### The source repository, and the wiki that is the actual contract
+
+**CMF is developed in the open**, at
+`github.com/Europa-Universalis-5-Modding-Co-op/community-mod-framework`, and its
+own wiki folder there carries two files, cmf.wiki and cmm.wiki — the full API
+reference, about nine thousand tokens the two of them. **The workshop copy in
+`reference/` does not ship them**, so everything this repository knew about CMF
+before 2026-09-01 was read off the framework's own script.
+
+**Checked on 2026-09-01: the dev branch's `in_game` is byte-identical to our
+reference copy.** So the API we code against is current, and the repository is
+worth cloning for the wiki rather than for the files. Clone it read-only when a
+question about a CMM call comes up; do not add it to `reference/`, which
+`tools/refs.py` owns.
+
 ### Other CMF facilities
 
 - `cmf_add_action_bar_element` / `cmf_remove_action_bar_element` put a button on
   the shared action bar instead of every mod drawing its own.
-- `cmf_log`, `cmf_log_with_args` write to the shared mod action log.
-- `cmf_suppress` silences benign "variable never read" engine warnings.
+- `cmf_log`, `cmf_log_with_args` write to the shared mod action log, and
+  `cmf_log_with_scope_arg` / `_args` take one and two country scopes besides
+  (from `scope:cmf_log_arg1` and `scope:cmf_log_arg2`). `cmf_clear_log = yes`
+  empties it. Every argument is a localization key. **Mod Menu > General >
+  Session > Mod Action Log** is where it is read.
 - `in_game/gui/vanilla/*_vanilla_types.gui` holds copies of vanilla widget types
   so several mods can restyle the same window without overwriting each other's
   copy of the vanilla file.
+- **`Nand`, `Nor` and `Xor` are CMF GUI macros**, so a `visible` does not have to
+  nest `And(And(Not(...)))` by hand.
+- **`cmf_is_mod_active = { mod_id = X }`** answers whether another mod is loaded.
+  A mod that registers CMM settings is detected for free; one that does not calls
+  `cmf_register_mod = { mod_id = ... }` in its registration hook.
+  `cmf_was_mod_active_at_game_start` is the same question about the save, and
+  `cmf_game_start_mods_recorded` is false on saves older than the feature.
+- **On-actions CMF shares**: `on_game_start_after_lobby`, `on_game_load`,
+  `on_game_load_after_lobby`, each with a `_human_country` variant firing in
+  country scope per human; `cmf_on_country_transfer`, which also copies the
+  player's CMM settings across a tag switch, with `scope:old_country` and
+  `scope:new_country`; and `cmf_yearly_human_country_pulse` /
+  `cmf_monthly_human_country_pulse`, which are cheaper than every mod testing
+  `is_ai = no` for itself.
+- **`cmf_change_variable_map` and its local and global twins are deprecated** —
+  `add_to_variable_map` overwrites an existing key by itself now.
+
+### `cmf_suppress`, and why it is not to be reached for
+
+```
+if = { limit = { always = no }
+	cmf_suppress = { v = my_variable }
+	cmf_suppress = { v = my_flag } }
+```
+
+silences the engine's «Variable 'X' is used but is never set» and «Flag 'X' is
+set but is never used». Group them in one `if` so `always = no` is evaluated
+once.
+
+**It silences the most useful line this repository gets.** «Variable
+'bag_wtp_plan_open' is used but is never set» is the whole of how the plan
+buttons' failure was found on 2026-09-01, and it was one line in a log otherwise
+full of that same warning about harmless things. So: suppress a name only once
+something has proved it harmless — `tools/check_script.py` catches the class
+now, and its `check-script: never set` marker records the proof where the read
+is. A blanket suppression buys a quieter log and costs the next run.
+
+### CMM list fields, in full
+
+A settings list takes a column per field, and there are more of them than this
+repository has used. Registered after the list, all taking `mod_id`,
+`setting_id` and `field_id`:
+
+| field | what it is |
+| --- | --- |
+| `cmm_register_list_bool_field` | a tick, `default_value` |
+| `cmm_register_list_numeric_field` | a number: `default_value`, `min_value`, `max_value`, **`step_value`** |
+| `cmm_register_list_slider_field` | the same four, drawn as a slider |
+| `cmm_register_list_dropdown_field` | `default_index`, `option_count` |
+| `cmm_register_list_data_field` | **read-only, and the mod fills it** with `cmm_set_list_data_value` |
+| `cmm_register_list_text_field` | display only; a cell is a loc key through `cmm_set_list_text_value = { … value = flag:<key> }` |
+| `cmm_register_list_button_field` | stores nothing; a press arrives through the list callback |
+
+`cmm_set_list_field_format` adds a prefix or postfix to a numeric, slider or data
+field; `cmm_set_list_field_localization` repoints a field's text; and a field can
+be disabled or an item hidden per item. **`cmm_register_list_data_field` is the
+one worth remembering**: a number the mod computes and shows beside a good,
+without another counter on a window's header.
 
 ## Construction Manager's automation, and how to add to it
 

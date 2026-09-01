@@ -64,8 +64,13 @@ wording decides something.
   the whole of what the map will draw.
 - **CMF has the two settings this needs**: `cmm_register_numeric_setting` for
   the caps, `cmm_register_list_numeric_field` for a number per row of the goods
-  list, and `cmm_build_list_field_map` reads the whole column back as a variable
-  map keyed by `goods:<good>`. The goods lists are already bool-field lists —
+  list (its bounds are `default_value`, `min_value`, `max_value`, **`step_value`**
+  — confirmed against CMF's own wiki on 2026-09-01), and
+  `cmm_build_list_field_map` reads the whole column back as a variable map keyed
+  by `goods:<good>`. **And `cmm_register_list_data_field` is a read-only column
+  the mod fills** with `cmm_set_list_data_value`, which is where «how many did
+  the plan give this good» belongs — beside the good, rather than as another
+  number on the window's header. `docs/research/cmf.md` has the rest. The goods lists are already bool-field lists —
   multi-tick is what they natively are, and this mod suppresses it.
 - **`ordered_in_global_list` takes a `limit`**, and vanilla uses it for exactly
   the shape the allocation needs (`situation_effects.txt`: strongest, then
