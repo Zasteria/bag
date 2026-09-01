@@ -1912,3 +1912,157 @@ screenshots, Westphalia whole and Münsterland alone. «Вау, оно каже�
   falls under `generate.fed_floor` and `glass_guild` also gates on
   `is_produced_in_location_market = goods:sand`. The mandatory-rights rule is
   doing what it was told; the ground refused the second half.
+
+### 2026-09 — `where_to_produce`, the thirty-eighth load and the derivation
+
+Archived when the Wallachia runs tripped the live log's budget. The four grounds
+that tested the derived formula, and the day it was derived.
+
+**2026-09-01 — `where_to_produce`, thirty-eighth load. Four tests of the derived
+formula. «Как будто бы выглядит всё довольно хорошо и ты сделал большой рывок».**
+Nothing that follows was re-run after being fixed.
+
+- **Westphalia, 6 towns, caps 3/3: it holds up.** «Он ставит нужные домики к гор.
+  правам и заполняет свободные ячейки… всем 5 выданы разные права.» All 144 rooms
+  filled, 64 sweeps. The rights spread — the grant divisor works. At caps 3/4 it
+  filled 153 of 153 and gave 9 rights.
+- **One province alone, 5 locations: «все товары разные на каждую маленькую
+  локацию, это выглядит правильно».** The band ordering doing what it is for.
+- **Every location forced to a town in the first province, villages below:
+  glass lands in the villages and never in the towns, while saltpetre and clay —
+  which a village could dig — take the town slots.** Not a fault in itself: an
+  RGO building declares `town = yes` as well, so the plan may put one there.
+  **But it is a loss the formula can name.** A right carries a blanket
+  `local_production_efficiency` penalty over the whole town, so a building that
+  is not in the bundle takes the penalty and none of the bonus — the same
+  building is strictly better in a town with no right. `_ord<n>` halves a
+  right-holding town's spare slots now. Halved rather than forbidden: the
+  penalty's value is a define `reference/` does not hold.
+- **All of northern Germany, 416 locations and 1312 rooms: 970 buildings in 354
+  locations, and «мод не справился досчитать всё как надо».** He is right, and
+  the cause is the round guard. A sweep places at most one building per good per
+  side, so 970 buildings over 32 goods needs thirty sweeps at the very least, and
+  `PLAN_ROUNDS` was 12 — every pass was being cut off with work left.
+  **Fixed twice over**: the guard is 50, and the tier ladder now runs in the last
+  band only, which is twelve passes where there were thirty-three. The guard is
+  free where a pass has no work, since the `while` leaves the moment a sweep adds
+  nothing.
+- **«Показано всего 150 локаций» is the window's row cap, not the count.**
+  `PLAN_ROWS` is 150 and the datamodel is what costs, so the cap stays; the
+  header line says «показано N» now, beside the 354 it really used.
+- **A one-off spike and a short hitch on «Пересчитать» over that ground**,
+  reported without complaint. Worth keeping in mind against the pass count.
+- **The province ceiling is gone.** «Я не представляю ситуацию, когда бы я мог
+  захотеть сменить значение этой строки с 0.» Under the formula the quota does
+  that job and is derived rather than typed, so the setting, its alias, its
+  default and both localizations are removed.
+- **Known and deliberately left:** faults in the single-good side of the mod,
+  which he named and set aside for a later session.
+
+**Wallachia, the same day, and it answered the question the Westphalia test left
+open.** «В 90% случаев мне спамятся права стекла или судостроительства. При этом
+везде он отказывается ставить и стекло и судостроительный завод.» 44 locations,
+26 of them towns, 26 rights — and nearly all of them the same two charters.
+
+- **His guess at the mechanism was right, and the cause was a fix from the same
+  day.** The substitution — where a granted right's good cannot stand, plant the
+  input that would let it — was also being counted in the right's *score*. And
+  `sand_pit` asks only that the location is not already a sand RGO, so it stands
+  nearly everywhere. That made `royal_masonry_rights` the one charter in the game
+  that is complete in every town, and a sand pit went in wherever the glass
+  should have.
+- **Two things fixed in the score.** A right is now scored on the goods the town
+  can really make — planting an input is a consolation for a right already
+  granted, never a reason to grant it. And a bundle is no longer averaged over
+  its size: each good the town can make is worth 2000 plus its gain, each it
+  cannot takes 1000 off. Averaging had made a one-good charter tie with a whole
+  three-good one, and every two-good bundle beat a three-good one with a single
+  gap — which is the other half of why the same two kept winning.
+- **Unverified.** Neither fix has been in the game.
+
+**2026-09-01 — `where_to_produce`, no run. The owner stated the objective, and
+the formula was derived from it rather than assembled from rules.** Nothing here
+has been in the game.
+
+- **«Все товары которые можно произвести на выбранной земле — должны
+  производиться, все. И не важно есть для них сырьё на этой земле или нет.»**
+  Coverage is a hard constraint. The RGO bonus only ever decides *which* recipe a
+  building runs, never whether it is built.
+- **«Максимально возможная часть получит свои плюшки… но при этом товары будут
+  все.»** That is maximise-subject-to-cover, and it has one answer;
+  [`investigations/plan_formula.md`](investigations/plan_formula.md) is the
+  derivation.
+- **The currency changed, and this is the substance of it.** Measured: a recipe's
+  ceiling runs from 2.00% to 10.00% and five goods are capped under 5%, so a raw
+  bonus cannot compare across goods — and the old `worth ÷ the good's own best on
+  this ground` compares worse, squeezing everything into 0.909–1.000. What
+  compares is **`gain = bonus ÷ that recipe's ceiling`**, 0 to 1: how much of what
+  this good could ever get here, it gets.
+- **The ground is now dealt in descending bands of gain, across every good at
+  once.** By the time a good that would gain a fifth reaches a location, the good
+  that would have gained four fifths has taken it — the opportunity cost paid by
+  the ordering rather than by asking every other good. That is «дальше не жиреть»
+  and «выделить у менее вкусных провинций место под всё остальное», and it
+  replaces the per-good round-robin that produced the chaos.
+- **A covering pass was added and it is his first requirement**: after the bands,
+  any good still at zero takes a free slot anywhere, at any gain.
+- **`town_right_efficiency_penalty` is understood structurally at last.** A right
+  is a `location_modifier` carrying `local_<good>_output_modifier` per bundle good
+  *and* a blanket `local_production_efficiency` penalty on the whole town. So the
+  owner was right — «права дают слишком жирный бонус и дебафят всё остальное» —
+  and a town holding a right should hold its bundle and as little else. **The
+  number is a define and is in no file `reference/` holds**: one `grep` on his
+  install, and until then the discount is a direction without a size.
+- **Cost:** the normalisation pass is gone with the old currency, which is 47
+  ordered walks saved a run; the bands cost 32 tier passes where there were 7.
+- **Not in the formula, and named by him:** a rural location per province set
+  aside for food. «До этого мы пока ещё не дошли.»
+
+**2026-09-01 — `where_to_produce`, thirty-seventh load. Every town took the same
+charter and none of them got glass; the glass half is the game's answer, the
+charter is ours.** Three screenshots, Westphalia with every location forced to a
+town. «Всё ещё довольно плохая раскидка даже на глаз.»
+
+- **«Локаций 48 (городских 48) · провинций 8 · мест 144 · товаров 28 · норма 3 ·
+  прав выдано 48 · зданий 138 в 48 локациях · лимиты 3/3 · кругов 23».** The
+  ground is 96% full and every town has a right, which is what the last two runs
+  were for. **Bog iron went to the wetland locations and got room**, which is the
+  scarcity tiers doing their job on the case he named.
+- **A session said glass was unbuildable there. It was wrong, and the owner's
+  screenshots settled it the same day** — the game offers a glass guild in
+  Münster and a rural glassmaker in Dülmen, both age 0. The gate was read
+  correctly (`is_produced_in_location_market = goods:sand`); what was never
+  checked is whether the ground satisfies it, and nothing here can check that.
+  Filed in `PITFALLS.md`. **So glass is placeable, in the few towns whose market
+  has sand — and on this run a charter had already filled those.**
+- **The fault is that the charter was granted anyway, forty-eight times.**
+  `mason` is age 0 and stands in every town, so `royal_masonry_rights` scored
+  around a thousand everywhere while its rival bundles scored what their own
+  goods could reach — and the grant divisor added on the previous run was
+  dividing a thousand against near-zero rivals, so it never turned the outcome
+  over. **Six other charters are wholly age-0 buildable** — artisan, brewing,
+  naval, textile, tooling, jewelry — and any of them would have filled the town.
+- **Fixed: a right is scored by how much of it the town could actually finish.**
+  Each bundle good the town can build adds a flat 2000 plus its own score;
+  one it cannot adds nothing; the total is divided by the bundle's size. So the
+  number is "what fraction of this charter would really go up here" first and
+  "how good would it be" second, and a bundle a town can finish outranks a bigger
+  one it cannot whatever the scores inside them. The grant divisor stays on top.
+- **The empty slots follow from the same thing.** Дюльмен at 1 of 3 and three
+  towns at 2 of 3 had all been given the masonry charter and could place only
+  its masonry half.
+- **Tried and reverted the same day: running the scarcest tiers before the
+  charters.** It was built as the owner's own exception to a mandatory right, and
+  it was the wrong reading of both the exception and the fault. Glass is *inside*
+  `royal_masonry_rights`; it never needed to pre-empt the right, and letting
+  every scarce good jump the queue contradicts what he had said several times —
+  a right's buildings are mandatory. Rights are first again, whole bundle.
+- **Built instead, and it is what he actually asked for:** where a granted
+  right's good cannot stand, **the slot goes to the input that would make it
+  possible**. Glass wants sand in the market and `sand_pit` stands at any rank
+  asking only that the location is not already a sand RGO — so a town given
+  `royal_masonry_rights` with no sand gets the pit, and the glass follows on the
+  next plan. Derived rather than named: `generate.market_inputs` scans every
+  `location_potential` in the game and finds exactly one usable pair,
+  glass ← sand. The right's own score counts the good as reachable either way,
+  so the substitution does not push the right down the list that needs it.

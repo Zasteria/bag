@@ -32,40 +32,49 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: the plan, and where it stands
+## `where_to_produce`: the plan, and the one thing to do first
 
-**The formula is derived and the owner has seen it work.** He stated the
-objective on 2026-09-01 — maximise the bonus captured, subject to every good the
-ground can produce being produced — and
-[`investigations/plan_formula.md`](investigations/plan_formula.md) is that
-derivation, not a set of rules. **Read it before changing any of the
-allocation.** Four grounds tested the same day and his verdict was «большой
-рывок»; the thirty-eighth run is in `TESTLOG.md` with what each one showed.
+**Build the probe. Do not propose a cause.** The 2026-09-01 session spent four of
+the owner's runs on four theories about one symptom and fixed none of it;
+[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and `CLAUDE.md`
+the rule. The symptom is still open:
 
-**What he could not check, and said so:** whether the filling is *right*. «Я
-понятия не имею как именно должен выглядеть конечный идеальный результат.» So
-the tests are indirect — variety, rights spreading, rooms filled — and that is
-the honest limit of what a screenshot can settle.
+> **The plan will not put glass in a town.** It puts it in villages freely.
+> `glass_guild` (town) and `rural_glassmaker` (village) carry the **identical**
+> `location_potential = { is_produced_in_location_market = goods:sand }`, so the
+> gate cannot be the cause — one condition is not true and false in one market.
+> The same shape shows for `royal_naval_rights`: the charter is granted, the tar
+> and naval supplies are not placed.
 
-**Live, and in his words rather than ours:**
+**The probe: a funnel counter per stage, for one good the player picks** —
+`_avail_` said yes, then `can_build_building` in the location's scope, then a
+method won (`_pm<n>` not 0), then `_plan_can_town_<n>`, then placed. Whichever
+number collapses is the answer, and one run reads it.
+`cmm_register_list_data_field` is a per-good column if the window is the wrong
+place (`research/cmf.md`).
 
-- **the single-good side of the mod has faults he has already seen** and set
-  aside for a later session. He did not name them; ask before guessing;
-- **`town_right_efficiency_penalty` is one `grep` on his install.** The structure
-  is understood — a right carries a blanket production-efficiency penalty over
-  the whole town beside its per-good bonus — but the number is a define no file
-  in `reference/` holds. Until it is known, the discount on a right-holding
-  town's spare slots is a direction without a size;
-- **a rural location per province set aside for food**, which he described and
-  marked as not yet reached;
-- **the hand weight** — «я выбираю товар и щёлкаю +1» — which is tier 0 of the
-  formula and the only place a preference of his enters. `cmm_register_list_numeric_field`
-  is the field and `cmm_register_list_data_field` the column to show the result
-  in, both in `research/cmf.md`;
-- **the caps at 3, 4 and 5**, which is the experiment he asked for and has now
-  run twice at 3/3 and 3/4.
+**Everything else about the plan waits on that.** The formula itself is derived
+and the owner is content with it — «большой рывок» — and
+[`investigations/plan_formula.md`](investigations/plan_formula.md) must be read
+before any of the allocation is changed.
 
-**And he asked for no more counters until it works.**
+**The state before this session is commit `d8ee3cc`** (the merge of PR #48), kept
+at his request so nothing of the day's work is lost if a piece of it turns out to
+have broken something. **It is not a rollback target** — he said so; the findings
+are wanted, only the churn is suspect. A local tag `wtp-before-2026-09-01` was
+made and the proxy refused to push it, which is why the SHA is written here.
+
+**Live besides:**
+
+- **the single-good side has faults he has already seen** and set aside. He did
+  not name them; ask before guessing;
+- **`town_right_efficiency_penalty` is one `grep` on his install** — the number
+  behind the discount on a right-holding town's spare slots;
+- **the hand weight, the food location, the caps at 3/4/5** — all his, all in
+  `plan_formula.md`'s own closing list.
+
+**And he asked for no more counters until it works** — which the probe does not
+break, since it exists to make it work and comes out again after.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
