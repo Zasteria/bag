@@ -302,7 +302,15 @@ bag_wtp_init_counters = {
 		set_global_variable = { name = bag_wtp_plan_cap_urban value = 4 }
 	}
 	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_plan_per_good } }
-		set_global_variable = { name = bag_wtp_plan_per_good value = 3 }
+		limit = { NOT = { has_global_variable = bag_wtp_plan_max } }
+		set_global_variable = { name = bag_wtp_plan_max value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
+		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_prov_n } }
+		set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
 	}
 }

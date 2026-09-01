@@ -1,4 +1,4 @@
-﻿# Test log — runs before 2026-08-27
+﻿# Test log — runs before 2026-09
 
 Archived out of [`../TESTLOG.md`](../TESTLOG.md) so the live log stays the size
 of a thing a session can afford to read. Nothing here is superseded; it is
@@ -1422,3 +1422,63 @@ answered, from the game's own panel.** Three screenshots.
   plain labels again and the second «Считать» is on the mod page.
 - **The rights window's header lined up with nothing.** Same 10px scrollbox
   margin as the goods window, now fixed, and its columns read left too.
+
+**2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
+work and the two tables differ; unique rights arrived in Wallachia; the goods
+table ranked for the last age still named first-age buildings; «Из чего» still
+sits away from its header.
+
+- **`error.log` carries one real line and no more:** `PostValidate of trigger
+  'trigger_else_if' returned false at bag_wtp_generated_triggers.txt:107` — the
+  last link of the `bag_wtp_can_build_something` chain, which ended on an
+  `else_if` with no `trigger_else` after it. Everything else naming the mod is
+  `Flag 'bag_wtp_good_*' is set but is never used`, which is CMM's list flags and
+  is cosmetic. The chain ends `trigger_else = { always = no }` now.
+- **Dropping the advance gate let the Scandinavian privileges into a Wallachian
+  list.** Those two rights carry no `potential` of their own; what keeps them out
+  is `culture = { has_culture_group = culture_group:scandinavian_group }` on the
+  *advance* that unlocks them. A right inherits its advance's `potential` now —
+  a country gate that is a fact rather than a thing you have not got round to.
+- **Ranked for the last age, the row still named the building you can build
+  today.** The order followed the button and the printing did not: the method
+  column reads the near column whenever it is set, and it always is. `row_end` is
+  written on the row now and the window reads the column the button asked for,
+  goods icons included.
+- **«Из чего» drifts because the method column expands.** An expanding column is
+  as wide as what is left, and a row inside a scrollbox has less left than the
+  header — by the scrollbar and the content margin. Both windows give the method
+  column a fixed width and put the slack in a spacer at the far right.
+
+**2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
+the rights window was answering the wrong question.** Three screenshots, fine
+cloth and cannons, and a weaponry right.
+
+- **The pairs read correctly.** «Гильдия портных: Гильдия ткачей шёлка ×0.90 +
+  Красители с квасцами», «Здание пушкарей: Железные стволы ×1.16 + Железные
+  снаряды», with both slots' raw materials counted.
+- **«Считать» looked like it was sorting by the endgame** — 1.78% above 7.14%.
+  It was not: the ranking is by effective output and always has been, so ×0.90
+  at 1.78% (0.916) outranks ×0.70 at 7.14% (0.750). Settled at the eighth run,
+  when a forest village at 10% topped a weapons search; the owner reached the
+  same reading himself from the cannons table.
+- **«На конец» did nothing at all in the rights window.** The bundle pass read
+  `bag_wtp_best_method` and nothing else, so both buttons gave the same table in
+  the same order, showing first-age buildings. It reads the column the button
+  names now, falls back the same way, and breaks its ties on «По пути» — with
+  the row filter widened, or the table would empty itself exactly where a ladder
+  ends early.
+- **«Права: считать методы будущих эпох» is deleted.** Owner: «нафига вообще
+  нужна?» — right twice over: since the twentieth load it reached no method at
+  all, and a right should obey the same two buttons a good does. A unique right
+  is still gated on `potential` — a tag is a fact about the country — but never
+  on the advance that unlocks it.
+- **«Из чего» sat far right of its header** in the rights window: the block was
+  sized by its own icons and started wherever the expanding method column
+  stopped. It is 190 wide in both windows now, like the header.
+
+Everything before 2026-08-29, and `where_to_produce`'s first twenty-one loads — the
+map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
+turned the mod from asking for a method into finding one, and the four that
+confirmed the scoring, the tabs, the results window and whole provinces — is in
+[`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
+trimmed. Search both with `python3 tools/kb.py`.

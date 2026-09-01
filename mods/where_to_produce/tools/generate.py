@@ -749,15 +749,45 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
         out.append("}\n")
 
-    # One ordering per good. `order_by` takes a script value and never a
-    # variable, so the plan's "what is this ground worth to this good" needs a
-    # name of its own for each of them; `bag_wtp_generated_plan.txt` fills the
-    # variable behind it.
-    plan_values = "".join(
-        f"# {good}\n# Scope: location\n"
-        f"{MOD_ID}_ord{index} = {{ value = var:{MOD_ID}_p{index} }}\n"
-        for index, good in enumerate(
-            [g for kind in ("raw", "made") for g in split[kind]], start=1))
+    # The plan's orderings. `order_by` takes a script value and never a variable,
+    # so "what is this ground worth to this good" needs a name of its own -- one
+    # per good per side, plus a third that is the better of the two, which is
+    # what the good is normalized by. `bag_wtp_generated_plan.txt` fills the
+    # variables behind them.
+    order = [g for kind in ("raw", "made") for g in split[kind]]
+    plan_values = []
+    for index, good in enumerate(order, start=1):
+        plan_values.append(f"""
+# {good}
+# Scope: location
+{MOD_ID}_ord{index} = {{ value = var:{MOD_ID}_p{index} }}
+# Scope: location
+{MOD_ID}_ordr{index} = {{ value = var:{MOD_ID}_pr{index} }}
+# Scope: location
+{MOD_ID}_ordmax{index} = {{
+\tvalue = var:{MOD_ID}_p{index}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_pr{index} > var:{MOD_ID}_p{index} }}
+\t\tvalue = var:{MOD_ID}_pr{index}
+\t}}
+}}
+""")
+
+    # What a whole urban right is worth on this ground: its bundle's own
+    # normalized scores added up. It costs no pass of its own -- every good in
+    # the bundle was scored anyway -- and the right's own percentage is left out
+    # on purpose, because it is the same everywhere and reorders nothing.
+    for k, right in enumerate(output_rights(rows, game), start=1):
+        bundle = sorted(right.output)
+        adds = "".join(f"\tadd = var:{MOD_ID}_p{order.index(g) + 1}\n" for g in bundle)
+        plan_values.append(f"""
+# {right.key}: {", ".join(bundle)}
+# Scope: location
+{MOD_ID}_rq{k} = {{
+\tvalue = 0
+{adds}}}
+""")
+    plan_values = "".join(plan_values)
 
     out.append(f"""
 # The better of the two sides -- built-up and village -- in each of the three
@@ -883,10 +913,29 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # `divide` takes a script value for certain and the other form is only inferred.
 {MOD_ID}_plan_top_value = {{ value = global_var:{MOD_ID}_plan_top }}
 
-# The plan's rows are ordered by how many buildings a location took, so the
-# «магнит» the whole feature is named for is the top of the table.
+# How the plan's provinces are ordered: by how much of it landed in each. Under
+# the province model every province fills to its capacity, so this is size and
+# contention together -- the «магнит» the feature is named for.
+# Scope: province_definition
+{MOD_ID}_plan_prov_order = {{ value = var:{MOD_ID}_plan_prov_load }}
+
+# And how a location's row is ordered: by its province's place, so a province's
+# locations stay together, with its towns ahead of its villages. Negated because
+# `ordered_in_global_list` sorts highest first and place 1 has to come out first.
+#
+# **Small numbers on purpose.** Packing the province's load and its place into
+# one figure would run to five digits, and where the engine's fixed point ends is
+# not knowable from here -- `RIGHT_SCALE` is in the generator for the same
+# reason.
 # Scope: location
-{MOD_ID}_plan_order = {{ value = var:{MOD_ID}_load }}
+{MOD_ID}_plan_order = {{
+\tvalue = 0
+\tsubtract = var:{MOD_ID}_plan_prank
+\tif = {{
+\t\tlimit = {{ NOT = {{ location_rank = location_rank:rural_settlement }} }}
+\t\tadd = 0.5
+\t}}
+}}
 
 # And the copy into the window's datamodel keeps that order the way the
 # ranking's does: highest first, so the rank is negated.
@@ -913,7 +962,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_plan_rooms = {{ value = global_var:{MOD_ID}_plan_rooms }}
 {MOD_ID}_show_plan_cap_rural = {{ value = global_var:{MOD_ID}_plan_cap_rural }}
 {MOD_ID}_show_plan_cap_urban = {{ value = global_var:{MOD_ID}_plan_cap_urban }}
-{MOD_ID}_show_plan_per_good = {{ value = global_var:{MOD_ID}_plan_per_good }}
+{MOD_ID}_show_plan_max = {{ value = global_var:{MOD_ID}_plan_max }}
+{MOD_ID}_show_plan_sweeps = {{ value = global_var:{MOD_ID}_plan_sweeps }}
 """)
     return "".join(out)
 
@@ -1112,34 +1162,45 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
               game: eu5data.Game) -> str:
     """The whole-map plan: every good placed at once over the chosen ground.
 
-    The owner's five answers and the design that follows them are in
-    `docs/investigations/whole_map_plan.md`. Three things about it belong in
-    front of the code.
+    The owner's answers and the design are in
+    `docs/investigations/whole_map_plan.md`. Four things about it belong in front
+    of the code.
+
+    **The plan is chosen per province and spent per location.** The first build
+    chose a location at a time and the twenty-eighth run showed why that is the
+    wrong unit: he plays a province as a specialisation -- «вся сельская
+    местность в одной провинции в большинстве случаев получит линейку домиков
+    одинаковую» -- and a rule of one building per good per province produced the
+    exact opposite, a different trade in every location. So a province gets two
+    short lists, one for its towns and one for its villages, each as long as that
+    side's cap; then every location of it builds its side's list entire. Nothing
+    is left empty that the ground can feed, and a province reads as one answer.
 
     **It reuses the ranking pass rather than repeating it.** `bag_wtp_score_<g>`
     already walks every candidate and leaves the best method for good `g` on each
-    of them, on both sides -- built-up and village. The plan runs it once per
-    good and harvests the answer into `_p<g>`, what this ground is worth to that
-    good, and `_pm<g>`, the method that won, written negative where the village
-    side won it. So the plan costs one scoring pass per good and no new scoring
-    code, which is the whole of what makes it affordable.
+    of them, on both sides. The plan runs it once per good and harvests the two
+    numbers into `_p<g>` (built-up) and `_pr<g>` (village).
 
     **The score is normalized, and skipping that would break it in silence.** A
     good's `_best` is output times bonus, and output is in units of that good:
     1.0 of lumber against 0.2 of wine is a difference of measure, not of ground.
     Ranked on the raw number every contested province goes to whatever good has
-    the biggest recipe, and the plan reads as a ranking of goods rather than a
-    distribution of them. Each good is divided by its own best in this ground
-    instead, so every good peaks at exactly RANK_SCALE on the province that suits
-    it most and the numbers finally compare.
+    the biggest recipe. Each good is divided by its own best in this ground
+    instead -- **one divisor for both sides**, so that a good which is worth five
+    times as much in a town as in a village still says so, and a village-native
+    good is not flattered into a town list.
 
-    **The rounds are what make it even.** Every good takes one location, then
-    every good takes another, and no good ever takes two locations of the same
-    province. That is the answer to «два товара хотят одну землю»: the better fit
-    takes the ground, and the loser is served in the same round at its own next
-    province rather than after the winner has had a second.
+    **Urban rights are a province's town list, chosen before any good.** A right
+    is a bundle of two or three goods and that is exactly the shape of a town
+    list, so a right does not compete with goods for slots -- it takes the whole
+    list. Which right a province gets is decided per province, by which of them
+    the ground suits best, rather than by rights taking turns: there are twelve
+    of them and rarely that many provinces, so a turn order would be the whole
+    outcome. `bag_wtp_rq<k>` is the sum of the bundle's own normalized scores,
+    which costs no pass of its own -- the goods were scored anyway.
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
+    rights = output_rights(rows, game)
 
     out = [HEADER, f"""#
 # Scope: country
@@ -1149,25 +1210,29 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_clear = yes
 \t{MOD_ID}_plan_score = yes
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_plan_rights }}
+\t\t{MOD_ID}_plan_place_rights = yes
+\t}}
 \t{MOD_ID}_plan_allocate = yes
+\t{MOD_ID}_plan_build = yes
 \t{MOD_ID}_plan_rank = yes
 \tcmf_log = {{ action = {MOD_ID}_log_plan }}
 }}
 
 # Everything the last plan left behind, and then the ground this one works over.
 #
-# Two walks and not one. `_plan_touched` is the *previous* run's ground, which a
-# new choice on the map may no longer contain, and a location dropped out of the
-# candidates would otherwise keep its buildings -- in the map mode as much as in
-# the window. The candidates are walked after it because `_load` has to exist on
-# every one of them before a round begins: `{MOD_ID}_plan_has_room` reads it, and
-# a trigger comparing against a variable that is not there logs on every
-# candidate of every round.
+# Three walks and not one. `_plan_touched` and `_plan_provs` are the *previous*
+# run's ground, which a new choice on the map may no longer contain, and a
+# location dropped out of the candidates would otherwise keep its buildings --
+# in the map mode as much as in the window. The candidates are walked after them
+# because every counter a `limit` reads has to exist before the first round: a
+# comparison against a variable that is not there logs once per candidate per
+# round, and there are {len(order)} rounds' worth of them.
 # Scope: country
 {MOD_ID}_plan_clear = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
-\t\tremove_variable = {MOD_ID}_plan_dirty
 \t\tremove_variable = {MOD_ID}_plan_rank
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tclear_variable_list = {MOD_ID}_plan_goods
@@ -1175,7 +1240,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_provs
 \t\tremove_variable = {MOD_ID}_plan_dirty
-\t\tclear_variable_list = {MOD_ID}_plan_here
+\t\tclear_variable_list = {MOD_ID}_plan_town
+\t\tclear_variable_list = {MOD_ID}_plan_rural
+\t\tset_variable = {{ name = {MOD_ID}_plan_town_n value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_rural_n value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_prov_load value = 0 }}
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_provs
 \tclear_global_variable_list = {MOD_ID}_plan_touched
@@ -1183,27 +1252,36 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\tremove_variable = {MOD_ID}_plan_dirty
 \t\tremove_variable = {MOD_ID}_plan_rank
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
+\t\t# A province the ranking below never reached leaves its locations here, and
+\t\t# `_plan_order` negates this: a zero would sort them to the very top.
+\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tprovince_definition = {{
 \t\t\tremove_variable = {MOD_ID}_plan_dirty
-\t\t\tclear_variable_list = {MOD_ID}_plan_here
+\t\t\tclear_variable_list = {MOD_ID}_plan_town
+\t\t\tclear_variable_list = {MOD_ID}_plan_rural
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_town_n value = 0 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_rural_n value = 0 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_prov_load value = 0 }}
 \t\t}}
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
-\t{MOD_ID}_plan_count_rooms = yes
-}}
+"""]
+    for index, good in enumerate(order, start=1):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n")
+    out.append(f"\t{MOD_ID}_plan_count_rooms = yes\n}}\n")
 
-# The capacity of the chosen ground: every candidate's cap, added up. It is the
-# number the two caps are chosen against -- there is no building-slot limit in
-# the game to read, so what a cap of three or four is worth can only be seen by
-# what it buys, and this is that figure beside the {len(order)} goods asking for it.
-# Scope: country
+    out.append(f"""
+# The capacity of the chosen ground: every candidate's cap, added up. Under the
+# province model it is also what a finished plan should come to -- every location
+# builds its side's list, and a list is as long as the cap -- so «мест» against
+# «зданий» is a completeness reading rather than a curiosity. Where it falls
+# short, the ground could not feed enough different goods to fill a list.
 #
 # The two caps arrive through their `_show_` script values rather than as
 # `add = global_var:`: `add` takes a script value for certain, and everything
@@ -1225,14 +1303,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 # One scoring pass per good, and the harvest that makes the answers comparable.
 #
-# **This is the expensive half of the mod, and the reason the plan is a button of
-# its own rather than a tick on «Считать».** A single-good run reads about five
-# methods on each candidate; this reads all {len(rows)} of them, {len(order)} passes over the
-# same ground. Whether that survives a button press is the first thing a run has
-# to answer.
+# **This is the expensive half of the mod and the reason the plan is a button of
+# its own.** A single-good run reads about five methods on each candidate; this
+# reads all {len(rows)} of them, {len(order)} passes over the same ground.
 # Scope: country
 {MOD_ID}_plan_score = {{
-"""]
+""")
     for index, good in enumerate(order, start=1):
         out.append(f"\t{MOD_ID}_score_{index} = yes\n"
                    f"\t{MOD_ID}_plan_harvest_{index} = yes\n")
@@ -1240,33 +1316,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     for index, good in enumerate(order, start=1):
         out.append(f"""
-# {good}: keep the better of the two sides, then divide the ground by its own
-# best, so that {RANK_SCALE} means "the province this good wants most" for every good
-# alike. A good nothing in this ground can make stays at zero and never picks.
+# {good}: keep both sides, then divide the ground by the better of them, so that
+# {RANK_SCALE} means "the province this good wants most" for every good alike. A good
+# nothing in this ground can make stays at zero and never picks.
+#
+# **The method that won is deliberately not kept.** A plan row prints the good
+# and not the recipe, so keeping it would be one more variable per good per
+# location -- {len(order)} of them on every candidate -- that nothing reads.
 # Scope: country
 {MOD_ID}_plan_harvest_{index} = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\t# The better of the two sides, and only the number. **The method that won it
-\t\t# is deliberately not kept.** A plan row prints the good and not the recipe,
-\t\t# so keeping the method would be one more variable per good per location --
-\t\t# {len(order)} of them on every candidate -- that nothing reads. Adding it back is
-\t\t# one line here on the day a row wants to name the building.
-\t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_best >= var:{MOD_ID}_best_rural }}
-\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_best }}
-\t\t}}
-\t\telse = {{
-\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_best_rural }}
-\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_best }}
+\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_best_rural }}
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\torder_by = {MOD_ID}_ord{index}
+\t\torder_by = {MOD_ID}_ordmax{index}
 \t\tmax = 1
 \t\tcheck_range_bounds = no
-\t\tset_global_variable = {{ name = {MOD_ID}_plan_top value = var:{MOD_ID}_p{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_top value = {MOD_ID}_ordmax{index} }}
 \t}}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_plan_top > 0 }}
@@ -1275,91 +1345,280 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\t# Divided before it is scaled and never after: the top of the ground is
 \t\t\t# already a scaled number, and multiplying first would ask the engine's
-\t\t\t# fixed point for a million.
+\t\t\t# fixed point for a million. One divisor for both sides, so the village
+\t\t\t# keeps its honest fifth of the workshop.
 \t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {MOD_ID}_plan_top_value }}
 \t\t\tchange_variable = {{ name = {MOD_ID}_p{index} multiply = {RANK_SCALE} }}
+\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {MOD_ID}_plan_top_value }}
+\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} multiply = {RANK_SCALE} }}
 \t\t}}
 \t}}
 }}
 """)
 
+    # ---- the rights round --------------------------------------------------
     out.append(f"""
-# The rounds. Every good takes one location, then every good takes another.
+# Urban rights, before any good touches a town list.
 #
-# `while` on a `limit` rather than a `count`, because how many buildings a good
-# may have is the player's own number. The counter is raised first, so a setting
-# of zero does nothing at all rather than looping on a condition it can never
-# leave -- the engine's own guard is a thousand iterations, and a mod should not
-# be relying on it.
+# **A right is chosen per province, not by rights taking turns.** There are
+# {len(rights)} of them and rarely that many provinces in a plan, so an order over rights
+# would decide the whole outcome by its own arbitrariness. Asked the other way
+# round -- which right does this ground suit best -- every province gets the
+# answer that is true about it, and the rights that go unused are the ones no
+# ground here wanted.
+#
+# Only provinces with a town are asked, because the walk is over the locations
+# that are not rural settlements; the first one reached fills the province's list
+# and the rest of it fails the `limit` afterwards.
+# Scope: country
+{MOD_ID}_plan_place_rights = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{
+\t\t\tNOT = {{ location_rank = location_rank:rural_settlement }}
+\t\t\tprovince_definition = {{ var:{MOD_ID}_plan_town_n = 0 }}
+\t\t}}
+\t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
+""")
+    for k, right in enumerate(rights, start=1):
+        bundle = sorted(right.output)
+        # `potential` is a fact about the country -- a tag, a religion -- and the
+        # only thing that can make a right never yours. The unlocking advance is
+        # deliberately not asked: this is a planning tool.
+        gate = ("" if not right.potential
+                else f"\t\t\t\tscope:{MOD_ID}_country = {{ AND = {{ {right.potential} }} }}\n")
+        out.append(f"""\t\t# {right.key}: {", ".join(bundle)}
+\t\tset_variable = {{ name = {MOD_ID}_rtry value = {MOD_ID}_rq{k} }}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tvar:{MOD_ID}_rtry > var:{MOD_ID}_rbest
+\t\t\t\tglobal_var:{MOD_ID}_plan_cap_urban >= {len(bundle)}
+{gate}\t\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_rbest value = var:{MOD_ID}_rtry }}
+\t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = {k} }}
+\t\t}}
+""")
+    for k, right in enumerate(rights, start=1):
+        bundle = sorted(right.output)
+        adds = "".join(
+            f"\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_town target = goods:{g} }}\n"
+            for g in bundle)
+        out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
+\t\t\tprovince_definition = {{
+{adds}\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_town_n value = {len(bundle)} }}
+\t\t\t\t{MOD_ID}_plan_mark_province = yes
+\t\t\t}}
+""")
+        for g in bundle:
+            gi = order.index(g) + 1
+            out.append(f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{gi} add = 1 }}\n")
+        out.append("\t\t}\n")
+    out.append("\t}\n}\n")
+
+    out.append(f"""
+# A province joins the list of what this run has to clean up after itself.
+# Scope: province_definition
+{MOD_ID}_plan_mark_province = {{
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_dirty }} }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_dirty value = 1 }}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_provs target = this }}
+\t}}
+}}
+
+# The rounds. Every good takes one town list and one village list, then every
+# good takes another, until a whole sweep adds nothing anywhere.
+#
+# **It runs until the ground is full rather than for a fixed number of rounds.**
+# The first build stopped after «зданий на товар» rounds and left a third of
+# Wallachia empty at three; the owner's ruling is that a location the plan can
+# feed is never left empty, because what a displaced building leaves behind is
+# exactly what should cascade into the poorer ground. The sweep counter is a
+# guard against a condition that cannot be left, not a design: {PLAN_ROUNDS} sweeps is
+# far past the point where the lists are full.
 # Scope: country
 {MOD_ID}_plan_allocate = {{
-\tset_variable = {{ name = {MOD_ID}_plan_round value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
 \twhile = {{
-\t\tlimit = {{ var:{MOD_ID}_plan_round < global_var:{MOD_ID}_plan_per_good }}
-\t\tchange_variable = {{ name = {MOD_ID}_plan_round add = 1 }}
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_plan_go = 1
+\t\t\tglobal_var:{MOD_ID}_plan_sweeps < {PLAN_ROUNDS}
+\t\t}}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_sweeps add = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_added value = 0 }}
 """)
     for index, good in enumerate(order, start=1):
         out.append(f"\t\t{MOD_ID}_plan_pick_{index} = yes\n")
-    out.append("\t}\n}\n")
+    out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_added = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 0 }}
+\t\t}}
+\t}}
+}}
+""")
 
     for index, good in enumerate(order, start=1):
         out.append(f"""
-# {good} takes its best free location, or nothing at all.
+# {good} joins the town list and the village list of the province each side of it
+# suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a round over {len(order)} goods is affordable at all. The three conditions
-# are the whole rule: the ground has to be worth something to this good, the
-# location has to have room under its cap, and the province must not already be
-# making it.
+# only reason a sweep over {len(order)} goods twice is affordable. The conditions are the
+# whole rule: the ground has to be worth something to this good on that side, the
+# province's list for that side has to have room, and it must not hold this good
+# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
+# there is none.
 # Scope: country
 {MOD_ID}_plan_pick_{index} = {{
-\tordered_in_global_list = {{
-\t\tvariable = {MOD_ID}_candidates
+\tif = {{
 \t\tlimit = {{
-\t\t\tvar:{MOD_ID}_p{index} > 0
-\t\t\t{MOD_ID}_plan_has_room = yes
+\t\t\tOR = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
+\t\t\t}}
+\t\t}}
+\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{
+\t\t\t\tvar:{MOD_ID}_p{index} > 0
+\t\t\t\tNOT = {{ location_rank = location_rank:rural_settlement }}
+\t\t\t\tprovince_definition = {{
+\t\t\t\t\tvar:{MOD_ID}_plan_town_n < global_var:{MOD_ID}_plan_cap_urban
+\t\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_town target = goods:{good} }} }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\torder_by = {MOD_ID}_ord{index}
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
 \t\t\tprovince_definition = {{
-\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_here target = goods:{good} }} }}
+\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_town target = goods:{good} }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_plan_town_n add = 1 }}
+\t\t\t\t{MOD_ID}_plan_mark_province = yes
+\t\t\t}}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
+\t\t}}
+\t}}
+\tif = {{
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
 \t\t\t}}
 \t\t}}
-\t\torder_by = {MOD_ID}_ord{index}
-\t\tmax = 1
-\t\tcheck_range_bounds = no
-\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
-\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
-\t\tif = {{
-\t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_dirty }} }}
-\t\t\tset_variable = {{ name = {MOD_ID}_plan_dirty value = 1 }}
-\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
-\t\t}}
-\t\t# The mark goes on the province definition and not on its locations: the
-\t\t# province is the unit the bonus is counted over, so a second building of the
-\t\t# same good in the next location along is the same answer twice at the price
-\t\t# of a province that had none. One list on one object, rather than the same
-\t\t# fact written onto every location of it.
-\t\tprovince_definition = {{
-\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_here target = goods:{good} }}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_dirty }} }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_dirty value = 1 }}
-\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_provs target = this }}
+\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{
+\t\t\t\tvar:{MOD_ID}_pr{index} > 0
+\t\t\t\tlocation_rank = location_rank:rural_settlement
+\t\t\t\tprovince_definition = {{
+\t\t\t\t\tvar:{MOD_ID}_plan_rural_n < global_var:{MOD_ID}_plan_cap_rural
+\t\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_rural target = goods:{good} }} }}
+\t\t\t\t}}
 \t\t\t}}
+\t\t\torder_by = {MOD_ID}_ordr{index}
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+\t\t\tprovince_definition = {{
+\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_rural target = goods:{good} }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_plan_rural_n add = 1 }}
+\t\t\t\t{MOD_ID}_plan_mark_province = yes
+\t\t\t}}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
 \t\t}}
 \t}}
 }}
 """)
 
     out.append(f"""
-# The rows: one per location that got anything, the busiest first.
+# The province's answer, spent on its locations.
 #
-# A location and not a province, which is the one place this window differs from
-# the ranking's. A plan is «build this here», and «here» is a location: the cap
-# is a location's, and one province can hold four of them with four different
-# answers. Ordered by load, so the «магнит» the feature is named for is the top
-# of the table rather than something to look for.
+# This is where the plan stops being a list on a province and becomes buildings.
+# Every location builds its own side's list entire -- towns the town list,
+# villages the village one -- which is what makes a province read as one answer
+# and leaves nothing the ground can feed standing empty.
+#
+# Two locations of one province are not always able to build the same thing:
+# terrain and a building's own requirements can rule one out. That is not asked
+# here, and it is the next thing this pass owes.
+# Scope: country
+{MOD_ID}_plan_build = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tsave_scope_as = {MOD_ID}_loc
+\t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
+\t\tif = {{
+\t\t\tlimit = {{ location_rank = location_rank:rural_settlement }}
+\t\t\tprovince_definition = {{
+\t\t\t\tsave_scope_as = {MOD_ID}_prov
+\t\t\t\tevery_in_list = {{
+\t\t\t\t\tvariable = {MOD_ID}_plan_rural
+\t\t\t\t\tsave_scope_as = {MOD_ID}_good
+\t\t\t\t\tscope:{MOD_ID}_loc = {{
+\t\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = scope:{MOD_ID}_good }}
+\t\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
+\t\t\t\t\t}}
+\t\t\t\t\tscope:{MOD_ID}_prov = {{
+\t\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_plan_prov_load add = 1 }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\telse = {{
+\t\t\tprovince_definition = {{
+\t\t\t\tsave_scope_as = {MOD_ID}_prov
+\t\t\t\tevery_in_list = {{
+\t\t\t\t\tvariable = {MOD_ID}_plan_town
+\t\t\t\t\tsave_scope_as = {MOD_ID}_good
+\t\t\t\t\tscope:{MOD_ID}_loc = {{
+\t\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = scope:{MOD_ID}_good }}
+\t\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
+\t\t\t\t\t}}
+\t\t\t\t\tscope:{MOD_ID}_prov = {{
+\t\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_plan_prov_load add = 1 }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_load > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = var:{MOD_ID}_load }}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
+\t\t}}
+\t}}
+}}
+
+# The rows: one per location that got anything, its province's locations together.
+#
+# **Provinces are ranked first and their locations follow.** A row is a location,
+# but under the province model most locations of one province carry the same
+# list, and a sort on the location's own load would tie nearly all of them --
+# `ordered_in_global_list` promises nothing about ties, so two provinces would
+# interleave. So the provinces are put in order by how much the plan put in each
+# of them, every location is told its province's place, and the rows sort on that
+# with the towns of a province ahead of its villages.
 # Scope: country
 {MOD_ID}_plan_rank = {{
+\tset_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_provs
+\t\torder_by = {MOD_ID}_plan_prov_order
+\t\tmax = 400
+\t\tcheck_range_bounds = no
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
+\t\t# Every location of it, and not only the candidates: which of them are
+\t\t# candidates is not askable from here, and a location outside the plan's
+\t\t# ground is never read for this -- `_plan_order` is only ever asked of a
+\t\t# candidate, and `_plan_clear` gives every candidate a zero first.
+\t\tevery_location_in_province_definition = {{
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = global_var:{MOD_ID}_plan_prov_n }}
+\t\t}}
+\t}}
 \t# Counted before the rows are taken, and separately from them: the walk below
 \t# stops at {PLAN_ROWS} and a count that stopped with it would say the plan used
 \t# exactly as many locations as the window can draw, whatever it really used.
@@ -1405,8 +1664,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same thing the window's own scripted GUI does, reachable from an effect,
 # because a Mod Menu button is script and script cannot reach the interface's
 # variable system. The other two windows are closed on the way in: three tables
-# of three different questions, and only one of them is the answer to the button
-# that was just pressed.
+# of three different questions, and only one of them answers the button that was
+# just pressed.
 # Scope: country
 {MOD_ID}_open_plan_window_effect = {{
 \t{MOD_ID}_plan_show = yes

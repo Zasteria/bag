@@ -12,12 +12,11 @@ anything to say where a ladder ends early.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is not an answer**, and where none
-clears the bar there is no row. The bar is half the bonus the recipe could ever
-earn — `generate.fed_floor`, one literal per method — because "fed anything at
-all" offered a silk weaver where there are dyes and no silk. Every column keeps a
-fed answer for the ranking and an unfed one for printing, so a cell says 0.00%
-where a blank would lie: wool fine cloth stops at the workshop.
+**A recipe the province mostly cannot feed is not an answer** — the bar is half
+the bonus the recipe could ever earn (`generate.fed_floor`), because "fed
+anything at all" offered a silk weaver where there are dyes and no silk. Every
+column keeps a fed answer for the ranking and an unfed one for printing, so a
+cell says 0.00% where a blank would lie.
 
 **A building runs one method out of each of its slots** — eight have two, and
 each slot earns its own bonus over its own output (settled from the game's
@@ -26,21 +25,22 @@ panel), so a `Method` is the pair: `eu5data.Method.shares`, and why in
 
 **Urban rights** are two lists on the Goods tab and a window of their own, on the
 same two buttons and fallbacks but with no «По пути» column, only the tiebreak. A
-right's gate is its own `potential` or its advance's, never `has_advance`, so
-most countries see none of the three. Numbers and the deferred level rights:
+right's gate is its own `potential`, never `has_advance`. Numbers and the
+deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
 **Four pickers, and the market one names its own candidates**: only what
 `interaction_source_list` holds is clickable, so `bag_wtp_select_market` fills it
 from `every_market_in_world` (`docs/SETTLED.md`).
 
-**The whole-map plan is built and has never been loaded.** Every good at once,
-one building at a time, under a cap per location: three numeric settings, a
-window of rows by load, a map mode painting the same. It reuses
-`bag_wtp_score_<g>` and **normalizes each good by its own best here**, without
-which the biggest recipe takes every contested province. **The expensive
-button** — 241 recipes a location against a ranking's five — and that cost is
-what a first run measures. All of it in
+**The whole-map plan runs, and it is chosen per province.** A province takes two
+short lists, towns and villages, each as long as that side's cap, and every
+location of it builds its side's list — one answer per province. Sweeps run until
+the ground is full: a location the plan can feed is never left empty. An urban
+right takes a town list whole, before any good, chosen per province rather than
+by rights taking turns. It reuses `bag_wtp_score_<g>` and **normalizes each good
+by its own best here**, without which the biggest recipe takes every contested
+province. **The expensive button** — 241 recipes a location. All of it in
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so

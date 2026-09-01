@@ -6189,157 +6189,792 @@ bag_wtp_r_score = {
 	}
 }
 
+
 # clay
 # Scope: location
 bag_wtp_ord1 = { value = var:bag_wtp_p1 }
+# Scope: location
+bag_wtp_ordr1 = { value = var:bag_wtp_pr1 }
+# Scope: location
+bag_wtp_ordmax1 = {
+	value = var:bag_wtp_p1
+	if = {
+		limit = { var:bag_wtp_pr1 > var:bag_wtp_p1 }
+		value = var:bag_wtp_pr1
+	}
+}
+
 # coal
 # Scope: location
 bag_wtp_ord2 = { value = var:bag_wtp_p2 }
+# Scope: location
+bag_wtp_ordr2 = { value = var:bag_wtp_pr2 }
+# Scope: location
+bag_wtp_ordmax2 = {
+	value = var:bag_wtp_p2
+	if = {
+		limit = { var:bag_wtp_pr2 > var:bag_wtp_p2 }
+		value = var:bag_wtp_pr2
+	}
+}
+
 # cotton
 # Scope: location
 bag_wtp_ord3 = { value = var:bag_wtp_p3 }
+# Scope: location
+bag_wtp_ordr3 = { value = var:bag_wtp_pr3 }
+# Scope: location
+bag_wtp_ordmax3 = {
+	value = var:bag_wtp_p3
+	if = {
+		limit = { var:bag_wtp_pr3 > var:bag_wtp_p3 }
+		value = var:bag_wtp_pr3
+	}
+}
+
 # dyes
 # Scope: location
 bag_wtp_ord4 = { value = var:bag_wtp_p4 }
+# Scope: location
+bag_wtp_ordr4 = { value = var:bag_wtp_pr4 }
+# Scope: location
+bag_wtp_ordmax4 = {
+	value = var:bag_wtp_p4
+	if = {
+		limit = { var:bag_wtp_pr4 > var:bag_wtp_p4 }
+		value = var:bag_wtp_pr4
+	}
+}
+
 # fiber_crops
 # Scope: location
 bag_wtp_ord5 = { value = var:bag_wtp_p5 }
+# Scope: location
+bag_wtp_ordr5 = { value = var:bag_wtp_pr5 }
+# Scope: location
+bag_wtp_ordmax5 = {
+	value = var:bag_wtp_p5
+	if = {
+		limit = { var:bag_wtp_pr5 > var:bag_wtp_p5 }
+		value = var:bag_wtp_pr5
+	}
+}
+
 # fish
 # Scope: location
 bag_wtp_ord6 = { value = var:bag_wtp_p6 }
+# Scope: location
+bag_wtp_ordr6 = { value = var:bag_wtp_pr6 }
+# Scope: location
+bag_wtp_ordmax6 = {
+	value = var:bag_wtp_p6
+	if = {
+		limit = { var:bag_wtp_pr6 > var:bag_wtp_p6 }
+		value = var:bag_wtp_pr6
+	}
+}
+
 # fruit
 # Scope: location
 bag_wtp_ord7 = { value = var:bag_wtp_p7 }
+# Scope: location
+bag_wtp_ordr7 = { value = var:bag_wtp_pr7 }
+# Scope: location
+bag_wtp_ordmax7 = {
+	value = var:bag_wtp_p7
+	if = {
+		limit = { var:bag_wtp_pr7 > var:bag_wtp_p7 }
+		value = var:bag_wtp_pr7
+	}
+}
+
 # horses
 # Scope: location
 bag_wtp_ord8 = { value = var:bag_wtp_p8 }
+# Scope: location
+bag_wtp_ordr8 = { value = var:bag_wtp_pr8 }
+# Scope: location
+bag_wtp_ordmax8 = {
+	value = var:bag_wtp_p8
+	if = {
+		limit = { var:bag_wtp_pr8 > var:bag_wtp_p8 }
+		value = var:bag_wtp_pr8
+	}
+}
+
 # incense
 # Scope: location
 bag_wtp_ord9 = { value = var:bag_wtp_p9 }
+# Scope: location
+bag_wtp_ordr9 = { value = var:bag_wtp_pr9 }
+# Scope: location
+bag_wtp_ordmax9 = {
+	value = var:bag_wtp_p9
+	if = {
+		limit = { var:bag_wtp_pr9 > var:bag_wtp_p9 }
+		value = var:bag_wtp_pr9
+	}
+}
+
 # iron
 # Scope: location
 bag_wtp_ord10 = { value = var:bag_wtp_p10 }
+# Scope: location
+bag_wtp_ordr10 = { value = var:bag_wtp_pr10 }
+# Scope: location
+bag_wtp_ordmax10 = {
+	value = var:bag_wtp_p10
+	if = {
+		limit = { var:bag_wtp_pr10 > var:bag_wtp_p10 }
+		value = var:bag_wtp_pr10
+	}
+}
+
 # ivory
 # Scope: location
 bag_wtp_ord11 = { value = var:bag_wtp_p11 }
+# Scope: location
+bag_wtp_ordr11 = { value = var:bag_wtp_pr11 }
+# Scope: location
+bag_wtp_ordmax11 = {
+	value = var:bag_wtp_p11
+	if = {
+		limit = { var:bag_wtp_pr11 > var:bag_wtp_p11 }
+		value = var:bag_wtp_pr11
+	}
+}
+
 # livestock
 # Scope: location
 bag_wtp_ord12 = { value = var:bag_wtp_p12 }
+# Scope: location
+bag_wtp_ordr12 = { value = var:bag_wtp_pr12 }
+# Scope: location
+bag_wtp_ordmax12 = {
+	value = var:bag_wtp_p12
+	if = {
+		limit = { var:bag_wtp_pr12 > var:bag_wtp_p12 }
+		value = var:bag_wtp_pr12
+	}
+}
+
 # lumber
 # Scope: location
 bag_wtp_ord13 = { value = var:bag_wtp_p13 }
+# Scope: location
+bag_wtp_ordr13 = { value = var:bag_wtp_pr13 }
+# Scope: location
+bag_wtp_ordmax13 = {
+	value = var:bag_wtp_p13
+	if = {
+		limit = { var:bag_wtp_pr13 > var:bag_wtp_p13 }
+		value = var:bag_wtp_pr13
+	}
+}
+
 # medicaments
 # Scope: location
 bag_wtp_ord14 = { value = var:bag_wtp_p14 }
+# Scope: location
+bag_wtp_ordr14 = { value = var:bag_wtp_pr14 }
+# Scope: location
+bag_wtp_ordmax14 = {
+	value = var:bag_wtp_p14
+	if = {
+		limit = { var:bag_wtp_pr14 > var:bag_wtp_p14 }
+		value = var:bag_wtp_pr14
+	}
+}
+
 # salt
 # Scope: location
 bag_wtp_ord15 = { value = var:bag_wtp_p15 }
+# Scope: location
+bag_wtp_ordr15 = { value = var:bag_wtp_pr15 }
+# Scope: location
+bag_wtp_ordmax15 = {
+	value = var:bag_wtp_p15
+	if = {
+		limit = { var:bag_wtp_pr15 > var:bag_wtp_p15 }
+		value = var:bag_wtp_pr15
+	}
+}
+
 # saltpeter
 # Scope: location
 bag_wtp_ord16 = { value = var:bag_wtp_p16 }
+# Scope: location
+bag_wtp_ordr16 = { value = var:bag_wtp_pr16 }
+# Scope: location
+bag_wtp_ordmax16 = {
+	value = var:bag_wtp_p16
+	if = {
+		limit = { var:bag_wtp_pr16 > var:bag_wtp_p16 }
+		value = var:bag_wtp_pr16
+	}
+}
+
 # sand
 # Scope: location
 bag_wtp_ord17 = { value = var:bag_wtp_p17 }
+# Scope: location
+bag_wtp_ordr17 = { value = var:bag_wtp_pr17 }
+# Scope: location
+bag_wtp_ordmax17 = {
+	value = var:bag_wtp_p17
+	if = {
+		limit = { var:bag_wtp_pr17 > var:bag_wtp_p17 }
+		value = var:bag_wtp_pr17
+	}
+}
+
 # silk
 # Scope: location
 bag_wtp_ord18 = { value = var:bag_wtp_p18 }
+# Scope: location
+bag_wtp_ordr18 = { value = var:bag_wtp_pr18 }
+# Scope: location
+bag_wtp_ordmax18 = {
+	value = var:bag_wtp_p18
+	if = {
+		limit = { var:bag_wtp_pr18 > var:bag_wtp_p18 }
+		value = var:bag_wtp_pr18
+	}
+}
+
 # silver
 # Scope: location
 bag_wtp_ord19 = { value = var:bag_wtp_p19 }
+# Scope: location
+bag_wtp_ordr19 = { value = var:bag_wtp_pr19 }
+# Scope: location
+bag_wtp_ordmax19 = {
+	value = var:bag_wtp_p19
+	if = {
+		limit = { var:bag_wtp_pr19 > var:bag_wtp_p19 }
+		value = var:bag_wtp_pr19
+	}
+}
+
 # stone
 # Scope: location
 bag_wtp_ord20 = { value = var:bag_wtp_p20 }
+# Scope: location
+bag_wtp_ordr20 = { value = var:bag_wtp_pr20 }
+# Scope: location
+bag_wtp_ordmax20 = {
+	value = var:bag_wtp_p20
+	if = {
+		limit = { var:bag_wtp_pr20 > var:bag_wtp_p20 }
+		value = var:bag_wtp_pr20
+	}
+}
+
 # sugar
 # Scope: location
 bag_wtp_ord21 = { value = var:bag_wtp_p21 }
+# Scope: location
+bag_wtp_ordr21 = { value = var:bag_wtp_pr21 }
+# Scope: location
+bag_wtp_ordmax21 = {
+	value = var:bag_wtp_p21
+	if = {
+		limit = { var:bag_wtp_pr21 > var:bag_wtp_p21 }
+		value = var:bag_wtp_pr21
+	}
+}
+
 # tobacco
 # Scope: location
 bag_wtp_ord22 = { value = var:bag_wtp_p22 }
+# Scope: location
+bag_wtp_ordr22 = { value = var:bag_wtp_pr22 }
+# Scope: location
+bag_wtp_ordmax22 = {
+	value = var:bag_wtp_p22
+	if = {
+		limit = { var:bag_wtp_pr22 > var:bag_wtp_p22 }
+		value = var:bag_wtp_pr22
+	}
+}
+
 # wild_game
 # Scope: location
 bag_wtp_ord23 = { value = var:bag_wtp_p23 }
+# Scope: location
+bag_wtp_ordr23 = { value = var:bag_wtp_pr23 }
+# Scope: location
+bag_wtp_ordmax23 = {
+	value = var:bag_wtp_p23
+	if = {
+		limit = { var:bag_wtp_pr23 > var:bag_wtp_p23 }
+		value = var:bag_wtp_pr23
+	}
+}
+
 # wine
 # Scope: location
 bag_wtp_ord24 = { value = var:bag_wtp_p24 }
+# Scope: location
+bag_wtp_ordr24 = { value = var:bag_wtp_pr24 }
+# Scope: location
+bag_wtp_ordmax24 = {
+	value = var:bag_wtp_p24
+	if = {
+		limit = { var:bag_wtp_pr24 > var:bag_wtp_p24 }
+		value = var:bag_wtp_pr24
+	}
+}
+
 # wool
 # Scope: location
 bag_wtp_ord25 = { value = var:bag_wtp_p25 }
+# Scope: location
+bag_wtp_ordr25 = { value = var:bag_wtp_pr25 }
+# Scope: location
+bag_wtp_ordmax25 = {
+	value = var:bag_wtp_p25
+	if = {
+		limit = { var:bag_wtp_pr25 > var:bag_wtp_p25 }
+		value = var:bag_wtp_pr25
+	}
+}
+
 # beer
 # Scope: location
 bag_wtp_ord26 = { value = var:bag_wtp_p26 }
+# Scope: location
+bag_wtp_ordr26 = { value = var:bag_wtp_pr26 }
+# Scope: location
+bag_wtp_ordmax26 = {
+	value = var:bag_wtp_p26
+	if = {
+		limit = { var:bag_wtp_pr26 > var:bag_wtp_p26 }
+		value = var:bag_wtp_pr26
+	}
+}
+
 # books
 # Scope: location
 bag_wtp_ord27 = { value = var:bag_wtp_p27 }
+# Scope: location
+bag_wtp_ordr27 = { value = var:bag_wtp_pr27 }
+# Scope: location
+bag_wtp_ordmax27 = {
+	value = var:bag_wtp_p27
+	if = {
+		limit = { var:bag_wtp_pr27 > var:bag_wtp_p27 }
+		value = var:bag_wtp_pr27
+	}
+}
+
 # cannons
 # Scope: location
 bag_wtp_ord28 = { value = var:bag_wtp_p28 }
+# Scope: location
+bag_wtp_ordr28 = { value = var:bag_wtp_pr28 }
+# Scope: location
+bag_wtp_ordmax28 = {
+	value = var:bag_wtp_p28
+	if = {
+		limit = { var:bag_wtp_pr28 > var:bag_wtp_p28 }
+		value = var:bag_wtp_pr28
+	}
+}
+
 # cloth
 # Scope: location
 bag_wtp_ord29 = { value = var:bag_wtp_p29 }
+# Scope: location
+bag_wtp_ordr29 = { value = var:bag_wtp_pr29 }
+# Scope: location
+bag_wtp_ordmax29 = {
+	value = var:bag_wtp_p29
+	if = {
+		limit = { var:bag_wtp_pr29 > var:bag_wtp_p29 }
+		value = var:bag_wtp_pr29
+	}
+}
+
 # fine_cloth
 # Scope: location
 bag_wtp_ord30 = { value = var:bag_wtp_p30 }
+# Scope: location
+bag_wtp_ordr30 = { value = var:bag_wtp_pr30 }
+# Scope: location
+bag_wtp_ordmax30 = {
+	value = var:bag_wtp_p30
+	if = {
+		limit = { var:bag_wtp_pr30 > var:bag_wtp_p30 }
+		value = var:bag_wtp_pr30
+	}
+}
+
 # firearms
 # Scope: location
 bag_wtp_ord31 = { value = var:bag_wtp_p31 }
+# Scope: location
+bag_wtp_ordr31 = { value = var:bag_wtp_pr31 }
+# Scope: location
+bag_wtp_ordmax31 = {
+	value = var:bag_wtp_p31
+	if = {
+		limit = { var:bag_wtp_pr31 > var:bag_wtp_p31 }
+		value = var:bag_wtp_pr31
+	}
+}
+
 # furniture
 # Scope: location
 bag_wtp_ord32 = { value = var:bag_wtp_p32 }
+# Scope: location
+bag_wtp_ordr32 = { value = var:bag_wtp_pr32 }
+# Scope: location
+bag_wtp_ordmax32 = {
+	value = var:bag_wtp_p32
+	if = {
+		limit = { var:bag_wtp_pr32 > var:bag_wtp_p32 }
+		value = var:bag_wtp_pr32
+	}
+}
+
 # glass
 # Scope: location
 bag_wtp_ord33 = { value = var:bag_wtp_p33 }
+# Scope: location
+bag_wtp_ordr33 = { value = var:bag_wtp_pr33 }
+# Scope: location
+bag_wtp_ordmax33 = {
+	value = var:bag_wtp_p33
+	if = {
+		limit = { var:bag_wtp_pr33 > var:bag_wtp_p33 }
+		value = var:bag_wtp_pr33
+	}
+}
+
 # jewelry
 # Scope: location
 bag_wtp_ord34 = { value = var:bag_wtp_p34 }
+# Scope: location
+bag_wtp_ordr34 = { value = var:bag_wtp_pr34 }
+# Scope: location
+bag_wtp_ordmax34 = {
+	value = var:bag_wtp_p34
+	if = {
+		limit = { var:bag_wtp_pr34 > var:bag_wtp_p34 }
+		value = var:bag_wtp_pr34
+	}
+}
+
 # lacquerware
 # Scope: location
 bag_wtp_ord35 = { value = var:bag_wtp_p35 }
+# Scope: location
+bag_wtp_ordr35 = { value = var:bag_wtp_pr35 }
+# Scope: location
+bag_wtp_ordmax35 = {
+	value = var:bag_wtp_p35
+	if = {
+		limit = { var:bag_wtp_pr35 > var:bag_wtp_p35 }
+		value = var:bag_wtp_pr35
+	}
+}
+
 # leather
 # Scope: location
 bag_wtp_ord36 = { value = var:bag_wtp_p36 }
+# Scope: location
+bag_wtp_ordr36 = { value = var:bag_wtp_pr36 }
+# Scope: location
+bag_wtp_ordmax36 = {
+	value = var:bag_wtp_p36
+	if = {
+		limit = { var:bag_wtp_pr36 > var:bag_wtp_p36 }
+		value = var:bag_wtp_pr36
+	}
+}
+
 # liquor
 # Scope: location
 bag_wtp_ord37 = { value = var:bag_wtp_p37 }
+# Scope: location
+bag_wtp_ordr37 = { value = var:bag_wtp_pr37 }
+# Scope: location
+bag_wtp_ordmax37 = {
+	value = var:bag_wtp_p37
+	if = {
+		limit = { var:bag_wtp_pr37 > var:bag_wtp_p37 }
+		value = var:bag_wtp_pr37
+	}
+}
+
 # masonry
 # Scope: location
 bag_wtp_ord38 = { value = var:bag_wtp_p38 }
+# Scope: location
+bag_wtp_ordr38 = { value = var:bag_wtp_pr38 }
+# Scope: location
+bag_wtp_ordmax38 = {
+	value = var:bag_wtp_p38
+	if = {
+		limit = { var:bag_wtp_pr38 > var:bag_wtp_p38 }
+		value = var:bag_wtp_pr38
+	}
+}
+
 # naval_supplies
 # Scope: location
 bag_wtp_ord39 = { value = var:bag_wtp_p39 }
+# Scope: location
+bag_wtp_ordr39 = { value = var:bag_wtp_pr39 }
+# Scope: location
+bag_wtp_ordmax39 = {
+	value = var:bag_wtp_p39
+	if = {
+		limit = { var:bag_wtp_pr39 > var:bag_wtp_p39 }
+		value = var:bag_wtp_pr39
+	}
+}
+
 # paper
 # Scope: location
 bag_wtp_ord40 = { value = var:bag_wtp_p40 }
+# Scope: location
+bag_wtp_ordr40 = { value = var:bag_wtp_pr40 }
+# Scope: location
+bag_wtp_ordmax40 = {
+	value = var:bag_wtp_p40
+	if = {
+		limit = { var:bag_wtp_pr40 > var:bag_wtp_p40 }
+		value = var:bag_wtp_pr40
+	}
+}
+
 # porcelain
 # Scope: location
 bag_wtp_ord41 = { value = var:bag_wtp_p41 }
+# Scope: location
+bag_wtp_ordr41 = { value = var:bag_wtp_pr41 }
+# Scope: location
+bag_wtp_ordmax41 = {
+	value = var:bag_wtp_p41
+	if = {
+		limit = { var:bag_wtp_pr41 > var:bag_wtp_p41 }
+		value = var:bag_wtp_pr41
+	}
+}
+
 # pottery
 # Scope: location
 bag_wtp_ord42 = { value = var:bag_wtp_p42 }
+# Scope: location
+bag_wtp_ordr42 = { value = var:bag_wtp_pr42 }
+# Scope: location
+bag_wtp_ordmax42 = {
+	value = var:bag_wtp_p42
+	if = {
+		limit = { var:bag_wtp_pr42 > var:bag_wtp_p42 }
+		value = var:bag_wtp_pr42
+	}
+}
+
 # slaves_goods
 # Scope: location
 bag_wtp_ord43 = { value = var:bag_wtp_p43 }
+# Scope: location
+bag_wtp_ordr43 = { value = var:bag_wtp_pr43 }
+# Scope: location
+bag_wtp_ordmax43 = {
+	value = var:bag_wtp_p43
+	if = {
+		limit = { var:bag_wtp_pr43 > var:bag_wtp_p43 }
+		value = var:bag_wtp_pr43
+	}
+}
+
 # steel
 # Scope: location
 bag_wtp_ord44 = { value = var:bag_wtp_p44 }
+# Scope: location
+bag_wtp_ordr44 = { value = var:bag_wtp_pr44 }
+# Scope: location
+bag_wtp_ordmax44 = {
+	value = var:bag_wtp_p44
+	if = {
+		limit = { var:bag_wtp_pr44 > var:bag_wtp_p44 }
+		value = var:bag_wtp_pr44
+	}
+}
+
 # tar
 # Scope: location
 bag_wtp_ord45 = { value = var:bag_wtp_p45 }
+# Scope: location
+bag_wtp_ordr45 = { value = var:bag_wtp_pr45 }
+# Scope: location
+bag_wtp_ordmax45 = {
+	value = var:bag_wtp_p45
+	if = {
+		limit = { var:bag_wtp_pr45 > var:bag_wtp_p45 }
+		value = var:bag_wtp_pr45
+	}
+}
+
 # tools
 # Scope: location
 bag_wtp_ord46 = { value = var:bag_wtp_p46 }
+# Scope: location
+bag_wtp_ordr46 = { value = var:bag_wtp_pr46 }
+# Scope: location
+bag_wtp_ordmax46 = {
+	value = var:bag_wtp_p46
+	if = {
+		limit = { var:bag_wtp_pr46 > var:bag_wtp_p46 }
+		value = var:bag_wtp_pr46
+	}
+}
+
 # weaponry
 # Scope: location
 bag_wtp_ord47 = { value = var:bag_wtp_p47 }
+# Scope: location
+bag_wtp_ordr47 = { value = var:bag_wtp_pr47 }
+# Scope: location
+bag_wtp_ordmax47 = {
+	value = var:bag_wtp_p47
+	if = {
+		limit = { var:bag_wtp_pr47 > var:bag_wtp_p47 }
+		value = var:bag_wtp_pr47
+	}
+}
+
+# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk
+# Scope: location
+bag_wtp_rq1 = {
+	value = 0
+	add = var:bag_wtp_p29
+	add = var:bag_wtp_p30
+	add = var:bag_wtp_p18
+}
+
+# royal_artisan_rights: furniture, leather, pottery
+# Scope: location
+bag_wtp_rq2 = {
+	value = 0
+	add = var:bag_wtp_p32
+	add = var:bag_wtp_p36
+	add = var:bag_wtp_p42
+}
+
+# royal_book_rights: books, dyes, paper
+# Scope: location
+bag_wtp_rq3 = {
+	value = 0
+	add = var:bag_wtp_p27
+	add = var:bag_wtp_p4
+	add = var:bag_wtp_p40
+}
+
+# royal_brewing_rights: beer, liquor, wine
+# Scope: location
+bag_wtp_rq4 = {
+	value = 0
+	add = var:bag_wtp_p26
+	add = var:bag_wtp_p37
+	add = var:bag_wtp_p24
+}
+
+# royal_jewelry_rights: jewelry
+# Scope: location
+bag_wtp_rq5 = {
+	value = 0
+	add = var:bag_wtp_p34
+}
+
+# royal_masonry_rights: glass, masonry
+# Scope: location
+bag_wtp_rq6 = {
+	value = 0
+	add = var:bag_wtp_p33
+	add = var:bag_wtp_p38
+}
+
+# royal_naval_rights: naval_supplies, tar
+# Scope: location
+bag_wtp_rq7 = {
+	value = 0
+	add = var:bag_wtp_p39
+	add = var:bag_wtp_p45
+}
+
+# royal_textile_rights: cloth, dyes, fine_cloth
+# Scope: location
+bag_wtp_rq8 = {
+	value = 0
+	add = var:bag_wtp_p29
+	add = var:bag_wtp_p4
+	add = var:bag_wtp_p30
+}
+
+# royal_tooling_rights: tools
+# Scope: location
+bag_wtp_rq9 = {
+	value = 0
+	add = var:bag_wtp_p46
+}
+
+# royal_weaponry_rights: cannons, firearms, weaponry
+# Scope: location
+bag_wtp_rq10 = {
+	value = 0
+	add = var:bag_wtp_p28
+	add = var:bag_wtp_p31
+	add = var:bag_wtp_p47
+}
+
+# scandinavian_bergslag_privileges: tools
+# Scope: location
+bag_wtp_rq11 = {
+	value = 0
+	add = var:bag_wtp_p46
+}
+
+# scandinavian_tar_privileges: naval_supplies, tar
+# Scope: location
+bag_wtp_rq12 = {
+	value = 0
+	add = var:bag_wtp_p39
+	add = var:bag_wtp_p45
+}
 
 # The divisor the plan normalizes by: the best this ground is worth to whatever
 # good is being harvested. A script value and not `divide = global_var:`, because
 # `divide` takes a script value for certain and the other form is only inferred.
 bag_wtp_plan_top_value = { value = global_var:bag_wtp_plan_top }
 
-# The plan's rows are ordered by how many buildings a location took, so the
-# «магнит» the whole feature is named for is the top of the table.
+# How the plan's provinces are ordered: by how much of it landed in each. Under
+# the province model every province fills to its capacity, so this is size and
+# contention together -- the «магнит» the feature is named for.
+# Scope: province_definition
+bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
+
+# And how a location's row is ordered: by its province's place, so a province's
+# locations stay together, with its towns ahead of its villages. Negated because
+# `ordered_in_global_list` sorts highest first and place 1 has to come out first.
+#
+# **Small numbers on purpose.** Packing the province's load and its place into
+# one figure would run to five digits, and where the engine's fixed point ends is
+# not knowable from here -- `RIGHT_SCALE` is in the generator for the same
+# reason.
 # Scope: location
-bag_wtp_plan_order = { value = var:bag_wtp_load }
+bag_wtp_plan_order = {
+	value = 0
+	subtract = var:bag_wtp_plan_prank
+	if = {
+		limit = { NOT = { location_rank = location_rank:rural_settlement } }
+		add = 0.5
+	}
+}
 
 # And the copy into the window's datamodel keeps that order the way the
 # ranking's does: highest first, so the rank is negated.
@@ -6366,4 +7001,5 @@ bag_wtp_show_plan_shown = { value = global_var:bag_wtp_plan_shown }
 bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
 bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
-bag_wtp_show_plan_per_good = { value = global_var:bag_wtp_plan_per_good }
+bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
+bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }

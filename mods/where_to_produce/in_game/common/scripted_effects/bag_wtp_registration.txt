@@ -96,18 +96,31 @@ bag_wtp_register = {
 		step_value = 1
 	}
 
-	# How many buildings one good may have in the whole plan: the rounds of the
-	# allocation. It is also the ceiling on what the pass costs, which is why it
-	# is the player's number rather than a literal.
+	# The one ceiling above the caps, and off by default. The plan fills the
+	# ground: a location it can feed is never left empty, which is the
+	# twenty-eighth run's ruling. This is for the case where one good has spread
+	# further than you want it to.
 	cmm_register_global_numeric_setting = {
 		mod_id = bag_wtp
-		setting_id = plan_per_good
+		setting_id = plan_max
 		tab_id = plan
 		group_id = plan
-		default_value = 3
+		default_value = 0
 		min_value = 0
-		max_value = 12
+		max_value = 20
 		step_value = 1
+	}
+
+	# Urban rights in the plan, and on by default. A right is a bundle of two or
+	# three goods, which is the shape of a town's list, so a right does not
+	# compete with goods for slots -- it takes the whole list, and it takes it
+	# before any good is placed.
+	cmm_register_global_bool_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_rights
+		tab_id = plan
+		group_id = plan
+		default_value = 1
 	}
 
 	# `plan_run` and not `plan`: a setting's name key is `<mod>__<setting>_name`
@@ -169,7 +182,8 @@ bag_wtp_sync = {
 	# top of every plan run rather than only here.
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_rural alias = bag_wtp_plan_cap_rural }
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_urban alias = bag_wtp_plan_cap_urban }
-	cmm_sync_setting_alias = { setting = bag_wtp__plan_per_good alias = bag_wtp_plan_per_good }
+	cmm_sync_setting_alias = { setting = bag_wtp__plan_max alias = bag_wtp_plan_max }
+	cmm_sync_bool_alias = { setting = bag_wtp__plan_rights alias = bag_wtp_plan_rights }
 	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
 	# buttons set and clear it themselves, so no CMM setting has to agree with it.
 	# It was a tick on this page for one load and three buttons in the results

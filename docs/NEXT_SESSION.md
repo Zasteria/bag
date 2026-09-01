@@ -42,25 +42,27 @@ one alignment question is open in `TESTLOG.md` and nothing else is.
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**The whole-map plan is answered, designed and half built, and the whole of it
-is [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read
-that file before anything else about this mod.** The owner answered its five
-questions on 2026-09-01 — the cap is per location and there are two of them, set
-in game; no market or price weighting; RGOs already standing reduce what a good
-is owed; a table and a map — and the first slice went in the same day: a «Общий
-план» group with three numbers and two buttons, a pass that plans all 47 goods
-at once, a window of locations by load, and a map mode painting it.
+**The whole-map plan is the job, and the whole of it is
+[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read that
+file before anything else about this mod.** It ran on 2026-09-01 (`TESTLOG.md`,
+twenty-eighth load) and the owner's verdict was «получилось даже более менее
+сносно». What that run changed is not a fix but the model: the plan is chosen
+**per province** now — two short lists, towns and villages, and every location of
+the province builds its side's list — it runs until the ground is full rather
+than for a fixed number of rounds, and urban rights take a town list whole.
 
-**None of it has been loaded, and the first thing to ask him for is one press on
-a small ground** — one area, then a region. The pass reads 241 recipes on every
-location where a ranking reads about five, and whether that survives a button
-press is the one thing that cannot be known from here. Five counters are printed
-on the button and in the window for exactly that: the first zero among them is
-the diagnosis, so no log is needed unless something did nothing.
+**None of the rewrite has been loaded.** What to ask him for is one press on the
+same ground he used, Wallachia at 3/3, and three things off the screenshot: that
+a province's locations now carry the same goods and sit together in the table,
+that nothing is left empty (buildings should equal «мест»), and what the rights
+switch does to the towns.
 
-Not built on purpose, and not to be started before that run: the per-good
-weight, the RGO discount, and regret ordering. All three change what a good is
-owed, and none can be judged before the base distribution has been seen once.
+Not built on purpose, and not to be started before that run: the per-good weight,
+the RGO discount, regret ordering within a sweep, and asking whether a location
+can actually hold what its province's list says. The first two change what a good
+is owed and cannot be judged before the province model has been seen once; the
+last is the build pass's own debt and the owner named it himself — «некоторые
+локации в одной провинции могут просто не подходить».
 
 **Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
 about `where_to_produce` is confirmed.

@@ -72,107 +72,88 @@ wording decides something.
   second-strongest excluding the first). So "this good's best free location" is
   one engine-side sort, not a walk.
 
-## The design that follows
+## The design, as the twenty-eighth run left it
 
 Marked where it is a proposal of ours rather than his answer.
+
+**The plan is chosen per province and spent per location.** The first build chose
+a location at a time, and that was the wrong unit: he plays a province as a
+specialisation — «вся сельская местность в одной провинции в большинстве случаев
+получит линейку домиков одинаковую» — while a rule of one building per good per
+province produced the exact opposite. So a province takes two short lists, one
+for its towns and one for its villages, each as long as that side's cap, and
+every location of it then builds its side's list entire. A province reads as one
+answer, its villages repeat each other, and what differs is the ground.
 
 **The score is normalized per good, and that is the one thing that must not be
 skipped.** `out × (1 + bonus/100)` is not comparable between two goods — it is
 1.0 lumber against 0.2 wine, a units difference — and a plan that ranks
 (good, province) pairs on it hands every contested province to whatever good has
 the biggest output. Each good is divided by its own best in the chosen ground
-instead: `fit = score(province) / score(this good's best province here)`, 1.00 at
-its best, self-calibrating, no constant to keep. **Ours.**
+instead: 1.00 at its best, self-calibrating, no constant to keep. **One divisor
+for both sides**, so a good worth five times as much in a town as in a village
+still says so. **Ours.**
 
-**Round-robin, not one sweep.** Every good takes one location, then every good
-takes another, and so on until the caps are full. Even distribution then needs no
-quota — it is what the rounds do. **Ours.**
+**Round-robin, and it runs until the ground is full.** Every good takes one town
+list and one village list, then every good takes another, until a whole sweep
+adds nothing anywhere. Evenness needs no quota — it is what the rounds do — and
+**a location the plan can feed is never left empty**: his ruling, and the reason
+the fixed round count is gone.
 
-**Who wins a province two goods want: the one with the most to lose.**
-`regret = fit(its best free) − fit(its second-best free)`; highest regret picks
-first in the round. A good with an equally good alternative steps aside by
-itself; a good with nowhere else to go keeps the ground. This is the middle of
-the two answers his question offered — the loser goes to its next province, but
-which one is the loser is decided by what the *pair* costs, not by the bigger
-number. **Ours, and the part most worth testing against plain best-percent
-first.**
+**Urban rights are a province's town list, and they are chosen first.** A right
+is a bundle of two or three goods, which is the shape of a town list, so a right
+does not compete with goods for slots — it takes the list whole. **Which right a
+province gets is asked of the province, not of the rights**: there are twelve and
+rarely that many provinces, so letting rights take turns would decide the outcome
+by turn order alone. A right's worth on a province is its bundle's own normalized
+scores added up, which costs no pass — the goods were scored anyway. Behind a
+switch, on by default. **Ours, bar the priority and the switch, which are his.**
 
-**Urban rights go in a round zero**, before ordinary goods: his answer, and a
-right needs a town or city location anyway.
+**What a good is owed is still flat.** No market, no price, no shortage — his
+answer. The one ceiling is «не больше стольких провинций на товар», off by
+default.
 
-**One building of a good per province, full stop**, so a good's second building
-lands in a different province while any is left. Otherwise the best province
-takes the same good twice and the plan is a heap again. A good that really wants
-two in one province is what the weight is for. **Ours.**
+**The answer is a table and a map.** Rows are locations, ordered by province:
+provinces by how much the plan put in each, their locations together, towns
+before villages. The map mode paints **completeness** rather than crowding —
+green where a location is filled to its cap, red where the plan put nothing —
+because under the province model a full location is the normal case and the
+interesting one is the ground that could not feed a whole list.
 
-**The manual weight is picks per round.** A number on each row of the goods list,
-default 1; stone at 3 takes three locations a round. That is «запросить
-увеличение места под конкретный товар», and it is the same number that overrides
-the RGO discount.
+## What is built, and what is not
 
-**RGOs are subtracted from what a good is owed, not from the province's score.**
-A good with *n* RGO locations in the ground sits out its first *n* rounds. It is
-deliberately not a penalty on the province: the ground that grows salt is often
-exactly where a salt works belongs — what the RGO changes is *how many* are
-wanted, which is what he said.
+Built 2026-09-01, loaded once as the location-at-a-time version, and rebuilt to
+the above the same day:
 
-**The answer needs no new window.** The plan writes the same location variables
-the results window already reads — `bag_wtp_bt`, `_pm`, `_out`, `_bonus`,
-`_goods` — so a plan is the existing table, differently chosen, plus the good's
-own name on the row and what it displaced. The map mode is a second reader of
-the same variables.
+- **«4. Общий план»**: goods per rural location (3), per town (4), at most this
+  many provinces per good (0 = no ceiling), a switch for urban rights, «План» and
+  «Открыть».
+- `bag_wtp_generated_plan.txt` — the scoring harvest, the rights round, the
+  sweeps, the build onto locations and the ranking.
+- A window of locations by province, and a map mode painting completeness.
+- **Five counters the pass writes itself**, printed on the button and in the
+  window, because an effect that merely does nothing logs nothing.
 
-**And the plan tab prints its own capacity**: rural locations × rural cap + urban
-× urban cap, against the number of goods asked for. That is how the cap gets
-chosen — by seeing what it buys — rather than by us inventing an average he can
-already estimate better than we can. **Ours, and it is the honest answer to «ты
-способен вычислить оптимальное среднее количество линеек».**
-
-## What is built, 2026-09-01, and never loaded
-
-The first slice, and it is deliberately not all of the design above.
-
-- **A «4. Общий план» group** on the same tab as the two «Считать» buttons:
-  «Зданий на сельскую локацию» (3), «Зданий на город» (4), «Зданий на товар» (3),
-  and two buttons — «План» and «Открыть».
-- **The pass**, `bag_wtp_generated_plan.txt`: one `bag_wtp_score_<g>` per good
-  over the picked ground, harvested into `_p<g>`, each good divided by its own
-  best here, then rounds of `ordered_in_global_list ... max = 1` — one location
-  per good per round, never twice in a province, never past a location's cap.
-- **A window of rows by load**, busiest first, each naming the location, its
-  province, what it already digs up and the goods the plan gives it.
-- **A map mode**, «Где производить — план», in the Economy category: green at
-  one building, red at four, pale where the plan passed over.
-- **Five numbers on the button and in the window**, counted by the pass itself,
-  because an effect that does nothing logs nothing: locations considered, room
-  in them, goods this ground can make, buildings placed, locations used.
-
-**Not built, and named here so nobody looks for it:** the per-good weight, the
-RGO discount, regret ordering, and choosing which goods to plan — the plan
-always plans all 47. Each of those changes what a good is *owed*, and none of
-them can be judged before the base distribution has been seen once.
-
-**What the first run has to answer, in order.** Whether the button returns at
-all, and how long a small ground takes — start with one area, then a region,
-because the pass reads 241 recipes on every location against a ranking's five.
-Then whether «мест» against «товаров» makes the caps choosable. Then whether the
-spread looks like a plan or like a heap.
-
-**And the one thing known to be arbitrary**: within a round the goods are served
-in a fixed order. After normalization every good's first choice is worth exactly
-the same, so round one is a genuine tie and any order is as good as another —
-but from round two on, fixed order quietly favours the goods that come first.
-That is what regret ordering is for, and it is the next thing to build.
+**Not built, and named here so nobody looks for it:** the per-good weight
+(«этому товару нужно больше места»), the RGO discount, and choosing which goods
+to plan — the plan always plans all 47. **Also not asked: whether a location can
+actually hold what its province's list says.** Terrain and a building's own
+requirements can rule one out, and two locations of a province are not always
+interchangeable; that is the next thing the build pass owes.
 
 ## Still open
 
 - Whether the RGO count is over the planned ground only or the country too.
   Default proposed: both, since «наша территория» was his phrase.
-- Whether regret ordering beats plain best-percent-first. One run with each,
-  same ground, is the test.
-- The map mode's colouring: by planned good (47 colours, unreadable) or by load —
-  how many buildings a location took against its cap, which is «магнит» drawn
-  directly. The second, first.
+- **Within a sweep the goods are served in a fixed order.** After normalization
+  every good's first choice is worth the same, so the first sweep is a genuine
+  tie and any order is as good as another — but from the second on, fixed order
+  quietly favours the goods that come first. Ordering them by regret
+  (`best − second best`, so the good with the worst alternative picks first) is
+  the fix, and it is worth one run against the plain order before it is built.
+- Which right a province was given is not shown; the bundle's icons are the only
+  sign of it. A name would want a `customizable_localization` switching on the
+  index.
 
 ## The trap this must not walk into
 

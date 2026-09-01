@@ -81,39 +81,51 @@ The fourth group on the Answer tab, and a second question rather than a bigger
 version of the first: **every good at once over the chosen ground**, one building
 at a time, under a cap per location.
 
-- **Two caps and a third number**, all set in the game — buildings per rural
-  location (3), per town or city (4), and how many buildings one good may have in
-  the whole plan (3), which is also the number of rounds the allocation runs.
+- **Chosen per province, spent per location.** A province takes two short lists —
+  one for its towns, one for its villages, each as long as that side's cap — and
+  every location of it then builds its side's list entire. So a province reads as
+  one answer and its villages repeat each other, which is how the ground is
+  actually developed; what differs is the next province.
+- **Two caps, set in the game**: goods per rural location (3) and per town (4).
   The game exposes no building-slot count of any kind, so these are the player's
   figures; what makes them choosable is that the pass prints the capacity of the
   chosen ground beside the number of goods asking for room in it.
 - **It reuses the ranking's scoring.** `bag_wtp_score_<g>` already leaves the
-  best method for good `g` on every candidate, so the plan runs it once per good
-  and keeps the number in `bag_wtp_p<g>`. No second scoring path exists.
-- **Every good is divided by its own best in this ground.** Output is in units of
-  the good, so a raw score compares nothing across goods and the biggest recipe
-  would take every contested province. Normalized, each good peaks at 1000 on the
-  province that suits it most and the numbers finally mean the same thing.
-- **Rounds, not one sweep.** Every good takes one location, then every good takes
-  another. A good never takes two locations of one province: the province is the
-  unit the bonus is counted over, so the second building goes to the next
-  province that suits it while any is left.
-- **The answer is a location**, not a province — the cap belongs to a location,
-  and one province holds four of them with four different answers. Rows are
-  ordered by load, so the «магнит» is the top of the table, and the same load is
-  painted by a map mode of the mod's own in the Economy category.
+  best method for good `g` on every candidate, on both sides, so the plan runs it
+  once per good and keeps the two numbers in `bag_wtp_p<g>` and `bag_wtp_pr<g>`.
+  No second scoring path exists.
+- **Every good is divided by its own best in this ground**, one divisor for both
+  sides. Output is in units of the good, so a raw score compares nothing across
+  goods and the biggest recipe would take every contested province. Normalized,
+  each good peaks at 1000 on the province that suits it most.
+- **Sweeps until the ground is full.** Every good takes one town list and one
+  village list, then every good takes another, until a whole sweep adds nothing.
+  A location the plan can feed is never left empty. «Не больше стольких провинций
+  на товар» is the one ceiling above that, and it is off by default.
+- **An urban right is a town list**, taken whole and taken first, and which right
+  a province gets is asked of the province rather than of the rights: twelve
+  rights and rarely that many provinces means a turn order would be the whole
+  outcome. Behind a switch, on by default.
+- **The answer is a table and a map.** Rows are locations ordered by province —
+  provinces by how much the plan put in each, their locations together, towns
+  first — and a map mode of the mod's own in the Economy category paints
+  completeness: green where a location is filled to its cap, red where the plan
+  put nothing.
 
-`bag_wtp_load` and the `bag_wtp_plan_goods` list are the whole of the answer, on
-the location; `bag_wtp_plan_here` is on the province definition, and is what
-stops a good taking a province twice. The design and the owner's answers behind
-it: [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
+`bag_wtp_load` and the `bag_wtp_plan_goods` list are the answer on the location;
+`bag_wtp_plan_town` and `bag_wtp_plan_rural` are the lists on the province
+definition, and `bag_wtp_plan_prank` is what keeps a province's rows together.
+The design and the owner's answers behind it:
+[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 ## What is deliberately not here yet
 
 Any measure of what a building costs to put up. In the plan: a per-good weight
 («этому товару нужно больше места»), the discount an RGO already standing should
-buy a good, choosing which goods to plan rather than all of them, and ordering
-the goods within a round by which of them would lose most. The ranking still
+buy a good, choosing which goods to plan rather than all of them, ordering the
+goods within a sweep by which of them would lose most, and asking whether a
+location can actually hold what its province's list says — terrain and a
+building's own requirements are not consulted when the lists are spent. The ranking still
 walks the fifty best provinces by the *near* column unless told otherwise, so a
 province that is poor now and first in the last age is only found with «Rank by
 the last age» ticked.

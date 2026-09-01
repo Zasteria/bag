@@ -1,14 +1,16 @@
-﻿# The whole-map plan, painted: how many buildings the plan put in each location,
-# against the cap that location was allowed.
+﻿# The whole-map plan, painted: whether the plan filled each location or fell
+# short of the cap it was allowed.
 #
 # `map_color` is a location-scoped trigger block, so this costs nothing beyond
 # what the pass has already written -- `bag_wtp_load` is a variable on the
-# location and this is one comparison per location per repaint.
+# location and this is two comparisons per location per repaint.
 #
-# **By load and not by good.** Forty-seven goods is forty-seven colours nobody
-# can read off a map, and the question the plan is for is «какие провинции
-# становятся магнитами» -- which locations the plan has crowded. The good itself
-# is in the tooltip and in the window.
+# **By completeness and not by good.** Forty-seven goods is forty-seven colours
+# nobody can read off a map. And under the province model a full location is no
+# longer a «магнит» to be worried about -- every province fills to its capacity,
+# so what is worth seeing is the opposite: the ground the plan could not fill,
+# because it could not feed enough different goods to make up a list. Which
+# province the plan crowded most is the top of the window's table instead.
 #
 # `category = economy` because the geography category is full: EU5 1.3 enumerates
 # its groups 0-3 and `bag_wtp_selection` already holds one of them. Glorp UI and
@@ -21,26 +23,38 @@ bag_wtp_plan = {
 			value = define:NMapColors|WATER_MAP_COLOR
 		}
 		else_if = {
-			limit = { has_variable = bag_wtp_load var:bag_wtp_load >= 4 }
-			value = rgb { 255 0 0 }
+			# Filled: the location builds its side's whole list. The two caps are
+			# read the same way `bag_wtp_plan_has_room` reads them, because the
+			# same two numbers decided how long the list could be.
+			limit = {
+				has_variable = bag_wtp_load
+				OR = {
+					AND = {
+						location_rank = location_rank:rural_settlement
+						var:bag_wtp_load >= global_var:bag_wtp_plan_cap_rural
+					}
+					AND = {
+						NOT = { location_rank = location_rank:rural_settlement }
+						var:bag_wtp_load >= global_var:bag_wtp_plan_cap_urban
+					}
+				}
+			}
+			value = rgb { 0 200 0 }
 		}
 		else_if = {
-			limit = { has_variable = bag_wtp_load var:bag_wtp_load = 3 }
-			value = rgb { 255 128 0 }
-		}
-		else_if = {
-			limit = { has_variable = bag_wtp_load var:bag_wtp_load = 2 }
+			# Something, but short of the cap: the ground could not feed enough
+			# different goods to make up a list.
+			limit = { has_variable = bag_wtp_load var:bag_wtp_load >= 2 }
 			value = rgb { 255 255 0 }
 		}
 		else_if = {
 			limit = { has_variable = bag_wtp_load var:bag_wtp_load = 1 }
-			value = rgb { 0 200 0 }
+			value = rgb { 255 128 0 }
 		}
 		else_if = {
-			# In the plan's ground and given nothing: the ground the plan passed
-			# over, which is as much of an answer as the ground it crowded.
+			# In the plan's ground and given nothing at all.
 			limit = { bag_wtp_in_zone = yes }
-			value = define:NMapColors|MAP_COLOR_LOW
+			value = rgb { 200 40 40 }
 		}
 		else = { value = define:NMapColors|DEFAULT_COLOR }
 	}
@@ -62,24 +76,20 @@ bag_wtp_plan = {
 	}
 
 	legend_key = {
-		desc = bag_wtp_plan_legend_4
-		color = rgb { 255 0 0 }
-	}
-	legend_key = {
-		desc = bag_wtp_plan_legend_3
-		color = rgb { 255 128 0 }
-	}
-	legend_key = {
-		desc = bag_wtp_plan_legend_2
-		color = rgb { 255 255 0 }
-	}
-	legend_key = {
-		desc = bag_wtp_plan_legend_1
+		desc = bag_wtp_plan_legend_full
 		color = rgb { 0 200 0 }
 	}
 	legend_key = {
-		desc = bag_wtp_plan_legend_0
-		color = define:NMapColors|MAP_COLOR_LOW
+		desc = bag_wtp_plan_legend_part
+		color = rgb { 255 255 0 }
+	}
+	legend_key = {
+		desc = bag_wtp_plan_legend_one
+		color = rgb { 255 128 0 }
+	}
+	legend_key = {
+		desc = bag_wtp_plan_legend_none
+		color = rgb { 200 40 40 }
 	}
 
 	small_map_names = location
