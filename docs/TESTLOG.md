@@ -71,18 +71,21 @@ town. «Всё ещё довольно плохая раскидка даже н
 - **The empty slots follow from the same thing.** Дюльмен at 1 of 3 and three
   towns at 2 of 3 had all been given the masonry charter and could place only
   its masonry half.
-- **Also fixed, and it is the owner's own exception to a mandatory right:** the
-  two scarcest tiers now run **before** the charters. A good two locations or
-  fewer can hold must not lose them to a bundle that had other choices — «товар
-  у которого жёсткие условия аля болотное железо». The rights round takes a town
-  with room rather than an empty one, so a town that took the scarce good still
-  gets its charter.
-- **Open, and put to the owner:** glass is the only good whose every age-0
-  building gates on a good it does not make — sand, which a `sand_pit` could
-  supply from almost anywhere. Whether the plan should place an input's building
-  so that a dependent good becomes possible is a feature, not a fix, and it is
-  his call. Only four buildings in the game gate this way: `glass_guild`,
-  `rural_glassmaker`, `pottery_mill` and `horse_breeders`.
+- **Tried and reverted the same day: running the scarcest tiers before the
+  charters.** It was built as the owner's own exception to a mandatory right, and
+  it was the wrong reading of both the exception and the fault. Glass is *inside*
+  `royal_masonry_rights`; it never needed to pre-empt the right, and letting
+  every scarce good jump the queue contradicts what he had said several times —
+  a right's buildings are mandatory. Rights are first again, whole bundle.
+- **Built instead, and it is what he actually asked for:** where a granted
+  right's good cannot stand, **the slot goes to the input that would make it
+  possible**. Glass wants sand in the market and `sand_pit` stands at any rank
+  asking only that the location is not already a sand RGO — so a town given
+  `royal_masonry_rights` with no sand gets the pit, and the glass follows on the
+  next plan. Derived rather than named: `generate.market_inputs` scans every
+  `location_potential` in the game and finds exactly one usable pair,
+  glass ← sand. The right's own score counts the good as reachable either way,
+  so the substitution does not push the right down the list that needs it.
 
 **2026-09-01 — `where_to_produce`, thirty-sixth load. The plan works and reads
 right; three faults in the allocation, all named by the screenshots.** Two

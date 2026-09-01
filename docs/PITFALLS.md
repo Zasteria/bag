@@ -215,6 +215,19 @@ colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
 
+## Never invent a name for something the game already names
+
+**2026-09-01.** A session called `royal_masonry_rights` «масонская хартия». The
+owner plays in Russian, saw a name that exists in no game of his, and reasonably
+asked why an invented right was displacing his glass. Nothing had been invented;
+the name had. His game calls it «Права на каменные и стекольные работы», and the
+key and its localization are each one grep away.
+
+**Name a rule, building, good or right by its key or by the string the game
+shows.** Never by a translation of the key, and never by a phrase invented to
+read more smoothly: the owner cannot check the code, so a name he cannot find
+costs him confidence in the whole report.
+
 ## Reading a `location_potential` is not checking the ground
 
 **2026-09-01, and it cost the owner a round trip.** `where_to_produce`'s plan

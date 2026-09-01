@@ -8337,7 +8337,7 @@ bag_wtp_rq5 = {
 bag_wtp_rq6 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_33 = yes }
+		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
 		add = 2000
 		add = var:bag_wtp_p33
 	}

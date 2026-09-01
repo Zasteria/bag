@@ -118,17 +118,7 @@ UNFED_PENALTY = 2
 # one it cannot, whatever the scores inside them.
 RIGHT_FIT = 2000
 
-# **The scarcest goods claim before the urban rights do.** The owner's own
-# exception, 2026-09-01: «сместить домик из городских прав может… товар у
-# которого жёсткие условия аля болотное железо». A good only one or two
-# locations in the whole ground can hold has nowhere to go once a charter has
-# filled those towns, and glass is the case that showed it -- both of its age-0
-# buildings want sand in the local market, so where the market has none it can
-# stand nowhere at all, and where it has some the charter had already taken the
-# room.
-SCARCE_TIERS = (1, 2)
-
-PLAN_TIERS = (4, 8, 16, 0)
+PLAN_TIERS = (1, 2, 4, 8, 16, 0)
 
 # The pass after all of them, with the quota lifted rather than a candidate count
 # of its own. `is` on a sentinel and not a seventh number, because the tier value
@@ -841,8 +831,20 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # on purpose, because it is the same everywhere and reorders nothing.
     for k, right in enumerate(output_rights(rows, game), start=1):
         bundle = sorted(right.output)
+        def _reach(good: str) -> str:
+            """Can this bundle good put something in a town — itself, or the
+            input that would let it? The substitution below fills the slot
+            either way, so the right must be scored as if it counts."""
+            i = order.index(good) + 1
+            feeder = market_inputs(game).get(good)
+            j = order.index(feeder) + 1 if feeder in order else 0
+            if j and plan_groups(rows, split, game).get((feeder, "t")):
+                return (f"OR = {{ {MOD_ID}_plan_can_town_{i} = yes "
+                        f"{MOD_ID}_plan_can_town_{j} = yes }}")
+            return f"{MOD_ID}_plan_can_town_{i} = yes"
+
         adds = "".join(f"""\tif = {{
-\t\tlimit = {{ {MOD_ID}_plan_can_town_{order.index(g) + 1} = yes }}
+\t\tlimit = {{ {_reach(g)} }}
 \t\tadd = {RIGHT_FIT}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
 \t}}
@@ -1305,6 +1307,51 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
+def market_inputs(game: eu5data.Game) -> dict[str, str]:
+    """Good -> the good its buildings need *in the market* before they may stand.
+
+    Read off `location_potential`, where four buildings in the game carry an
+    `is_produced_in_(location_)market = goods:X`. Only a good whose buildings all
+    carry one is listed, and never one that asks for itself: `horse_breeders`
+    wants horses in the market to make horses, which nothing can bootstrap.
+
+    **This exists because a right's bundle is mandatory and the ground can still
+    refuse it.** Glass is the case, and the owner's rule, 2026-09-01: «стекло
+    делать в любом случае НАДО и отказаться от него нельзя из-за отсутствия
+    песка, ведь у него нет альтернативного варианта как у тонкого сукна». Sand is
+    dug by a `sand_pit`, which stands at any rank and asks only that the location
+    is not already a sand RGO — so where a granted right cannot have its glass,
+    the plan puts the pit that makes glass possible instead.
+    """
+    directory = refs.GAME_COMMON / "building_types"
+    text = "".join(path.read_text(encoding="utf-8-sig", errors="replace")
+                   for path in sorted(directory.glob("*.txt")))
+    gated: dict[str, set[str]] = {}
+    for block in re.split(r"\n(?=[a-z_0-9]+ = \{)", text):
+        match = re.match(r"([a-z_0-9]+) = \{", block)
+        if not match or "location_potential" not in block:
+            continue
+        needs = set(re.findall(
+            r"is_produced_in(?:_location)?_market = goods:(\w+)",
+            block.split("location_potential", 1)[1][:250]))
+        if needs:
+            gated[match.group(1)] = needs
+    out: dict[str, str] = {}
+    for good in game.goods_produced:
+        makers = {m.building for m in game.methods
+                  if m.produced == good and m.raw_inputs(game.raw_goods)} & set(gated)
+        if not makers:
+            continue
+        # **Any of its buildings, not all of them.** Whether the ungated ones are
+        # reachable is an availability question and the runtime already answers
+        # it: `_plan_can_town_<n>` is asked with the age's own methods, so the
+        # substitution below only ever fires where the good really cannot stand.
+        needs = set().union(*(gated[b] for b in makers)) - {good}
+        if len(needs) == 1:
+            out[good] = needs.pop()
+    return out
+
+
 def plan_groups(rows, split, game):
     """Per good and side, the buildings that could win it and by which methods.
 
@@ -1509,10 +1556,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_prepare = yes
 \t{MOD_ID}_plan_score = yes
-\t# **Before the charters, and only the goods with almost nowhere to go.** The
-\t# owner's own exception to a right being mandatory: a good two locations or
-\t# fewer can hold must not lose them to a bundle that had other choices.
-\t{MOD_ID}_plan_allocate_scarce = yes
 \tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_plan_rights }}
 \t\t{MOD_ID}_plan_place_rights = yes
@@ -1831,12 +1874,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_plan_place_rights = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\t# **Room left, not empty.** The scarce pass runs before this one now, so a
-\t\t# town that took the one good with nowhere else to go would otherwise be
-\t\t# refused a charter altogether -- and every town is meant to have one.
 \t\tlimit = {{
 \t\t\t{MOD_ID}_plan_is_town = yes
-\t\t\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban
+\t\t\tvar:{MOD_ID}_load = 0
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
@@ -1856,11 +1896,34 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = {k} }}
 \t\t}}
 """)
+    # **A bundle good the ground refuses gets its input planted instead.** The
+    # right's building is mandatory and the slot is the right's, so where glass
+    # cannot stand the slot goes to the sand pit that would make it possible
+    # rather than back to the ordinary goods -- the owner, 2026-09-01. Derived
+    # rather than named: `market_inputs` finds one pair in the whole game.
+    substitute = market_inputs(game)
     for k, right in enumerate(rights, start=1):
         bundle = sorted(right.output)
-        adds = "".join(
-            f"\t\t\t{MOD_ID}_plan_try_town_{order.index(g) + 1} = yes\n"
-            for g in bundle if groups.get((g, "t")))
+        lines = []
+        for g in bundle:
+            if not groups.get((g, "t")):
+                continue
+            i = order.index(g) + 1
+            feeder = substitute.get(g)
+            j = order.index(feeder) + 1 if feeder in order else 0
+            if j and groups.get((feeder, "t")):
+                lines.append(
+                    f"\t\t\tif = {{\n"
+                    f"\t\t\t\tlimit = {{ {MOD_ID}_plan_can_town_{i} = yes }}\n"
+                    f"\t\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n"
+                    f"\t\t\t}}\n"
+                    f"\t\t\telse = {{\n"
+                    f"\t\t\t\t# {g} cannot stand here; plant the {feeder} that would let it.\n"
+                    f"\t\t\t\t{MOD_ID}_plan_try_town_{j} = yes\n"
+                    f"\t\t\t}}\n")
+            else:
+                lines.append(f"\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n")
+        adds = "".join(lines)
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
@@ -1915,27 +1978,23 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     # ---- the sweeps --------------------------------------------------------
-    #
-    # Two effects, and the urban rights are granted between them.
-    #
-    # **A good with one place in the whole ground that can hold it takes that
-    # place before a good with forty gets its second** -- the owner's «жёстко
-    # зарезервировать слоты», and iron is the case he named: without an RGO it
-    # comes from one building, `bog_iron_smelter`, which wants wetlands or a
-    # lake, so where it can go at all it must.
-    #
-    # **And ahead of a charter, which is his own exception to their being
-    # mandatory.** Glass is what showed it: both its age-0 buildings want sand in
-    # the local market, so it can stand only in the few towns whose market has
-    # any -- and on the thirty-seventh run a charter had already filled those.
-    # A good with two places or fewer now claims before any right is granted;
-    # everything else waits until after.
-    #
-    # Within a tier the sweeps run until one adds nothing anywhere, so **a
-    # location the plan can feed is never left empty**. The sweep counter is a
-    # guard against a condition that cannot be left, not a design.
-    def emit_tiers(group):
-      for tier in group:
+    out.append(f"""
+# The rounds, in tiers, the scarce goods first.
+#
+# **A good with one place in the whole ground that can hold it takes that place
+# before a good with forty gets its second.** That is the owner's «жёстко
+# зарезервировать слоты», and iron is the case he named: without an RGO it comes
+# from one building, `bog_iron_smelter`, which wants wetlands or a lake, so where
+# it can go at all it must. A tier admits only goods `_ng<n>` says few locations
+# can host; the last tier is everything.
+#
+# Within a tier the sweeps run until one adds nothing anywhere, so **a location
+# the plan can feed is never left empty**. The sweep counter is a guard against a
+# condition that cannot be left, not a design.
+# Scope: country
+{MOD_ID}_plan_allocate = {{
+""")
+    for tier in PLAN_TIERS + (OPEN_TIER,):
         # **The open pass raises every quota by one a round; it does not lift
         # them.** Lifting was the thirty-sixth run: five towns of Münsterland,
         # ten buildings in fifteen rooms and the same good standing in three of
@@ -1973,12 +2032,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 """)
-
-    for name, group in ((f"{MOD_ID}_plan_allocate_scarce", SCARCE_TIERS),
-                        (f"{MOD_ID}_plan_allocate", PLAN_TIERS + (OPEN_TIER,))):
-        out.append(f"\n# Scope: country\n{name} = {{\n")
-        emit_tiers(group)
-        out.append("}\n")
+    out.append("}\n")
 
     for index, good in enumerate(order, start=1):
         town_side = "town" if groups.get((good, "t")) else ""
