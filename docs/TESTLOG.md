@@ -38,6 +38,35 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-fifth load. Both plan buttons opened
+nothing, and it was a rename in the same session that did it.** Logs supplied;
+`which_build.py` confirms the tree.
+
+- **«Кнопка "план" и одна и вторая теперь просто не работают и не открывают окно
+  расчётов (с гор правами и без них). По отдельным товарам — всё работает.»**
+- **`error.log`: «Variable 'bag_wtp_plan_open' is used but is never set.»** That
+  is the whole fault. Adding the quota phase introduced a global flag and it was
+  renamed `_plan_free` to keep it away from the window's own `plan_open`; the
+  rename matched on `plan_open value = 1` and caught
+  `bag_wtp_open_plan_window_effect` too — the **only** thing that sets the flag
+  the window's `visible` reads. Both plan buttons go through that one effect,
+  which is why both died and the per-good windows did not.
+- **Nothing else of this mod's is in the log.** No script-value error from the
+  province divisor, the quota, the RGO count or the mandatory rights, so the
+  pass itself is untried rather than broken — the window never opened to show it.
+- **Also in the log all along and now explained:** «Variable
+  'bag_wtp_pm2_rural' is used but is never set», and its `mid_`/`end_` twins.
+  Not a fault: **no two-part method may stand in a rural settlement** — all
+  eight two-slot buildings are town and above — so the second-method half of a
+  village row is always hidden, which is what it should be. The widgets are left
+  alone and marked.
+- **A checker now catches this class**, and was proven against this exact bug: a
+  variable the mod reads that nothing in it, and not CMF, ever writes.
+  `remove_variable` deliberately does not count as a write — read, removed, and
+  never set is the shape of the fault.
+- **The plan is still unloaded.** The thirty-fourth run's four changes have not
+  been seen once.
+
 **2026-09-01 — `where_to_produce`, thirty-fourth load. The per-tier sweep budget
 works; the plan is full and wrong in a way that named its own fault.** One
 screenshot of the plan window, Westphalia, caps 3/3, rights on. «Довольно плохо,

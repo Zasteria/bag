@@ -1980,7 +1980,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
 \t{MOD_ID}_hide_results = yes
-\tset_variable = {{ name = {MOD_ID}_plan_free value = 1 }}
+\tset_variable = {{ name = {MOD_ID}_plan_open value = 1 }}
 }}
 """)
     return "".join(out)

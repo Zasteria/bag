@@ -10443,5 +10443,5 @@ bag_wtp_open_plan_window_effect = {
 	remove_variable = bag_wtp_result_open
 	remove_variable = bag_wtp_right_open
 	bag_wtp_hide_results = yes
-	set_variable = { name = bag_wtp_plan_free value = 1 }
+	set_variable = { name = bag_wtp_plan_open value = 1 }
 }

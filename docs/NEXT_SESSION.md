@@ -58,23 +58,23 @@ are the part worth reading before anything else.
   All-or-nothing granted **one** right across six towns;
 - **the quota** — rooms left over the goods the ground can make, less the RGOs
   standing, never below one: «равномерно» at both his scales;
-- **the RGO discount**, as a count: one RGO standing is one building not needed.
+- **the RGO discount**: one RGO standing is one building not needed.
 
-**What to ask him for: one press of «План» on the same ground, and the header
-line.** It reads «норма N» now, so one screenshot says which of the four worked:
-expect rights on all six towns, a quota near five, and a province's locations no
-longer alike. **Then the caps at 3, 4 and 5**, which is what he asked to try.
+**The thirty-fifth load: both plan buttons opened nothing** — that session's
+rename caught the window's only setter. Fixed, and `check_script.py` catches the
+class now. **So the four changes are still unseen.**
+
+**Ask for one press of «План» on the same ground, and the header line.** It reads
+«норма N» now, so one screenshot says which of the four worked: expect rights on
+all six towns, a quota near five, and a province's locations no longer alike.
+**Then the caps at 3, 4 and 5.**
 
 What is deliberately unbuilt — the hand weight, regret ordering — is listed once,
-in [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
+in [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md), along
+with the `n/m` on a ranking row and the plan's icon spacing, both also unloaded.
 **And he asked for no more counters until it works.**
 
-Also unloaded: the `n/m` on a ranking row — how many of a province's locations
-can hold the winning building, his Sauerland question — and the plan's icons
-given room to breathe.
-
-**Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
-about `where_to_produce` is confirmed.
+**Also open and cheap:** one layout question, in `TESTLOG.md`.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
