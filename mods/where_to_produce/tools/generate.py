@@ -1029,7 +1029,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     PLAN_SIDES = (("_t", "urban"), ("_r", "rural"))
 
     def keep(indent: str, prefix: str, suffix: str, method_index: int,
-             floor: float | None) -> str:
+             floor: float | None, extra: str = "") -> str:
         """Is this the best of its side so far, and can this ground feed it?
 
         `floor` is `fed_floor`: the `_m<n>` of a method the province supplies
@@ -1046,7 +1046,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         """
         fed = f"var:{MOD_ID}_try > {floor:.4f} " if floor is not None else ""
         return (f"""{indent}if = {{
-{indent}\tlimit = {{ {fed}var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix} }}
+{indent}\tlimit = {{ {fed}var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix}{extra} }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = var:{MOD_ID}_try }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = {method_index} }}
 {indent}}}
@@ -1095,11 +1095,26 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             if method_index in last:
                 out.append(keep("\t\t", "end_", suffix, method_index, floor))
                 out.append(keep("\t\t", "end_any_", suffix, method_index, None))
+            # **The plan asks the game whether the building may stand here**, and
+            # the ranking beside it does not. `can_build_building` in a
+            # location's own scope "only checks local requirements" -- the
+            # engine's own words -- so it is the terrain, the rank and the
+            # building's `location_potential`, and never the country's advances.
+            # That is exactly the filter a plan wants and the one the
+            # thirty-first load found missing: a bog iron smelter needs wetlands
+            # or a lake and was being planned in Westphalia, and a sugar
+            # plantation needs the location to already grow sugar overseas.
+            #
+            # It sits in the same `limit` as "is this the best so far", so a
+            # better method that cannot stand here simply loses to a worse one
+            # that can, whichever order they are read in.
+            stands = (f" can_build_building = building_type:"
+                      f"{rows[method_index - 1].building}")
             # The plan's endgame side needs no availability: it is what stands
             # once every advance is in.
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where) and method_index in last:
-                    out.append(keep("\t\t", "pend", side, method_index, floor))
+                    out.append(keep("\t\t", "pend", side, method_index, floor, stands))
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
@@ -1107,7 +1122,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             out.append(keep("\t\t\t", "any_", suffix, method_index, None))
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where):
-                    out.append(keep("\t\t\t", "pnow", side, method_index, floor))
+                    out.append(keep("\t\t\t", "pnow", side, method_index, floor, stands))
             out.append("\t\t}\n")
         out.append("\t}\n}\n")
 
@@ -1272,6 +1287,38 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {branches}\t}}
 }}
 """)
+
+    # And one per urban right: does its *whole* bundle fit this province?
+    #
+    # **A right is all or nothing.** Its bonus is large and it obliges every good
+    # in the bundle to be made where it is granted, so a province that can only
+    # take two of three is not a place for it -- the thirty-first load put
+    # brewing rights on a province with no wine and the plan filled the gap with
+    # horses and salt, which is not what a right means.
+    #
+    # No two goods of any bundle in the game share a town building, so asking
+    # each of them separately against an empty list is exact rather than
+    # approximate.
+    for k, right in enumerate(output_rights(rows, game), start=1):
+        bundle = sorted(right.output)
+        wanted = [g for g in bundle if g in order]
+        if len(wanted) != len(bundle) or not wanted:
+            out.append(f"""
+# {right.key}: a good of its bundle is made by nothing this mod scores.
+# Scope: location
+{MOD_ID}_plan_right_fits_{k} = {{ always = no }}
+""")
+            continue
+        tests = "".join(
+            "\t%s_plan_can_town_%d = yes\n" % (MOD_ID, order.index(g) + 1)
+            for g in wanted)
+        out.append(f"""
+# {right.key}: {", ".join(wanted)}.
+# Scope: location
+{MOD_ID}_plan_right_fits_{k} = {{
+\tglobal_var:{MOD_ID}_plan_cap_urban >= {len(wanted)}
+{tests}}}
+""")
     return "".join(out)
 
 
@@ -1346,7 +1393,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     rights = output_rights(rows, game)
-    groups = plan_groups(rows, split, game)
 
     out = [HEADER, f"""#
 # Scope: country
@@ -1386,11 +1432,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_prov_load
 \t\tremove_variable = {MOD_ID}_load
 \t\tremove_variable = {MOD_ID}_plan_right
+\t\tremove_variable = {MOD_ID}_plan_town_row
 \t\tclear_variable_list = {MOD_ID}_plan_town
 \t\tclear_variable_list = {MOD_ID}_plan_rural
 \t\tclear_variable_list = {MOD_ID}_plan_town_b
 \t\tclear_variable_list = {MOD_ID}_plan_rural_b
 \t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\tclear_variable_list = {MOD_ID}_plan_builds
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_touched
 \tclear_global_variable_list = {MOD_ID}_plan_prov_locs
@@ -1438,11 +1486,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\t\t\t\tremove_variable = {MOD_ID}_plan_right
+\t\t\t\t\tremove_variable = {MOD_ID}_plan_town_row
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_town
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_rural
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_town_b
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_rural_b
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\t\t\t\tclear_variable_list = {MOD_ID}_plan_builds
 \t\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
 \t\t\t\t}}
 \t\t\t}}
@@ -1553,6 +1603,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     # ---- adding a good to a province ---------------------------------------
+    groups = plan_groups(rows, split, game)
     out.append(f"""
 # One good, onto every location of the province the candidate belongs to.
 #
@@ -1636,7 +1687,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{
 \t\t\t\tvar:{MOD_ID}_rtry > var:{MOD_ID}_rbest
-\t\t\t\tglobal_var:{MOD_ID}_plan_cap_urban >= {len(bundle)}
+\t\t\t\t{MOD_ID}_plan_right_fits_{k} = yes
 {gate}\t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest value = var:{MOD_ID}_rtry }}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = {k} }}
@@ -1695,9 +1746,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     for index, good in enumerate(order, start=1):
-        # A side with no building that could stand there is not walked at all --
-        # a sweep over {len(order)} goods twice is dear enough without asking for the
-        # ones the answer is known for.
+        # A side with no building that could stand there is not walked at all: a
+        # sweep over every good twice is dear enough without asking for the ones
+        # whose answer is known before the game starts.
         town_side = "town" if groups.get((good, "t")) else ""
         rural_side = "rural" if groups.get((good, "r")) else ""
         out.append(f"""
@@ -1750,9 +1801,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_candidates
 \t\tsave_scope_as = {MOD_ID}_loc
 \t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\tclear_variable_list = {MOD_ID}_plan_builds
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t# The row is a town's, and its urban right means something. A village
+\t\t\t# row carries the province's right variable too -- everything is
+\t\t\t# mirrored -- and printing it there said a right applies to a village.
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_town_row value = 1 }}
 \t\t\tevery_in_list = {{
 \t\t\t\tvariable = {MOD_ID}_plan_town
 \t\t\t\tsave_scope_as = {MOD_ID}_good
@@ -1761,14 +1817,35 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
 \t\t\t\t}}
 \t\t\t}}
+\t\t\t# The buildings, in the same order and therefore in step with them: a
+\t\t\t# datamodel item sees one scope, so the row draws two lists and lets
+\t\t\t# the fixed cell width line them up.
+\t\t\tevery_in_list = {{
+\t\t\t\tvariable = {MOD_ID}_plan_town_b
+\t\t\t\tsave_scope_as = {MOD_ID}_build
+\t\t\t\tscope:{MOD_ID}_loc = {{
+\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_builds target = scope:{MOD_ID}_build }}
+\t\t\t\t}}
+\t\t\t}}
 \t\t}}
 \t\telse = {{
+\t\t\tremove_variable = {MOD_ID}_plan_town_row
 \t\t\tevery_in_list = {{
 \t\t\t\tvariable = {MOD_ID}_plan_rural
 \t\t\t\tsave_scope_as = {MOD_ID}_good
 \t\t\t\tscope:{MOD_ID}_loc = {{
 \t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_goods target = scope:{MOD_ID}_good }}
 \t\t\t\t\tchange_variable = {{ name = {MOD_ID}_load add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\t# The buildings, in the same order and therefore in step with them: a
+\t\t\t# datamodel item sees one scope, so the row draws two lists and lets
+\t\t\t# the fixed cell width line them up.
+\t\t\tevery_in_list = {{
+\t\t\t\tvariable = {MOD_ID}_plan_rural_b
+\t\t\t\tsave_scope_as = {MOD_ID}_build
+\t\t\t\tscope:{MOD_ID}_loc = {{
+\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_builds target = scope:{MOD_ID}_build }}
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}

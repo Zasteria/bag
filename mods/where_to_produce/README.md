@@ -90,6 +90,15 @@ at a time, under a cap per location.
   type and a building runs one production method, so tools, jewelry and beer —
   all three off a market village — are one answer and not three. The list carries
   the building beside the good and a good whose building is taken is not offered.
+- **And every building is one that may actually stand there.** The plan asks the
+  game's own `can_build_building` in the location's scope, which is the terrain,
+  the rank and the building's `location_potential` — a bog iron smelter wants
+  wetlands or a lake, a sugar plantation wants sugar growing overseas. It is not
+  the country's advances, so it is as true for ground you have not taken as for
+  the end of the game.
+- **An urban right is all or nothing.** Its bonus obliges every good of the
+  bundle to be made where it is granted, so a province that can take two of three
+  is not offered it at all.
 - **And the two sides are the building's own rank gates.** `rural_settlement` is
   declared by thirty production buildings and only four of them are villages, so
   a rural location is offered quarries, clay pits, lumber mills and masons as

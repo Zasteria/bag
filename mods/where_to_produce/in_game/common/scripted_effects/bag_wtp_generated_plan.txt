@@ -37,11 +37,13 @@ bag_wtp_plan_clear = {
 		remove_variable = bag_wtp_plan_prov_load
 		remove_variable = bag_wtp_load
 		remove_variable = bag_wtp_plan_right
+		remove_variable = bag_wtp_plan_town_row
 		clear_variable_list = bag_wtp_plan_town
 		clear_variable_list = bag_wtp_plan_rural
 		clear_variable_list = bag_wtp_plan_town_b
 		clear_variable_list = bag_wtp_plan_rural_b
 		clear_variable_list = bag_wtp_plan_goods
+		clear_variable_list = bag_wtp_plan_builds
 	}
 	clear_global_variable_list = bag_wtp_plan_touched
 	clear_global_variable_list = bag_wtp_plan_prov_locs
@@ -132,11 +134,13 @@ bag_wtp_plan_prepare = {
 					set_variable = { name = bag_wtp_plan_prank value = 9999 }
 					set_variable = { name = bag_wtp_load value = 0 }
 					remove_variable = bag_wtp_plan_right
+					remove_variable = bag_wtp_plan_town_row
 					clear_variable_list = bag_wtp_plan_town
 					clear_variable_list = bag_wtp_plan_rural
 					clear_variable_list = bag_wtp_plan_town_b
 					clear_variable_list = bag_wtp_plan_rural_b
 					clear_variable_list = bag_wtp_plan_goods
+					clear_variable_list = bag_wtp_plan_builds
 					add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
 				}
 			}
@@ -5754,7 +5758,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_1 = yes
 				scope:bag_wtp_country = { AND = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -5765,7 +5769,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_2 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 2 }
@@ -5775,7 +5779,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_3 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 3 }
@@ -5785,7 +5789,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_4 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 4 }
@@ -5795,7 +5799,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 1
+				bag_wtp_plan_right_fits_5 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 5 }
@@ -5805,7 +5809,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 2
+				bag_wtp_plan_right_fits_6 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 6 }
@@ -5815,7 +5819,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 2
+				bag_wtp_plan_right_fits_7 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 7 }
@@ -5825,7 +5829,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_8 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 8 }
@@ -5835,7 +5839,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 1
+				bag_wtp_plan_right_fits_9 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 9 }
@@ -5845,7 +5849,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 3
+				bag_wtp_plan_right_fits_10 = yes
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 10 }
@@ -5855,7 +5859,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 1
+				bag_wtp_plan_right_fits_11 = yes
 				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -5866,7 +5870,7 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
-				global_var:bag_wtp_plan_cap_urban >= 2
+				bag_wtp_plan_right_fits_12 = yes
 				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -7809,9 +7813,14 @@ bag_wtp_plan_build = {
 		variable = bag_wtp_candidates
 		save_scope_as = bag_wtp_loc
 		clear_variable_list = bag_wtp_plan_goods
+		clear_variable_list = bag_wtp_plan_builds
 		set_variable = { name = bag_wtp_load value = 0 }
 		if = {
 			limit = { bag_wtp_plan_is_town = yes }
+			# The row is a town's, and its urban right means something. A village
+			# row carries the province's right variable too -- everything is
+			# mirrored -- and printing it there said a right applies to a village.
+			set_variable = { name = bag_wtp_plan_town_row value = 1 }
 			every_in_list = {
 				variable = bag_wtp_plan_town
 				save_scope_as = bag_wtp_good
@@ -7820,14 +7829,35 @@ bag_wtp_plan_build = {
 					change_variable = { name = bag_wtp_load add = 1 }
 				}
 			}
+			# The buildings, in the same order and therefore in step with them: a
+			# datamodel item sees one scope, so the row draws two lists and lets
+			# the fixed cell width line them up.
+			every_in_list = {
+				variable = bag_wtp_plan_town_b
+				save_scope_as = bag_wtp_build
+				scope:bag_wtp_loc = {
+					add_to_variable_list = { name = bag_wtp_plan_builds target = scope:bag_wtp_build }
+				}
+			}
 		}
 		else = {
+			remove_variable = bag_wtp_plan_town_row
 			every_in_list = {
 				variable = bag_wtp_plan_rural
 				save_scope_as = bag_wtp_good
 				scope:bag_wtp_loc = {
 					add_to_variable_list = { name = bag_wtp_plan_goods target = scope:bag_wtp_good }
 					change_variable = { name = bag_wtp_load add = 1 }
+				}
+			}
+			# The buildings, in the same order and therefore in step with them: a
+			# datamodel item sees one scope, so the row draws two lists and lets
+			# the fixed cell width line them up.
+			every_in_list = {
+				variable = bag_wtp_plan_rural_b
+				save_scope_as = bag_wtp_build
+				scope:bag_wtp_loc = {
+					add_to_variable_list = { name = bag_wtp_plan_builds target = scope:bag_wtp_build }
 				}
 			}
 		}

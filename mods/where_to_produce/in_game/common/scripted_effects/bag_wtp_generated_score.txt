@@ -109,12 +109,12 @@ bag_wtp_score_1 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 39 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:clay_pit }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 39 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:clay_pit }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 39 }
 		}
@@ -131,12 +131,12 @@ bag_wtp_score_1 = {
 				set_variable = { name = bag_wtp_any_best_method value = 39 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:clay_pit }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 39 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:clay_pit }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 39 }
 			}
@@ -196,7 +196,7 @@ bag_wtp_score_2 = {
 				set_variable = { name = bag_wtp_any_best_method value = 55 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:charcoal_maker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 55 }
 			}
@@ -218,12 +218,12 @@ bag_wtp_score_2 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 56 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:improved_charcoal_maker }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 56 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:improved_charcoal_maker }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 56 }
 		}
@@ -240,12 +240,12 @@ bag_wtp_score_2 = {
 				set_variable = { name = bag_wtp_any_best_method value = 56 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:improved_charcoal_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 56 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1260.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:improved_charcoal_maker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 56 }
 			}
@@ -303,12 +303,12 @@ bag_wtp_score_3 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 57 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:cotton_plantation }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 57 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:cotton_plantation }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 57 }
 		}
@@ -325,12 +325,12 @@ bag_wtp_score_3 = {
 				set_variable = { name = bag_wtp_any_best_method value = 57 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cotton_plantation }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 57 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:cotton_plantation }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 57 }
 			}
@@ -390,7 +390,7 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_any_best_method value = 58 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:dyes_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 58 }
 			}
@@ -414,7 +414,7 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_any_best_method value = 59 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:dyes_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 59 }
 			}
@@ -436,7 +436,7 @@ bag_wtp_score_4 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 60 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:dyes_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 60 }
 		}
@@ -453,7 +453,7 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_any_best_method value = 60 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:dyes_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 60 }
 			}
@@ -477,7 +477,7 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_any_best_method value = 61 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:dyes_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 61 }
 			}
@@ -501,7 +501,7 @@ bag_wtp_score_4 = {
 				set_variable = { name = bag_wtp_any_best_method value = 62 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:dyesworks }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 62 }
 			}
@@ -559,12 +559,12 @@ bag_wtp_score_5 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 63 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:fiber_crops_farm }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 63 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fiber_crops_farm }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 63 }
 		}
@@ -581,12 +581,12 @@ bag_wtp_score_5 = {
 				set_variable = { name = bag_wtp_any_best_method value = 63 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fiber_crops_farm }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 63 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 834.9937 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fiber_crops_farm }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 63 }
 			}
@@ -608,12 +608,12 @@ bag_wtp_score_5 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 64 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 64 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 64 }
 		}
@@ -630,12 +630,12 @@ bag_wtp_score_5 = {
 				set_variable = { name = bag_wtp_any_best_method value = 64 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 64 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 516.0147 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 64 }
 			}
@@ -693,7 +693,7 @@ bag_wtp_score_6 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 108 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fishing_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 108 }
 		}
@@ -710,7 +710,7 @@ bag_wtp_score_6 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 108 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fishing_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 108 }
 			}
@@ -732,7 +732,7 @@ bag_wtp_score_6 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 109 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 521.5246 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 521.5246 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fishing_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 109 }
 		}
@@ -749,7 +749,7 @@ bag_wtp_score_6 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 109 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 521.5246 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 521.5246 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fishing_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 109 }
 			}
@@ -807,12 +807,12 @@ bag_wtp_score_7 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 110 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:fruit_orchard }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 110 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fruit_orchard }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 110 }
 		}
@@ -829,12 +829,12 @@ bag_wtp_score_7 = {
 				set_variable = { name = bag_wtp_any_best_method value = 110 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fruit_orchard }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 110 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fruit_orchard }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 110 }
 			}
@@ -892,12 +892,12 @@ bag_wtp_score_8 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 121 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:horse_breeders }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 121 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:horse_breeders }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 121 }
 		}
@@ -914,12 +914,12 @@ bag_wtp_score_8 = {
 				set_variable = { name = bag_wtp_any_best_method value = 121 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:horse_breeders }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 121 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:horse_breeders }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 121 }
 			}
@@ -977,7 +977,7 @@ bag_wtp_score_9 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 122 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1027.7385 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1027.7385 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:perfumery }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 122 }
 		}
@@ -994,7 +994,7 @@ bag_wtp_score_9 = {
 				set_variable = { name = bag_wtp_any_best_method value = 122 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1027.7385 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1027.7385 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:perfumery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 122 }
 			}
@@ -1052,12 +1052,12 @@ bag_wtp_score_10 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 123 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:bog_iron_smelter }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 123 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:bog_iron_smelter }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 123 }
 		}
@@ -1074,12 +1074,12 @@ bag_wtp_score_10 = {
 				set_variable = { name = bag_wtp_any_best_method value = 123 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:bog_iron_smelter }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 123 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:bog_iron_smelter }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 123 }
 			}
@@ -1101,12 +1101,12 @@ bag_wtp_score_10 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 124 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 124 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 124 }
 		}
@@ -1123,12 +1123,12 @@ bag_wtp_score_10 = {
 				set_variable = { name = bag_wtp_any_best_method value = 124 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 124 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 311.5302 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 124 }
 			}
@@ -1186,7 +1186,7 @@ bag_wtp_score_11 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 125 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1025.0300 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1025.0300 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:elephant_hunting_grounds }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 125 }
 		}
@@ -1203,7 +1203,7 @@ bag_wtp_score_11 = {
 				set_variable = { name = bag_wtp_any_best_method value = 125 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1025.0300 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1025.0300 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:elephant_hunting_grounds }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 125 }
 			}
@@ -1261,7 +1261,7 @@ bag_wtp_score_12 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 171 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 524.4020 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 524.4020 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:farming_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 171 }
 		}
@@ -1278,7 +1278,7 @@ bag_wtp_score_12 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 171 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 524.4020 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 524.4020 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:farming_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 171 }
 			}
@@ -1336,12 +1336,12 @@ bag_wtp_score_13 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 172 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 172 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 172 }
 		}
@@ -1358,12 +1358,12 @@ bag_wtp_score_13 = {
 				set_variable = { name = bag_wtp_any_best_method value = 172 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 172 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 615.4967 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 172 }
 			}
@@ -1421,7 +1421,7 @@ bag_wtp_score_14 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 176 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:apothecary }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 176 }
 		}
@@ -1438,7 +1438,7 @@ bag_wtp_score_14 = {
 				set_variable = { name = bag_wtp_any_best_method value = 176 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:apothecary }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 176 }
 			}
@@ -1460,7 +1460,7 @@ bag_wtp_score_14 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 177 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:apothecary }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 177 }
 		}
@@ -1477,7 +1477,7 @@ bag_wtp_score_14 = {
 				set_variable = { name = bag_wtp_any_best_method value = 177 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:apothecary }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 177 }
 			}
@@ -1535,12 +1535,12 @@ bag_wtp_score_15 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 199 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:salt_collector }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 199 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:salt_collector }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 199 }
 		}
@@ -1557,12 +1557,12 @@ bag_wtp_score_15 = {
 				set_variable = { name = bag_wtp_any_best_method value = 199 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:salt_collector }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 199 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 315.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:salt_collector }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 199 }
 			}
@@ -1620,7 +1620,7 @@ bag_wtp_score_16 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 200 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4129.0347 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4129.0347 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:putrefaction_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 200 }
 		}
@@ -1637,7 +1637,7 @@ bag_wtp_score_16 = {
 				set_variable = { name = bag_wtp_any_best_method value = 200 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4129.0347 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4129.0347 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:putrefaction_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 200 }
 			}
@@ -1661,7 +1661,7 @@ bag_wtp_score_16 = {
 				set_variable = { name = bag_wtp_any_best_method value = 201 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2066.6869 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2066.6869 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:putrefaction_works }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 201 }
 			}
@@ -1685,7 +1685,7 @@ bag_wtp_score_16 = {
 				set_variable = { name = bag_wtp_any_best_method value = 202 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1041.6660 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1041.6660 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:saltpeter_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 202 }
 			}
@@ -1709,7 +1709,7 @@ bag_wtp_score_16 = {
 				set_variable = { name = bag_wtp_any_best_method value = 203 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1147.1174 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1147.1174 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:saltpeter_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 203 }
 			}
@@ -1767,12 +1767,12 @@ bag_wtp_score_17 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 204 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:sand_pit }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 204 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:sand_pit }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 204 }
 		}
@@ -1789,12 +1789,12 @@ bag_wtp_score_17 = {
 				set_variable = { name = bag_wtp_any_best_method value = 204 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:sand_pit }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 204 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1036.7580 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:sand_pit }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 204 }
 			}
@@ -1852,7 +1852,7 @@ bag_wtp_score_18 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 205 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 367.5000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 367.5000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:ablaq_palace }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 205 }
 		}
@@ -1869,7 +1869,7 @@ bag_wtp_score_18 = {
 				set_variable = { name = bag_wtp_any_best_method value = 205 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 367.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 367.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:ablaq_palace }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 205 }
 			}
@@ -1891,7 +1891,7 @@ bag_wtp_score_18 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 206 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:lucca_silk_production_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 206 }
 		}
@@ -1908,7 +1908,7 @@ bag_wtp_score_18 = {
 				set_variable = { name = bag_wtp_any_best_method value = 206 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:lucca_silk_production_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 206 }
 			}
@@ -1966,12 +1966,12 @@ bag_wtp_score_19 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 207 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:schwaz_mine }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 207 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:schwaz_mine }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 207 }
 		}
@@ -1988,12 +1988,12 @@ bag_wtp_score_19 = {
 				set_variable = { name = bag_wtp_any_best_method value = 207 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:schwaz_mine }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 207 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1015.1501 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:schwaz_mine }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 207 }
 			}
@@ -2051,12 +2051,12 @@ bag_wtp_score_20 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 210 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:stone_quarry }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 210 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:stone_quarry }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 210 }
 		}
@@ -2073,12 +2073,12 @@ bag_wtp_score_20 = {
 				set_variable = { name = bag_wtp_any_best_method value = 210 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:stone_quarry }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 210 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:stone_quarry }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 210 }
 			}
@@ -2100,12 +2100,12 @@ bag_wtp_score_20 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 211 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:stone_quarry }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 211 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:stone_quarry }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 211 }
 		}
@@ -2122,12 +2122,12 @@ bag_wtp_score_20 = {
 				set_variable = { name = bag_wtp_any_best_method value = 211 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:stone_quarry }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 211 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1018.6217 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:stone_quarry }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 211 }
 			}
@@ -2185,12 +2185,12 @@ bag_wtp_score_21 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 212 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:sugar_plantation }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 212 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:sugar_plantation }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 212 }
 		}
@@ -2207,12 +2207,12 @@ bag_wtp_score_21 = {
 				set_variable = { name = bag_wtp_any_best_method value = 212 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:sugar_plantation }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 212 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:sugar_plantation }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 212 }
 			}
@@ -2270,12 +2270,12 @@ bag_wtp_score_22 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 214 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tobacco_plantation }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 214 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:tobacco_plantation }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 214 }
 		}
@@ -2292,12 +2292,12 @@ bag_wtp_score_22 = {
 				set_variable = { name = bag_wtp_any_best_method value = 214 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tobacco_plantation }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 214 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1010.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:tobacco_plantation }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 214 }
 			}
@@ -2355,7 +2355,7 @@ bag_wtp_score_23 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 234 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:eng_royal_forest }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 234 }
 		}
@@ -2372,7 +2372,7 @@ bag_wtp_score_23 = {
 				set_variable = { name = bag_wtp_any_best_method value = 234 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:eng_royal_forest }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 234 }
 			}
@@ -2432,7 +2432,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 235 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.7213 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.7213 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 235 }
 			}
@@ -2456,7 +2456,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 236 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.4245 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.4245 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 236 }
 			}
@@ -2480,7 +2480,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 237 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.6927 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.6927 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 237 }
 			}
@@ -2502,7 +2502,7 @@ bag_wtp_score_24 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 238 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:winery_manufactory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 238 }
 		}
@@ -2519,7 +2519,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 238 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 238 }
 			}
@@ -2541,7 +2541,7 @@ bag_wtp_score_24 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 239 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2087.4724 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2087.4724 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:winery_manufactory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 239 }
 		}
@@ -2558,7 +2558,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 239 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2087.4724 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2087.4724 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 239 }
 			}
@@ -2580,7 +2580,7 @@ bag_wtp_score_24 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 240 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:winery_manufactory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 240 }
 		}
@@ -2597,7 +2597,7 @@ bag_wtp_score_24 = {
 				set_variable = { name = bag_wtp_any_best_method value = 240 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2092.0139 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:winery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 240 }
 			}
@@ -2655,7 +2655,7 @@ bag_wtp_score_25 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 241 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 520.8403 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 520.8403 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:sheep_farms }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 241 }
 		}
@@ -2672,7 +2672,7 @@ bag_wtp_score_25 = {
 				set_variable = { name = bag_wtp_any_best_method value = 241 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 520.8403 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 520.8403 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:sheep_farms }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 241 }
 			}
@@ -2732,7 +2732,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 1 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1360.3379 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1360.3379 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 1 }
 			}
@@ -2756,7 +2756,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 2 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1150.7648 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1150.7648 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 2 }
 			}
@@ -2780,7 +2780,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 3 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.7619 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.7619 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 3 }
 			}
@@ -2804,7 +2804,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 4 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1144.6813 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1144.6813 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 4 }
 			}
@@ -2828,7 +2828,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 5 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 5 }
 			}
@@ -2852,7 +2852,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 6 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 6 }
 			}
@@ -2876,7 +2876,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 7 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1150.9297 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:beer_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 7 }
 			}
@@ -2900,7 +2900,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 8 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1256.0089 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1256.0089 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 8 }
 			}
@@ -2924,7 +2924,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 9 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.1402 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.1402 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 9 }
 			}
@@ -2948,7 +2948,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 10 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1045.2213 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1045.2213 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 10 }
 			}
@@ -2972,7 +2972,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 11 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1041.1712 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1041.1712 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 11 }
 			}
@@ -2996,7 +2996,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 12 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 12 }
 			}
@@ -3020,7 +3020,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 13 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 13 }
 			}
@@ -3044,7 +3044,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 14 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 14 }
 			}
@@ -3068,7 +3068,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 15 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2093.8846 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2093.8846 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 15 }
 			}
@@ -3090,7 +3090,7 @@ bag_wtp_score_26 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 16 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4190.2555 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4190.2555 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:brewery_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 16 }
 		}
@@ -3107,7 +3107,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method value = 16 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4190.2555 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4190.2555 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:brewery_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 16 }
 			}
@@ -3129,7 +3129,7 @@ bag_wtp_score_26 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 17 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 522.3806 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 522.3806 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:market_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 17 }
 		}
@@ -3146,7 +3146,7 @@ bag_wtp_score_26 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 17 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 522.3806 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 522.3806 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:market_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 17 }
 			}
@@ -3206,7 +3206,7 @@ bag_wtp_score_27 = {
 				set_variable = { name = bag_wtp_any_best_method value = 18 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2031.2341 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2031.2341 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:printing_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 18 }
 			}
@@ -3228,7 +3228,7 @@ bag_wtp_score_27 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 19 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4063.3898 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4063.3898 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:printing_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 19 }
 		}
@@ -3245,7 +3245,7 @@ bag_wtp_score_27 = {
 				set_variable = { name = bag_wtp_any_best_method value = 19 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4063.3898 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4063.3898 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:printing_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 19 }
 			}
@@ -3269,7 +3269,7 @@ bag_wtp_score_27 = {
 				set_variable = { name = bag_wtp_any_best_method value = 20 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1019.1525 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1019.1525 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:printing_press_shop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 20 }
 			}
@@ -3293,7 +3293,7 @@ bag_wtp_score_27 = {
 				set_variable = { name = bag_wtp_any_best_method value = 21 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 306.4402 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 306.4402 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:scriptorium }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 21 }
 			}
@@ -3353,7 +3353,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 22 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2079.4832 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2079.4832 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_foundry }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 22 }
 			}
@@ -3377,7 +3377,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 23 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1195.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1195.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 23 }
 			}
@@ -3401,7 +3401,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 24 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1153.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1153.2799 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 24 }
 			}
@@ -3425,7 +3425,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 25 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1118.6299 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1118.6299 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 25 }
 			}
@@ -3449,7 +3449,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 26 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1195.2703 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1195.2703 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 26 }
 			}
@@ -3473,7 +3473,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 27 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1153.2703 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1153.2703 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 27 }
 			}
@@ -3497,7 +3497,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 28 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1118.6203 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1118.6203 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 28 }
 			}
@@ -3521,7 +3521,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 29 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 272.4705 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 272.4705 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 29 }
 			}
@@ -3545,7 +3545,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 30 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 230.4705 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 230.4705 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 30 }
 			}
@@ -3569,7 +3569,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 31 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 195.8205 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 195.8205 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_maker }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 31 }
 			}
@@ -3593,7 +3593,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 32 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1359.9796 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1359.9796 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 32 }
 			}
@@ -3617,7 +3617,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 33 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1307.4796 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1307.4796 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 33 }
 			}
@@ -3641,7 +3641,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 34 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1254.9796 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1254.9796 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 34 }
 			}
@@ -3665,7 +3665,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 35 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1359.4878 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1359.4878 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 35 }
 			}
@@ -3689,7 +3689,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 36 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1306.9878 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1306.9878 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 36 }
 			}
@@ -3713,7 +3713,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 37 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1254.4878 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1254.4878 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 37 }
 			}
@@ -3735,7 +3735,7 @@ bag_wtp_score_28 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 38 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4069.6018 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4069.6018 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:cannons_factory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 38 }
 		}
@@ -3752,7 +3752,7 @@ bag_wtp_score_28 = {
 				set_variable = { name = bag_wtp_any_best_method value = 38 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4069.6018 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4069.6018 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cannons_factory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 38 }
 			}
@@ -3812,7 +3812,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 40 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 40 }
 			}
@@ -3836,7 +3836,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 41 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 41 }
 			}
@@ -3860,7 +3860,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 42 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 42 }
 			}
@@ -3884,7 +3884,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 43 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 43 }
 			}
@@ -3908,7 +3908,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 44 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 44 }
 			}
@@ -3932,7 +3932,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 45 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 45 }
 			}
@@ -3956,7 +3956,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 46 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 46 }
 			}
@@ -3980,7 +3980,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 47 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 47 }
 			}
@@ -4004,7 +4004,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 48 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 48 }
 			}
@@ -4026,7 +4026,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 49 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:rural_clothmaker }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 49 }
 		}
@@ -4043,7 +4043,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 49 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:rural_clothmaker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 49 }
 			}
@@ -4065,7 +4065,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 50 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:rural_clothmaker }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 50 }
 		}
@@ -4082,7 +4082,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 50 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:rural_clothmaker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 50 }
 			}
@@ -4104,7 +4104,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 51 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:rural_clothmaker }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 51 }
 		}
@@ -4121,7 +4121,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 51 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:rural_clothmaker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 51 }
 			}
@@ -4143,7 +4143,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 52 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 3150.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 3150.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:textile_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 52 }
 		}
@@ -4160,7 +4160,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 52 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 3150.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 3150.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:textile_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 52 }
 			}
@@ -4182,7 +4182,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 53 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:textile_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 53 }
 		}
@@ -4199,7 +4199,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 53 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:textile_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 53 }
 			}
@@ -4221,7 +4221,7 @@ bag_wtp_score_29 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 54 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:textile_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 54 }
 		}
@@ -4238,7 +4238,7 @@ bag_wtp_score_29 = {
 				set_variable = { name = bag_wtp_any_best_method value = 54 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2625.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:textile_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 54 }
 			}
@@ -4298,7 +4298,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 65 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 710.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 710.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 65 }
 			}
@@ -4322,7 +4322,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 66 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 605.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 605.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 66 }
 			}
@@ -4346,7 +4346,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 67 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 710.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 710.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 67 }
 			}
@@ -4370,7 +4370,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 68 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 68 }
 			}
@@ -4394,7 +4394,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 69 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 840.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 69 }
 			}
@@ -4418,7 +4418,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 70 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 945.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 70 }
 			}
@@ -4442,7 +4442,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 71 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 71 }
 			}
@@ -4466,7 +4466,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 72 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 72 }
 			}
@@ -4490,7 +4490,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 73 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 73 }
 			}
@@ -4514,7 +4514,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 74 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 74 }
 			}
@@ -4538,7 +4538,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 75 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 75 }
 			}
@@ -4562,7 +4562,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 76 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 735.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 76 }
 			}
@@ -4586,7 +4586,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 77 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 77 }
 			}
@@ -4610,7 +4610,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 78 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 78 }
 			}
@@ -4634,7 +4634,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 79 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2520.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2520.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 79 }
 			}
@@ -4658,7 +4658,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 80 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2310.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2310.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 80 }
 			}
@@ -4680,7 +4680,7 @@ bag_wtp_score_30 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 81 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4012.6615 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4012.6615 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:fine_cloth_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 81 }
 		}
@@ -4697,7 +4697,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 81 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4012.6615 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4012.6615 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 81 }
 			}
@@ -4719,7 +4719,7 @@ bag_wtp_score_30 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 82 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:fine_cloth_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 82 }
 		}
@@ -4736,7 +4736,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 82 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 82 }
 			}
@@ -4760,7 +4760,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 83 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 862.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 862.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 83 }
 			}
@@ -4784,7 +4784,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 84 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 726.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 726.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 84 }
 			}
@@ -4808,7 +4808,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 85 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 862.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 862.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 85 }
 			}
@@ -4832,7 +4832,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 86 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1102.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1102.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 86 }
 			}
@@ -4856,7 +4856,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 87 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 966.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 966.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 87 }
 			}
@@ -4880,7 +4880,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 88 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1102.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1102.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 88 }
 			}
@@ -4904,7 +4904,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 89 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 89 }
 			}
@@ -4928,7 +4928,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 90 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 756.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 756.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 90 }
 			}
@@ -4952,7 +4952,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 91 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 91 }
 			}
@@ -4976,7 +4976,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 92 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 92 }
 			}
@@ -5000,7 +5000,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 93 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 756.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 756.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 93 }
 			}
@@ -5024,7 +5024,7 @@ bag_wtp_score_30 = {
 				set_variable = { name = bag_wtp_any_best_method value = 94 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 892.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:fine_cloth_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 94 }
 			}
@@ -5082,7 +5082,7 @@ bag_wtp_score_31 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 95 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4088.9475 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4088.9475 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:firearms_factory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 95 }
 		}
@@ -5099,7 +5099,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 95 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4088.9475 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4088.9475 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:firearms_factory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 95 }
 			}
@@ -5123,7 +5123,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 96 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:firearms_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 96 }
 			}
@@ -5147,7 +5147,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 97 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1243.3160 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1243.3160 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 97 }
 			}
@@ -5171,7 +5171,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 98 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1201.3160 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1201.3160 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 98 }
 			}
@@ -5195,7 +5195,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 99 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1241.2432 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1241.2432 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 99 }
 			}
@@ -5219,7 +5219,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 100 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1199.2432 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1199.2432 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 100 }
 			}
@@ -5243,7 +5243,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 101 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 366.8168 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 366.8168 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 101 }
 			}
@@ -5267,7 +5267,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 102 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 324.8168 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 324.8168 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:gun_smith }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 102 }
 			}
@@ -5291,7 +5291,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 103 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1398.6788 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1398.6788 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:guns_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 103 }
 			}
@@ -5315,7 +5315,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 104 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1346.1788 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1346.1788 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:guns_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 104 }
 			}
@@ -5339,7 +5339,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 105 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1293.3000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1293.3000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:guns_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 105 }
 			}
@@ -5363,7 +5363,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 106 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1240.8000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1240.8000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:guns_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 106 }
 			}
@@ -5387,7 +5387,7 @@ bag_wtp_score_31 = {
 				set_variable = { name = bag_wtp_any_best_method value = 107 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 312.3915 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 312.3915 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:hand_cannon_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 107 }
 			}
@@ -5447,7 +5447,7 @@ bag_wtp_score_32 = {
 				set_variable = { name = bag_wtp_any_best_method value = 111 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.2445 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.2445 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:furniture_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 111 }
 			}
@@ -5471,7 +5471,7 @@ bag_wtp_score_32 = {
 				set_variable = { name = bag_wtp_any_best_method value = 112 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2090.9205 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2090.9205 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:furniture_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 112 }
 			}
@@ -5493,7 +5493,7 @@ bag_wtp_score_32 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 113 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4181.0890 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4181.0890 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:furniture_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 113 }
 		}
@@ -5510,7 +5510,7 @@ bag_wtp_score_32 = {
 				set_variable = { name = bag_wtp_any_best_method value = 113 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4181.0890 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4181.0890 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:furniture_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 113 }
 			}
@@ -5534,7 +5534,7 @@ bag_wtp_score_32 = {
 				set_variable = { name = bag_wtp_any_best_method value = 114 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.6664 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.6664 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:furniture_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 114 }
 			}
@@ -5594,7 +5594,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 115 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 778.4739 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 778.4739 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:glass_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 115 }
 			}
@@ -5618,7 +5618,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 116 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1038.8581 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1038.8581 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:glass_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 116 }
 			}
@@ -5640,7 +5640,7 @@ bag_wtp_score_33 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 117 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4158.8406 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4158.8406 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:glass_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 117 }
 		}
@@ -5657,7 +5657,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 117 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4158.8406 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4158.8406 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:glass_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 117 }
 			}
@@ -5681,7 +5681,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 118 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1142.8771 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1142.8771 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:glass_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 118 }
 			}
@@ -5705,7 +5705,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 119 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2083.9509 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2083.9509 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:glassworks }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 119 }
 			}
@@ -5727,7 +5727,7 @@ bag_wtp_score_33 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 120 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:rural_glassmaker }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 120 }
 		}
@@ -5744,7 +5744,7 @@ bag_wtp_score_33 = {
 				set_variable = { name = bag_wtp_any_best_method value = 120 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:rural_glassmaker }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 120 }
 			}
@@ -5802,7 +5802,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 126 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 126 }
 		}
@@ -5819,7 +5819,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 126 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 126 }
 			}
@@ -5841,7 +5841,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 127 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 127 }
 		}
@@ -5858,7 +5858,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 127 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 127 }
 			}
@@ -5880,7 +5880,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 128 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 128 }
 		}
@@ -5897,7 +5897,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 128 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 128 }
 			}
@@ -5919,7 +5919,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 129 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 129 }
 		}
@@ -5936,7 +5936,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 129 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 129 }
 			}
@@ -5958,7 +5958,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 130 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 130 }
 		}
@@ -5975,7 +5975,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 130 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 130 }
 			}
@@ -5997,7 +5997,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 131 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 131 }
 		}
@@ -6014,7 +6014,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 131 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 131 }
 			}
@@ -6036,7 +6036,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 132 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 132 }
 		}
@@ -6053,7 +6053,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 132 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 132 }
 			}
@@ -6075,7 +6075,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 133 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 133 }
 		}
@@ -6092,7 +6092,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 133 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 133 }
 			}
@@ -6114,7 +6114,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 134 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 134 }
 		}
@@ -6131,7 +6131,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 134 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 134 }
 			}
@@ -6153,7 +6153,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 135 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 135 }
 		}
@@ -6170,7 +6170,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 135 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 135 }
 			}
@@ -6192,7 +6192,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 136 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 136 }
 		}
@@ -6209,7 +6209,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 136 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 136 }
 			}
@@ -6231,7 +6231,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 137 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:jewelry_guild }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 137 }
 		}
@@ -6248,7 +6248,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 137 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:jewelry_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 137 }
 			}
@@ -6270,7 +6270,7 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 138 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 105.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 105.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:market_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 138 }
 		}
@@ -6287,7 +6287,7 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 138 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 105.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 105.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:market_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 138 }
 			}
@@ -6309,12 +6309,12 @@ bag_wtp_score_34 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 139 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:pounamou_carver }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 139 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:pounamou_carver }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 139 }
 		}
@@ -6331,12 +6331,12 @@ bag_wtp_score_34 = {
 				set_variable = { name = bag_wtp_any_best_method value = 139 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:pounamou_carver }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 139 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:pounamou_carver }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 139 }
 			}
@@ -6396,7 +6396,7 @@ bag_wtp_score_35 = {
 				set_variable = { name = bag_wtp_any_best_method value = 140 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1046.6974 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1046.6974 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:lacquerware_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 140 }
 			}
@@ -6418,7 +6418,7 @@ bag_wtp_score_35 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 141 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2093.3261 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2093.3261 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:lacquerware_manufactory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 141 }
 		}
@@ -6435,7 +6435,7 @@ bag_wtp_score_35 = {
 				set_variable = { name = bag_wtp_any_best_method value = 141 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2093.3261 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2093.3261 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:lacquerware_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 141 }
 			}
@@ -6493,7 +6493,7 @@ bag_wtp_score_36 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 142 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 209.4153 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 209.4153 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:forest_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 142 }
 		}
@@ -6510,7 +6510,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 142 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 209.4153 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 209.4153 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:forest_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 142 }
 			}
@@ -6534,7 +6534,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 143 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1043.0763 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1043.0763 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 143 }
 			}
@@ -6558,7 +6558,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 144 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.7059 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.7059 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 144 }
 			}
@@ -6582,7 +6582,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 145 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2088.6657 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2088.6657 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 145 }
 			}
@@ -6606,7 +6606,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 146 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2091.0443 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2091.0443 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 146 }
 			}
@@ -6628,7 +6628,7 @@ bag_wtp_score_36 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 147 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4180.8473 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4180.8473 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tannery_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 147 }
 		}
@@ -6645,7 +6645,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 147 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4180.8473 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4180.8473 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 147 }
 			}
@@ -6667,7 +6667,7 @@ bag_wtp_score_36 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 148 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4186.5562 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4186.5562 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tannery_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 148 }
 		}
@@ -6684,7 +6684,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 148 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4186.5562 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4186.5562 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tannery_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 148 }
 			}
@@ -6708,7 +6708,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 149 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1147.4095 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1147.4095 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tanning_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 149 }
 			}
@@ -6732,7 +6732,7 @@ bag_wtp_score_36 = {
 				set_variable = { name = bag_wtp_any_best_method value = 150 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.3374 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.3374 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tanning_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 150 }
 			}
@@ -6792,7 +6792,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 151 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 151 }
 			}
@@ -6816,7 +6816,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 152 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 152 }
 			}
@@ -6840,7 +6840,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 153 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 153 }
 			}
@@ -6864,7 +6864,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 154 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2078.7066 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2078.7066 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 154 }
 			}
@@ -6888,7 +6888,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 155 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2091.7308 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 155 }
 			}
@@ -6910,7 +6910,7 @@ bag_wtp_score_37 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 156 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:distiller_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 156 }
 		}
@@ -6927,7 +6927,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 156 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 156 }
 			}
@@ -6949,7 +6949,7 @@ bag_wtp_score_37 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 157 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4178.2567 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4178.2567 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:distiller_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 157 }
 		}
@@ -6966,7 +6966,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 157 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4178.2567 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4178.2567 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 157 }
 			}
@@ -6988,7 +6988,7 @@ bag_wtp_score_37 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 158 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4177.7880 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4177.7880 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:distiller_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 158 }
 		}
@@ -7005,7 +7005,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 158 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4177.7880 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4177.7880 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 158 }
 			}
@@ -7027,7 +7027,7 @@ bag_wtp_score_37 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 159 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4157.9208 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4157.9208 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:distiller_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 159 }
 		}
@@ -7044,7 +7044,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 159 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4157.9208 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4157.9208 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 159 }
 			}
@@ -7066,7 +7066,7 @@ bag_wtp_score_37 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 160 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:distiller_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 160 }
 		}
@@ -7083,7 +7083,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 160 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4178.9670 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distiller_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 160 }
 			}
@@ -7107,7 +7107,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 161 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 161 }
 			}
@@ -7131,7 +7131,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 162 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 162 }
 			}
@@ -7155,7 +7155,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 163 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1038.4681 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1038.4681 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 163 }
 			}
@@ -7179,7 +7179,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 164 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1044.8600 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 164 }
 			}
@@ -7203,7 +7203,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 165 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1040.4954 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1040.4954 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 165 }
 			}
@@ -7227,7 +7227,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 166 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 166 }
 			}
@@ -7251,7 +7251,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 167 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 167 }
 			}
@@ -7275,7 +7275,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 168 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1142.8951 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1142.8951 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 168 }
 			}
@@ -7299,7 +7299,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 169 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1149.8713 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 169 }
 			}
@@ -7323,7 +7323,7 @@ bag_wtp_score_37 = {
 				set_variable = { name = bag_wtp_any_best_method value = 170 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1144.5100 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1144.5100 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:distillers_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 170 }
 			}
@@ -7381,12 +7381,12 @@ bag_wtp_score_38 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 173 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:mason }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 173 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:mason }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 173 }
 		}
@@ -7403,12 +7403,12 @@ bag_wtp_score_38 = {
 				set_variable = { name = bag_wtp_any_best_method value = 173 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:mason }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 173 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:mason }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 173 }
 			}
@@ -7430,12 +7430,12 @@ bag_wtp_score_38 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 174 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:mason }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 174 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:mason }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 174 }
 		}
@@ -7452,12 +7452,12 @@ bag_wtp_score_38 = {
 				set_variable = { name = bag_wtp_any_best_method value = 174 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:mason }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 174 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:mason }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 174 }
 			}
@@ -7479,12 +7479,12 @@ bag_wtp_score_38 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 175 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 175 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:shoen }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 175 }
 		}
@@ -7501,12 +7501,12 @@ bag_wtp_score_38 = {
 				set_variable = { name = bag_wtp_any_best_method value = 175 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 175 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 832.5134 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:shoen }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 175 }
 			}
@@ -7564,7 +7564,7 @@ bag_wtp_score_39 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 178 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 516.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 516.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fishing_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 178 }
 		}
@@ -7581,7 +7581,7 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 178 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 516.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 516.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fishing_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 178 }
 			}
@@ -7605,7 +7605,7 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_any_best_method value = 179 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1026.9415 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1026.9415 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:naval_supplies_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 179 }
 			}
@@ -7629,7 +7629,7 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_any_best_method value = 180 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2063.6431 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2063.6431 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:naval_supplies_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 180 }
 			}
@@ -7651,7 +7651,7 @@ bag_wtp_score_39 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 181 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4133.3347 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4133.3347 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:naval_supplies_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 181 }
 		}
@@ -7668,7 +7668,7 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_any_best_method value = 181 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4133.3347 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4133.3347 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:naval_supplies_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 181 }
 			}
@@ -7692,7 +7692,7 @@ bag_wtp_score_39 = {
 				set_variable = { name = bag_wtp_any_best_method value = 182 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1125.2101 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1125.2101 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:naval_supplies_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 182 }
 			}
@@ -7752,7 +7752,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 183 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1008.3182 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1008.3182 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 183 }
 			}
@@ -7776,7 +7776,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 184 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 184 }
 			}
@@ -7800,7 +7800,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 185 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 512.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 512.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 185 }
 			}
@@ -7824,7 +7824,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 186 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2083.3164 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2083.3164 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 186 }
 			}
@@ -7846,7 +7846,7 @@ bag_wtp_score_40 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 187 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2090.9104 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2090.9104 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:paper_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 187 }
 		}
@@ -7863,7 +7863,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 187 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2090.9104 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2090.9104 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 187 }
 			}
@@ -7885,7 +7885,7 @@ bag_wtp_score_40 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 188 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4725.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4725.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:paper_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 188 }
 		}
@@ -7902,7 +7902,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 188 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4725.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4725.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 188 }
 			}
@@ -7926,7 +7926,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 189 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1110.0201 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1110.0201 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 189 }
 			}
@@ -7950,7 +7950,7 @@ bag_wtp_score_40 = {
 				set_variable = { name = bag_wtp_any_best_method value = 190 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:paper_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 190 }
 			}
@@ -8010,7 +8010,7 @@ bag_wtp_score_41 = {
 				set_variable = { name = bag_wtp_any_best_method value = 191 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1049.1784 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1049.1784 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:porcelain_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 191 }
 			}
@@ -8032,7 +8032,7 @@ bag_wtp_score_41 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 192 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 2094.7368 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 2094.7368 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:porcelain_manufactory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 192 }
 		}
@@ -8049,7 +8049,7 @@ bag_wtp_score_41 = {
 				set_variable = { name = bag_wtp_any_best_method value = 192 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2094.7368 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2094.7368 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:porcelain_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 192 }
 			}
@@ -8107,7 +8107,7 @@ bag_wtp_score_42 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 193 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:fishing_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 193 }
 		}
@@ -8124,7 +8124,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 193 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:fishing_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 193 }
 			}
@@ -8146,7 +8146,7 @@ bag_wtp_score_42 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 194 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:market_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 194 }
 		}
@@ -8163,7 +8163,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 194 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:market_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 194 }
 			}
@@ -8187,7 +8187,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method value = 195 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1047.8542 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1047.8542 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:pottery_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 195 }
 			}
@@ -8211,7 +8211,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method value = 196 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1568.9727 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1568.9727 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:pottery_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 196 }
 			}
@@ -8233,7 +8233,7 @@ bag_wtp_score_42 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 197 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 3406.1428 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 3406.1428 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:pottery_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 197 }
 		}
@@ -8250,7 +8250,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method value = 197 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 3406.1428 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 3406.1428 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:pottery_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 197 }
 			}
@@ -8274,7 +8274,7 @@ bag_wtp_score_42 = {
 				set_variable = { name = bag_wtp_any_best_method value = 198 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1152.6025 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1152.6025 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:pottery_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 198 }
 			}
@@ -8332,12 +8332,12 @@ bag_wtp_score_43 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 208 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:slave_center }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 208 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:slave_center }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 208 }
 		}
@@ -8354,12 +8354,12 @@ bag_wtp_score_43 = {
 				set_variable = { name = bag_wtp_any_best_method value = 208 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:slave_center }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 208 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1016.6667 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:slave_center }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 208 }
 			}
@@ -8417,7 +8417,7 @@ bag_wtp_score_44 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 209 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4100.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4100.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:steel_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 209 }
 		}
@@ -8434,7 +8434,7 @@ bag_wtp_score_44 = {
 				set_variable = { name = bag_wtp_any_best_method value = 209 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:steel_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 209 }
 			}
@@ -8492,12 +8492,12 @@ bag_wtp_score_45 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 213 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tar_kiln }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 213 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:tar_kiln }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 213 }
 		}
@@ -8514,12 +8514,12 @@ bag_wtp_score_45 = {
 				set_variable = { name = bag_wtp_any_best_method value = 213 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tar_kiln }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 213 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:tar_kiln }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 213 }
 			}
@@ -8577,7 +8577,7 @@ bag_wtp_score_46 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 215 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:forest_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 215 }
 		}
@@ -8594,7 +8594,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 215 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:forest_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 215 }
 			}
@@ -8618,7 +8618,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 216 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2100.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:iron_foundry }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 216 }
 			}
@@ -8640,7 +8640,7 @@ bag_wtp_score_46 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 217 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:iron_mill }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 217 }
 		}
@@ -8657,7 +8657,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 217 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4200.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:iron_mill }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 217 }
 			}
@@ -8679,7 +8679,7 @@ bag_wtp_score_46 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 218 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:market_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 218 }
 		}
@@ -8696,7 +8696,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 218 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:market_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 218 }
 			}
@@ -8718,12 +8718,12 @@ bag_wtp_score_46 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 219 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tatara }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 219 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:tatara }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 219 }
 		}
@@ -8740,12 +8740,12 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 219 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tatara }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 219 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 525.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:tatara }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 219 }
 			}
@@ -8769,7 +8769,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 220 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 630.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tools_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 220 }
 			}
@@ -8793,7 +8793,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 221 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 577.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 577.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tools_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 221 }
 			}
@@ -8817,7 +8817,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 222 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1050.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tools_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 222 }
 			}
@@ -8841,7 +8841,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 223 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 262.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 262.5000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tools_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 223 }
 			}
@@ -8865,7 +8865,7 @@ bag_wtp_score_46 = {
 				set_variable = { name = bag_wtp_any_best_method value = 224 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1155.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tools_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 224 }
 			}
@@ -8923,7 +8923,7 @@ bag_wtp_score_47 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 225 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:forest_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 225 }
 		}
@@ -8940,7 +8940,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 225 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:forest_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 225 }
 			}
@@ -8962,7 +8962,7 @@ bag_wtp_score_47 = {
 			set_variable = { name = bag_wtp_end_any_best_method_rural value = 226 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:market_village }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 226 }
 		}
@@ -8979,7 +8979,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method_rural value = 226 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:market_village }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 226 }
 			}
@@ -9001,12 +9001,12 @@ bag_wtp_score_47 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 227 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:tatara }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 227 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r }
+			limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pendbest_r can_build_building = building_type:tatara }
 			set_variable = { name = bag_wtp_pendbest_r value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_r value = 227 }
 		}
@@ -9023,12 +9023,12 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 227 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:tatara }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 227 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r }
+				limit = { var:bag_wtp_try > 210.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_r can_build_building = building_type:tatara }
 				set_variable = { name = bag_wtp_pnowbest_r value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_r value = 227 }
 			}
@@ -9050,7 +9050,7 @@ bag_wtp_score_47 = {
 			set_variable = { name = bag_wtp_end_any_best_method value = 228 }
 		}
 		if = {
-			limit = { var:bag_wtp_try > 4037.5335 var:bag_wtp_try > var:bag_wtp_pendbest_t }
+			limit = { var:bag_wtp_try > 4037.5335 var:bag_wtp_try > var:bag_wtp_pendbest_t can_build_building = building_type:weapon_factory }
 			set_variable = { name = bag_wtp_pendbest_t value = var:bag_wtp_try }
 			set_variable = { name = bag_wtp_pendbest_method_t value = 228 }
 		}
@@ -9067,7 +9067,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 228 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 4037.5335 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 4037.5335 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_factory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 228 }
 			}
@@ -9091,7 +9091,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 229 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 229 }
 			}
@@ -9115,7 +9115,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 230 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 420.0000 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 230 }
 			}
@@ -9139,7 +9139,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 231 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1026.1905 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1026.1905 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_guild }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 231 }
 			}
@@ -9163,7 +9163,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 232 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 2077.7944 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 2077.7944 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_manufactory }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 232 }
 			}
@@ -9187,7 +9187,7 @@ bag_wtp_score_47 = {
 				set_variable = { name = bag_wtp_any_best_method value = 233 }
 			}
 			if = {
-				limit = { var:bag_wtp_try > 1144.5390 var:bag_wtp_try > var:bag_wtp_pnowbest_t }
+				limit = { var:bag_wtp_try > 1144.5390 var:bag_wtp_try > var:bag_wtp_pnowbest_t can_build_building = building_type:weapon_workshop }
 				set_variable = { name = bag_wtp_pnowbest_t value = var:bag_wtp_try }
 				set_variable = { name = bag_wtp_pnowbest_method_t value = 233 }
 			}

@@ -1881,3 +1881,102 @@ bag_wtp_plan_can_rural_47 = {
 		}
 	}
 }
+
+# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
+# Scope: location
+bag_wtp_plan_right_fits_1 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_29 = yes
+	bag_wtp_plan_can_town_30 = yes
+	bag_wtp_plan_can_town_18 = yes
+}
+
+# royal_artisan_rights: furniture, leather, pottery.
+# Scope: location
+bag_wtp_plan_right_fits_2 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_32 = yes
+	bag_wtp_plan_can_town_36 = yes
+	bag_wtp_plan_can_town_42 = yes
+}
+
+# royal_book_rights: books, dyes, paper.
+# Scope: location
+bag_wtp_plan_right_fits_3 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_27 = yes
+	bag_wtp_plan_can_town_4 = yes
+	bag_wtp_plan_can_town_40 = yes
+}
+
+# royal_brewing_rights: beer, liquor, wine.
+# Scope: location
+bag_wtp_plan_right_fits_4 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_26 = yes
+	bag_wtp_plan_can_town_37 = yes
+	bag_wtp_plan_can_town_24 = yes
+}
+
+# royal_jewelry_rights: jewelry.
+# Scope: location
+bag_wtp_plan_right_fits_5 = {
+	global_var:bag_wtp_plan_cap_urban >= 1
+	bag_wtp_plan_can_town_34 = yes
+}
+
+# royal_masonry_rights: glass, masonry.
+# Scope: location
+bag_wtp_plan_right_fits_6 = {
+	global_var:bag_wtp_plan_cap_urban >= 2
+	bag_wtp_plan_can_town_33 = yes
+	bag_wtp_plan_can_town_38 = yes
+}
+
+# royal_naval_rights: naval_supplies, tar.
+# Scope: location
+bag_wtp_plan_right_fits_7 = {
+	global_var:bag_wtp_plan_cap_urban >= 2
+	bag_wtp_plan_can_town_39 = yes
+	bag_wtp_plan_can_town_45 = yes
+}
+
+# royal_textile_rights: cloth, dyes, fine_cloth.
+# Scope: location
+bag_wtp_plan_right_fits_8 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_29 = yes
+	bag_wtp_plan_can_town_4 = yes
+	bag_wtp_plan_can_town_30 = yes
+}
+
+# royal_tooling_rights: tools.
+# Scope: location
+bag_wtp_plan_right_fits_9 = {
+	global_var:bag_wtp_plan_cap_urban >= 1
+	bag_wtp_plan_can_town_46 = yes
+}
+
+# royal_weaponry_rights: cannons, firearms, weaponry.
+# Scope: location
+bag_wtp_plan_right_fits_10 = {
+	global_var:bag_wtp_plan_cap_urban >= 3
+	bag_wtp_plan_can_town_28 = yes
+	bag_wtp_plan_can_town_31 = yes
+	bag_wtp_plan_can_town_47 = yes
+}
+
+# scandinavian_bergslag_privileges: tools.
+# Scope: location
+bag_wtp_plan_right_fits_11 = {
+	global_var:bag_wtp_plan_cap_urban >= 1
+	bag_wtp_plan_can_town_46 = yes
+}
+
+# scandinavian_tar_privileges: naval_supplies, tar.
+# Scope: location
+bag_wtp_plan_right_fits_12 = {
+	global_var:bag_wtp_plan_cap_urban >= 2
+	bag_wtp_plan_can_town_39 = yes
+	bag_wtp_plan_can_town_45 = yes
+}

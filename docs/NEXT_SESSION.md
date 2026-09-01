@@ -44,30 +44,25 @@ exceptions are at the top of `TESTLOG.md`.
 
 **The whole-map plan is the job, and the whole of it is
 [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read that
-file before anything else about this mod.** Three loads in. The thirtieth ran the
-province model end to end and the owner found its real mistake in one province:
-**a list entry has to be a building, not a good** — one building of a type a
-location, one method a building, so three goods off a `market_village` are one
-answer. Following that up turned over the bigger one: the plan's «village» side
-was `village_category`, four buildings, where **thirty production buildings
-declare `rural_settlement`** — the quarries and lumber mills he expected to see.
-Both are rebuilt and neither is loaded.
+file before anything else about this mod.** Four loads in, and the thirty-first
+found the one that mattered: **the plan never asked whether a building may stand
+where it is put.** It offered iron in a province with no wetlands and plantations
+in Westphalia, which reads exactly like a tool that does not rank at all. It asks
+`can_build_building` in the location's own scope now — terrain, rank and
+`location_potential`, never an advance, so it is safe for unowned ground and for
+the endgame plan (`research/engine.md`).
 
-**Ask for one press on the same ground and read three things**: whether a
-village's list is now different *buildings* (not tools + jewelry + beer off one
-market village), whether rural lists got the quarries and mills, and what the
-named «Городское право» column says. The summary line's counters still name the
-failing step if it comes back empty.
+**Nothing since the thirty-first load has been loaded.** Ask for one press on the
+same ground and read four things: no building that cannot stand there (iron
+without bogs is the test case), the building icon under each good, an urban right
+only where its whole bundle fits and only on town rows, and the window's toolbar
+inside its own frame at last.
 
-Also new and unloaded: the town/village button on a plan row (the game's rank is
-only what is true today), and the map pickers in the plan window.
-
-Not built on purpose, and not to be started before that run: the per-good weight,
-the RGO discount, regret ordering within a sweep, and asking whether a location
-can actually hold what its province's list says. The first two change what a good
-is owed and cannot be judged before the province model has been seen once; the
-last is the build pass's own debt and the owner named it himself — «некоторые
-локации в одной провинции могут просто не подходить».
+Not built on purpose: **the demand knob** — «я выбираю товар и щёлкаю +1» — which
+under the province model is a floor in provinces, one CMF numeric field and one
+round before the sweeps, held back only so the next screenshot stays readable;
+the RGO discount; regret ordering within a sweep; and choosing which goods to
+plan rather than all of them.
 
 **Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
 about `where_to_produce` is confirmed.

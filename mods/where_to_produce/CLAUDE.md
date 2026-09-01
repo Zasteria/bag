@@ -16,9 +16,9 @@ anything at all" offered a silk weaver where there are dyes and no silk. Every
 column keeps a fed answer for the ranking and an unfed one for printing, so a
 cell says 0.00% where a blank would lie.
 
-**A building runs one method out of each of its slots** — eight have two, and
-each slot earns its own bonus over its own output (settled from the game's
-panel), so a `Method` is the pair: `eu5data.Method.shares`, and why in
+**A building runs one method out of each of its slots** — eight have two, each
+earning its own bonus over its own output, so a `Method` is the pair
+(`eu5data.Method.shares`):
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
@@ -34,9 +34,11 @@ from `every_market_in_world` (`docs/SETTLED.md`).
 lists a province, towns and villages, each as long as that side's cap; every
 location builds its side's list. Sweeps until the ground is full. **A list entry
 is a building, not a good** — one building of a type a location, one method a
-building, so three goods off one `market_village` are one answer. **And the two
-sides are the building's own rank gates**, not `village_category`: thirty
-production buildings stand in a rural settlement and only four are villages.
+building. **Every building is one `can_build_building` allows in that location**
+(terrain, rank, `location_potential`, never an advance — so it is safe for
+unowned ground and for the endgame plan). **The two sides are the building's own
+rank gates**, not `village_category`. **A right is all or nothing**: a province
+that cannot take its whole bundle is not offered it.
 Urban rights take a town list whole, chosen per province. Every condition is a
 location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
 **The expensive button** — 241 recipes a location. All of it in

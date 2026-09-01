@@ -128,6 +128,12 @@ adds nothing anywhere. Evenness needs no quota — it is what the rounds do — 
 **a location the plan can feed is never left empty**: his ruling, and the reason
 the fixed round count is gone.
 
+**An urban right is all or nothing.** Its bonus obliges every good of the bundle
+to be made where it is granted, so a province that can take two of three is not
+offered it and gets ordinary goods instead. No two goods of any bundle in the
+game share a town building, so the test is an exact AND of the per-good
+conditions rather than an approximation. **His.**
+
 **Urban rights are a province's town list, and they are chosen first.** A right
 is a bundle of two or three goods, which is the shape of a town list, so a right
 does not compete with goods for slots — it takes the list whole. **Which right a

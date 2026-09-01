@@ -38,6 +38,43 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-first load. The plan was planning
+things that cannot be built.** Three screenshots, Westphalia, 48 locations in 31
+provinces, caps 3/4, once without rights and once with.
+
+- **«Локаций 48 (городских 6) · провинций 8 · мест 150 · товаров 32 · записей в
+  списках 43 · зданий 148 в 48 локациях · кругов 4».** The building rule and the
+  rank-gate sides both hold — village lists are different buildings now.
+- **And the plan offered iron in East Westphalia, where iron has exactly one
+  building: `bog_iron_smelter`, whose `location_potential` is
+  `is_adjacent_to_lake` or `topography = wetlands`.** There are no wetlands
+  there. Plantations were on offer in Westphalia too, and `sugar_plantation`
+  wants the location to already grow sugar *and* be overseas or colonial.
+  **The plan never asked whether a building may stand where it is put** — the
+  ranking has that tick and the plan did not inherit it.
+- **The fix is one condition and the engine's own words justify it.**
+  `can_build_building` documents itself as "location only checks local
+  requirements, country checks the country scope requirements", so asked in the
+  location's scope it is terrain, rank and `location_potential` and never the
+  country's advances — which is exactly what a plan wants, and it is safe on the
+  end-of-game side too.
+- **A right was granted where its bundle does not fit.** Brewing rights (beer,
+  liquor, wine) landed on a province with no wine, and the ordinary sweeps filled
+  the third slot with horses and salt. His rule: **a right obliges every good of
+  its bundle to be made where it is granted**, so all or nothing. No two goods of
+  any bundle in the game share a town building, so the test is an exact AND of
+  the per-good conditions.
+- **The right was printed on village rows as well**, where a right never applies.
+- **The window's toolbar was 1272 wide inside 1130** — four 164-pixel picker
+  buttons, a 260 summary and two 150 buttons — which is the frame «уехала» he
+  saw at the top right, twice now.
+- **And the doubt underneath all of it:** «я начинаю сомневаться, что мод вообще
+  хоть как-то ранжирует». It does — `bag_wtp_m<n>` (output × RGO bonus) →
+  `_pnowbest_*` → `_p<g>` → `order_by` — and the fed floor is applied. It was
+  ranking correctly over a set of methods that included ones the ground cannot
+  hold, which reads exactly like not ranking at all.
+- No logs asked for and none needed.
+
 **2026-09-01 — `where_to_produce`, thirtieth load. The plan runs, and the owner
 found the model's real mistake in one province.** Two screenshots, 127 locations
 in 26 provinces, caps 3/4, rights on.
@@ -166,34 +203,6 @@ and it is drawn on the map after all.** One screenshot, fine cloth, «На ко�
   of the file, the header and the row are identical column for column, so this is
   not a width. What is left is a constant inset the rows have and the header does
   not, and `margin_left` is the one number that moves it.
-
-**2026-08-31 — `where_to_produce`, twenty-sixth load. All four fixes hold.**
-Three screenshots, fine cloth, and the owner's verdict: «если не придираться к
-этим злосчастным столбикам и выравниваниям, сейчас меня устраивает функционал».
-
-- **No silk weaver where there is no silk.** Западная Мунтения now reads
-  «Гильдия портных: Мериносовая шерсть ×0.70 + Красители с квасцами», **9.43%**,
-  «2/3» — and the two icons say why the old answer was wrong in a way nobody had
-  spotted: **the province works wool *and* dyes**. Silk never had anything to do
-  with it. 7.14 (wool) + 2.29 (dyes) = 9.43, the recipe fed on both halves; the
-  silk one won before only because 0.90 a level unfed beat 0.70 a level at 7.14%.
-  «В конце» is «Фабрики тонкого сукна ×4.00», 0.63%, «1/1». The wool provinces
-  behind it are untouched at 7.14% «1/3», and the count went 13 → 12.
-- **The buildable tick re-ranks the open window** — third screenshot, «Обошёл 8 ·
-  нашёл 5 · пересчётов 4», five provinces left standing with the window never
-  closed.
-- **`error.log` is clean**: not one `bag_wtp` line beyond the `Flag … never used`
-  and `Variable … used but never set` noise. The two `PostValidate` lines are
-  `qol_vassal_test_events`, another mod's.
-- **Two columns I narrowed were narrowed too far.** «Восточная Мунтения» abuts
-  «Валахия» and «Трансильвания» abuts its percentage: `elide` fills a column to
-  the last pixel and then touches the next one, so width alone can never fix it.
-  Both got their width back and a spacer of their own, paid for out of the method
-  column, and the row still adds up to what the header does.
-- **Not settled: whether «Из чего» is now under its heading.** The middle columns
-  read as aligned in the screenshots and that one may still sit a dozen pixels
-  right, which is too fine to call at this resolution. One glance on the next run
-  answers it.
 
 ## Waiting on a run
 
