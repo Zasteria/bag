@@ -38,6 +38,30 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, Wallachia again. The charter spam survived the
+scoring fix, and the owner struck out the rule underneath it.** «Убери вообще
+любое упоминание этого правила.»
+
+- **His rule, now the sharpest line in `investigations/plan_formula.md`:**
+  «Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
+  будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
+  только на ВЫБОР метода производства в конкретном домике.»
+- **Two rules removed under it.** The unfed divisor, which halved a recipe the
+  ground feeds nothing on top of a gain already zero — the same fact counted
+  twice. And the input substitution entirely, score *and* placement: where a
+  granted right's good could not stand, the slot had been going to the market
+  input that would unblock it. `generate.market_inputs` is gone with it.
+- **His stone quarry question, checked: it does earn a bonus.** Lumber is an RGO
+  and `crude_quarry_maintenance` tops out at 10%. **But seven recipes in the game
+  can never earn one at all** — `lumber_mill`, `slave_market`, `shoen` quarries
+  among them — and the divisor was punishing them for it twice over.
+- **What no rule of ours can change, and it must not be confused with the
+  above:** `can_build_building` is the *game* refusing a building. A glass guild
+  may not stand until sand is in the market. That is not the ground failing to
+  feed a recipe, and the plan cannot plan a building the game forbids — which is
+  why a right is scored on the bundle a town can actually finish.
+- **Unverified.** Whether the spam ends needs a run.
+
 **2026-09-01 — `where_to_produce`, thirty-eighth load. Four tests of the derived
 formula. «Как будто бы выглядит всё довольно хорошо и ты сделал большой рывок».**
 Nothing that follows was re-run after being fixed.

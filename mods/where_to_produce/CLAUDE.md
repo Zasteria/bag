@@ -10,11 +10,12 @@ materials the province works.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is not an answer to the ranking** —
-the bar is half the bonus it could ever earn (`generate.fed_floor`). **The plan
-must never use that bar as a gate**: every good the ground can produce has to be
-produced, fed or not. **And a recipe whose building cannot stand there is no
-answer to either**: `can_build_building`, in all three ages.
+**A recipe the province mostly cannot feed is no answer to the ranking** — the
+bar is `generate.fed_floor`. **In the plan the raw materials choose the method
+and the location and decide nothing else**: never whether a building exists,
+never its place in the queue. Two rules were struck out under that and neither
+may come back — `plan_formula.md` names them. **`can_build_building` is a
+different thing: the game's own refusal.**
 
 **A building runs one method out of each of its slots** — eight have two, each
 earning its own bonus over its own output, so a `Method` is the pair:

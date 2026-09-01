@@ -113,12 +113,6 @@ PLAN_ROWS = 150
 # in the whole ground takes it before a good with forty gets its second, which is
 # the owner's «жёстко зарезервировать слоты». 0 is the last tier and means
 # everything.
-# What a building the ground does not feed is worth against one it does. The
-# bonus itself is only a ten per cent band, so a penalty has to be an outright
-# divisor rather than a difference in bonus: the owner wants the unfed case
-# minimised, not forbidden.
-UNFED_PENALTY = 2
-
 # What one buildable good of a right's bundle is worth beside how good it is.
 # Twice `RANK_SCALE`, so that a bundle a town can finish always outranks a bigger
 # one it cannot, whatever the scores inside them.
@@ -1364,51 +1358,6 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
-def market_inputs(game: eu5data.Game) -> dict[str, str]:
-    """Good -> the good its buildings need *in the market* before they may stand.
-
-    Read off `location_potential`, where four buildings in the game carry an
-    `is_produced_in_(location_)market = goods:X`. Only a good whose buildings all
-    carry one is listed, and never one that asks for itself: `horse_breeders`
-    wants horses in the market to make horses, which nothing can bootstrap.
-
-    **This exists because a right's bundle is mandatory and the ground can still
-    refuse it.** Glass is the case, and the owner's rule, 2026-09-01: «стекло
-    делать в любом случае НАДО и отказаться от него нельзя из-за отсутствия
-    песка, ведь у него нет альтернативного варианта как у тонкого сукна». Sand is
-    dug by a `sand_pit`, which stands at any rank and asks only that the location
-    is not already a sand RGO — so where a granted right cannot have its glass,
-    the plan puts the pit that makes glass possible instead.
-    """
-    directory = refs.GAME_COMMON / "building_types"
-    text = "".join(path.read_text(encoding="utf-8-sig", errors="replace")
-                   for path in sorted(directory.glob("*.txt")))
-    gated: dict[str, set[str]] = {}
-    for block in re.split(r"\n(?=[a-z_0-9]+ = \{)", text):
-        match = re.match(r"([a-z_0-9]+) = \{", block)
-        if not match or "location_potential" not in block:
-            continue
-        needs = set(re.findall(
-            r"is_produced_in(?:_location)?_market = goods:(\w+)",
-            block.split("location_potential", 1)[1][:250]))
-        if needs:
-            gated[match.group(1)] = needs
-    out: dict[str, str] = {}
-    for good in game.goods_produced:
-        makers = {m.building for m in game.methods
-                  if m.produced == good and m.raw_inputs(game.raw_goods)} & set(gated)
-        if not makers:
-            continue
-        # **Any of its buildings, not all of them.** Whether the ungated ones are
-        # reachable is an availability question and the runtime already answers
-        # it: `_plan_can_town_<n>` is asked with the age's own methods, so the
-        # substitution below only ever fires where the good really cannot stand.
-        needs = set().union(*(gated[b] for b in makers)) - {good}
-        if len(needs) == 1:
-            out[good] = needs.pop()
-    return out
-
-
 def plan_groups(rows, split, game):
     """Per good and side, the buildings that could win it and by which methods.
 
@@ -1769,21 +1718,25 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
 \t\t\t# **Nothing the ground feeds: take the recipe it does not.** A location
 \t\t\t# no RGO helps still has to be filled, and a granted right's bundle goes
-\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01. The
-\t\t\t# fallback is divided by {UNFED_PENALTY} so that it is genuinely last in the
-\t\t\t# queue: everything the ground earns is placed before anything it does
-\t\t\t# not, which is «свести к минимуму» rather than forbid.
+\t\t\t# up whether the bonus is there or not.
+\t\t\t#
+\t\t\t# **And it is not penalised for it.** There was a divisor here, and the
+\t\t\t# owner struck it out on 2026-09-01: «отсутствие сырья не должно влиять
+\t\t\t# на то будет ли домик существовать вообще или будет ли он как-то
+\t\t\t# смещён в очереди из-за этого». The gain already says the ground pays
+\t\t\t# this recipe nothing, which is what decides *where* it goes; halving it
+\t\t\t# again was the same fact counted twice. Seven recipes in the game can
+\t\t\t# never earn a bonus at all -- a lumber mill, a slave market -- and they
+\t\t\t# are buildings like any other.
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t\telse = {{
@@ -1795,13 +1748,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t}}
@@ -1938,34 +1889,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = {k} }}
 \t\t}}
 """)
-    # **A bundle good the ground refuses gets its input planted instead.** The
-    # right's building is mandatory and the slot is the right's, so where glass
-    # cannot stand the slot goes to the sand pit that would make it possible
-    # rather than back to the ordinary goods -- the owner, 2026-09-01. Derived
-    # rather than named: `market_inputs` finds one pair in the whole game.
-    substitute = market_inputs(game)
+    # **A bundle good the ground refuses is simply not placed.** There was a rule
+    # here that planted the market input which would have unblocked it -- sand
+    # for glass -- and it was wrong twice over: it made the masonry charter the
+    # one bundle that is always complete, so the charter spammed Wallachia, and
+    # it filled the right's own slot with something the right does not grant.
+    # Removed 2026-09-01 at the owner's word: «убери вообще любое упоминание
+    # этого правила».
     for k, right in enumerate(rights, start=1):
         bundle = sorted(right.output)
-        lines = []
-        for g in bundle:
-            if not groups.get((g, "t")):
-                continue
-            i = order.index(g) + 1
-            feeder = substitute.get(g)
-            j = order.index(feeder) + 1 if feeder in order else 0
-            if j and groups.get((feeder, "t")):
-                lines.append(
-                    f"\t\t\tif = {{\n"
-                    f"\t\t\t\tlimit = {{ {MOD_ID}_plan_can_town_{i} = yes }}\n"
-                    f"\t\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n"
-                    f"\t\t\t}}\n"
-                    f"\t\t\telse = {{\n"
-                    f"\t\t\t\t# {g} cannot stand here; plant the {feeder} that would let it.\n"
-                    f"\t\t\t\t{MOD_ID}_plan_try_town_{j} = yes\n"
-                    f"\t\t\t}}\n")
-            else:
-                lines.append(f"\t\t\t{MOD_ID}_plan_try_town_{i} = yes\n")
-        adds = "".join(lines)
+        adds = "".join(
+            f"\t\t\t{MOD_ID}_plan_try_town_{order.index(g) + 1} = yes\n"
+            for g in bundle if groups.get((g, "t")))
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}

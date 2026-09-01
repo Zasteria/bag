@@ -52,6 +52,43 @@ nothing", which is still a building the plan must place. **The objective is
 Σ gain over every building placed**, and no price, no output size and no
 per-good divisor enters it. It is the honest reading of «свои плюшки».
 
+## The one rule the raw materials do not get to break
+
+**They decide the method and the place, and nothing else.** The owner, 2026-09-01,
+and it is the sharpest line in this file:
+
+> Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
+> будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
+> только на ВЫБОР метода производства в конкретном домике.
+
+Two rules were struck out under it and neither may come back:
+
+- **the unfed divisor.** A recipe the ground feeds nothing had its score halved on
+  top of a gain already zero — the same fact counted twice. **Seven recipes in the
+  game can never earn a bonus at all** (a lumber mill, a slave market, a shoen
+  quarry) and they are buildings like any other;
+- **the input substitution.** Where a granted right's good could not stand, the
+  slot went to the market input that would have unblocked it — sand for glass.
+  `sand_pit` asks only that the location is not already a sand RGO, so it stands
+  nearly everywhere: the masonry charter became the one bundle always complete,
+  spammed a whole realm, and filled the right's own slot with something the right
+  does not grant.
+
+**`generate.fed_floor` is not in the plan's admissibility either and must never be
+put back there.** It belongs to the ranking, where an empty answer beats a bad
+one; the plan has to fill the ground.
+
+**What raw materials may still do is set `gain`**, which decides *where* a good
+goes — and a good that can earn nothing anywhere is indifferent between
+locations, so it takes what is left over. That is not a penalty, it is the
+optimum, and it is what the owner described himself.
+
+**And one thing no rule here can change.** `can_build_building` is the game
+refusing a building, not the ground failing to feed it: a glass guild may not
+stand at all until sand is in the market. A right whose bundle the game refuses
+comes out short, and the plan's only honest answer is to prefer a charter the town
+can finish.
+
 ## The one insight that makes the deal optimal
 
 The failure mode is greed, and the owner named it: «дальше не жиреть». If every
