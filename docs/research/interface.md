@@ -45,6 +45,47 @@ lists — `Region.GetAreas` and `Area.GetProvinces` are not interface promotes, 
 only script can go down a level — with the map highlighting what the mouse is
 over. `where_to_produce`'s selection window is that.
 
+### A map mode is a mod's to define, and it reads location variables
+
+The one part of the map a mod owns outright. A file in
+`in_game/gfx/map/map_modes/` defines a mode the same way vanilla does, and it
+appears in the game's own map-mode bar under whatever `category` it names.
+
+**`map_color` is script, evaluated per location, and it may read that location's
+variables.** `where_to_produce` already paints its selection that way
+(`mods/where_to_produce/in_game/gfx/map/map_modes/bag_wtp_selection.txt`), and so
+do both reference mods that add a mode: Advanced Auto Build compares
+`eu5ab_template_slot` against a variable on the owner, Construction Manager lerps
+a gradient over a script value. So anything a scripted pass parks on locations is
+showable on the map without further machinery: the pass writes the variable, the
+mode reads it.
+
+**And the refresh is the one thing to get right.** A mode recolours on the
+counters it names, and a variable written by script is not one of them.
+`color_refresh_counters = { Day }` is the cheap answer and what this mod uses;
+Construction Manager's is a `category = hidden` duplicate of the mode, activated
+for an instant to force it.
+
+What comes with it, all from the same file: `secondary_map_color` for a second
+signal over the first, `legend_key` rows, a `tooltip_key` that picks a
+localization key per location by trigger, `small/medium/large_map_names` from a
+fixed set (`location`, `province`, `area`, `country`, `market`, `raw_material`)
+and a matching `*_tooltip_context`, and `map_markers = { ... }` to turn the
+game's own markers on and off — `raw_goods_marker` among them, which is the RGO
+icon a plan wants left on.
+
+**A mode can be switched from a widget**: `[GetMapMode('key').SetMapMode]`, which
+is how Construction Manager follows a panel opening — so a window can put the map
+into its own mode as it opens. `index` inside a `category` is claimed rather than
+allocated: two mods numbering a geography mode the same would collide.
+
+**What is still not a mod's:** the markers themselves. Every marker in
+`map_markers*.gui` is a named widget the engine instantiates against a data
+context of its own (`MarketMarker`, `ParliamentMarker`, `Construction`), so a
+mod may hide and show them but cannot add one, and cannot put an icon of its own
+over a location. A per-location colour, a per-location tooltip and the game's
+existing icons are the whole of what the map will draw.
+
 ### A province is not a province definition
 
 The game splits a province by ownership. Half of Bessarabia under Moldavia is

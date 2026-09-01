@@ -124,3 +124,30 @@ bag_wtp_result_collapse = {
 	}
 }
 
+
+# The plan window, on the same contract as the other two: opening copies the
+# answer into the list the window repeats over, closing empties it again.
+bag_wtp_open_plan_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_open_plan_window_effect = yes
+	}
+}
+
+bag_wtp_close_plan_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_variable = bag_wtp_plan_open
+		bag_wtp_plan_hide = yes
+	}
+}

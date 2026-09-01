@@ -32,45 +32,35 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: three ages on a row, and the pairs are in
+## `where_to_produce`: the whole-map plan
 
-Twenty-four loads. A row answers in three ages — «Сейчас», «По пути» (the best
-this ground ever feeds, and the last age it can be built), «В конце» — because
-the end alone cannot order a table where every wool province ends at 0.00%. Two
-«Считать» buttons choose the order and which age the row names.
-
-**The two-slot question is settled** from the game's own build panel — each slot
-earns its own bonus over its own output:
-[`investigations/production_ladder.md`](investigations/production_ladder.md).
-
-**The twenty-sixth load passed on everything and the owner is satisfied with the
-functionality** — the fed floor is half a recipe's possible bonus now
-(`generate.fed_floor`), «Из чего» is a `widget` with an anchored child rather
-than a sized hbox that centred it, and the buildable tick re-ranks the open
-window. Two name columns narrowed to pay for the method column had to be given
-their width back and a spacer; one alignment question is open in `TESTLOG.md`.
+**Everything before the plan is done and the owner is content with it** — the
+three ages on a row, the two «Считать» buttons, the four pickers including a
+whole market. The state is [`../mods/where_to_produce/CLAUDE.md`](../mods/where_to_produce/CLAUDE.md);
+one alignment question is open in `TESTLOG.md` and nothing else is.
 
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**The next thing is not another fix.** Two jobs are open and the owner has
-chosen the second:
+**The whole-map plan is answered, designed and half built, and the whole of it
+is [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read
+that file before anything else about this mod.** The owner answered its five
+questions on 2026-09-01 — the cap is per location and there are two of them, set
+in game; no market or price weighting; RGOs already standing reduce what a good
+is owed; a table and a map — and the first slice went in the same day: a «Общий
+план» group with three numbers and two buttons, a pass that plans all 47 goods
+at once, a window of locations by load, and a map mode painting it.
 
-**The picking is done and the owner is content with the functionality.** A
-market is a fourth thing to pick and it turned out to be a map region like the
-others — hover and it outlines, click and it is yours. Any market in the world
-now, not only the ones the country sits in. The picker buttons are the game's
-solid `action_button_regular` rather than the transparent flavour ones copied
-from Advanced Auto Build, and the corner above the +/- buttons has a heading.
+**None of it has been loaded, and the first thing to ask him for is one press on
+a small ground** — one area, then a region. The pass reads 241 recipes on every
+location where a ranking reads about five, and whether that survives a button
+press is the one thing that cannot be known from here. Five counters are printed
+on the button and in the window for exactly that: the first zero among them is
+the diagnosis, so no log is needed unless something did nothing.
 
-**So the next job is the one the mod was built for:
-[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md)** — every
-building for every good, placed once over one stretch of ground, with a cap per
-province, the RGOs already there counted, and a rule for the province every good
-wants. **Read that file first.** It ends in five questions that are the owner's
-to answer, and asking them is the first move rather than the second; it also
-names the trap — a whole feature finished before its first load, which is how
-this mod's predecessor died.
+Not built on purpose, and not to be started before that run: the per-good
+weight, the RGO discount, and regret ordering. All three change what a good is
+owed, and none can be judged before the base distribution has been seen once.
 
 **Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
 about `where_to_produce` is confirmed.

@@ -6189,9 +6189,181 @@ bag_wtp_r_score = {
 	}
 }
 
+# clay
+# Scope: location
+bag_wtp_ord1 = { value = var:bag_wtp_p1 }
+# coal
+# Scope: location
+bag_wtp_ord2 = { value = var:bag_wtp_p2 }
+# cotton
+# Scope: location
+bag_wtp_ord3 = { value = var:bag_wtp_p3 }
+# dyes
+# Scope: location
+bag_wtp_ord4 = { value = var:bag_wtp_p4 }
+# fiber_crops
+# Scope: location
+bag_wtp_ord5 = { value = var:bag_wtp_p5 }
+# fish
+# Scope: location
+bag_wtp_ord6 = { value = var:bag_wtp_p6 }
+# fruit
+# Scope: location
+bag_wtp_ord7 = { value = var:bag_wtp_p7 }
+# horses
+# Scope: location
+bag_wtp_ord8 = { value = var:bag_wtp_p8 }
+# incense
+# Scope: location
+bag_wtp_ord9 = { value = var:bag_wtp_p9 }
+# iron
+# Scope: location
+bag_wtp_ord10 = { value = var:bag_wtp_p10 }
+# ivory
+# Scope: location
+bag_wtp_ord11 = { value = var:bag_wtp_p11 }
+# livestock
+# Scope: location
+bag_wtp_ord12 = { value = var:bag_wtp_p12 }
+# lumber
+# Scope: location
+bag_wtp_ord13 = { value = var:bag_wtp_p13 }
+# medicaments
+# Scope: location
+bag_wtp_ord14 = { value = var:bag_wtp_p14 }
+# salt
+# Scope: location
+bag_wtp_ord15 = { value = var:bag_wtp_p15 }
+# saltpeter
+# Scope: location
+bag_wtp_ord16 = { value = var:bag_wtp_p16 }
+# sand
+# Scope: location
+bag_wtp_ord17 = { value = var:bag_wtp_p17 }
+# silk
+# Scope: location
+bag_wtp_ord18 = { value = var:bag_wtp_p18 }
+# silver
+# Scope: location
+bag_wtp_ord19 = { value = var:bag_wtp_p19 }
+# stone
+# Scope: location
+bag_wtp_ord20 = { value = var:bag_wtp_p20 }
+# sugar
+# Scope: location
+bag_wtp_ord21 = { value = var:bag_wtp_p21 }
+# tobacco
+# Scope: location
+bag_wtp_ord22 = { value = var:bag_wtp_p22 }
+# wild_game
+# Scope: location
+bag_wtp_ord23 = { value = var:bag_wtp_p23 }
+# wine
+# Scope: location
+bag_wtp_ord24 = { value = var:bag_wtp_p24 }
+# wool
+# Scope: location
+bag_wtp_ord25 = { value = var:bag_wtp_p25 }
+# beer
+# Scope: location
+bag_wtp_ord26 = { value = var:bag_wtp_p26 }
+# books
+# Scope: location
+bag_wtp_ord27 = { value = var:bag_wtp_p27 }
+# cannons
+# Scope: location
+bag_wtp_ord28 = { value = var:bag_wtp_p28 }
+# cloth
+# Scope: location
+bag_wtp_ord29 = { value = var:bag_wtp_p29 }
+# fine_cloth
+# Scope: location
+bag_wtp_ord30 = { value = var:bag_wtp_p30 }
+# firearms
+# Scope: location
+bag_wtp_ord31 = { value = var:bag_wtp_p31 }
+# furniture
+# Scope: location
+bag_wtp_ord32 = { value = var:bag_wtp_p32 }
+# glass
+# Scope: location
+bag_wtp_ord33 = { value = var:bag_wtp_p33 }
+# jewelry
+# Scope: location
+bag_wtp_ord34 = { value = var:bag_wtp_p34 }
+# lacquerware
+# Scope: location
+bag_wtp_ord35 = { value = var:bag_wtp_p35 }
+# leather
+# Scope: location
+bag_wtp_ord36 = { value = var:bag_wtp_p36 }
+# liquor
+# Scope: location
+bag_wtp_ord37 = { value = var:bag_wtp_p37 }
+# masonry
+# Scope: location
+bag_wtp_ord38 = { value = var:bag_wtp_p38 }
+# naval_supplies
+# Scope: location
+bag_wtp_ord39 = { value = var:bag_wtp_p39 }
+# paper
+# Scope: location
+bag_wtp_ord40 = { value = var:bag_wtp_p40 }
+# porcelain
+# Scope: location
+bag_wtp_ord41 = { value = var:bag_wtp_p41 }
+# pottery
+# Scope: location
+bag_wtp_ord42 = { value = var:bag_wtp_p42 }
+# slaves_goods
+# Scope: location
+bag_wtp_ord43 = { value = var:bag_wtp_p43 }
+# steel
+# Scope: location
+bag_wtp_ord44 = { value = var:bag_wtp_p44 }
+# tar
+# Scope: location
+bag_wtp_ord45 = { value = var:bag_wtp_p45 }
+# tools
+# Scope: location
+bag_wtp_ord46 = { value = var:bag_wtp_p46 }
+# weaponry
+# Scope: location
+bag_wtp_ord47 = { value = var:bag_wtp_p47 }
+
+# The divisor the plan normalizes by: the best this ground is worth to whatever
+# good is being harvested. A script value and not `divide = global_var:`, because
+# `divide` takes a script value for certain and the other form is only inferred.
+bag_wtp_plan_top_value = { value = global_var:bag_wtp_plan_top }
+
+# The plan's rows are ordered by how many buildings a location took, so the
+# «магнит» the whole feature is named for is the top of the table.
+# Scope: location
+bag_wtp_plan_order = { value = var:bag_wtp_load }
+
+# And the copy into the window's datamodel keeps that order the way the
+# ranking's does: highest first, so the rank is negated.
+# Scope: location
+bag_wtp_plan_rank_order = {
+	value = 0
+	subtract = var:bag_wtp_plan_rank
+}
+
 bag_wtp_show_regions = { value = global_var:bag_wtp_zone_count }
 bag_wtp_show_candidates = { value = global_var:bag_wtp_candidate_count }
 bag_wtp_show_found = { value = global_var:bag_wtp_found }
 bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
 bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
 bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
+
+# What the plan pass counted, each of them printed on the button that ran it.
+# The first zero among them is the diagnosis, which is the only debugging a
+# player can be asked for: an effect that merely does nothing logs nothing.
+bag_wtp_show_plan_scored = { value = global_var:bag_wtp_plan_scored }
+bag_wtp_show_plan_placed = { value = global_var:bag_wtp_plan_placed }
+bag_wtp_show_plan_found = { value = global_var:bag_wtp_plan_found }
+bag_wtp_show_plan_shown = { value = global_var:bag_wtp_plan_shown }
+bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
+bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
+bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
+bag_wtp_show_plan_per_good = { value = global_var:bag_wtp_plan_per_good }

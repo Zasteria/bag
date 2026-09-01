@@ -100,3 +100,33 @@ bag_wtp_right_row_is_worth_it = {
 		}
 	}
 }
+
+# Has this location room for one more building of the plan?
+#
+# **There is no building-slot count in the game to ask.** `max_levels` on a
+# building type is that building's own ladder -- `rural_building_cap` is
+# `1 + development*0.1 + max_rgo_workers*0.5`, plus one for a river -- and
+# nothing anywhere counts how many buildings a location holds. So the cap is the
+# player's own figure, two of them, and this is where they are spent.
+#
+# **Written with OR and AND rather than an `if`.** A scripted trigger takes an
+# effect's `if` without complaining and answers true everywhere afterwards --
+# which is exactly what the buildable tick did for seventeen loads
+# (`docs/PITFALLS.md`).
+#
+# `_load` exists on every candidate before the first round: `bag_wtp_plan_clear`
+# walks them and sets it, because a comparison against a variable that is not
+# there logs once per candidate per round.
+# Scope: location
+bag_wtp_plan_has_room = {
+	OR = {
+		AND = {
+			location_rank = location_rank:rural_settlement
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
+		AND = {
+			NOT = { location_rank = location_rank:rural_settlement }
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
+	}
+}

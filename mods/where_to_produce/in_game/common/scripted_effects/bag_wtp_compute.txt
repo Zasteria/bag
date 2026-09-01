@@ -100,6 +100,24 @@ bag_wtp_on_button = {
 		bag_wtp_open_result_window_effect = yes
 	}
 
+	# The whole-map plan: every good at once over the same ground, one building at
+	# a time, under a cap per location. A pass of its own and a window of its own,
+	# because it answers a different question from the two above -- «where does
+	# everything go» rather than «where does this go» -- and because it costs
+	# about fifty times as much. The settings are re-read first: a numeric setting
+	# applies itself on its own +/- and calls nothing back.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_run }
+		bag_wtp_sync = yes
+		bag_wtp_plan_run = yes
+		bag_wtp_open_plan_window_effect = yes
+	}
+
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_show }
+		bag_wtp_open_plan_window_effect = yes
+	}
+
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
 	#
@@ -199,6 +217,11 @@ bag_wtp_hide_results = {
 # Scope: country
 bag_wtp_open_result_window_effect = {
 	bag_wtp_show_results = yes
+	# The plan is a third answer to a third question and its window is a third
+	# datamodel; leaving it open behind this one would keep every one of its rows
+	# alive for nothing.
+	remove_variable = bag_wtp_plan_open
+	bag_wtp_plan_hide = yes
 	if = {
 		limit = { var:bag_wtp_right_index > 0 }
 		remove_variable = bag_wtp_result_open

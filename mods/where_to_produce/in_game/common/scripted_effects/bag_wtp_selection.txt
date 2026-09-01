@@ -268,4 +268,41 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_live_runs } }
 		set_global_variable = { name = bag_wtp_live_runs value = 0 }
 	}
+	# The plan's counters. Every one of them is printed on the button that runs
+	# the plan, and each has to exist before the first press: a script value
+	# reading a global that is not there is an error a frame on an open page.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_placed } }
+		set_global_variable = { name = bag_wtp_plan_placed value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_scored } }
+		set_global_variable = { name = bag_wtp_plan_scored value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_found } }
+		set_global_variable = { name = bag_wtp_plan_found value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_shown } }
+		set_global_variable = { name = bag_wtp_plan_shown value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_rooms } }
+		set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	}
+	# And the three settings, for the frame before the sync has run: the caps are
+	# read by a trigger asked once per candidate per round.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_rural } }
+		set_global_variable = { name = bag_wtp_plan_cap_rural value = 3 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_urban } }
+		set_global_variable = { name = bag_wtp_plan_cap_urban value = 4 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_per_good } }
+		set_global_variable = { name = bag_wtp_plan_per_good value = 3 }
+	}
 }

@@ -1,0 +1,317 @@
+﻿# The whole-map plan: one row per location the plan put anything in, the most
+# crowded first.
+#
+# **A row is a location here and a province in the other window**, and that is
+# the whole difference between the two. The ranking answers «which province is
+# best at this good», which is a question about a province because the bonus is
+# counted over one. A plan answers «what do I build here», and «here» is a
+# location: the cap is a location's, and one province holds four of them.
+#
+# Everything a row prints is on the location itself -- `bag_wtp_load` and the
+# `bag_wtp_plan_goods` list, both written by `bag_wtp_generated_plan.txt` -- and
+# `bag_wtp_plan_results` is those locations in rank order. The idiom is the
+# results window's throughout: every column a fixed width, none expanding, and a
+# column that hugs its content is a `widget` with an anchored child rather than a
+# sized hbox (`docs/pitfalls/interface.md`).
+
+types BagWtpPlanTypes {
+
+	# One good the plan put here. The icon is the whole cell; the name is its
+	# tooltip, because a row of forty-seven possible goods has no room for words.
+	type bag_wtp_plan_goods_entry = text_single {
+		autoresize = yes
+		fontsize = 16
+		raw_text = "[Goods.GetIcon]"
+		tooltip = "[Goods.GetName]"
+	}
+
+	type bag_wtp_plan_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 30 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		# The map answers the row. `SetHighlightLocation` is on the generic widget
+		# rather than on any view, so this is the game's own highlight in a mod's
+		# own window, and the engine clears it when the mouse leaves.
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
+
+		text_single = {
+			size = { 38 30 }
+			autoresize = no
+			align = center|vcenter
+			fontsize = 13
+			text = "bag_wtp_plan_rank_value"
+			tooltip = "bag_wtp_plan_rank_tt"
+		}
+
+		widget = {
+			size = { 30 30 }
+			icon = {
+				size = { 18 18 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
+		text_single = {
+			size = { 180 30 }
+			autoresize = no
+			maximumsize = { 180 30 }
+			align = left|vcenter
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		widget = { size = { 6 30 } }
+
+		text_single = {
+			size = { 150 30 }
+			autoresize = no
+			maximumsize = { 150 30 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "[Location.GetProvinceDefinition.GetName]"
+			tooltip = "bag_wtp_plan_province_tt"
+		}
+
+		widget = { size = { 6 30 } }
+
+		text_single = {
+			size = { 120 30 }
+			autoresize = no
+			maximumsize = { 120 30 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "[Location.GetArea.GetNameWithNoTooltip]"
+		}
+
+		widget = { size = { 6 30 } }
+
+		text_single = {
+			size = { 56 30 }
+			autoresize = no
+			align = center|vcenter
+			fontsize = 14
+			text = "bag_wtp_plan_load_value"
+			tooltip = "bag_wtp_plan_load_tt"
+		}
+
+		widget = { size = { 6 30 } }
+
+		# What the ground already digs up here, which is the other half of the
+		# answer: a location with salt in it is why the plan put no salt works in
+		# the province, and the icon says so without a column of its own.
+		widget = {
+			size = { 30 30 }
+			visible = "[Location.HasRawMaterial]"
+			icon = {
+				size = { 22 22 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[GetGoodsIcon(Location.GetRawMaterial)]"
+				tooltip = "[Location.GetRawMaterial.GetName]"
+			}
+		}
+
+		widget = { size = { 6 30 } }
+
+		# The plan itself. A `widget` and not an hbox, so the icons hug the left
+		# of the cell instead of being centred in it.
+		widget = {
+			size = { 380 30 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_plan_goods_tt"
+
+			hbox = {
+				parentanchor = left|vcenter
+				spacing = 2
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_goods')]"
+				item = {
+					bag_wtp_plan_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
+	}
+}
+
+window = {
+	name = "bag_wtp_plan_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	widgetanchor = center
+	position = { 0 0 }
+	movable = yes
+	size = { 1180 720 }
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
+
+	widget = {
+		size = { 1180 720 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_plan_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_plan_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 80 }
+					align = center
+					text = "bag_wtp_plan_window_desc"
+				}
+
+				# The pass, in numbers. Every one of them is counted by the pass
+				# itself, and the first zero among them is the diagnosis: an effect
+				# that merely does nothing logs nothing at all, and this is the one
+				# place a failure is visible without asking for a log.
+				# A fixed width and not an expanding one: an expanding child inside a
+				# parent that has a size of its own comes out at zero and elides to
+				# nothing, which reads exactly like a variable that failed to print
+				# (`docs/pitfalls/interface.md`).
+				text_single = {
+					size = { 1130 22 }
+					maximumsize = { 1130 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "bag_wtp_plan_pass_summary"
+					tooltip = "bag_wtp_plan_pass_tt"
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 60 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
+					text = "bag_wtp_plan_window_empty"
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_left = 10
+					spacing = 0
+					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_plan_results'))]"
+
+					text_single = {
+						size = { 38 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rank"
+					}
+					widget = { size = { 30 24 } }
+					text_single = {
+						size = { 180 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_location"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 150 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_province"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 120 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_area"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 56 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_load"
+						tooltip = "bag_wtp_plan_load_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 30 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rgo"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 380 24 }
+						autoresize = no
+						maximumsize = { 380 24 }
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_goods"
+					}
+					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
+							item = {
+								bag_wtp_plan_entry = {
+									datacontext = "[Scope.GetLocation]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -30,10 +30,18 @@ right's gate is its own `potential` or its advance's, never `has_advance`, so
 most countries see none of the three. Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
-**Four pickers, and the market one names its own candidates**: hovering outlines
-a market like an area, but only what `interaction_source_list` holds can be
-clicked, so `bag_wtp_select_market` fills it from `every_market_in_world` — the
-neighbour's market is exactly the one a conquest is planned on.
+**Four pickers, and the market one names its own candidates**: only what
+`interaction_source_list` holds is clickable, so `bag_wtp_select_market` fills it
+from `every_market_in_world` (`docs/SETTLED.md`).
+
+**The whole-map plan is built and has never been loaded.** Every good at once,
+one building at a time, under a cap per location: three numeric settings, a
+window of rows by load, a map mode painting the same. It reuses
+`bag_wtp_score_<g>` and **normalizes each good by its own best here**, without
+which the biggest recipe takes every contested province. **The expensive
+button** — 241 recipes a location against a ranking's five — and that cost is
+what a first run measures. All of it in
+[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography
