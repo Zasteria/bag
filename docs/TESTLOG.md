@@ -38,6 +38,42 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirtieth load. The plan runs, and the owner
+found the model's real mistake in one province.** Two screenshots, 127 locations
+in 26 provinces, caps 3/4, rights on.
+
+- **«Локаций 127 (городских 8) · провинций 19 · мест 389 · товаров 30 · записей
+  в списках 75 · зданий 322 в 120 локациях · кругов 8».** The province model
+  works end to end: rows grouped by province, its towns first, and its locations
+  carrying the same list. The `province_definition` fix held.
+- **And the list is wrong, because its unit is wrong.** Székely Land's villages
+  each got tools, jewelry and beer — «по сути все три этих товара даёт одно и то
+  же здание „торговая деревня"». He is right: `market_village` makes all three,
+  **a location holds one building of a type and a building runs one method**, so
+  those three entries are one building's worth of answer and two wasted slots.
+  The plan's list is a list of **buildings** now, not of goods, and a good whose
+  winning building is already on the province's list is not an answer.
+- **The worse half of the same mistake, found by following it up.** The plan's
+  «village» side was `village_category` — four buildings in the whole game. But
+  **thirty production buildings declare `rural_settlement = yes`**, and the other
+  twenty-six are exactly what he said should have been there: stone quarries,
+  clay pits, lumber mills, masons, salt collectors, sand pits. The two sides are
+  split on the building's own rank gates now (`eu5data.Method.rural` / `.urban`),
+  which takes a rural location's choice from 4 buildings to 30 and from a
+  handful of goods to 31.
+- **19 provinces against 26 «выбрано»** is not yet explained. The picker counts
+  provinces its own way and the plan counts the ones it prepared; they should
+  agree, and one of them is wrong.
+- **What he could not read:** the town/village override. It was two glyphs drawn
+  over the corner of the rank icon — «просто на значке появились какие-то
+  символы». It is a labelled button in a column of its own now, saying
+  «авто / город / село» in words.
+- **Asked for besides:** «Пересчитать» inside the window, so a run happens when
+  he says so and not after every click; the urban right named on the row, not
+  merely implied by its goods; and the plan on two buttons like the ranking,
+  now and at the end of the game.
+- No logs asked for and none needed.
+
 **2026-09-01 — `where_to_produce`, twenty-ninth load. The province model placed
 nothing at all, and `error.log` carried not one line about it.** One screenshot,
 Wallachia and more, with logs.
@@ -158,61 +194,6 @@ Three screenshots, fine cloth, and the owner's verdict: «если не прид
   read as aligned in the screenshots and that one may still sit a dozen pixels
   right, which is too fine to call at this resolution. One glance on the next run
   answers it.
-
-**2026-08-31 — `where_to_produce`, twenty-fifth load, with logs.** Two
-screenshots of fine cloth, «Считать» and «На конец».
-
-- **The row names its building again and every column sits under its header** —
-  both asked for and both confirmed. `error.log` carries no `PostValidate` with
-  `bag_wtp` in it; the only `bag_wtp` lines are `Flag … never used` and five
-  `Variable … used but never set` for `_mid_goods*` and `_pm2_rural`, which are
-  a generated `clear_variable_list` and a village that never runs a pair. Noise.
-- **«Из чего» is still not under its header, and worse on the second
-  screenshot.** Not a drift this time: the icons are *centred* in their column.
-  The container is an hbox with a width, `ignoreinvisible` leaves it exactly one
-  visible child, and an hbox with a width spreads its children across it — so
-  the offset is half the slack, which is why «0/1» alone sat further right than
-  «1/3» with an icon. Both windows' goods columns are plain `widget`s now with a
-  `parentanchor = left|vcenter` inside.
-- **A silk weaver was offered where there is no silk.** Западная Мунтения
-  supplies dyes and nothing else the recipe wants, and it came first at 1.78% on
-  «Гильдия ткачей шёлка + Красители с квасцами» — one input of three. Owner:
-  the market will not have silk either, so it is not an answer at all. The floor
-  a method has to clear is **half the bonus its raw materials could ever add**
-  now, not one point above nothing; `generate.fed_floor`, and the same fed/unfed
-  fallback as before behind it.
-- **The buildable tick drops provinces, but only after the window is closed and
-  opened again.** It never re-ranked — it wrote the setting and refreshed the
-  lists, which is right for every other tick on that page and wrong for the one
-  that changes which provinces are candidates. It calls
-  `bag_wtp_recompute_live` now, the same guard the map pickers go through.
-- **Wallachia sees no unique rights, which is the right answer.** The mod offers
-  three of them — two Scandinavian, gated on a culture group, and the Byzantine
-  silk monopoly on a tag. The other five grant building levels rather than an
-  output ratio and are deliberately not in the list. The Scandinavian half of
-  the question is still unrun and the owner has said he would rather not.
-
-**2026-08-31 — `where_to_produce`, twenty-fourth load. The fixed-width columns
-ate the building's name.** Two screenshots, fine cloth and textile.
-
-- **A row printed «± Красители с квасцами» and nothing else** — no building, no
-  method, no «×». The cause is one line: the method cell was given a size of its
-  own, and a child carrying `layoutpolicy_horizontal = expanding` inside a sized
-  hbox gets **no width at all**, so the text elided to nothing. The improvement
-  beside it survived because it was `autoresize = yes`. Every column in both
-  windows carries an explicit width now and none of them expands; the slack goes
-  to a spacer at the far right, and the row's widths add up to the header's to
-  the pixel (762 after the area column in the goods window, 700 per slot in the
-  rights one).
-- **Two spacers where the header had one.** «В конце» was followed by 10px in a
-  row and 6 in the header, and a second 6 had crept in before «По пути»: four
-  and six pixels, and every column after them out of line. That is the whole of
-  the «Из чего» drift.
-- **Fifty pixels moved from «Из чего» to «Здание и метод»**, which is where the
-  long names are: a building, a method and an improvement in one cell.
-- **Urban rights work on both buttons**, owner's words, and the unique list is
-  empty again — which for Wallachia is the right answer, since the two
-  Scandinavian privileges gate on a culture group and the Byzantine one on a tag.
 
 ## Waiting on a run
 

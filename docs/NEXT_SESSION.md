@@ -44,19 +44,20 @@ exceptions are at the top of `TESTLOG.md`.
 
 **The whole-map plan is the job, and the whole of it is
 [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read that
-file before anything else about this mod.** Two loads in: the twenty-eighth ran
-and the owner's verdict was «получилось даже более менее сносно»; the
-twenty-ninth, after the model was rewritten per province, **placed nothing at all
-and logged nothing** — the province's state was being kept on a
-`province_definition`, which holds no variable (`PITFALLS.md`). It is on the
-locations now, mirrored across the province.
+file before anything else about this mod.** Three loads in. The thirtieth ran the
+province model end to end and the owner found its real mistake in one province:
+**a list entry has to be a building, not a good** — one building of a type a
+location, one method a building, so three goods off a `market_village` are one
+answer. Following that up turned over the bigger one: the plan's «village» side
+was `village_category`, four buildings, where **thirty production buildings
+declare `rural_settlement`** — the quarries and lumber mills he expected to see.
+Both are rebuilt and neither is loaded.
 
-**Nothing since the twenty-eighth load has been loaded.** Ask for one press on
-Wallachia at 3/3 and read the summary line left to right — locations, towns,
-provinces, room, goods, list entries, buildings — because **the first zero in it
-names the step that failed** and there is no need for a zip until it does. Then
-the three things the model is for: a province's locations carrying the same goods
-and sitting together, nothing left empty, and what the rights switch does.
+**Ask for one press on the same ground and read three things**: whether a
+village's list is now different *buildings* (not tools + jewelry + beer off one
+market village), whether rural lists got the quarries and mills, and what the
+named «Городское право» column says. The summary line's counters still name the
+failing step if it comes back empty.
 
 Also new and unloaded: the town/village button on a plan row (the game's rank is
 only what is true today), and the map pickers in the plan window.

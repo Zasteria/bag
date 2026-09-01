@@ -125,6 +125,8 @@ GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.tx
 LAYOUT_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_layout.txt"
 RIGHTS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rights.txt"
 PLAN_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_plan.txt"
+PLAN_TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_plan_triggers.txt"
+PLAN_LOC_OUT = MOD / "in_game/common/customizable_localization/bag_wtp_generated_plan_loc.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -1014,6 +1016,18 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # Every answer a candidate carries, and what it is allowed to keep.
     ANSWERS = ("", "any_", "mid_", "end_", "end_any_")
 
+    # And the plan's own four, which are a different question from all of them.
+    #
+    # **The plan splits by where a building may stand, not by what category it
+    # is in.** The ranking's «village» side is `village_category` -- four
+    # buildings -- and the owner's twenty-ninth screenshot is what that costs: a
+    # rural province offered tools, jewelry and beer, all three of them
+    # `market_village`, where a stone quarry, a clay pit and a lumber mill would
+    # have been the honest answer. Thirty production buildings declare
+    # `rural_settlement = yes` and only four are villages, so the plan asks the
+    # building type itself (`eu5data.Method.rural` / `.urban`).
+    PLAN_SIDES = (("_t", "urban"), ("_r", "rural"))
+
     def keep(indent: str, prefix: str, suffix: str, method_index: int,
              floor: float | None) -> str:
         """Is this the best of its side so far, and can this ground feed it?
@@ -1067,6 +1081,10 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             for suffix in ("", "_rural"):
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = 0 }}\n")
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = 0 }}\n")
+        for prefix in ("pnow", "pend"):
+            for side, _ in PLAN_SIDES:
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{side} value = 0 }}\n")
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{side} value = 0 }}\n")
 
         for method_index in methods_for:
             suffix = "_rural" if method_index in rural else ""
@@ -1077,11 +1095,19 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             if method_index in last:
                 out.append(keep("\t\t", "end_", suffix, method_index, floor))
                 out.append(keep("\t\t", "end_any_", suffix, method_index, None))
+            # The plan's endgame side needs no availability: it is what stands
+            # once every advance is in.
+            for side, where in PLAN_SIDES:
+                if getattr(rows[method_index - 1], where) and method_index in last:
+                    out.append(keep("\t\t", "pend", side, method_index, floor))
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
             out.append(keep("\t\t\t", "", suffix, method_index, floor))
             out.append(keep("\t\t\t", "any_", suffix, method_index, None))
+            for side, where in PLAN_SIDES:
+                if getattr(rows[method_index - 1], where):
+                    out.append(keep("\t\t\t", "pnow", side, method_index, floor))
             out.append("\t\t}\n")
         out.append("\t}\n}\n")
 
@@ -1162,6 +1188,127 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
+def plan_groups(rows, split, game):
+    """Per good and side, the buildings that could win it and by which methods.
+
+    **The plan's unit is a building, not a good.** One location holds one
+    building of a type and a building runs one method, so three goods that all
+    come off a `market_village` are one answer and not three -- which is exactly
+    what the thirtieth load showed in Székely Land: tools, jewelry and beer in
+    every village of the province, all of them the same building.
+
+    Returns `{(good, side): {building: [method index, ...]}}`, side being "t" for
+    what may stand in a town and "r" for a rural settlement. A method appears on
+    both sides where its building declares both.
+    """
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    groups: dict[tuple[str, str], dict[str, list[int]]] = {}
+    for index, method in enumerate(rows, start=1):
+        if method.produced not in order:
+            continue
+        for side, allowed in (("t", method.urban), ("r", method.rural)):
+            if allowed:
+                groups.setdefault((method.produced, side), {}) \
+                      .setdefault(method.building, []).append(index)
+    return groups
+
+
+def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                       game: eu5data.Game) -> str:
+    """Whether a province may still take this good on this side.
+
+    One trigger per good per side, asked twice: as the `limit` of the ordered
+    walk that picks the province, and again inside the effect that adds it, so
+    that the urban-rights round can call the effect on its own without repeating
+    the conditions.
+
+    The last condition is the one the thirtieth load asked for. **A location
+    holds one building of a type**, so a good whose winning building is already
+    on the province's list for this side is not an answer -- it would be a second
+    `market_village` running a second method, which the game does not offer.
+    Which building would win is on the candidate already: `_pm<n>` and `_prm<n>`
+    are the method the harvest kept, and a method names its building.
+    """
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    groups = plan_groups(rows, split, game)
+    out = [HEADER, f"""#
+# **Written with OR and AND and never an `if`.** A scripted trigger takes an
+# effect's `if` without complaining and answers true everywhere afterwards, which
+# is what the buildable tick did for seventeen loads (`docs/PITFALLS.md`).
+"""]
+    for side, cap, listname, count, score, method_var, rank in (
+            ("t", "urban", "town", "town_n", "p", "pm", "yes"),
+            ("r", "rural", "rural", "rural_n", "pr", "prm", "no")):
+        for index, good in enumerate(order, start=1):
+            by_building = groups.get((good, side), {})
+            if not by_building:
+                # Nothing of this good may stand on this side at all.
+                out.append(f"""
+# {good}: no building that makes it may stand {"in a town" if side == "t" else "in a rural settlement"}.
+# Scope: location
+{MOD_ID}_plan_can_{listname}_{index} = {{ always = no }}
+""")
+                continue
+            branches = ""
+            for building, mis in sorted(by_building.items()):
+                tests = "".join(
+                    "\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                    for mi in sorted(mis))
+                branches += f"""\t\tAND = {{
+\t\t\tOR = {{
+{tests}\t\t\t}}
+\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_{listname}_b target = building_type:{building} }} }}
+\t\t}}
+"""
+            out.append(f"""
+# {good}, {"town" if side == "t" else "village"} side: {len(by_building)} building(s) could win it.
+# Scope: location
+{MOD_ID}_plan_can_{listname}_{index} = {{
+\tvar:{MOD_ID}_{score}{index} > 0
+\t{MOD_ID}_plan_is_town = {rank}
+\tvar:{MOD_ID}_plan_{count} < global_var:{MOD_ID}_plan_cap_{cap}
+\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_{listname} target = goods:{good} }} }}
+\tOR = {{
+{branches}\t}}
+}}
+""")
+    return "".join(out)
+
+
+def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
+    """Which urban right a province was given, as text a row can print.
+
+    A number on the location is all script can park there, and a row has to name
+    the right. A `customizable_localization` of this mod's own is the way across
+    -- **defining one is fine; it is only overriding somebody else's that cannot
+    be done** (`CLAUDE.md`). The keys it points at are the same ones the rights
+    list on the mod page uses, icon and all.
+    """
+    rights = output_rights(rows, game)
+    out = [HEADER, f"""#
+# Every branch asks `has_variable` first. A row is drawn once a frame, and a
+# comparison against a variable that is not there is an error per row per frame
+# -- which is what `bag_wtp_show_found` was doing on a fresh save.
+#
+# Scope: location
+{MOD_ID}_plan_right_label = {{
+\ttype = location
+"""]
+    for k, right in enumerate(rights, start=1):
+        out.append(f"""\ttext = {{
+\t\ttrigger = {{ has_variable = {MOD_ID}_plan_right var:{MOD_ID}_plan_right = {k} }}
+\t\tlocalization_key = {MOD_ID}_right_{right.key}
+\t}}
+""")
+    out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_plan_no_right
+\t}}
+}}
+""")
+    return "".join(out)
+
+
 def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
               game: eu5data.Game) -> str:
     """The whole-map plan: every good placed at once over the chosen ground.
@@ -1199,11 +1346,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     rights = output_rights(rows, game)
+    groups = plan_groups(rows, split, game)
 
     out = [HEADER, f"""#
 # Scope: country
 {MOD_ID}_plan_run = {{
 \tsave_scope_as = {MOD_ID}_country
+\t{MOD_ID}_sync = yes
 \t{MOD_ID}_collect_candidates = yes
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_clear = yes
@@ -1236,8 +1385,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_rural_n
 \t\tremove_variable = {MOD_ID}_plan_prov_load
 \t\tremove_variable = {MOD_ID}_load
+\t\tremove_variable = {MOD_ID}_plan_right
 \t\tclear_variable_list = {MOD_ID}_plan_town
 \t\tclear_variable_list = {MOD_ID}_plan_rural
+\t\tclear_variable_list = {MOD_ID}_plan_town_b
+\t\tclear_variable_list = {MOD_ID}_plan_rural_b
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_touched
@@ -1285,8 +1437,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_prov_load value = 0 }}
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
 \t\t\t\t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
+\t\t\t\t\tremove_variable = {MOD_ID}_plan_right
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_town
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_rural
+\t\t\t\t\tclear_variable_list = {MOD_ID}_plan_town_b
+\t\t\t\t\tclear_variable_list = {MOD_ID}_plan_rural_b
 \t\t\t\t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
 \t\t\t\t}}
@@ -1344,15 +1499,32 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # {RANK_SCALE} means "the province this good wants most" for every good alike. A good
 # nothing in this ground can make stays at zero and never picks.
 #
-# **The method that won is deliberately not kept.** A plan row prints the good
-# and not the recipe, so keeping it would be one more variable per good per
-# location -- {len(order)} of them on every candidate -- that nothing reads.
+# **The method that won is kept, and it has to be**: a location holds one
+# building of a type, so what the allocation must not repeat in a province is
+# the building, and only the method knows which one that is.
 # Scope: country
 {MOD_ID}_plan_harvest_{index} = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_best }}
-\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_best_rural }}
+\t\t# **The two sides are "where may this building stand", not "is it a
+\t\t# village".** Thirty production buildings declare `rural_settlement` and
+\t\t# only four of them are villages, so the ranking's category split would
+\t\t# leave a rural province with nothing but villages to be offered -- which
+\t\t# is what the thirtieth load showed. `_pnowbest_*` and `_pendbest_*` are
+\t\t# the plan's own accumulators, split on the building's own rank gates.
+\t\tif = {{
+\t\t\tlimit = {{ has_global_variable = {MOD_ID}_plan_by_end }}
+\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendbest_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendbest_method_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendbest_r }}
+\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
+\t\t}}
+\t\telse = {{
+\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowbest_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowbest_method_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowbest_r }}
+\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowbest_method_r }}
+\t\t}}
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
 \tordered_in_global_list = {{
@@ -1382,22 +1554,49 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---- adding a good to a province ---------------------------------------
     out.append(f"""
-# One good, onto every location of the province in hand.
+# One good, onto every location of the province the candidate belongs to.
 #
-# Called in the province's own scope. Both sides are separate lists and separate
-# counters, and both are written to every location so that the allocation can ask
-# its questions of whatever candidate the ordered walk hands it.
+# **Guarded, and called from the location rather than the province.** The same
+# `_plan_can_*` trigger the ordered walk used as its `limit` is asked again here,
+# so the urban-rights round can call this on its own without repeating a word of
+# it -- and so that a right whose second good wants a building the first already
+# took is simply not given it.
+#
+# The building goes into a list of its own beside the good, because that is what
+# a location can only hold one of. Which building it is comes off the method the
+# harvest kept.
 """)
-    for side, cap in (("town", "urban"), ("rural", "rural")):
+    for side, listname, method_var in (("t", "town", "pm"), ("r", "rural", "prm")):
         for index, good in enumerate(order, start=1):
-            out.append(f"""# Scope: province_definition
-{MOD_ID}_plan_add_{side}_{index} = {{
-\tevery_location_in_province_definition = {{
-\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_{side} target = goods:{good} }}
-\t\tchange_variable = {{ name = {MOD_ID}_plan_{side}_n add = 1 }}
-\t}}
-\tchange_global_variable = {{ name = {MOD_ID}_plan_lists add = 1 }}
-\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
+            by_building = groups.get((good, side), {})
+            if not by_building:
+                continue
+            branches = ""
+            for building, mis in sorted(by_building.items()):
+                tests = "".join(
+                    "\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                    for mi in sorted(mis))
+                branches += f"""\t\tif = {{
+\t\t\tlimit = {{ OR = {{
+{tests}\t\t\t}} }}
+\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_{listname} target = goods:{good} }}
+\t\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_plan_{listname}_b target = building_type:{building} }}
+\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_plan_{"town_n" if side == "t" else "rural_n"} add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_lists add = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
+\t\t}}
+"""
+            out.append(f"""# {good}, {"town" if side == "t" else "village"} side.
+# Scope: location
+{MOD_ID}_plan_try_{listname}_{index} = {{
+\tif = {{
+\t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}
+{branches}\t}}
 }}
 """)
 
@@ -1417,8 +1616,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_place_rights = {{
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_prov_locs
-\t\tlimit = {{ {MOD_ID}_plan_has_town = yes }}
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{
+\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\tvar:{MOD_ID}_plan_town_n = 0
+\t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
 """)
@@ -1443,11 +1645,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for k, right in enumerate(rights, start=1):
         bundle = sorted(right.output)
         adds = "".join(
-            f"\t\t\t\t{MOD_ID}_plan_add_town_{order.index(g) + 1} = yes\n" for g in bundle)
+            f"\t\t\t{MOD_ID}_plan_try_town_{order.index(g) + 1} = yes\n"
+            for g in bundle if groups.get((g, "t")))
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
-\t\t\tprovince_definition = {{
-{adds}\t\t\t}}
+\t\t\t# Through the same guarded effects a good goes through, so a bundle
+\t\t\t# whose second good wants a building the first already took gets what
+\t\t\t# is left rather than an impossible list.
+{adds}\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+\t\t\t\t}}
+\t\t\t}}
 \t\t}}
 """)
     out.append("\t}\n}\n")
@@ -1486,6 +1695,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     for index, good in enumerate(order, start=1):
+        # A side with no building that could stand there is not walked at all --
+        # a sweep over {len(order)} goods twice is dear enough without asking for the
+        # ones the answer is known for.
+        town_side = "town" if groups.get((good, "t")) else ""
+        rural_side = "rural" if groups.get((good, "r")) else ""
         out.append(f"""
 # {good} joins the town list and the village list of the province each side of it
 # suits best, or neither.
@@ -1496,52 +1710,29 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 {MOD_ID}_plan_pick_{index} = {{
-\tif = {{
-\t\tlimit = {{
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
-\t\t\t}}
-\t\t}}
-\t\tordered_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{
-\t\t\t\tvar:{MOD_ID}_p{index} > 0
-\t\t\t\t{MOD_ID}_plan_is_town = yes
-\t\t\t\tvar:{MOD_ID}_plan_town_n < global_var:{MOD_ID}_plan_cap_urban
-\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_town target = goods:{good} }} }}
-\t\t\t}}
-\t\t\torder_by = {MOD_ID}_ord{index}
-\t\t\tmax = 1
-\t\t\tcheck_range_bounds = no
-\t\t\tprovince_definition = {{ {MOD_ID}_plan_add_town_{index} = yes }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
-\t\t}}
-\t}}
-\tif = {{
-\t\tlimit = {{
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
-\t\t\t}}
-\t\t}}
-\t\tordered_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{
-\t\t\t\tvar:{MOD_ID}_pr{index} > 0
-\t\t\t\t{MOD_ID}_plan_is_town = no
-\t\t\t\tvar:{MOD_ID}_plan_rural_n < global_var:{MOD_ID}_plan_cap_rural
-\t\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_rural target = goods:{good} }} }}
-\t\t\t}}
-\t\t\torder_by = {MOD_ID}_ordr{index}
-\t\t\tmax = 1
-\t\t\tcheck_range_bounds = no
-\t\t\tprovince_definition = {{ {MOD_ID}_plan_add_rural_{index} = yes }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
-\t\t}}
-\t}}
-}}
 """)
+        for side, order_value in ((town_side, f"{MOD_ID}_ord{index}"),
+                                  (rural_side, f"{MOD_ID}_ordr{index}")):
+            if not side:
+                continue
+            out.append(f"""\tif = {{
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
+\t\t\t}}
+\t\t}}
+\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ {MOD_ID}_plan_can_{side}_{index} = yes }}
+\t\t\torder_by = {order_value}
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+\t\t\t{MOD_ID}_plan_try_{side}_{index} = yes
+\t\t}}
+\t}}
+""")
+        out.append("}\n")
 
     out.append(f"""
 # The province's answer, spent on its locations.
@@ -2348,6 +2539,8 @@ def main() -> int:
     write(LAYOUT_OUT, layout_file(by_continent))
     write(RIGHTS_OUT, rights_file(rows, split, game))
     write(PLAN_OUT, plan_file(rows, split, game))
+    write(PLAN_TRIGGERS_OUT, plan_triggers_file(rows, split, game))
+    write(PLAN_LOC_OUT, plan_loc_file(rows, game))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

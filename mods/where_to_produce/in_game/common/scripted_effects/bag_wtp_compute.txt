@@ -108,7 +108,16 @@ bag_wtp_on_button = {
 	# applies itself on its own +/- and calls nothing back.
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__plan_run }
-		bag_wtp_sync = yes
+		remove_global_variable = bag_wtp_plan_by_end
+		bag_wtp_plan_run = yes
+		bag_wtp_open_plan_window_effect = yes
+	}
+
+	# The same pass aimed at the last age instead. The flag stays set, so
+	# «Пересчитать» in the window keeps answering the same question.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_run_end }
+		set_global_variable = { name = bag_wtp_plan_by_end value = 1 }
 		bag_wtp_plan_run = yes
 		bag_wtp_open_plan_window_effect = yes
 	}

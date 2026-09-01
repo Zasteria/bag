@@ -187,3 +187,22 @@ bag_wtp_plan_mark_town = {
 		}
 	}
 }
+
+# «Пересчитать», from the plan window itself.
+#
+# **Nothing else re-plans.** A pick on the map does not, and neither does the
+# town/village button: the pass reads every recipe in the game on every location
+# and a plan that redrew itself on each click would be unusable — and he may well
+# flip a hundred of them before he wants an answer. So the moment is his.
+bag_wtp_plan_refresh = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_plan_run = yes
+		bag_wtp_plan_show = yes
+	}
+}

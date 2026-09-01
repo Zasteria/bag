@@ -85,6 +85,21 @@ for its towns and one for its villages, each as long as that side's cap, and
 every location of it then builds its side's list entire. A province reads as one
 answer, its villages repeat each other, and what differs is the ground.
 
+**A list entry is a building, not a good.** A location holds one building of a
+type and a building runs one production method, so tools, jewelry and beer —
+`market_village` all three — are one answer and not three. That was the
+thirtieth load's finding, his: «по сути все три этих товара даёт одно и то же
+здание». The province's list carries the building beside the good, and a good
+whose winning building is already there is not an answer. **His.**
+
+**And the two sides are "where may this stand", not "is it a village".** The
+ranking's village side is `village_category` — four buildings in the game. Thirty
+production buildings declare `rural_settlement = yes`, and the other twenty-six
+are the stone quarries, clay pits, lumber mills and masons he expected to see in
+the empty slots. The plan splits on the building's own rank gates instead, which
+takes a rural location from 4 buildings to 30. **Ours, and it is the reason the
+plan's scoring has accumulators of its own rather than reusing the ranking's.**
+
 **And the province's state lives on its locations, mirrored.** The
 twenty-ninth load placed nothing out of 381 places and logged not one line: the
 lists were kept on the `province_definition`, which is static map data and holds
@@ -149,12 +164,19 @@ the above the same day:
   them, provinces, room, goods, list entries, buildings. An effect that merely
   does nothing logs nothing, and this is what buys a diagnosis without a zip.
 
-**Not built, and named here so nobody looks for it:** the per-good weight
-(«этому товару нужно больше места»), the RGO discount, and choosing which goods
-to plan — the plan always plans all 47. **Also not asked: whether a location can
-actually hold what its province's list says.** Terrain and a building's own
-requirements can rule one out, and two locations of a province are not always
-interchangeable; that is the next thing the build pass owes.
+**The demand knob, proposed and not built.** «Я выбираю товар и щёлкаю +1 и план
+смещает» — under the province model that is a **floor in provinces**: a number
+per good on the goods list, and before rights or any sweep each good with a
+demand of N takes its N best provinces on whichever side suits it. It is one
+`cmm_register_list_numeric_field` and one round, and it is held back on purpose
+until the building rule has been seen once: it would move the whole distribution
+again and make the next screenshot unreadable.
+
+**Not built besides:** the RGO discount, and choosing which goods to plan — the
+plan always plans all 47. **And not asked: whether a location can actually hold
+what its province's list says.** The rank gates are in now, but terrain and a
+building's own `allow` are not, so two locations of a province are still assumed
+interchangeable.
 
 ## Still open
 

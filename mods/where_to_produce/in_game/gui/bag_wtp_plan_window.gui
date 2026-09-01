@@ -45,44 +45,48 @@ types BagWtpPlanTypes {
 			tooltip = "bag_wtp_plan_rank_tt"
 		}
 
-		# The rank icon is a button, and the button is the override. The game's
+		# The rank cell is a button and the button is the override. The game's
 		# rank is only what is true today; a village he means to raise is still a
 		# village to `location_rank`, and the mod cannot guess which. Clicking
-		# cycles town -> village -> back to the game's own answer, and the next
-		# press of «План» is what makes it true.
+		# cycles town -> village -> back to the game's own answer.
+		#
+		# **It says which of the three it is in words.** The first build drew two
+		# tiny glyphs over the corner of the icon and the owner could not tell
+		# what had happened -- «просто на значке появились какие-то символы».
 		widget = {
-			size = { 30 30 }
-			button = {
-				size = { 26 26 }
+			size = { 92 30 }
+			button_regular = {
+				size = { 88 26 }
 				parentanchor = center
 				widgetanchor = center
-				using = default_button
 				tooltip = "bag_wtp_plan_rank_button_tt"
 				onclick = "[GetScriptedGui('bag_wtp_plan_mark_town').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
-				icon = {
-					size = { 18 18 }
+				hbox = {
 					parentanchor = center
-					widgetanchor = center
-					texture = "[Location.GetRankIcon]"
+					spacing = 3
+					icon = {
+						size = { 16 16 }
+						texture = "[Location.GetRankIcon]"
+					}
+					text_single = {
+						autoresize = yes
+						fontsize = 12
+						visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet), Not(Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet))]"
+						text = "bag_wtp_plan_rank_auto"
+					}
+					text_single = {
+						autoresize = yes
+						fontsize = 12
+						visible = "[Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet]"
+						text = "bag_wtp_plan_forced_town"
+					}
+					text_single = {
+						autoresize = yes
+						fontsize = 12
+						visible = "[Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet]"
+						text = "bag_wtp_plan_forced_rural"
+					}
 				}
-			}
-			# The two overrides, drawn over the corner of the icon so that a row
-			# says which of them is standing without a column of its own.
-			text_single = {
-				parentanchor = bottom|right
-				position = { 0 0 }
-				autoresize = yes
-				fontsize = 11
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet]"
-				text = "bag_wtp_plan_forced_town"
-			}
-			text_single = {
-				parentanchor = bottom|right
-				position = { 0 0 }
-				autoresize = yes
-				fontsize = 11
-				visible = "[Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet]"
-				text = "bag_wtp_plan_forced_rural"
 			}
 		}
 
@@ -98,9 +102,9 @@ types BagWtpPlanTypes {
 		widget = { size = { 6 30 } }
 
 		text_single = {
-			size = { 150 30 }
+			size = { 130 30 }
 			autoresize = no
-			maximumsize = { 150 30 }
+			maximumsize = { 130 30 }
 			align = left|vcenter
 			elide = right
 			fontsize = 13
@@ -111,9 +115,9 @@ types BagWtpPlanTypes {
 		widget = { size = { 6 30 } }
 
 		text_single = {
-			size = { 120 30 }
+			size = { 100 30 }
 			autoresize = no
-			maximumsize = { 120 30 }
+			maximumsize = { 100 30 }
 			align = left|vcenter
 			elide = right
 			fontsize = 13
@@ -150,10 +154,26 @@ types BagWtpPlanTypes {
 
 		widget = { size = { 6 30 } }
 
+		# Which urban right the province was given, if the switch is on. A
+		# `customizable_localization` of this mod's own turns the number the pass
+		# parks on the location into the right's own name and icon.
+		text_single = {
+			size = { 150 30 }
+			autoresize = no
+			maximumsize = { 150 30 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "[Location.Custom('bag_wtp_plan_right_label')]"
+			tooltip = "bag_wtp_plan_right_tt"
+		}
+
+		widget = { size = { 6 30 } }
+
 		# The plan itself. A `widget` and not an hbox, so the icons hug the left
 		# of the cell instead of being centred in it.
 		widget = {
-			size = { 380 30 }
+			size = { 260 30 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_plan_goods_tt"
 
@@ -331,6 +351,27 @@ window = {
 						tooltip = "bag_wtp_plan_reselect_tt"
 					}
 
+					# The plan is remade only when he says so, which is the whole
+					# point of the button: he may flip a hundred town markers
+					# before he wants an answer.
+					button_regular = {
+						size = { 150 30 }
+						tooltip = "bag_wtp_plan_refresh_tt"
+						text_single = {
+							size = { 142 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 142 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_plan_refresh"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_plan_refresh').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
 					button_regular = {
 						size = { 150 30 }
 						tooltip = "bag_wtp_clear_all_tt"
@@ -391,7 +432,14 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_plan_head_rank"
 					}
-					widget = { size = { 30 24 } }
+					text_single = {
+						size = { 92 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rank_kind"
+						tooltip = "bag_wtp_plan_rank_button_tt"
+					}
 					text_single = {
 						size = { 180 24 }
 						autoresize = no
@@ -401,7 +449,7 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 150 24 }
+						size = { 130 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -409,7 +457,7 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 120 24 }
+						size = { 100 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
@@ -434,9 +482,18 @@ window = {
 					}
 					widget = { size = { 6 24 } }
 					text_single = {
-						size = { 380 24 }
+						size = { 150 24 }
 						autoresize = no
-						maximumsize = { 380 24 }
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_right"
+						tooltip = "bag_wtp_plan_right_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 260 24 }
+						autoresize = no
+						maximumsize = { 260 24 }
 						align = left|vcenter
 						fontsize = 13
 						text = "bag_wtp_plan_head_goods"

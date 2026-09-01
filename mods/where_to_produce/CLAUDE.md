@@ -30,17 +30,16 @@ Numbers and the deferred level rights:
 `interaction_source_list` holds is clickable, so `bag_wtp_select_market` fills it
 from `every_market_in_world` (`docs/SETTLED.md`).
 
-**The whole-map plan runs, and it is chosen per province.** A province takes two
-short lists, towns and villages, each as long as that side's cap, and every
-location of it builds its side's list — one answer per province. Sweeps run until
-the ground is full: a location the plan can feed is never left empty. An urban
-right takes a town list whole, before any good, chosen per province rather than
-by rights taking turns. It reuses `bag_wtp_score_<g>` and **normalizes each good
-by its own best here**. Every condition it asks is a location variable — **a
-`province_definition` holds none** (`docs/PITFALLS.md`), and the plan that kept
-its lists there placed nothing at all. Which locations count as towns is the
-player's to override, from a button on a plan row. **The expensive button** —
-241 recipes a location. All of it in
+**The whole-map plan is chosen per province and spent per location.** Two short
+lists a province, towns and villages, each as long as that side's cap; every
+location builds its side's list. Sweeps until the ground is full. **A list entry
+is a building, not a good** — one building of a type a location, one method a
+building, so three goods off one `market_village` are one answer. **And the two
+sides are the building's own rank gates**, not `village_category`: thirty
+production buildings stand in a rural settlement and only four are villages.
+Urban rights take a town list whole, chosen per province. Every condition is a
+location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
+**The expensive button** — 241 recipes a location. All of it in
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so

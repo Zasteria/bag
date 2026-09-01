@@ -133,6 +133,18 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# The same pair the ranking has: what you could build now, and what stands
+	# once every advance is in. Along the game's ladder a recipe's *inputs* move,
+	# not merely its output, so for a third of the goods the province that suits
+	# the guild is not the one that suits the mill — and a plan is exactly the
+	# thing that should be made for the second.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_run_end
+		tab_id = plan
+		group_id = plan
+	}
+
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = plan_show

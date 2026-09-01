@@ -86,6 +86,18 @@ at a time, under a cap per location.
   every location of it then builds its side's list entire. So a province reads as
   one answer and its villages repeat each other, which is how the ground is
   actually developed; what differs is the next province.
+- **A list entry is a building, not a good.** A location holds one building of a
+  type and a building runs one production method, so tools, jewelry and beer —
+  all three off a market village — are one answer and not three. The list carries
+  the building beside the good and a good whose building is taken is not offered.
+- **And the two sides are the building's own rank gates.** `rural_settlement` is
+  declared by thirty production buildings and only four of them are villages, so
+  a rural location is offered quarries, clay pits, lumber mills and masons as
+  well — `eu5data.Method.rural` / `.urban`, and the plan has scoring accumulators
+  of its own because the ranking's split is by category instead.
+- **Two buttons, now and at the end of the game**, the same pair the ranking has
+  and for the same reason: along the ladder a recipe's inputs move, so the
+  province that suits the guild is not the one that suits the mill.
 - **Two caps, set in the game**: goods per rural location (3) and per town (4).
   The game exposes no building-slot count of any kind, so these are the player's
   figures; what makes them choosable is that the pass prints the capacity of the
