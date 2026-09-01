@@ -12,10 +12,9 @@ materials the province works.
 
 **A recipe the province mostly cannot feed is not an answer to the ranking** —
 the bar is half the bonus it could ever earn (`generate.fed_floor`). **The plan
-does not use that bar as a gate and must not be made to**: there the bonus is a
-priority, not a precondition, and an unfed recipe is the fallback at half weight
-so ground no RGO helps still fills. **And a recipe whose building cannot stand
-there is no answer to either**: `can_build_building`, in all three ages.
+must never use that bar as a gate**: every good the ground can produce has to be
+produced, fed or not. **And a recipe whose building cannot stand there is no
+answer to either**: `can_build_building`, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
 earning its own bonus over its own output, so a `Method` is the pair:
@@ -30,12 +29,13 @@ Numbers and the deferred level rights:
 **Four pickers**, and only what `interaction_source_list` holds is clickable
 (`docs/SETTLED.md`).
 
-**The whole-map plan is decided per location, and its formula is settled** —
-the owner answered the four questions on 2026-09-01. **Read
+**The plan is an optimisation with a covering constraint** — maximise the bonus
+captured, subject to every good the ground can produce being produced. **Read
 [`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
-before changing any of it**: it is the derived formula and the three
-measurements that force it, of which the one to carry in your head is that **the
-RGO bonus is a ten per cent band**, so it is a tie-break and never a ranking.
+before changing any of it.** Two things to carry: the currency is **`gain =
+bonus ÷ that recipe's own ceiling`**, since a raw bonus does not compare across
+goods; and the ground is **dealt in descending bands of gain across every good
+at once**, which buys the opportunity cost for one comparison.
 **An entry is a building and a location holds one of each**; the next location
 may take that building on another method. **The sides are the building's own
 rank gates**, not `village_category`. Every condition is a location variable — **a

@@ -120,10 +120,20 @@ RIGHT_FIT = 2000
 
 PLAN_TIERS = (1, 2, 4, 8, 16, 0)
 
+# The gain a placement has to reach to be made in this pass, out of `RANK_SCALE`.
+# Descending, and the last is 0 because a good the ground feeds nothing is still
+# a good that has to be produced. Five rather than ten: a band costs a sweep over
+# every tier, and the plan is already the expensive button.
+PLAN_BANDS = (800, 600, 400, 200, 0)
+
 # The pass after all of them, with the quota lifted rather than a candidate count
 # of its own. `is` on a sentinel and not a seventh number, because the tier value
 # it writes is 0 like the last real tier's.
 OPEN_TIER = object()
+
+# The pass that keeps the covering constraint: only goods with nothing anywhere,
+# at any gain, into any free slot. It is not a tier and not a band.
+COVER_TIER = object()
 
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
@@ -773,6 +783,25 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 """)
         out.append("}\n")
+        # **What the plan deals the ground by**: how much of the bonus this
+        # recipe could ever earn, it earns here. A raw bonus does not compare
+        # across goods -- the ceilings run from 2% to 10% and five goods are
+        # capped under five -- and a `worth` normalized to the good's own best on
+        # this ground compares even worse, squeezing everything into 0.909-1.000.
+        # The fraction of a recipe's own ceiling is the one currency that is the
+        # same question for every good: `docs/investigations/plan_formula.md`.
+        if ceiling > 0:
+            out.append(f"# Scope: location\n{MOD_ID}_g{index} = {{\n\tvalue = 0\n")
+            for good, share in sorted(shares.items()):
+                out.append(f"""\tif = {{
+\t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
+\t\tadd = {share * RANK_SCALE / ceiling:.4f}
+\t}}
+""")
+            out.append("}\n")
+        else:
+            out.append(f"# A recipe no RGO can feed: its gain is nought everywhere.\n"
+                       f"# Scope: location\n{MOD_ID}_g{index} = {{ value = 0 }}\n")
 
     # The plan's orderings. `order_by` takes a script value and never a variable,
     # so "what is this ground worth to this good" needs a name of its own -- one
@@ -998,11 +1027,6 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 
 {plan_values}
-# The divisor the plan normalizes by: the best this ground is worth to whatever
-# good is being harvested. A script value and not `divide = global_var:`, because
-# `divide` takes a script value for certain and the other form is only inferred.
-{MOD_ID}_plan_top_value = {{ value = global_var:{MOD_ID}_plan_top }}
-
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 {MOD_ID}_plan_scored_value = {{ value = global_var:{MOD_ID}_plan_scored }}
@@ -1125,7 +1149,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     PLAN_SIDES = (("_t", "urban"), ("_r", "rural"))
 
     def keep(indent: str, prefix: str, suffix: str, method_index: int,
-             floor: float | None, extra: str = "") -> str:
+             floor: float | None, extra: str = "", plan: bool = False) -> str:
         """Is this the best of its side so far, and can this ground feed it?
 
         `floor` is `fed_floor`: the `_m<n>` of a method the province supplies
@@ -1141,11 +1165,19 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         floor is where it is now.
         """
         fed = f"var:{MOD_ID}_try > {floor:.4f} " if floor is not None else ""
+        # **The method is chosen by worth and the placement is dealt by gain**,
+        # and the two are different questions. Within one good a mill at 5% beats
+        # a guild at 10%, so `_try` decides which recipe wins here. Across goods
+        # what compares is the fraction of its own ceiling that recipe earns, so
+        # the winner's `_g<n>` is kept beside it for the plan to deal by.
+        gain = ("" if not plan else
+                f"{indent}\tset_variable = {{ name = {MOD_ID}_{prefix}gain{suffix} "
+                f"value = {MOD_ID}_g{method_index} }}\n")
         return (f"""{indent}if = {{
 {indent}\tlimit = {{ {fed}var:{MOD_ID}_try > var:{MOD_ID}_{prefix}best{suffix}{extra} }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best{suffix} value = var:{MOD_ID}_try }}
 {indent}\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{suffix} value = {method_index} }}
-{indent}}}
+{gain}{indent}}}
 """)
 
     out = [HEADER, f"""#
@@ -1181,6 +1213,7 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             for side, _ in PLAN_SIDES:
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best{side} value = 0 }}\n")
                 out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}best_method{side} value = 0 }}\n")
+                out.append(f"\t\tset_variable = {{ name = {MOD_ID}_{prefix}gain{side} value = 0 }}\n")
 
         for method_index in methods_for:
             suffix = "_rural" if method_index in rural else ""
@@ -1216,8 +1249,8 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # buried: the twin is a fallback, never a rival.
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where) and method_index in last:
-                    out.append(keep("\t\t", "pend", side, method_index, floor, stands))
-                    out.append(keep("\t\t", "pendany", side, method_index, None, stands))
+                    out.append(keep("\t\t", "pend", side, method_index, floor, stands, plan=True))
+                    out.append(keep("\t\t", "pendany", side, method_index, None, stands, plan=True))
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
@@ -1225,8 +1258,8 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             out.append(keep("\t\t\t", "any_", suffix, method_index, None, stands))
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where):
-                    out.append(keep("\t\t\t", "pnow", side, method_index, floor, stands))
-                    out.append(keep("\t\t\t", "pnowany", side, method_index, None, stands))
+                    out.append(keep("\t\t\t", "pnow", side, method_index, floor, stands, plan=True))
+                    out.append(keep("\t\t\t", "pnowany", side, method_index, None, stands, plan=True))
             out.append("\t\t}\n")
         out.append("\t}\n}\n")
 
@@ -1426,7 +1459,10 @@ def plan_triggers_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # {good}, {"town" if side == "t" else "village"} side: {len(by_building)} building(s) could win it.
 # Scope: location
 {MOD_ID}_plan_can_{listname}_{index} = {{
-\tvar:{MOD_ID}_{score}{index} > 0
+\t# **A method won here, not "the ground pays for it".** A good the RGOs feed
+\t# nothing still has a gain of zero and must still be placed: «не важно есть
+\t# для них сырьё на этой земле или нет».
+\tvar:{MOD_ID}_{method_var}{index} > 0
 \t{MOD_ID}_plan_is_town = {rank}
 \tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_{cap}
 \tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
@@ -1601,6 +1637,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rightn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_band value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_cover value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
 """]
     for index, good in enumerate(order, start=1):
@@ -1701,9 +1739,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t# rural location with nothing but villages to be offered.
 \t\tif = {{
 \t\t\tlimit = {{ has_global_variable = {MOD_ID}_plan_by_end }}
-\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendbest_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendgain_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendbest_method_t }}
-\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendbest_r }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendgain_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
 \t\t\t# **Nothing the ground feeds: take the recipe it does not.** A location
 \t\t\t# no RGO helps still has to be filled, and a granted right's bundle goes
@@ -1712,32 +1750,32 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# queue: everything the ground earns is placed before anything it does
 \t\t\t# not, which is «свести к минимуму» rather than forbid.
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_p{index} = 0 }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanybest_t }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendanybest_method_t }}
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_pr{index} = 0 }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanybest_r }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendanybest_method_r }}
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t\telse = {{
-\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowbest_t }}
+\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowgain_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowbest_method_t }}
-\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowbest_r }}
+\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowgain_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowbest_method_r }}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_p{index} = 0 }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanybest_t }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowanybest_method_t }}
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_pr{index} = 0 }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanybest_r }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowanybest_method_r }}
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
@@ -1757,44 +1795,24 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tOR = {{
 \t\t\t\tAND = {{
 \t\t\t\t\t{MOD_ID}_plan_is_town = yes
-\t\t\t\t\tvar:{MOD_ID}_p{index} > 0
+\t\t\t\t\tvar:{MOD_ID}_pm{index} > 0
 \t\t\t\t}}
 \t\t\t\tAND = {{
 \t\t\t\t\t{MOD_ID}_plan_is_town = no
-\t\t\t\t\tvar:{MOD_ID}_pr{index} > 0
+\t\t\t\t\tvar:{MOD_ID}_prm{index} > 0
 \t\t\t\t}}
 \t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_ng{index} add = 1 }}
 \t}}
 {rgo_count}
-\tset_global_variable = {{ name = {MOD_ID}_plan_top value = 0 }}
-\tordered_in_global_list = {{
-\t\tvariable = {MOD_ID}_candidates
-\t\torder_by = {MOD_ID}_ordmax{index}
-\t\tmax = 1
-\t\tcheck_range_bounds = no
-\t\tset_global_variable = {{ name = {MOD_ID}_plan_top value = {MOD_ID}_ordmax{index} }}
-\t}}
-\t# **Scored is counted off `_ng{index}` and not off the top**, for the same
-\t# reason: the top is side-blind and the quota divides by this number.
+\t# **Nothing is normalized any more, and the pass that did it is gone.** The
+\t# gain is already the same question for every good -- what fraction of this
+\t# recipe's own ceiling this ground pays -- so the ordered walk that used to
+\t# find each good's best on the ground, once per good, is 47 walks saved.
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ng{index} > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_scored add = 1 }}
-\t}}
-\tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_plan_top > 0 }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\t# Divided before it is scaled and never after: the top of the ground is
-\t\t\t# already a scaled number, and multiplying first would ask the engine's
-\t\t\t# fixed point for a million. One divisor for both sides, so the village
-\t\t\t# keeps its honest fifth of the workshop.
-\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {MOD_ID}_plan_top_value }}
-\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} multiply = {RANK_SCALE} }}
-\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {MOD_ID}_plan_top_value }}
-\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} multiply = {RANK_SCALE} }}
-\t\t}}
 \t}}
 }}
 """)
@@ -1994,7 +2012,33 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_allocate = {{
 """)
-    for tier in PLAN_TIERS + (OPEN_TIER,):
+    # **Dealt in bands, highest gain first, across every good at once.**
+    # That is the optimum and the whole of it: by the time a good that would
+    # gain a tenth of its ceiling reaches a location, the good that would have
+    # gained nine tenths has already taken it. The opportunity cost is paid by
+    # the ordering rather than by asking every other good what it would have
+    # made of the place. `docs/investigations/plan_formula.md` derives it.
+    #
+    # A band costs a sweep, so there are five rather than ten. The last is 0,
+    # which admits a good the RGOs feed nothing -- and it must, because every
+    # good the ground can produce has to be produced.
+    # The bands wrap the scarcity tiers only. **Then coverage, then the open
+    # pass**, each once: the first is the owner's hard constraint -- every good
+    # the ground can produce is produced -- and the second fills what is left.
+    for band, tier in ([(b, t) for b in PLAN_BANDS for t in PLAN_TIERS]
+                       + [(0, COVER_TIER), (0, OPEN_TIER)]):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_cover "
+                   f"value = {1 if tier is COVER_TIER else 0} }}\n")
+        if tier is COVER_TIER:
+            out.append("""\t# **Every good the ground can produce is produced.** The owner's first
+\t# requirement and the one the bands cannot keep on their own: a good that
+\t# lost every band -- because the rights took the towns, or because it gains
+\t# nothing and the ground filled -- takes a free slot here, anywhere, at any
+\t# gain. «Все товары которые можно произвести на выбранной земле должны
+\t# производиться, все.»
+""")
+            tier = 0
         # **The open pass raises every quota by one a round; it does not lift
         # them.** Lifting was the thirty-sixth run: five towns of Münsterland,
         # ten buildings in fifteen rooms and the same good standing in three of
@@ -2064,10 +2108,24 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# round instead, so leftover ground fills in even layers rather than
 \t\t\t# going whole to whichever good the list happens to reach first.
 \t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
+\t\t\t# The covering pass admits only a good that has nothing at all.
+\t\t\tOR = {{
+\t\t\t\tglobal_var:{MOD_ID}_plan_cover = 0
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} = 0
+\t\t\t}}
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{ {MOD_ID}_plan_can_{side}_{index} = yes }}
+\t\t\t# **The band, and it is the whole of the optimum.** The ground is
+\t\t\t# dealt in descending order of gain across every good at once, so by
+\t\t\t# the time a good that would gain a tenth reaches a location, the good
+\t\t\t# that would have gained nine tenths has already taken it. That is the
+\t\t\t# opportunity cost, paid for by one comparison rather than by asking
+\t\t\t# every other good what it would have made of the place.
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_can_{side}_{index} = yes
+\t\t\t\t{order_value} >= global_var:{MOD_ID}_plan_band
+\t\t\t}}
 \t\t\torder_by = {order_value}
 \t\t\tmax = 1
 \t\t\tcheck_range_bounds = no

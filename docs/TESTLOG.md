@@ -38,6 +38,44 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, no run. The owner stated the objective, and
+the formula was derived from it rather than assembled from rules.** Nothing here
+has been in the game.
+
+- **«Все товары которые можно произвести на выбранной земле — должны
+  производиться, все. И не важно есть для них сырьё на этой земле или нет.»**
+  Coverage is a hard constraint. The RGO bonus only ever decides *which* recipe a
+  building runs, never whether it is built.
+- **«Максимально возможная часть получит свои плюшки… но при этом товары будут
+  все.»** That is maximise-subject-to-cover, and it has one answer;
+  [`investigations/plan_formula.md`](investigations/plan_formula.md) is the
+  derivation.
+- **The currency changed, and this is the substance of it.** Measured: a recipe's
+  ceiling runs from 2.00% to 10.00% and five goods are capped under 5%, so a raw
+  bonus cannot compare across goods — and the old `worth ÷ the good's own best on
+  this ground` compares worse, squeezing everything into 0.909–1.000. What
+  compares is **`gain = bonus ÷ that recipe's ceiling`**, 0 to 1: how much of what
+  this good could ever get here, it gets.
+- **The ground is now dealt in descending bands of gain, across every good at
+  once.** By the time a good that would gain a fifth reaches a location, the good
+  that would have gained four fifths has taken it — the opportunity cost paid by
+  the ordering rather than by asking every other good. That is «дальше не жиреть»
+  and «выделить у менее вкусных провинций место под всё остальное», and it
+  replaces the per-good round-robin that produced the chaos.
+- **A covering pass was added and it is his first requirement**: after the bands,
+  any good still at zero takes a free slot anywhere, at any gain.
+- **`town_right_efficiency_penalty` is understood structurally at last.** A right
+  is a `location_modifier` carrying `local_<good>_output_modifier` per bundle good
+  *and* a blanket `local_production_efficiency` penalty on the whole town. So the
+  owner was right — «права дают слишком жирный бонус и дебафят всё остальное» —
+  and a town holding a right should hold its bundle and as little else. **The
+  number is a define and is in no file `reference/` holds**: one `grep` on his
+  install, and until then the discount is a direction without a size.
+- **Cost:** the normalisation pass is gone with the old currency, which is 47
+  ordered walks saved a run; the bands cost 32 tier passes where there were 7.
+- **Not in the formula, and named by him:** a rural location per province set
+  aside for food. «До этого мы пока ещё не дошли.»
+
 **2026-09-01 — `where_to_produce`, thirty-seventh load. Every town took the same
 charter and none of them got glass; the glass half is the game's answer, the
 charter is ours.** Three screenshots, Westphalia with every location forced to a
