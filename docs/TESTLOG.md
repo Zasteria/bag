@@ -48,15 +48,13 @@ town. «Всё ещё довольно плохая раскидка даже н
   ground is 96% full and every town has a right, which is what the last two runs
   were for. **Bog iron went to the wetland locations and got room**, which is the
   scarcity tiers doing their job on the case he named.
-- **Glass cannot be built anywhere in Westphalia at the start, and the game is
-  what says so.** Traced through the data rather than guessed: glass has five
-  town recipes, and the ages that unlock their buildings are guild 0, workshop 4,
-  glassworks 5, mill 6. So the only unlocked one is `glass_guild` — and it
-  carries `location_potential = { is_produced_in_location_market = goods:sand }`,
-  which no Westphalian market answers. `bag_wtp_avail_<n>` is
-  `can_build_building` in **country** scope, which does check the advance
-  (`docs/research/engine.md`), so the later three are out too. «В конце» would
-  place it; «Сейчас» cannot, and should not.
+- **A session said glass was unbuildable there. It was wrong, and the owner's
+  screenshots settled it the same day** — the game offers a glass guild in
+  Münster and a rural glassmaker in Dülmen, both age 0. The gate was read
+  correctly (`is_produced_in_location_market = goods:sand`); what was never
+  checked is whether the ground satisfies it, and nothing here can check that.
+  Filed in `PITFALLS.md`. **So glass is placeable, in the few towns whose market
+  has sand — and on this run a charter had already filled those.**
 - **The fault is that the charter was granted anyway, forty-eight times.**
   `mason` is age 0 and stands in every town, so `royal_masonry_rights` scored
   around a thousand everywhere while its rival bundles scored what their own
@@ -73,6 +71,18 @@ town. «Всё ещё довольно плохая раскидка даже н
 - **The empty slots follow from the same thing.** Дюльмен at 1 of 3 and three
   towns at 2 of 3 had all been given the masonry charter and could place only
   its masonry half.
+- **Also fixed, and it is the owner's own exception to a mandatory right:** the
+  two scarcest tiers now run **before** the charters. A good two locations or
+  fewer can hold must not lose them to a bundle that had other choices — «товар
+  у которого жёсткие условия аля болотное железо». The rights round takes a town
+  with room rather than an empty one, so a town that took the scarce good still
+  gets its charter.
+- **Open, and put to the owner:** glass is the only good whose every age-0
+  building gates on a good it does not make — sand, which a `sand_pit` could
+  supply from almost anywhere. Whether the plan should place an input's building
+  so that a dependent good becomes possible is a feature, not a fix, and it is
+  his call. Only four buildings in the game gate this way: `glass_guild`,
+  `rural_glassmaker`, `pottery_mill` and `horse_breeders`.
 
 **2026-09-01 — `where_to_produce`, thirty-sixth load. The plan works and reads
 right; three faults in the allocation, all named by the screenshots.** Two

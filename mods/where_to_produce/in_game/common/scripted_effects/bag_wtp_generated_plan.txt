@@ -8,6 +8,10 @@ bag_wtp_plan_run = {
 	bag_wtp_rebuild_browse = yes
 	bag_wtp_plan_prepare = yes
 	bag_wtp_plan_score = yes
+	# **Before the charters, and only the goods with almost nowhere to go.** The
+	# owner's own exception to a right being mandatory: a good two locations or
+	# fewer can hold must not lose them to a bundle that had other choices.
+	bag_wtp_plan_allocate_scarce = yes
 	if = {
 		limit = { has_global_variable = bag_wtp_plan_rights }
 		bag_wtp_plan_place_rights = yes
@@ -9607,9 +9611,12 @@ bag_wtp_plan_try_rural_47 = {
 bag_wtp_plan_place_rights = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
+		# **Room left, not empty.** The scarce pass runs before this one now, so a
+		# town that took the one good with nowhere else to go would otherwise be
+		# refused a charter altogether -- and every town is meant to have one.
 		limit = {
 			bag_wtp_plan_is_town = yes
-			var:bag_wtp_load = 0
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 		}
 		set_variable = { name = bag_wtp_rbest value = 0 }
 		set_variable = { name = bag_wtp_rbest_k value = 0 }
@@ -10002,24 +10009,12 @@ bag_wtp_plan_set_quota = {
 	change_global_variable = { name = bag_wtp_pq47 max = 1 }
 }
 
-# The rounds, in tiers, the scarce goods first.
-#
-# **A good with one place in the whole ground that can hold it takes that place
-# before a good with forty gets its second.** That is the owner's «жёстко
-# зарезервировать слоты», and iron is the case he named: without an RGO it comes
-# from one building, `bog_iron_smelter`, which wants wetlands or a lake, so where
-# it can go at all it must. A tier admits only goods `_ng<n>` says few locations
-# can host; the last tier is everything.
-#
-# Within a tier the sweeps run until one adds nothing anywhere, so **a location
-# the plan can feed is never left empty**. The sweep counter is a guard against a
-# condition that cannot be left, not a design.
 # Scope: country
-bag_wtp_plan_allocate = {
+bag_wtp_plan_allocate_scarce = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10087,7 +10082,7 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10152,10 +10147,14 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+}
+
+# Scope: country
+bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10223,7 +10222,7 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10291,7 +10290,7 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10359,7 +10358,7 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.
@@ -10427,7 +10426,7 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
-	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# 4 of them for one load, and the thirty-third run spent it on the scarce
 	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
 	# and forty-four places, most locations holding one thing. The last tier --
 	# the one that fills the ground -- never ran at all.

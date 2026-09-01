@@ -215,6 +215,24 @@ colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
 
+## Reading a `location_potential` is not checking the ground
+
+**2026-09-01, and it cost the owner a round trip.** `where_to_produce`'s plan
+never placed glass, and a session concluded from `glass_guild`'s
+`location_potential = { is_produced_in_location_market = goods:sand }` — plus the
+ages of the other three glass buildings — that glass simply could not be built in
+Westphalia, wrote that into `SETTLED.md`, and told the owner so. He replied with
+two screenshots of the game offering him a glass guild in Münster and a rural
+glassmaker in Dülmen.
+
+The gate was read right; **what was never checked is whether the ground satisfies
+it**, and nothing in this repository can check that — market contents are save
+state. The reference tree says what a condition *is*, never whether it *holds*.
+
+So: a `location_potential` explains why a good *might* be missing. Only a run
+says whether it is. Say which of the two you have.
+
+
 ## Deciding what exists
 
 **"No mod here uses it" is not "the engine lacks it".** Subsidies were declared

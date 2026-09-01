@@ -118,7 +118,17 @@ UNFED_PENALTY = 2
 # one it cannot, whatever the scores inside them.
 RIGHT_FIT = 2000
 
-PLAN_TIERS = (1, 2, 4, 8, 16, 0)
+# **The scarcest goods claim before the urban rights do.** The owner's own
+# exception, 2026-09-01: «сместить домик из городских прав может… товар у
+# которого жёсткие условия аля болотное железо». A good only one or two
+# locations in the whole ground can hold has nowhere to go once a charter has
+# filled those towns, and glass is the case that showed it -- both of its age-0
+# buildings want sand in the local market, so where the market has none it can
+# stand nowhere at all, and where it has some the charter had already taken the
+# room.
+SCARCE_TIERS = (1, 2)
+
+PLAN_TIERS = (4, 8, 16, 0)
 
 # The pass after all of them, with the quota lifted rather than a candidate count
 # of its own. `is` on a sentinel and not a seventh number, because the tier value
@@ -1499,6 +1509,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_prepare = yes
 \t{MOD_ID}_plan_score = yes
+\t# **Before the charters, and only the goods with almost nowhere to go.** The
+\t# owner's own exception to a right being mandatory: a good two locations or
+\t# fewer can hold must not lose them to a bundle that had other choices.
+\t{MOD_ID}_plan_allocate_scarce = yes
 \tif = {{
 \t\tlimit = {{ has_global_variable = {MOD_ID}_plan_rights }}
 \t\t{MOD_ID}_plan_place_rights = yes
@@ -1817,9 +1831,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_plan_place_rights = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
+\t\t# **Room left, not empty.** The scarce pass runs before this one now, so a
+\t\t# town that took the one good with nowhere else to go would otherwise be
+\t\t# refused a charter altogether -- and every town is meant to have one.
 \t\tlimit = {{
 \t\t\t{MOD_ID}_plan_is_town = yes
-\t\t\tvar:{MOD_ID}_load = 0
+\t\t\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
@@ -1898,23 +1915,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     # ---- the sweeps --------------------------------------------------------
-    out.append(f"""
-# The rounds, in tiers, the scarce goods first.
-#
-# **A good with one place in the whole ground that can hold it takes that place
-# before a good with forty gets its second.** That is the owner's «жёстко
-# зарезервировать слоты», and iron is the case he named: without an RGO it comes
-# from one building, `bog_iron_smelter`, which wants wetlands or a lake, so where
-# it can go at all it must. A tier admits only goods `_ng<n>` says few locations
-# can host; the last tier is everything.
-#
-# Within a tier the sweeps run until one adds nothing anywhere, so **a location
-# the plan can feed is never left empty**. The sweep counter is a guard against a
-# condition that cannot be left, not a design.
-# Scope: country
-{MOD_ID}_plan_allocate = {{
-""")
-    for tier in PLAN_TIERS + (OPEN_TIER,):
+    #
+    # Two effects, and the urban rights are granted between them.
+    #
+    # **A good with one place in the whole ground that can hold it takes that
+    # place before a good with forty gets its second** -- the owner's «жёстко
+    # зарезервировать слоты», and iron is the case he named: without an RGO it
+    # comes from one building, `bog_iron_smelter`, which wants wetlands or a
+    # lake, so where it can go at all it must.
+    #
+    # **And ahead of a charter, which is his own exception to their being
+    # mandatory.** Glass is what showed it: both its age-0 buildings want sand in
+    # the local market, so it can stand only in the few towns whose market has
+    # any -- and on the thirty-seventh run a charter had already filled those.
+    # A good with two places or fewer now claims before any right is granted;
+    # everything else waits until after.
+    #
+    # Within a tier the sweeps run until one adds nothing anywhere, so **a
+    # location the plan can feed is never left empty**. The sweep counter is a
+    # guard against a condition that cannot be left, not a design.
+    def emit_tiers(group):
+      for tier in group:
         # **The open pass raises every quota by one a round; it does not lift
         # them.** Lifting was the thirty-sixth run: five towns of Münsterland,
         # ten buildings in fifteen rooms and the same good standing in three of
@@ -1952,7 +1973,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 """)
-    out.append("}\n")
+
+    for name, group in ((f"{MOD_ID}_plan_allocate_scarce", SCARCE_TIERS),
+                        (f"{MOD_ID}_plan_allocate", PLAN_TIERS + (OPEN_TIER,))):
+        out.append(f"\n# Scope: country\n{name} = {{\n")
+        emit_tiers(group)
+        out.append("}\n")
 
     for index, good in enumerate(order, start=1):
         town_side = "town" if groups.get((good, "t")) else ""
