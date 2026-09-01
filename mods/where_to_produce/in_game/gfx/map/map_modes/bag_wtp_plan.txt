@@ -23,18 +23,19 @@ bag_wtp_plan = {
 			value = define:NMapColors|WATER_MAP_COLOR
 		}
 		else_if = {
-			# Filled: the location builds its side's whole list. The two caps are
-			# read the same way `bag_wtp_plan_has_room` reads them, because the
-			# same two numbers decided how long the list could be.
+			# Filled: the location builds its side's whole list. Which side it is
+			# comes through `bag_wtp_plan_is_town`, the same trigger the pass
+			# used, so a location the player has marked as a town is judged
+			# against the town cap here too.
 			limit = {
 				has_variable = bag_wtp_load
 				OR = {
 					AND = {
-						location_rank = location_rank:rural_settlement
+						bag_wtp_plan_is_town = no
 						var:bag_wtp_load >= global_var:bag_wtp_plan_cap_rural
 					}
 					AND = {
-						NOT = { location_rank = location_rank:rural_settlement }
+						bag_wtp_plan_is_town = yes
 						var:bag_wtp_load >= global_var:bag_wtp_plan_cap_urban
 					}
 				}

@@ -6,6 +6,7 @@ bag_wtp_plan_run = {
 	bag_wtp_collect_candidates = yes
 	bag_wtp_rebuild_browse = yes
 	bag_wtp_plan_clear = yes
+	bag_wtp_plan_prepare = yes
 	bag_wtp_plan_score = yes
 	if = {
 		limit = { has_global_variable = bag_wtp_plan_rights }
@@ -17,57 +18,39 @@ bag_wtp_plan_run = {
 	cmf_log = { action = bag_wtp_log_plan }
 }
 
-# Everything the last plan left behind, and then the ground this one works over.
+# What the last plan left on the map.
 #
-# Three walks and not one. `_plan_touched` and `_plan_provs` are the *previous*
-# run's ground, which a new choice on the map may no longer contain, and a
-# location dropped out of the candidates would otherwise keep its buildings --
-# in the map mode as much as in the window. The candidates are walked after them
-# because every counter a `limit` reads has to exist before the first round: a
-# comparison against a variable that is not there logs once per candidate per
-# round, and there are 47 rounds' worth of them.
+# `_plan_touched` is every location the last run wrote anything to, its own
+# province's neighbours included. **`bag_wtp_force_town` and `_force_rural` -- the player's own
+# "count this one as a town" -- is deliberately not among the things removed**:
+# it is an answer he gave, not one the plan computed.
 # Scope: country
 bag_wtp_plan_clear = {
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
-		remove_variable = bag_wtp_plan_rank
-		set_variable = { name = bag_wtp_load value = 0 }
-		clear_variable_list = bag_wtp_plan_goods
-	}
-	every_in_global_list = {
-		variable = bag_wtp_plan_provs
 		remove_variable = bag_wtp_plan_dirty
+		remove_variable = bag_wtp_plan_rank
+		remove_variable = bag_wtp_plan_prank
+		remove_variable = bag_wtp_plan_town_n
+		remove_variable = bag_wtp_plan_rural_n
+		remove_variable = bag_wtp_plan_prov_load
+		remove_variable = bag_wtp_load
 		clear_variable_list = bag_wtp_plan_town
 		clear_variable_list = bag_wtp_plan_rural
-		set_variable = { name = bag_wtp_plan_town_n value = 0 }
-		set_variable = { name = bag_wtp_plan_rural_n value = 0 }
-		set_variable = { name = bag_wtp_plan_prov_load value = 0 }
+		clear_variable_list = bag_wtp_plan_goods
 	}
-	clear_global_variable_list = bag_wtp_plan_provs
 	clear_global_variable_list = bag_wtp_plan_touched
+	clear_global_variable_list = bag_wtp_plan_prov_locs
 	clear_global_variable_list = bag_wtp_plan_ranked
 	clear_global_variable_list = bag_wtp_plan_results
-	every_in_global_list = {
-		variable = bag_wtp_candidates
-		remove_variable = bag_wtp_plan_rank
-		set_variable = { name = bag_wtp_load value = 0 }
-		# A province the ranking below never reached leaves its locations here, and
-		# `_plan_order` negates this: a zero would sort them to the very top.
-		set_variable = { name = bag_wtp_plan_prank value = 9999 }
-		clear_variable_list = bag_wtp_plan_goods
-		province_definition = {
-			remove_variable = bag_wtp_plan_dirty
-			clear_variable_list = bag_wtp_plan_town
-			clear_variable_list = bag_wtp_plan_rural
-			set_variable = { name = bag_wtp_plan_town_n value = 0 }
-			set_variable = { name = bag_wtp_plan_rural_n value = 0 }
-			set_variable = { name = bag_wtp_plan_prov_load value = 0 }
-		}
-	}
 	set_global_variable = { name = bag_wtp_plan_placed value = 0 }
 	set_global_variable = { name = bag_wtp_plan_scored value = 0 }
 	set_global_variable = { name = bag_wtp_plan_found value = 0 }
 	set_global_variable = { name = bag_wtp_plan_shown value = 0 }
+	set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_plan_towns value = 0 }
+	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
+	set_global_variable = { name = bag_wtp_plan_lists value = 0 }
 	set_global_variable = { name = bag_wtp_pn1 value = 0 }
 	set_global_variable = { name = bag_wtp_pn2 value = 0 }
 	set_global_variable = { name = bag_wtp_pn3 value = 0 }
@@ -115,14 +98,54 @@ bag_wtp_plan_clear = {
 	set_global_variable = { name = bag_wtp_pn45 value = 0 }
 	set_global_variable = { name = bag_wtp_pn46 value = 0 }
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
+}
+
+# Every province of the chosen ground, made ready, once each.
+#
+# **Every counter the allocation reads has to exist on every location it can
+# reach before the first round.** A comparison against a variable that is not
+# there is the failure that logs nothing -- and it is not enough to prepare the
+# candidates, because a good added to a province is written onto *all* of that
+# province's locations, candidates or not.
+#
+# The province is reached through the first of its candidates and the rest of
+# them fall out on the dirty flag, so this is one pass per province rather than
+# one per location. That first candidate is the province's stand-in afterwards:
+# `_plan_prov_locs` is one location per province and is what the ranking walks.
+
+# Scope: country
+bag_wtp_plan_prepare = {
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		if = {
+			limit = { NOT = { has_variable = bag_wtp_plan_dirty } }
+			province_definition = {
+				every_location_in_province_definition = {
+					set_variable = { name = bag_wtp_plan_dirty value = 1 }
+					set_variable = { name = bag_wtp_plan_town_n value = 0 }
+					set_variable = { name = bag_wtp_plan_rural_n value = 0 }
+					set_variable = { name = bag_wtp_plan_prov_load value = 0 }
+					set_variable = { name = bag_wtp_plan_prank value = 9999 }
+					set_variable = { name = bag_wtp_load value = 0 }
+					clear_variable_list = bag_wtp_plan_town
+					clear_variable_list = bag_wtp_plan_rural
+					clear_variable_list = bag_wtp_plan_goods
+					add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
+				}
+			}
+			add_to_global_variable_list = { name = bag_wtp_plan_prov_locs target = this }
+			change_global_variable = { name = bag_wtp_plan_provn add = 1 }
+		}
+	}
 	bag_wtp_plan_count_rooms = yes
 }
 
 # The capacity of the chosen ground: every candidate's cap, added up. Under the
-# province model it is also what a finished plan should come to -- every location
-# builds its side's list, and a list is as long as the cap -- so «мест» against
-# «зданий» is a completeness reading rather than a curiosity. Where it falls
-# short, the ground could not feed enough different goods to fill a list.
+# province model it is also what a finished plan should come to, so «мест»
+# against «зданий» is a completeness reading. `_plan_towns` beside it is how many
+# of the candidates the plan counts as built-up -- the first thing to look at if
+# a plan comes back empty, because 0 or all of them says the rank test is the
+# fault and nothing else can.
 #
 # The two caps arrive through their `_show_` script values rather than as
 # `add = global_var:`: `add` takes a script value for certain, and everything
@@ -130,14 +153,16 @@ bag_wtp_plan_clear = {
 # Scope: country
 bag_wtp_plan_count_rooms = {
 	set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_plan_towns value = 0 }
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		if = {
-			limit = { location_rank = location_rank:rural_settlement }
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
+			limit = { bag_wtp_plan_is_town = yes }
+			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+			change_global_variable = { name = bag_wtp_plan_towns add = 1 }
 		}
 		else = {
-			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_urban }
+			change_global_variable = { name = bag_wtp_plan_rooms add = bag_wtp_show_plan_cap_rural }
 		}
 	}
 }
@@ -2078,6 +2103,858 @@ bag_wtp_plan_harvest_47 = {
 	}
 }
 
+# One good, onto every location of the province in hand.
+#
+# Called in the province's own scope. Both sides are separate lists and separate
+# counters, and both are written to every location so that the allocation can ask
+# its questions of whatever candidate the ordered walk hands it.
+# Scope: province_definition
+bag_wtp_plan_add_town_1 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:clay }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn1 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_2 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:coal }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn2 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_3 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:cotton }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn3 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_4 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:dyes }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn4 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_5 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:fiber_crops }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn5 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_6 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:fish }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn6 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_7 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:fruit }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn7 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_8 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:horses }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn8 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_9 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:incense }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn9 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_10 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:iron }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn10 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_11 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:ivory }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn11 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_12 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:livestock }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn12 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_13 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:lumber }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn13 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_14 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:medicaments }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn14 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_15 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:salt }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn15 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_16 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:saltpeter }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn16 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_17 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:sand }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn17 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_18 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:silk }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn18 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_19 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:silver }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn19 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_20 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:stone }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn20 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_21 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:sugar }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn21 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_22 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:tobacco }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn22 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_23 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:wild_game }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn23 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_24 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:wine }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn24 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_25 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:wool }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn25 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_26 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:beer }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn26 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_27 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:books }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn27 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_28 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:cannons }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn28 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_29 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:cloth }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn29 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_30 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn30 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_31 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:firearms }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn31 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_32 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:furniture }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn32 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_33 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:glass }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn33 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_34 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:jewelry }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn34 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_35 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:lacquerware }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn35 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_36 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:leather }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn36 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_37 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:liquor }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn37 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_38 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:masonry }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn38 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_39 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn39 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_40 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:paper }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn40 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_41 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:porcelain }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn41 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_42 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:pottery }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn42 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_43 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:slaves_goods }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn43 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_44 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:steel }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn44 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_45 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:tar }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn45 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_46 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:tools }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn46 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_town_47 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_town target = goods:weaponry }
+		change_variable = { name = bag_wtp_plan_town_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn47 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_1 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:clay }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn1 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_2 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:coal }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn2 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_3 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cotton }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn3 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_4 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:dyes }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn4 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_5 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fiber_crops }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn5 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_6 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fish }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn6 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_7 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fruit }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn7 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_8 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:horses }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn8 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_9 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:incense }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn9 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_10 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:iron }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn10 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_11 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:ivory }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn11 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_12 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:livestock }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn12 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_13 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:lumber }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn13 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_14 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:medicaments }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn14 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_15 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:salt }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn15 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_16 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:saltpeter }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn16 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_17 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:sand }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn17 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_18 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:silk }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn18 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_19 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:silver }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn19 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_20 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:stone }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn20 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_21 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:sugar }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn21 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_22 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tobacco }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn22 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_23 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wild_game }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn23 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_24 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wine }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn24 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_25 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wool }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn25 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_26 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:beer }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn26 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_27 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:books }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn27 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_28 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cannons }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn28 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_29 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cloth }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn29 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_30 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fine_cloth }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn30 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_31 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:firearms }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn31 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_32 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:furniture }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn32 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_33 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:glass }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn33 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_34 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:jewelry }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn34 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_35 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:lacquerware }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn35 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_36 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:leather }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn36 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_37 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:liquor }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn37 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_38 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:masonry }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn38 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_39 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:naval_supplies }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn39 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_40 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:paper }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn40 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_41 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:porcelain }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn41 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_42 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:pottery }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn42 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_43 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:slaves_goods }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn43 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_44 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:steel }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn44 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_45 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tar }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn45 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_46 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tools }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn46 add = 1 }
+}
+# Scope: province_definition
+bag_wtp_plan_add_rural_47 = {
+	every_location_in_province_definition = {
+		add_to_variable_list = { name = bag_wtp_plan_rural target = goods:weaponry }
+		change_variable = { name = bag_wtp_plan_rural_n add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_plan_lists add = 1 }
+	change_global_variable = { name = bag_wtp_pn47 add = 1 }
+}
+
 # Urban rights, before any good touches a town list.
 #
 # **A right is chosen per province, not by rights taking turns.** There are
@@ -2087,17 +2964,13 @@ bag_wtp_plan_harvest_47 = {
 # answer that is true about it, and the rights that go unused are the ones no
 # ground here wanted.
 #
-# Only provinces with a town are asked, because the walk is over the locations
-# that are not rural settlements; the first one reached fills the province's list
-# and the rest of it fails the `limit` afterwards.
+# One location per province, from `_plan_prov_locs`, and only where the province
+# has somewhere built-up to put a right at all.
 # Scope: country
 bag_wtp_plan_place_rights = {
 	every_in_global_list = {
-		variable = bag_wtp_candidates
-		limit = {
-			NOT = { location_rank = location_rank:rural_settlement }
-			province_definition = { var:bag_wtp_plan_town_n = 0 }
-		}
+		variable = bag_wtp_plan_prov_locs
+		limit = { bag_wtp_plan_has_town = yes }
 		set_variable = { name = bag_wtp_rbest value = 0 }
 		set_variable = { name = bag_wtp_rbest_k value = 0 }
 		# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk
@@ -2226,151 +3099,90 @@ bag_wtp_plan_place_rights = {
 		if = {
 			limit = { var:bag_wtp_rbest_k = 1 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cloth }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:silk }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_29 = yes
+				bag_wtp_plan_add_town_30 = yes
+				bag_wtp_plan_add_town_18 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn29 add = 1 }
-			change_global_variable = { name = bag_wtp_pn30 add = 1 }
-			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 2 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:furniture }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:leather }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:pottery }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_32 = yes
+				bag_wtp_plan_add_town_36 = yes
+				bag_wtp_plan_add_town_42 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn32 add = 1 }
-			change_global_variable = { name = bag_wtp_pn36 add = 1 }
-			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 3 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:books }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:dyes }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:paper }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_27 = yes
+				bag_wtp_plan_add_town_4 = yes
+				bag_wtp_plan_add_town_40 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn27 add = 1 }
-			change_global_variable = { name = bag_wtp_pn4 add = 1 }
-			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 4 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:beer }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:liquor }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:wine }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_26 = yes
+				bag_wtp_plan_add_town_37 = yes
+				bag_wtp_plan_add_town_24 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn26 add = 1 }
-			change_global_variable = { name = bag_wtp_pn37 add = 1 }
-			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 5 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:jewelry }
-				set_variable = { name = bag_wtp_plan_town_n value = 1 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_34 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 6 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:glass }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:masonry }
-				set_variable = { name = bag_wtp_plan_town_n value = 2 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_33 = yes
+				bag_wtp_plan_add_town_38 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn33 add = 1 }
-			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 7 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tar }
-				set_variable = { name = bag_wtp_plan_town_n value = 2 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_39 = yes
+				bag_wtp_plan_add_town_45 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn39 add = 1 }
-			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 8 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cloth }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:dyes }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_29 = yes
+				bag_wtp_plan_add_town_4 = yes
+				bag_wtp_plan_add_town_30 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn29 add = 1 }
-			change_global_variable = { name = bag_wtp_pn4 add = 1 }
-			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 9 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tools }
-				set_variable = { name = bag_wtp_plan_town_n value = 1 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_46 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 10 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cannons }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:firearms }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:weaponry }
-				set_variable = { name = bag_wtp_plan_town_n value = 3 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_28 = yes
+				bag_wtp_plan_add_town_31 = yes
+				bag_wtp_plan_add_town_47 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn28 add = 1 }
-			change_global_variable = { name = bag_wtp_pn31 add = 1 }
-			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 11 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tools }
-				set_variable = { name = bag_wtp_plan_town_n value = 1 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_46 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 12 }
 			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies }
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tar }
-				set_variable = { name = bag_wtp_plan_town_n value = 2 }
-				bag_wtp_plan_mark_province = yes
+				bag_wtp_plan_add_town_39 = yes
+				bag_wtp_plan_add_town_45 = yes
 			}
-			change_global_variable = { name = bag_wtp_pn39 add = 1 }
-			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 		}
-	}
-}
-
-# A province joins the list of what this run has to clean up after itself.
-# Scope: province_definition
-bag_wtp_plan_mark_province = {
-	if = {
-		limit = { NOT = { has_variable = bag_wtp_plan_dirty } }
-		set_variable = { name = bag_wtp_plan_dirty value = 1 }
-		add_to_global_variable_list = { name = bag_wtp_plan_provs target = this }
 	}
 }
 
@@ -2379,11 +3191,11 @@ bag_wtp_plan_mark_province = {
 #
 # **It runs until the ground is full rather than for a fixed number of rounds.**
 # The first build stopped after «зданий на товар» rounds and left a third of
-# Wallachia empty at three; the owner's ruling is that a location the plan can
-# feed is never left empty, because what a displaced building leaves behind is
-# exactly what should cascade into the poorer ground. The sweep counter is a
-# guard against a condition that cannot be left, not a design: 12 sweeps is
-# far past the point where the lists are full.
+# Wallachia empty at three; a location the plan can feed is never left empty,
+# because what a displaced building leaves behind is exactly what should cascade
+# into the poorer ground. The sweep counter is a guard against a condition that
+# cannot be left, not a design: 12 sweeps is far past the point where the
+# lists are full.
 # Scope: country
 bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
@@ -2453,11 +3265,9 @@ bag_wtp_plan_allocate = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_1 = {
 	if = {
@@ -2471,22 +3281,15 @@ bag_wtp_plan_pick_1 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p1 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:clay } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:clay } }
 			}
 			order_by = bag_wtp_ord1
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:clay }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_1 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 		}
 	}
 	if = {
@@ -2500,22 +3303,15 @@ bag_wtp_plan_pick_1 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr1 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:clay } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:clay } }
 			}
 			order_by = bag_wtp_ordr1
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:clay }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_1 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn1 add = 1 }
 		}
 	}
 }
@@ -2524,11 +3320,9 @@ bag_wtp_plan_pick_1 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_2 = {
 	if = {
@@ -2542,22 +3336,15 @@ bag_wtp_plan_pick_2 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p2 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:coal } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:coal } }
 			}
 			order_by = bag_wtp_ord2
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:coal }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_2 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 		}
 	}
 	if = {
@@ -2571,22 +3358,15 @@ bag_wtp_plan_pick_2 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr2 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:coal } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:coal } }
 			}
 			order_by = bag_wtp_ordr2
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:coal }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_2 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn2 add = 1 }
 		}
 	}
 }
@@ -2595,11 +3375,9 @@ bag_wtp_plan_pick_2 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_3 = {
 	if = {
@@ -2613,22 +3391,15 @@ bag_wtp_plan_pick_3 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p3 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cotton } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cotton } }
 			}
 			order_by = bag_wtp_ord3
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cotton }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_3 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 		}
 	}
 	if = {
@@ -2642,22 +3413,15 @@ bag_wtp_plan_pick_3 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr3 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cotton } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cotton } }
 			}
 			order_by = bag_wtp_ordr3
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cotton }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_3 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn3 add = 1 }
 		}
 	}
 }
@@ -2666,11 +3430,9 @@ bag_wtp_plan_pick_3 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_4 = {
 	if = {
@@ -2684,22 +3446,15 @@ bag_wtp_plan_pick_4 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p4 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:dyes } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:dyes } }
 			}
 			order_by = bag_wtp_ord4
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:dyes }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_4 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 		}
 	}
 	if = {
@@ -2713,22 +3468,15 @@ bag_wtp_plan_pick_4 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr4 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:dyes } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:dyes } }
 			}
 			order_by = bag_wtp_ordr4
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:dyes }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_4 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn4 add = 1 }
 		}
 	}
 }
@@ -2737,11 +3485,9 @@ bag_wtp_plan_pick_4 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_5 = {
 	if = {
@@ -2755,22 +3501,15 @@ bag_wtp_plan_pick_5 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p5 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fiber_crops } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fiber_crops } }
 			}
 			order_by = bag_wtp_ord5
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fiber_crops }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_5 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 		}
 	}
 	if = {
@@ -2784,22 +3523,15 @@ bag_wtp_plan_pick_5 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr5 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fiber_crops } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fiber_crops } }
 			}
 			order_by = bag_wtp_ordr5
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fiber_crops }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_5 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn5 add = 1 }
 		}
 	}
 }
@@ -2808,11 +3540,9 @@ bag_wtp_plan_pick_5 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_6 = {
 	if = {
@@ -2826,22 +3556,15 @@ bag_wtp_plan_pick_6 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p6 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fish } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fish } }
 			}
 			order_by = bag_wtp_ord6
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fish }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_6 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn6 add = 1 }
 		}
 	}
 	if = {
@@ -2855,22 +3578,15 @@ bag_wtp_plan_pick_6 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr6 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fish } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fish } }
 			}
 			order_by = bag_wtp_ordr6
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fish }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_6 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn6 add = 1 }
 		}
 	}
 }
@@ -2879,11 +3595,9 @@ bag_wtp_plan_pick_6 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_7 = {
 	if = {
@@ -2897,22 +3611,15 @@ bag_wtp_plan_pick_7 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p7 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fruit } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fruit } }
 			}
 			order_by = bag_wtp_ord7
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fruit }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_7 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 		}
 	}
 	if = {
@@ -2926,22 +3633,15 @@ bag_wtp_plan_pick_7 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr7 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fruit } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fruit } }
 			}
 			order_by = bag_wtp_ordr7
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fruit }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_7 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn7 add = 1 }
 		}
 	}
 }
@@ -2950,11 +3650,9 @@ bag_wtp_plan_pick_7 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_8 = {
 	if = {
@@ -2968,22 +3666,15 @@ bag_wtp_plan_pick_8 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p8 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:horses } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:horses } }
 			}
 			order_by = bag_wtp_ord8
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:horses }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_8 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 		}
 	}
 	if = {
@@ -2997,22 +3688,15 @@ bag_wtp_plan_pick_8 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr8 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:horses } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:horses } }
 			}
 			order_by = bag_wtp_ordr8
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:horses }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_8 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn8 add = 1 }
 		}
 	}
 }
@@ -3021,11 +3705,9 @@ bag_wtp_plan_pick_8 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_9 = {
 	if = {
@@ -3039,22 +3721,15 @@ bag_wtp_plan_pick_9 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p9 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:incense } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:incense } }
 			}
 			order_by = bag_wtp_ord9
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:incense }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_9 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn9 add = 1 }
 		}
 	}
 	if = {
@@ -3068,22 +3743,15 @@ bag_wtp_plan_pick_9 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr9 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:incense } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:incense } }
 			}
 			order_by = bag_wtp_ordr9
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:incense }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_9 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn9 add = 1 }
 		}
 	}
 }
@@ -3092,11 +3760,9 @@ bag_wtp_plan_pick_9 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_10 = {
 	if = {
@@ -3110,22 +3776,15 @@ bag_wtp_plan_pick_10 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p10 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:iron } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:iron } }
 			}
 			order_by = bag_wtp_ord10
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:iron }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_10 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 		}
 	}
 	if = {
@@ -3139,22 +3798,15 @@ bag_wtp_plan_pick_10 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr10 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:iron } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:iron } }
 			}
 			order_by = bag_wtp_ordr10
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:iron }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_10 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn10 add = 1 }
 		}
 	}
 }
@@ -3163,11 +3815,9 @@ bag_wtp_plan_pick_10 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_11 = {
 	if = {
@@ -3181,22 +3831,15 @@ bag_wtp_plan_pick_11 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p11 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:ivory } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:ivory } }
 			}
 			order_by = bag_wtp_ord11
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:ivory }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_11 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn11 add = 1 }
 		}
 	}
 	if = {
@@ -3210,22 +3853,15 @@ bag_wtp_plan_pick_11 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr11 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:ivory } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:ivory } }
 			}
 			order_by = bag_wtp_ordr11
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:ivory }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_11 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn11 add = 1 }
 		}
 	}
 }
@@ -3234,11 +3870,9 @@ bag_wtp_plan_pick_11 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_12 = {
 	if = {
@@ -3252,22 +3886,15 @@ bag_wtp_plan_pick_12 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p12 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:livestock } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:livestock } }
 			}
 			order_by = bag_wtp_ord12
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:livestock }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_12 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn12 add = 1 }
 		}
 	}
 	if = {
@@ -3281,22 +3908,15 @@ bag_wtp_plan_pick_12 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr12 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:livestock } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:livestock } }
 			}
 			order_by = bag_wtp_ordr12
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:livestock }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_12 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn12 add = 1 }
 		}
 	}
 }
@@ -3305,11 +3925,9 @@ bag_wtp_plan_pick_12 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_13 = {
 	if = {
@@ -3323,22 +3941,15 @@ bag_wtp_plan_pick_13 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p13 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:lumber } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:lumber } }
 			}
 			order_by = bag_wtp_ord13
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:lumber }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_13 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 		}
 	}
 	if = {
@@ -3352,22 +3963,15 @@ bag_wtp_plan_pick_13 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr13 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:lumber } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:lumber } }
 			}
 			order_by = bag_wtp_ordr13
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:lumber }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_13 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn13 add = 1 }
 		}
 	}
 }
@@ -3376,11 +3980,9 @@ bag_wtp_plan_pick_13 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_14 = {
 	if = {
@@ -3394,22 +3996,15 @@ bag_wtp_plan_pick_14 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p14 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:medicaments } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:medicaments } }
 			}
 			order_by = bag_wtp_ord14
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:medicaments }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_14 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn14 add = 1 }
 		}
 	}
 	if = {
@@ -3423,22 +4018,15 @@ bag_wtp_plan_pick_14 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr14 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:medicaments } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:medicaments } }
 			}
 			order_by = bag_wtp_ordr14
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:medicaments }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_14 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn14 add = 1 }
 		}
 	}
 }
@@ -3447,11 +4035,9 @@ bag_wtp_plan_pick_14 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_15 = {
 	if = {
@@ -3465,22 +4051,15 @@ bag_wtp_plan_pick_15 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p15 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:salt } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:salt } }
 			}
 			order_by = bag_wtp_ord15
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:salt }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_15 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 		}
 	}
 	if = {
@@ -3494,22 +4073,15 @@ bag_wtp_plan_pick_15 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr15 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:salt } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:salt } }
 			}
 			order_by = bag_wtp_ordr15
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:salt }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_15 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn15 add = 1 }
 		}
 	}
 }
@@ -3518,11 +4090,9 @@ bag_wtp_plan_pick_15 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_16 = {
 	if = {
@@ -3536,22 +4106,15 @@ bag_wtp_plan_pick_16 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p16 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:saltpeter } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:saltpeter } }
 			}
 			order_by = bag_wtp_ord16
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:saltpeter }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_16 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 		}
 	}
 	if = {
@@ -3565,22 +4128,15 @@ bag_wtp_plan_pick_16 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr16 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:saltpeter } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:saltpeter } }
 			}
 			order_by = bag_wtp_ordr16
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:saltpeter }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_16 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn16 add = 1 }
 		}
 	}
 }
@@ -3589,11 +4145,9 @@ bag_wtp_plan_pick_16 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_17 = {
 	if = {
@@ -3607,22 +4161,15 @@ bag_wtp_plan_pick_17 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p17 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:sand } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:sand } }
 			}
 			order_by = bag_wtp_ord17
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:sand }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_17 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 		}
 	}
 	if = {
@@ -3636,22 +4183,15 @@ bag_wtp_plan_pick_17 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr17 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:sand } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:sand } }
 			}
 			order_by = bag_wtp_ordr17
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:sand }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_17 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn17 add = 1 }
 		}
 	}
 }
@@ -3660,11 +4200,9 @@ bag_wtp_plan_pick_17 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_18 = {
 	if = {
@@ -3678,22 +4216,15 @@ bag_wtp_plan_pick_18 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p18 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:silk } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:silk } }
 			}
 			order_by = bag_wtp_ord18
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:silk }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_18 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 		}
 	}
 	if = {
@@ -3707,22 +4238,15 @@ bag_wtp_plan_pick_18 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr18 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:silk } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:silk } }
 			}
 			order_by = bag_wtp_ordr18
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:silk }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_18 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn18 add = 1 }
 		}
 	}
 }
@@ -3731,11 +4255,9 @@ bag_wtp_plan_pick_18 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_19 = {
 	if = {
@@ -3749,22 +4271,15 @@ bag_wtp_plan_pick_19 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p19 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:silver } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:silver } }
 			}
 			order_by = bag_wtp_ord19
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:silver }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_19 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 		}
 	}
 	if = {
@@ -3778,22 +4293,15 @@ bag_wtp_plan_pick_19 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr19 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:silver } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:silver } }
 			}
 			order_by = bag_wtp_ordr19
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:silver }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_19 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn19 add = 1 }
 		}
 	}
 }
@@ -3802,11 +4310,9 @@ bag_wtp_plan_pick_19 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_20 = {
 	if = {
@@ -3820,22 +4326,15 @@ bag_wtp_plan_pick_20 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p20 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:stone } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:stone } }
 			}
 			order_by = bag_wtp_ord20
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:stone }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_20 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 		}
 	}
 	if = {
@@ -3849,22 +4348,15 @@ bag_wtp_plan_pick_20 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr20 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:stone } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:stone } }
 			}
 			order_by = bag_wtp_ordr20
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:stone }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_20 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn20 add = 1 }
 		}
 	}
 }
@@ -3873,11 +4365,9 @@ bag_wtp_plan_pick_20 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_21 = {
 	if = {
@@ -3891,22 +4381,15 @@ bag_wtp_plan_pick_21 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p21 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:sugar } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:sugar } }
 			}
 			order_by = bag_wtp_ord21
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:sugar }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_21 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 		}
 	}
 	if = {
@@ -3920,22 +4403,15 @@ bag_wtp_plan_pick_21 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr21 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:sugar } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:sugar } }
 			}
 			order_by = bag_wtp_ordr21
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:sugar }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_21 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn21 add = 1 }
 		}
 	}
 }
@@ -3944,11 +4420,9 @@ bag_wtp_plan_pick_21 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_22 = {
 	if = {
@@ -3962,22 +4436,15 @@ bag_wtp_plan_pick_22 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p22 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tobacco } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tobacco } }
 			}
 			order_by = bag_wtp_ord22
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tobacco }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_22 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 		}
 	}
 	if = {
@@ -3991,22 +4458,15 @@ bag_wtp_plan_pick_22 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr22 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tobacco } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tobacco } }
 			}
 			order_by = bag_wtp_ordr22
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tobacco }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_22 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn22 add = 1 }
 		}
 	}
 }
@@ -4015,11 +4475,9 @@ bag_wtp_plan_pick_22 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_23 = {
 	if = {
@@ -4033,22 +4491,15 @@ bag_wtp_plan_pick_23 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p23 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wild_game } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wild_game } }
 			}
 			order_by = bag_wtp_ord23
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:wild_game }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_23 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn23 add = 1 }
 		}
 	}
 	if = {
@@ -4062,22 +4513,15 @@ bag_wtp_plan_pick_23 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr23 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wild_game } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wild_game } }
 			}
 			order_by = bag_wtp_ordr23
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wild_game }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_23 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn23 add = 1 }
 		}
 	}
 }
@@ -4086,11 +4530,9 @@ bag_wtp_plan_pick_23 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_24 = {
 	if = {
@@ -4104,22 +4546,15 @@ bag_wtp_plan_pick_24 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p24 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wine } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wine } }
 			}
 			order_by = bag_wtp_ord24
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:wine }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_24 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 		}
 	}
 	if = {
@@ -4133,22 +4568,15 @@ bag_wtp_plan_pick_24 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr24 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wine } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wine } }
 			}
 			order_by = bag_wtp_ordr24
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wine }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_24 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn24 add = 1 }
 		}
 	}
 }
@@ -4157,11 +4585,9 @@ bag_wtp_plan_pick_24 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_25 = {
 	if = {
@@ -4175,22 +4601,15 @@ bag_wtp_plan_pick_25 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p25 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wool } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:wool } }
 			}
 			order_by = bag_wtp_ord25
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:wool }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_25 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn25 add = 1 }
 		}
 	}
 	if = {
@@ -4204,22 +4623,15 @@ bag_wtp_plan_pick_25 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr25 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wool } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:wool } }
 			}
 			order_by = bag_wtp_ordr25
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:wool }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_25 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn25 add = 1 }
 		}
 	}
 }
@@ -4228,11 +4640,9 @@ bag_wtp_plan_pick_25 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_26 = {
 	if = {
@@ -4246,22 +4656,15 @@ bag_wtp_plan_pick_26 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p26 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:beer } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:beer } }
 			}
 			order_by = bag_wtp_ord26
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:beer }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_26 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 		}
 	}
 	if = {
@@ -4275,22 +4678,15 @@ bag_wtp_plan_pick_26 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr26 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:beer } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:beer } }
 			}
 			order_by = bag_wtp_ordr26
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:beer }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_26 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn26 add = 1 }
 		}
 	}
 }
@@ -4299,11 +4695,9 @@ bag_wtp_plan_pick_26 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_27 = {
 	if = {
@@ -4317,22 +4711,15 @@ bag_wtp_plan_pick_27 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p27 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:books } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:books } }
 			}
 			order_by = bag_wtp_ord27
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:books }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_27 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 		}
 	}
 	if = {
@@ -4346,22 +4733,15 @@ bag_wtp_plan_pick_27 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr27 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:books } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:books } }
 			}
 			order_by = bag_wtp_ordr27
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:books }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_27 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn27 add = 1 }
 		}
 	}
 }
@@ -4370,11 +4750,9 @@ bag_wtp_plan_pick_27 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_28 = {
 	if = {
@@ -4388,22 +4766,15 @@ bag_wtp_plan_pick_28 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p28 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cannons } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cannons } }
 			}
 			order_by = bag_wtp_ord28
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cannons }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_28 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 		}
 	}
 	if = {
@@ -4417,22 +4788,15 @@ bag_wtp_plan_pick_28 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr28 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cannons } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cannons } }
 			}
 			order_by = bag_wtp_ordr28
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cannons }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_28 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn28 add = 1 }
 		}
 	}
 }
@@ -4441,11 +4805,9 @@ bag_wtp_plan_pick_28 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_29 = {
 	if = {
@@ -4459,22 +4821,15 @@ bag_wtp_plan_pick_29 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p29 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cloth } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:cloth } }
 			}
 			order_by = bag_wtp_ord29
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:cloth }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_29 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 		}
 	}
 	if = {
@@ -4488,22 +4843,15 @@ bag_wtp_plan_pick_29 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr29 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cloth } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:cloth } }
 			}
 			order_by = bag_wtp_ordr29
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:cloth }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_29 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn29 add = 1 }
 		}
 	}
 }
@@ -4512,11 +4860,9 @@ bag_wtp_plan_pick_29 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_30 = {
 	if = {
@@ -4530,22 +4876,15 @@ bag_wtp_plan_pick_30 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p30 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth } }
 			}
 			order_by = bag_wtp_ord30
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:fine_cloth }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_30 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 		}
 	}
 	if = {
@@ -4559,22 +4898,15 @@ bag_wtp_plan_pick_30 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr30 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fine_cloth } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:fine_cloth } }
 			}
 			order_by = bag_wtp_ordr30
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:fine_cloth }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_30 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn30 add = 1 }
 		}
 	}
 }
@@ -4583,11 +4915,9 @@ bag_wtp_plan_pick_30 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_31 = {
 	if = {
@@ -4601,22 +4931,15 @@ bag_wtp_plan_pick_31 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p31 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:firearms } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:firearms } }
 			}
 			order_by = bag_wtp_ord31
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:firearms }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_31 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 		}
 	}
 	if = {
@@ -4630,22 +4953,15 @@ bag_wtp_plan_pick_31 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr31 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:firearms } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:firearms } }
 			}
 			order_by = bag_wtp_ordr31
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:firearms }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_31 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn31 add = 1 }
 		}
 	}
 }
@@ -4654,11 +4970,9 @@ bag_wtp_plan_pick_31 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_32 = {
 	if = {
@@ -4672,22 +4986,15 @@ bag_wtp_plan_pick_32 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p32 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:furniture } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:furniture } }
 			}
 			order_by = bag_wtp_ord32
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:furniture }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_32 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 		}
 	}
 	if = {
@@ -4701,22 +5008,15 @@ bag_wtp_plan_pick_32 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr32 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:furniture } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:furniture } }
 			}
 			order_by = bag_wtp_ordr32
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:furniture }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_32 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn32 add = 1 }
 		}
 	}
 }
@@ -4725,11 +5025,9 @@ bag_wtp_plan_pick_32 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_33 = {
 	if = {
@@ -4743,22 +5041,15 @@ bag_wtp_plan_pick_33 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p33 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:glass } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:glass } }
 			}
 			order_by = bag_wtp_ord33
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:glass }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_33 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 		}
 	}
 	if = {
@@ -4772,22 +5063,15 @@ bag_wtp_plan_pick_33 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr33 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:glass } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:glass } }
 			}
 			order_by = bag_wtp_ordr33
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:glass }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_33 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn33 add = 1 }
 		}
 	}
 }
@@ -4796,11 +5080,9 @@ bag_wtp_plan_pick_33 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_34 = {
 	if = {
@@ -4814,22 +5096,15 @@ bag_wtp_plan_pick_34 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p34 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:jewelry } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:jewelry } }
 			}
 			order_by = bag_wtp_ord34
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:jewelry }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_34 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 		}
 	}
 	if = {
@@ -4843,22 +5118,15 @@ bag_wtp_plan_pick_34 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr34 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:jewelry } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:jewelry } }
 			}
 			order_by = bag_wtp_ordr34
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:jewelry }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_34 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn34 add = 1 }
 		}
 	}
 }
@@ -4867,11 +5135,9 @@ bag_wtp_plan_pick_34 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_35 = {
 	if = {
@@ -4885,22 +5151,15 @@ bag_wtp_plan_pick_35 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p35 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:lacquerware } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:lacquerware } }
 			}
 			order_by = bag_wtp_ord35
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:lacquerware }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_35 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 		}
 	}
 	if = {
@@ -4914,22 +5173,15 @@ bag_wtp_plan_pick_35 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr35 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:lacquerware } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:lacquerware } }
 			}
 			order_by = bag_wtp_ordr35
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:lacquerware }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_35 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn35 add = 1 }
 		}
 	}
 }
@@ -4938,11 +5190,9 @@ bag_wtp_plan_pick_35 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_36 = {
 	if = {
@@ -4956,22 +5206,15 @@ bag_wtp_plan_pick_36 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p36 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:leather } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:leather } }
 			}
 			order_by = bag_wtp_ord36
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:leather }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_36 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 		}
 	}
 	if = {
@@ -4985,22 +5228,15 @@ bag_wtp_plan_pick_36 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr36 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:leather } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:leather } }
 			}
 			order_by = bag_wtp_ordr36
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:leather }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_36 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn36 add = 1 }
 		}
 	}
 }
@@ -5009,11 +5245,9 @@ bag_wtp_plan_pick_36 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_37 = {
 	if = {
@@ -5027,22 +5261,15 @@ bag_wtp_plan_pick_37 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p37 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:liquor } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:liquor } }
 			}
 			order_by = bag_wtp_ord37
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:liquor }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_37 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 		}
 	}
 	if = {
@@ -5056,22 +5283,15 @@ bag_wtp_plan_pick_37 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr37 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:liquor } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:liquor } }
 			}
 			order_by = bag_wtp_ordr37
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:liquor }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_37 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn37 add = 1 }
 		}
 	}
 }
@@ -5080,11 +5300,9 @@ bag_wtp_plan_pick_37 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_38 = {
 	if = {
@@ -5098,22 +5316,15 @@ bag_wtp_plan_pick_38 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p38 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:masonry } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:masonry } }
 			}
 			order_by = bag_wtp_ord38
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:masonry }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_38 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 		}
 	}
 	if = {
@@ -5127,22 +5338,15 @@ bag_wtp_plan_pick_38 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr38 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:masonry } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:masonry } }
 			}
 			order_by = bag_wtp_ordr38
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:masonry }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_38 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn38 add = 1 }
 		}
 	}
 }
@@ -5151,11 +5355,9 @@ bag_wtp_plan_pick_38 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_39 = {
 	if = {
@@ -5169,22 +5371,15 @@ bag_wtp_plan_pick_39 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p39 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies } }
 			}
 			order_by = bag_wtp_ord39
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:naval_supplies }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_39 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 		}
 	}
 	if = {
@@ -5198,22 +5393,15 @@ bag_wtp_plan_pick_39 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr39 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:naval_supplies } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:naval_supplies } }
 			}
 			order_by = bag_wtp_ordr39
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:naval_supplies }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_39 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn39 add = 1 }
 		}
 	}
 }
@@ -5222,11 +5410,9 @@ bag_wtp_plan_pick_39 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_40 = {
 	if = {
@@ -5240,22 +5426,15 @@ bag_wtp_plan_pick_40 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p40 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:paper } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:paper } }
 			}
 			order_by = bag_wtp_ord40
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:paper }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_40 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 		}
 	}
 	if = {
@@ -5269,22 +5448,15 @@ bag_wtp_plan_pick_40 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr40 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:paper } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:paper } }
 			}
 			order_by = bag_wtp_ordr40
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:paper }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_40 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn40 add = 1 }
 		}
 	}
 }
@@ -5293,11 +5465,9 @@ bag_wtp_plan_pick_40 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_41 = {
 	if = {
@@ -5311,22 +5481,15 @@ bag_wtp_plan_pick_41 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p41 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:porcelain } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:porcelain } }
 			}
 			order_by = bag_wtp_ord41
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:porcelain }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_41 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 		}
 	}
 	if = {
@@ -5340,22 +5503,15 @@ bag_wtp_plan_pick_41 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr41 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:porcelain } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:porcelain } }
 			}
 			order_by = bag_wtp_ordr41
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:porcelain }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_41 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn41 add = 1 }
 		}
 	}
 }
@@ -5364,11 +5520,9 @@ bag_wtp_plan_pick_41 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_42 = {
 	if = {
@@ -5382,22 +5536,15 @@ bag_wtp_plan_pick_42 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p42 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:pottery } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:pottery } }
 			}
 			order_by = bag_wtp_ord42
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:pottery }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_42 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 		}
 	}
 	if = {
@@ -5411,22 +5558,15 @@ bag_wtp_plan_pick_42 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr42 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:pottery } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:pottery } }
 			}
 			order_by = bag_wtp_ordr42
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:pottery }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_42 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn42 add = 1 }
 		}
 	}
 }
@@ -5435,11 +5575,9 @@ bag_wtp_plan_pick_42 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_43 = {
 	if = {
@@ -5453,22 +5591,15 @@ bag_wtp_plan_pick_43 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p43 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:slaves_goods } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:slaves_goods } }
 			}
 			order_by = bag_wtp_ord43
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:slaves_goods }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_43 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 		}
 	}
 	if = {
@@ -5482,22 +5613,15 @@ bag_wtp_plan_pick_43 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr43 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:slaves_goods } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:slaves_goods } }
 			}
 			order_by = bag_wtp_ordr43
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:slaves_goods }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_43 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn43 add = 1 }
 		}
 	}
 }
@@ -5506,11 +5630,9 @@ bag_wtp_plan_pick_43 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_44 = {
 	if = {
@@ -5524,22 +5646,15 @@ bag_wtp_plan_pick_44 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p44 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:steel } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:steel } }
 			}
 			order_by = bag_wtp_ord44
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:steel }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_44 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn44 add = 1 }
 		}
 	}
 	if = {
@@ -5553,22 +5668,15 @@ bag_wtp_plan_pick_44 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr44 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:steel } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:steel } }
 			}
 			order_by = bag_wtp_ordr44
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:steel }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_44 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn44 add = 1 }
 		}
 	}
 }
@@ -5577,11 +5685,9 @@ bag_wtp_plan_pick_44 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_45 = {
 	if = {
@@ -5595,22 +5701,15 @@ bag_wtp_plan_pick_45 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p45 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tar } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tar } }
 			}
 			order_by = bag_wtp_ord45
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tar }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_45 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 		}
 	}
 	if = {
@@ -5624,22 +5723,15 @@ bag_wtp_plan_pick_45 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr45 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tar } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tar } }
 			}
 			order_by = bag_wtp_ordr45
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tar }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_45 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn45 add = 1 }
 		}
 	}
 }
@@ -5648,11 +5740,9 @@ bag_wtp_plan_pick_45 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_46 = {
 	if = {
@@ -5666,22 +5756,15 @@ bag_wtp_plan_pick_46 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p46 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tools } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:tools } }
 			}
 			order_by = bag_wtp_ord46
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:tools }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_46 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 		}
 	}
 	if = {
@@ -5695,22 +5778,15 @@ bag_wtp_plan_pick_46 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr46 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tools } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:tools } }
 			}
 			order_by = bag_wtp_ordr46
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:tools }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_46 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn46 add = 1 }
 		}
 	}
 }
@@ -5719,11 +5795,9 @@ bag_wtp_plan_pick_46 = {
 # suits best, or neither.
 #
 # `max = 1` on an ordered walk is the engine doing the choosing, which is the
-# only reason a sweep over 47 goods twice is affordable. The conditions are the
-# whole rule: the ground has to be worth something to this good on that side, the
-# province's list for that side has to have room, and it must not hold this good
-# already. «Максимум провинций на товар» is the one ceiling above that, and at 0
-# there is none.
+# only reason a sweep over 47 goods twice is affordable. Every condition is a
+# plain read off the candidate the walk is holding -- the province's counters and
+# lists are mirrored onto all of its locations for exactly this reason.
 # Scope: country
 bag_wtp_plan_pick_47 = {
 	if = {
@@ -5737,22 +5811,15 @@ bag_wtp_plan_pick_47 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_p47 > 0
-				NOT = { location_rank = location_rank:rural_settlement }
-				province_definition = {
-					var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:weaponry } }
-				}
+				bag_wtp_plan_is_town = yes
+				var:bag_wtp_plan_town_n < global_var:bag_wtp_plan_cap_urban
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_town target = goods:weaponry } }
 			}
 			order_by = bag_wtp_ord47
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_town target = goods:weaponry }
-				change_variable = { name = bag_wtp_plan_town_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_town_47 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 		}
 	}
 	if = {
@@ -5766,32 +5833,24 @@ bag_wtp_plan_pick_47 = {
 			variable = bag_wtp_candidates
 			limit = {
 				var:bag_wtp_pr47 > 0
-				location_rank = location_rank:rural_settlement
-				province_definition = {
-					var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
-					NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:weaponry } }
-				}
+				bag_wtp_plan_is_town = no
+				var:bag_wtp_plan_rural_n < global_var:bag_wtp_plan_cap_rural
+				NOT = { is_target_in_variable_list = { name = bag_wtp_plan_rural target = goods:weaponry } }
 			}
 			order_by = bag_wtp_ordr47
 			max = 1
 			check_range_bounds = no
-			province_definition = {
-				add_to_variable_list = { name = bag_wtp_plan_rural target = goods:weaponry }
-				change_variable = { name = bag_wtp_plan_rural_n add = 1 }
-				bag_wtp_plan_mark_province = yes
-			}
+			province_definition = { bag_wtp_plan_add_rural_47 = yes }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
-			change_global_variable = { name = bag_wtp_pn47 add = 1 }
 		}
 	}
 }
 
 # The province's answer, spent on its locations.
 #
-# This is where the plan stops being a list on a province and becomes buildings.
-# Every location builds its own side's list entire -- towns the town list,
-# villages the village one -- which is what makes a province read as one answer
-# and leaves nothing the ground can feed standing empty.
+# Every location copies its own side's list -- which is already on it -- into the
+# one list the window repeats over. That is what makes a province read as one
+# answer and leaves nothing the ground can feed standing empty.
 #
 # Two locations of one province are not always able to build the same thing:
 # terrain and a building's own requirements can rule one out. That is not asked
@@ -5804,70 +5863,65 @@ bag_wtp_plan_build = {
 		clear_variable_list = bag_wtp_plan_goods
 		set_variable = { name = bag_wtp_load value = 0 }
 		if = {
-			limit = { location_rank = location_rank:rural_settlement }
-			province_definition = {
-				save_scope_as = bag_wtp_prov
-				every_in_list = {
-					variable = bag_wtp_plan_rural
-					save_scope_as = bag_wtp_good
-					scope:bag_wtp_loc = {
-						add_to_variable_list = { name = bag_wtp_plan_goods target = scope:bag_wtp_good }
-						change_variable = { name = bag_wtp_load add = 1 }
-					}
-					scope:bag_wtp_prov = {
-						change_variable = { name = bag_wtp_plan_prov_load add = 1 }
-					}
+			limit = { bag_wtp_plan_is_town = yes }
+			every_in_list = {
+				variable = bag_wtp_plan_town
+				save_scope_as = bag_wtp_good
+				scope:bag_wtp_loc = {
+					add_to_variable_list = { name = bag_wtp_plan_goods target = scope:bag_wtp_good }
+					change_variable = { name = bag_wtp_load add = 1 }
 				}
 			}
 		}
 		else = {
-			province_definition = {
-				save_scope_as = bag_wtp_prov
-				every_in_list = {
-					variable = bag_wtp_plan_town
-					save_scope_as = bag_wtp_good
-					scope:bag_wtp_loc = {
-						add_to_variable_list = { name = bag_wtp_plan_goods target = scope:bag_wtp_good }
-						change_variable = { name = bag_wtp_load add = 1 }
-					}
-					scope:bag_wtp_prov = {
-						change_variable = { name = bag_wtp_plan_prov_load add = 1 }
-					}
+			every_in_list = {
+				variable = bag_wtp_plan_rural
+				save_scope_as = bag_wtp_good
+				scope:bag_wtp_loc = {
+					add_to_variable_list = { name = bag_wtp_plan_goods target = scope:bag_wtp_good }
+					change_variable = { name = bag_wtp_load add = 1 }
 				}
 			}
 		}
-		if = {
-			limit = { var:bag_wtp_load > 0 }
-			change_global_variable = { name = bag_wtp_plan_placed add = var:bag_wtp_load }
-			add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
-		}
+		change_global_variable = { name = bag_wtp_plan_placed add = var:bag_wtp_load }
 	}
 }
 
 # The rows: one per location that got anything, its province's locations together.
 #
-# **Provinces are ranked first and their locations follow.** A row is a location,
-# but under the province model most locations of one province carry the same
-# list, and a sort on the location's own load would tie nearly all of them --
-# `ordered_in_global_list` promises nothing about ties, so two provinces would
-# interleave. So the provinces are put in order by how much the plan put in each
-# of them, every location is told its province's place, and the rows sort on that
-# with the towns of a province ahead of its villages.
+# **Provinces are ranked first and their locations follow.** Under the province
+# model most locations of one province carry the same list, and a sort on the
+# location's own load would tie nearly all of them -- `ordered_in_global_list`
+# promises nothing about ties, so two provinces would interleave. The provinces
+# are put in order by how much the plan put in each, every location is told its
+# province's place, and the rows sort on that with a province's towns ahead of
+# its villages.
+#
+# A province's load is added up through a global, because a walk over its
+# locations cannot write back to the scope that started it.
 # Scope: country
 bag_wtp_plan_rank = {
+	every_in_global_list = {
+		variable = bag_wtp_plan_prov_locs
+		set_global_variable = { name = bag_wtp_plan_count value = 0 }
+		province_definition = {
+			every_location_in_province_definition = {
+				change_global_variable = { name = bag_wtp_plan_count add = var:bag_wtp_load }
+			}
+		}
+		set_variable = { name = bag_wtp_plan_prov_load value = global_var:bag_wtp_plan_count }
+	}
 	set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
 	ordered_in_global_list = {
-		variable = bag_wtp_plan_provs
+		variable = bag_wtp_plan_prov_locs
 		order_by = bag_wtp_plan_prov_order
 		max = 400
 		check_range_bounds = no
 		change_global_variable = { name = bag_wtp_plan_prov_n add = 1 }
-		# Every location of it, and not only the candidates: which of them are
-		# candidates is not askable from here, and a location outside the plan's
-		# ground is never read for this -- `_plan_order` is only ever asked of a
-		# candidate, and `_plan_clear` gives every candidate a zero first.
-		every_location_in_province_definition = {
-			set_variable = { name = bag_wtp_plan_prank value = global_var:bag_wtp_plan_prov_n }
+		province_definition = {
+			every_location_in_province_definition = {
+				set_variable = { name = bag_wtp_plan_prank value = global_var:bag_wtp_plan_prov_n }
+			}
 		}
 	}
 	# Counted before the rows are taken, and separately from them: the walk below
@@ -5915,8 +5969,7 @@ bag_wtp_plan_hide = {
 # The same thing the window's own scripted GUI does, reachable from an effect,
 # because a Mod Menu button is script and script cannot reach the interface's
 # variable system. The other two windows are closed on the way in: three tables
-# of three different questions, and only one of them answers the button that was
-# just pressed.
+# of three different questions, and only one answers the button just pressed.
 # Scope: country
 bag_wtp_open_plan_window_effect = {
 	bag_wtp_plan_show = yes

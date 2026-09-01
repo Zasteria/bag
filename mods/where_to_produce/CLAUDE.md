@@ -4,11 +4,9 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: twenty-seven loads in, and a row answers in three ages** — «Сейчас»,
-«По пути» (the best this ground ever feeds, and the last age it can be built),
-«В конце». **Two «Считать» buttons, not three sort headers:** one orders by
-today, the other by the end and breaks ties on «По пути», the only column with
-anything to say where a ladder ends early.
+**State: twenty-nine loads in.** A row answers in three ages — «Сейчас», «По
+пути» (the best this ground ever feeds, and the last age it can be built), «В
+конце» — on two «Считать» buttons rather than sort headers.
 
 ## Where it stands
 
@@ -23,10 +21,9 @@ each slot earns its own bonus over its own output (settled from the game's
 panel), so a `Method` is the pair: `eu5data.Method.shares`, and why in
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Urban rights** are two lists on the Goods tab and a window of their own, on the
-same two buttons and fallbacks but with no «По пути» column, only the tiebreak. A
-right's gate is its own `potential`, never `has_advance`. Numbers and the
-deferred level rights:
+**Urban rights** are two lists on the Goods tab and a window of their own, with
+no «По пути» column. A right's gate is its own `potential`, never `has_advance`.
+Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
 **Four pickers, and the market one names its own candidates**: only what
@@ -39,8 +36,11 @@ location of it builds its side's list — one answer per province. Sweeps run un
 the ground is full: a location the plan can feed is never left empty. An urban
 right takes a town list whole, before any good, chosen per province rather than
 by rights taking turns. It reuses `bag_wtp_score_<g>` and **normalizes each good
-by its own best here**, without which the biggest recipe takes every contested
-province. **The expensive button** — 241 recipes a location. All of it in
+by its own best here**. Every condition it asks is a location variable — **a
+`province_definition` holds none** (`docs/PITFALLS.md`), and the plan that kept
+its lists there placed nothing at all. Which locations count as towns is the
+player's to override, from a button on a plan row. **The expensive button** —
+241 recipes a location. All of it in
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so

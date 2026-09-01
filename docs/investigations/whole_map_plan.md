@@ -85,6 +85,19 @@ for its towns and one for its villages, each as long as that side's cap, and
 every location of it then builds its side's list entire. A province reads as one
 answer, its villages repeat each other, and what differs is the ground.
 
+**And the province's state lives on its locations, mirrored.** The
+twenty-ninth load placed nothing out of 381 places and logged not one line: the
+lists were kept on the `province_definition`, which is static map data and holds
+no variable (`PITFALLS.md`). Every condition the allocation asks is a plain read
+off the candidate in hand now, which is also cheaper than the province hop it
+replaced.
+
+**Which locations count as towns is the player's to override.** The game's rank
+is only what is true today, and the mod cannot guess which village he means to
+raise; a button on the plan's own rows cycles town → village → the game's answer,
+and no plan run clears it. **His, and the reason it is a button and not a
+guess.**
+
 **The score is normalized per good, and that is the one thing that must not be
 skipped.** `out × (1 + bonus/100)` is not comparable between two goods — it is
 1.0 lumber against 0.2 wine, a units difference — and a plan that ranks
@@ -131,8 +144,10 @@ the above the same day:
 - `bag_wtp_generated_plan.txt` — the scoring harvest, the rights round, the
   sweeps, the build onto locations and the ranking.
 - A window of locations by province, and a map mode painting completeness.
-- **Five counters the pass writes itself**, printed on the button and in the
-  window, because an effect that merely does nothing logs nothing.
+- **A summary line of seven counters**, written by the pass itself and ordered
+  so that the first zero names the step that failed — locations, towns among
+  them, provinces, room, goods, list entries, buildings. An effect that merely
+  does nothing logs nothing, and this is what buys a diagnosis without a zip.
 
 **Not built, and named here so nobody looks for it:** the per-good weight
 («этому товару нужно больше места»), the RGO discount, and choosing which goods

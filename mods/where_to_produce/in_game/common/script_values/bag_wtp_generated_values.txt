@@ -6952,10 +6952,11 @@ bag_wtp_rq12 = {
 # `divide` takes a script value for certain and the other form is only inferred.
 bag_wtp_plan_top_value = { value = global_var:bag_wtp_plan_top }
 
-# How the plan's provinces are ordered: by how much of it landed in each. Under
-# the province model every province fills to its capacity, so this is size and
-# contention together -- the «магнит» the feature is named for.
-# Scope: province_definition
+# How the plan's provinces are ordered: by how much of it landed in each, read
+# off the one location that stands in for the province. Under the province model
+# every province fills to its capacity, so this is size and contention together
+# -- the «магнит» the feature is named for.
+# Scope: location
 bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
 
 # And how a location's row is ordered: by its province's place, so a province's
@@ -6971,7 +6972,7 @@ bag_wtp_plan_order = {
 	value = 0
 	subtract = var:bag_wtp_plan_prank
 	if = {
-		limit = { NOT = { location_rank = location_rank:rural_settlement } }
+		limit = { bag_wtp_plan_is_town = yes }
 		add = 0.5
 	}
 }
@@ -7003,3 +7004,6 @@ bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
 bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
 bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
+bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
+bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
+bag_wtp_show_plan_lists = { value = global_var:bag_wtp_plan_lists }

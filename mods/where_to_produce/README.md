@@ -112,9 +112,17 @@ at a time, under a cap per location.
   completeness: green where a location is filled to its cap, red where the plan
   put nothing.
 
-`bag_wtp_load` and the `bag_wtp_plan_goods` list are the answer on the location;
-`bag_wtp_plan_town` and `bag_wtp_plan_rural` are the lists on the province
-definition, and `bag_wtp_plan_prank` is what keeps a province's rows together.
+- **Which locations count as towns is yours to override.** The game's rank is
+  only what is true today, and the mod cannot guess which village you mean to
+  raise, so the rank icon on a plan row is a button: town → village → back to the
+  game's own answer. No plan run clears it.
+
+**Everything the pass reads is a variable on a location.** `bag_wtp_load` and the
+`bag_wtp_plan_goods` list are the answer; `bag_wtp_plan_town` and
+`bag_wtp_plan_rural` are the province's two lists, written onto *every* location
+of the province, and `bag_wtp_plan_prank` is what keeps its rows together.
+**Never on the `province_definition`** — it holds no variable, and the plan that
+tried placed nothing at all (`docs/PITFALLS.md`).
 The design and the owner's answers behind it:
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 

@@ -18,8 +18,23 @@ searches like everything else:
   themselves, skins that do nothing, view objects that resolve nowhere.
 - [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) — how to find a fault that
   logs nothing, and how to spend a run on it rather than a guess.
+- [`pitfalls/shipping.md`](pitfalls/shipping.md) — putting a mod out and getting
+  it loaded: workshop tags, the app id, load order, `metadata.json`, and
+  overriding somebody else's override.
 
 ## Script
+
+**A `province_definition` does not keep a variable.** It is static map data, not
+a runtime entity — the runtime one is `province` — and a `set_variable` inside
+`province_definition = { … }` writes nothing, silently. `where_to_produce`'s plan
+kept each province's two lists and their counters there and placed *zero*
+buildings out of 381 places: every `limit` that read one of the counters failed,
+`error.log` carried not one line, and the pass counted its own 127 locations and
+30 goods correctly on the way past. **Nothing in vanilla or in any mod in
+`reference/` writes a variable to a definition** — the way to hold a province's
+state is `every_location_in_province_definition` and a variable on each location,
+which is what `bag_wtp_store_row` has always done. A definition is still a
+perfectly good *scope* to read through, and to iterate from.
 
 **A `trigger_if` chain must end in a `trigger_else`.** Ending on a
 `trigger_else_if` logs `PostValidate of trigger 'trigger_else_if' returned false`
@@ -199,46 +214,6 @@ can take the whole effect down on a new game. Guard it with
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
-
-## Publishing
-
-**The workshop's tag list is fixed, and a tag outside it is dropped rather than
-refused.** Four mods here were filed under `Localization`, which EU5 does not
-have; the tag it does have is `Translation`, and `Economy` is really
-`Trade and Economics`. The upload says nothing, the mod simply ends up in no
-category on a hub where people browse by category. The list read off the hub's
-own filter sidebar is `WORKSHOP_TAGS` in
-[`../tools/publish.py`](../tools/publish.py), and `python3 tools/publish.py`
-checks every mod against it along with the version format, the thumbnail and the
-BOM.
-
-**The Steam app id for EU5 is `3450310`.** The wiki's PDX Workshop Manager page
-says `529340`, which is Imperator: Rome. `3450310` is the one `steamcmd` in
-`tools/workshop.py` actually downloads with.
-
-## Loading
-
-**Later file wins for a duplicate database key, and files sort by name.** A mod
-redeclaring `sheep_farms` in `00_sheep_farm_food_buildings.txt` loses to
-vanilla's `rural_buildings.txt`, because `00_` sorts first. The `00_` prefix is
-for files that must load *early*; to override, sort late. Symptom: mod loads,
-changes nothing, logs nothing.
-
-**`metadata.json` needs `"game_id": "eu5"`.** Every working mod has it. Without
-it the launcher does not treat the folder as an EU5 mod.
-
-**Overriding another mod's *generated* override goes stale in complete
-silence.** `mods/glorpui_hints/` overrides Glorp UI's override of the societal
-value tooltip templates, and to keep Glorp UI's own hint lists it re-emits them
-inside its own file. When Glorp UI regenerates those templates — which it does
-on every game patch — nothing errors: the templates still parse, the mod still
-loads, and the player quietly gets a months-old copy of Glorp UI's list with
-whatever Glorp UI added missing from it. `error.log` says nothing, because
-nothing failed. The only defence is a checker that compares the two files, so
-`mods/glorpui_hints/tools/generate.py` reduces both to an ordered sequence of
-(gating script value, title, body key) and fails naming the difference. Any mod
-that copies another mod's generated file needs the same check written the same
-day the copy is made.
 
 ## Deciding what exists
 

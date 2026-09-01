@@ -44,18 +44,22 @@ exceptions are at the top of `TESTLOG.md`.
 
 **The whole-map plan is the job, and the whole of it is
 [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md). Read that
-file before anything else about this mod.** It ran on 2026-09-01 (`TESTLOG.md`,
-twenty-eighth load) and the owner's verdict was «получилось даже более менее
-сносно». What that run changed is not a fix but the model: the plan is chosen
-**per province** now — two short lists, towns and villages, and every location of
-the province builds its side's list — it runs until the ground is full rather
-than for a fixed number of rounds, and urban rights take a town list whole.
+file before anything else about this mod.** Two loads in: the twenty-eighth ran
+and the owner's verdict was «получилось даже более менее сносно»; the
+twenty-ninth, after the model was rewritten per province, **placed nothing at all
+and logged nothing** — the province's state was being kept on a
+`province_definition`, which holds no variable (`PITFALLS.md`). It is on the
+locations now, mirrored across the province.
 
-**None of the rewrite has been loaded.** What to ask him for is one press on the
-same ground he used, Wallachia at 3/3, and three things off the screenshot: that
-a province's locations now carry the same goods and sit together in the table,
-that nothing is left empty (buildings should equal «мест»), and what the rights
-switch does to the towns.
+**Nothing since the twenty-eighth load has been loaded.** Ask for one press on
+Wallachia at 3/3 and read the summary line left to right — locations, towns,
+provinces, room, goods, list entries, buildings — because **the first zero in it
+names the step that failed** and there is no need for a zip until it does. Then
+the three things the model is for: a province's locations carrying the same goods
+and sitting together, nothing left empty, and what the rights switch does.
+
+Also new and unloaded: the town/village button on a plan row (the game's rank is
+only what is true today), and the map pickers in the plan window.
 
 Not built on purpose, and not to be started before that run: the per-good weight,
 the RGO discount, regret ordering within a sweep, and asking whether a location

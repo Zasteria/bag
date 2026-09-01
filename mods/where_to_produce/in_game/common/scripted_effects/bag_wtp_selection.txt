@@ -306,11 +306,35 @@ bag_wtp_init_counters = {
 		set_global_variable = { name = bag_wtp_plan_max value = 0 }
 	}
 	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
-		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
-	}
-	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_prov_n } }
 		set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
+	}
+	# The three that say where an empty plan went wrong, and they have to exist
+	# before the first press: a script value reading a global that is not there
+	# is an error a frame on an open page, which is what `bag_wtp_found` was
+	# doing in the twenty-ninth load's log.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_towns } }
+		set_global_variable = { name = bag_wtp_plan_towns value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_provn } }
+		set_global_variable = { name = bag_wtp_plan_provn value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_lists } }
+		set_global_variable = { name = bag_wtp_plan_lists value = 0 }
+	}
+	# `bag_wtp_found` is the ranking's, and it was never initialised: the results
+	# window's summary reads it through `bag_wtp_show_found`, and with no run yet
+	# the log carried «Value of wrong type in 'bag_wtp_show_found:0'» once a frame
+	# with the page open.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_found } }
+		set_global_variable = { name = bag_wtp_found value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
+		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
 	}
 }
