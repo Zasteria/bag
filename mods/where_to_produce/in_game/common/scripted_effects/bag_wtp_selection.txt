@@ -268,4 +268,81 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_live_runs } }
 		set_global_variable = { name = bag_wtp_live_runs value = 0 }
 	}
+	# The plan's counters. Every one of them is printed on the button that runs
+	# the plan, and each has to exist before the first press: a script value
+	# reading a global that is not there is an error a frame on an open page.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_placed } }
+		set_global_variable = { name = bag_wtp_plan_placed value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_scored } }
+		set_global_variable = { name = bag_wtp_plan_scored value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_found } }
+		set_global_variable = { name = bag_wtp_plan_found value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_shown } }
+		set_global_variable = { name = bag_wtp_plan_shown value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_rooms } }
+		set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
+	}
+	# And the three settings, for the frame before the sync has run: the caps are
+	# read by a trigger asked once per candidate per round.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_rural } }
+		set_global_variable = { name = bag_wtp_plan_cap_rural value = 3 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_urban } }
+		set_global_variable = { name = bag_wtp_plan_cap_urban value = 4 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_max } }
+		set_global_variable = { name = bag_wtp_plan_max value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_prov_n } }
+		set_global_variable = { name = bag_wtp_plan_prov_n value = 0 }
+	}
+	# The three that say where an empty plan went wrong, and they have to exist
+	# before the first press: a script value reading a global that is not there
+	# is an error a frame on an open page, which is what `bag_wtp_found` was
+	# doing in the twenty-ninth load's log.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_towns } }
+		set_global_variable = { name = bag_wtp_plan_towns value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_provn } }
+		set_global_variable = { name = bag_wtp_plan_provn value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_rightn } }
+		set_global_variable = { name = bag_wtp_plan_rightn value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_tier } }
+		set_global_variable = { name = bag_wtp_plan_tier value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_tsweeps } }
+		set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	}
+	# `bag_wtp_found` is the ranking's, and it was never initialised: the results
+	# window's summary reads it through `bag_wtp_show_found`, and with no run yet
+	# the log carried «Value of wrong type in 'bag_wtp_show_found:0'» once a frame
+	# with the page open.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_found } }
+		set_global_variable = { name = bag_wtp_found value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
+		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
+	}
 }

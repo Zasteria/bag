@@ -100,3 +100,26 @@ bag_wtp_right_row_is_worth_it = {
 		}
 	}
 }
+
+# Does the plan count this location as built-up?
+#
+# **The game's rank is only what is true today.** A rural settlement that will be
+# a town by the time anything here is built is still a rural settlement to
+# `location_rank`, and the mod cannot know which of them the player means to
+# raise. So the rank is the default and `bag_wtp_force_town` is his override, set
+# from a button on the plan's own rows and **never cleared by a plan run** -- it
+# is an answer he gave rather than one the plan computed.
+#
+# Written with OR rather than an `if`: a scripted trigger takes an effect's `if`
+# without complaining and answers true everywhere afterwards, which is exactly
+# what the buildable tick did for seventeen loads (`docs/PITFALLS.md`).
+# Scope: location
+bag_wtp_plan_is_town = {
+	OR = {
+		has_variable = bag_wtp_force_town
+		AND = {
+			NOT = { has_variable = bag_wtp_force_rural }
+			NOT = { location_rank = location_rank:rural_settlement }
+		}
+	}
+}

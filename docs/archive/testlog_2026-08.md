@@ -1,4 +1,4 @@
-﻿# Test log — runs before 2026-08-27
+﻿# Test log — the runs before the plan settled
 
 Archived out of [`../TESTLOG.md`](../TESTLOG.md) so the live log stays the size
 of a thing a session can afford to read. Nothing here is superseded; it is
@@ -1422,3 +1422,205 @@ answered, from the game's own panel.** Three screenshots.
   plain labels again and the second «Считать» is on the mod page.
 - **The rights window's header lined up with nothing.** Same 10px scrollbox
   margin as the goods window, now fixed, and its columns read left too.
+
+**2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
+work and the two tables differ; unique rights arrived in Wallachia; the goods
+table ranked for the last age still named first-age buildings; «Из чего» still
+sits away from its header.
+
+- **`error.log` carries one real line and no more:** `PostValidate of trigger
+  'trigger_else_if' returned false at bag_wtp_generated_triggers.txt:107` — the
+  last link of the `bag_wtp_can_build_something` chain, which ended on an
+  `else_if` with no `trigger_else` after it. Everything else naming the mod is
+  `Flag 'bag_wtp_good_*' is set but is never used`, which is CMM's list flags and
+  is cosmetic. The chain ends `trigger_else = { always = no }` now.
+- **Dropping the advance gate let the Scandinavian privileges into a Wallachian
+  list.** Those two rights carry no `potential` of their own; what keeps them out
+  is `culture = { has_culture_group = culture_group:scandinavian_group }` on the
+  *advance* that unlocks them. A right inherits its advance's `potential` now —
+  a country gate that is a fact rather than a thing you have not got round to.
+- **Ranked for the last age, the row still named the building you can build
+  today.** The order followed the button and the printing did not: the method
+  column reads the near column whenever it is set, and it always is. `row_end` is
+  written on the row now and the window reads the column the button asked for,
+  goods icons included.
+- **«Из чего» drifts because the method column expands.** An expanding column is
+  as wide as what is left, and a row inside a scrollbox has less left than the
+  header — by the scrollbar and the content margin. Both windows give the method
+  column a fixed width and put the slack in a spacer at the far right.
+
+**2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
+the rights window was answering the wrong question.** Three screenshots, fine
+cloth and cannons, and a weaponry right.
+
+- **The pairs read correctly.** «Гильдия портных: Гильдия ткачей шёлка ×0.90 +
+  Красители с квасцами», «Здание пушкарей: Железные стволы ×1.16 + Железные
+  снаряды», with both slots' raw materials counted.
+- **«Считать» looked like it was sorting by the endgame** — 1.78% above 7.14%.
+  It was not: the ranking is by effective output and always has been, so ×0.90
+  at 1.78% (0.916) outranks ×0.70 at 7.14% (0.750). Settled at the eighth run,
+  when a forest village at 10% topped a weapons search; the owner reached the
+  same reading himself from the cannons table.
+- **«На конец» did nothing at all in the rights window.** The bundle pass read
+  `bag_wtp_best_method` and nothing else, so both buttons gave the same table in
+  the same order, showing first-age buildings. It reads the column the button
+  names now, falls back the same way, and breaks its ties on «По пути» — with
+  the row filter widened, or the table would empty itself exactly where a ladder
+  ends early.
+- **«Права: считать методы будущих эпох» is deleted.** Owner: «нафига вообще
+  нужна?» — right twice over: since the twentieth load it reached no method at
+  all, and a right should obey the same two buttons a good does. A unique right
+  is still gated on `potential` — a tag is a fact about the country — but never
+  on the advance that unlocks it.
+- **«Из чего» sat far right of its header** in the rights window: the block was
+  sized by its own icons and started wherever the expanding method column
+  stopped. It is 190 wide in both windows now, like the header.
+
+Everything before 2026-08-29, and `where_to_produce`'s first twenty-one loads — the
+map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
+turned the mod from asking for a method into finding one, and the four that
+confirmed the scoring, the tabs, the results window and whole provinces — is in
+[`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
+trimmed. Search both with `python3 tools/kb.py`.
+
+**2026-08-31 — `where_to_produce`, twenty-fourth load. The fixed-width columns
+ate the building's name.** Two screenshots, fine cloth and textile.
+
+- **A row printed «± Красители с квасцами» and nothing else** — no building, no
+  method, no «×». The cause is one line: the method cell was given a size of its
+  own, and a child carrying `layoutpolicy_horizontal = expanding` inside a sized
+  hbox gets **no width at all**, so the text elided to nothing. The improvement
+  beside it survived because it was `autoresize = yes`. Every column in both
+  windows carries an explicit width now and none of them expands; the slack goes
+  to a spacer at the far right, and the row's widths add up to the header's to
+  the pixel (762 after the area column in the goods window, 700 per slot in the
+  rights one).
+- **Two spacers where the header had one.** «В конце» was followed by 10px in a
+  row and 6 in the header, and a second 6 had crept in before «По пути»: four
+  and six pixels, and every column after them out of line. That is the whole of
+  the «Из чего» drift.
+- **Fifty pixels moved from «Из чего» to «Здание и метод»**, which is where the
+  long names are: a building, a method and an improvement in one cell.
+- **Urban rights work on both buttons**, owner's words, and the unique list is
+  empty again — which for Wallachia is the right answer, since the two
+  Scandinavian privileges gate on a culture group and the Byzantine one on a tag.
+
+**2026-08-31 — `where_to_produce`, twenty-fifth load, with logs.** Two
+screenshots of fine cloth, «Считать» and «На конец».
+
+- **The row names its building again and every column sits under its header** —
+  both asked for and both confirmed. `error.log` carries no `PostValidate` with
+  `bag_wtp` in it; the only `bag_wtp` lines are `Flag … never used` and five
+  `Variable … used but never set` for `_mid_goods*` and `_pm2_rural`, which are
+  a generated `clear_variable_list` and a village that never runs a pair. Noise.
+- **«Из чего» is still not under its header, and worse on the second
+  screenshot.** Not a drift this time: the icons are *centred* in their column.
+  The container is an hbox with a width, `ignoreinvisible` leaves it exactly one
+  visible child, and an hbox with a width spreads its children across it — so
+  the offset is half the slack, which is why «0/1» alone sat further right than
+  «1/3» with an icon. Both windows' goods columns are plain `widget`s now with a
+  `parentanchor = left|vcenter` inside.
+- **A silk weaver was offered where there is no silk.** Западная Мунтения
+  supplies dyes and nothing else the recipe wants, and it came first at 1.78% on
+  «Гильдия ткачей шёлка + Красители с квасцами» — one input of three. Owner:
+  the market will not have silk either, so it is not an answer at all. The floor
+  a method has to clear is **half the bonus its raw materials could ever add**
+  now, not one point above nothing; `generate.fed_floor`, and the same fed/unfed
+  fallback as before behind it.
+- **The buildable tick drops provinces, but only after the window is closed and
+  opened again.** It never re-ranked — it wrote the setting and refreshed the
+  lists, which is right for every other tick on that page and wrong for the one
+  that changes which provinces are candidates. It calls
+  `bag_wtp_recompute_live` now, the same guard the map pickers go through.
+- **Wallachia sees no unique rights, which is the right answer.** The mod offers
+  three of them — two Scandinavian, gated on a culture group, and the Byzantine
+  silk monopoly on a tag. The other five grant building levels rather than an
+  output ratio and are deliberately not in the list. The Scandinavian half of
+  the question is still unrun and the owner has said he would rather not.
+
+**2026-08-31 — `where_to_produce`, twenty-sixth load. All four fixes hold.**
+Three screenshots, fine cloth, and the owner's verdict: «если не придираться к
+этим злосчастным столбикам и выравниваниям, сейчас меня устраивает функционал».
+
+- **No silk weaver where there is no silk.** Западная Мунтения now reads
+  «Гильдия портных: Мериносовая шерсть ×0.70 + Красители с квасцами», **9.43%**,
+  «2/3» — and the two icons say why the old answer was wrong in a way nobody had
+  spotted: **the province works wool *and* dyes**. Silk never had anything to do
+  with it. 7.14 (wool) + 2.29 (dyes) = 9.43, the recipe fed on both halves; the
+  silk one won before only because 0.90 a level unfed beat 0.70 a level at 7.14%.
+  «В конце» is «Фабрики тонкого сукна ×4.00», 0.63%, «1/1». The wool provinces
+  behind it are untouched at 7.14% «1/3», and the count went 13 → 12.
+- **The buildable tick re-ranks the open window** — third screenshot, «Обошёл 8 ·
+  нашёл 5 · пересчётов 4», five provinces left standing with the window never
+  closed.
+- **`error.log` is clean**: not one `bag_wtp` line beyond the `Flag … never used`
+  and `Variable … used but never set` noise. The two `PostValidate` lines are
+  `qol_vassal_test_events`, another mod's.
+- **Two columns I narrowed were narrowed too far.** «Восточная Мунтения» abuts
+  «Валахия» and «Трансильвания» abuts its percentage: `elide` fills a column to
+  the last pixel and then touches the next one, so width alone can never fix it.
+  Both got their width back and a spacer of their own, paid for out of the method
+  column, and the row still adds up to what the header does.
+- **Not settled: whether «Из чего» is now under its heading.** The middle columns
+  read as aligned in the screenshots and that one may still sit a dozen pixels
+  right, which is too fine to call at this resolution. One glance on the next run
+  answers it.
+
+**2026-08-31 — `where_to_produce`, twenty-seventh load. The market picker works,
+and it is drawn on the map after all.** One screenshot, fine cloth, «На конец».
+
+- **A market *is* a map region to the picker.** Hovering outlines the market's own
+  borders and a click takes it — no list needed, the same feel as an area. The
+  file said the opposite for one commit; a market not being drawn on the map was
+  a guess from vanilla's one usage and it was wrong.
+- **But only the markets `interaction_source_list` names are clickable**, and it
+  named `every_market_present_in_country`, so the neighbour's market could not be
+  taken — which is exactly the market somebody planning a conquest wants to lay
+  out. It is `every_market_in_world` now, framed by the ticked continents the way
+  the other three pickers are.
+- **The picking works and the owner is happy with it**: «В остальном всё чётко,
+  удобно, классно.» Selection, re-rank and the counters all followed.
+- **The four picker buttons were transparent and dreary** — an `action_button`
+  with `bg_button_flavor_1`, copied from Advanced Auto Build, which is a flavour
+  background over a bare button. They are `action_button_regular` now, which is
+  the game's own type using `button_regular_texture`: the same solid look as
+  «Очистить выбор» beside them.
+- **The corner above the +/- buttons was empty** and read as a column out of
+  line. It has a «+» heading now; `margin_left` went 48 → 10 and the new 38-wide
+  cell makes the difference back, so «№» has not moved.
+- **And the goods row was four pixels wider than the scrollbox it sits in** —
+  1104 against 1100 — which nothing had noticed. The trailing spacer pays it
+  back.
+- **Still open: «Из чего» reads as sitting right of its heading.** Measured out
+  of the file, the header and the row are identical column for column, so this is
+  not a width. What is left is a constant inset the rows have and the header does
+  not, and `margin_left` is the one number that moves it.
+
+**2026-09-01 — `where_to_produce`, twenty-eighth load. The whole-map plan runs,
+and the owner's verdict is «получилось даже более менее сносно, я ожидал большой
+лажи».** Three screenshots, Wallachia, caps 3/3.
+
+- **The pass survives a button press and nothing was reported slow.** 44
+  locations, 132 rooms, **30 of the 47 goods makeable on that ground**, 90
+  buildings in 31 locations at 3 per good. The window drew, the counters read,
+  the map mode painted. Everything built on 2026-09-01 is now loaded except the
+  «Открыть» button and the caps at anything but 3.
+- **The per-good number was the binding constraint, not the caps.** Raising the
+  urban cap 3 → 5 changed nothing; raising «зданий на товар» to 10 filled the
+  ground exactly — **132 buildings in all 44 locations**. So the caps were never
+  reached and the ceiling the plan actually ran into was its own rounds.
+- **Locations were left empty at 3 per good**, 13 of the 44, and the owner's
+  ruling is that **no location in the plan's ground should ever be left empty**:
+  what a displaced building leaves behind is exactly what should cascade into the
+  poorer ground.
+- **And the one-good-per-province rule was the wrong rule.** It was built to
+  spread a good across provinces; the owner plays the opposite way — «вся
+  сельская местность в одной провинции в большинстве случаев получит линейку
+  домиков одинаковую», a province specialises and its locations repeat it. He
+  read the scatter on the screenshot as a fault before realising the rows were
+  grouped: what he expected under Западная Мунтения was «ряд почти одинаковых
+  товаров». The rule is inverted rather than tuned — see
+  [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
+- **Asked for besides:** urban rights in the plan, with first pick of the ground
+  and a switch to leave them out.
+- No logs asked for and none needed: nothing did nothing.

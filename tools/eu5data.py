@@ -123,6 +123,10 @@ CATEGORY_GROUPS = (
 # The game's six ages, in order, and the number the mod prints. A building's
 # age comes from the advance that unlocks it; one no advance names is a starting
 # building and counts as age 0.
+# The location ranks a building type declares, smallest first. The game's own
+# ladder: a rural settlement, a town, a city, a megalopolis.
+LOCATION_RANKS = ("rural_settlement", "town", "city", "megalopolis")
+
 AGES = {name: number for number, name in enumerate(
     ("age_1_traditions", "age_2_renaissance", "age_3_discovery",
      "age_4_reformation", "age_5_absolutism", "age_6_revolutions"), start=1)}
@@ -167,6 +171,23 @@ class Method:
     output: float
     inputs: dict[str, float] = field(default_factory=dict)
     parts: list[Part] = field(default_factory=list)
+    # The location ranks the building declares -- `rural_settlement`, `town`,
+    # `city`, `megalopolis`, straight off the building type. **This is not the
+    # same split as `building_category`**: thirty production buildings stand in
+    # a rural settlement and only four of them are villages, so a plan that
+    # offers a village a village building and nothing else leaves out the stone
+    # quarries, clay pits, lumber mills and masons that belong there.
+    ranks: frozenset[str] = frozenset()
+
+    @property
+    def rural(self) -> bool:
+        """Can this be built in a rural settlement?"""
+        return "rural_settlement" in self.ranks
+
+    @property
+    def urban(self) -> bool:
+        """Can this be built in anything above one?"""
+        return bool(self.ranks & {"town", "city", "megalopolis"})
 
     @property
     def total_input(self) -> float:
@@ -492,6 +513,10 @@ def load_game(common: Path | None = None) -> Game:
             continue
 
         category = scalar(entries, "category") or ""
+        # A rank is declared as a bare `town = yes` at the top of the building.
+        ranks = frozenset(
+            rank for rank in LOCATION_RANKS
+            if str(scalar(entries, rank) or "").lower() == "yes")
         for combination in itertools.product(*slots):
             parts = []
             for name, body in combination:
@@ -512,6 +537,7 @@ def load_game(common: Path | None = None) -> Game:
                 output=sum(part.output for part in parts),
                 inputs=merged,
                 parts=parts,
+                ranks=ranks,
             ))
     obsoleted = {str(scalar(entries, "obsolete")) for entries in buildings.values()
                  if scalar(entries, "obsolete")}

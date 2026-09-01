@@ -1,2 +1,3 @@
 ﻿gui/bag_wtp_result_window.gui = bag_wtp_result_window
 gui/bag_wtp_right_window.gui = bag_wtp_right_window
+gui/bag_wtp_plan_window.gui = bag_wtp_plan_window

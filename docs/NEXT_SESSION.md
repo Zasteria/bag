@@ -32,45 +32,44 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: three ages on a row, and the pairs are in
+## `where_to_produce`: the whole-map plan
 
-Twenty-four loads. A row answers in three ages — «Сейчас», «По пути» (the best
-this ground ever feeds, and the last age it can be built), «В конце» — because
-the end alone cannot order a table where every wool province ends at 0.00%. Two
-«Считать» buttons choose the order and which age the row names.
-
-**The two-slot question is settled** from the game's own build panel — each slot
-earns its own bonus over its own output:
-[`investigations/production_ladder.md`](investigations/production_ladder.md).
-
-**The twenty-sixth load passed on everything and the owner is satisfied with the
-functionality** — the fed floor is half a recipe's possible bonus now
-(`generate.fed_floor`), «Из чего» is a `widget` with an anchored child rather
-than a sized hbox that centred it, and the buildable tick re-ranks the open
-window. Two name columns narrowed to pay for the method column had to be given
-their width back and a spacer; one alignment question is open in `TESTLOG.md`.
+**Everything before the plan is done and the owner is content with it** — the
+three ages on a row, the two «Считать» buttons, the four pickers including a
+whole market. The state is [`../mods/where_to_produce/CLAUDE.md`](../mods/where_to_produce/CLAUDE.md);
+one alignment question is open in `TESTLOG.md` and nothing else is.
 
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**The next thing is not another fix.** Two jobs are open and the owner has
-chosen the second:
+**The whole-map plan is the job, and the next session's first move is
+[`investigations/plan_formula.md`](investigations/plan_formula.md) — not code.**
+The owner stopped the iterating himself on 2026-09-01, after six loads: «нам
+нужно сначала вывести точную и доходчивую формулу приоритетов и выгоды
+постройки производства, нежели вот так вот долбить всё туда-сюда». That file is
+the specification — what one building in one location is worth, what the ground
+can hold, and who claims it first — with four questions at the end that are his
+alone. **Put those four to him and settle them before touching the allocation.**
+[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md) is how the
+thing is built; the formula is what it is for.
 
-**The picking is done and the owner is content with the functionality.** A
-market is a fourth thing to pick and it turned out to be a map region like the
-others — hover and it outlines, click and it is yours. Any market in the world
-now, not only the ones the country sits in. The picker buttons are the game's
-solid `action_button_regular` rather than the transparent flavour ones copied
-from Advanced Auto Build, and the corner above the +/- buttons has a heading.
+**And he asked for no more counters until it works.**
 
-**So the next job is the one the mod was built for:
-[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md)** — every
-building for every good, placed once over one stretch of ground, with a cap per
-province, the RGOs already there counted, and a rule for the province every good
-wants. **Read that file first.** It ends in five questions that are the owner's
-to answer, and asking them is the first move rather than the second; it also
-names the trap — a whole feature finished before its first load, which is how
-this mod's predecessor died.
+**Six loads in, and the thirty-third found the guard eating the plan**: one sweep
+counter shared by all six scarcity tiers, so the last tier — the one that fills
+the ground — never ran, and twenty-eight buildings landed in a hundred and
+forty-four places. Fixed, unloaded, and worth one press before any design work:
+it is the difference between «план почти пуст» and a plan.
+
+Also unloaded: the `n/m` on a ranking row — how many of a province's locations
+can hold the winning building, his Sauerland question — and the plan's icons
+given room to breathe.
+
+Not built on purpose: **the demand knob** — «я выбираю товар и щёлкаю +1» — which
+under the province model is a floor in provinces, one CMF numeric field and one
+round before the sweeps, held back only so the next screenshot stays readable;
+the RGO discount; regret ordering within a sweep; and choosing which goods to
+plan rather than all of them.
 
 **Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
 about `where_to_produce` is confirmed.

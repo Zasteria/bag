@@ -413,6 +413,20 @@ types BagWtpResultTypes {
 		}
 
 		widget = { size = { 4 28 } }
+
+		# How many of the province's locations can actually hold this building.
+		# Every location scores the same -- the bonus is the whole province's --
+		# but they do not all pass the game's «can this be built here»: Sauerland
+		# has seven and one of them is flat, so a quarry answers for six.
+		text_single = {
+			size = { 44 28 }
+			autoresize = no
+			align = left|vcenter
+			fontsize = 13
+			text = "bag_wtp_result_fit_value"
+			tooltip = "bag_wtp_result_fit_tt"
+		}
+
 		widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 	}
 
@@ -1042,6 +1056,14 @@ window = {
 						text = "bag_wtp_result_head_goods"
 					}
 					widget = { size = { 4 24 } }
+					text_single = {
+						size = { 44 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_result_head_fit"
+						tooltip = "bag_wtp_result_fit_tt"
+					}
 					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 				}
 

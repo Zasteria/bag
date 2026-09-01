@@ -124,3 +124,85 @@ bag_wtp_result_collapse = {
 	}
 }
 
+
+bag_wtp_open_plan_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_open_plan_window_effect = yes
+	}
+}
+
+bag_wtp_close_plan_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		remove_variable = bag_wtp_plan_open
+		bag_wtp_plan_hide = yes
+	}
+}
+
+# «Count this one as a town», and its opposite, from a button on a plan row.
+#
+# **It is the player's answer and no plan run touches it.** The game's rank is
+# only what is true today: a rural settlement he means to raise is still a rural
+# settlement to `location_rank`, and the mod cannot guess which of them he will
+# raise. `bag_wtp_plan_is_town` reads these two first and the rank last.
+#
+# Nothing is re-planned here. A rank change moves a location between two lists
+# that are decided per province, so half a plan would disagree with the other
+# half; the next press of «План» is what makes it true.
+bag_wtp_plan_mark_town = {
+	scope = country
+	saved_scopes = { wtp_location }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		scope:wtp_location = {
+			if = {
+				limit = { has_variable = bag_wtp_force_town }
+				# Already forced to a town: the next click says «village» instead, and
+				# the one after that gives the location back to the game's own rank.
+				remove_variable = bag_wtp_force_town
+				set_variable = { name = bag_wtp_force_rural value = 1 }
+			}
+			else_if = {
+				limit = { has_variable = bag_wtp_force_rural }
+				remove_variable = bag_wtp_force_rural
+			}
+			else = {
+				set_variable = { name = bag_wtp_force_town value = 1 }
+			}
+		}
+	}
+}
+
+# «Пересчитать», from the plan window itself.
+#
+# **Nothing else re-plans.** A pick on the map does not, and neither does the
+# town/village button: the pass reads every recipe in the game on every location
+# and a plan that redrew itself on each click would be unusable — and he may well
+# flip a hundred of them before he wants an answer. So the moment is his.
+bag_wtp_plan_refresh = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_plan_run = yes
+		bag_wtp_plan_show = yes
+	}
+}

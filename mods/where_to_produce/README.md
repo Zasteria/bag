@@ -75,12 +75,74 @@ about it surprise people:
   engine's own bonus counts the same way is an open question with a one-hover
   test in `docs/research/engine.md`.
 
+## The whole plan
+
+The fourth group on the Answer tab, and a second question rather than a bigger
+version of the first: **every good at once over the chosen ground**, one building
+at a time, under a cap per location.
+
+**Six steps, and the «План» button prints them too:**
+
+1. **Score every good in every location** — the best method whose building may
+   actually stand there, that the ground feeds, and that you could run: output
+   times the bonus its raw materials earn.
+2. **Divide each good by its own best in this ground**, one divisor for both
+   sides, so a good that tops out at 5% compares fairly with one that tops out at
+   10%. Without it the biggest recipe takes every contested location.
+3. **Grant urban rights**, in towns only and all or nothing: a town takes the
+   right its ground suits best among those whose *whole* bundle it can make.
+4. **Then the rest, in rounds, the scarce goods first.** A good only a couple of
+   locations can hold takes its place before a common one takes a second — the
+   sweeps run in tiers of 1, 2, 4, 8, 16 candidate locations, then everything.
+5. **A location holds one building of a type**, so a good whose building already
+   stands there is not offered again — but the next location may take that
+   building running another method.
+6. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
+
+- **Every building is one the game says may stand there.** `can_build_building`
+  in the location's scope — terrain, rank, `location_potential`, and never an
+  advance, so it is as true for ground you have not taken as for the last age. A
+  bog iron smelter wants wetlands or a lake; a sugar plantation wants sugar
+  growing overseas.
+- **Two caps, set in the game**: buildings per rural location (3) and per town
+  (4). The game exposes no building-slot count of any kind, so these are the
+  player's figures; the pass prints the capacity of the chosen ground beside the
+  goods asking for room in it.
+- **Two buttons, now and at the end of the game**, the same pair the ranking has:
+  along the ladder a recipe's inputs move, so the province that suits the guild
+  is not the one that suits the mill.
+- **Which locations count as towns is yours to override**, from a button on the
+  row. No plan run clears it.
+- **The answer is a table and a map.** Rows are locations ordered by province —
+  provinces by how much the plan put in each, their locations together, towns
+  first — and a map mode in the Economy category paints completeness.
+
+**A province is coherent only where it deserves to be.** Every location of a
+province is worth the same to a good, so the walk keeps returning to a province
+it likes and its locations come out alike. Where the ground is tight it varies
+them instead, which is the point: a market village here can make pottery while
+the next makes jewelry.
+
+**Everything the pass reads is a variable on a location.** `bag_wtp_load`,
+`bag_wtp_plan_goods` and `bag_wtp_plan_builds` are the whole answer, the last of
+them also being the set a location may hold only one of each from;
+`bag_wtp_plan_prank` is what keeps a province's rows together. **Never on the
+`province_definition`** — it holds no variable, and the plan that tried placed
+nothing at all (`docs/PITFALLS.md`).
+The design and the owner's answers behind it:
+[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
+
 ## What is deliberately not here yet
 
-Priorities, mass distribution, building-slot capacity, and any measure of what a
-building costs to put up. The ranking still walks the fifty best provinces by
-the *near* column unless told otherwise, so a province that is poor now and
-first in the last age is only found with «Rank by the last age» ticked.
+Any measure of what a building costs to put up. In the plan: a per-good weight
+(«этому товару нужно больше места»), the discount an RGO already standing should
+buy a good, choosing which goods to plan rather than all of them, ordering the
+goods within a sweep by which of them would lose most, and asking whether a
+location can actually hold what its province's list says — terrain and a
+building's own requirements are not consulted when the lists are spent. The ranking still
+walks the fifty best provinces by the *near* column unless told otherwise, so a
+province that is poor now and first in the last age is only found with «Rank by
+the last age» ticked.
 
 ## Two places the answer is shown
 

@@ -1,0 +1,584 @@
+﻿# The whole-map plan: one row per location the plan put anything in, the most
+# crowded first.
+#
+# **A row is a location here and a province in the other window**, and that is
+# the whole difference between the two. The ranking answers «which province is
+# best at this good», which is a question about a province because the bonus is
+# counted over one. A plan answers «what do I build here», and «here» is a
+# location: the cap is a location's, and one province holds four of them.
+#
+# Everything a row prints is on the location itself -- `bag_wtp_load` and the
+# `bag_wtp_plan_goods` list, both written by `bag_wtp_generated_plan.txt` -- and
+# `bag_wtp_plan_results` is those locations in rank order. The idiom is the
+# results window's throughout: every column a fixed width, none expanding, and a
+# column that hugs its content is a `widget` with an anchored child rather than a
+# sized hbox (`docs/pitfalls/interface.md`).
+
+types BagWtpPlanTypes {
+
+	# One good the plan put here, and under it the building that would make it.
+	#
+	# **They are two lists and not one**, because a datamodel item sees one scope.
+	# The province's goods and its buildings are written in step and read back in
+	# step, and every cell is the same fixed width, so the two rows line up
+	# without anything linking them. A row of forty-seven possible goods has no
+	# space for words, so both names are tooltips.
+	type bag_wtp_plan_goods_entry = widget {
+		size = { 32 20 }
+		text_single = {
+			parentanchor = center
+			autoresize = yes
+			fontsize = 16
+			raw_text = "[Goods.GetIcon]"
+			tooltip = "[Goods.GetName]"
+		}
+	}
+
+	# **A building's icon is a texticon and not a texture.** `BuildingType.GetIcon`
+	# returns a `CString` -- vanilla writes it as `raw_text` beside the name in
+	# `alertmanager.gui` -- so an `icon` with `texture = "[...GetIcon]"` draws
+	# nothing at all, which is what the thirty-second load showed.
+	type bag_wtp_plan_building_entry = widget {
+		size = { 32 20 }
+		text_single = {
+			parentanchor = center
+			autoresize = yes
+			fontsize = 15
+			raw_text = "[BuildingType.GetIcon]"
+			tooltip = "[BuildingType.GetName]"
+		}
+	}
+
+	type bag_wtp_plan_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 42 }
+		spacing = 0
+		using = bg_number_container_bckg
+
+		# The map answers the row. `SetHighlightLocation` is on the generic widget
+		# rather than on any view, so this is the game's own highlight in a mod's
+		# own window, and the engine clears it when the mouse leaves.
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
+
+		text_single = {
+			size = { 38 42 }
+			autoresize = no
+			align = center|vcenter
+			fontsize = 13
+			text = "bag_wtp_plan_rank_value"
+			tooltip = "bag_wtp_plan_rank_tt"
+		}
+
+		# The rank cell is a button and the button is the override. The game's
+		# rank is only what is true today; a village he means to raise is still a
+		# village to `location_rank`, and the mod cannot guess which. Clicking
+		# cycles auto -> town -> village -> auto.
+		#
+		# **One word and no icon.** The first build drew the game's rank icon in
+		# the button, which of course never changed however the override was set,
+		# and coloured the word with `§Y...§!`, which this widget prints
+		# literally. The location's own rank icon is beside its name instead,
+		# where it says what the game thinks rather than what the plan does.
+		widget = {
+			size = { 92 42 }
+			button_regular = {
+				size = { 88 26 }
+				parentanchor = center
+				widgetanchor = center
+				tooltip = "bag_wtp_plan_rank_button_tt"
+				onclick = "[GetScriptedGui('bag_wtp_plan_mark_town').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet), Not(Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet))]"
+					text = "bag_wtp_plan_rank_auto"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet]"
+					text = "bag_wtp_plan_forced_town"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet]"
+					text = "bag_wtp_plan_forced_rural"
+				}
+			}
+		}
+
+		# What the game itself calls this location, which the button above does
+		# not change.
+		widget = {
+			size = { 26 42 }
+			icon = {
+				size = { 18 18 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
+		text_single = {
+			size = { 154 42 }
+			autoresize = no
+			maximumsize = { 154 42 }
+			align = left|vcenter
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		widget = { size = { 6 42 } }
+
+		text_single = {
+			size = { 130 42 }
+			autoresize = no
+			maximumsize = { 130 42 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "[Location.GetProvinceDefinition.GetName]"
+			tooltip = "bag_wtp_plan_province_tt"
+		}
+
+		widget = { size = { 6 42 } }
+
+		text_single = {
+			size = { 100 42 }
+			autoresize = no
+			maximumsize = { 100 42 }
+			align = left|vcenter
+			elide = right
+			fontsize = 13
+			text = "[Location.GetArea.GetNameWithNoTooltip]"
+		}
+
+		widget = { size = { 6 42 } }
+
+		text_single = {
+			size = { 56 42 }
+			autoresize = no
+			align = center|vcenter
+			fontsize = 14
+			text = "bag_wtp_plan_load_value"
+			tooltip = "bag_wtp_plan_load_tt"
+		}
+
+		widget = { size = { 6 42 } }
+
+		# What the ground already digs up here, which is the other half of the
+		# answer: a location with salt in it is why the plan put no salt works in
+		# the province, and the icon says so without a column of its own.
+		widget = {
+			size = { 30 42 }
+			visible = "[Location.HasRawMaterial]"
+			icon = {
+				size = { 22 22 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[GetGoodsIcon(Location.GetRawMaterial)]"
+				tooltip = "[Location.GetRawMaterial.GetName]"
+			}
+		}
+
+		widget = { size = { 6 42 } }
+
+		# Which urban right the province was given, if the switch is on. A
+		# `customizable_localization` of this mod's own turns the number the pass
+		# parks on the location into the right's own name and icon.
+		text_single = {
+			size = { 150 42 }
+			autoresize = no
+			maximumsize = { 150 42 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			# A village row carries its province's right variable too, because
+			# everything is mirrored across the province -- and printing it there
+			# said a right applies to a village, which it never does.
+			visible = "[Location.MakeScope.GetVariable('bag_wtp_plan_town_row').IsSet]"
+			text = "[Location.Custom('bag_wtp_plan_right_label')]"
+			tooltip = "bag_wtp_plan_right_tt"
+		}
+
+		widget = { size = { 6 42 } }
+
+		# The plan itself: the goods over the buildings that would make them. A
+		# `widget` and not an hbox, so the two rows hug the left of the cell
+		# instead of being centred in it.
+		widget = {
+			size = { 260 42 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_plan_goods_tt"
+
+			vbox = {
+				parentanchor = left|vcenter
+				spacing = 0
+
+				hbox = {
+					spacing = 6
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_goods')]"
+					item = {
+						bag_wtp_plan_goods_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				hbox = {
+					spacing = 6
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_builds')]"
+					item = {
+						bag_wtp_plan_building_entry = {
+							datacontext = "[Scope.GetBuildingType]"
+						}
+					}
+				}
+			}
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 30 } }
+	}
+}
+
+window = {
+	name = "bag_wtp_plan_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	widgetanchor = center
+	position = { 0 0 }
+	movable = yes
+	size = { 1180 720 }
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
+
+	widget = {
+		size = { 1180 720 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_plan_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_plan_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 80 }
+					align = center
+					text = "bag_wtp_plan_window_desc"
+				}
+
+				# The borders, the same four buttons the ranking window carries.
+				# They were only there before, and choosing the ground for a plan
+				# meant opening the other window to do it and coming back.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					action_button_regular = {
+						size = { 128 34 }
+						title = "bag_wtp_map_pick_area"
+						description = "bag_wtp_map_pick_area_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_area" }
+						tooltip = "bag_wtp_map_pick_area_desc"
+						text_single = {
+							size = { 120 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 120 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_area"
+						}
+					}
+
+					action_button_regular = {
+						size = { 128 34 }
+						title = "bag_wtp_map_pick_province"
+						description = "bag_wtp_map_pick_province_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_province" }
+						tooltip = "bag_wtp_map_pick_province_desc"
+						text_single = {
+							size = { 120 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 120 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_province"
+						}
+					}
+
+					action_button_regular = {
+						size = { 128 34 }
+						title = "bag_wtp_map_pick_location"
+						description = "bag_wtp_map_pick_location_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_location" }
+						tooltip = "bag_wtp_map_pick_location_desc"
+						text_single = {
+							size = { 120 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 120 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_location"
+						}
+					}
+
+					action_button_regular = {
+						size = { 128 34 }
+						title = "bag_wtp_map_pick_market"
+						description = "bag_wtp_map_pick_market_desc"
+						actor = "[Player]"
+						left_action = { action_name = "bag_wtp_select_market" }
+						tooltip = "bag_wtp_map_pick_market_desc"
+						text_single = {
+							size = { 120 30 }
+							parentanchor = center
+							autoresize = no
+							maximumsize = { 120 30 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_map_pick_market"
+						}
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+					# Choosing on the map does not re-plan: the pass is fifty times
+					# a ranking's, and a plan that redrew itself on every click
+					# would make the picker unusable. Press «План» again.
+					text_single = {
+						size = { 190 34 }
+						autoresize = no
+						maximumsize = { 190 34 }
+						align = right|vcenter
+						fontsize = 12
+						fontsize_min = 9
+						elide = right
+						text = "bag_wtp_select_summary"
+						tooltip = "bag_wtp_plan_reselect_tt"
+					}
+
+					# The plan is remade only when he says so, which is the whole
+					# point of the button: he may flip a hundred town markers
+					# before he wants an answer.
+					button_regular = {
+						size = { 150 42 }
+						tooltip = "bag_wtp_plan_refresh_tt"
+						text_single = {
+							size = { 116 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 116 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_plan_refresh"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_plan_refresh').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					button_regular = {
+						size = { 150 42 }
+						tooltip = "bag_wtp_clear_all_tt"
+						text_single = {
+							size = { 116 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 116 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_clear_all"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				# The pass, in numbers. Every one of them is counted by the pass
+				# itself, and the first zero among them is the diagnosis: an effect
+				# that merely does nothing logs nothing at all, and this is the one
+				# place a failure is visible without asking for a log.
+				# A fixed width and not an expanding one: an expanding child inside a
+				# parent that has a size of its own comes out at zero and elides to
+				# nothing, which reads exactly like a variable that failed to print
+				# (`docs/pitfalls/interface.md`).
+				text_single = {
+					size = { 1130 22 }
+					maximumsize = { 1130 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "bag_wtp_plan_pass_summary"
+					tooltip = "bag_wtp_plan_pass_tt"
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 60 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
+					text = "bag_wtp_plan_window_empty"
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_left = 10
+					spacing = 0
+					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_plan_results'))]"
+
+					text_single = {
+						size = { 38 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rank"
+					}
+					text_single = {
+						size = { 92 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rank_kind"
+						tooltip = "bag_wtp_plan_rank_button_tt"
+					}
+					widget = { size = { 26 24 } }
+					text_single = {
+						size = { 154 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_location"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 130 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_province"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 100 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_area"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 56 24 }
+						autoresize = no
+						align = center|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_load"
+						tooltip = "bag_wtp_plan_load_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 30 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_rgo"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 150 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_right"
+						tooltip = "bag_wtp_plan_right_tt"
+					}
+					widget = { size = { 6 24 } }
+					text_single = {
+						size = { 260 24 }
+						autoresize = no
+						maximumsize = { 260 24 }
+						align = left|vcenter
+						fontsize = 13
+						text = "bag_wtp_plan_head_goods"
+					}
+					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
+							item = {
+								bag_wtp_plan_entry = {
+									datacontext = "[Scope.GetLocation]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -96,6 +96,40 @@ bag_wtp_store_row = {
 		else = {
 			remove_variable = bag_wtp_row_end
 		}
+		# **How many of the province's locations can actually hold this answer.**
+		# Every location of a province scores the same -- the bonus is the whole
+		# province's -- but they do not all pass `can_build_building`: the owner
+		# found a quarry offered for Sauerland where one of its seven locations is
+		# flat. The scoring pass has already asked that question of every
+		# candidate, so the count is free: the locations whose own winner is the
+		# same method as this row's are the ones the building may stand in.
+		set_global_variable = { name = bag_wtp_fit_method value = var:bag_wtp_best_method }
+		set_global_variable = { name = bag_wtp_fit_method_rural value = var:bag_wtp_best_method_rural }
+		set_global_variable = { name = bag_wtp_fit_n value = 0 }
+		set_global_variable = { name = bag_wtp_fit_all value = 0 }
+		province_definition = {
+			every_location_in_province_definition = {
+				limit = { has_variable = bag_wtp_best_method }
+				change_global_variable = { name = bag_wtp_fit_all add = 1 }
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								global_var:bag_wtp_fit_method > 0
+								var:bag_wtp_best_method = global_var:bag_wtp_fit_method
+							}
+							AND = {
+								global_var:bag_wtp_fit_method_rural > 0
+								var:bag_wtp_best_method_rural = global_var:bag_wtp_fit_method_rural
+							}
+						}
+					}
+					change_global_variable = { name = bag_wtp_fit_n add = 1 }
+				}
+			}
+		}
+		set_variable = { name = bag_wtp_fit value = global_var:bag_wtp_fit_n }
+		set_variable = { name = bag_wtp_fit_of value = global_var:bag_wtp_fit_all }
 		bag_wtp_store_winner_now_town = yes
 		bag_wtp_store_winner_now_rural = yes
 		bag_wtp_store_winner_mid_town = yes

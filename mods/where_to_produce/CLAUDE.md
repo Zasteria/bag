@@ -4,36 +4,45 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: twenty-seven loads in, and a row answers in three ages** — «Сейчас»,
-«По пути» (the best this ground ever feeds, and the last age it can be built),
-«В конце». **Two «Считать» buttons, not three sort headers:** one orders by
-today, the other by the end and breaks ties on «По пути», the only column with
-anything to say where a ladder ends early.
+**State: twenty-nine loads in.** A row answers in three ages — «Сейчас», «По
+пути» (the best this ground ever feeds, and the last age it can be built), «В
+конце» — on two «Считать» buttons rather than sort headers.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is not an answer**, and where none
-clears the bar there is no row. The bar is half the bonus the recipe could ever
-earn — `generate.fed_floor`, one literal per method — because "fed anything at
-all" offered a silk weaver where there are dyes and no silk. Every column keeps a
-fed answer for the ranking and an unfed one for printing, so a cell says 0.00%
-where a blank would lie: wool fine cloth stops at the workshop.
+**A recipe the province mostly cannot feed is not an answer** — the bar is half
+the bonus it could ever earn (`generate.fed_floor`). **And since the
+thirty-second load a recipe whose building cannot stand there is not one either**:
+`can_build_building` gates every answer the ranking gives, in all three ages.
 
-**A building runs one method out of each of its slots** — eight have two, and
-each slot earns its own bonus over its own output (settled from the game's
-panel), so a `Method` is the pair: `eu5data.Method.shares`, and why in
+**A building runs one method out of each of its slots** — eight have two, each
+earning its own bonus over its own output, so a `Method` is the pair
+(`eu5data.Method.shares`):
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Urban rights** are two lists on the Goods tab and a window of their own, on the
-same two buttons and fallbacks but with no «По пути» column, only the tiebreak. A
-right's gate is its own `potential` or its advance's, never `has_advance`, so
-most countries see none of the three. Numbers and the deferred level rights:
+**Urban rights** are two lists on the Goods tab and a window of their own, with
+no «По пути» column. A right's gate is its own `potential`, never `has_advance`.
+Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
-**Four pickers, and the market one names its own candidates**: hovering outlines
-a market like an area, but only what `interaction_source_list` holds can be
-clicked, so `bag_wtp_select_market` fills it from `every_market_in_world` — the
-neighbour's market is exactly the one a conquest is planned on.
+**Four pickers**, and only what `interaction_source_list` holds is clickable
+(`docs/SETTLED.md`).
+
+**The whole-map plan is decided per location**, in six steps on its own button.
+**Read [`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+before changing any of it** — the owner stopped the iterating on 2026-09-01 and
+that file is the specification he wants agreed first, with four questions only he
+can answer. **An entry is a building and a location holds
+one of each**; the next location may take that building on another method.
+**Every building is one `can_build_building` allows there** — terrain, rank,
+`location_potential`, never an advance. **The sides are the building's own rank
+gates**, not `village_category`. **A right is all or nothing**, and a town's.
+**The scarce go first**, in sweep tiers — each with its own budget, which one
+load spent for all six.
+Urban rights take a town list whole, chosen per province. Every condition is a
+location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
+**The expensive button** — 241 recipes a location. All of it in
+[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography

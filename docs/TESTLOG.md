@@ -38,178 +38,181 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
-**2026-08-31 — `where_to_produce`, twenty-seventh load. The market picker works,
-and it is drawn on the map after all.** One screenshot, fine cloth, «На конец».
+**2026-09-01 — `where_to_produce`, thirty-third load. The sweep guard ate the
+plan, and the owner called a halt to iterating.** Three screenshots, Westphalia,
+caps 3/3, rights on; and the ranking checked separately on stone.
 
-- **A market *is* a map region to the picker.** Hovering outlines the market's own
-  borders and a click takes it — no list needed, the same feel as an area. The
-  file said the opposite for one commit; a market not being drawn on the map was
-  a guess from vanilla's one usage and it was wrong.
-- **But only the markets `interaction_source_list` names are clickable**, and it
-  named `every_market_present_in_country`, so the neighbour's market could not be
-  taken — which is exactly the market somebody planning a conquest wants to lay
-  out. It is `every_market_in_world` now, framed by the ticked continents the way
-  the other three pickers are.
-- **The picking works and the owner is happy with it**: «В остальном всё чётко,
-  удобно, классно.» Selection, re-rank and the counters all followed.
-- **The four picker buttons were transparent and dreary** — an `action_button`
-  with `bg_button_flavor_1`, copied from Advanced Auto Build, which is a flavour
-  background over a bare button. They are `action_button_regular` now, which is
-  the game's own type using `button_regular_texture`: the same solid look as
-  «Очистить выбор» beside them.
-- **The corner above the +/- buttons was empty** and read as a column out of
-  line. It has a «+» heading now; `margin_left` went 48 → 10 and the new 38-wide
-  cell makes the difference back, so «№» has not moved.
-- **And the goods row was four pixels wider than the scrollbox it sits in** —
-  1104 against 1100 — which nothing had noticed. The trailing spacer pays it
-  back.
-- **Still open: «Из чего» reads as sitting right of its heading.** Measured out
-  of the file, the header and the row are identical column for column, so this is
-  not a width. What is left is a constant inset the rows have and the header does
-  not, and `margin_left` is the one number that moves it.
+- **«Локаций 48 (городских 7) · провинций 8 · мест 144 · товаров 27 · прав
+  выдано 1 · зданий 28 в 20 локациях · лимиты 3/3 · кругов 12».** Twenty-eight
+  buildings out of a hundred and forty-four places, most locations holding one
+  thing, whole provinces cut short.
+- **«Кругов 12» is the diagnosis and it is in the line.** `PLAN_ROUNDS` is 12 and
+  the sweep counter was **one counter shared by all six scarcity tiers**, so the
+  scarce tiers spent the budget and the last tier — the one that fills the ground
+  — never ran. Each tier has its own budget now.
+- **The ranking's buildability gate works and is visibly right.** Stone in
+  Westphalia: the wholly flat province is gone, and Sauerland stayed with 3.72%.
+  **But Sauerland has seven locations and one of them is flat**, and the row said
+  nothing about that: «мне должно предлагаться конкретнее место». A row prints
+  `n/m` now — how many of the province's locations can hold the winning building
+  — counted for free off the winners the scoring pass already wrote.
+- **«Обошёл 48 · нашёл 1»** for stone across the whole of Westphalia. One
+  province. That is the gate being strict, and it is worth knowing whether it is
+  too strict before anything else is built on top of it.
+- **Only one urban right granted** (tools, in Münster). All-or-nothing plus
+  buildability is a hard filter and Westphalia is a poor ground for bundles, but
+  whether that is right or too strict is not settled.
+- **The picker says «48 лок. в 31 пров.» and the plan says «провинций 8».** They
+  count different things — the picker counts `province`, the owner-split piece,
+  and the plan counts `province_definition` — and neither label says so.
+- **The plan's icons ran together.** 26-wide cells at 2 spacing; 32 at 6 now.
+- **And the owner's instruction:** «Мне кажется нам нужно сначала вывести точную и
+  доходчивую формулу приоритетов и выгоды постройки производства, нежели вот так
+  вот долбить всё туда-сюда.» No more counters, no more rounds of guessing —
+  agree the formula first. It is written out in
+  [`investigations/plan_formula.md`](investigations/plan_formula.md) and that
+  document is the next session's first move.
 
-**2026-08-31 — `where_to_produce`, twenty-sixth load. All four fixes hold.**
-Three screenshots, fine cloth, and the owner's verdict: «если не придираться к
-этим злосчастным столбикам и выравниваниям, сейчас меня устраивает функционал».
+**2026-09-01 — `where_to_produce`, thirty-second load. The buildability gate
+holds, and the owner took the model apart one level further.** Two screenshots,
+Westphalia, 48 locations, caps 3/3.
 
-- **No silk weaver where there is no silk.** Западная Мунтения now reads
-  «Гильдия портных: Мериносовая шерсть ×0.70 + Красители с квасцами», **9.43%**,
-  «2/3» — and the two icons say why the old answer was wrong in a way nobody had
-  spotted: **the province works wool *and* dyes**. Silk never had anything to do
-  with it. 7.14 (wool) + 2.29 (dyes) = 9.43, the recipe fed on both halves; the
-  silk one won before only because 0.90 a level unfed beat 0.70 a level at 7.14%.
-  «В конце» is «Фабрики тонкого сукна ×4.00», 0.63%, «1/1». The wool provinces
-  behind it are untouched at 7.14% «1/3», and the count went 13 → 12.
-- **The buildable tick re-ranks the open window** — third screenshot, «Обошёл 8 ·
-  нашёл 5 · пересчётов 4», five provinces left standing with the window never
-  closed.
-- **`error.log` is clean**: not one `bag_wtp` line beyond the `Flag … never used`
-  and `Variable … used but never set` noise. The two `PostValidate` lines are
-  `qol_vassal_test_events`, another mod's.
-- **Two columns I narrowed were narrowed too far.** «Восточная Мунтения» abuts
-  «Валахия» and «Трансильвания» abuts its percentage: `elide` fills a column to
-  the last pixel and then touches the next one, so width alone can never fix it.
-  Both got their width back and a spacer of their own, paid for out of the method
-  column, and the row still adds up to what the header does.
-- **Not settled: whether «Из чего» is now under its heading.** The middle columns
-  read as aligned in the screenshots and that one may still sit a dozen pixels
-  right, which is too fine to call at this resolution. One glance on the next run
-  answers it.
+- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · записей 37
+  · зданий 140 в 48 локациях · кругов 4».** Goods fell 32 → 27 and buildings 148
+  → 140 with the gate in, and **no iron anywhere** — which is the gate working,
+  though he knows of a wetland province and wants to see it offered there.
+- **The building icons drew nothing.** `BuildingType.GetIcon` returns a `CString`
+  — a texticon, the same as `Goods.GetIcon` — so it belongs in `raw_text` and not
+  in an `icon`'s `texture`. Vanilla writes it that way in `alertmanager.gui`.
+- **`§Yгород§!` printed literally** in the override button, and its rank icon of
+  course never changed, being the game's. One word, no markup, and the game's
+  own rank icon moved out beside the location name.
+- **No urban right anywhere, all dashes.** Truthful under all-or-nothing —
+  Westphalia can make no whole bundle — but indistinguishable from a broken
+  feature, so the summary counts rights granted now.
+- **And the ranking beside the plan was cheating the same way.** «Каменоломню мне
+  выдало что отлично можно построить в провинции где полностью равнина, но там
+  есть дерево». `can_build_building` now gates every one of the ranking's
+  answers too, in all three ages.
+- **Two rules of the model were wrong, and he found both.**
+  **One:** uniqueness is per *location*, not per province — a market village
+  makes tools, jewelry, beer and pottery, so four villages of a province may take
+  one each rather than all taking pottery. The province lists are gone; the plan
+  decides per location and a province looks coherent only where it deserves to.
+  **Two:** a good only one place can hold must take that place before a common
+  good takes its second — «жёстко зарезервировать». The sweeps run in scarcity
+  tiers now (1, 2, 4, 8, 16, then everything), ordered by how many candidate
+  locations can host each good.
+- **He asked for the algorithm in plain words**, and it is on the «План» button's
+  own tooltip now, six steps.
+- No logs asked for and none needed.
 
-**2026-08-31 — `where_to_produce`, twenty-fifth load, with logs.** Two
-screenshots of fine cloth, «Считать» and «На конец».
+**2026-09-01 — `where_to_produce`, thirty-first load. The plan was planning
+things that cannot be built.** Three screenshots, Westphalia, 48 locations in 31
+provinces, caps 3/4, once without rights and once with.
 
-- **The row names its building again and every column sits under its header** —
-  both asked for and both confirmed. `error.log` carries no `PostValidate` with
-  `bag_wtp` in it; the only `bag_wtp` lines are `Flag … never used` and five
-  `Variable … used but never set` for `_mid_goods*` and `_pm2_rural`, which are
-  a generated `clear_variable_list` and a village that never runs a pair. Noise.
-- **«Из чего» is still not under its header, and worse on the second
-  screenshot.** Not a drift this time: the icons are *centred* in their column.
-  The container is an hbox with a width, `ignoreinvisible` leaves it exactly one
-  visible child, and an hbox with a width spreads its children across it — so
-  the offset is half the slack, which is why «0/1» alone sat further right than
-  «1/3» with an icon. Both windows' goods columns are plain `widget`s now with a
-  `parentanchor = left|vcenter` inside.
-- **A silk weaver was offered where there is no silk.** Западная Мунтения
-  supplies dyes and nothing else the recipe wants, and it came first at 1.78% on
-  «Гильдия ткачей шёлка + Красители с квасцами» — one input of three. Owner:
-  the market will not have silk either, so it is not an answer at all. The floor
-  a method has to clear is **half the bonus its raw materials could ever add**
-  now, not one point above nothing; `generate.fed_floor`, and the same fed/unfed
-  fallback as before behind it.
-- **The buildable tick drops provinces, but only after the window is closed and
-  opened again.** It never re-ranked — it wrote the setting and refreshed the
-  lists, which is right for every other tick on that page and wrong for the one
-  that changes which provinces are candidates. It calls
-  `bag_wtp_recompute_live` now, the same guard the map pickers go through.
-- **Wallachia sees no unique rights, which is the right answer.** The mod offers
-  three of them — two Scandinavian, gated on a culture group, and the Byzantine
-  silk monopoly on a tag. The other five grant building levels rather than an
-  output ratio and are deliberately not in the list. The Scandinavian half of
-  the question is still unrun and the owner has said he would rather not.
+- **«Локаций 48 (городских 6) · провинций 8 · мест 150 · товаров 32 · записей в
+  списках 43 · зданий 148 в 48 локациях · кругов 4».** The building rule and the
+  rank-gate sides both hold — village lists are different buildings now.
+- **And the plan offered iron in East Westphalia, where iron has exactly one
+  building: `bog_iron_smelter`, whose `location_potential` is
+  `is_adjacent_to_lake` or `topography = wetlands`.** There are no wetlands
+  there. Plantations were on offer in Westphalia too, and `sugar_plantation`
+  wants the location to already grow sugar *and* be overseas or colonial.
+  **The plan never asked whether a building may stand where it is put** — the
+  ranking has that tick and the plan did not inherit it.
+- **The fix is one condition and the engine's own words justify it.**
+  `can_build_building` documents itself as "location only checks local
+  requirements, country checks the country scope requirements", so asked in the
+  location's scope it is terrain, rank and `location_potential` and never the
+  country's advances — which is exactly what a plan wants, and it is safe on the
+  end-of-game side too.
+- **A right was granted where its bundle does not fit.** Brewing rights (beer,
+  liquor, wine) landed on a province with no wine, and the ordinary sweeps filled
+  the third slot with horses and salt. His rule: **a right obliges every good of
+  its bundle to be made where it is granted**, so all or nothing. No two goods of
+  any bundle in the game share a town building, so the test is an exact AND of
+  the per-good conditions.
+- **The right was printed on village rows as well**, where a right never applies.
+- **The window's toolbar was 1272 wide inside 1130** — four 164-pixel picker
+  buttons, a 260 summary and two 150 buttons — which is the frame «уехала» he
+  saw at the top right, twice now.
+- **And the doubt underneath all of it:** «я начинаю сомневаться, что мод вообще
+  хоть как-то ранжирует». It does — `bag_wtp_m<n>` (output × RGO bonus) →
+  `_pnowbest_*` → `_p<g>` → `order_by` — and the fed floor is applied. It was
+  ranking correctly over a set of methods that included ones the ground cannot
+  hold, which reads exactly like not ranking at all.
+- No logs asked for and none needed.
 
-**2026-08-31 — `where_to_produce`, twenty-fourth load. The fixed-width columns
-ate the building's name.** Two screenshots, fine cloth and textile.
+**2026-09-01 — `where_to_produce`, thirtieth load. The plan runs, and the owner
+found the model's real mistake in one province.** Two screenshots, 127 locations
+in 26 provinces, caps 3/4, rights on.
 
-- **A row printed «± Красители с квасцами» and nothing else** — no building, no
-  method, no «×». The cause is one line: the method cell was given a size of its
-  own, and a child carrying `layoutpolicy_horizontal = expanding` inside a sized
-  hbox gets **no width at all**, so the text elided to nothing. The improvement
-  beside it survived because it was `autoresize = yes`. Every column in both
-  windows carries an explicit width now and none of them expands; the slack goes
-  to a spacer at the far right, and the row's widths add up to the header's to
-  the pixel (762 after the area column in the goods window, 700 per slot in the
-  rights one).
-- **Two spacers where the header had one.** «В конце» was followed by 10px in a
-  row and 6 in the header, and a second 6 had crept in before «По пути»: four
-  and six pixels, and every column after them out of line. That is the whole of
-  the «Из чего» drift.
-- **Fifty pixels moved from «Из чего» to «Здание и метод»**, which is where the
-  long names are: a building, a method and an improvement in one cell.
-- **Urban rights work on both buttons**, owner's words, and the unique list is
-  empty again — which for Wallachia is the right answer, since the two
-  Scandinavian privileges gate on a culture group and the Byzantine one on a tag.
+- **«Локаций 127 (городских 8) · провинций 19 · мест 389 · товаров 30 · записей
+  в списках 75 · зданий 322 в 120 локациях · кругов 8».** The province model
+  works end to end: rows grouped by province, its towns first, and its locations
+  carrying the same list. The `province_definition` fix held.
+- **And the list is wrong, because its unit is wrong.** Székely Land's villages
+  each got tools, jewelry and beer — «по сути все три этих товара даёт одно и то
+  же здание „торговая деревня"». He is right: `market_village` makes all three,
+  **a location holds one building of a type and a building runs one method**, so
+  those three entries are one building's worth of answer and two wasted slots.
+  The plan's list is a list of **buildings** now, not of goods, and a good whose
+  winning building is already on the province's list is not an answer.
+- **The worse half of the same mistake, found by following it up.** The plan's
+  «village» side was `village_category` — four buildings in the whole game. But
+  **thirty production buildings declare `rural_settlement = yes`**, and the other
+  twenty-six are exactly what he said should have been there: stone quarries,
+  clay pits, lumber mills, masons, salt collectors, sand pits. The two sides are
+  split on the building's own rank gates now (`eu5data.Method.rural` / `.urban`),
+  which takes a rural location's choice from 4 buildings to 30 and from a
+  handful of goods to 31.
+- **19 provinces against 26 «выбрано»** is not yet explained. The picker counts
+  provinces its own way and the plan counts the ones it prepared; they should
+  agree, and one of them is wrong.
+- **What he could not read:** the town/village override. It was two glyphs drawn
+  over the corner of the rank icon — «просто на значке появились какие-то
+  символы». It is a labelled button in a column of its own now, saying
+  «авто / город / село» in words.
+- **Asked for besides:** «Пересчитать» inside the window, so a run happens when
+  he says so and not after every click; the urban right named on the row, not
+  merely implied by its goods; and the plan on two buttons like the ranking,
+  now and at the end of the game.
+- No logs asked for and none needed.
 
-**2026-08-31 — `where_to_produce`, twenty-third load, with logs.** Owner: rights
-work and the two tables differ; unique rights arrived in Wallachia; the goods
-table ranked for the last age still named first-age buildings; «Из чего» still
-sits away from its header.
+**2026-09-01 — `where_to_produce`, twenty-ninth load. The province model placed
+nothing at all, and `error.log` carried not one line about it.** One screenshot,
+Wallachia and more, with logs.
 
-- **`error.log` carries one real line and no more:** `PostValidate of trigger
-  'trigger_else_if' returned false at bag_wtp_generated_triggers.txt:107` — the
-  last link of the `bag_wtp_can_build_something` chain, which ended on an
-  `else_if` with no `trigger_else` after it. Everything else naming the mod is
-  `Flag 'bag_wtp_good_*' is set but is never used`, which is CMM's list flags and
-  is cosmetic. The chain ends `trigger_else = { always = no }` now.
-- **Dropping the advance gate let the Scandinavian privileges into a Wallachian
-  list.** Those two rights carry no `potential` of their own; what keeps them out
-  is `culture = { has_culture_group = culture_group:scandinavian_group }` on the
-  *advance* that unlocks them. A right inherits its advance's `potential` now —
-  a country gate that is a fact rather than a thing you have not got round to.
-- **Ranked for the last age, the row still named the building you can build
-  today.** The order followed the button and the printing did not: the method
-  column reads the near column whenever it is set, and it always is. `row_end` is
-  written on the row now and the window reads the column the button asked for,
-  goods icons included.
-- **«Из чего» drifts because the method column expands.** An expanding column is
-  as wide as what is left, and a row inside a scrollbox has less left than the
-  header — by the scrollbar and the content margin. Both windows give the method
-  column a fixed width and put the slack in a spacer at the far right.
-
-**2026-08-31 — `where_to_produce`, twenty-second load. The pairs are right and
-the rights window was answering the wrong question.** Three screenshots, fine
-cloth and cannons, and a weaponry right.
-
-- **The pairs read correctly.** «Гильдия портных: Гильдия ткачей шёлка ×0.90 +
-  Красители с квасцами», «Здание пушкарей: Железные стволы ×1.16 + Железные
-  снаряды», with both slots' raw materials counted.
-- **«Считать» looked like it was sorting by the endgame** — 1.78% above 7.14%.
-  It was not: the ranking is by effective output and always has been, so ×0.90
-  at 1.78% (0.916) outranks ×0.70 at 7.14% (0.750). Settled at the eighth run,
-  when a forest village at 10% topped a weapons search; the owner reached the
-  same reading himself from the cannons table.
-- **«На конец» did nothing at all in the rights window.** The bundle pass read
-  `bag_wtp_best_method` and nothing else, so both buttons gave the same table in
-  the same order, showing first-age buildings. It reads the column the button
-  names now, falls back the same way, and breaks its ties on «По пути» — with
-  the row filter widened, or the table would empty itself exactly where a ladder
-  ends early.
-- **«Права: считать методы будущих эпох» is deleted.** Owner: «нафига вообще
-  нужна?» — right twice over: since the twentieth load it reached no method at
-  all, and a right should obey the same two buttons a good does. A unique right
-  is still gated on `potential` — a tag is a fact about the country — but never
-  on the advance that unlocks it.
-- **«Из чего» sat far right of its header** in the rights window: the block was
-  sized by its own icons and started wherever the expanding method column
-  stopped. It is 190 wide in both windows now, like the header.
-
-Everything before 2026-08-29, and `where_to_produce`'s first twenty-one loads — the
-map mode, the twenty-option dropdown, the missing `is_ordered`, the run that
-turned the mod from asking for a method into finding one, and the four that
-confirmed the scoring, the tabs, the results window and whole provinces — is in
-[`archive/testlog_2026-08.md`](archive/testlog_2026-08.md), moved rather than
-trimmed. Search both with `python3 tools/kb.py`.
+- **«Рассмотрено локаций: 127 · мест: 381 · товаров тут можно делать: 30 ·
+  зданий: 0 в 0 локациях · лимиты 3/3 · кругов: 1».** So the ground was
+  collected, the capacity counted, thirty goods scored and normalized — and then
+  every one of the 47 picks failed its `limit` in silence. The rights switch made
+  no difference and neither did the per-good ceiling, which places the fault
+  before either of them.
+- **The logs are clean.** Not one script error, trigger error or missing-variable
+  line from the pass. This is the failure `CLAUDE.md` names: an effect that
+  merely does nothing logs nothing.
+- **The cause, on the evidence: a `province_definition` will not hold a
+  variable.** The province's lists and their counters were kept on the
+  definition, and `var:bag_wtp_plan_town_n < …` was then read back in every
+  pick's `limit`. A definition is static map data; **nothing in vanilla and
+  nothing in any mod in `reference/` writes a variable to one**, and the mod's
+  own proven idiom has always been `every_location_in_province_definition`
+  instead. Everything the pass reads was moved onto the locations, mirrored
+  across the province.
+- **Not proven, and that is why the summary line grew.** It now reads locations,
+  towns among them, provinces, room, goods, list entries, buildings — left to
+  right, so the first zero names the step that failed without another zip.
+- **The other thing the log gave up:** «Value of wrong type in
+  `bag_wtp_show_found:0`», once a frame with the page open, because the
+  *ranking's* `bag_wtp_found` was never initialised on a fresh save. Fixed in
+  `bag_wtp_init_counters`.
+- **Asked for besides:** a hand switch to plan a location as a town, because the
+  game's rank is only what is true today; the map pickers in the plan window,
+  since choosing ground meant opening the other window and coming back; and a
+  better name for «не больше стольких провинций на товар», which read as «не
+  больше сельских».
 
 ## Waiting on a run
 
@@ -280,5 +283,9 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
+- **The whole-map plan in `where_to_produce`** — the tab, the two caps, the
+  pass, the window and the map mode. Built 2026-09-01 and never loaded; what a
+  first run has to answer is in
+  [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

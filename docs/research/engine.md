@@ -171,6 +171,22 @@ the trigger's own description says checks the country requirements — and, for
 those ten, when `has_advance` is true. There is still no script-side
 `ProductionMethod.IsAvailable`; this is the way round it.
 
+**And where a building may stand is the other half of the same trigger, asked in
+the other scope.** `can_build_building` documents itself as *"location only
+checks local requirements, country checks the country scope requirements"*, so in
+a **location's** scope it is the rank, the terrain and the building's own
+`location_potential` — and never an advance. That distinction is what makes it
+usable in a planning tool: it answers for ground nobody owns and for a building
+nobody has unlocked yet, which is exactly what a plan for the end of the game
+needs.
+
+`location_potential` is where the real conditions live and they are not
+decoration. `bog_iron_smelter` — the only building that makes iron without an
+RGO — wants `is_adjacent_to_lake` or `topography = wetlands`; `sugar_plantation`
+wants the location to already grow sugar *and* be overseas or a colonial
+subject's. A tool that offers a good without asking this offers iron where there
+are no bogs, which is what `where_to_produce`'s plan did for one load.
+
 ## Geography from script, and sorting a list
 
 `region:<key>` and `area:<key>` are ordinary scope links — the game's own script
