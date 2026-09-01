@@ -53,7 +53,6 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
 	set_global_variable = { name = bag_wtp_plan_rightn value = 0 }
 	set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
-	set_global_variable = { name = bag_wtp_plan_free value = 0 }
 	set_global_variable = { name = bag_wtp_plan_quota value = 1 }
 	set_global_variable = { name = bag_wtp_pn1 value = 0 }
 	set_global_variable = { name = bag_wtp_pq1 value = 1 }
@@ -196,6 +195,18 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven1 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven2 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven3 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven4 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven5 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven6 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven7 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven8 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven9 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven10 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven11 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven12 value = 0 }
 
 	# Every candidate made ready. **Every counter a `limit` reads has to exist
 	# before the first round**: a comparison against a variable that is not there
@@ -375,9 +386,26 @@ bag_wtp_plan_harvest_1 = {
 	}
 	set_global_variable = { name = bag_wtp_ng1 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax1`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax1 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p1 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr1 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng1 add = 1 }
 	}
 	every_in_global_list = {
@@ -393,9 +421,14 @@ bag_wtp_plan_harvest_1 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax1 }
 	}
+	# **Scored is counted off `_ng1` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng1 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -446,9 +479,26 @@ bag_wtp_plan_harvest_2 = {
 	}
 	set_global_variable = { name = bag_wtp_ng2 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax2`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax2 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p2 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr2 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng2 add = 1 }
 	}
 	every_in_global_list = {
@@ -464,9 +514,14 @@ bag_wtp_plan_harvest_2 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax2 }
 	}
+	# **Scored is counted off `_ng2` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng2 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -517,9 +572,26 @@ bag_wtp_plan_harvest_3 = {
 	}
 	set_global_variable = { name = bag_wtp_ng3 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax3`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax3 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p3 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr3 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng3 add = 1 }
 	}
 	every_in_global_list = {
@@ -535,9 +607,14 @@ bag_wtp_plan_harvest_3 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax3 }
 	}
+	# **Scored is counted off `_ng3` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng3 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -588,9 +665,26 @@ bag_wtp_plan_harvest_4 = {
 	}
 	set_global_variable = { name = bag_wtp_ng4 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax4`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax4 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p4 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr4 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng4 add = 1 }
 	}
 	every_in_global_list = {
@@ -606,9 +700,14 @@ bag_wtp_plan_harvest_4 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax4 }
 	}
+	# **Scored is counted off `_ng4` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng4 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -659,9 +758,26 @@ bag_wtp_plan_harvest_5 = {
 	}
 	set_global_variable = { name = bag_wtp_ng5 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax5`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax5 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p5 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr5 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng5 add = 1 }
 	}
 	every_in_global_list = {
@@ -677,9 +793,14 @@ bag_wtp_plan_harvest_5 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax5 }
 	}
+	# **Scored is counted off `_ng5` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng5 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -730,9 +851,26 @@ bag_wtp_plan_harvest_6 = {
 	}
 	set_global_variable = { name = bag_wtp_ng6 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax6`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax6 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p6 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr6 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng6 add = 1 }
 	}
 	every_in_global_list = {
@@ -748,9 +886,14 @@ bag_wtp_plan_harvest_6 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax6 }
 	}
+	# **Scored is counted off `_ng6` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng6 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -801,9 +944,26 @@ bag_wtp_plan_harvest_7 = {
 	}
 	set_global_variable = { name = bag_wtp_ng7 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax7`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax7 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p7 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr7 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng7 add = 1 }
 	}
 	every_in_global_list = {
@@ -819,9 +979,14 @@ bag_wtp_plan_harvest_7 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax7 }
 	}
+	# **Scored is counted off `_ng7` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng7 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -872,9 +1037,26 @@ bag_wtp_plan_harvest_8 = {
 	}
 	set_global_variable = { name = bag_wtp_ng8 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax8`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax8 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p8 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr8 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng8 add = 1 }
 	}
 	every_in_global_list = {
@@ -890,9 +1072,14 @@ bag_wtp_plan_harvest_8 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax8 }
 	}
+	# **Scored is counted off `_ng8` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng8 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -943,9 +1130,26 @@ bag_wtp_plan_harvest_9 = {
 	}
 	set_global_variable = { name = bag_wtp_ng9 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax9`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax9 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p9 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr9 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng9 add = 1 }
 	}
 	every_in_global_list = {
@@ -961,9 +1165,14 @@ bag_wtp_plan_harvest_9 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax9 }
 	}
+	# **Scored is counted off `_ng9` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng9 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1014,9 +1223,26 @@ bag_wtp_plan_harvest_10 = {
 	}
 	set_global_variable = { name = bag_wtp_ng10 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax10`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax10 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p10 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr10 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng10 add = 1 }
 	}
 	every_in_global_list = {
@@ -1032,9 +1258,14 @@ bag_wtp_plan_harvest_10 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax10 }
 	}
+	# **Scored is counted off `_ng10` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng10 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1085,9 +1316,26 @@ bag_wtp_plan_harvest_11 = {
 	}
 	set_global_variable = { name = bag_wtp_ng11 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax11`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax11 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p11 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr11 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng11 add = 1 }
 	}
 	every_in_global_list = {
@@ -1103,9 +1351,14 @@ bag_wtp_plan_harvest_11 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax11 }
 	}
+	# **Scored is counted off `_ng11` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng11 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1156,9 +1409,26 @@ bag_wtp_plan_harvest_12 = {
 	}
 	set_global_variable = { name = bag_wtp_ng12 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax12`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax12 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p12 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr12 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng12 add = 1 }
 	}
 	every_in_global_list = {
@@ -1174,9 +1444,14 @@ bag_wtp_plan_harvest_12 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax12 }
 	}
+	# **Scored is counted off `_ng12` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng12 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1227,9 +1502,26 @@ bag_wtp_plan_harvest_13 = {
 	}
 	set_global_variable = { name = bag_wtp_ng13 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax13`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax13 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p13 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr13 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng13 add = 1 }
 	}
 	every_in_global_list = {
@@ -1245,9 +1537,14 @@ bag_wtp_plan_harvest_13 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax13 }
 	}
+	# **Scored is counted off `_ng13` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng13 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1298,9 +1595,26 @@ bag_wtp_plan_harvest_14 = {
 	}
 	set_global_variable = { name = bag_wtp_ng14 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax14`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax14 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p14 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr14 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng14 add = 1 }
 	}
 	every_in_global_list = {
@@ -1316,9 +1630,14 @@ bag_wtp_plan_harvest_14 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax14 }
 	}
+	# **Scored is counted off `_ng14` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng14 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1369,9 +1688,26 @@ bag_wtp_plan_harvest_15 = {
 	}
 	set_global_variable = { name = bag_wtp_ng15 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax15`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax15 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p15 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr15 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng15 add = 1 }
 	}
 	every_in_global_list = {
@@ -1387,9 +1723,14 @@ bag_wtp_plan_harvest_15 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax15 }
 	}
+	# **Scored is counted off `_ng15` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng15 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1440,9 +1781,26 @@ bag_wtp_plan_harvest_16 = {
 	}
 	set_global_variable = { name = bag_wtp_ng16 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax16`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax16 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p16 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr16 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng16 add = 1 }
 	}
 	every_in_global_list = {
@@ -1458,9 +1816,14 @@ bag_wtp_plan_harvest_16 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax16 }
 	}
+	# **Scored is counted off `_ng16` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng16 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1511,9 +1874,26 @@ bag_wtp_plan_harvest_17 = {
 	}
 	set_global_variable = { name = bag_wtp_ng17 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax17`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax17 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p17 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr17 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng17 add = 1 }
 	}
 	every_in_global_list = {
@@ -1529,9 +1909,14 @@ bag_wtp_plan_harvest_17 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax17 }
 	}
+	# **Scored is counted off `_ng17` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng17 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1582,9 +1967,26 @@ bag_wtp_plan_harvest_18 = {
 	}
 	set_global_variable = { name = bag_wtp_ng18 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax18`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax18 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p18 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr18 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng18 add = 1 }
 	}
 	every_in_global_list = {
@@ -1600,9 +2002,14 @@ bag_wtp_plan_harvest_18 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax18 }
 	}
+	# **Scored is counted off `_ng18` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng18 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1653,9 +2060,26 @@ bag_wtp_plan_harvest_19 = {
 	}
 	set_global_variable = { name = bag_wtp_ng19 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax19`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax19 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p19 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr19 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng19 add = 1 }
 	}
 	every_in_global_list = {
@@ -1671,9 +2095,14 @@ bag_wtp_plan_harvest_19 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax19 }
 	}
+	# **Scored is counted off `_ng19` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng19 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1724,9 +2153,26 @@ bag_wtp_plan_harvest_20 = {
 	}
 	set_global_variable = { name = bag_wtp_ng20 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax20`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax20 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p20 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr20 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng20 add = 1 }
 	}
 	every_in_global_list = {
@@ -1742,9 +2188,14 @@ bag_wtp_plan_harvest_20 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax20 }
 	}
+	# **Scored is counted off `_ng20` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng20 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1795,9 +2246,26 @@ bag_wtp_plan_harvest_21 = {
 	}
 	set_global_variable = { name = bag_wtp_ng21 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax21`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax21 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p21 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr21 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng21 add = 1 }
 	}
 	every_in_global_list = {
@@ -1813,9 +2281,14 @@ bag_wtp_plan_harvest_21 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax21 }
 	}
+	# **Scored is counted off `_ng21` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng21 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1866,9 +2339,26 @@ bag_wtp_plan_harvest_22 = {
 	}
 	set_global_variable = { name = bag_wtp_ng22 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax22`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax22 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p22 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr22 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng22 add = 1 }
 	}
 	every_in_global_list = {
@@ -1884,9 +2374,14 @@ bag_wtp_plan_harvest_22 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax22 }
 	}
+	# **Scored is counted off `_ng22` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng22 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -1937,9 +2432,26 @@ bag_wtp_plan_harvest_23 = {
 	}
 	set_global_variable = { name = bag_wtp_ng23 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax23`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax23 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p23 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr23 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng23 add = 1 }
 	}
 	every_in_global_list = {
@@ -1955,9 +2467,14 @@ bag_wtp_plan_harvest_23 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax23 }
 	}
+	# **Scored is counted off `_ng23` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng23 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2008,9 +2525,26 @@ bag_wtp_plan_harvest_24 = {
 	}
 	set_global_variable = { name = bag_wtp_ng24 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax24`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax24 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p24 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr24 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng24 add = 1 }
 	}
 	every_in_global_list = {
@@ -2026,9 +2560,14 @@ bag_wtp_plan_harvest_24 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax24 }
 	}
+	# **Scored is counted off `_ng24` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng24 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2079,9 +2618,26 @@ bag_wtp_plan_harvest_25 = {
 	}
 	set_global_variable = { name = bag_wtp_ng25 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax25`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax25 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p25 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr25 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng25 add = 1 }
 	}
 	every_in_global_list = {
@@ -2097,9 +2653,14 @@ bag_wtp_plan_harvest_25 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax25 }
 	}
+	# **Scored is counted off `_ng25` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng25 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2150,9 +2711,26 @@ bag_wtp_plan_harvest_26 = {
 	}
 	set_global_variable = { name = bag_wtp_ng26 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax26`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax26 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p26 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr26 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng26 add = 1 }
 	}
 
@@ -2164,9 +2742,14 @@ bag_wtp_plan_harvest_26 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax26 }
 	}
+	# **Scored is counted off `_ng26` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng26 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2217,9 +2800,26 @@ bag_wtp_plan_harvest_27 = {
 	}
 	set_global_variable = { name = bag_wtp_ng27 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax27`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax27 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p27 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr27 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng27 add = 1 }
 	}
 
@@ -2231,9 +2831,14 @@ bag_wtp_plan_harvest_27 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax27 }
 	}
+	# **Scored is counted off `_ng27` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng27 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2284,9 +2889,26 @@ bag_wtp_plan_harvest_28 = {
 	}
 	set_global_variable = { name = bag_wtp_ng28 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax28`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax28 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p28 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr28 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng28 add = 1 }
 	}
 
@@ -2298,9 +2920,14 @@ bag_wtp_plan_harvest_28 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax28 }
 	}
+	# **Scored is counted off `_ng28` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng28 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2351,9 +2978,26 @@ bag_wtp_plan_harvest_29 = {
 	}
 	set_global_variable = { name = bag_wtp_ng29 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax29`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax29 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p29 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr29 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng29 add = 1 }
 	}
 
@@ -2365,9 +3009,14 @@ bag_wtp_plan_harvest_29 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax29 }
 	}
+	# **Scored is counted off `_ng29` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng29 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2418,9 +3067,26 @@ bag_wtp_plan_harvest_30 = {
 	}
 	set_global_variable = { name = bag_wtp_ng30 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax30`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax30 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p30 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr30 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng30 add = 1 }
 	}
 
@@ -2432,9 +3098,14 @@ bag_wtp_plan_harvest_30 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax30 }
 	}
+	# **Scored is counted off `_ng30` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng30 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2485,9 +3156,26 @@ bag_wtp_plan_harvest_31 = {
 	}
 	set_global_variable = { name = bag_wtp_ng31 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax31`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax31 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p31 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr31 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng31 add = 1 }
 	}
 
@@ -2499,9 +3187,14 @@ bag_wtp_plan_harvest_31 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax31 }
 	}
+	# **Scored is counted off `_ng31` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng31 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2552,9 +3245,26 @@ bag_wtp_plan_harvest_32 = {
 	}
 	set_global_variable = { name = bag_wtp_ng32 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax32`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax32 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p32 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr32 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng32 add = 1 }
 	}
 
@@ -2566,9 +3276,14 @@ bag_wtp_plan_harvest_32 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax32 }
 	}
+	# **Scored is counted off `_ng32` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng32 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2619,9 +3334,26 @@ bag_wtp_plan_harvest_33 = {
 	}
 	set_global_variable = { name = bag_wtp_ng33 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax33`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax33 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p33 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr33 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng33 add = 1 }
 	}
 
@@ -2633,9 +3365,14 @@ bag_wtp_plan_harvest_33 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax33 }
 	}
+	# **Scored is counted off `_ng33` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng33 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2686,9 +3423,26 @@ bag_wtp_plan_harvest_34 = {
 	}
 	set_global_variable = { name = bag_wtp_ng34 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax34`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax34 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p34 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr34 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng34 add = 1 }
 	}
 
@@ -2700,9 +3454,14 @@ bag_wtp_plan_harvest_34 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax34 }
 	}
+	# **Scored is counted off `_ng34` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng34 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2753,9 +3512,26 @@ bag_wtp_plan_harvest_35 = {
 	}
 	set_global_variable = { name = bag_wtp_ng35 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax35`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax35 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p35 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr35 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng35 add = 1 }
 	}
 
@@ -2767,9 +3543,14 @@ bag_wtp_plan_harvest_35 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax35 }
 	}
+	# **Scored is counted off `_ng35` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng35 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2820,9 +3601,26 @@ bag_wtp_plan_harvest_36 = {
 	}
 	set_global_variable = { name = bag_wtp_ng36 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax36`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax36 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p36 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr36 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng36 add = 1 }
 	}
 
@@ -2834,9 +3632,14 @@ bag_wtp_plan_harvest_36 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax36 }
 	}
+	# **Scored is counted off `_ng36` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng36 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2887,9 +3690,26 @@ bag_wtp_plan_harvest_37 = {
 	}
 	set_global_variable = { name = bag_wtp_ng37 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax37`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax37 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p37 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr37 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng37 add = 1 }
 	}
 
@@ -2901,9 +3721,14 @@ bag_wtp_plan_harvest_37 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax37 }
 	}
+	# **Scored is counted off `_ng37` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng37 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -2954,9 +3779,26 @@ bag_wtp_plan_harvest_38 = {
 	}
 	set_global_variable = { name = bag_wtp_ng38 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax38`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax38 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p38 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr38 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng38 add = 1 }
 	}
 
@@ -2968,9 +3810,14 @@ bag_wtp_plan_harvest_38 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax38 }
 	}
+	# **Scored is counted off `_ng38` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng38 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3021,9 +3868,26 @@ bag_wtp_plan_harvest_39 = {
 	}
 	set_global_variable = { name = bag_wtp_ng39 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax39`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax39 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p39 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr39 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng39 add = 1 }
 	}
 
@@ -3035,9 +3899,14 @@ bag_wtp_plan_harvest_39 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax39 }
 	}
+	# **Scored is counted off `_ng39` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng39 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3088,9 +3957,26 @@ bag_wtp_plan_harvest_40 = {
 	}
 	set_global_variable = { name = bag_wtp_ng40 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax40`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax40 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p40 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr40 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng40 add = 1 }
 	}
 
@@ -3102,9 +3988,14 @@ bag_wtp_plan_harvest_40 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax40 }
 	}
+	# **Scored is counted off `_ng40` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng40 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3155,9 +4046,26 @@ bag_wtp_plan_harvest_41 = {
 	}
 	set_global_variable = { name = bag_wtp_ng41 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax41`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax41 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p41 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr41 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng41 add = 1 }
 	}
 
@@ -3169,9 +4077,14 @@ bag_wtp_plan_harvest_41 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax41 }
 	}
+	# **Scored is counted off `_ng41` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng41 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3222,9 +4135,26 @@ bag_wtp_plan_harvest_42 = {
 	}
 	set_global_variable = { name = bag_wtp_ng42 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax42`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax42 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p42 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr42 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng42 add = 1 }
 	}
 
@@ -3236,9 +4166,14 @@ bag_wtp_plan_harvest_42 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax42 }
 	}
+	# **Scored is counted off `_ng42` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng42 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3289,9 +4224,26 @@ bag_wtp_plan_harvest_43 = {
 	}
 	set_global_variable = { name = bag_wtp_ng43 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax43`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax43 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p43 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr43 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng43 add = 1 }
 	}
 
@@ -3303,9 +4255,14 @@ bag_wtp_plan_harvest_43 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax43 }
 	}
+	# **Scored is counted off `_ng43` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng43 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3356,9 +4313,26 @@ bag_wtp_plan_harvest_44 = {
 	}
 	set_global_variable = { name = bag_wtp_ng44 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax44`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax44 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p44 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr44 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng44 add = 1 }
 	}
 
@@ -3370,9 +4344,14 @@ bag_wtp_plan_harvest_44 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax44 }
 	}
+	# **Scored is counted off `_ng44` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng44 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3423,9 +4402,26 @@ bag_wtp_plan_harvest_45 = {
 	}
 	set_global_variable = { name = bag_wtp_ng45 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax45`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax45 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p45 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr45 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng45 add = 1 }
 	}
 
@@ -3437,9 +4433,14 @@ bag_wtp_plan_harvest_45 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax45 }
 	}
+	# **Scored is counted off `_ng45` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng45 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3490,9 +4491,26 @@ bag_wtp_plan_harvest_46 = {
 	}
 	set_global_variable = { name = bag_wtp_ng46 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax46`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax46 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p46 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr46 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng46 add = 1 }
 	}
 
@@ -3504,9 +4522,14 @@ bag_wtp_plan_harvest_46 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax46 }
 	}
+	# **Scored is counted off `_ng46` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng46 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -3557,9 +4580,26 @@ bag_wtp_plan_harvest_47 = {
 	}
 	set_global_variable = { name = bag_wtp_ng47 value = 0 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
+	# **Counted on the side the location actually is**, which `bag_wtp_ordmax47`
+	# does not do: it is the better of the two sides, so a good whose only
+	# buildings are rural counts as makeable on ground that is all towns. The
+	# thirty-sixth run is what that costs -- five towns of Münsterland reported
+	# «товаров 13» where at most eight could ever stand there, and the quota is
+	# divided by that number, so every good's share came out too small.
 	every_in_global_list = {
 		variable = bag_wtp_candidates
-		limit = { bag_wtp_ordmax47 > 0 }
+		limit = {
+			OR = {
+				AND = {
+					bag_wtp_plan_is_town = yes
+					var:bag_wtp_p47 > 0
+				}
+				AND = {
+					bag_wtp_plan_is_town = no
+					var:bag_wtp_pr47 > 0
+				}
+			}
+		}
 		change_global_variable = { name = bag_wtp_ng47 add = 1 }
 	}
 
@@ -3571,9 +4611,14 @@ bag_wtp_plan_harvest_47 = {
 		check_range_bounds = no
 		set_global_variable = { name = bag_wtp_plan_top value = bag_wtp_ordmax47 }
 	}
+	# **Scored is counted off `_ng47` and not off the top**, for the same
+	# reason: the top is side-blind and the quota divides by this number.
+	if = {
+		limit = { global_var:bag_wtp_ng47 > 0 }
+		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
+	}
 	if = {
 		limit = { global_var:bag_wtp_plan_top > 0 }
-		change_global_variable = { name = bag_wtp_plan_scored add = 1 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			# Divided before it is scaled and never after: the top of the ground is
@@ -7287,6 +8332,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_30 = yes
 			bag_wtp_plan_try_town_18 = yes
 			set_variable = { name = bag_wtp_plan_right value = 1 }
+			change_global_variable = { name = bag_wtp_rgiven1 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7295,6 +8341,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_36 = yes
 			bag_wtp_plan_try_town_42 = yes
 			set_variable = { name = bag_wtp_plan_right value = 2 }
+			change_global_variable = { name = bag_wtp_rgiven2 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7303,6 +8350,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_40 = yes
 			set_variable = { name = bag_wtp_plan_right value = 3 }
+			change_global_variable = { name = bag_wtp_rgiven3 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7311,12 +8359,14 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_37 = yes
 			bag_wtp_plan_try_town_24 = yes
 			set_variable = { name = bag_wtp_plan_right value = 4 }
+			change_global_variable = { name = bag_wtp_rgiven4 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 5 }
 			bag_wtp_plan_try_town_34 = yes
 			set_variable = { name = bag_wtp_plan_right value = 5 }
+			change_global_variable = { name = bag_wtp_rgiven5 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7324,6 +8374,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_33 = yes
 			bag_wtp_plan_try_town_38 = yes
 			set_variable = { name = bag_wtp_plan_right value = 6 }
+			change_global_variable = { name = bag_wtp_rgiven6 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7331,6 +8382,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 7 }
+			change_global_variable = { name = bag_wtp_rgiven7 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7339,12 +8391,14 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 8 }
+			change_global_variable = { name = bag_wtp_rgiven8 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 9 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 9 }
+			change_global_variable = { name = bag_wtp_rgiven9 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7353,12 +8407,14 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_31 = yes
 			bag_wtp_plan_try_town_47 = yes
 			set_variable = { name = bag_wtp_plan_right value = 10 }
+			change_global_variable = { name = bag_wtp_rgiven10 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 11 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 11 }
+			change_global_variable = { name = bag_wtp_rgiven11 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 		if = {
@@ -7366,6 +8422,7 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 12 }
+			change_global_variable = { name = bag_wtp_rgiven12 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 	}
@@ -7549,7 +8606,6 @@ bag_wtp_plan_set_quota = {
 # condition that cannot be left, not a design.
 # Scope: country
 bag_wtp_plan_allocate = {
-	set_global_variable = { name = bag_wtp_plan_free value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
@@ -7958,11 +9014,6 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
-	# **The ground opened.** Every good has had its
-	# quota; what is still empty now goes to whoever can fill it, scarcest
-	# first again, and the province divisor still keeps a good from taking a
-	# whole province because nothing else wanted it.
-	set_global_variable = { name = bag_wtp_plan_free value = 1 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
@@ -7979,6 +9030,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes
@@ -8050,12 +9148,10 @@ bag_wtp_plan_pick_1 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn1 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8076,12 +9172,10 @@ bag_wtp_plan_pick_1 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn1 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8111,12 +9205,10 @@ bag_wtp_plan_pick_2 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn2 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8137,12 +9229,10 @@ bag_wtp_plan_pick_2 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn2 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8172,12 +9262,10 @@ bag_wtp_plan_pick_3 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn3 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8198,12 +9286,10 @@ bag_wtp_plan_pick_3 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn3 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8233,12 +9319,10 @@ bag_wtp_plan_pick_4 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn4 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn4 < global_var:bag_wtp_pq4
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn4 < global_var:bag_wtp_pq4
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8268,12 +9352,10 @@ bag_wtp_plan_pick_5 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn5 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8294,12 +9376,10 @@ bag_wtp_plan_pick_5 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn5 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8329,12 +9409,10 @@ bag_wtp_plan_pick_6 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn6 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8364,12 +9442,10 @@ bag_wtp_plan_pick_7 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn7 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8390,12 +9466,10 @@ bag_wtp_plan_pick_7 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn7 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8425,12 +9499,10 @@ bag_wtp_plan_pick_8 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn8 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8451,12 +9523,10 @@ bag_wtp_plan_pick_8 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn8 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8486,12 +9556,10 @@ bag_wtp_plan_pick_9 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn9 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn9 < global_var:bag_wtp_pq9
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn9 < global_var:bag_wtp_pq9
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8521,12 +9589,10 @@ bag_wtp_plan_pick_10 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn10 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8547,12 +9613,10 @@ bag_wtp_plan_pick_10 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn10 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8582,12 +9646,10 @@ bag_wtp_plan_pick_11 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn11 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn11 < global_var:bag_wtp_pq11
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn11 < global_var:bag_wtp_pq11
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8617,12 +9679,10 @@ bag_wtp_plan_pick_12 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn12 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8652,12 +9712,10 @@ bag_wtp_plan_pick_13 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn13 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8678,12 +9736,10 @@ bag_wtp_plan_pick_13 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn13 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8713,12 +9769,10 @@ bag_wtp_plan_pick_14 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn14 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn14 < global_var:bag_wtp_pq14
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn14 < global_var:bag_wtp_pq14
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8748,12 +9802,10 @@ bag_wtp_plan_pick_15 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn15 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8774,12 +9826,10 @@ bag_wtp_plan_pick_15 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn15 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8809,12 +9859,10 @@ bag_wtp_plan_pick_16 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn16 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn16 < global_var:bag_wtp_pq16
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn16 < global_var:bag_wtp_pq16
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8844,12 +9892,10 @@ bag_wtp_plan_pick_17 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn17 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8870,12 +9916,10 @@ bag_wtp_plan_pick_17 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn17 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8905,12 +9949,10 @@ bag_wtp_plan_pick_18 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn18 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn18 < global_var:bag_wtp_pq18
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn18 < global_var:bag_wtp_pq18
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8940,12 +9982,10 @@ bag_wtp_plan_pick_19 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn19 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -8966,12 +10006,10 @@ bag_wtp_plan_pick_19 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn19 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9001,12 +10039,10 @@ bag_wtp_plan_pick_20 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn20 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9027,12 +10063,10 @@ bag_wtp_plan_pick_20 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn20 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9062,12 +10096,10 @@ bag_wtp_plan_pick_21 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn21 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9088,12 +10120,10 @@ bag_wtp_plan_pick_21 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn21 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9123,12 +10153,10 @@ bag_wtp_plan_pick_22 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn22 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9149,12 +10177,10 @@ bag_wtp_plan_pick_22 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn22 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9184,12 +10210,10 @@ bag_wtp_plan_pick_23 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn23 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn23 < global_var:bag_wtp_pq23
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn23 < global_var:bag_wtp_pq23
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9219,12 +10243,10 @@ bag_wtp_plan_pick_24 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn24 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn24 < global_var:bag_wtp_pq24
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn24 < global_var:bag_wtp_pq24
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9254,12 +10276,10 @@ bag_wtp_plan_pick_25 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn25 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn25 < global_var:bag_wtp_pq25
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn25 < global_var:bag_wtp_pq25
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9289,12 +10309,10 @@ bag_wtp_plan_pick_26 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn26 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9315,12 +10333,10 @@ bag_wtp_plan_pick_26 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn26 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9350,12 +10366,10 @@ bag_wtp_plan_pick_27 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn27 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn27 < global_var:bag_wtp_pq27
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn27 < global_var:bag_wtp_pq27
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9385,12 +10399,10 @@ bag_wtp_plan_pick_28 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn28 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn28 < global_var:bag_wtp_pq28
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn28 < global_var:bag_wtp_pq28
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9420,12 +10432,10 @@ bag_wtp_plan_pick_29 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn29 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9446,12 +10456,10 @@ bag_wtp_plan_pick_29 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn29 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9481,12 +10489,10 @@ bag_wtp_plan_pick_30 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn30 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn30 < global_var:bag_wtp_pq30
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn30 < global_var:bag_wtp_pq30
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9516,12 +10522,10 @@ bag_wtp_plan_pick_31 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn31 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn31 < global_var:bag_wtp_pq31
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn31 < global_var:bag_wtp_pq31
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9551,12 +10555,10 @@ bag_wtp_plan_pick_32 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn32 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn32 < global_var:bag_wtp_pq32
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn32 < global_var:bag_wtp_pq32
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9586,12 +10588,10 @@ bag_wtp_plan_pick_33 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn33 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9612,12 +10612,10 @@ bag_wtp_plan_pick_33 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn33 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9647,12 +10645,10 @@ bag_wtp_plan_pick_34 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn34 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9673,12 +10669,10 @@ bag_wtp_plan_pick_34 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn34 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9708,12 +10702,10 @@ bag_wtp_plan_pick_35 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn35 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn35 < global_var:bag_wtp_pq35
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn35 < global_var:bag_wtp_pq35
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9743,12 +10735,10 @@ bag_wtp_plan_pick_36 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn36 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9769,12 +10759,10 @@ bag_wtp_plan_pick_36 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn36 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9804,12 +10792,10 @@ bag_wtp_plan_pick_37 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn37 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn37 < global_var:bag_wtp_pq37
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn37 < global_var:bag_wtp_pq37
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9839,12 +10825,10 @@ bag_wtp_plan_pick_38 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn38 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9865,12 +10849,10 @@ bag_wtp_plan_pick_38 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn38 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9900,12 +10882,10 @@ bag_wtp_plan_pick_39 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn39 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9926,12 +10906,10 @@ bag_wtp_plan_pick_39 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn39 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9961,12 +10939,10 @@ bag_wtp_plan_pick_40 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn40 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn40 < global_var:bag_wtp_pq40
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn40 < global_var:bag_wtp_pq40
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -9996,12 +10972,10 @@ bag_wtp_plan_pick_41 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn41 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn41 < global_var:bag_wtp_pq41
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn41 < global_var:bag_wtp_pq41
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10031,12 +11005,10 @@ bag_wtp_plan_pick_42 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn42 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10057,12 +11029,10 @@ bag_wtp_plan_pick_42 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn42 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10092,12 +11062,10 @@ bag_wtp_plan_pick_43 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn43 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10118,12 +11086,10 @@ bag_wtp_plan_pick_43 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn43 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10153,12 +11119,10 @@ bag_wtp_plan_pick_44 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn44 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn44 < global_var:bag_wtp_pq44
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn44 < global_var:bag_wtp_pq44
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10188,12 +11152,10 @@ bag_wtp_plan_pick_45 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn45 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10214,12 +11176,10 @@ bag_wtp_plan_pick_45 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn45 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10249,12 +11209,10 @@ bag_wtp_plan_pick_46 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn46 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10275,12 +11233,10 @@ bag_wtp_plan_pick_46 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn46 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10310,12 +11266,10 @@ bag_wtp_plan_pick_47 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn47 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates
@@ -10336,12 +11290,10 @@ bag_wtp_plan_pick_47 = {
 				global_var:bag_wtp_plan_max = 0
 				global_var:bag_wtp_pn47 < global_var:bag_wtp_plan_max
 			}
-			# The quota, and the last phase lifts it so that no room the ground
-			# can feed is left empty for the sake of a share nobody wants.
-			OR = {
-				global_var:bag_wtp_plan_free = 1
-				global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
-			}
+			# The quota. **Never lifted** -- the open pass raises it by one a
+			# round instead, so leftover ground fills in even layers rather than
+			# going whole to whichever good the list happens to reach first.
+			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates

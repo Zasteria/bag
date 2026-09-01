@@ -822,11 +822,23 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         bundle = sorted(right.output)
         adds = "".join(f"\tadd = var:{MOD_ID}_p{order.index(g) + 1}\n" for g in bundle)
         plan_values.append(f"""
-# {right.key}: {", ".join(bundle)}
+# {right.key}: {", ".join(bundle)}.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 {MOD_ID}_rq{k} = {{
 \tvalue = 0
-{adds}}}
+{adds}\tdivide = {{
+\t\tvalue = 1
+\t\tadd = global_var:{MOD_ID}_rgiven{k}
+\t\tmin = 1
+\t}}
+}}
 """)
     plan_values = "".join(plan_values)
 
@@ -1494,13 +1506,16 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rightn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_plan_free value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
 """]
     for index, good in enumerate(order, start=1):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n")
+    # How many towns each right has been given, which its own score divides by.
+    # A script value reading a global that is not there is the silent failure.
+    for k in range(1, len(rights) + 1):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n")
     out.append(f"""
 \t# Every candidate made ready. **Every counter a `limit` reads has to exist
 \t# before the first round**: a comparison against a variable that is not there
@@ -1605,9 +1620,26 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}
+\t# **Counted on the side the location actually is**, which `{MOD_ID}_ordmax{index}`
+\t# does not do: it is the better of the two sides, so a good whose only
+\t# buildings are rural counts as makeable on ground that is all towns. The
+\t# thirty-sixth run is what that costs -- five towns of Münsterland reported
+\t# «товаров 13» where at most eight could ever stand there, and the quota is
+\t# divided by that number, so every good's share came out too small.
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
-\t\tlimit = {{ {MOD_ID}_ordmax{index} > 0 }}
+\t\tlimit = {{
+\t\t\tOR = {{
+\t\t\t\tAND = {{
+\t\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\t\tvar:{MOD_ID}_p{index} > 0
+\t\t\t\t}}
+\t\t\t\tAND = {{
+\t\t\t\t\t{MOD_ID}_plan_is_town = no
+\t\t\t\t\tvar:{MOD_ID}_pr{index} > 0
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_ng{index} add = 1 }}
 \t}}
 {rgo_count}
@@ -1619,9 +1651,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tcheck_range_bounds = no
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_top value = {MOD_ID}_ordmax{index} }}
 \t}}
+\t# **Scored is counted off `_ng{index}` and not off the top**, for the same
+\t# reason: the top is side-blind and the quota divides by this number.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_ng{index} > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_scored add = 1 }}
+\t}}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_plan_top > 0 }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_scored add = 1 }}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\t# Divided before it is scaled and never after: the top of the ground is
@@ -1742,6 +1779,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
 \t\t}}
 """)
@@ -1807,16 +1845,19 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # condition that cannot be left, not a design.
 # Scope: country
 {MOD_ID}_plan_allocate = {{
-\tset_global_variable = {{ name = {MOD_ID}_plan_free value = 0 }}
 """)
     for tier in PLAN_TIERS + (OPEN_TIER,):
+        # **The open pass raises every quota by one a round; it does not lift
+        # them.** Lifting was the thirty-sixth run: five towns of Münsterland,
+        # ten buildings in fifteen rooms and the same good standing in three of
+        # them, because the first good down the list took every free room at
+        # once. Raising fills the leftover ground a layer at a time instead, so
+        # what is spare is spread the same way the quota itself is.
+        raise_all = ""
         if tier is OPEN_TIER:
-            out.append(f"""\t# **The ground opened.** Every good has had its
-\t# quota; what is still empty now goes to whoever can fill it, scarcest
-\t# first again, and the province divisor still keeps a good from taking a
-\t# whole province because nothing else wanted it.
-\tset_global_variable = {{ name = {MOD_ID}_plan_free value = 1 }}
-""")
+            raise_all = "".join(
+                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
+                for i in range(1, len(order) + 1))
             tier = 0
         out.append(f"""\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = {tier} }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
@@ -1834,7 +1875,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_tsweeps add = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_sweeps add = 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_added value = 0 }}
-""")
+{raise_all}""")
         for index, good in enumerate(order, start=1):
             out.append(f"\t\t{MOD_ID}_plan_pick_{index} = yes\n")
         out.append(f"""\t\tif = {{
@@ -1871,12 +1912,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
 \t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
 \t\t\t}}
-\t\t\t# The quota, and the last phase lifts it so that no room the ground
-\t\t\t# can feed is left empty for the sake of a share nobody wants.
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_free = 1
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
-\t\t\t}}
+\t\t\t# The quota. **Never lifted** -- the open pass raises it by one a
+\t\t\t# round instead, so leftover ground fills in even layers rather than
+\t\t\t# going whole to whichever good the list happens to reach first.
+\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates

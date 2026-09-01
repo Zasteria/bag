@@ -8117,103 +8117,247 @@ bag_wtp_ordmax47 = {
 	}
 }
 
-# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk
+# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq1 = {
 	value = 0
 	add = var:bag_wtp_p29
 	add = var:bag_wtp_p30
 	add = var:bag_wtp_p18
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven1
+		min = 1
+	}
 }
 
-# royal_artisan_rights: furniture, leather, pottery
+# royal_artisan_rights: furniture, leather, pottery.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq2 = {
 	value = 0
 	add = var:bag_wtp_p32
 	add = var:bag_wtp_p36
 	add = var:bag_wtp_p42
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven2
+		min = 1
+	}
 }
 
-# royal_book_rights: books, dyes, paper
+# royal_book_rights: books, dyes, paper.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq3 = {
 	value = 0
 	add = var:bag_wtp_p27
 	add = var:bag_wtp_p4
 	add = var:bag_wtp_p40
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven3
+		min = 1
+	}
 }
 
-# royal_brewing_rights: beer, liquor, wine
+# royal_brewing_rights: beer, liquor, wine.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq4 = {
 	value = 0
 	add = var:bag_wtp_p26
 	add = var:bag_wtp_p37
 	add = var:bag_wtp_p24
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven4
+		min = 1
+	}
 }
 
-# royal_jewelry_rights: jewelry
+# royal_jewelry_rights: jewelry.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq5 = {
 	value = 0
 	add = var:bag_wtp_p34
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven5
+		min = 1
+	}
 }
 
-# royal_masonry_rights: glass, masonry
+# royal_masonry_rights: glass, masonry.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq6 = {
 	value = 0
 	add = var:bag_wtp_p33
 	add = var:bag_wtp_p38
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven6
+		min = 1
+	}
 }
 
-# royal_naval_rights: naval_supplies, tar
+# royal_naval_rights: naval_supplies, tar.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq7 = {
 	value = 0
 	add = var:bag_wtp_p39
 	add = var:bag_wtp_p45
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven7
+		min = 1
+	}
 }
 
-# royal_textile_rights: cloth, dyes, fine_cloth
+# royal_textile_rights: cloth, dyes, fine_cloth.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq8 = {
 	value = 0
 	add = var:bag_wtp_p29
 	add = var:bag_wtp_p4
 	add = var:bag_wtp_p30
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven8
+		min = 1
+	}
 }
 
-# royal_tooling_rights: tools
+# royal_tooling_rights: tools.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq9 = {
 	value = 0
 	add = var:bag_wtp_p46
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven9
+		min = 1
+	}
 }
 
-# royal_weaponry_rights: cannons, firearms, weaponry
+# royal_weaponry_rights: cannons, firearms, weaponry.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq10 = {
 	value = 0
 	add = var:bag_wtp_p28
 	add = var:bag_wtp_p31
 	add = var:bag_wtp_p47
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven10
+		min = 1
+	}
 }
 
-# scandinavian_bergslag_privileges: tools
+# scandinavian_bergslag_privileges: tools.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq11 = {
 	value = 0
 	add = var:bag_wtp_p46
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven11
+		min = 1
+	}
 }
 
-# scandinavian_tar_privileges: naval_supplies, tar
+# scandinavian_tar_privileges: naval_supplies, tar.
+#
+# **Divided by how often this right has already been granted**, the same shape
+# as a good's province divisor and for the same reason. Every town of a province
+# scores identically, so undivided they all take the one right -- five towns of
+# Münsterland took the masonry and glass charter four times over on the
+# thirty-sixth run, and every one of them then held the same two buildings. A
+# right that is genuinely better still wins; a tie now spreads.
 # Scope: location
 bag_wtp_rq12 = {
 	value = 0
 	add = var:bag_wtp_p39
 	add = var:bag_wtp_p45
+	divide = {
+		value = 1
+		add = global_var:bag_wtp_rgiven12
+		min = 1
+	}
 }
 
 # The divisor the plan normalizes by: the best this ground is worth to whatever

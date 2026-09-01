@@ -38,6 +38,41 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-sixth load. The plan works and reads
+right; three faults in the allocation, all named by the screenshots.** Two
+screenshots, Westphalia whole and Münsterland alone. «Вау, оно кажется даже
+адекватно работает… вся визуальная часть теперь работает как надо.»
+
+- **Westphalia: «Локаций 48 (городских 7) · провинций 8 · мест 144 · товаров 27
+  · норма 4 · прав выдано 7 · зданий 140 в 48 локациях · лимиты 3/3 · кругов
+  40».** Rights on seven towns against one before, the quota reads 4, and the
+  window and its rows are what he wanted.
+- **Münsterland alone, five towns, one province: «мест 15 · товаров 13 · норма 1
+  · прав выдано 5 · зданий 10 в 5 локациях».** Ten buildings in fifteen rooms,
+  and the same goods standing in three of the five.
+- **Fault one: «товаров» counts goods that cannot stand on this ground.**
+  `_ordmax` is the better of the two sides, so a good whose only buildings are
+  rural counts as makeable where every candidate is a town. Münsterland reported
+  13 where at most 8 could ever be placed — **and the quota divides by that
+  number**, so every good's share came out too small. `_ng<n>` and
+  `_plan_scored` are counted on the side the location actually is now.
+- **Fault two: the open pass lifted the quota instead of raising it**, so the
+  first good down the list took every free room at once. That is the repetition
+  in three of five towns. It raises every quota by one a round now, and the
+  leftover ground fills in even layers.
+- **Fault three: identical towns all take the same right.** Every location of a
+  province scores the same, so four of five Münsterland towns took the masonry
+  and glass charter and then held the same buildings. A right's score is divided
+  by how often it has been granted now — the same shape as a good's province
+  divisor. A better right still wins; a tie spreads.
+- **Not a fault, and worth writing down: a right whose bundle the ground cannot
+  make is granted anyway and comes out short.** Липпштадт took «Права на
+  каменные и стекольные» and the plan put masonry, horses and spinning. Glass is
+  the reason: every glass recipe wants sand, the province has none, so glass
+  falls under `generate.fed_floor` and `glass_guild` also gates on
+  `is_produced_in_location_market = goods:sand`. The mandatory-rights rule is
+  doing what it was told; the ground refused the second half.
+
 **2026-09-01 — `where_to_produce`, thirty-fifth load. Both plan buttons opened
 nothing, and it was a rename in the same session that did it.** Logs supplied;
 `which_build.py` confirms the tree.
