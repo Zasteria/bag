@@ -8119,18 +8119,39 @@ bag_wtp_ordmax47 = {
 
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq1 = {
 	value = 0
-	add = var:bag_wtp_p29
-	add = var:bag_wtp_p30
-	add = var:bag_wtp_p18
+	if = {
+		limit = { bag_wtp_plan_can_town_29 = yes }
+		add = 2000
+		add = var:bag_wtp_p29
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_18 = yes }
+		add = 2000
+		add = var:bag_wtp_p18
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven1
@@ -8140,18 +8161,39 @@ bag_wtp_rq1 = {
 
 # royal_artisan_rights: furniture, leather, pottery.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq2 = {
 	value = 0
-	add = var:bag_wtp_p32
-	add = var:bag_wtp_p36
-	add = var:bag_wtp_p42
+	if = {
+		limit = { bag_wtp_plan_can_town_32 = yes }
+		add = 2000
+		add = var:bag_wtp_p32
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_36 = yes }
+		add = 2000
+		add = var:bag_wtp_p36
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_42 = yes }
+		add = 2000
+		add = var:bag_wtp_p42
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven2
@@ -8161,18 +8203,39 @@ bag_wtp_rq2 = {
 
 # royal_book_rights: books, dyes, paper.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq3 = {
 	value = 0
-	add = var:bag_wtp_p27
-	add = var:bag_wtp_p4
-	add = var:bag_wtp_p40
+	if = {
+		limit = { bag_wtp_plan_can_town_27 = yes }
+		add = 2000
+		add = var:bag_wtp_p27
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_4 = yes }
+		add = 2000
+		add = var:bag_wtp_p4
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_40 = yes }
+		add = 2000
+		add = var:bag_wtp_p40
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven3
@@ -8182,18 +8245,39 @@ bag_wtp_rq3 = {
 
 # royal_brewing_rights: beer, liquor, wine.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq4 = {
 	value = 0
-	add = var:bag_wtp_p26
-	add = var:bag_wtp_p37
-	add = var:bag_wtp_p24
+	if = {
+		limit = { bag_wtp_plan_can_town_26 = yes }
+		add = 2000
+		add = var:bag_wtp_p26
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_37 = yes }
+		add = 2000
+		add = var:bag_wtp_p37
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_24 = yes }
+		add = 2000
+		add = var:bag_wtp_p24
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven4
@@ -8203,16 +8287,29 @@ bag_wtp_rq4 = {
 
 # royal_jewelry_rights: jewelry.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq5 = {
 	value = 0
-	add = var:bag_wtp_p34
+	if = {
+		limit = { bag_wtp_plan_can_town_34 = yes }
+		add = 2000
+		add = var:bag_wtp_p34
+	}
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven5
@@ -8222,17 +8319,34 @@ bag_wtp_rq5 = {
 
 # royal_masonry_rights: glass, masonry.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq6 = {
 	value = 0
-	add = var:bag_wtp_p33
-	add = var:bag_wtp_p38
+	if = {
+		limit = { bag_wtp_plan_can_town_33 = yes }
+		add = 2000
+		add = var:bag_wtp_p33
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_38 = yes }
+		add = 2000
+		add = var:bag_wtp_p38
+	}
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven6
@@ -8242,17 +8356,34 @@ bag_wtp_rq6 = {
 
 # royal_naval_rights: naval_supplies, tar.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq7 = {
 	value = 0
-	add = var:bag_wtp_p39
-	add = var:bag_wtp_p45
+	if = {
+		limit = { bag_wtp_plan_can_town_39 = yes }
+		add = 2000
+		add = var:bag_wtp_p39
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_45 = yes }
+		add = 2000
+		add = var:bag_wtp_p45
+	}
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven7
@@ -8262,18 +8393,39 @@ bag_wtp_rq7 = {
 
 # royal_textile_rights: cloth, dyes, fine_cloth.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq8 = {
 	value = 0
-	add = var:bag_wtp_p29
-	add = var:bag_wtp_p4
-	add = var:bag_wtp_p30
+	if = {
+		limit = { bag_wtp_plan_can_town_29 = yes }
+		add = 2000
+		add = var:bag_wtp_p29
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_4 = yes }
+		add = 2000
+		add = var:bag_wtp_p4
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven8
@@ -8283,16 +8435,29 @@ bag_wtp_rq8 = {
 
 # royal_tooling_rights: tools.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq9 = {
 	value = 0
-	add = var:bag_wtp_p46
+	if = {
+		limit = { bag_wtp_plan_can_town_46 = yes }
+		add = 2000
+		add = var:bag_wtp_p46
+	}
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven9
@@ -8302,18 +8467,39 @@ bag_wtp_rq9 = {
 
 # royal_weaponry_rights: cannons, firearms, weaponry.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq10 = {
 	value = 0
-	add = var:bag_wtp_p28
-	add = var:bag_wtp_p31
-	add = var:bag_wtp_p47
+	if = {
+		limit = { bag_wtp_plan_can_town_28 = yes }
+		add = 2000
+		add = var:bag_wtp_p28
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_31 = yes }
+		add = 2000
+		add = var:bag_wtp_p31
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_47 = yes }
+		add = 2000
+		add = var:bag_wtp_p47
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven10
@@ -8323,16 +8509,29 @@ bag_wtp_rq10 = {
 
 # scandinavian_bergslag_privileges: tools.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq11 = {
 	value = 0
-	add = var:bag_wtp_p46
+	if = {
+		limit = { bag_wtp_plan_can_town_46 = yes }
+		add = 2000
+		add = var:bag_wtp_p46
+	}
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven11
@@ -8342,17 +8541,34 @@ bag_wtp_rq11 = {
 
 # scandinavian_tar_privileges: naval_supplies, tar.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 bag_wtp_rq12 = {
 	value = 0
-	add = var:bag_wtp_p39
-	add = var:bag_wtp_p45
+	if = {
+		limit = { bag_wtp_plan_can_town_39 = yes }
+		add = 2000
+		add = var:bag_wtp_p39
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_45 = yes }
+		add = 2000
+		add = var:bag_wtp_p45
+	}
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven12

@@ -113,6 +113,11 @@ PLAN_ROWS = 150
 # minimised, not forbidden.
 UNFED_PENALTY = 2
 
+# What one buildable good of a right's bundle is worth beside how good it is.
+# Twice `RANK_SCALE`, so that a bundle a town can finish always outranks a bigger
+# one it cannot, whatever the scores inside them.
+RIGHT_FIT = 2000
+
 PLAN_TIERS = (1, 2, 4, 8, 16, 0)
 
 # The pass after all of them, with the quota lifted rather than a candidate count
@@ -826,20 +831,34 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # on purpose, because it is the same everywhere and reorders nothing.
     for k, right in enumerate(output_rights(rows, game), start=1):
         bundle = sorted(right.output)
-        adds = "".join(f"\tadd = var:{MOD_ID}_p{order.index(g) + 1}\n" for g in bundle)
+        adds = "".join(f"""\tif = {{
+\t\tlimit = {{ {MOD_ID}_plan_can_town_{order.index(g) + 1} = yes }}
+\t\tadd = {RIGHT_FIT}
+\t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
+\t}}
+""" for g in bundle)
         plan_values.append(f"""
 # {right.key}: {", ".join(bundle)}.
 #
-# **Divided by how often this right has already been granted**, the same shape
-# as a good's province divisor and for the same reason. Every town of a province
-# scores identically, so undivided they all take the one right -- five towns of
-# Münsterland took the masonry and glass charter four times over on the
-# thirty-sixth run, and every one of them then held the same two buildings. A
-# right that is genuinely better still wins; a tie now spreads.
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted**, the same
+# shape as a good's province divisor and for the same reason: every town of a
+# province scores identically, so undivided they all take the one right. A right
+# that is genuinely better still wins; a tie spreads.
 # Scope: location
 {MOD_ID}_rq{k} = {{
 \tvalue = 0
-{adds}\tdivide = {{
+{adds}\tdivide = {len(bundle)}
+\tdivide = {{
 \t\tvalue = 1
 \t\tadd = global_var:{MOD_ID}_rgiven{k}
 \t\tmin = 1

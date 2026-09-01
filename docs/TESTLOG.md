@@ -38,6 +38,42 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-seventh load. Every town took the same
+charter and none of them got glass; the glass half is the game's answer, the
+charter is ours.** Three screenshots, Westphalia with every location forced to a
+town. «Всё ещё довольно плохая раскидка даже на глаз.»
+
+- **«Локаций 48 (городских 48) · провинций 8 · мест 144 · товаров 28 · норма 3 ·
+  прав выдано 48 · зданий 138 в 48 локациях · лимиты 3/3 · кругов 23».** The
+  ground is 96% full and every town has a right, which is what the last two runs
+  were for. **Bog iron went to the wetland locations and got room**, which is the
+  scarcity tiers doing their job on the case he named.
+- **Glass cannot be built anywhere in Westphalia at the start, and the game is
+  what says so.** Traced through the data rather than guessed: glass has five
+  town recipes, and the ages that unlock their buildings are guild 0, workshop 4,
+  glassworks 5, mill 6. So the only unlocked one is `glass_guild` — and it
+  carries `location_potential = { is_produced_in_location_market = goods:sand }`,
+  which no Westphalian market answers. `bag_wtp_avail_<n>` is
+  `can_build_building` in **country** scope, which does check the advance
+  (`docs/research/engine.md`), so the later three are out too. «В конце» would
+  place it; «Сейчас» cannot, and should not.
+- **The fault is that the charter was granted anyway, forty-eight times.**
+  `mason` is age 0 and stands in every town, so `royal_masonry_rights` scored
+  around a thousand everywhere while its rival bundles scored what their own
+  goods could reach — and the grant divisor added on the previous run was
+  dividing a thousand against near-zero rivals, so it never turned the outcome
+  over. **Six other charters are wholly age-0 buildable** — artisan, brewing,
+  naval, textile, tooling, jewelry — and any of them would have filled the town.
+- **Fixed: a right is scored by how much of it the town could actually finish.**
+  Each bundle good the town can build adds a flat 2000 plus its own score;
+  one it cannot adds nothing; the total is divided by the bundle's size. So the
+  number is "what fraction of this charter would really go up here" first and
+  "how good would it be" second, and a bundle a town can finish outranks a bigger
+  one it cannot whatever the scores inside them. The grant divisor stays on top.
+- **The empty slots follow from the same thing.** Дюльмен at 1 of 3 and three
+  towns at 2 of 3 had all been given the masonry charter and could place only
+  its masonry half.
+
 **2026-09-01 — `where_to_produce`, thirty-sixth load. The plan works and reads
 right; three faults in the allocation, all named by the screenshots.** Two
 screenshots, Westphalia whole and Münsterland alone. «Вау, оно кажется даже
@@ -124,75 +160,6 @@ screenshot of the plan window, Westphalia, caps 3/3, rights on. «Довольн
   have no candidate location in Westphalia at all.
 - **No log asked for and none needed** — the header line carried the diagnosis,
   which is what it was added for.
-
-**2026-09-01 — `where_to_produce`, thirty-third load. The sweep guard ate the
-plan, and the owner called a halt to iterating.** Three screenshots, Westphalia,
-caps 3/3, rights on; and the ranking checked separately on stone.
-
-- **«Локаций 48 (городских 7) · провинций 8 · мест 144 · товаров 27 · прав
-  выдано 1 · зданий 28 в 20 локациях · лимиты 3/3 · кругов 12».** Twenty-eight
-  buildings out of a hundred and forty-four places, most locations holding one
-  thing, whole provinces cut short.
-- **«Кругов 12» is the diagnosis and it is in the line.** `PLAN_ROUNDS` is 12 and
-  the sweep counter was **one counter shared by all six scarcity tiers**, so the
-  scarce tiers spent the budget and the last tier — the one that fills the ground
-  — never ran. Each tier has its own budget now.
-- **The ranking's buildability gate works and is visibly right.** Stone in
-  Westphalia: the wholly flat province is gone, and Sauerland stayed with 3.72%.
-  **But Sauerland has seven locations and one of them is flat**, and the row said
-  nothing about that: «мне должно предлагаться конкретнее место». A row prints
-  `n/m` now — how many of the province's locations can hold the winning building
-  — counted for free off the winners the scoring pass already wrote.
-- **«Обошёл 48 · нашёл 1»** for stone across the whole of Westphalia. One
-  province. That is the gate being strict, and it is worth knowing whether it is
-  too strict before anything else is built on top of it.
-- **Only one urban right granted** (tools, in Münster). All-or-nothing plus
-  buildability is a hard filter and Westphalia is a poor ground for bundles, but
-  whether that is right or too strict is not settled.
-- **The picker says «48 лок. в 31 пров.» and the plan says «провинций 8».** They
-  count different things — the picker counts `province`, the owner-split piece,
-  and the plan counts `province_definition` — and neither label says so.
-- **The plan's icons ran together.** 26-wide cells at 2 spacing; 32 at 6 now.
-- **And the owner's instruction:** «Мне кажется нам нужно сначала вывести точную и
-  доходчивую формулу приоритетов и выгоды постройки производства, нежели вот так
-  вот долбить всё туда-сюда.» No more counters, no more rounds of guessing —
-  agree the formula first. It is written out in
-  [`investigations/plan_formula.md`](investigations/plan_formula.md) and that
-  document is the next session's first move.
-
-**2026-09-01 — `where_to_produce`, thirty-second load. The buildability gate
-holds, and the owner took the model apart one level further.** Two screenshots,
-Westphalia, 48 locations, caps 3/3.
-
-- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · записей 37
-  · зданий 140 в 48 локациях · кругов 4».** Goods fell 32 → 27 and buildings 148
-  → 140 with the gate in, and **no iron anywhere** — which is the gate working,
-  though he knows of a wetland province and wants to see it offered there.
-- **The building icons drew nothing.** `BuildingType.GetIcon` returns a `CString`
-  — a texticon, the same as `Goods.GetIcon` — so it belongs in `raw_text` and not
-  in an `icon`'s `texture`. Vanilla writes it that way in `alertmanager.gui`.
-- **`§Yгород§!` printed literally** in the override button, and its rank icon of
-  course never changed, being the game's. One word, no markup, and the game's
-  own rank icon moved out beside the location name.
-- **No urban right anywhere, all dashes.** Truthful under all-or-nothing —
-  Westphalia can make no whole bundle — but indistinguishable from a broken
-  feature, so the summary counts rights granted now.
-- **And the ranking beside the plan was cheating the same way.** «Каменоломню мне
-  выдало что отлично можно построить в провинции где полностью равнина, но там
-  есть дерево». `can_build_building` now gates every one of the ranking's
-  answers too, in all three ages.
-- **Two rules of the model were wrong, and he found both.**
-  **One:** uniqueness is per *location*, not per province — a market village
-  makes tools, jewelry, beer and pottery, so four villages of a province may take
-  one each rather than all taking pottery. The province lists are gone; the plan
-  decides per location and a province looks coherent only where it deserves to.
-  **Two:** a good only one place can hold must take that place before a common
-  good takes its second — «жёстко зарезервировать». The sweeps run in scarcity
-  tiers now (1, 2, 4, 8, 16, then everything), ordered by how many candidate
-  locations can host each good.
-- **He asked for the algorithm in plain words**, and it is on the «План» button's
-  own tooltip now, six steps.
-- No logs asked for and none needed.
 
 ## Waiting on a run
 
