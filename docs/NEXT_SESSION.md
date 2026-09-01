@@ -32,49 +32,40 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: the whole-map plan
+## `where_to_produce`: the plan, and where it stands
 
-**Everything before the plan is done and the owner is content with it** — the
-three ages on a row, the two «Считать» buttons, the four pickers including a
-whole market. The state is [`../mods/where_to_produce/CLAUDE.md`](../mods/where_to_produce/CLAUDE.md);
-one alignment question is open in `TESTLOG.md` and nothing else is.
+**The formula is derived and the owner has seen it work.** He stated the
+objective on 2026-09-01 — maximise the bonus captured, subject to every good the
+ground can produce being produced — and
+[`investigations/plan_formula.md`](investigations/plan_formula.md) is that
+derivation, not a set of rules. **Read it before changing any of the
+allocation.** Four grounds tested the same day and his verdict was «большой
+рывок»; the thirty-eighth run is in `TESTLOG.md` with what each one showed.
 
-**Do not ask him for logs unless something did nothing** — the rule and its
-exceptions are at the top of `TESTLOG.md`.
+**What he could not check, and said so:** whether the filling is *right*. «Я
+понятия не имею как именно должен выглядеть конечный идеальный результат.» So
+the tests are indirect — variety, rights spreading, rooms filled — and that is
+the honest limit of what a screenshot can settle.
 
-**The formula is settled and built, and it wants one press.** The owner answered
-the four questions on 2026-09-01 and sent the plan's own screenshot with them
-(«довольно плохо»); the answers and the screenshot pointed at the same thing.
-[`investigations/plan_formula.md`](investigations/plan_formula.md) is now the
-derived formula rather than a proposal; the three measurements at the top of it
-are the part worth reading before anything else.
+**Live, and in his words rather than ours:**
 
-**Four changes went in against it, none of them loaded:**
+- **the single-good side of the mod has faults he has already seen** and set
+  aside for a later session. He did not name them; ask before guessing;
+- **`town_right_efficiency_penalty` is one `grep` on his install.** The structure
+  is understood — a right carries a blanket production-efficiency penalty over
+  the whole town beside its per-good bonus — but the number is a define no file
+  in `reference/` holds. Until it is known, the discount on a right-holding
+  town's spare slots is a direction without a size;
+- **a rural location per province set aside for food**, which he described and
+  marked as not yet reached;
+- **the hand weight** — «я выбираю товар и щёлкаю +1» — which is tier 0 of the
+  formula and the only place a preference of his enters. `cmm_register_list_numeric_field`
+  is the field and `cmm_register_list_data_field` the column to show the result
+  in, both in `research/cmf.md`;
+- **the caps at 3, 4 and 5**, which is the experiment he asked for and has now
+  run twice at 3/3 and 3/4.
 
-- **the province divisor** — a good's score over what its province already holds
-  of it. This is the screenshot: six villages of Paderborner Plateau given the
-  same three buildings, because a province's locations all score the same;
-- **urban rights are mandatory** — every town its best right, whole bundle.
-  All-or-nothing granted **one** right across six towns;
-- **the quota** — rooms left over the goods the ground can make, less the RGOs
-  standing, never below one: «равномерно» at both his scales;
-- **the RGO discount**: one RGO standing is one building not needed.
-
-**The thirty-fifth load: both plan buttons opened nothing** — that session's
-rename caught the window's only setter. Fixed, and `check_script.py` catches the
-class now. **So the four changes are still unseen.**
-
-**Ask for one press of «План» on the same ground, and the header line.** It reads
-«норма N» now, so one screenshot says which of the four worked: expect rights on
-all six towns, a quota near five, and a province's locations no longer alike.
-**Then the caps at 3, 4 and 5.**
-
-What is deliberately unbuilt — the hand weight, regret ordering — is listed once,
-in [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md), along
-with the `n/m` on a ranking row and the plan's icon spacing, both also unloaded.
 **And he asked for no more counters until it works.**
-
-**Also open and cheap:** one layout question, in `TESTLOG.md`.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):

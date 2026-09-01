@@ -95,7 +95,13 @@ RIGHT_SCALE = RANK_SCALE // 10
 # setting rather than the setting itself: CMM clamps the number he chooses, and
 # a `while` in an effect that cannot leave its condition is a hung game rather
 # than an error in a log.
-PLAN_ROUNDS = 12
+# **The guard, and on a big map it is the thing that decides whether the plan
+# finishes.** A sweep places at most one building per good per side, so 970
+# buildings over 32 goods needs thirty sweeps at the very least; twelve cut the
+# thirty-eighth run short and left 342 rooms of 1312 empty. It costs nothing
+# where a pass has no work -- the `while` leaves the moment a sweep adds nothing
+# -- so it is only ever paid where there is something to place.
+PLAN_ROUNDS = 50
 # More than `RESULT_ROWS`, because a plan's row is a location where a ranking's
 # is a province -- the same ground is four to eight times the rows. Only the
 # datamodel decides what a scripted widget costs, and this list is filled on
@@ -831,6 +837,16 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tadd = var:{MOD_ID}_pp{index}
 \t\tmin = 1
 \t}}
+\t# **A spare slot in a town that holds a right is worth less, and the game says
+\t# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
+\t# over the whole location, so a building that is not in the bundle takes the
+\t# penalty and none of the bonus -- the same building is strictly better in a
+\t# town without a right. Halved rather than forbidden: the penalty's value is a
+\t# define `reference/` does not hold, so this is the direction without its size.
+\tif = {{
+\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}
+\t\tdivide = 2
+\t}}
 }}
 # Scope: location
 {MOD_ID}_ordr{index} = {{
@@ -1081,7 +1097,6 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_plan_rooms = {{ value = global_var:{MOD_ID}_plan_rooms }}
 {MOD_ID}_show_plan_cap_rural = {{ value = global_var:{MOD_ID}_plan_cap_rural }}
 {MOD_ID}_show_plan_cap_urban = {{ value = global_var:{MOD_ID}_plan_cap_urban }}
-{MOD_ID}_show_plan_max = {{ value = global_var:{MOD_ID}_plan_max }}
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
@@ -2022,10 +2037,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # A band costs a sweep, so there are five rather than ten. The last is 0,
     # which admits a good the RGOs feed nothing -- and it must, because every
     # good the ground can produce has to be produced.
-    # The bands wrap the scarcity tiers only. **Then coverage, then the open
-    # pass**, each once: the first is the owner's hard constraint -- every good
-    # the ground can produce is produced -- and the second fills what is left.
-    for band, tier in ([(b, t) for b in PLAN_BANDS for t in PLAN_TIERS]
+    # **The tier ladder runs in the last band only, and the value bands run
+    # flat.** The tiers exist so a good with almost nowhere to go claims before a
+    # common one -- and where a scarce good has a high gain it wins the band on
+    # gain alone, without needing the ladder. Walking all six tiers inside every
+    # band was 33 passes on the thirty-eighth run and 98 sweeps for it; this is
+    # twelve, which is what buys the round guard above.
+    #
+    # **Then coverage, then the open pass**, each once: the first is the owner's
+    # hard constraint -- every good the ground can produce is produced -- and the
+    # second fills whatever is still empty.
+    for band, tier in ([(b, 0) for b in PLAN_BANDS[:-1]]
+                       + [(PLAN_BANDS[-1], t) for t in PLAN_TIERS]
                        + [(0, COVER_TIER), (0, OPEN_TIER)]):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_cover "
@@ -2099,10 +2122,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tOR = {{
 \t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
 \t\t\t\tglobal_var:{MOD_ID}_ng{index} <= global_var:{MOD_ID}_plan_tier
-\t\t\t}}
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
 \t\t\t}}
 \t\t\t# The quota. **Never lifted** -- the open pass raises it by one a
 \t\t\t# round instead, so leftover ground fills in even layers rather than

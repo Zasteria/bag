@@ -38,6 +38,47 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-eighth load. Four tests of the derived
+formula. «Как будто бы выглядит всё довольно хорошо и ты сделал большой рывок».**
+Nothing that follows was re-run after being fixed.
+
+- **Westphalia, 6 towns, caps 3/3: it holds up.** «Он ставит нужные домики к гор.
+  правам и заполняет свободные ячейки… всем 5 выданы разные права.» All 144 rooms
+  filled, 64 sweeps. The rights spread — the grant divisor works. At caps 3/4 it
+  filled 153 of 153 and gave 9 rights.
+- **One province alone, 5 locations: «все товары разные на каждую маленькую
+  локацию, это выглядит правильно».** The band ordering doing what it is for.
+- **Every location forced to a town in the first province, villages below:
+  glass lands in the villages and never in the towns, while saltpetre and clay —
+  which a village could dig — take the town slots.** Not a fault in itself: an
+  RGO building declares `town = yes` as well, so the plan may put one there.
+  **But it is a loss the formula can name.** A right carries a blanket
+  `local_production_efficiency` penalty over the whole town, so a building that
+  is not in the bundle takes the penalty and none of the bonus — the same
+  building is strictly better in a town with no right. `_ord<n>` halves a
+  right-holding town's spare slots now. Halved rather than forbidden: the
+  penalty's value is a define `reference/` does not hold.
+- **All of northern Germany, 416 locations and 1312 rooms: 970 buildings in 354
+  locations, and «мод не справился досчитать всё как надо».** He is right, and
+  the cause is the round guard. A sweep places at most one building per good per
+  side, so 970 buildings over 32 goods needs thirty sweeps at the very least, and
+  `PLAN_ROUNDS` was 12 — every pass was being cut off with work left.
+  **Fixed twice over**: the guard is 50, and the tier ladder now runs in the last
+  band only, which is twelve passes where there were thirty-three. The guard is
+  free where a pass has no work, since the `while` leaves the moment a sweep adds
+  nothing.
+- **«Показано всего 150 локаций» is the window's row cap, not the count.**
+  `PLAN_ROWS` is 150 and the datamodel is what costs, so the cap stays; the
+  header line says «показано N» now, beside the 354 it really used.
+- **A one-off spike and a short hitch on «Пересчитать» over that ground**,
+  reported without complaint. Worth keeping in mind against the pass count.
+- **The province ceiling is gone.** «Я не представляю ситуацию, когда бы я мог
+  захотеть сменить значение этой строки с 0.» Under the formula the quota does
+  that job and is derived rather than typed, so the setting, its alias, its
+  default and both localizations are removed.
+- **Known and deliberately left:** faults in the single-good side of the mod,
+  which he named and set aside for a later session.
+
 **2026-09-01 — `where_to_produce`, no run. The owner stated the objective, and
 the formula was derived from it rather than assembled from rules.** Nothing here
 has been in the game.
@@ -159,58 +200,6 @@ screenshots, Westphalia whole and Münsterland alone. «Вау, оно каже�
   falls under `generate.fed_floor` and `glass_guild` also gates on
   `is_produced_in_location_market = goods:sand`. The mandatory-rights rule is
   doing what it was told; the ground refused the second half.
-
-**2026-09-01 — `where_to_produce`, thirty-fifth load. Both plan buttons opened
-nothing, and it was a rename in the same session that did it.** Logs supplied;
-`which_build.py` confirms the tree.
-
-- **«Кнопка "план" и одна и вторая теперь просто не работают и не открывают окно
-  расчётов (с гор правами и без них). По отдельным товарам — всё работает.»**
-- **`error.log`: «Variable 'bag_wtp_plan_open' is used but is never set.»** That
-  is the whole fault. Adding the quota phase introduced a global flag and it was
-  renamed `_plan_free` to keep it away from the window's own `plan_open`; the
-  rename matched on `plan_open value = 1` and caught
-  `bag_wtp_open_plan_window_effect` too — the **only** thing that sets the flag
-  the window's `visible` reads. Both plan buttons go through that one effect,
-  which is why both died and the per-good windows did not.
-- **Nothing else of this mod's is in the log.** No script-value error from the
-  province divisor, the quota, the RGO count or the mandatory rights, so the
-  pass itself is untried rather than broken — the window never opened to show it.
-- **Also in the log all along and now explained:** «Variable
-  'bag_wtp_pm2_rural' is used but is never set», and its `mid_`/`end_` twins.
-  Not a fault: **no two-part method may stand in a rural settlement** — all
-  eight two-slot buildings are town and above — so the second-method half of a
-  village row is always hidden, which is what it should be. The widgets are left
-  alone and marked.
-- **A checker now catches this class**, and was proven against this exact bug: a
-  variable the mod reads that nothing in it, and not CMF, ever writes.
-  `remove_variable` deliberately does not count as a write — read, removed, and
-  never set is the shape of the fault.
-- **The plan is still unloaded.** The thirty-fourth run's four changes have not
-  been seen once.
-
-**2026-09-01 — `where_to_produce`, thirty-fourth load. The per-tier sweep budget
-works; the plan is full and wrong in a way that named its own fault.** One
-screenshot of the plan window, Westphalia, caps 3/3, rights on. «Довольно плохо,
-объяснять пока не хочу, посмотри сам.»
-
-- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · прав
-  выдано 1 · зданий 140 в 48 локациях · лимиты 3/3 · кругов 41».** The
-  thirty-third load's fault is closed: 140 of 144 places filled against 28
-  before, every location used. The per-tier budget was the whole of it.
-- **Six villages of Paderborner Plateau, rows 3 to 8, each given the same three
-  buildings.** This is the fault the formula work then explained: every location
-  of a province scores identically for a good — the bonus is the province's — so
-  with nothing to stop it a good takes its best province whole and that
-  province's locations come out clones of each other. The fix is the province
-  divisor, unloaded.
-- **One right across six towns.** All-or-nothing needed a bundle of three to fit
-  a cap of three exactly. The owner settled it the same day: a right is granted
-  to every town regardless. Unloaded.
-- **27 goods of 47 placed**, which is the ground and not a fault: twenty goods
-  have no candidate location in Westphalia at all.
-- **No log asked for and none needed** — the header line carried the diagnosis,
-  which is what it was added for.
 
 ## Waiting on a run
 

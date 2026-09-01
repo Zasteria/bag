@@ -1813,3 +1813,61 @@ Westphalia, 48 locations, caps 3/3.
 - **He asked for the algorithm in plain words**, and it is on the «План» button's
   own tooltip now, six steps.
 - No logs asked for and none needed.
+
+### 2026-09 — `where_to_produce`, the thirty-fourth and thirty-fifth loads
+
+Archived when the thirty-eighth tripped the live log's budget. The window's own
+open flag and the per-tier sweep budget, both closed and both confirmed by later
+runs.
+
+**2026-09-01 — `where_to_produce`, thirty-fifth load. Both plan buttons opened
+nothing, and it was a rename in the same session that did it.** Logs supplied;
+`which_build.py` confirms the tree.
+
+- **«Кнопка "план" и одна и вторая теперь просто не работают и не открывают окно
+  расчётов (с гор правами и без них). По отдельным товарам — всё работает.»**
+- **`error.log`: «Variable 'bag_wtp_plan_open' is used but is never set.»** That
+  is the whole fault. Adding the quota phase introduced a global flag and it was
+  renamed `_plan_free` to keep it away from the window's own `plan_open`; the
+  rename matched on `plan_open value = 1` and caught
+  `bag_wtp_open_plan_window_effect` too — the **only** thing that sets the flag
+  the window's `visible` reads. Both plan buttons go through that one effect,
+  which is why both died and the per-good windows did not.
+- **Nothing else of this mod's is in the log.** No script-value error from the
+  province divisor, the quota, the RGO count or the mandatory rights, so the
+  pass itself is untried rather than broken — the window never opened to show it.
+- **Also in the log all along and now explained:** «Variable
+  'bag_wtp_pm2_rural' is used but is never set», and its `mid_`/`end_` twins.
+  Not a fault: **no two-part method may stand in a rural settlement** — all
+  eight two-slot buildings are town and above — so the second-method half of a
+  village row is always hidden, which is what it should be. The widgets are left
+  alone and marked.
+- **A checker now catches this class**, and was proven against this exact bug: a
+  variable the mod reads that nothing in it, and not CMF, ever writes.
+  `remove_variable` deliberately does not count as a write — read, removed, and
+  never set is the shape of the fault.
+- **The plan is still unloaded.** The thirty-fourth run's four changes have not
+  been seen once.
+
+**2026-09-01 — `where_to_produce`, thirty-fourth load. The per-tier sweep budget
+works; the plan is full and wrong in a way that named its own fault.** One
+screenshot of the plan window, Westphalia, caps 3/3, rights on. «Довольно плохо,
+объяснять пока не хочу, посмотри сам.»
+
+- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · прав
+  выдано 1 · зданий 140 в 48 локациях · лимиты 3/3 · кругов 41».** The
+  thirty-third load's fault is closed: 140 of 144 places filled against 28
+  before, every location used. The per-tier budget was the whole of it.
+- **Six villages of Paderborner Plateau, rows 3 to 8, each given the same three
+  buildings.** This is the fault the formula work then explained: every location
+  of a province scores identically for a good — the bonus is the province's — so
+  with nothing to stop it a good takes its best province whole and that
+  province's locations come out clones of each other. The fix is the province
+  divisor, unloaded.
+- **One right across six towns.** All-or-nothing needed a bundle of three to fit
+  a cap of three exactly. The owner settled it the same day: a right is granted
+  to every town regardless. Unloaded.
+- **27 goods of 47 placed**, which is the ground and not a fault: twenty goods
+  have no candidate location in Westphalia at all.
+- **No log asked for and none needed** — the header line carried the diagnosis,
+  which is what it was added for.

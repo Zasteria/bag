@@ -134,8 +134,11 @@ Two consequences, and the first is a hard one:
 
 - **a town holding a right should hold its bundle and as little else as
   possible.** A non-bundle building there earns the penalty and none of the
-  bonus, so the same building is strictly better in a town without a right. The
-  bands must therefore discount a right-holding town's leftover slots;
+  bonus, so the same building is strictly better in a town without a right.
+  `_ord<n>` halves a right-holding town's spare slots — the direction without its
+  size, since the penalty's value is unknown. Built 2026-09-01, after the
+  thirty-eighth run put saltpetre and clay into towns that hold rights while
+  their villages made the glass;
 - **rights are worth more than anything the bands can find**, by a factor of two
   to five, which is why they are dealt first rather than competing.
 
@@ -168,3 +171,23 @@ aside for food. He said «до этого мы пока ещё не дошли»
   should discount a right-holding town's spare slots;
 - whether a cap of 3 is right, which is why he asked for 3, 4 and 5;
 - whether the bands want ten steps or four — a band costs a sweep.
+
+## What the passes cost, which the thirty-eighth run measured
+
+A sweep places **at most one building per good per side**, so the number of
+sweeps a plan needs is not a constant: 970 buildings over 32 goods cannot be done
+in fewer than thirty. `PLAN_ROUNDS` guards each pass and was 12, which cut every
+pass short on a 1312-room ground and left 342 rooms empty. It is 50 now, and it
+is free wherever a pass has no work — the `while` leaves the moment a sweep adds
+nothing.
+
+**The pass count is what has to stay small, not the guard.** Walking all six
+scarcity tiers inside all five bands was 33 passes and 98 sweeps for one plan.
+The tiers run in the last band only now, because a scarce good with a high gain
+wins its band on gain alone and does not need the ladder — twelve passes, and
+that is what buys the guard.
+
+**The window draws `PLAN_ROWS` = 150 rows** however many locations the plan used;
+the datamodel is what costs (`../../mods/where_to_produce/CLAUDE.md`). The header
+line says how many were drawn beside how many were used, so the cap cannot be
+mistaken for the count again.

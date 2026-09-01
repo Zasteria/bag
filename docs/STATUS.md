@@ -12,7 +12,7 @@ state, the commands, and what fails silently in that mod.
 | [`nd_ru`](../mods/nd_ru/CLAUDE.md) | in progress; 4 174 keys, 10.2% | everything except Westphalia and the override itself |
 | [`rgo_bonus_filter`](../mods/rgo_bonus_filter/CLAUDE.md) | working, in use, nothing outstanding | the location-panel chip |
 | [`goods_target`](../mods/goods_target/CLAUDE.md) | paused, half working, four faults known | anything on the monthly pulse |
-| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | twenty-seven loads in and the per-province answer is trusted: a good or a whole urban right, four ways to frame the ground, three ages on every row. the whole-map plan works end to end; **the formula is settled and built — the four questions were answered 2026-09-01 and the quota, the province divisor and mandatory rights are in, unloaded** | the per-tier sweep budget, the `n/m` fit count on a ranking row, the icon spacing |
+| [`where_to_produce`](../mods/where_to_produce/CLAUDE.md) | twenty-seven loads in and the per-province answer is trusted: a good or a whole urban right, four ways to frame the ground, three ages on every row. the whole-map plan is an optimisation with a covering constraint and the owner has seen it work over four grounds: «большой рывок». **`investigations/plan_formula.md` is the derivation and must be read before any of it is changed** | the per-tier sweep budget, the `n/m` fit count on a ranking row, the icon spacing |
 
 `where_to_produce` is the second attempt at a question the first one failed at
 without ever being tested. Why the first was removed, and the lesson that shaped
