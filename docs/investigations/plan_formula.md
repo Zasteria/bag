@@ -142,6 +142,15 @@ Two consequences, and the first is a hard one:
 - **rights are worth more than anything the bands can find**, by a factor of two
   to five, which is why they are dealt first rather than competing.
 
+**Which right a town gets is scored on what it could really finish:** each bundle
+good the town can make is worth a flat 2000 plus its own gain, each it cannot
+takes 1000 off, and the grant divisor above sits on top. Two ways this was got
+wrong, both on 2026-09-01 and both spamming one charter over a whole realm:
+counting a good as reached when the *input* that would unblock it could be
+planted — `sand_pit` stands almost anywhere, which made the masonry charter
+complete everywhere — and averaging a bundle over its size, which tied a one-good
+charter with a whole three-good one.
+
 **`town_right_efficiency_penalty` is a define and it is not in `reference/`** —
 only its eleven uses are. The structure above is certain; the number is not, and
 it is one `grep` on the owner's install. Until then the discount above is a

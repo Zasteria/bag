@@ -124,6 +124,12 @@ UNFED_PENALTY = 2
 # one it cannot, whatever the scores inside them.
 RIGHT_FIT = 2000
 
+# And what a bundle good the town cannot make costs it. Smaller than `RIGHT_FIT`
+# so that a charter with one gap still outscores a smaller complete one only
+# where the sizes say it should, and so that a town is never left without a right
+# for want of a positive number.
+RIGHT_GAP = 1000
+
 PLAN_TIERS = (1, 2, 4, 8, 16, 0)
 
 # The gain a placement has to reach to be made in this pass, out of `RANK_SCALE`.
@@ -876,23 +882,27 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # on purpose, because it is the same everywhere and reorders nothing.
     for k, right in enumerate(output_rights(rows, game), start=1):
         bundle = sorted(right.output)
-        def _reach(good: str) -> str:
-            """Can this bundle good put something in a town — itself, or the
-            input that would let it? The substitution below fills the slot
-            either way, so the right must be scored as if it counts."""
-            i = order.index(good) + 1
-            feeder = market_inputs(game).get(good)
-            j = order.index(feeder) + 1 if feeder in order else 0
-            if j and plan_groups(rows, split, game).get((feeder, "t")):
-                return (f"OR = {{ {MOD_ID}_plan_can_town_{i} = yes "
-                        f"{MOD_ID}_plan_can_town_{j} = yes }}")
-            return f"{MOD_ID}_plan_can_town_{i} = yes"
-
+        # **Scored on the goods the town can really make, and nothing else.**
+        # It counted a good as reached when the *input* that would unblock it
+        # could be planted, and that was a fault of its own: `sand_pit` asks only
+        # that the location is not already a sand RGO, so it stands nearly
+        # everywhere -- which made `royal_masonry_rights` the one charter that is
+        # always complete, spammed it over Wallachia, and put a sand pit in every
+        # town where the glass should have been. Planting the input is a
+        # consolation for a right already granted, never a reason to grant it.
+        #
+        # **A gap costs, and a bundle is not averaged.** Averaging made a
+        # one-good charter tie with a whole three-good one and made every
+        # two-good bundle beat a three-good one with a single gap. Each good the
+        # town can make is worth `RIGHT_FIT` plus its own gain; each it cannot
+        # takes `RIGHT_GAP` off. So a complete three outranks a complete two,
+        # which outranks two of three, which outranks a complete one.
         adds = "".join(f"""\tif = {{
-\t\tlimit = {{ {_reach(g)} }}
+\t\tlimit = {{ {MOD_ID}_plan_can_town_{order.index(g) + 1} = yes }}
 \t\tadd = {RIGHT_FIT}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
 \t}}
+\telse = {{ subtract = {RIGHT_GAP} }}
 """ for g in bundle)
         plan_values.append(f"""
 # {right.key}: {", ".join(bundle)}.
@@ -914,8 +924,7 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_rq{k} = {{
 \tvalue = 0
-{adds}\tdivide = {len(bundle)}
-\tdivide = {{
+{adds}\tdivide = {{
 \t\tvalue = 1
 \t\tadd = global_var:{MOD_ID}_rgiven{k}
 \t\tmin = 1
