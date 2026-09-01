@@ -34,13 +34,17 @@ types BagWtpPlanTypes {
 		}
 	}
 
+	# **A building's icon is a texticon and not a texture.** `BuildingType.GetIcon`
+	# returns a `CString` -- vanilla writes it as `raw_text` beside the name in
+	# `alertmanager.gui` -- so an `icon` with `texture = "[...GetIcon]"` draws
+	# nothing at all, which is what the thirty-second load showed.
 	type bag_wtp_plan_building_entry = widget {
 		size = { 26 20 }
-		icon = {
+		text_single = {
 			parentanchor = center
-			widgetanchor = center
-			size = { 18 18 }
-			texture = "[BuildingType.GetIcon]"
+			autoresize = yes
+			fontsize = 15
+			raw_text = "[BuildingType.GetIcon]"
 			tooltip = "[BuildingType.GetName]"
 		}
 	}
@@ -68,11 +72,13 @@ types BagWtpPlanTypes {
 		# The rank cell is a button and the button is the override. The game's
 		# rank is only what is true today; a village he means to raise is still a
 		# village to `location_rank`, and the mod cannot guess which. Clicking
-		# cycles town -> village -> back to the game's own answer.
+		# cycles auto -> town -> village -> auto.
 		#
-		# **It says which of the three it is in words.** The first build drew two
-		# tiny glyphs over the corner of the icon and the owner could not tell
-		# what had happened -- «просто на значке появились какие-то символы».
+		# **One word and no icon.** The first build drew the game's rank icon in
+		# the button, which of course never changed however the override was set,
+		# and coloured the word with `§Y...§!`, which this widget prints
+		# literally. The location's own rank icon is beside its name instead,
+		# where it says what the game thinks rather than what the plan does.
 		widget = {
 			size = { 92 42 }
 			button_regular = {
@@ -81,39 +87,50 @@ types BagWtpPlanTypes {
 				widgetanchor = center
 				tooltip = "bag_wtp_plan_rank_button_tt"
 				onclick = "[GetScriptedGui('bag_wtp_plan_mark_town').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('wtp_location', Location.MakeScope).End)]"
-				hbox = {
+				text_single = {
 					parentanchor = center
-					spacing = 3
-					icon = {
-						size = { 16 16 }
-						texture = "[Location.GetRankIcon]"
-					}
-					text_single = {
-						autoresize = yes
-						fontsize = 12
-						visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet), Not(Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet))]"
-						text = "bag_wtp_plan_rank_auto"
-					}
-					text_single = {
-						autoresize = yes
-						fontsize = 12
-						visible = "[Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet]"
-						text = "bag_wtp_plan_forced_town"
-					}
-					text_single = {
-						autoresize = yes
-						fontsize = 12
-						visible = "[Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet]"
-						text = "bag_wtp_plan_forced_rural"
-					}
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet), Not(Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet))]"
+					text = "bag_wtp_plan_rank_auto"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[Location.MakeScope.GetVariable('bag_wtp_force_town').IsSet]"
+					text = "bag_wtp_plan_forced_town"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 12
+					visible = "[Location.MakeScope.GetVariable('bag_wtp_force_rural').IsSet]"
+					text = "bag_wtp_plan_forced_rural"
 				}
 			}
 		}
 
+		# What the game itself calls this location, which the button above does
+		# not change.
+		widget = {
+			size = { 26 42 }
+			icon = {
+				size = { 18 18 }
+				parentanchor = center
+				widgetanchor = center
+				texture = "[Location.GetRankIcon]"
+				tooltipwidget = { using = location_simple_tooltip }
+			}
+		}
+
 		text_single = {
-			size = { 180 42 }
+			size = { 154 42 }
 			autoresize = no
-			maximumsize = { 180 42 }
+			maximumsize = { 154 42 }
 			align = left|vcenter
 			elide = right
 			text = "[Location.GetName]"
@@ -479,8 +496,9 @@ window = {
 						text = "bag_wtp_plan_head_rank_kind"
 						tooltip = "bag_wtp_plan_rank_button_tt"
 					}
+					widget = { size = { 26 24 } }
 					text_single = {
-						size = { 180 24 }
+						size = { 154 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13

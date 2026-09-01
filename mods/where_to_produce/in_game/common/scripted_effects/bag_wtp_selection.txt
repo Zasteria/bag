@@ -322,8 +322,12 @@ bag_wtp_init_counters = {
 		set_global_variable = { name = bag_wtp_plan_provn value = 0 }
 	}
 	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_plan_lists } }
-		set_global_variable = { name = bag_wtp_plan_lists value = 0 }
+		limit = { NOT = { has_global_variable = bag_wtp_plan_rightn } }
+		set_global_variable = { name = bag_wtp_plan_rightn value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_tier } }
+		set_global_variable = { name = bag_wtp_plan_tier value = 0 }
 	}
 	# `bag_wtp_found` is the ranking's, and it was never initialised: the results
 	# window's summary reads it through `bag_wtp_show_found`, and with no run yet

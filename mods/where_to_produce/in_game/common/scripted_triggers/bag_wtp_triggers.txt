@@ -123,14 +123,3 @@ bag_wtp_plan_is_town = {
 		}
 	}
 }
-
-# Has this province anywhere the plan counts as built-up? Asked of one location
-# per province, before an urban right is offered to it.
-# Scope: location
-bag_wtp_plan_has_town = {
-	province_definition = {
-		any_location_in_province_definition = {
-			bag_wtp_plan_is_town = yes
-		}
-	}
-}

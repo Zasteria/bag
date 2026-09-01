@@ -11,10 +11,9 @@ materials the province works.
 ## Where it stands
 
 **A recipe the province mostly cannot feed is not an answer** — the bar is half
-the bonus the recipe could ever earn (`generate.fed_floor`), because "fed
-anything at all" offered a silk weaver where there are dyes and no silk. Every
-column keeps a fed answer for the ranking and an unfed one for printing, so a
-cell says 0.00% where a blank would lie.
+the bonus it could ever earn (`generate.fed_floor`). **And since the
+thirty-second load a recipe whose building cannot stand there is not one either**:
+`can_build_building` gates every answer the ranking gives, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
 earning its own bonus over its own output, so a `Method` is the pair
@@ -30,15 +29,15 @@ Numbers and the deferred level rights:
 `interaction_source_list` holds is clickable, so `bag_wtp_select_market` fills it
 from `every_market_in_world` (`docs/SETTLED.md`).
 
-**The whole-map plan is chosen per province and spent per location.** Two short
-lists a province, towns and villages, each as long as that side's cap; every
-location builds its side's list. Sweeps until the ground is full. **A list entry
-is a building, not a good** — one building of a type a location, one method a
-building. **Every building is one `can_build_building` allows in that location**
-(terrain, rank, `location_potential`, never an advance — so it is safe for
-unowned ground and for the endgame plan). **The two sides are the building's own
-rank gates**, not `village_category`. **A right is all or nothing**: a province
-that cannot take its whole bundle is not offered it.
+**The whole-map plan is decided per location**, in six steps written out on its
+own button and in the investigation. **An entry is a building and a location
+holds one of each** — but the next location may take that building on another
+method, which is how four villages split a market village's four recipes.
+**Every building is one `can_build_building` allows there** (terrain, rank,
+`location_potential`; never an advance, so it holds for unowned ground and for
+the endgame). **The two sides are the building's own rank gates**, not
+`village_category`. **A right is all or nothing**, and a town's. **The scarce go
+first**: sweeps run in tiers of how few locations could host a good.
 Urban rights take a town list whole, chosen per province. Every condition is a
 location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
 **The expensive button** — 241 recipes a location. All of it in

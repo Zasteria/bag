@@ -38,6 +38,40 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-01 — `where_to_produce`, thirty-second load. The buildability gate
+holds, and the owner took the model apart one level further.** Two screenshots,
+Westphalia, 48 locations, caps 3/3.
+
+- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · записей 37
+  · зданий 140 в 48 локациях · кругов 4».** Goods fell 32 → 27 and buildings 148
+  → 140 with the gate in, and **no iron anywhere** — which is the gate working,
+  though he knows of a wetland province and wants to see it offered there.
+- **The building icons drew nothing.** `BuildingType.GetIcon` returns a `CString`
+  — a texticon, the same as `Goods.GetIcon` — so it belongs in `raw_text` and not
+  in an `icon`'s `texture`. Vanilla writes it that way in `alertmanager.gui`.
+- **`§Yгород§!` printed literally** in the override button, and its rank icon of
+  course never changed, being the game's. One word, no markup, and the game's
+  own rank icon moved out beside the location name.
+- **No urban right anywhere, all dashes.** Truthful under all-or-nothing —
+  Westphalia can make no whole bundle — but indistinguishable from a broken
+  feature, so the summary counts rights granted now.
+- **And the ranking beside the plan was cheating the same way.** «Каменоломню мне
+  выдало что отлично можно построить в провинции где полностью равнина, но там
+  есть дерево». `can_build_building` now gates every one of the ranking's
+  answers too, in all three ages.
+- **Two rules of the model were wrong, and he found both.**
+  **One:** uniqueness is per *location*, not per province — a market village
+  makes tools, jewelry, beer and pottery, so four villages of a province may take
+  one each rather than all taking pottery. The province lists are gone; the plan
+  decides per location and a province looks coherent only where it deserves to.
+  **Two:** a good only one place can hold must take that place before a common
+  good takes its second — «жёстко зарезервировать». The sweeps run in scarcity
+  tiers now (1, 2, 4, 8, 16, then everything), ordered by how many candidate
+  locations can host each good.
+- **He asked for the algorithm in plain words**, and it is on the «План» button's
+  own tooltip now, six steps.
+- No logs asked for and none needed.
+
 **2026-09-01 — `where_to_produce`, thirty-first load. The plan was planning
 things that cannot be built.** Three screenshots, Westphalia, 48 locations in 31
 provinces, caps 3/4, once without rights and once with.
@@ -173,36 +207,6 @@ and the owner's verdict is «получилось даже более менее
 - **Asked for besides:** urban rights in the plan, with first pick of the ground
   and a switch to leave them out.
 - No logs asked for and none needed: nothing did nothing.
-
-**2026-08-31 — `where_to_produce`, twenty-seventh load. The market picker works,
-and it is drawn on the map after all.** One screenshot, fine cloth, «На конец».
-
-- **A market *is* a map region to the picker.** Hovering outlines the market's own
-  borders and a click takes it — no list needed, the same feel as an area. The
-  file said the opposite for one commit; a market not being drawn on the map was
-  a guess from vanilla's one usage and it was wrong.
-- **But only the markets `interaction_source_list` names are clickable**, and it
-  named `every_market_present_in_country`, so the neighbour's market could not be
-  taken — which is exactly the market somebody planning a conquest wants to lay
-  out. It is `every_market_in_world` now, framed by the ticked continents the way
-  the other three pickers are.
-- **The picking works and the owner is happy with it**: «В остальном всё чётко,
-  удобно, классно.» Selection, re-rank and the counters all followed.
-- **The four picker buttons were transparent and dreary** — an `action_button`
-  with `bg_button_flavor_1`, copied from Advanced Auto Build, which is a flavour
-  background over a bare button. They are `action_button_regular` now, which is
-  the game's own type using `button_regular_texture`: the same solid look as
-  «Очистить выбор» beside them.
-- **The corner above the +/- buttons was empty** and read as a column out of
-  line. It has a «+» heading now; `margin_left` went 48 → 10 and the new 38-wide
-  cell makes the difference back, so «№» has not moved.
-- **And the goods row was four pixels wider than the scrollbox it sits in** —
-  1104 against 1100 — which nothing had noticed. The trailing spacer pays it
-  back.
-- **Still open: «Из чего» reads as sitting right of its heading.** Measured out
-  of the file, the header and the row are identical column for column, so this is
-  not a width. What is left is a constant inset the rows have and the header does
-  not, and `margin_left` is the one number that moves it.
 
 ## Waiting on a run
 

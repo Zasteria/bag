@@ -7006,4 +7006,4 @@ bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
 bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
 bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
 bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
-bag_wtp_show_plan_lists = { value = global_var:bag_wtp_plan_lists }
+bag_wtp_show_plan_rightn = { value = global_var:bag_wtp_plan_rightn }

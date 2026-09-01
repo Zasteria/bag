@@ -81,69 +81,54 @@ The fourth group on the Answer tab, and a second question rather than a bigger
 version of the first: **every good at once over the chosen ground**, one building
 at a time, under a cap per location.
 
-- **Chosen per province, spent per location.** A province takes two short lists —
-  one for its towns, one for its villages, each as long as that side's cap — and
-  every location of it then builds its side's list entire. So a province reads as
-  one answer and its villages repeat each other, which is how the ground is
-  actually developed; what differs is the next province.
-- **A list entry is a building, not a good.** A location holds one building of a
-  type and a building runs one production method, so tools, jewelry and beer —
-  all three off a market village — are one answer and not three. The list carries
-  the building beside the good and a good whose building is taken is not offered.
-- **And every building is one that may actually stand there.** The plan asks the
-  game's own `can_build_building` in the location's scope, which is the terrain,
-  the rank and the building's `location_potential` — a bog iron smelter wants
-  wetlands or a lake, a sugar plantation wants sugar growing overseas. It is not
-  the country's advances, so it is as true for ground you have not taken as for
-  the end of the game.
-- **An urban right is all or nothing.** Its bonus obliges every good of the
-  bundle to be made where it is granted, so a province that can take two of three
-  is not offered it at all.
-- **And the two sides are the building's own rank gates.** `rural_settlement` is
-  declared by thirty production buildings and only four of them are villages, so
-  a rural location is offered quarries, clay pits, lumber mills and masons as
-  well — `eu5data.Method.rural` / `.urban`, and the plan has scoring accumulators
-  of its own because the ranking's split is by category instead.
-- **Two buttons, now and at the end of the game**, the same pair the ranking has
-  and for the same reason: along the ladder a recipe's inputs move, so the
-  province that suits the guild is not the one that suits the mill.
-- **Two caps, set in the game**: goods per rural location (3) and per town (4).
-  The game exposes no building-slot count of any kind, so these are the player's
-  figures; what makes them choosable is that the pass prints the capacity of the
-  chosen ground beside the number of goods asking for room in it.
-- **It reuses the ranking's scoring.** `bag_wtp_score_<g>` already leaves the
-  best method for good `g` on every candidate, on both sides, so the plan runs it
-  once per good and keeps the two numbers in `bag_wtp_p<g>` and `bag_wtp_pr<g>`.
-  No second scoring path exists.
-- **Every good is divided by its own best in this ground**, one divisor for both
-  sides. Output is in units of the good, so a raw score compares nothing across
-  goods and the biggest recipe would take every contested province. Normalized,
-  each good peaks at 1000 on the province that suits it most.
-- **Sweeps until the ground is full.** Every good takes one town list and one
-  village list, then every good takes another, until a whole sweep adds nothing.
-  A location the plan can feed is never left empty. «Не больше стольких провинций
-  на товар» is the one ceiling above that, and it is off by default.
-- **An urban right is a town list**, taken whole and taken first, and which right
-  a province gets is asked of the province rather than of the rights: twelve
-  rights and rarely that many provinces means a turn order would be the whole
-  outcome. Behind a switch, on by default.
+**Six steps, and the «План» button prints them too:**
+
+1. **Score every good in every location** — the best method whose building may
+   actually stand there, that the ground feeds, and that you could run: output
+   times the bonus its raw materials earn.
+2. **Divide each good by its own best in this ground**, one divisor for both
+   sides, so a good that tops out at 5% compares fairly with one that tops out at
+   10%. Without it the biggest recipe takes every contested location.
+3. **Grant urban rights**, in towns only and all or nothing: a town takes the
+   right its ground suits best among those whose *whole* bundle it can make.
+4. **Then the rest, in rounds, the scarce goods first.** A good only a couple of
+   locations can hold takes its place before a common one takes a second — the
+   sweeps run in tiers of 1, 2, 4, 8, 16 candidate locations, then everything.
+5. **A location holds one building of a type**, so a good whose building already
+   stands there is not offered again — but the next location may take that
+   building running another method.
+6. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
+
+- **Every building is one the game says may stand there.** `can_build_building`
+  in the location's scope — terrain, rank, `location_potential`, and never an
+  advance, so it is as true for ground you have not taken as for the last age. A
+  bog iron smelter wants wetlands or a lake; a sugar plantation wants sugar
+  growing overseas.
+- **Two caps, set in the game**: buildings per rural location (3) and per town
+  (4). The game exposes no building-slot count of any kind, so these are the
+  player's figures; the pass prints the capacity of the chosen ground beside the
+  goods asking for room in it.
+- **Two buttons, now and at the end of the game**, the same pair the ranking has:
+  along the ladder a recipe's inputs move, so the province that suits the guild
+  is not the one that suits the mill.
+- **Which locations count as towns is yours to override**, from a button on the
+  row. No plan run clears it.
 - **The answer is a table and a map.** Rows are locations ordered by province —
   provinces by how much the plan put in each, their locations together, towns
-  first — and a map mode of the mod's own in the Economy category paints
-  completeness: green where a location is filled to its cap, red where the plan
-  put nothing.
+  first — and a map mode in the Economy category paints completeness.
 
-- **Which locations count as towns is yours to override.** The game's rank is
-  only what is true today, and the mod cannot guess which village you mean to
-  raise, so the rank icon on a plan row is a button: town → village → back to the
-  game's own answer. No plan run clears it.
+**A province is coherent only where it deserves to be.** Every location of a
+province is worth the same to a good, so the walk keeps returning to a province
+it likes and its locations come out alike. Where the ground is tight it varies
+them instead, which is the point: a market village here can make pottery while
+the next makes jewelry.
 
-**Everything the pass reads is a variable on a location.** `bag_wtp_load` and the
-`bag_wtp_plan_goods` list are the answer; `bag_wtp_plan_town` and
-`bag_wtp_plan_rural` are the province's two lists, written onto *every* location
-of the province, and `bag_wtp_plan_prank` is what keeps its rows together.
-**Never on the `province_definition`** — it holds no variable, and the plan that
-tried placed nothing at all (`docs/PITFALLS.md`).
+**Everything the pass reads is a variable on a location.** `bag_wtp_load`,
+`bag_wtp_plan_goods` and `bag_wtp_plan_builds` are the whole answer, the last of
+them also being the set a location may hold only one of each from;
+`bag_wtp_plan_prank` is what keeps a province's rows together. **Never on the
+`province_definition`** — it holds no variable, and the plan that tried placed
+nothing at all (`docs/PITFALLS.md`).
 The design and the owner's answers behind it:
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 

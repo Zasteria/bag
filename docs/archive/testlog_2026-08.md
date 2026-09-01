@@ -1565,3 +1565,33 @@ Three screenshots, fine cloth, and the owner's verdict: «если не прид
   read as aligned in the screenshots and that one may still sit a dozen pixels
   right, which is too fine to call at this resolution. One glance on the next run
   answers it.
+
+**2026-08-31 — `where_to_produce`, twenty-seventh load. The market picker works,
+and it is drawn on the map after all.** One screenshot, fine cloth, «На конец».
+
+- **A market *is* a map region to the picker.** Hovering outlines the market's own
+  borders and a click takes it — no list needed, the same feel as an area. The
+  file said the opposite for one commit; a market not being drawn on the map was
+  a guess from vanilla's one usage and it was wrong.
+- **But only the markets `interaction_source_list` names are clickable**, and it
+  named `every_market_present_in_country`, so the neighbour's market could not be
+  taken — which is exactly the market somebody planning a conquest wants to lay
+  out. It is `every_market_in_world` now, framed by the ticked continents the way
+  the other three pickers are.
+- **The picking works and the owner is happy with it**: «В остальном всё чётко,
+  удобно, классно.» Selection, re-rank and the counters all followed.
+- **The four picker buttons were transparent and dreary** — an `action_button`
+  with `bg_button_flavor_1`, copied from Advanced Auto Build, which is a flavour
+  background over a bare button. They are `action_button_regular` now, which is
+  the game's own type using `button_regular_texture`: the same solid look as
+  «Очистить выбор» beside them.
+- **The corner above the +/- buttons was empty** and read as a column out of
+  line. It has a «+» heading now; `margin_left` went 48 → 10 and the new 38-wide
+  cell makes the difference back, so «№» has not moved.
+- **And the goods row was four pixels wider than the scrollbox it sits in** —
+  1104 against 1100 — which nothing had noticed. The trailing spacer pays it
+  back.
+- **Still open: «Из чего» reads as sitting right of its heading.** Measured out
+  of the file, the header and the row are identical column for column, so this is
+  not a width. What is left is a constant inset the rows have and the header does
+  not, and `margin_left` is the one number that moves it.

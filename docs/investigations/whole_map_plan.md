@@ -72,128 +72,92 @@ wording decides something.
   second-strongest excluding the first). So "this good's best free location" is
   one engine-side sort, not a walk.
 
-## The design, as the twenty-eighth run left it
+## The design, as the thirty-second run left it
 
-Marked where it is a proposal of ours rather than his answer.
+Marked where it is a proposal of ours rather than his answer. The six steps in
+order, which is also what the «План» button's tooltip says:
 
-**The plan is chosen per province and spent per location.** The first build chose
-a location at a time, and that was the wrong unit: he plays a province as a
-specialisation — «вся сельская местность в одной провинции в большинстве случаев
-получит линейку домиков одинаковую» — while a rule of one building per good per
-province produced the exact opposite. So a province takes two short lists, one
-for its towns and one for its villages, each as long as that side's cap, and
-every location of it then builds its side's list entire. A province reads as one
-answer, its villages repeat each other, and what differs is the ground.
+**1. Score every good in every location.** The best method whose building may
+actually stand there, that the ground feeds (`generate.fed_floor`), and that the
+country could run — output times the bonus its raw materials earn. **The
+buildability question is asked with `can_build_building` in the location's own
+scope**, which is the rank, the terrain and `location_potential` and never an
+advance, so it holds for ground nobody owns and for a plan aimed at the last age.
+Without it the plan offered iron where there are no wetlands, which reads exactly
+like a tool that does not rank at all. **His.**
 
-**A list entry is a building, not a good.** A location holds one building of a
-type and a building runs one production method, so tools, jewelry and beer —
-`market_village` all three — are one answer and not three. That was the
-thirtieth load's finding, his: «по сути все три этих товара даёт одно и то же
-здание». The province's list carries the building beside the good, and a good
-whose winning building is already there is not an answer. **His.**
+**2. Normalize per good.** `out × (1 + bonus/100)` is in units of the good — 1.0
+of lumber against 0.2 of wine — so each good is divided by its own best in this
+ground, one divisor for both sides. Skipping it hands every contested location to
+whatever good has the biggest recipe. **Ours.**
 
-**And the two sides are "where may this stand", not "is it a village".** The
-ranking's village side is `village_category` — four buildings in the game. Thirty
-production buildings declare `rural_settlement = yes`, and the other twenty-six
-are the stone quarries, clay pits, lumber mills and masons he expected to see in
-the empty slots. The plan splits on the building's own rank gates instead, which
-takes a rural location from 4 buildings to 30. **Ours, and it is the reason the
-plan's scoring has accumulators of its own rather than reusing the ranking's.**
+**3. Urban rights, in towns only and all or nothing.** A right's bonus obliges
+every good of its bundle to be made where it is granted, so a town that can take
+two of three is not offered it. Which right a town gets is asked of the town, not
+of the rights: there are twelve and rarely that many towns, so a turn order would
+be the whole outcome. **His, bar the per-town choosing.**
 
-**And the province's state lives on its locations, mirrored.** The
-twenty-ninth load placed nothing out of 381 places and logged not one line: the
-lists were kept on the `province_definition`, which is static map data and holds
-no variable (`PITFALLS.md`). Every condition the allocation asks is a plain read
-off the candidate in hand now, which is also cheaper than the province hop it
-replaced.
+**4. Then the rest, in rounds, the scarce first.** A good only one location in
+the ground can hold takes that place before a common good takes its second —
+«жёстко зарезервировать слоты», his, and iron is the case he named. The sweeps
+run in tiers of how many candidates could host the good at all: 1, 2, 4, 8, 16,
+then everything. **Ours as machinery, his as a rule.**
 
-**Which locations count as towns is the player's to override.** The game's rank
-is only what is true today, and the mod cannot guess which village he means to
-raise; a button on the plan's own rows cycles town → village → the game's answer,
-and no plan run clears it. **His, and the reason it is a button and not a
-guess.**
+**5. A location holds one building of each type.** Two goods off the same
+building are one answer there — but **the next location may take that building
+running another method**, which is how four villages of one province take tools,
+jewelry, beer and pottery one each. The rule is per location, and the province
+lists that made it per province are gone. **His, both halves.**
 
-**The score is normalized per good, and that is the one thing that must not be
-skipped.** `out × (1 + bonus/100)` is not comparable between two goods — it is
-1.0 lumber against 0.2 wine, a units difference — and a plan that ranks
-(good, province) pairs on it hands every contested province to whatever good has
-the biggest output. Each good is divided by its own best in the chosen ground
-instead: 1.00 at its best, self-calibrating, no constant to keep. **One divisor
-for both sides**, so a good worth five times as much in a town as in a village
-still says so. **Ours.**
+**6. Rounds until one adds nothing**, so nothing the ground can feed is left
+empty. **His.**
 
-**Round-robin, and it runs until the ground is full.** Every good takes one town
-list and one village list, then every good takes another, until a whole sweep
-adds nothing anywhere. Evenness needs no quota — it is what the rounds do — and
-**a location the plan can feed is never left empty**: his ruling, and the reason
-the fixed round count is gone.
+**A province is coherent only where it deserves to be.** Every location of a
+province is worth the same to a good, so the ordered walk keeps returning to a
+province it likes and its locations come out alike — an emergent property, not an
+imposed one. Where the ground is tight the plan varies them, which is what he
+asked for: «работать нужно точечно по локациям, красиво по провинциям должно
+получаться в большой державе».
 
-**An urban right is all or nothing.** Its bonus obliges every good of the bundle
-to be made where it is granted, so a province that can take two of three is not
-offered it and gets ordinary goods instead. No two goods of any bundle in the
-game share a town building, so the test is an exact AND of the per-good
-conditions rather than an approximation. **His.**
-
-**Urban rights are a province's town list, and they are chosen first.** A right
-is a bundle of two or three goods, which is the shape of a town list, so a right
-does not compete with goods for slots — it takes the list whole. **Which right a
-province gets is asked of the province, not of the rights**: there are twelve and
-rarely that many provinces, so letting rights take turns would decide the outcome
-by turn order alone. A right's worth on a province is its bundle's own normalized
-scores added up, which costs no pass — the goods were scored anyway. Behind a
-switch, on by default. **Ours, bar the priority and the switch, which are his.**
-
-**What a good is owed is still flat.** No market, no price, no shortage — his
-answer. The one ceiling is «не больше стольких провинций на товар», off by
-default.
-
-**The answer is a table and a map.** Rows are locations, ordered by province:
-provinces by how much the plan put in each, their locations together, towns
-before villages. The map mode paints **completeness** rather than crowding —
-green where a location is filled to its cap, red where the plan put nothing —
-because under the province model a full location is the normal case and the
-interesting one is the ground that could not feed a whole list.
+**Which locations count as towns is his to override**, from a button on the row;
+no plan run clears it. And **the answer is a table and a map** — rows by province,
+towns first, and a map mode painting completeness.
 
 ## What is built, and what is not
 
-Built 2026-09-01, loaded once as the location-at-a-time version, and rebuilt to
-the above the same day:
-
-- **«4. Общий план»**: goods per rural location (3), per town (4), at most this
-  many provinces per good (0 = no ceiling), a switch for urban rights, «План» and
-  «Открыть».
-- `bag_wtp_generated_plan.txt` — the scoring harvest, the rights round, the
-  sweeps, the build onto locations and the ranking.
-- A window of locations by province, and a map mode painting completeness.
-- **A summary line of seven counters**, written by the pass itself and ordered
-  so that the first zero names the step that failed — locations, towns among
-  them, provinces, room, goods, list entries, buildings. An effect that merely
-  does nothing logs nothing, and this is what buys a diagnosis without a zip.
+Everything in the six steps above, plus: two caps (goods per rural location, per
+town), a ceiling of provinces per good (off by default), a switch for rights, two
+buttons (now and the end of the game), «Пересчитать» in the window, the
+town/village override, the four map pickers in the window, a row that names the
+urban right and draws the building under each good, and a map mode painting
+completeness.
 
 **The demand knob, proposed and not built.** «Я выбираю товар и щёлкаю +1 и план
-смещает» — under the province model that is a **floor in provinces**: a number
-per good on the goods list, and before rights or any sweep each good with a
-demand of N takes its N best provinces on whichever side suits it. It is one
-`cmm_register_list_numeric_field` and one round, and it is held back on purpose
-until the building rule has been seen once: it would move the whole distribution
-again and make the next screenshot unreadable.
+смещает» — under the tiers that is simply a **tier of its own, ahead of all the
+others**: a number per good on the goods list, and a good with a demand of N
+takes its N best locations before anything else is placed. One
+`cmm_register_list_numeric_field`, one round, and it reuses the machinery the
+scarcity tiers already are.
 
-**Not built besides:** the RGO discount, and choosing which goods to plan — the
-plan always plans all 47. **And not asked: whether a location can actually hold
-what its province's list says.** The rank gates are in now, but terrain and a
-building's own `allow` are not, so two locations of a province are still assumed
-interchangeable.
+**Not built besides:** the RGO discount (a good the ground already yields wants
+fewer buildings), and choosing which goods to plan — the plan always plans all
+47. **And terrain is asked but the country is not**: `can_build_building` in
+location scope deliberately ignores advances, so the plan will offer a building
+whose advance is a century away. For «На конец» that is right; for «Сейчас» it is
+not, and the ranking's own `bag_wtp_avail_<n>` is the fix when it matters.
 
 ## Still open
 
 - Whether the RGO count is over the planned ground only or the country too.
   Default proposed: both, since «наша территория» was his phrase.
-- **Within a sweep the goods are served in a fixed order.** After normalization
-  every good's first choice is worth the same, so the first sweep is a genuine
-  tie and any order is as good as another — but from the second on, fixed order
-  quietly favours the goods that come first. Ordering them by regret
-  (`best − second best`, so the good with the worst alternative picks first) is
-  the fix, and it is worth one run against the plain order before it is built.
+- **Within a tier the goods are still served in a fixed order.** The tiers deal
+  with the case that matters — a good with nowhere else to go — and inside one
+  tier the order is the goods list's. Ordering by regret (`best − second best`)
+  is the refinement, and it is worth a run against the plain order first.
+- **Iron went from offered-everywhere to offered-nowhere.** The gate is right,
+  but whether a wetland location in Westphalia is among the candidates and simply
+  lost its slot, or is being refused for another reason, is not knowable from
+  here. `bog_iron_smelter` also carries `NOT = { raw_material = goods:iron }`.
 - Which right a province was given is not shown; the bundle's icons are the only
   sign of it. A name would want a `customizable_localization` switching on the
   index.
