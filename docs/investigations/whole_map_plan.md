@@ -99,17 +99,33 @@ of lumber against 0.2 of wine — so each good is divided by its own best in thi
 ground, one divisor for both sides. Skipping it hands every contested location to
 whatever good has the biggest recipe. **Ours.**
 
-**3. Urban rights, in towns only and all or nothing.** A right's bonus obliges
-every good of its bundle to be made where it is granted, so a town that can take
-two of three is not offered it. Which right a town gets is asked of the town, not
-of the rights: there are twelve and rarely that many towns, so a turn order would
-be the whole outcome. **His, bar the per-town choosing.**
+**2a. Then divide again, by what this province already holds of that good.**
+Every location of a province scores identically for a good — the bonus is the
+province's — so undivided, a good takes its best province whole and that
+province's locations come out identical, which is what the thirty-fourth
+screenshot showed six times over. Halving is decisive because nothing is ever
+twice as good: the bonus is a ten per cent band. **Ours, and the reason is
+measured in [`plan_formula.md`](plan_formula.md).**
+
+**3. Urban rights, in towns only, every town and mandatory.** Settled 2026-09-01:
+«Оно БУДЕТ выдано ОБЯЗАТЕЛЬНО. И каждый такой город обязательно получит все
+здания из его бонуса.» It was all-or-nothing until then and granted one right
+across six towns. Which right a town gets is asked of the town, not of the
+rights: there are twelve and rarely that many towns, so a turn order would be the
+whole outcome. **His, bar the per-town choosing.**
+
+**3a. The quota, once the rights have taken their share.** Rooms left, over the
+goods this ground can make, less the RGOs of that good already standing, never
+below one. A good stops there and a last pass lifts it. This is «равномерно» at
+both scales in one number — see [`plan_formula.md`](plan_formula.md). **His as a
+rule, ours as the number.**
 
 **4. Then the rest, in rounds, the scarce first.** A good only one location in
 the ground can hold takes that place before a common good takes its second —
 «жёстко зарезервировать слоты», his, and iron is the case he named. The sweeps
 run in tiers of how many candidates could host the good at all: 1, 2, 4, 8, 16,
-then everything. **Ours as machinery, his as a rule.**
+then everything, and then once more with the quota lifted. **Ours as machinery,
+his as a rule.**
 
 **5. A location holds one building of each type.** Two goods off the same
 building are one answer there — but **the next location may take that building
@@ -147,9 +163,13 @@ takes its N best locations before anything else is placed. One
 `cmm_register_list_numeric_field`, one round, and it reuses the machinery the
 scarcity tiers already are.
 
-**Not built besides:** the RGO discount (a good the ground already yields wants
-fewer buildings), and choosing which goods to plan — the plan always plans all
-47. **And terrain is asked but the country is not**: `can_build_building` in
+**The RGO discount is built**, as a count and not a score: one RGO already
+standing is one building of that good the plan need not place, his rule of thumb
+on 2026-09-01. **Not built besides:** the hand weight (his «+1 этому товару»,
+which is also the exception for wood, glass, masonry and stone — under the quota
+it is a multiplier on one good's share, one CMF numeric field and no new round),
+regret ordering inside a tier, and choosing which goods to plan — the plan always
+plans all 47. **And terrain is asked but the country is not**: `can_build_building` in
 location scope deliberately ignores advances, so the plan will offer a building
 whose advance is a century away. For «На конец» that is right; for «Сейчас» it is
 not, and the ranking's own `bag_wtp_avail_<n>` is the fix when it matters.
@@ -160,8 +180,10 @@ not, and the ranking's own `bag_wtp_avail_<n>` is the fix when it matters.
   Default proposed: both, since «наша территория» was his phrase.
 - **Within a tier the goods are still served in a fixed order.** The tiers deal
   with the case that matters — a good with nowhere else to go — and inside one
-  tier the order is the goods list's. Ordering by regret (`best − second best`)
-  is the refinement, and it is worth a run against the plain order first.
+  tier the order is the goods list's. The province divisor takes most of the
+  sting out of it, since a good that has just placed drops behind the ones that
+  have not; whether regret (`best − second best`) adds anything on top is a
+  question for after the first run with the divisor in.
 - **Iron went from offered-everywhere to offered-nowhere.** The gate is right,
   but whether a wetland location in Westphalia is among the candidates and simply
   lost its slot, or is being refused for another reason, is not knowable from

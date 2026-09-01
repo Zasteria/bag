@@ -6190,11 +6190,38 @@ bag_wtp_r_score = {
 }
 
 
-# clay
+# clay. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord1 = { value = var:bag_wtp_p1 }
+bag_wtp_ord1 = {
+	value = var:bag_wtp_p1
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp1
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr1 = { value = var:bag_wtp_pr1 }
+bag_wtp_ordr1 = {
+	value = var:bag_wtp_pr1
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp1
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax1 = {
 	value = var:bag_wtp_p1
@@ -6204,11 +6231,38 @@ bag_wtp_ordmax1 = {
 	}
 }
 
-# coal
+# coal. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord2 = { value = var:bag_wtp_p2 }
+bag_wtp_ord2 = {
+	value = var:bag_wtp_p2
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp2
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr2 = { value = var:bag_wtp_pr2 }
+bag_wtp_ordr2 = {
+	value = var:bag_wtp_pr2
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp2
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax2 = {
 	value = var:bag_wtp_p2
@@ -6218,11 +6272,38 @@ bag_wtp_ordmax2 = {
 	}
 }
 
-# cotton
+# cotton. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord3 = { value = var:bag_wtp_p3 }
+bag_wtp_ord3 = {
+	value = var:bag_wtp_p3
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp3
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr3 = { value = var:bag_wtp_pr3 }
+bag_wtp_ordr3 = {
+	value = var:bag_wtp_pr3
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp3
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax3 = {
 	value = var:bag_wtp_p3
@@ -6232,11 +6313,38 @@ bag_wtp_ordmax3 = {
 	}
 }
 
-# dyes
+# dyes. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord4 = { value = var:bag_wtp_p4 }
+bag_wtp_ord4 = {
+	value = var:bag_wtp_p4
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp4
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr4 = { value = var:bag_wtp_pr4 }
+bag_wtp_ordr4 = {
+	value = var:bag_wtp_pr4
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp4
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax4 = {
 	value = var:bag_wtp_p4
@@ -6246,11 +6354,38 @@ bag_wtp_ordmax4 = {
 	}
 }
 
-# fiber_crops
+# fiber_crops. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord5 = { value = var:bag_wtp_p5 }
+bag_wtp_ord5 = {
+	value = var:bag_wtp_p5
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp5
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr5 = { value = var:bag_wtp_pr5 }
+bag_wtp_ordr5 = {
+	value = var:bag_wtp_pr5
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp5
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax5 = {
 	value = var:bag_wtp_p5
@@ -6260,11 +6395,38 @@ bag_wtp_ordmax5 = {
 	}
 }
 
-# fish
+# fish. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord6 = { value = var:bag_wtp_p6 }
+bag_wtp_ord6 = {
+	value = var:bag_wtp_p6
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp6
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr6 = { value = var:bag_wtp_pr6 }
+bag_wtp_ordr6 = {
+	value = var:bag_wtp_pr6
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp6
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax6 = {
 	value = var:bag_wtp_p6
@@ -6274,11 +6436,38 @@ bag_wtp_ordmax6 = {
 	}
 }
 
-# fruit
+# fruit. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord7 = { value = var:bag_wtp_p7 }
+bag_wtp_ord7 = {
+	value = var:bag_wtp_p7
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp7
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr7 = { value = var:bag_wtp_pr7 }
+bag_wtp_ordr7 = {
+	value = var:bag_wtp_pr7
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp7
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax7 = {
 	value = var:bag_wtp_p7
@@ -6288,11 +6477,38 @@ bag_wtp_ordmax7 = {
 	}
 }
 
-# horses
+# horses. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord8 = { value = var:bag_wtp_p8 }
+bag_wtp_ord8 = {
+	value = var:bag_wtp_p8
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp8
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr8 = { value = var:bag_wtp_pr8 }
+bag_wtp_ordr8 = {
+	value = var:bag_wtp_pr8
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp8
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax8 = {
 	value = var:bag_wtp_p8
@@ -6302,11 +6518,38 @@ bag_wtp_ordmax8 = {
 	}
 }
 
-# incense
+# incense. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord9 = { value = var:bag_wtp_p9 }
+bag_wtp_ord9 = {
+	value = var:bag_wtp_p9
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp9
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr9 = { value = var:bag_wtp_pr9 }
+bag_wtp_ordr9 = {
+	value = var:bag_wtp_pr9
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp9
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax9 = {
 	value = var:bag_wtp_p9
@@ -6316,11 +6559,38 @@ bag_wtp_ordmax9 = {
 	}
 }
 
-# iron
+# iron. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord10 = { value = var:bag_wtp_p10 }
+bag_wtp_ord10 = {
+	value = var:bag_wtp_p10
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp10
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr10 = { value = var:bag_wtp_pr10 }
+bag_wtp_ordr10 = {
+	value = var:bag_wtp_pr10
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp10
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax10 = {
 	value = var:bag_wtp_p10
@@ -6330,11 +6600,38 @@ bag_wtp_ordmax10 = {
 	}
 }
 
-# ivory
+# ivory. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord11 = { value = var:bag_wtp_p11 }
+bag_wtp_ord11 = {
+	value = var:bag_wtp_p11
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp11
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr11 = { value = var:bag_wtp_pr11 }
+bag_wtp_ordr11 = {
+	value = var:bag_wtp_pr11
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp11
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax11 = {
 	value = var:bag_wtp_p11
@@ -6344,11 +6641,38 @@ bag_wtp_ordmax11 = {
 	}
 }
 
-# livestock
+# livestock. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord12 = { value = var:bag_wtp_p12 }
+bag_wtp_ord12 = {
+	value = var:bag_wtp_p12
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp12
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr12 = { value = var:bag_wtp_pr12 }
+bag_wtp_ordr12 = {
+	value = var:bag_wtp_pr12
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp12
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax12 = {
 	value = var:bag_wtp_p12
@@ -6358,11 +6682,38 @@ bag_wtp_ordmax12 = {
 	}
 }
 
-# lumber
+# lumber. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord13 = { value = var:bag_wtp_p13 }
+bag_wtp_ord13 = {
+	value = var:bag_wtp_p13
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp13
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr13 = { value = var:bag_wtp_pr13 }
+bag_wtp_ordr13 = {
+	value = var:bag_wtp_pr13
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp13
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax13 = {
 	value = var:bag_wtp_p13
@@ -6372,11 +6723,38 @@ bag_wtp_ordmax13 = {
 	}
 }
 
-# medicaments
+# medicaments. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord14 = { value = var:bag_wtp_p14 }
+bag_wtp_ord14 = {
+	value = var:bag_wtp_p14
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp14
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr14 = { value = var:bag_wtp_pr14 }
+bag_wtp_ordr14 = {
+	value = var:bag_wtp_pr14
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp14
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax14 = {
 	value = var:bag_wtp_p14
@@ -6386,11 +6764,38 @@ bag_wtp_ordmax14 = {
 	}
 }
 
-# salt
+# salt. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord15 = { value = var:bag_wtp_p15 }
+bag_wtp_ord15 = {
+	value = var:bag_wtp_p15
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp15
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr15 = { value = var:bag_wtp_pr15 }
+bag_wtp_ordr15 = {
+	value = var:bag_wtp_pr15
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp15
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax15 = {
 	value = var:bag_wtp_p15
@@ -6400,11 +6805,38 @@ bag_wtp_ordmax15 = {
 	}
 }
 
-# saltpeter
+# saltpeter. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord16 = { value = var:bag_wtp_p16 }
+bag_wtp_ord16 = {
+	value = var:bag_wtp_p16
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp16
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr16 = { value = var:bag_wtp_pr16 }
+bag_wtp_ordr16 = {
+	value = var:bag_wtp_pr16
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp16
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax16 = {
 	value = var:bag_wtp_p16
@@ -6414,11 +6846,38 @@ bag_wtp_ordmax16 = {
 	}
 }
 
-# sand
+# sand. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord17 = { value = var:bag_wtp_p17 }
+bag_wtp_ord17 = {
+	value = var:bag_wtp_p17
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp17
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr17 = { value = var:bag_wtp_pr17 }
+bag_wtp_ordr17 = {
+	value = var:bag_wtp_pr17
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp17
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax17 = {
 	value = var:bag_wtp_p17
@@ -6428,11 +6887,38 @@ bag_wtp_ordmax17 = {
 	}
 }
 
-# silk
+# silk. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord18 = { value = var:bag_wtp_p18 }
+bag_wtp_ord18 = {
+	value = var:bag_wtp_p18
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp18
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr18 = { value = var:bag_wtp_pr18 }
+bag_wtp_ordr18 = {
+	value = var:bag_wtp_pr18
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp18
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax18 = {
 	value = var:bag_wtp_p18
@@ -6442,11 +6928,38 @@ bag_wtp_ordmax18 = {
 	}
 }
 
-# silver
+# silver. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord19 = { value = var:bag_wtp_p19 }
+bag_wtp_ord19 = {
+	value = var:bag_wtp_p19
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp19
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr19 = { value = var:bag_wtp_pr19 }
+bag_wtp_ordr19 = {
+	value = var:bag_wtp_pr19
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp19
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax19 = {
 	value = var:bag_wtp_p19
@@ -6456,11 +6969,38 @@ bag_wtp_ordmax19 = {
 	}
 }
 
-# stone
+# stone. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord20 = { value = var:bag_wtp_p20 }
+bag_wtp_ord20 = {
+	value = var:bag_wtp_p20
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp20
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr20 = { value = var:bag_wtp_pr20 }
+bag_wtp_ordr20 = {
+	value = var:bag_wtp_pr20
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp20
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax20 = {
 	value = var:bag_wtp_p20
@@ -6470,11 +7010,38 @@ bag_wtp_ordmax20 = {
 	}
 }
 
-# sugar
+# sugar. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord21 = { value = var:bag_wtp_p21 }
+bag_wtp_ord21 = {
+	value = var:bag_wtp_p21
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp21
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr21 = { value = var:bag_wtp_pr21 }
+bag_wtp_ordr21 = {
+	value = var:bag_wtp_pr21
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp21
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax21 = {
 	value = var:bag_wtp_p21
@@ -6484,11 +7051,38 @@ bag_wtp_ordmax21 = {
 	}
 }
 
-# tobacco
+# tobacco. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord22 = { value = var:bag_wtp_p22 }
+bag_wtp_ord22 = {
+	value = var:bag_wtp_p22
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp22
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr22 = { value = var:bag_wtp_pr22 }
+bag_wtp_ordr22 = {
+	value = var:bag_wtp_pr22
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp22
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax22 = {
 	value = var:bag_wtp_p22
@@ -6498,11 +7092,38 @@ bag_wtp_ordmax22 = {
 	}
 }
 
-# wild_game
+# wild_game. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord23 = { value = var:bag_wtp_p23 }
+bag_wtp_ord23 = {
+	value = var:bag_wtp_p23
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp23
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr23 = { value = var:bag_wtp_pr23 }
+bag_wtp_ordr23 = {
+	value = var:bag_wtp_pr23
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp23
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax23 = {
 	value = var:bag_wtp_p23
@@ -6512,11 +7133,38 @@ bag_wtp_ordmax23 = {
 	}
 }
 
-# wine
+# wine. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord24 = { value = var:bag_wtp_p24 }
+bag_wtp_ord24 = {
+	value = var:bag_wtp_p24
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp24
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr24 = { value = var:bag_wtp_pr24 }
+bag_wtp_ordr24 = {
+	value = var:bag_wtp_pr24
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp24
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax24 = {
 	value = var:bag_wtp_p24
@@ -6526,11 +7174,38 @@ bag_wtp_ordmax24 = {
 	}
 }
 
-# wool
+# wool. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord25 = { value = var:bag_wtp_p25 }
+bag_wtp_ord25 = {
+	value = var:bag_wtp_p25
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp25
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr25 = { value = var:bag_wtp_pr25 }
+bag_wtp_ordr25 = {
+	value = var:bag_wtp_pr25
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp25
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax25 = {
 	value = var:bag_wtp_p25
@@ -6540,11 +7215,38 @@ bag_wtp_ordmax25 = {
 	}
 }
 
-# beer
+# beer. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord26 = { value = var:bag_wtp_p26 }
+bag_wtp_ord26 = {
+	value = var:bag_wtp_p26
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp26
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr26 = { value = var:bag_wtp_pr26 }
+bag_wtp_ordr26 = {
+	value = var:bag_wtp_pr26
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp26
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax26 = {
 	value = var:bag_wtp_p26
@@ -6554,11 +7256,38 @@ bag_wtp_ordmax26 = {
 	}
 }
 
-# books
+# books. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord27 = { value = var:bag_wtp_p27 }
+bag_wtp_ord27 = {
+	value = var:bag_wtp_p27
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp27
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr27 = { value = var:bag_wtp_pr27 }
+bag_wtp_ordr27 = {
+	value = var:bag_wtp_pr27
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp27
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax27 = {
 	value = var:bag_wtp_p27
@@ -6568,11 +7297,38 @@ bag_wtp_ordmax27 = {
 	}
 }
 
-# cannons
+# cannons. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord28 = { value = var:bag_wtp_p28 }
+bag_wtp_ord28 = {
+	value = var:bag_wtp_p28
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp28
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr28 = { value = var:bag_wtp_pr28 }
+bag_wtp_ordr28 = {
+	value = var:bag_wtp_pr28
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp28
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax28 = {
 	value = var:bag_wtp_p28
@@ -6582,11 +7338,38 @@ bag_wtp_ordmax28 = {
 	}
 }
 
-# cloth
+# cloth. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord29 = { value = var:bag_wtp_p29 }
+bag_wtp_ord29 = {
+	value = var:bag_wtp_p29
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp29
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr29 = { value = var:bag_wtp_pr29 }
+bag_wtp_ordr29 = {
+	value = var:bag_wtp_pr29
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp29
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax29 = {
 	value = var:bag_wtp_p29
@@ -6596,11 +7379,38 @@ bag_wtp_ordmax29 = {
 	}
 }
 
-# fine_cloth
+# fine_cloth. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord30 = { value = var:bag_wtp_p30 }
+bag_wtp_ord30 = {
+	value = var:bag_wtp_p30
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp30
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr30 = { value = var:bag_wtp_pr30 }
+bag_wtp_ordr30 = {
+	value = var:bag_wtp_pr30
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp30
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax30 = {
 	value = var:bag_wtp_p30
@@ -6610,11 +7420,38 @@ bag_wtp_ordmax30 = {
 	}
 }
 
-# firearms
+# firearms. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord31 = { value = var:bag_wtp_p31 }
+bag_wtp_ord31 = {
+	value = var:bag_wtp_p31
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp31
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr31 = { value = var:bag_wtp_pr31 }
+bag_wtp_ordr31 = {
+	value = var:bag_wtp_pr31
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp31
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax31 = {
 	value = var:bag_wtp_p31
@@ -6624,11 +7461,38 @@ bag_wtp_ordmax31 = {
 	}
 }
 
-# furniture
+# furniture. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord32 = { value = var:bag_wtp_p32 }
+bag_wtp_ord32 = {
+	value = var:bag_wtp_p32
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp32
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr32 = { value = var:bag_wtp_pr32 }
+bag_wtp_ordr32 = {
+	value = var:bag_wtp_pr32
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp32
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax32 = {
 	value = var:bag_wtp_p32
@@ -6638,11 +7502,38 @@ bag_wtp_ordmax32 = {
 	}
 }
 
-# glass
+# glass. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord33 = { value = var:bag_wtp_p33 }
+bag_wtp_ord33 = {
+	value = var:bag_wtp_p33
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp33
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr33 = { value = var:bag_wtp_pr33 }
+bag_wtp_ordr33 = {
+	value = var:bag_wtp_pr33
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp33
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax33 = {
 	value = var:bag_wtp_p33
@@ -6652,11 +7543,38 @@ bag_wtp_ordmax33 = {
 	}
 }
 
-# jewelry
+# jewelry. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord34 = { value = var:bag_wtp_p34 }
+bag_wtp_ord34 = {
+	value = var:bag_wtp_p34
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp34
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr34 = { value = var:bag_wtp_pr34 }
+bag_wtp_ordr34 = {
+	value = var:bag_wtp_pr34
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp34
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax34 = {
 	value = var:bag_wtp_p34
@@ -6666,11 +7584,38 @@ bag_wtp_ordmax34 = {
 	}
 }
 
-# lacquerware
+# lacquerware. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord35 = { value = var:bag_wtp_p35 }
+bag_wtp_ord35 = {
+	value = var:bag_wtp_p35
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp35
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr35 = { value = var:bag_wtp_pr35 }
+bag_wtp_ordr35 = {
+	value = var:bag_wtp_pr35
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp35
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax35 = {
 	value = var:bag_wtp_p35
@@ -6680,11 +7625,38 @@ bag_wtp_ordmax35 = {
 	}
 }
 
-# leather
+# leather. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord36 = { value = var:bag_wtp_p36 }
+bag_wtp_ord36 = {
+	value = var:bag_wtp_p36
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp36
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr36 = { value = var:bag_wtp_pr36 }
+bag_wtp_ordr36 = {
+	value = var:bag_wtp_pr36
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp36
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax36 = {
 	value = var:bag_wtp_p36
@@ -6694,11 +7666,38 @@ bag_wtp_ordmax36 = {
 	}
 }
 
-# liquor
+# liquor. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord37 = { value = var:bag_wtp_p37 }
+bag_wtp_ord37 = {
+	value = var:bag_wtp_p37
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp37
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr37 = { value = var:bag_wtp_pr37 }
+bag_wtp_ordr37 = {
+	value = var:bag_wtp_pr37
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp37
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax37 = {
 	value = var:bag_wtp_p37
@@ -6708,11 +7707,38 @@ bag_wtp_ordmax37 = {
 	}
 }
 
-# masonry
+# masonry. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord38 = { value = var:bag_wtp_p38 }
+bag_wtp_ord38 = {
+	value = var:bag_wtp_p38
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp38
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr38 = { value = var:bag_wtp_pr38 }
+bag_wtp_ordr38 = {
+	value = var:bag_wtp_pr38
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp38
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax38 = {
 	value = var:bag_wtp_p38
@@ -6722,11 +7748,38 @@ bag_wtp_ordmax38 = {
 	}
 }
 
-# naval_supplies
+# naval_supplies. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord39 = { value = var:bag_wtp_p39 }
+bag_wtp_ord39 = {
+	value = var:bag_wtp_p39
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp39
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr39 = { value = var:bag_wtp_pr39 }
+bag_wtp_ordr39 = {
+	value = var:bag_wtp_pr39
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp39
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax39 = {
 	value = var:bag_wtp_p39
@@ -6736,11 +7789,38 @@ bag_wtp_ordmax39 = {
 	}
 }
 
-# paper
+# paper. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord40 = { value = var:bag_wtp_p40 }
+bag_wtp_ord40 = {
+	value = var:bag_wtp_p40
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp40
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr40 = { value = var:bag_wtp_pr40 }
+bag_wtp_ordr40 = {
+	value = var:bag_wtp_pr40
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp40
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax40 = {
 	value = var:bag_wtp_p40
@@ -6750,11 +7830,38 @@ bag_wtp_ordmax40 = {
 	}
 }
 
-# porcelain
+# porcelain. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord41 = { value = var:bag_wtp_p41 }
+bag_wtp_ord41 = {
+	value = var:bag_wtp_p41
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp41
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr41 = { value = var:bag_wtp_pr41 }
+bag_wtp_ordr41 = {
+	value = var:bag_wtp_pr41
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp41
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax41 = {
 	value = var:bag_wtp_p41
@@ -6764,11 +7871,38 @@ bag_wtp_ordmax41 = {
 	}
 }
 
-# pottery
+# pottery. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord42 = { value = var:bag_wtp_p42 }
+bag_wtp_ord42 = {
+	value = var:bag_wtp_p42
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp42
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr42 = { value = var:bag_wtp_pr42 }
+bag_wtp_ordr42 = {
+	value = var:bag_wtp_pr42
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp42
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax42 = {
 	value = var:bag_wtp_p42
@@ -6778,11 +7912,38 @@ bag_wtp_ordmax42 = {
 	}
 }
 
-# slaves_goods
+# slaves_goods. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord43 = { value = var:bag_wtp_p43 }
+bag_wtp_ord43 = {
+	value = var:bag_wtp_p43
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp43
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr43 = { value = var:bag_wtp_pr43 }
+bag_wtp_ordr43 = {
+	value = var:bag_wtp_pr43
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp43
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax43 = {
 	value = var:bag_wtp_p43
@@ -6792,11 +7953,38 @@ bag_wtp_ordmax43 = {
 	}
 }
 
-# steel
+# steel. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord44 = { value = var:bag_wtp_p44 }
+bag_wtp_ord44 = {
+	value = var:bag_wtp_p44
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp44
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr44 = { value = var:bag_wtp_pr44 }
+bag_wtp_ordr44 = {
+	value = var:bag_wtp_pr44
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp44
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax44 = {
 	value = var:bag_wtp_p44
@@ -6806,11 +7994,38 @@ bag_wtp_ordmax44 = {
 	}
 }
 
-# tar
+# tar. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord45 = { value = var:bag_wtp_p45 }
+bag_wtp_ord45 = {
+	value = var:bag_wtp_p45
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp45
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr45 = { value = var:bag_wtp_pr45 }
+bag_wtp_ordr45 = {
+	value = var:bag_wtp_pr45
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp45
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax45 = {
 	value = var:bag_wtp_p45
@@ -6820,11 +8035,38 @@ bag_wtp_ordmax45 = {
 	}
 }
 
-# tools
+# tools. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord46 = { value = var:bag_wtp_p46 }
+bag_wtp_ord46 = {
+	value = var:bag_wtp_p46
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp46
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr46 = { value = var:bag_wtp_pr46 }
+bag_wtp_ordr46 = {
+	value = var:bag_wtp_pr46
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp46
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax46 = {
 	value = var:bag_wtp_p46
@@ -6834,11 +8076,38 @@ bag_wtp_ordmax46 = {
 	}
 }
 
-# weaponry
+# weaponry. **Divided by how much of it this province already has**, which is the
+# whole of what keeps a province's locations from coming out identical: every
+# location of a province is worth exactly the same to a good -- the bonus is a
+# `province_definition`'s property -- so undivided, a good takes all of its best
+# province before it looks at its second. And nothing is ever twice as good: the
+# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
+# halving is decisive. `_pp<n>` is that count, kept on every location of the
+# province so the ordering can read it without leaving the location's scope.
+# The divisor is written inline rather than as a value of its own: a `divide`
+# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
+# and `divide = <a named script value>` bare has no precedent in the game.
 # Scope: location
-bag_wtp_ord47 = { value = var:bag_wtp_p47 }
+bag_wtp_ord47 = {
+	value = var:bag_wtp_p47
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp47
+		min = 1
+	}
+}
 # Scope: location
-bag_wtp_ordr47 = { value = var:bag_wtp_pr47 }
+bag_wtp_ordr47 = {
+	value = var:bag_wtp_pr47
+	divide = {
+		value = 1
+		add = var:bag_wtp_pp47
+		min = 1
+	}
+}
+# The undecayed pair, which is what the good is normalized by and what counts
+# its candidates: the divisor is about where the next building goes, never about
+# whether this ground can hold the good at all.
 # Scope: location
 bag_wtp_ordmax47 = {
 	value = var:bag_wtp_p47
@@ -6952,6 +8221,10 @@ bag_wtp_rq12 = {
 # `divide` takes a script value for certain and the other form is only inferred.
 bag_wtp_plan_top_value = { value = global_var:bag_wtp_plan_top }
 
+# The same, for the quota: how many goods this ground can make at all. Divided by
+# only under a `limit` that it is above zero, so the guard is the caller's.
+bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
+
 # How the plan's provinces are ordered: by how much of it landed in each, read
 # off the one location that stands in for the province. Under the province model
 # every province fills to its capacity, so this is size and contention together
@@ -7003,6 +8276,10 @@ bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
 bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
 bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
+# The fair share the quota came out at, on the header line: with the room count
+# and the goods count beside it, it is the whole of `plan_quota` readable at a
+# glance, and a quota of 1 says the ground is the binding constraint.
+bag_wtp_show_plan_quota = { value = global_var:bag_wtp_plan_quota }
 bag_wtp_show_plan_sweeps = { value = global_var:bag_wtp_plan_sweeps }
 bag_wtp_show_plan_towns = { value = global_var:bag_wtp_plan_towns }
 bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }

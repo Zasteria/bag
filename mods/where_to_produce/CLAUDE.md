@@ -28,20 +28,19 @@ Numbers and the deferred level rights:
 **Four pickers**, and only what `interaction_source_list` holds is clickable
 (`docs/SETTLED.md`).
 
-**The whole-map plan is decided per location**, in six steps on its own button.
-**Read [`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
-before changing any of it** — the owner stopped the iterating on 2026-09-01 and
-that file is the specification he wants agreed first, with four questions only he
-can answer. **An entry is a building and a location holds
-one of each**; the next location may take that building on another method.
-**Every building is one `can_build_building` allows there** — terrain, rank,
-`location_potential`, never an advance. **The sides are the building's own rank
-gates**, not `village_category`. **A right is all or nothing**, and a town's.
-**The scarce go first**, in sweep tiers — each with its own budget, which one
-load spent for all six.
-Urban rights take a town list whole, chosen per province. Every condition is a
-location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
-**The expensive button** — 241 recipes a location. All of it in
+**The whole-map plan is decided per location, and its formula is settled** —
+the owner answered the four questions on 2026-09-01. **Read
+[`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+before changing any of it**: it is the derived formula and the three
+measurements that force it, of which the one to carry in your head is that **the
+RGO bonus is a ten per cent band**, so it is a tie-break and never a ranking.
+**An entry is a building and a location holds one of each**; the next location
+may take that building on another method. **Every building is one
+`can_build_building` allows there** — terrain, rank, `location_potential`, never
+an advance. **The sides are the building's own rank gates**, not
+`village_category`. Every condition is a location variable — **a
+`province_definition` holds none** (`docs/PITFALLS.md`). **The expensive
+button** — 241 recipes a location. How it is put together:
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so

@@ -137,6 +137,26 @@ def problems(root: Path) -> list[str]:
                              f"text — the interface parser abandons the file "
                              f"and every type in it goes missing")
 
+            # **Braces, counted over the whole file, comments included.** Two
+            # faults on 2026-09-01 that nothing here caught: a generator's
+            # f-string nested one level too deep and shipped a literal `{{` into
+            # every line of an effect, and a comment quoting `divide = {` left
+            # the file one brace open. The engine ignores a brace in a comment
+            # and chokes on the other, and neither says which file in
+            # `error.log`, so both are cheaper to catch here.
+            body = "\n".join(l.split("#", 1)[0] for l in text.splitlines())
+            if "{{" in body or "}}" in body:
+                token = "{{" if "{{" in body else "}}"
+                line = body[:body.index(token)].count("\n") + 1
+                found.append(f"{where}:{line}: `{token}` in script — a "
+                             f"generator's f-string escaped one level too many, "
+                             f"and the engine reads the whole block as one key")
+            opened, closed = text.count("{"), text.count("}")
+            if opened != closed:
+                found.append(f"{where}: {opened} `{{` against {closed} `}}` — "
+                             f"count them in the comments too; a stray brace in "
+                             f"one is invisible to the engine and to a reader")
+
             if "scripted_triggers" not in path.parts:
                 continue
             for match in EFFECT_CONDITIONAL.finditer(text):

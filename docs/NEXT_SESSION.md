@@ -42,34 +42,36 @@ one alignment question is open in `TESTLOG.md` and nothing else is.
 **Do not ask him for logs unless something did nothing** — the rule and its
 exceptions are at the top of `TESTLOG.md`.
 
-**The whole-map plan is the job, and the next session's first move is
-[`investigations/plan_formula.md`](investigations/plan_formula.md) — not code.**
-The owner stopped the iterating himself on 2026-09-01, after six loads: «нам
-нужно сначала вывести точную и доходчивую формулу приоритетов и выгоды
-постройки производства, нежели вот так вот долбить всё туда-сюда». That file is
-the specification — what one building in one location is worth, what the ground
-can hold, and who claims it first — with four questions at the end that are his
-alone. **Put those four to him and settle them before touching the allocation.**
-[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md) is how the
-thing is built; the formula is what it is for.
+**The formula is settled and built, and it wants one press.** The owner answered
+the four questions on 2026-09-01 and sent the plan's own screenshot with them
+(«довольно плохо»); the answers and the screenshot pointed at the same thing.
+[`investigations/plan_formula.md`](investigations/plan_formula.md) is now the
+derived formula rather than a proposal; the three measurements at the top of it
+are the part worth reading before anything else.
 
+**Four changes went in against it, none of them loaded:**
+
+- **the province divisor** — a good's score over what its province already holds
+  of it. This is the screenshot: six villages of Paderborner Plateau given the
+  same three buildings, because a province's locations all score the same;
+- **urban rights are mandatory** — every town its best right, whole bundle.
+  All-or-nothing granted **one** right across six towns;
+- **the quota** — rooms left over the goods the ground can make, less the RGOs
+  standing, never below one: «равномерно» at both his scales;
+- **the RGO discount**, as a count: one RGO standing is one building not needed.
+
+**What to ask him for: one press of «План» on the same ground, and the header
+line.** It reads «норма N» now, so one screenshot says which of the four worked:
+expect rights on all six towns, a quota near five, and a province's locations no
+longer alike. **Then the caps at 3, 4 and 5**, which is what he asked to try.
+
+What is deliberately unbuilt — the hand weight, regret ordering — is listed once,
+in [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
 **And he asked for no more counters until it works.**
-
-**Six loads in, and the thirty-third found the guard eating the plan**: one sweep
-counter shared by all six scarcity tiers, so the last tier — the one that fills
-the ground — never ran, and twenty-eight buildings landed in a hundred and
-forty-four places. Fixed, unloaded, and worth one press before any design work:
-it is the difference between «план почти пуст» and a plan.
 
 Also unloaded: the `n/m` on a ranking row — how many of a province's locations
 can hold the winning building, his Sauerland question — and the plan's icons
 given room to breathe.
-
-Not built on purpose: **the demand knob** — «я выбираю товар и щёлкаю +1» — which
-under the province model is a floor in provinces, one CMF numeric field and one
-round before the sweeps, held back only so the next screenshot stays readable;
-the RGO discount; regret ordering within a sweep; and choosing which goods to
-plan rather than all of them.
 
 **Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
 about `where_to_produce` is confirmed.
