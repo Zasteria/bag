@@ -254,6 +254,21 @@ bag_wtp_plan_prepare = {
 		set_variable = { name = bag_wtp_load value = 0 }
 		set_variable = { name = bag_wtp_plan_prank value = 9999 }
 		remove_variable = bag_wtp_plan_right
+		# **How many towns of this province already hold each right**, which
+		# `_rq<k>` divides by. One write a candidate a right, once a plan, against
+		# a score read once a town: the counter is the cheap half.
+		set_variable = { name = bag_wtp_rp1 value = 0 }
+		set_variable = { name = bag_wtp_rp2 value = 0 }
+		set_variable = { name = bag_wtp_rp3 value = 0 }
+		set_variable = { name = bag_wtp_rp4 value = 0 }
+		set_variable = { name = bag_wtp_rp5 value = 0 }
+		set_variable = { name = bag_wtp_rp6 value = 0 }
+		set_variable = { name = bag_wtp_rp7 value = 0 }
+		set_variable = { name = bag_wtp_rp8 value = 0 }
+		set_variable = { name = bag_wtp_rp9 value = 0 }
+		set_variable = { name = bag_wtp_rp10 value = 0 }
+		set_variable = { name = bag_wtp_rp11 value = 0 }
+		set_variable = { name = bag_wtp_rp12 value = 0 }
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
 		add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
@@ -10717,6 +10732,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_30 = yes
 			bag_wtp_plan_try_town_18 = yes
 			set_variable = { name = bag_wtp_plan_right value = 1 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp1 }
+					change_variable = { name = bag_wtp_rp1 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven1 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10726,6 +10751,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_36 = yes
 			bag_wtp_plan_try_town_42 = yes
 			set_variable = { name = bag_wtp_plan_right value = 2 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp2 }
+					change_variable = { name = bag_wtp_rp2 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven2 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10735,6 +10770,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_40 = yes
 			set_variable = { name = bag_wtp_plan_right value = 3 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp3 }
+					change_variable = { name = bag_wtp_rp3 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven3 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10744,6 +10789,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_37 = yes
 			bag_wtp_plan_try_town_24 = yes
 			set_variable = { name = bag_wtp_plan_right value = 4 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp4 }
+					change_variable = { name = bag_wtp_rp4 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven4 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10751,6 +10806,16 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 5 }
 			bag_wtp_plan_try_town_34 = yes
 			set_variable = { name = bag_wtp_plan_right value = 5 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp5 }
+					change_variable = { name = bag_wtp_rp5 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven5 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10766,6 +10831,16 @@ bag_wtp_plan_place_rights = {
 			}
 			bag_wtp_plan_try_town_38 = yes
 			set_variable = { name = bag_wtp_plan_right value = 6 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp6 }
+					change_variable = { name = bag_wtp_rp6 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven6 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10774,6 +10849,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 7 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp7 }
+					change_variable = { name = bag_wtp_rp7 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven7 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10783,6 +10868,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 8 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp8 }
+					change_variable = { name = bag_wtp_rp8 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven8 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10790,6 +10885,16 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 9 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 9 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp9 }
+					change_variable = { name = bag_wtp_rp9 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven9 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10799,6 +10904,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_31 = yes
 			bag_wtp_plan_try_town_47 = yes
 			set_variable = { name = bag_wtp_plan_right value = 10 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp10 }
+					change_variable = { name = bag_wtp_rp10 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven10 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10806,6 +10921,16 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 11 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 11 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp11 }
+					change_variable = { name = bag_wtp_rp11 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven11 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10814,6 +10939,16 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 12 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp12 }
+					change_variable = { name = bag_wtp_rp12 add = 1 }
+				}
+			}
 			change_global_variable = { name = bag_wtp_rgiven12 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}

@@ -2118,3 +2118,63 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
   feed a recipe, and the plan cannot plan a building the game forbids — which is
   why a right is scored on the bundle a town can actually finish.
 - **Unverified.** Whether the spam ends needs a run.
+
+### 2026-09-02 — `where_to_produce`, the diagnosis's own first press
+
+Moved out of the live log when it tripped its budget.
+
+**2026-09-02 — `where_to_produce`, the diagnosis, first press. It named the cause
+and found two faults in itself.** «Нажал "диагностика"… вроде появился такой
+файлик» — the file was **0 bytes**; with the reader fixed the same press gave the
+whole report.
+
+- **The mod's half worked on the first load.** Button, CMF registration, callback,
+  `bag_wtp_diag` and `debug_log` — none of them had ever run. `SELFTEST 1` came
+  back `12345`, so every number below it is trustworthy.
+- **The empty file was the reader's fault**, and it is a rule now: `diag.py` cut
+  the game's line prefix with a regex written against a *guessed* shape, matched
+  nothing, and the fold dropped every line it did not recognise
+  (`pitfalls/diagnosis.md`).
+- **The ground: 44 locations, 17 on the town side, 27 villages, 6 provinces, and
+  it filled completely** — `placed=149 rooms=149`, no pass anywhere near the
+  12-sweep guard (the worst was 7).
+- **The cause of «no glass in towns», and it is one number.** A town-side method
+  won on **3 of the 17 town-side locations** — for glass, and for cloth, tools,
+  pottery, jewelry, beer, leather, paper, weaponry and eleven more. For the
+  RGO-side goods it won on all 17: sand 17, masonry 17, fiber_crops 17, horses 16,
+  tar 12. **Fourteen of those «towns» refuse manufacturing and accept only
+  RGO buildings** — which is exactly «в городах я вижу много селитры, глины и
+  прочего что можно добывать в сельских местностях».
+- **Why they refuse it:** `glass_guild` is `town = yes, city = yes,
+  megalopolis = yes` and `rural_glassmaker` is `rural_settlement = yes,
+  town = no`. The game has four ranks and `bag_wtp_plan_is_town` admits a
+  location either because the player ticked it or because its rank is not
+  `rural_settlement` — and any non-rural rank takes a guild. So those fourteen
+  are ticked villages. **The tick moves a location to the plan's town side and
+  cannot move its rank in the game.**
+- **The market gate is dead for good.** Both glass buildings carry the *identical*
+  `is_produced_in_location_market = goods:sand`, and the rural one stood in all 27
+  villages — so sand is in those markets. Twenty goods with no market condition at
+  all were stopped in the same fourteen places.
+- **The charter spam is the same fault one level up.** 17 rights for 17 towns:
+  `royal_masonry_rights` in **9**, `royal_naval_rights` in **5**. In a ticked town
+  masonry and tar can stand and glass and naval supplies cannot, so the bundle
+  comes out half-made every time — and the `L` lines show it: «Район Арджеш …
+  right=6 | clay, sand, masonry, tar».
+- **And glass would lose anyway in the three real towns**: its best ordering there
+  was `o=108` out of 1000, so it qualifies only in the last band, by which time
+  those three have spent their four slots each on their own granted right.
+- **Two faults in the dump, both fixed.** `[glass, masonry]` in a `debug_log`
+  string is data-function syntax — the engine looked for a function called
+  `glass`, failed, and cut `given=` onto a line of its own; round brackets now.
+  And `error_log` writes into `debug.log` as well, so every headline arrived
+  twice; one pointer in `error.log` now and the detail once.
+- **Both remaining self-tests answered, and two retired.** A localization key as a
+  `debug_log` message comes out as the key; `ROOT.GetName` and `SCOPE.GetName` do
+  not exist. `debug_log_scopes = no` names the scope and is what every row uses.
+  All of it in `research/engine.md`.
+- **The one thing inferred rather than measured** — that those fourteen are ticked
+  rather than some rank the mod does not know about — the next press prints
+  outright: `ROOM` now carries how many of the town side are of town rank and how
+  many the tick moved, and every `L` line carries `town_rank` and `forced_town`.
+

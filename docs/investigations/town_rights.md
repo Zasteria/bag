@@ -171,8 +171,10 @@ game and not believed: «я могу ошибаться и в целом раб�
   is his recollection and not a reading. **`capital_possible_town_rights` is
   readable**: four advances grant +1 each — Discovery, Reformation, Absolutism,
   Revolutions — so a capital ends the game with four extra.
-- **`town_right_efficiency_penalty` is still defined in nothing we hold**, and
-  the owner puts it at 5% from memory. **It changes no answer the mod gives**:
+- **`town_right_efficiency_penalty` is still defined in nothing we hold** (it
+  will be in `common/defines`, which the manifest does not extract). **The owner
+  states it as 5%, twice and flatly** — «штраф у всех прав 5%, я тебе это точно
+  говорю» — so that is the figure to print if a row ever prints one. **It changes no answer the mod gives**:
   eleven rights carry the same constant, it applies to the whole location, and
   the plan grants a right to every town — so it cancels out of every comparison
   the mod makes. Worth knowing to explain a row, not to compute one.
@@ -192,6 +194,59 @@ rule, and it is not built: **score every right by how well the ground suits the
 goods it favours, whatever kind of bonus it gives** — a level right for cloth and
 fine cloth is scored on cloth and fine cloth, exactly like an output right, and
 never on the levels. Undecided and his to call.
+
+## The ages, read off the advances on 2026-09-02
+
+They settle a question that had been answered from memory, and the owner's
+reading of it was right:
+
+| what | advance | age |
+| --- | --- | --- |
+| all nine general rights | `town_rights_enable` | **3, Discovery** |
+| first firearms building, `hand_cannon_guild` | `hand_cannon_guild_advance` | 1, Traditions |
+| first cannons building, `cannon_maker` | `cannon_maker_advance` | 2, Renaissance |
+| flemish cloth right | `flemish_cloth_making` | 1, Traditions |
+
+**So «a weaponry right granted where cannons cannot be built» cannot happen in
+play**: by the age the rights exist at all, both buildings have been available for
+an age or more. His words, and the files agree: «невозможно, чтобы произошёл
+сценарий, когда ты выдал права на оружие городу, а в нём невозможно поставить
+пушки или огнестрел».
+
+**But the plan can still produce it, and that is a fault of its own.** The «сейчас»
+plan hands out rights without asking `town_rights_enable` — a right's gate is its
+`potential`, never an advance — while refusing a cannon maker because the country
+has not taken *its* advance. Two different moments inside one answer: rights as
+though it were age 3, buildings as though it were today. **Undecided which way to
+make it consistent**, and it is his call: judge the whole plan at the rights' own
+age, or gate the rights on the advance like everything else.
+
+**One correction to his wording, not to his point.** «Первый уровень» is not free
+by default: `hand_cannon_guild` needs an age-1 advance exactly as `weapon_guild`
+does, and most production buildings carry one too. What his save shows is a
+country that simply had not taken that particular age-1 advance.
+
+## Flemish cloth against royal textile, which he asked to have computed
+
+They are mutually exclusive by the game's own `allow`, so it is a real choice.
+
+- `royal_textile_rights`: **cloth +20%, fine cloth +20%, dyes +20%.** Age 3.
+- `flemish_cloth_industries_right`: **cloth guild +5 levels, fine cloth guild +5
+  levels**, plus `local_trades_per_burgher +0.25` and merchant capacity +0.25,
+  which are trade and not production. Age 1, Dutch culture.
+
+`guild_max_level = 1 + development × 0.1 + population × 0.05 + 5 if city + 10 if
+megalopolis`, so **five levels are worth `5 ÷ cap` in output** and the crossover
+is exact: **+5 levels beats +20% while the guild's cap is under 25 levels.**
+
+- a plain town, cap around 10: flemish is +50% against +20% — **flemish, by far**;
+- a city, cap 20-25: they meet;
+- a megalopolis, cap well over 25: **royal textile**, and it also carries dyes,
+  which flemish does not touch at all.
+
+And flemish is available two whole ages earlier. **The general answer is flemish
+in a town, royal textile in a great city** — but the mod cannot pick between them
+today, because it scores no level right at all.
 
 ## What is undecided
 

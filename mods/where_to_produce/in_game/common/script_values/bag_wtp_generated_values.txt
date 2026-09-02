@@ -10917,10 +10917,23 @@ bag_wtp_ordmax47 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp1`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq1 = {
 	value = 0
@@ -10942,7 +10955,7 @@ bag_wtp_rq1 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven1
+		add = var:bag_wtp_rp1
 		min = 1
 	}
 }
@@ -10959,10 +10972,23 @@ bag_wtp_rq1 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp2`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq2 = {
 	value = 0
@@ -10984,7 +11010,7 @@ bag_wtp_rq2 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven2
+		add = var:bag_wtp_rp2
 		min = 1
 	}
 }
@@ -11001,10 +11027,23 @@ bag_wtp_rq2 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp3`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq3 = {
 	value = 0
@@ -11026,7 +11065,7 @@ bag_wtp_rq3 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven3
+		add = var:bag_wtp_rp3
 		min = 1
 	}
 }
@@ -11043,10 +11082,23 @@ bag_wtp_rq3 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp4`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq4 = {
 	value = 0
@@ -11068,7 +11120,7 @@ bag_wtp_rq4 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven4
+		add = var:bag_wtp_rp4
 		min = 1
 	}
 }
@@ -11085,10 +11137,23 @@ bag_wtp_rq4 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp5`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq5 = {
 	value = 0
@@ -11100,7 +11165,7 @@ bag_wtp_rq5 = {
 	divide = 1
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven5
+		add = var:bag_wtp_rp5
 		min = 1
 	}
 }
@@ -11117,10 +11182,23 @@ bag_wtp_rq5 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp6`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq6 = {
 	value = 0
@@ -11137,7 +11215,7 @@ bag_wtp_rq6 = {
 	divide = 2
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven6
+		add = var:bag_wtp_rp6
 		min = 1
 	}
 }
@@ -11154,10 +11232,23 @@ bag_wtp_rq6 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp7`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq7 = {
 	value = 0
@@ -11174,7 +11265,7 @@ bag_wtp_rq7 = {
 	divide = 2
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven7
+		add = var:bag_wtp_rp7
 		min = 1
 	}
 }
@@ -11191,10 +11282,23 @@ bag_wtp_rq7 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp8`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq8 = {
 	value = 0
@@ -11216,7 +11320,7 @@ bag_wtp_rq8 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven8
+		add = var:bag_wtp_rp8
 		min = 1
 	}
 }
@@ -11233,10 +11337,23 @@ bag_wtp_rq8 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp9`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq9 = {
 	value = 0
@@ -11248,7 +11365,7 @@ bag_wtp_rq9 = {
 	divide = 1
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven9
+		add = var:bag_wtp_rp9
 		min = 1
 	}
 }
@@ -11265,10 +11382,23 @@ bag_wtp_rq9 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp10`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq10 = {
 	value = 0
@@ -11290,7 +11420,7 @@ bag_wtp_rq10 = {
 	divide = 3
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven10
+		add = var:bag_wtp_rp10
 		min = 1
 	}
 }
@@ -11307,10 +11437,23 @@ bag_wtp_rq10 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp11`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq11 = {
 	value = 0
@@ -11322,7 +11465,7 @@ bag_wtp_rq11 = {
 	divide = 1
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven11
+		add = var:bag_wtp_rp11
 		min = 1
 	}
 }
@@ -11339,10 +11482,23 @@ bag_wtp_rq11 = {
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp12`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 bag_wtp_rq12 = {
 	value = 0
@@ -11359,7 +11515,7 @@ bag_wtp_rq12 = {
 	divide = 2
 	divide = {
 		value = 1
-		add = global_var:bag_wtp_rgiven12
+		add = var:bag_wtp_rp12
 		min = 1
 	}
 }

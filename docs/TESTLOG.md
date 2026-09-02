@@ -38,6 +38,36 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, the same ground planned «на конец», and one
+town of it named the fault the numbers had been hiding.** «В этот самый город мод
+выделил права на инструменты. Почему?» Goslar, the only town of Harz — a province
+with silver in it — took `royal_tooling_rights`, where iron is what a tools mill
+eats and silver is what a jewelry guild eats.
+
+- **He is right and the cause is arithmetic, not a guess.** A right scores
+  `(2000 a reachable good + its gain, gain ≤ 1000) ÷ bundle size ÷ (1 + times
+  already granted)`, and the divisor counted **the whole map**. A right never
+  granted scores 2000–3000; granted once, at most 1500. **The ranges do not
+  overlap**, so a right handed out anywhere could never again win on merit. The
+  rights were dealt round robin and the ground only broke ties inside one turn.
+- **The distribution is the fingerprint of it**: 8, 8, 7, 7, 7, 6, 6, 6, 6 over
+  61 towns and 9 rights, on both this run and the «сейчас» one. Too even to be
+  the ground.
+- **The fix is the divisor the goods already have**: `_rp<k>` counts the grants
+  **in this province**. The fault it was built for — five towns of Münsterland
+  all taking the masonry charter — is inside one province, and so is the divisor
+  now. Harz has one town, so its divisor is always 1 and the ground decides
+  alone. Not run.
+- **Jewelry really is what silver feeds.** All twelve `jewelry_guild` methods are
+  a base of gold, silver or copper plus one enhancement; a province with silver
+  and no gems pays 8.7% of a 10% ceiling. Tools' best anywhere on this ground was
+  `o=399`. Nothing about Harz suited tooling.
+- **The end-game plan itself is sound**: 1309 buildings in 1309 rooms, 36 of 38
+  goods placed, no pass near the guard, 113 sweeps.
+- **`GAIN fed=952 gain_total=900864`** — 73%, and among the fed 946 of 1000. The
+  unfed divisor's removal cannot be read off this: it is the «на конец» plan and
+  the run before it was «сейчас».
+
 **2026-09-02 — `where_to_produce`, Münster and all of northern Germany. The three
 fixes work, and the number the mod exists for is 95%.** «Вроде как всё
 заполняется хорошо… как будто бы основные функции мод теперь выполняет как надо.»
@@ -142,61 +172,6 @@ are of town rank and 14 ticked, 19 provinces, 403 buildings in 403 rooms.
   cause a desync)`** appears once, at the first `[…GetPlayer…]` the dump reads.
   It is how the dump reads every number, and it matters in multiplayer rather
   than here — recorded so the next session does not chase it.
-
-**2026-09-02 — `where_to_produce`, the diagnosis, first press. It named the cause
-and found two faults in itself.** «Нажал "диагностика"… вроде появился такой
-файлик» — the file was **0 bytes**; with the reader fixed the same press gave the
-whole report.
-
-- **The mod's half worked on the first load.** Button, CMF registration, callback,
-  `bag_wtp_diag` and `debug_log` — none of them had ever run. `SELFTEST 1` came
-  back `12345`, so every number below it is trustworthy.
-- **The empty file was the reader's fault**, and it is a rule now: `diag.py` cut
-  the game's line prefix with a regex written against a *guessed* shape, matched
-  nothing, and the fold dropped every line it did not recognise
-  (`pitfalls/diagnosis.md`).
-- **The ground: 44 locations, 17 on the town side, 27 villages, 6 provinces, and
-  it filled completely** — `placed=149 rooms=149`, no pass anywhere near the
-  12-sweep guard (the worst was 7).
-- **The cause of «no glass in towns», and it is one number.** A town-side method
-  won on **3 of the 17 town-side locations** — for glass, and for cloth, tools,
-  pottery, jewelry, beer, leather, paper, weaponry and eleven more. For the
-  RGO-side goods it won on all 17: sand 17, masonry 17, fiber_crops 17, horses 16,
-  tar 12. **Fourteen of those «towns» refuse manufacturing and accept only
-  RGO buildings** — which is exactly «в городах я вижу много селитры, глины и
-  прочего что можно добывать в сельских местностях».
-- **Why they refuse it:** `glass_guild` is `town = yes, city = yes,
-  megalopolis = yes` and `rural_glassmaker` is `rural_settlement = yes,
-  town = no`. The game has four ranks and `bag_wtp_plan_is_town` admits a
-  location either because the player ticked it or because its rank is not
-  `rural_settlement` — and any non-rural rank takes a guild. So those fourteen
-  are ticked villages. **The tick moves a location to the plan's town side and
-  cannot move its rank in the game.**
-- **The market gate is dead for good.** Both glass buildings carry the *identical*
-  `is_produced_in_location_market = goods:sand`, and the rural one stood in all 27
-  villages — so sand is in those markets. Twenty goods with no market condition at
-  all were stopped in the same fourteen places.
-- **The charter spam is the same fault one level up.** 17 rights for 17 towns:
-  `royal_masonry_rights` in **9**, `royal_naval_rights` in **5**. In a ticked town
-  masonry and tar can stand and glass and naval supplies cannot, so the bundle
-  comes out half-made every time — and the `L` lines show it: «Район Арджеш …
-  right=6 | clay, sand, masonry, tar».
-- **And glass would lose anyway in the three real towns**: its best ordering there
-  was `o=108` out of 1000, so it qualifies only in the last band, by which time
-  those three have spent their four slots each on their own granted right.
-- **Two faults in the dump, both fixed.** `[glass, masonry]` in a `debug_log`
-  string is data-function syntax — the engine looked for a function called
-  `glass`, failed, and cut `given=` onto a line of its own; round brackets now.
-  And `error_log` writes into `debug.log` as well, so every headline arrived
-  twice; one pointer in `error.log` now and the detail once.
-- **Both remaining self-tests answered, and two retired.** A localization key as a
-  `debug_log` message comes out as the key; `ROOT.GetName` and `SCOPE.GetName` do
-  not exist. `debug_log_scopes = no` names the scope and is what every row uses.
-  All of it in `research/engine.md`.
-- **The one thing inferred rather than measured** — that those fourteen are ticked
-  rather than some rank the mod does not know about — the next press prints
-  outright: `ROOM` now carries how many of the town side are of town rank and how
-  many the tick moved, and every `L` line carries `town_rank` and `forced_town`.
 
 **2026-09-02 — not a run: `where_to_produce` was rolled back to the build of the
 thirty-eighth load**, and the owner stopped the line. He picked that build by its

@@ -1051,17 +1051,30 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # local market -- but handing out a bundle that cannot be finished, forty-eight
 # times, was the plan's. Six other charters are wholly age-0 buildable.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp{k}`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth {RIGHT_FIT} a reachable good plus a gain of at
+# most {RANK_SCALE}, so a right never granted scores {RIGHT_FIT}--{RIGHT_FIT + RANK_SCALE}
+# and one granted once scores at most {(RIGHT_FIT + RANK_SCALE) // 2}. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
 # Scope: location
 {MOD_ID}_rq{k} = {{
 \tvalue = 0
 {adds}\tdivide = {len(bundle)}
 \tdivide = {{
 \t\tvalue = 1
-\t\tadd = global_var:{MOD_ID}_rgiven{k}
+\t\tadd = var:{MOD_ID}_rp{k}
 \t\tmin = 1
 \t}}
 }}
@@ -1842,8 +1855,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n")
-    # How many towns each right has been given, which its own score divides by.
-    # A script value reading a global that is not there is the silent failure.
+    # How many towns each right has been given. **The global is the dump's now
+    # and no longer the score's** -- `_rq<k>` divides by `_rp<k>`, the count in
+    # this province. A script value reading a global that is not there is the
+    # silent failure, so it still has to be zeroed.
     for k in range(1, len(rights) + 1):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n")
     # **What each pass of the allocator did, kept so the dump can print it.** Two
@@ -1853,6 +1868,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for i in range(1, len(PLAN_PASSES) + 1):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_passsw{i} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_passpl{i} value = 0 }}\n")
+    right_zeroes = "".join(
+        f"\t\tset_variable = {{ name = {MOD_ID}_rp{k} value = 0 }}\n"
+        for k in range(1, len(rights) + 1))
     out.append(f"""
 \t# Every candidate made ready. **Every counter a `limit` reads has to exist
 \t# before the first round**: a comparison against a variable that is not there
@@ -1866,7 +1884,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
 \t\tremove_variable = {MOD_ID}_plan_right
-\t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\t# **How many towns of this province already hold each right**, which
+\t\t# `_rq<k>` divides by. One write a candidate a right, once a plan, against
+\t\t# a score read once a town: the counter is the cheap half.
+{right_zeroes}\t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
 \t\tif = {{
@@ -2165,6 +2186,16 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+\t\t\t# **The province is told, not the map.** Every location of it carries the
+\t\t\t# count, because a walk over a province cannot write back to the town that
+\t\t\t# started it and the next town of the same province is the one that has to
+\t\t\t# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tlimit = {{ has_variable = {MOD_ID}_rp{k} }}
+\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_rp{k} add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
 \t\t}}
