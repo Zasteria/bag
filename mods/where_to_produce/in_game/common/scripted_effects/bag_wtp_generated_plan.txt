@@ -45,6 +45,8 @@ bag_wtp_plan_prepare = {
 	clear_global_variable_list = bag_wtp_plan_ranked
 	clear_global_variable_list = bag_wtp_plan_results
 	set_global_variable = { name = bag_wtp_plan_placed value = 0 }
+	set_global_variable = { name = bag_wtp_plan_fed value = 0 }
+	set_global_variable = { name = bag_wtp_plan_gain value = 0 }
 	set_global_variable = { name = bag_wtp_plan_scored value = 0 }
 	set_global_variable = { name = bag_wtp_plan_found value = 0 }
 	set_global_variable = { name = bag_wtp_plan_shown value = 0 }
@@ -5203,6 +5205,18 @@ bag_wtp_plan_try_town_1 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p1` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p1 }
+			if = {
+				limit = { var:bag_wtp_p1 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5230,6 +5244,18 @@ bag_wtp_plan_try_town_2 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p2` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p2 }
+			if = {
+				limit = { var:bag_wtp_p2 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5257,6 +5283,18 @@ bag_wtp_plan_try_town_3 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p3` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p3 }
+			if = {
+				limit = { var:bag_wtp_p3 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5285,6 +5323,18 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p4` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p4 }
+			if = {
+				limit = { var:bag_wtp_p4 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5305,6 +5355,18 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p4` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p4 }
+			if = {
+				limit = { var:bag_wtp_p4 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5325,6 +5387,18 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p4` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p4 }
+			if = {
+				limit = { var:bag_wtp_p4 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5345,6 +5419,18 @@ bag_wtp_plan_try_town_4 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn4 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p4` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p4 }
+			if = {
+				limit = { var:bag_wtp_p4 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5372,6 +5458,18 @@ bag_wtp_plan_try_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p5` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p5 }
+			if = {
+				limit = { var:bag_wtp_p5 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5392,6 +5490,18 @@ bag_wtp_plan_try_town_5 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p5` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p5 }
+			if = {
+				limit = { var:bag_wtp_p5 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5419,6 +5529,18 @@ bag_wtp_plan_try_town_7 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p7` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p7 }
+			if = {
+				limit = { var:bag_wtp_p7 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5446,6 +5568,18 @@ bag_wtp_plan_try_town_8 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p8` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p8 }
+			if = {
+				limit = { var:bag_wtp_p8 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5473,6 +5607,18 @@ bag_wtp_plan_try_town_9 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn9 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p9` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p9 }
+			if = {
+				limit = { var:bag_wtp_p9 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5500,6 +5646,18 @@ bag_wtp_plan_try_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p10` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p10 }
+			if = {
+				limit = { var:bag_wtp_p10 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5520,6 +5678,18 @@ bag_wtp_plan_try_town_10 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p10` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p10 }
+			if = {
+				limit = { var:bag_wtp_p10 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5547,6 +5717,18 @@ bag_wtp_plan_try_town_13 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p13` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p13 }
+			if = {
+				limit = { var:bag_wtp_p13 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5575,6 +5757,18 @@ bag_wtp_plan_try_town_14 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn14 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p14` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p14 }
+			if = {
+				limit = { var:bag_wtp_p14 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5602,6 +5796,18 @@ bag_wtp_plan_try_town_15 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p15` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p15 }
+			if = {
+				limit = { var:bag_wtp_p15 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5629,6 +5835,18 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p16` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p16 }
+			if = {
+				limit = { var:bag_wtp_p16 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5649,6 +5867,18 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p16` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p16 }
+			if = {
+				limit = { var:bag_wtp_p16 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5669,6 +5899,18 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p16` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p16 }
+			if = {
+				limit = { var:bag_wtp_p16 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5689,6 +5931,18 @@ bag_wtp_plan_try_town_16 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn16 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p16` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p16 }
+			if = {
+				limit = { var:bag_wtp_p16 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5716,6 +5970,18 @@ bag_wtp_plan_try_town_17 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p17` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p17 }
+			if = {
+				limit = { var:bag_wtp_p17 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5743,6 +6009,18 @@ bag_wtp_plan_try_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p18` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p18 }
+			if = {
+				limit = { var:bag_wtp_p18 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5763,6 +6041,18 @@ bag_wtp_plan_try_town_18 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn18 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p18` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p18 }
+			if = {
+				limit = { var:bag_wtp_p18 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5790,6 +6080,18 @@ bag_wtp_plan_try_town_19 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p19` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p19 }
+			if = {
+				limit = { var:bag_wtp_p19 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5818,6 +6120,18 @@ bag_wtp_plan_try_town_20 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p20` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p20 }
+			if = {
+				limit = { var:bag_wtp_p20 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5845,6 +6159,18 @@ bag_wtp_plan_try_town_21 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p21` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p21 }
+			if = {
+				limit = { var:bag_wtp_p21 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5872,6 +6198,18 @@ bag_wtp_plan_try_town_22 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p22` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p22 }
+			if = {
+				limit = { var:bag_wtp_p22 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5901,6 +6239,18 @@ bag_wtp_plan_try_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p24` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p24 }
+			if = {
+				limit = { var:bag_wtp_p24 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5923,6 +6273,18 @@ bag_wtp_plan_try_town_24 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn24 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p24` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p24 }
+			if = {
+				limit = { var:bag_wtp_p24 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -5956,6 +6318,18 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p26` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p26 }
+			if = {
+				limit = { var:bag_wtp_p26 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -5982,6 +6356,18 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p26` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p26 }
+			if = {
+				limit = { var:bag_wtp_p26 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6002,6 +6388,18 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p26` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p26 }
+			if = {
+				limit = { var:bag_wtp_p26 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6022,6 +6420,18 @@ bag_wtp_plan_try_town_26 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p26` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p26 }
+			if = {
+				limit = { var:bag_wtp_p26 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6049,6 +6459,18 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p27` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p27 }
+			if = {
+				limit = { var:bag_wtp_p27 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6069,6 +6491,18 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p27` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p27 }
+			if = {
+				limit = { var:bag_wtp_p27 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6089,6 +6523,18 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p27` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p27 }
+			if = {
+				limit = { var:bag_wtp_p27 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6109,6 +6555,18 @@ bag_wtp_plan_try_town_27 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn27 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p27` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p27 }
+			if = {
+				limit = { var:bag_wtp_p27 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6136,6 +6594,18 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p28` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p28 }
+			if = {
+				limit = { var:bag_wtp_p28 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6164,6 +6634,18 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p28` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p28 }
+			if = {
+				limit = { var:bag_wtp_p28 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6189,6 +6671,18 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p28` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p28 }
+			if = {
+				limit = { var:bag_wtp_p28 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6209,6 +6703,18 @@ bag_wtp_plan_try_town_28 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn28 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p28` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p28 }
+			if = {
+				limit = { var:bag_wtp_p28 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6238,6 +6744,18 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p29` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p29 }
+			if = {
+				limit = { var:bag_wtp_p29 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6260,6 +6778,18 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p29` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p29 }
+			if = {
+				limit = { var:bag_wtp_p29 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6282,6 +6812,18 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p29` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p29 }
+			if = {
+				limit = { var:bag_wtp_p29 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6304,6 +6846,18 @@ bag_wtp_plan_try_town_29 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p29` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p29 }
+			if = {
+				limit = { var:bag_wtp_p29 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6342,6 +6896,18 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p30` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p30 }
+			if = {
+				limit = { var:bag_wtp_p30 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6365,6 +6931,18 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p30` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p30 }
+			if = {
+				limit = { var:bag_wtp_p30 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6386,6 +6964,18 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p30` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p30 }
+			if = {
+				limit = { var:bag_wtp_p30 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6417,6 +7007,18 @@ bag_wtp_plan_try_town_30 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn30 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p30` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p30 }
+			if = {
+				limit = { var:bag_wtp_p30 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6444,6 +7046,18 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p31` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p31 }
+			if = {
+				limit = { var:bag_wtp_p31 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6464,6 +7078,18 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p31` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p31 }
+			if = {
+				limit = { var:bag_wtp_p31 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6489,6 +7115,18 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p31` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p31 }
+			if = {
+				limit = { var:bag_wtp_p31 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6512,6 +7150,18 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p31` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p31 }
+			if = {
+				limit = { var:bag_wtp_p31 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6532,6 +7182,18 @@ bag_wtp_plan_try_town_31 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn31 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p31` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p31 }
+			if = {
+				limit = { var:bag_wtp_p31 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6559,6 +7221,18 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p32` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p32 }
+			if = {
+				limit = { var:bag_wtp_p32 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6579,6 +7253,18 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p32` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p32 }
+			if = {
+				limit = { var:bag_wtp_p32 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6599,6 +7285,18 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p32` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p32 }
+			if = {
+				limit = { var:bag_wtp_p32 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6619,6 +7317,18 @@ bag_wtp_plan_try_town_32 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn32 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p32` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p32 }
+			if = {
+				limit = { var:bag_wtp_p32 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6647,6 +7357,18 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p33` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p33 }
+			if = {
+				limit = { var:bag_wtp_p33 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6667,6 +7389,18 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p33` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p33 }
+			if = {
+				limit = { var:bag_wtp_p33 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6687,6 +7421,18 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p33` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p33 }
+			if = {
+				limit = { var:bag_wtp_p33 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6707,6 +7453,18 @@ bag_wtp_plan_try_town_33 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p33` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p33 }
+			if = {
+				limit = { var:bag_wtp_p33 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6745,6 +7503,18 @@ bag_wtp_plan_try_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p34` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p34 }
+			if = {
+				limit = { var:bag_wtp_p34 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6765,6 +7535,18 @@ bag_wtp_plan_try_town_34 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p34` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p34 }
+			if = {
+				limit = { var:bag_wtp_p34 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6792,6 +7574,18 @@ bag_wtp_plan_try_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p35` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p35 }
+			if = {
+				limit = { var:bag_wtp_p35 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6812,6 +7606,18 @@ bag_wtp_plan_try_town_35 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn35 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p35` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p35 }
+			if = {
+				limit = { var:bag_wtp_p35 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6840,6 +7646,18 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p36` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p36 }
+			if = {
+				limit = { var:bag_wtp_p36 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6861,6 +7679,18 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p36` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p36 }
+			if = {
+				limit = { var:bag_wtp_p36 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6882,6 +7712,18 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p36` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p36 }
+			if = {
+				limit = { var:bag_wtp_p36 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6903,6 +7745,18 @@ bag_wtp_plan_try_town_36 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p36` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p36 }
+			if = {
+				limit = { var:bag_wtp_p36 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -6934,6 +7788,18 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p37` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p37 }
+			if = {
+				limit = { var:bag_wtp_p37 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6958,6 +7824,18 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p37` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p37 }
+			if = {
+				limit = { var:bag_wtp_p37 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -6982,6 +7860,18 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p37` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p37 }
+			if = {
+				limit = { var:bag_wtp_p37 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7006,6 +7896,18 @@ bag_wtp_plan_try_town_37 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn37 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p37` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p37 }
+			if = {
+				limit = { var:bag_wtp_p37 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7034,6 +7936,18 @@ bag_wtp_plan_try_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p38` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p38 }
+			if = {
+				limit = { var:bag_wtp_p38 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7054,6 +7968,18 @@ bag_wtp_plan_try_town_38 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p38` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p38 }
+			if = {
+				limit = { var:bag_wtp_p38 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7081,6 +8007,18 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p39` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p39 }
+			if = {
+				limit = { var:bag_wtp_p39 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7101,6 +8039,18 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p39` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p39 }
+			if = {
+				limit = { var:bag_wtp_p39 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7121,6 +8071,18 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p39` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p39 }
+			if = {
+				limit = { var:bag_wtp_p39 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7141,6 +8103,18 @@ bag_wtp_plan_try_town_39 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p39` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p39 }
+			if = {
+				limit = { var:bag_wtp_p39 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7170,6 +8144,18 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p40` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p40 }
+			if = {
+				limit = { var:bag_wtp_p40 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7190,6 +8176,18 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p40` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p40 }
+			if = {
+				limit = { var:bag_wtp_p40 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7211,6 +8209,18 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p40` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p40 }
+			if = {
+				limit = { var:bag_wtp_p40 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7232,6 +8242,18 @@ bag_wtp_plan_try_town_40 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn40 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p40` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p40 }
+			if = {
+				limit = { var:bag_wtp_p40 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7259,6 +8281,18 @@ bag_wtp_plan_try_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p41` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p41 }
+			if = {
+				limit = { var:bag_wtp_p41 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7279,6 +8313,18 @@ bag_wtp_plan_try_town_41 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn41 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p41` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p41 }
+			if = {
+				limit = { var:bag_wtp_p41 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7306,6 +8352,18 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p42 }
+			if = {
+				limit = { var:bag_wtp_p42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7326,6 +8384,18 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p42 }
+			if = {
+				limit = { var:bag_wtp_p42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7346,6 +8416,18 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p42 }
+			if = {
+				limit = { var:bag_wtp_p42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7366,6 +8448,18 @@ bag_wtp_plan_try_town_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p42 }
+			if = {
+				limit = { var:bag_wtp_p42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7393,6 +8487,18 @@ bag_wtp_plan_try_town_43 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p43` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p43 }
+			if = {
+				limit = { var:bag_wtp_p43 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7420,6 +8526,18 @@ bag_wtp_plan_try_town_44 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn44 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p44` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p44 }
+			if = {
+				limit = { var:bag_wtp_p44 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7447,6 +8565,18 @@ bag_wtp_plan_try_town_45 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p45` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p45 }
+			if = {
+				limit = { var:bag_wtp_p45 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7474,6 +8604,18 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p46 }
+			if = {
+				limit = { var:bag_wtp_p46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7494,6 +8636,18 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p46 }
+			if = {
+				limit = { var:bag_wtp_p46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7514,6 +8668,18 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p46 }
+			if = {
+				limit = { var:bag_wtp_p46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7537,6 +8703,18 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p46 }
+			if = {
+				limit = { var:bag_wtp_p46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7557,6 +8735,18 @@ bag_wtp_plan_try_town_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p46 }
+			if = {
+				limit = { var:bag_wtp_p46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7584,6 +8774,18 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p47 }
+			if = {
+				limit = { var:bag_wtp_p47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7604,6 +8806,18 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p47 }
+			if = {
+				limit = { var:bag_wtp_p47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7626,6 +8840,18 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p47 }
+			if = {
+				limit = { var:bag_wtp_p47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7646,6 +8872,18 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p47 }
+			if = {
+				limit = { var:bag_wtp_p47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7666,6 +8904,18 @@ bag_wtp_plan_try_town_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_p47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_p47 }
+			if = {
+				limit = { var:bag_wtp_p47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7693,6 +8943,18 @@ bag_wtp_plan_try_rural_1 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn1 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr1` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr1 }
+			if = {
+				limit = { var:bag_wtp_pr1 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7720,6 +8982,18 @@ bag_wtp_plan_try_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr2` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr2 }
+			if = {
+				limit = { var:bag_wtp_pr2 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7740,6 +9014,18 @@ bag_wtp_plan_try_rural_2 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn2 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr2` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr2 }
+			if = {
+				limit = { var:bag_wtp_pr2 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7767,6 +9053,18 @@ bag_wtp_plan_try_rural_3 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn3 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr3` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr3 }
+			if = {
+				limit = { var:bag_wtp_pr3 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7794,6 +9092,18 @@ bag_wtp_plan_try_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr5` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr5 }
+			if = {
+				limit = { var:bag_wtp_pr5 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7814,6 +9124,18 @@ bag_wtp_plan_try_rural_5 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn5 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr5` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr5 }
+			if = {
+				limit = { var:bag_wtp_pr5 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7842,6 +9164,18 @@ bag_wtp_plan_try_rural_6 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn6 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr6` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr6 }
+			if = {
+				limit = { var:bag_wtp_pr6 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7869,6 +9203,18 @@ bag_wtp_plan_try_rural_7 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn7 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr7` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr7 }
+			if = {
+				limit = { var:bag_wtp_pr7 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7896,6 +9242,18 @@ bag_wtp_plan_try_rural_8 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn8 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr8` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr8 }
+			if = {
+				limit = { var:bag_wtp_pr8 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7923,6 +9281,18 @@ bag_wtp_plan_try_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr10` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr10 }
+			if = {
+				limit = { var:bag_wtp_pr10 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -7943,6 +9313,18 @@ bag_wtp_plan_try_rural_10 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn10 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr10` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr10 }
+			if = {
+				limit = { var:bag_wtp_pr10 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7970,6 +9352,18 @@ bag_wtp_plan_try_rural_11 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn11 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr11` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr11 }
+			if = {
+				limit = { var:bag_wtp_pr11 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -7997,6 +9391,18 @@ bag_wtp_plan_try_rural_12 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn12 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr12` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr12 }
+			if = {
+				limit = { var:bag_wtp_pr12 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8024,6 +9430,18 @@ bag_wtp_plan_try_rural_13 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn13 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr13` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr13 }
+			if = {
+				limit = { var:bag_wtp_pr13 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8051,6 +9469,18 @@ bag_wtp_plan_try_rural_15 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn15 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr15` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr15 }
+			if = {
+				limit = { var:bag_wtp_pr15 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8078,6 +9508,18 @@ bag_wtp_plan_try_rural_17 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn17 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr17` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr17 }
+			if = {
+				limit = { var:bag_wtp_pr17 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8105,6 +9547,18 @@ bag_wtp_plan_try_rural_19 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn19 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr19` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr19 }
+			if = {
+				limit = { var:bag_wtp_pr19 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8133,6 +9587,18 @@ bag_wtp_plan_try_rural_20 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn20 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr20` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr20 }
+			if = {
+				limit = { var:bag_wtp_pr20 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8160,6 +9626,18 @@ bag_wtp_plan_try_rural_21 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn21 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr21` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr21 }
+			if = {
+				limit = { var:bag_wtp_pr21 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8187,6 +9665,18 @@ bag_wtp_plan_try_rural_22 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn22 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr22` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr22 }
+			if = {
+				limit = { var:bag_wtp_pr22 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8214,6 +9704,18 @@ bag_wtp_plan_try_rural_23 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn23 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr23` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr23 }
+			if = {
+				limit = { var:bag_wtp_pr23 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8241,6 +9743,18 @@ bag_wtp_plan_try_rural_25 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn25 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr25` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr25 }
+			if = {
+				limit = { var:bag_wtp_pr25 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8268,6 +9782,18 @@ bag_wtp_plan_try_rural_26 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn26 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr26` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr26 }
+			if = {
+				limit = { var:bag_wtp_pr26 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8297,6 +9823,18 @@ bag_wtp_plan_try_rural_29 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn29 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr29` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr29 }
+			if = {
+				limit = { var:bag_wtp_pr29 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8324,6 +9862,18 @@ bag_wtp_plan_try_rural_33 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn33 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr33` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr33 }
+			if = {
+				limit = { var:bag_wtp_pr33 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8351,6 +9901,18 @@ bag_wtp_plan_try_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr34` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr34 }
+			if = {
+				limit = { var:bag_wtp_pr34 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8371,6 +9933,18 @@ bag_wtp_plan_try_rural_34 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn34 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr34` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr34 }
+			if = {
+				limit = { var:bag_wtp_pr34 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8398,6 +9972,18 @@ bag_wtp_plan_try_rural_36 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn36 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr36` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr36 }
+			if = {
+				limit = { var:bag_wtp_pr36 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8426,6 +10012,18 @@ bag_wtp_plan_try_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr38` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr38 }
+			if = {
+				limit = { var:bag_wtp_pr38 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8446,6 +10044,18 @@ bag_wtp_plan_try_rural_38 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn38 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr38` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr38 }
+			if = {
+				limit = { var:bag_wtp_pr38 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8473,6 +10083,18 @@ bag_wtp_plan_try_rural_39 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn39 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr39` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr39 }
+			if = {
+				limit = { var:bag_wtp_pr39 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8500,6 +10122,18 @@ bag_wtp_plan_try_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
+			if = {
+				limit = { var:bag_wtp_pr42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8520,6 +10154,18 @@ bag_wtp_plan_try_rural_42 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn42 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr42` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr42 }
+			if = {
+				limit = { var:bag_wtp_pr42 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8547,6 +10193,18 @@ bag_wtp_plan_try_rural_43 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn43 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr43` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr43 }
+			if = {
+				limit = { var:bag_wtp_pr43 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8574,6 +10232,18 @@ bag_wtp_plan_try_rural_45 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn45 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr45` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr45 }
+			if = {
+				limit = { var:bag_wtp_pr45 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8601,6 +10271,18 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
+			if = {
+				limit = { var:bag_wtp_pr46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8621,6 +10303,18 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
+			if = {
+				limit = { var:bag_wtp_pr46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8641,6 +10335,18 @@ bag_wtp_plan_try_rural_46 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn46 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr46` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr46 }
+			if = {
+				limit = { var:bag_wtp_pr46 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }
@@ -8668,6 +10374,18 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
+			if = {
+				limit = { var:bag_wtp_pr47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8688,6 +10406,18 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
+			if = {
+				limit = { var:bag_wtp_pr47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 		if = {
 			limit = { OR = {
@@ -8708,6 +10438,18 @@ bag_wtp_plan_try_rural_47 = {
 			change_global_variable = { name = bag_wtp_plan_placed add = 1 }
 			change_global_variable = { name = bag_wtp_plan_added add = 1 }
 			change_global_variable = { name = bag_wtp_pn47 add = 1 }
+			# **What this building gets out of standing here**, which is the question
+			# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+			# получит выгоду от своего положения на карте». `_pr47` is the
+			# gain -- the fraction of this recipe's own ceiling the ground pays, out
+			# of 1000 -- so the two counters are «how many earn anything» and
+			# «what they earn on average». Two adds a placement and nothing per
+			# candidate: the plan does not get slower for being answerable.
+			change_global_variable = { name = bag_wtp_plan_gain add = var:bag_wtp_pr47 }
+			if = {
+				limit = { var:bag_wtp_pr47 > 0 }
+				change_global_variable = { name = bag_wtp_plan_fed add = 1 }
+			}
 		}
 	}
 }

@@ -184,9 +184,82 @@ def fold(lines: list[str]) -> list[str]:
     return out
 
 
+def field(line: str, name: str) -> int | None:
+    """Число из `name=<число>` в строке отчёта."""
+    found = re.search(r"\b%s=(-?\d+)" % re.escape(name), line)
+    return int(found.group(1)) if found else None
+
+
+def digest(lines: list[str]) -> list[str]:
+    """Разбор отчёта в несколько строк по-русски.
+
+    **Он существует, потому что отчёт не для человека.** Владелец, 2026-09-02:
+    «проверить насколько всё идеально и выгодно распределено я не могу из-за
+    того что это сложно для меня как человека». Числа в отчёте есть, а вывод из
+    них -- арифметика, и её делает эта функция, а не он.
+    """
+    out: list[str] = ["=== коротко ==="]
+    first = lambda prefix: next((l for l in lines if l.startswith(prefix)), "")
+
+    selftest = first("WTP SELFTEST 1")
+    if selftest and "=12345 " not in selftest:
+        out.append("!! самопроверка не вернула 12345 -- числа ниже верить нельзя")
+
+    pas, room, gain = first("WTP PASS"), first("WTP ROOM"), first("WTP GAIN")
+    placed, rooms = field(pas, "placed"), field(pas, "rooms")
+    if placed is not None and rooms:
+        out.append("Земля: %d зданий на %d мест (%d%% заполнено), локаций %s, "
+                   "провинций %s" % (placed, rooms, round(100 * placed / rooms),
+                                     field(pas, "used_locs"), field(pas, "provs")))
+    fed, total = field(gain, "fed"), field(gain, "gain_total")
+    if fed is not None and placed:
+        out.append("Выгода от места: %d зданий из %d (%d%%) что-то получают от "
+                   "местного сырья; в среднем %.1f%% от потолка своего рецепта"
+                   % (fed, placed, round(100 * fed / placed),
+                      (total or 0) / placed / 10))
+    if room:
+        out.append("Тумблеры сейчас: город %s, село %s (из %s городской стороны, "
+                   "настоящего городского ранга %s)"
+                   % (field(room, "town"), field(room, "village"),
+                      field(room, "towns"), field(room, "rank or above")))
+
+    counts = {}
+    for line in lines:
+        if line.startswith("WTP G") and " | ng=" in line:
+            name = line.split()[2]
+            n = field(line.split("| ng=")[1], "n")
+            if n is not None:
+                counts[name] = n
+    if counts:
+        placed_goods = {g: n for g, n in counts.items() if n}
+        order = sorted(placed_goods.items(), key=lambda kv: -kv[1])
+        share = sorted(placed_goods.values())
+        half = share[len(share) // 2]
+        out.append("Товары: поставлено %d из %d, что земля вообще может делать; "
+                   "на товар от %d до %d зданий, посередине %d"
+                   % (len(placed_goods), len(counts), share[0], share[-1], half))
+        out.append("  больше всех: " + ", ".join("%s %d" % kv for kv in order[:6]))
+        out.append("  меньше всех: " + ", ".join("%s %d" % kv for kv in order[-6:]))
+
+    rights = [(line.split()[3], field(line, "given")) for line in lines
+              if line.startswith("WTP RIGHT")]
+    taken = [(k, v) for k, v in rights if v]
+    if taken:
+        out.append("Права: выдано %d, разных %d, больше всего у «%s» (%d)"
+                   % (sum(v for _, v in taken), len(taken),
+                      *max(taken, key=lambda kv: kv[1])))
+
+    cut = [line.split()[1] for line in lines
+           if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]
+    out.append("Проходы, упёршиеся в лимит кругов: " + (", ".join(cut) if cut else "нет"))
+    out.append("=== дальше подробности, они для сессии ===")
+    return out
+
+
 def headline(lines: list[str]) -> list[str]:
     """Несколько строк, по которым сразу видно, что отчёт настоящий."""
-    wanted = ("WTP BUILD methods", "WTP SELFTEST 1", "WTP PICK", "WTP PASS", "WTP ROOM")
+    wanted = ("WTP BUILD methods", "WTP SELFTEST 1", "WTP PICK", "WTP PASS",
+              "WTP GAIN", "WTP ROOM")
     return [line for line in lines if line.startswith(wanted)]
 
 
@@ -238,19 +311,33 @@ def main(argv: list[str]) -> int:
         chosen = found if parsed.all else found[-1:]
         body: list[str] = []
         for number, block in enumerate(chosen, start=1):
+            folded = block if parsed.raw else fold(block)
             if len(chosen) > 1:
                 body.append("### отчёт %d из %d" % (number, len(chosen)))
-            body.extend(block if parsed.raw else fold(block))
+            # Разбор идёт первым: файл открывают сверху, и первое, что должно
+            # быть видно -- это вывод, а не 47 строк счётчиков.
+            body.extend(digest(folded))
+            body.extend(folded)
             body.append("")
         # **Пустой файл не пишется никогда.** 2026-09-02: укладка выбросила все
         # строки разом, потому что не узнала их, и `diagnostics.txt` вышел в ноль
         # байт -- инструмент, который молча отдаёт пустоту, хуже отсутствующего.
-        # Если после укладки осталось меньше, чем было в логе, отдаётся сырое.
+        #
+        # **Но и «стало меньше строк» -- не признак потери**: укладка затем и
+        # нужна, чтобы товары локации ушли в её собственную строку, и на живом
+        # логе она честно убирает четыре строки из пяти. Первая версия этой
+        # проверки считала именно строки и на первом же настоящем отчёте
+        # отдала сырое. Считается то, что теряться не должно: каждая строка
+        # `WTP`, кроме `WTP LG`, обязана дойти до файла.
         raw = [line for block in chosen for line in block]
-        if len([line for line in body if line.strip()]) < len(raw) // 2:
-            print("Укладка не узнала строки этого лога -- отдаю как есть.")
+        must = sum(1 for line in raw
+                   if line.startswith(TAG) and not line.startswith("WTP LG "))
+        kept = sum(1 for line in body if line.startswith(TAG))
+        if kept < must:
+            print("Укладка потеряла %d строк из %d -- отдаю как есть."
+                  % (must - kept, must))
             print("Покажите этот файл сессии: по нему видно, что за формат.")
-            body = raw
+            body = digest(raw) + raw
         out = Path(parsed.out).expanduser()
         out.write_text("\n".join(body) + "\n", encoding="utf-8")
 
@@ -262,8 +349,8 @@ def main(argv: list[str]) -> int:
         else:
             print("Буфер обмена недоступен: откройте файл и скопируйте оттуда.")
         print()
-        for line in headline(chosen[-1]):
-            print("  " + line)
+        for line in digest(fold(chosen[-1])):
+            print(line)
         return 0
 
     print("Ни в одном из логов отчёта нет. Нажмите «Диагностика» в меню мода и")

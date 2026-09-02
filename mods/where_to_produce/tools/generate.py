@@ -156,7 +156,7 @@ def pass_name(band: int, tier: object) -> str:
 # many it left out. `docs/pitfalls/diagnosis.md` has the whole instrument and the
 # four things about `debug_log` that were measured rather than assumed.
 DIAG_VERSION = 4
-DIAG_LOCS = 60
+DIAG_LOCS = 200
 DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
 # reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
@@ -1744,6 +1744,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tclear_global_variable_list = {MOD_ID}_plan_ranked
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_gain value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
@@ -1952,7 +1954,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # can only hold one of. Which building it is comes off the method the harvest
 # kept.
 """)
-    for side, listname, method_var in (("t", "town", "pm"), ("r", "rural", "prm")):
+    for side, listname, method_var, gain_var in (("t", "town", "pm", "p"),
+                                                ("r", "rural", "prm", "pr")):
         for index, good in enumerate(order, start=1):
             by_building = groups.get((good, side), {})
             if not by_building:
@@ -1980,6 +1983,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_added add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} add = 1 }}
+\t\t\t# **What this building gets out of standing here**, which is the question
+\t\t\t# the owner asked of the whole plan on 2026-09-02: «какой процент из них
+\t\t\t# получит выгоду от своего положения на карте». `_{gain_var}{index}` is the
+\t\t\t# gain -- the fraction of this recipe's own ceiling the ground pays, out
+\t\t\t# of {RANK_SCALE} -- so the two counters are «how many earn anything» and
+\t\t\t# «what they earn on average». Two adds a placement and nothing per
+\t\t\t# candidate: the plan does not get slower for being answerable.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain add = var:{MOD_ID}_{gain_var}{index} }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_{gain_var}{index} > 0 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_fed add = 1 }}
+\t\t\t}}
 \t\t}}
 """
             out.append(f"""# {good}, {"town" if side == "t" else "village"} side.
@@ -3244,6 +3259,17 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
                    "goods_scored=%s quota=%s rights_given=%s sweeps=%s ranked_provs=%s"
                    % tuple(read(i) for i in range(1, 12))))
+    # **What the ground actually pays**, and it is the owner's own question:
+    # «какой процент из них получит выгоду от своего положения на карте».
+    # `fed` is how many placed buildings earn any bonus at all; `gain` is the
+    # sum of what they earn, out of RANK_SCALE apiece, so the average is one
+    # division and `tools/diag.py` does it.
+    for slot, source in enumerate((f"{MOD_ID}_plan_fed", f"{MOD_ID}_plan_gain",
+                                   f"{MOD_ID}_plan_placed"), start=1):
+        out.append(park(slot, source))
+    out.append(say("GAIN fed=%s of placed=%s | gain_total=%s out of %d a building "
+                   "-- fed is how many earn any bonus where they stand, gain is "
+                   "what they earn in all" % (read(1), read(3), read(2), RANK_SCALE)))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan
@@ -3271,6 +3297,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_diag_freer value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_realt value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_forced value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_forcedr value = 0 }}
 """)
     for index in range(1, len(order) + 1):
         for side in ("t", "r"):
@@ -3279,6 +3306,19 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(f"""\tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tchange_global_variable = {{ name = {MOD_ID}_diag_locs add = 1 }}
+\t\t# **Тумблеры считаются здесь, до разделения на стороны**, и это
+\t\t# сознательно: 2026-09-02 он сбросил их в «авто», а окно показало города
+\t\t# снова. Счёт по обеим сторонам различает «переменная вернулась» и «окно
+\t\t# врёт» -- по стороне это было бы неразличимо, потому что сброшенная
+\t\t# локация уходит на сельскую сторону вместе со своим счётчиком.
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = {MOD_ID}_force_town }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_forced add = 1 }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = {MOD_ID}_force_rural }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_forcedr add = 1 }}
+\t\t}}
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_towns add = 1 }}
@@ -3286,14 +3326,10 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# «сделать городом» переносит локацию на городскую сторону расчёта,
 \t\t\t# но ранга в игре не меняет -- а гильдия объявлена `town = yes` и в
 \t\t\t# `rural_settlement` не встанет никогда. 2026-09-02 весь симптом
-\t\t\t# оказался в этом зазоре, и эти два числа его называют.
+\t\t\t# оказался в этом зазоре, и это число его называет.
 \t\t\tif = {{
 \t\t\t\tlimit = {{ NOT = {{ location_rank = location_rank:rural_settlement }} }}
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_realt add = 1 }}
-\t\t\t}}
-\t\t\tif = {{
-\t\t\t\tlimit = {{ has_variable = {MOD_ID}_force_town }}
-\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_forced add = 1 }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban }}
@@ -3371,12 +3407,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     for slot, source in enumerate((f"{MOD_ID}_diag_locs", f"{MOD_ID}_diag_towns",
                                    f"{MOD_ID}_diag_freet", f"{MOD_ID}_diag_freer",
-                                   f"{MOD_ID}_diag_realt", f"{MOD_ID}_diag_forced"), start=1):
+                                   f"{MOD_ID}_diag_realt", f"{MOD_ID}_diag_forced",
+                                   f"{MOD_ID}_diag_forcedr"), start=1):
         out.append(park(slot, source))
     out.append(say("ROOM walked=%s towns=%s towns_with_room=%s villages_with_room=%s "
-                   "| of those towns: town rank or above=%s, forced by the tick=%s "
-                   "-- a forced town takes no guild, whatever the plan scores there"
-                   % tuple(read(i) for i in range(1, 7))))
+                   "| town rank or above=%s | ticks now set: town=%s village=%s "
+                   "-- read live, so this says what the ticks are at this moment "
+                   "and not what the last plan saw" % tuple(read(i) for i in range(1, 8))))
     out.append("}\n")
 
     for index, good in enumerate(order, start=1):

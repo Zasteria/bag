@@ -183,6 +183,27 @@ report is too long to read on screen and is not for him. The button's own
 description now prints what the last collect saw, the same way «Считать» prints
 its three numbers — so the press is never indistinguishable from a dead button.
 
+## The report is not for the player, so the tool has to read it
+
+**2026-09-02, his second press.** «Проверить насколько всё идеально и выгодно
+распределено я не могу из-за того что это сложно для меня как человека… Ты мог
+бы сам посмотреть.» He is right, and it is not a complaint about the format: 47
+counters and 127 location rows are a session's input, not a person's.
+
+So `tools/diag.py` **draws the conclusion and prints it first** — how full the
+ground came out, how many buildings earn anything where they stand, how the goods
+divide, which right holds how many towns, which passes ran out of sweeps. A dozen
+lines of Russian at the top of the same file, and the same dozen in the console.
+The detail stays underneath for the session.
+
+**And one guard about guards.** The rule that a reader must refuse to hand back
+nothing was written the day before, and its first version counted lines: fewer
+out than in meant something was lost. On the first real report the fold honestly
+turned 427 lines into 178 — four of every five are a good on a location's own row
+— and the guard threw the folded version away and shipped the raw one. **Count
+what must survive, not how much came out**: every `WTP` line except the `WTP LG`
+rows that folding is for.
+
 ## What a `debug_log` string can and cannot reach
 
 **Measured 2026-09-02, by a dump failing.** Three presses produced 632 `WTP`

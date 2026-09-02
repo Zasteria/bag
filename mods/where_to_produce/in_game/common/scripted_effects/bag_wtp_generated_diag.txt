@@ -113,6 +113,13 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv11 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_found } set_global_variable = { name = bag_wtp_dv11 value = global_var:bag_wtp_found } }
 	debug_log = "WTP PASS placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] used_locs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] drawn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] goods_scored=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] rights_given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] ranked_provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_fed } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_plan_fed } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_gain } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_plan_gain } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_plan_placed } }
+	debug_log = "WTP GAIN fed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | gain_total=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] out of 1000 a building -- fed is how many earn any bonus where they stand, gain is what they earn in all"
 }
 
 # The funnel. One walk, and the plan pays nothing for it: everything here is
@@ -129,6 +136,7 @@ bag_wtp_diag_scan = {
 	set_global_variable = { name = bag_wtp_diag_freer value = 0 }
 	set_global_variable = { name = bag_wtp_diag_realt value = 0 }
 	set_global_variable = { name = bag_wtp_diag_forced value = 0 }
+	set_global_variable = { name = bag_wtp_diag_forcedr value = 0 }
 	set_global_variable = { name = bag_wtp_fwt1 value = 0 }
 	set_global_variable = { name = bag_wtp_frt1 value = 0 }
 	set_global_variable = { name = bag_wtp_fgt1 value = 0 }
@@ -602,6 +610,19 @@ bag_wtp_diag_scan = {
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		change_global_variable = { name = bag_wtp_diag_locs add = 1 }
+		# **Тумблеры считаются здесь, до разделения на стороны**, и это
+		# сознательно: 2026-09-02 он сбросил их в «авто», а окно показало города
+		# снова. Счёт по обеим сторонам различает «переменная вернулась» и «окно
+		# врёт» -- по стороне это было бы неразличимо, потому что сброшенная
+		# локация уходит на сельскую сторону вместе со своим счётчиком.
+		if = {
+			limit = { has_variable = bag_wtp_force_town }
+			change_global_variable = { name = bag_wtp_diag_forced add = 1 }
+		}
+		if = {
+			limit = { has_variable = bag_wtp_force_rural }
+			change_global_variable = { name = bag_wtp_diag_forcedr add = 1 }
+		}
 		if = {
 			limit = { bag_wtp_plan_is_town = yes }
 			change_global_variable = { name = bag_wtp_diag_towns add = 1 }
@@ -609,14 +630,10 @@ bag_wtp_diag_scan = {
 			# «сделать городом» переносит локацию на городскую сторону расчёта,
 			# но ранга в игре не меняет -- а гильдия объявлена `town = yes` и в
 			# `rural_settlement` не встанет никогда. 2026-09-02 весь симптом
-			# оказался в этом зазоре, и эти два числа его называют.
+			# оказался в этом зазоре, и это число его называет.
 			if = {
 				limit = { NOT = { location_rank = location_rank:rural_settlement } }
 				change_global_variable = { name = bag_wtp_diag_realt add = 1 }
-			}
-			if = {
-				limit = { has_variable = bag_wtp_force_town }
-				change_global_variable = { name = bag_wtp_diag_forced add = 1 }
 			}
 			if = {
 				limit = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban }
@@ -1551,7 +1568,9 @@ bag_wtp_diag_free = {
 	if = { limit = { has_global_variable = bag_wtp_diag_realt } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_diag_realt } }
 	set_global_variable = { name = bag_wtp_dv6 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_diag_forced } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_diag_forced } }
-	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | of those towns: town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0], forced by the tick=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] -- a forced town takes no guild, whatever the plan scores there"
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_diag_forcedr } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_diag_forcedr } }
+	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ticks now set: town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] -- read live, so this says what the ticks are at this moment and not what the last plan saw"
 }
 
 # Scope: country
@@ -3493,7 +3512,7 @@ bag_wtp_diag_locations = {
 	ordered_in_global_list = {
 		variable = bag_wtp_plan_ranked
 		order_by = bag_wtp_plan_rank_order
-		max = 60
+		max = 200
 		check_range_bounds = no
 		change_global_variable = { name = bag_wtp_diag_n add = 1 }
 		set_global_variable = { name = bag_wtp_dv1 value = 0 }
@@ -3568,7 +3587,7 @@ bag_wtp_diag_locations = {
 	if = { limit = { has_global_variable = bag_wtp_diag_n } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_diag_n } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_found } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_plan_found } }
-	debug_log = "WTP LOCS printed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] cap=60 -- a cap is never silently the answer"
+	debug_log = "WTP LOCS printed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] cap=200 -- a cap is never silently the answer"
 }
 
 # The single-good ranking's own answer, for the case where the plan is right and

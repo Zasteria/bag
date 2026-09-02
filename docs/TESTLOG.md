@@ -38,6 +38,43 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, the rank simulation, and it works.** «Открыл
+план — на первый взгляд работает как надо. Города получают права и домики из
+прав.» Transylvania and Wallachia together: 127 locations, 22 towns of which 8
+are of town rank and 14 ticked, 19 provinces, 403 buildings in 403 rooms.
+
+- **Both predictions from the previous entry came back right.** Glass `T … w`
+  went from 3 of 17 to **22 of 22**; every made good now wins a town method in
+  every town. And the charter spam is gone: 22 rights over **nine different
+  ones**, the largest holding 3 towns where masonry held 9 of 17 before.
+- **No pass came near the sweep guard** — the worst was 11 of 12, on the open
+  pass. `RIGHT`, `ROOM` and the location rows all read cleanly with the round
+  brackets.
+- **The distribution, which he asked to have read for him.** 36 goods of the 38
+  the ground can make got something, from 1 building to 20. **Nine goods take 20
+  each and that is 45% of the ground**: coal, sand, beer, cloth, glass, jewelry,
+  leather, masonry, pottery — every one of them makeable in all 127 locations, so
+  every one reaches the quota. Twenty goods took 7 or fewer, all of them
+  town-only, competing for 88 town slots the rights have first call on. **That is
+  the formula working as written**; `plan_max`, his own per-good ceiling, is the
+  lever and it is 0.
+- **How much of it earns anything, and why the answer is not in this report.**
+  `o=0` on a side means every placement there earns nothing, and those alone are
+  38 buildings of 403 — a floor, not the figure, because `o` is a maximum. Two
+  counters were added for it the same day (`GAIN fed=… gain_total=…`), one `if`
+  a placement.
+- **One bug he found and it is not diagnosed.** Toggles cleared to auto, replan,
+  «всё вроде бы было окей» — then he left the window or changed the map area and
+  **the ticks were back on the towns**. Nothing in the mod writes
+  `bag_wtp_force_town` except the button on the row, so this is not guessable
+  from the source. The `ROOM` line now counts both ticks over every walked
+  location and reads them live, so one press of «Диагностика» — with no plan —
+  separates «the variable came back» from «the window is drawing a stale state».
+- **`Important assertion failed: (Getting player in synchronous state, likely to
+  cause a desync)`** appears once, at the first `[…GetPlayer…]` the dump reads.
+  It is how the dump reads every number, and it matters in multiplayer rather
+  than here — recorded so the next session does not chase it.
+
 **2026-09-02 — `where_to_produce`, the diagnosis, first press. It named the cause
 and found two faults in itself.** «Нажал "диагностика"… вроде появился такой
 файлик» — the file was **0 bytes**; with the reader fixed the same press gave the
@@ -157,24 +194,29 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
-**`where_to_produce`, whether the rank simulation works. One press, and the report
-answers it without a screenshot.** Built 2026-09-02 after the diagnosis, never
-loaded. Same ground as that run, «Считать план», «Диагностика», `mods.bat → 8`.
+**`where_to_produce`, the tick that comes back. Two presses, no plan, and it is
+the whole test.** Reported 2026-09-02 and not diagnosed: ticks cleared to auto
+reappear as towns after the window is closed or the map area changed.
 
-- **glass `T … w`** should be **17 rather than 3** where the towns are ticked: a
-  ticked location is now scored as the rank it was ticked into, and a guild is
-  refused only by its own `location_potential`, which sand passes there.
-- **`RIGHT 6 royal_masonry_rights given=`** should stop being nine of seventeen
-  once every town can finish a bundle; the `L` lines say whether the towns that
-  took it got the glass.
-- **`ROOM … forced by the tick=`** says how many locations the simulation applied
-  to at all. **If `w` is still 3 and that number is 0, the tick was not set on
-  those locations** and the reading is about something else entirely.
-- **And what could go wrong with it:** `bag_wtp_stands_<building>` copies 18
-  buildings' `location_potential` out of the game's own files. A condition that
-  does not evaluate in this scope would show up in `error.log` naming
-  `bag_wtp_generated_triggers.txt`, so that one is worth a look if the numbers
-  read strangely.
+1. open the plan window, click a few rows through to «авто»;
+2. press «Диагностика» — **without** «Пересчитать»;
+3. close and reopen the window (or change the area) so the ticks show as towns
+   again;
+4. press «Диагностика» a second time;
+5. `mods.bat → 8` and answer «в» so both reports come out.
+
+**What the two `ROOM` lines say.** `ticks now set: town=N village=M` is read live
+off the locations, not off the last plan.
+
+- **first 0, second above 0** — the variables really do come back, and something
+  outside this mod is writing them or the click is being rolled back. Then the
+  next step is `error.log` around the click.
+- **both 0** — the variables are gone and **the window is drawing a stale
+  state**: the row's `visible` reads `Location.MakeScope.GetVariable`, so the
+  datamodel is handing the row a different location than the one the click
+  reached. That is ours and it is in `bag_wtp_plan_window.gui`.
+- **both above 0** — the clicks never landed at all; the button's own `effect`
+  is the place to look.
 
 **`where_to_produce`, twenty-eighth load.** Four small things and one question,
 all of it one glance with the results window open. Not worth a run of its own.
