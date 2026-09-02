@@ -65,6 +65,46 @@ of the funnel, for one good, reported on the window. Availability, then
 buildability, then a method won, then the placement gate, then placed. One run
 reads it and the cause has nowhere left to hide.
 
+## The funnel probe, and the protocol for it
+
+**Not built. This is what to build first when the plan does something and nobody
+can say why**, and it is written out here so the next session delivers it in a
+shape the owner can actually read — he asked, before the 2026-09-01 session
+closed, where he was supposed to look.
+
+**Where it lives: on the plan window's header line, nowhere else.** Not
+`error.log`, not a file, not the mod action log. He plays the game; the answer has
+to be on the screen he already has open, in one line he can screenshot. That is
+also why it must come out again once the fault is found — «он просил не добавлять
+больше счётчиков, пока не заработает».
+
+**What it counts.** One good, the one already selected on the Goods tab, over the
+candidates the plan is working: five numbers, each a subset of the one before.
+
+| # | the stage | what a zero here means |
+| --- | --- | --- |
+| 1 | the country has the building unlocked (`bag_wtp_avail_<m>`) | no advance for it yet — «Сейчас» cannot offer it and «В конце» can |
+| 2 | `can_build_building` says yes in the location's scope | terrain, rank or `location_potential` refuses it |
+| 3 | a method won — `bag_wtp_pm<n>` / `_prm<n>` is not 0 | the scoring pass dropped it after 1 and 2 both passed, which is ours |
+| 4 | `bag_wtp_plan_can_town_<n>` / `_can_rural_<n>` says yes | the cap, the one-building-per-type rule, or the good is already there |
+| 5 | placed | the bands, the quota or the tiers never gave it a turn |
+
+**Read left to right and stop at the first collapse.** 1 and 2 are the game's
+answer and nothing here can argue with them; 3, 4 and 5 are ours and each has a
+different owner in `generate.py`.
+
+**The protocol, walked as the person who has to do it:**
+
+1. install, load the save;
+2. pick the ground — an area is enough, and «городских» in the header should not
+   be zero if the question is about a town;
+3. tick the one good in question on the Goods tab;
+4. press «План»;
+5. screenshot the header line.
+
+That is one run and one screenshot, and it answers a question four theories could
+not.
+
 ## Working blind
 
 **Building a whole mod before loading it once is the expensive mistake, and it
