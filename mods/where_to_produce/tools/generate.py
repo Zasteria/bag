@@ -95,12 +95,35 @@ RIGHT_SCALE = RANK_SCALE // 10
 # setting rather than the setting itself: CMM clamps the number he chooses, and
 # a `while` in an effect that cannot leave its condition is a hung game rather
 # than an error in a log.
-PLAN_ROUNDS = 12
-# More than `RESULT_ROWS`, because a plan's row is a location where a ranking's
-# is a province -- the same ground is four to eight times the rows. Only the
-# datamodel decides what a scripted widget costs, and this list is filled on
-# opening and emptied on closing like the other two.
+#
+# **On a big ground the guard is what decides whether the plan finishes.** A
+# sweep places at most one building per good per side, so 970 buildings over 32
+# goods needs thirty sweeps at the very least; at 12 the thirty-eighth run was
+# cut off with 342 of 1312 rooms still empty -- «мод не справился досчитать всё
+# как надо». It costs nothing where a pass has no work, because the `while`
+# leaves the moment a sweep adds nothing, so it is only ever paid where there is
+# something left to place.
+PLAN_ROUNDS = 50
+# **One page of the plan window, and not the size of the answer.** Only the
+# datamodel decides what a scripted widget costs, so this is the number of rows
+# drawn at once; `PLAN_RANKED` below is how many the plan keeps, and the page
+# buttons walk them one page at a time. More than `RESULT_ROWS` because a
+# plan's row is a location where a ranking's is a province -- the same ground is
+# four to eight times the rows.
 PLAN_ROWS = 150
+# How many locations one plan ranks into pages. The ranked list is a global
+# variable list and two variables on each location, which is cheap beside the
+# pass that filled them -- the window's datamodel is the thing that costs, and it
+# never holds more than one page. Northern Germany, the largest ground he has
+# run, is 416 locations; this leaves room for several times that before anything
+# is dropped, and the header says how many were kept against how many the plan
+# used.
+PLAN_RANKED = 1500
+# And how many provinces are put in order for those rows. A location's row sorts
+# on its province's place, so a province past this cap keeps the 9999 the reset
+# gave it and its locations land at the end together rather than in the wrong
+# place among the others.
+PLAN_PROVS = 600
 
 # The sweeps run in tiers, and a tier admits only goods that at most this many
 # candidate locations could hold. **The scarce go first**: a good with one place
@@ -139,7 +162,14 @@ COVER_TIER = object()
 # The bands wrap the scarcity tiers; then coverage, then the open pass. Written
 # out here rather than built twice, because the dump numbers a pass by its place
 # in this list and a diagnosis that names the wrong pass is worse than none.
-PLAN_PASSES = ([(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
+# **The tier ladder runs in the last band only, and the value bands run flat.**
+# The tiers exist so a good with almost nowhere to go claims its place before a
+# common one takes it -- and where such a good has a high gain it wins its band
+# on gain alone, without needing the ladder. Walking all six tiers inside all
+# five bands was 33 passes and 98 sweeps for one plan on the thirty-eighth run;
+# this is twelve, and the sweeps it saves are what pay for `PLAN_ROUNDS` above.
+PLAN_PASSES = ([(band, 0) for band in PLAN_BANDS[:-1]]
+               + [(PLAN_BANDS[-1], tier) for tier in PLAN_TIERS]
                + [(0, COVER_TIER), (0, OPEN_TIER)])
 
 
@@ -1235,7 +1265,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_plan_rooms = {{ value = global_var:{MOD_ID}_plan_rooms }}
 {MOD_ID}_show_plan_cap_rural = {{ value = global_var:{MOD_ID}_plan_cap_rural }}
 {MOD_ID}_show_plan_cap_urban = {{ value = global_var:{MOD_ID}_plan_cap_urban }}
-{MOD_ID}_show_plan_max = {{ value = global_var:{MOD_ID}_plan_max }}
+# Which page of the answer is on screen, out of how many, and the rows it covers.
+# The window draws one page of {PLAN_ROWS} at a time; these four are what the page
+# bar above the table prints, so «показано 150» is never read as the size of the
+# plan again.
+{MOD_ID}_show_plan_page = {{ value = global_var:{MOD_ID}_plan_page }}
+{MOD_ID}_show_plan_pages = {{ value = global_var:{MOD_ID}_plan_pages }}
+{MOD_ID}_show_plan_from = {{ value = global_var:{MOD_ID}_plan_from }}
+{MOD_ID}_show_plan_to = {{ value = global_var:{MOD_ID}_plan_to }}
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
@@ -1774,6 +1811,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tremove_variable = {MOD_ID}_load
 \t\tremove_variable = {MOD_ID}_plan_rank
+\t\tremove_variable = {MOD_ID}_plan_pg
 \t\tremove_variable = {MOD_ID}_plan_prank
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tremove_variable = {MOD_ID}_plan_town_row
@@ -1792,6 +1830,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_from value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_to value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rooms value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_towns value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
@@ -2284,10 +2327,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
 \t\t\t\tglobal_var:{MOD_ID}_ng{index} <= global_var:{MOD_ID}_plan_tier
 \t\t\t}}
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
-\t\t\t}}
 \t\t\t# The quota. **Never lifted** -- the open pass raises it by one a
 \t\t\t# round instead, so leftover ground fills in even layers rather than
 \t\t\t# going whole to whichever good the list happens to reach first.
@@ -2348,7 +2387,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_prov_locs
 \t\torder_by = {MOD_ID}_plan_prov_order
-\t\tmax = 400
+\t\tmax = {PLAN_PROVS}
 \t\tcheck_range_bounds = no
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
 \t\tprovince_definition = {{
@@ -2359,39 +2398,131 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 \t# Counted before the rows are taken and separately from them: the walk below
-\t# stops at {PLAN_ROWS}, and a count that stopped with it would say the plan used
-\t# exactly as many locations as the window can draw, whatever it really used.
+\t# stops at {PLAN_RANKED}, and a count that stopped with it would say the plan
+\t# used exactly as many locations as the window can keep, whatever it really
+\t# used.
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_found add = 1 }}
 \t}}
+\t# **The rows are ranked whole and drawn a page at a time.** The datamodel is
+\t# what costs, so the window still holds {PLAN_ROWS} rows at once -- but the plan
+\t# has always used more ground than that, and cutting the list at the window's
+\t# capacity is what made «показано всего 150 локаций» look like the answer
+\t# stopping short. Every location keeps its place in the whole order and the page
+\t# it falls on; the page buttons choose which of them the datamodel gets.
+\t#
+\t# The page is counted here rather than divided out afterwards: the counter is
+\t# reset and the page stepped whenever a page fills, so the comparison is against
+\t# a literal and there is no rounding to be wrong about.
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\torder_by = {MOD_ID}_plan_order
-\t\tmax = {PLAN_ROWS}
+\t\tmax = {PLAN_RANKED}
 \t\tcheck_range_bounds = no
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_shown add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pagec add = 1 }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_pagec > {PLAN_ROWS} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pages add = 1 }}
+\t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_plan_rank value = global_var:{MOD_ID}_plan_shown }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_pg value = global_var:{MOD_ID}_plan_pages }}
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_ranked target = this }}
 \t}}
+\t# A new plan always opens on its first page; the old one's page may not exist.
+\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
 }}
 
 # The window's own list, filled on opening and emptied on closing -- the same
 # contract as the other two windows and for the same reason: a scripted widget
 # never comes down, so emptying the datamodel is the only thing that frees a row.
+#
+# **One page of it, and the page bar says which.** `_plan_pg` was written on the
+# location by the walk above, so choosing a page is one comparison per ranked
+# location and no arithmetic at all -- the same shape as `var:{MOD_ID}_load <
+# global_var:{MOD_ID}_plan_cap_urban`, which is the plan's own gate.
 # Scope: country
 {MOD_ID}_plan_show = {{
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_plan_page }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_plan_pages }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\t}}
+\t# **Clamped with an `if` and not with `min`/`max`.** `change_variable`'s
+\t# `max = 1` is a floor -- `_plan_quota` above depends on it and says so -- but
+\t# which way `min` runs is an inference and not a measurement, and getting it
+\t# backwards here would jump the window to the last page on every open with
+\t# nothing in any log to say why. A comparison between two globals is the form
+\t# this file already lives on.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page < 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page > global_var:{MOD_ID}_plan_pages }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = global_var:{MOD_ID}_plan_pages }}
+\t}}
+\t# The rows this page covers, for the bar above the table: it is the answer to
+\t# «показано 150 из скольких» and it has to be readable without a log.
+\tset_global_variable = {{ name = {MOD_ID}_plan_from value = global_var:{MOD_ID}_plan_page }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from subtract = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from multiply = {PLAN_ROWS} }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_to value = global_var:{MOD_ID}_plan_from }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_to add = {PLAN_ROWS} }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_to > global_var:{MOD_ID}_plan_shown }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_to value = global_var:{MOD_ID}_plan_shown }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from add = 1 }}
+\t# The bar itself is only drawn where there is more than one page, and a country
+\t# variable is the one thing a `visible` can ask about without a data function.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_pages > 1 }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_paged value = 1 }}
+\t}}
+\telse = {{
+\t\tremove_variable = {MOD_ID}_plan_paged
+\t}}
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_ranked
+\t\tlimit = {{ var:{MOD_ID}_plan_pg = global_var:{MOD_ID}_plan_page }}
 \t\torder_by = {MOD_ID}_plan_rank_order
-\t\tmax = {MOD_ID}_show_plan_shown
+\t\tmax = {PLAN_ROWS}
 \t\tcheck_range_bounds = no
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_results target = this }}
+\t}}
+}}
+
+# One page forward and one back, from the two buttons beside the page number.
+# **Neither re-plans anything**: the answer is already ranked and every location
+# knows its page, so a page turn is one walk over the ranked list.
+# Scope: country
+{MOD_ID}_plan_page_next_effect = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page < global_var:{MOD_ID}_plan_pages }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_page add = 1 }}
+\t\t{MOD_ID}_plan_show = yes
+\t}}
+}}
+
+# Scope: country
+{MOD_ID}_plan_page_prev_effect = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page > 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_page subtract = 1 }}
+\t\t{MOD_ID}_plan_show = yes
 \t}}
 }}
 
@@ -3238,7 +3369,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"raw={len(split['raw'])} made={len(split['made'])} "
                    f"rights={len(rights)} gated={len(UNLOCKS)}"))
     out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
-                   f"tiers={tiers} rows={PLAN_ROWS} result_rows={RESULT_ROWS} "
+                   f"tiers={tiers} rows={PLAN_ROWS} ranked={PLAN_RANKED} "
+                   f"result_rows={RESULT_ROWS} "
                    f"unfed_penalty={UNFED_PENALTY} right_fit={RIGHT_FIT} "
                    f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
     out.append(say("BUILD passes in order: "
@@ -3283,16 +3415,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    % tuple(read(i) for i in range(1, 9))))
     for slot, (name, source) in enumerate((
             ("cap_rural", f"{MOD_ID}_plan_cap_rural"),
-            ("cap_urban", f"{MOD_ID}_plan_cap_urban"),
-            ("max_per_good", f"{MOD_ID}_plan_max")), start=1):
+            ("cap_urban", f"{MOD_ID}_plan_cap_urban")), start=1):
         out.append(park(slot, source))
-    out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_rights"))
-    out.append(flag(5, f"has_global_variable = {MOD_ID}_plan_by_end"))
-    out.append(flag(6, f"has_global_variable = {MOD_ID}_rank_by_end"))
-    out.append(flag(7, f"has_global_variable = {MOD_ID}_only_buildable"))
-    out.append(say("SET cap_rural=%s cap_urban=%s max_per_good=%s rights=%s "
+    out.append(flag(3, f"has_global_variable = {MOD_ID}_plan_rights"))
+    out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_by_end"))
+    out.append(flag(5, f"has_global_variable = {MOD_ID}_rank_by_end"))
+    out.append(flag(6, f"has_global_variable = {MOD_ID}_only_buildable"))
+    out.append(say("SET cap_rural=%s cap_urban=%s rights=%s "
                    "plan_by_end=%s rank_by_end=%s buildable_only=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+                   % tuple(read(i) for i in range(1, 7))))
     for slot, source in enumerate((
             f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",

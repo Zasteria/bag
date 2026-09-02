@@ -40,11 +40,29 @@ menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 symptom that cost four runs is measured, named and fixed: the tick is the rank
 now (`SETTLED.md`), the charter spam is gone, and **four fifths of placed
 buildings earn a bonus where they stand, capturing 78% of their own recipe's
-ceiling on average**. All of it is on
-`claude/where-to-produce-rollback-yc5o24`, unmerged.
+ceiling on average**. All of it is on `main`.
 
 **Read `TESTLOG.md` before anything.** Four runs of 2026-09-02 are in it and they
 carry every number this section summarises.
+
+**Three things he named on 2026-09-02 are built and none has been in the game.
+One big ground tests all three at once**, and northern Germany — 416 locations,
+1312 rooms — is the one that failed before:
+
+- **The round guard is 50 and the pass count is twelve.** 127 locations already
+  put the open pass at 11 of 12, and 970 buildings over 32 goods cannot be done
+  in fewer than thirty sweeps. What to read on the run: `WTP P<n> sweeps=x/50` in
+  the report — a pass at 50 is still being cut off — and whether the rooms come
+  out full. **What to watch against it is the hitch** he reported without
+  complaint on that ground: twelve passes are fewer than thirty-three, but each
+  may now run four times as long.
+- **The plan window pages.** `PLAN_ROWS` is still 150 because the datamodel is
+  what costs; `PLAN_RANKED` (1500) is how many rows the pass keeps, and «Назад» /
+  «Вперёд» under the summary walk them. The summary says «в строках N» beside the location
+  count, so the two numbers can be told apart at a glance. If the ground is bigger
+  than 1500 used locations the bar says so by the two disagreeing.
+- **The province ceiling is gone** — setting, alias, default, both localizations
+  and its gate in the allocator.
 
 **What is open, and none of it is a bug:**
 
@@ -52,13 +70,8 @@ carry every number this section summarises.
   leather, masonry, pottery — makeable in every location, so each reaches the
   quota and stops at 20. Sixteen town-only goods got 7 or fewer, competing for
   22 towns × 4 slots that the rights have first call on. **The formula working as
-  written**, and `plan_max` — his own per-good ceiling, still 0 — is the lever.
-  Ask before turning it; the report will say what it did.
-- **The round guard is one sweep from biting.** 127 locations put the open pass
-  at 11 of 12. The fix is written down and was rolled back with everything else:
-  `PLAN_ROUNDS` at 50, and the tier ladder in the last band only.
-- **The province ceiling setting** he asked to have removed, and «показано 150
-  локаций», which is `PLAN_ROWS` and not a count.
+  written.** The lever he had for it was `plan_max`, and it went with the province
+  ceiling at his word; if he wants one back it should be derived, not typed.
 - **The single-good side** has faults he has seen and set aside without naming.
 
 **The diagnosis comes out when the work does.** It is `bag_wtp_diag*`, the `_f*`

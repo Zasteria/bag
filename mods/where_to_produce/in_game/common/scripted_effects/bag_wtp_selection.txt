@@ -314,11 +314,29 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_shown } }
 		set_global_variable = { name = bag_wtp_plan_shown value = 0 }
 	}
+	# The page bar's four numbers. The bar itself is hidden until a plan makes
+	# more than one page, but its labels are resolved whether it is drawn or not.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_page } }
+		set_global_variable = { name = bag_wtp_plan_page value = 1 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_pages } }
+		set_global_variable = { name = bag_wtp_plan_pages value = 1 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_from } }
+		set_global_variable = { name = bag_wtp_plan_from value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_plan_to } }
+		set_global_variable = { name = bag_wtp_plan_to value = 0 }
+	}
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_rooms } }
 		set_global_variable = { name = bag_wtp_plan_rooms value = 0 }
 	}
-	# And the three settings, for the frame before the sync has run: the caps are
+	# And the two settings, for the frame before the sync has run: the caps are
 	# read by a trigger asked once per candidate per round.
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_rural } }
@@ -327,10 +345,6 @@ bag_wtp_init_counters = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_cap_urban } }
 		set_global_variable = { name = bag_wtp_plan_cap_urban value = 4 }
-	}
-	if = {
-		limit = { NOT = { has_global_variable = bag_wtp_plan_max } }
-		set_global_variable = { name = bag_wtp_plan_max value = 0 }
 	}
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_prov_n } }

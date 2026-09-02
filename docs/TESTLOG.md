@@ -289,9 +289,10 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
-- **The whole-map plan in `where_to_produce`** — the tab, the two caps, the
-  pass, the window and the map mode. Built 2026-09-01 and never loaded; what a
-  first run has to answer is in
-  [`investigations/whole_map_plan.md`](investigations/whole_map_plan.md).
+- **The three fixes of 2026-09-02 in `where_to_produce`** — the round guard at
+  50 with the tier ladder in the last band only (twelve passes), the paged plan
+  window, and the province ceiling's removal. The plan itself has been run four
+  times; none of these three has. A big ground is what tests all three at once:
+  northern Germany is the one that failed before.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

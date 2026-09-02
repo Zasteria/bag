@@ -188,6 +188,36 @@ bag_wtp_plan_mark_town = {
 	}
 }
 
+# One page of the answer forward, and one back.
+#
+# **A page turn is not a re-plan.** The pass has already ranked every location it
+# used and written the page it falls on, so these two only refill the window's
+# datamodel — which is the one thing that costs, and the reason the window holds
+# one page rather than the whole plan.
+bag_wtp_plan_page_next = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_plan_page_next_effect = yes
+	}
+}
+
+bag_wtp_plan_page_prev = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_plan_page_prev_effect = yes
+	}
+}
+
 # «Пересчитать», from the plan window itself.
 #
 # **Nothing else re-plans.** A pick on the map does not, and neither does the

@@ -475,6 +475,78 @@ window = {
 					text = "bag_wtp_plan_window_empty"
 				}
 
+				# The page bar. The window's datamodel is what a scripted widget
+				# costs, so it holds one page of 150 rows -- but the plan builds
+				# over the whole ground, and cutting the answer at the window's
+				# capacity is what made «показано всего 150 локаций» read as the
+				# plan stopping short. The rows are all ranked; these two buttons
+				# choose which of them the datamodel gets, and re-plan nothing.
+				#
+				# **The buttons carry words and not arrow glyphs.** Of ◄ ► ← ‹ ›
+				# the game's own localization uses none — only → appears in it at
+				# all — so nothing says the font carries them, and a glyph it does
+				# not carry is a box on a button.
+				#
+				# **Drawn only where there is more than one page**, and the test is
+				# a country variable rather than a number: `bag_wtp_plan_paged` is
+				# set by `bag_wtp_plan_show` and `.IsSet` is the one question a
+				# `visible` can ask without a data function of its own.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_paged').IsSet]"
+
+					button_regular = {
+						size = { 96 28 }
+						tooltip = "bag_wtp_plan_page_prev_tt"
+						text_single = {
+							size = { 84 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 84 22 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_plan_page_prev"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_plan_page_prev').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					# A fixed width and not an expanding one: an expanding child
+					# inside a parent that has a size of its own comes out at zero
+					# and elides to nothing (`docs/pitfalls/interface.md`).
+					text_single = {
+						size = { 380 28 }
+						maximumsize = { 380 28 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_plan_page_label"
+						tooltip = "bag_wtp_plan_page_tt"
+					}
+
+					button_regular = {
+						size = { 96 28 }
+						tooltip = "bag_wtp_plan_page_next_tt"
+						text_single = {
+							size = { 84 22 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 84 22 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_plan_page_next"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_plan_page_next').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					margin_left = 10

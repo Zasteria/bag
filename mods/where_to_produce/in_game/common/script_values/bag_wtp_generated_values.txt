@@ -11451,7 +11451,14 @@ bag_wtp_show_plan_shown = { value = global_var:bag_wtp_plan_shown }
 bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
 bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
-bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
+# Which page of the answer is on screen, out of how many, and the rows it covers.
+# The window draws one page of 150 at a time; these four are what the page
+# bar above the table prints, so «показано 150» is never read as the size of the
+# plan again.
+bag_wtp_show_plan_page = { value = global_var:bag_wtp_plan_page }
+bag_wtp_show_plan_pages = { value = global_var:bag_wtp_plan_pages }
+bag_wtp_show_plan_from = { value = global_var:bag_wtp_plan_from }
+bag_wtp_show_plan_to = { value = global_var:bag_wtp_plan_to }
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.

@@ -180,21 +180,29 @@ it was undone at his word — «лучше мы решим уже на том м
 неработающих правок» — so everything above in this file is the code again,
 exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testlog_2026-08.md).
 
-**Open at this point, and he named all of it himself:**
+**Open at the rollback, and he named all of it himself. Three of the five were
+answered on 2026-09-02 when he asked for them by name:**
 
-- **a big ground does not finish.** All of northern Germany: 970 buildings in 354
-  of 416 locations, «мод не справился досчитать всё как надо». The cause was
+- ~~**a big ground does not finish.**~~ All of northern Germany: 970 buildings in
+  354 of 416 locations, «мод не справился досчитать всё как надо». The cause was
   measured afterwards and the arithmetic is not in doubt — a sweep places at most
   one building per good per side, so 970 buildings over 32 goods needs thirty
-  sweeps at the least, and `PLAN_ROUNDS` is 12 here;
-- **«показано всего 150 локаций»** is `PLAN_ROWS`, the window's row cap, not the
-  count of what the plan used. Nothing is lost, only undrawn, and the header does
-  not say so at this point;
-- **the province ceiling setting is still here**, and he asked for it to go: «я не
-  представляю ситуацию, когда бы я мог захотеть сменить значение этой строки с
-  0». Under this formula the quota does that job and is derived rather than typed;
+  sweeps at the least, and `PLAN_ROUNDS` was 12. **It is 50, and the tier ladder
+  runs in the last band only** — twelve passes where there were thirty-three, and
+  the passes saved are what pay for the sweeps. Not run;
+- ~~**«показано всего 150 локаций»**~~ was `PLAN_ROWS`, the window's row cap, not
+  the count of what the plan used: nothing was lost, only undrawn. **The rows are
+  ranked whole and drawn a page at a time now** — `PLAN_RANKED` locations keep
+  their place and the page they fall on, the datamodel still holds one page of
+  `PLAN_ROWS`, and two buttons under the summary line walk them. Not run;
+- ~~**the province ceiling setting**~~ is gone — setting, alias, default, both
+  localizations and its gate in the allocator: «я не представляю ситуацию, когда
+  бы я мог захотеть сменить значение этой строки с 0». Under this formula the
+  quota does that job and is derived rather than typed. Not run;
 - **a one-off spike and a short hitch on «Пересчитать»** over that ground,
-  reported without complaint: thirty-three passes and ninety-eight sweeps a plan;
+  reported without complaint: thirty-three passes and ninety-eight sweeps a plan.
+  The pass count is twelve now and the guard is what grew, so this wants watching
+  on the next big ground rather than calling fixed;
 - **the symptom that is the whole of the job.** Force a province to towns and
   glass lands in the villages below and never in those towns, while saltpetre and
   clay — which a village could dig — take the town slots. And the glass-and-
@@ -223,11 +231,9 @@ exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testl
   in the same market, so the market gate is not what stops town glass — and four
   sessions' worth of explanation went with it
   ([`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md)).
-- **What was built above the rollback and is not in the tree.** Three of these
-  answer measurements he made himself and can be ported back on their own the
-  moment he asks: the round guard at 50 with the tier ladder in the last band only
-  (twelve passes rather than thirty-three), the province ceiling removed, and the
-  header saying «показано N» beside the number the plan really used. The rest were
+- **What was built above the rollback and is still not in the tree.** The three
+  that answered measurements he made himself came back on 2026-09-02 at his
+  request, and are struck through above. **The rest stay out**, because they were
   aimed at a cause nobody had named: a right-holding town's spare slots halved,
   the input substitution (sand planted where a charter wanted glass, which spammed
   a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.
