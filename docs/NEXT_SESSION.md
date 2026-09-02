@@ -46,23 +46,22 @@ runs settled are both in the last section of**
 [`investigations/plan_formula.md`](investigations/plan_formula.md) — read it
 before touching the plan.
 
-**The cause is named, and it is not the formula** (`TESTLOG.md` 2026-09-02,
-`SETTLED.md` has the row): **the «сделать городом» tick moves a location to the
-plan's town side and cannot move its rank in the game.** A guild is `town = yes`
-and will not stand in a `rural_settlement`, so a ticked village is scored as a
-town, granted a mandatory right, and then takes only RGO buildings — masonry and
-tar from the charter, never the glass. Fourteen «towns» of seventeen.
+**The cause is named and the fix is built, unloaded.** The 2026-09-02 diagnosis
+measured it (`TESTLOG.md`; `SETTLED.md` has the row) and he ruled on it in one
+sentence: «расчёт должен симулировать ранги… и не важно что там стоит на самом
+деле». So `bag_wtp_stands_<building>` now takes the rank from the tick and the
+`location_potential` still from the game — 80 buildings of 110 gate on the rank
+alone, 18 have their potential copied out, and 12 with an `allow` or a
+`country_potential` are left to the game
+([`research/engine.md`](research/engine.md)).
 
-**The next move is his decision, not a fix.** Three readings of the tick, and
-they lead to different mods: *«this is a village and I am telling the plan
-otherwise»* — then a right whose bundle the ground refuses should not be granted;
-*«I am going to raise this rank, plan for that»* — then a ticked town should be
-scored as having town rank, which means not asking `can_build_building` for the
-rank part, and it bundles rank, terrain and `location_potential` together;
-*«just show me»* — mark such a town and leave the plan alone. **Ask first.**
-
-**The instrument stays until the fault it found is fixed**
-([`pitfalls/diagnosis.md`](pitfalls/diagnosis.md)).
+**One run answers whether it worked, and the report says it without a
+screenshot.** Same ground, «Считать план», «Диагностика», `mods.bat → 8`. What to
+read: glass `T … w` should be 17 rather than 3 where the towns are ticked;
+`RIGHT 6 royal_masonry_rights given=` should stop being nine of seventeen once
+every town can finish a bundle; and `ROOM … forced by the tick=` says how many
+locations the simulation applied to at all. **If `w` is still 3, the tick was not
+set on those locations and the reading is about something else.**
 
 **Three things he measured himself are open again**, the fixes for them having
 gone out with the rollback: a big ground does not finish (the round guard at 12

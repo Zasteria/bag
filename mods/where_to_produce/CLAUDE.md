@@ -9,12 +9,12 @@ four tests the owner called «большой рывок». Everything built abov
 what is open here, and what those runs settled, is the last section of
 `plan_formula.md` below.
 
-**The symptom is measured and the next move is his decision.** «Сделать городом»
-moves a location to the plan's town side and cannot move its rank in the game: a
-guild is `town = yes` and never stands in a ticked village, so the granted
-charter comes out half-made. `docs/SETTLED.md` has it and `docs/NEXT_SESSION.md`
-the three readings — **ask before building one**. «Диагностика» + `mods.bat → 8`
-is how the numbers come out.
+**The tick is the rank, for the whole calculation** — «расчёт должен симулировать
+ранги… и не важно что там стоит на самом деле», 2026-09-02. A ticked location is
+scored, granted rights and built on as what it was ticked into:
+`bag_wtp_stands_<building>` takes the rank from the tick and the
+`location_potential` still from the game (`docs/research/engine.md`). **Untested
+in game.** «Диагностика» + `mods.bat → 8` is how the numbers come out.
 
 A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
 feeds, and the last age it can be built) and «В конце» — on two «Считать»
@@ -29,16 +29,16 @@ must never use it as a gate**. Nor is a recipe whose building cannot stand there
 
 **A building runs one method out of each of its slots** — eight have two, each
 earning its own bonus over its own output:
-[`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
+[`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
 no «По пути» column. A right's gate is its own `potential`, never `has_advance`;
 in the plan every town gets one and its whole bundle goes up. Numbers and the deferred level rights:
-[`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
+[`town_rights.md`](../../docs/investigations/town_rights.md).
 
 **The plan is an optimisation with a covering constraint** — maximise the bonus
 captured, subject to every good the ground can produce being produced. **Read
-[`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+[`plan_formula.md`](../../docs/investigations/plan_formula.md)
 before changing any of it.** Two things to carry: the currency is **`gain =
 bonus ÷ that recipe's own ceiling`**, since a raw bonus does not compare across
 goods; and the ground is **dealt in descending bands of gain across every good
@@ -46,7 +46,7 @@ at once**. **An entry is a building and a location holds one of each.** **The
 sides are the building's own rank gates**, not `village_category`. Every
 condition is a location variable — **a `province_definition` holds none**
 (`docs/PITFALLS.md`). How it is put together:
-[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
+[`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography

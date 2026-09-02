@@ -590,8 +590,10 @@ def triggers_file(rows, split, game) -> str:
 
     for index, good in enumerate(order, start=1):
         out.append(f"\n# {good}\n# Scope: location\n{MOD_ID}_can_build_{index} = {{\n\tOR = {{\n")
+        # The same trigger the scoring uses, so the buildable tick and the plan
+        # cannot disagree about a location the player has ticked into a town.
         for building in sorted(by_good.get(good, [])):
-            out.append(f"\t\tcan_build_building = building_type:{building}\n")
+            out.append(f"\t\t{MOD_ID}_stands_{building} = yes\n")
         out.append("\t}\n}\n")
 
     # Which methods this country may actually run.
@@ -607,6 +609,67 @@ def triggers_file(rows, split, game) -> str:
         extra = f"\n\thas_advance = {gate}" if gate else ""
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
                    f"\tcan_build_building = building_type:{method.building}{extra}\n}}\n")
+
+    # **The plan simulates ranks, and this is where.** The owner, 2026-09-02:
+    # «Расчёт должен симулировать ранги. Если я поставил там город в моде — он
+    # должен воспринимать это как город, значит должен дать права, должен
+    # поставить нужные дома. И не важно что там стоит на самом деле.»
+    #
+    # `can_build_building` in a location's scope answers two things at once: the
+    # rank flags a building declares (`town = yes`), and its `location_potential`
+    # -- the terrain, the market and the one-RGO-per-location rule. **The tick is
+    # meant to override the first and nothing else**, so where a location carries
+    # one, this asks the potential directly and lets the tick answer the rank.
+    #
+    # That is the whole of the 2026-09-02 diagnosis: a ticked village was scored
+    # as a town, granted a mandatory urban right, and then refused every guild --
+    # `w=3` of 17 towns for twenty different goods, and the charter came out
+    # half-made every time.
+    #
+    # Where the potential names a scope this one has not got -- `scope:actor`,
+    # two buildings of a hundred and ten -- the game is asked as before. A
+    # condition evaluated wrong is worse than a condition not overridden.
+    out.append("\n# Scope: location\n")
+    seen: dict[str, eu5data.Method] = {}
+    for method in rows:
+        seen.setdefault(method.building, method)
+    for building, method in sorted(seen.items()):
+        potential = " ".join(method.potential.split())
+        # Two reasons to leave a building alone and ask the game as before: it
+        # is gated by something besides the rank and the potential, or its
+        # potential names a scope this one has not got. Twelve buildings of a
+        # hundred and ten, all of them exotic -- a Japanese reform, an English
+        # tag, the Spanish cloth industry.
+        if method.extra_gates or "scope:" in potential:
+            why = ("an `allow` or a `country_potential` gates it besides the rank"
+                   if method.extra_gates else
+                   "its potential names a scope this one has not got")
+            out.append(f"# {why}, so the tick does not override it.\n"
+                       f"{MOD_ID}_stands_{building} = {{\n"
+                       f"\tcan_build_building = building_type:{building}\n}}\n")
+        elif not potential:
+            # The rank is the whole of what the game checks here, and the tick is
+            # the answer to the rank. This is the manufacturing ladder.
+            out.append(f"{MOD_ID}_stands_{building} = {{\n"
+                       f"\tOR = {{\n"
+                       f"\t\t{MOD_ID}_rank_is_ticked = yes\n"
+                       f"\t\tcan_build_building = building_type:{building}\n"
+                       f"\t}}\n}}\n")
+        else:
+            out.append(f"""{MOD_ID}_stands_{building} = {{
+\tOR = {{
+\t\tAND = {{
+\t\t\t{MOD_ID}_rank_is_ticked = no
+\t\t\tcan_build_building = building_type:{building}
+\t\t}}
+\t\tAND = {{
+\t\t\t{MOD_ID}_rank_is_ticked = yes
+\t\t\t# the building's own `location_potential`, copied from the game
+\t\t\t{potential}
+\t\t}}
+\t}}
+}}
+""")
 
     return "".join(out)
 
@@ -1274,8 +1337,12 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # the location's own scope is the terrain, the rank and the
             # building's `location_potential`, and never an advance -- so it is
             # as safe on «В конце» as on «Сейчас», and on ground nobody owns.
-            stands = (f" can_build_building = building_type:"
-                      f"{rows[method_index - 1].building}")
+            # **Not `can_build_building` directly**: that answers the rank and
+            # the `location_potential` in one breath, and the tick is meant to
+            # override the rank alone. `{MOD_ID}_stands_<building>` splits them
+            # where it can and asks the game as before where it cannot
+            # (`triggers_file`, and `docs/SETTLED.md` for what it cost to find).
+            stands = f" {MOD_ID}_stands_{rows[method_index - 1].building} = yes"
             # «По пути»: every age, so no gate on availability -- but the ground
             # still has to be able to hold it.
             out.append(keep("\t\t", "mid_", suffix, method_index, floor, stands))

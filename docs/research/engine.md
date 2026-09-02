@@ -343,6 +343,36 @@ PURGE_COA_SEARCH_COUNT = 100 # How many COA entries we will search through in a 
 Coats of arms get purged a hundred entries a frame. Widgets get no such
 treatment, and nothing exposes one.
 
+## What `can_build_building` is made of, and how to take it apart
+
+**Read off the game's own `building_types/`, 2026-09-02**, because the plan needed
+to override one half of it and keep the other. In a *location's* scope the answer
+is the conjunction of:
+
+- **the rank flags** the building declares at its top level — `rural_settlement`,
+  `town`, `city`, `megalopolis`, each a bare `= yes`. A guild is `town = yes` and
+  has no rural flag; `rural_glassmaker` is `rural_settlement = yes, town = no`;
+- **its `location_potential`**, which is where the terrain lives (`stone_quarry`
+  wants mountains, plateau or hills), and the market conditions
+  (`is_produced_in_location_market = goods:sand`), and the one-RGO-per-location
+  rule (`NOT = { raw_material = goods:stone }`). **26 of the game's production
+  buildings carry one and 110 do not**, so for most of the manufacturing ladder
+  the rank is the whole of the check;
+- **an `allow` or a `country_potential`** where the building has one — twelve of
+  the hundred and ten the mod uses, all exotic: a Japanese reform, an English
+  tag, the Spanish cloth industry, a climate.
+
+**So the rank can be replaced without losing the rest**: ask the
+`location_potential` directly and answer the rank yourself. That is what
+`bag_wtp_stands_<building>` does for `where_to_produce`, and the flags come from
+`eu5data.Method.ranks` — parsed, not guessed. Where an `allow` or a
+`country_potential` is in play the game is asked as before; a condition evaluated
+wrong is worse than one not overridden.
+
+**The four ranks are the whole ladder**: `rural_settlement`, `town`, `city`,
+`megalopolis`. There is no fifth, which is what makes "not rural" and "takes a
+guild" the same statement.
+
 ## What a `debug_log` string reaches, measured
 
 **2026-09-02, by a dump printing it.** All of it is what a mod may write into

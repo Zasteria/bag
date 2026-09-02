@@ -178,6 +178,20 @@ class Method:
     # offers a village a village building and nothing else leaves out the stone
     # quarries, clay pits, lumber mills and masons that belong there.
     ranks: frozenset[str] = frozenset()
+    # **The building's own `location_potential`, copied out as text.** The
+    # ranks above and this block are the whole of what `can_build_building`
+    # asks of a location: the terrain, the market and the one-RGO-per-location
+    # rule all live in here, and the rank lives in the flags. Kept verbatim
+    # rather than parsed, because it is re-emitted as script and a round trip
+    # through the parser would lose the comparison operators.
+    potential: str = ""
+    # **Something besides the rank and the potential gates this building.** Eight
+    # of the game's production buildings carry an `allow` and eight a
+    # `country_potential` -- a Japanese reform, an English tag, a climate. Where
+    # one is set the mod does not try to take the rank apart: it asks
+    # `can_build_building` as it always did, and the tick does not override it.
+    # A condition evaluated wrong is worse than one not overridden.
+    extra_gates: bool = False
 
     @property
     def rural(self) -> bool:
@@ -477,6 +491,41 @@ def _town_rights(rights_dir: Path, advances_dir: Path) -> list[TownRight]:
     return sorted(out, key=lambda r: r.key)
 
 
+def location_potentials(folder: Path) -> dict[str, tuple[str, bool]]:
+    """Per building: its `location_potential` as text, and whether more gates it.
+
+    **Text and not the parse tree**, because this is re-emitted as script: a
+    round trip through `parse` drops the comparison operators (`development <
+    20`) and the optional-scope marks (`owner ?= { ... }`), and a condition that
+    silently loses half of itself is worse than one that is not copied at all.
+    """
+    found: dict[str, tuple[str, bool]] = {}
+    for path in sorted(folder.glob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig")
+        for match in re.finditer(r"(?m)^([a-z0-9_]+)\s*=\s*\{", text):
+            body = _braced(text, match.end() - 1)
+            inside = re.search(r"(?m)^\s*location_potential\s*=\s*\{", body)
+            potential = _braced(body, inside.end() - 1).strip() if inside else ""
+            extra = any(re.search(r"(?m)^\s*%s\s*=\s*\{" % key, body)
+                        for key in ("allow", "country_potential"))
+            found[match.group(1)] = (potential, extra)
+    return found
+
+
+def _braced(text: str, start: int) -> str:
+    """The contents of the block whose opening brace is at `start`."""
+    depth, position = 0, start
+    while position < len(text):
+        if text[position] == "{":
+            depth += 1
+        elif text[position] == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start + 1:position]
+        position += 1
+    return text[start + 1:]
+
+
 def load_game(common: Path | None = None) -> Game:
     if common is None:
         import refs  # local: only needed when no explicit copy was named
@@ -485,6 +534,7 @@ def load_game(common: Path | None = None) -> Game:
     shared = load_dir(common / "production_methods")
 
     buildings = load_dir(common / "building_types")
+    potentials = location_potentials(common / "building_types")
 
     methods: list[Method] = []
     for building, entries in buildings.items():
@@ -538,6 +588,8 @@ def load_game(common: Path | None = None) -> Game:
                 inputs=merged,
                 parts=parts,
                 ranks=ranks,
+                potential=potentials.get(building, ("", False))[0],
+                extra_gates=potentials.get(building, ("", False))[1],
             ))
     obsoleted = {str(scalar(entries, "obsolete")) for entries in buildings.values()
                  if scalar(entries, "obsolete")}

@@ -157,6 +157,25 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
+**`where_to_produce`, whether the rank simulation works. One press, and the report
+answers it without a screenshot.** Built 2026-09-02 after the diagnosis, never
+loaded. Same ground as that run, «Считать план», «Диагностика», `mods.bat → 8`.
+
+- **glass `T … w`** should be **17 rather than 3** where the towns are ticked: a
+  ticked location is now scored as the rank it was ticked into, and a guild is
+  refused only by its own `location_potential`, which sand passes there.
+- **`RIGHT 6 royal_masonry_rights given=`** should stop being nine of seventeen
+  once every town can finish a bundle; the `L` lines say whether the towns that
+  took it got the glass.
+- **`ROOM … forced by the tick=`** says how many locations the simulation applied
+  to at all. **If `w` is still 3 and that number is 0, the tick was not set on
+  those locations** and the reading is about something else entirely.
+- **And what could go wrong with it:** `bag_wtp_stands_<building>` copies 18
+  buildings' `location_potential` out of the game's own files. A condition that
+  does not evaluate in this scope would show up in `error.log` naming
+  `bag_wtp_generated_triggers.txt`, so that one is worth a look if the numbers
+  read strangely.
+
 **`where_to_produce`, twenty-eighth load.** Four small things and one question,
 all of it one glance with the results window open. Not worth a run of its own.
 
