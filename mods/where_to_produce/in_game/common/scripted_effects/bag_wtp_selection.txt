@@ -225,6 +225,29 @@ bag_wtp_zone_changed = {
 # rather than as an error, which is the hardest kind of nothing to diagnose.
 # Scope: country
 bag_wtp_init_counters = {
+	# Числа, которые печатает описание кнопки «Диагностика». Скриптовое значение,
+	# читающее несуществующую глобальную переменную, -- это отказ без записи в
+	# лог, а описание рисуется до того, как кнопку хоть раз нажали.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_diag_runs } }
+		set_global_variable = { name = bag_wtp_diag_runs value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_diag_locs } }
+		set_global_variable = { name = bag_wtp_diag_locs value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_diag_towns } }
+		set_global_variable = { name = bag_wtp_diag_towns value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_diag_freet } }
+		set_global_variable = { name = bag_wtp_diag_freet value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_diag_freer } }
+		set_global_variable = { name = bag_wtp_diag_freer value = 0 }
+	}
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_picked_count } }
 		set_global_variable = { name = bag_wtp_picked_count value = 0 }

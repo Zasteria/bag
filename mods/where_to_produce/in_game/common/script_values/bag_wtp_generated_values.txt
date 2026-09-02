@@ -11408,6 +11408,15 @@ bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
 bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
 bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 
+# Что показать на самой кнопке «Диагностика». Она пишет в лог, а лог не на
+# экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
+# не работает.
+bag_wtp_show_diag_runs = { value = global_var:bag_wtp_diag_runs }
+bag_wtp_show_diag_locs = { value = global_var:bag_wtp_diag_locs }
+bag_wtp_show_diag_towns = { value = global_var:bag_wtp_diag_towns }
+bag_wtp_show_diag_freet = { value = global_var:bag_wtp_diag_freet }
+bag_wtp_show_diag_freer = { value = global_var:bag_wtp_diag_freer }
+
 # The diagnosis reads through these sixteen and nothing else. **`value =
 # global_var:x` and no guard inside the value**: the self-guarding form, `value =
 # 0` with an `if` adding the global, returned zero for every reader on a plan

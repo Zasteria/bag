@@ -1102,6 +1102,15 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}
 {MOD_ID}_show_live = {{ value = global_var:{MOD_ID}_live_runs }}
 
+# Что показать на самой кнопке «Диагностика». Она пишет в лог, а лог не на
+# экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
+# не работает.
+{MOD_ID}_show_diag_runs = {{ value = global_var:{MOD_ID}_diag_runs }}
+{MOD_ID}_show_diag_locs = {{ value = global_var:{MOD_ID}_diag_locs }}
+{MOD_ID}_show_diag_towns = {{ value = global_var:{MOD_ID}_diag_towns }}
+{MOD_ID}_show_diag_freet = {{ value = global_var:{MOD_ID}_diag_freet }}
+{MOD_ID}_show_diag_freer = {{ value = global_var:{MOD_ID}_diag_freer }}
+
 # The diagnosis reads through these sixteen and nothing else. **`value =
 # global_var:x` and no guard inside the value**: the self-guarding form, `value =
 # 0` with an `if` adding the global, returned zero for every reader on a plan
@@ -3057,6 +3066,14 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """]
     out.append("".join(f"\tset_global_variable = {{ name = {MOD_ID}_dv{i} value = 0 }}\n"
                        for i in range(1, DIAG_SCRATCH + 1)))
+    # **Кнопка должна сама сказать, что она сработала.** 2026-09-02: он нажал её
+    # и не увидел ничего -- отчёт ушёл в лог, а на экране не изменилось ничто, и
+    # это неотличимо от кнопки, которая не работает. Счётчик нажатий и итоги
+    # сбора печатаются в её собственном описании, тем же способом, каким это
+    # делают «Считать» и «План».
+    out.append(f"\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_diag_runs }} }} "
+               f"set_global_variable = {{ name = {MOD_ID}_diag_runs value = 0 }} }}\n")
+    out.append(f"\tchange_global_variable = {{ name = {MOD_ID}_diag_runs add = 1 }}\n")
     out.append("\tdebug_log_date = yes\n")
     out.append(say(f"==== BEGIN v{DIAG_VERSION} ==== everything below to the next END "
                    "is one press. debug.log has it whole; error.log has the headline.",

@@ -24,6 +24,8 @@ bag_wtp_diag = {
 	set_global_variable = { name = bag_wtp_dv14 value = 0 }
 	set_global_variable = { name = bag_wtp_dv15 value = 0 }
 	set_global_variable = { name = bag_wtp_dv16 value = 0 }
+	if = { limit = { NOT = { has_global_variable = bag_wtp_diag_runs } } set_global_variable = { name = bag_wtp_diag_runs value = 0 } }
+	change_global_variable = { name = bag_wtp_diag_runs add = 1 }
 	debug_log_date = yes
 	debug_log = "WTP ==== BEGIN v3 ==== everything below to the next END is one press. debug.log has it whole; error.log has the headline."
 	error_log = "WTP ==== BEGIN v3 ==== everything below to the next END is one press. debug.log has it whole; error.log has the headline."

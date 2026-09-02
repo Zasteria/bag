@@ -32,12 +32,25 @@ REPO = Path(__file__).resolve().parent.parent
 GAME_FOLDER = "Paradox Interactive/Europa Universalis V"
 OUT = REPO / "diagnostics.txt"
 
-BEGIN = re.compile(r"WTP ==== BEGIN")
-END = re.compile(r"WTP ==== END")
-# Что игра приписывает перед строкой: `[16:04:22][effect.cpp:1234]: `, иногда
-# только время, иногда ничего. Режется по первому `WTP `, а строки без него --
-# это `debug_log_scopes`, которые называют локацию, и они нужны целиком.
-PREFIX = re.compile(r"^(?:\[[^\]]*\])*:?\s*")
+BEGIN = "WTP ==== BEGIN"
+END = "WTP ==== END"
+TAG = "WTP "
+
+
+def strip_prefix(line: str) -> str:
+    """Убрать всё, что игра приписала перед нашей строкой.
+
+    **Форма префикса не угадывается, а обходится.** Первая версия резала его
+    регуляркой по предполагаемому виду `[16:04:22][effect.cpp:1234]: ` -- и на
+    настоящем логе 2026-09-02 не совпала ни на одной строке, после чего `fold`
+    выбросил их все и файл вышел в ноль байт. Резать надо по тому, что мы сами
+    написали: `WTP` есть в каждой нашей строке и больше нигде.
+
+    Строка без `WTP` -- это `debug_log_scopes`, называющая локацию. Она нужна
+    целиком и не трогается.
+    """
+    at = line.find(TAG)
+    return line[at:].rstrip() if at >= 0 else line.rstrip()
 
 
 def documents() -> list[Path]:
@@ -101,12 +114,12 @@ def blocks(text: str) -> list[list[str]]:
     found: list[list[str]] = []
     current: list[str] | None = None
     for line in text.splitlines():
-        if BEGIN.search(line):
+        if BEGIN in line:
             current = []
         if current is None:
             continue
-        current.append(PREFIX.sub("", line).rstrip())
-        if END.search(line):
+        current.append(strip_prefix(line))
+        if END in line:
             found.append(current)
             current = None
     if current:
@@ -152,16 +165,16 @@ def fold(lines: list[str]) -> list[str]:
             pending.append(line)
             continue
         flush()
-        # Не перед локацией такая строка -- это `debug_log_scopes` над
-        # самопроверкой, то есть имя страны. Она нужна, но пометкой: если в
-        # прогоне тут окажется посторонний шум, это будет видно сразу, а не
-        # молча съедено.
-        for stray in pending:
-            if "scope" in stray.lower():
-                out.append("~ " + stray)
+        # **Ничего не выбрасывается.** Не перед локацией такая строка -- это
+        # `debug_log_scopes` над самопроверкой, то есть имя страны; либо чужая
+        # запись, попавшая между нашими. И то и другое помечается `~` и остаётся
+        # видимым: молча съеденная строка -- ровно то, из-за чего первый отчёт
+        # пришёл пустым.
+        out.extend("~ " + stray for stray in pending)
         pending = []
         out.append(line)
     flush()
+    out.extend("~ " + stray for stray in pending)
     return out
 
 
@@ -172,12 +185,17 @@ def headline(lines: list[str]) -> list[str]:
 
 
 def clipboard(text: str) -> bool:
-    """Положить в буфер обмена. Windows -- `clip`, иначе честно сказать «нет»."""
+    """Положить в буфер обмена. Windows -- `clip`, иначе честно сказать «нет».
+
+    `clip.exe` читает stdin в кодовой странице консоли, если не увидит метку
+    UTF-16LE в начале, -- поэтому `utf-16`, который её и ставит, а не
+    `utf-16-le`, который нет. Иначе русские комментарии в отчёте приезжают
+    кракозябрами.
+    """
     for command in (["clip"], ["pbcopy"], ["xclip", "-selection", "clipboard"]):
+        encoding = "utf-16" if command[0] == "clip" else "utf-8"
         try:
-            subprocess.run(command, input=text.encode("utf-16-le" if command[0] == "clip"
-                                                      else "utf-8"),
-                           check=True)
+            subprocess.run(command, input=text.encode(encoding), check=True)
             return True
         except (OSError, subprocess.CalledProcessError):
             continue
@@ -218,11 +236,20 @@ def main(argv: list[str]) -> int:
                 body.append("### отчёт %d из %d" % (number, len(chosen)))
             body.extend(block if parsed.raw else fold(block))
             body.append("")
+        # **Пустой файл не пишется никогда.** 2026-09-02: укладка выбросила все
+        # строки разом, потому что не узнала их, и `diagnostics.txt` вышел в ноль
+        # байт -- инструмент, который молча отдаёт пустоту, хуже отсутствующего.
+        # Если после укладки осталось меньше, чем было в логе, отдаётся сырое.
+        raw = [line for block in chosen for line in block]
+        if len([line for line in body if line.strip()]) < len(raw) // 2:
+            print("Укладка не узнала строки этого лога -- отдаю как есть.")
+            print("Покажите этот файл сессии: по нему видно, что за формат.")
+            body = raw
         out = Path(parsed.out).expanduser()
-        out.write_text("\n".join(body), encoding="utf-8")
+        out.write_text("\n".join(body) + "\n", encoding="utf-8")
 
-        print("%s: отчётов в файле %d, взят %s"
-              % (path.name, len(found), "все" if parsed.all else "последний"))
+        print("%s: отчётов в файле %d, взят %s; строк в отчёте %d"
+              % (path.name, len(found), "все" if parsed.all else "последний", len(raw)))
         print("Записано: %s  (%d строк)" % (out, len(body)))
         if clipboard("\n".join(body)):
             print("И скопировано в буфер обмена -- можно вставлять в чат.")

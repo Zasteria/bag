@@ -132,6 +132,33 @@ takes every report in the file rather than the last.
 `bag_wtp_dv*`/`_dg*`, the `_f*` counters, the two `_pass*` counters in
 `_plan_allocate`, and one button.
 
+## A reader that guesses a format loses the run it was built for
+
+**2026-09-02, the first press.** The mod's half worked on the first load — button,
+callback, effect and `debug_log` all — and the owner got a file of **zero bytes**,
+because `tools/diag.py` cut the game's log prefix with a regex written against a
+*guessed* shape. Nothing matched, so no line came out starting with `WTP`, and the
+fold dropped every line it did not recognise.
+
+Three rules came out of it, and they are about any reader of anybody else's
+output:
+
+- **Cut at what you wrote, not at what they wrote.** `WTP` is in every line of
+  ours and in nothing else, so `line.find("WTP ")` is an answer where a regex
+  over the prefix is a prediction.
+- **Never drop what you do not recognise.** An unknown line goes through with a
+  mark on it. A reader that silently discards is indistinguishable from a mod
+  that never ran — which is exactly the confusion the whole instrument exists to
+  remove.
+- **Refuse to hand back nothing.** If the fold keeps less than half of what the
+  log held, the raw block is written instead and the tool says so. An empty file
+  is worse than no file: it looks like an answer.
+
+**And a press has to be visible where it was pressed.** He expected a window; the
+report is too long to read on screen and is not for him. The button's own
+description now prints what the last collect saw, the same way «Считать» prints
+its three numbers — so the press is never indistinguishable from a dead button.
+
 ## What a `debug_log` string can and cannot reach
 
 **Measured 2026-09-02, by a dump failing.** Three presses produced 632 `WTP`

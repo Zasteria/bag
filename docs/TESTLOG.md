@@ -38,6 +38,32 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, the first press of «Диагностика». The button
+works and the extractor threw the report away.** «Нажал "диагностика". Я думал
+откроется какое-то окно с информацией, которую я бы мог прочесть. mods.bat нажал,
+8 вариант нажал. Вроде появился такой файлик» — and the file was **0 bytes**.
+
+- **The whole of the mod's half is proven by that empty file.** `tools/diag.py`
+  writes anything at all only after finding `WTP ==== BEGIN` in a log, and
+  nothing else in the world writes that string. So the CMF button registered,
+  the callback dispatched, `bag_wtp_diag` ran, and `debug_log` reached the log —
+  four things that had never been loaded.
+- **The fault was mine and it was in the reader.** `diag.py` cut the game's line
+  prefix with a regex written against a *guessed* shape,
+  `[16:04:22][effect.cpp:1234]: `; the real one does not match it, so no line
+  came out starting with `WTP`, and `fold` dropped every line it did not
+  recognise. Empty in, empty out, and no complaint. **Now it cuts at the `WTP`
+  we wrote ourselves rather than at a prefix it has to predict, keeps every line
+  it does not recognise behind a `~`, and refuses to write a file that lost more
+  than half of what the log held.**
+- **And the button gave no sign on screen.** He expected a window; the report is
+  too long for one and is not for him to read. Its own description now prints
+  what the last collect saw — presses, locations walked, towns, room left,
+  buildings placed — so the press is visible where he pressed it. `plan_placed`
+  at 0 there says «press «Считать план» first» without a log.
+- **Still unread:** everything inside the report, the self-test included. No new
+  game run is needed for it — the text is already in `debug.log`.
+
 **2026-09-02 — not a run: `where_to_produce` was rolled back to the build of the
 thirty-eighth load**, and the owner stopped the line. He picked that build by its
 own message — the four tests, «большой рывок» — «именно в этом коммите я
@@ -115,6 +141,10 @@ question rather than a quarter of it.** Built 2026-09-02 and never loaded.
 4. press «Диагностика», right below it on the same tab;
 5. `mods.bat → 8`. It finds the log, pulls the last report out and puts it in the
    clipboard. Paste it into the chat.
+
+**Steps 1 to 4 were done on 2026-09-02 and step 5 is all that is left**, unless
+the game has been restarted since — `debug.log` is rewritten on launch, and then
+the whole protocol runs again.
 
 **What each branch means, written down before the run so that the reading is not
 a fifth theory:**
