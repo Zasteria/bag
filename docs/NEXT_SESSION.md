@@ -35,38 +35,40 @@ menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
 ## `where_to_produce`: rolled back, and the probe is the whole of the job
 
-**The tree is back at the build the thirty-sixth run praised**, the first where
-the plan's formula ran and read right. The owner asked for it on
-2026-09-02: «верни мод в состояние, когда только-только была введена удачная
-формула… лучше мы решим уже на том моменте основную мучающую проблему, чем будем
-делать это после того как накрутили сверху множество других неработающих
-правок». Everything of 2026-09-01 above that commit is out — the new currency,
-the unfed divisor, the input substitution, the round guard, the rescored rights —
-and `claude/glass-sand-cycle-diagnosis-0qhgzw`, which carried the funnel probe,
-was never merged and is not to be. **What those runs settled is kept**, with the
-symptom itself, in the last section of
-[`investigations/plan_formula.md`](investigations/plan_formula.md).
+**The tree is back at the build of the thirty-eighth load** — the four tests he
+called «большой рывок», where the spread of goods over a whole ground first
+looked to him as he had meant it. He named it himself on 2026-09-02: «именно в
+этом коммите я хочу начать постройку диагностического инструмента». Everything
+above it is out, and the branch
+`claude/glass-sand-cycle-diagnosis-0qhgzw`, which carried the funnel probe, was
+never merged and is not to be. **What is open at this build and what those later
+runs settled are both in the last section of**
+[`investigations/plan_formula.md`](investigations/plan_formula.md) — read it
+before touching the plan.
 
 **Build the probe. Do not propose a cause.** Four of his runs went on four
 theories about one symptom and fixed none of it;
 [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode. **The plan will
-not put glass in a town and puts it in villages freely** — and the town recipe
-and the village one carry the identical `location_potential`, so the market gate
-is not what stops it.
+not put glass in a town and puts it in villages freely** — and both recipes
+carry the identical `location_potential`, so the market gate is not what stops
+it.
 
 **The probe: a funnel counter per stage, for one good the player picks** —
 `_avail_` said yes, then `can_build_building` in the location's scope, then a
-method won (`_pm<n>` not 0), then `_plan_can_town_<n>`, then placed. Whichever
-number collapses is the answer, and one run reads it.
+method won (`_pm<n>` not 0), then the town check, then placed. Whichever number
+collapses is the answer, and one run reads it.
 `cmm_register_list_data_field` is a per-good column if the window is the wrong
 place (`research/cmf.md`). **Read the abandoned branch once before building it
 again** — it wrote that funnel, and the owner's word on it is the brief: the tool
 was itself buggy and dear to walk around. He asked for no more counters until the
 mod works; the probe does not break that — it comes out after.
 
-**The three faults the thirty-sixth run named came back with the rollback**
-(`TESTLOG.md`): the side-blind goods count, the open pass lifting the quota
-instead of raising it, identical towns all taking the same right. **They wait.**
+**Three things he measured himself are open again**, because the fixes for them
+sat above the rollback and went out with it: a big ground does not finish (the
+round guard at 12 against the thirty sweeps the arithmetic needs), the province
+ceiling setting he asked to have removed, and «показано 150 локаций», which is
+the window's row cap and not the count. **They can be ported back on their own
+the moment he asks** — none of them is a theory about the symptom.
 
 **Live besides:** the single-good side has faults he has already seen and set
 aside — he did not name them, so ask before guessing; and the hand weight, the

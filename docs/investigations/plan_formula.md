@@ -1,183 +1,233 @@
-# The plan's formula: what a building is worth, and who gets the ground first
+# The plan's formula: what is being maximised, and how the ground is dealt
 
-**The owner answered the four open questions on 2026-09-01** and sent the plan's
-own screenshot with them: «довольно плохо». His answers and that screenshot point
-at the same thing, so this file is no longer a proposal — it is the formula,
-derived, with the three measurements that force its shape.
+**Rewritten 2026-09-01, when the owner stated the objective outright.** Before
+this the file was a pile of rules; it is now a derivation, because he said what
+the plan is *for* and everything follows from that.
 
-## The three measurements everything follows from
+> Товары будут добываться все которые только можно добыть, но распределение их
+> должно быть такое, где максимально возможная часть получит свои «плюшки», а
+> другие получат чуть меньше или вообще не получат.
 
-**1. The RGO bonus is a ten per cent band, and nothing more.**
+That is an optimisation problem with a covering constraint, and it has one
+answer.
 
-```
-worth = output_per_level × (1 + bonus/100),   bonus ∈ [0 … 10]
-```
+## The problem, exactly
 
-So two locations that can run the *same* method differ by at most 10%, and
-because `generate.fed_floor` refuses anything under half a recipe's ceiling, in
-practice by about 5%. Measured over all 47 goods: a completely unfed building
-scores **0.909 to 0.980** of a fully fed one.
+Over the chosen ground, choose a building for every slot so as to
 
-**This is the fact the old formula got wrong.** `fit` divided each good by its
-own best on the chosen ground, which squeezes every good into 0.909–1.000 and
-leaves the outcome to be decided by the goods list's arbitrary order. The
-screenshot is that: six villages of Paderborner Plateau, one after another, each
-handed the same three buildings.
+**maximise** the total bonus captured,
 
-So **the bonus is a tie-break, not a ranking.** Any decision the plan makes on a
-margin wider than ten per cent has to come from somewhere else, and the rest of
-this file is where.
+**subject to**, and none of these are negotiable:
 
-**2. An urban right is worth two to five times the bonus.**
+1. **every good the ground can produce gets at least one building.** «Все товары
+   которые можно произвести на выбранной земле — должны производиться, все. И не
+   важно есть для них сырьё на этой земле или нет.» Coverage is a hard
+   constraint, not a preference;
+2. one building of a type per location, and `can_build_building` must allow it;
+3. `load(L) ≤ cap(L)`, the owner's house rule — the game exposes no slot count;
+4. every town takes its best urban right and its whole bundle is placed there.
 
-Ten rights grant output, and the grants run `+0.2` to `+0.5` — twenty to fifty
-per cent, on two or three goods at once, where the whole RGO ceiling is ten. That
-is not a preference, it is the arithmetic: **a right outranks every other
-consideration in a town.** It also settles the owner's answer 2 objectively.
+## The currency, and why it is not what the file used to say
 
-**3. Buildability is binary, huge, and lands almost entirely on the raw goods.**
+**A raw bonus does not compare across goods.** Measured over all 47: the ceiling
+a good's best recipe could ever reach runs from 2.00% to 10.00%, and five goods
+are capped under 5%. A good that can never earn more than 2% will lose every
+comparison against one that can earn 10%, and that is not a reason to build it
+somewhere worse.
 
-Of the 110 production buildings the mod uses, **25 carry a `location_potential`,
-and they are nearly all the RGO-side ones** — pits, quarries, farms, villages,
-plantations. The manufacturing ladder (guild → workshop → manufactory → mill)
-gates on the location's *rank* and on nothing else.
+**A normalised `worth` does not compare either, and that was the older mistake.**
+Dividing each good by its own best *on this ground* squeezes everything into
+0.909–1.000 — because the bonus is only a ten per cent band — and then the
+outcome is decided by the goods list's arbitrary order. That is what produced six
+identical villages on the thirty-fourth run.
 
-Two consequences. Scarcity is a real constraint for raw goods and essentially
-none for made goods, which is what the tiers are for. And **the game already
-refuses to duplicate an RGO**: `clay_pit` carries `NOT = { raw_material =
-goods:clay }`, `stone_quarry`, `sand_pit`, `fiber_crops_farm` and
-`bog_iron_smelter` the same. Part of the owner's answer 3 is therefore enforced
-by the engine before the plan is asked.
-
-## The formula
-
-For a good `g` in a candidate location `L`, in the province `P` that holds `L`:
+What compares is **how much of what this good could ever get here, it gets**:
 
 ```
-admissible(g, L)  =  can_build_building(best method's building, L)
-                  ∧  bonus ≥ fed_floor(method)
-                  ∧  L does not already hold that building type
-                  ∧  load(L) < cap(L)
-
-worth(g, L)       =  output × (1 + bonus/100)                      ≤ +10%
-
-priority(g, L)    =  worth(g, L) ÷ (1 + already(g, P))
-
-need(g)           =  max(1, round(quota × weight(g)) − rgo(g))
-quota             =  capacity_left_after_rights ÷ (goods with any admissible L)
+gain(g, L)  =  bonus(g, L) ÷ ceiling(g)          ∈ [0, 1]
 ```
 
-`already(g, P)` is how many of that good the plan has already put in this
-province; `rgo(g)` is how many locations of the ground already yield it as an
-RGO; `weight(g)` is the owner's own knob, 1 by default.
+1.00 means "the ground feeds this recipe completely". 0.00 means "it feeds it
+nothing", which is still a building the plan must place. **The objective is
+Σ gain over every building placed**, and no price, no output size and no
+per-good divisor enters it. It is the honest reading of «свои плюшки».
 
-**The divisor is the whole of the fix for the screenshot.** Every location of a
-province is worth exactly the same to a good — the bonus is a
-`province_definition`'s property — so with no decay a good takes *all* of its
-best province before touching its second best, and every location of that
-province comes out identical. Halving, thirding and quartering makes the second
-building look elsewhere unless this province is twice as good, and nothing here
-is ever twice as good (measurement 1). It is one divide and one counter per good
-per province.
+## The one insight that makes the deal optimal
 
-**The quota is what «равномерно» means, at both scales.** Small ground — three
-provinces, twenty-seven rooms, forty goods — gives a quota under one, so every
-good takes exactly one place and the ground comes out mixed rather than
-specialised. Large ground gives a quota of twenty-five, so each good takes its
-twenty-five best places, which are the ones its raw materials are under, and
-stops; the free rooms left over are what the goods with no bonus anywhere fill.
-That is his answer 4 in one line, and it needs no separate rule for either case.
+The failure mode is greed, and the owner named it: «дальше не жиреть». If every
+good takes its own best location in turn, the good that would gain 0.9 there and
+the good that would gain 0.1 there compete on equal terms, and whichever the list
+reaches first wins. Total gain is thrown away for nothing.
 
-## Who claims the ground, in order
+The fix is opportunity cost — place a good where what it gains most exceeds what
+it displaces — and the cheap way to get it is **not** to compute it per location.
+It is to deal the ground in descending order of gain, across all goods at once:
 
-| tier | who claims | why |
+```
+for band in 1.0, 0.9, 0.8, … 0.1, 0.0:
+    for each good, scarcest first:
+        if it is still under its quota:
+            take its best free location whose gain ≥ band
+```
+
+By the time a good with gain 0.2 reaches a location, every good that would have
+gained 0.9 there has already taken it. **The ordering is the opportunity cost**,
+and it costs one comparison on a walk that already happens.
+
+Three things the owner asked for fall out of it without a rule of their own:
+
+- **the best bonuses are taken first**, whichever good they belong to;
+- **a good that gains nothing anywhere places only in the last band** — that is,
+  in the ground nothing else wanted. «Выделить у менее вкусных провинций место
+  под всё остальное»;
+- **nothing is left to the goods list's arbitrary order** except among placements
+  of genuinely equal gain.
+
+## The rest of the deal, in order
+
+| # | pass | why |
 | --- | --- | --- |
-| 0 | **what the owner weighted by hand** | his `weight(g)`, and the only place a preference enters |
-| 1 | **urban rights — every town, mandatory, whole bundle** | +20…50% against a +10% ceiling |
-| 2 | **goods few locations can host**, sweeps at 1, 2, 4, 8, 16 candidates | bog iron has one building and it wants wetlands |
-| 3 | **everyone else, round by round, to `need(g)`** | the quota above |
-| 4 | **the rooms still empty, quotas lifted** | nothing the ground can feed is left out |
+| 0 | **what the owner weighted by hand** | his knob; not built |
+| 1 | **urban rights**, every town, whole bundle | the largest number in the game — see below |
+| 2 | **the bands**, 1.0 down to 0.0, scarcest good first inside each | the objective |
+| 3 | **coverage**, any good still at zero takes any free slot | constraint 1, guaranteed |
+| 4 | **surplus**, quotas raised a layer a round until nothing is added | fills the ground evenly |
 
-**A right is granted whether or not its bundle fits.** That is the owner's
-answer 2 and it reverses what the code does today: «каждому городу будет выдано
-наиболее подходящее ему право. Оно БУДЕТ выдано ОБЯЗАТЕЛЬНО. И каждый такой
-город обязательно получит все здания из его бонуса.» Which right is still asked
-of the town — the bundle's own scores added up, among the rights the country's
-`potential` allows — but the answer is now always granted, and its buildings are
-placed before anything else in that town. Today's `_plan_right_fits_<k>` gate is
-why the screenshot granted **one** right across six towns.
+**Pass 3 is the guarantee and it is not optional.** A good that lost every band —
+because rights took the towns, or because it gains nothing and the ground filled
+— still gets one building. Until this exists the plan does not meet his first
+requirement.
 
-**And a right's building can be evicted, in exactly one case:** one that earns no
-bonus at all, displaced by a tier-2 good with nowhere else to go or by a
-hand-weighted one. His words: «какое-то здание из городских прав, которое не
-получает бонусов от рго — может быть вытеснено».
+Two dampers keep a pass from stacking:
 
-## The four answers, as given
+```
+priority(g, L)  =  gain(g, L) ÷ (1 + already(g, province of L))
+quota(g)        =  max(1, capacity ÷ |goods| − rgo(g))
+```
 
-1. **No money.** «Считать в деньгах не нужно. Дешёвые товары зачастую не менее
-   важны чем дорогие.» Price never enters the plan. `worth` stays in units of the
-   good and goods are made comparable by the quota, not by a price.
-2. **Rights are mandatory and whole**, as above. He wants the caps tried at 3, 4
-   and 5, because he does not know whether an ordinary town holds more than three
-   full ladders once the third and fourth ages grow them.
-3. **One RGO counts as one building.** «Рго это по сути та же линейка здания… 1
-   рго ты можешь рассматривать как один домик локации. Допустим ты хочешь
-   добывать глину 5 домиками на области. Смотришь что там уже есть 2 рго глины —
-   соответственно тебе нужно уже всего 3 домика.» So the discount is in *count*,
-   not in units: `need(g)` less `rgo(g)`. His earlier exception stands — wood,
-   glass, masonry and stone are wanted in quantity regardless, which is what
-   `weight(g)` is for.
-4. **«Равномерно» is the quota**, and it is scale-free, as derived above.
+The divisor is because **every location of a province is worth the same to a
+good** — the bonus is the province's — so undivided, a good takes its best
+province whole. The quota is «равномерно» and is scale-free: three provinces give
+a quota under one, so everything is covered once and mixed; a large realm gives a
+quota of twenty-odd, so each good takes its best twenty-odd places and stops.
 
-## What is not settled
+## Urban rights, and why they are their own pass
 
-- **`town_right_efficiency_penalty`** sits in eight of the ten output rights and
-  in no file `reference/` holds. If it penalises the goods *outside* the granted
-  bundle, then "a right decides a town's whole list" is mechanical rather than
-  advisory, and the eviction rule above is wrong. One `grep` on the owner's
-  install — it is already on the list in `NEXT_SESSION.md`.
-- **Ordering inside one tier** is still the goods list's. The decay divisor takes
-  most of the sting out of it, since a good that has just placed drops behind the
-  ones that have not; whether regret ordering adds anything on top is a question
-  for after the first run with the decay in.
-- **The cap is a house rule.** The game exposes no building-slot count at all
-  (`whole_map_plan.md`), so 3/4/5 is his to try and the plan's job is to make the
-  consequence legible.
+A right is a `location_modifier` on the town:
+
+```
+royal_masonry_rights = {
+    location_modifier = {
+        local_masonry_output_modifier = 0.25
+        local_glass_output_modifier   = 0.25
+        local_production_efficiency   = town_right_efficiency_penalty
+    }
+}
+```
+
+So it is **two things at once**, and the owner had it right: «права дают слишком
+жирный бонус и дебафят всё остальное». The bundle's goods get +20% to +50% output
+where the whole RGO ceiling is 10%; and *everything else in that town*, bundle
+included, takes a blanket production-efficiency penalty.
+
+Two consequences, and the first is a hard one:
+
+- **a town holding a right should hold its bundle and as little else as
+  possible.** A non-bundle building there earns the penalty and none of the
+  bonus, so the same building is strictly better in a town without a right. The
+  bands must therefore discount a right-holding town's leftover slots;
+- **rights are worth more than anything the bands can find**, by a factor of two
+  to five, which is why they are dealt first rather than competing.
+
+**`town_right_efficiency_penalty` is a define and it is not in `reference/`** —
+only its eleven uses are. The structure above is certain; the number is not, and
+it is one `grep` on the owner's install. Until then the discount above is a
+direction without a size.
+
+## What the owner's own play says, and where it differs
+
+He described it himself, and marked it as his habit rather than as correct:
+province by province, the top three buildings by local bonus in the town, then
+the same in the countryside, then a rural location set aside to feed the
+province; iron and its like displace a top-three building where nowhere else will
+hold them; and when a right arrives, its bundle replaces the three.
+
+**The problem he cannot solve by hand is the one the formula exists for.** Doing
+it province by province maximises each province in isolation, and the goods that
+gain nothing anywhere are left with nowhere at the end — «а вдруг у меня вообще
+нет каких-то РГО, например того же песка?». Dealing in bands over the whole
+ground is the same greed, ordered globally instead of locally, and that is
+precisely the difference between his hand play and an optimum.
+
+**Not yet in the formula and named by him:** a rural location per province set
+aside for food. He said «до этого мы пока ещё не дошли».
+
+## What only a run can settle
+
+- the value of `town_right_efficiency_penalty`, and therefore how hard the bands
+  should discount a right-holding town's spare slots;
+- whether a cap of 3 is right, which is why he asked for 3, 4 and 5;
+- whether the bands want ten steps or four — a band costs a sweep.
 
 ## The rollback of 2026-09-02, and what survives it
 
-**The tree is back at the build the thirty-sixth run praised** — «Вау, оно кажется
-даже адекватно работает». Everything built above it that day was undone at the
-owner's word: «лучше мы решим уже на том моменте основную мучающую проблему, чем
-будем делать это после того как накрутили сверху множество других неработающих
-правок». So everything above in this file is the code again, exactly.
+**The tree is back at the build of the thirty-eighth load** — the four tests the
+owner called «большой рывок», and the first time the spread of goods over a whole
+ground looked to him the way he had meant it: «именно в этом коммите я
+почувствовал, что мод выглядит так, как я его задумывал». Everything built above
+it was undone at his word — «лучше мы решим уже на том моменте основную мучающую
+проблему, чем будем делать это после того как накрутили сверху множество других
+неработающих правок» — so everything above in this file is the code again,
+exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testlog_2026-08.md).
 
-**What the undone day still knows, and no run should buy twice:**
+**Open at this point, and he named all of it himself:**
 
-- **The owner's rule about raw materials.** It is a decision, not a build, so it
-  outlives the code that carried it:
+- **a big ground does not finish.** All of northern Germany: 970 buildings in 354
+  of 416 locations, «мод не справился досчитать всё как надо». The cause was
+  measured afterwards and the arithmetic is not in doubt — a sweep places at most
+  one building per good per side, so 970 buildings over 32 goods needs thirty
+  sweeps at the least, and `PLAN_ROUNDS` is 12 here;
+- **«показано всего 150 локаций»** is `PLAN_ROWS`, the window's row cap, not the
+  count of what the plan used. Nothing is lost, only undrawn, and the header does
+  not say so at this point;
+- **the province ceiling setting is still here**, and he asked for it to go: «я не
+  представляю ситуацию, когда бы я мог захотеть сменить значение этой строки с
+  0». Under this formula the quota does that job and is derived rather than typed;
+- **a one-off spike and a short hitch on «Пересчитать»** over that ground,
+  reported without complaint: thirty-three passes and ninety-eight sweeps a plan;
+- **the symptom that is the whole of the job.** Force a province to towns and
+  glass lands in the villages below and never in those towns, while saltpetre and
+  clay — which a village could dig — take the town slots. And the glass-and-
+  masonry charter is handed out over and over.
+
+**What the undone runs still know, and no run should buy twice:**
+
+- **The owner's rule about raw materials**, 2026-09-01. A decision, not a build,
+  so it outlives the code that carried it:
   > Отсутствие сырья не должно влиять на то будет ли домик существовать вообще
   > или будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может
   > влиять только на ВЫБОР метода производства в конкретном домике.
 
-  **The formula above breaks it in one named place**: `fed_floor` sits inside
-  `admissible`, so a recipe this ground feeds nothing is refused outright rather
-  than merely valued at nothing. That is left standing on purpose — it is a
-  suspect for the symptom below, and a suspect is not fixed before a probe names
-  it.
-- **The symptom that outlived every fix, and is the whole of the job now.** The
-  plan will not put glass in a *town*; it puts it in villages freely.
-  `glass_guild` and `rural_glassmaker` carry the **identical**
-  `location_potential = { is_produced_in_location_market = goods:sand }`, so the
-  market gate cannot be what stops it — one condition is not true and false in
-  one market. Four theories about it were wrong on four of the owner's runs:
-  [`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md).
-- **What was built on top and is not in the tree now**, so that none of it is
-  re-derived and none of it re-applied before a run asks for it: the currency
-  changed to `gain = bonus ÷ that recipe's own ceiling`; the unfed divisor, added
-  with it and struck out again; the input substitution, which planted sand where a
-  granted charter wanted glass and spammed a realm with charters; a right scored
-  on the bundle its town can actually finish; the round guard. The rollback also
-  puts back the three faults the thirty-sixth run named — the side-blind goods
-  count, the open pass lifting a quota instead of raising it, and identical towns
-  all taking the same right — each written out under that run in `TESTLOG.md`.
+  **`UNFED_PENALTY` above breaks it** — a recipe the ground feeds nothing is
+  divided by two on top of a `gain` already zero, the same fact counted twice, and
+  it moves that building in the queue. It is left standing on purpose: it is a
+  named suspect for the symptom, and this repository does not fix a suspect
+  before a probe points at one. (`fed_floor` is *not* a gate in the plan here —
+  the plan keeps an unfloored twin of every side, so that part of the rule already
+  holds.)
+- **The observation that killed the market theory**, thirty-ninth load. It is
+  about the game, so it stands whatever our code does: `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and glass appears in the
+  villages while never appearing in the towns. One condition is not true and false
+  in the same market, so the market gate is not what stops town glass — and four
+  sessions' worth of explanation went with it
+  ([`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md)).
+- **What was built above the rollback and is not in the tree.** Three of these
+  answer measurements he made himself and can be ported back on their own the
+  moment he asks: the round guard at 50 with the tier ladder in the last band only
+  (twelve passes rather than thirty-three), the province ceiling removed, and the
+  header saying «показано N» beside the number the plan really used. The rest were
+  aimed at a cause nobody had named: a right-holding town's spare slots halved,
+  the input substitution (sand planted where a charter wanted glass, which spammed
+  a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.
