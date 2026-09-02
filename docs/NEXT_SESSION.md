@@ -15,66 +15,63 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed, and it did from
-the previous attempt — so an unfinished login copied last week's files over the
-workshop folder. The folder is fingerprinted before and after now, the exit code
-read, and **only a mod whose copy actually changed is copied onward**.
+successful one — it asked only whether the item's folder existed — so an
+unfinished login copied last week's files over the workshop folder. The folder is
+fingerprinted before and after now, the exit code read, and **only a mod whose
+copy actually changed is copied onward**.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
-landed. The install is **read back off disk** now, a mismatch says so with the
-path, and the screen names the branch and commit installed.
+landed. The install is **read back off disk** now, and the screen names the
+branch and commit installed.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's branch and commit.
+against the game's folder and the repository's commit.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
-the output of all three. If a mod still reads «отличается» after installing, the
-message names the folder to look at. The logs from whatever run follows go
-through `python3 tools/which_build.py <logs folder>` first, as always now.
+the output of all three. If a mod still reads «отличается» after installing,
+the message names the folder. The logs from whatever run follows go
+through `python3 tools/which_build.py <logs folder>` first, as always now. No
+menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: the plan, and the one thing to do first
+## `where_to_produce`: rolled back, and the probe is the whole of the job
 
-**Build the probe. Do not propose a cause.** The 2026-09-01 session spent four of
-the owner's runs on four theories about one symptom and fixed none of it;
-[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and `CLAUDE.md`
-the rule. The symptom is still open:
+**The tree is back at the build the thirty-sixth run praised**, the first where
+the plan's formula ran and read right. The owner asked for it on
+2026-09-02: «верни мод в состояние, когда только-только была введена удачная
+формула… лучше мы решим уже на том моменте основную мучающую проблему, чем будем
+делать это после того как накрутили сверху множество других неработающих
+правок». Everything of 2026-09-01 above that commit is out — the new currency,
+the unfed divisor, the input substitution, the round guard, the rescored rights —
+and `claude/glass-sand-cycle-diagnosis-0qhgzw`, which carried the funnel probe,
+was never merged and is not to be. **What those runs settled is kept**, with the
+symptom itself, in the last section of
+[`investigations/plan_formula.md`](investigations/plan_formula.md).
 
-> **The plan will not put glass in a town.** It puts it in villages freely.
-> `glass_guild` (town) and `rural_glassmaker` (village) carry the **identical**
-> `location_potential = { is_produced_in_location_market = goods:sand }`, so the
-> gate cannot be the cause — one condition is not true and false in one market.
-> The same shape shows for `royal_naval_rights`: the charter is granted, the tar
-> and naval supplies are not placed.
+**Build the probe. Do not propose a cause.** Four of his runs went on four
+theories about one symptom and fixed none of it;
+[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode. **The plan will
+not put glass in a town and puts it in villages freely** — and the town recipe
+and the village one carry the identical `location_potential`, so the market gate
+is not what stops it.
 
 **The probe: a funnel counter per stage, for one good the player picks** —
 `_avail_` said yes, then `can_build_building` in the location's scope, then a
 method won (`_pm<n>` not 0), then `_plan_can_town_<n>`, then placed. Whichever
 number collapses is the answer, and one run reads it.
 `cmm_register_list_data_field` is a per-good column if the window is the wrong
-place (`research/cmf.md`).
+place (`research/cmf.md`). **Read the abandoned branch once before building it
+again** — it wrote that funnel, and the owner's word on it is the brief: the tool
+was itself buggy and dear to walk around. He asked for no more counters until the
+mod works; the probe does not break that — it comes out after.
 
-**Everything else about the plan waits on that.** The formula itself is derived
-and the owner is content with it — «большой рывок» — and
-[`investigations/plan_formula.md`](investigations/plan_formula.md) must be read
-before any of the allocation is changed.
+**The three faults the thirty-sixth run named came back with the rollback**
+(`TESTLOG.md`): the side-blind goods count, the open pass lifting the quota
+instead of raising it, identical towns all taking the same right. **They wait.**
 
-**The state before this session is commit `d8ee3cc`** (the merge of PR #48), kept
-at his request so nothing of the day's work is lost if a piece of it turns out to
-have broken something. **It is not a rollback target** — he said so; the findings
-are wanted, only the churn is suspect. A local tag `wtp-before-2026-09-01` was
-made and the proxy refused to push it, which is why the SHA is written here.
-
-**Live besides:**
-
-- **the single-good side has faults he has already seen** and set aside. He did
-  not name them; ask before guessing;
-- **`town_right_efficiency_penalty` is one `grep` on his install** — the number
-  behind the discount on a right-holding town's spare slots;
-- **the hand weight, the food location, the caps at 3/4/5** — all his, all in
-  `plan_formula.md`'s own closing list.
-
-**And he asked for no more counters until it works** — which the probe does not
-break, since it exists to make it work and comes out again after.
+**Live besides:** the single-good side has faults he has already seen and set
+aside — he did not name them, so ask before guessing; and the hand weight, the
+food location and the caps at 3/4/5 are all his, in `plan_formula.md`'s own
+closing list.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -86,8 +83,6 @@ break, since it exists to make it work and comes out again after.
 - **`town_right_efficiency_penalty`**, in eleven rights and in no file
   `reference/` holds: one `grep` on the owner's install.
 
-Which menu entry should run `tools/extract_game_files.py` is still open — no
-entry does today.
 
 ## Then `glorpui_hints` goes out
 
@@ -114,7 +109,7 @@ are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 ### Deliberately not done
 
-- **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
+- **A thumbnail for the other five mods.**
   `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second goes out.
 - **Reviewing the ten new translations with somebody who speaks them.** A
   correction goes in `languages.py`, never in a generated `.yml`.

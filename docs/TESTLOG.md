@@ -38,6 +38,18 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — not a run: `where_to_produce` was rolled back to the build the
+thirty-sixth load praised**, and the owner stopped the line. «Верни мод в
+состояние, когда только-только была введена удачная формула расчёта плана… лучше
+мы решим уже на том моменте основную мучающую проблему.» **The two runs directly
+below tested builds that no longer exist**, and so does the funnel probe branch
+`claude/glass-sand-cycle-diagnosis-0qhgzw`, which was never merged. What those
+runs measured about the *game* stands — the identical `location_potential` of
+`glass_guild` and `rural_glassmaker` above all; what they say about our code no
+longer describes the tree. The three faults the thirty-sixth run named are open
+again, deliberately. `investigations/plan_formula.md`, last section, is what
+survived.
+
 **2026-09-01 — `where_to_produce`, Wallachia a third time, and the run that
 refuted every theory the session had.** Nothing was changed after it; the owner
 called a halt: «я заебался впустую делать прогоны».

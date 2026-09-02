@@ -7,10 +7,7 @@
 # clay, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_1 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm1 > 0
+	var:bag_wtp_p1 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
@@ -27,10 +24,7 @@ bag_wtp_plan_can_town_1 = {
 # coal, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_2 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm2 > 0
+	var:bag_wtp_p2 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
@@ -47,10 +41,7 @@ bag_wtp_plan_can_town_2 = {
 # cotton, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_3 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm3 > 0
+	var:bag_wtp_p3 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
@@ -67,10 +58,7 @@ bag_wtp_plan_can_town_3 = {
 # dyes, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_4 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm4 > 0
+	var:bag_wtp_p4 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
@@ -106,10 +94,7 @@ bag_wtp_plan_can_town_4 = {
 # fiber_crops, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_5 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm5 > 0
+	var:bag_wtp_p5 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
@@ -136,10 +121,7 @@ bag_wtp_plan_can_town_6 = { always = no }
 # fruit, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_7 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm7 > 0
+	var:bag_wtp_p7 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
@@ -156,10 +138,7 @@ bag_wtp_plan_can_town_7 = {
 # horses, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_8 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm8 > 0
+	var:bag_wtp_p8 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
@@ -176,10 +155,7 @@ bag_wtp_plan_can_town_8 = {
 # incense, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_9 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm9 > 0
+	var:bag_wtp_p9 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
@@ -196,10 +172,7 @@ bag_wtp_plan_can_town_9 = {
 # iron, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_10 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm10 > 0
+	var:bag_wtp_p10 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
@@ -230,10 +203,7 @@ bag_wtp_plan_can_town_12 = { always = no }
 # lumber, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_13 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm13 > 0
+	var:bag_wtp_p13 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
@@ -250,10 +220,7 @@ bag_wtp_plan_can_town_13 = {
 # medicaments, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_14 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm14 > 0
+	var:bag_wtp_p14 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
@@ -271,10 +238,7 @@ bag_wtp_plan_can_town_14 = {
 # salt, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_15 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm15 > 0
+	var:bag_wtp_p15 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
@@ -291,10 +255,7 @@ bag_wtp_plan_can_town_15 = {
 # saltpeter, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_16 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm16 > 0
+	var:bag_wtp_p16 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } }
@@ -329,10 +290,7 @@ bag_wtp_plan_can_town_16 = {
 # sand, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_17 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm17 > 0
+	var:bag_wtp_p17 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
@@ -349,10 +307,7 @@ bag_wtp_plan_can_town_17 = {
 # silk, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_18 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm18 > 0
+	var:bag_wtp_p18 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
@@ -375,10 +330,7 @@ bag_wtp_plan_can_town_18 = {
 # silver, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_19 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm19 > 0
+	var:bag_wtp_p19 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
@@ -395,10 +347,7 @@ bag_wtp_plan_can_town_19 = {
 # stone, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_20 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm20 > 0
+	var:bag_wtp_p20 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
@@ -416,10 +365,7 @@ bag_wtp_plan_can_town_20 = {
 # sugar, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_21 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm21 > 0
+	var:bag_wtp_p21 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
@@ -436,10 +382,7 @@ bag_wtp_plan_can_town_21 = {
 # tobacco, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_22 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm22 > 0
+	var:bag_wtp_p22 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
@@ -460,10 +403,7 @@ bag_wtp_plan_can_town_23 = { always = no }
 # wine, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_24 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm24 > 0
+	var:bag_wtp_p24 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
@@ -494,10 +434,7 @@ bag_wtp_plan_can_town_25 = { always = no }
 # beer, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_26 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm26 > 0
+	var:bag_wtp_p26 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
@@ -544,10 +481,7 @@ bag_wtp_plan_can_town_26 = {
 # books, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_27 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm27 > 0
+	var:bag_wtp_p27 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } }
@@ -582,10 +516,7 @@ bag_wtp_plan_can_town_27 = {
 # cannons, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_28 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm28 > 0
+	var:bag_wtp_p28 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } }
@@ -633,10 +564,7 @@ bag_wtp_plan_can_town_28 = {
 # cloth, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_29 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm29 > 0
+	var:bag_wtp_p29 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
@@ -679,10 +607,7 @@ bag_wtp_plan_can_town_29 = {
 # fine_cloth, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_30 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm30 > 0
+	var:bag_wtp_p30 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
@@ -743,10 +668,7 @@ bag_wtp_plan_can_town_30 = {
 # firearms, town side: 5 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_31 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm31 > 0
+	var:bag_wtp_p31 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } }
@@ -795,10 +717,7 @@ bag_wtp_plan_can_town_31 = {
 # furniture, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_32 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm32 > 0
+	var:bag_wtp_p32 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } }
@@ -833,10 +752,7 @@ bag_wtp_plan_can_town_32 = {
 # glass, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_33 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm33 > 0
+	var:bag_wtp_p33 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
@@ -872,10 +788,7 @@ bag_wtp_plan_can_town_33 = {
 # jewelry, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_34 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm34 > 0
+	var:bag_wtp_p34 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
@@ -909,10 +822,7 @@ bag_wtp_plan_can_town_34 = {
 # lacquerware, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_35 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm35 > 0
+	var:bag_wtp_p35 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } }
@@ -935,10 +845,7 @@ bag_wtp_plan_can_town_35 = {
 # leather, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_36 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm36 > 0
+	var:bag_wtp_p36 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
@@ -977,10 +884,7 @@ bag_wtp_plan_can_town_36 = {
 # liquor, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_37 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm37 > 0
+	var:bag_wtp_p37 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
@@ -1031,10 +935,7 @@ bag_wtp_plan_can_town_37 = {
 # masonry, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_38 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm38 > 0
+	var:bag_wtp_p38 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
@@ -1058,10 +959,7 @@ bag_wtp_plan_can_town_38 = {
 # naval_supplies, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_39 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm39 > 0
+	var:bag_wtp_p39 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
@@ -1096,10 +994,7 @@ bag_wtp_plan_can_town_39 = {
 # paper, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_40 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm40 > 0
+	var:bag_wtp_p40 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
@@ -1138,10 +1033,7 @@ bag_wtp_plan_can_town_40 = {
 # porcelain, town side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_41 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm41 > 0
+	var:bag_wtp_p41 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } }
@@ -1164,10 +1056,7 @@ bag_wtp_plan_can_town_41 = {
 # pottery, town side: 4 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_42 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm42 > 0
+	var:bag_wtp_p42 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
@@ -1202,10 +1091,7 @@ bag_wtp_plan_can_town_42 = {
 # slaves_goods, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_43 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm43 > 0
+	var:bag_wtp_p43 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
@@ -1222,10 +1108,7 @@ bag_wtp_plan_can_town_43 = {
 # steel, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_44 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm44 > 0
+	var:bag_wtp_p44 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
@@ -1242,10 +1125,7 @@ bag_wtp_plan_can_town_44 = {
 # tar, town side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_45 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm45 > 0
+	var:bag_wtp_p45 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
@@ -1262,10 +1142,7 @@ bag_wtp_plan_can_town_45 = {
 # tools, town side: 5 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_46 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm46 > 0
+	var:bag_wtp_p46 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
@@ -1309,10 +1186,7 @@ bag_wtp_plan_can_town_46 = {
 # weaponry, town side: 5 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_town_47 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_pm47 > 0
+	var:bag_wtp_p47 > 0
 	bag_wtp_plan_is_town = yes
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
@@ -1355,10 +1229,7 @@ bag_wtp_plan_can_town_47 = {
 # clay, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_1 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm1 > 0
+	var:bag_wtp_pr1 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
@@ -1375,10 +1246,7 @@ bag_wtp_plan_can_rural_1 = {
 # coal, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_2 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm2 > 0
+	var:bag_wtp_pr2 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
@@ -1401,10 +1269,7 @@ bag_wtp_plan_can_rural_2 = {
 # cotton, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_3 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm3 > 0
+	var:bag_wtp_pr3 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
@@ -1425,10 +1290,7 @@ bag_wtp_plan_can_rural_4 = { always = no }
 # fiber_crops, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_5 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm5 > 0
+	var:bag_wtp_pr5 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
@@ -1451,10 +1313,7 @@ bag_wtp_plan_can_rural_5 = {
 # fish, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_6 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm6 > 0
+	var:bag_wtp_pr6 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
@@ -1472,10 +1331,7 @@ bag_wtp_plan_can_rural_6 = {
 # fruit, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_7 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm7 > 0
+	var:bag_wtp_pr7 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
@@ -1492,10 +1348,7 @@ bag_wtp_plan_can_rural_7 = {
 # horses, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_8 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm8 > 0
+	var:bag_wtp_pr8 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
@@ -1516,10 +1369,7 @@ bag_wtp_plan_can_rural_9 = { always = no }
 # iron, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_10 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm10 > 0
+	var:bag_wtp_pr10 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
@@ -1542,10 +1392,7 @@ bag_wtp_plan_can_rural_10 = {
 # ivory, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_11 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm11 > 0
+	var:bag_wtp_pr11 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } }
@@ -1562,10 +1409,7 @@ bag_wtp_plan_can_rural_11 = {
 # livestock, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_12 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm12 > 0
+	var:bag_wtp_pr12 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
@@ -1582,10 +1426,7 @@ bag_wtp_plan_can_rural_12 = {
 # lumber, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_13 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm13 > 0
+	var:bag_wtp_pr13 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
@@ -1606,10 +1447,7 @@ bag_wtp_plan_can_rural_14 = { always = no }
 # salt, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_15 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm15 > 0
+	var:bag_wtp_pr15 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
@@ -1630,10 +1468,7 @@ bag_wtp_plan_can_rural_16 = { always = no }
 # sand, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_17 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm17 > 0
+	var:bag_wtp_pr17 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
@@ -1654,10 +1489,7 @@ bag_wtp_plan_can_rural_18 = { always = no }
 # silver, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_19 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm19 > 0
+	var:bag_wtp_pr19 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
@@ -1674,10 +1506,7 @@ bag_wtp_plan_can_rural_19 = {
 # stone, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_20 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm20 > 0
+	var:bag_wtp_pr20 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
@@ -1695,10 +1524,7 @@ bag_wtp_plan_can_rural_20 = {
 # sugar, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_21 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm21 > 0
+	var:bag_wtp_pr21 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
@@ -1715,10 +1541,7 @@ bag_wtp_plan_can_rural_21 = {
 # tobacco, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_22 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm22 > 0
+	var:bag_wtp_pr22 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
@@ -1735,10 +1558,7 @@ bag_wtp_plan_can_rural_22 = {
 # wild_game, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_23 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm23 > 0
+	var:bag_wtp_pr23 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
@@ -1759,10 +1579,7 @@ bag_wtp_plan_can_rural_24 = { always = no }
 # wool, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_25 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm25 > 0
+	var:bag_wtp_pr25 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } }
@@ -1779,10 +1596,7 @@ bag_wtp_plan_can_rural_25 = {
 # beer, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_26 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm26 > 0
+	var:bag_wtp_pr26 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
@@ -1807,10 +1621,7 @@ bag_wtp_plan_can_rural_28 = { always = no }
 # cloth, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_29 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm29 > 0
+	var:bag_wtp_pr29 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
@@ -1841,10 +1652,7 @@ bag_wtp_plan_can_rural_32 = { always = no }
 # glass, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_33 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm33 > 0
+	var:bag_wtp_pr33 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
@@ -1861,10 +1669,7 @@ bag_wtp_plan_can_rural_33 = {
 # jewelry, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_34 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm34 > 0
+	var:bag_wtp_pr34 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
@@ -1891,10 +1696,7 @@ bag_wtp_plan_can_rural_35 = { always = no }
 # leather, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_36 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm36 > 0
+	var:bag_wtp_pr36 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
@@ -1915,10 +1717,7 @@ bag_wtp_plan_can_rural_37 = { always = no }
 # masonry, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_38 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm38 > 0
+	var:bag_wtp_pr38 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
@@ -1942,10 +1741,7 @@ bag_wtp_plan_can_rural_38 = {
 # naval_supplies, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_39 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm39 > 0
+	var:bag_wtp_pr39 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
@@ -1970,10 +1766,7 @@ bag_wtp_plan_can_rural_41 = { always = no }
 # pottery, village side: 2 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_42 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm42 > 0
+	var:bag_wtp_pr42 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
@@ -1996,10 +1789,7 @@ bag_wtp_plan_can_rural_42 = {
 # slaves_goods, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_43 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm43 > 0
+	var:bag_wtp_pr43 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
@@ -2020,10 +1810,7 @@ bag_wtp_plan_can_rural_44 = { always = no }
 # tar, village side: 1 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_45 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm45 > 0
+	var:bag_wtp_pr45 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
@@ -2040,10 +1827,7 @@ bag_wtp_plan_can_rural_45 = {
 # tools, village side: 3 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_46 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm46 > 0
+	var:bag_wtp_pr46 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
@@ -2072,10 +1856,7 @@ bag_wtp_plan_can_rural_46 = {
 # weaponry, village side: 3 building(s) could win it.
 # Scope: location
 bag_wtp_plan_can_rural_47 = {
-	# **A method won here, not "the ground pays for it".** A good the RGOs feed
-	# nothing still has a gain of zero and must still be placed: «не важно есть
-	# для них сырьё на этой земле или нет».
-	var:bag_wtp_prm47 > 0
+	var:bag_wtp_pr47 > 0
 	bag_wtp_plan_is_town = no
 	var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
 	NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }

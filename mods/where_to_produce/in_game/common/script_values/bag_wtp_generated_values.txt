@@ -39,18 +39,6 @@ bag_wtp_b1 = {
 		add = 7.8553
 	}
 }
-# Scope: location
-bag_wtp_g1 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 153.7784
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 846.2216
-	}
-}
 
 # beer_workshop / fruit_beer_workshop_maintenance -> beer, output 1.1, ceiling 9.23% -> at best 1.2015
 # Scope: location
@@ -75,18 +63,6 @@ bag_wtp_b2 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.5401
-	}
-}
-# Scope: location
-bag_wtp_g2 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
-		add = 833.1439
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 166.8561
 	}
 }
 
@@ -123,22 +99,6 @@ bag_wtp_b3 = {
 		add = 4.7619
 	}
 }
-# Scope: location
-bag_wtp_g3 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
-		add = 263.1579
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 210.5263
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 526.3158
-	}
-}
 
 # beer_workshop / maize_beer_workshop_maintenance -> beer, output 1.1, ceiling 8.12% -> at best 1.1894
 # Scope: location
@@ -155,14 +115,6 @@ bag_wtp_b4 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
 		add = 8.1239
-	}
-}
-# Scope: location
-bag_wtp_g4 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
-		add = 1000.0000
 	}
 }
 
@@ -191,18 +143,6 @@ bag_wtp_b5 = {
 		add = 7.4098
 	}
 }
-# Scope: location
-bag_wtp_g5 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8021
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 800.1979
-	}
-}
 
 # beer_workshop / rice_beer_workshop_maintenance -> beer, output 1.1, ceiling 9.26% -> at best 1.2019
 # Scope: location
@@ -227,18 +167,6 @@ bag_wtp_b6 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 7.4098
-	}
-}
-# Scope: location
-bag_wtp_g6 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8021
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 800.1979
 	}
 }
 
@@ -267,18 +195,6 @@ bag_wtp_b7 = {
 		add = 7.4098
 	}
 }
-# Scope: location
-bag_wtp_g7 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8021
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 800.1979
-	}
-}
 
 # brewery / bavarian_brewery_maintenance -> beer, output 1.2, ceiling 9.33% -> at best 1.3120
 # Scope: location
@@ -305,18 +221,6 @@ bag_wtp_b8 = {
 		add = 8.0044
 	}
 }
-# Scope: location
-bag_wtp_g8 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 142.5175
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 857.4825
-	}
-}
 
 # brewery / fruit_brewery_maintenance -> beer, output 1, ceiling 9.23% -> at best 1.0923
 # Scope: location
@@ -341,18 +245,6 @@ bag_wtp_b9 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.5365
-	}
-}
-# Scope: location
-bag_wtp_g9 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
-		add = 833.4934
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 166.5066
 	}
 }
 
@@ -389,22 +281,6 @@ bag_wtp_b10 = {
 		add = 4.7613
 	}
 }
-# Scope: location
-bag_wtp_g10 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
-		add = 263.2218
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 210.3347
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 526.4435
-	}
-}
 
 # brewery / maize_brewery_maintenance -> beer, output 1, ceiling 8.23% -> at best 1.0823
 # Scope: location
@@ -421,14 +297,6 @@ bag_wtp_b11 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
 		add = 8.2342
-	}
-}
-# Scope: location
-bag_wtp_g11 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:maize } } }
-		add = 1000.0000
 	}
 }
 
@@ -457,18 +325,6 @@ bag_wtp_b12 = {
 		add = 7.4060
 	}
 }
-# Scope: location
-bag_wtp_g12 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8713
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 800.1287
-	}
-}
 
 # brewery / rice_brewery_maintenance -> beer, output 1, ceiling 9.26% -> at best 1.0926
 # Scope: location
@@ -493,18 +349,6 @@ bag_wtp_b13 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 7.4060
-	}
-}
-# Scope: location
-bag_wtp_g13 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8713
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 800.1287
 	}
 }
 
@@ -533,18 +377,6 @@ bag_wtp_b14 = {
 		add = 7.4060
 	}
 }
-# Scope: location
-bag_wtp_g14 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 199.8713
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 800.1287
-	}
-}
 
 # brewery_manufactory / brewery_manufactory_maintenance -> beer, output 2, ceiling 9.39% -> at best 2.1878
 # Scope: location
@@ -569,18 +401,6 @@ bag_wtp_b15 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 8.1658
-	}
-}
-# Scope: location
-bag_wtp_g15 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 130.2335
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 869.7665
 	}
 }
 
@@ -609,18 +429,6 @@ bag_wtp_b16 = {
 		add = 8.5383
 	}
 }
-# Scope: location
-bag_wtp_g16 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 102.4359
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 897.5641
-	}
-}
 
 # market_village / rural_millet_brewery -> beer, output 0.5, ceiling 8.95% -> at best 0.5448
 # Scope: location
@@ -645,18 +453,6 @@ bag_wtp_b17 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 7.4576
-	}
-}
-# Scope: location
-bag_wtp_g17 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 166.9535
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 833.0465
 	}
 }
 
@@ -685,18 +481,6 @@ bag_wtp_b18 = {
 		add = 1.7840
 	}
 }
-# Scope: location
-bag_wtp_g18 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 428.8199
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 571.1801
-	}
-}
 
 # printing_mill / printing_mill_maintenance -> books, output 4, ceiling 3.17% -> at best 4.1268
 # Scope: location
@@ -721,18 +505,6 @@ bag_wtp_b19 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.9502
-	}
-}
-# Scope: location
-bag_wtp_g19 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 384.7095
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 615.2905
 	}
 }
 
@@ -761,18 +533,6 @@ bag_wtp_b20 = {
 		add = 2.1243
 	}
 }
-# Scope: location
-bag_wtp_g20 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 445.4167
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 554.5833
-	}
-}
 
 # scriptorium / scriptorium_maintenance -> books, output 0.3, ceiling 4.29% -> at best 0.3129
 # Scope: location
@@ -797,18 +557,6 @@ bag_wtp_b21 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.8547
-	}
-}
-# Scope: location
-bag_wtp_g21 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 335.1099
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 664.8901
 	}
 }
 
@@ -853,26 +601,6 @@ bag_wtp_b22 = {
 		add = 1.2817
 	}
 }
-# Scope: location
-bag_wtp_g22 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 322.4962
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 193.7594
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 322.4962
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 161.2481
-	}
-}
 
 # cannon_maker / cannon_maker_bronze_maintenance+cannon_maker_ammunition_iron_maintenance -> cannons, output 1.16, ceiling 6.08% -> at best 1.2306
 # Scope: location
@@ -913,26 +641,6 @@ bag_wtp_b23 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.7862
-	}
-}
-# Scope: location
-bag_wtp_g23 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 643.9971
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 113.3791
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 113.3791
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 129.2447
 	}
 }
 
@@ -977,26 +685,6 @@ bag_wtp_b24 = {
 		add = 0.8142
 	}
 }
-# Scope: location
-bag_wtp_g24 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 682.6990
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 90.1446
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 90.1446
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 137.0118
-	}
-}
 
 # cannon_maker / cannon_maker_bronze_maintenance+cannon_maker_ammunition_stone_maintenance -> cannons, output 1.087, ceiling 5.82% -> at best 1.1503
 # Scope: location
@@ -1039,26 +727,6 @@ bag_wtp_b25 = {
 		add = 0.8390
 	}
 }
-# Scope: location
-bag_wtp_g25 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 718.3126
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 68.7641
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 68.7641
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 144.1591
-	}
-}
 
 # cannon_maker / cannon_maker_iron_maintenance+cannon_maker_ammunition_iron_maintenance -> cannons, output 1.16, ceiling 6.08% -> at best 1.2305
 # Scope: location
@@ -1083,18 +751,6 @@ bag_wtp_b26 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 0.6897
-	}
-}
-# Scope: location
-bag_wtp_g26 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 886.5900
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 113.4100
 	}
 }
 
@@ -1131,22 +787,6 @@ bag_wtp_b27 = {
 		add = 0.5357
 	}
 }
-# Scope: location
-bag_wtp_g27 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 819.6588
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 90.1706
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 90.1706
-	}
-}
 
 # cannon_maker / cannon_maker_iron_maintenance+cannon_maker_ammunition_stone_maintenance -> cannons, output 1.087, ceiling 5.82% -> at best 1.1502
 # Scope: location
@@ -1181,22 +821,6 @@ bag_wtp_b28 = {
 		add = 0.4002
 	}
 }
-# Scope: location
-bag_wtp_g28 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 862.4300
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 68.7850
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 68.7850
-	}
-}
 
 # cannon_maker / cannon_maker_lumber_maintenance+cannon_maker_ammunition_iron_maintenance -> cannons, output 0.26, ceiling 9.59% -> at best 0.2849
 # Scope: location
@@ -1229,22 +853,6 @@ bag_wtp_b29 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 3.0769
-	}
-}
-# Scope: location
-bag_wtp_g29 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 419.3470
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 259.8956
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 320.7575
 	}
 }
 
@@ -1289,26 +897,6 @@ bag_wtp_b30 = {
 		add = 2.7273
 	}
 }
-# Scope: location
-bag_wtp_g30 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 117.4214
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 286.5198
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 309.5390
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 286.5198
-	}
-}
 
 # cannon_maker / cannon_maker_lumber_maintenance+cannon_maker_ammunition_stone_maintenance -> cannons, output 0.187, ceiling 9.43% -> at best 0.2046
 # Scope: location
@@ -1349,26 +937,6 @@ bag_wtp_b31 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 2.3262
-	}
-}
-# Scope: location
-bag_wtp_g31 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 139.3868
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 367.4428
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 246.5852
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 246.5852
 	}
 }
 
@@ -1413,26 +981,6 @@ bag_wtp_b32 = {
 		add = 1.5359
 	}
 }
-# Scope: location
-bag_wtp_g32 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 666.8269
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 90.9220
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 75.8015
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 166.4497
-	}
-}
 
 # cannon_workshop / cannon_workshop_bronze_maintenance+cannon_workshop_ammunition_lead_maintenance -> cannons, output 1.25, ceiling 9.20% -> at best 1.3650
 # Scope: location
@@ -1473,26 +1021,6 @@ bag_wtp_b33 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 1.5974
-	}
-}
-# Scope: location
-bag_wtp_g33 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 695.8296
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 65.2406
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 65.2406
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 173.6893
 	}
 }
 
@@ -1537,26 +1065,6 @@ bag_wtp_b34 = {
 		add = 1.6639
 	}
 }
-# Scope: location
-bag_wtp_g34 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 727.4700
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 45.4714
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 45.4714
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 181.5871
-	}
-}
 
 # cannon_workshop / cannon_workshop_iron_maintenance+cannon_workshop_ammunition_iron_maintenance -> cannons, output 1.3, ceiling 9.15% -> at best 1.4190
 # Scope: location
@@ -1581,18 +1089,6 @@ bag_wtp_b35 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 0.6995
-	}
-}
-# Scope: location
-bag_wtp_g35 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 923.5719
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 76.4281
 	}
 }
 
@@ -1629,22 +1125,6 @@ bag_wtp_b36 = {
 		add = 0.6000
 	}
 }
-# Scope: location
-bag_wtp_g36 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 868.3929
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 65.8035
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 65.8035
-	}
-}
 
 # cannon_workshop / cannon_workshop_iron_maintenance+cannon_workshop_ammunition_stone_maintenance -> cannons, output 1.2, ceiling 9.08% -> at best 1.3090
 # Scope: location
@@ -1679,22 +1159,6 @@ bag_wtp_b37 = {
 		add = 0.4167
 	}
 }
-# Scope: location
-bag_wtp_g37 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 908.2364
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 45.8818
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 45.8818
-	}
-}
 
 # cannons_factory / gun_factory_maintenance -> cannons, output 4, ceiling 3.48% -> at best 4.1392
 # Scope: location
@@ -1721,18 +1185,6 @@ bag_wtp_b38 = {
 		add = 2.1750
 	}
 }
-# Scope: location
-bag_wtp_g38 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 375.0240
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 624.9760
-	}
-}
 
 # clay_pit / clay_pit_maintenance -> clay, output 1, ceiling 10.00% -> at best 1.1000
 # Scope: location
@@ -1749,14 +1201,6 @@ bag_wtp_b39 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g39 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -1777,14 +1221,6 @@ bag_wtp_b40 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g40 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
-		add = 1000.0000
-	}
-}
 
 # cloth_guild / fiber_crops_cloth_guild_maintenance -> cloth, output 0.8, ceiling 10.00% -> at best 0.8800
 # Scope: location
@@ -1803,14 +1239,6 @@ bag_wtp_b41 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g41 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
-	}
-}
 
 # cloth_guild / wool_cloth_guild_maintenance -> cloth, output 1, ceiling 10.00% -> at best 1.1000
 # Scope: location
@@ -1827,14 +1255,6 @@ bag_wtp_b42 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g42 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 1000.0000
 	}
 }
 
@@ -1863,18 +1283,6 @@ bag_wtp_b43 = {
 		add = 0.9938
 	}
 }
-# Scope: location
-bag_wtp_g43 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
-		add = 900.6178
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 99.3822
-	}
-}
 
 # cloth_manufactory / fiber_crops_cloth_manufactory_maintenance -> cloth, output 2, ceiling 10.00% -> at best 2.2000
 # Scope: location
@@ -1899,18 +1307,6 @@ bag_wtp_b44 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.7303
-	}
-}
-# Scope: location
-bag_wtp_g44 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 26.9681
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 973.0319
 	}
 }
 
@@ -1939,18 +1335,6 @@ bag_wtp_b45 = {
 		add = 9.1578
 	}
 }
-# Scope: location
-bag_wtp_g45 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 84.2201
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 915.7799
-	}
-}
 
 # cloth_workshop / cotton_cloth_workshop_maintenance -> cloth, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -1967,14 +1351,6 @@ bag_wtp_b46 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g46 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
-		add = 1000.0000
 	}
 }
 
@@ -1995,14 +1371,6 @@ bag_wtp_b47 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g47 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
-	}
-}
 
 # cloth_workshop / wool_cloth_workshop_maintenance -> cloth, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -2019,14 +1387,6 @@ bag_wtp_b48 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g48 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 1000.0000
 	}
 }
 
@@ -2047,14 +1407,6 @@ bag_wtp_b49 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g49 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
-		add = 1000.0000
-	}
-}
 
 # rural_clothmaker / rural_fiber_clothmaker -> cloth, output 0.4, ceiling 10.00% -> at best 0.4400
 # Scope: location
@@ -2073,14 +1425,6 @@ bag_wtp_b50 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g50 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
-	}
-}
 
 # rural_clothmaker / rural_wool_clothmaker -> cloth, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -2097,14 +1441,6 @@ bag_wtp_b51 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g51 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 1000.0000
 	}
 }
 
@@ -2133,18 +1469,6 @@ bag_wtp_b52 = {
 		add = 1.1771
 	}
 }
-# Scope: location
-bag_wtp_g52 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:cotton } } }
-		add = 882.2897
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 117.7103
-	}
-}
 
 # textile_mill / fiber_crops_mill_maintenance -> cloth, output 2.5, ceiling 10.00% -> at best 2.7500
 # Scope: location
@@ -2169,18 +1493,6 @@ bag_wtp_b53 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.0921
-	}
-}
-# Scope: location
-bag_wtp_g53 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 90.7913
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 909.2087
 	}
 }
 
@@ -2209,18 +1521,6 @@ bag_wtp_b54 = {
 		add = 8.8225
 	}
 }
-# Scope: location
-bag_wtp_g54 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 117.7548
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 882.2452
-	}
-}
 
 # charcoal_maker / char_coal_maintenance -> coal, output 0.8, ceiling 10.00% -> at best 0.8800
 # Scope: location
@@ -2237,14 +1537,6 @@ bag_wtp_b55 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g55 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -2265,14 +1557,6 @@ bag_wtp_b56 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g56 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # cotton_plantation / cotton_plantation_maintenance -> cotton, output 1, ceiling 2.00% -> at best 1.0200
 # Scope: location
@@ -2289,14 +1573,6 @@ bag_wtp_b57 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.0000
-	}
-}
-# Scope: location
-bag_wtp_g57 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -2325,18 +1601,6 @@ bag_wtp_b58 = {
 		add = 9.6748
 	}
 }
-# Scope: location
-bag_wtp_g58 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 32.5228
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 967.4772
-	}
-}
 
 # dyes_guild / dyes_guild_maintenance -> dyes, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -2353,14 +1617,6 @@ bag_wtp_b59 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g59 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -2389,18 +1645,6 @@ bag_wtp_b60 = {
 		add = 9.5246
 	}
 }
-# Scope: location
-bag_wtp_g60 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 47.5433
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 952.4567
-	}
-}
 
 # dyes_workshop / dyes_workshop_maintenance -> dyes, output 0.4, ceiling 10.00% -> at best 0.4400
 # Scope: location
@@ -2425,18 +1669,6 @@ bag_wtp_b61 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 9.2246
-	}
-}
-# Scope: location
-bag_wtp_g61 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 77.5350
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 922.4650
 	}
 }
 
@@ -2465,18 +1697,6 @@ bag_wtp_b62 = {
 		add = 9.1221
 	}
 }
-# Scope: location
-bag_wtp_g62 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 87.7923
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 912.2077
-	}
-}
 
 # fiber_crops_farm / fiber_crops_farm_maintenance -> fiber_crops, output 0.8, ceiling 8.75% -> at best 0.8700
 # Scope: location
@@ -2503,18 +1723,6 @@ bag_wtp_b63 = {
 		add = 2.5032
 	}
 }
-# Scope: location
-bag_wtp_g63 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 713.8728
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 286.1272
-	}
-}
 
 # shoen / shoen_fiber_crops_farm_maintenance -> fiber_crops, output 0.5, ceiling 6.41% -> at best 0.5320
 # Scope: location
@@ -2531,14 +1739,6 @@ bag_wtp_b64 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.4059
-	}
-}
-# Scope: location
-bag_wtp_g64 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -2567,18 +1767,6 @@ bag_wtp_b65 = {
 		add = 2.2901
 	}
 }
-# Scope: location
-bag_wtp_g65 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 198.4791
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 801.5209
-	}
-}
 
 # fine_cloth_guild / fine_cloth_guild_maintenance+base_fine_cloth_guild_maintenance -> fine_cloth, output 0.6, ceiling 1.67% -> at best 0.6100
 # Scope: location
@@ -2597,14 +1785,6 @@ bag_wtp_b66 = {
 		add = 1.6667
 	}
 }
-# Scope: location
-bag_wtp_g66 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 1000.0000
-	}
-}
 
 # fine_cloth_guild / fine_cloth_guild_maintenance+fur_trim_guild_maintenance -> fine_cloth, output 0.7, ceiling 2.86% -> at best 0.7200
 # Scope: location
@@ -2621,14 +1801,6 @@ bag_wtp_b67 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
 		add = 2.8571
-	}
-}
-# Scope: location
-bag_wtp_g67 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 1000.0000
 	}
 }
 
@@ -2665,22 +1837,6 @@ bag_wtp_b68 = {
 		add = 7.7778
 	}
 }
-# Scope: location
-bag_wtp_g68 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 44.1065
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 178.1158
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 777.7778
-	}
-}
 
 # fine_cloth_guild / silk_weavers_maintenance+base_fine_cloth_guild_maintenance -> fine_cloth, output 0.8, ceiling 10.00% -> at best 0.8800
 # Scope: location
@@ -2707,18 +1863,6 @@ bag_wtp_b69 = {
 		add = 8.7500
 	}
 }
-# Scope: location
-bag_wtp_g69 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 125.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 875.0000
-	}
-}
 
 # fine_cloth_guild / silk_weavers_maintenance+fur_trim_guild_maintenance -> fine_cloth, output 0.9, ceiling 10.00% -> at best 0.9900
 # Scope: location
@@ -2743,18 +1887,6 @@ bag_wtp_b70 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 7.7778
-	}
-}
-# Scope: location
-bag_wtp_g70 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 222.2222
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 777.7778
 	}
 }
 
@@ -2791,22 +1923,6 @@ bag_wtp_b71 = {
 		add = 7.1429
 	}
 }
-# Scope: location
-bag_wtp_g71 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 56.7083
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 229.0060
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 714.2857
-	}
-}
 
 # fine_cloth_guild / spanish_cloth_maintenance+base_fine_cloth_guild_maintenance -> fine_cloth, output 0.6, ceiling 10.00% -> at best 0.6600
 # Scope: location
@@ -2833,18 +1949,6 @@ bag_wtp_b72 = {
 		add = 8.3333
 	}
 }
-# Scope: location
-bag_wtp_g72 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 166.6667
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 833.3333
-	}
-}
 
 # fine_cloth_guild / spanish_cloth_maintenance+fur_trim_guild_maintenance -> fine_cloth, output 0.7, ceiling 10.00% -> at best 0.7700
 # Scope: location
@@ -2869,18 +1973,6 @@ bag_wtp_b73 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 7.1429
-	}
-}
-# Scope: location
-bag_wtp_g73 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 285.7143
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 714.2857
 	}
 }
 
@@ -2917,22 +2009,6 @@ bag_wtp_b74 = {
 		add = 7.1429
 	}
 }
-# Scope: location
-bag_wtp_g74 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 56.7083
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 229.0060
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 714.2857
-	}
-}
 
 # fine_cloth_guild / wool_weavers_maintenance+base_fine_cloth_guild_maintenance -> fine_cloth, output 0.6, ceiling 10.00% -> at best 0.6600
 # Scope: location
@@ -2957,18 +2033,6 @@ bag_wtp_b75 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 8.3333
-	}
-}
-# Scope: location
-bag_wtp_g75 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 166.6667
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 833.3333
 	}
 }
 
@@ -2997,18 +2061,6 @@ bag_wtp_b76 = {
 		add = 7.1429
 	}
 }
-# Scope: location
-bag_wtp_g76 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 285.7143
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 714.2857
-	}
-}
 
 # fine_cloth_manufactory / fine_cloth_manufactory_maintenance+alum_fine_cloth_manufactory_maintenance -> fine_cloth, output 2.4, ceiling 1.67% -> at best 2.4400
 # Scope: location
@@ -3035,18 +2087,6 @@ bag_wtp_b77 = {
 		add = 1.3340
 	}
 }
-# Scope: location
-bag_wtp_g77 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 199.5885
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 800.4115
-	}
-}
 
 # fine_cloth_manufactory / fine_cloth_manufactory_maintenance+base_cloth_manufactory_maintenance -> fine_cloth, output 2.2, ceiling 0.91% -> at best 2.2200
 # Scope: location
@@ -3063,14 +2103,6 @@ bag_wtp_b78 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.9091
-	}
-}
-# Scope: location
-bag_wtp_g78 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 1000.0000
 	}
 }
 
@@ -3107,22 +2139,6 @@ bag_wtp_b79 = {
 		add = 8.3333
 	}
 }
-# Scope: location
-bag_wtp_g79 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 33.2647
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 133.4019
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 833.3333
-	}
-}
 
 # fine_cloth_manufactory / silk_cloth_manufactory_maintenance+base_cloth_manufactory_maintenance -> fine_cloth, output 2.2, ceiling 10.00% -> at best 2.4200
 # Scope: location
@@ -3149,18 +2165,6 @@ bag_wtp_b80 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g80 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 909.0909
-	}
-}
 
 # fine_cloth_mill / fine_cloth_mill_maintenance -> fine_cloth, output 4, ceiling 0.63% -> at best 4.0253
 # Scope: location
@@ -3177,14 +2181,6 @@ bag_wtp_b81 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
 		add = 0.6331
-	}
-}
-# Scope: location
-bag_wtp_g81 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 1000.0000
 	}
 }
 
@@ -3213,18 +2209,6 @@ bag_wtp_b82 = {
 		add = 9.1801
 	}
 }
-# Scope: location
-bag_wtp_g82 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 81.9908
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 918.0092
-	}
-}
 
 # fine_cloth_workshop / fine_cloth_workshop_maintenance+alum_fine_cloth_workshop_maintenance -> fine_cloth, output 0.85, ceiling 2.94% -> at best 0.8750
 # Scope: location
@@ -3251,18 +2235,6 @@ bag_wtp_b83 = {
 		add = 2.3997
 	}
 }
-# Scope: location
-bag_wtp_g83 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 184.1017
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 815.8983
-	}
-}
 
 # fine_cloth_workshop / fine_cloth_workshop_maintenance+base_fine_cloth_workshop_maintenance -> fine_cloth, output 0.72, ceiling 1.67% -> at best 0.7320
 # Scope: location
@@ -3281,14 +2253,6 @@ bag_wtp_b84 = {
 		add = 1.6667
 	}
 }
-# Scope: location
-bag_wtp_g84 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 1000.0000
-	}
-}
 
 # fine_cloth_workshop / fine_cloth_workshop_maintenance+fur_trim_workshop_maintenance -> fine_cloth, output 0.85, ceiling 2.94% -> at best 0.8750
 # Scope: location
@@ -3305,14 +2269,6 @@ bag_wtp_b85 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
 		add = 2.9412
-	}
-}
-# Scope: location
-bag_wtp_g85 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 1000.0000
 	}
 }
 
@@ -3349,22 +2305,6 @@ bag_wtp_b86 = {
 		add = 7.6190
 	}
 }
-# Scope: location
-bag_wtp_g86 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 43.8337
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 194.2615
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 761.9048
-	}
-}
 
 # fine_cloth_workshop / silk_weavers_workshop_maintenance+base_fine_cloth_workshop_maintenance -> fine_cloth, output 0.92, ceiling 10.00% -> at best 1.0120
 # Scope: location
@@ -3391,18 +2331,6 @@ bag_wtp_b87 = {
 		add = 8.6957
 	}
 }
-# Scope: location
-bag_wtp_g87 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 130.4348
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 869.5652
-	}
-}
 
 # fine_cloth_workshop / silk_weavers_workshop_maintenance+fur_trim_workshop_maintenance -> fine_cloth, output 1.05, ceiling 10.00% -> at best 1.1550
 # Scope: location
@@ -3427,18 +2355,6 @@ bag_wtp_b88 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
 		add = 7.6190
-	}
-}
-# Scope: location
-bag_wtp_g88 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 238.0952
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silk } } }
-		add = 761.9048
 	}
 }
 
@@ -3475,22 +2391,6 @@ bag_wtp_b89 = {
 		add = 7.0588
 	}
 }
-# Scope: location
-bag_wtp_g89 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 54.1476
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 239.9701
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 705.8824
-	}
-}
 
 # fine_cloth_workshop / spanish_cloth_workshop_maintenance+base_fine_cloth_workshop_maintenance -> fine_cloth, output 0.72, ceiling 10.00% -> at best 0.7920
 # Scope: location
@@ -3517,18 +2417,6 @@ bag_wtp_b90 = {
 		add = 8.3333
 	}
 }
-# Scope: location
-bag_wtp_g90 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 166.6667
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 833.3333
-	}
-}
 
 # fine_cloth_workshop / spanish_cloth_workshop_maintenance+fur_trim_workshop_maintenance -> fine_cloth, output 0.85, ceiling 10.00% -> at best 0.9350
 # Scope: location
@@ -3553,18 +2441,6 @@ bag_wtp_b91 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 7.0588
-	}
-}
-# Scope: location
-bag_wtp_g91 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 294.1176
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 705.8824
 	}
 }
 
@@ -3601,22 +2477,6 @@ bag_wtp_b92 = {
 		add = 7.0588
 	}
 }
-# Scope: location
-bag_wtp_g92 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 54.1476
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 239.9701
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 705.8824
-	}
-}
 
 # fine_cloth_workshop / wool_weavers_workshop_maintenance+base_fine_cloth_workshop_maintenance -> fine_cloth, output 0.72, ceiling 10.00% -> at best 0.7920
 # Scope: location
@@ -3641,18 +2501,6 @@ bag_wtp_b93 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
 		add = 8.3333
-	}
-}
-# Scope: location
-bag_wtp_g93 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 166.6667
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 833.3333
 	}
 }
 
@@ -3681,18 +2529,6 @@ bag_wtp_b94 = {
 		add = 7.0588
 	}
 }
-# Scope: location
-bag_wtp_g94 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fur } } }
-		add = 294.1176
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wool } } }
-		add = 705.8824
-	}
-}
 
 # firearms_factory / firearms_factory_maintenance -> firearms, output 4, ceiling 4.45% -> at best 4.1779
 # Scope: location
@@ -3717,18 +2553,6 @@ bag_wtp_b95 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 2.7796
-	}
-}
-# Scope: location
-bag_wtp_g95 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 375.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 625.0000
 	}
 }
 
@@ -3781,30 +2605,6 @@ bag_wtp_b96 = {
 		add = 1.1743
 	}
 }
-# Scope: location
-bag_wtp_g96 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 176.5252
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 470.4759
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 59.0482
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 176.5252
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 117.4254
-	}
-}
 
 # gun_smith / guns_guild_bronze_maintenance+guns_guild_ammunition_iron_maintenance -> firearms, output 1.2, ceiling 7.22% -> at best 1.2866
 # Scope: location
@@ -3845,26 +2645,6 @@ bag_wtp_b97 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.9272
-	}
-}
-# Scope: location
-bag_wtp_g97 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 640.7042
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 115.4308
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 115.4308
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 128.4342
 	}
 }
 
@@ -3909,26 +2689,6 @@ bag_wtp_b98 = {
 		add = 0.9592
 	}
 }
-# Scope: location
-bag_wtp_g98 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 671.7190
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 96.8148
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 96.8148
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 134.6514
-	}
-}
 
 # gun_smith / guns_guild_iron_maintenance+guns_guild_ammunition_iron_maintenance -> firearms, output 1.2, ceiling 6.87% -> at best 1.2825
 # Scope: location
@@ -3953,18 +2713,6 @@ bag_wtp_b99 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 0.8333
-	}
-}
-# Scope: location
-bag_wtp_g99 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 878.7680
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 121.2320
 	}
 }
 
@@ -4001,22 +2749,6 @@ bag_wtp_b100 = {
 		add = 0.6897
 	}
 }
-# Scope: location
-bag_wtp_g100 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 796.1433
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 101.9284
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 101.9284
-	}
-}
 
 # gun_smith / guns_guild_lumber_maintenance+guns_guild_ammunition_iron_maintenance -> firearms, output 0.35, ceiling 9.61% -> at best 0.3836
 # Scope: location
@@ -4049,22 +2781,6 @@ bag_wtp_b101 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 2.8571
-	}
-}
-# Scope: location
-bag_wtp_g101 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 391.1159
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 311.5617
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 297.3224
 	}
 }
 
@@ -4109,26 +2825,6 @@ bag_wtp_b102 = {
 		add = 2.5806
 	}
 }
-# Scope: location
-bag_wtp_g102 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 106.4540
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 269.9645
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 353.6170
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 269.9645
-	}
-}
 
 # guns_workshop / guns_workshop_bronze_maintenance+guns_workshop_ammunition_iron_maintenance -> firearms, output 1.35, ceiling 7.21% -> at best 1.4474
 # Scope: location
@@ -4169,26 +2865,6 @@ bag_wtp_b103 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
 		add = 0.8914
-	}
-}
-# Scope: location
-bag_wtp_g103 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 619.6138
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 128.3926
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 128.3926
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 123.6011
 	}
 }
 
@@ -4233,26 +2909,6 @@ bag_wtp_b104 = {
 		add = 0.9257
 	}
 }
-# Scope: location
-bag_wtp_g104 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 653.1580
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 108.2747
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 108.2747
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 130.2925
-	}
-}
 
 # guns_workshop / guns_workshop_iron_maintenance+guns_workshop_ammunition_iron_maintenance -> firearms, output 1.25, ceiling 6.93% -> at best 1.3366
 # Scope: location
@@ -4277,18 +2933,6 @@ bag_wtp_b105 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 1.0000
-	}
-}
-# Scope: location
-bag_wtp_g105 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 855.6582
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 144.3418
 	}
 }
 
@@ -4323,22 +2967,6 @@ bag_wtp_b106 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
 		add = 0.8333
-	}
-}
-# Scope: location
-bag_wtp_g106 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 754.9020
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 122.5490
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 122.5490
 	}
 }
 
@@ -4391,30 +3019,6 @@ bag_wtp_b107 = {
 		add = 0.7153
 	}
 }
-# Scope: location
-bag_wtp_g107 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 22.5687
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 424.7025
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 41.4444
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:saltpeter } } }
-		add = 424.7025
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 86.5819
-	}
-}
 
 # fishing_village / arctic_fishing_village_maintenance -> fish, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -4441,18 +3045,6 @@ bag_wtp_b108 = {
 		add = 6.9290
 	}
 }
-# Scope: location
-bag_wtp_g108 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
-		add = 307.1017
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
-		add = 692.8983
-	}
-}
 
 # fishing_village / fishing_village_maintenance -> fish, output 0.5, ceiling 8.61% -> at best 0.5430
 # Scope: location
@@ -4471,14 +3063,6 @@ bag_wtp_b109 = {
 		add = 8.6098
 	}
 }
-# Scope: location
-bag_wtp_g109 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:salt } } }
-		add = 1000.0000
-	}
-}
 
 # fruit_orchard / fruit_orchard_maintenance -> fruit, output 0.3, ceiling 10.00% -> at best 0.3300
 # Scope: location
@@ -4495,14 +3079,6 @@ bag_wtp_b110 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g110 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -4531,18 +3107,6 @@ bag_wtp_b111 = {
 		add = 7.6978
 	}
 }
-# Scope: location
-bag_wtp_g111 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 130.0842
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 869.9158
-	}
-}
 
 # furniture_manufactory / furniture_manufactory_maintenance -> furniture, output 2, ceiling 9.09% -> at best 2.1818
 # Scope: location
@@ -4567,18 +3131,6 @@ bag_wtp_b112 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.1841
-	}
-}
-# Scope: location
-bag_wtp_g112 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 99.8624
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 900.1376
 	}
 }
 
@@ -4607,18 +3159,6 @@ bag_wtp_b113 = {
 		add = 8.1089
 	}
 }
-# Scope: location
-bag_wtp_g113 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 104.4292
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 895.5708
-	}
-}
 
 # furniture_workshop / furniture_workshop_maintenance -> furniture, output 1.1, ceiling 9.03% -> at best 1.1993
 # Scope: location
@@ -4645,18 +3185,6 @@ bag_wtp_b114 = {
 		add = 8.0605
 	}
 }
-# Scope: location
-bag_wtp_g114 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 107.3889
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 892.6111
-	}
-}
 
 # glass_guild / glass_guild_maintenance -> glass, output 0.75, ceiling 7.59% -> at best 0.8069
 # Scope: location
@@ -4681,18 +3209,6 @@ bag_wtp_b115 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 6.3267
-	}
-}
-# Scope: location
-bag_wtp_g115 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 166.7817
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 833.2183
 	}
 }
 
@@ -4735,26 +3251,6 @@ bag_wtp_b116 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.4367
-	}
-}
-# Scope: location
-bag_wtp_g116 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 28.2509
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 55.7402
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 216.4520
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 699.5568
 	}
 }
 
@@ -4807,30 +3303,6 @@ bag_wtp_b117 = {
 		add = 0.4294
 	}
 }
-# Scope: location
-bag_wtp_g117 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 28.1876
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 161.9234
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 107.8584
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 647.9655
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 54.0651
-	}
-}
 
 # glass_workshop / metal_glass_workshop_maintenance -> glass, output 1.1, ceiling 7.80% -> at best 1.1858
 # Scope: location
@@ -4871,26 +3343,6 @@ bag_wtp_b118 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 5.3760
-	}
-}
-# Scope: location
-bag_wtp_g118 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 27.6703
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lead } } }
-		add = 62.0943
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 220.6413
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 689.5941
 	}
 }
 
@@ -4943,30 +3395,6 @@ bag_wtp_b119 = {
 		add = 0.5064
 	}
 }
-# Scope: location
-bag_wtp_g119 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:alum } } }
-		add = 13.5988
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 127.4374
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 127.4374
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 671.1996
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 60.3269
-	}
-}
 
 # rural_glassmaker / rural_glassmaker_maintenance -> glass, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -4983,14 +3411,6 @@ bag_wtp_b120 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g120 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 1000.0000
 	}
 }
 
@@ -5019,18 +3439,6 @@ bag_wtp_b121 = {
 		add = 8.3316
 	}
 }
-# Scope: location
-bag_wtp_g121 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
-		add = 166.8443
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 833.1557
-	}
-}
 
 # perfumery / perfumery_maintenance -> incense, output 1, ceiling 5.55% -> at best 1.0555
 # Scope: location
@@ -5047,14 +3455,6 @@ bag_wtp_b122 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pepper } } }
 		add = 5.5477
-	}
-}
-# Scope: location
-bag_wtp_g122 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pepper } } }
-		add = 1000.0000
 	}
 }
 
@@ -5075,14 +3475,6 @@ bag_wtp_b123 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g123 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 1000.0000
-	}
-}
 
 # shoen / shoen_ironsand_maintenance -> iron, output 0.3, ceiling 7.69% -> at best 0.3231
 # Scope: location
@@ -5101,14 +3493,6 @@ bag_wtp_b124 = {
 		add = 7.6868
 	}
 }
-# Scope: location
-bag_wtp_g124 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 1000.0000
-	}
-}
 
 # elephant_hunting_grounds / elephant_hunting_grounds_maintenance -> ivory, output 1, ceiling 5.01% -> at best 1.0501
 # Scope: location
@@ -5125,14 +3509,6 @@ bag_wtp_b125 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:elephants } } }
 		add = 5.0060
-	}
-}
-# Scope: location
-bag_wtp_g125 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:elephants } } }
-		add = 1000.0000
 	}
 }
 
@@ -5161,18 +3537,6 @@ bag_wtp_b126 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g126 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 909.0909
-	}
-}
 
 # jewelry_guild / copper_base+gems_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5197,18 +3561,6 @@ bag_wtp_b127 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 		add = 0.9091
-	}
-}
-# Scope: location
-bag_wtp_g127 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 909.0909
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
-		add = 90.9091
 	}
 }
 
@@ -5237,18 +3589,6 @@ bag_wtp_b128 = {
 		add = 0.9091
 	}
 }
-# Scope: location
-bag_wtp_g128 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 909.0909
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
-		add = 90.9091
-	}
-}
 
 # jewelry_guild / copper_base+pearls_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5273,18 +3613,6 @@ bag_wtp_b129 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
 		add = 0.9091
-	}
-}
-# Scope: location
-bag_wtp_g129 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 909.0909
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
-		add = 90.9091
 	}
 }
 
@@ -5313,18 +3641,6 @@ bag_wtp_b130 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g130 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
-		add = 909.0909
-	}
-}
 
 # jewelry_guild / gold_base+gems_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5349,18 +3665,6 @@ bag_wtp_b131 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
 		add = 9.0909
-	}
-}
-# Scope: location
-bag_wtp_g131 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
-		add = 909.0909
 	}
 }
 
@@ -5389,18 +3693,6 @@ bag_wtp_b132 = {
 		add = 0.9091
 	}
 }
-# Scope: location
-bag_wtp_g132 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
-		add = 909.0909
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
-		add = 90.9091
-	}
-}
 
 # jewelry_guild / gold_base+pearls_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5425,18 +3717,6 @@ bag_wtp_b133 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
 		add = 0.9091
-	}
-}
-# Scope: location
-bag_wtp_g133 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:goods_gold } } }
-		add = 909.0909
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
-		add = 90.9091
 	}
 }
 
@@ -5465,18 +3745,6 @@ bag_wtp_b134 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g134 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:amber } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
-		add = 909.0909
-	}
-}
 
 # jewelry_guild / silver_base+gems_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5501,18 +3769,6 @@ bag_wtp_b135 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
 		add = 9.0909
-	}
-}
-# Scope: location
-bag_wtp_g135 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
-		add = 909.0909
 	}
 }
 
@@ -5541,18 +3797,6 @@ bag_wtp_b136 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g136 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
-		add = 909.0909
-	}
-}
 
 # jewelry_guild / silver_base+pearls_enhancement -> jewelry, output 1.1, ceiling 10.00% -> at best 1.2100
 # Scope: location
@@ -5579,18 +3823,6 @@ bag_wtp_b137 = {
 		add = 9.0909
 	}
 }
-# Scope: location
-bag_wtp_g137 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:pearls } } }
-		add = 90.9091
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:silver } } }
-		add = 909.0909
-	}
-}
 
 # market_village / rural_jewelry_carver -> jewelry, output 0.1, ceiling 10.00% -> at best 0.1100
 # Scope: location
@@ -5609,14 +3841,6 @@ bag_wtp_b138 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g138 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 1000.0000
-	}
-}
 
 # pounamou_carver / pounamou_carver_maintenance -> jewelry, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -5633,14 +3857,6 @@ bag_wtp_b139 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g139 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
-		add = 1000.0000
 	}
 }
 
@@ -5669,18 +3885,6 @@ bag_wtp_b140 = {
 		add = 6.5926
 	}
 }
-# Scope: location
-bag_wtp_g140 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 294.1142
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 705.8858
-	}
-}
 
 # lacquerware_manufactory / lacquerware_manufactory_maintenance -> lacquerware, output 2, ceiling 9.33% -> at best 2.1867
 # Scope: location
@@ -5705,18 +3909,6 @@ bag_wtp_b141 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.6666
-	}
-}
-# Scope: location
-bag_wtp_g141 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:dyes } } }
-		add = 285.6692
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 714.3308
 	}
 }
 
@@ -5745,18 +3937,6 @@ bag_wtp_b142 = {
 		add = 8.4476
 	}
 }
-# Scope: location
-bag_wtp_g142 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 102.7837
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 897.2163
-	}
-}
 
 # tannery / leather_guild_maintenance -> leather, output 1, ceiling 8.62% -> at best 1.0862
 # Scope: location
@@ -5781,18 +3961,6 @@ bag_wtp_b143 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.4598
-	}
-}
-# Scope: location
-bag_wtp_g143 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 714.4828
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 285.5172
 	}
 }
 
@@ -5821,18 +3989,6 @@ bag_wtp_b144 = {
 		add = 7.0603
 	}
 }
-# Scope: location
-bag_wtp_g144 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 210.3607
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 789.6393
-	}
-}
 
 # tannery_manufactory / leather_manufactory_maintenance -> leather, output 2, ceiling 8.87% -> at best 2.1773
 # Scope: location
@@ -5857,18 +4013,6 @@ bag_wtp_b145 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.8296
-	}
-}
-# Scope: location
-bag_wtp_g145 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 680.8665
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 319.1335
 	}
 }
 
@@ -5897,18 +4041,6 @@ bag_wtp_b146 = {
 		add = 6.8654
 	}
 }
-# Scope: location
-bag_wtp_g146 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 245.9271
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 754.0729
-	}
-}
 
 # tannery_mill / leather_mill_maintenance -> leather, output 4, ceiling 9.04% -> at best 4.3617
 # Scope: location
@@ -5933,18 +4065,6 @@ bag_wtp_b147 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.6597
-	}
-}
-# Scope: location
-bag_wtp_g147 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 705.8587
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 294.1413
 	}
 }
 
@@ -5973,18 +4093,6 @@ bag_wtp_b148 = {
 		add = 7.4623
 	}
 }
-# Scope: location
-bag_wtp_g148 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 199.9951
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 800.0049
-	}
-}
 
 # tanning_workshop / leather_livestock_workshop_maintenance -> leather, output 1.1, ceiling 8.62% -> at best 1.1948
 # Scope: location
@@ -6009,18 +4117,6 @@ bag_wtp_b149 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
 		add = 2.4133
-	}
-}
-# Scope: location
-bag_wtp_g149 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 720.0352
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 279.9648
 	}
 }
 
@@ -6049,18 +4145,6 @@ bag_wtp_b150 = {
 		add = 7.1752
 	}
 }
-# Scope: location
-bag_wtp_g150 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sand } } }
-		add = 200.1289
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 799.8711
-	}
-}
 
 # distiller_manufactory / potato_distillery_maintenance -> liquor, output 2, ceiling 9.17% -> at best 2.1835
 # Scope: location
@@ -6077,14 +4161,6 @@ bag_wtp_b151 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 9.1731
-	}
-}
-# Scope: location
-bag_wtp_g151 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-		add = 1000.0000
 	}
 }
 
@@ -6105,14 +4181,6 @@ bag_wtp_b152 = {
 		add = 9.1731
 	}
 }
-# Scope: location
-bag_wtp_g152 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 1000.0000
-	}
-}
 
 # distiller_manufactory / scottish_whisky_distillery_maintenance -> liquor, output 2, ceiling 9.17% -> at best 2.1835
 # Scope: location
@@ -6129,14 +4197,6 @@ bag_wtp_b153 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
 		add = 9.1731
-	}
-}
-# Scope: location
-bag_wtp_g153 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 1000.0000
 	}
 }
 
@@ -6157,14 +4217,6 @@ bag_wtp_b154 = {
 		add = 7.8707
 	}
 }
-# Scope: location
-bag_wtp_g154 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-		add = 1000.0000
-	}
-}
 
 # distiller_manufactory / wheat_distillery_maintenance -> liquor, output 2, ceiling 9.17% -> at best 2.1835
 # Scope: location
@@ -6181,14 +4233,6 @@ bag_wtp_b155 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 9.1731
-	}
-}
-# Scope: location
-bag_wtp_g155 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 1000.0000
 	}
 }
 
@@ -6209,14 +4253,6 @@ bag_wtp_b156 = {
 		add = 8.9483
 	}
 }
-# Scope: location
-bag_wtp_g156 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-		add = 1000.0000
-	}
-}
 
 # distiller_mill / rice_distillery_mill_maintenance -> liquor, output 4, ceiling 8.91% -> at best 4.3565
 # Scope: location
@@ -6233,14 +4269,6 @@ bag_wtp_b157 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 8.9128
-	}
-}
-# Scope: location
-bag_wtp_g157 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 1000.0000
 	}
 }
 
@@ -6261,14 +4289,6 @@ bag_wtp_b158 = {
 		add = 8.8894
 	}
 }
-# Scope: location
-bag_wtp_g158 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:millet } } }
-		add = 1000.0000
-	}
-}
 
 # distiller_mill / sugar_distillery_mill_maintenance -> liquor, output 4, ceiling 7.90% -> at best 4.3158
 # Scope: location
@@ -6285,14 +4305,6 @@ bag_wtp_b159 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.8960
-	}
-}
-# Scope: location
-bag_wtp_g159 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-		add = 1000.0000
 	}
 }
 
@@ -6313,14 +4325,6 @@ bag_wtp_b160 = {
 		add = 8.9483
 	}
 }
-# Scope: location
-bag_wtp_g160 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 1000.0000
-	}
-}
 
 # distillers_guild / potato_liquor_guild_maintenance -> liquor, output 1, ceiling 8.97% -> at best 1.0897
 # Scope: location
@@ -6337,14 +4341,6 @@ bag_wtp_b161 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
 		add = 8.9720
-	}
-}
-# Scope: location
-bag_wtp_g161 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-		add = 1000.0000
 	}
 }
 
@@ -6365,14 +4361,6 @@ bag_wtp_b162 = {
 		add = 8.9720
 	}
 }
-# Scope: location
-bag_wtp_g162 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 1000.0000
-	}
-}
 
 # distillers_guild / sugar_liquor_guild_maintenance -> liquor, output 1, ceiling 7.69% -> at best 1.0769
 # Scope: location
@@ -6389,14 +4377,6 @@ bag_wtp_b163 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
 		add = 7.6936
-	}
-}
-# Scope: location
-bag_wtp_g163 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-		add = 1000.0000
 	}
 }
 
@@ -6417,14 +4397,6 @@ bag_wtp_b164 = {
 		add = 8.9720
 	}
 }
-# Scope: location
-bag_wtp_g164 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 1000.0000
-	}
-}
 
 # distillers_guild / wine_liquor_guild_maintenance -> liquor, output 1, ceiling 8.10% -> at best 1.0810
 # Scope: location
@@ -6441,14 +4413,6 @@ bag_wtp_b165 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
 		add = 8.0991
-	}
-}
-# Scope: location
-bag_wtp_g165 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
-		add = 1000.0000
 	}
 }
 
@@ -6469,14 +4433,6 @@ bag_wtp_b166 = {
 		add = 9.0675
 	}
 }
-# Scope: location
-bag_wtp_g166 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:potato } } }
-		add = 1000.0000
-	}
-}
 
 # distillers_workshop / rice_liquor_workshop_maintenance -> liquor, output 1.1, ceiling 9.07% -> at best 1.1997
 # Scope: location
@@ -6493,14 +4449,6 @@ bag_wtp_b167 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
 		add = 9.0675
-	}
-}
-# Scope: location
-bag_wtp_g167 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 1000.0000
 	}
 }
 
@@ -6521,14 +4469,6 @@ bag_wtp_b168 = {
 		add = 7.7991
 	}
 }
-# Scope: location
-bag_wtp_g168 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:sugar } } }
-		add = 1000.0000
-	}
-}
 
 # distillers_workshop / wheat_liquor_workshop_maintenance -> liquor, output 1.1, ceiling 9.07% -> at best 1.1997
 # Scope: location
@@ -6545,14 +4485,6 @@ bag_wtp_b169 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
 		add = 9.0675
-	}
-}
-# Scope: location
-bag_wtp_g169 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wheat } } }
-		add = 1000.0000
 	}
 }
 
@@ -6573,14 +4505,6 @@ bag_wtp_b170 = {
 		add = 8.0927
 	}
 }
-# Scope: location
-bag_wtp_g170 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
-		add = 1000.0000
-	}
-}
 
 # farming_village / farming_village_maintenance -> livestock, output 0.5, ceiling 9.76% -> at best 0.5488
 # Scope: location
@@ -6597,14 +4521,6 @@ bag_wtp_b171 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 9.7608
-	}
-}
-# Scope: location
-bag_wtp_g171 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 1000.0000
 	}
 }
 
@@ -6625,14 +4541,6 @@ bag_wtp_b172 = {
 		add = 5.1656
 	}
 }
-# Scope: location
-bag_wtp_g172 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
-	}
-}
 
 # mason / clay_bricks -> masonry, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -6649,14 +4557,6 @@ bag_wtp_b173 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g173 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 1000.0000
 	}
 }
 
@@ -6677,14 +4577,6 @@ bag_wtp_b174 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g174 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 1000.0000
-	}
-}
 
 # shoen / shoen_masonry_maintenance -> masonry, output 0.8, ceiling 8.13% -> at best 0.8650
 # Scope: location
@@ -6701,14 +4593,6 @@ bag_wtp_b175 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.1283
-	}
-}
-# Scope: location
-bag_wtp_g175 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -6737,18 +4621,6 @@ bag_wtp_b176 = {
 		add = 1.6651
 	}
 }
-# Scope: location
-bag_wtp_g176 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:ivory } } }
-		add = 833.4867
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:mercury } } }
-		add = 166.5133
-	}
-}
 
 # apothecary / natural_medicine_apotechary -> medicaments, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -6775,18 +4647,6 @@ bag_wtp_b177 = {
 		add = 1.9922
 	}
 }
-# Scope: location
-bag_wtp_g177 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 800.7779
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wild_game } } }
-		add = 199.2221
-	}
-}
 
 # fishing_village / coastal_boatyard -> naval_supplies, output 0.5, ceiling 6.67% -> at best 0.5333
 # Scope: location
@@ -6803,14 +4663,6 @@ bag_wtp_b178 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 6.6667
-	}
-}
-# Scope: location
-bag_wtp_g178 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -6839,18 +4691,6 @@ bag_wtp_b179 = {
 		add = 1.5398
 	}
 }
-# Scope: location
-bag_wtp_g179 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 714.2233
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 285.7767
-	}
-}
 
 # naval_supplies_manufactory / naval_supplies_manufactory_maintenance -> naval_supplies, output 2, ceiling 6.36% -> at best 2.1273
 # Scope: location
@@ -6875,18 +4715,6 @@ bag_wtp_b180 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 3.6361
-	}
-}
-# Scope: location
-bag_wtp_g180 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 428.6736
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 571.3264
 	}
 }
 
@@ -6915,18 +4743,6 @@ bag_wtp_b181 = {
 		add = 3.8100
 	}
 }
-# Scope: location
-bag_wtp_g181 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 428.4998
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 571.5002
-	}
-}
 
 # naval_supplies_workshop / naval_supplies_workshop_maintenance -> naval_supplies, output 1.1, ceiling 4.58% -> at best 1.1504
 # Scope: location
@@ -6953,18 +4769,6 @@ bag_wtp_b182 = {
 		add = 1.2536
 	}
 }
-# Scope: location
-bag_wtp_g182 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 726.4986
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 273.5014
-	}
-}
 
 # paper_guild / paper_guild_cloth_maintenance -> paper, output 1, ceiling 1.66% -> at best 1.0166
 # Scope: location
@@ -6981,14 +4785,6 @@ bag_wtp_b183 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6636
-	}
-}
-# Scope: location
-bag_wtp_g183 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -7017,18 +4813,6 @@ bag_wtp_b184 = {
 		add = 2.4997
 	}
 }
-# Scope: location
-bag_wtp_g184 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 750.0281
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 249.9719
-	}
-}
 
 # paper_guild / paper_guild_leather_maintenance -> paper, output 0.5, ceiling 5.00% -> at best 0.5250
 # Scope: location
@@ -7045,14 +4829,6 @@ bag_wtp_b185 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 5.0000
-	}
-}
-# Scope: location
-bag_wtp_g185 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -7081,18 +4857,6 @@ bag_wtp_b186 = {
 		add = 1.6684
 	}
 }
-# Scope: location
-bag_wtp_g186 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 799.7562
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 200.2438
-	}
-}
 
 # paper_mill / paper_mill_maintenance -> paper, output 2, ceiling 9.09% -> at best 2.1818
 # Scope: location
@@ -7109,14 +4873,6 @@ bag_wtp_b187 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 9.0910
-	}
-}
-# Scope: location
-bag_wtp_g187 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
 	}
 }
 
@@ -7137,14 +4893,6 @@ bag_wtp_b188 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g188 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # paper_workshop / paper_workshop_cloth_maintenance -> paper, output 1.1, ceiling 1.82% -> at best 1.1200
 # Scope: location
@@ -7163,14 +4911,6 @@ bag_wtp_b189 = {
 		add = 1.8218
 	}
 }
-# Scope: location
-bag_wtp_g189 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # paper_workshop / paper_workshop_fiber_pulp_maintenance -> paper, output 1, ceiling 10.00% -> at best 1.1000
 # Scope: location
@@ -7187,14 +4927,6 @@ bag_wtp_b190 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g190 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
 	}
 }
 
@@ -7223,18 +4955,6 @@ bag_wtp_b191 = {
 		add = 1.6388
 	}
 }
-# Scope: location
-bag_wtp_g191 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 833.3867
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 166.6133
-	}
-}
 
 # porcelain_manufactory / porcelain_manufactory_maintenance -> porcelain, output 2, ceiling 9.47% -> at best 2.1895
 # Scope: location
@@ -7261,18 +4981,6 @@ bag_wtp_b192 = {
 		add = 1.0526
 	}
 }
-# Scope: location
-bag_wtp_g192 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 888.8869
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 111.1131
-	}
-}
 
 # fishing_village / rural_pottery_maker -> pottery, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -7291,14 +4999,6 @@ bag_wtp_b193 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g193 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 1000.0000
-	}
-}
 
 # market_village / rural_pottery_maker -> pottery, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -7315,14 +5015,6 @@ bag_wtp_b194 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g194 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 1000.0000
 	}
 }
 
@@ -7351,18 +5043,6 @@ bag_wtp_b195 = {
 		add = 1.0226
 	}
 }
-# Scope: location
-bag_wtp_g195 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 893.1495
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 106.8505
-	}
-}
 
 # pottery_manufactory / pottery_manufactory_maintenance -> pottery, output 1.5, ceiling 9.20% -> at best 1.6379
 # Scope: location
@@ -7387,18 +5067,6 @@ bag_wtp_b196 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.1962
-	}
-}
-# Scope: location
-bag_wtp_g196 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 869.9250
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 130.0750
 	}
 }
 
@@ -7427,18 +5095,6 @@ bag_wtp_b197 = {
 		add = 0.7827
 	}
 }
-# Scope: location
-bag_wtp_g197 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 918.5421
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 81.4579
-	}
-}
 
 # pottery_workshop / pottery_w_maintenance -> pottery, output 1.1, ceiling 9.56% -> at best 1.2052
 # Scope: location
@@ -7465,18 +5121,6 @@ bag_wtp_b198 = {
 		add = 0.8718
 	}
 }
-# Scope: location
-bag_wtp_g198 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 908.8427
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 91.1573
-	}
-}
 
 # salt_collector / salt_collector_maintenance -> salt, output 0.3, ceiling 10.00% -> at best 0.3300
 # Scope: location
@@ -7493,14 +5137,6 @@ bag_wtp_b199 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g199 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:clay } } }
-		add = 1000.0000
 	}
 }
 
@@ -7521,14 +5157,6 @@ bag_wtp_b200 = {
 		add = 6.4517
 	}
 }
-# Scope: location
-bag_wtp_g200 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 1000.0000
-	}
-}
 
 # putrefaction_works / putrefaction_demands -> saltpeter, output 2, ceiling 6.67% -> at best 2.1334
 # Scope: location
@@ -7545,14 +5173,6 @@ bag_wtp_b201 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
 		add = 6.6687
-	}
-}
-# Scope: location
-bag_wtp_g201 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 1000.0000
 	}
 }
 
@@ -7573,14 +5193,6 @@ bag_wtp_b202 = {
 		add = 8.3332
 	}
 }
-# Scope: location
-bag_wtp_g202 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 1000.0000
-	}
-}
 
 # saltpeter_workshop / saltpeter_workshop_demands -> saltpeter, output 1.1, ceiling 8.57% -> at best 1.1942
 # Scope: location
@@ -7599,14 +5211,6 @@ bag_wtp_b203 = {
 		add = 8.5668
 	}
 }
-# Scope: location
-bag_wtp_g203 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:livestock } } }
-		add = 1000.0000
-	}
-}
 
 # sand_pit / sand_pit_maintenance -> sand, output 1, ceiling 7.35% -> at best 1.0735
 # Scope: location
@@ -7623,14 +5227,6 @@ bag_wtp_b204 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 7.3516
-	}
-}
-# Scope: location
-bag_wtp_g204 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -7659,18 +5255,6 @@ bag_wtp_b205 = {
 		add = 5.8841
 	}
 }
-# Scope: location
-bag_wtp_g205 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 411.5854
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:marble } } }
-		add = 588.4146
-	}
-}
 
 # lucca_silk_production_guild / fiber_crops_silk_guild_maintenance -> silk, output 0.6, ceiling 10.00% -> at best 0.6600
 # Scope: location
@@ -7687,14 +5271,6 @@ bag_wtp_b206 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g206 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fiber_crops } } }
-		add = 1000.0000
 	}
 }
 
@@ -7723,18 +5299,6 @@ bag_wtp_b207 = {
 		add = 3.0300
 	}
 }
-# Scope: location
-bag_wtp_g207 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 500.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 500.0000
-	}
-}
 
 # slave_center / slave_center_maintenance -> slaves_goods, output 1, ceiling 3.33% -> at best 1.0333
 # Scope: location
@@ -7751,14 +5315,6 @@ bag_wtp_b208 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 3.3333
-	}
-}
-# Scope: location
-bag_wtp_g208 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 1000.0000
 	}
 }
 
@@ -7787,18 +5343,6 @@ bag_wtp_b209 = {
 		add = 5.0000
 	}
 }
-# Scope: location
-bag_wtp_g209 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 500.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 500.0000
-	}
-}
 
 # stone_quarry / crude_quarry_maintenance -> stone, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -7815,14 +5359,6 @@ bag_wtp_b210 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g210 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -7843,14 +5379,6 @@ bag_wtp_b211 = {
 		add = 3.7243
 	}
 }
-# Scope: location
-bag_wtp_g211 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # sugar_plantation / sugar_plantation_maintenance -> sugar, output 1, ceiling 2.00% -> at best 1.0200
 # Scope: location
@@ -7867,14 +5395,6 @@ bag_wtp_b212 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.0000
-	}
-}
-# Scope: location
-bag_wtp_g212 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -7895,14 +5415,6 @@ bag_wtp_b213 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g213 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # tobacco_plantation / tobacco_plantation_maintenance -> tobacco, output 1, ceiling 2.00% -> at best 1.0200
 # Scope: location
@@ -7921,14 +5433,6 @@ bag_wtp_b214 = {
 		add = 2.0000
 	}
 }
-# Scope: location
-bag_wtp_g214 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # forest_village / rural_blacksmith -> tools, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -7945,14 +5449,6 @@ bag_wtp_b215 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g215 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
 	}
 }
 
@@ -7981,18 +5477,6 @@ bag_wtp_b216 = {
 		add = 7.9999
 	}
 }
-# Scope: location
-bag_wtp_g216 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 200.0121
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 799.9879
-	}
-}
 
 # iron_mill / iron_mill_maintenance -> tools, output 4, ceiling 10.00% -> at best 4.4000
 # Scope: location
@@ -8019,18 +5503,6 @@ bag_wtp_b217 = {
 		add = 7.9980
 	}
 }
-# Scope: location
-bag_wtp_g217 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 200.1953
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 799.8047
-	}
-}
 
 # market_village / rural_blacksmith -> tools, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -8049,14 +5521,6 @@ bag_wtp_b218 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g218 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
-	}
-}
 
 # tatara / tamagahane_blacksmith -> tools, output 0.5, ceiling 10.00% -> at best 0.5500
 # Scope: location
@@ -8073,14 +5537,6 @@ bag_wtp_b219 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g219 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
 	}
 }
 
@@ -8109,18 +5565,6 @@ bag_wtp_b220 = {
 		add = 0.7407
 	}
 }
-# Scope: location
-bag_wtp_g220 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 925.9259
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:tin } } }
-		add = 74.0741
-	}
-}
 
 # tools_guild / copper_tools_guild_maintenance -> tools, output 0.55, ceiling 10.00% -> at best 0.6050
 # Scope: location
@@ -8137,14 +5581,6 @@ bag_wtp_b221 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g221 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:copper } } }
-		add = 1000.0000
 	}
 }
 
@@ -8165,14 +5601,6 @@ bag_wtp_b222 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g222 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
-	}
-}
 
 # tools_guild / stone_tools_guild_maintenance -> tools, output 0.25, ceiling 10.00% -> at best 0.2750
 # Scope: location
@@ -8189,14 +5617,6 @@ bag_wtp_b223 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g223 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 1000.0000
 	}
 }
 
@@ -8217,14 +5637,6 @@ bag_wtp_b224 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g224 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
-	}
-}
 
 # forest_village / rural_weaponmaker -> weaponry, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -8241,14 +5653,6 @@ bag_wtp_b225 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g225 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -8269,14 +5673,6 @@ bag_wtp_b226 = {
 		add = 10.0000
 	}
 }
-# Scope: location
-bag_wtp_g226 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
-	}
-}
 
 # tatara / tamagahane_bladesmith -> weaponry, output 0.2, ceiling 10.00% -> at best 0.2200
 # Scope: location
@@ -8293,14 +5689,6 @@ bag_wtp_b227 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
 		add = 10.0000
-	}
-}
-# Scope: location
-bag_wtp_g227 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 1000.0000
 	}
 }
 
@@ -8329,18 +5717,6 @@ bag_wtp_b228 = {
 		add = 1.8767
 	}
 }
-# Scope: location
-bag_wtp_g228 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 500.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 500.0000
-	}
-}
 
 # weapon_guild / pre_columbian_weapon_smith_maintenance -> weaponry, output 0.4, ceiling 10.00% -> at best 0.4400
 # Scope: location
@@ -8365,18 +5741,6 @@ bag_wtp_b229 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
 		add = 9.3463
-	}
-}
-# Scope: location
-bag_wtp_g229 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 65.3656
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 934.6344
 	}
 }
 
@@ -8413,22 +5777,6 @@ bag_wtp_b230 = {
 		add = 6.9415
 	}
 }
-# Scope: location
-bag_wtp_g230 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:gems } } }
-		add = 139.4303
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 166.4168
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:stone } } }
-		add = 694.1529
-	}
-}
 
 # weapon_guild / weapon_smith_maintenance -> weaponry, output 1, ceiling 5.24% -> at best 1.0524
 # Scope: location
@@ -8453,18 +5801,6 @@ bag_wtp_b231 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.3772
-	}
-}
-# Scope: location
-bag_wtp_g231 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 546.1746
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 453.8254
 	}
 }
 
@@ -8501,22 +5837,6 @@ bag_wtp_b232 = {
 		add = 2.7794
 	}
 }
-# Scope: location
-bag_wtp_g232 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 357.2804
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 285.4391
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 357.2804
-	}
-}
 
 # weapon_workshop / weapon_workshop_maintenance -> weaponry, output 1.1, ceiling 8.10% -> at best 1.1891
 # Scope: location
@@ -8551,22 +5871,6 @@ bag_wtp_b233 = {
 		add = 2.8586
 	}
 }
-# Scope: location
-bag_wtp_g233 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:coal } } }
-		add = 353.0041
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:iron } } }
-		add = 293.9919
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 353.0041
-	}
-}
 
 # eng_royal_forest / eng_royal_forest_maintenance -> wild_game, output 1, ceiling 6.67% -> at best 1.0667
 # Scope: location
@@ -8591,18 +5895,6 @@ bag_wtp_b234 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
 		add = 3.3333
-	}
-}
-# Scope: location
-bag_wtp_g234 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:horses } } }
-		add = 500.0000
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:wine } } }
-		add = 500.0000
 	}
 }
 
@@ -8631,18 +5923,6 @@ bag_wtp_b235 = {
 		add = 1.1190
 	}
 }
-# Scope: location
-bag_wtp_g235 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
-		add = 880.2441
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 119.7559
-	}
-}
 
 # winery / honey_winery_maintenance -> wine, output 1, ceiling 8.88% -> at best 1.0888
 # Scope: location
@@ -8667,18 +5947,6 @@ bag_wtp_b236 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 2.2182
-	}
-}
-# Scope: location
-bag_wtp_g236 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
-		add = 750.3374
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 249.6626
 	}
 }
 
@@ -8707,18 +5975,6 @@ bag_wtp_b237 = {
 		add = 8.2788
 	}
 }
-# Scope: location
-bag_wtp_g237 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 113.4806
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 886.5194
-	}
-}
 
 # winery_manufactory / fruit_winery_manufactory_maintenance -> wine, output 2, ceiling 9.20% -> at best 2.1840
 # Scope: location
@@ -8743,18 +5999,6 @@ bag_wtp_b238 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 1.6017
-	}
-}
-# Scope: location
-bag_wtp_g238 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:fruit } } }
-		add = 825.9327
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 174.0673
 	}
 }
 
@@ -8783,18 +6027,6 @@ bag_wtp_b239 = {
 		add = 2.4984
 	}
 }
-# Scope: location
-bag_wtp_g239 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:beeswax } } }
-		add = 714.3813
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 285.6187
-	}
-}
 
 # winery_manufactory / rice_winery_manufactory_maintenance -> wine, output 2, ceiling 9.20% -> at best 2.1840
 # Scope: location
@@ -8821,18 +6053,6 @@ bag_wtp_b240 = {
 		add = 7.5997
 	}
 }
-# Scope: location
-bag_wtp_g240 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 174.0673
-	}
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:rice } } }
-		add = 825.9327
-	}
-}
 
 # sheep_farms / sheep_farm_maintenance -> wool, output 0.5, ceiling 8.34% -> at best 0.5417
 # Scope: location
@@ -8849,14 +6069,6 @@ bag_wtp_b241 = {
 	if = {
 		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
 		add = 8.3361
-	}
-}
-# Scope: location
-bag_wtp_g241 = {
-	value = 0
-	if = {
-		limit = { province_definition = { any_location_in_province_definition = { raw_material = goods:lumber } } }
-		add = 1000.0000
 	}
 }
 
@@ -8997,16 +6209,6 @@ bag_wtp_ord1 = {
 		add = var:bag_wtp_pp1
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr1 = {
@@ -9047,16 +6249,6 @@ bag_wtp_ord2 = {
 		value = 1
 		add = var:bag_wtp_pp2
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9099,16 +6291,6 @@ bag_wtp_ord3 = {
 		add = var:bag_wtp_pp3
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr3 = {
@@ -9149,16 +6331,6 @@ bag_wtp_ord4 = {
 		value = 1
 		add = var:bag_wtp_pp4
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9201,16 +6373,6 @@ bag_wtp_ord5 = {
 		add = var:bag_wtp_pp5
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr5 = {
@@ -9251,16 +6413,6 @@ bag_wtp_ord6 = {
 		value = 1
 		add = var:bag_wtp_pp6
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9303,16 +6455,6 @@ bag_wtp_ord7 = {
 		add = var:bag_wtp_pp7
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr7 = {
@@ -9353,16 +6495,6 @@ bag_wtp_ord8 = {
 		value = 1
 		add = var:bag_wtp_pp8
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9405,16 +6537,6 @@ bag_wtp_ord9 = {
 		add = var:bag_wtp_pp9
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr9 = {
@@ -9455,16 +6577,6 @@ bag_wtp_ord10 = {
 		value = 1
 		add = var:bag_wtp_pp10
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9507,16 +6619,6 @@ bag_wtp_ord11 = {
 		add = var:bag_wtp_pp11
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr11 = {
@@ -9557,16 +6659,6 @@ bag_wtp_ord12 = {
 		value = 1
 		add = var:bag_wtp_pp12
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9609,16 +6701,6 @@ bag_wtp_ord13 = {
 		add = var:bag_wtp_pp13
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr13 = {
@@ -9659,16 +6741,6 @@ bag_wtp_ord14 = {
 		value = 1
 		add = var:bag_wtp_pp14
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9711,16 +6783,6 @@ bag_wtp_ord15 = {
 		add = var:bag_wtp_pp15
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr15 = {
@@ -9761,16 +6823,6 @@ bag_wtp_ord16 = {
 		value = 1
 		add = var:bag_wtp_pp16
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9813,16 +6865,6 @@ bag_wtp_ord17 = {
 		add = var:bag_wtp_pp17
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr17 = {
@@ -9863,16 +6905,6 @@ bag_wtp_ord18 = {
 		value = 1
 		add = var:bag_wtp_pp18
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9915,16 +6947,6 @@ bag_wtp_ord19 = {
 		add = var:bag_wtp_pp19
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr19 = {
@@ -9965,16 +6987,6 @@ bag_wtp_ord20 = {
 		value = 1
 		add = var:bag_wtp_pp20
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10017,16 +7029,6 @@ bag_wtp_ord21 = {
 		add = var:bag_wtp_pp21
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr21 = {
@@ -10067,16 +7069,6 @@ bag_wtp_ord22 = {
 		value = 1
 		add = var:bag_wtp_pp22
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10119,16 +7111,6 @@ bag_wtp_ord23 = {
 		add = var:bag_wtp_pp23
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr23 = {
@@ -10169,16 +7151,6 @@ bag_wtp_ord24 = {
 		value = 1
 		add = var:bag_wtp_pp24
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10221,16 +7193,6 @@ bag_wtp_ord25 = {
 		add = var:bag_wtp_pp25
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr25 = {
@@ -10271,16 +7233,6 @@ bag_wtp_ord26 = {
 		value = 1
 		add = var:bag_wtp_pp26
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10323,16 +7275,6 @@ bag_wtp_ord27 = {
 		add = var:bag_wtp_pp27
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr27 = {
@@ -10373,16 +7315,6 @@ bag_wtp_ord28 = {
 		value = 1
 		add = var:bag_wtp_pp28
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10425,16 +7357,6 @@ bag_wtp_ord29 = {
 		add = var:bag_wtp_pp29
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr29 = {
@@ -10475,16 +7397,6 @@ bag_wtp_ord30 = {
 		value = 1
 		add = var:bag_wtp_pp30
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10527,16 +7439,6 @@ bag_wtp_ord31 = {
 		add = var:bag_wtp_pp31
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr31 = {
@@ -10577,16 +7479,6 @@ bag_wtp_ord32 = {
 		value = 1
 		add = var:bag_wtp_pp32
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10629,16 +7521,6 @@ bag_wtp_ord33 = {
 		add = var:bag_wtp_pp33
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr33 = {
@@ -10679,16 +7561,6 @@ bag_wtp_ord34 = {
 		value = 1
 		add = var:bag_wtp_pp34
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10731,16 +7603,6 @@ bag_wtp_ord35 = {
 		add = var:bag_wtp_pp35
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr35 = {
@@ -10781,16 +7643,6 @@ bag_wtp_ord36 = {
 		value = 1
 		add = var:bag_wtp_pp36
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10833,16 +7685,6 @@ bag_wtp_ord37 = {
 		add = var:bag_wtp_pp37
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr37 = {
@@ -10883,16 +7725,6 @@ bag_wtp_ord38 = {
 		value = 1
 		add = var:bag_wtp_pp38
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10935,16 +7767,6 @@ bag_wtp_ord39 = {
 		add = var:bag_wtp_pp39
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr39 = {
@@ -10985,16 +7807,6 @@ bag_wtp_ord40 = {
 		value = 1
 		add = var:bag_wtp_pp40
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11037,16 +7849,6 @@ bag_wtp_ord41 = {
 		add = var:bag_wtp_pp41
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr41 = {
@@ -11087,16 +7889,6 @@ bag_wtp_ord42 = {
 		value = 1
 		add = var:bag_wtp_pp42
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11139,16 +7931,6 @@ bag_wtp_ord43 = {
 		add = var:bag_wtp_pp43
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr43 = {
@@ -11189,16 +7971,6 @@ bag_wtp_ord44 = {
 		value = 1
 		add = var:bag_wtp_pp44
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11241,16 +8013,6 @@ bag_wtp_ord45 = {
 		add = var:bag_wtp_pp45
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr45 = {
@@ -11291,16 +8053,6 @@ bag_wtp_ord46 = {
 		value = 1
 		add = var:bag_wtp_pp46
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11343,16 +8095,6 @@ bag_wtp_ord47 = {
 		add = var:bag_wtp_pp47
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr47 = {
@@ -11375,479 +8117,109 @@ bag_wtp_ordmax47 = {
 	}
 }
 
-# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk
 # Scope: location
 bag_wtp_rq1 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
-		add = 2000
-		add = var:bag_wtp_p29
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_18 = yes }
-		add = 2000
-		add = var:bag_wtp_p18
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven1
-		min = 1
-	}
+	add = var:bag_wtp_p29
+	add = var:bag_wtp_p30
+	add = var:bag_wtp_p18
 }
 
-# royal_artisan_rights: furniture, leather, pottery.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_artisan_rights: furniture, leather, pottery
 # Scope: location
 bag_wtp_rq2 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_32 = yes }
-		add = 2000
-		add = var:bag_wtp_p32
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_36 = yes }
-		add = 2000
-		add = var:bag_wtp_p36
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_42 = yes }
-		add = 2000
-		add = var:bag_wtp_p42
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven2
-		min = 1
-	}
+	add = var:bag_wtp_p32
+	add = var:bag_wtp_p36
+	add = var:bag_wtp_p42
 }
 
-# royal_book_rights: books, dyes, paper.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_book_rights: books, dyes, paper
 # Scope: location
 bag_wtp_rq3 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_27 = yes }
-		add = 2000
-		add = var:bag_wtp_p27
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
-		add = 2000
-		add = var:bag_wtp_p4
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_40 = yes }
-		add = 2000
-		add = var:bag_wtp_p40
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven3
-		min = 1
-	}
+	add = var:bag_wtp_p27
+	add = var:bag_wtp_p4
+	add = var:bag_wtp_p40
 }
 
-# royal_brewing_rights: beer, liquor, wine.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_brewing_rights: beer, liquor, wine
 # Scope: location
 bag_wtp_rq4 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_26 = yes }
-		add = 2000
-		add = var:bag_wtp_p26
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_37 = yes }
-		add = 2000
-		add = var:bag_wtp_p37
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_24 = yes }
-		add = 2000
-		add = var:bag_wtp_p24
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven4
-		min = 1
-	}
+	add = var:bag_wtp_p26
+	add = var:bag_wtp_p37
+	add = var:bag_wtp_p24
 }
 
-# royal_jewelry_rights: jewelry.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_jewelry_rights: jewelry
 # Scope: location
 bag_wtp_rq5 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_34 = yes }
-		add = 2000
-		add = var:bag_wtp_p34
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven5
-		min = 1
-	}
+	add = var:bag_wtp_p34
 }
 
-# royal_masonry_rights: glass, masonry.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_masonry_rights: glass, masonry
 # Scope: location
 bag_wtp_rq6 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_33 = yes }
-		add = 2000
-		add = var:bag_wtp_p33
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_38 = yes }
-		add = 2000
-		add = var:bag_wtp_p38
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven6
-		min = 1
-	}
+	add = var:bag_wtp_p33
+	add = var:bag_wtp_p38
 }
 
-# royal_naval_rights: naval_supplies, tar.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_naval_rights: naval_supplies, tar
 # Scope: location
 bag_wtp_rq7 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
-		add = 2000
-		add = var:bag_wtp_p39
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
-		add = 2000
-		add = var:bag_wtp_p45
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven7
-		min = 1
-	}
+	add = var:bag_wtp_p39
+	add = var:bag_wtp_p45
 }
 
-# royal_textile_rights: cloth, dyes, fine_cloth.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_textile_rights: cloth, dyes, fine_cloth
 # Scope: location
 bag_wtp_rq8 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
-		add = 2000
-		add = var:bag_wtp_p29
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
-		add = 2000
-		add = var:bag_wtp_p4
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven8
-		min = 1
-	}
+	add = var:bag_wtp_p29
+	add = var:bag_wtp_p4
+	add = var:bag_wtp_p30
 }
 
-# royal_tooling_rights: tools.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_tooling_rights: tools
 # Scope: location
 bag_wtp_rq9 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
-		add = 2000
-		add = var:bag_wtp_p46
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven9
-		min = 1
-	}
+	add = var:bag_wtp_p46
 }
 
-# royal_weaponry_rights: cannons, firearms, weaponry.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# royal_weaponry_rights: cannons, firearms, weaponry
 # Scope: location
 bag_wtp_rq10 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_28 = yes }
-		add = 2000
-		add = var:bag_wtp_p28
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_31 = yes }
-		add = 2000
-		add = var:bag_wtp_p31
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_47 = yes }
-		add = 2000
-		add = var:bag_wtp_p47
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven10
-		min = 1
-	}
+	add = var:bag_wtp_p28
+	add = var:bag_wtp_p31
+	add = var:bag_wtp_p47
 }
 
-# scandinavian_bergslag_privileges: tools.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# scandinavian_bergslag_privileges: tools
 # Scope: location
 bag_wtp_rq11 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
-		add = 2000
-		add = var:bag_wtp_p46
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven11
-		min = 1
-	}
+	add = var:bag_wtp_p46
 }
 
-# scandinavian_tar_privileges: naval_supplies, tar.
-#
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
-#
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# scandinavian_tar_privileges: naval_supplies, tar
 # Scope: location
 bag_wtp_rq12 = {
 	value = 0
-	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
-		add = 2000
-		add = var:bag_wtp_p39
-	}
-	else = { subtract = 1000 }
-	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
-		add = 2000
-		add = var:bag_wtp_p45
-	}
-	else = { subtract = 1000 }
-	divide = {
-		value = 1
-		add = global_var:bag_wtp_rgiven12
-		min = 1
-	}
+	add = var:bag_wtp_p39
+	add = var:bag_wtp_p45
 }
+
+# The divisor the plan normalizes by: the best this ground is worth to whatever
+# good is being harvested. A script value and not `divide = global_var:`, because
+# `divide` takes a script value for certain and the other form is only inferred.
+bag_wtp_plan_top_value = { value = global_var:bag_wtp_plan_top }
 
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
@@ -11903,6 +8275,7 @@ bag_wtp_show_plan_shown = { value = global_var:bag_wtp_plan_shown }
 bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
 bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
+bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
