@@ -343,6 +343,28 @@ PURGE_COA_SEARCH_COUNT = 100 # How many COA entries we will search through in a 
 Coats of arms get purged a hundred entries a frame. Widgets get no such
 treatment, and nothing exposes one.
 
+## What a `debug_log` string reaches, measured
+
+**2026-09-02, by a dump printing it.** All of it is what a mod may write into
+`debug.log` from an effect, and all of it was in doubt before the run.
+
+| written | comes out |
+| --- | --- |
+| `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('<sv>')|0]` | **the number.** This is the way to print anything |
+| a localization key as the whole message | **the key itself**, unresolved |
+| `[ROOT.GetName]`, `[SCOPE.GetName]` | **nothing** — «Could not find data system function 'GetName'», and the bracket is echoed |
+| `THIS.MakeScope` | **nothing** — «Failed to convert statement for argument '0' for call 'SetRoot'» |
+| `debug_log_scopes = no` | **the current scope, named**, on its own line: «Держава Валахия (WAL)», «Район Тырговиште (3574)». This is how a row says which location it is |
+| `error_log = "…"` | **the line lands in `error.log` and in `debug.log` both.** A message sent to both sinks therefore arrives in `debug.log` twice |
+
+**And square brackets in a `debug_log` string are data function syntax**, exactly
+as in a localization value (`CLAUDE.md` carries the rule and this is where it was
+paid for a second time): `given=[…]` printed a number, and `[glass, masonry]`
+next to it made the engine look for a data system function called `glass`, fail,
+and cut the rest of the line — `given=` arrived as a separate log entry. **Write
+a list in round brackets.** The same run turned `[cannons, firearms, weaponry]`
+into a rendered game-concept tooltip, which is the same fault wearing a hat.
+
 ## The debug toolbox
 
 `debug_mode` in the console, then a toolbox appears. As of 1.3.11:

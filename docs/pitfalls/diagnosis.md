@@ -132,6 +132,30 @@ takes every report in the file rather than the last.
 `bag_wtp_dv*`/`_dg*`, the `_f*` counters, the two `_pass*` counters in
 `_plan_allocate`, and one button.
 
+## And it worked: what one press answered
+
+**2026-09-02, the first press.** Four theories over four runs had not named the
+cause; one press of the finished instrument did, and the report is what settled
+it rather than any reasoning in this file.
+
+**The number that did it: a town-side method won on 3 of 17 town-side
+locations** — for glass, and for cloth, tools, pottery, jewelry, beer, leather,
+paper, weaponry and eleven more; while sand, masonry and fiber_crops won on all
+17. Fourteen of those «towns» take RGO buildings and refuse manufacturing, because
+they are villages the player ticked into towns and a guild is `town = yes`. **The
+tick moves a location to the plan's side of the ledger; it cannot move its rank in
+the game.** `SETTLED.md` has the row.
+
+**Twenty goods at once is why it is settled and one good was not.** The funnel's
+first shape asked about one good and could not have distinguished the market
+condition from the rank: only a line for *every* good shows sixteen goods with no
+market condition stopped in exactly the same fourteen places.
+
+**And the dump found two faults in itself**, which is the third time this file
+records the probe finding the fault in the probe: `[glass, masonry]` in a
+`debug_log` string is data-function syntax, and `error_log` writes into
+`debug.log` too, so every headline arrived twice. Both in `research/engine.md`.
+
 ## A reader that guesses a format loses the run it was built for
 
 **2026-09-02, the first press.** The mod's half worked on the first load — button,

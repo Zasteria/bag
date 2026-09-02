@@ -155,7 +155,7 @@ def pass_name(band: int, tier: object) -> str:
 # **A cap must never be silently the answer**, so every capped block prints how
 # many it left out. `docs/pitfalls/diagnosis.md` has the whole instrument and the
 # four things about `debug_log` that were measured rather than assumed.
-DIAG_VERSION = 3
+DIAG_VERSION = 4
 DIAG_LOCS = 60
 DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
@@ -3042,11 +3042,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 f"set_global_variable = {{ name = {MOD_ID}_dv{slot} value = 1 }} }}\n")
 
     def say(text: str, both: bool = False, tab: str = "\t") -> str:
-        """One line into the log. The headline goes to both sinks; detail to one.
+        """One line into the log, and **exactly one**.
 
-        A dump sent as `error.log` alone still says which build wrote it and what
-        the totals were, so a missing `debug.log` is never mistaken for a plan
-        that did nothing.
+        `error_log` writes into `debug.log` as well as `error.log` -- measured
+        2026-09-02, when every line marked "both sinks" arrived in the report
+        twice. So the detail goes to `debug_log` alone and `error.log` gets one
+        pointer, at the top, saying where the report is.
+
+        `both` is kept in the signature because a line worth duplicating may come
+        back; today nothing sets it.
         """
         line = f'{tab}debug_log = "WTP {text}"\n'
         if both:
@@ -3075,9 +3079,10 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                f"set_global_variable = {{ name = {MOD_ID}_diag_runs value = 0 }} }}\n")
     out.append(f"\tchange_global_variable = {{ name = {MOD_ID}_diag_runs add = 1 }}\n")
     out.append("\tdebug_log_date = yes\n")
-    out.append(say(f"==== BEGIN v{DIAG_VERSION} ==== everything below to the next END "
-                   "is one press. debug.log has it whole; error.log has the headline.",
-                   both=True))
+    out.append(f'\terror_log = "WTP the report is in debug.log, tag WTP, '
+               f'version {DIAG_VERSION}. mods.bat -> 8 takes it out."\n')
+    out.append(say(f"==== BEGIN v{DIAG_VERSION} ==== everything to the next END is one "
+                   "press. Take it out with mods.bat -> 8, or tools/diag.py."))
     out.append(f"""\t{MOD_ID}_diag_build = yes
 \t{MOD_ID}_diag_state = yes
 \t{MOD_ID}_diag_scan = yes
@@ -3087,7 +3092,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_diag_locations = yes
 \t{MOD_ID}_diag_ranking = yes
 """)
-    out.append(say(f"==== END v{DIAG_VERSION} ====", both=True))
+    out.append(say(f"==== END v{DIAG_VERSION} ===="))
     out.append("}\n")
 
     # ---------------------------------------------------------------- the build
@@ -3106,30 +3111,28 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     out.append(say(f"BUILD methods={len(rows)} rural={rural} goods={len(order)} "
                    f"raw={len(split['raw'])} made={len(split['made'])} "
-                   f"rights={len(rights)} gated={len(UNLOCKS)}", both=True))
+                   f"rights={len(rights)} gated={len(UNLOCKS)}"))
     out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
                    f"tiers={tiers} rows={PLAN_ROWS} result_rows={RESULT_ROWS} "
                    f"unfed_penalty={UNFED_PENALTY} right_fit={RIGHT_FIT} "
-                   f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}", both=True))
+                   f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
     out.append(say("BUILD passes in order: "
                    + ", ".join(f"{i}={pass_name(band, tier)}"
                                for i, (band, tier) in enumerate(PLAN_PASSES, start=1))))
-    # **The self-test, and it is here to be thrown away.** Three of these four
-    # are guesses about what a `debug_log` string resolves, and one run settles
-    # them for good -- which is cheaper than a session reasoning about it and
-    # cheaper than a run spent on a dump that printed brackets. Whatever the log
-    # says goes into `docs/research/engine.md` and the losers come out.
+    # **Two self-tests, and there were four.** The other two asked what else a
+    # `debug_log` string resolves, and the 2026-09-02 run answered both: a
+    # localization key comes out as the key, and `ROOT.GetName` / `SCOPE.GetName`
+    # do not exist ("Could not find data system function 'GetName'"). They are in
+    # `docs/research/engine.md` now and out of here. What is left is the canary --
+    # if this number is not 12345 nothing below it can be believed -- and the one
+    # that names the scope, which every row depends on.
     out.append(f"\tset_global_variable = {{ name = {MOD_ID}_dv1 value = 12345 }}\n")
     out.append(say(f"SELFTEST 1 global-through-player={read(1)} (expect 12345; "
-                   "anything else and every number below is wrong)", both=True))
-    out.append(say("SELFTEST 2 loc-key-as-message: " + MOD_ID + "_diag_selftest "
-                   "(expect the sentence that key holds, not the key)"))
-    out.append(say("SELFTEST 3 root-name=[ROOT.GetName] scope-name=[SCOPE.GetName] "
-                   "(expect the country twice, or two echoed brackets)"))
+                   "anything else and every number below is wrong)"))
     out.append("\tdebug_log_scopes = no\n")
-    out.append(say("SELFTEST 4 the line above this one should name the country "
-                   "-- that is debug_log_scopes, and it is how every row below "
-                   "says which location it is"))
+    out.append(say("SELFTEST 2 the line above this one names the country -- that is "
+                   "debug_log_scopes, and it is how every row below says which "
+                   "location it is"))
     out.append("}\n")
 
     # ---------------------------------------------------------------- the state
@@ -3152,7 +3155,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(park(slot, source, scope))
     out.append(say("PICK good=%s right=%s continents=%s regions=%s picked=%s "
                    "provinces_picked=%s candidates=%s runs=%s"
-                   % tuple(read(i) for i in range(1, 9)), both=True))
+                   % tuple(read(i) for i in range(1, 9))))
     for slot, (name, source) in enumerate((
             ("cap_rural", f"{MOD_ID}_plan_cap_rural"),
             ("cap_urban", f"{MOD_ID}_plan_cap_urban"),
@@ -3164,7 +3167,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(flag(7, f"has_global_variable = {MOD_ID}_only_buildable"))
     out.append(say("SET cap_rural=%s cap_urban=%s max_per_good=%s rights=%s "
                    "plan_by_end=%s rank_by_end=%s buildable_only=%s"
-                   % tuple(read(i) for i in range(1, 8)), both=True))
+                   % tuple(read(i) for i in range(1, 8))))
     for slot, source in enumerate((
             f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
@@ -3173,7 +3176,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(park(slot, source))
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
                    "goods_scored=%s quota=%s rights_given=%s sweeps=%s ranked_provs=%s"
-                   % tuple(read(i) for i in range(1, 12)), both=True))
+                   % tuple(read(i) for i in range(1, 12))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan
@@ -3199,6 +3202,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_diag_towns value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_freet value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_freer value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_realt value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_forced value = 0 }}
 """)
     for index in range(1, len(order) + 1):
         for side in ("t", "r"):
@@ -3210,6 +3215,19 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tif = {{
 \t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_towns add = 1 }}
+\t\t\t# **Городская сторона и городской ранг -- разные вещи.** Тумблер
+\t\t\t# «сделать городом» переносит локацию на городскую сторону расчёта,
+\t\t\t# но ранга в игре не меняет -- а гильдия объявлена `town = yes` и в
+\t\t\t# `rural_settlement` не встанет никогда. 2026-09-02 весь симптом
+\t\t\t# оказался в этом зазоре, и эти два числа его называют.
+\t\t\tif = {{
+\t\t\t\tlimit = {{ NOT = {{ location_rank = location_rank:rural_settlement }} }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_realt add = 1 }}
+\t\t\t}}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_force_town }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_forced add = 1 }}
+\t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban }}
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_freet add = 1 }}
@@ -3285,10 +3303,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_diag_free = {{
 """)
     for slot, source in enumerate((f"{MOD_ID}_diag_locs", f"{MOD_ID}_diag_towns",
-                                   f"{MOD_ID}_diag_freet", f"{MOD_ID}_diag_freer"), start=1):
+                                   f"{MOD_ID}_diag_freet", f"{MOD_ID}_diag_freer",
+                                   f"{MOD_ID}_diag_realt", f"{MOD_ID}_diag_forced"), start=1):
         out.append(park(slot, source))
-    out.append(say("ROOM walked=%s towns=%s towns_with_room=%s villages_with_room=%s"
-                   % tuple(read(i) for i in range(1, 5)), both=True))
+    out.append(say("ROOM walked=%s towns=%s towns_with_room=%s villages_with_room=%s "
+                   "| of those towns: town rank or above=%s, forced by the tick=%s "
+                   "-- a forced town takes no guild, whatever the plan scores there"
+                   % tuple(read(i) for i in range(1, 7))))
     out.append("}\n")
 
     for index, good in enumerate(order, start=1):
@@ -3363,9 +3384,14 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_diag_rights = {{
 """)
     for number, right in enumerate(rights, start=1):
+        # **Круглые скобки, не квадратные.** `[glass, masonry]` в строке -- это
+        # синтаксис data-функции: 2026-09-02 движок попытался вызвать функцию
+        # `glass`, не нашёл, и `given=` уехало отдельной записью лога. Правило
+        # записано в корневом CLAUDE.md, и оно про любую строку, а не только
+        # про локализацию.
         goods = ", ".join(sorted(right.output))
         out.append(park(1, f"{MOD_ID}_rgiven{number}"))
-        out.append(say(f"RIGHT {number} {right.key} [{goods}] given={read(1)}"))
+        out.append(say(f"RIGHT {number} {right.key} ({goods}) given={read(1)}"))
     out.append("}\n")
 
     # ------------------------------------------------------------ the locations
@@ -3389,9 +3415,19 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                          (5, f"{MOD_ID}_plan_prov_load")):
         out.append(park(slot, source, "var", tab="\t\t"))
     out.append(flag(6, f"{MOD_ID}_plan_is_town = yes", tab="\t\t"))
+    # **The gap the whole 2026-09-02 symptom lives in**, printed per row: which
+    # side the plan put this location on, what rank the *game* thinks it is, and
+    # whether the player's tick is what moved it. A guild is `town = yes` and
+    # will not stand in a `rural_settlement` however the plan scores it.
+    out.append(flag(7, "NOT = { location_rank = location_rank:rural_settlement }",
+                    tab="\t\t"))
+    out.append(flag(8, f"has_variable = {MOD_ID}_force_town", tab="\t\t"))
+    out.append(flag(9, f"has_variable = {MOD_ID}_force_rural", tab="\t\t"))
     out.append("\t\tdebug_log_scopes = no\n")
-    out.append(say(f"L rank={read(1)} town={read(6)} load={read(2)} right={read(3)} "
-                   f"prov_rank={read(4)} prov_load={read(5)}", tab="\t\t"))
+    out.append(say(f"L rank={read(1)} town={read(6)} town_rank={read(7)} "
+                   f"forced_town={read(8)} forced_village={read(9)} load={read(2)} "
+                   f"right={read(3)} prov_rank={read(4)} prov_load={read(5)}",
+                   tab="\t\t"))
     for good in order:
         out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
                    f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
@@ -3400,7 +3436,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(park(1, f"{MOD_ID}_diag_n"))
     out.append(park(2, f"{MOD_ID}_plan_found"))
     out.append(say(f"LOCS printed={read(1)} of={read(2)} cap={DIAG_LOCS} "
-                   "-- a cap is never silently the answer", both=True))
+                   "-- a cap is never silently the answer"))
     out.append("}\n")
 
     # -------------------------------------------------------------- the ranking
@@ -3430,7 +3466,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append("\t}\n")
     out.append(park(1, f"{MOD_ID}_diag_n"))
     out.append(park(2, f"{MOD_ID}_found"))
-    out.append(say(f"ROWS printed={read(1)} of={read(2)} cap={DIAG_ROWS}", both=True))
+    out.append(say(f"ROWS printed={read(1)} of={read(2)} cap={DIAG_ROWS}"))
     out.append("}\n")
     return "".join(out)
 

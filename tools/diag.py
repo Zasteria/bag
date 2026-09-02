@@ -50,7 +50,13 @@ def strip_prefix(line: str) -> str:
     целиком и не трогается.
     """
     at = line.find(TAG)
-    return line[at:].rstrip() if at >= 0 else line.rstrip()
+    if at >= 0:
+        return line[at:].rstrip()
+    # Строка движка: `[14:27:01][jomini_effect_impl.cpp:2531]: Район Тырговиште
+    # (3574)`. Нужна её вторая половина -- имя локации; всё до последней `]: `
+    # это отметка времени и файл движка, и читать их незачем.
+    mark = line.rfind("]: ")
+    return (line[mark + 3:] if mark >= 0 else line).rstrip()
 
 
 def documents() -> list[Path]:

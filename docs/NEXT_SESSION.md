@@ -46,35 +46,34 @@ runs settled are both in the last section of**
 [`investigations/plan_formula.md`](investigations/plan_formula.md) — read it
 before touching the plan.
 
-**The instrument is built; the job is one run and reading it.** «Диагностика» on
-the «Расчёт» tab writes everything the mod knows into `debug.log` in one press,
-and `mods.bat → 8` puts it in his clipboard. **The protocol, and what every
-branch of the answer means, are in `TESTLOG.md`, written down before the run** —
-read them there rather than theorising again: four of his runs went on four
-theories and none on a measurement
-([`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and what the
-dump prints).
+**The cause is named, and it is not the formula** (`TESTLOG.md` 2026-09-02,
+`SETTLED.md` has the row): **the «сделать городом» tick moves a location to the
+plan's town side and cannot move its rank in the game.** A guild is `town = yes`
+and will not stand in a `rural_settlement`, so a ticked village is scored as a
+town, granted a mandatory right, and then takes only RGO buildings — masonry and
+tar from the charter, never the glass. Fourteen «towns» of seventeen.
 
-**The symptom it is aimed at:** the plan will not put glass in a town and puts it
-in villages freely, and both recipes carry the identical `location_potential`, so
-the market gate is not what stops it. The `G` line for glass answers it — `r = 0`
-is a full ground, `g = 0` the one-per-type rule, `p = 0` with `g > 0` ours.
+**The next move is his decision, not a fix.** Three readings of the tick, and
+they lead to different mods: *«this is a village and I am telling the plan
+otherwise»* — then a right whose bundle the ground refuses should not be granted;
+*«I am going to raise this rank, plan for that»* — then a ticked town should be
+scored as having town rank, which means not asking `can_build_building` for the
+rank part, and it bundles rank, terrain and `location_potential` together;
+*«just show me»* — mark such a town and leave the plan alone. **Ask first.**
 
-**Do not propose a cause before that report is read**, and add no second
-counter: he asked for none until the mod works, and this one comes out with the
-fault it finds.
+**The instrument stays until the fault it found is fixed**
+([`pitfalls/diagnosis.md`](pitfalls/diagnosis.md)).
 
-**Three things he measured himself are open again**, because the fixes for them
-sat above the rollback and went out with it: a big ground does not finish (the
-round guard at 12 against the thirty sweeps the arithmetic needs), the province
-ceiling setting he asked to have removed, and «показано 150 локаций», which is
-the window's row cap and not the count. **They can be ported back on their own
-the moment he asks** — none of them is a theory about the symptom.
+**Three things he measured himself are open again**, the fixes for them having
+gone out with the rollback: a big ground does not finish (the round guard at 12
+against the thirty sweeps the arithmetic needs — on 44 locations it never bit,
+the worst pass used 7), the province ceiling setting he asked to have removed,
+and «показано 150 локаций», the window's row cap and not the count. **Portable
+back on their own the moment he asks**: none is a theory about the symptom.
 
-**Live besides:** the single-good side has faults he has already seen and set
-aside — he did not name them, so ask before guessing; and the hand weight, the
-food location and the caps at 3/4/5 are all his, in `plan_formula.md`'s own
-closing list.
+**Live besides:** the single-good side has faults he has seen and set aside
+without naming, so ask; the hand weight, the food location and the caps are his,
+in `plan_formula.md`'s closing list.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):
@@ -112,17 +111,15 @@ are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 ### Deliberately not done
 
-- **A thumbnail for the other five mods.**
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second goes out.
-- **Reviewing the ten new translations with somebody who speaks them.** A
-  correction goes in `languages.py`, never in a generated `.yml`.
+A thumbnail for the other five mods — `make_thumbnail.py` draws one when a second
+goes out — and reviewing the ten new translations with somebody who speaks them,
+where a correction goes in `languages.py` and never in a generated `.yml`.
 
 ## Also waiting on the owner, all of it cheap
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it. Entry 2 does **not** re-extract the
-  game.
+  rewritten copies. Entry 2 does **not** re-extract the game.
 - **The panel-open bisect — five minutes, no log to read**, protocol in
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
   that job outright.

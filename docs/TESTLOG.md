@@ -38,31 +38,60 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
-**2026-09-02 — `where_to_produce`, the first press of «Диагностика». The button
-works and the extractor threw the report away.** «Нажал "диагностика". Я думал
-откроется какое-то окно с информацией, которую я бы мог прочесть. mods.bat нажал,
-8 вариант нажал. Вроде появился такой файлик» — and the file was **0 bytes**.
+**2026-09-02 — `where_to_produce`, the diagnosis, first press. It named the cause
+and found two faults in itself.** «Нажал "диагностика"… вроде появился такой
+файлик» — the file was **0 bytes**; with the reader fixed the same press gave the
+whole report.
 
-- **The whole of the mod's half is proven by that empty file.** `tools/diag.py`
-  writes anything at all only after finding `WTP ==== BEGIN` in a log, and
-  nothing else in the world writes that string. So the CMF button registered,
-  the callback dispatched, `bag_wtp_diag` ran, and `debug_log` reached the log —
-  four things that had never been loaded.
-- **The fault was mine and it was in the reader.** `diag.py` cut the game's line
-  prefix with a regex written against a *guessed* shape,
-  `[16:04:22][effect.cpp:1234]: `; the real one does not match it, so no line
-  came out starting with `WTP`, and `fold` dropped every line it did not
-  recognise. Empty in, empty out, and no complaint. **Now it cuts at the `WTP`
-  we wrote ourselves rather than at a prefix it has to predict, keeps every line
-  it does not recognise behind a `~`, and refuses to write a file that lost more
-  than half of what the log held.**
-- **And the button gave no sign on screen.** He expected a window; the report is
-  too long for one and is not for him to read. Its own description now prints
-  what the last collect saw — presses, locations walked, towns, room left,
-  buildings placed — so the press is visible where he pressed it. `plan_placed`
-  at 0 there says «press «Считать план» first» without a log.
-- **Still unread:** everything inside the report, the self-test included. No new
-  game run is needed for it — the text is already in `debug.log`.
+- **The mod's half worked on the first load.** Button, CMF registration, callback,
+  `bag_wtp_diag` and `debug_log` — none of them had ever run. `SELFTEST 1` came
+  back `12345`, so every number below it is trustworthy.
+- **The empty file was the reader's fault**, and it is a rule now: `diag.py` cut
+  the game's line prefix with a regex written against a *guessed* shape, matched
+  nothing, and the fold dropped every line it did not recognise
+  (`pitfalls/diagnosis.md`).
+- **The ground: 44 locations, 17 on the town side, 27 villages, 6 provinces, and
+  it filled completely** — `placed=149 rooms=149`, no pass anywhere near the
+  12-sweep guard (the worst was 7).
+- **The cause of «no glass in towns», and it is one number.** A town-side method
+  won on **3 of the 17 town-side locations** — for glass, and for cloth, tools,
+  pottery, jewelry, beer, leather, paper, weaponry and eleven more. For the
+  RGO-side goods it won on all 17: sand 17, masonry 17, fiber_crops 17, horses 16,
+  tar 12. **Fourteen of those «towns» refuse manufacturing and accept only
+  RGO buildings** — which is exactly «в городах я вижу много селитры, глины и
+  прочего что можно добывать в сельских местностях».
+- **Why they refuse it:** `glass_guild` is `town = yes, city = yes,
+  megalopolis = yes` and `rural_glassmaker` is `rural_settlement = yes,
+  town = no`. The game has four ranks and `bag_wtp_plan_is_town` admits a
+  location either because the player ticked it or because its rank is not
+  `rural_settlement` — and any non-rural rank takes a guild. So those fourteen
+  are ticked villages. **The tick moves a location to the plan's town side and
+  cannot move its rank in the game.**
+- **The market gate is dead for good.** Both glass buildings carry the *identical*
+  `is_produced_in_location_market = goods:sand`, and the rural one stood in all 27
+  villages — so sand is in those markets. Twenty goods with no market condition at
+  all were stopped in the same fourteen places.
+- **The charter spam is the same fault one level up.** 17 rights for 17 towns:
+  `royal_masonry_rights` in **9**, `royal_naval_rights` in **5**. In a ticked town
+  masonry and tar can stand and glass and naval supplies cannot, so the bundle
+  comes out half-made every time — and the `L` lines show it: «Район Арджеш …
+  right=6 | clay, sand, masonry, tar».
+- **And glass would lose anyway in the three real towns**: its best ordering there
+  was `o=108` out of 1000, so it qualifies only in the last band, by which time
+  those three have spent their four slots each on their own granted right.
+- **Two faults in the dump, both fixed.** `[glass, masonry]` in a `debug_log`
+  string is data-function syntax — the engine looked for a function called
+  `glass`, failed, and cut `given=` onto a line of its own; round brackets now.
+  And `error_log` writes into `debug.log` as well, so every headline arrived
+  twice; one pointer in `error.log` now and the detail once.
+- **Both remaining self-tests answered, and two retired.** A localization key as a
+  `debug_log` message comes out as the key; `ROOT.GetName` and `SCOPE.GetName` do
+  not exist. `debug_log_scopes = no` names the scope and is what every row uses.
+  All of it in `research/engine.md`.
+- **The one thing inferred rather than measured** — that those fourteen are ticked
+  rather than some rank the mod does not know about — the next press prints
+  outright: `ROOM` now carries how many of the town side are of town rank and how
+  many the tick moved, and every `L` line carries `town_rank` and `forced_town`.
 
 **2026-09-02 — not a run: `where_to_produce` was rolled back to the build of the
 thirty-eighth load**, and the owner stopped the line. He picked that build by its
@@ -127,53 +156,6 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
 
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
-
-**`where_to_produce`, the diagnosis. One press, and it answers the whole
-question rather than a quarter of it.** Built 2026-09-02 and never loaded.
-
-**The protocol, walked as the person who has to do it:**
-
-1. `mods.bat → 4`, load the save;
-2. pick the ground the symptom is on — Westphalia, or the province he forced to
-   towns. Small is better: the report is the same either way and the plan is
-   quicker;
-3. press «Считать план» (either button — the report says which one it was);
-4. press «Диагностика», right below it on the same tab;
-5. `mods.bat → 8`. It finds the log, pulls the last report out and puts it in the
-   clipboard. Paste it into the chat.
-
-**Steps 1 to 4 were done on 2026-09-02 and step 5 is all that is left**, unless
-the game has been restarted since — `debug.log` is rewritten on launch, and then
-the whole protocol runs again.
-
-**What each branch means, written down before the run so that the reading is not
-a fifth theory:**
-
-- **`SELFTEST 1` is not 12345** — the dump itself is broken and nothing below it
-  can be believed. Nothing else in the report is worth reading.
-- **`ROOM walked=0`** — the plan never ran, or ran on nothing. Everything below
-  is zeros for that reason and not because the pass found nothing.
-- **glass `T … w>0 r=0`** — the towns filled up before glass was reached. Then
-  the question is what took the slots, and the `L` lines say it by name.
-- **glass `T … r>0 g=0`** — glass or a glass building is already in every town
-  that still has room. The one-building-per-type rule, and the `L` lines show
-  which building.
-- **glass `T … g>0 p=0`** — ours, and the same line names the three suspects:
-  `q` the quota, `ng` against the tier, `o` against the band. **`o` under 200 is
-  the most likely of the three and the cheapest to check** — it would mean glass
-  only ever competes in the last band, when the towns are already taken.
-- **`P<n> sweeps=12/12`** on a pass — the guard cut that pass off with work still
-  to do, which is the «не справился досчитать» of the thirty-eighth run.
-- **`RIGHT 6 … given=` a large number** — the charter spam, in one number, and
-  the `L` lines say whether the towns that took it got its goods.
-- **`SELFTEST 2/3/4`** are three guesses about what a `debug_log` string
-  resolves. Whatever they print goes into `docs/research/engine.md` and the
-  losers come out of the dump. They cost four lines and settle a question that
-  has already been guessed at twice.
-
-**Do not ask for a zip.** The report is text and the menu puts it in the
-clipboard; `debug.log` itself is not needed unless the report is missing
-entirely.
 
 **`where_to_produce`, twenty-eighth load.** Four small things and one question,
 all of it one glance with the results window open. Not worth a run of its own.

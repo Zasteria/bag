@@ -9,11 +9,12 @@ four tests the owner called «большой рывок». Everything built abov
 what is open here, and what those runs settled, is the last section of
 `plan_formula.md` below.
 
-**The one job is a run, not a cause.** «Диагностика» on the «Расчёт» tab writes
-everything the mod knows into `debug.log`, and `mods.bat → 8` puts it in the
-clipboard; the protocol and every branch of the answer are in `docs/TESTLOG.md`,
-written down before the run. Four theories were wrong on four runs
-(`docs/pitfalls/diagnosis.md`): read the report first.
+**The symptom is measured and the next move is his decision.** «Сделать городом»
+moves a location to the plan's town side and cannot move its rank in the game: a
+guild is `town = yes` and never stands in a ticked village, so the granted
+charter comes out half-made. `docs/SETTLED.md` has it and `docs/NEXT_SESSION.md`
+the three readings — **ask before building one**. «Диагностика» + `mods.bat → 8`
+is how the numbers come out.
 
 A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
 feeds, and the last age it can be built) and «В конце» — on two «Считать»
@@ -23,8 +24,7 @@ buttons.
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the
 bar is half the bonus it could ever earn (`generate.fed_floor`) — but **the plan
-must never use it as a gate**: every good the ground can produce has to be
-produced, fed or not. Nor is a recipe whose building cannot stand there:
+must never use it as a gate**. Nor is a recipe whose building cannot stand there:
 `can_build_building`, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
@@ -50,7 +50,7 @@ condition is a location variable — **a `province_definition` holds none**
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography
-tree of our own, empty twice. Picker caps: `docs/research/cmf.md`.
+tree of our own, empty twice.
 
 ## Settled, and not to be re-litigated
 
