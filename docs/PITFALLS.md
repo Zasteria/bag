@@ -17,7 +17,8 @@ searches like everything else:
 - [`pitfalls/interface.md`](pitfalls/interface.md) — windows that draw outside
   themselves, skins that do nothing, view objects that resolve nowhere.
 - [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) — how to find a fault that
-  logs nothing, and how to spend a run on it rather than a guess.
+  logs nothing, and how to spend a run on it rather than a guess. **Read it
+  before proposing a cause for anything**: the four-theories episode is there.
 - [`pitfalls/shipping.md`](pitfalls/shipping.md) — putting a mod out and getting
   it loaded: workshop tags, the app id, load order, `metadata.json`, and
   overriding somebody else's override.
@@ -214,6 +215,19 @@ can take the whole effect down on a new game. Guard it with
 colon in event target link" — the macro pastes it verbatim. Ordinals into
 `cmm_set_list_data_value` and friends have to be literals; generate a switch that
 turns a counter into one.
+
+## Never invent a name for something the game already names
+
+**2026-09-01.** A session called `royal_masonry_rights` «масонская хартия». The
+owner plays in Russian, saw a name that exists in no game of his, and reasonably
+asked why an invented right was displacing his glass. Nothing had been invented;
+the name had. His game calls it «Права на каменные и стекольные работы», and the
+key and its localization are each one grep away.
+
+**Name a rule, building, good or right by its key or by the string the game
+shows.** Never by a translation of the key, and never by a phrase invented to
+read more smoothly: the owner cannot check the code, so a name he cannot find
+costs him confidence in the whole report.
 
 ## Deciding what exists
 

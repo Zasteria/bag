@@ -32,47 +32,49 @@ the output of all three. If a mod still reads «отличается» after ins
 message names the folder to look at. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now.
 
-## `where_to_produce`: the whole-map plan
+## `where_to_produce`: the plan, and the one thing to do first
 
-**Everything before the plan is done and the owner is content with it** — the
-three ages on a row, the two «Считать» buttons, the four pickers including a
-whole market. The state is [`../mods/where_to_produce/CLAUDE.md`](../mods/where_to_produce/CLAUDE.md);
-one alignment question is open in `TESTLOG.md` and nothing else is.
+**Build the probe. Do not propose a cause.** The 2026-09-01 session spent four of
+the owner's runs on four theories about one symptom and fixed none of it;
+[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and `CLAUDE.md`
+the rule. The symptom is still open:
 
-**Do not ask him for logs unless something did nothing** — the rule and its
-exceptions are at the top of `TESTLOG.md`.
+> **The plan will not put glass in a town.** It puts it in villages freely.
+> `glass_guild` (town) and `rural_glassmaker` (village) carry the **identical**
+> `location_potential = { is_produced_in_location_market = goods:sand }`, so the
+> gate cannot be the cause — one condition is not true and false in one market.
+> The same shape shows for `royal_naval_rights`: the charter is granted, the tar
+> and naval supplies are not placed.
 
-**The whole-map plan is the job, and the next session's first move is
-[`investigations/plan_formula.md`](investigations/plan_formula.md) — not code.**
-The owner stopped the iterating himself on 2026-09-01, after six loads: «нам
-нужно сначала вывести точную и доходчивую формулу приоритетов и выгоды
-постройки производства, нежели вот так вот долбить всё туда-сюда». That file is
-the specification — what one building in one location is worth, what the ground
-can hold, and who claims it first — with four questions at the end that are his
-alone. **Put those four to him and settle them before touching the allocation.**
-[`investigations/whole_map_plan.md`](investigations/whole_map_plan.md) is how the
-thing is built; the formula is what it is for.
+**The probe: a funnel counter per stage, for one good the player picks** —
+`_avail_` said yes, then `can_build_building` in the location's scope, then a
+method won (`_pm<n>` not 0), then `_plan_can_town_<n>`, then placed. Whichever
+number collapses is the answer, and one run reads it.
+`cmm_register_list_data_field` is a per-good column if the window is the wrong
+place (`research/cmf.md`).
 
-**And he asked for no more counters until it works.**
+**Everything else about the plan waits on that.** The formula itself is derived
+and the owner is content with it — «большой рывок» — and
+[`investigations/plan_formula.md`](investigations/plan_formula.md) must be read
+before any of the allocation is changed.
 
-**Six loads in, and the thirty-third found the guard eating the plan**: one sweep
-counter shared by all six scarcity tiers, so the last tier — the one that fills
-the ground — never ran, and twenty-eight buildings landed in a hundred and
-forty-four places. Fixed, unloaded, and worth one press before any design work:
-it is the difference between «план почти пуст» and a plan.
+**The state before this session is commit `d8ee3cc`** (the merge of PR #48), kept
+at his request so nothing of the day's work is lost if a piece of it turns out to
+have broken something. **It is not a rollback target** — he said so; the findings
+are wanted, only the churn is suspect. A local tag `wtp-before-2026-09-01` was
+made and the proxy refused to push it, which is why the SHA is written here.
 
-Also unloaded: the `n/m` on a ranking row — how many of a province's locations
-can hold the winning building, his Sauerland question — and the plan's icons
-given room to breathe.
+**Live besides:**
 
-Not built on purpose: **the demand knob** — «я выбираю товар и щёлкаю +1» — which
-under the province model is a floor in provinces, one CMF numeric field and one
-round before the sweeps, held back only so the next screenshot stays readable;
-the RGO discount; regret ordering within a sweep; and choosing which goods to
-plan rather than all of them.
+- **the single-good side has faults he has already seen** and set aside. He did
+  not name them; ask before guessing;
+- **`town_right_efficiency_penalty` is one `grep` on his install** — the number
+  behind the discount on a right-holding town's spare slots;
+- **the hand weight, the food location, the caps at 3/4/5** — all his, all in
+  `plan_formula.md`'s own closing list.
 
-**Also open, and cheap:** one layout question, in `TESTLOG.md`. Everything else
-about `where_to_produce` is confirmed.
+**And he asked for no more counters until it works** — which the probe does not
+break, since it exists to make it work and comes out again after.
 
 **What is left besides is decisions, not runs**, and they are written up in
 [`investigations/town_rights.md`](investigations/town_rights.md):

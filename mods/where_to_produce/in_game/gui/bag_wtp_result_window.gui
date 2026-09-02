@@ -526,7 +526,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"
+				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
 				text = "bag_wtp_result_method2_value_rural"
 				tooltip = "bag_wtp_result_method_tt"
 			}
@@ -549,7 +549,7 @@ types BagWtpResultTypes {
 				align = left|vcenter
 				elide = right
 				fontsize = 12
-				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"
+				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
 				text = "bag_wtp_result_method2_value_end_rural"
 				tooltip = "bag_wtp_result_end_tt_rural"
 			}

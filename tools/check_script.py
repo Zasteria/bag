@@ -61,6 +61,35 @@ MOUNTS = ("in_game", "main_menu", "loading_screen")
 # call. `yes` is also how a hundred ordinary keys are written -- `always = yes`,
 # `is_ownable = yes` -- so a call only counts as unresolved when nothing in the
 # game, in `reference/`, or in the mod itself defines it.
+# A variable this mod writes, reads, or hands to CMF to write. **The game logs
+# the fault this catches** -- «Variable 'X' is used but is never set» -- but only
+# once the mod is loaded, and what it costs is a run: on 2026-09-01 a rename in
+# `where_to_produce`'s generator caught `set_variable` for the plan window's own
+# open flag along with the three it meant, and both plan buttons stopped opening
+# anything. Nothing else in the mod said a word.
+WRITTEN = (
+    # **`remove_variable` is not a write.** A variable only ever removed and read
+    # is precisely the fault: the rename that broke both plan buttons left the
+    # window's flag with a reader, a remover, and nobody to set it.
+    re.compile(r'(?:set|change)(?:_global)?_variable(?:_list)?\s*=\s*'
+               r'\{\s*name\s*=\s*(\w+)'),
+    re.compile(r'add_to(?:_global)?_variable_list\s*=\s*\{\s*name\s*=\s*(\w+)'),
+    # CMF owns these: a setting alias and a list it builds are written by the
+    # framework, and the mod only ever reads them back.
+    re.compile(r'(?:alias|list_name)\s*=\s*(\w+)'),
+)
+BEING_READ = re.compile(
+    r'(?:global_var|var):(\w+)'
+    r'|has(?:_global)?_variable\s*=\s*(\w+)'
+    r"|GetVariable\('(\w+)'\)"
+    r'|is_target_in(?:_global)?_variable_list\s*=\s*\{\s*name\s*=\s*(\w+)'
+    r'|(?<![\w])variable\s*=\s*(\w+)')
+
+# A read the mod knows can never be written, with the reason beside it. Put on
+# the line, the way `check_docs.py` takes `check-docs: ignore`.
+IGNORE_READ = "check-script: never set"
+
+
 DEFINITION = re.compile(r'^(\w+)\s*=\s*\{', re.M)
 CALL = re.compile(r'(?<![\w.:])(\w+)\s*=\s*yes\b')
 
@@ -115,6 +144,51 @@ def unresolved(root: Path, known: set[str]) -> list[str]:
     return found
 
 
+def unwritten(root: Path) -> list[str]:
+    """Variables this mod reads that nothing in it, and not CMF, ever writes.
+
+    The game says this itself once loaded, so the only thing bought here is the
+    run it would have cost. Scoped to the mod's own prefix: a variable belonging
+    to the base game or to another mod is that mod's to set.
+    """
+    written: set[str] = set()
+    ignored: set[str] = set()
+    read: dict[str, tuple[Path, int]] = {}
+    raw_lines: dict[Path, list[str]] = {}
+    # `PARSED` holds globs, not suffixes -- matching a suffix against them reads
+    # nothing at all and calls every mod clean, which is how this check first
+    # shipped and passed.
+    for path in sorted(root.rglob("*")):
+        if not any(path.match(g) for g in PARSED) or not set(path.parts) & set(MOUNTS):
+            continue
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        raw_lines[path] = text.splitlines()
+        text = "\n".join(l.split("#", 1)[0] for l in text.splitlines())
+        for pattern in WRITTEN:
+            written.update(pattern.findall(text))
+        for match in BEING_READ.finditer(text):
+            name = next(g for g in match.groups() if g)
+            line = text[:match.start()].count("\n") + 1
+            if IGNORE_READ in raw_lines[path][line - 1]:
+                ignored.add(name)
+                continue
+            read.setdefault(name, (path, line))
+    # A mod's own namespace is the prefix its files are named for -- `bag_wtp`
+    # from `bag_wtp_compute.txt`. Taken off the writes, so a mod that has not
+    # settled on one is simply not checked rather than checked wrongly.
+    prefixes = {n.rsplit("_", 1)[0] + "_" for n in written if n.count("_") >= 2}
+    if not prefixes:
+        return []
+    found = []
+    for name, (path, line) in sorted(read.items()):
+        if name in written or name in ignored or not name.startswith(tuple(prefixes)):
+            continue
+        found.append(f"{path.relative_to(REPO)}:{line}: `{name}` is read and "
+                     f"nothing sets it — the game logs this only once loaded, "
+                     f"and finding out that way costs a run")
+    return found
+
+
 def problems(root: Path) -> list[str]:
     found: list[str] = []
     for pattern in PARSED:
@@ -136,6 +210,26 @@ def problems(root: Path) -> list[str]:
                 found.append(f"{where}:{line}: a second byte order mark, in the "
                              f"text — the interface parser abandons the file "
                              f"and every type in it goes missing")
+
+            # **Braces, counted over the whole file, comments included.** Two
+            # faults on 2026-09-01 that nothing here caught: a generator's
+            # f-string nested one level too deep and shipped a literal `{{` into
+            # every line of an effect, and a comment quoting `divide = {` left
+            # the file one brace open. The engine ignores a brace in a comment
+            # and chokes on the other, and neither says which file in
+            # `error.log`, so both are cheaper to catch here.
+            body = "\n".join(l.split("#", 1)[0] for l in text.splitlines())
+            if "{{" in body or "}}" in body:
+                token = "{{" if "{{" in body else "}}"
+                line = body[:body.index(token)].count("\n") + 1
+                found.append(f"{where}:{line}: `{token}` in script — a "
+                             f"generator's f-string escaped one level too many, "
+                             f"and the engine reads the whole block as one key")
+            opened, closed = text.count("{"), text.count("}")
+            if opened != closed:
+                found.append(f"{where}: {opened} `{{` against {closed} `}}` — "
+                             f"count them in the comments too; a stray brace in "
+                             f"one is invisible to the engine and to a reader")
 
             if "scripted_triggers" not in path.parts:
                 continue
@@ -159,7 +253,7 @@ def main(argv: list[str]) -> int:
         if not root.is_dir():
             continue
         root = root if root.is_absolute() else REPO / root
-        found = problems(root) + unresolved(root, known)
+        found = problems(root) + unresolved(root, known) + unwritten(root)
         total += len(found)
         for line in found:
             print(line)

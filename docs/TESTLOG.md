@@ -38,181 +38,52 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
-**2026-09-01 — `where_to_produce`, thirty-third load. The sweep guard ate the
-plan, and the owner called a halt to iterating.** Three screenshots, Westphalia,
-caps 3/3, rights on; and the ranking checked separately on stone.
+**2026-09-01 — `where_to_produce`, Wallachia a third time, and the run that
+refuted every theory the session had.** Nothing was changed after it; the owner
+called a halt: «я заебался впустую делать прогоны».
 
-- **«Локаций 48 (городских 7) · провинций 8 · мест 144 · товаров 27 · прав
-  выдано 1 · зданий 28 в 20 локациях · лимиты 3/3 · кругов 12».** Twenty-eight
-  buildings out of a hundred and forty-four places, most locations holding one
-  thing, whole provinces cut short.
-- **«Кругов 12» is the diagnosis and it is in the line.** `PLAN_ROUNDS` is 12 and
-  the sweep counter was **one counter shared by all six scarcity tiers**, so the
-  scarce tiers spent the budget and the last tier — the one that fills the ground
-  — never ran. Each tier has its own budget now.
-- **The ranking's buildability gate works and is visibly right.** Stone in
-  Westphalia: the wholly flat province is gone, and Sauerland stayed with 3.72%.
-  **But Sauerland has seven locations and one of them is flat**, and the row said
-  nothing about that: «мне должно предлагаться конкретнее место». A row prints
-  `n/m` now — how many of the province's locations can hold the winning building
-  — counted for free off the winners the scoring pass already wrote.
-- **«Обошёл 48 · нашёл 1»** for stone across the whole of Westphalia. One
-  province. That is the gate being strict, and it is worth knowing whether it is
-  too strict before anything else is built on top of it.
-- **Only one urban right granted** (tools, in Münster). All-or-nothing plus
-  buildability is a hard filter and Westphalia is a poor ground for bundles, but
-  whether that is right or too strict is not settled.
-- **The picker says «48 лок. в 31 пров.» and the plan says «провинций 8».** They
-  count different things — the picker counts `province`, the owner-split piece,
-  and the plan counts `province_definition` — and neither label says so.
-- **The plan's icons ran together.** 26-wide cells at 2 spacing; 32 at 6 now.
-- **And the owner's instruction:** «Мне кажется нам нужно сначала вывести точную и
-  доходчивую формулу приоритетов и выгоды постройки производства, нежели вот так
-  вот долбить всё туда-сюда.» No more counters, no more rounds of guessing —
-  agree the formula first. It is written out in
-  [`investigations/plan_formula.md`](investigations/plan_formula.md) and that
-  document is the next session's first move.
+- **The charter spam survived every fix.** Tar and sand, tar and sand, down the
+  whole list, and neither `royal_masonry_rights` nor `royal_naval_rights` ever
+  getting its own goods.
+- **The one observation that kills the market theory.** `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and **glass appears in the
+  villages while never appearing in the towns.** One condition cannot be true and
+  false in the same market. So whatever stops town glass, it is not that gate —
+  and four sessions' worth of explanation went with it.
+- **He built a sand pit by hand and re-ran the plan: no change.** Expected — the
+  plan reads no state of its own here — but worth recording as a fact rather than
+  a guess.
+- **Nothing was concluded, deliberately.** The next move is a probe, not a fifth
+  theory. `pitfalls/diagnosis.md` has the episode and `CLAUDE.md` the rule that
+  came out of it.
+- **`can_build_building` stays.** His call: «не надо убирать то, из-за чего
+  работает другое… скорее всего проблема в чём-то другом.» It is what keeps a
+  stone quarry off flat ground.
 
-**2026-09-01 — `where_to_produce`, thirty-second load. The buildability gate
-holds, and the owner took the model apart one level further.** Two screenshots,
-Westphalia, 48 locations, caps 3/3.
+**2026-09-01 — `where_to_produce`, Wallachia again. The charter spam survived the
+scoring fix, and the owner struck out the rule underneath it.** «Убери вообще
+любое упоминание этого правила.»
 
-- **«Локаций 48 (городских 6) · провинций 8 · мест 144 · товаров 27 · записей 37
-  · зданий 140 в 48 локациях · кругов 4».** Goods fell 32 → 27 and buildings 148
-  → 140 with the gate in, and **no iron anywhere** — which is the gate working,
-  though he knows of a wetland province and wants to see it offered there.
-- **The building icons drew nothing.** `BuildingType.GetIcon` returns a `CString`
-  — a texticon, the same as `Goods.GetIcon` — so it belongs in `raw_text` and not
-  in an `icon`'s `texture`. Vanilla writes it that way in `alertmanager.gui`.
-- **`§Yгород§!` printed literally** in the override button, and its rank icon of
-  course never changed, being the game's. One word, no markup, and the game's
-  own rank icon moved out beside the location name.
-- **No urban right anywhere, all dashes.** Truthful under all-or-nothing —
-  Westphalia can make no whole bundle — but indistinguishable from a broken
-  feature, so the summary counts rights granted now.
-- **And the ranking beside the plan was cheating the same way.** «Каменоломню мне
-  выдало что отлично можно построить в провинции где полностью равнина, но там
-  есть дерево». `can_build_building` now gates every one of the ranking's
-  answers too, in all three ages.
-- **Two rules of the model were wrong, and he found both.**
-  **One:** uniqueness is per *location*, not per province — a market village
-  makes tools, jewelry, beer and pottery, so four villages of a province may take
-  one each rather than all taking pottery. The province lists are gone; the plan
-  decides per location and a province looks coherent only where it deserves to.
-  **Two:** a good only one place can hold must take that place before a common
-  good takes its second — «жёстко зарезервировать». The sweeps run in scarcity
-  tiers now (1, 2, 4, 8, 16, then everything), ordered by how many candidate
-  locations can host each good.
-- **He asked for the algorithm in plain words**, and it is on the «План» button's
-  own tooltip now, six steps.
-- No logs asked for and none needed.
-
-**2026-09-01 — `where_to_produce`, thirty-first load. The plan was planning
-things that cannot be built.** Three screenshots, Westphalia, 48 locations in 31
-provinces, caps 3/4, once without rights and once with.
-
-- **«Локаций 48 (городских 6) · провинций 8 · мест 150 · товаров 32 · записей в
-  списках 43 · зданий 148 в 48 локациях · кругов 4».** The building rule and the
-  rank-gate sides both hold — village lists are different buildings now.
-- **And the plan offered iron in East Westphalia, where iron has exactly one
-  building: `bog_iron_smelter`, whose `location_potential` is
-  `is_adjacent_to_lake` or `topography = wetlands`.** There are no wetlands
-  there. Plantations were on offer in Westphalia too, and `sugar_plantation`
-  wants the location to already grow sugar *and* be overseas or colonial.
-  **The plan never asked whether a building may stand where it is put** — the
-  ranking has that tick and the plan did not inherit it.
-- **The fix is one condition and the engine's own words justify it.**
-  `can_build_building` documents itself as "location only checks local
-  requirements, country checks the country scope requirements", so asked in the
-  location's scope it is terrain, rank and `location_potential` and never the
-  country's advances — which is exactly what a plan wants, and it is safe on the
-  end-of-game side too.
-- **A right was granted where its bundle does not fit.** Brewing rights (beer,
-  liquor, wine) landed on a province with no wine, and the ordinary sweeps filled
-  the third slot with horses and salt. His rule: **a right obliges every good of
-  its bundle to be made where it is granted**, so all or nothing. No two goods of
-  any bundle in the game share a town building, so the test is an exact AND of
-  the per-good conditions.
-- **The right was printed on village rows as well**, where a right never applies.
-- **The window's toolbar was 1272 wide inside 1130** — four 164-pixel picker
-  buttons, a 260 summary and two 150 buttons — which is the frame «уехала» he
-  saw at the top right, twice now.
-- **And the doubt underneath all of it:** «я начинаю сомневаться, что мод вообще
-  хоть как-то ранжирует». It does — `bag_wtp_m<n>` (output × RGO bonus) →
-  `_pnowbest_*` → `_p<g>` → `order_by` — and the fed floor is applied. It was
-  ranking correctly over a set of methods that included ones the ground cannot
-  hold, which reads exactly like not ranking at all.
-- No logs asked for and none needed.
-
-**2026-09-01 — `where_to_produce`, thirtieth load. The plan runs, and the owner
-found the model's real mistake in one province.** Two screenshots, 127 locations
-in 26 provinces, caps 3/4, rights on.
-
-- **«Локаций 127 (городских 8) · провинций 19 · мест 389 · товаров 30 · записей
-  в списках 75 · зданий 322 в 120 локациях · кругов 8».** The province model
-  works end to end: rows grouped by province, its towns first, and its locations
-  carrying the same list. The `province_definition` fix held.
-- **And the list is wrong, because its unit is wrong.** Székely Land's villages
-  each got tools, jewelry and beer — «по сути все три этих товара даёт одно и то
-  же здание „торговая деревня"». He is right: `market_village` makes all three,
-  **a location holds one building of a type and a building runs one method**, so
-  those three entries are one building's worth of answer and two wasted slots.
-  The plan's list is a list of **buildings** now, not of goods, and a good whose
-  winning building is already on the province's list is not an answer.
-- **The worse half of the same mistake, found by following it up.** The plan's
-  «village» side was `village_category` — four buildings in the whole game. But
-  **thirty production buildings declare `rural_settlement = yes`**, and the other
-  twenty-six are exactly what he said should have been there: stone quarries,
-  clay pits, lumber mills, masons, salt collectors, sand pits. The two sides are
-  split on the building's own rank gates now (`eu5data.Method.rural` / `.urban`),
-  which takes a rural location's choice from 4 buildings to 30 and from a
-  handful of goods to 31.
-- **19 provinces against 26 «выбрано»** is not yet explained. The picker counts
-  provinces its own way and the plan counts the ones it prepared; they should
-  agree, and one of them is wrong.
-- **What he could not read:** the town/village override. It was two glyphs drawn
-  over the corner of the rank icon — «просто на значке появились какие-то
-  символы». It is a labelled button in a column of its own now, saying
-  «авто / город / село» in words.
-- **Asked for besides:** «Пересчитать» inside the window, so a run happens when
-  he says so and not after every click; the urban right named on the row, not
-  merely implied by its goods; and the plan on two buttons like the ranking,
-  now and at the end of the game.
-- No logs asked for and none needed.
-
-**2026-09-01 — `where_to_produce`, twenty-ninth load. The province model placed
-nothing at all, and `error.log` carried not one line about it.** One screenshot,
-Wallachia and more, with logs.
-
-- **«Рассмотрено локаций: 127 · мест: 381 · товаров тут можно делать: 30 ·
-  зданий: 0 в 0 локациях · лимиты 3/3 · кругов: 1».** So the ground was
-  collected, the capacity counted, thirty goods scored and normalized — and then
-  every one of the 47 picks failed its `limit` in silence. The rights switch made
-  no difference and neither did the per-good ceiling, which places the fault
-  before either of them.
-- **The logs are clean.** Not one script error, trigger error or missing-variable
-  line from the pass. This is the failure `CLAUDE.md` names: an effect that
-  merely does nothing logs nothing.
-- **The cause, on the evidence: a `province_definition` will not hold a
-  variable.** The province's lists and their counters were kept on the
-  definition, and `var:bag_wtp_plan_town_n < …` was then read back in every
-  pick's `limit`. A definition is static map data; **nothing in vanilla and
-  nothing in any mod in `reference/` writes a variable to one**, and the mod's
-  own proven idiom has always been `every_location_in_province_definition`
-  instead. Everything the pass reads was moved onto the locations, mirrored
-  across the province.
-- **Not proven, and that is why the summary line grew.** It now reads locations,
-  towns among them, provinces, room, goods, list entries, buildings — left to
-  right, so the first zero names the step that failed without another zip.
-- **The other thing the log gave up:** «Value of wrong type in
-  `bag_wtp_show_found:0`», once a frame with the page open, because the
-  *ranking's* `bag_wtp_found` was never initialised on a fresh save. Fixed in
-  `bag_wtp_init_counters`.
-- **Asked for besides:** a hand switch to plan a location as a town, because the
-  game's rank is only what is true today; the map pickers in the plan window,
-  since choosing ground meant opening the other window and coming back; and a
-  better name for «не больше стольких провинций на товар», which read as «не
-  больше сельских».
+- **His rule, now the sharpest line in `investigations/plan_formula.md`:**
+  «Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
+  будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
+  только на ВЫБОР метода производства в конкретном домике.»
+- **Two rules removed under it.** The unfed divisor, which halved a recipe the
+  ground feeds nothing on top of a gain already zero — the same fact counted
+  twice. And the input substitution entirely, score *and* placement: where a
+  granted right's good could not stand, the slot had been going to the market
+  input that would unblock it. `generate.market_inputs` is gone with it.
+- **His stone quarry question, checked: it does earn a bonus.** Lumber is an RGO
+  and `crude_quarry_maintenance` tops out at 10%. **But seven recipes in the game
+  can never earn one at all** — `lumber_mill`, `slave_market`, `shoen` quarries
+  among them — and the divisor was punishing them for it twice over.
+- **What no rule of ours can change, and it must not be confused with the
+  above:** `can_build_building` is the *game* refusing a building. A glass guild
+  may not stand until sand is in the market. That is not the ground failing to
+  feed a recipe, and the plan cannot plan a building the game forbids — which is
+  why a right is scored on the bundle a town can actually finish.
+- **Unverified.** Whether the spam ends needs a run.
 
 ## Waiting on a run
 

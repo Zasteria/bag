@@ -10,38 +10,38 @@ materials the province works.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is not an answer** — the bar is half
-the bonus it could ever earn (`generate.fed_floor`). **And since the
-thirty-second load a recipe whose building cannot stand there is not one either**:
-`can_build_building` gates every answer the ranking gives, in all three ages.
+**A recipe the province mostly cannot feed is no answer to the ranking** — the
+bar is `generate.fed_floor`. **In the plan the raw materials choose the method
+and the location and decide nothing else**: never whether a building exists,
+never its place in the queue. Two rules were struck out under that and neither
+may come back — `plan_formula.md` names them. **`can_build_building` is a
+different thing: the game's own refusal.**
 
 **A building runs one method out of each of its slots** — eight have two, each
-earning its own bonus over its own output, so a `Method` is the pair
-(`eu5data.Method.shares`):
+earning its own bonus over its own output, so a `Method` is the pair:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
-no «По пути» column. A right's gate is its own `potential`, never `has_advance`.
+no «По пути» column. A right's gate is its own `potential`, never `has_advance`;
+in the plan every town gets one and its whole bundle goes up, bonus or not.
 Numbers and the deferred level rights:
 [`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
 
 **Four pickers**, and only what `interaction_source_list` holds is clickable
 (`docs/SETTLED.md`).
 
-**The whole-map plan is decided per location**, in six steps on its own button.
-**Read [`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
-before changing any of it** — the owner stopped the iterating on 2026-09-01 and
-that file is the specification he wants agreed first, with four questions only he
-can answer. **An entry is a building and a location holds
-one of each**; the next location may take that building on another method.
-**Every building is one `can_build_building` allows there** — terrain, rank,
-`location_potential`, never an advance. **The sides are the building's own rank
-gates**, not `village_category`. **A right is all or nothing**, and a town's.
-**The scarce go first**, in sweep tiers — each with its own budget, which one
-load spent for all six.
-Urban rights take a town list whole, chosen per province. Every condition is a
-location variable — **a `province_definition` holds none** (`docs/PITFALLS.md`).
-**The expensive button** — 241 recipes a location. All of it in
+**The plan is an optimisation with a covering constraint** — maximise the bonus
+captured, subject to every good the ground can produce being produced. **Read
+[`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+before changing any of it.** Two things to carry: the currency is **`gain =
+bonus ÷ that recipe's own ceiling`**, since a raw bonus does not compare across
+goods; and the ground is **dealt in descending bands of gain across every good
+at once**, which buys the opportunity cost for one comparison.
+**An entry is a building and a location holds one of each**; the next location
+may take that building on another method. **The sides are the building's own
+rank gates**, not `village_category`. Every condition is a location variable — **a
+`province_definition` holds none** (`docs/PITFALLS.md`). **The expensive
+button** — 241 recipes a location. How it is put together:
 [`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so

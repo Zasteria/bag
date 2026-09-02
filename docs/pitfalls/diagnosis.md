@@ -33,6 +33,78 @@ the silent classes — a missing localization key, an effect never called, a val
 never read. Two of the four faults in `goods_target` were identified from the
 logs plus `reference/` in one pass, without a further run.
 
+## Four theories, three fixes, and the cause still unknown
+
+**2026-09-01, and it is why `CLAUDE.md` now forbids guessing.** One symptom —
+`where_to_produce`'s plan would not put glass in a town — drew four explanations
+out of a session in a row, each stated with more confidence than it had earned:
+
+1. *the ground has no sand* → wrong; the owner's screenshots showed the game
+   offering him a glass guild;
+2. *`can_build_building` refuses it, so glass is impossible in Westphalia* →
+   wrong, and it went into `SETTLED.md` before he disproved it;
+3. *the charter is granted where the bundle cannot be finished* → real, but not
+   the cause; fixing it changed nothing;
+4. *sand is in the market but not **produced** there* → unfalsifiable from here,
+   and the same run refuted it: **`glass_guild` and `rural_glassmaker` carry the
+   identical gate, and glass appears in the villages while never appearing in the
+   towns.** One condition cannot be true and false in one market.
+
+Each theory cost a fix and a run. **The run is the scarce thing** — only the
+owner can make one — and none of the four spent one on finding out.
+
+**And the shape of the mistake is the same every time: a condition was read out
+of `reference/` and then treated as a fact about the ground.** The tree says what
+a condition *is*, never whether it *holds* — market contents, RGOs and buildings
+are save state, and nothing here can see them. A `location_potential` explains why
+a good *might* be missing; only a run says whether it is. Say which of the two
+you have.
+
+What should have been built after the first miss is a probe: a counter per stage
+of the funnel, for one good, reported on the window. Availability, then
+buildability, then a method won, then the placement gate, then placed. One run
+reads it and the cause has nowhere left to hide.
+
+## The funnel probe, and the protocol for it
+
+**Not built. This is what to build first when the plan does something and nobody
+can say why**, and it is written out here so the next session delivers it in a
+shape the owner can actually read — he asked, before the 2026-09-01 session
+closed, where he was supposed to look.
+
+**Where it lives: on the plan window's header line, nowhere else.** Not
+`error.log`, not a file, not the mod action log. He plays the game; the answer has
+to be on the screen he already has open, in one line he can screenshot. That is
+also why it must come out again once the fault is found — «он просил не добавлять
+больше счётчиков, пока не заработает».
+
+**What it counts.** One good, the one already selected on the Goods tab, over the
+candidates the plan is working: five numbers, each a subset of the one before.
+
+| # | the stage | what a zero here means |
+| --- | --- | --- |
+| 1 | the country has the building unlocked (`bag_wtp_avail_<m>`) | no advance for it yet — «Сейчас» cannot offer it and «В конце» can |
+| 2 | `can_build_building` says yes in the location's scope | terrain, rank or `location_potential` refuses it |
+| 3 | a method won — `bag_wtp_pm<n>` / `_prm<n>` is not 0 | the scoring pass dropped it after 1 and 2 both passed, which is ours |
+| 4 | `bag_wtp_plan_can_town_<n>` / `_can_rural_<n>` says yes | the cap, the one-building-per-type rule, or the good is already there |
+| 5 | placed | the bands, the quota or the tiers never gave it a turn |
+
+**Read left to right and stop at the first collapse.** 1 and 2 are the game's
+answer and nothing here can argue with them; 3, 4 and 5 are ours and each has a
+different owner in `generate.py`.
+
+**The protocol, walked as the person who has to do it:**
+
+1. install, load the save;
+2. pick the ground — an area is enough, and «городских» in the header should not
+   be zero if the question is about a town;
+3. tick the one good in question on the Goods tab;
+4. press «План»;
+5. screenshot the header line.
+
+That is one run and one screenshot, and it answers a question four theories could
+not.
+
 ## Working blind
 
 **Building a whole mod before loading it once is the expensive mistake, and it

@@ -48,6 +48,13 @@ for the reference tree and the rebuild loop,
   and takes the rest of its effect with it. One `step` instead of `step_value`
   cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
   after touching any CMM call.
+- **A cause you cannot name is not a cause. Do not guess it — measure it.**
+  Settled by the owner on 2026-09-01, after four theories in a row about one
+  symptom, three fixes built on them, and four of his runs spent: «гадать НИКОГДА
+  не нужно… делаем вещи для выяснения причины точно. Зонды, счётчики, проверки».
+  A run is the scarcest thing here, and a fix aimed at a guess spends one and
+  proves nothing. Build the probe first — a counter per stage, a `cmf_log`, a
+  number on the window — and let one run say where the thing actually breaks.
 - **Effects that merely do nothing log nothing.** `error.log` names the file and
   line for GUI and script failures; an effect that never runs is invisible. Add
   a `cmf_log` and have the player look, rather than guessing twice.
