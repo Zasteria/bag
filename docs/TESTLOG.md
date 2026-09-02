@@ -102,6 +102,49 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
 
+**`where_to_produce`, the diagnosis. One press, and it answers the whole
+question rather than a quarter of it.** Built 2026-09-02 and never loaded.
+
+**The protocol, walked as the person who has to do it:**
+
+1. `mods.bat → 4`, load the save;
+2. pick the ground the symptom is on — Westphalia, or the province he forced to
+   towns. Small is better: the report is the same either way and the plan is
+   quicker;
+3. press «Считать план» (either button — the report says which one it was);
+4. press «Диагностика», right below it on the same tab;
+5. `mods.bat → 8`. It finds the log, pulls the last report out and puts it in the
+   clipboard. Paste it into the chat.
+
+**What each branch means, written down before the run so that the reading is not
+a fifth theory:**
+
+- **`SELFTEST 1` is not 12345** — the dump itself is broken and nothing below it
+  can be believed. Nothing else in the report is worth reading.
+- **`ROOM walked=0`** — the plan never ran, or ran on nothing. Everything below
+  is zeros for that reason and not because the pass found nothing.
+- **glass `T … w>0 r=0`** — the towns filled up before glass was reached. Then
+  the question is what took the slots, and the `L` lines say it by name.
+- **glass `T … r>0 g=0`** — glass or a glass building is already in every town
+  that still has room. The one-building-per-type rule, and the `L` lines show
+  which building.
+- **glass `T … g>0 p=0`** — ours, and the same line names the three suspects:
+  `q` the quota, `ng` against the tier, `o` against the band. **`o` under 200 is
+  the most likely of the three and the cheapest to check** — it would mean glass
+  only ever competes in the last band, when the towns are already taken.
+- **`P<n> sweeps=12/12`** on a pass — the guard cut that pass off with work still
+  to do, which is the «не справился досчитать» of the thirty-eighth run.
+- **`RIGHT 6 … given=` a large number** — the charter spam, in one number, and
+  the `L` lines say whether the towns that took it got its goods.
+- **`SELFTEST 2/3/4`** are three guesses about what a `debug_log` string
+  resolves. Whatever they print goes into `docs/research/engine.md` and the
+  losers come out of the dump. They cost four lines and settle a question that
+  has already been guessed at twice.
+
+**Do not ask for a zip.** The report is text and the menu puts it in the
+clipboard; `debug.log` itself is not needed unless the report is missing
+entirely.
+
 **`where_to_produce`, twenty-eighth load.** Four small things and one question,
 all of it one glance with the results window open. Not worth a run of its own.
 

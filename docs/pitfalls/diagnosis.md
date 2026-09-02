@@ -65,45 +65,104 @@ of the funnel, for one good, reported on the window. Availability, then
 buildability, then a method won, then the placement gate, then placed. One run
 reads it and the cause has nowhere left to hide.
 
-## The funnel probe, and the protocol for it
+## «Диагностика»: one press, everything, as text
 
-**Not built. This is what to build first when the plan does something and nobody
-can say why**, and it is written out here so the next session delivers it in a
-shape the owner can actually read — he asked, before the 2026-09-01 session
-closed, where he was supposed to look.
+**Built 2026-09-02.** The owner asked for it in as many words — «сделай какой-то
+нормальный инструмент в моде, который будет отслеживать всё что можно
+отслеживать… чтобы я мог его тебе показать или скопировать от него какой-то лог —
+и ты сразу всё понимал "ОТ" и "ДО"» — after four runs went on four theories and
+none on a measurement.
 
-**Where it lives: on the plan window's header line, nowhere else.** Not
-`error.log`, not a file, not the mod action log. He plays the game; the answer has
-to be on the screen he already has open, in one line he can screenshot. That is
-also why it must come out again once the fault is found — «он просил не добавлять
-больше счётчиков, пока не заработает».
+**A log and not a window, and that was measured rather than assumed.** The first
+try was four columns beside the goods list; they came back saying glass stopped
+at the placement stage in towns and could not say *in how many* towns, because a
+column has one cell and the ladder had eaten the count. A screenshot has the same
+problem one layer up. **Text has no width**, so every counter prints uncompressed
+and no reading is ambiguous twice.
 
-**What it counts.** One good, the one already selected on the Goods tab, over the
-candidates the plan is working: five numbers, each a subset of the one before.
+**And at the scale of the thing measured.** The first funnel asked the owner to
+tick one good; his answer settles it for anything built here later: «эта проблема
+— в плане расчётов по земле, где раскидываются ВСЕ товары, а не выбирается
+конкретный». A per-good instrument cannot diagnose an all-goods pass, and the
+symptom *is* the interaction between goods.
 
-| # | the stage | what a zero here means |
-| --- | --- | --- |
-| 1 | the country has the building unlocked (`bag_wtp_avail_<m>`) | no advance for it yet — «Сейчас» cannot offer it and «В конце» can |
-| 2 | `can_build_building` says yes in the location's scope | terrain, rank or `location_potential` refuses it |
-| 3 | a method won — `bag_wtp_pm<n>` / `_prm<n>` is not 0 | the scoring pass dropped it after 1 and 2 both passed, which is ours |
-| 4 | `bag_wtp_plan_can_town_<n>` / `_can_rural_<n>` says yes | the cap, the one-building-per-type rule, or the good is already there |
-| 5 | placed | the bands, the quota or the tiers never gave it a turn |
+**Where it is:** the «Диагностика» button, Mod Menu → «Расчёт», beside «Показать
+план». **It costs the plan nothing**: every counter except the per-pass pair is
+read back afterwards off what the plan parked on the locations, so the expensive
+button stays exactly as expensive as it was. **It reads state and writes none**,
+so it is safe at any moment — pressed before a plan it prints zeros throughout,
+which is itself the answer to «did the pass run at all».
 
-**Read left to right and stop at the first collapse.** 1 and 2 are the game's
-answer and nothing here can argue with them; 3, 4 and 5 are ours and each has a
-different owner in `generate.py`.
+**What it prints**, between `WTP ==== BEGIN` and `WTP ==== END`:
 
-**The protocol, walked as the person who has to do it:**
+| block | what is in it |
+| --- | --- |
+| `BUILD` | the generator's own constants — methods, goods, rights, rounds, bands, tiers, and the 32 passes in order |
+| `SELFTEST` | four lines that prove the dump itself, below |
+| `PICK` / `SET` / `PASS` | everything chosen, both caps, which question was asked, and the totals the header line shows |
+| `G<n>` | **one line per good, town and village apart**: `m` methods, `a` unlocked, `w` a method won, `r` of those with room left, `g` the gate would still open, `p` placed, `o` the best ordering it ever had — plus `ng`, the quota, the placements and the RGOs |
+| `ROOM` | how many towns and villages still had room when the plan stopped |
+| `P<n>` | what each of the 32 allocation passes did: sweeps used out of the guard, and the running total after it |
+| `RIGHT <k>` | how many towns each urban right was granted in, and what it grants |
+| `L` | one line per location, best first, with what was put in it — a good to a line, folded back into one line by `tools/diag.py` |
+| `R` | the single-good ranking's own rows, for the case where the plan is right and the table it is read against is not |
 
-1. install, load the save;
-2. pick the ground — an area is enough, and «городских» in the header should not
-   be zero if the question is about a town;
-3. tick the one good in question on the Goods tab;
-4. press «План»;
-5. screenshot the header line.
+**Reading a `G` line: the first zero left to right is the stage**, and the number
+before it is how many locations got that far — the thing a column could not
+carry. Three readings have different owners:
 
-That is one run and one screenshot, and it answers a question four theories could
-not.
+- `w > 0`, `r = 0` — **the ground filled up**. Not a fault in itself.
+- `w > 0`, `r > 0`, `g = 0` — the good, or its building, **is already in every
+  place that still has room**. That is the one-per-type rule, and whether it is
+  right is a design question.
+- `g > 0`, `p = 0` — **the allocator never gave it a turn.** Ours, and the three
+  suspects are named on the same line: `q` the quota, `ng` against the tier the
+  pass admits, and `o` against the band — a good whose `o` never reaches 200 has
+  only the last band, by which time the towns are taken.
+
+**Both caps print what they left out**, so a cap is never silently the answer.
+
+**How the text gets out of the game:** `mods.bat → 8`, or
+`python3 tools/diag.py`. It finds the game's `logs`, takes the last report,
+strips the log prefixes, folds each location's goods back onto its own line and
+copies the result to the clipboard. `--raw` keeps the log's own shape; `--all`
+takes every report in the file rather than the last.
+
+**It comes out with the fault it finds.** The whole of it is `bag_wtp_diag*`,
+`bag_wtp_dv*`/`_dg*`, the `_f*` counters, the two `_pass*` counters in
+`_plan_allocate`, and one button.
+
+## What a `debug_log` string can and cannot reach
+
+**Measured 2026-09-02, by a dump failing.** Three presses produced 632 `WTP`
+lines in `debug.log` and 306 in `error.log`, every number in them zero. All four
+of these shape the file that is built now.
+
+- **`debug_log` writes on a normal build.** Construction Manager guards its own
+  behind `debug_only`; that is their choice, not a requirement. `error_log`
+  lands too, which is why the headline goes to both sinks and the detail to one.
+- **A global is reachable**:
+  `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('<sv>')|0]` resolves inside
+  a `debug_log` string exactly as it does in a localization.
+- **The item a walk is standing on is not reachable at all.** `THIS.MakeScope`
+  gives «Failed to convert statement for argument '0' for call 'SetRoot'», once
+  per reader per row, and the bracket is echoed literally into the log. **Park a
+  per-row number in a scratch global and print that**; `debug_log_scopes = no`
+  logs the current scope, which is what names the row.
+- **And one script-value form reads zero in silence.** `value = 0` with
+  `if = { limit = { has_global_variable = x } add = global_var:x }` returned 0
+  for every reader, with nothing in any log — on a plan that had just placed 417
+  buildings. **`value = global_var:x` is the form that prints real numbers**, and
+  a guard belongs in the effect, where `if` demonstrably works.
+
+**There is no clipboard.** The whole copy surface the engine exposes is
+`LobbyView.CopyServerID` and `ChildItem.CopyDnaToClipboard`, neither taking a
+string — checked against the game's own `data_types_gui.txt`. Text leaves the
+game through the log, which is why `tools/diag.py` exists.
+
+**The lesson under all of it is the one this file already carries**: the probe
+found the fault in the probe. A dump that had only been reasoned about would have
+been believed.
 
 ## Working blind
 

@@ -11408,6 +11408,29 @@ bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
 bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
 bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 
+# The diagnosis reads through these sixteen and nothing else. **`value =
+# global_var:x` and no guard inside the value**: the self-guarding form, `value =
+# 0` with an `if` adding the global, returned zero for every reader on a plan
+# that had just placed 417 buildings, and said nothing in any log. The guard is
+# an `if` in the effect that fills the scratch global instead.
+bag_wtp_dg1 = { value = global_var:bag_wtp_dv1 }
+bag_wtp_dg2 = { value = global_var:bag_wtp_dv2 }
+bag_wtp_dg3 = { value = global_var:bag_wtp_dv3 }
+bag_wtp_dg4 = { value = global_var:bag_wtp_dv4 }
+bag_wtp_dg5 = { value = global_var:bag_wtp_dv5 }
+bag_wtp_dg6 = { value = global_var:bag_wtp_dv6 }
+bag_wtp_dg7 = { value = global_var:bag_wtp_dv7 }
+bag_wtp_dg8 = { value = global_var:bag_wtp_dv8 }
+bag_wtp_dg9 = { value = global_var:bag_wtp_dv9 }
+bag_wtp_dg10 = { value = global_var:bag_wtp_dv10 }
+bag_wtp_dg11 = { value = global_var:bag_wtp_dv11 }
+bag_wtp_dg12 = { value = global_var:bag_wtp_dv12 }
+bag_wtp_dg13 = { value = global_var:bag_wtp_dv13 }
+bag_wtp_dg14 = { value = global_var:bag_wtp_dv14 }
+bag_wtp_dg15 = { value = global_var:bag_wtp_dv15 }
+bag_wtp_dg16 = { value = global_var:bag_wtp_dv16 }
+
+
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.

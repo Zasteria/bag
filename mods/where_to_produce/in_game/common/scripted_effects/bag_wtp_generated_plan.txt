@@ -209,6 +209,70 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_rgiven10 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven11 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven12 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw1 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl1 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw2 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl2 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw3 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl3 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw4 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl4 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw5 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl5 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw6 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl6 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw7 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl7 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw8 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl8 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw9 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl9 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw10 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl10 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw11 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl11 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw12 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl12 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw13 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl13 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw14 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl14 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw15 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl15 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw16 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl16 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw17 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl17 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw18 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl18 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw19 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl19 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw20 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl20 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw21 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl21 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw22 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl22 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw23 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl23 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw24 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl24 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw25 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl25 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw26 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl26 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw27 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl27 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw28 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl28 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw29 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl29 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw30 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl30 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw31 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl31 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw32 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl32 value = 0 }
 
 	# Every candidate made ready. **Every counter a `limit` reads has to exist
 	# before the first round**: a comparison against a variable that is not there
@@ -9155,6 +9219,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw1 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl1 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -9225,6 +9294,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw2 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl2 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -9295,6 +9369,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw3 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl3 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -9365,6 +9444,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw4 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl4 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -9435,6 +9519,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw5 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl5 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -9505,6 +9594,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw6 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl6 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
@@ -9575,6 +9669,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw7 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl7 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -9645,6 +9744,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw8 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl8 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -9715,6 +9819,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw9 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl9 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -9785,6 +9894,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw10 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl10 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -9855,6 +9969,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw11 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl11 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -9925,6 +10044,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw12 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl12 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
@@ -9995,6 +10119,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw13 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl13 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -10065,6 +10194,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw14 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl14 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -10135,6 +10269,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw15 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl15 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -10205,6 +10344,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw16 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl16 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -10275,6 +10419,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw17 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl17 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -10345,6 +10494,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw18 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl18 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
@@ -10415,6 +10569,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw19 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl19 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -10485,6 +10644,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw20 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl20 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -10555,6 +10719,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw21 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl21 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -10625,6 +10794,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw22 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl22 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -10695,6 +10869,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw23 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl23 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -10765,6 +10944,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw24 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl24 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
@@ -10835,6 +11019,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw25 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl25 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -10905,6 +11094,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw26 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl26 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -10975,6 +11169,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw27 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl27 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -11045,6 +11244,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw28 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl28 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -11115,6 +11319,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw29 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl29 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11185,6 +11394,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw30 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl30 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 1 }
 	# **Every good the ground can produce is produced.** The owner's first
@@ -11261,6 +11475,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw31 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl31 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11378,6 +11597,11 @@ bag_wtp_plan_allocate = {
 			set_global_variable = { name = bag_wtp_plan_go value = 0 }
 		}
 	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 12 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw32 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl32 value = global_var:bag_wtp_plan_placed }
 }
 
 # clay takes the one location each side of it suits best, or neither.

@@ -135,6 +135,36 @@ OPEN_TIER = object()
 # at any gain, into any free slot. It is not a tier and not a band.
 COVER_TIER = object()
 
+# **The allocator's passes in order, and the one list both it and the dump read.**
+# The bands wrap the scarcity tiers; then coverage, then the open pass. Written
+# out here rather than built twice, because the dump numbers a pass by its place
+# in this list and a diagnosis that names the wrong pass is worse than none.
+PLAN_PASSES = ([(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
+               + [(0, COVER_TIER), (0, OPEN_TIER)])
+
+
+def pass_name(band: int, tier: object) -> str:
+    """How a pass is written in the dump: the band it admits and the tier it is."""
+    if tier is COVER_TIER:
+        return "cover"
+    if tier is OPEN_TIER:
+        return "open"
+    return f"band{band}/tier{tier if tier else 'all'}"
+
+# The diagnostic dump: what one press writes into the log, and the caps on it.
+# **A cap must never be silently the answer**, so every capped block prints how
+# many it left out. `docs/pitfalls/diagnosis.md` has the whole instrument and the
+# four things about `debug_log` that were measured rather than assumed.
+DIAG_VERSION = 3
+DIAG_LOCS = 60
+DIAG_ROWS = 25
+# The scratch globals a printed line reads through. **A `debug_log` string cannot
+# reach the item a walk is standing on** -- measured 2026-09-02, `THIS.MakeScope`
+# fails and the bracket is echoed literally -- so every number is parked in one of
+# these first and printed from there. Sixteen because the widest line, a good's,
+# has sixteen numbers on it.
+DIAG_SCRATCH = 16
+
 # The land continents, in the order the game's own localization lists them. The
 # ocean continent is not offered: nothing is built there.
 CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
@@ -160,6 +190,7 @@ RIGHTS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rights.txt
 PLAN_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_plan.txt"
 PLAN_TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_plan_triggers.txt"
 PLAN_LOC_OUT = MOD / "in_game/common/customizable_localization/bag_wtp_generated_plan_loc.txt"
+DIAG_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_diag.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -1071,6 +1102,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_browse = {{ value = global_var:{MOD_ID}_browse_count }}
 {MOD_ID}_show_live = {{ value = global_var:{MOD_ID}_live_runs }}
 
+# The diagnosis reads through these sixteen and nothing else. **`value =
+# global_var:x` and no guard inside the value**: the self-guarding form, `value =
+# 0` with an `if` adding the global, returned zero for every reader on a plan
+# that had just placed 417 buildings, and said nothing in any log. The guard is
+# an `if` in the effect that fills the scratch global instead.
+""" + "".join(f"{MOD_ID}_dg{i} = {{ value = global_var:{MOD_ID}_dv{i} }}\n"
+               for i in range(1, DIAG_SCRATCH + 1)) + f"""
+
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.
@@ -1649,6 +1688,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # A script value reading a global that is not there is the silent failure.
     for k in range(1, len(rights) + 1):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n")
+    # **What each pass of the allocator did, kept so the dump can print it.** Two
+    # writes a pass and none per good or per location, so it costs nothing a
+    # player can feel -- and it is the only part of the diagnosis that cannot be
+    # read back afterwards: a pass that ran out of sweeps leaves no other trace.
+    for i in range(1, len(PLAN_PASSES) + 1):
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_passsw{i} value = 0 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_passpl{i} value = 0 }}\n")
     out.append(f"""
 \t# Every candidate made ready. **Every counter a `limit` reads has to exist
 \t# before the first round**: a comparison against a variable that is not there
@@ -2025,8 +2071,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # The bands wrap the scarcity tiers only. **Then coverage, then the open
     # pass**, each once: the first is the owner's hard constraint -- every good
     # the ground can produce is produced -- and the second fills what is left.
-    for band, tier in ([(b, t) for b in PLAN_BANDS for t in PLAN_TIERS]
-                       + [(0, COVER_TIER), (0, OPEN_TIER)]):
+    for number, (band, tier) in enumerate(PLAN_PASSES, start=1):
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_cover "
                    f"value = {1 if tier is COVER_TIER else 0} }}\n")
@@ -2075,6 +2120,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 0 }}
 \t\t}}
 \t}}
+\t# What this pass cost and what it had by the end of it. `_passsw` at
+\t# {PLAN_ROUNDS} is a pass the guard cut off with work still to do, which is the
+\t# one fault in here that leaves no other trace.
+\tset_global_variable = {{ name = {MOD_ID}_passsw{number} value = global_var:{MOD_ID}_plan_tsweeps }}
+\tset_global_variable = {{ name = {MOD_ID}_passpl{number} value = global_var:{MOD_ID}_plan_placed }}
 """)
     out.append("}\n")
 
@@ -2916,6 +2966,458 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
     return "".join(out)
 
 
+# ---------------------------------------------------------------- the diagnosis
+
+def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+              game: eu5data.Game) -> str:
+    """«Диагностика»: one press, everything the mod knows, as text in the log.
+
+    **This is an instrument, not a fix.** Four of the owner's runs went on four
+    theories about one symptom and none of them on a measurement
+    (`docs/pitfalls/diagnosis.md`); the rule that came out of it is that a cause
+    nobody can name is measured rather than guessed. So this reads state and
+    writes none of the plan's own, and every number it prints is uncompressed:
+    a screenshot has to be read off pixels and a column has one cell, but text
+    has no width.
+
+    **It costs the plan nothing.** Everything except the per-pass counters is
+    read back afterwards from what the plan parked on the locations, so the
+    expensive button is exactly as expensive as it was and this one is pressed
+    when there is something to look at.
+
+    Four things about `debug_log` were measured on 2026-09-02 and all four shape
+    this file:
+
+    - `debug_log` writes on a normal build. So does `error_log`; the headline
+      goes to both and the detail to `debug.log` alone, which halves a dump that
+      the owner has to paste into a chat.
+    - a global is reachable from the string, as
+      `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('<sv>')|0]`;
+    - **the item a walk is standing on is not reachable at all** -- `THIS.MakeScope`
+      fails and the bracket is echoed literally -- so every number is parked in
+      one of fourteen scratch globals first and printed from there, and
+      `debug_log_scopes` names the row;
+    - and a script value of the form `value = 0` with `if = { ... add = ... }`
+      reads zero in silence. Every reader here is `value = global_var:x` and
+      every guard is in an effect, where `if` demonstrably works.
+    """
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    kinds = {good: kind for kind in ("raw", "made") for good in split[kind]}
+    groups = plan_groups(rows, split, game)
+    last = endgame(rows, game)
+    rights = output_rights(rows, game)
+
+    def read(slot: int) -> str:
+        """One number, as the string sees it."""
+        return f"[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('{MOD_ID}_dg{slot}')|0]"
+
+    def park(slot: int, source: str, scope: str = "global", tab: str = "\t") -> str:
+        """Copy a number into a scratch global, or leave 0 where there is none.
+
+        The guard is an `if` in an effect and not a fallback inside a script
+        value: the value form that guards itself reads zero in silence, which is
+        how the first dump reported nothing on a plan that had placed 417
+        buildings.
+        """
+        has = {"global": f"has_global_variable = {source}",
+               "var": f"has_variable = {source}"}[scope]
+        get = {"global": f"global_var:{source}", "var": f"var:{source}"}[scope]
+        return (f"{tab}set_global_variable = {{ name = {MOD_ID}_dv{slot} value = 0 }}\n"
+                f"{tab}if = {{ limit = {{ {has} }} "
+                f"set_global_variable = {{ name = {MOD_ID}_dv{slot} value = {get} }} }}\n")
+
+    def flag(slot: int, trigger: str, tab: str = "\t") -> str:
+        """1 or 0 for something that is a condition rather than a number."""
+        return (f"{tab}set_global_variable = {{ name = {MOD_ID}_dv{slot} value = 0 }}\n"
+                f"{tab}if = {{ limit = {{ {trigger} }} "
+                f"set_global_variable = {{ name = {MOD_ID}_dv{slot} value = 1 }} }}\n")
+
+    def say(text: str, both: bool = False, tab: str = "\t") -> str:
+        """One line into the log. The headline goes to both sinks; detail to one.
+
+        A dump sent as `error.log` alone still says which build wrote it and what
+        the totals were, so a missing `debug.log` is never mistaken for a plan
+        that did nothing.
+        """
+        line = f'{tab}debug_log = "WTP {text}"\n'
+        if both:
+            line += f'{tab}error_log = "WTP {text}"\n'
+        return line
+
+    out = [f"""#
+# «Диагностика» -- one press, everything the mod knows, as text.
+#
+# Generated. What it prints and why each block is here:
+# `docs/pitfalls/diagnosis.md`. **No `[THIS...]` anywhere below**: a `debug_log`
+# string cannot reach the item a walk stands on. Numbers come from the sixteen
+# `_dv` scratch globals through the `_dg` readers; names are baked in here.
+#
+# Scope: country
+{MOD_ID}_diag = {{
+"""]
+    out.append("".join(f"\tset_global_variable = {{ name = {MOD_ID}_dv{i} value = 0 }}\n"
+                       for i in range(1, DIAG_SCRATCH + 1)))
+    out.append("\tdebug_log_date = yes\n")
+    out.append(say(f"==== BEGIN v{DIAG_VERSION} ==== everything below to the next END "
+                   "is one press. debug.log has it whole; error.log has the headline.",
+                   both=True))
+    out.append(f"""\t{MOD_ID}_diag_build = yes
+\t{MOD_ID}_diag_state = yes
+\t{MOD_ID}_diag_scan = yes
+\t{MOD_ID}_diag_goods = yes
+\t{MOD_ID}_diag_passes = yes
+\t{MOD_ID}_diag_rights = yes
+\t{MOD_ID}_diag_locations = yes
+\t{MOD_ID}_diag_ranking = yes
+""")
+    out.append(say(f"==== END v{DIAG_VERSION} ====", both=True))
+    out.append("}\n")
+
+    # ---------------------------------------------------------------- the build
+    #
+    # What the generator decided, so a number in the log is never read against
+    # the wrong constant. All of it static: nothing here can go stale between
+    # the rebuild and the run.
+    rural = sum(1 for m in rows if m.building_category in RURAL_CATEGORIES)
+    bands = "/".join(str(b) for b in PLAN_BANDS)
+    tiers = "/".join(str(t) for t in PLAN_TIERS)
+    out.append(f"""
+# The generator's own numbers. Static, so that a reading is never checked
+# against the wrong constant.
+# Scope: country
+{MOD_ID}_diag_build = {{
+""")
+    out.append(say(f"BUILD methods={len(rows)} rural={rural} goods={len(order)} "
+                   f"raw={len(split['raw'])} made={len(split['made'])} "
+                   f"rights={len(rights)} gated={len(UNLOCKS)}", both=True))
+    out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
+                   f"tiers={tiers} rows={PLAN_ROWS} result_rows={RESULT_ROWS} "
+                   f"unfed_penalty={UNFED_PENALTY} right_fit={RIGHT_FIT} "
+                   f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}", both=True))
+    out.append(say("BUILD passes in order: "
+                   + ", ".join(f"{i}={pass_name(band, tier)}"
+                               for i, (band, tier) in enumerate(PLAN_PASSES, start=1))))
+    # **The self-test, and it is here to be thrown away.** Three of these four
+    # are guesses about what a `debug_log` string resolves, and one run settles
+    # them for good -- which is cheaper than a session reasoning about it and
+    # cheaper than a run spent on a dump that printed brackets. Whatever the log
+    # says goes into `docs/research/engine.md` and the losers come out.
+    out.append(f"\tset_global_variable = {{ name = {MOD_ID}_dv1 value = 12345 }}\n")
+    out.append(say(f"SELFTEST 1 global-through-player={read(1)} (expect 12345; "
+                   "anything else and every number below is wrong)", both=True))
+    out.append(say("SELFTEST 2 loc-key-as-message: " + MOD_ID + "_diag_selftest "
+                   "(expect the sentence that key holds, not the key)"))
+    out.append(say("SELFTEST 3 root-name=[ROOT.GetName] scope-name=[SCOPE.GetName] "
+                   "(expect the country twice, or two echoed brackets)"))
+    out.append("\tdebug_log_scopes = no\n")
+    out.append(say("SELFTEST 4 the line above this one should name the country "
+                   "-- that is debug_log_scopes, and it is how every row below "
+                   "says which location it is"))
+    out.append("}\n")
+
+    # ---------------------------------------------------------------- the state
+    out.append(f"""
+# Everything chosen and everything the last plan counted. **A zero here is an
+# answer**: pressed before a plan it prints zeros throughout, which says the pass
+# never ran rather than that it found nothing.
+# Scope: country
+{MOD_ID}_diag_state = {{
+""")
+    for slot, (name, source, scope) in enumerate((
+            ("good", f"{MOD_ID}_good_index", "var"),
+            ("right", f"{MOD_ID}_right_index", "var"),
+            ("continents", f"{MOD_ID}_zone_count", "global"),
+            ("regions", f"{MOD_ID}_region_count", "global"),
+            ("picked", f"{MOD_ID}_picked_count", "global"),
+            ("provinces_picked", f"{MOD_ID}_browse_count", "global"),
+            ("candidates", f"{MOD_ID}_candidate_count", "global"),
+            ("runs", f"{MOD_ID}_live_runs", "global")), start=1):
+        out.append(park(slot, source, scope))
+    out.append(say("PICK good=%s right=%s continents=%s regions=%s picked=%s "
+                   "provinces_picked=%s candidates=%s runs=%s"
+                   % tuple(read(i) for i in range(1, 9)), both=True))
+    for slot, (name, source) in enumerate((
+            ("cap_rural", f"{MOD_ID}_plan_cap_rural"),
+            ("cap_urban", f"{MOD_ID}_plan_cap_urban"),
+            ("max_per_good", f"{MOD_ID}_plan_max")), start=1):
+        out.append(park(slot, source))
+    out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_rights"))
+    out.append(flag(5, f"has_global_variable = {MOD_ID}_plan_by_end"))
+    out.append(flag(6, f"has_global_variable = {MOD_ID}_rank_by_end"))
+    out.append(flag(7, f"has_global_variable = {MOD_ID}_only_buildable"))
+    out.append(say("SET cap_rural=%s cap_urban=%s max_per_good=%s rights=%s "
+                   "plan_by_end=%s rank_by_end=%s buildable_only=%s"
+                   % tuple(read(i) for i in range(1, 8)), both=True))
+    for slot, source in enumerate((
+            f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
+            f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
+            f"{MOD_ID}_plan_scored", f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_rightn",
+            f"{MOD_ID}_plan_sweeps", f"{MOD_ID}_found"), start=1):
+        out.append(park(slot, source))
+    out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
+                   "goods_scored=%s quota=%s rights_given=%s sweeps=%s ranked_provs=%s"
+                   % tuple(read(i) for i in range(1, 12)), both=True))
+    out.append("}\n")
+
+    # ----------------------------------------------------------------- the scan
+    #
+    # **The funnel, read back off the map rather than counted during the pass.**
+    # One walk over the locations the plan touched, and for each good on each
+    # side four questions: did a method win here, would the placement gate open
+    # here *now*, did this good end up here, and what is the best this good could
+    # have been ordered at. The four together say which stage a good is lost at
+    # and how many locations it was lost at -- and the gate read afterwards is
+    # what separates «the ground filled up» from «the allocator never gave it a
+    # turn», which reading it on empty ground cannot do.
+    out.append(f"""
+# The funnel. One walk, and the plan pays nothing for it: everything here is
+# what the plan already parked on the locations.
+#
+# `w` a method won, `g` the gate would still open, `p` it was placed, `o` the
+# best ordering it ever had -- against `{MOD_ID}_plan_band`, which is what a
+# band admits. A good whose `o` never reaches 200 has only the last band.
+# Scope: country
+{MOD_ID}_diag_scan = {{
+\tset_global_variable = {{ name = {MOD_ID}_diag_locs value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_towns value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_freet value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_freer value = 0 }}
+""")
+    for index in range(1, len(order) + 1):
+        for side in ("t", "r"):
+            for what in ("w", "r", "g", "p", "o"):
+                out.append(f"\tset_global_variable = {{ name = {MOD_ID}_f{what}{side}{index} value = 0 }}\n")
+    out.append(f"""\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tchange_global_variable = {{ name = {MOD_ID}_diag_locs add = 1 }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_towns add = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_freet add = 1 }}
+""")
+    # **`r` is what separates a full ground from a starved good**, and it is the
+    # one distinction the gate cannot draw on its own: the gate is a conjunction,
+    # so `g = 0` means "no room" and "already here" and "that building is taken"
+    # at once. Counted inside the room test, so a location with no room costs
+    # nothing.
+    for index in range(1, len(order) + 1):
+        out.append(f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_pm{index} > 0 }} "
+                   f"change_global_variable = {{ name = {MOD_ID}_frt{index} add = 1 }} }}\n")
+    out.append("\t\t\t}\n")
+    for index, good in enumerate(order, start=1):
+        out.append(f"""\t\t\tif = {{ limit = {{ var:{MOD_ID}_pm{index} > 0 }} change_global_variable = {{ name = {MOD_ID}_fwt{index} add = 1 }} }}
+\t\t\tif = {{ limit = {{ {MOD_ID}_plan_can_town_{index} = yes }} change_global_variable = {{ name = {MOD_ID}_fgt{index} add = 1 }} }}
+\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} change_global_variable = {{ name = {MOD_ID}_fpt{index} add = 1 }} }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_ord{index} > global_var:{MOD_ID}_fot{index} }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_fot{index} value = 0 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_fot{index} add = {MOD_ID}_ord{index} }}
+\t\t\t}}
+""")
+    out.append(f"""\t\t}}
+\t\telse = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_diag_freer add = 1 }}
+""")
+    for index in range(1, len(order) + 1):
+        out.append(f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_prm{index} > 0 }} "
+                   f"change_global_variable = {{ name = {MOD_ID}_frr{index} add = 1 }} }}\n")
+    out.append("\t\t\t}\n")
+    for index, good in enumerate(order, start=1):
+        out.append(f"""\t\t\tif = {{ limit = {{ var:{MOD_ID}_prm{index} > 0 }} change_global_variable = {{ name = {MOD_ID}_fwr{index} add = 1 }} }}
+\t\t\tif = {{ limit = {{ {MOD_ID}_plan_can_rural_{index} = yes }} change_global_variable = {{ name = {MOD_ID}_fgr{index} add = 1 }} }}
+\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} change_global_variable = {{ name = {MOD_ID}_fpr{index} add = 1 }} }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_ordr{index} > global_var:{MOD_ID}_for{index} }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_for{index} value = 0 }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_for{index} add = {MOD_ID}_ordr{index} }}
+\t\t\t}}
+""")
+    out.append("\t\t}\n\t}\n}\n")
+
+    # ---------------------------------------------------------------- the goods
+    out.append(f"""
+# One line per good, town and village apart, every counter uncompressed. The
+# ladder is m -> a -> w -> g/p: the first zero is the stage the good is lost at,
+# and the number before it is how many locations got that far.
+# Scope: country
+{MOD_ID}_diag_goods = {{
+""")
+    out.append(say("GOODS legend: T=town R=village | m=methods(of them last-age) "
+                   "a=country has the advance w=a method won here r=of those, "
+                   "still has room g=the gate would still open p=placed "
+                   "o=best ordering it ever had (a band admits >= its own number) "
+                   "| ng=candidates that can make it q=quota n=placed both sides "
+                   "rgo=locations already yielding it as an RGO"))
+    out.append(say("GOODS reading it: the first zero left to right is the stage. "
+                   "w>0 r=0 -- the ground filled up. w>0 r>0 g=0 -- the good or "
+                   "its building is already in every place that has room. "
+                   "g>0 p=0 -- the allocator never gave it a turn, so look at "
+                   "q, ng against the tiers, and o against the bands."))
+    for index in range(1, len(order) + 1):
+        out.append(f"\t{MOD_ID}_diag_good_{index} = yes\n")
+    out.append(f"""\t{MOD_ID}_diag_free = yes
+}}
+
+# Room left over when the plan stopped, which is what tells a starved good from
+# a full ground.
+# Scope: country
+{MOD_ID}_diag_free = {{
+""")
+    for slot, source in enumerate((f"{MOD_ID}_diag_locs", f"{MOD_ID}_diag_towns",
+                                   f"{MOD_ID}_diag_freet", f"{MOD_ID}_diag_freer"), start=1):
+        out.append(park(slot, source))
+    out.append(say("ROOM walked=%s towns=%s towns_with_room=%s villages_with_room=%s"
+                   % tuple(read(i) for i in range(1, 5)), both=True))
+    out.append("}\n")
+
+    for index, good in enumerate(order, start=1):
+        town = [i for methods_ in groups.get((good, "t"), {}).values() for i in methods_]
+        village = [i for methods_ in groups.get((good, "r"), {}).values() for i in methods_]
+        town_end = sum(1 for i in town if i in last)
+        village_end = sum(1 for i in village if i in last)
+        out.append(f"""
+# Scope: country
+{MOD_ID}_diag_good_{index} = {{
+""")
+        for slot, source in ((1, f"{MOD_ID}_fwt{index}"), (2, f"{MOD_ID}_fgt{index}"),
+                             (3, f"{MOD_ID}_fpt{index}"), (4, f"{MOD_ID}_fot{index}"),
+                             (5, f"{MOD_ID}_fwr{index}"), (6, f"{MOD_ID}_fgr{index}"),
+                             (7, f"{MOD_ID}_fpr{index}"), (8, f"{MOD_ID}_for{index}"),
+                             (9, f"{MOD_ID}_ng{index}"), (10, f"{MOD_ID}_pq{index}"),
+                             (11, f"{MOD_ID}_pn{index}"), (12, f"{MOD_ID}_nrgo{index}"),
+                             (15, f"{MOD_ID}_frt{index}"), (16, f"{MOD_ID}_frr{index}")):
+            out.append(park(slot, source))
+        # Availability is the country's advance and not the location's ground:
+        # `can_build_building` asked here answers the advance, asked in a
+        # location it answers the rank and the terrain. Two different questions
+        # and the first dump conflated them, which put three goods the country
+        # had not unlocked in the column that means "our scoring dropped it".
+        for slot, side in ((13, town), (14, village)):
+            if side:
+                condition = " ".join(f"{MOD_ID}_avail_{i} = yes" for i in sorted(set(side)))
+                out.append(flag(slot, f"OR = {{ {condition} }}"))
+            else:
+                out.append(f"\tset_global_variable = {{ name = {MOD_ID}_dv{slot} value = 0 }}\n")
+        out.append(say(f"G{index} {good} {kinds[good]} "
+                       f"| T m={len(town)}({town_end}) a={read(13)} w={read(1)} "
+                       f"r={read(15)} g={read(2)} p={read(3)} o={read(4)} "
+                       f"| R m={len(village)}({village_end}) a={read(14)} w={read(5)} "
+                       f"r={read(16)} g={read(6)} p={read(7)} o={read(8)} "
+                       f"| ng={read(9)} q={read(10)} n={read(11)} rgo={read(12)}"))
+        out.append("}\n")
+
+    # --------------------------------------------------------------- the passes
+    #
+    # **The one thing the dump cannot read back afterwards.** A pass that ran out
+    # of sweeps with work still to do leaves nothing behind on the map; the two
+    # counters per pass in `_plan_allocate` are what make it visible, and they
+    # cost two writes each.
+    out.append(f"""
+# What each pass of the allocator did. `sweeps={PLAN_ROUNDS}` is a pass the guard
+# cut off -- it wanted more rounds and was not given them -- and `placed` is the
+# running total at the end of that pass, so the difference between two lines is
+# what the second one put down.
+# Scope: country
+{MOD_ID}_diag_passes = {{
+""")
+    for number, (band, tier) in enumerate(PLAN_PASSES, start=1):
+        out.append(park(1, f"{MOD_ID}_passsw{number}"))
+        out.append(park(2, f"{MOD_ID}_passpl{number}"))
+        out.append(say(f"P{number} {pass_name(band, tier)} sweeps={read(1)}"
+                       f"/{PLAN_ROUNDS} placed={read(2)}"))
+    out.append("}\n")
+
+    # --------------------------------------------------------------- the rights
+    #
+    # `_rgiven<k>` has counted how many towns each right took since the day
+    # rights were added -- the plan divides a right's score by it -- and nothing
+    # ever showed it. One charter holding most of the towns is a fault a level
+    # above any single good's row, and that is the level the reported symptom
+    # lives on.
+    out.append(f"""
+# How many towns each urban right was granted in, and what it grants. A charter
+# in twenty-one towns whose second good is nowhere is a plan-level fault and not
+# a good's.
+# Scope: country
+{MOD_ID}_diag_rights = {{
+""")
+    for number, right in enumerate(rights, start=1):
+        goods = ", ".join(sorted(right.output))
+        out.append(park(1, f"{MOD_ID}_rgiven{number}"))
+        out.append(say(f"RIGHT {number} {right.key} [{goods}] given={read(1)}"))
+    out.append("}\n")
+
+    # ------------------------------------------------------------ the locations
+    out.append(f"""
+# One block per location the plan filled, best first. The line above each block
+# is the location itself, from `debug_log_scopes`; the `LG` lines under it are
+# what was put there, one good a line -- which is the whole of the reported
+# symptom in the one place it can be read.
+# Scope: country
+{MOD_ID}_diag_locations = {{
+\tset_global_variable = {{ name = {MOD_ID}_diag_n value = 0 }}
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_ranked
+\t\torder_by = {MOD_ID}_plan_rank_order
+\t\tmax = {DIAG_LOCS}
+\t\tcheck_range_bounds = no
+\t\tchange_global_variable = {{ name = {MOD_ID}_diag_n add = 1 }}
+""")
+    for slot, source in ((1, f"{MOD_ID}_plan_rank"), (2, f"{MOD_ID}_load"),
+                         (3, f"{MOD_ID}_plan_right"), (4, f"{MOD_ID}_plan_prank"),
+                         (5, f"{MOD_ID}_plan_prov_load")):
+        out.append(park(slot, source, "var", tab="\t\t"))
+    out.append(flag(6, f"{MOD_ID}_plan_is_town = yes", tab="\t\t"))
+    out.append("\t\tdebug_log_scopes = no\n")
+    out.append(say(f"L rank={read(1)} town={read(6)} load={read(2)} right={read(3)} "
+                   f"prov_rank={read(4)} prov_load={read(5)}", tab="\t\t"))
+    for good in order:
+        out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
+                   f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
+                   f'debug_log = "WTP LG {good}" }}\n')
+    out.append("\t}\n")
+    out.append(park(1, f"{MOD_ID}_diag_n"))
+    out.append(park(2, f"{MOD_ID}_plan_found"))
+    out.append(say(f"LOCS printed={read(1)} of={read(2)} cap={DIAG_LOCS} "
+                   "-- a cap is never silently the answer", both=True))
+    out.append("}\n")
+
+    # -------------------------------------------------------------- the ranking
+    out.append(f"""
+# The single-good ranking's own answer, for the case where the plan is right and
+# the table it is read against is not. A row is a province definition.
+# Scope: country
+{MOD_ID}_diag_ranking = {{
+\tset_global_variable = {{ name = {MOD_ID}_diag_n value = 0 }}
+\tordered_in_global_list = {{
+\t\tvariable = {MOD_ID}_ranked
+\t\torder_by = {MOD_ID}_rank_order
+\t\tmax = {DIAG_ROWS}
+\t\tcheck_range_bounds = no
+\t\tchange_global_variable = {{ name = {MOD_ID}_diag_n add = 1 }}
+""")
+    for slot, source in ((1, f"{MOD_ID}_rank"), (2, f"{MOD_ID}_bonus"),
+                         (3, f"{MOD_ID}_out"), (4, f"{MOD_ID}_bonus_rural"),
+                         (5, f"{MOD_ID}_out_rural"), (6, f"{MOD_ID}_end_bonus"),
+                         (7, f"{MOD_ID}_end_out"), (8, f"{MOD_ID}_mid_bonus"),
+                         (9, f"{MOD_ID}_mid_age")):
+        out.append(park(slot, source, "var", tab="\t\t"))
+    out.append("\t\tdebug_log_scopes = no\n")
+    out.append(say(f"R rank={read(1)} now_town={read(2)}/{read(3)} "
+                   f"now_village={read(4)}/{read(5)} end_town={read(6)}/{read(7)} "
+                   f"mid={read(8)} mid_age={read(9)}", tab="\t\t"))
+    out.append("\t}\n")
+    out.append(park(1, f"{MOD_ID}_diag_n"))
+    out.append(park(2, f"{MOD_ID}_found"))
+    out.append(say(f"ROWS printed={read(1)} of={read(2)} cap={DIAG_ROWS}", both=True))
+    out.append("}\n")
+    return "".join(out)
+
+
 def main() -> int:
     game = eu5data.load_game()
     rows = methods(game)
@@ -2935,6 +3437,7 @@ def main() -> int:
     write(PLAN_OUT, plan_file(rows, split, game))
     write(PLAN_TRIGGERS_OUT, plan_triggers_file(rows, split, game))
     write(PLAN_LOC_OUT, plan_loc_file(rows, game))
+    write(DIAG_OUT, diag_file(rows, split, game))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

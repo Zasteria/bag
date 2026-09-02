@@ -9,10 +9,11 @@ four tests the owner called «большой рывок». Everything built abov
 what is open here, and what those runs settled, is the last section of
 `plan_formula.md` below.
 
-**The one job is a probe, not a cause.** The plan will not put glass in a *town*
-and puts it in villages freely; four theories about that were wrong on four runs
-(`docs/pitfalls/diagnosis.md`). Build the smallest thing that says where it is
-lost; ask for one run.
+**The one job is a run, not a cause.** «Диагностика» on the «Расчёт» tab writes
+everything the mod knows into `debug.log`, and `mods.bat → 8` puts it in the
+clipboard; the protocol and every branch of the answer are in `docs/TESTLOG.md`,
+written down before the run. Four theories were wrong on four runs
+(`docs/pitfalls/diagnosis.md`): read the report first.
 
 A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
 feeds, and the last age it can be built) and «В конце» — on two «Считать»
@@ -27,7 +28,7 @@ produced, fed or not. Nor is a recipe whose building cannot stand there:
 `can_build_building`, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
-earning its own bonus over its own output, so a `Method` is the pair:
+earning its own bonus over its own output:
 [`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
@@ -54,7 +55,7 @@ tree of our own, empty twice. Picker caps: `docs/research/cmf.md`.
 ## Settled, and not to be re-litigated
 
 - **A window's datamodel is what costs**: a scripted widget never comes down, so
-  only the list it repeats over decides how many rows live.
+  only the list it repeats over decides the row count.
 - **The selection is recorded twice**, a location variable and a global list;
   only `bag_wtp_pick` / `_drop` writes it.
 - **Every column in both windows is a fixed width and none expands**; one that

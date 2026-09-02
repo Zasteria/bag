@@ -46,22 +46,23 @@ runs settled are both in the last section of**
 [`investigations/plan_formula.md`](investigations/plan_formula.md) — read it
 before touching the plan.
 
-**Build the probe. Do not propose a cause.** Four of his runs went on four
-theories about one symptom and fixed none of it;
-[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode. **The plan will
-not put glass in a town and puts it in villages freely** — and both recipes
-carry the identical `location_potential`, so the market gate is not what stops
-it.
+**The instrument is built; the job is one run and reading it.** «Диагностика» on
+the «Расчёт» tab writes everything the mod knows into `debug.log` in one press,
+and `mods.bat → 8` puts it in his clipboard. **The protocol, and what every
+branch of the answer means, are in `TESTLOG.md`, written down before the run** —
+read them there rather than theorising again: four of his runs went on four
+theories and none on a measurement
+([`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and what the
+dump prints).
 
-**The probe: a funnel counter per stage, for one good the player picks** —
-`_avail_` said yes, then `can_build_building` in the location's scope, then a
-method won (`_pm<n>` not 0), then the town check, then placed. Whichever number
-collapses is the answer, and one run reads it.
-`cmm_register_list_data_field` is a per-good column if the window is the wrong
-place (`research/cmf.md`). **Read the abandoned branch once before building it
-again** — it wrote that funnel, and the owner's word on it is the brief: the tool
-was itself buggy and dear to walk around. He asked for no more counters until the
-mod works; the probe does not break that — it comes out after.
+**The symptom it is aimed at:** the plan will not put glass in a town and puts it
+in villages freely, and both recipes carry the identical `location_potential`, so
+the market gate is not what stops it. The `G` line for glass answers it — `r = 0`
+is a full ground, `g = 0` the one-per-type rule, `p = 0` with `g > 0` ours.
+
+**Do not propose a cause before that report is read**, and add no second
+counter: he asked for none until the mod works, and this one comes out with the
+fault it finds.
 
 **Three things he measured himself are open again**, because the fixes for them
 sat above the rollback and went out with it: a big ground does not finish (the

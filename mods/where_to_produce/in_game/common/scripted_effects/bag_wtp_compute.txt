@@ -127,6 +127,15 @@ bag_wtp_on_button = {
 		bag_wtp_open_plan_window_effect = yes
 	}
 
+	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads
+	# what the last pass left and writes only its own scratch globals -- so the
+	# window is deliberately not opened and not refreshed: pressing this must
+	# never be able to change what the next reading says.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__diag }
+		bag_wtp_diag = yes
+	}
+
 	# The tick auto-applies and arrives here; the lists do not, because a list
 	# reaches nothing but its own `_on_changed`.
 	#

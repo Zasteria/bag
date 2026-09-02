@@ -152,6 +152,25 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# «Диагностика». One press, everything the mod knows, into `debug.log` and
+	# the headline of it into `error.log` besides.
+	#
+	# **It reads and writes nothing of the plan's**, so it is safe at any moment:
+	# pressed before a plan it prints zeros throughout, which is itself the
+	# answer to «did the pass run at all». The expensive half of it -- one walk
+	# over the ground working out where each good was lost -- is why it is a
+	# button and not the tail of the plan: the plan stays exactly as fast as it
+	# was, and this is pressed when there is something to look at.
+	#
+	# `docs/pitfalls/diagnosis.md` has what it prints and the four things about
+	# `debug_log` that were measured rather than assumed.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = diag
+		tab_id = plan
+		group_id = plan
+	}
+
 	# The answer in a window of the mod's own: one row per province, expandable
 	# into its locations, naming the method and the raw materials the bonus is
 	# made of. The button reopens it; pressing "run" opens it anyway.

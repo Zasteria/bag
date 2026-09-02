@@ -1335,6 +1335,23 @@ def screen_publish() -> None:
     ask("Enter — назад ")
 
 
+def screen_diag() -> None:
+    """Забрать отчёт «Диагностика» из логов игры и положить в буфер обмена.
+
+    Существует, чтобы прогон стоил один раз. Только игрок может запустить игру,
+    и раньше ответ приходил скриншотами -- по одному вопросу за прогон; отчёт
+    отвечает на весь вопрос сразу, и этот пункт нужен, чтобы достать его из
+    `debug.log` не разбираясь, где игра держит логи.
+    """
+    say()
+    say("Отчёт пишется по кнопке «Диагностика» на вкладке «Расчёт» в меню мода,")
+    say("сразу после «Считать план». Здесь он достаётся из логов игры.")
+    say()
+    run_python("tools/diag.py")
+    say()
+    ask("Enter — назад ")
+
+
 def menu(configured: dict) -> int:
     world = gather(configured)
     while True:
@@ -1355,6 +1372,7 @@ def menu(configured: dict) -> int:
         say("  5  Готов ли наш мод к мастерской")
         say("  6  Коммит и пуш")
         say("  7  Перечитать всё заново")
+        say("  8  Забрать диагностику из игры")
         say("  0  Выход")
         choice = ask("> ")
 
@@ -1374,6 +1392,8 @@ def menu(configured: dict) -> int:
             commit_and_push()
         elif choice == "7":
             world = gather(configured)
+        elif choice == "8":
+            screen_diag()
         elif choice in {"0", "q", "в", "выход"}:
             return 0
 
