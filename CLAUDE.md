@@ -87,8 +87,9 @@ for the reference tree and the rebuild loop,
 
 **Never conclude from "no mod here uses it" that the engine lacks it** — that
 mistake cost a redesign. The dumps say what exists, not how it behaves; for
-behaviour verify against `reference/`, never from memory, and say plainly when
-something is unproven.
+behaviour verify against `reference/`, never from memory — **the owner's
+included**, at his own word, 2026-09-02: «я работаю из условностей
+воспоминаний». Say plainly when something is unproven.
 
 Do not hardcode a reference folder's name and do not trust a version written in
 prose: `python3 tools/refs.py`, or `refs.known("cmf")` in a tool.

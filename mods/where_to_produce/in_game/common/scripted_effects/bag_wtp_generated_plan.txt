@@ -410,23 +410,28 @@ bag_wtp_plan_harvest_1 = {
 			set_variable = { name = bag_wtp_pm1 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr1 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm1 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm1 = 0 }
 				set_variable = { name = bag_wtp_p1 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm1 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p1 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm1 = 0 }
 				set_variable = { name = bag_wtp_pr1 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm1 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr1 divide = 2 }
 			}
 		}
 		else = {
@@ -438,13 +443,11 @@ bag_wtp_plan_harvest_1 = {
 				limit = { var:bag_wtp_pm1 = 0 }
 				set_variable = { name = bag_wtp_p1 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm1 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p1 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm1 = 0 }
 				set_variable = { name = bag_wtp_pr1 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm1 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr1 divide = 2 }
 			}
 		}
 	}
@@ -513,23 +516,28 @@ bag_wtp_plan_harvest_2 = {
 			set_variable = { name = bag_wtp_pm2 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr2 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm2 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm2 = 0 }
 				set_variable = { name = bag_wtp_p2 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm2 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p2 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm2 = 0 }
 				set_variable = { name = bag_wtp_pr2 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm2 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr2 divide = 2 }
 			}
 		}
 		else = {
@@ -541,13 +549,11 @@ bag_wtp_plan_harvest_2 = {
 				limit = { var:bag_wtp_pm2 = 0 }
 				set_variable = { name = bag_wtp_p2 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm2 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p2 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm2 = 0 }
 				set_variable = { name = bag_wtp_pr2 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm2 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr2 divide = 2 }
 			}
 		}
 	}
@@ -616,23 +622,28 @@ bag_wtp_plan_harvest_3 = {
 			set_variable = { name = bag_wtp_pm3 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr3 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm3 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm3 = 0 }
 				set_variable = { name = bag_wtp_p3 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm3 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p3 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm3 = 0 }
 				set_variable = { name = bag_wtp_pr3 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm3 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr3 divide = 2 }
 			}
 		}
 		else = {
@@ -644,13 +655,11 @@ bag_wtp_plan_harvest_3 = {
 				limit = { var:bag_wtp_pm3 = 0 }
 				set_variable = { name = bag_wtp_p3 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm3 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p3 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm3 = 0 }
 				set_variable = { name = bag_wtp_pr3 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm3 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr3 divide = 2 }
 			}
 		}
 	}
@@ -719,23 +728,28 @@ bag_wtp_plan_harvest_4 = {
 			set_variable = { name = bag_wtp_pm4 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr4 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm4 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm4 = 0 }
 				set_variable = { name = bag_wtp_p4 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm4 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p4 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm4 = 0 }
 				set_variable = { name = bag_wtp_pr4 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm4 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr4 divide = 2 }
 			}
 		}
 		else = {
@@ -747,13 +761,11 @@ bag_wtp_plan_harvest_4 = {
 				limit = { var:bag_wtp_pm4 = 0 }
 				set_variable = { name = bag_wtp_p4 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm4 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p4 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm4 = 0 }
 				set_variable = { name = bag_wtp_pr4 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm4 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr4 divide = 2 }
 			}
 		}
 	}
@@ -822,23 +834,28 @@ bag_wtp_plan_harvest_5 = {
 			set_variable = { name = bag_wtp_pm5 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr5 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm5 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm5 = 0 }
 				set_variable = { name = bag_wtp_p5 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm5 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p5 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm5 = 0 }
 				set_variable = { name = bag_wtp_pr5 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm5 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr5 divide = 2 }
 			}
 		}
 		else = {
@@ -850,13 +867,11 @@ bag_wtp_plan_harvest_5 = {
 				limit = { var:bag_wtp_pm5 = 0 }
 				set_variable = { name = bag_wtp_p5 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm5 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p5 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm5 = 0 }
 				set_variable = { name = bag_wtp_pr5 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm5 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr5 divide = 2 }
 			}
 		}
 	}
@@ -925,23 +940,28 @@ bag_wtp_plan_harvest_6 = {
 			set_variable = { name = bag_wtp_pm6 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr6 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm6 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm6 = 0 }
 				set_variable = { name = bag_wtp_p6 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm6 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p6 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm6 = 0 }
 				set_variable = { name = bag_wtp_pr6 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm6 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr6 divide = 2 }
 			}
 		}
 		else = {
@@ -953,13 +973,11 @@ bag_wtp_plan_harvest_6 = {
 				limit = { var:bag_wtp_pm6 = 0 }
 				set_variable = { name = bag_wtp_p6 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm6 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p6 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm6 = 0 }
 				set_variable = { name = bag_wtp_pr6 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm6 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr6 divide = 2 }
 			}
 		}
 	}
@@ -1028,23 +1046,28 @@ bag_wtp_plan_harvest_7 = {
 			set_variable = { name = bag_wtp_pm7 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr7 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm7 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm7 = 0 }
 				set_variable = { name = bag_wtp_p7 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm7 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p7 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm7 = 0 }
 				set_variable = { name = bag_wtp_pr7 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm7 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr7 divide = 2 }
 			}
 		}
 		else = {
@@ -1056,13 +1079,11 @@ bag_wtp_plan_harvest_7 = {
 				limit = { var:bag_wtp_pm7 = 0 }
 				set_variable = { name = bag_wtp_p7 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm7 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p7 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm7 = 0 }
 				set_variable = { name = bag_wtp_pr7 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm7 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr7 divide = 2 }
 			}
 		}
 	}
@@ -1131,23 +1152,28 @@ bag_wtp_plan_harvest_8 = {
 			set_variable = { name = bag_wtp_pm8 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr8 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm8 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm8 = 0 }
 				set_variable = { name = bag_wtp_p8 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm8 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p8 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm8 = 0 }
 				set_variable = { name = bag_wtp_pr8 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm8 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr8 divide = 2 }
 			}
 		}
 		else = {
@@ -1159,13 +1185,11 @@ bag_wtp_plan_harvest_8 = {
 				limit = { var:bag_wtp_pm8 = 0 }
 				set_variable = { name = bag_wtp_p8 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm8 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p8 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm8 = 0 }
 				set_variable = { name = bag_wtp_pr8 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm8 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr8 divide = 2 }
 			}
 		}
 	}
@@ -1234,23 +1258,28 @@ bag_wtp_plan_harvest_9 = {
 			set_variable = { name = bag_wtp_pm9 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr9 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm9 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm9 = 0 }
 				set_variable = { name = bag_wtp_p9 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm9 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p9 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm9 = 0 }
 				set_variable = { name = bag_wtp_pr9 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm9 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr9 divide = 2 }
 			}
 		}
 		else = {
@@ -1262,13 +1291,11 @@ bag_wtp_plan_harvest_9 = {
 				limit = { var:bag_wtp_pm9 = 0 }
 				set_variable = { name = bag_wtp_p9 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm9 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p9 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm9 = 0 }
 				set_variable = { name = bag_wtp_pr9 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm9 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr9 divide = 2 }
 			}
 		}
 	}
@@ -1337,23 +1364,28 @@ bag_wtp_plan_harvest_10 = {
 			set_variable = { name = bag_wtp_pm10 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr10 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm10 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm10 = 0 }
 				set_variable = { name = bag_wtp_p10 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm10 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p10 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm10 = 0 }
 				set_variable = { name = bag_wtp_pr10 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm10 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr10 divide = 2 }
 			}
 		}
 		else = {
@@ -1365,13 +1397,11 @@ bag_wtp_plan_harvest_10 = {
 				limit = { var:bag_wtp_pm10 = 0 }
 				set_variable = { name = bag_wtp_p10 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm10 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p10 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm10 = 0 }
 				set_variable = { name = bag_wtp_pr10 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm10 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr10 divide = 2 }
 			}
 		}
 	}
@@ -1440,23 +1470,28 @@ bag_wtp_plan_harvest_11 = {
 			set_variable = { name = bag_wtp_pm11 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr11 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm11 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm11 = 0 }
 				set_variable = { name = bag_wtp_p11 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm11 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p11 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm11 = 0 }
 				set_variable = { name = bag_wtp_pr11 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm11 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr11 divide = 2 }
 			}
 		}
 		else = {
@@ -1468,13 +1503,11 @@ bag_wtp_plan_harvest_11 = {
 				limit = { var:bag_wtp_pm11 = 0 }
 				set_variable = { name = bag_wtp_p11 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm11 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p11 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm11 = 0 }
 				set_variable = { name = bag_wtp_pr11 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm11 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr11 divide = 2 }
 			}
 		}
 	}
@@ -1543,23 +1576,28 @@ bag_wtp_plan_harvest_12 = {
 			set_variable = { name = bag_wtp_pm12 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr12 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm12 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm12 = 0 }
 				set_variable = { name = bag_wtp_p12 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm12 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p12 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm12 = 0 }
 				set_variable = { name = bag_wtp_pr12 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm12 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr12 divide = 2 }
 			}
 		}
 		else = {
@@ -1571,13 +1609,11 @@ bag_wtp_plan_harvest_12 = {
 				limit = { var:bag_wtp_pm12 = 0 }
 				set_variable = { name = bag_wtp_p12 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm12 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p12 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm12 = 0 }
 				set_variable = { name = bag_wtp_pr12 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm12 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr12 divide = 2 }
 			}
 		}
 	}
@@ -1646,23 +1682,28 @@ bag_wtp_plan_harvest_13 = {
 			set_variable = { name = bag_wtp_pm13 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr13 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm13 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm13 = 0 }
 				set_variable = { name = bag_wtp_p13 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm13 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p13 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm13 = 0 }
 				set_variable = { name = bag_wtp_pr13 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm13 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr13 divide = 2 }
 			}
 		}
 		else = {
@@ -1674,13 +1715,11 @@ bag_wtp_plan_harvest_13 = {
 				limit = { var:bag_wtp_pm13 = 0 }
 				set_variable = { name = bag_wtp_p13 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm13 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p13 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm13 = 0 }
 				set_variable = { name = bag_wtp_pr13 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm13 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr13 divide = 2 }
 			}
 		}
 	}
@@ -1749,23 +1788,28 @@ bag_wtp_plan_harvest_14 = {
 			set_variable = { name = bag_wtp_pm14 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr14 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm14 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm14 = 0 }
 				set_variable = { name = bag_wtp_p14 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm14 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p14 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm14 = 0 }
 				set_variable = { name = bag_wtp_pr14 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm14 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr14 divide = 2 }
 			}
 		}
 		else = {
@@ -1777,13 +1821,11 @@ bag_wtp_plan_harvest_14 = {
 				limit = { var:bag_wtp_pm14 = 0 }
 				set_variable = { name = bag_wtp_p14 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm14 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p14 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm14 = 0 }
 				set_variable = { name = bag_wtp_pr14 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm14 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr14 divide = 2 }
 			}
 		}
 	}
@@ -1852,23 +1894,28 @@ bag_wtp_plan_harvest_15 = {
 			set_variable = { name = bag_wtp_pm15 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr15 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm15 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm15 = 0 }
 				set_variable = { name = bag_wtp_p15 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm15 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p15 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm15 = 0 }
 				set_variable = { name = bag_wtp_pr15 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm15 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr15 divide = 2 }
 			}
 		}
 		else = {
@@ -1880,13 +1927,11 @@ bag_wtp_plan_harvest_15 = {
 				limit = { var:bag_wtp_pm15 = 0 }
 				set_variable = { name = bag_wtp_p15 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm15 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p15 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm15 = 0 }
 				set_variable = { name = bag_wtp_pr15 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm15 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr15 divide = 2 }
 			}
 		}
 	}
@@ -1955,23 +2000,28 @@ bag_wtp_plan_harvest_16 = {
 			set_variable = { name = bag_wtp_pm16 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr16 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm16 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm16 = 0 }
 				set_variable = { name = bag_wtp_p16 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm16 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p16 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm16 = 0 }
 				set_variable = { name = bag_wtp_pr16 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm16 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr16 divide = 2 }
 			}
 		}
 		else = {
@@ -1983,13 +2033,11 @@ bag_wtp_plan_harvest_16 = {
 				limit = { var:bag_wtp_pm16 = 0 }
 				set_variable = { name = bag_wtp_p16 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm16 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p16 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm16 = 0 }
 				set_variable = { name = bag_wtp_pr16 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm16 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr16 divide = 2 }
 			}
 		}
 	}
@@ -2058,23 +2106,28 @@ bag_wtp_plan_harvest_17 = {
 			set_variable = { name = bag_wtp_pm17 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr17 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm17 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm17 = 0 }
 				set_variable = { name = bag_wtp_p17 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm17 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p17 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm17 = 0 }
 				set_variable = { name = bag_wtp_pr17 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm17 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr17 divide = 2 }
 			}
 		}
 		else = {
@@ -2086,13 +2139,11 @@ bag_wtp_plan_harvest_17 = {
 				limit = { var:bag_wtp_pm17 = 0 }
 				set_variable = { name = bag_wtp_p17 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm17 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p17 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm17 = 0 }
 				set_variable = { name = bag_wtp_pr17 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm17 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr17 divide = 2 }
 			}
 		}
 	}
@@ -2161,23 +2212,28 @@ bag_wtp_plan_harvest_18 = {
 			set_variable = { name = bag_wtp_pm18 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr18 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm18 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm18 = 0 }
 				set_variable = { name = bag_wtp_p18 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm18 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p18 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm18 = 0 }
 				set_variable = { name = bag_wtp_pr18 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm18 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr18 divide = 2 }
 			}
 		}
 		else = {
@@ -2189,13 +2245,11 @@ bag_wtp_plan_harvest_18 = {
 				limit = { var:bag_wtp_pm18 = 0 }
 				set_variable = { name = bag_wtp_p18 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm18 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p18 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm18 = 0 }
 				set_variable = { name = bag_wtp_pr18 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm18 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr18 divide = 2 }
 			}
 		}
 	}
@@ -2264,23 +2318,28 @@ bag_wtp_plan_harvest_19 = {
 			set_variable = { name = bag_wtp_pm19 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr19 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm19 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm19 = 0 }
 				set_variable = { name = bag_wtp_p19 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm19 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p19 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm19 = 0 }
 				set_variable = { name = bag_wtp_pr19 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm19 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr19 divide = 2 }
 			}
 		}
 		else = {
@@ -2292,13 +2351,11 @@ bag_wtp_plan_harvest_19 = {
 				limit = { var:bag_wtp_pm19 = 0 }
 				set_variable = { name = bag_wtp_p19 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm19 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p19 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm19 = 0 }
 				set_variable = { name = bag_wtp_pr19 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm19 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr19 divide = 2 }
 			}
 		}
 	}
@@ -2367,23 +2424,28 @@ bag_wtp_plan_harvest_20 = {
 			set_variable = { name = bag_wtp_pm20 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr20 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm20 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm20 = 0 }
 				set_variable = { name = bag_wtp_p20 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm20 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p20 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm20 = 0 }
 				set_variable = { name = bag_wtp_pr20 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm20 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr20 divide = 2 }
 			}
 		}
 		else = {
@@ -2395,13 +2457,11 @@ bag_wtp_plan_harvest_20 = {
 				limit = { var:bag_wtp_pm20 = 0 }
 				set_variable = { name = bag_wtp_p20 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm20 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p20 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm20 = 0 }
 				set_variable = { name = bag_wtp_pr20 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm20 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr20 divide = 2 }
 			}
 		}
 	}
@@ -2470,23 +2530,28 @@ bag_wtp_plan_harvest_21 = {
 			set_variable = { name = bag_wtp_pm21 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr21 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm21 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm21 = 0 }
 				set_variable = { name = bag_wtp_p21 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm21 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p21 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm21 = 0 }
 				set_variable = { name = bag_wtp_pr21 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm21 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr21 divide = 2 }
 			}
 		}
 		else = {
@@ -2498,13 +2563,11 @@ bag_wtp_plan_harvest_21 = {
 				limit = { var:bag_wtp_pm21 = 0 }
 				set_variable = { name = bag_wtp_p21 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm21 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p21 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm21 = 0 }
 				set_variable = { name = bag_wtp_pr21 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm21 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr21 divide = 2 }
 			}
 		}
 	}
@@ -2573,23 +2636,28 @@ bag_wtp_plan_harvest_22 = {
 			set_variable = { name = bag_wtp_pm22 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr22 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm22 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm22 = 0 }
 				set_variable = { name = bag_wtp_p22 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm22 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p22 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm22 = 0 }
 				set_variable = { name = bag_wtp_pr22 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm22 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr22 divide = 2 }
 			}
 		}
 		else = {
@@ -2601,13 +2669,11 @@ bag_wtp_plan_harvest_22 = {
 				limit = { var:bag_wtp_pm22 = 0 }
 				set_variable = { name = bag_wtp_p22 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm22 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p22 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm22 = 0 }
 				set_variable = { name = bag_wtp_pr22 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm22 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr22 divide = 2 }
 			}
 		}
 	}
@@ -2676,23 +2742,28 @@ bag_wtp_plan_harvest_23 = {
 			set_variable = { name = bag_wtp_pm23 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr23 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm23 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm23 = 0 }
 				set_variable = { name = bag_wtp_p23 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm23 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p23 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm23 = 0 }
 				set_variable = { name = bag_wtp_pr23 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm23 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr23 divide = 2 }
 			}
 		}
 		else = {
@@ -2704,13 +2775,11 @@ bag_wtp_plan_harvest_23 = {
 				limit = { var:bag_wtp_pm23 = 0 }
 				set_variable = { name = bag_wtp_p23 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm23 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p23 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm23 = 0 }
 				set_variable = { name = bag_wtp_pr23 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm23 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr23 divide = 2 }
 			}
 		}
 	}
@@ -2779,23 +2848,28 @@ bag_wtp_plan_harvest_24 = {
 			set_variable = { name = bag_wtp_pm24 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr24 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm24 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm24 = 0 }
 				set_variable = { name = bag_wtp_p24 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm24 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p24 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm24 = 0 }
 				set_variable = { name = bag_wtp_pr24 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm24 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr24 divide = 2 }
 			}
 		}
 		else = {
@@ -2807,13 +2881,11 @@ bag_wtp_plan_harvest_24 = {
 				limit = { var:bag_wtp_pm24 = 0 }
 				set_variable = { name = bag_wtp_p24 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm24 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p24 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm24 = 0 }
 				set_variable = { name = bag_wtp_pr24 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm24 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr24 divide = 2 }
 			}
 		}
 	}
@@ -2882,23 +2954,28 @@ bag_wtp_plan_harvest_25 = {
 			set_variable = { name = bag_wtp_pm25 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr25 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm25 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm25 = 0 }
 				set_variable = { name = bag_wtp_p25 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm25 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p25 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm25 = 0 }
 				set_variable = { name = bag_wtp_pr25 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm25 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr25 divide = 2 }
 			}
 		}
 		else = {
@@ -2910,13 +2987,11 @@ bag_wtp_plan_harvest_25 = {
 				limit = { var:bag_wtp_pm25 = 0 }
 				set_variable = { name = bag_wtp_p25 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm25 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p25 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm25 = 0 }
 				set_variable = { name = bag_wtp_pr25 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm25 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr25 divide = 2 }
 			}
 		}
 	}
@@ -2985,23 +3060,28 @@ bag_wtp_plan_harvest_26 = {
 			set_variable = { name = bag_wtp_pm26 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr26 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm26 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm26 = 0 }
 				set_variable = { name = bag_wtp_p26 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm26 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p26 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm26 = 0 }
 				set_variable = { name = bag_wtp_pr26 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm26 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr26 divide = 2 }
 			}
 		}
 		else = {
@@ -3013,13 +3093,11 @@ bag_wtp_plan_harvest_26 = {
 				limit = { var:bag_wtp_pm26 = 0 }
 				set_variable = { name = bag_wtp_p26 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm26 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p26 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm26 = 0 }
 				set_variable = { name = bag_wtp_pr26 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm26 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr26 divide = 2 }
 			}
 		}
 	}
@@ -3084,23 +3162,28 @@ bag_wtp_plan_harvest_27 = {
 			set_variable = { name = bag_wtp_pm27 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr27 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm27 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm27 = 0 }
 				set_variable = { name = bag_wtp_p27 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm27 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p27 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm27 = 0 }
 				set_variable = { name = bag_wtp_pr27 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm27 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr27 divide = 2 }
 			}
 		}
 		else = {
@@ -3112,13 +3195,11 @@ bag_wtp_plan_harvest_27 = {
 				limit = { var:bag_wtp_pm27 = 0 }
 				set_variable = { name = bag_wtp_p27 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm27 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p27 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm27 = 0 }
 				set_variable = { name = bag_wtp_pr27 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm27 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr27 divide = 2 }
 			}
 		}
 	}
@@ -3183,23 +3264,28 @@ bag_wtp_plan_harvest_28 = {
 			set_variable = { name = bag_wtp_pm28 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr28 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm28 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm28 = 0 }
 				set_variable = { name = bag_wtp_p28 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm28 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p28 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm28 = 0 }
 				set_variable = { name = bag_wtp_pr28 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm28 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr28 divide = 2 }
 			}
 		}
 		else = {
@@ -3211,13 +3297,11 @@ bag_wtp_plan_harvest_28 = {
 				limit = { var:bag_wtp_pm28 = 0 }
 				set_variable = { name = bag_wtp_p28 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm28 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p28 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm28 = 0 }
 				set_variable = { name = bag_wtp_pr28 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm28 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr28 divide = 2 }
 			}
 		}
 	}
@@ -3282,23 +3366,28 @@ bag_wtp_plan_harvest_29 = {
 			set_variable = { name = bag_wtp_pm29 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr29 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm29 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm29 = 0 }
 				set_variable = { name = bag_wtp_p29 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm29 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p29 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm29 = 0 }
 				set_variable = { name = bag_wtp_pr29 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm29 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr29 divide = 2 }
 			}
 		}
 		else = {
@@ -3310,13 +3399,11 @@ bag_wtp_plan_harvest_29 = {
 				limit = { var:bag_wtp_pm29 = 0 }
 				set_variable = { name = bag_wtp_p29 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm29 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p29 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm29 = 0 }
 				set_variable = { name = bag_wtp_pr29 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm29 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr29 divide = 2 }
 			}
 		}
 	}
@@ -3381,23 +3468,28 @@ bag_wtp_plan_harvest_30 = {
 			set_variable = { name = bag_wtp_pm30 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr30 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm30 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm30 = 0 }
 				set_variable = { name = bag_wtp_p30 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm30 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p30 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm30 = 0 }
 				set_variable = { name = bag_wtp_pr30 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm30 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr30 divide = 2 }
 			}
 		}
 		else = {
@@ -3409,13 +3501,11 @@ bag_wtp_plan_harvest_30 = {
 				limit = { var:bag_wtp_pm30 = 0 }
 				set_variable = { name = bag_wtp_p30 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm30 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p30 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm30 = 0 }
 				set_variable = { name = bag_wtp_pr30 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm30 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr30 divide = 2 }
 			}
 		}
 	}
@@ -3480,23 +3570,28 @@ bag_wtp_plan_harvest_31 = {
 			set_variable = { name = bag_wtp_pm31 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr31 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm31 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm31 = 0 }
 				set_variable = { name = bag_wtp_p31 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm31 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p31 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm31 = 0 }
 				set_variable = { name = bag_wtp_pr31 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm31 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr31 divide = 2 }
 			}
 		}
 		else = {
@@ -3508,13 +3603,11 @@ bag_wtp_plan_harvest_31 = {
 				limit = { var:bag_wtp_pm31 = 0 }
 				set_variable = { name = bag_wtp_p31 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm31 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p31 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm31 = 0 }
 				set_variable = { name = bag_wtp_pr31 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm31 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr31 divide = 2 }
 			}
 		}
 	}
@@ -3579,23 +3672,28 @@ bag_wtp_plan_harvest_32 = {
 			set_variable = { name = bag_wtp_pm32 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr32 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm32 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm32 = 0 }
 				set_variable = { name = bag_wtp_p32 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm32 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p32 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm32 = 0 }
 				set_variable = { name = bag_wtp_pr32 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm32 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr32 divide = 2 }
 			}
 		}
 		else = {
@@ -3607,13 +3705,11 @@ bag_wtp_plan_harvest_32 = {
 				limit = { var:bag_wtp_pm32 = 0 }
 				set_variable = { name = bag_wtp_p32 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm32 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p32 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm32 = 0 }
 				set_variable = { name = bag_wtp_pr32 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm32 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr32 divide = 2 }
 			}
 		}
 	}
@@ -3678,23 +3774,28 @@ bag_wtp_plan_harvest_33 = {
 			set_variable = { name = bag_wtp_pm33 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr33 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm33 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm33 = 0 }
 				set_variable = { name = bag_wtp_p33 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm33 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p33 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm33 = 0 }
 				set_variable = { name = bag_wtp_pr33 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm33 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr33 divide = 2 }
 			}
 		}
 		else = {
@@ -3706,13 +3807,11 @@ bag_wtp_plan_harvest_33 = {
 				limit = { var:bag_wtp_pm33 = 0 }
 				set_variable = { name = bag_wtp_p33 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm33 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p33 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm33 = 0 }
 				set_variable = { name = bag_wtp_pr33 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm33 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr33 divide = 2 }
 			}
 		}
 	}
@@ -3777,23 +3876,28 @@ bag_wtp_plan_harvest_34 = {
 			set_variable = { name = bag_wtp_pm34 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr34 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm34 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm34 = 0 }
 				set_variable = { name = bag_wtp_p34 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm34 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p34 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm34 = 0 }
 				set_variable = { name = bag_wtp_pr34 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm34 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr34 divide = 2 }
 			}
 		}
 		else = {
@@ -3805,13 +3909,11 @@ bag_wtp_plan_harvest_34 = {
 				limit = { var:bag_wtp_pm34 = 0 }
 				set_variable = { name = bag_wtp_p34 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm34 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p34 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm34 = 0 }
 				set_variable = { name = bag_wtp_pr34 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm34 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr34 divide = 2 }
 			}
 		}
 	}
@@ -3876,23 +3978,28 @@ bag_wtp_plan_harvest_35 = {
 			set_variable = { name = bag_wtp_pm35 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr35 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm35 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm35 = 0 }
 				set_variable = { name = bag_wtp_p35 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm35 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p35 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm35 = 0 }
 				set_variable = { name = bag_wtp_pr35 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm35 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr35 divide = 2 }
 			}
 		}
 		else = {
@@ -3904,13 +4011,11 @@ bag_wtp_plan_harvest_35 = {
 				limit = { var:bag_wtp_pm35 = 0 }
 				set_variable = { name = bag_wtp_p35 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm35 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p35 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm35 = 0 }
 				set_variable = { name = bag_wtp_pr35 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm35 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr35 divide = 2 }
 			}
 		}
 	}
@@ -3975,23 +4080,28 @@ bag_wtp_plan_harvest_36 = {
 			set_variable = { name = bag_wtp_pm36 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr36 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm36 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm36 = 0 }
 				set_variable = { name = bag_wtp_p36 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm36 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p36 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm36 = 0 }
 				set_variable = { name = bag_wtp_pr36 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm36 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr36 divide = 2 }
 			}
 		}
 		else = {
@@ -4003,13 +4113,11 @@ bag_wtp_plan_harvest_36 = {
 				limit = { var:bag_wtp_pm36 = 0 }
 				set_variable = { name = bag_wtp_p36 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm36 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p36 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm36 = 0 }
 				set_variable = { name = bag_wtp_pr36 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm36 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr36 divide = 2 }
 			}
 		}
 	}
@@ -4074,23 +4182,28 @@ bag_wtp_plan_harvest_37 = {
 			set_variable = { name = bag_wtp_pm37 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr37 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm37 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm37 = 0 }
 				set_variable = { name = bag_wtp_p37 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm37 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p37 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm37 = 0 }
 				set_variable = { name = bag_wtp_pr37 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm37 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr37 divide = 2 }
 			}
 		}
 		else = {
@@ -4102,13 +4215,11 @@ bag_wtp_plan_harvest_37 = {
 				limit = { var:bag_wtp_pm37 = 0 }
 				set_variable = { name = bag_wtp_p37 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm37 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p37 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm37 = 0 }
 				set_variable = { name = bag_wtp_pr37 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm37 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr37 divide = 2 }
 			}
 		}
 	}
@@ -4173,23 +4284,28 @@ bag_wtp_plan_harvest_38 = {
 			set_variable = { name = bag_wtp_pm38 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr38 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm38 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm38 = 0 }
 				set_variable = { name = bag_wtp_p38 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm38 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p38 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm38 = 0 }
 				set_variable = { name = bag_wtp_pr38 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm38 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr38 divide = 2 }
 			}
 		}
 		else = {
@@ -4201,13 +4317,11 @@ bag_wtp_plan_harvest_38 = {
 				limit = { var:bag_wtp_pm38 = 0 }
 				set_variable = { name = bag_wtp_p38 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm38 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p38 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm38 = 0 }
 				set_variable = { name = bag_wtp_pr38 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm38 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr38 divide = 2 }
 			}
 		}
 	}
@@ -4272,23 +4386,28 @@ bag_wtp_plan_harvest_39 = {
 			set_variable = { name = bag_wtp_pm39 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr39 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm39 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm39 = 0 }
 				set_variable = { name = bag_wtp_p39 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm39 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p39 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm39 = 0 }
 				set_variable = { name = bag_wtp_pr39 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm39 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr39 divide = 2 }
 			}
 		}
 		else = {
@@ -4300,13 +4419,11 @@ bag_wtp_plan_harvest_39 = {
 				limit = { var:bag_wtp_pm39 = 0 }
 				set_variable = { name = bag_wtp_p39 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm39 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p39 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm39 = 0 }
 				set_variable = { name = bag_wtp_pr39 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm39 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr39 divide = 2 }
 			}
 		}
 	}
@@ -4371,23 +4488,28 @@ bag_wtp_plan_harvest_40 = {
 			set_variable = { name = bag_wtp_pm40 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr40 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm40 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm40 = 0 }
 				set_variable = { name = bag_wtp_p40 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm40 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p40 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm40 = 0 }
 				set_variable = { name = bag_wtp_pr40 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm40 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr40 divide = 2 }
 			}
 		}
 		else = {
@@ -4399,13 +4521,11 @@ bag_wtp_plan_harvest_40 = {
 				limit = { var:bag_wtp_pm40 = 0 }
 				set_variable = { name = bag_wtp_p40 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm40 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p40 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm40 = 0 }
 				set_variable = { name = bag_wtp_pr40 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm40 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr40 divide = 2 }
 			}
 		}
 	}
@@ -4470,23 +4590,28 @@ bag_wtp_plan_harvest_41 = {
 			set_variable = { name = bag_wtp_pm41 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr41 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm41 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm41 = 0 }
 				set_variable = { name = bag_wtp_p41 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm41 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p41 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm41 = 0 }
 				set_variable = { name = bag_wtp_pr41 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm41 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr41 divide = 2 }
 			}
 		}
 		else = {
@@ -4498,13 +4623,11 @@ bag_wtp_plan_harvest_41 = {
 				limit = { var:bag_wtp_pm41 = 0 }
 				set_variable = { name = bag_wtp_p41 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm41 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p41 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm41 = 0 }
 				set_variable = { name = bag_wtp_pr41 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm41 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr41 divide = 2 }
 			}
 		}
 	}
@@ -4569,23 +4692,28 @@ bag_wtp_plan_harvest_42 = {
 			set_variable = { name = bag_wtp_pm42 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr42 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm42 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm42 = 0 }
 				set_variable = { name = bag_wtp_p42 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm42 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p42 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm42 = 0 }
 				set_variable = { name = bag_wtp_pr42 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm42 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr42 divide = 2 }
 			}
 		}
 		else = {
@@ -4597,13 +4725,11 @@ bag_wtp_plan_harvest_42 = {
 				limit = { var:bag_wtp_pm42 = 0 }
 				set_variable = { name = bag_wtp_p42 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm42 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p42 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm42 = 0 }
 				set_variable = { name = bag_wtp_pr42 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm42 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr42 divide = 2 }
 			}
 		}
 	}
@@ -4668,23 +4794,28 @@ bag_wtp_plan_harvest_43 = {
 			set_variable = { name = bag_wtp_pm43 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr43 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm43 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm43 = 0 }
 				set_variable = { name = bag_wtp_p43 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm43 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p43 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm43 = 0 }
 				set_variable = { name = bag_wtp_pr43 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm43 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr43 divide = 2 }
 			}
 		}
 		else = {
@@ -4696,13 +4827,11 @@ bag_wtp_plan_harvest_43 = {
 				limit = { var:bag_wtp_pm43 = 0 }
 				set_variable = { name = bag_wtp_p43 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm43 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p43 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm43 = 0 }
 				set_variable = { name = bag_wtp_pr43 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm43 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr43 divide = 2 }
 			}
 		}
 	}
@@ -4767,23 +4896,28 @@ bag_wtp_plan_harvest_44 = {
 			set_variable = { name = bag_wtp_pm44 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr44 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm44 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm44 = 0 }
 				set_variable = { name = bag_wtp_p44 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm44 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p44 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm44 = 0 }
 				set_variable = { name = bag_wtp_pr44 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm44 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr44 divide = 2 }
 			}
 		}
 		else = {
@@ -4795,13 +4929,11 @@ bag_wtp_plan_harvest_44 = {
 				limit = { var:bag_wtp_pm44 = 0 }
 				set_variable = { name = bag_wtp_p44 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm44 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p44 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm44 = 0 }
 				set_variable = { name = bag_wtp_pr44 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm44 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr44 divide = 2 }
 			}
 		}
 	}
@@ -4866,23 +4998,28 @@ bag_wtp_plan_harvest_45 = {
 			set_variable = { name = bag_wtp_pm45 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr45 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm45 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm45 = 0 }
 				set_variable = { name = bag_wtp_p45 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm45 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p45 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm45 = 0 }
 				set_variable = { name = bag_wtp_pr45 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm45 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr45 divide = 2 }
 			}
 		}
 		else = {
@@ -4894,13 +5031,11 @@ bag_wtp_plan_harvest_45 = {
 				limit = { var:bag_wtp_pm45 = 0 }
 				set_variable = { name = bag_wtp_p45 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm45 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p45 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm45 = 0 }
 				set_variable = { name = bag_wtp_pr45 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm45 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr45 divide = 2 }
 			}
 		}
 	}
@@ -4965,23 +5100,28 @@ bag_wtp_plan_harvest_46 = {
 			set_variable = { name = bag_wtp_pm46 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr46 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm46 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm46 = 0 }
 				set_variable = { name = bag_wtp_p46 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm46 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p46 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm46 = 0 }
 				set_variable = { name = bag_wtp_pr46 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm46 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr46 divide = 2 }
 			}
 		}
 		else = {
@@ -4993,13 +5133,11 @@ bag_wtp_plan_harvest_46 = {
 				limit = { var:bag_wtp_pm46 = 0 }
 				set_variable = { name = bag_wtp_p46 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm46 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p46 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm46 = 0 }
 				set_variable = { name = bag_wtp_pr46 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm46 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr46 divide = 2 }
 			}
 		}
 	}
@@ -5064,23 +5202,28 @@ bag_wtp_plan_harvest_47 = {
 			set_variable = { name = bag_wtp_pm47 value = var:bag_wtp_pendbest_method_t }
 			set_variable = { name = bag_wtp_pr47 value = var:bag_wtp_pendgain_r }
 			set_variable = { name = bag_wtp_prm47 value = var:bag_wtp_pendbest_method_r }
-			# **Nothing the ground feeds: take the recipe it does not.** A location
+			# **Nothing clears the floor: take the best recipe anyway.** A location
 			# no RGO helps still has to be filled, and a granted right's bundle goes
-			# up whether the bonus is there or not -- the owner, 2026-09-01. The
-			# fallback is divided by 2 so that it is genuinely last in the
-			# queue: everything the ground earns is placed before anything it does
-			# not, which is «свести к минимуму» rather than forbid.
+			# up whether the bonus is there or not -- the owner, 2026-09-01.
+			#
+			# **And it keeps its own gain, undivided.** The score already *is* how
+			# much of its ceiling the ground pays: a recipe earning 4% of a possible
+			# 10 comes in at 400 and is behind everything better by that alone.
+			# Halving it on top counted the same fact twice and moved the building in
+			# the queue for want of raw materials, which is the one thing the owner
+			# forbade outright («не должно... смещён в очереди из-за этого»,
+			# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+			# that is the half of his rule that stands: «может влиять только на ВЫБОР
+			# метода производства в конкретном домике».
 			if = {
 				limit = { var:bag_wtp_pm47 = 0 }
 				set_variable = { name = bag_wtp_p47 value = var:bag_wtp_pendanygain_t }
 				set_variable = { name = bag_wtp_pm47 value = var:bag_wtp_pendanybest_method_t }
-				change_variable = { name = bag_wtp_p47 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm47 = 0 }
 				set_variable = { name = bag_wtp_pr47 value = var:bag_wtp_pendanygain_r }
 				set_variable = { name = bag_wtp_prm47 value = var:bag_wtp_pendanybest_method_r }
-				change_variable = { name = bag_wtp_pr47 divide = 2 }
 			}
 		}
 		else = {
@@ -5092,13 +5235,11 @@ bag_wtp_plan_harvest_47 = {
 				limit = { var:bag_wtp_pm47 = 0 }
 				set_variable = { name = bag_wtp_p47 value = var:bag_wtp_pnowanygain_t }
 				set_variable = { name = bag_wtp_pm47 value = var:bag_wtp_pnowanybest_method_t }
-				change_variable = { name = bag_wtp_p47 divide = 2 }
 			}
 			if = {
 				limit = { var:bag_wtp_prm47 = 0 }
 				set_variable = { name = bag_wtp_pr47 value = var:bag_wtp_pnowanygain_r }
 				set_variable = { name = bag_wtp_prm47 value = var:bag_wtp_pnowanybest_method_r }
-				change_variable = { name = bag_wtp_pr47 divide = 2 }
 			}
 		}
 	}

@@ -145,14 +145,62 @@ town_rights_type:flemish_cloth_industries_right` and the engine dump lists
 `town_rights_type` as an event target, so it should store; if it does not, the
 list registration is where `error.log` will say so.
 
+## Five things read off the files on 2026-09-02
+
+Read rather than remembered, because the owner asked to be checked against the
+game and not believed: «я могу ошибаться и в целом работаю из условностей
+воспоминаний».
+
+- **There are 41 rights in the game and the mod scores 12** — `output_rights()`
+  keeps only those that raise an output. Everything else is levels, marketplaces
+  or population, and is not offered at all.
+- **Every country-specific right is `kept_at_conquest = no`. The nine general
+  Discovery ones carry no such line, so they are kept.** That matters for this
+  mod more than for the game: it plans ground you have not taken, and a right on
+  ground you conquer is gone the moment it is yours. You can grant it again if
+  you pass its `potential`, which is what the plan already checks.
+- **Flemish cloth and `royal_textile_rights` are mutually exclusive**, and the
+  game says so itself: the flemish `allow` is `NOT = { has_town_rights =
+  royal_textile_rights }`. So «which of them has priority» is not a question the
+  game answers — it only forbids the pair, and the choice is the player's.
+- **The per-location limit is a modifier, `local_possible_town_rights`**
+  («Определяет, сколько городских прав может быть у района»). **Nothing in
+  `reference/` pushes it**, so the base and any per-rank steps are not knowable
+  from here — they will be in `common/defines`, which the manifest does not
+  extract. The owner's recollection is town +1, city +1, megalopolis +1, and it
+  is his recollection and not a reading. **`capital_possible_town_rights` is
+  readable**: four advances grant +1 each — Discovery, Reformation, Absolutism,
+  Revolutions — so a capital ends the game with four extra.
+- **`town_right_efficiency_penalty` is still defined in nothing we hold**, and
+  the owner puts it at 5% from memory. **It changes no answer the mod gives**:
+  eleven rights carry the same constant, it applies to the whole location, and
+  the plan grants a right to every town — so it cancels out of every comparison
+  the mod makes. Worth knowing to explain a row, not to compute one.
+
+## The owner's ruling on levels, 2026-09-02
+
+**The mod must never score building levels.** «Мы смотрим на общие ячейки,
+каждая из которых линейка в высоту какого-то домика, не важно будет их там 3 в
+высоту или 13. Это число непостоянно и все локации растут — высчитывать это
+полный абсурд.» So the level half is not deferred any more; it is out of scope by
+decision, and `guild_max_level` above is not to be built into a score.
+
+**But he also wants every right usable**: «не важно право это на бонус
+производительности или на лимит домиков — все полезны и все по идее должны
+использоваться… все права равны должны быть». Those two together point at one
+rule, and it is not built: **score every right by how well the ground suits the
+goods it favours, whatever kind of bonus it gives** — a level right for cloth and
+fine cloth is scored on cloth and fine cloth, exactly like an output right, and
+never on the levels. Undecided and his to call.
+
 ## What is undecided
 
-- **Level rights.** Deferred by the owner on 2026-08-31: «Давай отложим права
-  на лимит пока.» Six of the seventeen are level rights and four of those are
-  marketplaces, which are trade and not production at all.
-- **`town_right_efficiency_penalty`.** Not needed to rank provinces — constant —
-  but needed to answer «is this right worth taking», which is a different
-  question the mod does not currently ask. One `grep` on his install settles it.
+- **Whether to bring the level rights in** under the rule above. It would take
+  the mod from 12 rights to something near 20 and needs no new arithmetic.
+- **Whether a town that suits no right at all should still get one.** The plan
+  grants a right where the town can make at least one of its goods; if none of
+  the twelve passes, the town gets none. It has not happened on any ground run so
+  far.
 - **The row.** A bundle is up to three goods, so a row wants three answers where
   it has two. A row can hold a fixed number of them and not a variable one:
   script has no list of tuples, and the answers are parked as flat variables on

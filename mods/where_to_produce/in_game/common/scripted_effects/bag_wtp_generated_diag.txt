@@ -45,7 +45,7 @@ bag_wtp_diag = {
 # Scope: country
 bag_wtp_diag_build = {
 	debug_log = "WTP BUILD methods=241 rural=13 goods=47 raw=25 made=22 rights=12 gated=10"
-	debug_log = "WTP BUILD rounds=50 passes=12 bands=800/600/400/200/0 tiers=1/2/4/8/16/0 rows=150 ranked=1500 result_rows=50 unfed_penalty=2 right_fit=2000 rank_scale=1000 right_slots=3"
+	debug_log = "WTP BUILD rounds=50 passes=12 bands=800/600/400/200/0 tiers=1/2/4/8/16/0 rows=150 ranked=1500 result_rows=50 right_fit=2000 rank_scale=1000 right_slots=3"
 	debug_log = "WTP BUILD passes in order: 1=band800/tierall, 2=band600/tierall, 3=band400/tierall, 4=band200/tierall, 5=band0/tier1, 6=band0/tier2, 7=band0/tier4, 8=band0/tier8, 9=band0/tier16, 10=band0/tierall, 11=cover, 12=open"
 	set_global_variable = { name = bag_wtp_dv1 value = 12345 }
 	debug_log = "WTP SELFTEST 1 global-through-player=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] (expect 12345; anything else and every number below is wrong)"

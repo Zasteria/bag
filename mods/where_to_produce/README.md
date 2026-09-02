@@ -89,8 +89,10 @@ at a time, under a cap per location.
 2. **Divide each good by its own best in this ground**, one divisor for both
    sides, so a good that tops out at 5% compares fairly with one that tops out at
    10%. Without it the biggest recipe takes every contested location.
-3. **Grant urban rights**, in towns only and all or nothing: a town takes the
-   right its ground suits best among those whose *whole* bundle it can make.
+3. **Grant urban rights**, in towns only and one per town: a town takes the
+   right its ground suits best among those the country could grant and of which
+   it can make at least one good. A bundle good that cannot stand there does not
+   go up, and its slot falls to an ordinary good.
 4. **Then the rest, in rounds, the scarce goods first.** A good only a couple of
    locations can hold takes its place before a common one takes a second — the
    sweeps run in tiers of 1, 2, 4, 8, 16 candidate locations, then everything.

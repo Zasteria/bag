@@ -216,13 +216,16 @@ answered on 2026-09-02 when he asked for them by name:**
   > или будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может
   > влиять только на ВЫБОР метода производства в конкретном домике.
 
-  **`UNFED_PENALTY` above breaks it** — a recipe the ground feeds nothing is
-  divided by two on top of a `gain` already zero, the same fact counted twice, and
-  it moves that building in the queue. It is left standing on purpose: it is a
-  named suspect for the symptom, and this repository does not fix a suspect
-  before a probe points at one. (`fed_floor` is *not* a gate in the plan here —
-  the plan keeps an unfloored twin of every side, so that part of the rule already
-  holds.)
+  ~~**`UNFED_PENALTY` above breaks it**~~ — **removed 2026-09-02 at his word.**
+  A recipe that missed `fed_floor` had its score halved on top of a `gain` that
+  already *is* how much of its ceiling the ground pays: the same fact counted
+  twice, and it moved the building in the queue for want of raw materials, which
+  is exactly what he forbade. It had been left standing as a named suspect for the
+  charter symptom; that symptom was settled otherwise (the tick is the rank,
+  `../SETTLED.md`), so it was being kept for nothing. **`fed_floor` stays** — it
+  chooses which method a building runs, which is the half of the rule he
+  affirmed: «может влиять только на ВЫБОР метода производства». It is also not a
+  gate: the plan keeps an unfloored twin of every side.
 - **The observation that killed the market theory**, thirty-ninth load. It is
   about the game, so it stands whatever our code does: `glass_guild` and
   `rural_glassmaker` carry the **identical** `location_potential = {

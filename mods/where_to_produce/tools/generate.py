@@ -130,12 +130,6 @@ PLAN_PROVS = 600
 # in the whole ground takes it before a good with forty gets its second, which is
 # the owner's «жёстко зарезервировать слоты». 0 is the last tier and means
 # everything.
-# What a building the ground does not feed is worth against one it does. The
-# bonus itself is only a ten per cent band, so a penalty has to be an outright
-# divisor rather than a difference in bonus: the owner wants the unfed case
-# minimised, not forbidden.
-UNFED_PENALTY = 2
-
 # What one buildable good of a right's bundle is worth beside how good it is.
 # Twice `RANK_SCALE`, so that a bundle a town can finish always outranks a bigger
 # one it cannot, whatever the scores inside them.
@@ -1953,23 +1947,28 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendbest_method_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendgain_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
-\t\t\t# **Nothing the ground feeds: take the recipe it does not.** A location
+\t\t\t# **Nothing clears the floor: take the best recipe anyway.** A location
 \t\t\t# no RGO helps still has to be filled, and a granted right's bundle goes
-\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01. The
-\t\t\t# fallback is divided by {UNFED_PENALTY} so that it is genuinely last in the
-\t\t\t# queue: everything the ground earns is placed before anything it does
-\t\t\t# not, which is «свести к минимуму» rather than forbid.
+\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01.
+\t\t\t#
+\t\t\t# **And it keeps its own gain, undivided.** The score already *is* how
+\t\t\t# much of its ceiling the ground pays: a recipe earning 4% of a possible
+\t\t\t# 10 comes in at 400 and is behind everything better by that alone.
+\t\t\t# Halving it on top counted the same fact twice and moved the building in
+\t\t\t# the queue for want of raw materials, which is the one thing the owner
+\t\t\t# forbade outright («не должно... смещён в очереди из-за этого»,
+\t\t\t# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+\t\t\t# that is the half of his rule that stands: «может влиять только на ВЫБОР
+\t\t\t# метода производства в конкретном домике».
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t\telse = {{
@@ -1981,13 +1980,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t}}
@@ -3371,7 +3368,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
                    f"tiers={tiers} rows={PLAN_ROWS} ranked={PLAN_RANKED} "
                    f"result_rows={RESULT_ROWS} "
-                   f"unfed_penalty={UNFED_PENALTY} right_fit={RIGHT_FIT} "
+                   f"right_fit={RIGHT_FIT} "
                    f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
     out.append(say("BUILD passes in order: "
                    + ", ".join(f"{i}={pass_name(band, tier)}"
