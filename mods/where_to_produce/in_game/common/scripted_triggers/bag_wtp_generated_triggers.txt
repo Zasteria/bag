@@ -112,7 +112,7 @@ bag_wtp_can_build_something = {
 # Scope: location
 bag_wtp_can_build_1 = {
 	OR = {
-		can_build_building = building_type:clay_pit
+		bag_wtp_stands_clay_pit = yes
 	}
 }
 
@@ -120,8 +120,8 @@ bag_wtp_can_build_1 = {
 # Scope: location
 bag_wtp_can_build_2 = {
 	OR = {
-		can_build_building = building_type:charcoal_maker
-		can_build_building = building_type:improved_charcoal_maker
+		bag_wtp_stands_charcoal_maker = yes
+		bag_wtp_stands_improved_charcoal_maker = yes
 	}
 }
 
@@ -129,7 +129,7 @@ bag_wtp_can_build_2 = {
 # Scope: location
 bag_wtp_can_build_3 = {
 	OR = {
-		can_build_building = building_type:cotton_plantation
+		bag_wtp_stands_cotton_plantation = yes
 	}
 }
 
@@ -137,10 +137,10 @@ bag_wtp_can_build_3 = {
 # Scope: location
 bag_wtp_can_build_4 = {
 	OR = {
-		can_build_building = building_type:dyes_guild
-		can_build_building = building_type:dyes_mill
-		can_build_building = building_type:dyes_workshop
-		can_build_building = building_type:dyesworks
+		bag_wtp_stands_dyes_guild = yes
+		bag_wtp_stands_dyes_mill = yes
+		bag_wtp_stands_dyes_workshop = yes
+		bag_wtp_stands_dyesworks = yes
 	}
 }
 
@@ -148,8 +148,8 @@ bag_wtp_can_build_4 = {
 # Scope: location
 bag_wtp_can_build_5 = {
 	OR = {
-		can_build_building = building_type:fiber_crops_farm
-		can_build_building = building_type:shoen
+		bag_wtp_stands_fiber_crops_farm = yes
+		bag_wtp_stands_shoen = yes
 	}
 }
 
@@ -157,7 +157,7 @@ bag_wtp_can_build_5 = {
 # Scope: location
 bag_wtp_can_build_6 = {
 	OR = {
-		can_build_building = building_type:fishing_village
+		bag_wtp_stands_fishing_village = yes
 	}
 }
 
@@ -165,7 +165,7 @@ bag_wtp_can_build_6 = {
 # Scope: location
 bag_wtp_can_build_7 = {
 	OR = {
-		can_build_building = building_type:fruit_orchard
+		bag_wtp_stands_fruit_orchard = yes
 	}
 }
 
@@ -173,7 +173,7 @@ bag_wtp_can_build_7 = {
 # Scope: location
 bag_wtp_can_build_8 = {
 	OR = {
-		can_build_building = building_type:horse_breeders
+		bag_wtp_stands_horse_breeders = yes
 	}
 }
 
@@ -181,7 +181,7 @@ bag_wtp_can_build_8 = {
 # Scope: location
 bag_wtp_can_build_9 = {
 	OR = {
-		can_build_building = building_type:perfumery
+		bag_wtp_stands_perfumery = yes
 	}
 }
 
@@ -189,8 +189,8 @@ bag_wtp_can_build_9 = {
 # Scope: location
 bag_wtp_can_build_10 = {
 	OR = {
-		can_build_building = building_type:bog_iron_smelter
-		can_build_building = building_type:shoen
+		bag_wtp_stands_bog_iron_smelter = yes
+		bag_wtp_stands_shoen = yes
 	}
 }
 
@@ -198,7 +198,7 @@ bag_wtp_can_build_10 = {
 # Scope: location
 bag_wtp_can_build_11 = {
 	OR = {
-		can_build_building = building_type:elephant_hunting_grounds
+		bag_wtp_stands_elephant_hunting_grounds = yes
 	}
 }
 
@@ -206,7 +206,7 @@ bag_wtp_can_build_11 = {
 # Scope: location
 bag_wtp_can_build_12 = {
 	OR = {
-		can_build_building = building_type:farming_village
+		bag_wtp_stands_farming_village = yes
 	}
 }
 
@@ -214,7 +214,7 @@ bag_wtp_can_build_12 = {
 # Scope: location
 bag_wtp_can_build_13 = {
 	OR = {
-		can_build_building = building_type:shoen
+		bag_wtp_stands_shoen = yes
 	}
 }
 
@@ -222,7 +222,7 @@ bag_wtp_can_build_13 = {
 # Scope: location
 bag_wtp_can_build_14 = {
 	OR = {
-		can_build_building = building_type:apothecary
+		bag_wtp_stands_apothecary = yes
 	}
 }
 
@@ -230,7 +230,7 @@ bag_wtp_can_build_14 = {
 # Scope: location
 bag_wtp_can_build_15 = {
 	OR = {
-		can_build_building = building_type:salt_collector
+		bag_wtp_stands_salt_collector = yes
 	}
 }
 
@@ -238,10 +238,10 @@ bag_wtp_can_build_15 = {
 # Scope: location
 bag_wtp_can_build_16 = {
 	OR = {
-		can_build_building = building_type:putrefaction_mill
-		can_build_building = building_type:putrefaction_works
-		can_build_building = building_type:saltpeter_guild
-		can_build_building = building_type:saltpeter_workshop
+		bag_wtp_stands_putrefaction_mill = yes
+		bag_wtp_stands_putrefaction_works = yes
+		bag_wtp_stands_saltpeter_guild = yes
+		bag_wtp_stands_saltpeter_workshop = yes
 	}
 }
 
@@ -249,7 +249,7 @@ bag_wtp_can_build_16 = {
 # Scope: location
 bag_wtp_can_build_17 = {
 	OR = {
-		can_build_building = building_type:sand_pit
+		bag_wtp_stands_sand_pit = yes
 	}
 }
 
@@ -257,8 +257,8 @@ bag_wtp_can_build_17 = {
 # Scope: location
 bag_wtp_can_build_18 = {
 	OR = {
-		can_build_building = building_type:ablaq_palace
-		can_build_building = building_type:lucca_silk_production_guild
+		bag_wtp_stands_ablaq_palace = yes
+		bag_wtp_stands_lucca_silk_production_guild = yes
 	}
 }
 
@@ -266,7 +266,7 @@ bag_wtp_can_build_18 = {
 # Scope: location
 bag_wtp_can_build_19 = {
 	OR = {
-		can_build_building = building_type:schwaz_mine
+		bag_wtp_stands_schwaz_mine = yes
 	}
 }
 
@@ -274,7 +274,7 @@ bag_wtp_can_build_19 = {
 # Scope: location
 bag_wtp_can_build_20 = {
 	OR = {
-		can_build_building = building_type:stone_quarry
+		bag_wtp_stands_stone_quarry = yes
 	}
 }
 
@@ -282,7 +282,7 @@ bag_wtp_can_build_20 = {
 # Scope: location
 bag_wtp_can_build_21 = {
 	OR = {
-		can_build_building = building_type:sugar_plantation
+		bag_wtp_stands_sugar_plantation = yes
 	}
 }
 
@@ -290,7 +290,7 @@ bag_wtp_can_build_21 = {
 # Scope: location
 bag_wtp_can_build_22 = {
 	OR = {
-		can_build_building = building_type:tobacco_plantation
+		bag_wtp_stands_tobacco_plantation = yes
 	}
 }
 
@@ -298,7 +298,7 @@ bag_wtp_can_build_22 = {
 # Scope: location
 bag_wtp_can_build_23 = {
 	OR = {
-		can_build_building = building_type:eng_royal_forest
+		bag_wtp_stands_eng_royal_forest = yes
 	}
 }
 
@@ -306,8 +306,8 @@ bag_wtp_can_build_23 = {
 # Scope: location
 bag_wtp_can_build_24 = {
 	OR = {
-		can_build_building = building_type:winery
-		can_build_building = building_type:winery_manufactory
+		bag_wtp_stands_winery = yes
+		bag_wtp_stands_winery_manufactory = yes
 	}
 }
 
@@ -315,7 +315,7 @@ bag_wtp_can_build_24 = {
 # Scope: location
 bag_wtp_can_build_25 = {
 	OR = {
-		can_build_building = building_type:sheep_farms
+		bag_wtp_stands_sheep_farms = yes
 	}
 }
 
@@ -323,11 +323,11 @@ bag_wtp_can_build_25 = {
 # Scope: location
 bag_wtp_can_build_26 = {
 	OR = {
-		can_build_building = building_type:beer_workshop
-		can_build_building = building_type:brewery
-		can_build_building = building_type:brewery_manufactory
-		can_build_building = building_type:brewery_mill
-		can_build_building = building_type:market_village
+		bag_wtp_stands_beer_workshop = yes
+		bag_wtp_stands_brewery = yes
+		bag_wtp_stands_brewery_manufactory = yes
+		bag_wtp_stands_brewery_mill = yes
+		bag_wtp_stands_market_village = yes
 	}
 }
 
@@ -335,10 +335,10 @@ bag_wtp_can_build_26 = {
 # Scope: location
 bag_wtp_can_build_27 = {
 	OR = {
-		can_build_building = building_type:printing_manufactory
-		can_build_building = building_type:printing_mill
-		can_build_building = building_type:printing_press_shop
-		can_build_building = building_type:scriptorium
+		bag_wtp_stands_printing_manufactory = yes
+		bag_wtp_stands_printing_mill = yes
+		bag_wtp_stands_printing_press_shop = yes
+		bag_wtp_stands_scriptorium = yes
 	}
 }
 
@@ -346,10 +346,10 @@ bag_wtp_can_build_27 = {
 # Scope: location
 bag_wtp_can_build_28 = {
 	OR = {
-		can_build_building = building_type:cannon_foundry
-		can_build_building = building_type:cannon_maker
-		can_build_building = building_type:cannon_workshop
-		can_build_building = building_type:cannons_factory
+		bag_wtp_stands_cannon_foundry = yes
+		bag_wtp_stands_cannon_maker = yes
+		bag_wtp_stands_cannon_workshop = yes
+		bag_wtp_stands_cannons_factory = yes
 	}
 }
 
@@ -357,11 +357,11 @@ bag_wtp_can_build_28 = {
 # Scope: location
 bag_wtp_can_build_29 = {
 	OR = {
-		can_build_building = building_type:cloth_guild
-		can_build_building = building_type:cloth_manufactory
-		can_build_building = building_type:cloth_workshop
-		can_build_building = building_type:rural_clothmaker
-		can_build_building = building_type:textile_mill
+		bag_wtp_stands_cloth_guild = yes
+		bag_wtp_stands_cloth_manufactory = yes
+		bag_wtp_stands_cloth_workshop = yes
+		bag_wtp_stands_rural_clothmaker = yes
+		bag_wtp_stands_textile_mill = yes
 	}
 }
 
@@ -369,10 +369,10 @@ bag_wtp_can_build_29 = {
 # Scope: location
 bag_wtp_can_build_30 = {
 	OR = {
-		can_build_building = building_type:fine_cloth_guild
-		can_build_building = building_type:fine_cloth_manufactory
-		can_build_building = building_type:fine_cloth_mill
-		can_build_building = building_type:fine_cloth_workshop
+		bag_wtp_stands_fine_cloth_guild = yes
+		bag_wtp_stands_fine_cloth_manufactory = yes
+		bag_wtp_stands_fine_cloth_mill = yes
+		bag_wtp_stands_fine_cloth_workshop = yes
 	}
 }
 
@@ -380,11 +380,11 @@ bag_wtp_can_build_30 = {
 # Scope: location
 bag_wtp_can_build_31 = {
 	OR = {
-		can_build_building = building_type:firearms_factory
-		can_build_building = building_type:firearms_manufactory
-		can_build_building = building_type:gun_smith
-		can_build_building = building_type:guns_workshop
-		can_build_building = building_type:hand_cannon_guild
+		bag_wtp_stands_firearms_factory = yes
+		bag_wtp_stands_firearms_manufactory = yes
+		bag_wtp_stands_gun_smith = yes
+		bag_wtp_stands_guns_workshop = yes
+		bag_wtp_stands_hand_cannon_guild = yes
 	}
 }
 
@@ -392,10 +392,10 @@ bag_wtp_can_build_31 = {
 # Scope: location
 bag_wtp_can_build_32 = {
 	OR = {
-		can_build_building = building_type:furniture_guild
-		can_build_building = building_type:furniture_manufactory
-		can_build_building = building_type:furniture_mill
-		can_build_building = building_type:furniture_workshop
+		bag_wtp_stands_furniture_guild = yes
+		bag_wtp_stands_furniture_manufactory = yes
+		bag_wtp_stands_furniture_mill = yes
+		bag_wtp_stands_furniture_workshop = yes
 	}
 }
 
@@ -403,11 +403,11 @@ bag_wtp_can_build_32 = {
 # Scope: location
 bag_wtp_can_build_33 = {
 	OR = {
-		can_build_building = building_type:glass_guild
-		can_build_building = building_type:glass_mill
-		can_build_building = building_type:glass_workshop
-		can_build_building = building_type:glassworks
-		can_build_building = building_type:rural_glassmaker
+		bag_wtp_stands_glass_guild = yes
+		bag_wtp_stands_glass_mill = yes
+		bag_wtp_stands_glass_workshop = yes
+		bag_wtp_stands_glassworks = yes
+		bag_wtp_stands_rural_glassmaker = yes
 	}
 }
 
@@ -415,9 +415,9 @@ bag_wtp_can_build_33 = {
 # Scope: location
 bag_wtp_can_build_34 = {
 	OR = {
-		can_build_building = building_type:jewelry_guild
-		can_build_building = building_type:market_village
-		can_build_building = building_type:pounamou_carver
+		bag_wtp_stands_jewelry_guild = yes
+		bag_wtp_stands_market_village = yes
+		bag_wtp_stands_pounamou_carver = yes
 	}
 }
 
@@ -425,8 +425,8 @@ bag_wtp_can_build_34 = {
 # Scope: location
 bag_wtp_can_build_35 = {
 	OR = {
-		can_build_building = building_type:lacquerware_guild
-		can_build_building = building_type:lacquerware_manufactory
+		bag_wtp_stands_lacquerware_guild = yes
+		bag_wtp_stands_lacquerware_manufactory = yes
 	}
 }
 
@@ -434,11 +434,11 @@ bag_wtp_can_build_35 = {
 # Scope: location
 bag_wtp_can_build_36 = {
 	OR = {
-		can_build_building = building_type:forest_village
-		can_build_building = building_type:tannery
-		can_build_building = building_type:tannery_manufactory
-		can_build_building = building_type:tannery_mill
-		can_build_building = building_type:tanning_workshop
+		bag_wtp_stands_forest_village = yes
+		bag_wtp_stands_tannery = yes
+		bag_wtp_stands_tannery_manufactory = yes
+		bag_wtp_stands_tannery_mill = yes
+		bag_wtp_stands_tanning_workshop = yes
 	}
 }
 
@@ -446,10 +446,10 @@ bag_wtp_can_build_36 = {
 # Scope: location
 bag_wtp_can_build_37 = {
 	OR = {
-		can_build_building = building_type:distiller_manufactory
-		can_build_building = building_type:distiller_mill
-		can_build_building = building_type:distillers_guild
-		can_build_building = building_type:distillers_workshop
+		bag_wtp_stands_distiller_manufactory = yes
+		bag_wtp_stands_distiller_mill = yes
+		bag_wtp_stands_distillers_guild = yes
+		bag_wtp_stands_distillers_workshop = yes
 	}
 }
 
@@ -457,8 +457,8 @@ bag_wtp_can_build_37 = {
 # Scope: location
 bag_wtp_can_build_38 = {
 	OR = {
-		can_build_building = building_type:mason
-		can_build_building = building_type:shoen
+		bag_wtp_stands_mason = yes
+		bag_wtp_stands_shoen = yes
 	}
 }
 
@@ -466,11 +466,11 @@ bag_wtp_can_build_38 = {
 # Scope: location
 bag_wtp_can_build_39 = {
 	OR = {
-		can_build_building = building_type:fishing_village
-		can_build_building = building_type:naval_supplies_guild
-		can_build_building = building_type:naval_supplies_manufactory
-		can_build_building = building_type:naval_supplies_mill
-		can_build_building = building_type:naval_supplies_workshop
+		bag_wtp_stands_fishing_village = yes
+		bag_wtp_stands_naval_supplies_guild = yes
+		bag_wtp_stands_naval_supplies_manufactory = yes
+		bag_wtp_stands_naval_supplies_mill = yes
+		bag_wtp_stands_naval_supplies_workshop = yes
 	}
 }
 
@@ -478,10 +478,10 @@ bag_wtp_can_build_39 = {
 # Scope: location
 bag_wtp_can_build_40 = {
 	OR = {
-		can_build_building = building_type:paper_guild
-		can_build_building = building_type:paper_manufactory
-		can_build_building = building_type:paper_mill
-		can_build_building = building_type:paper_workshop
+		bag_wtp_stands_paper_guild = yes
+		bag_wtp_stands_paper_manufactory = yes
+		bag_wtp_stands_paper_mill = yes
+		bag_wtp_stands_paper_workshop = yes
 	}
 }
 
@@ -489,8 +489,8 @@ bag_wtp_can_build_40 = {
 # Scope: location
 bag_wtp_can_build_41 = {
 	OR = {
-		can_build_building = building_type:porcelain_guild
-		can_build_building = building_type:porcelain_manufactory
+		bag_wtp_stands_porcelain_guild = yes
+		bag_wtp_stands_porcelain_manufactory = yes
 	}
 }
 
@@ -498,12 +498,12 @@ bag_wtp_can_build_41 = {
 # Scope: location
 bag_wtp_can_build_42 = {
 	OR = {
-		can_build_building = building_type:fishing_village
-		can_build_building = building_type:market_village
-		can_build_building = building_type:pottery_guild
-		can_build_building = building_type:pottery_manufactory
-		can_build_building = building_type:pottery_mill
-		can_build_building = building_type:pottery_workshop
+		bag_wtp_stands_fishing_village = yes
+		bag_wtp_stands_market_village = yes
+		bag_wtp_stands_pottery_guild = yes
+		bag_wtp_stands_pottery_manufactory = yes
+		bag_wtp_stands_pottery_mill = yes
+		bag_wtp_stands_pottery_workshop = yes
 	}
 }
 
@@ -511,7 +511,7 @@ bag_wtp_can_build_42 = {
 # Scope: location
 bag_wtp_can_build_43 = {
 	OR = {
-		can_build_building = building_type:slave_center
+		bag_wtp_stands_slave_center = yes
 	}
 }
 
@@ -519,7 +519,7 @@ bag_wtp_can_build_43 = {
 # Scope: location
 bag_wtp_can_build_44 = {
 	OR = {
-		can_build_building = building_type:steel_mill
+		bag_wtp_stands_steel_mill = yes
 	}
 }
 
@@ -527,7 +527,7 @@ bag_wtp_can_build_44 = {
 # Scope: location
 bag_wtp_can_build_45 = {
 	OR = {
-		can_build_building = building_type:tar_kiln
+		bag_wtp_stands_tar_kiln = yes
 	}
 }
 
@@ -535,13 +535,13 @@ bag_wtp_can_build_45 = {
 # Scope: location
 bag_wtp_can_build_46 = {
 	OR = {
-		can_build_building = building_type:forest_village
-		can_build_building = building_type:iron_foundry
-		can_build_building = building_type:iron_mill
-		can_build_building = building_type:market_village
-		can_build_building = building_type:tatara
-		can_build_building = building_type:tools_guild
-		can_build_building = building_type:tools_workshop
+		bag_wtp_stands_forest_village = yes
+		bag_wtp_stands_iron_foundry = yes
+		bag_wtp_stands_iron_mill = yes
+		bag_wtp_stands_market_village = yes
+		bag_wtp_stands_tatara = yes
+		bag_wtp_stands_tools_guild = yes
+		bag_wtp_stands_tools_workshop = yes
 	}
 }
 
@@ -549,13 +549,13 @@ bag_wtp_can_build_46 = {
 # Scope: location
 bag_wtp_can_build_47 = {
 	OR = {
-		can_build_building = building_type:forest_village
-		can_build_building = building_type:market_village
-		can_build_building = building_type:tatara
-		can_build_building = building_type:weapon_factory
-		can_build_building = building_type:weapon_guild
-		can_build_building = building_type:weapon_manufactory
-		can_build_building = building_type:weapon_workshop
+		bag_wtp_stands_forest_village = yes
+		bag_wtp_stands_market_village = yes
+		bag_wtp_stands_tatara = yes
+		bag_wtp_stands_weapon_factory = yes
+		bag_wtp_stands_weapon_guild = yes
+		bag_wtp_stands_weapon_manufactory = yes
+		bag_wtp_stands_weapon_workshop = yes
 	}
 }
 
@@ -1291,4 +1291,768 @@ bag_wtp_avail_240 = {
 }
 bag_wtp_avail_241 = {
 	can_build_building = building_type:sheep_farms
+}
+
+# Scope: location
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_ablaq_palace = {
+	can_build_building = building_type:ablaq_palace
+}
+bag_wtp_stands_apothecary = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:apothecary
+	}
+}
+bag_wtp_stands_beer_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:beer_workshop
+	}
+}
+bag_wtp_stands_bog_iron_smelter = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:bog_iron_smelter
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { is_adjacent_to_lake = yes topography = wetlands } NOT = { raw_material = goods:iron }
+		}
+	}
+}
+bag_wtp_stands_brewery = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:brewery
+	}
+}
+bag_wtp_stands_brewery_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:brewery_manufactory
+	}
+}
+bag_wtp_stands_brewery_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:brewery_mill
+	}
+}
+bag_wtp_stands_cannon_foundry = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cannon_foundry
+	}
+}
+bag_wtp_stands_cannon_maker = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cannon_maker
+	}
+}
+bag_wtp_stands_cannon_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cannon_workshop
+	}
+}
+bag_wtp_stands_cannons_factory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cannons_factory
+	}
+}
+bag_wtp_stands_charcoal_maker = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:charcoal_maker
+	}
+}
+bag_wtp_stands_clay_pit = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:clay_pit
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { is_coastal = yes has_river = yes is_adjacent_to_lake = yes } NOT = { raw_material = goods:clay }
+		}
+	}
+}
+bag_wtp_stands_cloth_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cloth_guild
+	}
+}
+bag_wtp_stands_cloth_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cloth_manufactory
+	}
+}
+bag_wtp_stands_cloth_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:cloth_workshop
+	}
+}
+bag_wtp_stands_cotton_plantation = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:cotton_plantation
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			raw_material = goods:cotton OR = { is_overseas_for_owner = yes owner ?= { is_colonial_subject = yes } }
+		}
+	}
+}
+bag_wtp_stands_distiller_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:distiller_manufactory
+	}
+}
+bag_wtp_stands_distiller_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:distiller_mill
+	}
+}
+bag_wtp_stands_distillers_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:distillers_guild
+	}
+}
+bag_wtp_stands_distillers_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:distillers_workshop
+	}
+}
+bag_wtp_stands_dyes_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:dyes_guild
+	}
+}
+bag_wtp_stands_dyes_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:dyes_mill
+	}
+}
+bag_wtp_stands_dyes_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:dyes_workshop
+	}
+}
+bag_wtp_stands_dyesworks = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:dyesworks
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_elephant_hunting_grounds = {
+	can_build_building = building_type:elephant_hunting_grounds
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_eng_royal_forest = {
+	can_build_building = building_type:eng_royal_forest
+}
+bag_wtp_stands_farming_village = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:farming_village
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { raw_material = goods:wheat raw_material = goods:maize raw_material = goods:rice raw_material = goods:millet raw_material = goods:legumes raw_material = goods:potato raw_material = goods:livestock raw_material = goods:olives raw_material = goods:fruit raw_material = goods:wool }
+		}
+	}
+}
+bag_wtp_stands_fiber_crops_farm = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:fiber_crops_farm
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			NOT = { raw_material = goods:fiber_crops } NOT = { climate = arctic }
+		}
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_fine_cloth_guild = {
+	can_build_building = building_type:fine_cloth_guild
+}
+bag_wtp_stands_fine_cloth_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:fine_cloth_manufactory
+	}
+}
+bag_wtp_stands_fine_cloth_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:fine_cloth_mill
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_fine_cloth_workshop = {
+	can_build_building = building_type:fine_cloth_workshop
+}
+bag_wtp_stands_firearms_factory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:firearms_factory
+	}
+}
+bag_wtp_stands_firearms_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:firearms_manufactory
+	}
+}
+bag_wtp_stands_fishing_village = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:fishing_village
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			is_coastal = yes
+		}
+	}
+}
+bag_wtp_stands_forest_village = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:forest_village
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { raw_material = goods:wild_game vegetation = forest vegetation = woods vegetation = jungle }
+		}
+	}
+}
+bag_wtp_stands_fruit_orchard = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:fruit_orchard
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { vegetation = grasslands vegetation = farmland vegetation = woods vegetation = jungle }
+		}
+	}
+}
+bag_wtp_stands_furniture_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:furniture_guild
+	}
+}
+bag_wtp_stands_furniture_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:furniture_manufactory
+	}
+}
+bag_wtp_stands_furniture_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:furniture_mill
+	}
+}
+bag_wtp_stands_furniture_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:furniture_workshop
+	}
+}
+bag_wtp_stands_glass_guild = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:glass_guild
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			is_produced_in_location_market = goods:sand
+		}
+	}
+}
+bag_wtp_stands_glass_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:glass_mill
+	}
+}
+bag_wtp_stands_glass_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:glass_workshop
+	}
+}
+bag_wtp_stands_glassworks = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:glassworks
+	}
+}
+bag_wtp_stands_gun_smith = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:gun_smith
+	}
+}
+bag_wtp_stands_guns_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:guns_workshop
+	}
+}
+bag_wtp_stands_hand_cannon_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:hand_cannon_guild
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_horse_breeders = {
+	can_build_building = building_type:horse_breeders
+}
+bag_wtp_stands_improved_charcoal_maker = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:improved_charcoal_maker
+	}
+}
+bag_wtp_stands_iron_foundry = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:iron_foundry
+	}
+}
+bag_wtp_stands_iron_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:iron_mill
+	}
+}
+bag_wtp_stands_jewelry_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:jewelry_guild
+	}
+}
+bag_wtp_stands_lacquerware_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:lacquerware_guild
+	}
+}
+bag_wtp_stands_lacquerware_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:lacquerware_manufactory
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_lucca_silk_production_guild = {
+	can_build_building = building_type:lucca_silk_production_guild
+}
+bag_wtp_stands_market_village = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:market_village
+	}
+}
+bag_wtp_stands_mason = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:mason
+	}
+}
+bag_wtp_stands_naval_supplies_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:naval_supplies_guild
+	}
+}
+bag_wtp_stands_naval_supplies_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:naval_supplies_manufactory
+	}
+}
+bag_wtp_stands_naval_supplies_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:naval_supplies_mill
+	}
+}
+bag_wtp_stands_naval_supplies_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:naval_supplies_workshop
+	}
+}
+bag_wtp_stands_paper_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:paper_guild
+	}
+}
+bag_wtp_stands_paper_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:paper_manufactory
+	}
+}
+bag_wtp_stands_paper_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:paper_mill
+	}
+}
+bag_wtp_stands_paper_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:paper_workshop
+	}
+}
+bag_wtp_stands_perfumery = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:perfumery
+	}
+}
+bag_wtp_stands_porcelain_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:porcelain_guild
+	}
+}
+bag_wtp_stands_porcelain_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:porcelain_manufactory
+	}
+}
+bag_wtp_stands_pottery_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:pottery_guild
+	}
+}
+bag_wtp_stands_pottery_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:pottery_manufactory
+	}
+}
+bag_wtp_stands_pottery_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:pottery_mill
+	}
+}
+bag_wtp_stands_pottery_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:pottery_workshop
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_pounamou_carver = {
+	can_build_building = building_type:pounamou_carver
+}
+bag_wtp_stands_printing_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:printing_manufactory
+	}
+}
+bag_wtp_stands_printing_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:printing_mill
+	}
+}
+bag_wtp_stands_printing_press_shop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:printing_press_shop
+	}
+}
+bag_wtp_stands_putrefaction_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:putrefaction_mill
+	}
+}
+bag_wtp_stands_putrefaction_works = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:putrefaction_works
+	}
+}
+bag_wtp_stands_rural_clothmaker = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:rural_clothmaker
+	}
+}
+bag_wtp_stands_rural_glassmaker = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:rural_glassmaker
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			is_produced_in_location_market = goods:sand
+		}
+	}
+}
+bag_wtp_stands_salt_collector = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:salt_collector
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { vegetation = desert is_coastal = yes }
+		}
+	}
+}
+bag_wtp_stands_saltpeter_guild = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:saltpeter_guild
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			market ?= { is_produced_in_market = goods:livestock is_produced_in_market = goods:clay }
+		}
+	}
+}
+bag_wtp_stands_saltpeter_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:saltpeter_workshop
+	}
+}
+bag_wtp_stands_sand_pit = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:sand_pit
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			NOT = { raw_material = goods:sand }
+		}
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_schwaz_mine = {
+	can_build_building = building_type:schwaz_mine
+}
+bag_wtp_stands_scriptorium = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:scriptorium
+	}
+}
+bag_wtp_stands_sheep_farms = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:sheep_farms
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { vegetation = sparse vegetation = farmland vegetation = grasslands }
+		}
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_shoen = {
+	can_build_building = building_type:shoen
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_slave_center = {
+	can_build_building = building_type:slave_center
+}
+bag_wtp_stands_steel_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:steel_mill
+	}
+}
+bag_wtp_stands_stone_quarry = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:stone_quarry
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { topography = mountains topography = plateau topography = hills } NOT = { raw_material = goods:stone }
+		}
+	}
+}
+bag_wtp_stands_sugar_plantation = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:sugar_plantation
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			raw_material = goods:sugar OR = { is_overseas_for_owner = yes owner ?= { is_colonial_subject = yes } }
+		}
+	}
+}
+bag_wtp_stands_tannery = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tannery
+	}
+}
+bag_wtp_stands_tannery_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tannery_manufactory
+	}
+}
+bag_wtp_stands_tannery_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tannery_mill
+	}
+}
+bag_wtp_stands_tanning_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tanning_workshop
+	}
+}
+bag_wtp_stands_tar_kiln = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:tar_kiln
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			OR = { vegetation = woods vegetation = forest vegetation = jungle raw_material = goods:lumber }
+		}
+	}
+}
+# an `allow` or a `country_potential` gates it besides the rank, so the tick does not override it.
+bag_wtp_stands_tatara = {
+	can_build_building = building_type:tatara
+}
+bag_wtp_stands_textile_mill = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:textile_mill
+	}
+}
+bag_wtp_stands_tobacco_plantation = {
+	OR = {
+		AND = {
+			bag_wtp_rank_is_ticked = no
+			can_build_building = building_type:tobacco_plantation
+		}
+		AND = {
+			bag_wtp_rank_is_ticked = yes
+			# the building's own `location_potential`, copied from the game
+			raw_material = goods:tobacco OR = { is_overseas_for_owner = yes owner ?= { is_colonial_subject = yes } }
+		}
+	}
+}
+bag_wtp_stands_tools_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tools_guild
+	}
+}
+bag_wtp_stands_tools_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:tools_workshop
+	}
+}
+bag_wtp_stands_weapon_factory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:weapon_factory
+	}
+}
+bag_wtp_stands_weapon_guild = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:weapon_guild
+	}
+}
+bag_wtp_stands_weapon_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:weapon_manufactory
+	}
+}
+bag_wtp_stands_weapon_workshop = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:weapon_workshop
+	}
+}
+bag_wtp_stands_winery = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:winery
+	}
+}
+bag_wtp_stands_winery_manufactory = {
+	OR = {
+		bag_wtp_rank_is_ticked = yes
+		can_build_building = building_type:winery_manufactory
+	}
 }

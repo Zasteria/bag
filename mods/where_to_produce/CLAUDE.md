@@ -4,73 +4,75 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: twenty-nine loads in.** A row answers in three ages — «Сейчас», «По
-пути» (the best this ground ever feeds, and the last age it can be built), «В
-конце» — on two «Считать» buttons rather than sort headers.
+**State: the plan works and he has seen it** — «города получают права и домики из
+прав», 2026-09-02, on the build of the thirty-eighth load with the rank
+simulation on top. Four fifths of placed buildings earn a bonus where they stand.
+
+**The tick is the rank, for the whole calculation**: «расчёт должен симулировать
+ранги… и не важно что там стоит на самом деле». `bag_wtp_stands_<building>` takes
+the rank from the tick and the `location_potential` still from the game
+(`docs/research/engine.md`). **A tick lives on the location and outlives a save**,
+so «Сбросить пометки» clears all five continents at once — clearing what is on
+screen is not clearing them. «Диагностика» + `mods.bat → 8` reads the plan back
+and draws the conclusions.
+
+A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
+feeds, and the last age it can be built) and «В конце» — on two «Считать»
+buttons.
 
 ## Where it stands
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the
-bar is `generate.fed_floor`. **In the plan the raw materials choose the method
-and the location and decide nothing else**: never whether a building exists,
-never its place in the queue. Two rules were struck out under that and neither
-may come back — `plan_formula.md` names them. **`can_build_building` is a
-different thing: the game's own refusal.**
+bar is half the bonus it could ever earn (`generate.fed_floor`) — but **the plan
+must never use it as a gate**. Nor is a recipe whose building cannot stand there:
+`can_build_building`, in all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
-earning its own bonus over its own output, so a `Method` is the pair:
-[`../../docs/investigations/production_ladder.md`](../../docs/investigations/production_ladder.md).
+earning its own bonus over its own output:
+[`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own, with
 no «По пути» column. A right's gate is its own `potential`, never `has_advance`;
-in the plan every town gets one and its whole bundle goes up, bonus or not.
-Numbers and the deferred level rights:
-[`../../docs/investigations/town_rights.md`](../../docs/investigations/town_rights.md).
-
-**Four pickers**, and only what `interaction_source_list` holds is clickable
-(`docs/SETTLED.md`).
+in the plan every town gets one and its whole bundle goes up. Numbers and the deferred level rights:
+[`town_rights.md`](../../docs/investigations/town_rights.md).
 
 **The plan is an optimisation with a covering constraint** — maximise the bonus
 captured, subject to every good the ground can produce being produced. **Read
-[`../../docs/investigations/plan_formula.md`](../../docs/investigations/plan_formula.md)
+[`plan_formula.md`](../../docs/investigations/plan_formula.md)
 before changing any of it.** Two things to carry: the currency is **`gain =
 bonus ÷ that recipe's own ceiling`**, since a raw bonus does not compare across
 goods; and the ground is **dealt in descending bands of gain across every good
-at once**, which buys the opportunity cost for one comparison.
-**An entry is a building and a location holds one of each**; the next location
-may take that building on another method. **The sides are the building's own
-rank gates**, not `village_category`. Every condition is a location variable — **a
-`province_definition` holds none** (`docs/PITFALLS.md`). **The expensive
-button** — 241 recipes a location. How it is put together:
-[`../../docs/investigations/whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
+at once**. **An entry is a building and a location holds one of each.** **The
+sides are the building's own rank gates**, not `village_category`. Every
+condition is a location variable — **a `province_definition` holds none**
+(`docs/PITFALLS.md`). How it is put together:
+[`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
 **`cmf_on_mod_registration` fires every time the mod page is opened**, so
 `bag_wtp_register` destroys nothing. **Not to be attempted again:** a geography
-tree of our own, empty twice. Picker caps: `docs/research/cmf.md`.
+tree of our own, empty twice.
 
 ## Settled, and not to be re-litigated
 
 - **A window's datamodel is what costs**: a scripted widget never comes down, so
-  only the list it repeats over decides how many rows live. Filled on opening,
-  emptied on closing.
-- **The selection is recorded twice**, a location variable and a global list, and
+  only the list it repeats over decides the row count.
+- **The selection is recorded twice**, a location variable and a global list;
   only `bag_wtp_pick` / `_drop` writes it.
 - **Every column in both windows is a fixed width and none expands**; one that
-  hugs its content is a `widget` with an anchored child, never a sized hbox.
-  Three ways to lose a column to that, in `docs/pitfalls/interface.md`.
+  hugs its content is a `widget` with an anchored child, never a sized hbox
+  (`docs/pitfalls/interface.md`).
 - **The bonus is province-level** — which is why a row is a `province_definition`:
-  the whole ground, not one owner's piece. What would separate two of its
-  locations is building slots, which the game hides.
-- **The buildable tick is about the location, not the owner** (`docs/SETTLED.md`)
-  and is the one setting that re-ranks the open window: it decides which
-  locations are candidates at all.
+  the whole ground, not one owner's piece. What would separate its locations is
+  building slots, which the game hides.
+- **The buildable tick is about the location, not the owner**
+  (`docs/SETTLED.md`), and it re-ranks the open window.
 
 ## The answer lives on the location
 
 `bag_wtp_fill_rows` parks it there and everything else reads it back — every
 variable named, and the `_rural`, `mid_`, `end_` and urban-right twins, in
-[`README.md`](README.md#the-answer-lives-on-the-location). No globals per row,
-no ceiling but `RESULT_ROWS`. Not built: what a building costs.
+[`README.md`](README.md#the-answer-lives-on-the-location). No globals per row.
+Not built: what a building costs.
 
 **Built by** `generate.py`, from `tools/refresh.py`. Depth:
 [`README.md`](README.md). Anything else: `python3 tools/kb.py <words>`.

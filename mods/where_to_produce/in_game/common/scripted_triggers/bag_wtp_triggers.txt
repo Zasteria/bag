@@ -114,6 +114,22 @@ bag_wtp_right_row_is_worth_it = {
 # without complaining and answers true everywhere afterwards, which is exactly
 # what the buildable tick did for seventeen loads (`docs/PITFALLS.md`).
 # Scope: location
+# Has the player told this location what it is?
+#
+# **The tick is the rank, for the whole of the calculation.** The owner,
+# 2026-09-02: «Расчёт должен симулировать ранги. Если я поставил там город в
+# моде — он должен воспринимать это как город… И не важно что там стоит на самом
+# деле.» So where either tick is set, `bag_wtp_stands_<building>` asks the
+# building's own `location_potential` instead of `can_build_building`, and the
+# side the plan puts the location on answers the rank.
+# Scope: location
+bag_wtp_rank_is_ticked = {
+	OR = {
+		has_variable = bag_wtp_force_town
+		has_variable = bag_wtp_force_rural
+	}
+}
+
 bag_wtp_plan_is_town = {
 	OR = {
 		has_variable = bag_wtp_force_town

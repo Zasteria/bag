@@ -15,79 +15,56 @@ by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
 the whole of the next job: one pass through the menu, and read what it says.
 
 **Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed, and it did from
-the previous attempt — so an unfinished login copied last week's files over the
-workshop folder. The folder is fingerprinted before and after now, the exit code
-read, and **only a mod whose copy actually changed is copied onward**.
+successful one — it asked only whether the item's folder existed — so an
+unfinished login copied last week's files over the workshop folder. The folder is
+fingerprinted before and after now, the exit code read, and **only a mod whose
+copy actually changed is copied onward**.
 
 **Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
-landed. The install is **read back off disk** now, a mismatch says so with the
-path, and the screen names the branch and commit installed.
+landed. The install is **read back off disk** now, and the screen names the
+branch and commit installed.
 
 **And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's branch and commit.
+against the game's folder and the repository's commit.
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
-the output of all three. If a mod still reads «отличается» after installing, the
-message names the folder to look at. The logs from whatever run follows go
-through `python3 tools/which_build.py <logs folder>` first, as always now.
+the output of all three. If a mod still reads «отличается» after installing,
+the message names the folder. The logs from whatever run follows go
+through `python3 tools/which_build.py <logs folder>` first, as always now. No
+menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: the plan, and the one thing to do first
+## `where_to_produce`: it works, and what is left is his to choose
 
-**Build the probe. Do not propose a cause.** The 2026-09-01 session spent four of
-the owner's runs on four theories about one symptom and fixed none of it;
-[`pitfalls/diagnosis.md`](pitfalls/diagnosis.md) has the episode and `CLAUDE.md`
-the rule. The symptom is still open:
+**The plan does what it was meant to, and he has seen it** — «на первый взгляд
+работает как надо, города получают права и домики из прав», 2026-09-02. The
+symptom that cost four runs is measured, named and fixed: the tick is the rank
+now (`SETTLED.md`), the charter spam is gone, and **four fifths of placed
+buildings earn a bonus where they stand, capturing 78% of their own recipe's
+ceiling on average**. All of it is on
+`claude/where-to-produce-rollback-yc5o24`, unmerged.
 
-> **The plan will not put glass in a town.** It puts it in villages freely.
-> `glass_guild` (town) and `rural_glassmaker` (village) carry the **identical**
-> `location_potential = { is_produced_in_location_market = goods:sand }`, so the
-> gate cannot be the cause — one condition is not true and false in one market.
-> The same shape shows for `royal_naval_rights`: the charter is granted, the tar
-> and naval supplies are not placed.
+**Read `TESTLOG.md` before anything.** Four runs of 2026-09-02 are in it and they
+carry every number this section summarises.
 
-**The probe: a funnel counter per stage, for one good the player picks** —
-`_avail_` said yes, then `can_build_building` in the location's scope, then a
-method won (`_pm<n>` not 0), then `_plan_can_town_<n>`, then placed. Whichever
-number collapses is the answer, and one run reads it.
-`cmm_register_list_data_field` is a per-good column if the window is the wrong
-place (`research/cmf.md`).
+**What is open, and none of it is a bug:**
 
-**Everything else about the plan waits on that.** The formula itself is derived
-and the owner is content with it — «большой рывок» — and
-[`investigations/plan_formula.md`](investigations/plan_formula.md) must be read
-before any of the allocation is changed.
+- **Nine goods take 45% of the ground.** Coal, sand, beer, cloth, glass, jewelry,
+  leather, masonry, pottery — makeable in every location, so each reaches the
+  quota and stops at 20. Sixteen town-only goods got 7 or fewer, competing for
+  22 towns × 4 slots that the rights have first call on. **The formula working as
+  written**, and `plan_max` — his own per-good ceiling, still 0 — is the lever.
+  Ask before turning it; the report will say what it did.
+- **The round guard is one sweep from biting.** 127 locations put the open pass
+  at 11 of 12. The fix is written down and was rolled back with everything else:
+  `PLAN_ROUNDS` at 50, and the tier ladder in the last band only.
+- **The province ceiling setting** he asked to have removed, and «показано 150
+  локаций», which is `PLAN_ROWS` and not a count.
+- **The single-good side** has faults he has seen and set aside without naming.
 
-**The state before this session is commit `d8ee3cc`** (the merge of PR #48), kept
-at his request so nothing of the day's work is lost if a piece of it turns out to
-have broken something. **It is not a rollback target** — he said so; the findings
-are wanted, only the churn is suspect. A local tag `wtp-before-2026-09-01` was
-made and the proxy refused to push it, which is why the SHA is written here.
-
-**Live besides:**
-
-- **the single-good side has faults he has already seen** and set aside. He did
-  not name them; ask before guessing;
-- **`town_right_efficiency_penalty` is one `grep` on his install** — the number
-  behind the discount on a right-holding town's spare slots;
-- **the hand weight, the food location, the caps at 3/4/5** — all his, all in
-  `plan_formula.md`'s own closing list.
-
-**And he asked for no more counters until it works** — which the probe does not
-break, since it exists to make it work and comes out again after.
-
-**What is left besides is decisions, not runs**, and they are written up in
-[`investigations/town_rights.md`](investigations/town_rights.md):
-
-- **Level rights**, deferred 2026-08-31: a quantity where the output rights are
-  a ratio, so they want their own number and table.
-- **Whether the buildable tick should ask about ownership** — that means asking
-  the country from a trigger that has none.
-- **`town_right_efficiency_penalty`**, in eleven rights and in no file
-  `reference/` holds: one `grep` on the owner's install.
-
-Which menu entry should run `tools/extract_game_files.py` is still open — no
-entry does today.
+**The diagnosis comes out when the work does.** It is `bag_wtp_diag*`, the `_f*`
+counters, the two `_pass*` counters and two buttons; `pitfalls/diagnosis.md` has
+what it prints and how to read it, and `tools/diag.py` draws the conclusions so
+he does not have to.
 
 ## Then `glorpui_hints` goes out
 
@@ -114,17 +91,15 @@ are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
 
 ### Deliberately not done
 
-- **A thumbnail for the other five mods.** Only `glorpui_hints` has one;
-  `mods/glorpui_hints/tools/make_thumbnail.py` draws one when a second goes out.
-- **Reviewing the ten new translations with somebody who speaks them.** A
-  correction goes in `languages.py`, never in a generated `.yml`.
+A thumbnail for the other five mods — `make_thumbnail.py` draws one when a second
+goes out — and reviewing the ten new translations with somebody who speaks them,
+where a correction goes in `languages.py` and never in a generated `.yml`.
 
 ## Also waiting on the owner, all of it cheap
 
 - **`mods.bat → 2` on his machine.** The 2026-08-28 files of Advanced Auto Build
   and Glorp UI are still not in this tree; both generators were fixed against
-  rewritten copies and the run confirms it. Entry 2 does **not** re-extract the
-  game.
+  rewritten copies. Entry 2 does **not** re-extract the game.
 - **The panel-open bisect — five minutes, no log to read**, protocol in
   [`investigations/panel_hitch.md`](investigations/panel_hitch.md). It can close
   that job outright.

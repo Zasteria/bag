@@ -343,6 +343,58 @@ PURGE_COA_SEARCH_COUNT = 100 # How many COA entries we will search through in a 
 Coats of arms get purged a hundred entries a frame. Widgets get no such
 treatment, and nothing exposes one.
 
+## What `can_build_building` is made of, and how to take it apart
+
+**Read off the game's own `building_types/`, 2026-09-02**, because the plan needed
+to override one half of it and keep the other. In a *location's* scope the answer
+is the conjunction of:
+
+- **the rank flags** the building declares at its top level — `rural_settlement`,
+  `town`, `city`, `megalopolis`, each a bare `= yes`. A guild is `town = yes` and
+  has no rural flag; `rural_glassmaker` is `rural_settlement = yes, town = no`;
+- **its `location_potential`**, which is where the terrain lives (`stone_quarry`
+  wants mountains, plateau or hills), and the market conditions
+  (`is_produced_in_location_market = goods:sand`), and the one-RGO-per-location
+  rule (`NOT = { raw_material = goods:stone }`). **26 of the game's production
+  buildings carry one and 110 do not**, so for most of the manufacturing ladder
+  the rank is the whole of the check;
+- **an `allow` or a `country_potential`** where the building has one — twelve of
+  the hundred and ten the mod uses, all exotic: a Japanese reform, an English
+  tag, the Spanish cloth industry, a climate.
+
+**So the rank can be replaced without losing the rest**: ask the
+`location_potential` directly and answer the rank yourself. That is what
+`bag_wtp_stands_<building>` does for `where_to_produce`, and the flags come from
+`eu5data.Method.ranks` — parsed, not guessed. Where an `allow` or a
+`country_potential` is in play the game is asked as before; a condition evaluated
+wrong is worse than one not overridden.
+
+**The four ranks are the whole ladder**: `rural_settlement`, `town`, `city`,
+`megalopolis`. There is no fifth, which is what makes "not rural" and "takes a
+guild" the same statement.
+
+## What a `debug_log` string reaches, measured
+
+**2026-09-02, by a dump printing it.** All of it is what a mod may write into
+`debug.log` from an effect, and all of it was in doubt before the run.
+
+| written | comes out |
+| --- | --- |
+| `[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('<sv>')|0]` | **the number.** This is the way to print anything |
+| a localization key as the whole message | **the key itself**, unresolved |
+| `[ROOT.GetName]`, `[SCOPE.GetName]` | **nothing** — «Could not find data system function 'GetName'», and the bracket is echoed |
+| `THIS.MakeScope` | **nothing** — «Failed to convert statement for argument '0' for call 'SetRoot'» |
+| `debug_log_scopes = no` | **the current scope, named**, on its own line: «Держава Валахия (WAL)», «Район Тырговиште (3574)». This is how a row says which location it is |
+| `error_log = "…"` | **the line lands in `error.log` and in `debug.log` both.** A message sent to both sinks therefore arrives in `debug.log` twice |
+
+**And square brackets in a `debug_log` string are data function syntax**, exactly
+as in a localization value (`CLAUDE.md` carries the rule and this is where it was
+paid for a second time): `given=[…]` printed a number, and `[glass, masonry]`
+next to it made the engine look for a data system function called `glass`, fail,
+and cut the rest of the line — `given=` arrived as a separate log entry. **Write
+a list in round brackets.** The same run turned `[cannons, firearms, weaponry]`
+into a rendered game-concept tooltip, which is the same fault wearing a hat.
+
 ## The debug toolbox
 
 `debug_mode` in the console, then a toolbox appears. As of 1.3.11:

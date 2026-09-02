@@ -4,3 +4,6 @@ __pycache__/
 # The owner's own paths and account, not the repository's.
 tools/mods.local.json
 mods/glorpui_hints/tools/sv_findings.json
+
+# Отчёт «Диагностика», вынутый из логов игры: он для одного разговора.
+diagnostics.txt

@@ -86,6 +86,7 @@ caught it, not only in prose.
 | `guicost.py` | what the interface costs before anybody clicks |
 | `playset.py` | which mods the player actually runs, from the mount table in his `debug.log` |
 | `which_build.py` | which *build* of them ran, fingerprinted from the template line numbers in his `gui.log` |
+| `diag.py` | the `where_to_produce` diagnosis out of the game's `debug.log`, folded, **read for the owner in a dozen Russian lines** and copied to the clipboard. `mods.bat → 8` is the same from the menu, and asks whether to take every report in the log or the last |
 | `publish.py` | whether a mod is fit to upload |
 
 `.claude/hooks/session-start.sh` runs the first checkers at the start of every

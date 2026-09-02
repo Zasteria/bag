@@ -96,6 +96,21 @@ bag_wtp_register = {
 		step_value = 1
 	}
 
+	# The one ceiling above the caps, and off by default. The plan fills the
+	# ground: a location it can feed is never left empty, which is the
+	# twenty-eighth run's ruling. This is for the case where one good has spread
+	# further than you want it to.
+	cmm_register_global_numeric_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_max
+		tab_id = plan
+		group_id = plan
+		default_value = 0
+		min_value = 0
+		max_value = 20
+		step_value = 1
+	}
+
 	# Urban rights in the plan, and on by default. A right is a bundle of two or
 	# three goods, which is the shape of a town's list, so a right does not
 	# compete with goods for slots -- it takes the whole list, and it takes it
@@ -133,6 +148,39 @@ bag_wtp_register = {
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = plan_show
+		tab_id = plan
+		group_id = plan
+	}
+
+	# «Сбросить пометки город/село», everywhere at once.
+	#
+	# **The tick is a location variable and it outlives a save.** Clearing the
+	# rows on screen is not clearing them: 2026-09-02 he cleared the fourteen he
+	# could see, widened the ground, and fourteen others came into the plan
+	# looking exactly like a revert. One button, the whole world, and the count
+	# it cleared printed on itself.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_ticks
+		tab_id = plan
+		group_id = plan
+	}
+
+	# «Диагностика». One press, everything the mod knows, into `debug.log` and
+	# the headline of it into `error.log` besides.
+	#
+	# **It reads and writes nothing of the plan's**, so it is safe at any moment:
+	# pressed before a plan it prints zeros throughout, which is itself the
+	# answer to «did the pass run at all». The expensive half of it -- one walk
+	# over the ground working out where each good was lost -- is why it is a
+	# button and not the tail of the plan: the plan stays exactly as fast as it
+	# was, and this is pressed when there is something to look at.
+	#
+	# `docs/pitfalls/diagnosis.md` has what it prints and the four things about
+	# `debug_log` that were measured rather than assumed.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = diag
 		tab_id = plan
 		group_id = plan
 	}
@@ -179,6 +227,7 @@ bag_wtp_sync = {
 	# top of every plan run rather than only here.
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_rural alias = bag_wtp_plan_cap_rural }
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_urban alias = bag_wtp_plan_cap_urban }
+	cmm_sync_setting_alias = { setting = bag_wtp__plan_max alias = bag_wtp_plan_max }
 	cmm_sync_bool_alias = { setting = bag_wtp__plan_rights alias = bag_wtp_plan_rights }
 	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
 	# buttons set and clear it themselves, so no CMM setting has to agree with it.

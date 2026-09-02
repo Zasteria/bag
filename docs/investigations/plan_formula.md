@@ -52,43 +52,6 @@ nothing", which is still a building the plan must place. **The objective is
 Σ gain over every building placed**, and no price, no output size and no
 per-good divisor enters it. It is the honest reading of «свои плюшки».
 
-## The one rule the raw materials do not get to break
-
-**They decide the method and the place, and nothing else.** The owner, 2026-09-01,
-and it is the sharpest line in this file:
-
-> Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
-> будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
-> только на ВЫБОР метода производства в конкретном домике.
-
-Two rules were struck out under it and neither may come back:
-
-- **the unfed divisor.** A recipe the ground feeds nothing had its score halved on
-  top of a gain already zero — the same fact counted twice. **Seven recipes in the
-  game can never earn a bonus at all** (a lumber mill, a slave market, a shoen
-  quarry) and they are buildings like any other;
-- **the input substitution.** Where a granted right's good could not stand, the
-  slot went to the market input that would have unblocked it — sand for glass.
-  `sand_pit` asks only that the location is not already a sand RGO, so it stands
-  nearly everywhere: the masonry charter became the one bundle always complete,
-  spammed a whole realm, and filled the right's own slot with something the right
-  does not grant.
-
-**`generate.fed_floor` is not in the plan's admissibility either and must never be
-put back there.** It belongs to the ranking, where an empty answer beats a bad
-one; the plan has to fill the ground.
-
-**What raw materials may still do is set `gain`**, which decides *where* a good
-goes — and a good that can earn nothing anywhere is indifferent between
-locations, so it takes what is left over. That is not a penalty, it is the
-optimum, and it is what the owner described himself.
-
-**And one thing no rule here can change.** `can_build_building` is the game
-refusing a building, not the ground failing to feed it: a glass guild may not
-stand at all until sand is in the market. A right whose bundle the game refuses
-comes out short, and the plan's only honest answer is to prefer a charter the town
-can finish.
-
 ## The one insight that makes the deal optimal
 
 The failure mode is greed, and the owner named it: «дальше не жиреть». If every
@@ -171,22 +134,10 @@ Two consequences, and the first is a hard one:
 
 - **a town holding a right should hold its bundle and as little else as
   possible.** A non-bundle building there earns the penalty and none of the
-  bonus, so the same building is strictly better in a town without a right.
-  `_ord<n>` halves a right-holding town's spare slots — the direction without its
-  size, since the penalty's value is unknown. Built 2026-09-01, after the
-  thirty-eighth run put saltpetre and clay into towns that hold rights while
-  their villages made the glass;
+  bonus, so the same building is strictly better in a town without a right. The
+  bands must therefore discount a right-holding town's leftover slots;
 - **rights are worth more than anything the bands can find**, by a factor of two
   to five, which is why they are dealt first rather than competing.
-
-**Which right a town gets is scored on what it could really finish:** each bundle
-good the town can make is worth a flat 2000 plus its own gain, each it cannot
-takes 1000 off, and the grant divisor above sits on top. Two ways this was got
-wrong, both on 2026-09-01 and both spamming one charter over a whole realm:
-counting a good as reached when the *input* that would unblock it could be
-planted — `sand_pit` stands almost anywhere, which made the masonry charter
-complete everywhere — and averaging a bundle over its size, which tied a one-good
-charter with a whole three-good one.
 
 **`town_right_efficiency_penalty` is a define and it is not in `reference/`** —
 only its eleven uses are. The structure above is certain; the number is not, and
@@ -218,22 +169,65 @@ aside for food. He said «до этого мы пока ещё не дошли»
 - whether a cap of 3 is right, which is why he asked for 3, 4 and 5;
 - whether the bands want ten steps or four — a band costs a sweep.
 
-## What the passes cost, which the thirty-eighth run measured
+## The rollback of 2026-09-02, and what survives it
 
-A sweep places **at most one building per good per side**, so the number of
-sweeps a plan needs is not a constant: 970 buildings over 32 goods cannot be done
-in fewer than thirty. `PLAN_ROUNDS` guards each pass and was 12, which cut every
-pass short on a 1312-room ground and left 342 rooms empty. It is 50 now, and it
-is free wherever a pass has no work — the `while` leaves the moment a sweep adds
-nothing.
+**The tree is back at the build of the thirty-eighth load** — the four tests the
+owner called «большой рывок», and the first time the spread of goods over a whole
+ground looked to him the way he had meant it: «именно в этом коммите я
+почувствовал, что мод выглядит так, как я его задумывал». Everything built above
+it was undone at his word — «лучше мы решим уже на том моменте основную мучающую
+проблему, чем будем делать это после того как накрутили сверху множество других
+неработающих правок» — so everything above in this file is the code again,
+exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testlog_2026-08.md).
 
-**The pass count is what has to stay small, not the guard.** Walking all six
-scarcity tiers inside all five bands was 33 passes and 98 sweeps for one plan.
-The tiers run in the last band only now, because a scarce good with a high gain
-wins its band on gain alone and does not need the ladder — twelve passes, and
-that is what buys the guard.
+**Open at this point, and he named all of it himself:**
 
-**The window draws `PLAN_ROWS` = 150 rows** however many locations the plan used;
-the datamodel is what costs (`../../mods/where_to_produce/CLAUDE.md`). The header
-line says how many were drawn beside how many were used, so the cap cannot be
-mistaken for the count again.
+- **a big ground does not finish.** All of northern Germany: 970 buildings in 354
+  of 416 locations, «мод не справился досчитать всё как надо». The cause was
+  measured afterwards and the arithmetic is not in doubt — a sweep places at most
+  one building per good per side, so 970 buildings over 32 goods needs thirty
+  sweeps at the least, and `PLAN_ROUNDS` is 12 here;
+- **«показано всего 150 локаций»** is `PLAN_ROWS`, the window's row cap, not the
+  count of what the plan used. Nothing is lost, only undrawn, and the header does
+  not say so at this point;
+- **the province ceiling setting is still here**, and he asked for it to go: «я не
+  представляю ситуацию, когда бы я мог захотеть сменить значение этой строки с
+  0». Under this formula the quota does that job and is derived rather than typed;
+- **a one-off spike and a short hitch on «Пересчитать»** over that ground,
+  reported without complaint: thirty-three passes and ninety-eight sweeps a plan;
+- **the symptom that is the whole of the job.** Force a province to towns and
+  glass lands in the villages below and never in those towns, while saltpetre and
+  clay — which a village could dig — take the town slots. And the glass-and-
+  masonry charter is handed out over and over.
+
+**What the undone runs still know, and no run should buy twice:**
+
+- **The owner's rule about raw materials**, 2026-09-01. A decision, not a build,
+  so it outlives the code that carried it:
+  > Отсутствие сырья не должно влиять на то будет ли домик существовать вообще
+  > или будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может
+  > влиять только на ВЫБОР метода производства в конкретном домике.
+
+  **`UNFED_PENALTY` above breaks it** — a recipe the ground feeds nothing is
+  divided by two on top of a `gain` already zero, the same fact counted twice, and
+  it moves that building in the queue. It is left standing on purpose: it is a
+  named suspect for the symptom, and this repository does not fix a suspect
+  before a probe points at one. (`fed_floor` is *not* a gate in the plan here —
+  the plan keeps an unfloored twin of every side, so that part of the rule already
+  holds.)
+- **The observation that killed the market theory**, thirty-ninth load. It is
+  about the game, so it stands whatever our code does: `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and glass appears in the
+  villages while never appearing in the towns. One condition is not true and false
+  in the same market, so the market gate is not what stops town glass — and four
+  sessions' worth of explanation went with it
+  ([`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md)).
+- **What was built above the rollback and is not in the tree.** Three of these
+  answer measurements he made himself and can be ported back on their own the
+  moment he asks: the round guard at 50 with the tier ladder in the last band only
+  (twelve passes rather than thirty-three), the province ceiling removed, and the
+  header saying «показано N» beside the number the plan really used. The rest were
+  aimed at a cause nobody had named: a right-holding town's spare slots halved,
+  the input substitution (sand planted where a charter wanted glass, which spammed
+  a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.

@@ -8997,16 +8997,6 @@ bag_wtp_ord1 = {
 		add = var:bag_wtp_pp1
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr1 = {
@@ -9047,16 +9037,6 @@ bag_wtp_ord2 = {
 		value = 1
 		add = var:bag_wtp_pp2
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9099,16 +9079,6 @@ bag_wtp_ord3 = {
 		add = var:bag_wtp_pp3
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr3 = {
@@ -9149,16 +9119,6 @@ bag_wtp_ord4 = {
 		value = 1
 		add = var:bag_wtp_pp4
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9201,16 +9161,6 @@ bag_wtp_ord5 = {
 		add = var:bag_wtp_pp5
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr5 = {
@@ -9251,16 +9201,6 @@ bag_wtp_ord6 = {
 		value = 1
 		add = var:bag_wtp_pp6
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9303,16 +9243,6 @@ bag_wtp_ord7 = {
 		add = var:bag_wtp_pp7
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr7 = {
@@ -9353,16 +9283,6 @@ bag_wtp_ord8 = {
 		value = 1
 		add = var:bag_wtp_pp8
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9405,16 +9325,6 @@ bag_wtp_ord9 = {
 		add = var:bag_wtp_pp9
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr9 = {
@@ -9455,16 +9365,6 @@ bag_wtp_ord10 = {
 		value = 1
 		add = var:bag_wtp_pp10
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9507,16 +9407,6 @@ bag_wtp_ord11 = {
 		add = var:bag_wtp_pp11
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr11 = {
@@ -9557,16 +9447,6 @@ bag_wtp_ord12 = {
 		value = 1
 		add = var:bag_wtp_pp12
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9609,16 +9489,6 @@ bag_wtp_ord13 = {
 		add = var:bag_wtp_pp13
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr13 = {
@@ -9659,16 +9529,6 @@ bag_wtp_ord14 = {
 		value = 1
 		add = var:bag_wtp_pp14
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9711,16 +9571,6 @@ bag_wtp_ord15 = {
 		add = var:bag_wtp_pp15
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr15 = {
@@ -9761,16 +9611,6 @@ bag_wtp_ord16 = {
 		value = 1
 		add = var:bag_wtp_pp16
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9813,16 +9653,6 @@ bag_wtp_ord17 = {
 		add = var:bag_wtp_pp17
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr17 = {
@@ -9863,16 +9693,6 @@ bag_wtp_ord18 = {
 		value = 1
 		add = var:bag_wtp_pp18
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -9915,16 +9735,6 @@ bag_wtp_ord19 = {
 		add = var:bag_wtp_pp19
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr19 = {
@@ -9965,16 +9775,6 @@ bag_wtp_ord20 = {
 		value = 1
 		add = var:bag_wtp_pp20
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10017,16 +9817,6 @@ bag_wtp_ord21 = {
 		add = var:bag_wtp_pp21
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr21 = {
@@ -10067,16 +9857,6 @@ bag_wtp_ord22 = {
 		value = 1
 		add = var:bag_wtp_pp22
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10119,16 +9899,6 @@ bag_wtp_ord23 = {
 		add = var:bag_wtp_pp23
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr23 = {
@@ -10169,16 +9939,6 @@ bag_wtp_ord24 = {
 		value = 1
 		add = var:bag_wtp_pp24
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10221,16 +9981,6 @@ bag_wtp_ord25 = {
 		add = var:bag_wtp_pp25
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr25 = {
@@ -10271,16 +10021,6 @@ bag_wtp_ord26 = {
 		value = 1
 		add = var:bag_wtp_pp26
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10323,16 +10063,6 @@ bag_wtp_ord27 = {
 		add = var:bag_wtp_pp27
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr27 = {
@@ -10373,16 +10103,6 @@ bag_wtp_ord28 = {
 		value = 1
 		add = var:bag_wtp_pp28
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10425,16 +10145,6 @@ bag_wtp_ord29 = {
 		add = var:bag_wtp_pp29
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr29 = {
@@ -10475,16 +10185,6 @@ bag_wtp_ord30 = {
 		value = 1
 		add = var:bag_wtp_pp30
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10527,16 +10227,6 @@ bag_wtp_ord31 = {
 		add = var:bag_wtp_pp31
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr31 = {
@@ -10577,16 +10267,6 @@ bag_wtp_ord32 = {
 		value = 1
 		add = var:bag_wtp_pp32
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10629,16 +10309,6 @@ bag_wtp_ord33 = {
 		add = var:bag_wtp_pp33
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr33 = {
@@ -10679,16 +10349,6 @@ bag_wtp_ord34 = {
 		value = 1
 		add = var:bag_wtp_pp34
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10731,16 +10391,6 @@ bag_wtp_ord35 = {
 		add = var:bag_wtp_pp35
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr35 = {
@@ -10781,16 +10431,6 @@ bag_wtp_ord36 = {
 		value = 1
 		add = var:bag_wtp_pp36
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10833,16 +10473,6 @@ bag_wtp_ord37 = {
 		add = var:bag_wtp_pp37
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr37 = {
@@ -10883,16 +10513,6 @@ bag_wtp_ord38 = {
 		value = 1
 		add = var:bag_wtp_pp38
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -10935,16 +10555,6 @@ bag_wtp_ord39 = {
 		add = var:bag_wtp_pp39
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr39 = {
@@ -10985,16 +10595,6 @@ bag_wtp_ord40 = {
 		value = 1
 		add = var:bag_wtp_pp40
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11037,16 +10637,6 @@ bag_wtp_ord41 = {
 		add = var:bag_wtp_pp41
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr41 = {
@@ -11087,16 +10677,6 @@ bag_wtp_ord42 = {
 		value = 1
 		add = var:bag_wtp_pp42
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11139,16 +10719,6 @@ bag_wtp_ord43 = {
 		add = var:bag_wtp_pp43
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr43 = {
@@ -11189,16 +10759,6 @@ bag_wtp_ord44 = {
 		value = 1
 		add = var:bag_wtp_pp44
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11241,16 +10801,6 @@ bag_wtp_ord45 = {
 		add = var:bag_wtp_pp45
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr45 = {
@@ -11292,16 +10842,6 @@ bag_wtp_ord46 = {
 		add = var:bag_wtp_pp46
 		min = 1
 	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
-	}
 }
 # Scope: location
 bag_wtp_ordr46 = {
@@ -11342,16 +10882,6 @@ bag_wtp_ord47 = {
 		value = 1
 		add = var:bag_wtp_pp47
 		min = 1
-	}
-	# **A spare slot in a town that holds a right is worth less, and the game says
-	# so.** A right carries `local_production_efficiency = town_right_efficiency_penalty`
-	# over the whole location, so a building that is not in the bundle takes the
-	# penalty and none of the bonus -- the same building is strictly better in a
-	# town without a right. Halved rather than forbidden: the penalty's value is a
-	# define `reference/` does not hold, so this is the direction without its size.
-	if = {
-		limit = { has_variable = bag_wtp_plan_right }
-		divide = 2
 	}
 }
 # Scope: location
@@ -11399,19 +10929,17 @@ bag_wtp_rq1 = {
 		add = 2000
 		add = var:bag_wtp_p29
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_30 = yes }
 		add = 2000
 		add = var:bag_wtp_p30
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_18 = yes }
 		add = 2000
 		add = var:bag_wtp_p18
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven1
@@ -11443,19 +10971,17 @@ bag_wtp_rq2 = {
 		add = 2000
 		add = var:bag_wtp_p32
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_36 = yes }
 		add = 2000
 		add = var:bag_wtp_p36
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_42 = yes }
 		add = 2000
 		add = var:bag_wtp_p42
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven2
@@ -11487,19 +11013,17 @@ bag_wtp_rq3 = {
 		add = 2000
 		add = var:bag_wtp_p27
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_4 = yes }
 		add = 2000
 		add = var:bag_wtp_p4
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_40 = yes }
 		add = 2000
 		add = var:bag_wtp_p40
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven3
@@ -11531,19 +11055,17 @@ bag_wtp_rq4 = {
 		add = 2000
 		add = var:bag_wtp_p26
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_37 = yes }
 		add = 2000
 		add = var:bag_wtp_p37
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_24 = yes }
 		add = 2000
 		add = var:bag_wtp_p24
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven4
@@ -11575,7 +11097,7 @@ bag_wtp_rq5 = {
 		add = 2000
 		add = var:bag_wtp_p34
 	}
-	else = { subtract = 1000 }
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven5
@@ -11603,17 +11125,16 @@ bag_wtp_rq5 = {
 bag_wtp_rq6 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_33 = yes }
+		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
 		add = 2000
 		add = var:bag_wtp_p33
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_38 = yes }
 		add = 2000
 		add = var:bag_wtp_p38
 	}
-	else = { subtract = 1000 }
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven6
@@ -11645,13 +11166,12 @@ bag_wtp_rq7 = {
 		add = 2000
 		add = var:bag_wtp_p39
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_45 = yes }
 		add = 2000
 		add = var:bag_wtp_p45
 	}
-	else = { subtract = 1000 }
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven7
@@ -11683,19 +11203,17 @@ bag_wtp_rq8 = {
 		add = 2000
 		add = var:bag_wtp_p29
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_4 = yes }
 		add = 2000
 		add = var:bag_wtp_p4
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_30 = yes }
 		add = 2000
 		add = var:bag_wtp_p30
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven8
@@ -11727,7 +11245,7 @@ bag_wtp_rq9 = {
 		add = 2000
 		add = var:bag_wtp_p46
 	}
-	else = { subtract = 1000 }
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven9
@@ -11759,19 +11277,17 @@ bag_wtp_rq10 = {
 		add = 2000
 		add = var:bag_wtp_p28
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_31 = yes }
 		add = 2000
 		add = var:bag_wtp_p31
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_47 = yes }
 		add = 2000
 		add = var:bag_wtp_p47
 	}
-	else = { subtract = 1000 }
+	divide = 3
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven10
@@ -11803,7 +11319,7 @@ bag_wtp_rq11 = {
 		add = 2000
 		add = var:bag_wtp_p46
 	}
-	else = { subtract = 1000 }
+	divide = 1
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven11
@@ -11835,13 +11351,12 @@ bag_wtp_rq12 = {
 		add = 2000
 		add = var:bag_wtp_p39
 	}
-	else = { subtract = 1000 }
 	if = {
 		limit = { bag_wtp_plan_can_town_45 = yes }
 		add = 2000
 		add = var:bag_wtp_p45
 	}
-	else = { subtract = 1000 }
+	divide = 2
 	divide = {
 		value = 1
 		add = global_var:bag_wtp_rgiven12
@@ -11893,6 +11408,39 @@ bag_wtp_show_picked = { value = global_var:bag_wtp_picked_count }
 bag_wtp_show_browse = { value = global_var:bag_wtp_browse_count }
 bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 
+# Что показать на самой кнопке «Диагностика». Она пишет в лог, а лог не на
+# экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
+# не работает.
+bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
+bag_wtp_show_diag_runs = { value = global_var:bag_wtp_diag_runs }
+bag_wtp_show_diag_locs = { value = global_var:bag_wtp_diag_locs }
+bag_wtp_show_diag_towns = { value = global_var:bag_wtp_diag_towns }
+bag_wtp_show_diag_freet = { value = global_var:bag_wtp_diag_freet }
+bag_wtp_show_diag_freer = { value = global_var:bag_wtp_diag_freer }
+
+# The diagnosis reads through these sixteen and nothing else. **`value =
+# global_var:x` and no guard inside the value**: the self-guarding form, `value =
+# 0` with an `if` adding the global, returned zero for every reader on a plan
+# that had just placed 417 buildings, and said nothing in any log. The guard is
+# an `if` in the effect that fills the scratch global instead.
+bag_wtp_dg1 = { value = global_var:bag_wtp_dv1 }
+bag_wtp_dg2 = { value = global_var:bag_wtp_dv2 }
+bag_wtp_dg3 = { value = global_var:bag_wtp_dv3 }
+bag_wtp_dg4 = { value = global_var:bag_wtp_dv4 }
+bag_wtp_dg5 = { value = global_var:bag_wtp_dv5 }
+bag_wtp_dg6 = { value = global_var:bag_wtp_dv6 }
+bag_wtp_dg7 = { value = global_var:bag_wtp_dv7 }
+bag_wtp_dg8 = { value = global_var:bag_wtp_dv8 }
+bag_wtp_dg9 = { value = global_var:bag_wtp_dv9 }
+bag_wtp_dg10 = { value = global_var:bag_wtp_dv10 }
+bag_wtp_dg11 = { value = global_var:bag_wtp_dv11 }
+bag_wtp_dg12 = { value = global_var:bag_wtp_dv12 }
+bag_wtp_dg13 = { value = global_var:bag_wtp_dv13 }
+bag_wtp_dg14 = { value = global_var:bag_wtp_dv14 }
+bag_wtp_dg15 = { value = global_var:bag_wtp_dv15 }
+bag_wtp_dg16 = { value = global_var:bag_wtp_dv16 }
+
+
 # What the plan pass counted, each of them printed on the button that ran it.
 # The first zero among them is the diagnosis, which is the only debugging a
 # player can be asked for: an effect that merely does nothing logs nothing.
@@ -11903,6 +11451,7 @@ bag_wtp_show_plan_shown = { value = global_var:bag_wtp_plan_shown }
 bag_wtp_show_plan_rooms = { value = global_var:bag_wtp_plan_rooms }
 bag_wtp_show_plan_cap_rural = { value = global_var:bag_wtp_plan_cap_rural }
 bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
+bag_wtp_show_plan_max = { value = global_var:bag_wtp_plan_max }
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
