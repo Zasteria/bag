@@ -38,6 +38,43 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, Münster and all of northern Germany. The three
+fixes work, and the number the mod exists for is 95%.** «Вроде как всё
+заполняется хорошо… как будто бы основные функции мод теперь выполняет как надо.»
+416 locations, 74 provinces, 61 towns, no ticks set anywhere.
+
+- **All three fixes confirmed in one press.** 1309 buildings in 1309 rooms —
+  100%, against 970 of 1312 on the same ground before. **No pass came near the
+  guard**: the worst was 31 of 50, and the twelve passes are the ones the
+  generator lists. The page bar and the removed province ceiling were on screen
+  and neither drew a remark.
+- **Selection quality, and it is the answer to «идеально ли он работает».**
+  `GAIN fed=968 of placed=1309 gain_total=918033`. 74% of placed buildings earn
+  a bonus where they stand — but **the ones that do capture 948 of 1000 of their
+  own recipe's ceiling** (918033÷968). The 26% that earn nothing are the price of
+  the covering constraint and of filling the ground, both of which he asked for.
+  The overall 70.1% is those two numbers mixed, and is the less useful of them.
+- **The distribution is the ground's arithmetic, not the formula's.** 355 of 416
+  locations are villages and only 23 goods have a village side at all, so the ten
+  goods makeable in all 355 take ~66 each and half the ground between them, while
+  town-only goods share 244 slots of which the rights claim ~135. Town slots came
+  out exactly 244 = 61×4 and village 1065 = 355×3, so nothing was left on the
+  table anywhere.
+- **Rights: 61 grants over 61 towns, 9 distinct, the largest 8.** No charter
+  spam. `constantinopolitan_silk` (no silk here) and both Scandinavian ones went
+  to 0, correctly.
+- **Two faults this run makes visible, neither of them new.**
+  `royal_weaponry_rights` was granted twice on a ground where cannons and
+  firearms have no advance, so those towns carry a charter that delivers one good
+  of three and the location-wide penalty for all of it — the rescored bundle
+  (2000 a makeable good, −1000 a gap) is the fix and is one of the things still
+  out of the tree. And **the mod page still says a right is all-or-nothing**,
+  which stopped being true on 2026-09-01 at his own word: `plan_right_fits_<k>`
+  is an `OR`.
+- **Nine goods scored 0 for want of an advance** — lumber, silk, silver, sugar,
+  tobacco, cotton, incense, ivory, wild game — so «сейчас» covers 32 of 47. That
+  is the age and not the plan; «В конце» is the button that answers for them.
+
 **2026-09-02 — `where_to_produce`, three presses in one log, and the tick never
 reverted.** He ran the two-press test written the same day and it answered on the
 first reading. «Тумблеры не переключились никуда… потом я нажал пересчитать — и
@@ -173,53 +210,6 @@ measured about the *game* stands — the identical `location_potential` of
 longer describes the tree. What the thirty-eighth load left open came back with
 it, deliberately, and is listed in `investigations/plan_formula.md`, last section.
 
-**2026-09-01 — `where_to_produce`, Wallachia a third time, and the run that
-refuted every theory the session had.** Nothing was changed after it; the owner
-called a halt: «я заебался впустую делать прогоны».
-
-- **The charter spam survived every fix.** Tar and sand, tar and sand, down the
-  whole list, and neither `royal_masonry_rights` nor `royal_naval_rights` ever
-  getting its own goods.
-- **The one observation that kills the market theory.** `glass_guild` and
-  `rural_glassmaker` carry the **identical** `location_potential = {
-  is_produced_in_location_market = goods:sand }`, and **glass appears in the
-  villages while never appearing in the towns.** One condition cannot be true and
-  false in the same market. So whatever stops town glass, it is not that gate —
-  and four sessions' worth of explanation went with it.
-- **He built a sand pit by hand and re-ran the plan: no change.** Expected — the
-  plan reads no state of its own here — but worth recording as a fact rather than
-  a guess.
-- **Nothing was concluded, deliberately.** The next move is a probe, not a fifth
-  theory. `pitfalls/diagnosis.md` has the episode and `CLAUDE.md` the rule that
-  came out of it.
-- **`can_build_building` stays.** His call: «не надо убирать то, из-за чего
-  работает другое… скорее всего проблема в чём-то другом.» It is what keeps a
-  stone quarry off flat ground.
-
-**2026-09-01 — `where_to_produce`, Wallachia again. The charter spam survived the
-scoring fix, and the owner struck out the rule underneath it.** «Убери вообще
-любое упоминание этого правила.»
-
-- **His rule, now the sharpest line in `investigations/plan_formula.md`:**
-  «Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
-  будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
-  только на ВЫБОР метода производства в конкретном домике.»
-- **Two rules removed under it.** The unfed divisor, which halved a recipe the
-  ground feeds nothing on top of a gain already zero — the same fact counted
-  twice. And the input substitution entirely, score *and* placement: where a
-  granted right's good could not stand, the slot had been going to the market
-  input that would unblock it. `generate.market_inputs` is gone with it.
-- **His stone quarry question, checked: it does earn a bonus.** Lumber is an RGO
-  and `crude_quarry_maintenance` tops out at 10%. **But seven recipes in the game
-  can never earn one at all** — `lumber_mill`, `slave_market`, `shoen` quarries
-  among them — and the divisor was punishing them for it twice over.
-- **What no rule of ours can change, and it must not be confused with the
-  above:** `can_build_building` is the *game* refusing a building. A glass guild
-  may not stand until sand is in the market. That is not the ground failing to
-  feed a recipe, and the plan cannot plan a building the game forbids — which is
-  why a right is scored on the bundle a town can actually finish.
-- **Unverified.** Whether the spam ends needs a run.
-
 ## Waiting on a run
 
 The next session should start here rather than designing anything new. All of
@@ -289,10 +279,8 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
-- **The three fixes of 2026-09-02 in `where_to_produce`** — the round guard at
-  50 with the tier ladder in the last band only (twelve passes), the paged plan
-  window, and the province ceiling's removal. The plan itself has been run four
-  times; none of these three has. A big ground is what tests all three at once:
-  northern Germany is the one that failed before.
+- **`where_to_produce`'s «В конце» plan.** Every run so far has been «сейчас»,
+  and on Münster nine goods scored 0 for want of an advance — which is exactly
+  the case the second button exists for.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

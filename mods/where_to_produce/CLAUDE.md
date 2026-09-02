@@ -6,8 +6,8 @@ materials the province works.
 
 **State: the plan works and he has seen it** — «города получают права и домики из
 прав», 2026-09-02. Four fifths of placed buildings earn a bonus where they stand.
-**Three fixes on top of it, none of them run**: the round guard at 50, the tier
-ladder in the last band only (twelve passes), and a paged plan window.
+Confirmed on northern Germany: **1309 of 1309 rooms filled**, and **a building
+that earns anything captures 948 of 1000 of its recipe's ceiling**.
 
 **The tick is the rank, for the whole calculation** — `bag_wtp_stands_<building>`
 takes the rank from the tick, the `location_potential` still from the game — and

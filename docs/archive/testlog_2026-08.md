@@ -2066,3 +2066,55 @@ town. «Всё ещё довольно плохая раскидка даже н
   `location_potential` in the game and finds exactly one usable pair,
   glass ← sand. The right's own score counts the good as reachable either way,
   so the substitution does not push the right down the list that needs it.
+
+### 2026-09-01 — `where_to_produce`, the two Wallachia runs that ended the guessing
+
+Moved out of the live log when it tripped its budget. Both are the run that
+settled «гадать НИКОГДА не нужно» and the owner's rule about raw materials.
+
+**2026-09-01 — `where_to_produce`, Wallachia a third time, and the run that
+refuted every theory the session had.** Nothing was changed after it; the owner
+called a halt: «я заебался впустую делать прогоны».
+
+- **The charter spam survived every fix.** Tar and sand, tar and sand, down the
+  whole list, and neither `royal_masonry_rights` nor `royal_naval_rights` ever
+  getting its own goods.
+- **The one observation that kills the market theory.** `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and **glass appears in the
+  villages while never appearing in the towns.** One condition cannot be true and
+  false in the same market. So whatever stops town glass, it is not that gate —
+  and four sessions' worth of explanation went with it.
+- **He built a sand pit by hand and re-ran the plan: no change.** Expected — the
+  plan reads no state of its own here — but worth recording as a fact rather than
+  a guess.
+- **Nothing was concluded, deliberately.** The next move is a probe, not a fifth
+  theory. `pitfalls/diagnosis.md` has the episode and `CLAUDE.md` the rule that
+  came out of it.
+- **`can_build_building` stays.** His call: «не надо убирать то, из-за чего
+  работает другое… скорее всего проблема в чём-то другом.» It is what keeps a
+  stone quarry off flat ground.
+
+**2026-09-01 — `where_to_produce`, Wallachia again. The charter spam survived the
+scoring fix, and the owner struck out the rule underneath it.** «Убери вообще
+любое упоминание этого правила.»
+
+- **His rule, now the sharpest line in `investigations/plan_formula.md`:**
+  «Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
+  будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
+  только на ВЫБОР метода производства в конкретном домике.»
+- **Two rules removed under it.** The unfed divisor, which halved a recipe the
+  ground feeds nothing on top of a gain already zero — the same fact counted
+  twice. And the input substitution entirely, score *and* placement: where a
+  granted right's good could not stand, the slot had been going to the market
+  input that would unblock it. `generate.market_inputs` is gone with it.
+- **His stone quarry question, checked: it does earn a bonus.** Lumber is an RGO
+  and `crude_quarry_maintenance` tops out at 10%. **But seven recipes in the game
+  can never earn one at all** — `lumber_mill`, `slave_market`, `shoen` quarries
+  among them — and the divisor was punishing them for it twice over.
+- **What no rule of ours can change, and it must not be confused with the
+  above:** `can_build_building` is the *game* refusing a building. A glass guild
+  may not stand until sand is in the market. That is not the ground failing to
+  feed a recipe, and the plan cannot plan a building the game forbids — which is
+  why a right is scored on the bundle a town can actually finish.
+- **Unverified.** Whether the spam ends needs a run.
