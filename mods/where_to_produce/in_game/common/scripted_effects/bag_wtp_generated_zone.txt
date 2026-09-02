@@ -60,3 +60,70 @@ bag_wtp_collect_zone = {
 		}
 	}
 }
+#
+# «Сбросить пометки город/село», по всему миру.
+#
+# The tick is a location variable and it outlives a save, so a reset that
+# covered only what is on screen would leave the same trap it exists to remove:
+# 2026-09-02 he cleared the fourteen he could see, widened the ground, and the
+# fourteen he could not came into the plan looking exactly like a revert.
+#
+# Scope: country
+bag_wtp_clear_ticks = {
+	set_global_variable = { name = bag_wtp_tick_count value = 0 }
+	continent:europe = {
+		every_location_in_continent = {
+			limit = { OR = {
+				has_variable = bag_wtp_force_town
+				has_variable = bag_wtp_force_rural
+			} }
+			remove_variable = bag_wtp_force_town
+			remove_variable = bag_wtp_force_rural
+			change_global_variable = { name = bag_wtp_tick_count add = 1 }
+		}
+	}
+	continent:asia = {
+		every_location_in_continent = {
+			limit = { OR = {
+				has_variable = bag_wtp_force_town
+				has_variable = bag_wtp_force_rural
+			} }
+			remove_variable = bag_wtp_force_town
+			remove_variable = bag_wtp_force_rural
+			change_global_variable = { name = bag_wtp_tick_count add = 1 }
+		}
+	}
+	continent:africa = {
+		every_location_in_continent = {
+			limit = { OR = {
+				has_variable = bag_wtp_force_town
+				has_variable = bag_wtp_force_rural
+			} }
+			remove_variable = bag_wtp_force_town
+			remove_variable = bag_wtp_force_rural
+			change_global_variable = { name = bag_wtp_tick_count add = 1 }
+		}
+	}
+	continent:america = {
+		every_location_in_continent = {
+			limit = { OR = {
+				has_variable = bag_wtp_force_town
+				has_variable = bag_wtp_force_rural
+			} }
+			remove_variable = bag_wtp_force_town
+			remove_variable = bag_wtp_force_rural
+			change_global_variable = { name = bag_wtp_tick_count add = 1 }
+		}
+	}
+	continent:oceania = {
+		every_location_in_continent = {
+			limit = { OR = {
+				has_variable = bag_wtp_force_town
+				has_variable = bag_wtp_force_rural
+			} }
+			remove_variable = bag_wtp_force_town
+			remove_variable = bag_wtp_force_rural
+			change_global_variable = { name = bag_wtp_tick_count add = 1 }
+		}
+	}
+}

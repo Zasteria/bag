@@ -127,6 +127,15 @@ bag_wtp_on_button = {
 		bag_wtp_open_plan_window_effect = yes
 	}
 
+	# Clearing the town/village ticks, everywhere. **No re-plan follows it**, for
+	# the same reason the tick itself does not re-plan: the pass reads every
+	# recipe on every location, and he may want to clear a hundred before he
+	# wants an answer. The next «Пересчитать» is what makes it true.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_ticks }
+		bag_wtp_clear_ticks = yes
+	}
+
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads
 	# what the last pass left and writes only its own scratch globals -- so the
 	# window is deliberately not opened and not refreshed: pressing this must

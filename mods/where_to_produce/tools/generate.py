@@ -447,6 +447,48 @@ def region_file(by_continent: dict[str, list[str]]) -> str:
     return "".join(out)
 
 
+def clear_ticks_effect() -> str:
+    """«Сбросить пометки город/село» -- по всему миру, разом.
+
+    **Он существует, потому что различить их было нечем.** 2026-09-02: тумблеры
+    стояли на четырнадцати локациях Трансильвании, он сбросил те, что видел в
+    окне -- валашские, -- расширил область и пересчитал; трансильванские вошли в
+    план впервые, встали наверх списка городами, и это неотличимо от «тумблеры
+    вернулись сами». Отчёт это развёл (`docs/TESTLOG.md`), но развести должно
+    было окно, а не отчёт.
+
+    По всем пяти континентам, а не по отмеченным: пометка живёт на локации и
+    переживает сохранение, поэтому «сбросить» обязано значить «везде», иначе
+    остаётся ровно та же ловушка. Один обход по нажатию кнопки, без единого
+    скриптового значения в `limit`, -- цена, которую платят раз.
+    """
+    walks = "".join(f"""\tcontinent:{name} = {{
+\t\tevery_location_in_continent = {{
+\t\t\tlimit = {{ OR = {{
+\t\t\t\thas_variable = {MOD_ID}_force_town
+\t\t\t\thas_variable = {MOD_ID}_force_rural
+\t\t\t}} }}
+\t\t\tremove_variable = {MOD_ID}_force_town
+\t\t\tremove_variable = {MOD_ID}_force_rural
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_tick_count add = 1 }}
+\t\t}}
+\t}}
+""" for name in CONTINENTS)
+    return f"""#
+# «Сбросить пометки город/село», по всему миру.
+#
+# The tick is a location variable and it outlives a save, so a reset that
+# covered only what is on screen would leave the same trap it exists to remove:
+# 2026-09-02 he cleared the fourteen he could see, widened the ground, and the
+# fourteen he could not came into the plan looking exactly like a revert.
+#
+# Scope: country
+{MOD_ID}_clear_ticks = {{
+\tset_global_variable = {{ name = {MOD_ID}_tick_count value = 0 }}
+{walks}}}
+"""
+
+
 def zone_file() -> str:
     """The zone: the continents to look inside, ticked.
 
@@ -1168,6 +1210,7 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Что показать на самой кнопке «Диагностика». Она пишет в лог, а лог не на
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
+{MOD_ID}_show_ticks = {{ value = global_var:{MOD_ID}_tick_count }}
 {MOD_ID}_show_diag_runs = {{ value = global_var:{MOD_ID}_diag_runs }}
 {MOD_ID}_show_diag_locs = {{ value = global_var:{MOD_ID}_diag_locs }}
 {MOD_ID}_show_diag_towns = {{ value = global_var:{MOD_ID}_diag_towns }}
@@ -3581,7 +3624,7 @@ def main() -> int:
     split = goods_split(rows, game)
 
     by_continent = regions()
-    write(ZONE_OUT, zone_file())
+    write(ZONE_OUT, zone_file() + clear_ticks_effect())
     write(REGION_OUT, region_file(by_continent))
     write(TRIGGERS_OUT, triggers_file(rows, split, game))
     write(PICKER_OUT, picker_file(split, rows))

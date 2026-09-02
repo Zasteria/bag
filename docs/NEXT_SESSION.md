@@ -33,57 +33,38 @@ the message names the folder. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now. No
 menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: rolled back, and the probe is the whole of the job
+## `where_to_produce`: it works, and what is left is his to choose
 
-**The tree is back at the build of the thirty-eighth load** — the four tests he
-called «большой рывок», where the spread of goods over a whole ground first
-looked to him as he had meant it. He named it himself on 2026-09-02: «именно в
-этом коммите я хочу начать постройку диагностического инструмента». Everything
-above it is out, and the branch
-`claude/glass-sand-cycle-diagnosis-0qhgzw`, which carried the funnel probe, was
-never merged and is not to be. **What is open at this build and what those later
-runs settled are both in the last section of**
-[`investigations/plan_formula.md`](investigations/plan_formula.md) — read it
-before touching the plan.
+**The plan does what it was meant to, and he has seen it** — «на первый взгляд
+работает как надо, города получают права и домики из прав», 2026-09-02. The
+symptom that cost four runs is measured, named and fixed: the tick is the rank
+now (`SETTLED.md`), the charter spam is gone, and **four fifths of placed
+buildings earn a bonus where they stand, capturing 78% of their own recipe's
+ceiling on average**. All of it is on
+`claude/where-to-produce-rollback-yc5o24`, unmerged.
 
-**The cause is named and the fix is built, unloaded.** The 2026-09-02 diagnosis
-measured it (`TESTLOG.md`; `SETTLED.md` has the row) and he ruled on it in one
-sentence: «расчёт должен симулировать ранги… и не важно что там стоит на самом
-деле». So `bag_wtp_stands_<building>` now takes the rank from the tick and the
-`location_potential` still from the game — 80 buildings of 110 gate on the rank
-alone, 18 have their potential copied out, and 12 with an `allow` or a
-`country_potential` are left to the game
-([`research/engine.md`](research/engine.md)).
+**Read `TESTLOG.md` before anything.** Four runs of 2026-09-02 are in it and they
+carry every number this section summarises.
 
-**One run answers whether it worked, and the report says it without a
-screenshot.** Same ground, «Считать план», «Диагностика», `mods.bat → 8`. What to
-read: glass `T … w` should be 17 rather than 3 where the towns are ticked;
-`RIGHT 6 royal_masonry_rights given=` should stop being nine of seventeen once
-every town can finish a bundle; and `ROOM … forced by the tick=` says how many
-locations the simulation applied to at all. **If `w` is still 3, the tick was not
-set on those locations and the reading is about something else.**
+**What is open, and none of it is a bug:**
 
-**Three things he measured himself are open again**, the fixes for them having
-gone out with the rollback: a big ground does not finish (the round guard at 12
-against the thirty sweeps the arithmetic needs — on 44 locations it never bit,
-the worst pass used 7), the province ceiling setting he asked to have removed,
-and «показано 150 локаций», the window's row cap and not the count. **Portable
-back on their own the moment he asks**: none is a theory about the symptom.
+- **Nine goods take 45% of the ground.** Coal, sand, beer, cloth, glass, jewelry,
+  leather, masonry, pottery — makeable in every location, so each reaches the
+  quota and stops at 20. Sixteen town-only goods got 7 or fewer, competing for
+  22 towns × 4 slots that the rights have first call on. **The formula working as
+  written**, and `plan_max` — his own per-good ceiling, still 0 — is the lever.
+  Ask before turning it; the report will say what it did.
+- **The round guard is one sweep from biting.** 127 locations put the open pass
+  at 11 of 12. The fix is written down and was rolled back with everything else:
+  `PLAN_ROUNDS` at 50, and the tier ladder in the last band only.
+- **The province ceiling setting** he asked to have removed, and «показано 150
+  локаций», which is `PLAN_ROWS` and not a count.
+- **The single-good side** has faults he has seen and set aside without naming.
 
-**Live besides:** the single-good side has faults he has seen and set aside
-without naming, so ask; the hand weight, the food location and the caps are his,
-in `plan_formula.md`'s closing list.
-
-**What is left besides is decisions, not runs**, and they are written up in
-[`investigations/town_rights.md`](investigations/town_rights.md):
-
-- **Level rights**, deferred 2026-08-31: a quantity where the output rights are
-  a ratio, so they want their own number and table.
-- **Whether the buildable tick should ask about ownership** — that means asking
-  the country from a trigger that has none.
-- **`town_right_efficiency_penalty`**, in eleven rights and in no file
-  `reference/` holds: one `grep` on the owner's install.
-
+**The diagnosis comes out when the work does.** It is `bag_wtp_diag*`, the `_f*`
+counters, the two `_pass*` counters and two buttons; `pitfalls/diagnosis.md` has
+what it prints and how to read it, and `tools/diag.py` draws the conclusions so
+he does not have to.
 
 ## Then `glorpui_hints` goes out
 

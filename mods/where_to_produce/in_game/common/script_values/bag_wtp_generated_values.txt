@@ -11411,6 +11411,7 @@ bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 # Что показать на самой кнопке «Диагностика». Она пишет в лог, а лог не на
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
+bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
 bag_wtp_show_diag_runs = { value = global_var:bag_wtp_diag_runs }
 bag_wtp_show_diag_locs = { value = global_var:bag_wtp_diag_locs }
 bag_wtp_show_diag_towns = { value = global_var:bag_wtp_diag_towns }

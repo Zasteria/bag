@@ -4,17 +4,17 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
-**State: rolled back 2026-09-02 to the build of the thirty-eighth load** — the
-four tests the owner called «большой рывок». Everything built above it is out;
-what is open here, and what those runs settled, is the last section of
-`plan_formula.md` below.
+**State: the plan works and he has seen it** — «города получают права и домики из
+прав», 2026-09-02, on the build of the thirty-eighth load with the rank
+simulation on top. Four fifths of placed buildings earn a bonus where they stand.
 
-**The tick is the rank, for the whole calculation** — «расчёт должен симулировать
-ранги… и не важно что там стоит на самом деле», 2026-09-02. A ticked location is
-scored, granted rights and built on as what it was ticked into:
-`bag_wtp_stands_<building>` takes the rank from the tick and the
-`location_potential` still from the game (`docs/research/engine.md`). **Untested
-in game.** «Диагностика» + `mods.bat → 8` is how the numbers come out.
+**The tick is the rank, for the whole calculation**: «расчёт должен симулировать
+ранги… и не важно что там стоит на самом деле». `bag_wtp_stands_<building>` takes
+the rank from the tick and the `location_potential` still from the game
+(`docs/research/engine.md`). **A tick lives on the location and outlives a save**,
+so «Сбросить пометки» clears all five continents at once — clearing what is on
+screen is not clearing them. «Диагностика» + `mods.bat → 8` reads the plan back
+and draws the conclusions.
 
 A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
 feeds, and the last age it can be built) and «В конце» — on two «Считать»

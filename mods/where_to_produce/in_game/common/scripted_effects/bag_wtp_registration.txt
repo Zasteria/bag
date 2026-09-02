@@ -152,6 +152,20 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# «Сбросить пометки город/село», everywhere at once.
+	#
+	# **The tick is a location variable and it outlives a save.** Clearing the
+	# rows on screen is not clearing them: 2026-09-02 he cleared the fourteen he
+	# could see, widened the ground, and fourteen others came into the plan
+	# looking exactly like a revert. One button, the whole world, and the count
+	# it cleared printed on itself.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_ticks
+		tab_id = plan
+		group_id = plan
+	}
+
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
 	# the headline of it into `error.log` besides.
 	#

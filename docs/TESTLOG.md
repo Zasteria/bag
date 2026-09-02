@@ -38,6 +38,37 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, three presses in one log, and the tick never
+reverted.** He ran the two-press test written the same day and it answered on the
+first reading. «Тумблеры не переключились никуда… потом я нажал пересчитать — и
+тогда они переключились снова на города.»
+
+- **The ticks he cleared stayed cleared.** Presses one and two walked the same 44
+  locations of Wallachia — `ticks now set: town=0 village=0` both times, and
+  `towns=3` live where the plan before them had counted 17. The clicks land and
+  they hold; closing the window and changing the map area do nothing to them.
+- **The third press walked 127 locations, and the fourteen ticks in it are not
+  the ones he cleared.** They are Марошвашархей, Кездивашархей, Ковасна,
+  Секейкерестур, Дьердьосентмиклош, Гёргеньсентимре, Секейудвархей,
+  Шепшисентдьёрдь, Чиксереда, Бырлад, Аджуд, Кудалби, Фокшаны, Галац — every one
+  of them outside the 44 he had on screen, ticked earlier in the session and
+  never cleared. Widening the ground brought them into the plan for the first
+  time; four slots each put them at the top of the window; and that is
+  indistinguishable from a revert. **Wallachia's own rows all read
+  `forced_town=0` in the same report.**
+- **So it is not a fault, and the window is what should have said so.** A tick is
+  a location variable and it outlives a save, so «clear the rows I can see» was
+  never «clear them». A button was added the same day: «Сбросить пометки
+  город/село», all five continents in one press, printing how many it cleared.
+- **And the number he asked for, at last.** `GAIN` in all three presses: **79%,
+  76% and 82% of placed buildings earn a bonus where they stand**, and the
+  average building captures **73%, 74% and 78% of the ceiling its own recipe
+  could ever reach.** The largest ground, the one with the ticks in it, is the
+  best of the three on both counts — the rank simulation costs nothing in
+  quality.
+- **The ticks also make more of the ground**: 44 locations gave 149 rooms with
+  them and 135 without, 17 towns against 3, 17 rights against 3.
+
 **2026-09-02 — `where_to_produce`, the rank simulation, and it works.** «Открыл
 план — на первый взгляд работает как надо. Города получают права и домики из
 прав.» Transylvania and Wallachia together: 127 locations, 22 towns of which 8
@@ -193,30 +224,6 @@ scoring fix, and the owner struck out the rule underneath it.** «Убери в�
 
 The next session should start here rather than designing anything new. All of
 these are prepared, all are cheap, and the owner has agreed to the hover one.
-
-**`where_to_produce`, the tick that comes back. Two presses, no plan, and it is
-the whole test.** Reported 2026-09-02 and not diagnosed: ticks cleared to auto
-reappear as towns after the window is closed or the map area changed.
-
-1. open the plan window, click a few rows through to «авто»;
-2. press «Диагностика» — **without** «Пересчитать»;
-3. close and reopen the window (or change the area) so the ticks show as towns
-   again;
-4. press «Диагностика» a second time;
-5. `mods.bat → 8` and answer «в» so both reports come out.
-
-**What the two `ROOM` lines say.** `ticks now set: town=N village=M` is read live
-off the locations, not off the last plan.
-
-- **first 0, second above 0** — the variables really do come back, and something
-  outside this mod is writing them or the click is being rolled back. Then the
-  next step is `error.log` around the click.
-- **both 0** — the variables are gone and **the window is drawing a stale
-  state**: the row's `visible` reads `Location.MakeScope.GetVariable`, so the
-  datamodel is handing the row a different location than the one the click
-  reached. That is ours and it is in `bag_wtp_plan_window.gui`.
-- **both above 0** — the clicks never landed at all; the button's own `effect`
-  is the place to look.
 
 **`where_to_produce`, twenty-eighth load.** Four small things and one question,
 all of it one glance with the results window open. Not worth a run of its own.
