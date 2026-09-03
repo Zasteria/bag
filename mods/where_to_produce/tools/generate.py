@@ -2398,7 +2398,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t{MOD_ID}_plan_is_town = yes
 \t\t\tvar:{MOD_ID}_load = 0
 \t\t}}
-\t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
+\t\t# **Minus one and not nought.** The winner is taken with `rtry > rbest`, so
+\t\t# a charter this ground pays exactly nothing for could never win even when it
+\t\t# was the only one left: 2026-09-03, Westphalia has no precious metal at all,
+\t\t# the jewelry charter scored 0 in all 48 towns, and even the covering ladder
+\t\t# could not place it. `_rbest_k` still starts at 0, so a town where no charter
+\t\t# fits gets none.
+\t\tset_variable = {{ name = {MOD_ID}_rbest value = -1 }}
 \t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
 """)
     for k, right in enumerate(rights, start=1):

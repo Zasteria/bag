@@ -38,6 +38,32 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-03 — `where_to_produce`, the covering ladder placed the weaponry charter
+and could not place jewelry, and the quota collapsed to 2.** Westphalia, all 48
+locations ticked to towns, «на конец».
+
+- **Weaponry went from 0 to 1**, so the covering ladder works. **Jewelry stayed at
+  0**, and the cause is one comparison: the winner is taken with `rtry > rbest`
+  and `rbest` started at **0**, so a charter the ground pays exactly nothing for
+  could never win even when it was the only one left. Westphalia has no precious
+  metal, jewelry scored 0 in all 48 towns. `rbest` starts at -1 now.
+- **Flemish took 11 against everyone else's 6, and it is not double counted.**
+  `fine_cloth` scores 0 on this ground, cloth 908, so flemish is `(908+0)/2 = 454`
+  and royal textile `(908+0+0)/3 = 303`. The same cloth, divided by a smaller
+  bundle. That is «все права равны», working as he asked for it.
+- **The bonus is counted once a province, not once a location.** He asked
+  directly; `_b<n>` reads `any_location_in_province_definition`, which is a
+  boolean. Five coal locations pay exactly what one pays.
+- **The weaponry charter landed in Dortmund at 62 and not in Sauerland at 163**
+  because by the covering ladder's last band the Sauerland towns were already
+  full — they had taken the naval charter, which scores 1000 there.
+- **And the quota fell to 2.** 48 towns all took a charter, the charters ate
+  ~120 of the 192 rooms, so `(rooms − rights) ÷ 35 goods` came out at **2**. Every
+  good got 2 places while the ground was still good and its remaining 4 in the
+  open pass, after the good ground was gone: **tools placed all 6 of its
+  buildings where it scores 200 and none in Sauerland where it scores 799.**
+  Named, not fixed — the fix is the open question below.
+
 **2026-09-03 — `where_to_produce`, the locked advances held, and the rights turned
 out to have no covering rule.** Westphalia, all 48 locations ticked to towns.
 

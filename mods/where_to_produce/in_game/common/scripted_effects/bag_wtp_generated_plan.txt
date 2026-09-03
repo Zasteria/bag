@@ -10761,7 +10761,13 @@ bag_wtp_plan_grant_pass = {
 			bag_wtp_plan_is_town = yes
 			var:bag_wtp_load = 0
 		}
-		set_variable = { name = bag_wtp_rbest value = 0 }
+		# **Minus one and not nought.** The winner is taken with `rtry > rbest`, so
+		# a charter this ground pays exactly nothing for could never win even when it
+		# was the only one left: 2026-09-03, Westphalia has no precious metal at all,
+		# the jewelry charter scored 0 in all 48 towns, and even the covering ladder
+		# could not place it. `_rbest_k` still starts at 0, so a town where no charter
+		# fits gets none.
+		set_variable = { name = bag_wtp_rbest value = -1 }
 		set_variable = { name = bag_wtp_rbest_k value = 0 }
 		# constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq1 }
