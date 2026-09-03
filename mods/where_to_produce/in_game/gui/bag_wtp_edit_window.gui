@@ -369,6 +369,9 @@ window = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
 
+					# **The head carries the count.** A picker that was never filled and
+					# one that was filled and does not draw look identical, and the goods
+					# vanished once already. A number here says which without a log.
 					text_single = {
 						size = { 420 24 }
 						autoresize = no
@@ -423,9 +426,16 @@ window = {
 					text = "bag_wtp_edit_pool_empty"
 				}
 
+				# **Both policies expanding and no size of its own**, which is the
+				# shape the plan window's scrollbox has drawn since the first build.
+				# This one had `layoutpolicy_horizontal = expanding` beside an explicit
+				# `size = { -1 210 }`, and the goods stopped appearing at all —
+				# `docs/pitfalls/interface.md` names that pairing: an expanding child in
+				# a parent with a size of its own comes out at zero. Two scrollboxes
+				# both expanding share the window's height between them.
 				scrollbox = {
 					layoutpolicy_horizontal = expanding
-					size = { -1 210 }
+					layoutpolicy_vertical = expanding
 					blockoverride "scrollbox_content" {
 						vbox = {
 							layoutpolicy_horizontal = expanding

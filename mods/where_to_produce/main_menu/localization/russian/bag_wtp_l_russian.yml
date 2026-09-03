@@ -230,7 +230,7 @@
  bag_wtp_edit_slot2_empty: "Слот 2 · пусто"
  bag_wtp_edit_slot3_full: "Слот 3 · [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_slot3')|0] дом. в [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_slot3_locs')|0] лок."
  bag_wtp_edit_slot3_empty: "Слот 3 · пусто"
- bag_wtp_edit_pool_head: "Товары, которые эта земля может делать:"
+ bag_wtp_edit_pool_head: "Товары, которые эта земля может делать — [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_pooln')|0] шт.:"
  bag_wtp_edit_pool_tt: "Здесь только те товары, которые какая-то локация выбранной земли действительно может производить. У каждого «−1» и «+1» стоят на месте, ничего не нужно нажимать заранее."
  bag_wtp_edit_pool_empty: "Пока пусто — сделайте план, и здесь появятся товары этой земли."
  bag_wtp_edit_plus: "+1"

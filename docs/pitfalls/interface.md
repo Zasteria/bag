@@ -7,6 +7,16 @@ game, and none of them raises an error you would notice.
 Ask for one rather than reading the file: `python3 tools/kb.py <words>`.
 
 
+**«An expanding child in a sized parent» is about the child, not the parent.**
+The line further down this file says a fixed width beats an expanding one because
+an expanding child inside a parent that has a size of its own comes out at zero.
+That is true and it is about the *child*. A widget that has both an expanding
+policy and a size **of its own** is a different thing and is not fatal: three of
+them are in `bag_wtp_result_window.gui` and `bag_wtp_right_window.gui`, in windows
+that have drawn correctly since the first build. Reaching for that line to explain
+a window that came out empty on 2026-09-04 was a guess, and it did not survive
+the scan that tested it.
+
 **A control you have to discover by clicking is a control that is not there.**
 The plan editor's first working build showed the goods as bare icons; clicking
 one added a row elsewhere, and «−1» and «+1» appeared on that row. He opened the

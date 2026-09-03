@@ -10900,6 +10900,12 @@ bag_wtp_show_edit_saved = { value = global_var:bag_wtp_save_n }
 bag_wtp_show_edit_done = { value = global_var:bag_wtp_edit_done }
 # Scope: country
 bag_wtp_show_edit_reached = { value = global_var:bag_wtp_edit_reached }
+# **How many goods the picker was filled with.** On screen beside the list, and
+# it is there to separate two failures that look identical: a list that was
+# never filled, and a list that was filled and does not draw. The editor's goods
+# vanished once already, and telling those apart cost a round trip.
+# Scope: country
+bag_wtp_show_edit_pooln = { value = global_var:bag_wtp_edit_pooln }
 # Scope: country
 bag_wtp_show_edit_slot1 = { value = global_var:bag_wtp_sl1_n }
 # Scope: country

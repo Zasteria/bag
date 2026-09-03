@@ -230,7 +230,7 @@
  bag_wtp_edit_slot2_empty: "Slot 2 · empty"
  bag_wtp_edit_slot3_full: "Slot 3 · [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_slot3')|0] in [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_slot3_locs')|0] loc."
  bag_wtp_edit_slot3_empty: "Slot 3 · empty"
- bag_wtp_edit_pool_head: "Goods this ground can make:"
+ bag_wtp_edit_pool_head: "Goods this ground can make — [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_pooln')|0] of them:"
  bag_wtp_edit_pool_tt: "Only the goods some location of the chosen ground could actually produce are here. Every one of them has its «−1» and «+1» in place; nothing has to be clicked first."
  bag_wtp_edit_pool_empty: "Nothing here yet — make a plan first, and this fills with the goods that ground can produce."
  bag_wtp_edit_plus: "+1"

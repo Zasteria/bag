@@ -1528,6 +1528,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_edit_done = {{ value = global_var:{MOD_ID}_edit_done }}
 # Scope: country
 {MOD_ID}_show_edit_reached = {{ value = global_var:{MOD_ID}_edit_reached }}
+# **How many goods the picker was filled with.** On screen beside the list, and
+# it is there to separate two failures that look identical: a list that was
+# never filled, and a list that was filled and does not draw. The editor's goods
+# vanished once already, and telling those apart cost a round trip.
+# Scope: country
+{MOD_ID}_show_edit_pooln = {{ value = global_var:{MOD_ID}_edit_pooln }}
 # Scope: country
 {MOD_ID}_show_edit_slot1 = {{ value = global_var:{MOD_ID}_sl1_n }}
 # Scope: country
@@ -3903,6 +3909,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     pool = "".join(
         f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
         f"global_var:{MOD_ID}_ng{i} > 0 }} "
+        f"change_global_variable = {{ name = {MOD_ID}_edit_pooln add = 1 }} "
         f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool "
         f"target = goods:{good} }} }}\n"
         for i, good in enumerate(order, start=1))
@@ -3911,6 +3918,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
 \tclear_global_variable_list = {MOD_ID}_edit_pool
+\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
 {pool}}}
 
 """)
@@ -4013,6 +4021,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_reached }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_pooln }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
