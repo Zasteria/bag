@@ -1,0 +1,529 @@
+﻿# The plan editor: a window, and its own window, because he would not use it
+# anywhere else.
+#
+# The owner, 2026-09-03, after the first build put the picker and the buttons on
+# the mod's settings page: «Сейчас окно настроек мода - стало засраным и
+# неудобным. Более того это именно что окно настроек и основных функций, я не
+# хочу делать подобные вещи там. … Редактор - должен быть полностью отдельно
+# открывающимся окном. Я открываю окно и загружаю сохранённый план. План
+# загружается примерно в том же виде, в каком он показывается в окне "где
+# производить - общий план".»
+#
+# So: three slots along the top, the plan itself in the same rows the plan window
+# draws -- `bag_wtp_plan_entry`, reused rather than copied, so the two windows can
+# never drift apart -- the goods this ground can make as icons, and beside each
+# good he has chosen a «−1», its icon and a «+1».
+#
+# **Nothing in here re-plans.** `bag_wtp_plan_run` is the only thing that does,
+# and every button here changes the plan on the map one building at a time:
+# «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
+# менее болезненно удалить для наилучшей установки туда товара Y».
+
+types BagWtpEditTypes {
+
+	# One good the ground can make, as a clickable icon. Clicking it puts the good
+	# into the row list below and clicking it again takes it out.
+	#
+	# **A goods icon is a texticon and the button carries it as `raw_text`**, the
+	# same way `bag_wtp_plan_goods_entry` does: `Goods.GetIcon` returns a `CString`,
+	# so an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all
+	# (`docs/pitfalls/interface.md`, and the thirty-second load).
+	type bag_wtp_edit_pool_entry = button_regular {
+		size = { 34 34 }
+		tooltip = "[Goods.GetName]"
+		onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+
+		text_single = {
+			parentanchor = center
+			widgetanchor = center
+			autoresize = yes
+			fontsize = 18
+			raw_text = "[Goods.GetIcon]"
+		}
+	}
+
+	# One good under adjustment: «−1», the icon, «+1», and the button that takes
+	# the row away again. His layout, and in his order: «Слева и справа от иконки
+	# кнопочки +1 и -1 и кнопочка удалить товар рядом.»
+	#
+	# **The delete button removes the row and not the buildings.** A good taken out
+	# of this list keeps whatever the plan gave it; the row is a handle, not a
+	# state. Anything else would make «удалить товар» destroy work silently, and
+	# the count beside the icon is there so it is obvious which it did.
+	type bag_wtp_edit_pick_entry = hbox {
+		size = { 254 40 }
+		spacing = 3
+		using = bg_number_container_bckg
+
+		button_regular = {
+			size = { 34 34 }
+			tooltip = "bag_wtp_edit_minus_tt"
+			onclick = "[GetScriptedGui('bag_wtp_edit_minus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 16
+				text = "bag_wtp_edit_minus"
+			}
+		}
+
+		widget = {
+			size = { 34 34 }
+			alwaystransparent = no
+			tooltip = "[Goods.GetName]"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 20
+				raw_text = "[Goods.GetIcon]"
+			}
+		}
+
+		button_regular = {
+			size = { 34 34 }
+			tooltip = "bag_wtp_edit_plus_tt"
+			onclick = "[GetScriptedGui('bag_wtp_edit_plus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 16
+				text = "bag_wtp_edit_plus"
+			}
+		}
+
+		# **No count on the row, and that is a limit and not a choice.** A script
+		# value is what a localization can read a number through
+		# (`bag_wtp_plan_pass_summary` is all of them), and a script value cannot be
+		# indexed by the good this row is drawn for -- the plan's counters are
+		# `_pn<n>`, numbered, and a datamodel item carries a scope. Whether a press
+		# did anything is on «последнее действие» below the picker instead, and where
+		# it landed is in the changes window.
+
+		button_regular = {
+			size = { 30 34 }
+			tooltip = "bag_wtp_edit_forget_tt"
+			onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 14
+				text = "bag_wtp_edit_forget"
+			}
+		}
+	}
+}
+
+window = {
+	name = "bag_wtp_edit_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	widgetanchor = center
+	position = { 0 0 }
+	movable = yes
+	size = { 1180 760 }
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
+
+	widget = {
+		size = { 1180 760 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_edit_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_edit_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 60 }
+					align = center
+					text = "bag_wtp_edit_window_desc"
+				}
+
+				# The slots. Three of them, and the reason is his: «я проебу свой
+				# сохранённый план, если захочу посмотреть какой-то план на другой
+				# земле… Слотов для планов должно быть минимум 3.»
+				#
+				# Each shows what it holds, so that «загрузить» is never a guess, and
+				# the label is a `customizable_localization` of the mod's own because a
+				# `text` cannot read a global variable any other way.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					text_single = {
+						size = { 110 34 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 14
+						text = "bag_wtp_edit_slots_head"
+					}
+
+					widget = {
+						size = { 320 40 }
+						using = bg_number_container_bckg
+
+						hbox = {
+							parentanchor = left|vcenter
+							spacing = 4
+							margin = { 6 0 }
+
+							text_single = {
+								size = { 150 34 }
+								autoresize = no
+								maximumsize = { 150 34 }
+								align = left|vcenter
+								fontsize = 13
+								elide = right
+								text = "[GetPlayer.Custom('bag_wtp_edit_slot1_label')]"
+								tooltip = "bag_wtp_edit_slot_tt"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_store_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_store"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_recall_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_recall"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+						}
+					}
+
+					widget = {
+						size = { 320 40 }
+						using = bg_number_container_bckg
+
+						hbox = {
+							parentanchor = left|vcenter
+							spacing = 4
+							margin = { 6 0 }
+
+							text_single = {
+								size = { 150 34 }
+								autoresize = no
+								maximumsize = { 150 34 }
+								align = left|vcenter
+								fontsize = 13
+								elide = right
+								text = "[GetPlayer.Custom('bag_wtp_edit_slot2_label')]"
+								tooltip = "bag_wtp_edit_slot_tt"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_store_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_store"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_recall_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_recall"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+						}
+					}
+
+					widget = {
+						size = { 320 40 }
+						using = bg_number_container_bckg
+
+						hbox = {
+							parentanchor = left|vcenter
+							spacing = 4
+							margin = { 6 0 }
+
+							text_single = {
+								size = { 150 34 }
+								autoresize = no
+								maximumsize = { 150 34 }
+								align = left|vcenter
+								fontsize = 13
+								elide = right
+								text = "[GetPlayer.Custom('bag_wtp_edit_slot3_label')]"
+								tooltip = "bag_wtp_edit_slot_tt"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_store_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_store"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							button_regular = {
+								size = { 78 32 }
+								tooltip = "bag_wtp_edit_recall_tt"
+								text_single = {
+									size = { 70 24 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 70 24 }
+									fontsize = 12
+									fontsize_min = 9
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_edit_recall"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+						}
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
+				}
+
+				# The picker: every good this ground can make, and only those. 47 icons
+				# of which half are impossible here is a worse picker than twenty that
+				# are all real, and `bag_wtp_edit_fill_pool` is what decides which.
+				text_single = {
+					size = { 1130 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "bag_wtp_edit_pool_head"
+					tooltip = "bag_wtp_edit_pool_tt"
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 40 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool')))]"
+					text = "bag_wtp_edit_pool_empty"
+				}
+
+				# **A `flowcontainer` and not an hbox**: 47 icons in a row would run off
+				# the window, and the number of goods is the game's to decide.
+				flowcontainer = {
+					# **`wrap_count` and not a width.** A `flowcontainer` wraps on a count
+					# of items, which is how vanilla uses it (`agenda_view.gui`); a
+					# `maximumsize` on it does not wrap anything and the row simply runs
+					# off the window. 28 icons of 34 with 2 between them is 1008 of the
+					# 1130 the window has.
+					wrap_count = 28
+					spacing = 2
+					ignoreinvisible = yes
+					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
+					item = {
+						bag_wtp_edit_pool_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				# The goods he is adjusting, one row each.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					text_single = {
+						size = { 300 24 }
+						autoresize = no
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "bag_wtp_edit_picked_head"
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
+
+					# «Показать изменения», in a window of its own, which is what he
+					# asked for: «кнопка показать список изменений, которое откроет ещё
+					# одно окно уже для своих целей».
+					button_regular = {
+						size = { 210 34 }
+						tooltip = "bag_wtp_edit_changes_tt"
+						text_single = {
+							size = { 196 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 196 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_edit_changes"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_open_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				flowcontainer = {
+					# A row is about 250 wide, so four to a line.
+					wrap_count = 4
+					spacing = 6
+					ignoreinvisible = yes
+					datamodel = "[GetGlobalList('bag_wtp_edit_picked')]"
+					item = {
+						bag_wtp_edit_pick_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 40 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_picked')))]"
+					text = "bag_wtp_edit_picked_empty"
+				}
+
+				# **What the last press did**, because an effect that merely does
+				# nothing logs nothing at all. «+1» fails silently when the good fits
+				# nowhere on this ground, and «−1» when the good has one building left
+				# or every one of them belongs to a charter's bundle -- both are rules
+				# and neither is a bug, so the window has to say which happened.
+				text_single = {
+					size = { 1130 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
+					tooltip = "bag_wtp_edit_last_tt"
+				}
+
+				# The plan as it stands, in the plan window's own rows.
+				text_single = {
+					size = { 1130 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "bag_wtp_plan_pass_summary"
+					tooltip = "bag_wtp_plan_pass_tt"
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 40 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
+					text = "bag_wtp_edit_no_plan"
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
+							item = {
+								bag_wtp_plan_entry = {
+									datacontext = "[Scope.GetLocation]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

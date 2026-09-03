@@ -428,6 +428,113 @@ window = {
 						onclick = "[GetScriptedGui('bag_wtp_plan_refresh').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 					}
 
+					# **«Сохранить план», here and not only in the editor**, because
+					# this is the window a finished plan is looked at in and he
+					# asked for it here by name: «Сделай кнопку "сохранить план" в
+					# окне результата планов "на сейчас" и "На конец".» One button
+					# per slot, three of them, because a single slot meant that
+					# planning other ground threw the kept plan away -- «я проебу
+					# свой сохранённый план, если захочу посмотреть какой-то план
+					# на другой земле».
+					#
+					# The mode is not a second window: «на сейчас» and «на конец»
+					# are one switch on the settings page and one plan on the map,
+					# so a slot holds whichever of the two was last run and the
+					# label on it says how many buildings that was.
+					widget = {
+						size = { 300 42 }
+						alwaystransparent = no
+						tooltip = "bag_wtp_edit_store_tt"
+
+						hbox = {
+							parentanchor = left|vcenter
+							spacing = 3
+
+							text_single = {
+								size = { 74 34 }
+								autoresize = no
+								maximumsize = { 74 34 }
+								align = right|vcenter
+								fontsize = 12
+								elide = right
+								text = "bag_wtp_plan_save_head"
+							}
+
+							button_regular = {
+								size = { 70 34 }
+								tooltip = "[GetPlayer.Custom('bag_wtp_edit_slot1_label')]"
+								text_single = {
+									size = { 62 26 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 62 26 }
+									fontsize = 13
+									fontsize_min = 10
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_plan_save_slot1"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							button_regular = {
+								size = { 70 34 }
+								tooltip = "[GetPlayer.Custom('bag_wtp_edit_slot2_label')]"
+								text_single = {
+									size = { 62 26 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 62 26 }
+									fontsize = 13
+									fontsize_min = 10
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_plan_save_slot2"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							button_regular = {
+								size = { 70 34 }
+								tooltip = "[GetPlayer.Custom('bag_wtp_edit_slot3_label')]"
+								text_single = {
+									size = { 62 26 }
+									parentanchor = center
+									widgetanchor = center
+									autoresize = no
+									maximumsize = { 62 26 }
+									fontsize = 13
+									fontsize_min = 10
+									align = center|nobaseline
+									elide = right
+									text = "bag_wtp_plan_save_slot3"
+								}
+								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+						}
+					}
+
+					# And the door to the editor, from the window the plan is in.
+					button_regular = {
+						size = { 150 42 }
+						tooltip = "bag_wtp_edit_open_tt"
+						text_single = {
+							size = { 116 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 116 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_edit_open_button"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_open_edit_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
 					button_regular = {
 						size = { 150 42 }
 						tooltip = "bag_wtp_clear_all_tt"

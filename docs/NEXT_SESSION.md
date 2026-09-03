@@ -20,18 +20,31 @@ carry before touching anything:
 - **Charters use `potential` and never the advance.** The other way was built,
   run, and cost the plan a quarter of its ground.
 
-**Two presses are owed and neither has been in the game.** On Westphalia: the
-charter ladder's band 0 now carries the quota, so the nine charters should come
-back 5–6 each instead of 10/6/6/6/6/6/6/1/1 — that is the thing he said the plan
-is worthless without. On a large ground: the relative open ladder, which does not
-engage at all on 48 locations because the quota fills them first.
+**Three presses are owed and none has been in the game.** On Westphalia: the
+charter ladder now climbs its ceiling one town at a time and runs every band at
+each height, so the nine charters should come back **five or six each** instead of
+6·7 + 3 + 3. That is the thing he said the plan is worthless without, and the two
+runs behind it are the newest in [`TESTLOG.md`](TESTLOG.md). On a large ground:
+the relative open ladder, which does not engage at all on 48 locations because
+the quota fills them first. And the editor's windows, below.
 
-**And the editor, which is the other half of what he asked for.** A finished plan
-is state on the map; `bag_wtp_edit_*` moves one building at a time into the
-location where it costs least and touches nothing else. **The mistake it replaces
-is worth carrying**: a hand weight fed back into a full re-plan, which measured at
-42 locations of 48 moved by a knob meant to move one. A preference is an edit, not
-a term in the objective. The checklist is the last section of `plan_gaps.md`.
+**The editor is a window of its own now, and none of it has been loaded.** He
+refused the first build outright — it was nine settings on the mod's page and
+«окно настроек мода - стало засраным и неудобным… я не хочу делать подобные вещи
+там». So: `bag_wtp_edit_window.gui`, three save slots, the goods this ground can
+make as icons, «−1» and «+1» flanking each one he picks, and
+`bag_wtp_changes_window.gui` for «показать изменения». The save buttons are in the
+plan window as well, where he asked for them.
+
+**Three GUI files have never been drawn.** That is the whole risk in this build:
+script failures name their file and line in `error.log`, and a `.gui` that does
+not parse takes its window with it silently. The first load should be «Открыть
+план → Редактор», and if the window does not appear the log will say why.
+
+**The mistake the editor replaces is worth carrying**: a hand weight fed back into
+a full re-plan, which measured at 42 locations of 48 moved by a knob meant to move
+one. A preference is an edit, not a term in the objective. The checklist is the
+last section of `plan_gaps.md`.
 
 **Do not spend his run on a guess.** Every fault in that file was found by
 counting in his log, not by theorising, and the four-theories rule
@@ -66,20 +79,10 @@ the message names the folder. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now. No
 menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: what is settled and not in `plan_gaps.md`
-
-**The plan does what it was meant to and he has seen it.** The tick is the rank
-(`SETTLED.md`), the window pages, the province ceiling and `plan_max` are gone at
-his word. **The single-good side** has faults he has seen and set aside without
-naming.
-
-**One optimisation is measured and deliberately not built.** The 25 scarce passes
-cost 25 sweeps of 61 and place three buildings; a pass no good qualifies for could
-be skipped by 47 comparisons rather than a whole sweep. Nothing has complained
-about speed, so it is a number written down rather than a change.
-
-**The diagnosis comes out when the work does.** `pitfalls/diagnosis.md` has what
-it prints; `tools/diag.py` draws the conclusions so he does not have to.
+**What is settled about `where_to_produce` and not in `plan_gaps.md`** — the
+single-good side's known faults, the scarce-pass optimisation measured and left
+unbuilt, and where the diagnosis lives — is in
+[`archive/wtp_settled_asides.md`](archive/wtp_settled_asides.md).
 
 ## Then `glorpui_hints` goes out
 

@@ -10863,11 +10863,34 @@ bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
 bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
-# The editor's two numbers, for its buttons to print on themselves.
+# The editor's own numbers, for its window to print. **A plain script value over
+# a global and no guard inside it**: the self-guarding form returned zero for
+# every reader on a plan that had just placed 417 buildings and said so nowhere,
+# which is the note below this block.
+#
+# `_edit_moved` is how many locations the last «показать изменения» found, and
+# it is the number that condemned the weight regulator -- 42 of 48 on one press.
+# `_edit_done` is whether the last «+1» or «−1» actually did anything: an effect
+# that merely does nothing logs nothing at all, and a good whose last building
+# may not be taken out is exactly such a case.
 # Scope: country
 bag_wtp_show_edit_moved = { value = global_var:bag_wtp_edit_moved }
 # Scope: country
 bag_wtp_show_edit_saved = { value = global_var:bag_wtp_save_n }
+# Scope: country
+bag_wtp_show_edit_done = { value = global_var:bag_wtp_edit_done }
+# Scope: country
+bag_wtp_show_edit_slot1 = { value = global_var:bag_wtp_sl1_n }
+# Scope: country
+bag_wtp_show_edit_slot1_locs = { value = global_var:bag_wtp_sl1_locn }
+# Scope: country
+bag_wtp_show_edit_slot2 = { value = global_var:bag_wtp_sl2_n }
+# Scope: country
+bag_wtp_show_edit_slot2_locs = { value = global_var:bag_wtp_sl2_locn }
+# Scope: country
+bag_wtp_show_edit_slot3 = { value = global_var:bag_wtp_sl3_n }
+# Scope: country
+bag_wtp_show_edit_slot3_locs = { value = global_var:bag_wtp_sl3_locn }
 
 bag_wtp_show_diag_runs = { value = global_var:bag_wtp_diag_runs }
 bag_wtp_show_diag_locs = { value = global_var:bag_wtp_diag_locs }

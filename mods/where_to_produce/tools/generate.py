@@ -152,6 +152,14 @@ PLAN_TIERS = (1, 2, 4, 8, 16)
 # every tier, and the plan is already the expensive button.
 PLAN_BANDS = (800, 600, 400, 200, 0)
 
+# How many towns a charter may be dealt one at a time before the rest are dealt
+# at once. The charter ladder raises its ceiling by one and runs every band at
+# each height, which is what makes the counts come out level; the guard is there
+# because the ceiling it climbs to is towns divided by charters, and a country
+# with many towns and two charters would otherwise walk its ground a hundred
+# times over. Westphalia -- 48 towns, 9 charters -- climbs to 6.
+RIGHT_LEVELS = 12
+
 # The passes after all of them, with the quota raised a layer a round rather
 # than with a candidate count of their own. `is` on a sentinel and not a sixth
 # number, because the tier value they write is 0 like the `tierall` rung's.
@@ -1483,11 +1491,34 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
 {MOD_ID}_show_ticks = {{ value = global_var:{MOD_ID}_tick_count }}
-# The editor's two numbers, for its buttons to print on themselves.
+# The editor's own numbers, for its window to print. **A plain script value over
+# a global and no guard inside it**: the self-guarding form returned zero for
+# every reader on a plan that had just placed 417 buildings and said so nowhere,
+# which is the note below this block.
+#
+# `_edit_moved` is how many locations the last «показать изменения» found, and
+# it is the number that condemned the weight regulator -- 42 of 48 on one press.
+# `_edit_done` is whether the last «+1» or «−1» actually did anything: an effect
+# that merely does nothing logs nothing at all, and a good whose last building
+# may not be taken out is exactly such a case.
 # Scope: country
 {MOD_ID}_show_edit_moved = {{ value = global_var:{MOD_ID}_edit_moved }}
 # Scope: country
 {MOD_ID}_show_edit_saved = {{ value = global_var:{MOD_ID}_save_n }}
+# Scope: country
+{MOD_ID}_show_edit_done = {{ value = global_var:{MOD_ID}_edit_done }}
+# Scope: country
+{MOD_ID}_show_edit_slot1 = {{ value = global_var:{MOD_ID}_sl1_n }}
+# Scope: country
+{MOD_ID}_show_edit_slot1_locs = {{ value = global_var:{MOD_ID}_sl1_locn }}
+# Scope: country
+{MOD_ID}_show_edit_slot2 = {{ value = global_var:{MOD_ID}_sl2_n }}
+# Scope: country
+{MOD_ID}_show_edit_slot2_locs = {{ value = global_var:{MOD_ID}_sl2_locn }}
+# Scope: country
+{MOD_ID}_show_edit_slot3 = {{ value = global_var:{MOD_ID}_sl3_n }}
+# Scope: country
+{MOD_ID}_show_edit_slot3_locs = {{ value = global_var:{MOD_ID}_sl3_locn }}
 
 {MOD_ID}_show_diag_runs = {{ value = global_var:{MOD_ID}_diag_runs }}
 {MOD_ID}_show_diag_locs = {{ value = global_var:{MOD_ID}_diag_locs }}
@@ -2060,6 +2091,46 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t}}
 }}
 """)
+    # **The editor's own two branching labels.** A plain localization key reads a
+    # number through a script value -- `{MOD_ID}_plan_pass_summary` is nothing but
+    # those -- but it cannot choose between two sentences, and both of these have
+    # to: an empty slot must not read «0 buildings in 0 locations», and a «+1»
+    # that a rule refused must not look like one that worked.
+    for n in range(1, EDIT_SLOTS + 1):
+        out.append(f"""
+# Slot {n}: what it holds, or that it holds nothing.
+# Scope: country
+{MOD_ID}_edit_slot{n}_label = {{
+\ttype = country
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_sl{n}_n > 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_slot{n}_full
+\t}}
+\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_edit_slot{n}_empty
+\t}}
+}}
+""")
+    out.append(f"""
+# Whether the last «+1» or «−1» did anything. **An effect that merely does
+# nothing logs nothing at all**, and both of them have rules that refuse: a good
+# fitting nowhere on this ground, a good down to its last building, a building
+# belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
+# to 1 by the walk, so the two branches are «сделано» and «правило не дало».
+# Scope: country
+{MOD_ID}_edit_last_label = {{
+\ttype = country
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_done
+\t}}
+\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_edit_last_refused
+\t}}
+}}
+""")
     return "".join(out)
 
 
@@ -2197,7 +2268,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # counter is: a `limit` that reads a global which is not there fails silently.
     out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
-               f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_rlevel value = 0 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rquota value = 1 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}\n")
     # **What each pass of the allocator did, kept so the dump can print it.** Two
@@ -2463,68 +2534,66 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     grant_zeroes = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
         for k in range(1, len(rights) + 1))
-    # **Every charter the country could grant is granted somewhere.** The goods
-    # have had this since 2026-09-01 -- «все товары которые можно произвести на
-    # выбранной земле должны производиться, все» -- and the owner asked for the
-    # rights to obey the same rules, 2026-09-03: «какое-то количество оружейных
-    # прав должно было выделиться каким-то городам обязательно». They did not:
-    # over 48 towns of Westphalia the weaponry charter scored 163 everywhere --
-    # cannons 136, firearms 166, weaponry 187, averaged over the bundle -- against
-    # 200 to 624 for every rival, so it never won a town and no rule made it. Nor
-    # did jewelry.
+    # **Every charter the country could grant is granted somewhere, and they
+    # come out level.** The goods have had the covering rule since 2026-09-01 --
+    # «все товары которые можно произвести на выбранной земле должны
+    # производиться, все» -- and the owner asked the rights to obey the same one,
+    # 2026-09-03: «какое-то количество оружейных прав должно было выделиться
+    # каким-то городам обязательно».
     #
-    # **The covering ladder runs the bands again, admitting only charters with
-    # nothing anywhere.** A ladder rather than one sweep so that the town the
-    # ground suits best gets it, instead of whichever town the walk reaches first.
-    grant_cover = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
-        f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
-        f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 1 }}\n"
-        f"\t{MOD_ID}_plan_grant_pass = yes\n"
+    # **The ladder is levels, not a cap.** A quota that is only a ceiling does
+    # nothing for a charter nobody wants: the pass walks towns, each town takes
+    # the best charter with room left, and one the ground pays 62 for is never
+    # any town's best while a rival at 441 still has quota. On 48 towns and 9
+    # charters that came out 6 6 6 6 6 6 6 3 3 -- the owner, 2026-09-03: «у пушек
+    # ювелирки по 3 ... но вот с пушками я на такое не согласен, им есть чё взять».
+    #
+    # So the ceiling is raised one town at a time and the whole ladder of bands
+    # runs at each height: **no charter takes an Nth town until every charter has
+    # had the chance of its Nth.** Level 1 is exactly the covering ladder that
+    # used to be a special case of its own -- `_rn<k> < 1` is `_rn<k> = 0` -- so
+    # that case is gone and the flag with it.
+    #
+    # Inside a level the bands still decide *which* town, so a charter takes the
+    # ground that pays it most before it takes ground that merely tolerates it.
+    # That is what put the weaponry charter in Essen rather than in Elsfleth,
+    # where it scores nothing: «КАК СУКА ТАК ПОЛУЧАЕТСЯ, ЧТО ЕДИНСТВЕННАЯ ХОРОШАЯ
+    # ПРОВИНЦИЯ ДЛЯ ОРУЖЕЙНЫХ ПРАВ -- НЕ ПОЛУЧАЕТ ОРУЖЕЙНЫХ ПРАВ!?»
+    #
+    # **The price is a town that would rather have had another charter**, and the
+    # owner set the price: «я не буду удовлетворён пока не увижу в вестфалии
+    # относительно одинаковое количество каждого городского права… и мне похуй
+    # что там в формулах».
+    level_bands = "".join(
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
+        f"\t\t{MOD_ID}_plan_grant_pass = yes\n"
         for band in PLAN_BANDS)
-    # **Every band, band 0 included, with the quota still on.** It used to stop
-    # at 200 and go straight to the open pass, and that one gap is the whole of
-    # «10000000 текстильных прав и по 1 оружейному»: a charter the ground pays
-    # under 200 for -- weaponry 163 across all of Westphalia, jewelry 0 -- never
-    # qualified for a banded pass at all, so it kept the single town the covering
-    # ladder gave it while the open pass, which lifts the quota, handed the
-    # leftovers to whatever scored highest. Flemish cloth took 10 towns of 48
-    # against a quota of 6; weaponry and jewelry took 1 each.
-    #
-    # **The objection this was written against is real and he has overruled it.**
-    # A band-0 pass with the quota on can put a charter in a town that would
-    # rather have had another -- 2026-09-03, both towns of Vorpommern taking the
-    # jewelry charter at 90 while artisan at 316 was quota-spent. That is the
-    # price of an even spread, and the owner set the price: «я не буду
-    # удовлетворён пока не увижу в вестфалии относительно одинаковое количество
-    # каждого городского права… и мне похуй что там в формулах».
-    #
-    # The quota is `towns ÷ grantable`, so on 48 towns and 9 charters it is 5.33
-    # and each may take 6 -- 54 places for 48 towns. The open pass stays as the
-    # backstop for a town no charter fits at all.
-    grant_passes = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
-        f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
-        f"\t{MOD_ID}_plan_grant_pass = yes\n"
-        for band in PLAN_BANDS)
-    grant_passes = "".join(
-        line if "_ropen value" not in line else
-        line + f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
-        for line in grant_passes.splitlines(keepends=True))
-    # **The covering ladder runs first, for the reason the goods' one does.** It
-    # was last, and on 2026-09-03 the weaponry charter reached it with every town
-    # of Sauerland already taken: the six towns there score naval **1000** and
-    # weaponry **163**, so naval swept them in band 800 and the charter that had
-    # nowhere else to be got Elsfleth, where it scores **0**. The owner: «КАК СУКА
-    # ТАК ПОЛУЧАЕТСЯ, ЧТО ЕДИНСТВЕННАЯ ХОРОШАЯ ПРОВИНЦИЯ ДЛЯ ОРУЖЕЙНЫХ ПРАВ -- НЕ
-    # ПОЛУЧАЕТ ОРУЖЕЙНЫХ ПРАВ!?» Because the pass that was going to give it one
-    # ran after the towns were gone. Now every charter takes its own best town
-    # first, in descending bands, one town each -- and the banded passes deal the
-    # rest.
-    grant_passes = grant_cover + grant_passes
+    # The same ladder once more, off the loop, for a ground where the guard below
+    # cut the levels short. `_rlevel` jumps to the quota so the count is the one
+    # the quota always meant.
+    final_bands = level_bands.replace("\t\t", "\t\t\t")
+    # **The guard is the loop's, and it has to be there.** `_rquota` is towns
+    # divided by charters, so a country with many towns and two charters would
+    # otherwise walk its whole ground a hundred times over. {RIGHT_LEVELS} levels
+    # is past any ground this has been run on -- 48 towns and 9 charters is 6.
+    grant_passes = f"""\tset_global_variable = {{ name = {MOD_ID}_rlevel value = 0 }}
+\twhile = {{
+\t\tlimit = {{
+\t\t\tglobal_var:{MOD_ID}_rlevel < global_var:{MOD_ID}_rquota
+\t\t\tglobal_var:{MOD_ID}_rlevel < {RIGHT_LEVELS}
+\t\t}}
+\t\tchange_global_variable = {{ name = {MOD_ID}_rlevel add = 1 }}
+{level_bands}\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rlevel < global_var:{MOD_ID}_rquota }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rlevel value = global_var:{MOD_ID}_rquota }}
+{final_bands}\t}}
+"""
+    # And the open pass: the quota and the band lifted together, so a town no
+    # charter fits on merit still ends with one.
     grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
-                     f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
                      f"\t{MOD_ID}_plan_grant_pass = yes\n")
     out.append(f"""
 # Urban rights, before any good is placed and only in towns.
@@ -2603,16 +2672,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# The band: what this ground has to pay before the charter is taken
 \t\t\t\t# here at all. The open pass sets it to 0.
 \t\t\t\tvar:{MOD_ID}_rtry >= global_var:{MOD_ID}_rband
-\t\t\t\t# And the quota, which the open pass lifts instead of raising: a
-\t\t\t\t# town with no charter at all is worse than an uneven count.
+\t\t\t\t# The level: how many towns any one charter may hold so far. It
+\t\t\t\t# climbs by one at a time, so no charter takes an Nth town while
+\t\t\t\t# another is still short of its Nth -- that, and not the quota it
+\t\t\t\t# ends at, is what makes the counts come out level. The open pass
+\t\t\t\t# lifts it: a town with no charter at all is worse than an uneven count.
 \t\t\t\tOR = {{
 \t\t\t\t\tglobal_var:{MOD_ID}_ropen = 1
-\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} < global_var:{MOD_ID}_rquota
-\t\t\t\t}}
-\t\t\t\t# The covering ladder admits only a charter that has nothing anywhere.
-\t\t\t\tOR = {{
-\t\t\t\t\tglobal_var:{MOD_ID}_rcover = 0
-\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} = 0
+\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} < global_var:{MOD_ID}_rlevel
 \t\t\t\t}}
 {gate}\t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest value = var:{MOD_ID}_rtry }}
@@ -2977,9 +3044,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# stops at {PLAN_RANKED}, and a count that stopped with it would say the plan
 \t# used exactly as many locations as the window can keep, whatever it really
 \t# used.
+\t#
+\t# **And it walks `_plan_touched`, not `_candidates`.** The two are the same
+\t# list for a plan just run -- the reset puts every candidate in it -- but a slot
+\t# loaded from the editor puts a plan back on ground the picker may no longer
+\t# hold, and walking the picker would then rank nothing while the map mode
+\t# painted the plan. A plan is ranked over the ground it stands on.
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_candidates
+\t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_found add = 1 }}
 \t}}
@@ -2997,7 +3070,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
 \tordered_in_global_list = {{
-\t\tvariable = {MOD_ID}_candidates
+\t\tvariable = {MOD_ID}_plan_touched
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\torder_by = {MOD_ID}_plan_order
 \t\tmax = {PLAN_RANKED}
@@ -3122,27 +3195,13 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     return "".join(out)
 
 
-# How the editor's own good picker is split across dropdowns. CMM handles a
-# dropdown option click through `CMM_MarkDropdownSelection_<index>` and defines
-# twenty of them, so a dropdown holds at most twenty options -- and option 1 of
-# each is «—», meaning "not this one", so three of them can offer 47 goods and
-# still say which one is chosen.
-EDIT_DROPDOWNS = 3
-EDIT_OPTIONS = 20
-
-
-def edit_split(order: list[str]) -> list[list[str]]:
-    """The goods, cut into one list per dropdown, «—» not counted.
-
-    Balanced rather than filled front to back: three dropdowns of sixteen read
-    better than two full ones and a stub, and the split moves on its own if the
-    game gains a good.
-    """
-    per = -(-len(order) // EDIT_DROPDOWNS)
-    assert per <= EDIT_OPTIONS - 1, (
-        f"{len(order)} goods over {EDIT_DROPDOWNS} dropdowns is {per} options plus "
-        f"«—», past CMM's {EDIT_OPTIONS}; raise `EDIT_DROPDOWNS`")
-    return [order[i:i + per] for i in range(0, len(order), per)]
+# **How many plans the mod keeps.** Three at the least, and the reason is his:
+# «Т.е. ты говоришь, что я проебу свой сохранённый план, если захочу посмотреть
+# какой-то план на другой земле - спасибо. … Слотов для планов должно быть
+# минимум 3.» A slot is a global list of locations plus one list of goods on each
+# of them, so the cost is per slot and per location the plan touched, and nothing
+# at all for a slot never written.
+EDIT_SLOTS = 3
 
 
 def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
@@ -3177,13 +3236,20 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     **The picker is this window's own** and not the goods list the ranking uses --
     also his, and also from the second telling: «выбор товара для регуляции не
-    должны быть в том же выборе товара для поиска лучшей локации». Three
-    dropdowns, «—» in each, and the edit reads whichever one is not at «—».
+    должны быть в том же выборе товара для поиска лучшей локации».
+
+    **And it is a window of its own, not a page of the mod's settings.** The
+    first build put the picker and the buttons in the Mod Menu and he refused to
+    open it, 2026-09-03: «Сейчас окно настроек мода - стало засраным и неудобным.
+    Более того это именно что окно настроек и основных функций, я не хочу делать
+    подобные вещи там.» So the goods are icons in `bag_wtp_edit_window.gui`, each
+    chosen one gets a row with `-1`, its icon and `+1`, and the effects here are
+    reached from those buttons through `{MOD_ID}_edit_set_good`, which takes the
+    good as a scope instead of reading a dropdown.
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     groups = plan_groups(rows, split, game)
     rights = output_rights(rows, game)
-    lots = edit_split(order)
 
     def call(prefix: str, index: int, tab: str) -> str:
         """The two sides' effects, and only the ones that were generated.
@@ -3208,31 +3274,29 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """]
 
     # ---- which good the editor is working on -------------------------------
-    picks = []
-    number = 0
-    for lot, goods in enumerate(lots, start=1):
-        for option, good in enumerate(goods, start=2):
-            number += 1
-            picks.append(
-                f"\tif = {{\n"
-                f"\t\tlimit = {{ \"global_variable_map(cmm|flag:{MOD_ID}__edit_pick{lot})\" = {option} }}\n"
-                f"\t\tset_variable = {{ name = {MOD_ID}_edit_good value = {number} }}\n"
-                f"\t\tchange_variable = {{ name = {MOD_ID}_edit_picks add = 1 }}\n"
-                f"\t}}\n")
+    picks = "".join(
+        f"\tif = {{ limit = {{ scope:{MOD_ID}_good = goods:{good} }} "
+        f"set_variable = {{ name = {MOD_ID}_edit_good value = {i} }} }}\n"
+        for i, good in enumerate(order, start=1))
     out.append(f"""
-# Which good the editor is pointed at, read off its own three dropdowns.
+# Which good the editor is pointed at, taken from the button that was pressed.
 #
-# **Option 1 of each is «—».** Reading all three and counting is what lets three
-# dropdowns behave as one picker without a callback: `_edit_picks` is how many are
-# off «—», so the buttons can say «выбрано несколько» instead of silently taking
-# the first. A global variable map is how CMM stores a dropdown's index, and this
-# is the same read `cmm_sync_dropdown_option_alias` makes.
+# **The good arrives as a scope and is turned into the plan's own index here.**
+# Every counter the plan keeps is numbered -- `_pn<n>`, `_p<n>`, `_pm<n>` -- and
+# a scope cannot index them, so this is the one place the two meet. It was three
+# CMM dropdowns read out of a global variable map; a window of icons needs none
+# of that, and `scope:x = goods:y` is the game's own way of asking (its
+# `situation_triggers.txt` compares saved goods scopes exactly so).
+#
+# `_edit_good` at 0 means the scope named a good this ground has no plan for,
+# and every caller checks it.
 # Scope: country
-{MOD_ID}_edit_read_pick = {{
-	set_variable = {{ name = {MOD_ID}_edit_good value = 0 }}
-	set_variable = {{ name = {MOD_ID}_edit_picks value = 0 }}
-{"".join(picks)}}}
-""")
+{MOD_ID}_edit_set_good = {{
+\tset_variable = {{ name = {MOD_ID}_edit_good value = 0 }}
+{picks}}}
+"""
+
+)
 
     # ---- may this good stand here, room aside ------------------------------
     #
@@ -3423,10 +3487,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # side the location is not simply does nothing, which is cheaper than asking.
 # Scope: country
 {MOD_ID}_edit_add = {{
-\t{MOD_ID}_edit_read_pick = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \tif = {{
-\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 var:{MOD_ID}_edit_picks = 1 }}
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
@@ -3443,6 +3506,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 \t{MOD_ID}_plan_rank = yes
+\t# **And the window's rows again.** A location the edit gave its first building
+\t# is not in `_plan_results` and would not appear until something else refilled
+\t# it; the goods already in a row read live off the location, so without this
+\t# an edit is half-visible, which is the worst of the three states.
+\t{MOD_ID}_plan_show = yes
 }}
 
 # **One building of the chosen good taken out, and the room given to whatever
@@ -3453,10 +3521,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # to ask it for a minimum.
 # Scope: country
 {MOD_ID}_edit_drop = {{
-\t{MOD_ID}_edit_read_pick = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \tif = {{
-\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 var:{MOD_ID}_edit_picks = 1 }}
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
@@ -3517,6 +3584,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 \t{MOD_ID}_plan_rank = yes
+\t# **And the window's rows again.** A location the edit gave its first building
+\t# is not in `_plan_results` and would not appear until something else refilled
+\t# it; the goods already in a row read live off the location, so without this
+\t# an edit is half-visible, which is the worst of the three states.
+\t{MOD_ID}_plan_show = yes
 }}
 """)
 
@@ -3526,25 +3598,19 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
         f"add_to_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }}\n"
         for good in order)
-    restore_place = "".join(
-        f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
-        f"{{ name = {MOD_ID}_save_goods target = goods:{good} }} }}\n"
-        f"{call('plan_try', i, chr(9) * 3)}\t\t}}\n"
-        for i, good in enumerate(order, start=1))
-    zero_counts = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_pn{i} value = 0 }}\n"
-        for i in range(1, len(order) + 1))
     out.append(f"""
-# **The saved plan: the baseline every «изменено» is measured against.**
+# **The baseline every «изменено» is measured against.**
 #
 # Written by `{MOD_ID}_plan_run` as well, so a fresh plan is its own baseline and
 # the changes list right after one is empty -- which is the true answer, since a
-# new plan has not been edited. Pressing «Сохранить» again re-bases it wherever
-# the editing has got to.
+# new plan has not been edited. Saving a slot re-bases it too, and so does
+# loading one: «показать изменения» always answers «что я поменял с тех пор, как
+# сохранил или загрузил», and never «чем этот план отличается от какого-то
+# другого».
 #
 # Only the goods are kept. The building each good used is `_pm<n>`, which the
 # scoring pass writes and no edit touches, so restoring puts it back from the
-# good alone and the slot needs no second list.
+# good alone and the baseline needs no second list.
 # Scope: country
 {MOD_ID}_edit_save = {{
 \tclear_global_variable_list = {MOD_ID}_save_locs
@@ -3561,31 +3627,158 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_save_n value = global_var:{MOD_ID}_plan_placed }}
 }}
+""")
 
-# **Everything back to the saved plan.** The counters are zeroed between the two
-# walks and rebuilt by the same `_plan_try_*` the plan itself uses, so a restored
-# plan and a planned one are counted identically and there is no second
-# accounting to drift.
+    # **There is no «вернуть сохранённое» of its own any more.** It was a button
+    # on the settings page and the slots do the same thing better: loading slot N
+    # is restoring, and there are three of them. The baseline `_save_*` stays --
+    # it is what «показать изменения» counts against -- but nothing puts it back
+    # on the map, so the effect that did was removed rather than left unreachable.
+
+    # ---- the numbered slots -------------------------------------------------
+    #
+    # **Three plans kept side by side**, and the reason is his: «я проебу свой
+    # сохранённый план, если захочу посмотреть какой-то план на другой земле».
+    # A slot holds what the baseline holds -- the goods on each location the plan
+    # touched, the load, the charter -- under a name of its own, and writing one
+    # re-bases the changes list as well, so «показать изменения» after a save is
+    # empty and after an edit is the edit.
+    #
+    # **A slot is restored through `_plan_try_*` and not by writing the lists
+    # back.** The building a good uses is `_pm<n>`, which the scoring pass wrote
+    # and no edit touches, so the good alone is enough to put the building back --
+    # and a restored plan is then counted by the very same effects that counted
+    # the planned one, with no second accounting to drift. The price is that a
+    # slot saved on ground that has since been re-scored comes back scored the new
+    # way, which is the honest answer rather than a stale one.
+    for slot in range(1, EDIT_SLOTS + 1):
+        keep = "".join(
+            f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
+            f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
+            f"add_to_variable_list = {{ name = {MOD_ID}_sl{slot}_goods target = goods:{good} }} }}\n"
+            for good in order)
+        given = "".join(
+            f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_sl{slot}_right = {k} }} "
+            f"change_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }} }}\n"
+            for k in range(1, len(rights) + 1))
+        put = "".join(
+            f"\t\t\tif = {{ limit = {{ is_target_in_variable_list = "
+            f"{{ name = {MOD_ID}_sl{slot}_goods target = goods:{good} }} }}\n"
+            f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
+            for i, good in enumerate(order, start=1))
+        out.append(f"""
+# Slot {slot}: the plan as it stands now, kept under a name of its own.
 # Scope: country
-{MOD_ID}_edit_restore = {{
+{MOD_ID}_edit_store_{slot} = {{
+\tclear_global_variable_list = {MOD_ID}_sl{slot}_locs
 \tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_save_locs
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tclear_variable_list = {MOD_ID}_sl{slot}_goods
+{keep}\t\tset_variable = {{ name = {MOD_ID}_sl{slot}_load value = var:{MOD_ID}_load }}
+\t\tremove_variable = {MOD_ID}_sl{slot}_right
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}
+\t\t\tset_variable = {{ name = {MOD_ID}_sl{slot}_right value = var:{MOD_ID}_plan_right }}
+\t\t}}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_sl{slot}_locs target = this }}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_n value = global_var:{MOD_ID}_plan_placed }}
+\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_locn value = global_var:{MOD_ID}_plan_shown }}
+\t# The saved plan is what the next «показать изменения» is measured against.
+\t{MOD_ID}_edit_save = yes
+}}
+
+# Slot {slot} back onto the map, in place of whatever the plan holds now.
+# Scope: country
+{MOD_ID}_edit_load_{slot} = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_sl{slot}_n > 0 }}
+\t\t{MOD_ID}_edit_clear_plan = yes
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_sl{slot}_locs
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_sl{slot}_right }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = var:{MOD_ID}_sl{slot}_right }}
+\t\t\t\t# **The charter counters are rebuilt and not left where the last plan
+\t\t\t\t# put them.** `_rgiven<k>` is what the diagnosis prints as «выдано» and
+\t\t\t\t# `_plan_rightn` is the number on the window; a slot loaded over a plan
+\t\t\t\t# for other ground would otherwise report that ground's charters, which
+\t\t\t\t# is a wrong number rather than a missing one.
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
+{given}\t\t\t}}
+{put}\t\t}}
+\t\t{MOD_ID}_plan_rank = yes
+\t\t{MOD_ID}_plan_show = yes
+\t\t# The loaded plan is the baseline, so the changes list starts empty here.
+\t\t{MOD_ID}_edit_save = yes
+\t}}
+}}
+""")
+    zero_counts = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_pn{i} value = 0 }}\n"
+        for i in range(1, len(order) + 1))
+    zero_counts += "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n"
+        for k in range(1, len(rights) + 1))
+    out.append(f"""
+# Every location the plan stands on emptied, and every counter with it. Shared by
+# the restore and by each slot's load, because a plan half-cleared is the failure
+# that shows up as a number rather than as an error.
+# Scope: country
+{MOD_ID}_edit_clear_plan = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
 \t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
 \t\tremove_variable = {MOD_ID}_plan_right
-\t\tif = {{
-\t\t\tlimit = {{ has_variable = {MOD_ID}_save_right }}
-\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = var:{MOD_ID}_save_right }}
-\t\t}}
 \t}}
+\tclear_global_variable_list = {MOD_ID}_plan_touched
 \tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_gain value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
-{zero_counts}\tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_save_locs
-{restore_place}\t}}
-\t{MOD_ID}_plan_rank = yes
+\tset_global_variable = {{ name = {MOD_ID}_plan_rightn value = 0 }}
+{zero_counts}}}
+""")
+
+    # ---- the editor window's own two lists ----------------------------------
+    #
+    # **The picker offers what this ground can make and nothing else.** 47 icons
+    # of which half are impossible here is a worse picker than 20 that are all
+    # real, and `_ng<n>` -- how many candidates can make the good, counted by the
+    # plan's own scan -- is the number that says which.
+    # **`has_global_variable` before the comparison.** `_ng<n>` is written by the
+    # scoring pass and by nothing else, so before the first plan of a save it
+    # does not exist -- and a `limit` reading a global that is not there is the
+    # failure this repository names first. Here the wrong answer and the right
+    # one happen to agree (no plan, nothing to edit), which is exactly how such a
+    # thing survives a review.
+    pool = "".join(
+        f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
+        f"global_var:{MOD_ID}_ng{i} > 0 }} "
+        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool target = goods:{good} }} }}\n"
+        for i, good in enumerate(order, start=1))
+    out.append(f"""
+# The goods the editor offers, rebuilt whenever its window opens.
+# Scope: country
+{MOD_ID}_edit_fill_pool = {{
+\tclear_global_variable_list = {MOD_ID}_edit_pool
+{pool}}}
+
+# A good in or out of the editor's own row list -- the icons with «+1» and «−1»
+# beside them. **It is a list and not one choice** because he asked for one:
+# «этот товар добавляет иконой тоже где-то в этом окне… и кнопочка удалить товар
+# рядом», which only means anything if more than one can be there at once.
+# Scope: country
+{MOD_ID}_edit_pick_toggle = {{
+\tif = {{
+\t\tlimit = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }} }}
+\t\tremove_list_global_variable = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }}
+\t}}
+\telse = {{
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }}
+\t}}
 }}
 """)
 
@@ -3604,34 +3797,139 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }} '
         f'debug_log = "WTP LD +{good}" }}\n'
         for good in order)
+    rows = "".join(
+        f"\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} "
+        f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} }}\n"
+        f"\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_chg_out target = goods:{good} }}\n"
+        f"\t\t\tchange_variable = {{ name = {MOD_ID}_chg_n add = 1 }}\n"
+        f"\t\t}}\n"
+        f"\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
+        f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }}\n"
+        f"\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_chg_in target = goods:{good} }}\n"
+        f"\t\t\tchange_variable = {{ name = {MOD_ID}_chg_n add = 1 }}\n"
+        f"\t\t}}\n"
+        for good in order)
     out.append(f"""
 # «Показать изменения»: every location where the plan now differs from the saved
 # one, and nothing else.
 #
-# **It writes a report of its own between the same markers the diagnosis uses**,
-# so `mods.bat -> 8` and `tools/diag.py` read it with no new code -- the fold
-# already turns a location's `LD` lines into «изменено: убрано X добавлено Y».
-# Only changed locations are printed, so after one edit the whole report is two
-# lines, which is the point of the thing.
+# **It fills a window and writes the same report to the log.** The window is what
+# he asked for -- «кнопка показать список изменений, которое откроет ещё одно
+# окно» -- and the log line stays because `mods.bat -> 8` and `tools/diag.py`
+# already fold a location's `LD` lines into «изменено: убрано X; добавлено Y»,
+# which is how a change gets into a session without a screenshot.
+#
+# **Two lists on the location and a count beside them.** `_chg_out` is what left,
+# `_chg_in` is what arrived, and `_chg_n` is how many of both -- the count is
+# there because a `limit` cannot ask whether a variable list is empty, and
+# `{MOD_ID}_chg_locs` must hold only the locations that really moved. Only those
+# are printed, so after one edit the whole report is two lines, which is the
+# point of the thing.
 # Scope: country
 {MOD_ID}_edit_changes = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_moved value = 0 }}
+\tclear_global_variable_list = {MOD_ID}_chg_locs
 \tdebug_log_date = yes
 \terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> 8 takes it out."
 \tdebug_log = "WTP ==== BEGIN v{DIAG_VERSION} ==== the plan against the saved one"
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
-\t\tif = {{
-\t\t\tlimit = {{ OR = {{
-{changed}\t\t\t}} }}
+\t\tclear_variable_list = {MOD_ID}_chg_out
+\t\tclear_variable_list = {MOD_ID}_chg_in
+\t\tset_variable = {{ name = {MOD_ID}_chg_n value = 0 }}
+{rows}\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_chg_n > 0 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_moved add = 1 }}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_chg_locs target = this }}
 \t\t\tdebug_log_scopes = no
 \t\t\tdebug_log = "WTP L rank=0 town=0 load=0"
 {lines}\t\t}}
 \t}}
 \tdebug_log = "WTP ==== END v{DIAG_VERSION} ===="
 }}
+"""
+
+)
+
+    # ---- the windows, and the counters they read ---------------------------
+    inits = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_sl{n}_n }} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_sl{n}_n value = 0 }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_sl{n}_locn value = 0 }}\n"
+        f"\t}}\n"
+        for n in range(1, EDIT_SLOTS + 1))
+    out.append(f"""
+# The slots' counters, created before anything can read one.
+#
+# **`_sl<n>_n` is what «загрузить» tests before it throws the plan away**, and a
+# `limit` that reads a global which is not there fails silently -- so an
+# uninitialised slot would either read as empty for ever or clear a good plan for
+# nothing. Written with `has_global_variable` so a save from an older build gains
+# the slots without losing the one plan it had.
+# Scope: country
+{MOD_ID}_edit_init_slots = {{
+{inits}\t# `_edit_done` is read by `{MOD_ID}_edit_last_label` every frame the editor
+\t# is open, and the two lists are read by its datamodels. A list is created by
+\t# clearing it, and it must be cleared only once ever: doing it on every open
+\t# would throw away the goods he had picked.
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_done }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_pool
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_picked }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_picked
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_chg_locs }} }}
+\t\tclear_global_variable_list = {MOD_ID}_chg_locs
+\t}}
+}}
+
+# The editor's window. **The plan on the map is what it edits**, so opening it
+# neither plans nor loads: it fills the picker from the ground the last plan
+# scored and shows whatever the plan holds now.
+# Scope: country
+{MOD_ID}_open_edit_window_effect = {{
+\t{MOD_ID}_edit_init_slots = yes
+\t{MOD_ID}_edit_fill_pool = yes
+\t{MOD_ID}_plan_show = yes
+\tremove_variable = {MOD_ID}_result_open
+\tremove_variable = {MOD_ID}_right_open
+\tremove_variable = {MOD_ID}_plan_open
+\t{MOD_ID}_hide_results = yes
+\tset_variable = {{ name = {MOD_ID}_edit_open value = 1 }}
+}}
+
+# Scope: country
+{MOD_ID}_close_edit_window_effect = {{
+\tremove_variable = {MOD_ID}_edit_open
+\tremove_variable = {MOD_ID}_chg_open
+\t{MOD_ID}_plan_hide = yes
+\tclear_global_variable_list = {MOD_ID}_chg_locs
+}}
+
+# «Показать изменения», and the window it opens. **The list is built here and
+# not by the window**, because a datamodel cannot ask two variable lists to
+# differ -- the effect does the comparing and leaves the answer on the locations.
+# Scope: country
+{MOD_ID}_open_changes_window_effect = {{
+\t{MOD_ID}_edit_changes = yes
+\tset_variable = {{ name = {MOD_ID}_chg_open value = 1 }}
+}}
+
+# Scope: country
+{MOD_ID}_close_changes_window_effect = {{
+\tremove_variable = {MOD_ID}_chg_open
+\tclear_global_variable_list = {MOD_ID}_chg_locs
+}}
 """)
+
     return "".join(out), "".join(gate)
 
 
@@ -4598,12 +4896,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
             f"{MOD_ID}_plan_scored", f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_rightn",
             f"{MOD_ID}_plan_sweeps", f"{MOD_ID}_plan_prov_n",
-            f"{MOD_ID}_plan_opensw"), start=1):
+            f"{MOD_ID}_plan_opensw", f"{MOD_ID}_rquota", f"{MOD_ID}_rlevel"), start=1):
         out.append(park(slot, source))
+    # `rquota` is the towns each charter may end with, `rlevels` how many heights
+    # the ladder actually climbed to. The two apart is the guard having cut it
+    # short -- the one thing about the charter round that leaves no other trace.
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
                    "goods_scored=%s quota=%s rights_given=%s sweeps=%s "
-                   "ordered_provs=%s open_sweeps=%s"
-                   % tuple(read(i) for i in range(1, 13))))
+                   "ordered_provs=%s open_sweeps=%s rquota=%s rlevels=%s"
+                   % tuple(read(i) for i in range(1, 15))))
     # **What the ground actually pays**, and it is the owner's own question:
     # «какой процент из них получит выгоду от своего положения на карте».
     # `fed` is how many placed buildings earn any bonus at all; `gain` is the

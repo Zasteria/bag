@@ -424,7 +424,25 @@ def digest(lines: list[str]) -> list[str]:
         out.append("Права: выдано %d, разных %d из %d возможных этой державе, "
                    "больше всего у «%s» (%d)"
                    % (sum(v for _, v in taken), len(taken), can or len(taken),
-                      *max(taken, key=lambda kv: kv[1])))
+                      RIGHT_NAMES.get(max(taken, key=lambda kv: kv[1])[0],
+                                      max(taken, key=lambda kv: kv[1])[0]),
+                      max(taken, key=lambda kv: kv[1])[1]))
+        # **Ровно ли легли грамоты** -- вопрос, который владелец задавал трижды:
+        # «я не буду удовлетворён пока не увижу в вестфалии относительно
+        # одинаковое количество каждого городского права». Лестница уровней
+        # поднимает потолок по одному городу, так что разброс между самой частой
+        # и самой редкой грамотой должен быть 1, самое большее 2. Больше --
+        # значит, какую-то грамоту земля не пускает вовсе, и это видно в «RQ».
+        grantable = [line.split()[3] for line in lines
+                     if line.startswith("WTP RIGHT") and field(line, "grantable")]
+        spread = sorted((dict(rights).get(k, 0), k) for k in grantable)
+        if len(spread) > 1:
+            low, high = spread[0], spread[-1]
+            out.append("  разброс: от %d («%s») до %d («%s»)%s"
+                       % (low[0], RIGHT_NAMES.get(low[1], low[1]),
+                          high[0], RIGHT_NAMES.get(high[1], high[1]),
+                          "" if high[0] - low[0] <= 2 else
+                          " -- перекос, смотри «RQ» у редкой"))
     # **Какие грамоты план предполагает, а выдать сегодня нельзя.** План
     # намеренно считает по `potential`, а не по открытию: это цель, к которой
     # строят, и девять общих грамот приходят в третью эпоху всем сразу

@@ -333,7 +333,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_rn13 value = 0 }
 	set_global_variable = { name = bag_wtp_rband value = 0 }
 	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
+	set_global_variable = { name = bag_wtp_rlevel value = 0 }
 	set_global_variable = { name = bag_wtp_rquota value = 1 }
 	set_global_variable = { name = bag_wtp_rgrant value = 0 }
 	set_global_variable = { name = bag_wtp_passsw1 value = 0 }
@@ -10243,49 +10243,50 @@ bag_wtp_plan_place_rights = {
 	set_global_variable = { name = bag_wtp_rn11 value = 0 }
 	set_global_variable = { name = bag_wtp_rn12 value = 0 }
 	set_global_variable = { name = bag_wtp_rn13 value = 0 }
-	set_global_variable = { name = bag_wtp_rband value = 800 }
-	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 1 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 600 }
-	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 1 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 400 }
-	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 1 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 200 }
-	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 1 }
-	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rlevel value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_rlevel < global_var:bag_wtp_rquota
+			global_var:bag_wtp_rlevel < 12
+		}
+		change_global_variable = { name = bag_wtp_rlevel add = 1 }
+		set_global_variable = { name = bag_wtp_rband value = 800 }
+		set_global_variable = { name = bag_wtp_ropen value = 0 }
+		bag_wtp_plan_grant_pass = yes
+		set_global_variable = { name = bag_wtp_rband value = 600 }
+		set_global_variable = { name = bag_wtp_ropen value = 0 }
+		bag_wtp_plan_grant_pass = yes
+		set_global_variable = { name = bag_wtp_rband value = 400 }
+		set_global_variable = { name = bag_wtp_ropen value = 0 }
+		bag_wtp_plan_grant_pass = yes
+		set_global_variable = { name = bag_wtp_rband value = 200 }
+		set_global_variable = { name = bag_wtp_ropen value = 0 }
+		bag_wtp_plan_grant_pass = yes
+		set_global_variable = { name = bag_wtp_rband value = 0 }
+		set_global_variable = { name = bag_wtp_ropen value = 0 }
+		bag_wtp_plan_grant_pass = yes
+	}
+	if = {
+		limit = { global_var:bag_wtp_rlevel < global_var:bag_wtp_rquota }
+		set_global_variable = { name = bag_wtp_rlevel value = global_var:bag_wtp_rquota }
+			set_global_variable = { name = bag_wtp_rband value = 800 }
+			set_global_variable = { name = bag_wtp_ropen value = 0 }
+			bag_wtp_plan_grant_pass = yes
+			set_global_variable = { name = bag_wtp_rband value = 600 }
+			set_global_variable = { name = bag_wtp_ropen value = 0 }
+			bag_wtp_plan_grant_pass = yes
+			set_global_variable = { name = bag_wtp_rband value = 400 }
+			set_global_variable = { name = bag_wtp_ropen value = 0 }
+			bag_wtp_plan_grant_pass = yes
+			set_global_variable = { name = bag_wtp_rband value = 200 }
+			set_global_variable = { name = bag_wtp_ropen value = 0 }
+			bag_wtp_plan_grant_pass = yes
+			set_global_variable = { name = bag_wtp_rband value = 0 }
+			set_global_variable = { name = bag_wtp_ropen value = 0 }
+			bag_wtp_plan_grant_pass = yes
+	}
 	set_global_variable = { name = bag_wtp_rband value = 0 }
 	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 1 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 800 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 600 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 400 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 200 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 0 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 0 }
-	set_global_variable = { name = bag_wtp_ropen value = 1 }
-	set_global_variable = { name = bag_wtp_rcover value = 0 }
 	bag_wtp_plan_grant_pass = yes
 }
 
@@ -10316,16 +10317,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn1 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn1 = 0
+					global_var:bag_wtp_rn1 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_1 = yes }
 			}
@@ -10341,16 +10340,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn2 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn2 = 0
+					global_var:bag_wtp_rn2 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_2 = yes }
 			}
@@ -10366,16 +10363,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn3 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn3 = 0
+					global_var:bag_wtp_rn3 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_3 = yes }
 			}
@@ -10391,16 +10386,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn4 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn4 = 0
+					global_var:bag_wtp_rn4 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_4 = yes }
 			}
@@ -10416,16 +10409,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn5 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn5 = 0
+					global_var:bag_wtp_rn5 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_5 = yes }
 			}
@@ -10441,16 +10432,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn6 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn6 = 0
+					global_var:bag_wtp_rn6 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_6 = yes }
 			}
@@ -10466,16 +10455,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn7 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn7 = 0
+					global_var:bag_wtp_rn7 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_7 = yes }
 			}
@@ -10491,16 +10478,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn8 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn8 = 0
+					global_var:bag_wtp_rn8 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_8 = yes }
 			}
@@ -10516,16 +10501,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn9 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn9 = 0
+					global_var:bag_wtp_rn9 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_9 = yes }
 			}
@@ -10541,16 +10524,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn10 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn10 = 0
+					global_var:bag_wtp_rn10 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_10 = yes }
 			}
@@ -10566,16 +10547,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn11 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn11 = 0
+					global_var:bag_wtp_rn11 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_11 = yes }
 			}
@@ -10591,16 +10570,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn12 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn12 = 0
+					global_var:bag_wtp_rn12 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_12 = yes }
 			}
@@ -10616,16 +10593,14 @@ bag_wtp_plan_grant_pass = {
 				# The band: what this ground has to pay before the charter is taken
 				# here at all. The open pass sets it to 0.
 				var:bag_wtp_rtry >= global_var:bag_wtp_rband
-				# And the quota, which the open pass lifts instead of raising: a
-				# town with no charter at all is worse than an uneven count.
+				# The level: how many towns any one charter may hold so far. It
+				# climbs by one at a time, so no charter takes an Nth town while
+				# another is still short of its Nth -- that, and not the quota it
+				# ends at, is what makes the counts come out level. The open pass
+				# lifts it: a town with no charter at all is worse than an uneven count.
 				OR = {
 					global_var:bag_wtp_ropen = 1
-					global_var:bag_wtp_rn13 < global_var:bag_wtp_rquota
-				}
-				# The covering ladder admits only a charter that has nothing anywhere.
-				OR = {
-					global_var:bag_wtp_rcover = 0
-					global_var:bag_wtp_rn13 = 0
+					global_var:bag_wtp_rn13 < global_var:bag_wtp_rlevel
 				}
 				scope:bag_wtp_country = { bag_wtp_plan_right_gate_13 = yes }
 			}
@@ -17815,9 +17790,15 @@ bag_wtp_plan_rank = {
 	# stops at 1500, and a count that stopped with it would say the plan
 	# used exactly as many locations as the window can keep, whatever it really
 	# used.
+	#
+	# **And it walks `_plan_touched`, not `_candidates`.** The two are the same
+	# list for a plan just run -- the reset puts every candidate in it -- but a slot
+	# loaded from the editor puts a plan back on ground the picker may no longer
+	# hold, and walking the picker would then rank nothing while the map mode
+	# painted the plan. A plan is ranked over the ground it stands on.
 	set_global_variable = { name = bag_wtp_plan_found value = 0 }
 	every_in_global_list = {
-		variable = bag_wtp_candidates
+		variable = bag_wtp_plan_touched
 		limit = { var:bag_wtp_load > 0 }
 		change_global_variable = { name = bag_wtp_plan_found add = 1 }
 	}
@@ -17835,7 +17816,7 @@ bag_wtp_plan_rank = {
 	set_global_variable = { name = bag_wtp_plan_pages value = 1 }
 	set_global_variable = { name = bag_wtp_plan_pagec value = 0 }
 	ordered_in_global_list = {
-		variable = bag_wtp_candidates
+		variable = bag_wtp_plan_touched
 		limit = { var:bag_wtp_load > 0 }
 		order_by = bag_wtp_plan_order
 		max = 1500

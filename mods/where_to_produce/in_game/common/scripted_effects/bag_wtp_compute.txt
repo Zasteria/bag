@@ -136,30 +136,13 @@ bag_wtp_on_button = {
 		bag_wtp_clear_ticks = yes
 	}
 
-	# The plan editor. **None of these re-runs the plan** -- that is the whole
-	# point of them, and `bag_wtp_plan_run` is the only thing that does.
+	# The plan editor: the settings page only opens its window. Everything the
+	# editor does is a button inside `bag_wtp_edit_window.gui` and goes through
+	# `bag_wtp_window_gui.txt`, because the good it works on arrives as a scope
+	# from the icon that was clicked and a Mod Menu button cannot carry one.
 	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__edit_add }
-		bag_wtp_edit_add = yes
-		bag_wtp_recompute_live = yes
-	}
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__edit_drop }
-		bag_wtp_edit_drop = yes
-		bag_wtp_recompute_live = yes
-	}
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__edit_changes }
-		bag_wtp_edit_changes = yes
-	}
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__edit_save }
-		bag_wtp_edit_save = yes
-	}
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__edit_restore }
-		bag_wtp_edit_restore = yes
-		bag_wtp_recompute_live = yes
+		limit = { var:cmf_callback = flag:bag_wtp__edit_open }
+		bag_wtp_open_edit_window_effect = yes
 	}
 
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads

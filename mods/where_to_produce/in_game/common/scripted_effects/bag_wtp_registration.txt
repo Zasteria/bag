@@ -151,74 +151,18 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
-	# **The plan editor, and its picker is its own.** The owner, 2026-09-03:
-	# «выбор товара для регуляции не должны быть в том же выборе товара для поиска
-	# лучшей локации» -- ticking a good to edit it used to drop the ranking's
-	# answer, because they were one list.
-	#
-	# Three dropdowns, «—» first in each, because CMM handles twenty options and
-	# there are 47 goods. The edit reads whichever one is off «—» and says so
-	# when two of them are.
-	cmm_register_global_dropdown_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_pick1
-		tab_id = plan
-		group_id = edit
-		default_index = 1
-		option_count = 17
-	}
-
-	cmm_register_global_dropdown_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_pick2
-		tab_id = plan
-		group_id = edit
-		default_index = 1
-		option_count = 17
-	}
-
-	cmm_register_global_dropdown_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_pick3
-		tab_id = plan
-		group_id = edit
-		default_index = 1
-		option_count = 16
-	}
-
+	# **The plan editor is a window and this is the door to it.** It was nine
+	# settings on this page -- three dropdowns and five buttons -- and he refused
+	# to use them, 2026-09-03: «Сейчас окно настроек мода - стало засраным и
+	# неудобным. Более того это именно что окно настроек и основных функций, я не
+	# хочу делать подобные вещи там.» So one button, and everything else lives in
+	# `bag_wtp_edit_window.gui`: the three slots, the goods as icons, «+1» and
+	# «−1» beside each, and the changes list in a window of its own.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
-		setting_id = edit_add
+		setting_id = edit_open
 		tab_id = plan
-		group_id = edit
-	}
-
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_drop
-		tab_id = plan
-		group_id = edit
-	}
-
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_changes
-		tab_id = plan
-		group_id = edit
-	}
-
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_save
-		tab_id = plan
-		group_id = edit
-	}
-
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = edit_restore
-		tab_id = plan
-		group_id = edit
+		group_id = what
 	}
 
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
@@ -266,6 +210,10 @@ bag_wtp_register = {
 		limit = { NOT = { has_global_variable = bag_wtp_save_n } }
 		set_global_variable = { name = bag_wtp_save_n value = 0 }
 	}
+	# And one pair per slot. `_sl<n>_n` is what «загрузить» tests before it throws
+	# the plan on the map away, so a slot whose counter does not exist would read
+	# as empty for ever -- or, worse, clear a good plan for nothing.
+	bag_wtp_edit_init_slots = yes
 
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes

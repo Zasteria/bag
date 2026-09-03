@@ -1,5 +1,61 @@
 # `where_to_produce` — the runs the plan was built on
 
+**2026-09-03 — `where_to_produce`, the gain fix held and the quota was caught
+handing out a charter worth 90.** «Тонкое сукно ушло из Гослара.» 992 of 1309
+buildings now earn something, up from 966.
+
+- **Goslar is arithmetic, not a fault, and his reading of it is right.** «Сейчас»:
+  tooling **925** against jewelry **909** — a genuine near-tie, copper feeding
+  `copper_tools_guild_maintenance` whole. «На конец»: tooling **0** and jewelry
+  909, so the jewelry charter takes it. His own words for why, and the numbers
+  agree: «в конце инструментам в целом нахер не нужна медь». The end-game tools
+  recipe is the iron mill, which wants iron and coal and has no copper option.
+- **The book charter fell from 984 to 710**, which is the paper inflation gone.
+  Predicted and confirmed.
+- **But Vorpommern is a plain fault and he found it.** Both its towns took the
+  **jewelry** charter, which their ground pays **90** for, while the artisan
+  charter at **316** stood beside it. Amber is all that province has and amber is
+  a trim, not a base — so the score was right and the grant was not.
+- **The cause is the quota in the last band.** The passes were 800, 600, 400,
+  200, 0 with the quota on, then band 0 with it lifted. **A pass that admits
+  anything at all while the quota is still on** is what granted jewelry at 90:
+  artisan, masonry, tooling and flemish were each already at the quota of
+  61 towns ÷ 9 grantable rights ≈ 6, and jewelry was not. Brewing ended on 14, so
+  the quota did not even buy evenness — it only misallocated at the bottom.
+- **Fixed by dropping that pass**: the bands above 0 spread the charters, and the
+  open pass lets the ground decide alone. A town whose best charter is worth
+  under 200 waits for it and takes its real best. Not run.
+
+**2026-09-03 — `where_to_produce`, the provinces specialised, and the probe named
+the last fault.** «Провинции действительно сильно специализировались… мне
+нравится куда стремится мод.» One province alone gave five towns five different
+rights and every building из прав matched them.
+
+- **Goslar, at last, with numbers.** `WTP RQ` on the «на конец» plan: **books
+  984, jewelry 909**, tooling 925 on «сейчас». So the mod *does* see the silver —
+  jewelry scoring 909 is near its best anywhere — and it lost honestly, by 75 and
+  by 16 out of 1000. No bug in the rights themselves.
+- **But the numbers it lost to were inflated, and that is a real fault.** `gain`
+  was `bonus ÷ the chosen recipe's own ceiling`. A `fine_cloth_guild` running the
+  plain base with a fur trim has one raw input and a ceiling of **2.86%**, so a
+  province with fur and nothing else fed it whole and it scored **1000** — the
+  same as a perfect wool province — for 2.86% on an output of 0.7. That is why
+  fine cloth stood in Goslar: «там ничего для него нет, только мех для
+  улучшения».
+- **117 of 241 methods were inflated this way, across 21 of the 47 goods**, and
+  `paper` is among the worst: `paper_guild_cloth_maintenance` is 1.66% of paper's
+  10% and was scoring 1000. Paper is one third of the book charter, and the book
+  charter is what took Goslar.
+- **The divisor is the good's best ceiling in the game now**, not the recipe's
+  own. The fur recipe reads 286 and a wool province 833, which is his order. The
+  reason to normalize at all is untouched: a good whose *best* recipe tops out at
+  5% still competes with one that reaches 10%.
+- **His scarcity point is not built and deliberately so.** Jewelry can be *made*
+  in all 416 locations (`ng=416`), so the tier ladder — which counts where a good
+  can stand — treats it as common; what is scarce is where the ground *pays* for
+  it. That wants a band-relative count and it is a second change; the gain fix
+  moves all three of Goslar's rivals, so it goes first and alone.
+
 Split out of [`../TESTLOG.md`](../TESTLOG.md) on 2026-09-03, at its budget. These
 are superseded: what they say about the **game** stands, what they say about our
 code was rewritten by the runs that followed. `tools/kb.py` still searches them.
