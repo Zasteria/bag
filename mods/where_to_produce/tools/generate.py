@@ -2144,10 +2144,12 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # nothing logs nothing at all**, and both of them have rules that refuse: a good
 # fitting nowhere on this ground, a good down to its last building, a building
 # belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
-# to 1 by the walk. **Three branches and not two**: «сделано», «кнопка не донесла
-# товар» when the scope never arrived at all, and «правило не дало» otherwise.
-# The middle one is there because the first two builds of this window were both
-# diagnosed as the wrong one of those.
+# to 1 by the walk. **The branches name the cause, and they exist because a
+# single «не дало правило» was read as the mod being stubborn when it was the
+# ground.** He pressed «+1» on iron: four locations of Westphalia can make iron
+# and iron stood in all four, so there was nowhere for a fifth. The editor has
+# only the two rules he agreed to -- never a good's last building, never a
+# charter bundle's -- and it reads no quota of the plan's at all.
 # Scope: country
 {MOD_ID}_edit_last_label = {{
 \ttype = country
@@ -2158,6 +2160,22 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_reached = 0 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_lost
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 1 global_var:{MOD_ID}_edit_fitn = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_nowhere
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 1 global_var:{MOD_ID}_edit_cands = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_novictim
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 2 global_var:{MOD_ID}_edit_fitn < 2 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_lastone
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 2 global_var:{MOD_ID}_edit_cands = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_allcharter
 \t}}
 \ttext = {{
 \t\tfallback = yes
@@ -3612,6 +3630,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     scan_dispatch = "".join(
         f"\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} {MOD_ID}_edit_scan_{i} = yes }}\n"
         for i in range(1, len(order) + 1))
+    # How many locations could hold this good at all, room and victims aside.
+    fit_dispatch = "".join(
+        f"\t\tif = {{\n\t\t\tlimit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\t\tevery_in_global_list = {{\n"
+        f"\t\t\t\tvariable = {MOD_ID}_candidates\n"
+        f"\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
+        f"\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_fitn add = 1 }}\n"
+        f"\t\t\t}}\n\t\t}}\n"
+        for i in range(1, len(order) + 1))
     remove_dispatch = "".join(
         f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
         f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
@@ -3620,6 +3648,24 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
         f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
+    held = "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_edit_fitn "
+        f"value = global_var:{MOD_ID}_pn{i} }} }}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# How many buildings of the chosen good stand on the ground right now.
+#
+# `_edit_fitn` means «where could it go» for «+1» and «how many are there» for
+# «−1», because the two answers are what the window has to say when a press does
+# nothing and the two questions never both apply.
+# Scope: country
+{MOD_ID}_edit_count_held = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
+{held}}}
+
+""")
+
     out.append(f"""
 # **One more building of the chosen good, and exactly one.**
 #
@@ -3631,6 +3677,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_add = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
 \t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
@@ -3639,7 +3688,20 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
 \t\t\t{MOD_ID}_edit_worst = yes
 \t\t}}
-{scan_dispatch}\t\tordered_in_global_list = {{
+{fit_dispatch}{scan_dispatch}\t\t# **Two counts, because two different things read as «не дало правило».**
+\t\t# `_edit_fitn` is how many locations could hold this good at all -- the
+\t\t# ground's own answer, and 0 means it already stands everywhere this land
+\t\t# can make it. `_edit_cands` is how many of those had a free room or a
+\t\t# building that may be taken out. The owner pressed «+1» on iron and was
+\t\t# told a rule refused it; iron can be made in four locations of Westphalia
+\t\t# and stood in all four. That is the ground, not a rule, and saying so
+\t\t# needs the number.
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t\t}}
+\t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
 \t\t\torder_by = {MOD_ID}_edit_order
@@ -3665,6 +3727,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_drop = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 2 }}
+\t{MOD_ID}_edit_count_held = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
 \t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
@@ -3714,7 +3779,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
         f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
-    out.append(f"""\t\tordered_in_global_list = {{
+    out.append(f"""\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t\t}}
+\t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
 \t\t\torder_by = {MOD_ID}_edit_order
@@ -4025,6 +4095,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_pooln }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_op }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}

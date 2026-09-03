@@ -19,13 +19,11 @@
 # «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
 # менее болезненно удалить для наилучшей установки туда товара Y».
 #
-# **Every widget in this file is one the mod already draws every frame.** The
-# first build of it never appeared at all -- one press, nothing on screen, and
-# the log the only place that could say why -- and the two things in it that
-# nothing here had ever drawn were a `type` derived from `button_regular` and a
-# `flowcontainer`. Both are gone: a type here derives from `widget` or `hbox` and
-# holds a `button_regular` inside it, the way `bag_wtp_plan_goods_entry` holds a
-# `text_single`, and the wrapping row is two plain `hbox` datamodels instead.
+# **Types here derive from `widget` or `hbox` and hold a `button_regular` inside**,
+# the way `bag_wtp_plan_goods_entry` holds a `text_single` -- the shapes this mod
+# draws every frame. The one thing it had never drawn is the `flowcontainer` the
+# picker wraps on, and that is vanilla's own way (`agenda_view.gui`): 35 goods
+# one to a row took half the window, which is not a layout anybody would use.
 
 types BagWtpEditTypes {
 
@@ -47,15 +45,29 @@ types BagWtpEditTypes {
 	# The nesting is the plan row's rank button exactly -- a `widget` of a fixed
 	# size holding a centred `button_regular` -- because that one is drawn every
 	# frame and pressed every session.
+	# One good the ground can make: «−1», its icon, «+1». Nothing else.
+	#
+	# **No name beside it, and the cell is as narrow as it can be.** A row each
+	# and a name each took half the window, 2026-09-04: «Иконки достаточно для
+	# понимания что это за товар — не нужно справа ещё дописывать название и
+	# тратить на это место… На 1 строку поместится таких наборов штук 5-10.» The
+	# icon carries the name in its tooltip, which is where it was already.
+	#
+	# **A goods icon is a texticon and is drawn as `raw_text`**, the same way
+	# `bag_wtp_plan_goods_entry` does it: `Goods.GetIcon` returns a `CString`, so
+	# an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all.
+	#
+	# The button nesting is the plan row's rank button exactly -- a `widget` of a
+	# fixed size holding a centred `button_regular` -- because that one is drawn
+	# every frame and pressed every session.
 	type bag_wtp_edit_pool_entry = hbox {
-		layoutpolicy_horizontal = expanding
-		size = { -1 34 }
-		spacing = 4
+		size = { 104 32 }
+		spacing = 1
 
 		widget = {
-			size = { 40 34 }
+			size = { 32 32 }
 			button_regular = {
-				size = { 36 28 }
+				size = { 30 28 }
 				parentanchor = center
 				widgetanchor = center
 				tooltip = "bag_wtp_edit_minus_tt"
@@ -64,29 +76,29 @@ types BagWtpEditTypes {
 					parentanchor = center
 					widgetanchor = center
 					autoresize = yes
-					fontsize = 15
+					fontsize = 14
 					text = "bag_wtp_edit_minus"
 				}
 			}
 		}
 
 		widget = {
-			size = { 32 34 }
+			size = { 32 32 }
 			alwaystransparent = no
 			tooltip = "[Goods.GetName]"
 			text_single = {
 				parentanchor = center
 				widgetanchor = center
 				autoresize = yes
-				fontsize = 19
+				fontsize = 18
 				raw_text = "[Goods.GetIcon]"
 			}
 		}
 
 		widget = {
-			size = { 40 34 }
+			size = { 32 32 }
 			button_regular = {
-				size = { 36 28 }
+				size = { 30 28 }
 				parentanchor = center
 				widgetanchor = center
 				tooltip = "bag_wtp_edit_plus_tt"
@@ -95,20 +107,10 @@ types BagWtpEditTypes {
 					parentanchor = center
 					widgetanchor = center
 					autoresize = yes
-					fontsize = 15
+					fontsize = 14
 					text = "bag_wtp_edit_plus"
 				}
 			}
-		}
-
-		text_single = {
-			size = { 170 34 }
-			autoresize = no
-			maximumsize = { 170 34 }
-			align = left|vcenter
-			fontsize = 13
-			elide = right
-			text = "[Goods.GetName]"
 		}
 	}
 }
@@ -426,30 +428,19 @@ window = {
 					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# **Both policies expanding and no size of its own**, which is the
-				# shape the plan window's scrollbox has drawn since the first build.
-				# This one had `layoutpolicy_horizontal = expanding` beside an explicit
-				# `size = { -1 210 }`, and the goods stopped appearing at all —
-				# `docs/pitfalls/interface.md` names that pairing: an expanding child in
-				# a parent with a size of its own comes out at zero. Two scrollboxes
-				# both expanding share the window's height between them.
-				scrollbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					blockoverride "scrollbox_content" {
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = preferred
-							margin = { 10 4 }
-							margin_right = 20
-							spacing = 2
-							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
-							item = {
-								bag_wtp_edit_pool_entry = {
-									datacontext = "[Scope.GetGoods]"
-								}
-							}
+				# **A wrapping row, ten cells wide.** `flowcontainer` wraps on a count
+				# of items, which is how vanilla uses it (`agenda_view.gui`); a
+				# `maximumsize` on it wraps nothing and the row runs off the window.
+				# Ten cells of 104 with 2 between them is 1060 of the 1130 there are,
+				# and 35 goods come to four lines instead of thirty-five.
+				flowcontainer = {
+					wrap_count = 10
+					spacing = 2
+					ignoreinvisible = yes
+					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
+					item = {
+						bag_wtp_edit_pool_entry = {
+							datacontext = "[Scope.GetGoods]"
 						}
 					}
 				}

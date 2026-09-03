@@ -110,10 +110,12 @@ bag_wtp_edit_slot3_label = {
 # nothing logs nothing at all**, and both of them have rules that refuse: a good
 # fitting nowhere on this ground, a good down to its last building, a building
 # belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
-# to 1 by the walk. **Three branches and not two**: «сделано», «кнопка не донесла
-# товар» when the scope never arrived at all, and «правило не дало» otherwise.
-# The middle one is there because the first two builds of this window were both
-# diagnosed as the wrong one of those.
+# to 1 by the walk. **The branches name the cause, and they exist because a
+# single «не дало правило» was read as the mod being stubborn when it was the
+# ground.** He pressed «+1» on iron: four locations of Westphalia can make iron
+# and iron stood in all four, so there was nowhere for a fifth. The editor has
+# only the two rules he agreed to -- never a good's last building, never a
+# charter bundle's -- and it reads no quota of the plan's at all.
 # Scope: country
 bag_wtp_edit_last_label = {
 	type = country
@@ -124,6 +126,22 @@ bag_wtp_edit_last_label = {
 	text = {
 		trigger = { global_var:bag_wtp_edit_reached = 0 }
 		localization_key = bag_wtp_edit_last_lost
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 1 global_var:bag_wtp_edit_fitn = 0 }
+		localization_key = bag_wtp_edit_last_nowhere
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 1 global_var:bag_wtp_edit_cands = 0 }
+		localization_key = bag_wtp_edit_last_novictim
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 2 global_var:bag_wtp_edit_fitn < 2 }
+		localization_key = bag_wtp_edit_last_lastone
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 2 global_var:bag_wtp_edit_cands = 0 }
+		localization_key = bag_wtp_edit_last_allcharter
 	}
 	text = {
 		fallback = yes

@@ -17,6 +17,18 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
+**A window that says «a rule refused it, or there was nowhere» has said
+nothing.** Those are two different answers and the reader takes the first. The
+plan editor told him a rule had refused a «+1» on iron; iron can be made in four
+locations of Westphalia and stood in all four, so the true answer was the second.
+An «or» in a failure message is a failure message that has not been written yet —
+count the thing that decides, and say which.
+
+**One good to a row with its name beside it is half a window.** 35 goods came to
+35 rows and he could not use it. A `flowcontainer` with `wrap_count` is vanilla's
+own wrapping row (`agenda_view.gui`), and the icon's tooltip already carries the
+name, so the cell is «−1, icon, +1» and nothing else.
+
 **A control you have to discover by clicking is a control that is not there.**
 The plan editor's first working build showed the goods as bare icons; clicking
 one added a row elsewhere, and «−1» and «+1» appeared on that row. He opened the
