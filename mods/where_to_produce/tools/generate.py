@@ -3666,6 +3666,71 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 """)
 
+    # ---- what the picker shows before anything is pressed --------------------
+    #
+    # **Two maps keyed by a flag, because a datamodel row carries a scope and a
+    # script value cannot be indexed by one.** `_pn<n>` is numbered and the row
+    # holds `goods:iron`; a global variable map is the bridge between those.
+    #
+    # **The key is `flag:<good>` and never `goods:<good>`, and that distinction
+    # crashed the game.** The first build of this keyed by the database object and
+    # read it back with `Goods.MakeScope`; opening the window killed the game
+    # outright, twice, with nothing in any log. CMF keys every map it keeps by a
+    # flag -- `key = scope:setting`, from `MakeScopeFlag(SettingKey)` -- and this
+    # mod already reads one that way, `"global_variable_map(cmm|flag:...)"`. The
+    # interface makes the same flag from the row with
+    # `MakeScopeFlag(Goods.GetKey)`, and every read is guarded by `.IsSet` first,
+    # which is also CMF's habit.
+    #
+    # The owner asked for the number before he presses anything, 2026-09-04: «я
+    # должен видеть текущее число лимита домиков… цвет этого числа сделать
+    # красным/зелёным… при наведении на красное число видеть подсказку, по каким
+    # конкретно причинам». So `_why` is 0 when «+1» would work, 1 when the good
+    # already stands everywhere this ground can make it, and 2 when it fits
+    # somewhere but every such place is full of things that may not be taken out.
+    #
+    # **`_edit_worst` runs once per location and not once per good.** The
+    # cheapest building that may be evicted is a property of the location, not of
+    # the good going in, so the whole answer costs one walk plus one `any` per
+    # good -- the same order as a single «+1».
+    state = ""
+    for i, good in enumerate(order, start=1):
+        fits = (f"OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+                f"{MOD_ID}_edit_fits_rural_{i} = yes }}")
+        usable = (f"OR = {{\n"
+                  f"\t\t\t\t\tAND = {{ {MOD_ID}_edit_fits_town_{i} = yes OR = {{ "
+                  f"var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban "
+                  f"var:{MOD_ID}_esw >= 0 }} }}\n"
+                  f"\t\t\t\t\tAND = {{ {MOD_ID}_edit_fits_rural_{i} = yes OR = {{ "
+                  f"var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural "
+                  f"var:{MOD_ID}_esw >= 0 }} }}\n\t\t\t\t}}")
+        state += (f"\tset_global_variable = {{ name = {MOD_ID}_edit_why value = 1 }}\n"
+                  f"\tif = {{\n"
+                  f"\t\tlimit = {{ any_in_global_list = {{ variable = {MOD_ID}_candidates "
+                  f"{fits} }} }}\n"
+                  f"\t\tset_global_variable = {{ name = {MOD_ID}_edit_why value = 2 }}\n"
+                  f"\t\tif = {{\n"
+                  f"\t\t\tlimit = {{ any_in_global_list = {{\n"
+                  f"\t\t\t\tvariable = {MOD_ID}_candidates\n"
+                  f"\t\t\t\t{usable}\n\t\t\t}} }}\n"
+                  f"\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_why value = 0 }}\n"
+                  f"\t\t}}\n\t}}\n"
+                  f"\tadd_to_global_variable_map = {{ name = {MOD_ID}_why key = flag:{good} "
+                  f"value = global_var:{MOD_ID}_edit_why }}\n"
+                  f"\tadd_to_global_variable_map = {{ name = {MOD_ID}_held key = flag:{good} "
+                  f"value = global_var:{MOD_ID}_pn{i} }}\n")
+    out.append(f"""
+# What the picker prints beside every good, before anything is pressed.
+# Scope: country
+{MOD_ID}_edit_state = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\t{MOD_ID}_edit_worst = yes
+\t}}
+{state}}}
+
+""")
+
     out.append(f"""
 # **One more building of the chosen good, and exactly one.**
 #
@@ -3987,6 +4052,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The goods the editor offers, rebuilt whenever its window opens.
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
+\t{MOD_ID}_edit_state = yes
 \tclear_global_variable_list = {MOD_ID}_edit_pool
 \tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
 {pool}}}
@@ -4101,6 +4167,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_why value = 0 }}
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
@@ -4117,6 +4184,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # scored and shows whatever the plan holds now.
 # Scope: country
 {MOD_ID}_open_edit_window_effect = {{
+\t{MOD_ID}_edit_counts_mirror = yes
 \t# **The probe that lived here is gone and `check_script.py` holds its answer.**
 \t# It logged one line a press, to separate "the button never reached the effect"
 \t# from "the effect ran and the window did not draw". The log said the effect

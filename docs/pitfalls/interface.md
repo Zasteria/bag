@@ -35,6 +35,14 @@ does it key one by a database object. `Goods.GetKey` exists, so the flag can be
 made from the row — that is the way in, and it is the only difference between
 what crashed and what CMM does every frame.
 
+**Built that way on 2026-09-04, with two guards and a switch.** `.IsSet` before
+every `.GetValue` and `GetValueWithDefault` in localization, because a method on
+an entry that is not there is the other thing that could have crashed it; and a
+CMM bool, «показывать число домиков», that the cells' `visible` asks first. **A
+change that has already crashed the game twice should ship with the way to turn
+it off from a page that does not open the window** — otherwise a third crash
+costs a reinstall and a session rather than one click.
+
 **`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
 inside a localization value, both, because a map read only from localization
 would be missed by looking in the `.gui` alone.

@@ -5780,6 +5780,815 @@ bag_wtp_edit_count_held = {
 }
 
 
+# What the picker prints beside every good, before anything is pressed.
+# Scope: country
+bag_wtp_edit_state = {
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		bag_wtp_edit_worst = yes
+	}
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_1 = yes bag_wtp_edit_fits_rural_1 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_1 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_1 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:clay value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:clay value = global_var:bag_wtp_pn1 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_2 = yes bag_wtp_edit_fits_rural_2 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_2 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_2 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:coal value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:coal value = global_var:bag_wtp_pn2 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_3 = yes bag_wtp_edit_fits_rural_3 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_3 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_3 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:cotton value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:cotton value = global_var:bag_wtp_pn3 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_4 = yes bag_wtp_edit_fits_rural_4 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_4 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_4 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:dyes value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:dyes value = global_var:bag_wtp_pn4 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_5 = yes bag_wtp_edit_fits_rural_5 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_5 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_5 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:fiber_crops value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:fiber_crops value = global_var:bag_wtp_pn5 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_6 = yes bag_wtp_edit_fits_rural_6 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_6 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_6 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:fish value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:fish value = global_var:bag_wtp_pn6 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_7 = yes bag_wtp_edit_fits_rural_7 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_7 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_7 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:fruit value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:fruit value = global_var:bag_wtp_pn7 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_8 = yes bag_wtp_edit_fits_rural_8 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_8 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_8 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:horses value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:horses value = global_var:bag_wtp_pn8 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_9 = yes bag_wtp_edit_fits_rural_9 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_9 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_9 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:incense value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:incense value = global_var:bag_wtp_pn9 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_10 = yes bag_wtp_edit_fits_rural_10 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_10 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_10 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:iron value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:iron value = global_var:bag_wtp_pn10 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_11 = yes bag_wtp_edit_fits_rural_11 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_11 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_11 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:ivory value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:ivory value = global_var:bag_wtp_pn11 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_12 = yes bag_wtp_edit_fits_rural_12 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_12 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_12 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:livestock value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:livestock value = global_var:bag_wtp_pn12 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_13 = yes bag_wtp_edit_fits_rural_13 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_13 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_13 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:lumber value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:lumber value = global_var:bag_wtp_pn13 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_14 = yes bag_wtp_edit_fits_rural_14 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_14 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_14 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:medicaments value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:medicaments value = global_var:bag_wtp_pn14 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_15 = yes bag_wtp_edit_fits_rural_15 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_15 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_15 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:salt value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:salt value = global_var:bag_wtp_pn15 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_16 = yes bag_wtp_edit_fits_rural_16 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_16 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_16 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:saltpeter value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:saltpeter value = global_var:bag_wtp_pn16 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_17 = yes bag_wtp_edit_fits_rural_17 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_17 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_17 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:sand value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:sand value = global_var:bag_wtp_pn17 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_18 = yes bag_wtp_edit_fits_rural_18 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_18 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_18 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:silk value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:silk value = global_var:bag_wtp_pn18 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_19 = yes bag_wtp_edit_fits_rural_19 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_19 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_19 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:silver value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:silver value = global_var:bag_wtp_pn19 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_20 = yes bag_wtp_edit_fits_rural_20 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_20 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_20 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:stone value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:stone value = global_var:bag_wtp_pn20 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_21 = yes bag_wtp_edit_fits_rural_21 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_21 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_21 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:sugar value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:sugar value = global_var:bag_wtp_pn21 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_22 = yes bag_wtp_edit_fits_rural_22 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_22 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_22 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:tobacco value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:tobacco value = global_var:bag_wtp_pn22 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_23 = yes bag_wtp_edit_fits_rural_23 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_23 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_23 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:wild_game value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:wild_game value = global_var:bag_wtp_pn23 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_24 = yes bag_wtp_edit_fits_rural_24 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_24 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_24 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:wine value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:wine value = global_var:bag_wtp_pn24 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_25 = yes bag_wtp_edit_fits_rural_25 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_25 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_25 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:wool value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:wool value = global_var:bag_wtp_pn25 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_26 = yes bag_wtp_edit_fits_rural_26 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_26 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_26 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:beer value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:beer value = global_var:bag_wtp_pn26 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_27 = yes bag_wtp_edit_fits_rural_27 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_27 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_27 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:books value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:books value = global_var:bag_wtp_pn27 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_28 = yes bag_wtp_edit_fits_rural_28 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_28 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_28 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:cannons value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:cannons value = global_var:bag_wtp_pn28 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_29 = yes bag_wtp_edit_fits_rural_29 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_29 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_29 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:cloth value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:cloth value = global_var:bag_wtp_pn29 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_30 = yes bag_wtp_edit_fits_rural_30 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_30 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_30 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:fine_cloth value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:fine_cloth value = global_var:bag_wtp_pn30 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_31 = yes bag_wtp_edit_fits_rural_31 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_31 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_31 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:firearms value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:firearms value = global_var:bag_wtp_pn31 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_32 = yes bag_wtp_edit_fits_rural_32 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_32 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_32 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:furniture value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:furniture value = global_var:bag_wtp_pn32 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_33 = yes bag_wtp_edit_fits_rural_33 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_33 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_33 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:glass value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:glass value = global_var:bag_wtp_pn33 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_34 = yes bag_wtp_edit_fits_rural_34 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_34 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_34 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:jewelry value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:jewelry value = global_var:bag_wtp_pn34 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_35 = yes bag_wtp_edit_fits_rural_35 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_35 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_35 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:lacquerware value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:lacquerware value = global_var:bag_wtp_pn35 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_36 = yes bag_wtp_edit_fits_rural_36 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_36 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_36 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:leather value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:leather value = global_var:bag_wtp_pn36 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_37 = yes bag_wtp_edit_fits_rural_37 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_37 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_37 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:liquor value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:liquor value = global_var:bag_wtp_pn37 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_38 = yes bag_wtp_edit_fits_rural_38 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_38 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_38 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:masonry value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:masonry value = global_var:bag_wtp_pn38 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_39 = yes bag_wtp_edit_fits_rural_39 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_39 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_39 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:naval_supplies value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:naval_supplies value = global_var:bag_wtp_pn39 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_40 = yes bag_wtp_edit_fits_rural_40 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_40 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_40 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:paper value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:paper value = global_var:bag_wtp_pn40 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_41 = yes bag_wtp_edit_fits_rural_41 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_41 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_41 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:porcelain value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:porcelain value = global_var:bag_wtp_pn41 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_42 = yes bag_wtp_edit_fits_rural_42 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_42 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_42 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:pottery value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:pottery value = global_var:bag_wtp_pn42 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_43 = yes bag_wtp_edit_fits_rural_43 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_43 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_43 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:slaves_goods value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:slaves_goods value = global_var:bag_wtp_pn43 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_44 = yes bag_wtp_edit_fits_rural_44 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_44 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_44 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:steel value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:steel value = global_var:bag_wtp_pn44 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_45 = yes bag_wtp_edit_fits_rural_45 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_45 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_45 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:tar value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:tar value = global_var:bag_wtp_pn45 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_46 = yes bag_wtp_edit_fits_rural_46 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_46 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_46 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:tools value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:tools value = global_var:bag_wtp_pn46 }
+	set_global_variable = { name = bag_wtp_edit_why value = 1 }
+	if = {
+		limit = { any_in_global_list = { variable = bag_wtp_candidates OR = { bag_wtp_edit_fits_town_47 = yes bag_wtp_edit_fits_rural_47 = yes } } }
+		set_global_variable = { name = bag_wtp_edit_why value = 2 }
+		if = {
+			limit = { any_in_global_list = {
+				variable = bag_wtp_candidates
+				OR = {
+					AND = { bag_wtp_edit_fits_town_47 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban var:bag_wtp_esw >= 0 } }
+					AND = { bag_wtp_edit_fits_rural_47 = yes OR = { var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural var:bag_wtp_esw >= 0 } }
+				}
+			} }
+			set_global_variable = { name = bag_wtp_edit_why value = 0 }
+		}
+	}
+	add_to_global_variable_map = { name = bag_wtp_why key = flag:weaponry value = global_var:bag_wtp_edit_why }
+	add_to_global_variable_map = { name = bag_wtp_held key = flag:weaponry value = global_var:bag_wtp_pn47 }
+}
+
+
 # **One more building of the chosen good, and exactly one.**
 #
 # The ordered walk is the whole of the choice: `_esv` is what each candidate
@@ -9312,6 +10121,7 @@ bag_wtp_edit_clear_plan = {
 # The goods the editor offers, rebuilt whenever its window opens.
 # Scope: country
 bag_wtp_edit_fill_pool = {
+	bag_wtp_edit_state = yes
 	clear_global_variable_list = bag_wtp_edit_pool
 	set_global_variable = { name = bag_wtp_edit_pooln value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_ng1 global_var:bag_wtp_ng1 > 0 } change_global_variable = { name = bag_wtp_edit_pooln add = 1 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:clay } }
@@ -9917,6 +10727,7 @@ bag_wtp_edit_init_slots = {
 		set_global_variable = { name = bag_wtp_edit_op value = 0 }
 		set_global_variable = { name = bag_wtp_edit_fitn value = 0 }
 		set_global_variable = { name = bag_wtp_edit_cands value = 0 }
+		set_global_variable = { name = bag_wtp_edit_why value = 0 }
 	}
 	if = {
 		limit = { NOT = { has_global_variable_list = bag_wtp_edit_pool } }
@@ -9933,6 +10744,7 @@ bag_wtp_edit_init_slots = {
 # scored and shows whatever the plan holds now.
 # Scope: country
 bag_wtp_open_edit_window_effect = {
+	bag_wtp_edit_counts_mirror = yes
 	# **The probe that lived here is gone and `check_script.py` holds its answer.**
 	# It logged one line a press, to separate "the button never reached the effect"
 	# from "the effect ran and the window did not draw". The log said the effect

@@ -165,6 +165,23 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# **A switch for the number in the editor's picker, and it is a safety valve
+	# rather than a preference.** Reading a per-good count into a picker row goes
+	# through a variable map, and the first build of that crashed the game outright
+	# on opening the window -- twice, with nothing in any log. The second build uses
+	# CMF's own shape instead (a flag key both sides), but it cannot be tried
+	# without loading it. If it crashes again, this turns the number off from a page
+	# that does not open the window, and the editor works again -- no reinstall, no
+	# lost session. Nothing else on this page is an editor control and this is not
+	# one either: it decides what is drawn.
+	cmm_register_global_bool_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_counts
+		tab_id = plan
+		group_id = plan
+		default_value = 1
+	}
+
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
 	# the headline of it into `error.log` besides.
 	#
@@ -243,9 +260,30 @@ bag_wtp_sync = {
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_rural alias = bag_wtp_plan_cap_rural }
 	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_urban alias = bag_wtp_plan_cap_urban }
 	cmm_sync_bool_alias = { setting = bag_wtp__plan_rights alias = bag_wtp_plan_rights }
+	cmm_sync_bool_alias = { setting = bag_wtp__edit_counts alias = bag_wtp_edit_counts }
+	# **And mirrored onto the player, because a `visible` reads a country variable
+	# and not a global.** The window asks
+	# `GetPlayer.MakeScope.GetVariable('bag_wtp_edit_counts_on')`, the way every
+	# other window here asks whether it is open.
+	bag_wtp_edit_counts_mirror = yes
 	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
 	# buttons set and clear it themselves, so no CMM setting has to agree with it.
 	# It was a tick on this page for one load and three buttons in the results
 	# window's header for another; a button that already says "calculate" is the
 	# honest place for "calculate for what".
+}
+
+
+# The counts switch, from the global CMM keeps to the country variable a window
+# can ask about. Called from `bag_wtp_sync` and again whenever the editor opens,
+# so flipping it takes effect without a reload.
+# Scope: country
+bag_wtp_edit_counts_mirror = {
+	if = {
+		limit = { has_global_variable = bag_wtp_edit_counts }
+		set_variable = { name = bag_wtp_edit_counts_on value = 1 }
+	}
+	else = {
+		remove_variable = bag_wtp_edit_counts_on
+	}
 }
