@@ -235,13 +235,6 @@
  bag_wtp_edit_pool_empty: "Nothing here yet — make a plan first, and this fills with the goods that ground can produce."
  bag_wtp_edit_plus: "+1"
  bag_wtp_edit_plus_tt: "One more building of this good, in the location where it costs least. A free room costs nothing; a full one costs the gain of the building that comes out."
- bag_wtp_edit_held_ok: "§G[GetVariableFromGlobalVariableMap('bag_wtp_held', Goods.MakeScope).GetValue|0]§!"
- bag_wtp_edit_held_full: "§R[GetVariableFromGlobalVariableMap('bag_wtp_held', Goods.MakeScope).GetValue|0]§!"
- bag_wtp_edit_held_ok_tt: "Buildings of this good on the chosen ground right now. Green: «+1» has somewhere to put another one."
- bag_wtp_edit_held_nowhere_tt: "Buildings of this good on the chosen ground right now. Red, and «+1» will do nothing: it already stands in every location this ground can make it in. Nothing but taking new land changes that."
- bag_wtp_edit_held_novictim_tt: "Buildings of this good on the chosen ground right now. Red, and «+1» will do nothing: there are locations that could hold it, but every one of them is full and nothing there may be taken out — only last buildings of their own goods and buildings belonging to charter bundles.
-
-Take something out elsewhere with «−1» and the room may open."
  bag_wtp_edit_minus: "−1"
  bag_wtp_edit_minus_tt: "One building of this good out — the one standing worst — and the room to whichever good suits it best."
  bag_wtp_edit_last_done: "Last press: done."

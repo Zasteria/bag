@@ -54,11 +54,11 @@ buildings are never the victim.** A weight fed into a re-plan moved 42 locations
 of 48 — that is the thing not to build again.
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
-three save slots, then every good the ground can make as a cell of «−1, icon, +1»
-and its count, red when another one is impossible; `bag_wtp_changes_window.gui` is
-«показать изменения». **A window exists only if `in_game/gui/scripted_widgets/`
-names it**; **a control behind a first click is one he will not find**; and **a
-per-good number reaches a datamodel row only through a global variable map**.
+three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
+`bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
+`in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
+he will not find**; and **a variable map keyed by a database object crashes the
+game** — CMF keys every one of its own by a flag.
 `check_script.py` resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree

@@ -17,18 +17,27 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
-**A script value cannot be indexed by the scope a datamodel row carries, and a
-global variable map is the bridge.** The plan's counters are numbered — `_pn<n>`
-— and a picker row holds `goods:iron`; no localization or `visible` can get from
-one to the other. `add_to_global_variable_map = { name = X key = goods:iron value
-= <number> }` in script, and
-`GetVariableFromGlobalVariableMap('X', Goods.MakeScope).GetValue` in the
-interface, which is how CMF reads its own. `EqualTo_CFixedPoint(…,
-'(CFixedPoint)1')` is the comparison a `visible` wants.
+**A script value cannot be indexed by the scope a datamodel row carries.** The
+plan's counters are numbered — `_pn<n>` — and a picker row holds `goods:iron`; no
+localization or `visible` gets from one to the other on its own. A global variable
+map is the bridge, and **its key must be a flag, not a database object.**
+
+**Keying one by `goods:iron` crashed the game outright**, 2026-09-04, twice, on
+opening the window — no error in `error.log`, none in `gui.log`, the logs simply
+stop. Reverted whole rather than repaired, because a crash leaves nothing to
+diagnose and the build had three new mechanisms in it at once.
+
+**The shape that is proven is CMF's, and it is flags on both sides.** Every map
+CMM keeps is written `key = scope:setting`, where that scope came from
+`MakeScopeFlag(SettingKey)`, and read back as
+`GetVariableFromGlobalVariableMap('name', MakeScopeFlag(…)).GetValue`. Not once
+does it key one by a database object. `Goods.GetKey` exists, so the flag can be
+made from the row — that is the way in, and it is the only difference between
+what crashed and what CMM does every frame.
 
 **`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
-inside a localization value, both, because `bag_wtp_held` is read only from
-localization and looking in the `.gui` alone would have missed it.
+inside a localization value, both, because a map read only from localization
+would be missed by looking in the `.gui` alone.
 
 **A window that says «a rule refused it, or there was nowhere» has said
 nothing.** Those are two different answers and the reader takes the first. The
