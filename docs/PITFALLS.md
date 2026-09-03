@@ -54,6 +54,15 @@ effect. The symptom was a Mod Menu tab holding only the settings that happened t
 be registered by a *different* effect, with no error anywhere. `check_cmm.py`
 now reports both directions.
 
+**A condition copied out of a game file carries the game's comments with it.**
+`copperworking`'s `potential` has a commented-out religion clause under the live
+one; folded onto a single line for a generated trigger, the `#` swallowed
+everything after it — the closing braces included — and the file was unbalanced.
+Nothing says so but `error.log`, and only after the parser has already abandoned
+the file. **Strip `#` to end of line, per line, before collapsing anything the
+game wrote.** Found 2026-09-03 by the brace count in a session's own check, not
+by the game.
+
 **`cmf_on_mod_registration` fires every time the mod page is opened.** Not on a
 new game, a save load and a country transfer only, whatever it reads like:
 `where_to_produce`'s registration ended with a `clear_rows`, and the result the

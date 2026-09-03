@@ -247,6 +247,75 @@ def unlocks() -> dict[str, str]:
 
 UNLOCKS = unlocks()
 
+
+def locked_advances() -> dict[str, str]:
+    """Advance -> the country condition it carries, for the ones that have one.
+
+    **An advance with a `potential` is not one you will have by the end -- it is
+    one you will never have.** 45 of the 181 advances that unlock a building or a
+    method are locked to a tag, a culture group or a region: `copperworking` wants
+    `is_capital_mesoamerica`, the porcelain kiln wants an east-Asian capital,
+    Scottish whisky wants Scotland. The plan's «на конец» side assumed every
+    advance is eventually in, so it offered all of them to everybody -- which is
+    how five porcelain guilds landed in northern Germany.
+    """
+    out: dict[str, str] = {}
+    for path in (refs.GAME / "in_game/common/advances").glob("*.txt"):
+        text = path.read_text(encoding="utf-8-sig")
+        for block in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{(.*?)^\}", text, re.S | re.M):
+            gate = re.search(r"^\tpotential\s*=\s*\{(.*?)^\t\}", block.group(2), re.S | re.M)
+            if not gate:
+                continue
+            # **Strip the game's own comments before collapsing to one line.**
+            # `copperworking` carries a commented-out religion clause, and folded
+            # flat the `#` swallowed the rest of the line -- closing braces
+            # included. The file parsed as unbalanced and nothing would have said
+            # so but `error.log`.
+            body = " ".join(" ".join(line.split("#", 1)[0].split())
+                            for line in gate.group(1).splitlines()).strip()
+            body = " ".join(body.split())
+            if body:
+                out[block.group(1)] = body
+    return out
+
+
+LOCKED = locked_advances()
+
+
+def building_unlocks() -> dict[str, str]:
+    """Building -> the advance that unlocks it, the mirror of `unlocks()`."""
+    out: dict[str, str] = {}
+    for path in (refs.GAME / "in_game/common/advances").glob("*.txt"):
+        text = path.read_text(encoding="utf-8-sig")
+        for block in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{(.*?)^\}", text, re.S | re.M):
+            for building in re.findall(r"unlock_building\s*=\s*([a-z0-9_]+)", block.group(2)):
+                out[building] = block.group(1)
+    return out
+
+
+BUILDING_UNLOCKS = building_unlocks()
+
+
+def method_advances(method: eu5data.Method) -> list[str]:
+    """Every advance that gates this method: its own, its halves', its building's.
+
+    **A pair's key is `base+improvement` and names no advance.** `copperworking`
+    says `unlock_production_method = copper_base`, and the mod's four jewelry
+    pairs are keyed `copper_base+amber_enhancement` and the like -- so the lookup
+    missed them and Münster was offered a recipe only Mesoamerica can unlock, in
+    the «сейчас» plan as much as at the end. Found 2026-09-03, by the owner:
+    «этого метода не должно было быть как кандидата в принципе».
+    """
+    found = []
+    for name in (method.key, *method.key.split("+")):
+        advance = UNLOCKS.get(name)
+        if advance and advance not in found:
+            found.append(advance)
+    advance = BUILDING_UNLOCKS.get(method.building)
+    if advance and advance not in found:
+        found.append(advance)
+    return found
+
 # **Two buildings the plan treats as always unlocked, at the owner's word.**
 # The urban rights arrive with `town_rights_enable` in age 3; the first firearms
 # building is age 1 and the first cannon building age 2, so by the time a
@@ -259,11 +328,19 @@ UNLOCKS = unlocks()
 # **Safe because neither building asks anything else of the country.** Both carry
 # only rank gates -- `town`, `city`, `megalopolis` -- and no `potential` and no
 # `allow`, checked in `production_cannons.txt` and `production_firearms.txt`, so
-# the location side still decides where they may stand.
+# the location side still decides where they may stand. Both advances are age 2
+# and carry no `potential` either, so waiving them takes nothing from anyone.
+#
+# **`gun_smith` and not `hand_cannon_guild`, corrected 2026-09-03.** The hand
+# cannon guild is age 1 and looked like the earlier firearms building, but its
+# advance wants `original_capital ?= { sub_continent = east_asia }` -- putting it
+# here handed a Chinese building to every country on the map. `gun_smith` is the
+# first firearms building anyone else can have, and it is age 2 exactly as the
+# owner said it was.
 #
 # Deliberately two names and not a rule: the owner asked for these as exceptions,
 # and a rule would quietly take in whatever the next patch adds.
-ALWAYS_AVAILABLE = ("hand_cannon_guild", "cannon_maker")
+ALWAYS_AVAILABLE = ("gun_smith", "cannon_maker")
 
 
 def write(path: Path, body: str) -> None:
@@ -693,14 +770,33 @@ def triggers_file(rows, split, game) -> str:
     # *country* scope -- "country checks the country scope requirements" -- is
     # what answers "is this available to me now". Without it the table happily
     # recommends a method three ages away, which is what the owner saw on beer.
+    # **What no advance can ever bring, and the «на конец» side has to ask it.**
+    # An advance carrying a `potential` is not one you will hold eventually -- it
+    # is one you will never hold. Without this the end-game plan offered every
+    # country everything: five porcelain guilds in northern Germany, whose kiln
+    # wants an east-Asian capital.
+    out.append("\n# Scope: country\n")
+    for index, method in enumerate(rows, start=1):
+        gates = [LOCKED[a] for a in method_advances(method) if a in LOCKED]
+        if not gates:
+            out.append(f"{MOD_ID}_reach_{index} = {{ always = yes }}\n")
+        else:
+            body = "".join(f"\tAND = {{ {gate} }}\n" for gate in gates)
+            out.append(f"# {method.building} / {method.key}: "
+                       f"{', '.join(a for a in method_advances(method) if a in LOCKED)}\n"
+                       f"{MOD_ID}_reach_{index} = {{\n{body}}}\n")
+
     out.append("\n# Scope: country\n")
     for index, method in enumerate(rows, start=1):
         if method.building in ALWAYS_AVAILABLE:
             out.append(f"# {method.building}: taken as given, `generate.ALWAYS_AVAILABLE`.\n"
                        f"{MOD_ID}_avail_{index} = {{\n\talways = yes\n}}\n")
             continue
-        gate = UNLOCKS.get(method.key)
-        extra = f"\n\thas_advance = {gate}" if gate else ""
+        # `can_build_building` in country scope already answers the building's
+        # own advance; this adds the *method's*, and `method_advances` is what
+        # finds it through a pair's `base+improvement` key.
+        extra = "".join(f"\n\thas_advance = {gate}" for gate in method_advances(method)
+                        if gate in UNLOCKS.values())
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
                    f"\tcan_build_building = building_type:{method.building}{extra}\n}}\n")
 
@@ -1497,12 +1593,21 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # where it can and asks the game as before where it cannot
             # (`triggers_file`, and `docs/SETTLED.md` for what it cost to find).
             stands = f" {MOD_ID}_stands_{rows[method_index - 1].building} = yes"
+            # **Every answer below is an end-game one, and the one thing even the
+            # end cannot bring is an advance this country may never take.**
+            # `_reach_<n>` is `always = yes` for all but thirteen methods, so the
+            # `if` costs nothing where nothing is locked.
+            reachable = [a for a in method_advances(rows[method_index - 1]) if a in LOCKED]
+            deep, shut = ("\t\t", "") if not reachable else ("\t\t\t", f"""\t\tif = {{
+\t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_reach_{method_index} = yes }} }}
+""")
+            out.append(shut)
             # «По пути»: every age, so no gate on availability -- but the ground
             # still has to be able to hold it.
-            out.append(keep("\t\t", "mid_", suffix, method_index, floor, stands))
+            out.append(keep(deep, "mid_", suffix, method_index, floor, stands))
             if method_index in last:
-                out.append(keep("\t\t", "end_", suffix, method_index, floor, stands))
-                out.append(keep("\t\t", "end_any_", suffix, method_index, None, stands))
+                out.append(keep(deep, "end_", suffix, method_index, floor, stands))
+                out.append(keep(deep, "end_any_", suffix, method_index, None, stands))
             # The plan's endgame side needs no availability: it is what stands
             # once every advance is in.
             # **The plan keeps an unfloored twin of each side and the ranking
@@ -1518,8 +1623,10 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # buried: the twin is a fallback, never a rival.
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where) and method_index in last:
-                    out.append(keep("\t\t", "pend", side, method_index, floor, stands, plan=True))
-                    out.append(keep("\t\t", "pendany", side, method_index, None, stands, plan=True))
+                    out.append(keep(deep, "pend", side, method_index, floor, stands, plan=True))
+                    out.append(keep(deep, "pendany", side, method_index, None, stands, plan=True))
+            if reachable:
+                out.append("\t\t}\n")
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
