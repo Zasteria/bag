@@ -48,17 +48,19 @@ bag_wtp_register_right_unique_list = {
 		mod_id = bag_wtp
 		setting_id = right_unique
 		tab_id = goods
-		item_count = 3
+		item_count = 4
 		is_ordered = 0
 	}
 
 	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 1 value = town_rights_type:constantinopolitan_silk_monopoly_rights }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 2 value = town_rights_type:scandinavian_bergslag_privileges }
-	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 3 value = town_rights_type:scandinavian_tar_privileges }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 2 value = town_rights_type:flemish_cloth_industries_right }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 3 value = town_rights_type:scandinavian_bergslag_privileges }
+	cmm_set_list_item_value = { mod_id = bag_wtp setting_id = right_unique item = 4 value = town_rights_type:scandinavian_tar_privileges }
 
 	set_variable = { name = bag_wtp__right_unique_i1_name value = flag:bag_wtp_right_constantinopolitan_silk_monopoly_rights }
-	set_variable = { name = bag_wtp__right_unique_i2_name value = flag:bag_wtp_right_scandinavian_bergslag_privileges }
-	set_variable = { name = bag_wtp__right_unique_i3_name value = flag:bag_wtp_right_scandinavian_tar_privileges }
+	set_variable = { name = bag_wtp__right_unique_i2_name value = flag:bag_wtp_right_flemish_cloth_industries_right }
+	set_variable = { name = bag_wtp__right_unique_i3_name value = flag:bag_wtp_right_scandinavian_bergslag_privileges }
+	set_variable = { name = bag_wtp__right_unique_i4_name value = flag:bag_wtp_right_scandinavian_tar_privileges }
 
 	cmm_register_list_bool_field = {
 		mod_id = bag_wtp
@@ -80,23 +82,24 @@ bag_wtp_read_right = {
 	every_in_list = {
 		variable = bag_wtp_right_ticked
 		root = { change_variable = { name = bag_wtp_right_ticks add = 1 } }
-		if = { limit = { this = town_rights_type:royal_artisan_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 2 } } set_variable = { name = bag_wtp_right_new value = 2 } } } }
-		if = { limit = { this = town_rights_type:royal_book_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 3 } } set_variable = { name = bag_wtp_right_new value = 3 } } } }
-		if = { limit = { this = town_rights_type:royal_brewing_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 4 } } set_variable = { name = bag_wtp_right_new value = 4 } } } }
-		if = { limit = { this = town_rights_type:royal_jewelry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 5 } } set_variable = { name = bag_wtp_right_new value = 5 } } } }
-		if = { limit = { this = town_rights_type:royal_masonry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 6 } } set_variable = { name = bag_wtp_right_new value = 6 } } } }
-		if = { limit = { this = town_rights_type:royal_naval_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 7 } } set_variable = { name = bag_wtp_right_new value = 7 } } } }
-		if = { limit = { this = town_rights_type:royal_textile_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 8 } } set_variable = { name = bag_wtp_right_new value = 8 } } } }
-		if = { limit = { this = town_rights_type:royal_tooling_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 9 } } set_variable = { name = bag_wtp_right_new value = 9 } } } }
-		if = { limit = { this = town_rights_type:royal_weaponry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 10 } } set_variable = { name = bag_wtp_right_new value = 10 } } } }
+		if = { limit = { this = town_rights_type:royal_artisan_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 3 } } set_variable = { name = bag_wtp_right_new value = 3 } } } }
+		if = { limit = { this = town_rights_type:royal_book_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 4 } } set_variable = { name = bag_wtp_right_new value = 4 } } } }
+		if = { limit = { this = town_rights_type:royal_brewing_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 5 } } set_variable = { name = bag_wtp_right_new value = 5 } } } }
+		if = { limit = { this = town_rights_type:royal_jewelry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 6 } } set_variable = { name = bag_wtp_right_new value = 6 } } } }
+		if = { limit = { this = town_rights_type:royal_masonry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 7 } } set_variable = { name = bag_wtp_right_new value = 7 } } } }
+		if = { limit = { this = town_rights_type:royal_naval_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 8 } } set_variable = { name = bag_wtp_right_new value = 8 } } } }
+		if = { limit = { this = town_rights_type:royal_textile_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 9 } } set_variable = { name = bag_wtp_right_new value = 9 } } } }
+		if = { limit = { this = town_rights_type:royal_tooling_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 10 } } set_variable = { name = bag_wtp_right_new value = 10 } } } }
+		if = { limit = { this = town_rights_type:royal_weaponry_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 11 } } set_variable = { name = bag_wtp_right_new value = 11 } } } }
 	}
 	cmm_build_list_bool_list = { setting = bag_wtp__right_unique field_slot = 1 list_name = bag_wtp_right_ticked }
 	every_in_list = {
 		variable = bag_wtp_right_ticked
 		root = { change_variable = { name = bag_wtp_right_ticks add = 1 } }
 		if = { limit = { this = town_rights_type:constantinopolitan_silk_monopoly_rights } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 1 } } set_variable = { name = bag_wtp_right_new value = 1 } } } }
-		if = { limit = { this = town_rights_type:scandinavian_bergslag_privileges } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 11 } } set_variable = { name = bag_wtp_right_new value = 11 } } } }
-		if = { limit = { this = town_rights_type:scandinavian_tar_privileges } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 12 } } set_variable = { name = bag_wtp_right_new value = 12 } } } }
+		if = { limit = { this = town_rights_type:flemish_cloth_industries_right } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 2 } } set_variable = { name = bag_wtp_right_new value = 2 } } } }
+		if = { limit = { this = town_rights_type:scandinavian_bergslag_privileges } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 12 } } set_variable = { name = bag_wtp_right_new value = 12 } } } }
+		if = { limit = { this = town_rights_type:scandinavian_tar_privileges } root = { if = { limit = { NOT = { var:bag_wtp_right_index = 13 } } set_variable = { name = bag_wtp_right_new value = 13 } } } }
 	}
 
 
@@ -117,39 +120,39 @@ bag_wtp_read_right = {
 # Scope: country
 bag_wtp_only_one_right = {
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 2 } }
+		limit = { NOT = { var:bag_wtp_right_index = 3 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 1 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 3 } }
+		limit = { NOT = { var:bag_wtp_right_index = 4 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 2 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 4 } }
+		limit = { NOT = { var:bag_wtp_right_index = 5 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 3 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 5 } }
+		limit = { NOT = { var:bag_wtp_right_index = 6 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 4 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 6 } }
+		limit = { NOT = { var:bag_wtp_right_index = 7 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 5 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 7 } }
+		limit = { NOT = { var:bag_wtp_right_index = 8 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 6 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 8 } }
+		limit = { NOT = { var:bag_wtp_right_index = 9 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 7 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 9 } }
+		limit = { NOT = { var:bag_wtp_right_index = 10 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 8 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 10 } }
+		limit = { NOT = { var:bag_wtp_right_index = 11 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_common field_id = pick item = 9 value = 0 }
 	}
 	if = {
@@ -157,12 +160,16 @@ bag_wtp_only_one_right = {
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_unique field_id = pick item = 1 value = 0 }
 	}
 	if = {
-		limit = { NOT = { var:bag_wtp_right_index = 11 } }
+		limit = { NOT = { var:bag_wtp_right_index = 2 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_unique field_id = pick item = 2 value = 0 }
 	}
 	if = {
 		limit = { NOT = { var:bag_wtp_right_index = 12 } }
 		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_unique field_id = pick item = 3 value = 0 }
+	}
+	if = {
+		limit = { NOT = { var:bag_wtp_right_index = 13 } }
+		cmm_set_list_data_value = { mod_id = bag_wtp setting_id = right_unique field_id = pick item = 4 value = 0 }
 	}
 }
 
@@ -249,7 +256,7 @@ bag_wtp_refresh_rights = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 1 }
 	}
 	if = {
-		limit = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
+		limit = { AND = { culture = { has_culture_group = culture_group:netherlandish_group } } }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 2 }
 	}
 	else = {
@@ -261,6 +268,13 @@ bag_wtp_refresh_rights = {
 	}
 	else = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 3 }
+	}
+	if = {
+		limit = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
+		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_unique item = 4 }
+	}
+	else = {
+		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_unique item = 4 }
 	}
 }
 
@@ -279,6 +293,7 @@ bag_wtp_score_right = {
 	else_if = { limit = { var:bag_wtp_right_index = 10 } bag_wtp_score_right_10 = yes }
 	else_if = { limit = { var:bag_wtp_right_index = 11 } bag_wtp_score_right_11 = yes }
 	else_if = { limit = { var:bag_wtp_right_index = 12 } bag_wtp_score_right_12 = yes }
+	else_if = { limit = { var:bag_wtp_right_index = 13 } bag_wtp_score_right_13 = yes }
 }
 
 # constantinopolitan_silk_monopoly_rights -- cloth +25%, fine_cloth +10%, silk +50%
@@ -478,9 +493,145 @@ bag_wtp_score_right_1 = {
 	}
 }
 
-# royal_artisan_rights -- furniture +20%, leather +20%, pottery +20%
+# flemish_cloth_industries_right -- cloth +500%, fine_cloth +500%
 # Scope: country
 bag_wtp_score_right_2 = {
+	save_scope_as = bag_wtp_country
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		set_variable = { name = bag_wtp_r_total value = 0 }
+		set_variable = { name = bag_wtp_r_mid_total value = 0 }
+		set_variable = { name = bag_wtp_r_method_1 value = 0 }
+		set_variable = { name = bag_wtp_r_method_2 value = 0 }
+		set_variable = { name = bag_wtp_r_method_3 value = 0 }
+	}
+
+	# cloth: price 3 x (1 + 5)
+	bag_wtp_score_29 = yes
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
+		if = {
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_any_best_method_rural }
+			}
+		}
+		else = {
+			set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_1 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_1 = 0 }
+				set_variable = { name = bag_wtp_r_method_1 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best }
+		if = {
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_1 value = var:bag_wtp_mid_best_rural }
+		}
+		change_variable = { name = bag_wtp_r_mid_1 multiply = 1.8000 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_1 }
+		change_variable = { name = bag_wtp_r_val_1 multiply = 1.8000 }
+		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_1 }
+	}
+
+	# fine_cloth: price 6 x (1 + 5)
+	bag_wtp_score_30 = yes
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		# **A right obeys the same two buttons as a good.** «Считать» reads the
+		# answer available today, «На конец» the one that survives every advance.
+		# The twenty-second run pressed the second and got the first, because this
+		# read `_best_method` and nothing else.
+		#
+		# The fallbacks are the same too: a slot the ground feeds nothing keeps its
+		# building and its icon and says 0.00%, and `_val` stays 0, so it is worth
+		# nothing to the ranking and a row of nothing but those still goes.
+		if = {
+			limit = { NOT = { has_global_variable = bag_wtp_rank_by_end } }
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best }
+			if = {
+				limit = { var:bag_wtp_best_rural > var:bag_wtp_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_any_best_method_rural }
+			}
+		}
+		else = {
+			set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method }
+			set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best }
+			if = {
+				limit = { var:bag_wtp_end_best_rural > var:bag_wtp_end_best }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_best_method_rural }
+				set_variable = { name = bag_wtp_r_val_2 value = var:bag_wtp_end_best_rural }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method }
+			}
+			if = {
+				limit = { var:bag_wtp_r_method_2 = 0 }
+				set_variable = { name = bag_wtp_r_method_2 value = var:bag_wtp_end_any_best_method_rural }
+			}
+		}
+		# And the road there, summed the same way. It only ever breaks a tie, and
+		# the ties it breaks are the ones «На конец» leaves: where nothing that
+		# survives can be fed, every province in the table is worth exactly zero.
+		set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best }
+		if = {
+			limit = { var:bag_wtp_mid_best_rural > var:bag_wtp_mid_best }
+			set_variable = { name = bag_wtp_r_mid_2 value = var:bag_wtp_mid_best_rural }
+		}
+		change_variable = { name = bag_wtp_r_mid_2 multiply = 3.6000 }
+		change_variable = { name = bag_wtp_r_mid_total add = var:bag_wtp_r_mid_2 }
+		change_variable = { name = bag_wtp_r_val_2 multiply = 3.6000 }
+		change_variable = { name = bag_wtp_r_total add = var:bag_wtp_r_val_2 }
+	}
+}
+
+# royal_artisan_rights -- furniture +20%, leather +20%, pottery +20%
+# Scope: country
+bag_wtp_score_right_3 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -677,7 +828,7 @@ bag_wtp_score_right_2 = {
 
 # royal_book_rights -- books +20%, dyes +20%, paper +20%
 # Scope: country
-bag_wtp_score_right_3 = {
+bag_wtp_score_right_4 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -874,7 +1025,7 @@ bag_wtp_score_right_3 = {
 
 # royal_brewing_rights -- beer +20%, liquor +20%, wine +20%
 # Scope: country
-bag_wtp_score_right_4 = {
+bag_wtp_score_right_5 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1071,7 +1222,7 @@ bag_wtp_score_right_4 = {
 
 # royal_jewelry_rights -- jewelry +20%
 # Scope: country
-bag_wtp_score_right_5 = {
+bag_wtp_score_right_6 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1146,7 +1297,7 @@ bag_wtp_score_right_5 = {
 
 # royal_masonry_rights -- glass +25%, masonry +25%
 # Scope: country
-bag_wtp_score_right_6 = {
+bag_wtp_score_right_7 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1282,7 +1433,7 @@ bag_wtp_score_right_6 = {
 
 # royal_naval_rights -- naval_supplies +30%, tar +30%
 # Scope: country
-bag_wtp_score_right_7 = {
+bag_wtp_score_right_8 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1418,7 +1569,7 @@ bag_wtp_score_right_7 = {
 
 # royal_textile_rights -- cloth +20%, dyes +20%, fine_cloth +20%
 # Scope: country
-bag_wtp_score_right_8 = {
+bag_wtp_score_right_9 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1615,7 +1766,7 @@ bag_wtp_score_right_8 = {
 
 # royal_tooling_rights -- tools +30%
 # Scope: country
-bag_wtp_score_right_9 = {
+bag_wtp_score_right_10 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1690,7 +1841,7 @@ bag_wtp_score_right_9 = {
 
 # royal_weaponry_rights -- cannons +20%, firearms +20%, weaponry +20%
 # Scope: country
-bag_wtp_score_right_10 = {
+bag_wtp_score_right_11 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1887,7 +2038,7 @@ bag_wtp_score_right_10 = {
 
 # scandinavian_bergslag_privileges -- tools +10%
 # Scope: country
-bag_wtp_score_right_11 = {
+bag_wtp_score_right_12 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -1962,7 +2113,7 @@ bag_wtp_score_right_11 = {
 
 # scandinavian_tar_privileges -- naval_supplies +20%, tar +20%
 # Scope: country
-bag_wtp_score_right_12 = {
+bag_wtp_score_right_13 = {
 	save_scope_as = bag_wtp_country
 	every_in_global_list = {
 		variable = bag_wtp_candidates
@@ -5943,66 +6094,72 @@ bag_wtp_store_right_goods = {
 	}
 	if = {
 		limit = { global_var:bag_wtp_right_index = 2 }
+		set_variable = { name = bag_wtp_r_good_1 value = goods:cloth }
+		set_variable = { name = bag_wtp_r_good_2 value = goods:fine_cloth }
+		remove_variable = bag_wtp_r_good_3
+	}
+	if = {
+		limit = { global_var:bag_wtp_right_index = 3 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:furniture }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:leather }
 		set_variable = { name = bag_wtp_r_good_3 value = goods:pottery }
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 3 }
+		limit = { global_var:bag_wtp_right_index = 4 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:books }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:dyes }
 		set_variable = { name = bag_wtp_r_good_3 value = goods:paper }
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 4 }
+		limit = { global_var:bag_wtp_right_index = 5 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:beer }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:liquor }
 		set_variable = { name = bag_wtp_r_good_3 value = goods:wine }
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 5 }
+		limit = { global_var:bag_wtp_right_index = 6 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:jewelry }
 		remove_variable = bag_wtp_r_good_2
 		remove_variable = bag_wtp_r_good_3
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 6 }
+		limit = { global_var:bag_wtp_right_index = 7 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:glass }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:masonry }
 		remove_variable = bag_wtp_r_good_3
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 7 }
+		limit = { global_var:bag_wtp_right_index = 8 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:naval_supplies }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:tar }
 		remove_variable = bag_wtp_r_good_3
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 8 }
+		limit = { global_var:bag_wtp_right_index = 9 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:cloth }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:dyes }
 		set_variable = { name = bag_wtp_r_good_3 value = goods:fine_cloth }
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 9 }
+		limit = { global_var:bag_wtp_right_index = 10 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:tools }
 		remove_variable = bag_wtp_r_good_2
 		remove_variable = bag_wtp_r_good_3
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 10 }
+		limit = { global_var:bag_wtp_right_index = 11 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:cannons }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:firearms }
 		set_variable = { name = bag_wtp_r_good_3 value = goods:weaponry }
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 11 }
+		limit = { global_var:bag_wtp_right_index = 12 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:tools }
 		remove_variable = bag_wtp_r_good_2
 		remove_variable = bag_wtp_r_good_3
 	}
 	if = {
-		limit = { global_var:bag_wtp_right_index = 12 }
+		limit = { global_var:bag_wtp_right_index = 13 }
 		set_variable = { name = bag_wtp_r_good_1 value = goods:naval_supplies }
 		set_variable = { name = bag_wtp_r_good_2 value = goods:tar }
 		remove_variable = bag_wtp_r_good_3

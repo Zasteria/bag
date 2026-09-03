@@ -146,19 +146,29 @@ def fold(lines: list[str]) -> list[str]:
     pending: list[str] = []          # строки без метки WTP: имя локации от игры
     goods: list[str] = []
     row: str | None = None
+    rq: str | None = None            # оценки прав города, идут внутри его блока
 
     def flush() -> None:
-        nonlocal row, goods
+        nonlocal row, goods, rq
         if row is None:
             return
         out.append(row + (" | " + ", ".join(goods) if goods else " | -- пусто"))
-        row, goods = None, []
+        if rq:
+            out.append("    " + rq)
+        row, goods, rq = None, [], None
 
     for line in lines:
         if not line:
             continue
         if line.startswith("WTP LG "):
             goods.append(line[len("WTP LG "):])
+            continue
+        # **`RQ` принадлежит своей локации и не должна её закрывать.** Она
+        # приходит внутри блока города, между `L` и `LG`, и без этой ветки
+        # `flush` сработал бы раньше товаров: строка локации ушла бы «пустой», а
+        # товары повисли бы ни на чём.
+        if line.startswith("WTP RQ "):
+            rq = line
             continue
         if line.startswith("WTP L "):
             flush()

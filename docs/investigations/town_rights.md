@@ -75,18 +75,6 @@ score that sums them is the village-above-the-guild error in a new suit.
 Score a level right on its own terms: **added levels × the value of one level
 there**, which is the number the mod already computes.
 
-### The cap is computable, unlike a building slot
-
-`guild_max_level` in `common/script_values/building_caps.txt`:
-
-    1 + development × 0.1 + population × 0.05 + (5 if city, 10 if megalopolis)
-
-and `cloth_guild_max_level = guild_max_level + local_cloth_guild_building_levels`.
-Every term is readable from a location in script. So a row for a level right can
-honestly print **cap before → cap after**, which the mod could never do for
-building slots (`mods/where_to_produce/CLAUDE.md`: the game exposes no slot count
-at all — that stays true, a level cap is a different thing).
-
 ### The owner's worry, and where it lands
 
 > *"в локации где лимит будет 3 и он получит бонус +5 очевидно будет выгодней,
@@ -250,8 +238,12 @@ today, because it scores no level right at all.
 
 ## What is undecided
 
-- **Whether to bring the level rights in** under the rule above. It would take
-  the mod from 12 rights to something near 20 and needs no new arithmetic.
+- **Nothing about the level rights any more.** He settled it on 2026-09-02 —
+  «включай в расчёт все подобные домики, считай их как ты посчитал фламандское
+  сукно» — and the merge admits exactly one, flemish cloth, because the only
+  other level rights grant marketplace levels and no method produces a
+  marketplace. Its own `potential` (Netherlandish culture group) is what keeps it
+  off everyone else, so no advance gate was needed.
 - **Whether a town that suits no right at all should still get one.** The plan
   grants a right where the town can make at least one of its goods; if none of
   the twelve passes, the town gets none. It has not happened on any ground run so

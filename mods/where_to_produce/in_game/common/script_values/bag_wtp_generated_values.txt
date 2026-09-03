@@ -10960,7 +10960,31 @@ bag_wtp_rq1 = {
 	}
 }
 
-# royal_artisan_rights: furniture, leather, pottery.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf1 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_29 = yes }
+		add = 2000
+		add = var:bag_wtp_p29
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_18 = yes }
+		add = 2000
+		add = var:bag_wtp_p18
+	}
+	divide = 3
+}
+
+# flemish_cloth_industries_right: cloth, fine_cloth.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -10993,21 +11017,16 @@ bag_wtp_rq1 = {
 bag_wtp_rq2 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_32 = yes }
+		limit = { bag_wtp_plan_can_town_29 = yes }
 		add = 2000
-		add = var:bag_wtp_p32
+		add = var:bag_wtp_p29
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_36 = yes }
+		limit = { bag_wtp_plan_can_town_30 = yes }
 		add = 2000
-		add = var:bag_wtp_p36
+		add = var:bag_wtp_p30
 	}
-	if = {
-		limit = { bag_wtp_plan_can_town_42 = yes }
-		add = 2000
-		add = var:bag_wtp_p42
-	}
-	divide = 3
+	divide = 2
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp2
@@ -11015,7 +11034,26 @@ bag_wtp_rq2 = {
 	}
 }
 
-# royal_book_rights: books, dyes, paper.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf2 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_29 = yes }
+		add = 2000
+		add = var:bag_wtp_p29
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	divide = 2
+}
+
+# royal_artisan_rights: furniture, leather, pottery.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11048,19 +11086,19 @@ bag_wtp_rq2 = {
 bag_wtp_rq3 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_27 = yes }
+		limit = { bag_wtp_plan_can_town_32 = yes }
 		add = 2000
-		add = var:bag_wtp_p27
+		add = var:bag_wtp_p32
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
+		limit = { bag_wtp_plan_can_town_36 = yes }
 		add = 2000
-		add = var:bag_wtp_p4
+		add = var:bag_wtp_p36
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_40 = yes }
+		limit = { bag_wtp_plan_can_town_42 = yes }
 		add = 2000
-		add = var:bag_wtp_p40
+		add = var:bag_wtp_p42
 	}
 	divide = 3
 	divide = {
@@ -11070,7 +11108,31 @@ bag_wtp_rq3 = {
 	}
 }
 
-# royal_brewing_rights: beer, liquor, wine.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf3 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_32 = yes }
+		add = 2000
+		add = var:bag_wtp_p32
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_36 = yes }
+		add = 2000
+		add = var:bag_wtp_p36
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_42 = yes }
+		add = 2000
+		add = var:bag_wtp_p42
+	}
+	divide = 3
+}
+
+# royal_book_rights: books, dyes, paper.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11103,19 +11165,19 @@ bag_wtp_rq3 = {
 bag_wtp_rq4 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_26 = yes }
+		limit = { bag_wtp_plan_can_town_27 = yes }
 		add = 2000
-		add = var:bag_wtp_p26
+		add = var:bag_wtp_p27
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_37 = yes }
+		limit = { bag_wtp_plan_can_town_4 = yes }
 		add = 2000
-		add = var:bag_wtp_p37
+		add = var:bag_wtp_p4
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_24 = yes }
+		limit = { bag_wtp_plan_can_town_40 = yes }
 		add = 2000
-		add = var:bag_wtp_p24
+		add = var:bag_wtp_p40
 	}
 	divide = 3
 	divide = {
@@ -11125,7 +11187,31 @@ bag_wtp_rq4 = {
 	}
 }
 
-# royal_jewelry_rights: jewelry.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf4 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_27 = yes }
+		add = 2000
+		add = var:bag_wtp_p27
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_4 = yes }
+		add = 2000
+		add = var:bag_wtp_p4
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_40 = yes }
+		add = 2000
+		add = var:bag_wtp_p40
+	}
+	divide = 3
+}
+
+# royal_brewing_rights: beer, liquor, wine.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11158,11 +11244,21 @@ bag_wtp_rq4 = {
 bag_wtp_rq5 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_34 = yes }
+		limit = { bag_wtp_plan_can_town_26 = yes }
 		add = 2000
-		add = var:bag_wtp_p34
+		add = var:bag_wtp_p26
 	}
-	divide = 1
+	if = {
+		limit = { bag_wtp_plan_can_town_37 = yes }
+		add = 2000
+		add = var:bag_wtp_p37
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_24 = yes }
+		add = 2000
+		add = var:bag_wtp_p24
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp5
@@ -11170,7 +11266,31 @@ bag_wtp_rq5 = {
 	}
 }
 
-# royal_masonry_rights: glass, masonry.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf5 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_26 = yes }
+		add = 2000
+		add = var:bag_wtp_p26
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_37 = yes }
+		add = 2000
+		add = var:bag_wtp_p37
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_24 = yes }
+		add = 2000
+		add = var:bag_wtp_p24
+	}
+	divide = 3
+}
+
+# royal_jewelry_rights: jewelry.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11203,16 +11323,11 @@ bag_wtp_rq5 = {
 bag_wtp_rq6 = {
 	value = 0
 	if = {
-		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
+		limit = { bag_wtp_plan_can_town_34 = yes }
 		add = 2000
-		add = var:bag_wtp_p33
+		add = var:bag_wtp_p34
 	}
-	if = {
-		limit = { bag_wtp_plan_can_town_38 = yes }
-		add = 2000
-		add = var:bag_wtp_p38
-	}
-	divide = 2
+	divide = 1
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp6
@@ -11220,7 +11335,21 @@ bag_wtp_rq6 = {
 	}
 }
 
-# royal_naval_rights: naval_supplies, tar.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf6 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_34 = yes }
+		add = 2000
+		add = var:bag_wtp_p34
+	}
+	divide = 1
+}
+
+# royal_masonry_rights: glass, masonry.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11253,14 +11382,14 @@ bag_wtp_rq6 = {
 bag_wtp_rq7 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
+		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
 		add = 2000
-		add = var:bag_wtp_p39
+		add = var:bag_wtp_p33
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
+		limit = { bag_wtp_plan_can_town_38 = yes }
 		add = 2000
-		add = var:bag_wtp_p45
+		add = var:bag_wtp_p38
 	}
 	divide = 2
 	divide = {
@@ -11270,7 +11399,26 @@ bag_wtp_rq7 = {
 	}
 }
 
-# royal_textile_rights: cloth, dyes, fine_cloth.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf7 = {
+	value = 0
+	if = {
+		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
+		add = 2000
+		add = var:bag_wtp_p33
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_38 = yes }
+		add = 2000
+		add = var:bag_wtp_p38
+	}
+	divide = 2
+}
+
+# royal_naval_rights: naval_supplies, tar.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11303,21 +11451,16 @@ bag_wtp_rq7 = {
 bag_wtp_rq8 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
+		limit = { bag_wtp_plan_can_town_39 = yes }
 		add = 2000
-		add = var:bag_wtp_p29
+		add = var:bag_wtp_p39
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
+		limit = { bag_wtp_plan_can_town_45 = yes }
 		add = 2000
-		add = var:bag_wtp_p4
+		add = var:bag_wtp_p45
 	}
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	divide = 3
+	divide = 2
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp8
@@ -11325,7 +11468,26 @@ bag_wtp_rq8 = {
 	}
 }
 
-# royal_tooling_rights: tools.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf8 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_39 = yes }
+		add = 2000
+		add = var:bag_wtp_p39
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_45 = yes }
+		add = 2000
+		add = var:bag_wtp_p45
+	}
+	divide = 2
+}
+
+# royal_textile_rights: cloth, dyes, fine_cloth.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11358,11 +11520,21 @@ bag_wtp_rq8 = {
 bag_wtp_rq9 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
+		limit = { bag_wtp_plan_can_town_29 = yes }
 		add = 2000
-		add = var:bag_wtp_p46
+		add = var:bag_wtp_p29
 	}
-	divide = 1
+	if = {
+		limit = { bag_wtp_plan_can_town_4 = yes }
+		add = 2000
+		add = var:bag_wtp_p4
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp9
@@ -11370,7 +11542,31 @@ bag_wtp_rq9 = {
 	}
 }
 
-# royal_weaponry_rights: cannons, firearms, weaponry.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf9 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_29 = yes }
+		add = 2000
+		add = var:bag_wtp_p29
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_4 = yes }
+		add = 2000
+		add = var:bag_wtp_p4
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_30 = yes }
+		add = 2000
+		add = var:bag_wtp_p30
+	}
+	divide = 3
+}
+
+# royal_tooling_rights: tools.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11403,21 +11599,11 @@ bag_wtp_rq9 = {
 bag_wtp_rq10 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_28 = yes }
+		limit = { bag_wtp_plan_can_town_46 = yes }
 		add = 2000
-		add = var:bag_wtp_p28
+		add = var:bag_wtp_p46
 	}
-	if = {
-		limit = { bag_wtp_plan_can_town_31 = yes }
-		add = 2000
-		add = var:bag_wtp_p31
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_47 = yes }
-		add = 2000
-		add = var:bag_wtp_p47
-	}
-	divide = 3
+	divide = 1
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp10
@@ -11425,7 +11611,21 @@ bag_wtp_rq10 = {
 	}
 }
 
-# scandinavian_bergslag_privileges: tools.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf10 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_46 = yes }
+		add = 2000
+		add = var:bag_wtp_p46
+	}
+	divide = 1
+}
+
+# royal_weaponry_rights: cannons, firearms, weaponry.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11458,11 +11658,21 @@ bag_wtp_rq10 = {
 bag_wtp_rq11 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
+		limit = { bag_wtp_plan_can_town_28 = yes }
 		add = 2000
-		add = var:bag_wtp_p46
+		add = var:bag_wtp_p28
 	}
-	divide = 1
+	if = {
+		limit = { bag_wtp_plan_can_town_31 = yes }
+		add = 2000
+		add = var:bag_wtp_p31
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_47 = yes }
+		add = 2000
+		add = var:bag_wtp_p47
+	}
+	divide = 3
 	divide = {
 		value = 1
 		add = var:bag_wtp_rp11
@@ -11470,7 +11680,31 @@ bag_wtp_rq11 = {
 	}
 }
 
-# scandinavian_tar_privileges: naval_supplies, tar.
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf11 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_28 = yes }
+		add = 2000
+		add = var:bag_wtp_p28
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_31 = yes }
+		add = 2000
+		add = var:bag_wtp_p31
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_47 = yes }
+		add = 2000
+		add = var:bag_wtp_p47
+	}
+	divide = 3
+}
+
+# scandinavian_bergslag_privileges: tools.
 #
 # **What a town can actually finish, first; how good it would be, second.**
 # A bundle good this town cannot build adds nothing at all, and the total is
@@ -11503,6 +11737,65 @@ bag_wtp_rq11 = {
 bag_wtp_rq12 = {
 	value = 0
 	if = {
+		limit = { bag_wtp_plan_can_town_46 = yes }
+		add = 2000
+		add = var:bag_wtp_p46
+	}
+	divide = 1
+	divide = {
+		value = 1
+		add = var:bag_wtp_rp12
+		min = 1
+	}
+}
+
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf12 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_46 = yes }
+		add = 2000
+		add = var:bag_wtp_p46
+	}
+	divide = 1
+}
+
+# scandinavian_tar_privileges: naval_supplies, tar.
+#
+# **What a town can actually finish, first; how good it would be, second.**
+# A bundle good this town cannot build adds nothing at all, and the total is
+# divided by the bundle's size, so the number is "how much of this right would
+# really go up here" and only then "how well". The thirty-seventh run is why:
+# forty-eight towns of Westphalia all took the masonry and glass charter, and not
+# one of them got glass. That is the game's answer, not the plan's -- at the
+# start the only unlocked glass building is the guild and it wants sand in the
+# local market -- but handing out a bundle that cannot be finished, forty-eight
+# times, was the plan's. Six other charters are wholly age-0 buildable.
+#
+# **Then divided by how often this right has already been granted in this
+# province** -- `_rp13`, exactly the shape of a good's `_pp<n>` and built for
+# exactly the same fault: every town of a province scores identically, so
+# undivided the five towns of Münsterland all took the masonry charter and then
+# held the same buildings. **That fault is inside one province, and so is this
+# divisor now.**
+#
+# **Counting the map instead was a fault of its own, and arithmetic rather than
+# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
+# most 1000, so a right never granted scores 2000--3000
+# and one granted once scores at most 1500. The two
+# ranges do not overlap, so against a global counter **a right granted anywhere
+# could never again win on merit**: the rights were dealt round robin and the
+# ground only broke ties within one turn. Goslar showed it -- the single town of
+# a province with silver took the tooling charter, because tooling's turn had
+# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
+# (`docs/TESTLOG.md`, 2026-09-02).
+# Scope: location
+bag_wtp_rq13 = {
+	value = 0
+	if = {
 		limit = { bag_wtp_plan_can_town_39 = yes }
 		add = 2000
 		add = var:bag_wtp_p39
@@ -11515,9 +11808,28 @@ bag_wtp_rq12 = {
 	divide = 2
 	divide = {
 		value = 1
-		add = var:bag_wtp_rp12
+		add = var:bag_wtp_rp13
 		min = 1
 	}
+}
+
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+bag_wtp_rqf13 = {
+	value = 0
+	if = {
+		limit = { bag_wtp_plan_can_town_39 = yes }
+		add = 2000
+		add = var:bag_wtp_p39
+	}
+	if = {
+		limit = { bag_wtp_plan_can_town_45 = yes }
+		add = 2000
+		add = var:bag_wtp_p45
+	}
+	divide = 2
 }
 
 # The same, for the quota: how many goods this ground can make at all. Divided by

@@ -179,7 +179,7 @@ def pass_name(band: int, tier: object) -> str:
 # **A cap must never be silently the answer**, so every capped block prints how
 # many it left out. `docs/pitfalls/diagnosis.md` has the whole instrument and the
 # four things about `debug_log` that were measured rather than assumed.
-DIAG_VERSION = 4
+DIAG_VERSION = 5
 DIAG_LOCS = 200
 DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
@@ -240,6 +240,24 @@ def unlocks() -> dict[str, str]:
 
 
 UNLOCKS = unlocks()
+
+# **Two buildings the plan treats as always unlocked, at the owner's word.**
+# The urban rights arrive with `town_rights_enable` in age 3; the first firearms
+# building is age 1 and the first cannon building age 2, so by the time a
+# weaponry charter can exist at all both have been buildable for an age or more.
+# The plan already ignores that the rights themselves are not researched -- «мы
+# же игнорируем тот факт, что гор права ещё не изучены… точно так же должны
+# игнорировать» -- and ignoring it on one side while enforcing it on the other is
+# what put cannons at zero under a granted weaponry charter.
+#
+# **Safe because neither building asks anything else of the country.** Both carry
+# only rank gates -- `town`, `city`, `megalopolis` -- and no `potential` and no
+# `allow`, checked in `production_cannons.txt` and `production_firearms.txt`, so
+# the location side still decides where they may stand.
+#
+# Deliberately two names and not a rule: the owner asked for these as exceptions,
+# and a rule would quietly take in whatever the next patch adds.
+ALWAYS_AVAILABLE = ("hand_cannon_guild", "cannon_maker")
 
 
 def write(path: Path, body: str) -> None:
@@ -671,6 +689,10 @@ def triggers_file(rows, split, game) -> str:
     # recommends a method three ages away, which is what the owner saw on beer.
     out.append("\n# Scope: country\n")
     for index, method in enumerate(rows, start=1):
+        if method.building in ALWAYS_AVAILABLE:
+            out.append(f"# {method.building}: taken as given, `generate.ALWAYS_AVAILABLE`.\n"
+                       f"{MOD_ID}_avail_{index} = {{\n\talways = yes\n}}\n")
+            continue
         gate = UNLOCKS.get(method.key)
         extra = f"\n\thas_advance = {gate}" if gate else ""
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
@@ -1077,6 +1099,15 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tadd = var:{MOD_ID}_rp{k}
 \t\tmin = 1
 \t}}
+}}
+
+# The same number before the province divisor: **how well this ground suits this
+# right**, which is the question a player asks of a row and the one the dump has
+# to print. Read by nothing else, so it costs a script value and no pass.
+# Scope: location
+{MOD_ID}_rqf{k} = {{
+\tvalue = 0
+{adds}\tdivide = {len(bundle)}
 }}
 """)
     plan_values = "".join(plan_values)
@@ -2734,12 +2765,20 @@ def rows_file() -> str:
 
 
 def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5data.TownRight]:
-    """The urban rights this mod answers for: the ones that raise an output.
+    """The urban rights this mod answers for: every one that helps a good.
 
-    A right that grants building levels instead is a quantity where these are
-    ratios, and `docs/investigations/town_rights.md` is why the two must not
-    share a number. Flemish cloth and the four marketplace charters are left out
-    rather than scored badly.
+    **Output and levels alike, and scored the same way**, at the owner's word,
+    2026-09-02: «не важно право это на бонус производительности или на лимит
+    домиков — все полезны и все по идее должны использоваться». A right is
+    scored on *which goods it favours* and never on the size of the favour, so
+    the two kinds need no common unit -- which is what had kept the level half
+    out. The mod must never read a building's levels either way
+    (`docs/investigations/town_rights.md`): the cap moves as a location grows.
+
+    In practice this admits exactly one more, `flemish_cloth_industries_right`.
+    The four marketplace charters grant levels to a marketplace, which no method
+    produces, so they fall out here as they always did -- trade and not
+    production, and «вообще не про то».
 
     A good the game makes no method for would be an empty slot on every row, so
     it is dropped from the bundle, and a right left with nothing is dropped
@@ -2748,7 +2787,8 @@ def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5dat
     made = {m.produced for m in rows}
     keep = []
     for right in game.town_rights:
-        bundle = {g: v for g, v in right.output.items() if g in made}
+        favoured = {**right.levels, **right.output}
+        bundle = {g: v for g, v in favoured.items() if g in made}
         if bundle:
             keep.append(eu5data.TownRight(key=right.key, output=bundle,
                                           levels=right.levels, penalty=right.penalty,
@@ -3734,6 +3774,26 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"forced_town={read(8)} forced_village={read(9)} load={read(2)} "
                    f"right={read(3)} prov_rank={read(4)} prov_load={read(5)}",
                    tab="\t\t"))
+    # **Why this town got this charter and not another one**, which is the one
+    # question the report could not answer: the plan prints the winner and never
+    # the field it beat. `_rqf<k>` is the bundle score before the province
+    # divisor -- how well this ground suits the right -- so the line is the whole
+    # comparison the grant made, and a one-good right's number is `2000 + that
+    # good's gain`, which reads its gain off directly.
+    #
+    # Towns only, because a village never holds one. A script value is added into
+    # the scratch global rather than parked: `park` asks `has_variable`, and a
+    # script value is not a variable.
+    out.append(f"\t\tif = {{\n\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}\n")
+    for number in range(1, len(rights) + 1):
+        out.append(f"\t\t\tset_global_variable = {{ name = {MOD_ID}_dv{number} value = 0 }}\n"
+                   f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_dv{number} "
+                   f"add = {MOD_ID}_rqf{number} }}\n")
+    out.append("\t\t\tdebug_log_scopes = no\n")
+    out.append(say("RQ " + " ".join(f"{number}={read(number)}"
+                                    for number in range(1, len(rights) + 1)),
+                   tab="\t\t\t"))
+    out.append("\t\t}\n")
     for good in order:
         out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
                    f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
@@ -3743,6 +3803,12 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(park(2, f"{MOD_ID}_plan_found"))
     out.append(say(f"LOCS printed={read(1)} of={read(2)} cap={DIAG_LOCS} "
                    "-- a cap is never silently the answer"))
+    out.append(say("RQ legend: every right scored for that town, before the "
+                   "province divisor -- " + ", ".join(
+                       f"{number}={right.key}" for number, right in enumerate(rights, start=1))
+                   + f". A bundle is worth {RIGHT_FIT} a good the town can make plus that "
+                   f"good's gain, averaged over the bundle, so a one-good right reads as "
+                   f"{RIGHT_FIT} + its gain. The largest is the one the town took."))
     out.append("}\n")
 
     # -------------------------------------------------------------- the ranking

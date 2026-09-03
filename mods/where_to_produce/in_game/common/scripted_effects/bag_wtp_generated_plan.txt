@@ -217,6 +217,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_rgiven10 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven11 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven12 value = 0 }
+	set_global_variable = { name = bag_wtp_rgiven13 value = 0 }
 	set_global_variable = { name = bag_wtp_passsw1 value = 0 }
 	set_global_variable = { name = bag_wtp_passpl1 value = 0 }
 	set_global_variable = { name = bag_wtp_passsw2 value = 0 }
@@ -269,6 +270,7 @@ bag_wtp_plan_prepare = {
 		set_variable = { name = bag_wtp_rp10 value = 0 }
 		set_variable = { name = bag_wtp_rp11 value = 0 }
 		set_variable = { name = bag_wtp_rp12 value = 0 }
+		set_variable = { name = bag_wtp_rp13 value = 0 }
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
 		add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
@@ -10578,7 +10580,7 @@ bag_wtp_plan_try_rural_47 = {
 
 # Urban rights, before any good is placed and only in towns.
 #
-# **A right is chosen per town, not by rights taking turns.** There are 12 of
+# **A right is chosen per town, not by rights taking turns.** There are 13 of
 # them and rarely that many towns in a plan, so an order over rights would decide
 # the outcome by its own arbitrariness. Asked the other way round -- which right
 # does this ground suit best -- every town gets the answer that is true about it.
@@ -10614,17 +10616,18 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 1 }
 		}
-		# royal_artisan_rights: furniture, leather, pottery
+		# flemish_cloth_industries_right: cloth, fine_cloth
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq2 }
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_2 = yes
+				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:netherlandish_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 2 }
 		}
-		# royal_book_rights: books, dyes, paper
+		# royal_artisan_rights: furniture, leather, pottery
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq3 }
 		if = {
 			limit = {
@@ -10634,7 +10637,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 3 }
 		}
-		# royal_brewing_rights: beer, liquor, wine
+		# royal_book_rights: books, dyes, paper
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq4 }
 		if = {
 			limit = {
@@ -10644,7 +10647,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 4 }
 		}
-		# royal_jewelry_rights: jewelry
+		# royal_brewing_rights: beer, liquor, wine
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq5 }
 		if = {
 			limit = {
@@ -10654,7 +10657,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 5 }
 		}
-		# royal_masonry_rights: glass, masonry
+		# royal_jewelry_rights: jewelry
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq6 }
 		if = {
 			limit = {
@@ -10664,7 +10667,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 6 }
 		}
-		# royal_naval_rights: naval_supplies, tar
+		# royal_masonry_rights: glass, masonry
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq7 }
 		if = {
 			limit = {
@@ -10674,7 +10677,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 7 }
 		}
-		# royal_textile_rights: cloth, dyes, fine_cloth
+		# royal_naval_rights: naval_supplies, tar
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq8 }
 		if = {
 			limit = {
@@ -10684,7 +10687,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 8 }
 		}
-		# royal_tooling_rights: tools
+		# royal_textile_rights: cloth, dyes, fine_cloth
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq9 }
 		if = {
 			limit = {
@@ -10694,7 +10697,7 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 9 }
 		}
-		# royal_weaponry_rights: cannons, firearms, weaponry
+		# royal_tooling_rights: tools
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq10 }
 		if = {
 			limit = {
@@ -10704,18 +10707,17 @@ bag_wtp_plan_place_rights = {
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 10 }
 		}
-		# scandinavian_bergslag_privileges: tools
+		# royal_weaponry_rights: cannons, firearms, weaponry
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq11 }
 		if = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_11 = yes
-				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 11 }
 		}
-		# scandinavian_tar_privileges: naval_supplies, tar
+		# scandinavian_bergslag_privileges: tools
 		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq12 }
 		if = {
 			limit = {
@@ -10725,6 +10727,17 @@ bag_wtp_plan_place_rights = {
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 12 }
+		}
+		# scandinavian_tar_privileges: naval_supplies, tar
+		set_variable = { name = bag_wtp_rtry value = bag_wtp_rq13 }
+		if = {
+			limit = {
+				var:bag_wtp_rtry > var:bag_wtp_rbest
+				bag_wtp_plan_right_fits_13 = yes
+				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
+			}
+			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
+			set_variable = { name = bag_wtp_rbest_k value = 13 }
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 1 }
@@ -10747,9 +10760,8 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 2 }
-			bag_wtp_plan_try_town_32 = yes
-			bag_wtp_plan_try_town_36 = yes
-			bag_wtp_plan_try_town_42 = yes
+			bag_wtp_plan_try_town_29 = yes
+			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 2 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10766,9 +10778,9 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 3 }
-			bag_wtp_plan_try_town_27 = yes
-			bag_wtp_plan_try_town_4 = yes
-			bag_wtp_plan_try_town_40 = yes
+			bag_wtp_plan_try_town_32 = yes
+			bag_wtp_plan_try_town_36 = yes
+			bag_wtp_plan_try_town_42 = yes
 			set_variable = { name = bag_wtp_plan_right value = 3 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10785,9 +10797,9 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 4 }
-			bag_wtp_plan_try_town_26 = yes
-			bag_wtp_plan_try_town_37 = yes
-			bag_wtp_plan_try_town_24 = yes
+			bag_wtp_plan_try_town_27 = yes
+			bag_wtp_plan_try_town_4 = yes
+			bag_wtp_plan_try_town_40 = yes
 			set_variable = { name = bag_wtp_plan_right value = 4 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10804,7 +10816,9 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 5 }
-			bag_wtp_plan_try_town_34 = yes
+			bag_wtp_plan_try_town_26 = yes
+			bag_wtp_plan_try_town_37 = yes
+			bag_wtp_plan_try_town_24 = yes
 			set_variable = { name = bag_wtp_plan_right value = 5 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10821,15 +10835,7 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 6 }
-			if = {
-				limit = { bag_wtp_plan_can_town_33 = yes }
-				bag_wtp_plan_try_town_33 = yes
-			}
-			else = {
-				# glass cannot stand here; plant the sand that would let it.
-				bag_wtp_plan_try_town_17 = yes
-			}
-			bag_wtp_plan_try_town_38 = yes
+			bag_wtp_plan_try_town_34 = yes
 			set_variable = { name = bag_wtp_plan_right value = 6 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10846,8 +10852,15 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 7 }
-			bag_wtp_plan_try_town_39 = yes
-			bag_wtp_plan_try_town_45 = yes
+			if = {
+				limit = { bag_wtp_plan_can_town_33 = yes }
+				bag_wtp_plan_try_town_33 = yes
+			}
+			else = {
+				# glass cannot stand here; plant the sand that would let it.
+				bag_wtp_plan_try_town_17 = yes
+			}
+			bag_wtp_plan_try_town_38 = yes
 			set_variable = { name = bag_wtp_plan_right value = 7 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10864,9 +10877,8 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 8 }
-			bag_wtp_plan_try_town_29 = yes
-			bag_wtp_plan_try_town_4 = yes
-			bag_wtp_plan_try_town_30 = yes
+			bag_wtp_plan_try_town_39 = yes
+			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 8 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10883,7 +10895,9 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 9 }
-			bag_wtp_plan_try_town_46 = yes
+			bag_wtp_plan_try_town_29 = yes
+			bag_wtp_plan_try_town_4 = yes
+			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 9 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10900,9 +10914,7 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 10 }
-			bag_wtp_plan_try_town_28 = yes
-			bag_wtp_plan_try_town_31 = yes
-			bag_wtp_plan_try_town_47 = yes
+			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 10 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10919,7 +10931,9 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 11 }
-			bag_wtp_plan_try_town_46 = yes
+			bag_wtp_plan_try_town_28 = yes
+			bag_wtp_plan_try_town_31 = yes
+			bag_wtp_plan_try_town_47 = yes
 			set_variable = { name = bag_wtp_plan_right value = 11 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10936,8 +10950,7 @@ bag_wtp_plan_place_rights = {
 		}
 		if = {
 			limit = { var:bag_wtp_rbest_k = 12 }
-			bag_wtp_plan_try_town_39 = yes
-			bag_wtp_plan_try_town_45 = yes
+			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 12 }
 			# **The province is told, not the map.** Every location of it carries the
 			# count, because a walk over a province cannot write back to the town that
@@ -10950,6 +10963,24 @@ bag_wtp_plan_place_rights = {
 				}
 			}
 			change_global_variable = { name = bag_wtp_rgiven12 add = 1 }
+			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
+		}
+		if = {
+			limit = { var:bag_wtp_rbest_k = 13 }
+			bag_wtp_plan_try_town_39 = yes
+			bag_wtp_plan_try_town_45 = yes
+			set_variable = { name = bag_wtp_plan_right value = 13 }
+			# **The province is told, not the map.** Every location of it carries the
+			# count, because a walk over a province cannot write back to the town that
+			# started it and the next town of the same province is the one that has to
+			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
+			province_definition = {
+				every_location_in_province_definition = {
+					limit = { has_variable = bag_wtp_rp13 }
+					change_variable = { name = bag_wtp_rp13 add = 1 }
+				}
+			}
+			change_global_variable = { name = bag_wtp_rgiven13 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
 	}

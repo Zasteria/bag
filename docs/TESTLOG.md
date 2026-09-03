@@ -38,6 +38,32 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-02 — `where_to_produce`, the province divisor in game. It works, and
+Goslar still says no.** Same 416 locations, «на конец», plus a second press over
+one province with every location ticked to a town.
+
+- **The divisor does what it was changed for.** The rights came out
+  18/12/10/10/4/3/2/1/1 where they had been 8/8/7/7/7/6/6/6/6 — the ground
+  deciding instead of a round robin. And the one-province press gave **five towns
+  five different rights**, which is the Münsterland fault it was built for, held.
+  1309 of 1309 rooms, no pass near the guard.
+- **Goslar took `royal_book_rights` instead of the jewelry it should have.** Harz
+  has one town, so its divisor is 1 and the ground decides alone — which means
+  the score itself now says books beat jewelry there. The report cannot say why:
+  it prints the winner and never the field it beat. `paper o=1000, dyes o=952,
+  books o=615` against `jewelry o=909`, and a three-good bundle is averaged, so
+  the two land within a hundred of each other — **but those are bests over the
+  whole ground, not Harz's numbers.**
+- **So the probe, not a fifth theory.** `WTP RQ` prints every right's bundle
+  score for each town, before the province divisor, and `tools/diag.py` folds it
+  under that town's own line. A one-good right reads as `2000 + that good's
+  gain`, so the line gives jewelry's gain in Harz directly. One press answers it.
+- **Two of his rulings are in the build with it.** `hand_cannon_guild` and
+  `cannon_maker` are always available (`generate.ALWAYS_AVAILABLE`) — both carry
+  only rank gates in the game files, so nothing else is being waved through — and
+  a right that grants guild *levels* is now scored on the goods it favours like
+  any other, which admits `flemish_cloth_industries_right` and nothing else.
+
 **2026-09-02 — `where_to_produce`, the same ground planned «на конец», and one
 town of it named the fault the numbers had been hiding.** «В этот самый город мод
 выделил права на инструменты. Почему?» Goslar, the only town of Harz — a province

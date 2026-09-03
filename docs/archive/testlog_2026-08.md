@@ -2178,3 +2178,23 @@ whole report.
   outright: `ROOM` now carries how many of the town side are of town rank and how
   many the tick moved, and every `L` line carries `town_rank` and `forced_town`.
 
+### Guild level caps, and why `where_to_produce` will never read them
+
+Moved out of `investigations/town_rights.md` on 2026-09-02, when the owner
+ruled the mod must never score building levels: «это число непостоянно и все
+локации растут — высчитывать это полный абсурд». The arithmetic is kept
+because it is what answers «flemish or royal textile» in prose, and that
+answer is still live in the investigation.
+
+### The cap is computable, unlike a building slot
+
+`guild_max_level` in `common/script_values/building_caps.txt`:
+
+    1 + development × 0.1 + population × 0.05 + (5 if city, 10 if megalopolis)
+
+and `cloth_guild_max_level = guild_max_level + local_cloth_guild_building_levels`.
+Every term is readable from a location in script. So a row for a level right can
+honestly print **cap before → cap after**, which the mod could never do for
+building slots (`mods/where_to_produce/CLAUDE.md`: the game exposes no slot count
+at all — that stays true, a level cap is a different thing).
+

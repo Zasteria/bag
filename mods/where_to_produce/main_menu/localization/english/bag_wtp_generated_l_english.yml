@@ -47,6 +47,7 @@
  bag_wtp_good_tools: "@tools! [ShowGoodsName('tools')]"
  bag_wtp_good_weaponry: "@weaponry! [ShowGoodsName('weaponry')]"
  bag_wtp_right_constantinopolitan_silk_monopoly_rights: "@cloth! [ShowTownRightsName('constantinopolitan_silk_monopoly_rights')]"
+ bag_wtp_right_flemish_cloth_industries_right: "@cloth! [ShowTownRightsName('flemish_cloth_industries_right')]"
  bag_wtp_right_royal_artisan_rights: "@furniture! [ShowTownRightsName('royal_artisan_rights')]"
  bag_wtp_right_royal_book_rights: "@books! [ShowTownRightsName('royal_book_rights')]"
  bag_wtp_right_royal_brewing_rights: "@beer! [ShowTownRightsName('royal_brewing_rights')]"

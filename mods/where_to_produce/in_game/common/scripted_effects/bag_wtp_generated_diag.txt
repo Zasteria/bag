@@ -27,8 +27,8 @@ bag_wtp_diag = {
 	if = { limit = { NOT = { has_global_variable = bag_wtp_diag_runs } } set_global_variable = { name = bag_wtp_diag_runs value = 0 } }
 	change_global_variable = { name = bag_wtp_diag_runs add = 1 }
 	debug_log_date = yes
-	error_log = "WTP the report is in debug.log, tag WTP, version 4. mods.bat -> 8 takes it out."
-	debug_log = "WTP ==== BEGIN v4 ==== everything to the next END is one press. Take it out with mods.bat -> 8, or tools/diag.py."
+	error_log = "WTP the report is in debug.log, tag WTP, version 5. mods.bat -> 8 takes it out."
+	debug_log = "WTP ==== BEGIN v5 ==== everything to the next END is one press. Take it out with mods.bat -> 8, or tools/diag.py."
 	bag_wtp_diag_build = yes
 	bag_wtp_diag_state = yes
 	bag_wtp_diag_scan = yes
@@ -37,14 +37,14 @@ bag_wtp_diag = {
 	bag_wtp_diag_rights = yes
 	bag_wtp_diag_locations = yes
 	bag_wtp_diag_ranking = yes
-	debug_log = "WTP ==== END v4 ===="
+	debug_log = "WTP ==== END v5 ===="
 }
 
 # The generator's own numbers. Static, so that a reading is never checked
 # against the wrong constant.
 # Scope: country
 bag_wtp_diag_build = {
-	debug_log = "WTP BUILD methods=241 rural=13 goods=47 raw=25 made=22 rights=12 gated=10"
+	debug_log = "WTP BUILD methods=241 rural=13 goods=47 raw=25 made=22 rights=13 gated=10"
 	debug_log = "WTP BUILD rounds=50 passes=12 bands=800/600/400/200/0 tiers=1/2/4/8/16/0 rows=150 ranked=1500 result_rows=50 right_fit=2000 rank_scale=1000 right_slots=3"
 	debug_log = "WTP BUILD passes in order: 1=band800/tierall, 2=band600/tierall, 3=band400/tierall, 4=band200/tierall, 5=band0/tier1, 6=band0/tier2, 7=band0/tier4, 8=band0/tier8, 9=band0/tier16, 10=band0/tierall, 11=cover, 12=open"
 	set_global_variable = { name = bag_wtp_dv1 value = 12345 }
@@ -3367,37 +3367,40 @@ bag_wtp_diag_rights = {
 	debug_log = "WTP RIGHT 1 constantinopolitan_silk_monopoly_rights (cloth, fine_cloth, silk) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven2 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven2 } }
-	debug_log = "WTP RIGHT 2 royal_artisan_rights (furniture, leather, pottery) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 2 flemish_cloth_industries_right (cloth, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven3 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven3 } }
-	debug_log = "WTP RIGHT 3 royal_book_rights (books, dyes, paper) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 3 royal_artisan_rights (furniture, leather, pottery) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven4 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven4 } }
-	debug_log = "WTP RIGHT 4 royal_brewing_rights (beer, liquor, wine) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 4 royal_book_rights (books, dyes, paper) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven5 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven5 } }
-	debug_log = "WTP RIGHT 5 royal_jewelry_rights (jewelry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 5 royal_brewing_rights (beer, liquor, wine) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven6 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven6 } }
-	debug_log = "WTP RIGHT 6 royal_masonry_rights (glass, masonry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 6 royal_jewelry_rights (jewelry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven7 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven7 } }
-	debug_log = "WTP RIGHT 7 royal_naval_rights (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 7 royal_masonry_rights (glass, masonry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven8 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven8 } }
-	debug_log = "WTP RIGHT 8 royal_textile_rights (cloth, dyes, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 8 royal_naval_rights (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven9 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven9 } }
-	debug_log = "WTP RIGHT 9 royal_tooling_rights (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 9 royal_textile_rights (cloth, dyes, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven10 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven10 } }
-	debug_log = "WTP RIGHT 10 royal_weaponry_rights (cannons, firearms, weaponry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 10 royal_tooling_rights (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven11 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven11 } }
-	debug_log = "WTP RIGHT 11 scandinavian_bergslag_privileges (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 11 royal_weaponry_rights (cannons, firearms, weaponry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven12 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven12 } }
-	debug_log = "WTP RIGHT 12 scandinavian_tar_privileges (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	debug_log = "WTP RIGHT 12 scandinavian_bergslag_privileges (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rgiven13 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven13 } }
+	debug_log = "WTP RIGHT 13 scandinavian_tar_privileges (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
 }
 
 # One block per location the plan filled, best first. The line above each block
@@ -3433,6 +3436,37 @@ bag_wtp_diag_locations = {
 		if = { limit = { has_variable = bag_wtp_force_rural } set_global_variable = { name = bag_wtp_dv9 value = 1 } }
 		debug_log_scopes = no
 		debug_log = "WTP L rank=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] town_rank=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] forced_town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] forced_village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] right=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] prov_rank=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] prov_load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0]"
+		if = {
+			limit = { bag_wtp_plan_is_town = yes }
+			set_global_variable = { name = bag_wtp_dv1 value = 0 }
+			change_global_variable = { name = bag_wtp_dv1 add = bag_wtp_rqf1 }
+			set_global_variable = { name = bag_wtp_dv2 value = 0 }
+			change_global_variable = { name = bag_wtp_dv2 add = bag_wtp_rqf2 }
+			set_global_variable = { name = bag_wtp_dv3 value = 0 }
+			change_global_variable = { name = bag_wtp_dv3 add = bag_wtp_rqf3 }
+			set_global_variable = { name = bag_wtp_dv4 value = 0 }
+			change_global_variable = { name = bag_wtp_dv4 add = bag_wtp_rqf4 }
+			set_global_variable = { name = bag_wtp_dv5 value = 0 }
+			change_global_variable = { name = bag_wtp_dv5 add = bag_wtp_rqf5 }
+			set_global_variable = { name = bag_wtp_dv6 value = 0 }
+			change_global_variable = { name = bag_wtp_dv6 add = bag_wtp_rqf6 }
+			set_global_variable = { name = bag_wtp_dv7 value = 0 }
+			change_global_variable = { name = bag_wtp_dv7 add = bag_wtp_rqf7 }
+			set_global_variable = { name = bag_wtp_dv8 value = 0 }
+			change_global_variable = { name = bag_wtp_dv8 add = bag_wtp_rqf8 }
+			set_global_variable = { name = bag_wtp_dv9 value = 0 }
+			change_global_variable = { name = bag_wtp_dv9 add = bag_wtp_rqf9 }
+			set_global_variable = { name = bag_wtp_dv10 value = 0 }
+			change_global_variable = { name = bag_wtp_dv10 add = bag_wtp_rqf10 }
+			set_global_variable = { name = bag_wtp_dv11 value = 0 }
+			change_global_variable = { name = bag_wtp_dv11 add = bag_wtp_rqf11 }
+			set_global_variable = { name = bag_wtp_dv12 value = 0 }
+			change_global_variable = { name = bag_wtp_dv12 add = bag_wtp_rqf12 }
+			set_global_variable = { name = bag_wtp_dv13 value = 0 }
+			change_global_variable = { name = bag_wtp_dv13 add = bag_wtp_rqf13 }
+			debug_log_scopes = no
+			debug_log = "WTP RQ 1=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] 2=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] 3=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] 4=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] 5=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] 6=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] 7=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] 8=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] 9=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] 10=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] 11=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0] 12=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg12')|0] 13=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg13')|0]"
+		}
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } debug_log = "WTP LG clay" }
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } debug_log = "WTP LG coal" }
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } debug_log = "WTP LG cotton" }
@@ -3486,6 +3520,7 @@ bag_wtp_diag_locations = {
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_found } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_plan_found } }
 	debug_log = "WTP LOCS printed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] cap=200 -- a cap is never silently the answer"
+	debug_log = "WTP RQ legend: every right scored for that town, before the province divisor -- 1=constantinopolitan_silk_monopoly_rights, 2=flemish_cloth_industries_right, 3=royal_artisan_rights, 4=royal_book_rights, 5=royal_brewing_rights, 6=royal_jewelry_rights, 7=royal_masonry_rights, 8=royal_naval_rights, 9=royal_textile_rights, 10=royal_tooling_rights, 11=royal_weaponry_rights, 12=scandinavian_bergslag_privileges, 13=scandinavian_tar_privileges. A bundle is worth 2000 a good the town can make plus that good's gain, averaged over the bundle, so a one-good right reads as 2000 + its gain. The largest is the one the town took."
 }
 
 # The single-good ranking's own answer, for the case where the plan is right and
