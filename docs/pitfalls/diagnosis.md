@@ -35,35 +35,11 @@ logs plus `reference/` in one pass, without a further run.
 
 ## Four theories, three fixes, and the cause still unknown
 
-**2026-09-01, and it is why `CLAUDE.md` now forbids guessing.** One symptom —
-`where_to_produce`'s plan would not put glass in a town — drew four explanations
-out of a session in a row, each stated with more confidence than it had earned:
-
-1. *the ground has no sand* → wrong; the owner's screenshots showed the game
-   offering him a glass guild;
-2. *`can_build_building` refuses it, so glass is impossible in Westphalia* →
-   wrong, and it went into `SETTLED.md` before he disproved it;
-3. *the charter is granted where the bundle cannot be finished* → real, but not
-   the cause; fixing it changed nothing;
-4. *sand is in the market but not **produced** there* → unfalsifiable from here,
-   and the same run refuted it: **`glass_guild` and `rural_glassmaker` carry the
-   identical gate, and glass appears in the villages while never appearing in the
-   towns.** One condition cannot be true and false in one market.
-
-Each theory cost a fix and a run. **The run is the scarce thing** — only the
-owner can make one — and none of the four spent one on finding out.
-
-**And the shape of the mistake is the same every time: a condition was read out
-of `reference/` and then treated as a fact about the ground.** The tree says what
-a condition *is*, never whether it *holds* — market contents, RGOs and buildings
-are save state, and nothing here can see them. A `location_potential` explains why
-a good *might* be missing; only a run says whether it is. Say which of the two
-you have.
-
-What should have been built after the first miss is a probe: a counter per stage
-of the funnel, for one good, reported on the window. Availability, then
-buildability, then a method won, then the placement gate, then placed. One run
-reads it and the cause has nowhere left to hide.
+**The episode this whole instrument came out of**, and the rule it produced is in
+the root `CLAUDE.md`: *a cause you cannot name is not a cause — do not guess it,
+measure it.* Four of the owner's runs went on four theories about one symptom and
+none on a measurement. The narrative, and what each theory cost, is in
+[`../archive/diagnosis_four_theories.md`](../archive/diagnosis_four_theories.md).
 
 ## «Диагностика»: one press, everything, as text
 
@@ -247,6 +223,38 @@ and all of those held. The distinction is what the change is *for*: repairing
 something measured, versus tidying something that merely reads wrong. The second
 kind is where a run is owed **before** the change ships, or where the change
 should be a report field instead — which is what the advance became.
+
+### A measurement answers the ground it was taken on
+
+**2026-09-03, and it cost the same fault being closed twice.** The plan's bands
+were measured on Westphalia — 48 locations, a quota of 2 a good — and the reading
+was unambiguous: every good got roughly its share, the bands barely mattered, and
+the relative-band idea was written up as unnecessary with the numbers to prove it.
+The same build on northern Germany, 416 locations, quota 29:
+
+```
+cannons   candidate locations 103   quota 160   placed 2
+goods reaching 1000 somewhere:  30, averaging 42 buildings
+goods that never do:             8, averaging 12
+an even share would be          36
+```
+
+Nothing about the formula changed between the two. **The quota binds on a small
+ground and binds nothing on a large one**, and which of the two mechanisms is
+doing the allocating flips completely between them. A measurement taken where the
+quota binds says nothing at all about ground where it does not.
+
+**So: before closing a question with a number, say what the number is a
+measurement *of*.** «The bands are not the problem» was true of Westphalia and
+false of the realm. The habit that catches it is cheap — name the regime in the
+same sentence as the finding, and the next reader can see whether their ground is
+the same one.
+
+**And a corollary about asking for runs.** The press that overturned this was
+asked for in the previous session and arrived in the same file as the small one,
+which is the only reason the error lasted hours instead of days. **Where a
+quantity in the formula scales with the ground — a quota, a room count, a
+candidate count — one press is not evidence and two of different sizes are.**
 
 ## The report is not for the player, so the tool has to read it
 
