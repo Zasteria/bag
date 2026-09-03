@@ -266,6 +266,8 @@ PLAN_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_plan.txt"
 PLAN_TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_plan_triggers.txt"
 PLAN_LOC_OUT = MOD / "in_game/common/customizable_localization/bag_wtp_generated_plan_loc.txt"
 DIAG_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_diag.txt"
+EDITOR_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_editor.txt"
+EDITOR_TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_editor_triggers.txt"
 LOC_OUT = MOD / "main_menu/localization/%s/bag_wtp_generated_l_%s.yml"
 LOC_LANGUAGES = ("english", "russian")
 
@@ -1190,12 +1192,10 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_ord{index} = {{
 \tvalue = var:{MOD_ID}_p{index}
-\tadd = global_var:{MOD_ID}_pw{index}
 }}
 # Scope: location
 {MOD_ID}_ordr{index} = {{
 \tvalue = var:{MOD_ID}_pr{index}
-\tadd = global_var:{MOD_ID}_pw{index}
 }}
 """)
 
@@ -1253,7 +1253,6 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         adds = "".join(f"""\tif = {{
 \t\tlimit = {{ {_won(g)} }}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
-\t\tadd = global_var:{MOD_ID}_pw{order.index(g) + 1}
 \t}}
 """ for g in bundle)
         plan_values.append(f"""
@@ -1411,6 +1410,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # has a name of its own -- the same shape `_plan_scored_value` has.
 # Scope: country
 {MOD_ID}_plan_bandf_value = {{ value = global_var:{MOD_ID}_plan_bandf }}
+# What the editor's ordered walks sort on: what this location charges for the
+# building being added, or `RANK_SCALE` minus the gain of the one being taken
+# out. `order_by` reads a script value and never a variable, which is the whole
+# reason this exists.
+# Scope: location
+{MOD_ID}_edit_order = {{ value = var:{MOD_ID}_esv }}
 # How many rights this country could grant at all, which the rights' own
 # quota divides by. Counted once a plan, in country scope.
 {MOD_ID}_rgrant_value = {{ value = global_var:{MOD_ID}_rgrant }}
@@ -1478,11 +1483,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
 {MOD_ID}_show_ticks = {{ value = global_var:{MOD_ID}_tick_count }}
-# The weight on the ticked good, for the regulator's own buttons to print. A
-# variable on the country and not a global: `_plan_weight_show` writes it, and
-# it is the ticked good's, which is a per-player thing.
+# The editor's two numbers, for its buttons to print on themselves.
 # Scope: country
-{MOD_ID}_show_weight = {{ value = var:{MOD_ID}_pw_shown }}
+{MOD_ID}_show_edit_moved = {{ value = global_var:{MOD_ID}_edit_moved }}
+# Scope: country
+{MOD_ID}_show_edit_saved = {{ value = global_var:{MOD_ID}_save_n }}
+
 {MOD_ID}_show_diag_runs = {{ value = global_var:{MOD_ID}_diag_runs }}
 {MOD_ID}_show_diag_locs = {{ value = global_var:{MOD_ID}_diag_locs }}
 {MOD_ID}_show_diag_towns = {{ value = global_var:{MOD_ID}_diag_towns }}
@@ -2096,12 +2102,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     order = [good for kind in ("raw", "made") for good in split[kind]]
     rights = output_rights(rows, game)
     groups = plan_groups(rows, split, game)
-    # The previous plan's goods, copied off a location before it is cleared.
-    was_copy = "".join(
-        f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
-        f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
-        f"add_to_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} }}\n"
-        for good in order)
 
     out = [HEADER, f"""#
 # Scope: country
@@ -2119,6 +2119,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_plan_set_quota = yes
 \t{MOD_ID}_plan_allocate = yes
 \t{MOD_ID}_plan_rank = yes
+\t# **A fresh plan is its own baseline.** «Показать изменения» right after one is
+\t# empty, which is the true answer: nothing has been edited yet, and everything
+\t# after this is measured against what the formula produced.
+\t{MOD_ID}_edit_save = yes
 \tcmf_log = {{ action = {MOD_ID}_log_plan }}
 }}
 
@@ -2132,15 +2136,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # they are the player's answer to «what is this location», not the plan's.
 # Scope: country
 {MOD_ID}_plan_prepare = {{
-\t# **What the last plan put here, kept so this one can say what it moved.**
-\t# The owner, 2026-09-03: «я должен наглядно видеть результат редактирования в
-\t# духе: "локация" -- убрано X добавлено Y». The copy is {len(order)} list reads a
-\t# location, once per plan and never per sweep; the comparison itself is the
-\t# diagnosis's, so the expensive button stays exactly as expensive as it was.
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
-\t\tclear_variable_list = {MOD_ID}_plan_was
-{was_copy}\t\tremove_variable = {MOD_ID}_load
+\t\tremove_variable = {MOD_ID}_load
 \t\tremove_variable = {MOD_ID}_plan_rank
 \t\tremove_variable = {MOD_ID}_plan_pg
 \t\tremove_variable = {MOD_ID}_plan_prank
@@ -2187,10 +2185,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pth{index} value = 0 }}\n"
-                   f"\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_pw{index} }} }}\n"
-                   f"\t\tset_global_variable = {{ name = {MOD_ID}_pw{index} value = 0 }} }}\n"
-                   f"\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_pwq{index} }} }}\n"
-                   f"\t\tset_global_variable = {{ name = {MOD_ID}_pwq{index} value = 0 }} }}\n")
+                   )
     # How many towns each right has been given. **The global is the dump's now
     # and no longer the score's** -- `_rq<k>` divides by `_rp<k>`, the count in
     # this province. A script value reading a global that is not there is the
@@ -2487,22 +2482,31 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 1 }}\n"
         f"\t{MOD_ID}_plan_grant_pass = yes\n"
         for band in PLAN_BANDS)
-    # **The quota binds only while the ground is paying, and `PLAN_BANDS[:-1]` is
-    # what says so.** Its last band is 0, which admits anything at all -- and a
-    # pass that admits anything while the quota is still on is the one that did
-    # the damage on 2026-09-03: both towns of Vorpommern took the jewelry charter,
-    # which their ground pays **90** for, while the artisan charter at **316** sat
-    # beside it blocked by nothing but an even-spread rule. Amber is the only
-    # thing there and amber is a trim, not a base.
+    # **Every band, band 0 included, with the quota still on.** It used to stop
+    # at 200 and go straight to the open pass, and that one gap is the whole of
+    # «10000000 текстильных прав и по 1 оружейному»: a charter the ground pays
+    # under 200 for -- weaponry 163 across all of Westphalia, jewelry 0 -- never
+    # qualified for a banded pass at all, so it kept the single town the covering
+    # ladder gave it while the open pass, which lifts the quota, handed the
+    # leftovers to whatever scored highest. Flemish cloth took 10 towns of 48
+    # against a quota of 6; weaponry and jewelry took 1 each.
     #
-    # So the bands above 0 spread the charters, and the open pass -- band 0 with
-    # the quota lifted -- lets the ground decide alone. A town whose best charter
-    # is worth under 200 now waits for that pass and takes its real best.
+    # **The objection this was written against is real and he has overruled it.**
+    # A band-0 pass with the quota on can put a charter in a town that would
+    # rather have had another -- 2026-09-03, both towns of Vorpommern taking the
+    # jewelry charter at 90 while artisan at 316 was quota-spent. That is the
+    # price of an even spread, and the owner set the price: «я не буду
+    # удовлетворён пока не увижу в вестфалии относительно одинаковое количество
+    # каждого городского права… и мне похуй что там в формулах».
+    #
+    # The quota is `towns ÷ grantable`, so on 48 towns and 9 charters it is 5.33
+    # and each may take 6 -- 54 places for 48 towns. The open pass stays as the
+    # backstop for a town no charter fits at all.
     grant_passes = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
         f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
         f"\t{MOD_ID}_plan_grant_pass = yes\n"
-        for band in PLAN_BANDS[:-1])
+        for band in PLAN_BANDS)
     grant_passes = "".join(
         line if "_ropen value" not in line else
         line + f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
@@ -2691,7 +2695,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pn{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
-\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pwq{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
         for index, good in enumerate(order, start=1))
@@ -2706,9 +2709,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # **`max = 1` is the floor and it is deliberate.** A ground too small to give
 # every good one building still gives every good one building; what gives way
 # then is the cap, not the spread, and the header line says so by showing more
-# goods than rooms. The RGO discount comes off the same number, and so does the
-# player's own weight -- **and the floor is what makes a negative weight safe**:
-# turning a good all the way down leaves it exactly one building and never none.
+# goods than rooms. The RGO discount comes off the same number.
 # Scope: country
 {MOD_ID}_plan_set_quota = {{
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_plan_rooms }}
@@ -2720,103 +2721,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_plan_quota max = 1 }}
 {quota_lines}}}
-""")
-
-    # ---- the hand regulator -------------------------------------------------
-    #
-    # **One number a good, in the same units as the gain, and a step is one
-    # band.** The owner asked for it twice and the second time in detail,
-    # 2026-09-03: «я нахожу товар и выкручиваю ему некое "значение важности"…
-    # он уступает место тому у чего забрал слоты, но оставляет себе какой-то
-    # минимум». That is exactly a term added to the ordering: a good moved up a
-    # step is dealt with the band above its own and takes rooms from whatever was
-    # winning them; moved down, it yields them.
-    #
-    # **The minimum he asked for is already guaranteed and needs no rule of its
-    # own.** The covering ladder runs before any band and gives every good the
-    # ground can produce one building, whatever its weight -- so no weight, at any
-    # size, can take a good's last building.
-    #
-    # It acts on the good ticked in the goods list, which is the same numbering
-    # the plan uses, so the two buttons need no list of their own.
-    step = RANK_SCALE // 5
-    apply_lines = "".join(
-        f"""\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_good_index = {i} }}
-\t\tchange_global_variable = {{ name = {MOD_ID}_pw{i} add = global_var:{MOD_ID}_pw_step }}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_pw{i} > {RANK_SCALE} }}
-\t\t\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = {RANK_SCALE} }}
-\t\t}}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_pw{i} < -{RANK_SCALE} }}
-\t\t\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = -{RANK_SCALE} }}
-\t\t}}
-\t\t# **And the same step in buildings.** A weight that only moved the good
-\t\t# up a band would be no use where the quota is what holds it: on
-\t\t# Westphalia iron's quota is **1**, because the ground already digs iron
-\t\t# twice, and no amount of priority gets it a second smelter. One step is
-\t\t# one band and one more building -- the two things that can hold a good
-\t\t# back, moved together.
-\t\tchange_global_variable = {{ name = {MOD_ID}_pwq{i} add = global_var:{MOD_ID}_pwq_step }}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_pwq{i} > 5 }}
-\t\t\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = 5 }}
-\t\t}}
-\t\tif = {{
-\t\t\tlimit = {{ global_var:{MOD_ID}_pwq{i} < -5 }}
-\t\t\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = -5 }}
-\t\t}}
-\t}}
-""" for i in range(1, len(order) + 1))
-    show_lines = "".join(
-        f"\tif = {{ limit = {{ var:{MOD_ID}_good_index = {i} }} "
-        f"set_variable = {{ name = {MOD_ID}_pw_shown value = global_var:{MOD_ID}_pw{i} }} }}\n"
-        for i in range(1, len(order) + 1))
-    clear_lines = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = 0 }}\n"
-        f"\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = 0 }}\n"
-        for i in range(1, len(order) + 1))
-    out.append(f"""
-# The weight of the ticked good, moved one band up or down.
-#
-# **No re-plan follows a press.** The weight decides what the *next* plan does,
-# exactly as the town/village tick does, and he may want to move three goods
-# before he wants an answer. «Пересчитать» is what makes it true.
-# Scope: country
-{MOD_ID}_plan_weight_up = {{
-	set_global_variable = {{ name = {MOD_ID}_pw_step value = {step} }}
-	set_global_variable = {{ name = {MOD_ID}_pwq_step value = 1 }}
-	{MOD_ID}_plan_weight_apply = yes
-}}
-
-# Scope: country
-{MOD_ID}_plan_weight_down = {{
-	set_global_variable = {{ name = {MOD_ID}_pw_step value = -{step} }}
-	set_global_variable = {{ name = {MOD_ID}_pwq_step value = -1 }}
-	{MOD_ID}_plan_weight_apply = yes
-}}
-
-# Clamped to one whole scale either way: past that a good is simply first or
-# last everywhere, and more of it changes nothing.
-# Scope: country
-{MOD_ID}_plan_weight_apply = {{
-{apply_lines}	{MOD_ID}_plan_weight_show = yes
-}}
-
-# What the buttons print on themselves. A variable and not a script value with
-# `if`s inside it: that shape reads zero in silence
-# (`docs/pitfalls/diagnosis.md`), and a knob whose number does not move is
-# indistinguishable from a knob that does nothing.
-# Scope: country
-{MOD_ID}_plan_weight_show = {{
-	set_variable = {{ name = {MOD_ID}_pw_shown value = 0 }}
-{show_lines}}}
-
-# Scope: country
-{MOD_ID}_plan_weight_clear = {{
-{clear_lines}	{MOD_ID}_plan_weight_show = yes
-}}
 """)
 
     # ---- the threshold a pass admits a good at ------------------------------
@@ -2843,8 +2747,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # fraction. Four writes a good and only in the open ladder.
     relative = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_pth{i} value = global_var:{MOD_ID}_pbest{i} }}\n"
-        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} add = global_var:{MOD_ID}_pw{i} }}\n"
-        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} max = 0 }}\n"
         f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} multiply = {MOD_ID}_plan_bandf_value }}\n"
         for i in range(1, len(order) + 1))
     out.append(f"""
@@ -3218,6 +3120,519 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 """)
     return "".join(out)
+
+
+# How the editor's own good picker is split across dropdowns. CMM handles a
+# dropdown option click through `CMM_MarkDropdownSelection_<index>` and defines
+# twenty of them, so a dropdown holds at most twenty options -- and option 1 of
+# each is «—», meaning "not this one", so three of them can offer 47 goods and
+# still say which one is chosen.
+EDIT_DROPDOWNS = 3
+EDIT_OPTIONS = 20
+
+
+def edit_split(order: list[str]) -> list[list[str]]:
+    """The goods, cut into one list per dropdown, «—» not counted.
+
+    Balanced rather than filled front to back: three dropdowns of sixteen read
+    better than two full ones and a stub, and the split moves on its own if the
+    game gains a good.
+    """
+    per = -(-len(order) // EDIT_DROPDOWNS)
+    assert per <= EDIT_OPTIONS - 1, (
+        f"{len(order)} goods over {EDIT_DROPDOWNS} dropdowns is {per} options plus "
+        f"«—», past CMM's {EDIT_OPTIONS}; raise `EDIT_DROPDOWNS`")
+    return [order[i:i + per] for i in range(0, len(order), per)]
+
+
+def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
+                game: eu5data.Game) -> tuple[str, str]:
+    """Editing a plan that already exists, one building at a time.
+
+    **The plan is state on the map, and this changes it in place.** The owner
+    asked for this twice and the second time in nine numbered steps, 2026-09-03:
+    «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
+    менее болезненно удалить для наилучшей установки туда товара Y, без
+    полномасштабного смещения всех товаров и прав.» What was built instead was a
+    weight fed back into a full re-plan, and the run measured what that is worth:
+    **42 locations of 48 changed** on a knob meant to move one.
+
+    So «+1 домик» is exactly one building:
+
+    1. every candidate is asked what it would cost to put this good there --
+       nothing if the location has a free room, otherwise the gain of the
+       cheapest building that may be taken out;
+    2. the location where that costs least takes it;
+    3. the victim comes out, the good goes in, and nothing else on the map moves.
+
+    **What may not be taken out**, and neither rule is optional:
+
+    - **a good's last building.** «Нельзя увеличивать число локаций чего-либо
+      больше, если у какого-то товара будет угроза потерять последний домик» --
+      so a good standing in exactly one place is never the victim, and the plan
+      keeps its covering constraint through any amount of editing.
+    - **a building the town's charter put there.** A charter is granted for its
+      bundle; taking a bundle good out leaves the town holding a charter for
+      something it does not make, which is worse than the edit is worth.
+
+    **The picker is this window's own** and not the goods list the ranking uses --
+    also his, and also from the second telling: «выбор товара для регуляции не
+    должны быть в том же выборе товара для поиска лучшей локации». Three
+    dropdowns, «—» in each, and the edit reads whichever one is not at «—».
+    """
+    order = [good for kind in ("raw", "made") for good in split[kind]]
+    groups = plan_groups(rows, split, game)
+    rights = output_rights(rows, game)
+    lots = edit_split(order)
+
+    def call(prefix: str, index: int, tab: str) -> str:
+        """The two sides' effects, and only the ones that were generated.
+
+        A good with no village building has no `_plan_try_rural_<n>`, and calling
+        an effect that does not exist is the failure this repository names first:
+        the block it sits in does nothing and the game says so nowhere useful.
+        """
+        good = order[index - 1]
+        return "".join(
+            f"{tab}{MOD_ID}_{prefix}_{listname}_{index} = yes\n"
+            for side, listname in (("t", "town"), ("r", "rural"))
+            if groups.get((good, side)))
+    out = [HEADER, f"""#
+# The plan editor. Everything here changes a plan that already exists and
+# **nothing here re-runs the plan**: `{MOD_ID}_plan_run` is the only thing that
+# does, and pressing it throws every edit away, which is why the save slot exists.
+"""]
+    gate = [HEADER, f"""#
+# The editor's own questions. **Written with OR and AND and never an `if`**, the
+# same rule every other scripted trigger here obeys.
+"""]
+
+    # ---- which good the editor is working on -------------------------------
+    picks = []
+    number = 0
+    for lot, goods in enumerate(lots, start=1):
+        for option, good in enumerate(goods, start=2):
+            number += 1
+            picks.append(
+                f"\tif = {{\n"
+                f"\t\tlimit = {{ \"global_variable_map(cmm|flag:{MOD_ID}__edit_pick{lot})\" = {option} }}\n"
+                f"\t\tset_variable = {{ name = {MOD_ID}_edit_good value = {number} }}\n"
+                f"\t\tchange_variable = {{ name = {MOD_ID}_edit_picks add = 1 }}\n"
+                f"\t}}\n")
+    out.append(f"""
+# Which good the editor is pointed at, read off its own three dropdowns.
+#
+# **Option 1 of each is «—».** Reading all three and counting is what lets three
+# dropdowns behave as one picker without a callback: `_edit_picks` is how many are
+# off «—», so the buttons can say «выбрано несколько» instead of silently taking
+# the first. A global variable map is how CMM stores a dropdown's index, and this
+# is the same read `cmm_sync_dropdown_option_alias` makes.
+# Scope: country
+{MOD_ID}_edit_read_pick = {{
+	set_variable = {{ name = {MOD_ID}_edit_good value = 0 }}
+	set_variable = {{ name = {MOD_ID}_edit_picks value = 0 }}
+{"".join(picks)}}}
+""")
+
+    # ---- may this good stand here, room aside ------------------------------
+    #
+    # `_plan_can_*` is the placement gate and asks the room as well; an eviction
+    # is precisely the case where there is no room, so the editor needs the same
+    # question without that clause.
+    for side, listname, method_var, rank in (("t", "town", "pm", "yes"),
+                                             ("r", "rural", "prm", "no")):
+        for index, good in enumerate(order, start=1):
+            by_building = groups.get((good, side), {})
+            if not by_building:
+                gate.append(f"\n# Scope: location\n"
+                            f"{MOD_ID}_edit_fits_{listname}_{index} = {{ always = no }}\n")
+                continue
+            branches = ""
+            for building, mis in sorted(by_building.items()):
+                tests = "".join("\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                                for mi in sorted(mis))
+                branches += (f"\t\tAND = {{\n\t\t\tOR = {{\n{tests}\t\t\t}}\n"
+                             f"\t\t\tNOT = {{ is_target_in_variable_list = "
+                             f"{{ name = {MOD_ID}_plan_builds target = building_type:{building} }} }}\n"
+                             f"\t\t}}\n")
+            gate.append(f"""
+# {good}, {"town" if side == "t" else "village"} side, room not asked.
+# Scope: location
+{MOD_ID}_edit_fits_{listname}_{index} = {{
+\tvar:{MOD_ID}_{method_var}{index} > 0
+\t{MOD_ID}_plan_is_town = {rank}
+\tNOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
+\tOR = {{
+{branches}\t}}
+}}
+""")
+
+    # ---- a bundle good of the charter granted here --------------------------
+    for index, good in enumerate(order, start=1):
+        holders = [k for k, right in enumerate(rights, start=1) if good in right.output]
+        if not holders:
+            gate.append(f"\n# Scope: location\n"
+                        f"{MOD_ID}_edit_locked_{index} = {{ always = no }}\n")
+            continue
+        tests = "".join(f"\t\tvar:{MOD_ID}_plan_right = {k}\n" for k in holders)
+        gate.append(f"""
+# {good} is in the bundle of the charter granted here, so the editor may not take
+# it out: the town would keep a charter for something it no longer makes.
+# Scope: location
+{MOD_ID}_edit_locked_{index} = {{
+\thas_variable = {MOD_ID}_plan_right
+\tOR = {{
+{tests}\t}}
+}}
+"""  )
+
+    # ---- the cheapest building this location could give up -----------------
+    #
+    # Good-independent, so it is worked out once a location and read by whichever
+    # good is being added. Written as its own effect for that reason: inlined per
+    # good it would be 47 x 94 blocks and the file would be unreadable.
+    worst = {}
+    for side, gain_var in (("t", "p"), ("r", "pr")):
+        worst[side] = "".join(f"""\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t\t\tglobal_var:{MOD_ID}_pn{index} > 1
+\t\t\t\tNOT = {{ {MOD_ID}_edit_locked_{index} = yes }}
+\t\t\t\tOR = {{
+\t\t\t\t\tvar:{MOD_ID}_esw = -1
+\t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_{gain_var}{index} }}
+\t\t\tset_variable = {{ name = {MOD_ID}_esg value = {index} }}
+\t\t}}
+""".replace(f"var:{MOD_ID}_p{index} < var:{MOD_ID}_esw",
+            f"var:{MOD_ID}_{gain_var}{index} < var:{MOD_ID}_esw")
+        for index, good in enumerate(order, start=1))
+    out.append(f"""
+# The building this location would give up most cheaply, and which good it is.
+#
+# `-1` in `_esw` means "nothing here may be taken out at all" -- every building
+# is either its good's last on the ground or part of the town's charter bundle.
+# **A gain of nought is a real answer and `-1` is not**, which is why the empty
+# marker cannot be nought: a good the ground feeds nothing is exactly the one an
+# edit should be taking out first.
+# Scope: location
+{MOD_ID}_edit_worst = {{
+\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
+\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
+\tif = {{
+\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+{worst["t"]}\t}}
+\telse = {{
+{worst["r"]}\t}}
+}}
+""")
+
+    # ---- what it would cost to put this good here --------------------------
+    for index, good in enumerate(order, start=1):
+        arms = []
+        for side, listname, cap, gain_var in (("t", "town", "urban", "p"),
+                                              ("r", "rural", "rural", "pr")):
+            arms.append(f"""\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_edit_fits_{listname}_{index} = yes }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_{cap} }}
+\t\t\t\t# A free room costs nothing, so it always outbids an eviction.
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esv value = var:{MOD_ID}_{gain_var}{index} }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_esv add = {RANK_SCALE} }}
+\t\t\t}}
+\t\t\telse_if = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_esw >= 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esv value = var:{MOD_ID}_{gain_var}{index} }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_esv subtract = var:{MOD_ID}_esw }}
+\t\t\t}}
+\t\t}}
+""")
+        out.append(f"""
+# {good}: what every candidate would charge for one more of it.
+# Scope: country
+{MOD_ID}_edit_scan_{index} = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+{"".join(arms)}\t}}
+}}
+""")
+
+    # ---- taking one building out -------------------------------------------
+    for side, listname, method_var, gain_var in (("t", "town", "pm", "p"),
+                                                 ("r", "rural", "prm", "pr")):
+        for index, good in enumerate(order, start=1):
+            by_building = groups.get((good, side), {})
+            if not by_building:
+                continue
+            branches = ""
+            for building, mis in sorted(by_building.items()):
+                tests = "".join("\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                                for mi in sorted(mis))
+                branches += f"""\t\tif = {{
+\t\t\tlimit = {{ OR = {{
+{tests}\t\t\t}} }}
+\t\t\tremove_list_variable = {{ name = {MOD_ID}_plan_builds target = building_type:{building} }}
+\t\t}}
+"""
+            out.append(f"""
+# {good} out of this location, {"town" if side == "t" else "village"} side.
+#
+# **Every counter the plan keeps is walked back**, because the report and the
+# next edit both read them: the load, the total placed, this good's own count,
+# and the two gain counters the header prints.
+# Scope: location
+{MOD_ID}_edit_remove_{listname}_{index} = {{
+\tif = {{
+\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
+\t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+{branches}\t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pn{index} subtract = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_gain subtract = var:{MOD_ID}_{gain_var}{index} }}
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_{gain_var}{index} > 0 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_fed subtract = 1 }}
+\t\t}}
+\t}}
+}}
+""")
+
+    # ---- the two operations -------------------------------------------------
+    scan_dispatch = "".join(
+        f"\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} {MOD_ID}_edit_scan_{i} = yes }}\n"
+        for i in range(1, len(order) + 1))
+    remove_dispatch = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    add_dispatch = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# **One more building of the chosen good, and exactly one.**
+#
+# The ordered walk is the whole of the choice: `_esv` is what each candidate
+# charges -- a free room charges nothing and outbids everything, an eviction
+# charges the victim's gain -- so the highest is the least painful place, and
+# `max = 1` takes it and stops. Both sides' effects are called and the one whose
+# side the location is not simply does nothing, which is cheaper than asking.
+# Scope: country
+{MOD_ID}_edit_add = {{
+\t{MOD_ID}_edit_read_pick = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 var:{MOD_ID}_edit_picks = 1 }}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
+\t\t\t{MOD_ID}_edit_worst = yes
+\t\t}}
+{scan_dispatch}\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\torder_by = {MOD_ID}_edit_order
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+{remove_dispatch}{add_dispatch}\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t}}
+\t}}
+\t{MOD_ID}_plan_rank = yes
+}}
+
+# **One building of the chosen good taken out, and the room given to whatever
+# suits it best afterwards.** «Он уступает место тому у чего забрал слоты.»
+#
+# The walk takes the good's *worst* placement, which is why the scan stores
+# `{RANK_SCALE} - gain`: `order_by` reads highest-first and there is no other way
+# to ask it for a minimum.
+# Scope: country
+{MOD_ID}_edit_drop = {{
+\t{MOD_ID}_edit_read_pick = yes
+\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 var:{MOD_ID}_edit_picks = 1 }}
+\t\tevery_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
+\t\t}}
+""")
+    for index, good in enumerate(order, start=1):
+        out.append(f"""\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_edit_good = {index} global_var:{MOD_ID}_pn{index} > 1 }}
+\t\t\tevery_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_candidates
+\t\t\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_esv value = {RANK_SCALE} }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_esv subtract = var:{MOD_ID}_p{index} }}
+\t\t\t\t}}
+\t\t\t\telse = {{
+\t\t\t\t\tchange_variable = {{ name = {MOD_ID}_esv subtract = var:{MOD_ID}_pr{index} }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+""")
+    drop_dispatch = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    fill = "".join(
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{\n"
+        f"\t\t\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
+        f"\t\t\t\t\tOR = {{\n"
+        f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes var:{MOD_ID}_p{i} > var:{MOD_ID}_esw }}\n"
+        f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no var:{MOD_ID}_pr{i} > var:{MOD_ID}_esw }}\n"
+        f"\t\t\t\t\t}}\n"
+        f"\t\t\t\t}}\n"
+        f"\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\t\t\tset_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\t\t\telse = {{ set_variable = {{ name = {MOD_ID}_esw value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\t\t\tset_variable = {{ name = {MOD_ID}_esg value = {i} }}\n"
+        f"\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    fill_dispatch = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""\t\tordered_in_global_list = {{
+\t\t\tvariable = {MOD_ID}_candidates
+\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\t\torder_by = {MOD_ID}_edit_order
+\t\t\tmax = 1
+\t\t\tcheck_range_bounds = no
+{drop_dispatch}\t\t\t# The room is free now; the best good that may stand here takes it.
+\t\t\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
+\t\t\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
+{fill}{fill_dispatch}\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t}}
+\t}}
+\t{MOD_ID}_plan_rank = yes
+}}
+""")
+
+    # ---- the save slot ------------------------------------------------------
+    save_copy = "".join(
+        f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
+        f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
+        f"add_to_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }}\n"
+        for good in order)
+    restore_place = "".join(
+        f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
+        f"{{ name = {MOD_ID}_save_goods target = goods:{good} }} }}\n"
+        f"{call('plan_try', i, chr(9) * 3)}\t\t}}\n"
+        for i, good in enumerate(order, start=1))
+    zero_counts = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_pn{i} value = 0 }}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# **The saved plan: the baseline every «изменено» is measured against.**
+#
+# Written by `{MOD_ID}_plan_run` as well, so a fresh plan is its own baseline and
+# the changes list right after one is empty -- which is the true answer, since a
+# new plan has not been edited. Pressing «Сохранить» again re-bases it wherever
+# the editing has got to.
+#
+# Only the goods are kept. The building each good used is `_pm<n>`, which the
+# scoring pass writes and no edit touches, so restoring puts it back from the
+# good alone and the slot needs no second list.
+# Scope: country
+{MOD_ID}_edit_save = {{
+\tclear_global_variable_list = {MOD_ID}_save_locs
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tclear_variable_list = {MOD_ID}_save_goods
+{save_copy}\t\tset_variable = {{ name = {MOD_ID}_save_load value = var:{MOD_ID}_load }}
+\t\tremove_variable = {MOD_ID}_save_right
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}
+\t\t\tset_variable = {{ name = {MOD_ID}_save_right value = var:{MOD_ID}_plan_right }}
+\t\t}}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_save_locs target = this }}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_save_n value = global_var:{MOD_ID}_plan_placed }}
+}}
+
+# **Everything back to the saved plan.** The counters are zeroed between the two
+# walks and rebuilt by the same `_plan_try_*` the plan itself uses, so a restored
+# plan and a planned one are counted identically and there is no second
+# accounting to drift.
+# Scope: country
+{MOD_ID}_edit_restore = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_save_locs
+\t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\tclear_variable_list = {MOD_ID}_plan_builds
+\t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
+\t\tremove_variable = {MOD_ID}_plan_right
+\t\tif = {{
+\t\t\tlimit = {{ has_variable = {MOD_ID}_save_right }}
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = var:{MOD_ID}_save_right }}
+\t\t}}
+\t}}
+\tset_global_variable = {{ name = {MOD_ID}_plan_placed value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_gain value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_fed value = 0 }}
+{zero_counts}\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_save_locs
+{restore_place}\t}}
+\t{MOD_ID}_plan_rank = yes
+}}
+""")
+
+    # ---- what the editing changed ------------------------------------------
+    changed = "".join(
+        f"\t\t\t\tAND = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} "
+        f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} }}\n"
+        f"\t\t\t\tAND = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
+        f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }}\n"
+        for good in order)
+    lines = "".join(
+        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} '
+        f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} }} '
+        f'debug_log = "WTP LD -{good}" }}\n'
+        f'\t\t\tif = {{ limit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} '
+        f'NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} }} '
+        f'debug_log = "WTP LD +{good}" }}\n'
+        for good in order)
+    out.append(f"""
+# «Показать изменения»: every location where the plan now differs from the saved
+# one, and nothing else.
+#
+# **It writes a report of its own between the same markers the diagnosis uses**,
+# so `mods.bat -> 8` and `tools/diag.py` read it with no new code -- the fold
+# already turns a location's `LD` lines into «изменено: убрано X добавлено Y».
+# Only changed locations are printed, so after one edit the whole report is two
+# lines, which is the point of the thing.
+# Scope: country
+{MOD_ID}_edit_changes = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_moved value = 0 }}
+\tdebug_log_date = yes
+\terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> 8 takes it out."
+\tdebug_log = "WTP ==== BEGIN v{DIAG_VERSION} ==== the plan against the saved one"
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tif = {{
+\t\t\tlimit = {{ OR = {{
+{changed}\t\t\t}} }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_moved add = 1 }}
+\t\t\tdebug_log_scopes = no
+\t\t\tdebug_log = "WTP L rank=0 town=0 load=0"
+{lines}\t\t}}
+\t}}
+\tdebug_log = "WTP ==== END v{DIAG_VERSION} ===="
+}}
+""")
+    return "".join(out), "".join(gate)
 
 
 def rows_file() -> str:
@@ -4235,10 +4650,10 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # count costs nothing the diagnosis was not already paying.
     moved_count = ("\t\tif = {\n\t\t\tlimit = { OR = {\n"
                    + "".join(
-                       "\t\t\t\tAND = { is_target_in_variable_list = { name = %s_plan_was target = goods:%s } "
+                       "\t\t\t\tAND = { is_target_in_variable_list = { name = %s_save_goods target = goods:%s } "
                        "NOT = { is_target_in_variable_list = { name = %s_plan_goods target = goods:%s } } }\n"
                        "\t\t\t\tAND = { is_target_in_variable_list = { name = %s_plan_goods target = goods:%s } "
-                       "NOT = { is_target_in_variable_list = { name = %s_plan_was target = goods:%s } } }\n"
+                       "NOT = { is_target_in_variable_list = { name = %s_save_goods target = goods:%s } } }\n"
                        % (MOD_ID, good, MOD_ID, good, MOD_ID, good, MOD_ID, good)
                        for good in order)
                    + "\t\t\t} }\n\t\t\tchange_global_variable = { name = %s_diag_moved add = 1 }\n\t\t}\n"
@@ -4355,18 +4770,6 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "q, ng against the tiers, and o against the bands."))
     for index in range(1, len(order) + 1):
         out.append(f"\t{MOD_ID}_diag_good_{index} = yes\n")
-    # **The hand weights, and only the ones that are set.** A weight is a setting
-    # and not a counter, so it survives the plan, the save and the ground -- and a
-    # forgotten weight would otherwise look exactly like the formula misbehaving.
-    for index, good in enumerate(order, start=1):
-        out.append(f"\tif = {{\n\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pw{index} = 0 }} }}\n")
-        out.append(park(1, f"{MOD_ID}_pw{index}", tab="\t\t"))
-        out.append(park(2, f"{MOD_ID}_pwq{index}", tab="\t\t"))
-        out.append(say(f"WEIGHT {good} weight={read(1)} of={RANK_SCALE} "
-                       f"band={RANK_SCALE // 5} rooms={read(2)} -- the player's own "
-                       f"weight on this good: `weight` is added to its gain "
-                       f"everywhere and `rooms` to its quota", tab="\t\t"))
-        out.append("\t}\n")
     out.append(f"""\t{MOD_ID}_diag_free = yes
 }}
 
@@ -4561,20 +4964,20 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
                    f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
                    f'debug_log = "WTP LG {good}" }}\n')
-    # **And what this plan moved against the one before it.** `_plan_was` is the
+    # **And what this plan moved against the one before it.** `_save_goods` is the
     # previous plan's list, copied off the location before `_plan_prepare`
     # cleared it. Printed only for the locations that take a row, so a large
     # ground pays for at most `DIAG_LOCS` comparisons rather than all of them.
     for good in order:
         out.append(
             f"\t\tif = {{ limit = {{ "
-            f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} "
+            f"is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} "
             f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
             f'}} debug_log = "WTP LD -{good}" }}\n')
         out.append(
             f"\t\tif = {{ limit = {{ "
             f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
-            f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} }} "
+            f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} }} "
             f'}} debug_log = "WTP LD +{good}" }}\n')
     out.append("\t}\n")
     out.append(park(1, f"{MOD_ID}_diag_n"))
@@ -4650,6 +5053,9 @@ def main() -> int:
     write(PLAN_TRIGGERS_OUT, plan_triggers_file(rows, split, game))
     write(PLAN_LOC_OUT, plan_loc_file(rows, game))
     write(DIAG_OUT, diag_file(rows, split, game))
+    effects, triggers = editor_file(rows, split, game)
+    write(EDITOR_OUT, effects)
+    write(EDITOR_TRIGGERS_OUT, triggers)
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

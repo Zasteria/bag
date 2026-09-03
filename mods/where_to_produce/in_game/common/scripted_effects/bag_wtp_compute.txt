@@ -136,20 +136,30 @@ bag_wtp_on_button = {
 		bag_wtp_clear_ticks = yes
 	}
 
-	# The hand regulator. **No re-plan**, for the reason the town/village tick has
-	# none: the pass reads every recipe on every location, and he may want to move
-	# three goods before he wants an answer.
+	# The plan editor. **None of these re-runs the plan** -- that is the whole
+	# point of them, and `bag_wtp_plan_run` is the only thing that does.
 	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_w_up }
-		bag_wtp_plan_weight_up = yes
+		limit = { var:cmf_callback = flag:bag_wtp__edit_add }
+		bag_wtp_edit_add = yes
+		bag_wtp_recompute_live = yes
 	}
 	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_w_down }
-		bag_wtp_plan_weight_down = yes
+		limit = { var:cmf_callback = flag:bag_wtp__edit_drop }
+		bag_wtp_edit_drop = yes
+		bag_wtp_recompute_live = yes
 	}
 	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_w_clear }
-		bag_wtp_plan_weight_clear = yes
+		limit = { var:cmf_callback = flag:bag_wtp__edit_changes }
+		bag_wtp_edit_changes = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__edit_save }
+		bag_wtp_edit_save = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__edit_restore }
+		bag_wtp_edit_restore = yes
+		bag_wtp_recompute_live = yes
 	}
 
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads

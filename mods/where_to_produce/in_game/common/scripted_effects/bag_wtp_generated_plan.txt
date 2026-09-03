@@ -15,6 +15,10 @@ bag_wtp_plan_run = {
 	bag_wtp_plan_set_quota = yes
 	bag_wtp_plan_allocate = yes
 	bag_wtp_plan_rank = yes
+	# **A fresh plan is its own baseline.** «Показать изменения» right after one is
+	# empty, which is the true answer: nothing has been edited yet, and everything
+	# after this is measured against what the formula produced.
+	bag_wtp_edit_save = yes
 	cmf_log = { action = bag_wtp_log_plan }
 }
 
@@ -28,61 +32,8 @@ bag_wtp_plan_run = {
 # they are the player's answer to «what is this location», not the plan's.
 # Scope: country
 bag_wtp_plan_prepare = {
-	# **What the last plan put here, kept so this one can say what it moved.**
-	# The owner, 2026-09-03: «я должен наглядно видеть результат редактирования в
-	# духе: "локация" -- убрано X добавлено Y». The copy is 47 list reads a
-	# location, once per plan and never per sweep; the comparison itself is the
-	# diagnosis's, so the expensive button stays exactly as expensive as it was.
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
-		clear_variable_list = bag_wtp_plan_was
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:clay } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:coal } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:cotton } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:dyes } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:fiber_crops } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:fish } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:fruit } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:horses } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:incense } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:iron } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:ivory } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:livestock } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:lumber } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:medicaments } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:salt } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:saltpeter } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:sand } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:silk } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:silver } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:stone } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:sugar } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:tobacco } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:wild_game } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:wine } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:wool } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:beer } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:books } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:cannons } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:cloth } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:fine_cloth } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:firearms } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:furniture } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:glass } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:jewelry } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:lacquerware } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:leather } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:liquor } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:masonry } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:naval_supplies } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:paper } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:porcelain } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:pottery } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:slaves_goods } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:steel } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:tar } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:tools } }
-		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } add_to_variable_list = { name = bag_wtp_plan_was target = goods:weaponry } }
 		remove_variable = bag_wtp_load
 		remove_variable = bag_wtp_plan_rank
 		remove_variable = bag_wtp_plan_pg
@@ -124,424 +75,236 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest1 value = 0 }
 	set_global_variable = { name = bag_wtp_pth1 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw1 } }
-		set_global_variable = { name = bag_wtp_pw1 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq1 } }
-		set_global_variable = { name = bag_wtp_pwq1 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn2 value = 0 }
 	set_global_variable = { name = bag_wtp_pq2 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest2 value = 0 }
 	set_global_variable = { name = bag_wtp_pth2 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw2 } }
-		set_global_variable = { name = bag_wtp_pw2 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq2 } }
-		set_global_variable = { name = bag_wtp_pwq2 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn3 value = 0 }
 	set_global_variable = { name = bag_wtp_pq3 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest3 value = 0 }
 	set_global_variable = { name = bag_wtp_pth3 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw3 } }
-		set_global_variable = { name = bag_wtp_pw3 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq3 } }
-		set_global_variable = { name = bag_wtp_pwq3 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn4 value = 0 }
 	set_global_variable = { name = bag_wtp_pq4 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest4 value = 0 }
 	set_global_variable = { name = bag_wtp_pth4 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw4 } }
-		set_global_variable = { name = bag_wtp_pw4 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq4 } }
-		set_global_variable = { name = bag_wtp_pwq4 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn5 value = 0 }
 	set_global_variable = { name = bag_wtp_pq5 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest5 value = 0 }
 	set_global_variable = { name = bag_wtp_pth5 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw5 } }
-		set_global_variable = { name = bag_wtp_pw5 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq5 } }
-		set_global_variable = { name = bag_wtp_pwq5 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn6 value = 0 }
 	set_global_variable = { name = bag_wtp_pq6 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest6 value = 0 }
 	set_global_variable = { name = bag_wtp_pth6 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw6 } }
-		set_global_variable = { name = bag_wtp_pw6 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq6 } }
-		set_global_variable = { name = bag_wtp_pwq6 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn7 value = 0 }
 	set_global_variable = { name = bag_wtp_pq7 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest7 value = 0 }
 	set_global_variable = { name = bag_wtp_pth7 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw7 } }
-		set_global_variable = { name = bag_wtp_pw7 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq7 } }
-		set_global_variable = { name = bag_wtp_pwq7 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn8 value = 0 }
 	set_global_variable = { name = bag_wtp_pq8 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest8 value = 0 }
 	set_global_variable = { name = bag_wtp_pth8 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw8 } }
-		set_global_variable = { name = bag_wtp_pw8 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq8 } }
-		set_global_variable = { name = bag_wtp_pwq8 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn9 value = 0 }
 	set_global_variable = { name = bag_wtp_pq9 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest9 value = 0 }
 	set_global_variable = { name = bag_wtp_pth9 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw9 } }
-		set_global_variable = { name = bag_wtp_pw9 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq9 } }
-		set_global_variable = { name = bag_wtp_pwq9 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn10 value = 0 }
 	set_global_variable = { name = bag_wtp_pq10 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest10 value = 0 }
 	set_global_variable = { name = bag_wtp_pth10 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw10 } }
-		set_global_variable = { name = bag_wtp_pw10 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq10 } }
-		set_global_variable = { name = bag_wtp_pwq10 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn11 value = 0 }
 	set_global_variable = { name = bag_wtp_pq11 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest11 value = 0 }
 	set_global_variable = { name = bag_wtp_pth11 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw11 } }
-		set_global_variable = { name = bag_wtp_pw11 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq11 } }
-		set_global_variable = { name = bag_wtp_pwq11 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn12 value = 0 }
 	set_global_variable = { name = bag_wtp_pq12 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest12 value = 0 }
 	set_global_variable = { name = bag_wtp_pth12 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw12 } }
-		set_global_variable = { name = bag_wtp_pw12 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq12 } }
-		set_global_variable = { name = bag_wtp_pwq12 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn13 value = 0 }
 	set_global_variable = { name = bag_wtp_pq13 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest13 value = 0 }
 	set_global_variable = { name = bag_wtp_pth13 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw13 } }
-		set_global_variable = { name = bag_wtp_pw13 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq13 } }
-		set_global_variable = { name = bag_wtp_pwq13 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn14 value = 0 }
 	set_global_variable = { name = bag_wtp_pq14 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest14 value = 0 }
 	set_global_variable = { name = bag_wtp_pth14 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw14 } }
-		set_global_variable = { name = bag_wtp_pw14 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq14 } }
-		set_global_variable = { name = bag_wtp_pwq14 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn15 value = 0 }
 	set_global_variable = { name = bag_wtp_pq15 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest15 value = 0 }
 	set_global_variable = { name = bag_wtp_pth15 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw15 } }
-		set_global_variable = { name = bag_wtp_pw15 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq15 } }
-		set_global_variable = { name = bag_wtp_pwq15 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn16 value = 0 }
 	set_global_variable = { name = bag_wtp_pq16 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest16 value = 0 }
 	set_global_variable = { name = bag_wtp_pth16 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw16 } }
-		set_global_variable = { name = bag_wtp_pw16 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq16 } }
-		set_global_variable = { name = bag_wtp_pwq16 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn17 value = 0 }
 	set_global_variable = { name = bag_wtp_pq17 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest17 value = 0 }
 	set_global_variable = { name = bag_wtp_pth17 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw17 } }
-		set_global_variable = { name = bag_wtp_pw17 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq17 } }
-		set_global_variable = { name = bag_wtp_pwq17 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn18 value = 0 }
 	set_global_variable = { name = bag_wtp_pq18 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest18 value = 0 }
 	set_global_variable = { name = bag_wtp_pth18 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw18 } }
-		set_global_variable = { name = bag_wtp_pw18 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq18 } }
-		set_global_variable = { name = bag_wtp_pwq18 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn19 value = 0 }
 	set_global_variable = { name = bag_wtp_pq19 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest19 value = 0 }
 	set_global_variable = { name = bag_wtp_pth19 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw19 } }
-		set_global_variable = { name = bag_wtp_pw19 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq19 } }
-		set_global_variable = { name = bag_wtp_pwq19 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn20 value = 0 }
 	set_global_variable = { name = bag_wtp_pq20 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest20 value = 0 }
 	set_global_variable = { name = bag_wtp_pth20 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw20 } }
-		set_global_variable = { name = bag_wtp_pw20 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq20 } }
-		set_global_variable = { name = bag_wtp_pwq20 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn21 value = 0 }
 	set_global_variable = { name = bag_wtp_pq21 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest21 value = 0 }
 	set_global_variable = { name = bag_wtp_pth21 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw21 } }
-		set_global_variable = { name = bag_wtp_pw21 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq21 } }
-		set_global_variable = { name = bag_wtp_pwq21 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn22 value = 0 }
 	set_global_variable = { name = bag_wtp_pq22 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest22 value = 0 }
 	set_global_variable = { name = bag_wtp_pth22 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw22 } }
-		set_global_variable = { name = bag_wtp_pw22 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq22 } }
-		set_global_variable = { name = bag_wtp_pwq22 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn23 value = 0 }
 	set_global_variable = { name = bag_wtp_pq23 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest23 value = 0 }
 	set_global_variable = { name = bag_wtp_pth23 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw23 } }
-		set_global_variable = { name = bag_wtp_pw23 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq23 } }
-		set_global_variable = { name = bag_wtp_pwq23 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn24 value = 0 }
 	set_global_variable = { name = bag_wtp_pq24 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest24 value = 0 }
 	set_global_variable = { name = bag_wtp_pth24 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw24 } }
-		set_global_variable = { name = bag_wtp_pw24 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq24 } }
-		set_global_variable = { name = bag_wtp_pwq24 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn25 value = 0 }
 	set_global_variable = { name = bag_wtp_pq25 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest25 value = 0 }
 	set_global_variable = { name = bag_wtp_pth25 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw25 } }
-		set_global_variable = { name = bag_wtp_pw25 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq25 } }
-		set_global_variable = { name = bag_wtp_pwq25 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn26 value = 0 }
 	set_global_variable = { name = bag_wtp_pq26 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest26 value = 0 }
 	set_global_variable = { name = bag_wtp_pth26 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw26 } }
-		set_global_variable = { name = bag_wtp_pw26 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq26 } }
-		set_global_variable = { name = bag_wtp_pwq26 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn27 value = 0 }
 	set_global_variable = { name = bag_wtp_pq27 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest27 value = 0 }
 	set_global_variable = { name = bag_wtp_pth27 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw27 } }
-		set_global_variable = { name = bag_wtp_pw27 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq27 } }
-		set_global_variable = { name = bag_wtp_pwq27 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn28 value = 0 }
 	set_global_variable = { name = bag_wtp_pq28 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest28 value = 0 }
 	set_global_variable = { name = bag_wtp_pth28 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw28 } }
-		set_global_variable = { name = bag_wtp_pw28 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq28 } }
-		set_global_variable = { name = bag_wtp_pwq28 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn29 value = 0 }
 	set_global_variable = { name = bag_wtp_pq29 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest29 value = 0 }
 	set_global_variable = { name = bag_wtp_pth29 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw29 } }
-		set_global_variable = { name = bag_wtp_pw29 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq29 } }
-		set_global_variable = { name = bag_wtp_pwq29 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn30 value = 0 }
 	set_global_variable = { name = bag_wtp_pq30 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest30 value = 0 }
 	set_global_variable = { name = bag_wtp_pth30 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw30 } }
-		set_global_variable = { name = bag_wtp_pw30 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq30 } }
-		set_global_variable = { name = bag_wtp_pwq30 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn31 value = 0 }
 	set_global_variable = { name = bag_wtp_pq31 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest31 value = 0 }
 	set_global_variable = { name = bag_wtp_pth31 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw31 } }
-		set_global_variable = { name = bag_wtp_pw31 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq31 } }
-		set_global_variable = { name = bag_wtp_pwq31 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn32 value = 0 }
 	set_global_variable = { name = bag_wtp_pq32 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest32 value = 0 }
 	set_global_variable = { name = bag_wtp_pth32 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw32 } }
-		set_global_variable = { name = bag_wtp_pw32 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq32 } }
-		set_global_variable = { name = bag_wtp_pwq32 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn33 value = 0 }
 	set_global_variable = { name = bag_wtp_pq33 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest33 value = 0 }
 	set_global_variable = { name = bag_wtp_pth33 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw33 } }
-		set_global_variable = { name = bag_wtp_pw33 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq33 } }
-		set_global_variable = { name = bag_wtp_pwq33 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn34 value = 0 }
 	set_global_variable = { name = bag_wtp_pq34 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest34 value = 0 }
 	set_global_variable = { name = bag_wtp_pth34 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw34 } }
-		set_global_variable = { name = bag_wtp_pw34 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq34 } }
-		set_global_variable = { name = bag_wtp_pwq34 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn35 value = 0 }
 	set_global_variable = { name = bag_wtp_pq35 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest35 value = 0 }
 	set_global_variable = { name = bag_wtp_pth35 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw35 } }
-		set_global_variable = { name = bag_wtp_pw35 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq35 } }
-		set_global_variable = { name = bag_wtp_pwq35 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn36 value = 0 }
 	set_global_variable = { name = bag_wtp_pq36 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest36 value = 0 }
 	set_global_variable = { name = bag_wtp_pth36 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw36 } }
-		set_global_variable = { name = bag_wtp_pw36 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq36 } }
-		set_global_variable = { name = bag_wtp_pwq36 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn37 value = 0 }
 	set_global_variable = { name = bag_wtp_pq37 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest37 value = 0 }
 	set_global_variable = { name = bag_wtp_pth37 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw37 } }
-		set_global_variable = { name = bag_wtp_pw37 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq37 } }
-		set_global_variable = { name = bag_wtp_pwq37 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn38 value = 0 }
 	set_global_variable = { name = bag_wtp_pq38 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest38 value = 0 }
 	set_global_variable = { name = bag_wtp_pth38 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw38 } }
-		set_global_variable = { name = bag_wtp_pw38 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq38 } }
-		set_global_variable = { name = bag_wtp_pwq38 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn39 value = 0 }
 	set_global_variable = { name = bag_wtp_pq39 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest39 value = 0 }
 	set_global_variable = { name = bag_wtp_pth39 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw39 } }
-		set_global_variable = { name = bag_wtp_pw39 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq39 } }
-		set_global_variable = { name = bag_wtp_pwq39 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn40 value = 0 }
 	set_global_variable = { name = bag_wtp_pq40 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest40 value = 0 }
 	set_global_variable = { name = bag_wtp_pth40 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw40 } }
-		set_global_variable = { name = bag_wtp_pw40 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq40 } }
-		set_global_variable = { name = bag_wtp_pwq40 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn41 value = 0 }
 	set_global_variable = { name = bag_wtp_pq41 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest41 value = 0 }
 	set_global_variable = { name = bag_wtp_pth41 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw41 } }
-		set_global_variable = { name = bag_wtp_pw41 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq41 } }
-		set_global_variable = { name = bag_wtp_pwq41 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn42 value = 0 }
 	set_global_variable = { name = bag_wtp_pq42 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest42 value = 0 }
 	set_global_variable = { name = bag_wtp_pth42 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw42 } }
-		set_global_variable = { name = bag_wtp_pw42 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq42 } }
-		set_global_variable = { name = bag_wtp_pwq42 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn43 value = 0 }
 	set_global_variable = { name = bag_wtp_pq43 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest43 value = 0 }
 	set_global_variable = { name = bag_wtp_pth43 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw43 } }
-		set_global_variable = { name = bag_wtp_pw43 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq43 } }
-		set_global_variable = { name = bag_wtp_pwq43 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn44 value = 0 }
 	set_global_variable = { name = bag_wtp_pq44 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest44 value = 0 }
 	set_global_variable = { name = bag_wtp_pth44 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw44 } }
-		set_global_variable = { name = bag_wtp_pw44 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq44 } }
-		set_global_variable = { name = bag_wtp_pwq44 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn45 value = 0 }
 	set_global_variable = { name = bag_wtp_pq45 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest45 value = 0 }
 	set_global_variable = { name = bag_wtp_pth45 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw45 } }
-		set_global_variable = { name = bag_wtp_pw45 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq45 } }
-		set_global_variable = { name = bag_wtp_pwq45 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn46 value = 0 }
 	set_global_variable = { name = bag_wtp_pq46 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest46 value = 0 }
 	set_global_variable = { name = bag_wtp_pth46 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw46 } }
-		set_global_variable = { name = bag_wtp_pw46 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq46 } }
-		set_global_variable = { name = bag_wtp_pwq46 value = 0 } }
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest47 value = 0 }
 	set_global_variable = { name = bag_wtp_pth47 value = 0 }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pw47 } }
-		set_global_variable = { name = bag_wtp_pw47 value = 0 } }
-	if = { limit = { NOT = { has_global_variable = bag_wtp_pwq47 } }
-		set_global_variable = { name = bag_wtp_pwq47 value = 0 } }
 	set_global_variable = { name = bag_wtp_rgiven1 value = 0 }
 	set_global_variable = { name = bag_wtp_rn1 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven2 value = 0 }
@@ -10517,6 +10280,10 @@ bag_wtp_plan_place_rights = {
 	set_global_variable = { name = bag_wtp_rcover value = 0 }
 	bag_wtp_plan_grant_pass = yes
 	set_global_variable = { name = bag_wtp_rband value = 0 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	set_global_variable = { name = bag_wtp_rcover value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 0 }
 	set_global_variable = { name = bag_wtp_ropen value = 1 }
 	set_global_variable = { name = bag_wtp_rcover value = 0 }
 	bag_wtp_plan_grant_pass = yes
@@ -11044,9 +10811,7 @@ bag_wtp_plan_grant_pass = {
 # **`max = 1` is the floor and it is deliberate.** A ground too small to give
 # every good one building still gives every good one building; what gives way
 # then is the cap, not the spread, and the header line says so by showing more
-# goods than rooms. The RGO discount comes off the same number, and so does the
-# player's own weight -- **and the floor is what makes a negative weight safe**:
-# turning a good all the way down leaves it exactly one building and never none.
+# goods than rooms. The RGO discount comes off the same number.
 # Scope: country
 bag_wtp_plan_set_quota = {
 	set_global_variable = { name = bag_wtp_plan_quota value = global_var:bag_wtp_plan_rooms }
@@ -11060,1688 +10825,191 @@ bag_wtp_plan_set_quota = {
 	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq1 add = global_var:bag_wtp_pn1 }
 	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
-	change_global_variable = { name = bag_wtp_pq1 add = global_var:bag_wtp_pwq1 }
 	change_global_variable = { name = bag_wtp_pq1 max = 1 }
 	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq2 add = global_var:bag_wtp_pn2 }
 	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
-	change_global_variable = { name = bag_wtp_pq2 add = global_var:bag_wtp_pwq2 }
 	change_global_variable = { name = bag_wtp_pq2 max = 1 }
 	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq3 add = global_var:bag_wtp_pn3 }
 	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
-	change_global_variable = { name = bag_wtp_pq3 add = global_var:bag_wtp_pwq3 }
 	change_global_variable = { name = bag_wtp_pq3 max = 1 }
 	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq4 add = global_var:bag_wtp_pn4 }
 	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
-	change_global_variable = { name = bag_wtp_pq4 add = global_var:bag_wtp_pwq4 }
 	change_global_variable = { name = bag_wtp_pq4 max = 1 }
 	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq5 add = global_var:bag_wtp_pn5 }
 	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
-	change_global_variable = { name = bag_wtp_pq5 add = global_var:bag_wtp_pwq5 }
 	change_global_variable = { name = bag_wtp_pq5 max = 1 }
 	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq6 add = global_var:bag_wtp_pn6 }
 	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
-	change_global_variable = { name = bag_wtp_pq6 add = global_var:bag_wtp_pwq6 }
 	change_global_variable = { name = bag_wtp_pq6 max = 1 }
 	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq7 add = global_var:bag_wtp_pn7 }
 	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
-	change_global_variable = { name = bag_wtp_pq7 add = global_var:bag_wtp_pwq7 }
 	change_global_variable = { name = bag_wtp_pq7 max = 1 }
 	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq8 add = global_var:bag_wtp_pn8 }
 	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
-	change_global_variable = { name = bag_wtp_pq8 add = global_var:bag_wtp_pwq8 }
 	change_global_variable = { name = bag_wtp_pq8 max = 1 }
 	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq9 add = global_var:bag_wtp_pn9 }
 	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
-	change_global_variable = { name = bag_wtp_pq9 add = global_var:bag_wtp_pwq9 }
 	change_global_variable = { name = bag_wtp_pq9 max = 1 }
 	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq10 add = global_var:bag_wtp_pn10 }
 	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
-	change_global_variable = { name = bag_wtp_pq10 add = global_var:bag_wtp_pwq10 }
 	change_global_variable = { name = bag_wtp_pq10 max = 1 }
 	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq11 add = global_var:bag_wtp_pn11 }
 	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
-	change_global_variable = { name = bag_wtp_pq11 add = global_var:bag_wtp_pwq11 }
 	change_global_variable = { name = bag_wtp_pq11 max = 1 }
 	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq12 add = global_var:bag_wtp_pn12 }
 	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
-	change_global_variable = { name = bag_wtp_pq12 add = global_var:bag_wtp_pwq12 }
 	change_global_variable = { name = bag_wtp_pq12 max = 1 }
 	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq13 add = global_var:bag_wtp_pn13 }
 	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
-	change_global_variable = { name = bag_wtp_pq13 add = global_var:bag_wtp_pwq13 }
 	change_global_variable = { name = bag_wtp_pq13 max = 1 }
 	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq14 add = global_var:bag_wtp_pn14 }
 	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
-	change_global_variable = { name = bag_wtp_pq14 add = global_var:bag_wtp_pwq14 }
 	change_global_variable = { name = bag_wtp_pq14 max = 1 }
 	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq15 add = global_var:bag_wtp_pn15 }
 	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
-	change_global_variable = { name = bag_wtp_pq15 add = global_var:bag_wtp_pwq15 }
 	change_global_variable = { name = bag_wtp_pq15 max = 1 }
 	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq16 add = global_var:bag_wtp_pn16 }
 	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
-	change_global_variable = { name = bag_wtp_pq16 add = global_var:bag_wtp_pwq16 }
 	change_global_variable = { name = bag_wtp_pq16 max = 1 }
 	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq17 add = global_var:bag_wtp_pn17 }
 	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
-	change_global_variable = { name = bag_wtp_pq17 add = global_var:bag_wtp_pwq17 }
 	change_global_variable = { name = bag_wtp_pq17 max = 1 }
 	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq18 add = global_var:bag_wtp_pn18 }
 	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
-	change_global_variable = { name = bag_wtp_pq18 add = global_var:bag_wtp_pwq18 }
 	change_global_variable = { name = bag_wtp_pq18 max = 1 }
 	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq19 add = global_var:bag_wtp_pn19 }
 	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
-	change_global_variable = { name = bag_wtp_pq19 add = global_var:bag_wtp_pwq19 }
 	change_global_variable = { name = bag_wtp_pq19 max = 1 }
 	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq20 add = global_var:bag_wtp_pn20 }
 	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
-	change_global_variable = { name = bag_wtp_pq20 add = global_var:bag_wtp_pwq20 }
 	change_global_variable = { name = bag_wtp_pq20 max = 1 }
 	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq21 add = global_var:bag_wtp_pn21 }
 	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
-	change_global_variable = { name = bag_wtp_pq21 add = global_var:bag_wtp_pwq21 }
 	change_global_variable = { name = bag_wtp_pq21 max = 1 }
 	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq22 add = global_var:bag_wtp_pn22 }
 	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
-	change_global_variable = { name = bag_wtp_pq22 add = global_var:bag_wtp_pwq22 }
 	change_global_variable = { name = bag_wtp_pq22 max = 1 }
 	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq23 add = global_var:bag_wtp_pn23 }
 	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
-	change_global_variable = { name = bag_wtp_pq23 add = global_var:bag_wtp_pwq23 }
 	change_global_variable = { name = bag_wtp_pq23 max = 1 }
 	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq24 add = global_var:bag_wtp_pn24 }
 	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
-	change_global_variable = { name = bag_wtp_pq24 add = global_var:bag_wtp_pwq24 }
 	change_global_variable = { name = bag_wtp_pq24 max = 1 }
 	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq25 add = global_var:bag_wtp_pn25 }
 	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
-	change_global_variable = { name = bag_wtp_pq25 add = global_var:bag_wtp_pwq25 }
 	change_global_variable = { name = bag_wtp_pq25 max = 1 }
 	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq26 add = global_var:bag_wtp_pn26 }
 	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
-	change_global_variable = { name = bag_wtp_pq26 add = global_var:bag_wtp_pwq26 }
 	change_global_variable = { name = bag_wtp_pq26 max = 1 }
 	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq27 add = global_var:bag_wtp_pn27 }
 	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
-	change_global_variable = { name = bag_wtp_pq27 add = global_var:bag_wtp_pwq27 }
 	change_global_variable = { name = bag_wtp_pq27 max = 1 }
 	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq28 add = global_var:bag_wtp_pn28 }
 	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
-	change_global_variable = { name = bag_wtp_pq28 add = global_var:bag_wtp_pwq28 }
 	change_global_variable = { name = bag_wtp_pq28 max = 1 }
 	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq29 add = global_var:bag_wtp_pn29 }
 	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
-	change_global_variable = { name = bag_wtp_pq29 add = global_var:bag_wtp_pwq29 }
 	change_global_variable = { name = bag_wtp_pq29 max = 1 }
 	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq30 add = global_var:bag_wtp_pn30 }
 	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
-	change_global_variable = { name = bag_wtp_pq30 add = global_var:bag_wtp_pwq30 }
 	change_global_variable = { name = bag_wtp_pq30 max = 1 }
 	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq31 add = global_var:bag_wtp_pn31 }
 	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
-	change_global_variable = { name = bag_wtp_pq31 add = global_var:bag_wtp_pwq31 }
 	change_global_variable = { name = bag_wtp_pq31 max = 1 }
 	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq32 add = global_var:bag_wtp_pn32 }
 	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
-	change_global_variable = { name = bag_wtp_pq32 add = global_var:bag_wtp_pwq32 }
 	change_global_variable = { name = bag_wtp_pq32 max = 1 }
 	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq33 add = global_var:bag_wtp_pn33 }
 	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
-	change_global_variable = { name = bag_wtp_pq33 add = global_var:bag_wtp_pwq33 }
 	change_global_variable = { name = bag_wtp_pq33 max = 1 }
 	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq34 add = global_var:bag_wtp_pn34 }
 	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
-	change_global_variable = { name = bag_wtp_pq34 add = global_var:bag_wtp_pwq34 }
 	change_global_variable = { name = bag_wtp_pq34 max = 1 }
 	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq35 add = global_var:bag_wtp_pn35 }
 	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
-	change_global_variable = { name = bag_wtp_pq35 add = global_var:bag_wtp_pwq35 }
 	change_global_variable = { name = bag_wtp_pq35 max = 1 }
 	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq36 add = global_var:bag_wtp_pn36 }
 	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
-	change_global_variable = { name = bag_wtp_pq36 add = global_var:bag_wtp_pwq36 }
 	change_global_variable = { name = bag_wtp_pq36 max = 1 }
 	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq37 add = global_var:bag_wtp_pn37 }
 	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
-	change_global_variable = { name = bag_wtp_pq37 add = global_var:bag_wtp_pwq37 }
 	change_global_variable = { name = bag_wtp_pq37 max = 1 }
 	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq38 add = global_var:bag_wtp_pn38 }
 	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
-	change_global_variable = { name = bag_wtp_pq38 add = global_var:bag_wtp_pwq38 }
 	change_global_variable = { name = bag_wtp_pq38 max = 1 }
 	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq39 add = global_var:bag_wtp_pn39 }
 	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
-	change_global_variable = { name = bag_wtp_pq39 add = global_var:bag_wtp_pwq39 }
 	change_global_variable = { name = bag_wtp_pq39 max = 1 }
 	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq40 add = global_var:bag_wtp_pn40 }
 	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
-	change_global_variable = { name = bag_wtp_pq40 add = global_var:bag_wtp_pwq40 }
 	change_global_variable = { name = bag_wtp_pq40 max = 1 }
 	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq41 add = global_var:bag_wtp_pn41 }
 	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
-	change_global_variable = { name = bag_wtp_pq41 add = global_var:bag_wtp_pwq41 }
 	change_global_variable = { name = bag_wtp_pq41 max = 1 }
 	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq42 add = global_var:bag_wtp_pn42 }
 	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
-	change_global_variable = { name = bag_wtp_pq42 add = global_var:bag_wtp_pwq42 }
 	change_global_variable = { name = bag_wtp_pq42 max = 1 }
 	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq43 add = global_var:bag_wtp_pn43 }
 	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
-	change_global_variable = { name = bag_wtp_pq43 add = global_var:bag_wtp_pwq43 }
 	change_global_variable = { name = bag_wtp_pq43 max = 1 }
 	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq44 add = global_var:bag_wtp_pn44 }
 	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
-	change_global_variable = { name = bag_wtp_pq44 add = global_var:bag_wtp_pwq44 }
 	change_global_variable = { name = bag_wtp_pq44 max = 1 }
 	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq45 add = global_var:bag_wtp_pn45 }
 	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
-	change_global_variable = { name = bag_wtp_pq45 add = global_var:bag_wtp_pwq45 }
 	change_global_variable = { name = bag_wtp_pq45 max = 1 }
 	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq46 add = global_var:bag_wtp_pn46 }
 	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
-	change_global_variable = { name = bag_wtp_pq46 add = global_var:bag_wtp_pwq46 }
 	change_global_variable = { name = bag_wtp_pq46 max = 1 }
 	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq47 add = global_var:bag_wtp_pn47 }
 	change_global_variable = { name = bag_wtp_pq47 subtract = global_var:bag_wtp_nrgo47 }
-	change_global_variable = { name = bag_wtp_pq47 add = global_var:bag_wtp_pwq47 }
 	change_global_variable = { name = bag_wtp_pq47 max = 1 }
-}
-
-# The weight of the ticked good, moved one band up or down.
-#
-# **No re-plan follows a press.** The weight decides what the *next* plan does,
-# exactly as the town/village tick does, and he may want to move three goods
-# before he wants an answer. «Пересчитать» is what makes it true.
-# Scope: country
-bag_wtp_plan_weight_up = {
-	set_global_variable = { name = bag_wtp_pw_step value = 200 }
-	set_global_variable = { name = bag_wtp_pwq_step value = 1 }
-	bag_wtp_plan_weight_apply = yes
-}
-
-# Scope: country
-bag_wtp_plan_weight_down = {
-	set_global_variable = { name = bag_wtp_pw_step value = -200 }
-	set_global_variable = { name = bag_wtp_pwq_step value = -1 }
-	bag_wtp_plan_weight_apply = yes
-}
-
-# Clamped to one whole scale either way: past that a good is simply first or
-# last everywhere, and more of it changes nothing.
-# Scope: country
-bag_wtp_plan_weight_apply = {
-	if = {
-		limit = { var:bag_wtp_good_index = 1 }
-		change_global_variable = { name = bag_wtp_pw1 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw1 > 1000 }
-			set_global_variable = { name = bag_wtp_pw1 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw1 < -1000 }
-			set_global_variable = { name = bag_wtp_pw1 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq1 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq1 > 5 }
-			set_global_variable = { name = bag_wtp_pwq1 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq1 < -5 }
-			set_global_variable = { name = bag_wtp_pwq1 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 2 }
-		change_global_variable = { name = bag_wtp_pw2 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw2 > 1000 }
-			set_global_variable = { name = bag_wtp_pw2 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw2 < -1000 }
-			set_global_variable = { name = bag_wtp_pw2 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq2 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq2 > 5 }
-			set_global_variable = { name = bag_wtp_pwq2 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq2 < -5 }
-			set_global_variable = { name = bag_wtp_pwq2 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 3 }
-		change_global_variable = { name = bag_wtp_pw3 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw3 > 1000 }
-			set_global_variable = { name = bag_wtp_pw3 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw3 < -1000 }
-			set_global_variable = { name = bag_wtp_pw3 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq3 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq3 > 5 }
-			set_global_variable = { name = bag_wtp_pwq3 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq3 < -5 }
-			set_global_variable = { name = bag_wtp_pwq3 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 4 }
-		change_global_variable = { name = bag_wtp_pw4 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw4 > 1000 }
-			set_global_variable = { name = bag_wtp_pw4 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw4 < -1000 }
-			set_global_variable = { name = bag_wtp_pw4 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq4 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq4 > 5 }
-			set_global_variable = { name = bag_wtp_pwq4 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq4 < -5 }
-			set_global_variable = { name = bag_wtp_pwq4 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 5 }
-		change_global_variable = { name = bag_wtp_pw5 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw5 > 1000 }
-			set_global_variable = { name = bag_wtp_pw5 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw5 < -1000 }
-			set_global_variable = { name = bag_wtp_pw5 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq5 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq5 > 5 }
-			set_global_variable = { name = bag_wtp_pwq5 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq5 < -5 }
-			set_global_variable = { name = bag_wtp_pwq5 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 6 }
-		change_global_variable = { name = bag_wtp_pw6 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw6 > 1000 }
-			set_global_variable = { name = bag_wtp_pw6 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw6 < -1000 }
-			set_global_variable = { name = bag_wtp_pw6 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq6 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq6 > 5 }
-			set_global_variable = { name = bag_wtp_pwq6 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq6 < -5 }
-			set_global_variable = { name = bag_wtp_pwq6 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 7 }
-		change_global_variable = { name = bag_wtp_pw7 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw7 > 1000 }
-			set_global_variable = { name = bag_wtp_pw7 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw7 < -1000 }
-			set_global_variable = { name = bag_wtp_pw7 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq7 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq7 > 5 }
-			set_global_variable = { name = bag_wtp_pwq7 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq7 < -5 }
-			set_global_variable = { name = bag_wtp_pwq7 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 8 }
-		change_global_variable = { name = bag_wtp_pw8 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw8 > 1000 }
-			set_global_variable = { name = bag_wtp_pw8 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw8 < -1000 }
-			set_global_variable = { name = bag_wtp_pw8 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq8 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq8 > 5 }
-			set_global_variable = { name = bag_wtp_pwq8 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq8 < -5 }
-			set_global_variable = { name = bag_wtp_pwq8 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 9 }
-		change_global_variable = { name = bag_wtp_pw9 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw9 > 1000 }
-			set_global_variable = { name = bag_wtp_pw9 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw9 < -1000 }
-			set_global_variable = { name = bag_wtp_pw9 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq9 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq9 > 5 }
-			set_global_variable = { name = bag_wtp_pwq9 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq9 < -5 }
-			set_global_variable = { name = bag_wtp_pwq9 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 10 }
-		change_global_variable = { name = bag_wtp_pw10 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw10 > 1000 }
-			set_global_variable = { name = bag_wtp_pw10 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw10 < -1000 }
-			set_global_variable = { name = bag_wtp_pw10 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq10 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq10 > 5 }
-			set_global_variable = { name = bag_wtp_pwq10 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq10 < -5 }
-			set_global_variable = { name = bag_wtp_pwq10 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 11 }
-		change_global_variable = { name = bag_wtp_pw11 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw11 > 1000 }
-			set_global_variable = { name = bag_wtp_pw11 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw11 < -1000 }
-			set_global_variable = { name = bag_wtp_pw11 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq11 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq11 > 5 }
-			set_global_variable = { name = bag_wtp_pwq11 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq11 < -5 }
-			set_global_variable = { name = bag_wtp_pwq11 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 12 }
-		change_global_variable = { name = bag_wtp_pw12 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw12 > 1000 }
-			set_global_variable = { name = bag_wtp_pw12 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw12 < -1000 }
-			set_global_variable = { name = bag_wtp_pw12 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq12 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq12 > 5 }
-			set_global_variable = { name = bag_wtp_pwq12 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq12 < -5 }
-			set_global_variable = { name = bag_wtp_pwq12 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 13 }
-		change_global_variable = { name = bag_wtp_pw13 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw13 > 1000 }
-			set_global_variable = { name = bag_wtp_pw13 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw13 < -1000 }
-			set_global_variable = { name = bag_wtp_pw13 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq13 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq13 > 5 }
-			set_global_variable = { name = bag_wtp_pwq13 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq13 < -5 }
-			set_global_variable = { name = bag_wtp_pwq13 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 14 }
-		change_global_variable = { name = bag_wtp_pw14 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw14 > 1000 }
-			set_global_variable = { name = bag_wtp_pw14 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw14 < -1000 }
-			set_global_variable = { name = bag_wtp_pw14 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq14 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq14 > 5 }
-			set_global_variable = { name = bag_wtp_pwq14 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq14 < -5 }
-			set_global_variable = { name = bag_wtp_pwq14 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 15 }
-		change_global_variable = { name = bag_wtp_pw15 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw15 > 1000 }
-			set_global_variable = { name = bag_wtp_pw15 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw15 < -1000 }
-			set_global_variable = { name = bag_wtp_pw15 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq15 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq15 > 5 }
-			set_global_variable = { name = bag_wtp_pwq15 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq15 < -5 }
-			set_global_variable = { name = bag_wtp_pwq15 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 16 }
-		change_global_variable = { name = bag_wtp_pw16 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw16 > 1000 }
-			set_global_variable = { name = bag_wtp_pw16 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw16 < -1000 }
-			set_global_variable = { name = bag_wtp_pw16 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq16 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq16 > 5 }
-			set_global_variable = { name = bag_wtp_pwq16 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq16 < -5 }
-			set_global_variable = { name = bag_wtp_pwq16 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 17 }
-		change_global_variable = { name = bag_wtp_pw17 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw17 > 1000 }
-			set_global_variable = { name = bag_wtp_pw17 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw17 < -1000 }
-			set_global_variable = { name = bag_wtp_pw17 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq17 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq17 > 5 }
-			set_global_variable = { name = bag_wtp_pwq17 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq17 < -5 }
-			set_global_variable = { name = bag_wtp_pwq17 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 18 }
-		change_global_variable = { name = bag_wtp_pw18 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw18 > 1000 }
-			set_global_variable = { name = bag_wtp_pw18 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw18 < -1000 }
-			set_global_variable = { name = bag_wtp_pw18 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq18 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq18 > 5 }
-			set_global_variable = { name = bag_wtp_pwq18 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq18 < -5 }
-			set_global_variable = { name = bag_wtp_pwq18 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 19 }
-		change_global_variable = { name = bag_wtp_pw19 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw19 > 1000 }
-			set_global_variable = { name = bag_wtp_pw19 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw19 < -1000 }
-			set_global_variable = { name = bag_wtp_pw19 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq19 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq19 > 5 }
-			set_global_variable = { name = bag_wtp_pwq19 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq19 < -5 }
-			set_global_variable = { name = bag_wtp_pwq19 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 20 }
-		change_global_variable = { name = bag_wtp_pw20 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw20 > 1000 }
-			set_global_variable = { name = bag_wtp_pw20 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw20 < -1000 }
-			set_global_variable = { name = bag_wtp_pw20 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq20 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq20 > 5 }
-			set_global_variable = { name = bag_wtp_pwq20 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq20 < -5 }
-			set_global_variable = { name = bag_wtp_pwq20 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 21 }
-		change_global_variable = { name = bag_wtp_pw21 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw21 > 1000 }
-			set_global_variable = { name = bag_wtp_pw21 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw21 < -1000 }
-			set_global_variable = { name = bag_wtp_pw21 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq21 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq21 > 5 }
-			set_global_variable = { name = bag_wtp_pwq21 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq21 < -5 }
-			set_global_variable = { name = bag_wtp_pwq21 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 22 }
-		change_global_variable = { name = bag_wtp_pw22 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw22 > 1000 }
-			set_global_variable = { name = bag_wtp_pw22 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw22 < -1000 }
-			set_global_variable = { name = bag_wtp_pw22 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq22 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq22 > 5 }
-			set_global_variable = { name = bag_wtp_pwq22 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq22 < -5 }
-			set_global_variable = { name = bag_wtp_pwq22 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 23 }
-		change_global_variable = { name = bag_wtp_pw23 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw23 > 1000 }
-			set_global_variable = { name = bag_wtp_pw23 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw23 < -1000 }
-			set_global_variable = { name = bag_wtp_pw23 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq23 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq23 > 5 }
-			set_global_variable = { name = bag_wtp_pwq23 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq23 < -5 }
-			set_global_variable = { name = bag_wtp_pwq23 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 24 }
-		change_global_variable = { name = bag_wtp_pw24 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw24 > 1000 }
-			set_global_variable = { name = bag_wtp_pw24 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw24 < -1000 }
-			set_global_variable = { name = bag_wtp_pw24 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq24 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq24 > 5 }
-			set_global_variable = { name = bag_wtp_pwq24 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq24 < -5 }
-			set_global_variable = { name = bag_wtp_pwq24 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 25 }
-		change_global_variable = { name = bag_wtp_pw25 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw25 > 1000 }
-			set_global_variable = { name = bag_wtp_pw25 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw25 < -1000 }
-			set_global_variable = { name = bag_wtp_pw25 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq25 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq25 > 5 }
-			set_global_variable = { name = bag_wtp_pwq25 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq25 < -5 }
-			set_global_variable = { name = bag_wtp_pwq25 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 26 }
-		change_global_variable = { name = bag_wtp_pw26 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw26 > 1000 }
-			set_global_variable = { name = bag_wtp_pw26 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw26 < -1000 }
-			set_global_variable = { name = bag_wtp_pw26 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq26 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq26 > 5 }
-			set_global_variable = { name = bag_wtp_pwq26 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq26 < -5 }
-			set_global_variable = { name = bag_wtp_pwq26 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 27 }
-		change_global_variable = { name = bag_wtp_pw27 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw27 > 1000 }
-			set_global_variable = { name = bag_wtp_pw27 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw27 < -1000 }
-			set_global_variable = { name = bag_wtp_pw27 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq27 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq27 > 5 }
-			set_global_variable = { name = bag_wtp_pwq27 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq27 < -5 }
-			set_global_variable = { name = bag_wtp_pwq27 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 28 }
-		change_global_variable = { name = bag_wtp_pw28 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw28 > 1000 }
-			set_global_variable = { name = bag_wtp_pw28 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw28 < -1000 }
-			set_global_variable = { name = bag_wtp_pw28 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq28 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq28 > 5 }
-			set_global_variable = { name = bag_wtp_pwq28 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq28 < -5 }
-			set_global_variable = { name = bag_wtp_pwq28 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 29 }
-		change_global_variable = { name = bag_wtp_pw29 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw29 > 1000 }
-			set_global_variable = { name = bag_wtp_pw29 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw29 < -1000 }
-			set_global_variable = { name = bag_wtp_pw29 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq29 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq29 > 5 }
-			set_global_variable = { name = bag_wtp_pwq29 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq29 < -5 }
-			set_global_variable = { name = bag_wtp_pwq29 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 30 }
-		change_global_variable = { name = bag_wtp_pw30 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw30 > 1000 }
-			set_global_variable = { name = bag_wtp_pw30 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw30 < -1000 }
-			set_global_variable = { name = bag_wtp_pw30 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq30 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq30 > 5 }
-			set_global_variable = { name = bag_wtp_pwq30 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq30 < -5 }
-			set_global_variable = { name = bag_wtp_pwq30 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 31 }
-		change_global_variable = { name = bag_wtp_pw31 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw31 > 1000 }
-			set_global_variable = { name = bag_wtp_pw31 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw31 < -1000 }
-			set_global_variable = { name = bag_wtp_pw31 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq31 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq31 > 5 }
-			set_global_variable = { name = bag_wtp_pwq31 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq31 < -5 }
-			set_global_variable = { name = bag_wtp_pwq31 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 32 }
-		change_global_variable = { name = bag_wtp_pw32 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw32 > 1000 }
-			set_global_variable = { name = bag_wtp_pw32 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw32 < -1000 }
-			set_global_variable = { name = bag_wtp_pw32 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq32 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq32 > 5 }
-			set_global_variable = { name = bag_wtp_pwq32 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq32 < -5 }
-			set_global_variable = { name = bag_wtp_pwq32 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 33 }
-		change_global_variable = { name = bag_wtp_pw33 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw33 > 1000 }
-			set_global_variable = { name = bag_wtp_pw33 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw33 < -1000 }
-			set_global_variable = { name = bag_wtp_pw33 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq33 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq33 > 5 }
-			set_global_variable = { name = bag_wtp_pwq33 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq33 < -5 }
-			set_global_variable = { name = bag_wtp_pwq33 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 34 }
-		change_global_variable = { name = bag_wtp_pw34 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw34 > 1000 }
-			set_global_variable = { name = bag_wtp_pw34 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw34 < -1000 }
-			set_global_variable = { name = bag_wtp_pw34 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq34 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq34 > 5 }
-			set_global_variable = { name = bag_wtp_pwq34 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq34 < -5 }
-			set_global_variable = { name = bag_wtp_pwq34 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 35 }
-		change_global_variable = { name = bag_wtp_pw35 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw35 > 1000 }
-			set_global_variable = { name = bag_wtp_pw35 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw35 < -1000 }
-			set_global_variable = { name = bag_wtp_pw35 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq35 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq35 > 5 }
-			set_global_variable = { name = bag_wtp_pwq35 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq35 < -5 }
-			set_global_variable = { name = bag_wtp_pwq35 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 36 }
-		change_global_variable = { name = bag_wtp_pw36 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw36 > 1000 }
-			set_global_variable = { name = bag_wtp_pw36 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw36 < -1000 }
-			set_global_variable = { name = bag_wtp_pw36 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq36 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq36 > 5 }
-			set_global_variable = { name = bag_wtp_pwq36 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq36 < -5 }
-			set_global_variable = { name = bag_wtp_pwq36 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 37 }
-		change_global_variable = { name = bag_wtp_pw37 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw37 > 1000 }
-			set_global_variable = { name = bag_wtp_pw37 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw37 < -1000 }
-			set_global_variable = { name = bag_wtp_pw37 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq37 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq37 > 5 }
-			set_global_variable = { name = bag_wtp_pwq37 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq37 < -5 }
-			set_global_variable = { name = bag_wtp_pwq37 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 38 }
-		change_global_variable = { name = bag_wtp_pw38 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw38 > 1000 }
-			set_global_variable = { name = bag_wtp_pw38 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw38 < -1000 }
-			set_global_variable = { name = bag_wtp_pw38 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq38 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq38 > 5 }
-			set_global_variable = { name = bag_wtp_pwq38 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq38 < -5 }
-			set_global_variable = { name = bag_wtp_pwq38 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 39 }
-		change_global_variable = { name = bag_wtp_pw39 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw39 > 1000 }
-			set_global_variable = { name = bag_wtp_pw39 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw39 < -1000 }
-			set_global_variable = { name = bag_wtp_pw39 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq39 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq39 > 5 }
-			set_global_variable = { name = bag_wtp_pwq39 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq39 < -5 }
-			set_global_variable = { name = bag_wtp_pwq39 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 40 }
-		change_global_variable = { name = bag_wtp_pw40 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw40 > 1000 }
-			set_global_variable = { name = bag_wtp_pw40 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw40 < -1000 }
-			set_global_variable = { name = bag_wtp_pw40 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq40 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq40 > 5 }
-			set_global_variable = { name = bag_wtp_pwq40 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq40 < -5 }
-			set_global_variable = { name = bag_wtp_pwq40 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 41 }
-		change_global_variable = { name = bag_wtp_pw41 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw41 > 1000 }
-			set_global_variable = { name = bag_wtp_pw41 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw41 < -1000 }
-			set_global_variable = { name = bag_wtp_pw41 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq41 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq41 > 5 }
-			set_global_variable = { name = bag_wtp_pwq41 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq41 < -5 }
-			set_global_variable = { name = bag_wtp_pwq41 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 42 }
-		change_global_variable = { name = bag_wtp_pw42 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw42 > 1000 }
-			set_global_variable = { name = bag_wtp_pw42 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw42 < -1000 }
-			set_global_variable = { name = bag_wtp_pw42 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq42 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq42 > 5 }
-			set_global_variable = { name = bag_wtp_pwq42 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq42 < -5 }
-			set_global_variable = { name = bag_wtp_pwq42 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 43 }
-		change_global_variable = { name = bag_wtp_pw43 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw43 > 1000 }
-			set_global_variable = { name = bag_wtp_pw43 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw43 < -1000 }
-			set_global_variable = { name = bag_wtp_pw43 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq43 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq43 > 5 }
-			set_global_variable = { name = bag_wtp_pwq43 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq43 < -5 }
-			set_global_variable = { name = bag_wtp_pwq43 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 44 }
-		change_global_variable = { name = bag_wtp_pw44 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw44 > 1000 }
-			set_global_variable = { name = bag_wtp_pw44 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw44 < -1000 }
-			set_global_variable = { name = bag_wtp_pw44 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq44 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq44 > 5 }
-			set_global_variable = { name = bag_wtp_pwq44 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq44 < -5 }
-			set_global_variable = { name = bag_wtp_pwq44 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 45 }
-		change_global_variable = { name = bag_wtp_pw45 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw45 > 1000 }
-			set_global_variable = { name = bag_wtp_pw45 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw45 < -1000 }
-			set_global_variable = { name = bag_wtp_pw45 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq45 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq45 > 5 }
-			set_global_variable = { name = bag_wtp_pwq45 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq45 < -5 }
-			set_global_variable = { name = bag_wtp_pwq45 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 46 }
-		change_global_variable = { name = bag_wtp_pw46 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw46 > 1000 }
-			set_global_variable = { name = bag_wtp_pw46 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw46 < -1000 }
-			set_global_variable = { name = bag_wtp_pw46 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq46 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq46 > 5 }
-			set_global_variable = { name = bag_wtp_pwq46 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq46 < -5 }
-			set_global_variable = { name = bag_wtp_pwq46 value = -5 }
-		}
-	}
-	if = {
-		limit = { var:bag_wtp_good_index = 47 }
-		change_global_variable = { name = bag_wtp_pw47 add = global_var:bag_wtp_pw_step }
-		if = {
-			limit = { global_var:bag_wtp_pw47 > 1000 }
-			set_global_variable = { name = bag_wtp_pw47 value = 1000 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pw47 < -1000 }
-			set_global_variable = { name = bag_wtp_pw47 value = -1000 }
-		}
-		# **And the same step in buildings.** A weight that only moved the good
-		# up a band would be no use where the quota is what holds it: on
-		# Westphalia iron's quota is **1**, because the ground already digs iron
-		# twice, and no amount of priority gets it a second smelter. One step is
-		# one band and one more building -- the two things that can hold a good
-		# back, moved together.
-		change_global_variable = { name = bag_wtp_pwq47 add = global_var:bag_wtp_pwq_step }
-		if = {
-			limit = { global_var:bag_wtp_pwq47 > 5 }
-			set_global_variable = { name = bag_wtp_pwq47 value = 5 }
-		}
-		if = {
-			limit = { global_var:bag_wtp_pwq47 < -5 }
-			set_global_variable = { name = bag_wtp_pwq47 value = -5 }
-		}
-	}
-	bag_wtp_plan_weight_show = yes
-}
-
-# What the buttons print on themselves. A variable and not a script value with
-# `if`s inside it: that shape reads zero in silence
-# (`docs/pitfalls/diagnosis.md`), and a knob whose number does not move is
-# indistinguishable from a knob that does nothing.
-# Scope: country
-bag_wtp_plan_weight_show = {
-	set_variable = { name = bag_wtp_pw_shown value = 0 }
-	if = { limit = { var:bag_wtp_good_index = 1 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw1 } }
-	if = { limit = { var:bag_wtp_good_index = 2 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw2 } }
-	if = { limit = { var:bag_wtp_good_index = 3 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw3 } }
-	if = { limit = { var:bag_wtp_good_index = 4 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw4 } }
-	if = { limit = { var:bag_wtp_good_index = 5 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw5 } }
-	if = { limit = { var:bag_wtp_good_index = 6 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw6 } }
-	if = { limit = { var:bag_wtp_good_index = 7 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw7 } }
-	if = { limit = { var:bag_wtp_good_index = 8 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw8 } }
-	if = { limit = { var:bag_wtp_good_index = 9 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw9 } }
-	if = { limit = { var:bag_wtp_good_index = 10 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw10 } }
-	if = { limit = { var:bag_wtp_good_index = 11 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw11 } }
-	if = { limit = { var:bag_wtp_good_index = 12 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw12 } }
-	if = { limit = { var:bag_wtp_good_index = 13 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw13 } }
-	if = { limit = { var:bag_wtp_good_index = 14 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw14 } }
-	if = { limit = { var:bag_wtp_good_index = 15 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw15 } }
-	if = { limit = { var:bag_wtp_good_index = 16 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw16 } }
-	if = { limit = { var:bag_wtp_good_index = 17 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw17 } }
-	if = { limit = { var:bag_wtp_good_index = 18 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw18 } }
-	if = { limit = { var:bag_wtp_good_index = 19 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw19 } }
-	if = { limit = { var:bag_wtp_good_index = 20 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw20 } }
-	if = { limit = { var:bag_wtp_good_index = 21 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw21 } }
-	if = { limit = { var:bag_wtp_good_index = 22 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw22 } }
-	if = { limit = { var:bag_wtp_good_index = 23 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw23 } }
-	if = { limit = { var:bag_wtp_good_index = 24 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw24 } }
-	if = { limit = { var:bag_wtp_good_index = 25 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw25 } }
-	if = { limit = { var:bag_wtp_good_index = 26 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw26 } }
-	if = { limit = { var:bag_wtp_good_index = 27 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw27 } }
-	if = { limit = { var:bag_wtp_good_index = 28 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw28 } }
-	if = { limit = { var:bag_wtp_good_index = 29 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw29 } }
-	if = { limit = { var:bag_wtp_good_index = 30 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw30 } }
-	if = { limit = { var:bag_wtp_good_index = 31 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw31 } }
-	if = { limit = { var:bag_wtp_good_index = 32 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw32 } }
-	if = { limit = { var:bag_wtp_good_index = 33 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw33 } }
-	if = { limit = { var:bag_wtp_good_index = 34 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw34 } }
-	if = { limit = { var:bag_wtp_good_index = 35 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw35 } }
-	if = { limit = { var:bag_wtp_good_index = 36 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw36 } }
-	if = { limit = { var:bag_wtp_good_index = 37 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw37 } }
-	if = { limit = { var:bag_wtp_good_index = 38 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw38 } }
-	if = { limit = { var:bag_wtp_good_index = 39 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw39 } }
-	if = { limit = { var:bag_wtp_good_index = 40 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw40 } }
-	if = { limit = { var:bag_wtp_good_index = 41 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw41 } }
-	if = { limit = { var:bag_wtp_good_index = 42 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw42 } }
-	if = { limit = { var:bag_wtp_good_index = 43 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw43 } }
-	if = { limit = { var:bag_wtp_good_index = 44 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw44 } }
-	if = { limit = { var:bag_wtp_good_index = 45 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw45 } }
-	if = { limit = { var:bag_wtp_good_index = 46 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw46 } }
-	if = { limit = { var:bag_wtp_good_index = 47 } set_variable = { name = bag_wtp_pw_shown value = global_var:bag_wtp_pw47 } }
-}
-
-# Scope: country
-bag_wtp_plan_weight_clear = {
-	set_global_variable = { name = bag_wtp_pw1 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq1 value = 0 }
-	set_global_variable = { name = bag_wtp_pw2 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq2 value = 0 }
-	set_global_variable = { name = bag_wtp_pw3 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq3 value = 0 }
-	set_global_variable = { name = bag_wtp_pw4 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq4 value = 0 }
-	set_global_variable = { name = bag_wtp_pw5 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq5 value = 0 }
-	set_global_variable = { name = bag_wtp_pw6 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq6 value = 0 }
-	set_global_variable = { name = bag_wtp_pw7 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq7 value = 0 }
-	set_global_variable = { name = bag_wtp_pw8 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq8 value = 0 }
-	set_global_variable = { name = bag_wtp_pw9 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq9 value = 0 }
-	set_global_variable = { name = bag_wtp_pw10 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq10 value = 0 }
-	set_global_variable = { name = bag_wtp_pw11 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq11 value = 0 }
-	set_global_variable = { name = bag_wtp_pw12 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq12 value = 0 }
-	set_global_variable = { name = bag_wtp_pw13 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq13 value = 0 }
-	set_global_variable = { name = bag_wtp_pw14 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq14 value = 0 }
-	set_global_variable = { name = bag_wtp_pw15 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq15 value = 0 }
-	set_global_variable = { name = bag_wtp_pw16 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq16 value = 0 }
-	set_global_variable = { name = bag_wtp_pw17 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq17 value = 0 }
-	set_global_variable = { name = bag_wtp_pw18 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq18 value = 0 }
-	set_global_variable = { name = bag_wtp_pw19 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq19 value = 0 }
-	set_global_variable = { name = bag_wtp_pw20 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq20 value = 0 }
-	set_global_variable = { name = bag_wtp_pw21 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq21 value = 0 }
-	set_global_variable = { name = bag_wtp_pw22 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq22 value = 0 }
-	set_global_variable = { name = bag_wtp_pw23 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq23 value = 0 }
-	set_global_variable = { name = bag_wtp_pw24 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq24 value = 0 }
-	set_global_variable = { name = bag_wtp_pw25 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq25 value = 0 }
-	set_global_variable = { name = bag_wtp_pw26 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq26 value = 0 }
-	set_global_variable = { name = bag_wtp_pw27 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq27 value = 0 }
-	set_global_variable = { name = bag_wtp_pw28 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq28 value = 0 }
-	set_global_variable = { name = bag_wtp_pw29 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq29 value = 0 }
-	set_global_variable = { name = bag_wtp_pw30 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq30 value = 0 }
-	set_global_variable = { name = bag_wtp_pw31 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq31 value = 0 }
-	set_global_variable = { name = bag_wtp_pw32 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq32 value = 0 }
-	set_global_variable = { name = bag_wtp_pw33 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq33 value = 0 }
-	set_global_variable = { name = bag_wtp_pw34 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq34 value = 0 }
-	set_global_variable = { name = bag_wtp_pw35 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq35 value = 0 }
-	set_global_variable = { name = bag_wtp_pw36 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq36 value = 0 }
-	set_global_variable = { name = bag_wtp_pw37 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq37 value = 0 }
-	set_global_variable = { name = bag_wtp_pw38 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq38 value = 0 }
-	set_global_variable = { name = bag_wtp_pw39 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq39 value = 0 }
-	set_global_variable = { name = bag_wtp_pw40 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq40 value = 0 }
-	set_global_variable = { name = bag_wtp_pw41 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq41 value = 0 }
-	set_global_variable = { name = bag_wtp_pw42 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq42 value = 0 }
-	set_global_variable = { name = bag_wtp_pw43 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq43 value = 0 }
-	set_global_variable = { name = bag_wtp_pw44 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq44 value = 0 }
-	set_global_variable = { name = bag_wtp_pw45 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq45 value = 0 }
-	set_global_variable = { name = bag_wtp_pw46 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq46 value = 0 }
-	set_global_variable = { name = bag_wtp_pw47 value = 0 }
-	set_global_variable = { name = bag_wtp_pwq47 value = 0 }
-	bag_wtp_plan_weight_show = yes
 }
 
 # What a good has to reach to be placed in this pass, one global per good.
@@ -12807,192 +11075,98 @@ bag_wtp_plan_th_absolute = {
 # Scope: country
 bag_wtp_plan_th_relative = {
 	set_global_variable = { name = bag_wtp_pth1 value = global_var:bag_wtp_pbest1 }
-	change_global_variable = { name = bag_wtp_pth1 add = global_var:bag_wtp_pw1 }
-	change_global_variable = { name = bag_wtp_pth1 max = 0 }
 	change_global_variable = { name = bag_wtp_pth1 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth2 value = global_var:bag_wtp_pbest2 }
-	change_global_variable = { name = bag_wtp_pth2 add = global_var:bag_wtp_pw2 }
-	change_global_variable = { name = bag_wtp_pth2 max = 0 }
 	change_global_variable = { name = bag_wtp_pth2 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth3 value = global_var:bag_wtp_pbest3 }
-	change_global_variable = { name = bag_wtp_pth3 add = global_var:bag_wtp_pw3 }
-	change_global_variable = { name = bag_wtp_pth3 max = 0 }
 	change_global_variable = { name = bag_wtp_pth3 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth4 value = global_var:bag_wtp_pbest4 }
-	change_global_variable = { name = bag_wtp_pth4 add = global_var:bag_wtp_pw4 }
-	change_global_variable = { name = bag_wtp_pth4 max = 0 }
 	change_global_variable = { name = bag_wtp_pth4 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth5 value = global_var:bag_wtp_pbest5 }
-	change_global_variable = { name = bag_wtp_pth5 add = global_var:bag_wtp_pw5 }
-	change_global_variable = { name = bag_wtp_pth5 max = 0 }
 	change_global_variable = { name = bag_wtp_pth5 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth6 value = global_var:bag_wtp_pbest6 }
-	change_global_variable = { name = bag_wtp_pth6 add = global_var:bag_wtp_pw6 }
-	change_global_variable = { name = bag_wtp_pth6 max = 0 }
 	change_global_variable = { name = bag_wtp_pth6 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth7 value = global_var:bag_wtp_pbest7 }
-	change_global_variable = { name = bag_wtp_pth7 add = global_var:bag_wtp_pw7 }
-	change_global_variable = { name = bag_wtp_pth7 max = 0 }
 	change_global_variable = { name = bag_wtp_pth7 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth8 value = global_var:bag_wtp_pbest8 }
-	change_global_variable = { name = bag_wtp_pth8 add = global_var:bag_wtp_pw8 }
-	change_global_variable = { name = bag_wtp_pth8 max = 0 }
 	change_global_variable = { name = bag_wtp_pth8 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth9 value = global_var:bag_wtp_pbest9 }
-	change_global_variable = { name = bag_wtp_pth9 add = global_var:bag_wtp_pw9 }
-	change_global_variable = { name = bag_wtp_pth9 max = 0 }
 	change_global_variable = { name = bag_wtp_pth9 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth10 value = global_var:bag_wtp_pbest10 }
-	change_global_variable = { name = bag_wtp_pth10 add = global_var:bag_wtp_pw10 }
-	change_global_variable = { name = bag_wtp_pth10 max = 0 }
 	change_global_variable = { name = bag_wtp_pth10 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth11 value = global_var:bag_wtp_pbest11 }
-	change_global_variable = { name = bag_wtp_pth11 add = global_var:bag_wtp_pw11 }
-	change_global_variable = { name = bag_wtp_pth11 max = 0 }
 	change_global_variable = { name = bag_wtp_pth11 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth12 value = global_var:bag_wtp_pbest12 }
-	change_global_variable = { name = bag_wtp_pth12 add = global_var:bag_wtp_pw12 }
-	change_global_variable = { name = bag_wtp_pth12 max = 0 }
 	change_global_variable = { name = bag_wtp_pth12 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth13 value = global_var:bag_wtp_pbest13 }
-	change_global_variable = { name = bag_wtp_pth13 add = global_var:bag_wtp_pw13 }
-	change_global_variable = { name = bag_wtp_pth13 max = 0 }
 	change_global_variable = { name = bag_wtp_pth13 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth14 value = global_var:bag_wtp_pbest14 }
-	change_global_variable = { name = bag_wtp_pth14 add = global_var:bag_wtp_pw14 }
-	change_global_variable = { name = bag_wtp_pth14 max = 0 }
 	change_global_variable = { name = bag_wtp_pth14 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth15 value = global_var:bag_wtp_pbest15 }
-	change_global_variable = { name = bag_wtp_pth15 add = global_var:bag_wtp_pw15 }
-	change_global_variable = { name = bag_wtp_pth15 max = 0 }
 	change_global_variable = { name = bag_wtp_pth15 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth16 value = global_var:bag_wtp_pbest16 }
-	change_global_variable = { name = bag_wtp_pth16 add = global_var:bag_wtp_pw16 }
-	change_global_variable = { name = bag_wtp_pth16 max = 0 }
 	change_global_variable = { name = bag_wtp_pth16 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth17 value = global_var:bag_wtp_pbest17 }
-	change_global_variable = { name = bag_wtp_pth17 add = global_var:bag_wtp_pw17 }
-	change_global_variable = { name = bag_wtp_pth17 max = 0 }
 	change_global_variable = { name = bag_wtp_pth17 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth18 value = global_var:bag_wtp_pbest18 }
-	change_global_variable = { name = bag_wtp_pth18 add = global_var:bag_wtp_pw18 }
-	change_global_variable = { name = bag_wtp_pth18 max = 0 }
 	change_global_variable = { name = bag_wtp_pth18 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth19 value = global_var:bag_wtp_pbest19 }
-	change_global_variable = { name = bag_wtp_pth19 add = global_var:bag_wtp_pw19 }
-	change_global_variable = { name = bag_wtp_pth19 max = 0 }
 	change_global_variable = { name = bag_wtp_pth19 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth20 value = global_var:bag_wtp_pbest20 }
-	change_global_variable = { name = bag_wtp_pth20 add = global_var:bag_wtp_pw20 }
-	change_global_variable = { name = bag_wtp_pth20 max = 0 }
 	change_global_variable = { name = bag_wtp_pth20 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth21 value = global_var:bag_wtp_pbest21 }
-	change_global_variable = { name = bag_wtp_pth21 add = global_var:bag_wtp_pw21 }
-	change_global_variable = { name = bag_wtp_pth21 max = 0 }
 	change_global_variable = { name = bag_wtp_pth21 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth22 value = global_var:bag_wtp_pbest22 }
-	change_global_variable = { name = bag_wtp_pth22 add = global_var:bag_wtp_pw22 }
-	change_global_variable = { name = bag_wtp_pth22 max = 0 }
 	change_global_variable = { name = bag_wtp_pth22 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth23 value = global_var:bag_wtp_pbest23 }
-	change_global_variable = { name = bag_wtp_pth23 add = global_var:bag_wtp_pw23 }
-	change_global_variable = { name = bag_wtp_pth23 max = 0 }
 	change_global_variable = { name = bag_wtp_pth23 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth24 value = global_var:bag_wtp_pbest24 }
-	change_global_variable = { name = bag_wtp_pth24 add = global_var:bag_wtp_pw24 }
-	change_global_variable = { name = bag_wtp_pth24 max = 0 }
 	change_global_variable = { name = bag_wtp_pth24 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth25 value = global_var:bag_wtp_pbest25 }
-	change_global_variable = { name = bag_wtp_pth25 add = global_var:bag_wtp_pw25 }
-	change_global_variable = { name = bag_wtp_pth25 max = 0 }
 	change_global_variable = { name = bag_wtp_pth25 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth26 value = global_var:bag_wtp_pbest26 }
-	change_global_variable = { name = bag_wtp_pth26 add = global_var:bag_wtp_pw26 }
-	change_global_variable = { name = bag_wtp_pth26 max = 0 }
 	change_global_variable = { name = bag_wtp_pth26 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth27 value = global_var:bag_wtp_pbest27 }
-	change_global_variable = { name = bag_wtp_pth27 add = global_var:bag_wtp_pw27 }
-	change_global_variable = { name = bag_wtp_pth27 max = 0 }
 	change_global_variable = { name = bag_wtp_pth27 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth28 value = global_var:bag_wtp_pbest28 }
-	change_global_variable = { name = bag_wtp_pth28 add = global_var:bag_wtp_pw28 }
-	change_global_variable = { name = bag_wtp_pth28 max = 0 }
 	change_global_variable = { name = bag_wtp_pth28 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth29 value = global_var:bag_wtp_pbest29 }
-	change_global_variable = { name = bag_wtp_pth29 add = global_var:bag_wtp_pw29 }
-	change_global_variable = { name = bag_wtp_pth29 max = 0 }
 	change_global_variable = { name = bag_wtp_pth29 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth30 value = global_var:bag_wtp_pbest30 }
-	change_global_variable = { name = bag_wtp_pth30 add = global_var:bag_wtp_pw30 }
-	change_global_variable = { name = bag_wtp_pth30 max = 0 }
 	change_global_variable = { name = bag_wtp_pth30 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth31 value = global_var:bag_wtp_pbest31 }
-	change_global_variable = { name = bag_wtp_pth31 add = global_var:bag_wtp_pw31 }
-	change_global_variable = { name = bag_wtp_pth31 max = 0 }
 	change_global_variable = { name = bag_wtp_pth31 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth32 value = global_var:bag_wtp_pbest32 }
-	change_global_variable = { name = bag_wtp_pth32 add = global_var:bag_wtp_pw32 }
-	change_global_variable = { name = bag_wtp_pth32 max = 0 }
 	change_global_variable = { name = bag_wtp_pth32 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth33 value = global_var:bag_wtp_pbest33 }
-	change_global_variable = { name = bag_wtp_pth33 add = global_var:bag_wtp_pw33 }
-	change_global_variable = { name = bag_wtp_pth33 max = 0 }
 	change_global_variable = { name = bag_wtp_pth33 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth34 value = global_var:bag_wtp_pbest34 }
-	change_global_variable = { name = bag_wtp_pth34 add = global_var:bag_wtp_pw34 }
-	change_global_variable = { name = bag_wtp_pth34 max = 0 }
 	change_global_variable = { name = bag_wtp_pth34 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth35 value = global_var:bag_wtp_pbest35 }
-	change_global_variable = { name = bag_wtp_pth35 add = global_var:bag_wtp_pw35 }
-	change_global_variable = { name = bag_wtp_pth35 max = 0 }
 	change_global_variable = { name = bag_wtp_pth35 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth36 value = global_var:bag_wtp_pbest36 }
-	change_global_variable = { name = bag_wtp_pth36 add = global_var:bag_wtp_pw36 }
-	change_global_variable = { name = bag_wtp_pth36 max = 0 }
 	change_global_variable = { name = bag_wtp_pth36 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth37 value = global_var:bag_wtp_pbest37 }
-	change_global_variable = { name = bag_wtp_pth37 add = global_var:bag_wtp_pw37 }
-	change_global_variable = { name = bag_wtp_pth37 max = 0 }
 	change_global_variable = { name = bag_wtp_pth37 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth38 value = global_var:bag_wtp_pbest38 }
-	change_global_variable = { name = bag_wtp_pth38 add = global_var:bag_wtp_pw38 }
-	change_global_variable = { name = bag_wtp_pth38 max = 0 }
 	change_global_variable = { name = bag_wtp_pth38 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth39 value = global_var:bag_wtp_pbest39 }
-	change_global_variable = { name = bag_wtp_pth39 add = global_var:bag_wtp_pw39 }
-	change_global_variable = { name = bag_wtp_pth39 max = 0 }
 	change_global_variable = { name = bag_wtp_pth39 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth40 value = global_var:bag_wtp_pbest40 }
-	change_global_variable = { name = bag_wtp_pth40 add = global_var:bag_wtp_pw40 }
-	change_global_variable = { name = bag_wtp_pth40 max = 0 }
 	change_global_variable = { name = bag_wtp_pth40 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth41 value = global_var:bag_wtp_pbest41 }
-	change_global_variable = { name = bag_wtp_pth41 add = global_var:bag_wtp_pw41 }
-	change_global_variable = { name = bag_wtp_pth41 max = 0 }
 	change_global_variable = { name = bag_wtp_pth41 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth42 value = global_var:bag_wtp_pbest42 }
-	change_global_variable = { name = bag_wtp_pth42 add = global_var:bag_wtp_pw42 }
-	change_global_variable = { name = bag_wtp_pth42 max = 0 }
 	change_global_variable = { name = bag_wtp_pth42 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth43 value = global_var:bag_wtp_pbest43 }
-	change_global_variable = { name = bag_wtp_pth43 add = global_var:bag_wtp_pw43 }
-	change_global_variable = { name = bag_wtp_pth43 max = 0 }
 	change_global_variable = { name = bag_wtp_pth43 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth44 value = global_var:bag_wtp_pbest44 }
-	change_global_variable = { name = bag_wtp_pth44 add = global_var:bag_wtp_pw44 }
-	change_global_variable = { name = bag_wtp_pth44 max = 0 }
 	change_global_variable = { name = bag_wtp_pth44 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth45 value = global_var:bag_wtp_pbest45 }
-	change_global_variable = { name = bag_wtp_pth45 add = global_var:bag_wtp_pw45 }
-	change_global_variable = { name = bag_wtp_pth45 max = 0 }
 	change_global_variable = { name = bag_wtp_pth45 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth46 value = global_var:bag_wtp_pbest46 }
-	change_global_variable = { name = bag_wtp_pth46 add = global_var:bag_wtp_pw46 }
-	change_global_variable = { name = bag_wtp_pth46 max = 0 }
 	change_global_variable = { name = bag_wtp_pth46 multiply = bag_wtp_plan_bandf_value }
 	set_global_variable = { name = bag_wtp_pth47 value = global_var:bag_wtp_pbest47 }
-	change_global_variable = { name = bag_wtp_pth47 add = global_var:bag_wtp_pw47 }
-	change_global_variable = { name = bag_wtp_pth47 max = 0 }
 	change_global_variable = { name = bag_wtp_pth47 multiply = bag_wtp_plan_bandf_value }
 }
 

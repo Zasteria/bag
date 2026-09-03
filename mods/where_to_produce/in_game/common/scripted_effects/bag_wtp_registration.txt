@@ -151,33 +151,74 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
-	# **The hand regulator: one weight a good, one band a press.** The owner asked
-	# for it twice, and the second time gave the reason: the formula's answer is
-	# an optimum for the objective it was given, and his taste is a different
-	# objective. «Я нахожу товар и выкручиваю ему некое "значение важности"…»
+	# **The plan editor, and its picker is its own.** The owner, 2026-09-03:
+	# «выбор товара для регуляции не должны быть в том же выборе товара для поиска
+	# лучшей локации» -- ticking a good to edit it used to drop the ranking's
+	# answer, because they were one list.
 	#
-	# It acts on whichever good is ticked in the goods list, so it needs no list
-	# of its own; the weight is a global and outlives the plan, the save and the
-	# ground. Nothing re-plans on a press -- «Пересчитать» is what makes it true.
-	cmm_register_button_setting = {
+	# Three dropdowns, «—» first in each, because CMM handles twenty options and
+	# there are 47 goods. The edit reads whichever one is off «—» and says so
+	# when two of them are.
+	cmm_register_global_dropdown_setting = {
 		mod_id = bag_wtp
-		setting_id = plan_w_up
+		setting_id = edit_pick1
 		tab_id = plan
-		group_id = weight
+		group_id = edit
+		default_index = 1
+		option_count = 17
+	}
+
+	cmm_register_global_dropdown_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_pick2
+		tab_id = plan
+		group_id = edit
+		default_index = 1
+		option_count = 17
+	}
+
+	cmm_register_global_dropdown_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_pick3
+		tab_id = plan
+		group_id = edit
+		default_index = 1
+		option_count = 16
 	}
 
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
-		setting_id = plan_w_down
+		setting_id = edit_add
 		tab_id = plan
-		group_id = weight
+		group_id = edit
 	}
 
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
-		setting_id = plan_w_clear
+		setting_id = edit_drop
 		tab_id = plan
-		group_id = weight
+		group_id = edit
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_changes
+		tab_id = plan
+		group_id = edit
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_save
+		tab_id = plan
+		group_id = edit
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_restore
+		tab_id = plan
+		group_id = edit
 	}
 
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
@@ -213,6 +254,18 @@ bag_wtp_register = {
 	# Seven region lists and two goods lists all open is a page to scroll rather
 	# than a page to read; after this the player's own folding is his.
 	bag_wtp_fold_pickers = yes
+
+	# The editor's counters, created before anything can read them: a script
+	# value reading a global that is not there is the failure that logs nothing,
+	# and these two are printed on buttons from the moment the page opens.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_edit_moved } }
+		set_global_variable = { name = bag_wtp_edit_moved value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_save_n } }
+		set_global_variable = { name = bag_wtp_save_n value = 0 }
+	}
 
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes

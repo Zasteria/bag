@@ -9001,12 +9001,10 @@ bag_wtp_r_score = {
 # Scope: location
 bag_wtp_ord1 = {
 	value = var:bag_wtp_p1
-	add = global_var:bag_wtp_pw1
 }
 # Scope: location
 bag_wtp_ordr1 = {
 	value = var:bag_wtp_pr1
-	add = global_var:bag_wtp_pw1
 }
 
 # coal: what this ground pays this good here, one side each -- the fraction of
@@ -9032,12 +9030,10 @@ bag_wtp_ordr1 = {
 # Scope: location
 bag_wtp_ord2 = {
 	value = var:bag_wtp_p2
-	add = global_var:bag_wtp_pw2
 }
 # Scope: location
 bag_wtp_ordr2 = {
 	value = var:bag_wtp_pr2
-	add = global_var:bag_wtp_pw2
 }
 
 # cotton: what this ground pays this good here, one side each -- the fraction of
@@ -9063,12 +9059,10 @@ bag_wtp_ordr2 = {
 # Scope: location
 bag_wtp_ord3 = {
 	value = var:bag_wtp_p3
-	add = global_var:bag_wtp_pw3
 }
 # Scope: location
 bag_wtp_ordr3 = {
 	value = var:bag_wtp_pr3
-	add = global_var:bag_wtp_pw3
 }
 
 # dyes: what this ground pays this good here, one side each -- the fraction of
@@ -9094,12 +9088,10 @@ bag_wtp_ordr3 = {
 # Scope: location
 bag_wtp_ord4 = {
 	value = var:bag_wtp_p4
-	add = global_var:bag_wtp_pw4
 }
 # Scope: location
 bag_wtp_ordr4 = {
 	value = var:bag_wtp_pr4
-	add = global_var:bag_wtp_pw4
 }
 
 # fiber_crops: what this ground pays this good here, one side each -- the fraction of
@@ -9125,12 +9117,10 @@ bag_wtp_ordr4 = {
 # Scope: location
 bag_wtp_ord5 = {
 	value = var:bag_wtp_p5
-	add = global_var:bag_wtp_pw5
 }
 # Scope: location
 bag_wtp_ordr5 = {
 	value = var:bag_wtp_pr5
-	add = global_var:bag_wtp_pw5
 }
 
 # fish: what this ground pays this good here, one side each -- the fraction of
@@ -9156,12 +9146,10 @@ bag_wtp_ordr5 = {
 # Scope: location
 bag_wtp_ord6 = {
 	value = var:bag_wtp_p6
-	add = global_var:bag_wtp_pw6
 }
 # Scope: location
 bag_wtp_ordr6 = {
 	value = var:bag_wtp_pr6
-	add = global_var:bag_wtp_pw6
 }
 
 # fruit: what this ground pays this good here, one side each -- the fraction of
@@ -9187,12 +9175,10 @@ bag_wtp_ordr6 = {
 # Scope: location
 bag_wtp_ord7 = {
 	value = var:bag_wtp_p7
-	add = global_var:bag_wtp_pw7
 }
 # Scope: location
 bag_wtp_ordr7 = {
 	value = var:bag_wtp_pr7
-	add = global_var:bag_wtp_pw7
 }
 
 # horses: what this ground pays this good here, one side each -- the fraction of
@@ -9218,12 +9204,10 @@ bag_wtp_ordr7 = {
 # Scope: location
 bag_wtp_ord8 = {
 	value = var:bag_wtp_p8
-	add = global_var:bag_wtp_pw8
 }
 # Scope: location
 bag_wtp_ordr8 = {
 	value = var:bag_wtp_pr8
-	add = global_var:bag_wtp_pw8
 }
 
 # incense: what this ground pays this good here, one side each -- the fraction of
@@ -9249,12 +9233,10 @@ bag_wtp_ordr8 = {
 # Scope: location
 bag_wtp_ord9 = {
 	value = var:bag_wtp_p9
-	add = global_var:bag_wtp_pw9
 }
 # Scope: location
 bag_wtp_ordr9 = {
 	value = var:bag_wtp_pr9
-	add = global_var:bag_wtp_pw9
 }
 
 # iron: what this ground pays this good here, one side each -- the fraction of
@@ -9280,12 +9262,10 @@ bag_wtp_ordr9 = {
 # Scope: location
 bag_wtp_ord10 = {
 	value = var:bag_wtp_p10
-	add = global_var:bag_wtp_pw10
 }
 # Scope: location
 bag_wtp_ordr10 = {
 	value = var:bag_wtp_pr10
-	add = global_var:bag_wtp_pw10
 }
 
 # ivory: what this ground pays this good here, one side each -- the fraction of
@@ -9311,12 +9291,10 @@ bag_wtp_ordr10 = {
 # Scope: location
 bag_wtp_ord11 = {
 	value = var:bag_wtp_p11
-	add = global_var:bag_wtp_pw11
 }
 # Scope: location
 bag_wtp_ordr11 = {
 	value = var:bag_wtp_pr11
-	add = global_var:bag_wtp_pw11
 }
 
 # livestock: what this ground pays this good here, one side each -- the fraction of
@@ -9342,12 +9320,10 @@ bag_wtp_ordr11 = {
 # Scope: location
 bag_wtp_ord12 = {
 	value = var:bag_wtp_p12
-	add = global_var:bag_wtp_pw12
 }
 # Scope: location
 bag_wtp_ordr12 = {
 	value = var:bag_wtp_pr12
-	add = global_var:bag_wtp_pw12
 }
 
 # lumber: what this ground pays this good here, one side each -- the fraction of
@@ -9373,12 +9349,10 @@ bag_wtp_ordr12 = {
 # Scope: location
 bag_wtp_ord13 = {
 	value = var:bag_wtp_p13
-	add = global_var:bag_wtp_pw13
 }
 # Scope: location
 bag_wtp_ordr13 = {
 	value = var:bag_wtp_pr13
-	add = global_var:bag_wtp_pw13
 }
 
 # medicaments: what this ground pays this good here, one side each -- the fraction of
@@ -9404,12 +9378,10 @@ bag_wtp_ordr13 = {
 # Scope: location
 bag_wtp_ord14 = {
 	value = var:bag_wtp_p14
-	add = global_var:bag_wtp_pw14
 }
 # Scope: location
 bag_wtp_ordr14 = {
 	value = var:bag_wtp_pr14
-	add = global_var:bag_wtp_pw14
 }
 
 # salt: what this ground pays this good here, one side each -- the fraction of
@@ -9435,12 +9407,10 @@ bag_wtp_ordr14 = {
 # Scope: location
 bag_wtp_ord15 = {
 	value = var:bag_wtp_p15
-	add = global_var:bag_wtp_pw15
 }
 # Scope: location
 bag_wtp_ordr15 = {
 	value = var:bag_wtp_pr15
-	add = global_var:bag_wtp_pw15
 }
 
 # saltpeter: what this ground pays this good here, one side each -- the fraction of
@@ -9466,12 +9436,10 @@ bag_wtp_ordr15 = {
 # Scope: location
 bag_wtp_ord16 = {
 	value = var:bag_wtp_p16
-	add = global_var:bag_wtp_pw16
 }
 # Scope: location
 bag_wtp_ordr16 = {
 	value = var:bag_wtp_pr16
-	add = global_var:bag_wtp_pw16
 }
 
 # sand: what this ground pays this good here, one side each -- the fraction of
@@ -9497,12 +9465,10 @@ bag_wtp_ordr16 = {
 # Scope: location
 bag_wtp_ord17 = {
 	value = var:bag_wtp_p17
-	add = global_var:bag_wtp_pw17
 }
 # Scope: location
 bag_wtp_ordr17 = {
 	value = var:bag_wtp_pr17
-	add = global_var:bag_wtp_pw17
 }
 
 # silk: what this ground pays this good here, one side each -- the fraction of
@@ -9528,12 +9494,10 @@ bag_wtp_ordr17 = {
 # Scope: location
 bag_wtp_ord18 = {
 	value = var:bag_wtp_p18
-	add = global_var:bag_wtp_pw18
 }
 # Scope: location
 bag_wtp_ordr18 = {
 	value = var:bag_wtp_pr18
-	add = global_var:bag_wtp_pw18
 }
 
 # silver: what this ground pays this good here, one side each -- the fraction of
@@ -9559,12 +9523,10 @@ bag_wtp_ordr18 = {
 # Scope: location
 bag_wtp_ord19 = {
 	value = var:bag_wtp_p19
-	add = global_var:bag_wtp_pw19
 }
 # Scope: location
 bag_wtp_ordr19 = {
 	value = var:bag_wtp_pr19
-	add = global_var:bag_wtp_pw19
 }
 
 # stone: what this ground pays this good here, one side each -- the fraction of
@@ -9590,12 +9552,10 @@ bag_wtp_ordr19 = {
 # Scope: location
 bag_wtp_ord20 = {
 	value = var:bag_wtp_p20
-	add = global_var:bag_wtp_pw20
 }
 # Scope: location
 bag_wtp_ordr20 = {
 	value = var:bag_wtp_pr20
-	add = global_var:bag_wtp_pw20
 }
 
 # sugar: what this ground pays this good here, one side each -- the fraction of
@@ -9621,12 +9581,10 @@ bag_wtp_ordr20 = {
 # Scope: location
 bag_wtp_ord21 = {
 	value = var:bag_wtp_p21
-	add = global_var:bag_wtp_pw21
 }
 # Scope: location
 bag_wtp_ordr21 = {
 	value = var:bag_wtp_pr21
-	add = global_var:bag_wtp_pw21
 }
 
 # tobacco: what this ground pays this good here, one side each -- the fraction of
@@ -9652,12 +9610,10 @@ bag_wtp_ordr21 = {
 # Scope: location
 bag_wtp_ord22 = {
 	value = var:bag_wtp_p22
-	add = global_var:bag_wtp_pw22
 }
 # Scope: location
 bag_wtp_ordr22 = {
 	value = var:bag_wtp_pr22
-	add = global_var:bag_wtp_pw22
 }
 
 # wild_game: what this ground pays this good here, one side each -- the fraction of
@@ -9683,12 +9639,10 @@ bag_wtp_ordr22 = {
 # Scope: location
 bag_wtp_ord23 = {
 	value = var:bag_wtp_p23
-	add = global_var:bag_wtp_pw23
 }
 # Scope: location
 bag_wtp_ordr23 = {
 	value = var:bag_wtp_pr23
-	add = global_var:bag_wtp_pw23
 }
 
 # wine: what this ground pays this good here, one side each -- the fraction of
@@ -9714,12 +9668,10 @@ bag_wtp_ordr23 = {
 # Scope: location
 bag_wtp_ord24 = {
 	value = var:bag_wtp_p24
-	add = global_var:bag_wtp_pw24
 }
 # Scope: location
 bag_wtp_ordr24 = {
 	value = var:bag_wtp_pr24
-	add = global_var:bag_wtp_pw24
 }
 
 # wool: what this ground pays this good here, one side each -- the fraction of
@@ -9745,12 +9697,10 @@ bag_wtp_ordr24 = {
 # Scope: location
 bag_wtp_ord25 = {
 	value = var:bag_wtp_p25
-	add = global_var:bag_wtp_pw25
 }
 # Scope: location
 bag_wtp_ordr25 = {
 	value = var:bag_wtp_pr25
-	add = global_var:bag_wtp_pw25
 }
 
 # beer: what this ground pays this good here, one side each -- the fraction of
@@ -9776,12 +9726,10 @@ bag_wtp_ordr25 = {
 # Scope: location
 bag_wtp_ord26 = {
 	value = var:bag_wtp_p26
-	add = global_var:bag_wtp_pw26
 }
 # Scope: location
 bag_wtp_ordr26 = {
 	value = var:bag_wtp_pr26
-	add = global_var:bag_wtp_pw26
 }
 
 # books: what this ground pays this good here, one side each -- the fraction of
@@ -9807,12 +9755,10 @@ bag_wtp_ordr26 = {
 # Scope: location
 bag_wtp_ord27 = {
 	value = var:bag_wtp_p27
-	add = global_var:bag_wtp_pw27
 }
 # Scope: location
 bag_wtp_ordr27 = {
 	value = var:bag_wtp_pr27
-	add = global_var:bag_wtp_pw27
 }
 
 # cannons: what this ground pays this good here, one side each -- the fraction of
@@ -9838,12 +9784,10 @@ bag_wtp_ordr27 = {
 # Scope: location
 bag_wtp_ord28 = {
 	value = var:bag_wtp_p28
-	add = global_var:bag_wtp_pw28
 }
 # Scope: location
 bag_wtp_ordr28 = {
 	value = var:bag_wtp_pr28
-	add = global_var:bag_wtp_pw28
 }
 
 # cloth: what this ground pays this good here, one side each -- the fraction of
@@ -9869,12 +9813,10 @@ bag_wtp_ordr28 = {
 # Scope: location
 bag_wtp_ord29 = {
 	value = var:bag_wtp_p29
-	add = global_var:bag_wtp_pw29
 }
 # Scope: location
 bag_wtp_ordr29 = {
 	value = var:bag_wtp_pr29
-	add = global_var:bag_wtp_pw29
 }
 
 # fine_cloth: what this ground pays this good here, one side each -- the fraction of
@@ -9900,12 +9842,10 @@ bag_wtp_ordr29 = {
 # Scope: location
 bag_wtp_ord30 = {
 	value = var:bag_wtp_p30
-	add = global_var:bag_wtp_pw30
 }
 # Scope: location
 bag_wtp_ordr30 = {
 	value = var:bag_wtp_pr30
-	add = global_var:bag_wtp_pw30
 }
 
 # firearms: what this ground pays this good here, one side each -- the fraction of
@@ -9931,12 +9871,10 @@ bag_wtp_ordr30 = {
 # Scope: location
 bag_wtp_ord31 = {
 	value = var:bag_wtp_p31
-	add = global_var:bag_wtp_pw31
 }
 # Scope: location
 bag_wtp_ordr31 = {
 	value = var:bag_wtp_pr31
-	add = global_var:bag_wtp_pw31
 }
 
 # furniture: what this ground pays this good here, one side each -- the fraction of
@@ -9962,12 +9900,10 @@ bag_wtp_ordr31 = {
 # Scope: location
 bag_wtp_ord32 = {
 	value = var:bag_wtp_p32
-	add = global_var:bag_wtp_pw32
 }
 # Scope: location
 bag_wtp_ordr32 = {
 	value = var:bag_wtp_pr32
-	add = global_var:bag_wtp_pw32
 }
 
 # glass: what this ground pays this good here, one side each -- the fraction of
@@ -9993,12 +9929,10 @@ bag_wtp_ordr32 = {
 # Scope: location
 bag_wtp_ord33 = {
 	value = var:bag_wtp_p33
-	add = global_var:bag_wtp_pw33
 }
 # Scope: location
 bag_wtp_ordr33 = {
 	value = var:bag_wtp_pr33
-	add = global_var:bag_wtp_pw33
 }
 
 # jewelry: what this ground pays this good here, one side each -- the fraction of
@@ -10024,12 +9958,10 @@ bag_wtp_ordr33 = {
 # Scope: location
 bag_wtp_ord34 = {
 	value = var:bag_wtp_p34
-	add = global_var:bag_wtp_pw34
 }
 # Scope: location
 bag_wtp_ordr34 = {
 	value = var:bag_wtp_pr34
-	add = global_var:bag_wtp_pw34
 }
 
 # lacquerware: what this ground pays this good here, one side each -- the fraction of
@@ -10055,12 +9987,10 @@ bag_wtp_ordr34 = {
 # Scope: location
 bag_wtp_ord35 = {
 	value = var:bag_wtp_p35
-	add = global_var:bag_wtp_pw35
 }
 # Scope: location
 bag_wtp_ordr35 = {
 	value = var:bag_wtp_pr35
-	add = global_var:bag_wtp_pw35
 }
 
 # leather: what this ground pays this good here, one side each -- the fraction of
@@ -10086,12 +10016,10 @@ bag_wtp_ordr35 = {
 # Scope: location
 bag_wtp_ord36 = {
 	value = var:bag_wtp_p36
-	add = global_var:bag_wtp_pw36
 }
 # Scope: location
 bag_wtp_ordr36 = {
 	value = var:bag_wtp_pr36
-	add = global_var:bag_wtp_pw36
 }
 
 # liquor: what this ground pays this good here, one side each -- the fraction of
@@ -10117,12 +10045,10 @@ bag_wtp_ordr36 = {
 # Scope: location
 bag_wtp_ord37 = {
 	value = var:bag_wtp_p37
-	add = global_var:bag_wtp_pw37
 }
 # Scope: location
 bag_wtp_ordr37 = {
 	value = var:bag_wtp_pr37
-	add = global_var:bag_wtp_pw37
 }
 
 # masonry: what this ground pays this good here, one side each -- the fraction of
@@ -10148,12 +10074,10 @@ bag_wtp_ordr37 = {
 # Scope: location
 bag_wtp_ord38 = {
 	value = var:bag_wtp_p38
-	add = global_var:bag_wtp_pw38
 }
 # Scope: location
 bag_wtp_ordr38 = {
 	value = var:bag_wtp_pr38
-	add = global_var:bag_wtp_pw38
 }
 
 # naval_supplies: what this ground pays this good here, one side each -- the fraction of
@@ -10179,12 +10103,10 @@ bag_wtp_ordr38 = {
 # Scope: location
 bag_wtp_ord39 = {
 	value = var:bag_wtp_p39
-	add = global_var:bag_wtp_pw39
 }
 # Scope: location
 bag_wtp_ordr39 = {
 	value = var:bag_wtp_pr39
-	add = global_var:bag_wtp_pw39
 }
 
 # paper: what this ground pays this good here, one side each -- the fraction of
@@ -10210,12 +10132,10 @@ bag_wtp_ordr39 = {
 # Scope: location
 bag_wtp_ord40 = {
 	value = var:bag_wtp_p40
-	add = global_var:bag_wtp_pw40
 }
 # Scope: location
 bag_wtp_ordr40 = {
 	value = var:bag_wtp_pr40
-	add = global_var:bag_wtp_pw40
 }
 
 # porcelain: what this ground pays this good here, one side each -- the fraction of
@@ -10241,12 +10161,10 @@ bag_wtp_ordr40 = {
 # Scope: location
 bag_wtp_ord41 = {
 	value = var:bag_wtp_p41
-	add = global_var:bag_wtp_pw41
 }
 # Scope: location
 bag_wtp_ordr41 = {
 	value = var:bag_wtp_pr41
-	add = global_var:bag_wtp_pw41
 }
 
 # pottery: what this ground pays this good here, one side each -- the fraction of
@@ -10272,12 +10190,10 @@ bag_wtp_ordr41 = {
 # Scope: location
 bag_wtp_ord42 = {
 	value = var:bag_wtp_p42
-	add = global_var:bag_wtp_pw42
 }
 # Scope: location
 bag_wtp_ordr42 = {
 	value = var:bag_wtp_pr42
-	add = global_var:bag_wtp_pw42
 }
 
 # slaves_goods: what this ground pays this good here, one side each -- the fraction of
@@ -10303,12 +10219,10 @@ bag_wtp_ordr42 = {
 # Scope: location
 bag_wtp_ord43 = {
 	value = var:bag_wtp_p43
-	add = global_var:bag_wtp_pw43
 }
 # Scope: location
 bag_wtp_ordr43 = {
 	value = var:bag_wtp_pr43
-	add = global_var:bag_wtp_pw43
 }
 
 # steel: what this ground pays this good here, one side each -- the fraction of
@@ -10334,12 +10248,10 @@ bag_wtp_ordr43 = {
 # Scope: location
 bag_wtp_ord44 = {
 	value = var:bag_wtp_p44
-	add = global_var:bag_wtp_pw44
 }
 # Scope: location
 bag_wtp_ordr44 = {
 	value = var:bag_wtp_pr44
-	add = global_var:bag_wtp_pw44
 }
 
 # tar: what this ground pays this good here, one side each -- the fraction of
@@ -10365,12 +10277,10 @@ bag_wtp_ordr44 = {
 # Scope: location
 bag_wtp_ord45 = {
 	value = var:bag_wtp_p45
-	add = global_var:bag_wtp_pw45
 }
 # Scope: location
 bag_wtp_ordr45 = {
 	value = var:bag_wtp_pr45
-	add = global_var:bag_wtp_pw45
 }
 
 # tools: what this ground pays this good here, one side each -- the fraction of
@@ -10396,12 +10306,10 @@ bag_wtp_ordr45 = {
 # Scope: location
 bag_wtp_ord46 = {
 	value = var:bag_wtp_p46
-	add = global_var:bag_wtp_pw46
 }
 # Scope: location
 bag_wtp_ordr46 = {
 	value = var:bag_wtp_pr46
-	add = global_var:bag_wtp_pw46
 }
 
 # weaponry: what this ground pays this good here, one side each -- the fraction of
@@ -10427,12 +10335,10 @@ bag_wtp_ordr46 = {
 # Scope: location
 bag_wtp_ord47 = {
 	value = var:bag_wtp_p47
-	add = global_var:bag_wtp_pw47
 }
 # Scope: location
 bag_wtp_ordr47 = {
 	value = var:bag_wtp_pr47
-	add = global_var:bag_wtp_pw47
 }
 
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
@@ -10460,17 +10366,14 @@ bag_wtp_rq1 = {
 	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
 		add = var:bag_wtp_p29
-		add = global_var:bag_wtp_pw29
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
 		add = var:bag_wtp_p30
-		add = global_var:bag_wtp_pw30
 	}
 	if = {
 		limit = { var:bag_wtp_pm18 > 0 }
 		add = var:bag_wtp_p18
-		add = global_var:bag_wtp_pw18
 	}
 	divide = 3
 }
@@ -10500,12 +10403,10 @@ bag_wtp_rq2 = {
 	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
 		add = var:bag_wtp_p29
-		add = global_var:bag_wtp_pw29
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
 		add = var:bag_wtp_p30
-		add = global_var:bag_wtp_pw30
 	}
 	divide = 2
 }
@@ -10535,17 +10436,14 @@ bag_wtp_rq3 = {
 	if = {
 		limit = { var:bag_wtp_pm32 > 0 }
 		add = var:bag_wtp_p32
-		add = global_var:bag_wtp_pw32
 	}
 	if = {
 		limit = { var:bag_wtp_pm36 > 0 }
 		add = var:bag_wtp_p36
-		add = global_var:bag_wtp_pw36
 	}
 	if = {
 		limit = { var:bag_wtp_pm42 > 0 }
 		add = var:bag_wtp_p42
-		add = global_var:bag_wtp_pw42
 	}
 	divide = 3
 }
@@ -10575,17 +10473,14 @@ bag_wtp_rq4 = {
 	if = {
 		limit = { var:bag_wtp_pm27 > 0 }
 		add = var:bag_wtp_p27
-		add = global_var:bag_wtp_pw27
 	}
 	if = {
 		limit = { var:bag_wtp_pm4 > 0 }
 		add = var:bag_wtp_p4
-		add = global_var:bag_wtp_pw4
 	}
 	if = {
 		limit = { var:bag_wtp_pm40 > 0 }
 		add = var:bag_wtp_p40
-		add = global_var:bag_wtp_pw40
 	}
 	divide = 3
 }
@@ -10615,17 +10510,14 @@ bag_wtp_rq5 = {
 	if = {
 		limit = { var:bag_wtp_pm26 > 0 }
 		add = var:bag_wtp_p26
-		add = global_var:bag_wtp_pw26
 	}
 	if = {
 		limit = { var:bag_wtp_pm37 > 0 }
 		add = var:bag_wtp_p37
-		add = global_var:bag_wtp_pw37
 	}
 	if = {
 		limit = { var:bag_wtp_pm24 > 0 }
 		add = var:bag_wtp_p24
-		add = global_var:bag_wtp_pw24
 	}
 	divide = 3
 }
@@ -10655,7 +10547,6 @@ bag_wtp_rq6 = {
 	if = {
 		limit = { var:bag_wtp_pm34 > 0 }
 		add = var:bag_wtp_p34
-		add = global_var:bag_wtp_pw34
 	}
 	divide = 1
 }
@@ -10685,12 +10576,10 @@ bag_wtp_rq7 = {
 	if = {
 		limit = { OR = { var:bag_wtp_pm33 > 0 var:bag_wtp_pm17 > 0 } }
 		add = var:bag_wtp_p33
-		add = global_var:bag_wtp_pw33
 	}
 	if = {
 		limit = { var:bag_wtp_pm38 > 0 }
 		add = var:bag_wtp_p38
-		add = global_var:bag_wtp_pw38
 	}
 	divide = 2
 }
@@ -10720,12 +10609,10 @@ bag_wtp_rq8 = {
 	if = {
 		limit = { var:bag_wtp_pm39 > 0 }
 		add = var:bag_wtp_p39
-		add = global_var:bag_wtp_pw39
 	}
 	if = {
 		limit = { var:bag_wtp_pm45 > 0 }
 		add = var:bag_wtp_p45
-		add = global_var:bag_wtp_pw45
 	}
 	divide = 2
 }
@@ -10755,17 +10642,14 @@ bag_wtp_rq9 = {
 	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
 		add = var:bag_wtp_p29
-		add = global_var:bag_wtp_pw29
 	}
 	if = {
 		limit = { var:bag_wtp_pm4 > 0 }
 		add = var:bag_wtp_p4
-		add = global_var:bag_wtp_pw4
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
 		add = var:bag_wtp_p30
-		add = global_var:bag_wtp_pw30
 	}
 	divide = 3
 }
@@ -10795,7 +10679,6 @@ bag_wtp_rq10 = {
 	if = {
 		limit = { var:bag_wtp_pm46 > 0 }
 		add = var:bag_wtp_p46
-		add = global_var:bag_wtp_pw46
 	}
 	divide = 1
 }
@@ -10825,17 +10708,14 @@ bag_wtp_rq11 = {
 	if = {
 		limit = { var:bag_wtp_pm28 > 0 }
 		add = var:bag_wtp_p28
-		add = global_var:bag_wtp_pw28
 	}
 	if = {
 		limit = { var:bag_wtp_pm31 > 0 }
 		add = var:bag_wtp_p31
-		add = global_var:bag_wtp_pw31
 	}
 	if = {
 		limit = { var:bag_wtp_pm47 > 0 }
 		add = var:bag_wtp_p47
-		add = global_var:bag_wtp_pw47
 	}
 	divide = 3
 }
@@ -10865,7 +10745,6 @@ bag_wtp_rq12 = {
 	if = {
 		limit = { var:bag_wtp_pm46 > 0 }
 		add = var:bag_wtp_p46
-		add = global_var:bag_wtp_pw46
 	}
 	divide = 1
 }
@@ -10895,12 +10774,10 @@ bag_wtp_rq13 = {
 	if = {
 		limit = { var:bag_wtp_pm39 > 0 }
 		add = var:bag_wtp_p39
-		add = global_var:bag_wtp_pw39
 	}
 	if = {
 		limit = { var:bag_wtp_pm45 > 0 }
 		add = var:bag_wtp_p45
-		add = global_var:bag_wtp_pw45
 	}
 	divide = 2
 }
@@ -10913,6 +10790,12 @@ bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
 # has a name of its own -- the same shape `_plan_scored_value` has.
 # Scope: country
 bag_wtp_plan_bandf_value = { value = global_var:bag_wtp_plan_bandf }
+# What the editor's ordered walks sort on: what this location charges for the
+# building being added, or `RANK_SCALE` minus the gain of the one being taken
+# out. `order_by` reads a script value and never a variable, which is the whole
+# reason this exists.
+# Scope: location
+bag_wtp_edit_order = { value = var:bag_wtp_esv }
 # How many rights this country could grant at all, which the rights' own
 # quota divides by. Counted once a plan, in country scope.
 bag_wtp_rgrant_value = { value = global_var:bag_wtp_rgrant }
@@ -10980,11 +10863,12 @@ bag_wtp_show_live = { value = global_var:bag_wtp_live_runs }
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
 bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
-# The weight on the ticked good, for the regulator's own buttons to print. A
-# variable on the country and not a global: `_plan_weight_show` writes it, and
-# it is the ticked good's, which is a per-player thing.
+# The editor's two numbers, for its buttons to print on themselves.
 # Scope: country
-bag_wtp_show_weight = { value = var:bag_wtp_pw_shown }
+bag_wtp_show_edit_moved = { value = global_var:bag_wtp_edit_moved }
+# Scope: country
+bag_wtp_show_edit_saved = { value = global_var:bag_wtp_save_n }
+
 bag_wtp_show_diag_runs = { value = global_var:bag_wtp_diag_runs }
 bag_wtp_show_diag_locs = { value = global_var:bag_wtp_diag_locs }
 bag_wtp_show_diag_towns = { value = global_var:bag_wtp_diag_towns }
