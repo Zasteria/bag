@@ -4083,6 +4083,17 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "o=best ordering it ever had (a band admits >= its own number) "
                    "| ng=candidates that can make it q=quota n=placed both sides "
                    "rgo=locations already yielding it as an RGO"))
+    # **`q` is read after the plan, and the open ladder raised it.** It is the
+    # only number in the report that is not what the pass it belongs to saw:
+    # `_plan_set_quota` writes `quota + charters - RGOs` with a floor of one, and
+    # then every sweep of the open ladder adds one to all of them. Without this
+    # line the two are read against each other and neither makes sense --
+    # Westphalia's `PASS quota=2` beside `clay q=2 rgo=2`, which looks like the
+    # RGO discount doing nothing and is the open ladder having added one back.
+    out.append(say("GOODS reading q: it is `PASS quota` + what the charters "
+                   "placed for this good - `rgo`, floored at 1, and then + 1 for "
+                   "each sweep the open ladder ran. So q above `PASS quota` on a "
+                   "good no charter favours is the open ladder, not the quota."))
     out.append(say("GOODS reading it: the first zero left to right is the stage. "
                    "w>0 r=0 -- the ground filled up. w>0 r>0 g=0 -- the good or "
                    "its building is already in every place that has room. "
@@ -4318,6 +4329,21 @@ def main() -> int:
     game = eu5data.load_game()
     rows = methods(game)
     split = goods_split(rows, game)
+
+    # **What the generator would otherwise get wrong quietly**, checked once here
+    # rather than found in a log. Every one of these is a number the game supplies
+    # and the mod caps; a patch that raises the game's side has to raise the cap
+    # with it, and a build that says so is cheaper than a run that does not.
+    rights = output_rights(rows, game)
+    assert len(rights) <= DIAG_SCRATCH, (
+        f"{len(rights)} urban rights and only {DIAG_SCRATCH} scratch globals: the "
+        f"`WTP RQ` line parks one score per charter, so raise `DIAG_SCRATCH`")
+    assert len(split["raw"]) + len(split["made"]) <= LIST_CAP, (
+        f"{len(split['raw']) + len(split['made'])} goods against a list of "
+        f"{LIST_CAP}: CMM handles a row click to fifty and no further")
+    assert max(len(r.output) for r in rights) <= RIGHT_SLOTS, (
+        f"a charter favours more than {RIGHT_SLOTS} goods the mod can make; a row "
+        f"holds a fixed number of answers, so raise `RIGHT_SLOTS`")
 
     by_continent = regions()
     write(ZONE_OUT, zone_file() + clear_ticks_effect())
