@@ -17,6 +17,19 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
+**A script value cannot be indexed by the scope a datamodel row carries, and a
+global variable map is the bridge.** The plan's counters are numbered — `_pn<n>`
+— and a picker row holds `goods:iron`; no localization or `visible` can get from
+one to the other. `add_to_global_variable_map = { name = X key = goods:iron value
+= <number> }` in script, and
+`GetVariableFromGlobalVariableMap('X', Goods.MakeScope).GetValue` in the
+interface, which is how CMF reads its own. `EqualTo_CFixedPoint(…,
+'(CFixedPoint)1')` is the comparison a `visible` wants.
+
+**`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
+inside a localization value, both, because `bag_wtp_held` is read only from
+localization and looking in the `.gui` alone would have missed it.
+
 **A window that says «a rule refused it, or there was nowhere» has said
 nothing.** Those are two different answers and the reader takes the first. The
 plan editor told him a rule had refused a «+1» on iron; iron can be made in four

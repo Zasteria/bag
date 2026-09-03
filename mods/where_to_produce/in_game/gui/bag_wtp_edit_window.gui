@@ -61,7 +61,7 @@ types BagWtpEditTypes {
 	# fixed size holding a centred `button_regular` -- because that one is drawn
 	# every frame and pressed every session.
 	type bag_wtp_edit_pool_entry = hbox {
-		size = { 104 32 }
+		size = { 126 32 }
 		spacing = 1
 
 		widget = {
@@ -110,6 +110,54 @@ types BagWtpEditTypes {
 					fontsize = 14
 					text = "bag_wtp_edit_plus"
 				}
+			}
+		}
+
+		# **How many buildings this good has right now, before anything is
+		# pressed, and whether another one is possible.** His ask, 2026-09-04: «я
+		# должен видеть текущее число лимита домиков… цвет красным/зелёным… при
+		# наведении на красное — по каким конкретно причинам».
+		#
+		# **Three widgets and not one with a colour.** A `visible` can ask a data
+		# function and nothing else, so the state picks which of the three is drawn;
+		# each carries its own colour and its own tooltip, and the red ones say
+		# which of the two reasons it is.
+		#
+		# `bag_wtp_why` and `bag_wtp_held` are global variable maps keyed by the
+		# good — the bridge between a datamodel row, which carries a scope, and the
+		# plan's counters, which are numbered. CMF reads its own the same way.
+		widget = {
+			size = { 20 32 }
+			alwaystransparent = no
+
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 14
+				visible = "[EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('bag_wtp_why', Goods.MakeScope).GetValue, '(CFixedPoint)0')]"
+				text = "bag_wtp_edit_held_ok"
+				tooltip = "bag_wtp_edit_held_ok_tt"
+			}
+
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 14
+				visible = "[EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('bag_wtp_why', Goods.MakeScope).GetValue, '(CFixedPoint)1')]"
+				text = "bag_wtp_edit_held_full"
+				tooltip = "bag_wtp_edit_held_nowhere_tt"
+			}
+
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 14
+				visible = "[EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('bag_wtp_why', Goods.MakeScope).GetValue, '(CFixedPoint)2')]"
+				text = "bag_wtp_edit_held_full"
+				tooltip = "bag_wtp_edit_held_novictim_tt"
 			}
 		}
 	}
@@ -431,10 +479,10 @@ window = {
 				# **A wrapping row, ten cells wide.** `flowcontainer` wraps on a count
 				# of items, which is how vanilla uses it (`agenda_view.gui`); a
 				# `maximumsize` on it wraps nothing and the row runs off the window.
-				# Ten cells of 104 with 2 between them is 1060 of the 1130 there are,
-				# and 35 goods come to four lines instead of thirty-five.
+				# Eight cells of 126 with 2 between them is 1024 of the 1130 there are,
+				# and 35 goods come to five lines instead of thirty-five.
 				flowcontainer = {
-					wrap_count = 10
+					wrap_count = 8
 					spacing = 2
 					ignoreinvisible = yes
 					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"

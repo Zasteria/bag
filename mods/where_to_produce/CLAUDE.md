@@ -5,12 +5,11 @@ method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
 **Read before touching any `_plan_*`:
-[`plan_gaps.md`](../../docs/investigations/plan_gaps.md)** — eight faults closed,
-and the checklist at its end is what the next press has to show.
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md)** — the checklist at its
+end is what the next press has to show.
 
-**State: the plan works and he has seen it.** Numbers live in `docs/TESTLOG.md`,
-never here. **The tick is the rank, for the whole calculation**, and **a tick
-outlives a save** (`docs/SETTLED.md`).
+**State: the plan works and he has seen it.** Numbers live in `docs/TESTLOG.md`.
+**The tick is the rank** and **outlives a save** (`docs/SETTLED.md`).
 
 ## Where it stands
 
@@ -55,11 +54,12 @@ buildings are never the victim.** A weight fed into a re-plan moved 42 locations
 of 48 — that is the thing not to build again.
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
-three save slots, then every good the ground can make with «−1» and «+1» in place;
-`bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
-`in_game/gui/scripted_widgets/` names it**, and **a control behind a first click
-is a control he will not find** — both cost a build.
-`check_script.py` now resolves every name a window says.
+three save slots, then every good the ground can make as a cell of «−1, icon, +1»
+and its count, red when another one is impossible; `bag_wtp_changes_window.gui` is
+«показать изменения». **A window exists only if `in_game/gui/scripted_widgets/`
+names it**; **a control behind a first click is one he will not find**; and **a
+per-good number reaches a datamodel row only through a global variable map**.
+`check_script.py` resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
 of our own, gating charters on their advance, spreading them inside a province,

@@ -338,6 +338,24 @@ def unresolved_interface(root: Path) -> list[str]:
                 found.append(f"{where}: the datamodel reads `{name}`, and nothing "
                              f"in scripted_effects/ ever writes it — the list is "
                              f"always empty")
+    # **A global variable map nothing writes.** The interface reads one through
+    # `GetVariableFromGlobalVariableMap('name', ...)`, in a `.gui` or inside a
+    # localization value, and a name nothing ever writes returns an unset scope:
+    # the number comes out blank and the `visible` that reads it is false for
+    # ever. `bag_wtp_held` is read only from localization, so looking in the
+    # `.gui` alone would have missed it.
+    written_maps = set(re.findall(r"name = (\w+) key = ", effects))
+    for where, text in ([(path.relative_to(REPO), path.read_text(encoding="utf-8-sig"))
+                         for path in sorted(gui_dir.glob("*.gui"))]
+                        + [(path.relative_to(REPO), path.read_text(encoding="utf-8-sig"))
+                           for path in sorted((root / "main_menu/localization").glob("*/*.yml"))]):
+        for name in sorted(set(re.findall(
+                r"GetVariableFromGlobalVariableMap\('(\w+)'", text))):
+            if name.startswith(prefix) and name not in written_maps:
+                found.append(f"{where}: reads the variable map `{name}`, and "
+                             f"nothing in scripted_effects/ ever writes it — the "
+                             f"value comes back unset every time")
+
     # Custom localizations point at keys of their own.
     for name in sorted(set(re.findall(r"localization_key = (\S+)",
                                       slurp("in_game/common/customizable_localization/*.txt")))):
