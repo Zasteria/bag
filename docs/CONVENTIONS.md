@@ -86,7 +86,7 @@ caught it, not only in prose.
 | `guicost.py` | what the interface costs before anybody clicks |
 | `playset.py` | which mods the player actually runs, from the mount table in his `debug.log` |
 | `which_build.py` | which *build* of them ran, fingerprinted from the template line numbers in his `gui.log` |
-| `diag.py` | the `where_to_produce` diagnosis out of the game's `debug.log`, folded, **read for the owner in a dozen Russian lines** and copied to the clipboard. `mods.bat → 8` is the same from the menu, and asks whether to take every report in the log or the last |
+| `diag.py` | the `where_to_produce` diagnosis out of the game's `debug.log`, folded, **read for the owner in a dozen Russian lines** and copied to the clipboard. `mods.bat → 8` is the same from the menu, and asks whether to take every report in the log or the last. `mods.bat → 9` is its sibling: the game's own files into `reference/`, or its logs into a small zip to attach |
 | `publish.py` | whether a mod is fit to upload |
 
 `.claude/hooks/session-start.sh` runs the first checkers at the start of every
@@ -138,6 +138,24 @@ he used to keep in step by hand — pull the branch, delete the old folder, past
 the new one, six times. It offers a `git pull` first, says of each mod whether
 the game's copy is the same, different or absent, and can take one back out
 again.
+
+**And menu item 9 brings things the other way, because a session sees the
+repository and nothing else.** It reads what is committed and what he attaches to
+a message; the game on his machine is invisible to it. Two halves, and they
+arrive by different routes:
+
+- **«Файлы игры»** runs `extract_game_files.py` over
+  `tools/game_files_manifest.txt` and drops the result into `reference/game/`,
+  where a commit carries it. That is how a folder nobody thought to extract gets
+  in: `in_game/gui` was missing until 2026-09-03, and with it
+  `gui/scripted_widgets/`, which is the file that decides whether a mod's window
+  exists at all. Two rounds went on guessing at that.
+- **«Логи игры»** packs `error.log`, `gui.log`, `warning.log`,
+  `database_conflicts.log`, `system.log` and the last 4 MB of `debug.log` into
+  one zip in the repository root, gitignored, for him to attach. On the logs of
+  2026-09-03 that is **111 KB against 12 MB** for the whole folder, and both
+  diagnosis reports still survive the tail cut — `game.log` and `data_types/`
+  are five sixths of the weight and answer nothing the dumps do not.
 
 **Only the game's half of a mod folder goes.** `.metadata/` and the mount
 directories (`in_game`, `main_menu`, `loading_screen`, …); never `tools/`,

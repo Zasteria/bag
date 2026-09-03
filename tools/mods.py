@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """The mod manager: the workshop, the game's own copies, and this repository.
 
 Everything the owner has to do by hand for a mod update, in one place and with
@@ -1356,6 +1356,106 @@ def screen_diag() -> None:
     ask("Enter — назад ")
 
 
+def screen_from_game() -> None:
+    """Забрать из установленной игры то, чего нет в репозитории.
+
+    **Существует потому, что сессия не видит игру, а видит только репозиторий.**
+    Она читает то, что закоммичено, и то, что приложено к сообщению — больше
+    ничего. Пока файла нет ни там, ни там, любой вопрос про него сессия может
+    только угадать, и 2026-09-03 это стоило двух кругов: окно мода не
+    открывалось, потому что его надо назвать в `gui/scripted_widgets/`, а всей
+    этой папки в `reference/game/` не было — `in_game/gui` никто не выкачивал.
+
+    Две половины, и они попадают к сессии по-разному:
+
+    - **файлы игры** ложатся в `reference/game/` и уезжают коммитом;
+    - **логи** весят слишком много для репозитория, поэтому они собираются в
+      маленький архив, который остаётся приложить к сообщению.
+    """
+    while True:
+        say()
+        say("  1  Файлы игры → reference/game/  (по списку tools/game_files_manifest.txt)")
+        say("  2  Логи игры → маленький архив, который можно приложить в чат")
+        say("  0  назад")
+        choice = ask("> ")
+        if choice == "1":
+            say()
+            run_python("tools/extract_game_files.py")
+            say()
+            say("Что изменилось — видно в пункте 6 «Коммит и пуш». Пока не")
+            say("закоммичено, сессия этих файлов не видит.")
+            say()
+            ask("Enter — назад ")
+        elif choice == "2":
+            screen_logs()
+        elif choice in {"0", "q", "в", "назад"}:
+            return
+
+
+# Что кладётся в архив логов, и почему именно это. `game.log` и `data_types/`
+# намеренно не берутся: вместе они мегабайт шесть, а отвечают на вопросы,
+# которые и так закрыты дампами в `reference/`. Хвост `debug.log` берётся
+# целиком — там лежит отчёт «Диагностика».
+LOG_FILES = ("error.log", "gui.log", "warning.log", "database_conflicts.log",
+             "system.log")
+DEBUG_TAIL_MB = 4
+
+
+def screen_logs() -> None:
+    """Собрать логи игры в один небольшой архив рядом с репозиторием.
+
+    **Папку логов ищет `diag.py`, а не этот файл.** `GAME_FOLDER` здесь
+    кончается на `/mod` -- это папка модов, а логи лежат рядом с ней, — и второй
+    экземпляр той же догадки разошёлся бы с первым в тот день, когда Paradox
+    что-нибудь переименует.
+    """
+    from datetime import datetime
+    import diag
+
+    say()
+    folder = diag.logs_folder()
+    if folder is None:
+        say("Не нашёл папку логов игры. Обычно она здесь:")
+        say(r"  C:\Users\<ты>\Documents\Paradox Interactive\Europa Universalis V\logs")
+        say()
+        ask("Enter — назад ")
+        return
+
+    out = refs.REPO / ("eu5-logs-%s.zip" % datetime.now().strftime("%m%d-%H%M"))
+    written = []
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name in LOG_FILES:
+            path = folder / name
+            if path.is_file():
+                archive.write(path, name)
+                written.append("%s — %s" % (name, workshop.human(path.stat().st_size)))
+        debug = folder / "debug.log"
+        if debug.is_file():
+            # Только хвост: лог копит между запусками, а нужен последний прогон.
+            size = debug.stat().st_size
+            with io.open(debug, "rb") as handle:
+                if size > DEBUG_TAIL_MB * 1024 * 1024:
+                    handle.seek(size - DEBUG_TAIL_MB * 1024 * 1024)
+                    handle.readline()
+                data = handle.read()
+            archive.writestr("debug.log", data)
+            written.append("debug.log — последние %s" % workshop.human(len(data)))
+    if not written:
+        out.unlink(missing_ok=True)
+        say("В папке логов нет ни одного нужного файла: %s" % folder)
+        say()
+        ask("Enter — назад ")
+        return
+    say("Собрано в %s — %s" % (out.name, workshop.human(out.stat().st_size)))
+    for line in written:
+        say("  " + line)
+    say()
+    say("Лежит в корне репозитория. Приложи его к сообщению: в git он не поедет,")
+    say("он в .gitignore, и весит слишком много для репозитория.")
+    say()
+    ask("Enter — назад ")
+
+
 def menu(configured: dict) -> int:
     world = gather(configured)
     while True:
@@ -1377,6 +1477,7 @@ def menu(configured: dict) -> int:
         say("  6  Коммит и пуш")
         say("  7  Перечитать всё заново")
         say("  8  Забрать диагностику из игры")
+        say("  9  Забрать из игры файлы или логи")
         say("  0  Выход")
         choice = ask("> ")
 
@@ -1398,6 +1499,8 @@ def menu(configured: dict) -> int:
             world = gather(configured)
         elif choice == "8":
             screen_diag()
+        elif choice == "9":
+            screen_from_game()
         elif choice in {"0", "q", "в", "выход"}:
             return 0
 
