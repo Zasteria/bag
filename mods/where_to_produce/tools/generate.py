@@ -99,7 +99,15 @@ RIGHT_SCALE = RANK_SCALE // 10
 # как надо». It costs nothing where a pass has no work, because the `while`
 # leaves the moment a sweep adds nothing, so it is only ever paid where there is
 # something left to place.
-PLAN_ROUNDS = 50
+#
+# **Raised from 50 to 150 on 2026-09-03, and the report is what asked for it.**
+# On 416 locations `open800` and `open600` both came back `sweeps=50/50` -- the
+# guard cutting a pass off with work still to do, which is the one fault in the
+# allocator that leaves no other trace. What they could not place at a high band
+# fell through to a lower one, which is precisely the thing the banded open
+# ladder exists to prevent. A pass with no work still costs exactly one sweep, so
+# nothing else in the plan pays for this.
+PLAN_ROUNDS = 150
 # **One page of the plan window, and not the size of the answer.** Only the
 # datamodel decides what a scripted widget costs, so this is the number of rows
 # drawn at once; `PLAN_RANKED` below is how many the plan keeps, and the page
@@ -1159,11 +1167,18 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     plan_values = []
     for index, good in enumerate(order, start=1):
         plan_values.append(f"""
-# {good}: what this ground pays this good here, one side each. **The gain and
-# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
-# out of {RANK_SCALE}. `order_by` takes a script value and never a variable, which is the
-# only reason these exist at all; the harvest puts the number on the location and
-# this hands it to the walk.
+# {good}: what this ground pays this good here, one side each -- the fraction of
+# this recipe's own ceiling the province feeds, out of {RANK_SCALE}, **plus the weight the
+# player put on this good**. `order_by` takes a script value and never a variable,
+# which is the only reason these exist at all; the harvest puts the number on the
+# location and this hands it to the walk.
+#
+# **`_pw<n>` is the hand regulator and it is in the same units as the gain**, so
+# one step of {RANK_SCALE // 5} is exactly one band: a good moved up by one step is dealt with
+# the band above its own. Nought by default and nothing else in the plan reads
+# it, so the plan with every weight at nought is the plan the formula alone
+# makes. **It cannot take a good's last building** -- the covering ladder runs
+# before any band and gives every good one, whatever its weight.
 #
 # **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
 # that good already stood in the province, and that multiplier was the whole of
@@ -1175,10 +1190,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_ord{index} = {{
 \tvalue = var:{MOD_ID}_p{index}
+\tadd = global_var:{MOD_ID}_pw{index}
 }}
 # Scope: location
 {MOD_ID}_ordr{index} = {{
 \tvalue = var:{MOD_ID}_pr{index}
+\tadd = global_var:{MOD_ID}_pw{index}
 }}
 """)
 
@@ -1229,9 +1246,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # no longer reads must not stay in the dump's BUILD line either**: that
         # line exists so a number is never checked against the wrong constant,
         # and `right_fit=2000` on it said the plan still used one.
+        # **The weight reaches a charter through its bundle**, so that raising a
+        # good raises the charters that favour it. Without this the regulator
+        # could not touch Sauerland, where the charter round decides all 28
+        # buildings and the allocator none of them.
         adds = "".join(f"""\tif = {{
 \t\tlimit = {{ {_won(g)} }}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
+\t\tadd = global_var:{MOD_ID}_pw{order.index(g) + 1}
 \t}}
 """ for g in bundle)
         plan_values.append(f"""
@@ -1384,6 +1406,11 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 {MOD_ID}_plan_scored_value = {{ value = global_var:{MOD_ID}_plan_scored }}
+# The band as a fraction of `RANK_SCALE`, for the open ladder's relative
+# threshold. A `multiply` takes a script value, not a variable, which is why this
+# has a name of its own -- the same shape `_plan_scored_value` has.
+# Scope: country
+{MOD_ID}_plan_bandf_value = {{ value = global_var:{MOD_ID}_plan_bandf }}
 # How many rights this country could grant at all, which the rights' own
 # quota divides by. Counted once a plan, in country scope.
 {MOD_ID}_rgrant_value = {{ value = global_var:{MOD_ID}_rgrant }}
@@ -1451,6 +1478,11 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # экране: без этих пяти чисел нажатие ничем не отличается от кнопки, которая
 # не работает.
 {MOD_ID}_show_ticks = {{ value = global_var:{MOD_ID}_tick_count }}
+# The weight on the ticked good, for the regulator's own buttons to print. A
+# variable on the country and not a global: `_plan_weight_show` writes it, and
+# it is the ticked good's, which is a per-player thing.
+# Scope: country
+{MOD_ID}_show_weight = {{ value = var:{MOD_ID}_pw_shown }}
 {MOD_ID}_show_diag_runs = {{ value = global_var:{MOD_ID}_diag_runs }}
 {MOD_ID}_show_diag_locs = {{ value = global_var:{MOD_ID}_diag_locs }}
 {MOD_ID}_show_diag_towns = {{ value = global_var:{MOD_ID}_diag_towns }}
@@ -2064,6 +2096,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     order = [good for kind in ("raw", "made") for good in split[kind]]
     rights = output_rights(rows, game)
     groups = plan_groups(rows, split, game)
+    # The previous plan's goods, copied off a location before it is cleared.
+    was_copy = "".join(
+        f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
+        f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
+        f"add_to_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} }}\n"
+        for good in order)
 
     out = [HEADER, f"""#
 # Scope: country
@@ -2094,9 +2132,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # they are the player's answer to «what is this location», not the plan's.
 # Scope: country
 {MOD_ID}_plan_prepare = {{
+\t# **What the last plan put here, kept so this one can say what it moved.**
+\t# The owner, 2026-09-03: «я должен наглядно видеть результат редактирования в
+\t# духе: "локация" -- убрано X добавлено Y». The copy is {len(order)} list reads a
+\t# location, once per plan and never per sweep; the comparison itself is the
+\t# diagnosis's, so the expensive button stays exactly as expensive as it was.
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
-\t\tremove_variable = {MOD_ID}_load
+\t\tclear_variable_list = {MOD_ID}_plan_was
+{was_copy}\t\tremove_variable = {MOD_ID}_load
 \t\tremove_variable = {MOD_ID}_plan_rank
 \t\tremove_variable = {MOD_ID}_plan_pg
 \t\tremove_variable = {MOD_ID}_plan_prank
@@ -2129,13 +2173,24 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_opensw value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_band value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_bandf value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_cover value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
 """]
     for index, good in enumerate(order, start=1):
+        # `_pw<n>` is the player's own weight on this good and is **not** zeroed
+        # here: it is a setting, not a counter, and outlives every plan. It is
+        # created if it is missing, because a `limit` reading a global that is
+        # not there is the failure that logs nothing.
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
-                   f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n")
+                   f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_pth{index} value = 0 }}\n"
+                   f"\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_pw{index} }} }}\n"
+                   f"\t\tset_global_variable = {{ name = {MOD_ID}_pw{index} value = 0 }} }}\n"
+                   f"\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_pwq{index} }} }}\n"
+                   f"\t\tset_global_variable = {{ name = {MOD_ID}_pwq{index} value = 0 }} }}\n")
     # How many towns each right has been given. **The global is the dump's now
     # and no longer the score's** -- `_rq<k>` divides by `_rp<k>`, the count in
     # this province. A script value reading a global that is not there is the
@@ -2288,9 +2343,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}
-\t# **Counted on the side the location actually is**, which `{MOD_ID}_ordmax{index}`
-\t# does not do: it is the better of the two sides, so a good whose only
-\t# buildings are rural counts as makeable on ground that is all towns. The
+\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}
+\t# **Counted on the side the location actually is**, and not on the better of
+\t# the two: a good whose only buildings are rural would otherwise count as
+\t# makeable on ground that is all towns. The
 \t# thirty-sixth run is what that costs -- five towns of Münsterland reported
 \t# «товаров 13» where at most eight could ever stand there, and the quota is
 \t# divided by that number, so every good's share came out too small.
@@ -2309,6 +2365,26 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t}}
 \t\t}}
 \t\tchange_global_variable = {{ name = {MOD_ID}_ng{index} add = 1 }}
+\t\t# **And the best this ground ever pays this good**, which is what the open
+\t\t# ladder deals the leftovers by. Taken on the side the location actually is,
+\t\t# inside the walk that was happening anyway: one comparison a candidate and
+\t\t# no walk of its own. The dump has printed this number as `o` all along --
+\t\t# read back off the map afterwards -- and afterwards is too late to
+\t\t# allocate with.
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_is_town = yes
+\t\t\t\tvar:{MOD_ID}_p{index} > global_var:{MOD_ID}_pbest{index}
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = var:{MOD_ID}_p{index} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{
+\t\t\t\t{MOD_ID}_plan_is_town = no
+\t\t\t\tvar:{MOD_ID}_pr{index} > global_var:{MOD_ID}_pbest{index}
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = var:{MOD_ID}_pr{index} }}
+\t\t}}
 \t}}
 {rgo_count}
 \t# **Nothing is normalized any more, and the pass that did it is gone.** The
@@ -2615,6 +2691,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pn{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pwq{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
         for index, good in enumerate(order, start=1))
@@ -2629,7 +2706,9 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # **`max = 1` is the floor and it is deliberate.** A ground too small to give
 # every good one building still gives every good one building; what gives way
 # then is the cap, not the spread, and the header line says so by showing more
-# goods than rooms. The RGO discount comes off the same number.
+# goods than rooms. The RGO discount comes off the same number, and so does the
+# player's own weight -- **and the floor is what makes a negative weight safe**:
+# turning a good all the way down leaves it exactly one building and never none.
 # Scope: country
 {MOD_ID}_plan_set_quota = {{
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_plan_rooms }}
@@ -2641,6 +2720,150 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tchange_global_variable = {{ name = {MOD_ID}_plan_quota max = 1 }}
 {quota_lines}}}
+""")
+
+    # ---- the hand regulator -------------------------------------------------
+    #
+    # **One number a good, in the same units as the gain, and a step is one
+    # band.** The owner asked for it twice and the second time in detail,
+    # 2026-09-03: «я нахожу товар и выкручиваю ему некое "значение важности"…
+    # он уступает место тому у чего забрал слоты, но оставляет себе какой-то
+    # минимум». That is exactly a term added to the ordering: a good moved up a
+    # step is dealt with the band above its own and takes rooms from whatever was
+    # winning them; moved down, it yields them.
+    #
+    # **The minimum he asked for is already guaranteed and needs no rule of its
+    # own.** The covering ladder runs before any band and gives every good the
+    # ground can produce one building, whatever its weight -- so no weight, at any
+    # size, can take a good's last building.
+    #
+    # It acts on the good ticked in the goods list, which is the same numbering
+    # the plan uses, so the two buttons need no list of their own.
+    step = RANK_SCALE // 5
+    apply_lines = "".join(
+        f"""\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_good_index = {i} }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_pw{i} add = global_var:{MOD_ID}_pw_step }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pw{i} > {RANK_SCALE} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = {RANK_SCALE} }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pw{i} < -{RANK_SCALE} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = -{RANK_SCALE} }}
+\t\t}}
+\t\t# **And the same step in buildings.** A weight that only moved the good
+\t\t# up a band would be no use where the quota is what holds it: on
+\t\t# Westphalia iron's quota is **1**, because the ground already digs iron
+\t\t# twice, and no amount of priority gets it a second smelter. One step is
+\t\t# one band and one more building -- the two things that can hold a good
+\t\t# back, moved together.
+\t\tchange_global_variable = {{ name = {MOD_ID}_pwq{i} add = global_var:{MOD_ID}_pwq_step }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pwq{i} > 5 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = 5 }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_pwq{i} < -5 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = -5 }}
+\t\t}}
+\t}}
+""" for i in range(1, len(order) + 1))
+    show_lines = "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_good_index = {i} }} "
+        f"set_variable = {{ name = {MOD_ID}_pw_shown value = global_var:{MOD_ID}_pw{i} }} }}\n"
+        for i in range(1, len(order) + 1))
+    clear_lines = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_pw{i} value = 0 }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_pwq{i} value = 0 }}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# The weight of the ticked good, moved one band up or down.
+#
+# **No re-plan follows a press.** The weight decides what the *next* plan does,
+# exactly as the town/village tick does, and he may want to move three goods
+# before he wants an answer. «Пересчитать» is what makes it true.
+# Scope: country
+{MOD_ID}_plan_weight_up = {{
+	set_global_variable = {{ name = {MOD_ID}_pw_step value = {step} }}
+	set_global_variable = {{ name = {MOD_ID}_pwq_step value = 1 }}
+	{MOD_ID}_plan_weight_apply = yes
+}}
+
+# Scope: country
+{MOD_ID}_plan_weight_down = {{
+	set_global_variable = {{ name = {MOD_ID}_pw_step value = -{step} }}
+	set_global_variable = {{ name = {MOD_ID}_pwq_step value = -1 }}
+	{MOD_ID}_plan_weight_apply = yes
+}}
+
+# Clamped to one whole scale either way: past that a good is simply first or
+# last everywhere, and more of it changes nothing.
+# Scope: country
+{MOD_ID}_plan_weight_apply = {{
+{apply_lines}	{MOD_ID}_plan_weight_show = yes
+}}
+
+# What the buttons print on themselves. A variable and not a script value with
+# `if`s inside it: that shape reads zero in silence
+# (`docs/pitfalls/diagnosis.md`), and a knob whose number does not move is
+# indistinguishable from a knob that does nothing.
+# Scope: country
+{MOD_ID}_plan_weight_show = {{
+	set_variable = {{ name = {MOD_ID}_pw_shown value = 0 }}
+{show_lines}}}
+
+# Scope: country
+{MOD_ID}_plan_weight_clear = {{
+{clear_lines}	{MOD_ID}_plan_weight_show = yes
+}}
+""")
+
+    # ---- the threshold a pass admits a good at ------------------------------
+    #
+    # **One global per good, written per pass, and the pick reads only that.**
+    # The band used to be one number for every good, which is right while the
+    # quota is binding and wrong the moment it stops -- and on a realm-sized
+    # ground it stops completely. Measured 2026-09-03 on 416 locations: the quota
+    # came to 29 a good and no good reached it, so the band was the whole
+    # allocator, and the 30 goods that touch 1000 somewhere averaged **42**
+    # buildings against **12** for the eight that never do. `cannons` could stand
+    # in 103 locations, had a quota of 160, and got **two**.
+    #
+    # So the absolute band deals the fair share and **the open ladder deals the
+    # leftovers by each good's own best**: a good whose ceiling on this ground is
+    # 362 enters `open800` at 290, which is its own top fifth, exactly as cloth
+    # enters at 800. That is the second ladder
+    # `docs/investigations/plan_gaps.md` D asked for, and the run above is the
+    # measurement it was waiting for.
+    absolute = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_pth{i} value = global_var:{MOD_ID}_plan_band }}\n"
+        for i in range(1, len(order) + 1))
+    # `_pbest` plus the player's weight, floored at nought, times the band as a
+    # fraction. Four writes a good and only in the open ladder.
+    relative = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_pth{i} value = global_var:{MOD_ID}_pbest{i} }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} add = global_var:{MOD_ID}_pw{i} }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} max = 0 }}\n"
+        f"\tchange_global_variable = {{ name = {MOD_ID}_pth{i} multiply = {MOD_ID}_plan_bandf_value }}\n"
+        for i in range(1, len(order) + 1))
+    out.append(f"""
+# What a good has to reach to be placed in this pass, one global per good.
+#
+# **The absolute band, for every ladder but the last.** While the quota binds,
+# the ground is contested and the biggest gain should win the room.
+# Scope: country
+{MOD_ID}_plan_th_absolute = {{
+{absolute}}}
+
+# **And each good's own best, scaled by the band, for the open ladder.** Once
+# every good has had its share, the rooms left over are not contested in the same
+# way: handing them to whoever has the largest ceiling is what put 108 cloth
+# buildings and 2 cannon on the same ground. `_plan_bandf` is the band as a
+# fraction, set by the pass.
+# Scope: country
+{MOD_ID}_plan_th_relative = {{
+{relative}}}
 """)
 
     # ---- the sweeps --------------------------------------------------------
@@ -2681,6 +2904,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_band value = {band} }}\n")
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_cover "
                    f"value = {1 if tier is COVER_TIER else 0} }}\n")
+        # The threshold each good is admitted at in this pass: the band itself
+        # everywhere but the open ladder, each good's own best there.
+        if tier is OPEN_TIER:
+            out.append(f"\tset_global_variable = {{ name = {MOD_ID}_plan_bandf "
+                       f"value = {band / RANK_SCALE:g} }}\n"
+                       f"\t{MOD_ID}_plan_th_relative = yes\n")
+        else:
+            out.append(f"\t{MOD_ID}_plan_th_absolute = yes\n")
         if tier is COVER_TIER:
             out.append("""\t# **Every good the ground can produce is produced.** The owner's first
 \t# requirement and the one the bands cannot keep on their own: a good that
@@ -2777,15 +3008,20 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
-\t\t\t# **The band, and it is the whole of the optimum.** The ground is
-\t\t\t# dealt in descending order of gain across every good at once, so by
-\t\t\t# the time a good that would gain a tenth reaches a location, the good
-\t\t\t# that would have gained nine tenths has already taken it. That is the
-\t\t\t# opportunity cost, paid for by one comparison rather than by asking
-\t\t\t# every other good what it would have made of the place.
+\t\t\t# **The threshold, and it is the whole of the optimum.** The ground
+\t\t\t# is dealt in descending order of gain across every good at once, so
+\t\t\t# by the time a good that would gain a tenth reaches a location, the
+\t\t\t# good that would have gained nine tenths has already taken it. That is
+\t\t\t# the opportunity cost, paid for by one comparison rather than by
+\t\t\t# asking every other good what it would have made of the place.
+\t\t\t#
+\t\t\t# `_pth<n>` and not `_plan_band`: the pass writes one threshold per
+\t\t\t# good, the same band for all of them while the quota is binding and
+\t\t\t# each good's own best once it is not. `_plan_th_absolute` and
+\t\t\t# `_plan_th_relative` above.
 \t\t\tlimit = {{
 \t\t\t\t{MOD_ID}_plan_can_{side}_{index} = yes
-\t\t\t\t{order_value} >= global_var:{MOD_ID}_plan_band
+\t\t\t\t{order_value} >= global_var:{MOD_ID}_pth{index}
 \t\t\t}}
 \t\t\torder_by = {order_value}
 \t\t\tmax = 1
@@ -3992,7 +4228,21 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_diag_realt value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_forced value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_diag_forcedr value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_diag_moved value = 0 }}
 """)
+    # **How many locations this plan put something different in.** One `OR` a
+    # location over the two lists, in the walk the scan already makes, so the
+    # count costs nothing the diagnosis was not already paying.
+    moved_count = ("\t\tif = {\n\t\t\tlimit = { OR = {\n"
+                   + "".join(
+                       "\t\t\t\tAND = { is_target_in_variable_list = { name = %s_plan_was target = goods:%s } "
+                       "NOT = { is_target_in_variable_list = { name = %s_plan_goods target = goods:%s } } }\n"
+                       "\t\t\t\tAND = { is_target_in_variable_list = { name = %s_plan_goods target = goods:%s } "
+                       "NOT = { is_target_in_variable_list = { name = %s_plan_was target = goods:%s } } }\n"
+                       % (MOD_ID, good, MOD_ID, good, MOD_ID, good, MOD_ID, good)
+                       for good in order)
+                   + "\t\t\t} }\n\t\t\tchange_global_variable = { name = %s_diag_moved add = 1 }\n\t\t}\n"
+                   % MOD_ID)
     for index in range(1, len(order) + 1):
         for side in ("t", "r"):
             for what in ("w", "r", "g", "p", "o"):
@@ -4000,6 +4250,7 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(f"""\tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tchange_global_variable = {{ name = {MOD_ID}_diag_locs add = 1 }}
+{moved_count}
 \t\t# **Тумблеры считаются здесь, до разделения на стороны**, и это
 \t\t# сознательно: 2026-09-02 он сбросил их в «авто», а окно показало города
 \t\t# снова. Счёт по обеим сторонам различает «переменная вернулась» и «окно
@@ -4104,6 +4355,18 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    "q, ng against the tiers, and o against the bands."))
     for index in range(1, len(order) + 1):
         out.append(f"\t{MOD_ID}_diag_good_{index} = yes\n")
+    # **The hand weights, and only the ones that are set.** A weight is a setting
+    # and not a counter, so it survives the plan, the save and the ground -- and a
+    # forgotten weight would otherwise look exactly like the formula misbehaving.
+    for index, good in enumerate(order, start=1):
+        out.append(f"\tif = {{\n\t\tlimit = {{ NOT = {{ global_var:{MOD_ID}_pw{index} = 0 }} }}\n")
+        out.append(park(1, f"{MOD_ID}_pw{index}", tab="\t\t"))
+        out.append(park(2, f"{MOD_ID}_pwq{index}", tab="\t\t"))
+        out.append(say(f"WEIGHT {good} weight={read(1)} of={RANK_SCALE} "
+                       f"band={RANK_SCALE // 5} rooms={read(2)} -- the player's own "
+                       f"weight on this good: `weight` is added to its gain "
+                       f"everywhere and `rooms` to its quota", tab="\t\t"))
+        out.append("\t}\n")
     out.append(f"""\t{MOD_ID}_diag_free = yes
 }}
 
@@ -4115,12 +4378,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     for slot, source in enumerate((f"{MOD_ID}_diag_locs", f"{MOD_ID}_diag_towns",
                                    f"{MOD_ID}_diag_freet", f"{MOD_ID}_diag_freer",
                                    f"{MOD_ID}_diag_realt", f"{MOD_ID}_diag_forced",
-                                   f"{MOD_ID}_diag_forcedr"), start=1):
+                                   f"{MOD_ID}_diag_forcedr", f"{MOD_ID}_diag_moved"), start=1):
         out.append(park(slot, source))
     out.append(say("ROOM walked=%s towns=%s towns_with_room=%s villages_with_room=%s "
                    "| town rank or above=%s | ticks now set: town=%s village=%s "
                    "-- read live, so this says what the ticks are at this moment "
-                   "and not what the last plan saw" % tuple(read(i) for i in range(1, 8))))
+                   "and not what the last plan saw | moved=%s locations differ from "
+                   "the plan before this one" % tuple(read(i) for i in range(1, 9))))
     out.append("}\n")
 
     for index, good in enumerate(order, start=1):
@@ -4297,6 +4561,21 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
                    f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
                    f'debug_log = "WTP LG {good}" }}\n')
+    # **And what this plan moved against the one before it.** `_plan_was` is the
+    # previous plan's list, copied off the location before `_plan_prepare`
+    # cleared it. Printed only for the locations that take a row, so a large
+    # ground pays for at most `DIAG_LOCS` comparisons rather than all of them.
+    for good in order:
+        out.append(
+            f"\t\tif = {{ limit = {{ "
+            f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} "
+            f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
+            f'}} debug_log = "WTP LD -{good}" }}\n')
+        out.append(
+            f"\t\tif = {{ limit = {{ "
+            f"is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} "
+            f"NOT = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_was target = goods:{good} }} }} "
+            f'}} debug_log = "WTP LD +{good}" }}\n')
     out.append("\t}\n")
     out.append(park(1, f"{MOD_ID}_diag_n"))
     out.append(park(2, f"{MOD_ID}_plan_found"))

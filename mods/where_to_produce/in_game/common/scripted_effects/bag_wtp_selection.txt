@@ -178,6 +178,9 @@ bag_wtp_drop_browse = {
 # Scope: country
 bag_wtp_good_changed = {
 	bag_wtp_read_good = yes
+	# The regulator's buttons print the ticked good's weight on themselves, and
+	# this is the one place the ticked good changes.
+	bag_wtp_plan_weight_show = yes
 	bag_wtp_only_one_good = yes
 	if = {
 		limit = { var:bag_wtp_good_index > 0 }

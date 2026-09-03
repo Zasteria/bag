@@ -243,11 +243,12 @@ def fold(lines: list[str]) -> list[str]:
     out: list[str] = []
     pending: list[str] = []          # строки без метки WTP: имя локации от игры
     goods: list[str] = []
+    moved: list[str] = []            # что этот план изменил против прошлого
     row: str | None = None
     rq: str | None = None            # оценки прав города, идут внутри его блока
 
     def flush() -> None:
-        nonlocal row, goods, rq
+        nonlocal row, goods, rq, moved
         if row is None:
             # Оценки прав без своей локации: такого быть не должно, и если стало
             # -- это видно, а не съедено.
@@ -256,17 +257,31 @@ def fold(lines: list[str]) -> list[str]:
                 rq = None
             return
         out.append(row + (" | " + ", ".join(goods) if goods else " | -- пусто"))
+        # **Что этот план изменил здесь против прошлого.** Ровно то, о чём
+        # владелец просил 2026-09-03: «"локация" -- убрано X добавлено Y».
+        if moved:
+            gone = [g[1:] for g in moved if g.startswith("-")]
+            came = [g[1:] for g in moved if g.startswith("+")]
+            parts = []
+            if gone:
+                parts.append("убрано " + ", ".join(gone))
+            if came:
+                parts.append("добавлено " + ", ".join(came))
+            out.append("    изменено: " + "; ".join(parts))
         if rq:
             match = re.search(r"\bright=(\d+)", row)
             granted = int(match.group(1)) if match and match.group(1) != "0" else None
             out.append(render_rq(rq, names, granted, grantable))
-        row, goods, rq = None, [], None
+        row, goods, rq, moved = None, [], None, []
 
     for line in lines:
         if not line:
             continue
         if line.startswith("WTP LG "):
             goods.append(line[len("WTP LG "):])
+            continue
+        if line.startswith("WTP LD "):
+            moved.append(line[len("WTP LD "):])
             continue
         # **`RQ` принадлежит своей локации и не должна её закрывать.** Она
         # приходит внутри блока города, между `L` и `LG`, и без этой ветки
@@ -367,6 +382,20 @@ def digest(lines: list[str]) -> list[str]:
                    "настоящего городского ранга %s)"
                    % (field(room, "town"), field(room, "village"),
                       field(room, "towns"), field(room, "rank or above")))
+
+    # **Ручные веса, если они выставлены.** Вес переживает план, сохранение и
+    # смену области, поэтому забытый вес неотличим от формулы, которая сошла с
+    # ума. Печатается только то, что не ноль.
+    weights = [(l.split()[2], field(l, "weight"), field(l, "band")) for l in lines
+               if l.startswith("WTP WEIGHT ")]
+    weights = [(g, w, b) for g, w, b in weights if w]
+    if weights:
+        out.append("Ручные веса (одна полоса = %d): " % (weights[0][2] or 200)
+                   + ", ".join("%s %+d" % (g, w) for g, w, _ in weights))
+    moved = field(room, "moved")
+    if moved is not None:
+        out.append("Против прошлого плана изменилось локаций: %d%s"
+                   % (moved, "" if moved else " — ни одной"))
 
     counts = {}
     for line in lines:
@@ -530,10 +559,15 @@ def main(argv: list[str]) -> int:
         # and `digest(raw)` then summed **all five presses into one** «коротко» --
         # 263 charters granted over 48 towns. A safety net that always fires is a
         # broken tool, not a careful one.
+        # **Every line the fold consumes on purpose has to be listed here, and
+        # forgetting one fires the net on every report.** It has happened twice:
+        # `WTP RQ` in the morning of 2026-09-03 and `WTP LD` the same evening.
+        # The rule to carry: a line folded into another line is not a lost line,
+        # and the safeguard is about lines that vanish without a trace.
+        folded = ("WTP LG ", "WTP RQ ", "WTP LD ")
         must = sum(1 for line in raw
                    if line.startswith(TAG)
-                   and not line.startswith("WTP LG ")
-                   and not line.startswith("WTP RQ "))
+                   and not line.startswith(folded))
         kept = sum(1 for line in body if line.startswith(TAG))
         if kept < must:
             print("Укладка потеряла %d строк из %d -- отдаю как есть."

@@ -151,6 +151,35 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# **The hand regulator: one weight a good, one band a press.** The owner asked
+	# for it twice, and the second time gave the reason: the formula's answer is
+	# an optimum for the objective it was given, and his taste is a different
+	# objective. «Я нахожу товар и выкручиваю ему некое "значение важности"…»
+	#
+	# It acts on whichever good is ticked in the goods list, so it needs no list
+	# of its own; the weight is a global and outlives the plan, the save and the
+	# ground. Nothing re-plans on a press -- «Пересчитать» is what makes it true.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_w_up
+		tab_id = plan
+		group_id = weight
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_w_down
+		tab_id = plan
+		group_id = weight
+	}
+
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = plan_w_clear
+		tab_id = plan
+		group_id = weight
+	}
+
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
 	# the headline of it into `error.log` besides.
 	#

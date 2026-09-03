@@ -136,6 +136,22 @@ bag_wtp_on_button = {
 		bag_wtp_clear_ticks = yes
 	}
 
+	# The hand regulator. **No re-plan**, for the reason the town/village tick has
+	# none: the pass reads every recipe on every location, and he may want to move
+	# three goods before he wants an answer.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_w_up }
+		bag_wtp_plan_weight_up = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_w_down }
+		bag_wtp_plan_weight_down = yes
+	}
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__plan_w_clear }
+		bag_wtp_plan_weight_clear = yes
+	}
+
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads
 	# what the last pass left and writes only its own scratch globals -- so the
 	# window is deliberately not opened and not refreshed: pressing this must
