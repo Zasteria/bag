@@ -8841,56 +8841,64 @@ bag_wtp_edit_clear_plan = {
 }
 
 # The goods the editor offers, rebuilt whenever its window opens.
+#
+# **`has_global_variable` before the comparison.** `_ng<n>` is written by the
+# scoring pass and by nothing else, so before the first plan of a save it does
+# not exist -- and a `limit` reading a global that is not there is the failure
+# this repository names first. Here the wrong answer and the right one happen to
+# agree (no plan, nothing to edit), which is exactly how such a thing survives a
+# review.
 # Scope: country
 bag_wtp_edit_fill_pool = {
-	clear_global_variable_list = bag_wtp_edit_pool
-	if = { limit = { has_global_variable = bag_wtp_ng1 global_var:bag_wtp_ng1 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:clay } }
-	if = { limit = { has_global_variable = bag_wtp_ng2 global_var:bag_wtp_ng2 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:coal } }
-	if = { limit = { has_global_variable = bag_wtp_ng3 global_var:bag_wtp_ng3 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:cotton } }
-	if = { limit = { has_global_variable = bag_wtp_ng4 global_var:bag_wtp_ng4 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:dyes } }
-	if = { limit = { has_global_variable = bag_wtp_ng5 global_var:bag_wtp_ng5 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:fiber_crops } }
-	if = { limit = { has_global_variable = bag_wtp_ng6 global_var:bag_wtp_ng6 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:fish } }
-	if = { limit = { has_global_variable = bag_wtp_ng7 global_var:bag_wtp_ng7 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:fruit } }
-	if = { limit = { has_global_variable = bag_wtp_ng8 global_var:bag_wtp_ng8 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:horses } }
-	if = { limit = { has_global_variable = bag_wtp_ng9 global_var:bag_wtp_ng9 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:incense } }
-	if = { limit = { has_global_variable = bag_wtp_ng10 global_var:bag_wtp_ng10 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:iron } }
-	if = { limit = { has_global_variable = bag_wtp_ng11 global_var:bag_wtp_ng11 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:ivory } }
-	if = { limit = { has_global_variable = bag_wtp_ng12 global_var:bag_wtp_ng12 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:livestock } }
-	if = { limit = { has_global_variable = bag_wtp_ng13 global_var:bag_wtp_ng13 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:lumber } }
-	if = { limit = { has_global_variable = bag_wtp_ng14 global_var:bag_wtp_ng14 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:medicaments } }
-	if = { limit = { has_global_variable = bag_wtp_ng15 global_var:bag_wtp_ng15 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:salt } }
-	if = { limit = { has_global_variable = bag_wtp_ng16 global_var:bag_wtp_ng16 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:saltpeter } }
-	if = { limit = { has_global_variable = bag_wtp_ng17 global_var:bag_wtp_ng17 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:sand } }
-	if = { limit = { has_global_variable = bag_wtp_ng18 global_var:bag_wtp_ng18 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:silk } }
-	if = { limit = { has_global_variable = bag_wtp_ng19 global_var:bag_wtp_ng19 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:silver } }
-	if = { limit = { has_global_variable = bag_wtp_ng20 global_var:bag_wtp_ng20 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:stone } }
-	if = { limit = { has_global_variable = bag_wtp_ng21 global_var:bag_wtp_ng21 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:sugar } }
-	if = { limit = { has_global_variable = bag_wtp_ng22 global_var:bag_wtp_ng22 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:tobacco } }
-	if = { limit = { has_global_variable = bag_wtp_ng23 global_var:bag_wtp_ng23 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:wild_game } }
-	if = { limit = { has_global_variable = bag_wtp_ng24 global_var:bag_wtp_ng24 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:wine } }
-	if = { limit = { has_global_variable = bag_wtp_ng25 global_var:bag_wtp_ng25 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:wool } }
-	if = { limit = { has_global_variable = bag_wtp_ng26 global_var:bag_wtp_ng26 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:beer } }
-	if = { limit = { has_global_variable = bag_wtp_ng27 global_var:bag_wtp_ng27 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:books } }
-	if = { limit = { has_global_variable = bag_wtp_ng28 global_var:bag_wtp_ng28 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:cannons } }
-	if = { limit = { has_global_variable = bag_wtp_ng29 global_var:bag_wtp_ng29 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:cloth } }
-	if = { limit = { has_global_variable = bag_wtp_ng30 global_var:bag_wtp_ng30 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:fine_cloth } }
-	if = { limit = { has_global_variable = bag_wtp_ng31 global_var:bag_wtp_ng31 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:firearms } }
-	if = { limit = { has_global_variable = bag_wtp_ng32 global_var:bag_wtp_ng32 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:furniture } }
-	if = { limit = { has_global_variable = bag_wtp_ng33 global_var:bag_wtp_ng33 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:glass } }
-	if = { limit = { has_global_variable = bag_wtp_ng34 global_var:bag_wtp_ng34 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:jewelry } }
-	if = { limit = { has_global_variable = bag_wtp_ng35 global_var:bag_wtp_ng35 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:lacquerware } }
-	if = { limit = { has_global_variable = bag_wtp_ng36 global_var:bag_wtp_ng36 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:leather } }
-	if = { limit = { has_global_variable = bag_wtp_ng37 global_var:bag_wtp_ng37 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:liquor } }
-	if = { limit = { has_global_variable = bag_wtp_ng38 global_var:bag_wtp_ng38 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:masonry } }
-	if = { limit = { has_global_variable = bag_wtp_ng39 global_var:bag_wtp_ng39 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:naval_supplies } }
-	if = { limit = { has_global_variable = bag_wtp_ng40 global_var:bag_wtp_ng40 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:paper } }
-	if = { limit = { has_global_variable = bag_wtp_ng41 global_var:bag_wtp_ng41 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:porcelain } }
-	if = { limit = { has_global_variable = bag_wtp_ng42 global_var:bag_wtp_ng42 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:pottery } }
-	if = { limit = { has_global_variable = bag_wtp_ng43 global_var:bag_wtp_ng43 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:slaves_goods } }
-	if = { limit = { has_global_variable = bag_wtp_ng44 global_var:bag_wtp_ng44 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:steel } }
-	if = { limit = { has_global_variable = bag_wtp_ng45 global_var:bag_wtp_ng45 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:tar } }
-	if = { limit = { has_global_variable = bag_wtp_ng46 global_var:bag_wtp_ng46 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:tools } }
-	if = { limit = { has_global_variable = bag_wtp_ng47 global_var:bag_wtp_ng47 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool target = goods:weaponry } }
+	clear_global_variable_list = bag_wtp_edit_pool_raw
+	clear_global_variable_list = bag_wtp_edit_pool_made
+	if = { limit = { has_global_variable = bag_wtp_ng1 global_var:bag_wtp_ng1 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:clay } }
+	if = { limit = { has_global_variable = bag_wtp_ng2 global_var:bag_wtp_ng2 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:coal } }
+	if = { limit = { has_global_variable = bag_wtp_ng3 global_var:bag_wtp_ng3 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:cotton } }
+	if = { limit = { has_global_variable = bag_wtp_ng4 global_var:bag_wtp_ng4 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:dyes } }
+	if = { limit = { has_global_variable = bag_wtp_ng5 global_var:bag_wtp_ng5 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:fiber_crops } }
+	if = { limit = { has_global_variable = bag_wtp_ng6 global_var:bag_wtp_ng6 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:fish } }
+	if = { limit = { has_global_variable = bag_wtp_ng7 global_var:bag_wtp_ng7 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:fruit } }
+	if = { limit = { has_global_variable = bag_wtp_ng8 global_var:bag_wtp_ng8 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:horses } }
+	if = { limit = { has_global_variable = bag_wtp_ng9 global_var:bag_wtp_ng9 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:incense } }
+	if = { limit = { has_global_variable = bag_wtp_ng10 global_var:bag_wtp_ng10 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:iron } }
+	if = { limit = { has_global_variable = bag_wtp_ng11 global_var:bag_wtp_ng11 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:ivory } }
+	if = { limit = { has_global_variable = bag_wtp_ng12 global_var:bag_wtp_ng12 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:livestock } }
+	if = { limit = { has_global_variable = bag_wtp_ng13 global_var:bag_wtp_ng13 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:lumber } }
+	if = { limit = { has_global_variable = bag_wtp_ng14 global_var:bag_wtp_ng14 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:medicaments } }
+	if = { limit = { has_global_variable = bag_wtp_ng15 global_var:bag_wtp_ng15 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:salt } }
+	if = { limit = { has_global_variable = bag_wtp_ng16 global_var:bag_wtp_ng16 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:saltpeter } }
+	if = { limit = { has_global_variable = bag_wtp_ng17 global_var:bag_wtp_ng17 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:sand } }
+	if = { limit = { has_global_variable = bag_wtp_ng18 global_var:bag_wtp_ng18 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:silk } }
+	if = { limit = { has_global_variable = bag_wtp_ng19 global_var:bag_wtp_ng19 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:silver } }
+	if = { limit = { has_global_variable = bag_wtp_ng20 global_var:bag_wtp_ng20 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:stone } }
+	if = { limit = { has_global_variable = bag_wtp_ng21 global_var:bag_wtp_ng21 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:sugar } }
+	if = { limit = { has_global_variable = bag_wtp_ng22 global_var:bag_wtp_ng22 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:tobacco } }
+	if = { limit = { has_global_variable = bag_wtp_ng23 global_var:bag_wtp_ng23 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:wild_game } }
+	if = { limit = { has_global_variable = bag_wtp_ng24 global_var:bag_wtp_ng24 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:wine } }
+	if = { limit = { has_global_variable = bag_wtp_ng25 global_var:bag_wtp_ng25 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_raw target = goods:wool } }
+	if = { limit = { has_global_variable = bag_wtp_ng26 global_var:bag_wtp_ng26 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:beer } }
+	if = { limit = { has_global_variable = bag_wtp_ng27 global_var:bag_wtp_ng27 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:books } }
+	if = { limit = { has_global_variable = bag_wtp_ng28 global_var:bag_wtp_ng28 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:cannons } }
+	if = { limit = { has_global_variable = bag_wtp_ng29 global_var:bag_wtp_ng29 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:cloth } }
+	if = { limit = { has_global_variable = bag_wtp_ng30 global_var:bag_wtp_ng30 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:fine_cloth } }
+	if = { limit = { has_global_variable = bag_wtp_ng31 global_var:bag_wtp_ng31 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:firearms } }
+	if = { limit = { has_global_variable = bag_wtp_ng32 global_var:bag_wtp_ng32 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:furniture } }
+	if = { limit = { has_global_variable = bag_wtp_ng33 global_var:bag_wtp_ng33 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:glass } }
+	if = { limit = { has_global_variable = bag_wtp_ng34 global_var:bag_wtp_ng34 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:jewelry } }
+	if = { limit = { has_global_variable = bag_wtp_ng35 global_var:bag_wtp_ng35 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:lacquerware } }
+	if = { limit = { has_global_variable = bag_wtp_ng36 global_var:bag_wtp_ng36 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:leather } }
+	if = { limit = { has_global_variable = bag_wtp_ng37 global_var:bag_wtp_ng37 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:liquor } }
+	if = { limit = { has_global_variable = bag_wtp_ng38 global_var:bag_wtp_ng38 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:masonry } }
+	if = { limit = { has_global_variable = bag_wtp_ng39 global_var:bag_wtp_ng39 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:naval_supplies } }
+	if = { limit = { has_global_variable = bag_wtp_ng40 global_var:bag_wtp_ng40 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:paper } }
+	if = { limit = { has_global_variable = bag_wtp_ng41 global_var:bag_wtp_ng41 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:porcelain } }
+	if = { limit = { has_global_variable = bag_wtp_ng42 global_var:bag_wtp_ng42 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:pottery } }
+	if = { limit = { has_global_variable = bag_wtp_ng43 global_var:bag_wtp_ng43 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:slaves_goods } }
+	if = { limit = { has_global_variable = bag_wtp_ng44 global_var:bag_wtp_ng44 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:steel } }
+	if = { limit = { has_global_variable = bag_wtp_ng45 global_var:bag_wtp_ng45 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:tar } }
+	if = { limit = { has_global_variable = bag_wtp_ng46 global_var:bag_wtp_ng46 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:tools } }
+	if = { limit = { has_global_variable = bag_wtp_ng47 global_var:bag_wtp_ng47 > 0 } add_to_global_variable_list = { name = bag_wtp_edit_pool_made target = goods:weaponry } }
 }
 
 # A good in or out of the editor's own row list -- the icons with «+1» and «−1»
@@ -9449,8 +9457,12 @@ bag_wtp_edit_init_slots = {
 		set_global_variable = { name = bag_wtp_edit_done value = 0 }
 	}
 	if = {
-		limit = { NOT = { has_global_variable_list = bag_wtp_edit_pool } }
-		clear_global_variable_list = bag_wtp_edit_pool
+		limit = { NOT = { has_global_variable_list = bag_wtp_edit_pool_raw } }
+		clear_global_variable_list = bag_wtp_edit_pool_raw
+	}
+	if = {
+		limit = { NOT = { has_global_variable_list = bag_wtp_edit_pool_made } }
+		clear_global_variable_list = bag_wtp_edit_pool_made
 	}
 	if = {
 		limit = { NOT = { has_global_variable_list = bag_wtp_edit_picked } }
@@ -9467,6 +9479,14 @@ bag_wtp_edit_init_slots = {
 # scored and shows whatever the plan holds now.
 # Scope: country
 bag_wtp_open_edit_window_effect = {
+	# **A line in the log on every press, and it is here to answer one question.**
+	# The first build of this window never appeared -- pressed from the mod page and
+	# from the plan window alike, and nothing on screen either way. Two things look
+	# identical from the outside: the button never reaching this effect, and this
+	# effect running while the window fails to draw. `error.log` names the file and
+	# the line for a `.gui` that will not parse, so a line here plus that log
+	# separates them, and neither costs a second press.
+	error_log = "WTP edit window: the open effect ran and bag_wtp_edit_open is set. If no window appeared, the fault is in bag_wtp_edit_window.gui and this log names it above."
 	bag_wtp_edit_init_slots = yes
 	bag_wtp_edit_fill_pool = yes
 	bag_wtp_plan_show = yes

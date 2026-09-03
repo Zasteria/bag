@@ -9,36 +9,50 @@
 # загружается примерно в том же виде, в каком он показывается в окне "где
 # производить - общий план".»
 #
-# So: three slots along the top, the plan itself in the same rows the plan window
-# draws -- `bag_wtp_plan_entry`, reused rather than copied, so the two windows can
-# never drift apart -- the goods this ground can make as icons, and beside each
-# good he has chosen a «−1», its icon and a «+1».
+# So: three slots along the top, the goods this ground can make as icons, a row
+# per good he picks with «−1», its icon and «+1», and the plan itself in the
+# rows the plan window draws -- `bag_wtp_plan_entry`, reused rather than copied,
+# so the two windows can never drift apart.
 #
 # **Nothing in here re-plans.** `bag_wtp_plan_run` is the only thing that does,
 # and every button here changes the plan on the map one building at a time:
 # «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
 # менее болезненно удалить для наилучшей установки туда товара Y».
+#
+# **Every widget in this file is one the mod already draws every frame.** The
+# first build of it never appeared at all -- one press, nothing on screen, and
+# the log the only place that could say why -- and the two things in it that
+# nothing here had ever drawn were a `type` derived from `button_regular` and a
+# `flowcontainer`. Both are gone: a type here derives from `widget` or `hbox` and
+# holds a `button_regular` inside it, the way `bag_wtp_plan_goods_entry` holds a
+# `text_single`, and the wrapping row is two plain `hbox` datamodels instead.
 
 types BagWtpEditTypes {
 
 	# One good the ground can make, as a clickable icon. Clicking it puts the good
-	# into the row list below and clicking it again takes it out.
+	# in the list below; clicking it again takes the row away.
 	#
 	# **A goods icon is a texticon and the button carries it as `raw_text`**, the
 	# same way `bag_wtp_plan_goods_entry` does: `Goods.GetIcon` returns a `CString`,
 	# so an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all
 	# (`docs/pitfalls/interface.md`, and the thirty-second load).
-	type bag_wtp_edit_pool_entry = button_regular {
+	type bag_wtp_edit_pool_entry = widget {
 		size = { 34 34 }
-		tooltip = "[Goods.GetName]"
-		onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
 
-		text_single = {
+		button_regular = {
+			size = { 32 32 }
 			parentanchor = center
 			widgetanchor = center
-			autoresize = yes
-			fontsize = 18
-			raw_text = "[Goods.GetIcon]"
+			tooltip = "[Goods.GetName]"
+			onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+
+			text_single = {
+				parentanchor = center
+				widgetanchor = center
+				autoresize = yes
+				fontsize = 17
+				raw_text = "[Goods.GetIcon]"
+			}
 		}
 	}
 
@@ -48,22 +62,21 @@ types BagWtpEditTypes {
 	#
 	# **The delete button removes the row and not the buildings.** A good taken out
 	# of this list keeps whatever the plan gave it; the row is a handle, not a
-	# state. Anything else would make «удалить товар» destroy work silently, and
-	# the count beside the icon is there so it is obvious which it did.
+	# state. Anything else would make «удалить товар» destroy work silently.
 	type bag_wtp_edit_pick_entry = hbox {
-		size = { 254 40 }
-		spacing = 3
+		size = { 300 40 }
+		spacing = 4
 		using = bg_number_container_bckg
 
 		button_regular = {
-			size = { 34 34 }
+			size = { 34 32 }
 			tooltip = "bag_wtp_edit_minus_tt"
 			onclick = "[GetScriptedGui('bag_wtp_edit_minus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
 			text_single = {
 				parentanchor = center
 				widgetanchor = center
 				autoresize = yes
-				fontsize = 16
+				fontsize = 15
 				text = "bag_wtp_edit_minus"
 			}
 		}
@@ -76,41 +89,43 @@ types BagWtpEditTypes {
 				parentanchor = center
 				widgetanchor = center
 				autoresize = yes
-				fontsize = 20
+				fontsize = 19
 				raw_text = "[Goods.GetIcon]"
 			}
 		}
 
 		button_regular = {
-			size = { 34 34 }
+			size = { 34 32 }
 			tooltip = "bag_wtp_edit_plus_tt"
 			onclick = "[GetScriptedGui('bag_wtp_edit_plus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
 			text_single = {
 				parentanchor = center
 				widgetanchor = center
 				autoresize = yes
-				fontsize = 16
+				fontsize = 15
 				text = "bag_wtp_edit_plus"
 			}
 		}
 
-		# **No count on the row, and that is a limit and not a choice.** A script
-		# value is what a localization can read a number through
-		# (`bag_wtp_plan_pass_summary` is all of them), and a script value cannot be
-		# indexed by the good this row is drawn for -- the plan's counters are
-		# `_pn<n>`, numbered, and a datamodel item carries a scope. Whether a press
-		# did anything is on «последнее действие» below the picker instead, and where
-		# it landed is in the changes window.
+		text_single = {
+			size = { 150 32 }
+			autoresize = no
+			maximumsize = { 150 32 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "[Goods.GetName]"
+		}
 
 		button_regular = {
-			size = { 30 34 }
+			size = { 32 32 }
 			tooltip = "bag_wtp_edit_forget_tt"
 			onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
 			text_single = {
 				parentanchor = center
 				widgetanchor = center
 				autoresize = yes
-				fontsize = 14
+				fontsize = 13
 				text = "bag_wtp_edit_forget"
 			}
 		}
@@ -126,13 +141,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1180 760 }
+	size = { 1180 780 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 
 	widget = {
-		size = { 1180 760 }
+		size = { 1180 780 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -175,15 +190,16 @@ window = {
 				# сохранённый план, если захочу посмотреть какой-то план на другой
 				# земле… Слотов для планов должно быть минимум 3.»
 				#
-				# Each shows what it holds, so that «загрузить» is never a guess, and
-				# the label is a `customizable_localization` of the mod's own because a
-				# `text` cannot read a global variable any other way.
+				# Each shows what it holds, so «загрузить» is never a guess. The label
+				# is a `customizable_localization` of the mod's own because a plain key
+				# can read a number but cannot choose between two sentences, and an
+				# empty slot must not read «0 зданий в 0 локациях».
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
 
 					text_single = {
-						size = { 110 34 }
+						size = { 90 34 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 14
@@ -191,18 +207,17 @@ window = {
 					}
 
 					widget = {
-						size = { 320 40 }
+						size = { 330 40 }
 						using = bg_number_container_bckg
 
 						hbox = {
 							parentanchor = left|vcenter
 							spacing = 4
-							margin = { 6 0 }
 
 							text_single = {
-								size = { 150 34 }
+								size = { 160 32 }
 								autoresize = no
-								maximumsize = { 150 34 }
+								maximumsize = { 160 32 }
 								align = left|vcenter
 								fontsize = 13
 								elide = right
@@ -249,18 +264,17 @@ window = {
 					}
 
 					widget = {
-						size = { 320 40 }
+						size = { 330 40 }
 						using = bg_number_container_bckg
 
 						hbox = {
 							parentanchor = left|vcenter
 							spacing = 4
-							margin = { 6 0 }
 
 							text_single = {
-								size = { 150 34 }
+								size = { 160 32 }
 								autoresize = no
-								maximumsize = { 150 34 }
+								maximumsize = { 160 32 }
 								align = left|vcenter
 								fontsize = 13
 								elide = right
@@ -307,18 +321,17 @@ window = {
 					}
 
 					widget = {
-						size = { 320 40 }
+						size = { 330 40 }
 						using = bg_number_container_bckg
 
 						hbox = {
 							parentanchor = left|vcenter
 							spacing = 4
-							margin = { 6 0 }
 
 							text_single = {
-								size = { 150 34 }
+								size = { 160 32 }
 								autoresize = no
-								maximumsize = { 150 34 }
+								maximumsize = { 160 32 }
 								align = left|vcenter
 								fontsize = 13
 								elide = right
@@ -367,9 +380,9 @@ window = {
 					widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
 				}
 
-				# The picker: every good this ground can make, and only those. 47 icons
-				# of which half are impossible here is a worse picker than twenty that
-				# are all real, and `bag_wtp_edit_fill_pool` is what decides which.
+				# The picker: every good this ground can make, and only those. Raw on
+				# one line, made on the next -- 25 icons of 34 and 22 of 34 both fit
+				# 1130 with room over, which is why no wrapping widget is needed.
 				text_single = {
 					size = { 1130 22 }
 					autoresize = no
@@ -385,22 +398,27 @@ window = {
 					autoresize = yes
 					maximumsize = { 1130 40 }
 					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool')))]"
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool_raw')))]"
 					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# **A `flowcontainer` and not an hbox**: 47 icons in a row would run off
-				# the window, and the number of goods is the game's to decide.
-				flowcontainer = {
-					# **`wrap_count` and not a width.** A `flowcontainer` wraps on a count
-					# of items, which is how vanilla uses it (`agenda_view.gui`); a
-					# `maximumsize` on it does not wrap anything and the row simply runs
-					# off the window. 28 icons of 34 with 2 between them is 1008 of the
-					# 1130 the window has.
-					wrap_count = 28
+				hbox = {
+					layoutpolicy_horizontal = expanding
 					spacing = 2
 					ignoreinvisible = yes
-					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
+					datamodel = "[GetGlobalList('bag_wtp_edit_pool_raw')]"
+					item = {
+						bag_wtp_edit_pool_entry = {
+							datacontext = "[Scope.GetGoods]"
+						}
+					}
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 2
+					ignoreinvisible = yes
+					datamodel = "[GetGlobalList('bag_wtp_edit_pool_made')]"
 					item = {
 						bag_wtp_edit_pool_entry = {
 							datacontext = "[Scope.GetGoods]"
@@ -420,6 +438,17 @@ window = {
 						fontsize = 13
 						elide = right
 						text = "bag_wtp_edit_picked_head"
+					}
+
+					text_single = {
+						size = { 560 24 }
+						autoresize = no
+						maximumsize = { 560 24 }
+						align = left|vcenter
+						fontsize = 13
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
+						tooltip = "bag_wtp_edit_last_tt"
 					}
 
 					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
@@ -446,10 +475,21 @@ window = {
 					}
 				}
 
-				flowcontainer = {
-					# A row is about 250 wide, so four to a line.
-					wrap_count = 4
-					spacing = 6
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1130 30 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_picked')))]"
+					text = "bag_wtp_edit_picked_empty"
+				}
+
+				# A row per picked good, stacked. A `vbox` over a datamodel is the one
+				# shape this mod has drawn since the first window.
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = preferred
+					spacing = 3
 					ignoreinvisible = yes
 					datamodel = "[GetGlobalList('bag_wtp_edit_picked')]"
 					item = {
@@ -457,30 +497,6 @@ window = {
 							datacontext = "[Scope.GetGoods]"
 						}
 					}
-				}
-
-				text_multi = {
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = { 1130 40 }
-					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_picked')))]"
-					text = "bag_wtp_edit_picked_empty"
-				}
-
-				# **What the last press did**, because an effect that merely does
-				# nothing logs nothing at all. «+1» fails silently when the good fits
-				# nowhere on this ground, and «−1» when the good has one building left
-				# or every one of them belongs to a charter's bundle -- both are rules
-				# and neither is a bug, so the window has to say which happened.
-				text_single = {
-					size = { 1130 22 }
-					autoresize = no
-					align = left|vcenter
-					fontsize = 13
-					elide = right
-					text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
-					tooltip = "bag_wtp_edit_last_tt"
 				}
 
 				# The plan as it stands, in the plan window's own rows.

@@ -162,7 +162,7 @@ bag_wtp_register = {
 		mod_id = bag_wtp
 		setting_id = edit_open
 		tab_id = plan
-		group_id = what
+		group_id = plan
 	}
 
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and

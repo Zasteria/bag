@@ -187,6 +187,38 @@ of its own — `_rn<k> < 1` is `_rn<k> = 0` — so that case and its flag are go
   owner set that price himself. It is the same objection that was raised against
   the band-0 pass on 2026-09-03 and overruled the same day.
 
+**Run 2026-09-03, and it came out as predicted**: five or six at every charter,
+`rquota=5 rlevels=6`.
+
+**How good is the placement? 84.3% of the best possible, and that is measured.**
+`_rq<k>` is a static script value -- the bundle's gains added and divided by the
+bundle -- so the numbers the dump prints are the numbers the pass used, and the
+assignment problem can be solved exactly afterwards from a press's own report.
+The plan gave **21246**; the best assignment with the same counts is **25189**.
+`tools/` has no solver in it: this was one throwaway script over the report, and
+the method is a note here rather than a tool because it answers a question that
+is now answered.
+
+**Two alternatives were measured on those numbers and both are worse.**
+
+- **Walking charters instead of towns** -- each charter takes its best free town
+  in its band -- gives **18526**. A charter early in the order takes a town a
+  later one needed more; letting each town state its own preference beats it.
+- **Finer bands.** Averaged over 40 random walk orders: 5 bands 22969, 10 bands
+  21927, 20 bands 21370, 50 bands 21889. Mellower granularity is not better here,
+  it is worse, because a coarse band lets more towns compete inside it.
+
+**What would close the gap is a swap pass**, and it is not built. After the
+ladder, two towns exchange charters whenever the sum rises: on these numbers +8%
+and **97.8% of the optimum**, in about twelve swaps, with the counts preserved by
+construction. It needs the grant split in two -- the ladder deciding `_plan_right`
+without planting, then one walk planting every bundle -- because a swap after the
+buildings are down would leave them behind.
+
+**And the cost of evenness is now measured too**: 141 of 192 buildings earned a
+bonus before the levelling ladder and 128 after, 73% against 67%. Ровные грамоты
+стоят земле примерно шестую часть бонуса.
+
 **Not run.** The ladder is arithmetic on the same numbers the last press printed,
 so the prediction is exact — weaponry and jewelry at five, nothing else below
 five — but nothing here has been in the game.

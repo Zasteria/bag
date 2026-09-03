@@ -10838,9 +10838,28 @@ bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
 bag_wtp_plan_order = {
 	value = 0
 	subtract = var:bag_wtp_plan_prank
+	# **A hundred a province, so the charter can order the towns inside one.**
+	# The owner, 2026-09-03: «мне отвратительно и неприятно видеть бесконечно
+	# чередующиеся права в одной провинции. Пиво-шкаф-пиво-шкаф... Надо как-то
+	# сортировать это, чтобы провинция так же показывала все свои локации вместе,
+	# но сами локации не стояли в таком порядке.»
+	#
+	# **And it is only the order of the rows.** Every location of a province is
+	# worth exactly the same to a charter -- `_rq<k>` reads the province's bonus --
+	# so which town of a province holds which charter is free, and sorting them
+	# changes no number in the plan. That is why this is a script value and not a
+	# change to the grant.
+	multiply = 100
 	if = {
 		limit = { bag_wtp_plan_is_town = yes }
-		add = 0.5
+		add = 50
+	}
+	# Ascending by the charter's own number, so identical charters stand together.
+	# `has_variable` first: a village carries none, and a script value reading a
+	# variable that is not there is the failure that logs nothing.
+	if = {
+		limit = { has_variable = bag_wtp_plan_right }
+		subtract = var:bag_wtp_plan_right
 	}
 }
 

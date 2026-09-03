@@ -1,4 +1,4 @@
-# The plan's formula: what is being maximised, and how the ground is dealt
+﻿# The plan's formula: what is being maximised, and how the ground is dealt
 
 **Rewritten 2026-09-01, when the owner stated the objective outright.** Before
 this the file was a pile of rules; it is now a derivation, because he said what
@@ -149,30 +149,54 @@ charter is worth 1000 there against weaponry's 163. Spreading charters *inside a
 province* was tried and reverted for emptying a province of the charter its ground
 was made for. That is an edit, not a rewrite.
 
-One damper keeps a pass from stacking, and it is the quota:
+One damper keeps a pass from stacking, and it is the share:
+
+```
+share(g)  =  max(1, capacity ÷ |goods|  −  rgo(g))
+capacity  =  every candidate's cap added up, charters included
+```
+
+It is «равномерно» and it is scale-free: three provinces give a share under one,
+so everything is covered once and mixed; a large realm gives a share of
+twenty-odd, so each good takes its best twenty-odd places and stops.
+
+**A charter's buildings are spent out of the good's share, not added to it** —
+changed 2026-09-03, and the owner's arithmetic is why. It read
 
 ```
 quota(g)  =  max(1, free ÷ |goods| + charters(g) − rgo(g))
 free      =  capacity − everything the charter round already placed
 ```
 
-It is «равномерно» and it is scale-free: three provinces give a quota under one,
-so everything is covered once and mixed; a large realm gives a quota of
-twenty-odd, so each good takes its best twenty-odd places and stops.
+and on Westphalia `free ÷ |goods|` is 84 ÷ 35 = **2**. Wine, whose charter is
+brewing, walked in at 2 + 6 = **8**; iron, with two RGOs under it, at 2 − 2 = 0,
+floored to **1**. He read the result off the report and did the arithmetic
+himself: «как будто бы 1 домик + 2 РГО не равняются 9, а равняются 3. Так почему?
+Почему РГО внезапно стал весить 4 вместо 1?» Nothing was wrong with his rule —
+one RGO is one building — and everything was wrong with the number it came off.
+Now the share is 192 ÷ 35 = **5**: wine walks in already holding 6 and takes no
+more, iron gets 3.
 
-**There was a second, `gain ÷ (1 + already in this province)`, and it is gone** —
-removed 2026-09-03, for the reason under «Равномерно and specialisation» below.
-Nothing divides the gain now, and the counter behind that divisor is not written
-either.
+**What that overturns.** `charters(g)` was added after the thirty-eighth run,
+where `tools` held six charter buildings against a quota of 2 and so could not
+take a free room in Sauerland at a gain of 799. Against a share of **2** that was
+a real fault; against a share of **5** a good already holding 6 is above its
+share, and stopping there is the evenness rather than a bug. The old fault cannot
+recur, so the old fix is gone with it.
+
+**There was a second damper, `gain ÷ (1 + already in this province)`, and it is
+gone** — removed 2026-09-03, for the reason under «Равномерно and specialisation»
+below. Nothing divides the gain now, and the counter behind that divisor is not
+written either.
 
 **Read `q` in the report against this and not against `PASS quota`.** It is read
 back after the plan, so it carries the layer the surplus ladder added to it — one
 per sweep — on top of the number above.
 
-**`charters(g)` is there because the charters are paid for twice otherwise.**
-`free` already has them out of it, so every good pays for them once and together;
-adding a good's own charter buildings back gives it a share of the *free* rooms on
-top of what a charter built for it, instead of a share it has already overspent.
+**The allocator is what charges the charters to the share.** `_pn<n>` counts
+every building of a good, the charter round's included, and the pick tests
+`_pn<n> < _pq<n>` — so no subtraction is needed here and none is done. Doing it
+in both places is what charged them twice.
 Without that term a good the charters favoured could not place one building of its
 own — 2026-09-03, `tools` at six charter buildings against a cap of two, locked
 out of a province paying it 799 of 1000.

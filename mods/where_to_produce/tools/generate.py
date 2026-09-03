@@ -1466,9 +1466,28 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_plan_order = {{
 \tvalue = 0
 \tsubtract = var:{MOD_ID}_plan_prank
+\t# **A hundred a province, so the charter can order the towns inside one.**
+\t# The owner, 2026-09-03: «мне отвратительно и неприятно видеть бесконечно
+\t# чередующиеся права в одной провинции. Пиво-шкаф-пиво-шкаф... Надо как-то
+\t# сортировать это, чтобы провинция так же показывала все свои локации вместе,
+\t# но сами локации не стояли в таком порядке.»
+\t#
+\t# **And it is only the order of the rows.** Every location of a province is
+\t# worth exactly the same to a charter -- `_rq<k>` reads the province's bonus --
+\t# so which town of a province holds which charter is free, and sorting them
+\t# changes no number in the plan. That is why this is a script value and not a
+\t# change to the grant.
+\tmultiply = 100
 \tif = {{
 \t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
-\t\tadd = 0.5
+\t\tadd = 50
+\t}}
+\t# Ascending by the charter's own number, so identical charters stand together.
+\t# `has_variable` first: a village carries none, and a script value reading a
+\t# variable that is not there is the failure that logs nothing.
+\tif = {{
+\t\tlimit = {{ has_variable = {MOD_ID}_plan_right }}
+\t\tsubtract = var:{MOD_ID}_plan_right
 \t}}
 }}
 
@@ -2737,30 +2756,39 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # materials lie under -- and then stops, and the rooms left over are what the
     # goods with no bonus anywhere fill. His answer 4, in one number.
     #
-    # It is counted over the ground the rights have already taken their share of,
-    # because a right is not optional and its buildings are not the quota's to
-    # give away.
+    # **The share is over the whole ground, and a charter's buildings are spent
+    # out of the good's own share rather than added to it.** Both halves changed
+    # on 2026-09-03 and the owner's arithmetic is the reason: «как будто бы 1
+    # домик + 2 РГО не равняются 9, а равняются 3. Так почему? Почему РГО
+    # внезапно стал весить 4 вместо 1?»
     #
-    # **And what a charter already built is added back to that good's own cap,
-    # because otherwise the same buildings are charged twice.** `_plan_placed` is
-    # subtracted from the numerator, so every good pays for the charters once,
-    # together; `_pn<n>` then still holds what the charters put down for this good
-    # in particular, and the allocator reads that against the cap. The
-    # thirty-eighth run is the proof: six tooling charters landed in the Ruhr,
-    # where tooling pays 200, because Sauerland's towns had taken the naval
-    # charter at 1000 -- and `tools` walked into the allocator at `_pn = 6`
-    # against a quota of **2**, so it could not take one of Sauerland's free rooms
-    # at a gain of **799**. It ended the plan with exactly the six buildings the
-    # charters gave it and none of its own. Every good a charter favours was
-    # frozen out of the ground it is best at, which is the opposite of what a
-    # charter means.
+    # He was reading a real fault. The share used to be *what the charters left*
+    # divided by the goods -- on Westphalia 84 rooms over 35 goods, **2** -- and
+    # then each good got its own charters added back. So wine, whose charter is
+    # brewing, walked in at 2 + 6 = **8**, and iron, with two RGOs under it,
+    # walked in at 2 - 2 = 0, floored to **1**. Nine wine and one iron is that
+    # subtraction, not the ground: two RGOs did not cost iron two buildings, they
+    # cost it seven, because the base they came off was 2.
+    #
+    # Now the share is 192 rooms over 35 goods, **5**, and what a charter put down
+    # counts against it: wine walks in holding 6 of a share of 5 and takes no
+    # more, iron gets 5 - 2 = **3**. That is his own rule -- one RGO is one
+    # building -- doing what it says.
+    #
+    # **What this overturns, and why that is right.** The addition was put in
+    # after the thirty-eighth run, where `tools` held six charter buildings
+    # against a quota of 2 and so could not take a free room in Sauerland at a
+    # gain of 799. That was a real fault of a share of **2**; against a share of
+    # 5 a good already holding 6 is above its share, and stopping there is the
+    # evenness rather than a bug. The old fault cannot recur and the new rule is
+    # the one he asked for.
     #
     # `_pn<n>` is the rights' count and nothing else at this moment: `_plan_run`
     # calls this between `_plan_place_rights` and `_plan_allocate`, and nothing
-    # else in the plan writes it.
+    # else in the plan writes it -- so the allocator's own `_pn<n> < _pq<n>` is
+    # what charges the charters to the share, with no second subtraction here.
     quota_lines = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
-\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pn{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
@@ -2768,20 +2796,19 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(f"""
 # How many buildings each good may claim before the ground is opened to all.
 #
-# `_plan_rooms` is every candidate's cap added up and `_plan_placed` is what the
-# rights have already spent, so the division is the fair share of what is left.
-# `_plan_scored` is how many goods this ground can make at all -- a good nothing
-# here can produce must not take a share and shrink everyone else's.
+# `_plan_rooms` is every candidate's cap added up and `_plan_scored` is how many
+# goods this ground can make at all -- a good nothing here can produce must not
+# take a share and shrink everyone else's. The division is the fair share of the
+# whole ground, charters included, and what a charter already built is spent out
+# of that share by the allocator rather than added to it here.
 #
 # **`max = 1` is the floor and it is deliberate.** A ground too small to give
 # every good one building still gives every good one building; what gives way
 # then is the cap, not the spread, and the header line says so by showing more
-# goods than rooms. The RGO discount comes off the same number.
+# goods than rooms. The RGO discount comes off the same number, one for one.
 # Scope: country
 {MOD_ID}_plan_set_quota = {{
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = global_var:{MOD_ID}_plan_rooms }}
-\tchange_global_variable = {{ name = {MOD_ID}_plan_quota subtract = global_var:{MOD_ID}_plan_placed }}
-\tchange_global_variable = {{ name = {MOD_ID}_plan_quota max = 0 }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_plan_scored > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_quota divide = {MOD_ID}_plan_scored_value }}
@@ -3748,23 +3775,34 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # of which half are impossible here is a worse picker than 20 that are all
     # real, and `_ng<n>` -- how many candidates can make the good, counted by the
     # plan's own scan -- is the number that says which.
-    # **`has_global_variable` before the comparison.** `_ng<n>` is written by the
-    # scoring pass and by nothing else, so before the first plan of a save it
-    # does not exist -- and a `limit` reading a global that is not there is the
-    # failure this repository names first. Here the wrong answer and the right
-    # one happen to agree (no plan, nothing to edit), which is exactly how such a
-    # thing survives a review.
-    pool = "".join(
+    #
+    # **Two lists and not one, because the window has no wrapping row.** A
+    # `flowcontainer` would wrap, and vanilla uses one, but nothing in this mod
+    # has ever drawn one and a `.gui` that fails takes its whole window with it.
+    # An `hbox` over a datamodel is what `bag_wtp_plan_entry` already draws every
+    # frame, so the picker is two of those -- raw goods on one line, made goods on
+    # the next -- and 25 icons of 34 fit a 1130-wide window with room over.
+    pools = "".join(
         f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
         f"global_var:{MOD_ID}_ng{i} > 0 }} "
-        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool target = goods:{good} }} }}\n"
-        for i, good in enumerate(order, start=1))
+        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool_{kind} "
+        f"target = goods:{good} }} }}\n"
+        for kind in ("raw", "made")
+        for i, good in enumerate(order, start=1) if good in split[kind])
     out.append(f"""
 # The goods the editor offers, rebuilt whenever its window opens.
+#
+# **`has_global_variable` before the comparison.** `_ng<n>` is written by the
+# scoring pass and by nothing else, so before the first plan of a save it does
+# not exist -- and a `limit` reading a global that is not there is the failure
+# this repository names first. Here the wrong answer and the right one happen to
+# agree (no plan, nothing to edit), which is exactly how such a thing survives a
+# review.
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
-\tclear_global_variable_list = {MOD_ID}_edit_pool
-{pool}}}
+\tclear_global_variable_list = {MOD_ID}_edit_pool_raw
+\tclear_global_variable_list = {MOD_ID}_edit_pool_made
+{pools}}}
 
 # A good in or out of the editor's own row list -- the icons with «+1» and «−1»
 # beside them. **It is a list and not one choice** because he asked for one:
@@ -3878,8 +3916,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \t}}
 \tif = {{
-\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
-\t\tclear_global_variable_list = {MOD_ID}_edit_pool
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool_raw }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_pool_raw
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool_made }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_pool_made
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_picked }} }}
@@ -3896,6 +3938,14 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # scored and shows whatever the plan holds now.
 # Scope: country
 {MOD_ID}_open_edit_window_effect = {{
+\t# **A line in the log on every press, and it is here to answer one question.**
+\t# The first build of this window never appeared -- pressed from the mod page and
+\t# from the plan window alike, and nothing on screen either way. Two things look
+\t# identical from the outside: the button never reaching this effect, and this
+\t# effect running while the window fails to draw. `error.log` names the file and
+\t# the line for a `.gui` that will not parse, so a line here plus that log
+\t# separates them, and neither costs a second press.
+\terror_log = "WTP edit window: the open effect ran and bag_wtp_edit_open is set. If no window appeared, the fault is in bag_wtp_edit_window.gui and this log names it above."
 \t{MOD_ID}_edit_init_slots = yes
 \t{MOD_ID}_edit_fill_pool = yes
 \t{MOD_ID}_plan_show = yes
