@@ -75,6 +75,22 @@ about it surprise people:
   engine's own bonus counts the same way is an open question with a one-hover
   test in `docs/research/engine.md`.
 
+## Settled, and not to be re-litigated
+
+Moved here from the mod's `CLAUDE.md` on 2026-09-03, at its budget. Each of these
+cost a run or a redesign; none of them is a live question.
+
+- **A window's datamodel is what costs**: a scripted widget never comes down, so
+  only the list it repeats over decides the row count — `PLAN_ROWS` is one page
+  and `PLAN_RANKED` the answer.
+- **The bonus is province-level** — hence a row is a `province_definition`: the
+  whole ground, not one owner's piece; what would separate its locations is
+  building slots, which the game hides.
+- **The selection is recorded twice**, only `bag_wtp_pick` / `_drop` writes it;
+  **every column is a fixed width** (`docs/pitfalls/interface.md`); **the buildable
+  tick is the location's** (`docs/SETTLED.md`).
+
+
 ## The whole plan
 
 The fourth group on the Answer tab, and a second question rather than a bigger
@@ -92,11 +108,12 @@ at a time, under a cap per location.
    good capped at 2% compares fairly with one that can reach 10% without the
    biggest recipe taking every contested location.
 3. **Grant urban rights**, in towns only and one per town: a town takes the
-   right its ground suits best among those the country could grant and of which
-   it can make at least one good. On «Сейчас» that means a charter whose
-   unlocking advance the country has actually taken; on «В конце», any it could
-   ever hold. A bundle good that cannot stand there does not go up, and its slot
-   falls to the raw material that would let it.
+   right its ground suits best among those the country could ever grant — the
+   right's own `potential`, and never the advance that unlocks it, because a plan
+   is a target to build towards and the nine general charters arrive at one fixed
+   age. A bundle good that cannot stand there does not go up, and its slot falls
+   to the raw material that would let it. On a small ground this round places
+   more than half the plan.
 4. **Every good the ground can produce takes one location, before anything
    else** — its own best, in descending bands of gain. That is the hard
    constraint: «все товары которые можно произвести на выбранной земле должны
@@ -106,12 +123,26 @@ at a time, under a cap per location.
    free — the tiers are 1, 2, 4, 8, 16 candidate locations, five bands of gain
    inside each. Iron is the case: without an RGO it comes from one building,
    which wants wetlands or a lake.
-6. **Then everything, and then what is left** — two more ladders of five bands,
-   the second raising every good's quota a layer a round. **A location holds one
-   building of a type**, so a good whose building already stands there is not
-   offered again — but the next location may take that building running another
-   method.
-7. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
+6. **Then everything**, five bands, and this is where the bulk of a plan is
+   placed. **A location holds one building of a type**, so a good whose building
+   already stands there is not offered again — but the next location may take
+   that building running another method.
+7. **Then what is left, dealt by each good's own best rather than by the
+   absolute band.** Once every good has had its share, handing every leftover
+   room to the good with the largest ceiling is not opportunity cost but
+   concentration: on 416 locations it put 108 cloth buildings on the map against
+   2 cannon. Here a good whose best on this ground pays 362 competes for its own
+   top fifth exactly as one that reaches 1000 does. Rounds until one adds
+   nothing, so nothing the ground can feed is left empty.
+
+**And one term that is yours, not the formula's.** Tick a good in the goods list
+and press «Важнее» or «Менее важно»: one step moves it one band up or down *and*
+allows it one more building or one fewer. It is for the disagreements a formula
+cannot settle — you want iron in every bog, or you are tired of looking at naval
+supplies. **It can never take a good's last building**, whatever you set: every
+good the ground can produce is placed before any weight is read. Weights survive
+the plan, the save and the ground; «Сбросить важности» clears them, and with all
+of them at nought the plan is the formula's alone.
 
 - **Every building is one the game says may stand there.** `can_build_building`
   in the location's scope — terrain, rank, `location_potential`, and never an

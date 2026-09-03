@@ -112,6 +112,43 @@ goods, so the rule is weakened only across that one boundary.
 gain does not enter at all, and on a large ground that one pass placed 271
 buildings of 770 — more than a third of the plan decided without the objective.
 
+**And pass 5's band is each good's own best, not the absolute one.** This is the
+one place the objective is deliberately not maximised, and a 416-location run is
+what bought it. There the quota came to 29 a good and nothing reached it — cannons
+had a quota of 160, could stand in 103 locations and got **two** — so the band was
+the entire allocator and, being absolute, it sorted the goods by their ceiling
+rather than by their fit: the 30 goods that touch 1000 somewhere averaged 42
+buildings, the eight that never do averaged 12, against an even share of 36.
+
+The distinction that makes it principled: **the absolute band deals the fair
+share, where the ground is contested and the biggest gain should win the room; the
+relative band deals what is left, where handing every leftover to the largest
+ceiling is not opportunity cost but concentration.** A good whose best on this
+ground is 362 enters `open800` at 290 — its own top fifth — exactly as cloth
+enters at 800.
+
+## The one term that is not the formula's
+
+**`_pw<n>`, the hand weight, and it is the owner's and not the model's.** He asked
+for it twice: «я нахожу товар и выкручиваю ему некое "значение важности"». One
+step is one band on that good's gain everywhere *and* one more building on its
+quota — because either of the two can be what holds a good back, and on a small
+ground it is nearly always the quota. Nought by default, so the plan with no
+weights is the plan this file describes.
+
+**It cannot break the covering constraint.** The covering ladder runs before any
+band and gives every good the ground can produce one building, and the quota's
+floor is one; so a good turned all the way down keeps exactly one building and
+never none. That is the «оставляет себе какой-то минимум» he asked for, and it
+needs no rule of its own.
+
+**Where a preference belongs is here and not in the objective.** His Sauerland
+complaint — five naval charters in seven towns where he wanted a mix — is the
+formula maximising what it was told to maximise; the charter is worth 1000 there
+and the weaponry charter 163. Spreading charters inside a province was tried and
+reverted once already, for emptying a province of the charter its ground was made
+for. A disagreement about taste is a knob, not another rewrite.
+
 One damper keeps a pass from stacking, and it is the quota:
 
 ```
