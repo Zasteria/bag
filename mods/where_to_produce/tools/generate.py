@@ -64,10 +64,6 @@ RESULT_ROWS = 50
 # difference the bonus can make is still worth about half a unit.
 RANK_SCALE = 1000
 
-# Raw materials a single method can want. The widest recipe in the game takes
-# five.
-MAX_INPUTS = 5
-
 # What counts as rural. `village_category` is the game's own: forest, market,
 # farming and fishing villages, thirteen methods between them, each producing a
 # fifth to a half of what a workshop of the same good does. They are scored on
@@ -124,11 +120,6 @@ PLAN_RANKED = 1500
 # gave it and its locations land at the end together rather than in the wrong
 # place among the others.
 PLAN_PROVS = 600
-
-# What one buildable good of a right's bundle is worth beside how good it is.
-# Twice `RANK_SCALE`, so that a bundle a town can finish always outranks a bigger
-# one it cannot, whatever the scores inside them.
-RIGHT_FIT = 2000
 
 # The sweeps run in tiers, and a tier admits only goods that at most this many
 # candidate locations could hold. **The scarce go first**: a good with one place
@@ -1230,11 +1221,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # bundle good the town can make contributes its own gain; each it cannot
         # contributes nothing; the sum is divided by the *whole* bundle, so a
         # charter that delivers one good of three is worth a third of one that
-        # delivers all three. `RIGHT_FIT` used to sit on top of every reachable
-        # good and it is gone: dividing by the full bundle already prices the
-        # gaps, and without it the number is on the same 0..{RANK_SCALE} scale as
-        # a good's gain -- which is what lets the bands below admit a right and a
-        # good by the same threshold.
+        # delivers all three. A flat bonus for each good the town can actually
+        # make used to sit on top of this and it is gone: dividing by the full
+        # bundle already prices the gaps, and without it the number is on the same
+        # 0..RANK_SCALE scale as a good's gain -- which is what lets the bands
+        # admit a right and a good by the same threshold. **A constant the plan
+        # no longer reads must not stay in the dump's BUILD line either**: that
+        # line exists so a number is never checked against the wrong constant,
+        # and `right_fit=2000` on it said the plan still used one.
         adds = "".join(f"""\tif = {{
 \t\tlimit = {{ {_won(g)} }}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
@@ -3883,7 +3877,6 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
                    f"tiers={tiers} rows={PLAN_ROWS} ranked={PLAN_RANKED} "
                    f"result_rows={RESULT_ROWS} "
-                   f"right_fit={RIGHT_FIT} "
                    f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
     out.append(say("BUILD passes in order: "
                    + ", ".join(f"{i}={pass_name(band, tier)}"

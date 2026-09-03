@@ -45,7 +45,7 @@ bag_wtp_diag = {
 # Scope: country
 bag_wtp_diag_build = {
 	debug_log = "WTP BUILD methods=241 rural=13 goods=47 raw=25 made=22 rights=13 gated=10"
-	debug_log = "WTP BUILD rounds=50 passes=40 bands=800/600/400/200/0 tiers=1/2/4/8/16 rows=150 ranked=1500 result_rows=50 right_fit=2000 rank_scale=1000 right_slots=3"
+	debug_log = "WTP BUILD rounds=50 passes=40 bands=800/600/400/200/0 tiers=1/2/4/8/16 rows=150 ranked=1500 result_rows=50 rank_scale=1000 right_slots=3"
 	debug_log = "WTP BUILD passes in order: 1=cover800, 2=cover600, 3=cover400, 4=cover200, 5=cover0, 6=band800/tier1, 7=band800/tier2, 8=band800/tier4, 9=band800/tier8, 10=band800/tier16, 11=band600/tier1, 12=band600/tier2, 13=band600/tier4, 14=band600/tier8, 15=band600/tier16, 16=band400/tier1, 17=band400/tier2, 18=band400/tier4, 19=band400/tier8, 20=band400/tier16, 21=band200/tier1, 22=band200/tier2, 23=band200/tier4, 24=band200/tier8, 25=band200/tier16, 26=band0/tier1, 27=band0/tier2, 28=band0/tier4, 29=band0/tier8, 30=band0/tier16, 31=band800/tierall, 32=band600/tierall, 33=band400/tierall, 34=band200/tierall, 35=band0/tierall, 36=open800, 37=open600, 38=open400, 39=open200, 40=open0"
 	set_global_variable = { name = bag_wtp_dv1 value = 12345 }
 	debug_log = "WTP SELFTEST 1 global-through-player=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] (expect 12345; anything else and every number below is wrong)"
