@@ -134,6 +134,57 @@ def blocks(text: str) -> list[list[str]]:
     return found
 
 
+RIGHT_NAMES = {
+    "constantinopolitan_silk_monopoly_rights": "шёлковая монополия",
+    "flemish_cloth_industries_right": "фламандское сукно",
+    "royal_artisan_rights": "ремесленные",
+    "royal_book_rights": "книгопечатные",
+    "royal_brewing_rights": "винокуренные",
+    "royal_jewelry_rights": "ювелирные",
+    "royal_masonry_rights": "каменные и стекольные",
+    "royal_naval_rights": "корабельные",
+    "royal_textile_rights": "текстильные",
+    "royal_tooling_rights": "инструментальные",
+    "royal_weaponry_rights": "оружейные",
+    "scandinavian_bergslag_privileges": "бергслаген",
+    "scandinavian_tar_privileges": "смоляные",
+}
+
+
+def right_legend(lines: list[str]) -> dict[int, str]:
+    """Номер права -> его имя, прочитанное из строки `RQ legend` самого отчёта.
+
+    **Из отчёта, а не из таблицы здесь.** Число прав меняется вместе с модом, и
+    список, зашитый в читалку, разъехался бы молча -- а имя не то, это подпись
+    под чужим числом. `RIGHT_NAMES` только переводит ключ на русский, и ключ, для
+    которого перевода нет, печатается как есть.
+    """
+    legend = next((l for l in lines if l.startswith("WTP RQ legend")), "")
+    out: dict[int, str] = {}
+    for pair in re.findall(r"(\d+)=([a-z_]+)", legend):
+        out[int(pair[0])] = RIGHT_NAMES.get(pair[1], pair[1])
+    return out
+
+
+def render_rq(line: str, names: dict[int, str], granted: int | None) -> str:
+    """Строка `RQ` по-человечески: права по убыванию оценки, выданное помечено.
+
+    Владелец, 2026-09-03: «Понятия не имею где конкретно искать строку Гослара».
+    Числа в отчёте были, но `1=0 2=0 3=0` -- это не ответ на вопрос «почему этот
+    город получил именно это право», а сырьё для ответа. Ответ -- вот эта строка.
+    """
+    scores = [(int(k), int(float(v))) for k, v in re.findall(r"(\d+)=(-?[\d.]+)", line)]
+    scores = [(k, v) for k, v in scores if v > 0]
+    if not scores:
+        return "    права: ни одно право здесь ничего не набрало"
+    scores.sort(key=lambda kv: -kv[1])
+    parts = []
+    for number, value in scores:
+        name = names.get(number, str(number))
+        parts.append(f"{name} {value}" + (" ← выдано" if number == granted else ""))
+    return "    права: " + " | ".join(parts)
+
+
 def fold(lines: list[str]) -> list[str]:
     """Свести `LG`-строки к одной строке на локацию и подписать её именем.
 
@@ -142,23 +193,36 @@ def fold(lines: list[str]) -> list[str]:
     подряд невозможно, а сложенное -- можно: одна строка на локацию, и в ней
     сразу видно, что город получил, а что досталось селу.
     """
+    names = right_legend(lines)
     out: list[str] = []
     pending: list[str] = []          # строки без метки WTP: имя локации от игры
     goods: list[str] = []
     row: str | None = None
+    rq: str | None = None            # оценки прав города, идут внутри его блока
 
     def flush() -> None:
-        nonlocal row, goods
+        nonlocal row, goods, rq
         if row is None:
             return
         out.append(row + (" | " + ", ".join(goods) if goods else " | -- пусто"))
-        row, goods = None, []
+        if rq:
+            match = re.search(r"\bright=(\d+)", row)
+            granted = int(match.group(1)) if match and match.group(1) != "0" else None
+            out.append(render_rq(rq, names, granted))
+        row, goods, rq = None, [], None
 
     for line in lines:
         if not line:
             continue
         if line.startswith("WTP LG "):
             goods.append(line[len("WTP LG "):])
+            continue
+        # **`RQ` принадлежит своей локации и не должна её закрывать.** Она
+        # приходит внутри блока города, между `L` и `LG`, и без этой ветки
+        # `flush` сработал бы раньше товаров: строка локации ушла бы «пустой», а
+        # товары повисли бы ни на чём.
+        if line.startswith("WTP RQ "):
+            rq = line
             continue
         if line.startswith("WTP L "):
             flush()
@@ -330,8 +394,17 @@ def main(argv: list[str]) -> int:
         # отдала сырое. Считается то, что теряться не должно: каждая строка
         # `WTP`, кроме `WTP LG`, обязана дойти до файла.
         raw = [line for block in chosen for line in block]
+        # `WTP RQ` is folded into the location's own «права:» line, which does
+        # not carry the tag -- so it is not lost, and counting it here as a line
+        # that must survive fires the safety net on every report that has one.
+        # It did, from 2026-09-03: the fold was never used, the file came out raw,
+        # and `digest(raw)` then summed **all five presses into one** «коротко» --
+        # 263 charters granted over 48 towns. A safety net that always fires is a
+        # broken tool, not a careful one.
         must = sum(1 for line in raw
-                   if line.startswith(TAG) and not line.startswith("WTP LG "))
+                   if line.startswith(TAG)
+                   and not line.startswith("WTP LG ")
+                   and not line.startswith("WTP RQ "))
         kept = sum(1 for line in body if line.startswith(TAG))
         if kept < must:
             print("Укладка потеряла %d строк из %d -- отдаю как есть."

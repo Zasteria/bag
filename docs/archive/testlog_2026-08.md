@@ -2066,3 +2066,401 @@ town. «Всё ещё довольно плохая раскидка даже н
   `location_potential` in the game and finds exactly one usable pair,
   glass ← sand. The right's own score counts the good as reachable either way,
   so the substitution does not push the right down the list that needs it.
+
+### 2026-09-01 — `where_to_produce`, the two Wallachia runs that ended the guessing
+
+Moved out of the live log when it tripped its budget. Both are the run that
+settled «гадать НИКОГДА не нужно» and the owner's rule about raw materials.
+
+**2026-09-01 — `where_to_produce`, Wallachia a third time, and the run that
+refuted every theory the session had.** Nothing was changed after it; the owner
+called a halt: «я заебался впустую делать прогоны».
+
+- **The charter spam survived every fix.** Tar and sand, tar and sand, down the
+  whole list, and neither `royal_masonry_rights` nor `royal_naval_rights` ever
+  getting its own goods.
+- **The one observation that kills the market theory.** `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and **glass appears in the
+  villages while never appearing in the towns.** One condition cannot be true and
+  false in the same market. So whatever stops town glass, it is not that gate —
+  and four sessions' worth of explanation went with it.
+- **He built a sand pit by hand and re-ran the plan: no change.** Expected — the
+  plan reads no state of its own here — but worth recording as a fact rather than
+  a guess.
+- **Nothing was concluded, deliberately.** The next move is a probe, not a fifth
+  theory. `pitfalls/diagnosis.md` has the episode and `CLAUDE.md` the rule that
+  came out of it.
+- **`can_build_building` stays.** His call: «не надо убирать то, из-за чего
+  работает другое… скорее всего проблема в чём-то другом.» It is what keeps a
+  stone quarry off flat ground.
+
+**2026-09-01 — `where_to_produce`, Wallachia again. The charter spam survived the
+scoring fix, and the owner struck out the rule underneath it.** «Убери вообще
+любое упоминание этого правила.»
+
+- **His rule, now the sharpest line in `investigations/plan_formula.md`:**
+  «Отсутствие сырья не должно влиять на то будет ли домик существовать вообще или
+  будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может влиять
+  только на ВЫБОР метода производства в конкретном домике.»
+- **Two rules removed under it.** The unfed divisor, which halved a recipe the
+  ground feeds nothing on top of a gain already zero — the same fact counted
+  twice. And the input substitution entirely, score *and* placement: where a
+  granted right's good could not stand, the slot had been going to the market
+  input that would unblock it. `generate.market_inputs` is gone with it.
+- **His stone quarry question, checked: it does earn a bonus.** Lumber is an RGO
+  and `crude_quarry_maintenance` tops out at 10%. **But seven recipes in the game
+  can never earn one at all** — `lumber_mill`, `slave_market`, `shoen` quarries
+  among them — and the divisor was punishing them for it twice over.
+- **What no rule of ours can change, and it must not be confused with the
+  above:** `can_build_building` is the *game* refusing a building. A glass guild
+  may not stand until sand is in the market. That is not the ground failing to
+  feed a recipe, and the plan cannot plan a building the game forbids — which is
+  why a right is scored on the bundle a town can actually finish.
+- **Unverified.** Whether the spam ends needs a run.
+
+### 2026-09-02 — `where_to_produce`, the diagnosis's own first press
+
+Moved out of the live log when it tripped its budget.
+
+**2026-09-02 — `where_to_produce`, the diagnosis, first press. It named the cause
+and found two faults in itself.** «Нажал "диагностика"… вроде появился такой
+файлик» — the file was **0 bytes**; with the reader fixed the same press gave the
+whole report.
+
+- **The mod's half worked on the first load.** Button, CMF registration, callback,
+  `bag_wtp_diag` and `debug_log` — none of them had ever run. `SELFTEST 1` came
+  back `12345`, so every number below it is trustworthy.
+- **The empty file was the reader's fault**, and it is a rule now: `diag.py` cut
+  the game's line prefix with a regex written against a *guessed* shape, matched
+  nothing, and the fold dropped every line it did not recognise
+  (`pitfalls/diagnosis.md`).
+- **The ground: 44 locations, 17 on the town side, 27 villages, 6 provinces, and
+  it filled completely** — `placed=149 rooms=149`, no pass anywhere near the
+  12-sweep guard (the worst was 7).
+- **The cause of «no glass in towns», and it is one number.** A town-side method
+  won on **3 of the 17 town-side locations** — for glass, and for cloth, tools,
+  pottery, jewelry, beer, leather, paper, weaponry and eleven more. For the
+  RGO-side goods it won on all 17: sand 17, masonry 17, fiber_crops 17, horses 16,
+  tar 12. **Fourteen of those «towns» refuse manufacturing and accept only
+  RGO buildings** — which is exactly «в городах я вижу много селитры, глины и
+  прочего что можно добывать в сельских местностях».
+- **Why they refuse it:** `glass_guild` is `town = yes, city = yes,
+  megalopolis = yes` and `rural_glassmaker` is `rural_settlement = yes,
+  town = no`. The game has four ranks and `bag_wtp_plan_is_town` admits a
+  location either because the player ticked it or because its rank is not
+  `rural_settlement` — and any non-rural rank takes a guild. So those fourteen
+  are ticked villages. **The tick moves a location to the plan's town side and
+  cannot move its rank in the game.**
+- **The market gate is dead for good.** Both glass buildings carry the *identical*
+  `is_produced_in_location_market = goods:sand`, and the rural one stood in all 27
+  villages — so sand is in those markets. Twenty goods with no market condition at
+  all were stopped in the same fourteen places.
+- **The charter spam is the same fault one level up.** 17 rights for 17 towns:
+  `royal_masonry_rights` in **9**, `royal_naval_rights` in **5**. In a ticked town
+  masonry and tar can stand and glass and naval supplies cannot, so the bundle
+  comes out half-made every time — and the `L` lines show it: «Район Арджеш …
+  right=6 | clay, sand, masonry, tar».
+- **And glass would lose anyway in the three real towns**: its best ordering there
+  was `o=108` out of 1000, so it qualifies only in the last band, by which time
+  those three have spent their four slots each on their own granted right.
+- **Two faults in the dump, both fixed.** `[glass, masonry]` in a `debug_log`
+  string is data-function syntax — the engine looked for a function called
+  `glass`, failed, and cut `given=` onto a line of its own; round brackets now.
+  And `error_log` writes into `debug.log` as well, so every headline arrived
+  twice; one pointer in `error.log` now and the detail once.
+- **Both remaining self-tests answered, and two retired.** A localization key as a
+  `debug_log` message comes out as the key; `ROOT.GetName` and `SCOPE.GetName` do
+  not exist. `debug_log_scopes = no` names the scope and is what every row uses.
+  All of it in `research/engine.md`.
+- **The one thing inferred rather than measured** — that those fourteen are ticked
+  rather than some rank the mod does not know about — the next press prints
+  outright: `ROOM` now carries how many of the town side are of town rank and how
+  many the tick moved, and every `L` line carries `town_rank` and `forced_town`.
+
+### Guild level caps, and why `where_to_produce` will never read them
+
+Moved out of `investigations/town_rights.md` on 2026-09-02, when the owner
+ruled the mod must never score building levels: «это число непостоянно и все
+локации растут — высчитывать это полный абсурд». The arithmetic is kept
+because it is what answers «flemish or royal textile» in prose, and that
+answer is still live in the investigation.
+
+### The cap is computable, unlike a building slot
+
+`guild_max_level` in `common/script_values/building_caps.txt`:
+
+    1 + development × 0.1 + population × 0.05 + (5 if city, 10 if megalopolis)
+
+and `cloth_guild_max_level = guild_max_level + local_cloth_guild_building_levels`.
+Every term is readable from a location in script. So a row for a level right can
+honestly print **cap before → cap after**, which the mod could never do for
+building slots (`mods/where_to_produce/CLAUDE.md`: the game exposes no slot count
+at all — that stays true, a level cap is a different thing).
+
+### 2026-09-02 — `where_to_produce`, the tick runs and the rank simulation
+
+Moved out of the live log when it tripped its budget. Both entries are the
+day the tick was settled as the rank; the rows they closed are in
+`../SETTLED.md`.
+
+**2026-09-02 — `where_to_produce`, three presses in one log, and the tick never
+reverted.** He ran the two-press test written the same day and it answered on the
+first reading. «Тумблеры не переключились никуда… потом я нажал пересчитать — и
+тогда они переключились снова на города.»
+
+- **The ticks he cleared stayed cleared.** Presses one and two walked the same 44
+  locations of Wallachia — `ticks now set: town=0 village=0` both times, and
+  `towns=3` live where the plan before them had counted 17. The clicks land and
+  they hold; closing the window and changing the map area do nothing to them.
+- **The third press walked 127 locations, and the fourteen ticks in it are not
+  the ones he cleared.** They are Марошвашархей, Кездивашархей, Ковасна,
+  Секейкерестур, Дьердьосентмиклош, Гёргеньсентимре, Секейудвархей,
+  Шепшисентдьёрдь, Чиксереда, Бырлад, Аджуд, Кудалби, Фокшаны, Галац — every one
+  of them outside the 44 he had on screen, ticked earlier in the session and
+  never cleared. Widening the ground brought them into the plan for the first
+  time; four slots each put them at the top of the window; and that is
+  indistinguishable from a revert. **Wallachia's own rows all read
+  `forced_town=0` in the same report.**
+- **So it is not a fault, and the window is what should have said so.** A tick is
+  a location variable and it outlives a save, so «clear the rows I can see» was
+  never «clear them». A button was added the same day: «Сбросить пометки
+  город/село», all five continents in one press, printing how many it cleared.
+- **And the number he asked for, at last.** `GAIN` in all three presses: **79%,
+  76% and 82% of placed buildings earn a bonus where they stand**, and the
+  average building captures **73%, 74% and 78% of the ceiling its own recipe
+  could ever reach.** The largest ground, the one with the ticks in it, is the
+  best of the three on both counts — the rank simulation costs nothing in
+  quality.
+- **The ticks also make more of the ground**: 44 locations gave 149 rooms with
+  them and 135 without, 17 towns against 3, 17 rights against 3.
+
+**2026-09-02 — `where_to_produce`, the rank simulation, and it works.** «Открыл
+план — на первый взгляд работает как надо. Города получают права и домики из
+прав.» Transylvania and Wallachia together: 127 locations, 22 towns of which 8
+are of town rank and 14 ticked, 19 provinces, 403 buildings in 403 rooms.
+
+- **Both predictions from the previous entry came back right.** Glass `T … w`
+  went from 3 of 17 to **22 of 22**; every made good now wins a town method in
+  every town. And the charter spam is gone: 22 rights over **nine different
+  ones**, the largest holding 3 towns where masonry held 9 of 17 before.
+- **No pass came near the sweep guard** — the worst was 11 of 12, on the open
+  pass. `RIGHT`, `ROOM` and the location rows all read cleanly with the round
+  brackets.
+- **The distribution, which he asked to have read for him.** 36 goods of the 38
+  the ground can make got something, from 1 building to 20. **Nine goods take 20
+  each and that is 45% of the ground**: coal, sand, beer, cloth, glass, jewelry,
+  leather, masonry, pottery — every one of them makeable in all 127 locations, so
+  every one reaches the quota. Twenty goods took 7 or fewer, all of them
+  town-only, competing for 88 town slots the rights have first call on. **That is
+  the formula working as written**; `plan_max`, his own per-good ceiling, is the
+  lever and it is 0.
+- **How much of it earns anything, and why the answer is not in this report.**
+  `o=0` on a side means every placement there earns nothing, and those alone are
+  38 buildings of 403 — a floor, not the figure, because `o` is a maximum. Two
+  counters were added for it the same day (`GAIN fed=… gain_total=…`), one `if`
+  a placement.
+- **One bug he found and it is not diagnosed.** Toggles cleared to auto, replan,
+  «всё вроде бы было окей» — then he left the window or changed the map area and
+  **the ticks were back on the towns**. Nothing in the mod writes
+  `bag_wtp_force_town` except the button on the row, so this is not guessable
+  from the source. The `ROOM` line now counts both ticks over every walked
+  location and reads them live, so one press of «Диагностика» — with no plan —
+  separates «the variable came back» from «the window is drawing a stale state».
+- **`Important assertion failed: (Getting player in synchronous state, likely to
+  cause a desync)`** appears once, at the first `[…GetPlayer…]` the dump reads.
+  It is how the dump reads every number, and it matters in multiplayer rather
+  than here — recorded so the next session does not chase it.
+
+### The rollback of 2026-09-02, from `investigations/plan_formula.md`
+
+Moved here on 2026-09-03: every one of the three things it tracked as open
+is built and struck through, and the section is history rather than state.
+The rules it carries that outlive the code — the owner's raw-material rule,
+and the observation that killed the market theory — are quoted where they
+are used.
+
+## The rollback of 2026-09-02, and what survives it
+
+**The tree is back at the build of the thirty-eighth load** — the four tests the
+owner called «большой рывок», and the first time the spread of goods over a whole
+ground looked to him the way he had meant it: «именно в этом коммите я
+почувствовал, что мод выглядит так, как я его задумывал». Everything built above
+it was undone at his word — «лучше мы решим уже на том моменте основную мучающую
+проблему, чем будем делать это после того как накрутили сверху множество других
+неработающих правок» — so everything above in this file is the code again,
+exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testlog_2026-08.md).
+
+**Open at the rollback, and he named all of it himself. Three of the five were
+answered on 2026-09-02 when he asked for them by name:**
+
+- ~~**a big ground does not finish.**~~ All of northern Germany: 970 buildings in
+  354 of 416 locations, «мод не справился досчитать всё как надо». The cause was
+  measured afterwards and the arithmetic is not in doubt — a sweep places at most
+  one building per good per side, so 970 buildings over 32 goods needs thirty
+  sweeps at the least, and `PLAN_ROUNDS` was 12. **It is 50, and the tier ladder
+  runs in the last band only** — twelve passes where there were thirty-three, and
+  the passes saved are what pay for the sweeps. Not run;
+- ~~**«показано всего 150 локаций»**~~ was `PLAN_ROWS`, the window's row cap, not
+  the count of what the plan used: nothing was lost, only undrawn. **The rows are
+  ranked whole and drawn a page at a time now** — `PLAN_RANKED` locations keep
+  their place and the page they fall on, the datamodel still holds one page of
+  `PLAN_ROWS`, and two buttons under the summary line walk them. Not run;
+- ~~**the province ceiling setting**~~ is gone — setting, alias, default, both
+  localizations and its gate in the allocator: «я не представляю ситуацию, когда
+  бы я мог захотеть сменить значение этой строки с 0». Under this formula the
+  quota does that job and is derived rather than typed. Not run;
+- **the scarce claim first only in the last band now**, and he named the cost on
+  2026-09-03: «если всем товарам мод попытается выделить по 20 мест, он должен
+  проверить хватит ли болотных локаций для железа, прежде чем забивать эти
+  локации чем-то другим». Moving the tier ladder into band 0 bought the round
+  guard twelve passes instead of thirty-three, and it spent exactly this. **The
+  rights have no such ladder at all** — they are dealt town by town in walk
+  order, so a right only two towns on the map can serve has no claim on them;
+- **a one-off spike and a short hitch on «Пересчитать»** over that ground,
+  reported without complaint: thirty-three passes and ninety-eight sweeps a plan.
+  The pass count is twelve now and the guard is what grew, so this wants watching
+  on the next big ground rather than calling fixed;
+- **the symptom that is the whole of the job.** Force a province to towns and
+  glass lands in the villages below and never in those towns, while saltpetre and
+  clay — which a village could dig — take the town slots. And the glass-and-
+  masonry charter is handed out over and over.
+
+**What the undone runs still know, and no run should buy twice:**
+
+- **The owner's rule about raw materials**, 2026-09-01. A decision, not a build,
+  so it outlives the code that carried it:
+  > Отсутствие сырья не должно влиять на то будет ли домик существовать вообще
+  > или будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может
+  > влиять только на ВЫБОР метода производства в конкретном домике.
+
+  ~~**`UNFED_PENALTY` above breaks it**~~ — **removed 2026-09-02 at his word.**
+  A recipe that missed `fed_floor` had its score halved on top of a `gain` that
+  already *is* how much of its ceiling the ground pays: the same fact counted
+  twice, and it moved the building in the queue for want of raw materials, which
+  is exactly what he forbade. It had been left standing as a named suspect for the
+  charter symptom; that symptom was settled otherwise (the tick is the rank,
+  `../SETTLED.md`), so it was being kept for nothing. **`fed_floor` stays** — it
+  chooses which method a building runs, which is the half of the rule he
+  affirmed: «может влиять только на ВЫБОР метода производства». It is also not a
+  gate: the plan keeps an unfloored twin of every side.
+- **The observation that killed the market theory**, thirty-ninth load. It is
+  about the game, so it stands whatever our code does: `glass_guild` and
+  `rural_glassmaker` carry the **identical** `location_potential = {
+  is_produced_in_location_market = goods:sand }`, and glass appears in the
+  villages while never appearing in the towns. One condition is not true and false
+  in the same market, so the market gate is not what stops town glass — and four
+  sessions' worth of explanation went with it
+  ([`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md)).
+- **What was built above the rollback and is still not in the tree.** The three
+  that answered measurements he made himself came back on 2026-09-02 at his
+  request, and are struck through above. **The rest stay out**, because they were
+  aimed at a cause nobody had named: a right-holding town's spare slots halved,
+  the input substitution (sand planted where a charter wanted glass, which spammed
+  a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.
+
+### 2026-09-02 — `where_to_produce`, the two runs the province divisor cost
+
+Moved out of the live log when it tripped its budget. Both are superseded:
+the province divisor they diagnose was removed whole on 2026-09-03, and the
+rule that replaced it is in `../investigations/plan_formula.md`.
+
+**2026-09-02 — `where_to_produce`, the province divisor in game. It works, and
+Goslar still says no.** Same 416 locations, «на конец», plus a second press over
+one province with every location ticked to a town.
+
+- **The divisor does what it was changed for.** The rights came out
+  18/12/10/10/4/3/2/1/1 where they had been 8/8/7/7/7/6/6/6/6 — the ground
+  deciding instead of a round robin. And the one-province press gave **five towns
+  five different rights**, which is the Münsterland fault it was built for, held.
+  1309 of 1309 rooms, no pass near the guard.
+- **Goslar took `royal_book_rights` instead of the jewelry it should have.** Harz
+  has one town, so its divisor is 1 and the ground decides alone — which means
+  the score itself now says books beat jewelry there. The report cannot say why:
+  it prints the winner and never the field it beat. `paper o=1000, dyes o=952,
+  books o=615` against `jewelry o=909`, and a three-good bundle is averaged, so
+  the two land within a hundred of each other — **but those are bests over the
+  whole ground, not Harz's numbers.**
+- **So the probe, not a fifth theory.** `WTP RQ` prints every right's bundle
+  score for each town, before the province divisor, and `tools/diag.py` folds it
+  under that town's own line. A one-good right reads as `2000 + that good's
+  gain`, so the line gives jewelry's gain in Harz directly. One press answers it.
+- **Two of his rulings are in the build with it.** `hand_cannon_guild` and
+  `cannon_maker` are always available (`generate.ALWAYS_AVAILABLE`) — both carry
+  only rank gates in the game files, so nothing else is being waved through — and
+  a right that grants guild *levels* is now scored on the goods it favours like
+  any other, which admits `flemish_cloth_industries_right` and nothing else.
+
+**2026-09-02 — `where_to_produce`, the same ground planned «на конец», and one
+town of it named the fault the numbers had been hiding.** «В этот самый город мод
+выделил права на инструменты. Почему?» Goslar, the only town of Harz — a province
+with silver in it — took `royal_tooling_rights`, where iron is what a tools mill
+eats and silver is what a jewelry guild eats.
+
+- **He is right and the cause is arithmetic, not a guess.** A right scores
+  `(2000 a reachable good + its gain, gain ≤ 1000) ÷ bundle size ÷ (1 + times
+  already granted)`, and the divisor counted **the whole map**. A right never
+  granted scores 2000–3000; granted once, at most 1500. **The ranges do not
+  overlap**, so a right handed out anywhere could never again win on merit. The
+  rights were dealt round robin and the ground only broke ties inside one turn.
+- **The distribution is the fingerprint of it**: 8, 8, 7, 7, 7, 6, 6, 6, 6 over
+  61 towns and 9 rights, on both this run and the «сейчас» one. Too even to be
+  the ground.
+- **The fix is the divisor the goods already have**: `_rp<k>` counts the grants
+  **in this province**. The fault it was built for — five towns of Münsterland
+  all taking the masonry charter — is inside one province, and so is the divisor
+  now. Harz has one town, so its divisor is always 1 and the ground decides
+  alone. Not run.
+- **Jewelry really is what silver feeds.** All twelve `jewelry_guild` methods are
+  a base of gold, silver or copper plus one enhancement; a province with silver
+  and no gems pays 8.7% of a 10% ceiling. Tools' best anywhere on this ground was
+  `o=399`. Nothing about Harz suited tooling.
+- **The end-game plan itself is sound**: 1309 buildings in 1309 rooms, 36 of 38
+  goods placed, no pass near the guard, 113 sweeps.
+- **`GAIN fed=952 gain_total=900864`** — 73%, and among the fed 946 of 1000. The
+  unfed divisor's removal cannot be read off this: it is the «на конец» plan and
+  the run before it was «сейчас».
+
+### 2026-09-02 — `where_to_produce`, the first Münster run
+
+Moved out of the live log when it tripped its budget. The three fixes it
+confirmed are long settled; what it is still quoted for is the 95% figure —
+a building that earns anything captures 948 of 1000 of its ceiling.
+
+**2026-09-02 — `where_to_produce`, Münster and all of northern Germany. The three
+fixes work, and the number the mod exists for is 95%.** «Вроде как всё
+заполняется хорошо… как будто бы основные функции мод теперь выполняет как надо.»
+416 locations, 74 provinces, 61 towns, no ticks set anywhere.
+
+- **All three fixes confirmed in one press.** 1309 buildings in 1309 rooms —
+  100%, against 970 of 1312 on the same ground before. **No pass came near the
+  guard**: the worst was 31 of 50, and the twelve passes are the ones the
+  generator lists. The page bar and the removed province ceiling were on screen
+  and neither drew a remark.
+- **Selection quality, and it is the answer to «идеально ли он работает».**
+  `GAIN fed=968 of placed=1309 gain_total=918033`. 74% of placed buildings earn
+  a bonus where they stand — but **the ones that do capture 948 of 1000 of their
+  own recipe's ceiling** (918033÷968). The 26% that earn nothing are the price of
+  the covering constraint and of filling the ground, both of which he asked for.
+  The overall 70.1% is those two numbers mixed, and is the less useful of them.
+- **The distribution is the ground's arithmetic, not the formula's.** 355 of 416
+  locations are villages and only 23 goods have a village side at all, so the ten
+  goods makeable in all 355 take ~66 each and half the ground between them, while
+  town-only goods share 244 slots of which the rights claim ~135. Town slots came
+  out exactly 244 = 61×4 and village 1065 = 355×3, so nothing was left on the
+  table anywhere.
+- **Rights: 61 grants over 61 towns, 9 distinct, the largest 8.** No charter
+  spam. `constantinopolitan_silk` (no silk here) and both Scandinavian ones went
+  to 0, correctly.
+- **Two faults this run makes visible, neither of them new.**
+  `royal_weaponry_rights` was granted twice on a ground where cannons and
+  firearms have no advance, so those towns carry a charter that delivers one good
+  of three and the location-wide penalty for all of it — the rescored bundle
+  (2000 a makeable good, −1000 a gap) is the fix and is one of the things still
+  out of the tree. And **the mod page still says a right is all-or-nothing**,
+  which stopped being true on 2026-09-01 at his own word: `plan_right_fits_<k>`
+  is an `OR`.
+- **Nine goods scored 0 for want of an advance** — lumber, silk, silver, sugar,
+  tobacco, cotton, incense, ivory, wild game — so «сейчас» covers 32 of 47. That
+  is the age and not the plan; «В конце» is the button that answers for them.
+

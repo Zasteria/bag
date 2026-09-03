@@ -47,17 +47,18 @@ bag_wtp_in_zone = {
 # Scope: location
 bag_wtp_can_build_something = {
 	trigger_if = { limit = { global_var:bag_wtp_right_index = 1 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_30 = yes bag_wtp_can_build_18 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 2 } OR = { bag_wtp_can_build_32 = yes bag_wtp_can_build_36 = yes bag_wtp_can_build_42 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 3 } OR = { bag_wtp_can_build_27 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_40 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 4 } OR = { bag_wtp_can_build_26 = yes bag_wtp_can_build_37 = yes bag_wtp_can_build_24 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 5 } OR = { bag_wtp_can_build_34 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 6 } OR = { bag_wtp_can_build_33 = yes bag_wtp_can_build_38 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 7 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 8 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_30 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 9 } OR = { bag_wtp_can_build_46 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 10 } OR = { bag_wtp_can_build_28 = yes bag_wtp_can_build_31 = yes bag_wtp_can_build_47 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 11 } OR = { bag_wtp_can_build_46 = yes } }
-	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 12 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 2 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_30 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 3 } OR = { bag_wtp_can_build_32 = yes bag_wtp_can_build_36 = yes bag_wtp_can_build_42 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 4 } OR = { bag_wtp_can_build_27 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_40 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 5 } OR = { bag_wtp_can_build_26 = yes bag_wtp_can_build_37 = yes bag_wtp_can_build_24 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 6 } OR = { bag_wtp_can_build_34 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 7 } OR = { bag_wtp_can_build_33 = yes bag_wtp_can_build_38 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 8 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 9 } OR = { bag_wtp_can_build_29 = yes bag_wtp_can_build_4 = yes bag_wtp_can_build_30 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 10 } OR = { bag_wtp_can_build_46 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 11 } OR = { bag_wtp_can_build_28 = yes bag_wtp_can_build_31 = yes bag_wtp_can_build_47 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 12 } OR = { bag_wtp_can_build_46 = yes } }
+	trigger_else_if = { limit = { global_var:bag_wtp_right_index = 13 } OR = { bag_wtp_can_build_39 = yes bag_wtp_can_build_45 = yes } }
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 1 } bag_wtp_can_build_1 = yes }
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 2 } bag_wtp_can_build_2 = yes }
 	trigger_else_if = { limit = { global_var:bag_wtp_good_index = 3 } bag_wtp_can_build_3 = yes }
@@ -560,6 +561,288 @@ bag_wtp_can_build_47 = {
 }
 
 # Scope: country
+# beer_workshop / bavarian_beer_workshop_maintenance: bavarian_brewing_expertise
+bag_wtp_reach_1 = {
+	AND = { OR = { has_or_had_tag = UBV has_or_had_tag = LBV has_or_had_tag = PSS has_or_had_tag = GRF has_or_had_tag = FRE has_or_had_tag = REG has_or_had_tag = SLZ has_or_had_tag = BAV } }
+}
+bag_wtp_reach_2 = { always = yes }
+bag_wtp_reach_3 = { always = yes }
+bag_wtp_reach_4 = { always = yes }
+bag_wtp_reach_5 = { always = yes }
+bag_wtp_reach_6 = { always = yes }
+bag_wtp_reach_7 = { always = yes }
+# brewery / bavarian_brewery_maintenance: bavarian_brewing_expertise
+bag_wtp_reach_8 = {
+	AND = { OR = { has_or_had_tag = UBV has_or_had_tag = LBV has_or_had_tag = PSS has_or_had_tag = GRF has_or_had_tag = FRE has_or_had_tag = REG has_or_had_tag = SLZ has_or_had_tag = BAV } }
+}
+bag_wtp_reach_9 = { always = yes }
+bag_wtp_reach_10 = { always = yes }
+bag_wtp_reach_11 = { always = yes }
+bag_wtp_reach_12 = { always = yes }
+bag_wtp_reach_13 = { always = yes }
+bag_wtp_reach_14 = { always = yes }
+bag_wtp_reach_15 = { always = yes }
+bag_wtp_reach_16 = { always = yes }
+bag_wtp_reach_17 = { always = yes }
+bag_wtp_reach_18 = { always = yes }
+bag_wtp_reach_19 = { always = yes }
+bag_wtp_reach_20 = { always = yes }
+bag_wtp_reach_21 = { always = yes }
+bag_wtp_reach_22 = { always = yes }
+bag_wtp_reach_23 = { always = yes }
+bag_wtp_reach_24 = { always = yes }
+bag_wtp_reach_25 = { always = yes }
+bag_wtp_reach_26 = { always = yes }
+bag_wtp_reach_27 = { always = yes }
+bag_wtp_reach_28 = { always = yes }
+bag_wtp_reach_29 = { always = yes }
+bag_wtp_reach_30 = { always = yes }
+bag_wtp_reach_31 = { always = yes }
+bag_wtp_reach_32 = { always = yes }
+bag_wtp_reach_33 = { always = yes }
+bag_wtp_reach_34 = { always = yes }
+bag_wtp_reach_35 = { always = yes }
+bag_wtp_reach_36 = { always = yes }
+bag_wtp_reach_37 = { always = yes }
+bag_wtp_reach_38 = { always = yes }
+bag_wtp_reach_39 = { always = yes }
+bag_wtp_reach_40 = { always = yes }
+bag_wtp_reach_41 = { always = yes }
+bag_wtp_reach_42 = { always = yes }
+bag_wtp_reach_43 = { always = yes }
+bag_wtp_reach_44 = { always = yes }
+bag_wtp_reach_45 = { always = yes }
+bag_wtp_reach_46 = { always = yes }
+bag_wtp_reach_47 = { always = yes }
+bag_wtp_reach_48 = { always = yes }
+bag_wtp_reach_49 = { always = yes }
+bag_wtp_reach_50 = { always = yes }
+bag_wtp_reach_51 = { always = yes }
+bag_wtp_reach_52 = { always = yes }
+bag_wtp_reach_53 = { always = yes }
+bag_wtp_reach_54 = { always = yes }
+bag_wtp_reach_55 = { always = yes }
+bag_wtp_reach_56 = { always = yes }
+bag_wtp_reach_57 = { always = yes }
+bag_wtp_reach_58 = { always = yes }
+bag_wtp_reach_59 = { always = yes }
+bag_wtp_reach_60 = { always = yes }
+bag_wtp_reach_61 = { always = yes }
+bag_wtp_reach_62 = { always = yes }
+bag_wtp_reach_63 = { always = yes }
+bag_wtp_reach_64 = { always = yes }
+bag_wtp_reach_65 = { always = yes }
+bag_wtp_reach_66 = { always = yes }
+bag_wtp_reach_67 = { always = yes }
+bag_wtp_reach_68 = { always = yes }
+bag_wtp_reach_69 = { always = yes }
+bag_wtp_reach_70 = { always = yes }
+bag_wtp_reach_71 = { always = yes }
+bag_wtp_reach_72 = { always = yes }
+bag_wtp_reach_73 = { always = yes }
+bag_wtp_reach_74 = { always = yes }
+bag_wtp_reach_75 = { always = yes }
+bag_wtp_reach_76 = { always = yes }
+bag_wtp_reach_77 = { always = yes }
+bag_wtp_reach_78 = { always = yes }
+bag_wtp_reach_79 = { always = yes }
+bag_wtp_reach_80 = { always = yes }
+bag_wtp_reach_81 = { always = yes }
+bag_wtp_reach_82 = { always = yes }
+bag_wtp_reach_83 = { always = yes }
+bag_wtp_reach_84 = { always = yes }
+bag_wtp_reach_85 = { always = yes }
+bag_wtp_reach_86 = { always = yes }
+bag_wtp_reach_87 = { always = yes }
+bag_wtp_reach_88 = { always = yes }
+bag_wtp_reach_89 = { always = yes }
+bag_wtp_reach_90 = { always = yes }
+bag_wtp_reach_91 = { always = yes }
+bag_wtp_reach_92 = { always = yes }
+bag_wtp_reach_93 = { always = yes }
+bag_wtp_reach_94 = { always = yes }
+bag_wtp_reach_95 = { always = yes }
+bag_wtp_reach_96 = { always = yes }
+bag_wtp_reach_97 = { always = yes }
+bag_wtp_reach_98 = { always = yes }
+bag_wtp_reach_99 = { always = yes }
+bag_wtp_reach_100 = { always = yes }
+bag_wtp_reach_101 = { always = yes }
+bag_wtp_reach_102 = { always = yes }
+bag_wtp_reach_103 = { always = yes }
+bag_wtp_reach_104 = { always = yes }
+bag_wtp_reach_105 = { always = yes }
+bag_wtp_reach_106 = { always = yes }
+# hand_cannon_guild / hand_cannon_guild_maintenance: hand_cannon_guild_advance
+bag_wtp_reach_107 = {
+	AND = { original_capital ?= { sub_continent = sub_continent:east_asia } }
+}
+bag_wtp_reach_108 = { always = yes }
+bag_wtp_reach_109 = { always = yes }
+bag_wtp_reach_110 = { always = yes }
+bag_wtp_reach_111 = { always = yes }
+bag_wtp_reach_112 = { always = yes }
+bag_wtp_reach_113 = { always = yes }
+bag_wtp_reach_114 = { always = yes }
+bag_wtp_reach_115 = { always = yes }
+bag_wtp_reach_116 = { always = yes }
+bag_wtp_reach_117 = { always = yes }
+bag_wtp_reach_118 = { always = yes }
+bag_wtp_reach_119 = { always = yes }
+bag_wtp_reach_120 = { always = yes }
+bag_wtp_reach_121 = { always = yes }
+bag_wtp_reach_122 = { always = yes }
+bag_wtp_reach_123 = { always = yes }
+bag_wtp_reach_124 = { always = yes }
+bag_wtp_reach_125 = { always = yes }
+# jewelry_guild / copper_base+amber_enhancement: copperworking
+bag_wtp_reach_126 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+# jewelry_guild / copper_base+gems_enhancement: copperworking
+bag_wtp_reach_127 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+# jewelry_guild / copper_base+ivory_enhancement: copperworking
+bag_wtp_reach_128 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+# jewelry_guild / copper_base+pearls_enhancement: copperworking
+bag_wtp_reach_129 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+bag_wtp_reach_130 = { always = yes }
+bag_wtp_reach_131 = { always = yes }
+bag_wtp_reach_132 = { always = yes }
+bag_wtp_reach_133 = { always = yes }
+bag_wtp_reach_134 = { always = yes }
+bag_wtp_reach_135 = { always = yes }
+bag_wtp_reach_136 = { always = yes }
+bag_wtp_reach_137 = { always = yes }
+bag_wtp_reach_138 = { always = yes }
+bag_wtp_reach_139 = { always = yes }
+# lacquerware_guild / lacquerware_shop_maintenance: lacquerware_guild_advance
+bag_wtp_reach_140 = {
+	AND = { num_of_non_rural > 0 original_capital = { sub_continent = sub_continent:east_asia } }
+}
+bag_wtp_reach_141 = { always = yes }
+bag_wtp_reach_142 = { always = yes }
+bag_wtp_reach_143 = { always = yes }
+bag_wtp_reach_144 = { always = yes }
+bag_wtp_reach_145 = { always = yes }
+bag_wtp_reach_146 = { always = yes }
+bag_wtp_reach_147 = { always = yes }
+bag_wtp_reach_148 = { always = yes }
+bag_wtp_reach_149 = { always = yes }
+bag_wtp_reach_150 = { always = yes }
+bag_wtp_reach_151 = { always = yes }
+bag_wtp_reach_152 = { always = yes }
+# distiller_manufactory / scottish_whisky_distillery_maintenance: scottish_whisky
+bag_wtp_reach_153 = {
+	AND = { OR = { has_or_had_tag = SCO culture = { has_culture_group = culture_group:scottish_group } } }
+}
+bag_wtp_reach_154 = { always = yes }
+bag_wtp_reach_155 = { always = yes }
+bag_wtp_reach_156 = { always = yes }
+bag_wtp_reach_157 = { always = yes }
+# distiller_mill / scottish_whisky_distillery_mill_maintenance: scottish_whisky
+bag_wtp_reach_158 = {
+	AND = { OR = { has_or_had_tag = SCO culture = { has_culture_group = culture_group:scottish_group } } }
+}
+bag_wtp_reach_159 = { always = yes }
+bag_wtp_reach_160 = { always = yes }
+bag_wtp_reach_161 = { always = yes }
+bag_wtp_reach_162 = { always = yes }
+bag_wtp_reach_163 = { always = yes }
+bag_wtp_reach_164 = { always = yes }
+bag_wtp_reach_165 = { always = yes }
+bag_wtp_reach_166 = { always = yes }
+bag_wtp_reach_167 = { always = yes }
+bag_wtp_reach_168 = { always = yes }
+bag_wtp_reach_169 = { always = yes }
+bag_wtp_reach_170 = { always = yes }
+bag_wtp_reach_171 = { always = yes }
+bag_wtp_reach_172 = { always = yes }
+bag_wtp_reach_173 = { always = yes }
+bag_wtp_reach_174 = { always = yes }
+bag_wtp_reach_175 = { always = yes }
+bag_wtp_reach_176 = { always = yes }
+bag_wtp_reach_177 = { always = yes }
+bag_wtp_reach_178 = { always = yes }
+bag_wtp_reach_179 = { always = yes }
+bag_wtp_reach_180 = { always = yes }
+bag_wtp_reach_181 = { always = yes }
+bag_wtp_reach_182 = { always = yes }
+bag_wtp_reach_183 = { always = yes }
+bag_wtp_reach_184 = { always = yes }
+bag_wtp_reach_185 = { always = yes }
+bag_wtp_reach_186 = { always = yes }
+bag_wtp_reach_187 = { always = yes }
+bag_wtp_reach_188 = { always = yes }
+bag_wtp_reach_189 = { always = yes }
+bag_wtp_reach_190 = { always = yes }
+# porcelain_guild / porcelain_guild_maintenance: porcelain_kiln_advance
+bag_wtp_reach_191 = {
+	AND = { num_of_non_rural > 0 original_capital = { sub_continent = sub_continent:east_asia } }
+}
+bag_wtp_reach_192 = { always = yes }
+bag_wtp_reach_193 = { always = yes }
+bag_wtp_reach_194 = { always = yes }
+bag_wtp_reach_195 = { always = yes }
+bag_wtp_reach_196 = { always = yes }
+bag_wtp_reach_197 = { always = yes }
+bag_wtp_reach_198 = { always = yes }
+bag_wtp_reach_199 = { always = yes }
+bag_wtp_reach_200 = { always = yes }
+bag_wtp_reach_201 = { always = yes }
+bag_wtp_reach_202 = { always = yes }
+bag_wtp_reach_203 = { always = yes }
+bag_wtp_reach_204 = { always = yes }
+bag_wtp_reach_205 = { always = yes }
+bag_wtp_reach_206 = { always = yes }
+bag_wtp_reach_207 = { always = yes }
+bag_wtp_reach_208 = { always = yes }
+bag_wtp_reach_209 = { always = yes }
+bag_wtp_reach_210 = { always = yes }
+bag_wtp_reach_211 = { always = yes }
+bag_wtp_reach_212 = { always = yes }
+bag_wtp_reach_213 = { always = yes }
+bag_wtp_reach_214 = { always = yes }
+bag_wtp_reach_215 = { always = yes }
+bag_wtp_reach_216 = { always = yes }
+bag_wtp_reach_217 = { always = yes }
+bag_wtp_reach_218 = { always = yes }
+bag_wtp_reach_219 = { always = yes }
+bag_wtp_reach_220 = { always = yes }
+# tools_guild / copper_tools_guild_maintenance: copperworking
+bag_wtp_reach_221 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+bag_wtp_reach_222 = { always = yes }
+bag_wtp_reach_223 = { always = yes }
+bag_wtp_reach_224 = { always = yes }
+bag_wtp_reach_225 = { always = yes }
+bag_wtp_reach_226 = { always = yes }
+bag_wtp_reach_227 = { always = yes }
+bag_wtp_reach_228 = { always = yes }
+bag_wtp_reach_229 = { always = yes }
+# weapon_guild / weapon_guild_obsidian_maintenance: refined_obsidian_weaponry
+bag_wtp_reach_230 = {
+	AND = { is_capital_mesoamerica = yes }
+}
+bag_wtp_reach_231 = { always = yes }
+bag_wtp_reach_232 = { always = yes }
+bag_wtp_reach_233 = { always = yes }
+bag_wtp_reach_234 = { always = yes }
+bag_wtp_reach_235 = { always = yes }
+bag_wtp_reach_236 = { always = yes }
+bag_wtp_reach_237 = { always = yes }
+bag_wtp_reach_238 = { always = yes }
+bag_wtp_reach_239 = { always = yes }
+bag_wtp_reach_240 = { always = yes }
+bag_wtp_reach_241 = { always = yes }
+
+# Scope: country
 bag_wtp_avail_1 = {
 	can_build_building = building_type:beer_workshop
 	has_advance = bavarian_brewing_expertise
@@ -628,32 +911,41 @@ bag_wtp_avail_21 = {
 bag_wtp_avail_22 = {
 	can_build_building = building_type:cannon_foundry
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_23 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_24 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_25 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_26 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_27 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_28 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_29 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_30 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
+# cannon_maker: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_31 = {
-	can_build_building = building_type:cannon_maker
+	always = yes
 }
 bag_wtp_avail_32 = {
 	can_build_building = building_type:cannon_workshop
@@ -850,23 +1142,29 @@ bag_wtp_avail_95 = {
 bag_wtp_avail_96 = {
 	can_build_building = building_type:firearms_manufactory
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_97 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_98 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_99 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_100 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_101 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
+# gun_smith: taken as given, `generate.ALWAYS_AVAILABLE`.
 bag_wtp_avail_102 = {
-	can_build_building = building_type:gun_smith
+	always = yes
 }
 bag_wtp_avail_103 = {
 	can_build_building = building_type:guns_workshop
@@ -939,15 +1237,19 @@ bag_wtp_avail_125 = {
 }
 bag_wtp_avail_126 = {
 	can_build_building = building_type:jewelry_guild
+	has_advance = copperworking
 }
 bag_wtp_avail_127 = {
 	can_build_building = building_type:jewelry_guild
+	has_advance = copperworking
 }
 bag_wtp_avail_128 = {
 	can_build_building = building_type:jewelry_guild
+	has_advance = copperworking
 }
 bag_wtp_avail_129 = {
 	can_build_building = building_type:jewelry_guild
+	has_advance = copperworking
 }
 bag_wtp_avail_130 = {
 	can_build_building = building_type:jewelry_guild

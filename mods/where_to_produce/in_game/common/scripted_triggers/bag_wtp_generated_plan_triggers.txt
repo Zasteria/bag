@@ -2111,9 +2111,18 @@ bag_wtp_plan_right_fits_1 = {
 	}
 }
 
-# royal_artisan_rights: furniture, leather, pottery. Granted if any one of them can be made here.
+# flemish_cloth_industries_right: cloth, fine_cloth. Granted if any one of them can be made here.
 # Scope: location
 bag_wtp_plan_right_fits_2 = {
+	OR = {
+		bag_wtp_plan_can_town_29 = yes
+		bag_wtp_plan_can_town_30 = yes
+	}
+}
+
+# royal_artisan_rights: furniture, leather, pottery. Granted if any one of them can be made here.
+# Scope: location
+bag_wtp_plan_right_fits_3 = {
 	OR = {
 		bag_wtp_plan_can_town_32 = yes
 		bag_wtp_plan_can_town_36 = yes
@@ -2123,7 +2132,7 @@ bag_wtp_plan_right_fits_2 = {
 
 # royal_book_rights: books, dyes, paper. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_3 = {
+bag_wtp_plan_right_fits_4 = {
 	OR = {
 		bag_wtp_plan_can_town_27 = yes
 		bag_wtp_plan_can_town_4 = yes
@@ -2133,7 +2142,7 @@ bag_wtp_plan_right_fits_3 = {
 
 # royal_brewing_rights: beer, liquor, wine. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_4 = {
+bag_wtp_plan_right_fits_5 = {
 	OR = {
 		bag_wtp_plan_can_town_26 = yes
 		bag_wtp_plan_can_town_37 = yes
@@ -2143,7 +2152,7 @@ bag_wtp_plan_right_fits_4 = {
 
 # royal_jewelry_rights: jewelry. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_5 = {
+bag_wtp_plan_right_fits_6 = {
 	OR = {
 		bag_wtp_plan_can_town_34 = yes
 	}
@@ -2151,7 +2160,7 @@ bag_wtp_plan_right_fits_5 = {
 
 # royal_masonry_rights: glass, masonry. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_6 = {
+bag_wtp_plan_right_fits_7 = {
 	OR = {
 		bag_wtp_plan_can_town_33 = yes
 		bag_wtp_plan_can_town_38 = yes
@@ -2160,7 +2169,7 @@ bag_wtp_plan_right_fits_6 = {
 
 # royal_naval_rights: naval_supplies, tar. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_7 = {
+bag_wtp_plan_right_fits_8 = {
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes
@@ -2169,7 +2178,7 @@ bag_wtp_plan_right_fits_7 = {
 
 # royal_textile_rights: cloth, dyes, fine_cloth. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_8 = {
+bag_wtp_plan_right_fits_9 = {
 	OR = {
 		bag_wtp_plan_can_town_29 = yes
 		bag_wtp_plan_can_town_4 = yes
@@ -2179,7 +2188,7 @@ bag_wtp_plan_right_fits_8 = {
 
 # royal_tooling_rights: tools. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_9 = {
+bag_wtp_plan_right_fits_10 = {
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
 	}
@@ -2187,7 +2196,7 @@ bag_wtp_plan_right_fits_9 = {
 
 # royal_weaponry_rights: cannons, firearms, weaponry. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_10 = {
+bag_wtp_plan_right_fits_11 = {
 	OR = {
 		bag_wtp_plan_can_town_28 = yes
 		bag_wtp_plan_can_town_31 = yes
@@ -2197,7 +2206,7 @@ bag_wtp_plan_right_fits_10 = {
 
 # scandinavian_bergslag_privileges: tools. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_11 = {
+bag_wtp_plan_right_fits_12 = {
 	OR = {
 		bag_wtp_plan_can_town_46 = yes
 	}
@@ -2205,7 +2214,7 @@ bag_wtp_plan_right_fits_11 = {
 
 # scandinavian_tar_privileges: naval_supplies, tar. Granted if any one of them can be made here.
 # Scope: location
-bag_wtp_plan_right_fits_12 = {
+bag_wtp_plan_right_fits_13 = {
 	OR = {
 		bag_wtp_plan_can_town_39 = yes
 		bag_wtp_plan_can_town_45 = yes

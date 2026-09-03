@@ -44,6 +44,12 @@ for the reference tree and the rebuild loop,
 - **A run the player reports goes into [`docs/TESTLOG.md`](docs/TESTLOG.md) in
   the same session.** They report it once, in passing. A session that does not
   write it down leaves the next one calling the thing untested.
+- **End anything that changed the tree with two short lists: what changed, and
+  what he has to check in the game.** His own words, 2026-09-02, after a summary
+  that left him unable to tell whether a run was owed. **Where nothing needs
+  one, say so outright** — «проверять нечего» is an answer he can act on. Where
+  one is owed, name the ground, the presses and what a right answer looks like;
+  «протестируй» is not a check.
 - **A CMM macro called with an argument CMF does not declare fails silently**
   and takes the rest of its effect with it. One `step` instead of `step_value`
   cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
@@ -81,8 +87,9 @@ for the reference tree and the rebuild loop,
 
 **Never conclude from "no mod here uses it" that the engine lacks it** — that
 mistake cost a redesign. The dumps say what exists, not how it behaves; for
-behaviour verify against `reference/`, never from memory, and say plainly when
-something is unproven.
+behaviour verify against `reference/`, never from memory — **the owner's
+included**, at his own word, 2026-09-02: «я работаю из условностей
+воспоминаний». Say plainly when something is unproven.
 
 Do not hardcode a reference folder's name and do not trust a version written in
 prose: `python3 tools/refs.py`, or `refs.known("cmf")` in a tool.

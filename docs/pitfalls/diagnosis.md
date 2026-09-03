@@ -278,3 +278,28 @@ a datamodel over every building type in the game, so what lives is that subtree
 465 times over, with two more datamodels nested per row. Whenever a count is
 about cost rather than about files, check what the window repeats over first —
 `guicost.py --drivers` prints it.
+
+**A budget subtracted from the pool and again from each share charges twice.**
+2026-09-03. `where_to_produce`'s plan spends the ground in two phases: the town
+charters go in first, then the goods fill what is left. `_plan_quota` is
+`(rooms − what the charters spent) ÷ goods`, which is right — every good pays for
+the charters once, together. But `_pn<n>`, the good's own counter that the
+allocator reads against that share, is incremented by the very effect the charter
+round calls to place a building, and nothing cleared it. So a good the charters
+favoured arrived at the allocator already over its share and was frozen out of the
+ground it is best at — `tools` at `_pn = 6` against a cap of **2**, unable to take
+a free room paying it 799 out of 1000. **The symptom is a good that has exactly as
+many buildings as some other phase gave it and none of its own**, and it looks
+like a scoring fault, which is where three theories went first. When two phases
+share a counter, say in one place which of them the budget is for.
+
+**A safety net that fires on every report is a broken tool, not a careful one.**
+2026-09-03. `tools/diag.py` folds the log and then checks that no `WTP` line was
+lost, falling back to the raw log if any was. The rights line added that day is
+rendered as «права: …» — **without the tag** — so every report with one counted 48
+lines as lost, the net fired every time, and the owner got the raw log for days
+without either of us noticing. Worse: the fallback then ran the summary over
+**all five presses at once**, so «Права: выдано 263» was 48+48+48+71+48 across
+five different runs, and any conclusion drawn from that header was nonsense. The
+tell is that the tool's own warning line becomes routine — read the warning it
+prints, and if it prints on every honest input, the check is the thing to fix.

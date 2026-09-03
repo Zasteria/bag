@@ -102,7 +102,8 @@ Two dampers keep a pass from stacking:
 
 ```
 priority(g, L)  =  gain(g, L) ÷ (1 + already(g, province of L))
-quota(g)        =  max(1, capacity ÷ |goods| − rgo(g))
+quota(g)        =  max(1, free ÷ |goods| + charters(g) − rgo(g))
+free            =  capacity − everything the charter round already placed
 ```
 
 The divisor is because **every location of a province is worth the same to a
@@ -110,6 +111,14 @@ good** — the bonus is the province's — so undivided, a good takes its best
 province whole. The quota is «равномерно» and is scale-free: three provinces give
 a quota under one, so everything is covered once and mixed; a large realm gives a
 quota of twenty-odd, so each good takes its best twenty-odd places and stops.
+
+**`charters(g)` is there because the charters are paid for twice otherwise.**
+`free` already has them out of it, so every good pays for them once and together;
+adding a good's own charter buildings back gives it a share of the *free* rooms on
+top of what a charter built for it, instead of a share it has already overspent.
+Without that term a good the charters favoured could not place one building of its
+own — 2026-09-03, `tools` at six charter buildings against a cap of two, locked
+out of a province paying it 799 of 1000.
 
 ## Urban rights, and why they are their own pass
 
@@ -152,6 +161,43 @@ the same in the countryside, then a rural location set aside to feed the
 province; iron and its like displace a top-three building where nowhere else will
 hold them; and when a right arrives, its bundle replaces the three.
 
+## Равномерно and specialisation are two different questions
+
+**Settled 2026-09-03, and the confusion was the session's, not his.** «Я не
+считаю их противоречивыми.» He is right, and the arithmetic is his:
+
+- **«Равномерно» is *how many*.** `_plan_quota` = rooms ÷ goods, 34 a good on
+  northern Germany. Untouched, and it is what «все товары должны производиться»
+  buys.
+- **Specialisation is *where those 34 land*.** A province on that ground is 17.7
+  rooms, so **a good's whole quota fits in two provinces** — and taking them
+  costs no other good a single room. «На всей общей земле от этого не пострадает
+  ни один другой товар.»
+
+Nothing in the quota resists concentration. **One multiplier did**: `_ord<n>`
+divided a good's gain by `1 + _pp<n>`, the count of that good already in the
+province, so the second building of a good there scored half and the third a
+third. A province that suited a good perfectly took two of it and handed its
+other fifteen rooms to whatever had not been there yet. **Removed 2026-09-03.**
+
+His picture of a right answer, and it is the test: «в провинции в которой есть
+железо — все города утыканы пушечным правом. Где просто железо — всё в
+инструментах. Где драг металы — ювелиркой всё затыкано.» What he cannot judge by
+eye is wool, timber and the mixed grounds — and that is what the mod is for.
+
+**A right obeys the same two questions**: «права это просто связка товара,
+которая заложена в город. В остальном она подчиняется абсолютно тем же вещам что
+и простой товар.» So a right now has a quota over the whole ground (towns ÷
+grantable rights) and descending bands decide which towns; both divisors it
+carried are gone. The map-wide one made the ranges disjoint and dealt them round
+robin; the province-wide one emptied a province of the charter its ground was
+made for.
+
+**And the scarce must claim before the common.** «Найдите минимум 20 локаций с
+болотами и зарезервируйте их под железо.» The tier ladder is back inside every
+band; it had been moved to the last band alone on 2026-09-02 to buy passes, and
+that was the wrong thing to sell.
+
 **The problem he cannot solve by hand is the one the formula exists for.** Doing
 it province by province maximises each province in isolation, and the goods that
 gain nothing anywhere are left with nowhere at the end — «а вдруг у меня вообще
@@ -168,66 +214,3 @@ aside for food. He said «до этого мы пока ещё не дошли»
   should discount a right-holding town's spare slots;
 - whether a cap of 3 is right, which is why he asked for 3, 4 and 5;
 - whether the bands want ten steps or four — a band costs a sweep.
-
-## The rollback of 2026-09-02, and what survives it
-
-**The tree is back at the build of the thirty-eighth load** — the four tests the
-owner called «большой рывок», and the first time the spread of goods over a whole
-ground looked to him the way he had meant it: «именно в этом коммите я
-почувствовал, что мод выглядит так, как я его задумывал». Everything built above
-it was undone at his word — «лучше мы решим уже на том моменте основную мучающую
-проблему, чем будем делать это после того как накрутили сверху множество других
-неработающих правок» — so everything above in this file is the code again,
-exactly. The run itself is in [`../archive/testlog_2026-08.md`](../archive/testlog_2026-08.md).
-
-**Open at this point, and he named all of it himself:**
-
-- **a big ground does not finish.** All of northern Germany: 970 buildings in 354
-  of 416 locations, «мод не справился досчитать всё как надо». The cause was
-  measured afterwards and the arithmetic is not in doubt — a sweep places at most
-  one building per good per side, so 970 buildings over 32 goods needs thirty
-  sweeps at the least, and `PLAN_ROUNDS` is 12 here;
-- **«показано всего 150 локаций»** is `PLAN_ROWS`, the window's row cap, not the
-  count of what the plan used. Nothing is lost, only undrawn, and the header does
-  not say so at this point;
-- **the province ceiling setting is still here**, and he asked for it to go: «я не
-  представляю ситуацию, когда бы я мог захотеть сменить значение этой строки с
-  0». Under this formula the quota does that job and is derived rather than typed;
-- **a one-off spike and a short hitch on «Пересчитать»** over that ground,
-  reported without complaint: thirty-three passes and ninety-eight sweeps a plan;
-- **the symptom that is the whole of the job.** Force a province to towns and
-  glass lands in the villages below and never in those towns, while saltpetre and
-  clay — which a village could dig — take the town slots. And the glass-and-
-  masonry charter is handed out over and over.
-
-**What the undone runs still know, and no run should buy twice:**
-
-- **The owner's rule about raw materials**, 2026-09-01. A decision, not a build,
-  so it outlives the code that carried it:
-  > Отсутствие сырья не должно влиять на то будет ли домик существовать вообще
-  > или будет ли он как-то смещён в очереди из-за этого. Отсутствие сырья может
-  > влиять только на ВЫБОР метода производства в конкретном домике.
-
-  **`UNFED_PENALTY` above breaks it** — a recipe the ground feeds nothing is
-  divided by two on top of a `gain` already zero, the same fact counted twice, and
-  it moves that building in the queue. It is left standing on purpose: it is a
-  named suspect for the symptom, and this repository does not fix a suspect
-  before a probe points at one. (`fed_floor` is *not* a gate in the plan here —
-  the plan keeps an unfloored twin of every side, so that part of the rule already
-  holds.)
-- **The observation that killed the market theory**, thirty-ninth load. It is
-  about the game, so it stands whatever our code does: `glass_guild` and
-  `rural_glassmaker` carry the **identical** `location_potential = {
-  is_produced_in_location_market = goods:sand }`, and glass appears in the
-  villages while never appearing in the towns. One condition is not true and false
-  in the same market, so the market gate is not what stops town glass — and four
-  sessions' worth of explanation went with it
-  ([`../pitfalls/diagnosis.md`](../pitfalls/diagnosis.md)).
-- **What was built above the rollback and is not in the tree.** Three of these
-  answer measurements he made himself and can be ported back on their own the
-  moment he asks: the round guard at 50 with the tier ladder in the last band only
-  (twelve passes rather than thirty-three), the province ceiling removed, and the
-  header saying «показано N» beside the number the plan really used. The rest were
-  aimed at a cause nobody had named: a right-holding town's spare slots halved,
-  the input substitution (sand planted where a charter wanted glass, which spammed
-  a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.

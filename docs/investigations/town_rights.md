@@ -75,18 +75,6 @@ score that sums them is the village-above-the-guild error in a new suit.
 Score a level right on its own terms: **added levels × the value of one level
 there**, which is the number the mod already computes.
 
-### The cap is computable, unlike a building slot
-
-`guild_max_level` in `common/script_values/building_caps.txt`:
-
-    1 + development × 0.1 + population × 0.05 + (5 if city, 10 if megalopolis)
-
-and `cloth_guild_max_level = guild_max_level + local_cloth_guild_building_levels`.
-Every term is readable from a location in script. So a row for a level right can
-honestly print **cap before → cap after**, which the mod could never do for
-building slots (`mods/where_to_produce/CLAUDE.md`: the game exposes no slot count
-at all — that stays true, a level cap is a different thing).
-
 ### The owner's worry, and where it lands
 
 > *"в локации где лимит будет 3 и он получит бонус +5 очевидно будет выгодней,
@@ -145,14 +133,121 @@ town_rights_type:flemish_cloth_industries_right` and the engine dump lists
 `town_rights_type` as an event target, so it should store; if it does not, the
 list registration is where `error.log` will say so.
 
+## Five things read off the files on 2026-09-02
+
+Read rather than remembered, because the owner asked to be checked against the
+game and not believed: «я могу ошибаться и в целом работаю из условностей
+воспоминаний».
+
+- **There are 41 rights in the game and the mod scores 12** — `output_rights()`
+  keeps only those that raise an output. Everything else is levels, marketplaces
+  or population, and is not offered at all.
+- **Every country-specific right is `kept_at_conquest = no`. The nine general
+  Discovery ones carry no such line, so they are kept.** That matters for this
+  mod more than for the game: it plans ground you have not taken, and a right on
+  ground you conquer is gone the moment it is yours. You can grant it again if
+  you pass its `potential`, which is what the plan already checks.
+- **Flemish cloth and `royal_textile_rights` are mutually exclusive**, and the
+  game says so itself: the flemish `allow` is `NOT = { has_town_rights =
+  royal_textile_rights }`. So «which of them has priority» is not a question the
+  game answers — it only forbids the pair, and the choice is the player's.
+- **The per-location limit is a modifier, `local_possible_town_rights`**
+  («Определяет, сколько городских прав может быть у района»). **Nothing in
+  `reference/` pushes it**, so the base and any per-rank steps are not knowable
+  from here — they will be in `common/defines`, which the manifest does not
+  extract. The owner's recollection is town +1, city +1, megalopolis +1, and it
+  is his recollection and not a reading. **`capital_possible_town_rights` is
+  readable**: four advances grant +1 each — Discovery, Reformation, Absolutism,
+  Revolutions — so a capital ends the game with four extra.
+- **`town_right_efficiency_penalty` is still defined in nothing we hold** (it
+  will be in `common/defines`, which the manifest does not extract). **The owner
+  states it as 5%, twice and flatly** — «штраф у всех прав 5%, я тебе это точно
+  говорю» — so that is the figure to print if a row ever prints one. **It changes no answer the mod gives**:
+  eleven rights carry the same constant, it applies to the whole location, and
+  the plan grants a right to every town — so it cancels out of every comparison
+  the mod makes. Worth knowing to explain a row, not to compute one.
+
+## The owner's ruling on levels, 2026-09-02
+
+**The mod must never score building levels.** «Мы смотрим на общие ячейки,
+каждая из которых линейка в высоту какого-то домика, не важно будет их там 3 в
+высоту или 13. Это число непостоянно и все локации растут — высчитывать это
+полный абсурд.» So the level half is not deferred any more; it is out of scope by
+decision, and `guild_max_level` above is not to be built into a score.
+
+**But he also wants every right usable**: «не важно право это на бонус
+производительности или на лимит домиков — все полезны и все по идее должны
+использоваться… все права равны должны быть». Those two together point at one
+rule, and it is not built: **score every right by how well the ground suits the
+goods it favours, whatever kind of bonus it gives** — a level right for cloth and
+fine cloth is scored on cloth and fine cloth, exactly like an output right, and
+never on the levels. Undecided and his to call.
+
+## The ages, read off the advances on 2026-09-02
+
+They settle a question that had been answered from memory, and the owner's
+reading of it was right:
+
+| what | advance | age |
+| --- | --- | --- |
+| all nine general rights | `town_rights_enable` | **3, Discovery** |
+| first firearms building, `hand_cannon_guild` | `hand_cannon_guild_advance` | 1, Traditions |
+| first cannons building, `cannon_maker` | `cannon_maker_advance` | 2, Renaissance |
+| flemish cloth right | `flemish_cloth_making` | 1, Traditions |
+
+**So «a weaponry right granted where cannons cannot be built» cannot happen in
+play**: by the age the rights exist at all, both buildings have been available for
+an age or more. His words, and the files agree: «невозможно, чтобы произошёл
+сценарий, когда ты выдал права на оружие городу, а в нём невозможно поставить
+пушки или огнестрел».
+
+**But the plan can still produce it, and that is a fault of its own.** The «сейчас»
+plan hands out rights without asking `town_rights_enable` — a right's gate is its
+`potential`, never an advance — while refusing a cannon maker because the country
+has not taken *its* advance. Two different moments inside one answer: rights as
+though it were age 3, buildings as though it were today. **Undecided which way to
+make it consistent**, and it is his call: judge the whole plan at the rights' own
+age, or gate the rights on the advance like everything else.
+
+**One correction to his wording, not to his point.** «Первый уровень» is not free
+by default: `hand_cannon_guild` needs an age-1 advance exactly as `weapon_guild`
+does, and most production buildings carry one too. What his save shows is a
+country that simply had not taken that particular age-1 advance.
+
+## Flemish cloth against royal textile, which he asked to have computed
+
+They are mutually exclusive by the game's own `allow`, so it is a real choice.
+
+- `royal_textile_rights`: **cloth +20%, fine cloth +20%, dyes +20%.** Age 3.
+- `flemish_cloth_industries_right`: **cloth guild +5 levels, fine cloth guild +5
+  levels**, plus `local_trades_per_burgher +0.25` and merchant capacity +0.25,
+  which are trade and not production. Age 1, Dutch culture.
+
+`guild_max_level = 1 + development × 0.1 + population × 0.05 + 5 if city + 10 if
+megalopolis`, so **five levels are worth `5 ÷ cap` in output** and the crossover
+is exact: **+5 levels beats +20% while the guild's cap is under 25 levels.**
+
+- a plain town, cap around 10: flemish is +50% against +20% — **flemish, by far**;
+- a city, cap 20-25: they meet;
+- a megalopolis, cap well over 25: **royal textile**, and it also carries dyes,
+  which flemish does not touch at all.
+
+And flemish is available two whole ages earlier. **The general answer is flemish
+in a town, royal textile in a great city** — but the mod cannot pick between them
+today, because it scores no level right at all.
+
 ## What is undecided
 
-- **Level rights.** Deferred by the owner on 2026-08-31: «Давай отложим права
-  на лимит пока.» Six of the seventeen are level rights and four of those are
-  marketplaces, which are trade and not production at all.
-- **`town_right_efficiency_penalty`.** Not needed to rank provinces — constant —
-  but needed to answer «is this right worth taking», which is a different
-  question the mod does not currently ask. One `grep` on his install settles it.
+- **Nothing about the level rights any more.** He settled it on 2026-09-02 —
+  «включай в расчёт все подобные домики, считай их как ты посчитал фламандское
+  сукно» — and the merge admits exactly one, flemish cloth, because the only
+  other level rights grant marketplace levels and no method produces a
+  marketplace. Its own `potential` (Netherlandish culture group) is what keeps it
+  off everyone else, so no advance gate was needed.
+- **Whether a town that suits no right at all should still get one.** The plan
+  grants a right where the town can make at least one of its goods; if none of
+  the twelve passes, the town gets none. It has not happened on any ground run so
+  far.
 - **The row.** A bundle is up to three goods, so a row wants three answers where
   it has two. A row can hold a fixed number of them and not a variable one:
   script has no list of tuples, and the answers are parked as flat variables on

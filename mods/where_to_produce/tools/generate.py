@@ -95,24 +95,41 @@ RIGHT_SCALE = RANK_SCALE // 10
 # setting rather than the setting itself: CMM clamps the number he chooses, and
 # a `while` in an effect that cannot leave its condition is a hung game rather
 # than an error in a log.
-PLAN_ROUNDS = 12
-# More than `RESULT_ROWS`, because a plan's row is a location where a ranking's
-# is a province -- the same ground is four to eight times the rows. Only the
-# datamodel decides what a scripted widget costs, and this list is filled on
-# opening and emptied on closing like the other two.
+#
+# **On a big ground the guard is what decides whether the plan finishes.** A
+# sweep places at most one building per good per side, so 970 buildings over 32
+# goods needs thirty sweeps at the very least; at 12 the thirty-eighth run was
+# cut off with 342 of 1312 rooms still empty -- «мод не справился досчитать всё
+# как надо». It costs nothing where a pass has no work, because the `while`
+# leaves the moment a sweep adds nothing, so it is only ever paid where there is
+# something left to place.
+PLAN_ROUNDS = 50
+# **One page of the plan window, and not the size of the answer.** Only the
+# datamodel decides what a scripted widget costs, so this is the number of rows
+# drawn at once; `PLAN_RANKED` below is how many the plan keeps, and the page
+# buttons walk them one page at a time. More than `RESULT_ROWS` because a
+# plan's row is a location where a ranking's is a province -- the same ground is
+# four to eight times the rows.
 PLAN_ROWS = 150
+# How many locations one plan ranks into pages. The ranked list is a global
+# variable list and two variables on each location, which is cheap beside the
+# pass that filled them -- the window's datamodel is the thing that costs, and it
+# never holds more than one page. Northern Germany, the largest ground he has
+# run, is 416 locations; this leaves room for several times that before anything
+# is dropped, and the header says how many were kept against how many the plan
+# used.
+PLAN_RANKED = 1500
+# And how many provinces are put in order for those rows. A location's row sorts
+# on its province's place, so a province past this cap keeps the 9999 the reset
+# gave it and its locations land at the end together rather than in the wrong
+# place among the others.
+PLAN_PROVS = 600
 
 # The sweeps run in tiers, and a tier admits only goods that at most this many
 # candidate locations could hold. **The scarce go first**: a good with one place
 # in the whole ground takes it before a good with forty gets its second, which is
 # the owner's «жёстко зарезервировать слоты». 0 is the last tier and means
 # everything.
-# What a building the ground does not feed is worth against one it does. The
-# bonus itself is only a ten per cent band, so a penalty has to be an outright
-# divisor rather than a difference in bonus: the owner wants the unfed case
-# minimised, not forbidden.
-UNFED_PENALTY = 2
-
 # What one buildable good of a right's bundle is worth beside how good it is.
 # Twice `RANK_SCALE`, so that a bundle a town can finish always outranks a bigger
 # one it cannot, whatever the scores inside them.
@@ -139,14 +156,46 @@ COVER_TIER = object()
 # The bands wrap the scarcity tiers; then coverage, then the open pass. Written
 # out here rather than built twice, because the dump numbers a pass by its place
 # in this list and a diagnosis that names the wrong pass is worse than none.
-PLAN_PASSES = ([(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
-               + [(0, COVER_TIER), (0, OPEN_TIER)])
+# **The tier ladder runs inside every band, and that is the owner's rule.**
+# 2026-09-03: «дайте сначала сложным домикам их 2 провинции по возможности,
+# найдите минимум 20 локаций с болотами и зарезервируйте их под железо». Iron can
+# be made in 43 locations of his ground and clay in 220; without the ladder in
+# band 800 the clay takes the wetlands first and iron is left with whatever is
+# over, because both score well there and the tie goes by list order.
+#
+# **It was in the last band only for one day** -- 2026-09-02, to buy the round
+# guard twelve passes rather than thirty-three -- and that was the wrong thing to
+# sell. Thirty-three passes cost 98 sweeps on the thirty-eighth run, which is the
+# same order as the 113 the twelve-pass build spends now: the `while` leaves the
+# moment a sweep adds nothing, so a pass with no work is very nearly free and the
+# count of passes was never the price.
+#
+# **The covering ladder runs FIRST, and the run of 2026-09-03 is why.** It used
+# to be pass 31 of 32, and by then the ground was 192 of 192 full: it placed
+# **nothing**, `stone` finished the plan with **zero** buildings on ground where
+# nine locations could have made it, and no bog iron smelter stood anywhere
+# although only four locations in the whole selection can host one. The owner,
+# in capitals: «Где блядь хоть одна печка болотного железа?.. Я бы никогда
+# подобного не допустил во время игры!» A guarantee that runs last is not a
+# guarantee -- it is whatever the ground has left over.
+#
+# So the ladder runs before anything else, in descending bands, one building per
+# good: a good takes the best location it can reach at the highest band it
+# qualifies for, and a good the RGOs feed nothing waits for the band-0 rung and
+# takes its best there. That is «все товары которые можно произвести на выбранной
+# земле должны производиться, все» with the order of the passes finally saying it.
+# It costs the main ladder one building per good -- 35 of 84 free rooms on that
+# run -- and those 35 are the cheapest buildings in the plan to give away,
+# because each is the only one its good will ever get if the ladder does not.
+PLAN_PASSES = ([(band, COVER_TIER) for band in PLAN_BANDS]
+               + [(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
+               + [(0, OPEN_TIER)])
 
 
 def pass_name(band: int, tier: object) -> str:
     """How a pass is written in the dump: the band it admits and the tier it is."""
     if tier is COVER_TIER:
-        return "cover"
+        return f"cover{band}"
     if tier is OPEN_TIER:
         return "open"
     return f"band{band}/tier{tier if tier else 'all'}"
@@ -155,7 +204,7 @@ def pass_name(band: int, tier: object) -> str:
 # **A cap must never be silently the answer**, so every capped block prints how
 # many it left out. `docs/pitfalls/diagnosis.md` has the whole instrument and the
 # four things about `debug_log` that were measured rather than assumed.
-DIAG_VERSION = 4
+DIAG_VERSION = 5
 DIAG_LOCS = 200
 DIAG_ROWS = 25
 # The scratch globals a printed line reads through. **A `debug_log` string cannot
@@ -216,6 +265,101 @@ def unlocks() -> dict[str, str]:
 
 
 UNLOCKS = unlocks()
+
+
+def locked_advances() -> dict[str, str]:
+    """Advance -> the country condition it carries, for the ones that have one.
+
+    **An advance with a `potential` is not one you will have by the end -- it is
+    one you will never have.** 45 of the 181 advances that unlock a building or a
+    method are locked to a tag, a culture group or a region: `copperworking` wants
+    `is_capital_mesoamerica`, the porcelain kiln wants an east-Asian capital,
+    Scottish whisky wants Scotland. The plan's «на конец» side assumed every
+    advance is eventually in, so it offered all of them to everybody -- which is
+    how five porcelain guilds landed in northern Germany.
+    """
+    out: dict[str, str] = {}
+    for path in (refs.GAME / "in_game/common/advances").glob("*.txt"):
+        text = path.read_text(encoding="utf-8-sig")
+        for block in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{(.*?)^\}", text, re.S | re.M):
+            gate = re.search(r"^\tpotential\s*=\s*\{(.*?)^\t\}", block.group(2), re.S | re.M)
+            if not gate:
+                continue
+            # **Strip the game's own comments before collapsing to one line.**
+            # `copperworking` carries a commented-out religion clause, and folded
+            # flat the `#` swallowed the rest of the line -- closing braces
+            # included. The file parsed as unbalanced and nothing would have said
+            # so but `error.log`.
+            body = " ".join(" ".join(line.split("#", 1)[0].split())
+                            for line in gate.group(1).splitlines()).strip()
+            body = " ".join(body.split())
+            if body:
+                out[block.group(1)] = body
+    return out
+
+
+LOCKED = locked_advances()
+
+
+def building_unlocks() -> dict[str, str]:
+    """Building -> the advance that unlocks it, the mirror of `unlocks()`."""
+    out: dict[str, str] = {}
+    for path in (refs.GAME / "in_game/common/advances").glob("*.txt"):
+        text = path.read_text(encoding="utf-8-sig")
+        for block in re.finditer(r"^([a-z0-9_]+)\s*=\s*\{(.*?)^\}", text, re.S | re.M):
+            for building in re.findall(r"unlock_building\s*=\s*([a-z0-9_]+)", block.group(2)):
+                out[building] = block.group(1)
+    return out
+
+
+BUILDING_UNLOCKS = building_unlocks()
+
+
+def method_advances(method: eu5data.Method) -> list[str]:
+    """Every advance that gates this method: its own, its halves', its building's.
+
+    **A pair's key is `base+improvement` and names no advance.** `copperworking`
+    says `unlock_production_method = copper_base`, and the mod's four jewelry
+    pairs are keyed `copper_base+amber_enhancement` and the like -- so the lookup
+    missed them and Münster was offered a recipe only Mesoamerica can unlock, in
+    the «сейчас» plan as much as at the end. Found 2026-09-03, by the owner:
+    «этого метода не должно было быть как кандидата в принципе».
+    """
+    found = []
+    for name in (method.key, *method.key.split("+")):
+        advance = UNLOCKS.get(name)
+        if advance and advance not in found:
+            found.append(advance)
+    advance = BUILDING_UNLOCKS.get(method.building)
+    if advance and advance not in found:
+        found.append(advance)
+    return found
+
+# **Two buildings the plan treats as always unlocked, at the owner's word.**
+# The urban rights arrive with `town_rights_enable` in age 3; the first firearms
+# building is age 1 and the first cannon building age 2, so by the time a
+# weaponry charter can exist at all both have been buildable for an age or more.
+# The plan already ignores that the rights themselves are not researched -- «мы
+# же игнорируем тот факт, что гор права ещё не изучены… точно так же должны
+# игнорировать» -- and ignoring it on one side while enforcing it on the other is
+# what put cannons at zero under a granted weaponry charter.
+#
+# **Safe because neither building asks anything else of the country.** Both carry
+# only rank gates -- `town`, `city`, `megalopolis` -- and no `potential` and no
+# `allow`, checked in `production_cannons.txt` and `production_firearms.txt`, so
+# the location side still decides where they may stand. Both advances are age 2
+# and carry no `potential` either, so waiving them takes nothing from anyone.
+#
+# **`gun_smith` and not `hand_cannon_guild`, corrected 2026-09-03.** The hand
+# cannon guild is age 1 and looked like the earlier firearms building, but its
+# advance wants `original_capital ?= { sub_continent = east_asia }` -- putting it
+# here handed a Chinese building to every country on the map. `gun_smith` is the
+# first firearms building anyone else can have, and it is age 2 exactly as the
+# owner said it was.
+#
+# Deliberately two names and not a rule: the owner asked for these as exceptions,
+# and a rule would quietly take in whatever the next patch adds.
+ALWAYS_AVAILABLE = ("gun_smith", "cannon_maker")
 
 
 def write(path: Path, body: str) -> None:
@@ -645,10 +789,33 @@ def triggers_file(rows, split, game) -> str:
     # *country* scope -- "country checks the country scope requirements" -- is
     # what answers "is this available to me now". Without it the table happily
     # recommends a method three ages away, which is what the owner saw on beer.
+    # **What no advance can ever bring, and the «на конец» side has to ask it.**
+    # An advance carrying a `potential` is not one you will hold eventually -- it
+    # is one you will never hold. Without this the end-game plan offered every
+    # country everything: five porcelain guilds in northern Germany, whose kiln
+    # wants an east-Asian capital.
     out.append("\n# Scope: country\n")
     for index, method in enumerate(rows, start=1):
-        gate = UNLOCKS.get(method.key)
-        extra = f"\n\thas_advance = {gate}" if gate else ""
+        gates = [LOCKED[a] for a in method_advances(method) if a in LOCKED]
+        if not gates:
+            out.append(f"{MOD_ID}_reach_{index} = {{ always = yes }}\n")
+        else:
+            body = "".join(f"\tAND = {{ {gate} }}\n" for gate in gates)
+            out.append(f"# {method.building} / {method.key}: "
+                       f"{', '.join(a for a in method_advances(method) if a in LOCKED)}\n"
+                       f"{MOD_ID}_reach_{index} = {{\n{body}}}\n")
+
+    out.append("\n# Scope: country\n")
+    for index, method in enumerate(rows, start=1):
+        if method.building in ALWAYS_AVAILABLE:
+            out.append(f"# {method.building}: taken as given, `generate.ALWAYS_AVAILABLE`.\n"
+                       f"{MOD_ID}_avail_{index} = {{\n\talways = yes\n}}\n")
+            continue
+        # `can_build_building` in country scope already answers the building's
+        # own advance; this adds the *method's*, and `method_advances` is what
+        # finds it through a pair's `base+improvement` key.
+        extra = "".join(f"\n\thas_advance = {gate}" for gate in method_advances(method)
+                        if gate in UNLOCKS.values())
         out.append(f"{MOD_ID}_avail_{index} = {{\n"
                    f"\tcan_build_building = building_type:{method.building}{extra}\n}}\n")
 
@@ -877,6 +1044,23 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     never supply tools, but tools still carry their weight, which is why a method
     can top out well below {max:g}%.
     """
+    # **What a good's gain is measured against: the best any recipe of that good
+    # could ever earn, and not the recipe's own ceiling.** Dividing by its own was
+    # the fault of 2026-09-03: a `fine_cloth_guild` running the plain base with a
+    # fur trim has one raw input, fur, and a ceiling of 2.86% -- so a province
+    # with fur and nothing else fed it whole and it scored **1000**, the same as a
+    # perfect wool province, for 2.86% on an output of 0.7. «Туда встало тонкое
+    # сукно... но там ничего для него нет, только мех для улучшения.»
+    #
+    # Against the good's best (10% for fine cloth) the same recipe reads 286 and a
+    # wool province reads 833, which is the order he expects. **The reason to
+    # normalize at all is untouched**: it is so a good whose *best* recipe tops
+    # out at 5% still competes with one that reaches 10%, and that divisor is the
+    # good's, not the method's.
+    best_ceiling: dict[str, float] = {}
+    for method in rows:
+        best_ceiling[method.produced] = max(best_ceiling.get(method.produced, 0.0),
+                                            method.ceiling(game.raw_goods))
     out = [HEADER, f"""#
 # `{MOD_ID}_m<n>` ranks -- effective output. `{MOD_ID}_b<n>` is the bonus the row
 # prints. Nothing reads `_b` until a method has won a row, so it costs nothing
@@ -900,7 +1084,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         shares = {good: share for good, share in method.shares().items()
                   if good in game.raw_goods}
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
-                   f"output {method.output:g}, ceiling {ceiling:.2f}% "
+                   f"output {method.output:g}, ceiling {ceiling:.2f}% of the "
+                   f"good's {best_ceiling.get(method.produced, 0.0):.2f}% "
                    f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
         out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n"
                    f"\tvalue = {method.output * RANK_SCALE:.4f}\n")
@@ -920,18 +1105,19 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
         out.append("}\n")
         # **What the plan deals the ground by**: how much of the bonus this
-        # recipe could ever earn, it earns here. A raw bonus does not compare
-        # across goods -- the ceilings run from 2% to 10% and five goods are
-        # capped under five -- and a `worth` normalized to the good's own best on
-        # this ground compares even worse, squeezing everything into 0.909-1.000.
-        # The fraction of a recipe's own ceiling is the one currency that is the
-        # same question for every good: `docs/investigations/plan_formula.md`.
-        if ceiling > 0:
+        # *good* could ever earn, this recipe earns here. A raw bonus does not
+        # compare across goods -- the ceilings run from 2% to 10% and five goods
+        # are capped under five -- and a `worth` normalized to the good's own best
+        # on this ground compares even worse, squeezing everything into
+        # 0.909-1.000. The divisor is the good's best ceiling in the game, for the
+        # reason written where `best_ceiling` is built.
+        divisor = best_ceiling.get(method.produced, 0.0)
+        if divisor > 0:
             out.append(f"# Scope: location\n{MOD_ID}_g{index} = {{\n\tvalue = 0\n")
             for good, share in sorted(shares.items()):
                 out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
-\t\tadd = {share * RANK_SCALE / ceiling:.4f}
+\t\tadd = {share * RANK_SCALE / divisor:.4f}
 \t}}
 """)
             out.append("}\n")
@@ -962,20 +1148,10 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_ord{index} = {{
 \tvalue = var:{MOD_ID}_p{index}
-\tdivide = {{
-\t\tvalue = 1
-\t\tadd = var:{MOD_ID}_pp{index}
-\t\tmin = 1
-\t}}
 }}
 # Scope: location
 {MOD_ID}_ordr{index} = {{
 \tvalue = var:{MOD_ID}_pr{index}
-\tdivide = {{
-\t\tvalue = 1
-\t\tadd = var:{MOD_ID}_pp{index}
-\t\tmin = 1
-\t}}
 }}
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -1008,38 +1184,61 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                         f"{MOD_ID}_plan_can_town_{j} = yes }}")
             return f"{MOD_ID}_plan_can_town_{i} = yes"
 
+        # **The same question asked of the score and not of the gate.**
+        # `_plan_can_town_<i>` is a *placement* gate: it also asks whether the
+        # town still has room and whether this good is already standing there.
+        # At grant time the town is empty, so the gate reduces to exactly this --
+        # but the dump runs after the plan, when every town is full, and the
+        # first `WTP RQ` line came back as thirteen zeroes because of it
+        # (2026-09-03). The twin has to read what was true when the grant was
+        # made, which is «a town method for this good won here».
+        def _won(good: str) -> str:
+            i = order.index(good) + 1
+            feeder = market_inputs(game).get(good)
+            j = order.index(feeder) + 1 if feeder in order else 0
+            if j and plan_groups(rows, split, game).get((feeder, "t")):
+                return (f"OR = {{ var:{MOD_ID}_pm{i} > 0 "
+                        f"var:{MOD_ID}_pm{j} > 0 }}")
+            return f"var:{MOD_ID}_pm{i} > 0"
+
+        # **One score for a right, and it is a gain like any good's.** Each
+        # bundle good the town can make contributes its own gain; each it cannot
+        # contributes nothing; the sum is divided by the *whole* bundle, so a
+        # charter that delivers one good of three is worth a third of one that
+        # delivers all three. `RIGHT_FIT` used to sit on top of every reachable
+        # good and it is gone: dividing by the full bundle already prices the
+        # gaps, and without it the number is on the same 0..{RANK_SCALE} scale as
+        # a good's gain -- which is what lets the bands below admit a right and a
+        # good by the same threshold.
         adds = "".join(f"""\tif = {{
-\t\tlimit = {{ {_reach(g)} }}
-\t\tadd = {RIGHT_FIT}
+\t\tlimit = {{ {_won(g)} }}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
 \t}}
 """ for g in bundle)
         plan_values.append(f"""
 # {right.key}: {", ".join(bundle)}.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of {RANK_SCALE},
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted**, the same
-# shape as a good's province divisor and for the same reason: every town of a
-# province scores identically, so undivided they all take the one right. A right
-# that is genuinely better still wins; a tie spreads.
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
+#
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 {MOD_ID}_rq{k} = {{
 \tvalue = 0
 {adds}\tdivide = {len(bundle)}
-\tdivide = {{
-\t\tvalue = 1
-\t\tadd = global_var:{MOD_ID}_rgiven{k}
-\t\tmin = 1
-\t}}
 }}
 """)
     plan_values = "".join(plan_values)
@@ -1166,6 +1365,9 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 {MOD_ID}_plan_scored_value = {{ value = global_var:{MOD_ID}_plan_scored }}
+# How many rights this country could grant at all, which the rights' own
+# quota divides by. Counted once a plan, in country scope.
+{MOD_ID}_rgrant_value = {{ value = global_var:{MOD_ID}_rgrant }}
 
 # How the plan's provinces are ordered: by how much of it landed in each, read
 # off the one location that stands in for the province. Under the province model
@@ -1182,6 +1384,23 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # one figure would run to five digits, and where the engine's fixed point ends is
 # not knowable from here -- `RIGHT_SCALE` is in the generator for the same
 # reason.
+#
+# **`_ord<n>` is the gain and nothing else now.** It used to be divided by
+# `_pp<n>`, how many of that good already stood in the province, and that one
+# multiplier was the whole of the smear the owner reported on 2026-09-03: a
+# good's second building in a province scored half, its third a third, so a
+# province that suited a good perfectly took two of it and gave the other
+# fifteen rooms to whatever had not been there yet.
+#
+# **The quota and the concentration answer different questions, and confusing
+# them was mine.** «Равномерно» is *how many* -- `_plan_quota`, 34 rooms a good
+# on his ground -- and it is untouched. *Where* those 34 land is this value, and
+# a province is 17.7 rooms, so a good can own two provinces outright without
+# costing any other good a single room. His arithmetic, 2026-09-03, and it is
+# right: «на всей общей земле от этого не пострадает ни один другой товар».
+#
+# `_pp<n>` is still counted -- it is the honest «how much of this good is in this
+# province» and the report wants it -- it just no longer decides anything.
 # Scope: location
 {MOD_ID}_plan_order = {{
 \tvalue = 0
@@ -1235,7 +1454,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_plan_rooms = {{ value = global_var:{MOD_ID}_plan_rooms }}
 {MOD_ID}_show_plan_cap_rural = {{ value = global_var:{MOD_ID}_plan_cap_rural }}
 {MOD_ID}_show_plan_cap_urban = {{ value = global_var:{MOD_ID}_plan_cap_urban }}
-{MOD_ID}_show_plan_max = {{ value = global_var:{MOD_ID}_plan_max }}
+# Which page of the answer is on screen, out of how many, and the rows it covers.
+# The window draws one page of {PLAN_ROWS} at a time; these four are what the page
+# bar above the table prints, so «показано 150» is never read as the size of the
+# plan again.
+{MOD_ID}_show_plan_page = {{ value = global_var:{MOD_ID}_plan_page }}
+{MOD_ID}_show_plan_pages = {{ value = global_var:{MOD_ID}_plan_pages }}
+{MOD_ID}_show_plan_from = {{ value = global_var:{MOD_ID}_plan_from }}
+{MOD_ID}_show_plan_to = {{ value = global_var:{MOD_ID}_plan_to }}
 # The fair share the quota came out at, on the header line: with the room count
 # and the goods count beside it, it is the whole of `plan_quota` readable at a
 # glance, and a quota of 1 says the ground is the binding constraint.
@@ -1386,12 +1612,21 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # where it can and asks the game as before where it cannot
             # (`triggers_file`, and `docs/SETTLED.md` for what it cost to find).
             stands = f" {MOD_ID}_stands_{rows[method_index - 1].building} = yes"
+            # **Every answer below is an end-game one, and the one thing even the
+            # end cannot bring is an advance this country may never take.**
+            # `_reach_<n>` is `always = yes` for all but thirteen methods, so the
+            # `if` costs nothing where nothing is locked.
+            reachable = [a for a in method_advances(rows[method_index - 1]) if a in LOCKED]
+            deep, shut = ("\t\t", "") if not reachable else ("\t\t\t", f"""\t\tif = {{
+\t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_reach_{method_index} = yes }} }}
+""")
+            out.append(shut)
             # «По пути»: every age, so no gate on availability -- but the ground
             # still has to be able to hold it.
-            out.append(keep("\t\t", "mid_", suffix, method_index, floor, stands))
+            out.append(keep(deep, "mid_", suffix, method_index, floor, stands))
             if method_index in last:
-                out.append(keep("\t\t", "end_", suffix, method_index, floor, stands))
-                out.append(keep("\t\t", "end_any_", suffix, method_index, None, stands))
+                out.append(keep(deep, "end_", suffix, method_index, floor, stands))
+                out.append(keep(deep, "end_any_", suffix, method_index, None, stands))
             # The plan's endgame side needs no availability: it is what stands
             # once every advance is in.
             # **The plan keeps an unfloored twin of each side and the ranking
@@ -1407,8 +1642,10 @@ def score_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # buried: the twin is a fallback, never a rival.
             for side, where in PLAN_SIDES:
                 if getattr(rows[method_index - 1], where) and method_index in last:
-                    out.append(keep("\t\t", "pend", side, method_index, floor, stands, plan=True))
-                    out.append(keep("\t\t", "pendany", side, method_index, None, stands, plan=True))
+                    out.append(keep(deep, "pend", side, method_index, floor, stands, plan=True))
+                    out.append(keep(deep, "pendany", side, method_index, None, stands, plan=True))
+            if reachable:
+                out.append("\t\t}\n")
             out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ scope:{MOD_ID}_country = {{ {MOD_ID}_avail_{method_index} = yes }} }}
 """)
@@ -1774,6 +2011,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tremove_variable = {MOD_ID}_load
 \t\tremove_variable = {MOD_ID}_plan_rank
+\t\tremove_variable = {MOD_ID}_plan_pg
 \t\tremove_variable = {MOD_ID}_plan_prank
 \t\tremove_variable = {MOD_ID}_plan_right
 \t\tremove_variable = {MOD_ID}_plan_town_row
@@ -1792,6 +2030,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_from value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_to value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rooms value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_towns value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
@@ -1805,10 +2048,20 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"\tset_global_variable = {{ name = {MOD_ID}_pn{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n")
-    # How many towns each right has been given, which its own score divides by.
-    # A script value reading a global that is not there is the silent failure.
+    # How many towns each right has been given. **The global is the dump's now
+    # and no longer the score's** -- `_rq<k>` divides by `_rp<k>`, the count in
+    # this province. A script value reading a global that is not there is the
+    # silent failure, so it still has to be zeroed.
     for k in range(1, len(rights) + 1):
-        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n")
+        out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rgiven{k} value = 0 }}\n"
+                   f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n")
+    # The rights' band and quota, zeroed here for the same reason every other
+    # counter is: a `limit` that reads a global which is not there fails silently.
+    out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_rquota value = 1 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}\n")
     # **What each pass of the allocator did, kept so the dump can print it.** Two
     # writes a pass and none per good or per location, so it costs nothing a
     # player can feel -- and it is the only part of the diagnosis that cannot be
@@ -1910,23 +2163,28 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendbest_method_t }}
 \t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendgain_r }}
 \t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendbest_method_r }}
-\t\t\t# **Nothing the ground feeds: take the recipe it does not.** A location
+\t\t\t# **Nothing clears the floor: take the best recipe anyway.** A location
 \t\t\t# no RGO helps still has to be filled, and a granted right's bundle goes
-\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01. The
-\t\t\t# fallback is divided by {UNFED_PENALTY} so that it is genuinely last in the
-\t\t\t# queue: everything the ground earns is placed before anything it does
-\t\t\t# not, which is «свести к минимуму» rather than forbid.
+\t\t\t# up whether the bonus is there or not -- the owner, 2026-09-01.
+\t\t\t#
+\t\t\t# **And it keeps its own gain, undivided.** The score already *is* how
+\t\t\t# much of its ceiling the ground pays: a recipe earning 4% of a possible
+\t\t\t# 10 comes in at 400 and is behind everything better by that alone.
+\t\t\t# Halving it on top counted the same fact twice and moved the building in
+\t\t\t# the queue for want of raw materials, which is the one thing the owner
+\t\t\t# forbade outright («не должно... смещён в очереди из-за этого»,
+\t\t\t# 2026-09-01, confirmed 2026-09-02). The floor still chooses the method --
+\t\t\t# that is the half of his rule that stands: «может влиять только на ВЫБОР
+\t\t\t# метода производства в конкретном домике».
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pendanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pendanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pendanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pendanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t\telse = {{
@@ -1938,13 +2196,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tlimit = {{ var:{MOD_ID}_pm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_p{index} value = var:{MOD_ID}_pnowanygain_t }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pm{index} value = var:{MOD_ID}_pnowanybest_method_t }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_p{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ var:{MOD_ID}_prm{index} = 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_pr{index} value = var:{MOD_ID}_pnowanygain_r }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_prm{index} value = var:{MOD_ID}_pnowanybest_method_r }}
-\t\t\t\tchange_variable = {{ name = {MOD_ID}_pr{index} divide = {UNFED_PENALTY} }}
 \t\t\t}}
 \t\t}}
 \t}}
@@ -2050,33 +2306,134 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     # ---- the rights round --------------------------------------------------
+    #
+    # A right the country cannot grant must not shrink the others' quota, so the
+    # count asks each one's own gate -- the same `potential` the grant asks.
+    grant_counts = "".join(
+        (f"\tif = {{\n\t\tlimit = {{ {right.potential} }}\n"
+         f"\t\tchange_global_variable = {{ name = {MOD_ID}_rgrant add = 1 }}\n\t}}\n"
+         if right.potential else
+         f"\tchange_global_variable = {{ name = {MOD_ID}_rgrant add = 1 }}\n")
+        for right in rights)
+    grant_zeroes = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
+        for k in range(1, len(rights) + 1))
+    # **Every charter the country could grant is granted somewhere.** The goods
+    # have had this since 2026-09-01 -- «все товары которые можно произвести на
+    # выбранной земле должны производиться, все» -- and the owner asked for the
+    # rights to obey the same rules, 2026-09-03: «какое-то количество оружейных
+    # прав должно было выделиться каким-то городам обязательно». They did not:
+    # over 48 towns of Westphalia the weaponry charter scored 163 everywhere --
+    # cannons 136, firearms 166, weaponry 187, averaged over the bundle -- against
+    # 200 to 624 for every rival, so it never won a town and no rule made it. Nor
+    # did jewelry.
+    #
+    # **The covering ladder runs the bands again, admitting only charters with
+    # nothing anywhere.** A ladder rather than one sweep so that the town the
+    # ground suits best gets it, instead of whichever town the walk reaches first.
+    grant_cover = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 1 }}\n"
+        f"\t{MOD_ID}_plan_grant_pass = yes\n"
+        for band in PLAN_BANDS)
+    # **The quota binds only while the ground is paying, and `PLAN_BANDS[:-1]` is
+    # what says so.** Its last band is 0, which admits anything at all -- and a
+    # pass that admits anything while the quota is still on is the one that did
+    # the damage on 2026-09-03: both towns of Vorpommern took the jewelry charter,
+    # which their ground pays **90** for, while the artisan charter at **316** sat
+    # beside it blocked by nothing but an even-spread rule. Amber is the only
+    # thing there and amber is a trim, not a base.
+    #
+    # So the bands above 0 spread the charters, and the open pass -- band 0 with
+    # the quota lifted -- lets the ground decide alone. A town whose best charter
+    # is worth under 200 now waits for that pass and takes its real best.
+    grant_passes = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
+        f"\t{MOD_ID}_plan_grant_pass = yes\n"
+        for band in PLAN_BANDS[:-1])
+    grant_passes = "".join(
+        line if "_ropen value" not in line else
+        line + f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
+        for line in grant_passes.splitlines(keepends=True))
+    # **The covering ladder runs first, for the reason the goods' one does.** It
+    # was last, and on 2026-09-03 the weaponry charter reached it with every town
+    # of Sauerland already taken: the six towns there score naval **1000** and
+    # weaponry **163**, so naval swept them in band 800 and the charter that had
+    # nowhere else to be got Elsfleth, where it scores **0**. The owner: «КАК СУКА
+    # ТАК ПОЛУЧАЕТСЯ, ЧТО ЕДИНСТВЕННАЯ ХОРОШАЯ ПРОВИНЦИЯ ДЛЯ ОРУЖЕЙНЫХ ПРАВ -- НЕ
+    # ПОЛУЧАЕТ ОРУЖЕЙНЫХ ПРАВ!?» Because the pass that was going to give it one
+    # ran after the towns were gone. Now every charter takes its own best town
+    # first, in descending bands, one town each -- and the banded passes deal the
+    # rest.
+    grant_passes = grant_cover + grant_passes
+    grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
+                     f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
+                     f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
+                     f"\t{MOD_ID}_plan_grant_pass = yes\n")
     out.append(f"""
 # Urban rights, before any good is placed and only in towns.
 #
-# **A right is chosen per town, not by rights taking turns.** There are {len(rights)} of
-# them and rarely that many towns in a plan, so an order over rights would decide
-# the outcome by its own arbitrariness. Asked the other way round -- which right
-# does this ground suit best -- every town gets the answer that is true about it.
+# **A right is a bundle of goods bound to a town, and obeys the rules a good
+# obeys.** The owner, 2026-09-03: «права это просто связка товара, которая
+# заложена в город. В остальном она подчиняется абсолютно тем же вещам что и
+# простой товар.» So it is dealt exactly as a good is: **a quota over the whole
+# ground says how many towns a right may take, and descending bands of gain say
+# which towns those are.**
+#
+# **The quota is the "равномерно" half and it is the only limit.** Neither
+# divisor this ever carried survives: the map-wide one made the ranges disjoint,
+# so a right granted once could never again win on merit and they went round
+# robin; the province-wide one emptied a province of the charter its ground was
+# made for. The quota limits the count and leaves the placement to the ground,
+# which is the whole distinction the owner drew.
+#
+# **The bands are what put a scarce charter where it belongs.** A town takes a
+# right only where the ground pays at least the band, so the two towns on the map
+# with silver under them are reached by the jewelry charter in band 800, before
+# any town is handed a charter it merely tolerates. The last pass lifts the quota
+# and the band together, so no town is left without one.
 #
 # **And a right is granted whether or not the whole bundle fits**, since
 # 2026-09-01: «Оно БУДЕТ выдано ОБЯЗАТЕЛЬНО. И каждый такой город обязательно
 # получит все здания из его бонуса.» The bundle's buildings go in before any
 # ordinary good touches the town, and where the urban cap is smaller than the
-# bundle the town simply runs out of room -- which is the thing the owner wants
-# to see, at caps of 3, 4 and 5. Under the old all-or-nothing rule the
-# thirty-fourth run granted one right across six towns.
-#
-# `{MOD_ID}_rq<k>` is the bundle's own normalized scores added up, which costs no
-# pass -- the goods were scored anyway.
+# bundle the town simply runs out of room.
 # Scope: country
 {MOD_ID}_plan_place_rights = {{
+\t# How many rights this country could grant at all. The quota is towns divided
+\t# by that, so a country with three rights available spreads over three and not
+\t# over the {len(rights)} the game defines.
+\tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}
+{grant_counts}\tset_global_variable = {{ name = {MOD_ID}_rquota value = global_var:{MOD_ID}_plan_towns }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rgrant > 0 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_rquota divide = {MOD_ID}_rgrant_value }}
+\t}}
+\t# `max` is the floor on a variable operation -- `_plan_quota` above depends on
+\t# the same and says so. A ground with fewer towns than rights still gives every
+\t# charter one town to want.
+\tchange_global_variable = {{ name = {MOD_ID}_rquota max = 1 }}
+{grant_zeroes}{grant_passes}}}
+
+# One pass of the rights round: every town still empty takes the best right the
+# ground pays `_rband` for and whose quota is not spent.
+# Scope: country
+{MOD_ID}_plan_grant_pass = {{
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tlimit = {{
 \t\t\t{MOD_ID}_plan_is_town = yes
 \t\t\tvar:{MOD_ID}_load = 0
 \t\t}}
-\t\tset_variable = {{ name = {MOD_ID}_rbest value = 0 }}
+\t\t# **Minus one and not nought.** The winner is taken with `rtry > rbest`, so
+\t\t# a charter this ground pays exactly nothing for could never win even when it
+\t\t# was the only one left: 2026-09-03, Westphalia has no precious metal at all,
+\t\t# the jewelry charter scored 0 in all 48 towns, and even the covering ladder
+\t\t# could not place it. `_rbest_k` still starts at 0, so a town where no charter
+\t\t# fits gets none.
+\t\tset_variable = {{ name = {MOD_ID}_rbest value = -1 }}
 \t\tset_variable = {{ name = {MOD_ID}_rbest_k value = 0 }}
 """)
     for k, right in enumerate(rights, start=1):
@@ -2089,6 +2446,20 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{
 \t\t\t\tvar:{MOD_ID}_rtry > var:{MOD_ID}_rbest
 \t\t\t\t{MOD_ID}_plan_right_fits_{k} = yes
+\t\t\t\t# The band: what this ground has to pay before the charter is taken
+\t\t\t\t# here at all. The open pass sets it to 0.
+\t\t\t\tvar:{MOD_ID}_rtry >= global_var:{MOD_ID}_rband
+\t\t\t\t# And the quota, which the open pass lifts instead of raising: a
+\t\t\t\t# town with no charter at all is worse than an uneven count.
+\t\t\t\tOR = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_ropen = 1
+\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} < global_var:{MOD_ID}_rquota
+\t\t\t\t}}
+\t\t\t\t# The covering ladder admits only a charter that has nothing anywhere.
+\t\t\t\tOR = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_rcover = 0
+\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} = 0
+\t\t\t\t}}
 {gate}\t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest value = var:{MOD_ID}_rtry }}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest_k value = {k} }}
@@ -2125,6 +2496,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         out.append(f"""\t\tif = {{
 \t\t\tlimit = {{ var:{MOD_ID}_rbest_k = {k} }}
 {adds}\t\t\tset_variable = {{ name = {MOD_ID}_plan_right value = {k} }}
+\t\t\t# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+\t\t\t# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+\t\t\t# what the plan counts never quietly changes what the report prints.
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_rn{k} add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
 \t\t}}
@@ -2144,8 +2519,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # It is counted over the ground the rights have already taken their share of,
     # because a right is not optional and its buildings are not the quota's to
     # give away.
+    #
+    # **And what a charter already built is added back to that good's own cap,
+    # because otherwise the same buildings are charged twice.** `_plan_placed` is
+    # subtracted from the numerator, so every good pays for the charters once,
+    # together; `_pn<n>` then still holds what the charters put down for this good
+    # in particular, and the allocator reads that against the cap. The
+    # thirty-eighth run is the proof: six tooling charters landed in the Ruhr,
+    # where tooling pays 200, because Sauerland's towns had taken the naval
+    # charter at 1000 -- and `tools` walked into the allocator at `_pn = 6`
+    # against a quota of **2**, so it could not take one of Sauerland's free rooms
+    # at a gain of **799**. It ended the plan with exactly the six buildings the
+    # charters gave it and none of its own. Every good a charter favours was
+    # frozen out of the ground it is best at, which is the opposite of what a
+    # charter means.
+    #
+    # `_pn<n>` is the rights' count and nothing else at this moment: `_plan_run`
+    # calls this between `_plan_place_rights` and `_plan_allocate`, and nothing
+    # else in the plan writes it.
     quota_lines = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pn{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
@@ -2284,10 +2678,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tglobal_var:{MOD_ID}_plan_tier = 0
 \t\t\t\tglobal_var:{MOD_ID}_ng{index} <= global_var:{MOD_ID}_plan_tier
 \t\t\t}}
-\t\t\tOR = {{
-\t\t\t\tglobal_var:{MOD_ID}_plan_max = 0
-\t\t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_plan_max
-\t\t\t}}
 \t\t\t# The quota. **Never lifted** -- the open pass raises it by one a
 \t\t\t# round instead, so leftover ground fills in even layers rather than
 \t\t\t# going whole to whichever good the list happens to reach first.
@@ -2348,7 +2738,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_prov_locs
 \t\torder_by = {MOD_ID}_plan_prov_order
-\t\tmax = 400
+\t\tmax = {PLAN_PROVS}
 \t\tcheck_range_bounds = no
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
 \t\tprovince_definition = {{
@@ -2359,39 +2749,131 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 \t# Counted before the rows are taken and separately from them: the walk below
-\t# stops at {PLAN_ROWS}, and a count that stopped with it would say the plan used
-\t# exactly as many locations as the window can draw, whatever it really used.
+\t# stops at {PLAN_RANKED}, and a count that stopped with it would say the plan
+\t# used exactly as many locations as the window can keep, whatever it really
+\t# used.
 \tset_global_variable = {{ name = {MOD_ID}_plan_found value = 0 }}
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_found add = 1 }}
 \t}}
+\t# **The rows are ranked whole and drawn a page at a time.** The datamodel is
+\t# what costs, so the window still holds {PLAN_ROWS} rows at once -- but the plan
+\t# has always used more ground than that, and cutting the list at the window's
+\t# capacity is what made «показано всего 150 локаций» look like the answer
+\t# stopping short. Every location keeps its place in the whole order and the page
+\t# it falls on; the page buttons choose which of them the datamodel gets.
+\t#
+\t# The page is counted here rather than divided out afterwards: the counter is
+\t# reset and the page stepped whenever a page fills, so the comparison is against
+\t# a literal and there is no rounding to be wrong about.
 \tset_global_variable = {{ name = {MOD_ID}_plan_shown value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 0 }}
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_candidates
 \t\tlimit = {{ var:{MOD_ID}_load > 0 }}
 \t\torder_by = {MOD_ID}_plan_order
-\t\tmax = {PLAN_ROWS}
+\t\tmax = {PLAN_RANKED}
 \t\tcheck_range_bounds = no
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_shown add = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pagec add = 1 }}
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_plan_pagec > {PLAN_ROWS} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_plan_pagec value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_pages add = 1 }}
+\t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_plan_rank value = global_var:{MOD_ID}_plan_shown }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_pg value = global_var:{MOD_ID}_plan_pages }}
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_ranked target = this }}
 \t}}
+\t# A new plan always opens on its first page; the old one's page may not exist.
+\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
 }}
 
 # The window's own list, filled on opening and emptied on closing -- the same
 # contract as the other two windows and for the same reason: a scripted widget
 # never comes down, so emptying the datamodel is the only thing that frees a row.
+#
+# **One page of it, and the page bar says which.** `_plan_pg` was written on the
+# location by the walk above, so choosing a page is one comparison per ranked
+# location and no arithmetic at all -- the same shape as `var:{MOD_ID}_load <
+# global_var:{MOD_ID}_plan_cap_urban`, which is the plan's own gate.
 # Scope: country
 {MOD_ID}_plan_show = {{
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_plan_page }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_plan_pages }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_pages value = 1 }}
+\t}}
+\t# **Clamped with an `if` and not with `min`/`max`.** `change_variable`'s
+\t# `max = 1` is a floor -- `_plan_quota` above depends on it and says so -- but
+\t# which way `min` runs is an inference and not a measurement, and getting it
+\t# backwards here would jump the window to the last page on every open with
+\t# nothing in any log to say why. A comparison between two globals is the form
+\t# this file already lives on.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page < 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = 1 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page > global_var:{MOD_ID}_plan_pages }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_page value = global_var:{MOD_ID}_plan_pages }}
+\t}}
+\t# The rows this page covers, for the bar above the table: it is the answer to
+\t# «показано 150 из скольких» and it has to be readable without a log.
+\tset_global_variable = {{ name = {MOD_ID}_plan_from value = global_var:{MOD_ID}_plan_page }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from subtract = 1 }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from multiply = {PLAN_ROWS} }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_to value = global_var:{MOD_ID}_plan_from }}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_to add = {PLAN_ROWS} }}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_to > global_var:{MOD_ID}_plan_shown }}
+\t\tset_global_variable = {{ name = {MOD_ID}_plan_to value = global_var:{MOD_ID}_plan_shown }}
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_plan_from add = 1 }}
+\t# The bar itself is only drawn where there is more than one page, and a country
+\t# variable is the one thing a `visible` can ask about without a data function.
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_pages > 1 }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_paged value = 1 }}
+\t}}
+\telse = {{
+\t\tremove_variable = {MOD_ID}_plan_paged
+\t}}
 \tclear_global_variable_list = {MOD_ID}_plan_results
 \tordered_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_ranked
+\t\tlimit = {{ var:{MOD_ID}_plan_pg = global_var:{MOD_ID}_plan_page }}
 \t\torder_by = {MOD_ID}_plan_rank_order
-\t\tmax = {MOD_ID}_show_plan_shown
+\t\tmax = {PLAN_ROWS}
 \t\tcheck_range_bounds = no
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_results target = this }}
+\t}}
+}}
+
+# One page forward and one back, from the two buttons beside the page number.
+# **Neither re-plans anything**: the answer is already ranked and every location
+# knows its page, so a page turn is one walk over the ranked list.
+# Scope: country
+{MOD_ID}_plan_page_next_effect = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page < global_var:{MOD_ID}_plan_pages }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_page add = 1 }}
+\t\t{MOD_ID}_plan_show = yes
+\t}}
+}}
+
+# Scope: country
+{MOD_ID}_plan_page_prev_effect = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_plan_page > 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_plan_page subtract = 1 }}
+\t\t{MOD_ID}_plan_show = yes
 \t}}
 }}
 
@@ -2574,27 +3056,74 @@ def rows_file() -> str:
     return "".join(out)
 
 
-def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5data.TownRight]:
-    """The urban rights this mod answers for: the ones that raise an output.
+def excluded_rights() -> dict[str, str]:
+    """Right the game forbids -> the right that forbids it.
 
-    A right that grants building levels instead is a quantity where these are
-    ratios, and `docs/investigations/town_rights.md` is why the two must not
-    share a number. Flemish cloth and the four marketplace charters are left out
-    rather than scored badly.
+    Read off the `allow` blocks: `flemish_cloth_industries_right` may be granted
+    only where the town does not already hold `royal_textile_rights`, and that is
+    the one pair in the game. **A town could hold either, so the plan must choose
+    one of them and never both** -- and the owner settled which, 2026-09-03: «оно
+    должно по сути заменять собой базовое текстильное право в расчёте везде, если
+    оно вдруг становится доступным». So the *excluded* one is dropped for any
+    country that can grant the excluder, which is what `output_rights` does with
+    this map. Five levels of a guild beat +20% of its output until the guild's cap
+    passes 25 (`docs/investigations/town_rights.md`), and a cap that high wants a
+    megalopolis.
+    """
+    out: dict[str, str] = {}
+    for path in sorted((refs.GAME_COMMON / "town_rights").glob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        for block in re.finditer(r"^([a-z0-9_]+) = \{(.*?)^\}", text, re.S | re.M):
+            allow = re.search(r"allow\s*=\s*\{(.*?)\n\t\}", block.group(2), re.S)
+            if not allow:
+                continue
+            for victim in re.findall(
+                    r"NOT\s*=\s*\{\s*has_town_rights\s*=\s*town_rights_type:([a-z0-9_]+)",
+                    allow.group(1)):
+                out[victim] = block.group(1)
+    return out
+
+
+def output_rights(rows: list[eu5data.Method], game: eu5data.Game) -> list[eu5data.TownRight]:
+    """The urban rights this mod answers for: every one that helps a good.
+
+    **Output and levels alike, and scored the same way**, at the owner's word,
+    2026-09-02: «не важно право это на бонус производительности или на лимит
+    домиков — все полезны и все по идее должны использоваться». A right is
+    scored on *which goods it favours* and never on the size of the favour, so
+    the two kinds need no common unit -- which is what had kept the level half
+    out. The mod must never read a building's levels either way
+    (`docs/investigations/town_rights.md`): the cap moves as a location grows.
+
+    In practice this admits exactly one more, `flemish_cloth_industries_right`.
+    The four marketplace charters grant levels to a marketplace, which no method
+    produces, so they fall out here as they always did -- trade and not
+    production, and «вообще не про то».
 
     A good the game makes no method for would be an empty slot on every row, so
     it is dropped from the bundle, and a right left with nothing is dropped
     whole.
     """
     made = {m.produced for m in rows}
+    by_key = {r.key: r for r in game.town_rights}
+    excluders = excluded_rights()
     keep = []
     for right in game.town_rights:
-        bundle = {g: v for g, v in right.output.items() if g in made}
-        if bundle:
-            keep.append(eu5data.TownRight(key=right.key, output=bundle,
-                                          levels=right.levels, penalty=right.penalty,
-                                          advance=right.advance,
-                                          potential=right.potential))
+        favoured = {**right.levels, **right.output}
+        bundle = {g: v for g, v in favoured.items() if g in made}
+        if not bundle:
+            continue
+        # **Where the game forbids holding both, the plan offers one.** The
+        # excluded right keeps its own gate and gains the excluder's, negated: a
+        # country that could grant flemish cloth never sees royal textile at all.
+        potential = right.potential
+        excluder = by_key.get(excluders.get(right.key, ""))
+        if excluder is not None and excluder.potential:
+            gate = f"NOT = {{ {excluder.potential} }}"
+            potential = f"{potential} {gate}" if potential else gate
+        keep.append(eu5data.TownRight(key=right.key, output=bundle,
+                                      levels=right.levels, penalty=right.penalty,
+                                      advance=right.advance, potential=potential))
     return keep
 
 
@@ -3238,8 +3767,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"raw={len(split['raw'])} made={len(split['made'])} "
                    f"rights={len(rights)} gated={len(UNLOCKS)}"))
     out.append(say(f"BUILD rounds={PLAN_ROUNDS} passes={len(PLAN_PASSES)} bands={bands} "
-                   f"tiers={tiers} rows={PLAN_ROWS} result_rows={RESULT_ROWS} "
-                   f"unfed_penalty={UNFED_PENALTY} right_fit={RIGHT_FIT} "
+                   f"tiers={tiers} rows={PLAN_ROWS} ranked={PLAN_RANKED} "
+                   f"result_rows={RESULT_ROWS} "
+                   f"right_fit={RIGHT_FIT} "
                    f"rank_scale={RANK_SCALE} right_slots={RIGHT_SLOTS}"))
     out.append(say("BUILD passes in order: "
                    + ", ".join(f"{i}={pass_name(band, tier)}"
@@ -3283,16 +3813,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    % tuple(read(i) for i in range(1, 9))))
     for slot, (name, source) in enumerate((
             ("cap_rural", f"{MOD_ID}_plan_cap_rural"),
-            ("cap_urban", f"{MOD_ID}_plan_cap_urban"),
-            ("max_per_good", f"{MOD_ID}_plan_max")), start=1):
+            ("cap_urban", f"{MOD_ID}_plan_cap_urban")), start=1):
         out.append(park(slot, source))
-    out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_rights"))
-    out.append(flag(5, f"has_global_variable = {MOD_ID}_plan_by_end"))
-    out.append(flag(6, f"has_global_variable = {MOD_ID}_rank_by_end"))
-    out.append(flag(7, f"has_global_variable = {MOD_ID}_only_buildable"))
-    out.append(say("SET cap_rural=%s cap_urban=%s max_per_good=%s rights=%s "
+    out.append(flag(3, f"has_global_variable = {MOD_ID}_plan_rights"))
+    out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_by_end"))
+    out.append(flag(5, f"has_global_variable = {MOD_ID}_rank_by_end"))
+    out.append(flag(6, f"has_global_variable = {MOD_ID}_only_buildable"))
+    out.append(say("SET cap_rural=%s cap_urban=%s rights=%s "
                    "plan_by_end=%s rank_by_end=%s buildable_only=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+                   % tuple(read(i) for i in range(1, 7))))
     for slot, source in enumerate((
             f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
@@ -3575,6 +4104,25 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"forced_town={read(8)} forced_village={read(9)} load={read(2)} "
                    f"right={read(3)} prov_rank={read(4)} prov_load={read(5)}",
                    tab="\t\t"))
+    # **Why this town got this charter and not another one**, which is the one
+    # question the report could not answer: the plan prints the winner and never
+    # the field it beat. `_rq<k>` is what this ground would pay for the whole
+    # charter, out of `RANK_SCALE`, so the line is the whole comparison the grant
+    # made and a one-good right's number is that good's gain read off directly.
+    #
+    # Towns only, because a village never holds one. A script value is added into
+    # the scratch global rather than parked: `park` asks `has_variable`, and a
+    # script value is not a variable.
+    out.append(f"\t\tif = {{\n\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}\n")
+    for number in range(1, len(rights) + 1):
+        out.append(f"\t\t\tset_global_variable = {{ name = {MOD_ID}_dv{number} value = 0 }}\n"
+                   f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_dv{number} "
+                   f"add = {MOD_ID}_rq{number} }}\n")
+    out.append("\t\t\tdebug_log_scopes = no\n")
+    out.append(say("RQ " + " ".join(f"{number}={read(number)}"
+                                    for number in range(1, len(rights) + 1)),
+                   tab="\t\t\t"))
+    out.append("\t\t}\n")
     for good in order:
         out.append(f"\t\tif = {{ limit = {{ is_target_in_variable_list = "
                    f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
@@ -3584,6 +4132,12 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(park(2, f"{MOD_ID}_plan_found"))
     out.append(say(f"LOCS printed={read(1)} of={read(2)} cap={DIAG_LOCS} "
                    "-- a cap is never silently the answer"))
+    out.append(say("RQ legend: what the ground would pay for each charter in that "
+                   "town, out of %d -- " % RANK_SCALE + ", ".join(
+                       f"{number}={right.key}" for number, right in enumerate(rights, start=1))
+                   + ". Each bundle good the town can make adds its own gain, each it "
+                   "cannot adds nothing, and the sum is divided by the whole bundle. The "
+                   "largest is the one the town took, unless its quota was already spent."))
     out.append("}\n")
 
     # -------------------------------------------------------------- the ranking
