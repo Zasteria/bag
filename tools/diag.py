@@ -394,8 +394,17 @@ def main(argv: list[str]) -> int:
         # отдала сырое. Считается то, что теряться не должно: каждая строка
         # `WTP`, кроме `WTP LG`, обязана дойти до файла.
         raw = [line for block in chosen for line in block]
+        # `WTP RQ` is folded into the location's own «права:» line, which does
+        # not carry the tag -- so it is not lost, and counting it here as a line
+        # that must survive fires the safety net on every report that has one.
+        # It did, from 2026-09-03: the fold was never used, the file came out raw,
+        # and `digest(raw)` then summed **all five presses into one** «коротко» --
+        # 263 charters granted over 48 towns. A safety net that always fires is a
+        # broken tool, not a careful one.
         must = sum(1 for line in raw
-                   if line.startswith(TAG) and not line.startswith("WTP LG "))
+                   if line.startswith(TAG)
+                   and not line.startswith("WTP LG ")
+                   and not line.startswith("WTP RQ "))
         kept = sum(1 for line in body if line.startswith(TAG))
         if kept < must:
             print("Укладка потеряла %d строк из %d -- отдаю как есть."

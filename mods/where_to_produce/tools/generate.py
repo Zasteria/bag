@@ -169,14 +169,33 @@ COVER_TIER = object()
 # same order as the 113 the twelve-pass build spends now: the `while` leaves the
 # moment a sweep adds nothing, so a pass with no work is very nearly free and the
 # count of passes was never the price.
-PLAN_PASSES = ([(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
-               + [(0, COVER_TIER), (0, OPEN_TIER)])
+#
+# **The covering ladder runs FIRST, and the run of 2026-09-03 is why.** It used
+# to be pass 31 of 32, and by then the ground was 192 of 192 full: it placed
+# **nothing**, `stone` finished the plan with **zero** buildings on ground where
+# nine locations could have made it, and no bog iron smelter stood anywhere
+# although only four locations in the whole selection can host one. The owner,
+# in capitals: «Где блядь хоть одна печка болотного железа?.. Я бы никогда
+# подобного не допустил во время игры!» A guarantee that runs last is not a
+# guarantee -- it is whatever the ground has left over.
+#
+# So the ladder runs before anything else, in descending bands, one building per
+# good: a good takes the best location it can reach at the highest band it
+# qualifies for, and a good the RGOs feed nothing waits for the band-0 rung and
+# takes its best there. That is «все товары которые можно произвести на выбранной
+# земле должны производиться, все» with the order of the passes finally saying it.
+# It costs the main ladder one building per good -- 35 of 84 free rooms on that
+# run -- and those 35 are the cheapest buildings in the plan to give away,
+# because each is the only one its good will ever get if the ladder does not.
+PLAN_PASSES = ([(band, COVER_TIER) for band in PLAN_BANDS]
+               + [(band, tier) for band in PLAN_BANDS for tier in PLAN_TIERS]
+               + [(0, OPEN_TIER)])
 
 
 def pass_name(band: int, tier: object) -> str:
     """How a pass is written in the dump: the band it admits and the tier it is."""
     if tier is COVER_TIER:
-        return "cover"
+        return f"cover{band}"
     if tier is OPEN_TIER:
         return "open"
     return f"band{band}/tier{tier if tier else 'all'}"
@@ -2338,7 +2357,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         line if "_ropen value" not in line else
         line + f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
         for line in grant_passes.splitlines(keepends=True))
-    grant_passes += grant_cover
+    # **The covering ladder runs first, for the reason the goods' one does.** It
+    # was last, and on 2026-09-03 the weaponry charter reached it with every town
+    # of Sauerland already taken: the six towns there score naval **1000** and
+    # weaponry **163**, so naval swept them in band 800 and the charter that had
+    # nowhere else to be got Elsfleth, where it scores **0**. The owner: «КАК СУКА
+    # ТАК ПОЛУЧАЕТСЯ, ЧТО ЕДИНСТВЕННАЯ ХОРОШАЯ ПРОВИНЦИЯ ДЛЯ ОРУЖЕЙНЫХ ПРАВ -- НЕ
+    # ПОЛУЧАЕТ ОРУЖЕЙНЫХ ПРАВ!?» Because the pass that was going to give it one
+    # ran after the towns were gone. Now every charter takes its own best town
+    # first, in descending bands, one town each -- and the banded passes deal the
+    # rest.
+    grant_passes = grant_cover + grant_passes
     grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"

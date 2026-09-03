@@ -38,6 +38,39 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-03 — `where_to_produce`, пять нажатий, и в них видно, что ковровый
+проход не ставил ничего.** Вестфалия / Мюнстер, 48 локаций все городами, «на
+конец» (нажатия 1, 3, 5), «сейчас» (2), и одно нажатие по большой области — 233
+локации, 41 провинция, квота 16 (4). Разбор целиком в
+[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
+
+- **`P31 cover` поставил 0 и `P32 open` поставил 0**, потому что `P30
+  band0/tierall` уже добил землю до 192 из 192. Гарантия «все товары
+  производятся» не выполнялась: `stone` кончил план с `ng=6 w=6 n=0` — ноль
+  зданий там, где шесть локаций его могут сделать.
+- **Ни одной печки болотного железа.** `iron ng=4 o=0 q=2 n=1`: выигрыш ноль
+  везде (у добывающего здания нет входов-товаров), поэтому железо входит только
+  на полосе 0, а к ней его четыре локации заняты.
+- **Оружейная грамота одна на всю область и в пустом месте.** В шести городах
+  Зауэрлэнда корабельная платит **1000**, оружейная **163**; корабельная взяла
+  все шесть в полосе 800, и ковровая лестница грамот, идущая после полос, отдала
+  оружейную Эльсфлету, где та стоит **0**. Ювелирная — то же самое, 1 штука.
+- **Ярусы редкости не работают:** все ярусные проходы вместе поставили **5
+  зданий из 84**, остальные 79 сделали пять проходов `tierall`. Полоса стоит
+  снаружи яруса, у редких товаров выигрыш низкий, и до полосы 0 они не ходят.
+- **Оценка выданных прав, измеренная:** Зауэрлэнд — корабельная 1000, смоляная
+  1000, книжная 896, инструментальная 799, фламандская 454, оружейная 163,
+  ювелирная 0. Грамот доступно 9, городов 48, `_rquota = 48 ÷ 9 = 5.33` → по 6
+  на грамоту; фламандская взяла 10 (6 + 4 в открытом проходе).
+- **Квота грамот теперь честная**, фикс двойного счёта виден: `cloth q=13 n=13`,
+  `dyes q=9 n=9` — квота 2 плюс то, что дали грамоты.
+- **`diag.py` всё это время отдавал сырой лог.** `render_rq` печатает строку без
+  метки `WTP`, предохранитель считал её потерей и срабатывал на каждом отчёте, а
+  «коротко» складывалось по всем пяти нажатиям сразу («выдано 263»). Исправлено
+  и проверено на этом же файле.
+- **Сделано по итогам, ни одно не проверено в игре:** ковровая лестница у товаров
+  и у грамот перенесена в начало, до полос.
+
 **2026-09-03 — `where_to_produce`, the covering ladder placed the weaponry charter
 and could not place jewelry, and the quota collapsed to 2.** Westphalia, all 48
 locations ticked to towns, «на конец».
@@ -70,27 +103,6 @@ locations ticked to towns, «на конец».
   with the charters' six and none of its own. **Fixed:** `_plan_set_quota` adds
   `_pn<n>` back into `_pq<n>`, so the cap is the good's share of the *free* rooms
   on top of what its charters already built. Not run.
-
-**2026-09-03 — `where_to_produce`, the locked advances held, and the rights turned
-out to have no covering rule.** Westphalia, all 48 locations ticked to towns.
-
-- **The locked-advance gate works, and the two survivors are correct.** Porcelain
-  and lacquerware are gone from «сейчас» and stay in «на конец» — he checked and
-  both unlock in age 5 for Münster, so that is right, not a leak. Goslar keeps
-  tooling on «сейчас» and takes jewelry on «на конец», as predicted.
-- **No town got the weaponry charter, on either plan**, and none got jewelry.
-  «Какое-то количество оружейных прав должно было выделиться каким-то городам
-  обязательно.»
-- **The score is right and the rule is missing.** Over those 48 towns the bundle
-  reads cannons 136, firearms 166, weaponry 187 — averaged over three, the
-  charter is **163** everywhere, against 200–624 for every rival. Westphalia has
-  almost no iron (2 buildings of it), so all three are poor; the charter loses
-  fairly and **nothing then forces it in**. The goods have had that rule since
-  2026-09-01; the rights never did.
-- **A covering ladder for the rights**, the goods' `cover` pass in the same
-  shape: after the banded passes, the bands run again admitting only charters
-  with nothing anywhere, so each takes the town its ground suits best rather than
-  whichever town the walk reaches first. Then the open pass as before. Not run.
 
 **2026-09-03 — not a run: the owner asked where a copper tools recipe came from,
 and three faults came out of the answer.** «У моей нации был только 1 рецепт, тот

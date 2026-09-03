@@ -4,6 +4,29 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
+## The job: `where_to_produce`, the plan formula
+
+**2026-09-03, the owner's own framing:** «Основная задача будет полностью
+проанализировать весь мод и решить, насколько он точен и оптимизирован, почему он
+работает одновременно и так хорошо и одновременно из него выпадают очевидные
+вещи, которые делают так плохо. У меня столько планов на этот мод, а я всё вожусь
+с этой формулой который день.»
+
+**Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
+nothing else.** It is the whole brief: five findings, each with the measurement
+from his log, the named cause, and what would settle it. Three are fixed and
+waiting on one run; two (B — the scarcity tiers are inert because the band is the
+outer loop; C — a deep recipe cannot score anywhere, by construction) are his
+decision to make and must not be changed unasked.
+
+**One run is owed** and it answers everything already done: Вестфалия / Мюнстер /
+«на конец», 48 locations all towns. What it has to show is in the TESTLOG entry
+of 2026-09-03 and at the end of `plan_gaps.md`.
+
+**Do not spend his run on a guess.** Every fault in that file was found by
+counting in his log, not by theorising, and the four-theories rule
+(`pitfalls/diagnosis.md`) is what this mod cost him already.
+
 ## The job: `mods.bat`, and one run to confirm it
 
 **`glorpui_hints` is finished and confirmed** — the splice passed in game on
@@ -33,51 +56,19 @@ the message names the folder. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now. No
 menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: it works, and what is left is his to choose
+## `where_to_produce`: what is settled and not in `plan_gaps.md`
 
-**The plan does what it was meant to, and he has seen it** — «на первый взгляд
-работает как надо, города получают права и домики из прав», 2026-09-02. The
-symptom that cost four runs is measured, named and fixed: the tick is the rank
-now (`SETTLED.md`), the charter spam is gone, and **four fifths of placed
-buildings earn a bonus where they stand, capturing 78% of their own recipe's
-ceiling on average**. All of it is on `main`.
+**The plan does what it was meant to and he has seen it** — «на первый взгляд
+работает как надо, города получают права и домики из прав», 2026-09-02. The tick
+is the rank (`SETTLED.md`), the charter spam is gone, the window pages, and the
+province ceiling and `plan_max` are removed at his word. The 2026-09-02 detail is
+in [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).
 
-**Read `TESTLOG.md` before anything.** Four runs of 2026-09-02 are in it and they
-carry every number this section summarises.
+**The single-good side** has faults he has seen and set aside without naming.
 
-**Three things he named on 2026-09-02 are built and none has been in the game.
-One big ground tests all three at once**, and northern Germany — 416 locations,
-1312 rooms — is the one that failed before:
-
-- **The round guard is 50 and the pass count is twelve.** 127 locations already
-  put the open pass at 11 of 12, and 970 buildings over 32 goods cannot be done
-  in fewer than thirty sweeps. What to read on the run: `WTP P<n> sweeps=x/50` in
-  the report — a pass at 50 is still being cut off — and whether the rooms come
-  out full. **What to watch against it is the hitch** he reported without
-  complaint on that ground: twelve passes are fewer than thirty-three, but each
-  may now run four times as long.
-- **The plan window pages.** `PLAN_ROWS` is still 150 because the datamodel is
-  what costs; `PLAN_RANKED` (1500) is how many rows the pass keeps, and «Назад» /
-  «Вперёд» under the summary walk them. The summary says «в строках N» beside the location
-  count, so the two numbers can be told apart at a glance. If the ground is bigger
-  than 1500 used locations the bar says so by the two disagreeing.
-- **The province ceiling is gone** — setting, alias, default, both localizations
-  and its gate in the allocator.
-
-**What is open, and none of it is a bug:**
-
-- **Nine goods take 45% of the ground.** Coal, sand, beer, cloth, glass, jewelry,
-  leather, masonry, pottery — makeable in every location, so each reaches the
-  quota and stops at 20. Sixteen town-only goods got 7 or fewer, competing for
-  22 towns × 4 slots that the rights have first call on. **The formula working as
-  written.** The lever he had for it was `plan_max`, and it went with the province
-  ceiling at his word; if he wants one back it should be derived, not typed.
-- **The single-good side** has faults he has seen and set aside without naming.
-
-**The diagnosis comes out when the work does.** It is `bag_wtp_diag*`, the `_f*`
-counters, the two `_pass*` counters and two buttons; `pitfalls/diagnosis.md` has
-what it prints and how to read it, and `tools/diag.py` draws the conclusions so
-he does not have to.
+**The diagnosis comes out when the work does.** `bag_wtp_diag*`, the `_f*` and
+`_pass*` counters, two buttons; `pitfalls/diagnosis.md` has what it prints, and
+`tools/diag.py` draws the conclusions so he does not have to.
 
 ## Then `glorpui_hints` goes out
 

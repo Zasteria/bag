@@ -4,10 +4,14 @@ Name a good and the ground; the mod finds each location its best production
 method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
+**The current job, and read it before touching any `_plan_*`:
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md)** — five measured faults
+in the plan formula, 2026-09-03. Three fixed and waiting on one run; two are the
+owner's call and must not be changed unasked.
+
 **State: the plan works and he has seen it** — «города получают права и домики из
-прав», 2026-09-02. Four fifths of placed buildings earn a bonus where they stand.
-Confirmed on northern Germany: **1309 of 1309 rooms filled**, and **a building
-that earns anything captures 948 of 1000 of its recipe's ceiling**.
+прав». Numbers live in `docs/TESTLOG.md`, never here: a figure in prose goes stale
+the next time the formula moves.
 
 **The tick is the rank, for the whole calculation** — `bag_wtp_stands_<building>`
 takes the rank from the tick, the `location_potential` still from the game — and
@@ -15,25 +19,23 @@ takes the rank from the tick, the `location_potential` still from the game — a
 once. Both are rows in `docs/SETTLED.md`. «Диагностика» + `mods.bat → 8` reads
 the plan back and draws the conclusions.
 
-A row answers in three ages — «Сейчас», «По пути» (the best this ground ever
-feeds, and the last age it can be built) and «В конце» — on two «Считать»
+A row answers in three ages — «Сейчас», «По пути», «В конце» — on two «Считать»
 buttons.
 
 ## Where it stands
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the
-bar is half the bonus it could ever earn (`generate.fed_floor`) — but **the plan
-must never use it as a gate**. Nor is a recipe whose building cannot stand there:
-`can_build_building`, in all three ages.
+bar is `generate.fed_floor` — but **the plan must never use it as a gate**. Nor is
+a recipe whose building cannot stand there: `can_build_building`, all three ages.
 
 **A building runs one method out of each of its slots** — eight have two, each
 earning its own bonus over its own output:
 [`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Urban rights** are two lists on the Goods tab and a window of their own, with
-no «По пути» column. A right's gate is its own `potential`, never `has_advance`;
-in the plan every town gets one and its whole bundle goes up. Numbers and the
-deferred level rights: [`town_rights.md`](../../docs/investigations/town_rights.md).
+**Urban rights** are two lists on the Goods tab and a window of their own. A
+right's gate is its own `potential`, never `has_advance`; in the plan every town
+gets one and its whole bundle goes up.
+Numbers: [`town_rights.md`](../../docs/investigations/town_rights.md).
 
 **The plan is an optimisation with a covering constraint** — maximise the bonus
 captured, subject to every good the ground can produce being produced. **Read
@@ -47,9 +49,8 @@ condition is a location variable — **a `province_definition` holds none**
 (`docs/PITFALLS.md`). How it is put together:
 [`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md).
 
-`bag_wtp_register` destroys nothing, because registration reruns
-(`docs/PITFALLS.md`). **Not to be attempted again:** a geography tree of our own,
-empty twice.
+`bag_wtp_register` destroys nothing (`docs/PITFALLS.md`). **Not to be attempted
+again:** a geography tree of our own, empty twice.
 
 ## Settled, and not to be re-litigated
 
@@ -72,7 +73,6 @@ empty twice.
 `bag_wtp_fill_rows` parks it there and everything else reads it back — every
 variable named, and the `_rural`, `mid_`, `end_` and urban-right twins, in
 [`README.md`](README.md#the-answer-lives-on-the-location). No globals per row.
-Not built: what a building costs.
 
 **Built by** `generate.py`, from `tools/refresh.py`. Depth:
 [`README.md`](README.md). Anything else: `python3 tools/kb.py <words>`.

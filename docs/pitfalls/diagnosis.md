@@ -292,3 +292,14 @@ a free room paying it 799 out of 1000. **The symptom is a good that has exactly 
 many buildings as some other phase gave it and none of its own**, and it looks
 like a scoring fault, which is where three theories went first. When two phases
 share a counter, say in one place which of them the budget is for.
+
+**A safety net that fires on every report is a broken tool, not a careful one.**
+2026-09-03. `tools/diag.py` folds the log and then checks that no `WTP` line was
+lost, falling back to the raw log if any was. The rights line added that day is
+rendered as «права: …» — **without the tag** — so every report with one counted 48
+lines as lost, the net fired every time, and the owner got the raw log for days
+without either of us noticing. Worse: the fallback then ran the summary over
+**all five presses at once**, so «Права: выдано 263» was 48+48+48+71+48 across
+five different runs, and any conclusion drawn from that header was nonsense. The
+tell is that the tool's own warning line becomes routine — read the warning it
+prints, and if it prints on every honest input, the check is the thing to fix.
