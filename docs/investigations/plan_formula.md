@@ -88,7 +88,7 @@ Three things the owner asked for fall out of it without a rule of their own:
 | # | pass | why |
 | --- | --- | --- |
 | 0 | **what the owner weighted by hand** | his knob; not built |
-| 1 | **urban rights**, every town, whole bundle | the largest number in the game — see below |
+| 1 | **urban rights**, every town, whole bundle, five bands with a quota on all of them | the largest number in the game — see below |
 | 2 | **coverage**, five bands: every good takes one location, its own best | constraint 1, guaranteed |
 | 3 | **the scarce**, tiers of 1/2/4/8/16 candidates, five bands inside each | «зарезервируйте их под железо» |
 | 4 | **everything**, five bands | the objective, and the bulk of the plan |
@@ -127,27 +127,27 @@ ceiling is not opportunity cost but concentration.** A good whose best on this
 ground is 362 enters `open800` at 290 — its own top fifth — exactly as cloth
 enters at 800.
 
-## The one term that is not the formula's
+## What is not the formula's at all: the editor
 
-**`_pw<n>`, the hand weight, and it is the owner's and not the model's.** He asked
-for it twice: «я нахожу товар и выкручиваю ему некое "значение важности"». One
-step is one band on that good's gain everywhere *and* one more building on its
-quota — because either of the two can be what holds a good back, and on a small
-ground it is nearly always the quota. Nought by default, so the plan with no
-weights is the plan this file describes.
+**A preference is not a term in the objective, it is an edit afterwards.** That
+was learnt the expensive way. A hand weight fed back into a full re-plan was
+built first and measured at **42 locations of 48 moved** by a knob meant to move
+one — «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар
+X менее болезненно удалить для наилучшей установки туда товара Y».
 
-**It cannot break the covering constraint.** The covering ladder runs before any
-band and gives every good the ground can produce one building, and the quota's
-floor is one; so a good turned all the way down keeps exactly one building and
-never none. That is the «оставляет себе какой-то минимум» he asked for, and it
-needs no rule of its own.
+So the plan is state, and `bag_wtp_edit_*` changes it in place: every candidate
+is asked what one more of a good would cost there (nothing where a room is free,
+otherwise the gain of the cheapest building that may come out), the cheapest wins,
+and exactly one building moves. **Two buildings are never the victim** — a good's
+last on the ground, which keeps the covering constraint through any amount of
+editing, and one belonging to the bundle of the charter granted in that town.
 
-**Where a preference belongs is here and not in the objective.** His Sauerland
-complaint — five naval charters in seven towns where he wanted a mix — is the
-formula maximising what it was told to maximise; the charter is worth 1000 there
-and the weaponry charter 163. Spreading charters inside a province was tried and
-reverted once already, for emptying a province of the charter its ground was made
-for. A disagreement about taste is a knob, not another rewrite.
+**Which means the objective in this file stays a description of the formula
+alone.** His Sauerland complaint — five naval charters in seven towns where he
+wanted a mix — is the formula maximising what it was told to maximise, since the
+charter is worth 1000 there against weaponry's 163. Spreading charters *inside a
+province* was tried and reverted for emptying a province of the charter its ground
+was made for. That is an edit, not a rewrite.
 
 One damper keeps a pass from stacking, and it is the quota:
 
@@ -220,40 +220,12 @@ hold them; and when a right arrives, its bundle replaces the three.
 
 ## Равномерно and specialisation are two different questions
 
-**Settled 2026-09-03, and the confusion was the session's, not his.** «Я не
-считаю их противоречивыми.» He is right, and the arithmetic is his:
-
-- **«Равномерно» is *how many*.** `_plan_quota` = rooms ÷ goods, 34 a good on
-  northern Germany. Untouched, and it is what «все товары должны производиться»
-  buys.
-- **Specialisation is *where those 34 land*.** A province on that ground is 17.7
-  rooms, so **a good's whole quota fits in two provinces** — and taking them
-  costs no other good a single room. «На всей общей земле от этого не пострадает
-  ни один другой товар.»
-
-Nothing in the quota resists concentration. **One multiplier did**: `_ord<n>`
-divided a good's gain by `1 + _pp<n>`, the count of that good already in the
-province, so the second building of a good there scored half and the third a
-third. A province that suited a good perfectly took two of it and handed its
-other fifteen rooms to whatever had not been there yet. **Removed 2026-09-03.**
-
-His picture of a right answer, and it is the test: «в провинции в которой есть
-железо — все города утыканы пушечным правом. Где просто железо — всё в
-инструментах. Где драг металы — ювелиркой всё затыкано.» What he cannot judge by
-eye is wool, timber and the mixed grounds — and that is what the mod is for.
-
-**A right obeys the same two questions**: «права это просто связка товара,
-которая заложена в город. В остальном она подчиняется абсолютно тем же вещам что
-и простой товар.» So a right now has a quota over the whole ground (towns ÷
-grantable rights) and descending bands decide which towns; both divisors it
-carried are gone. The map-wide one made the ranges disjoint and dealt them round
-robin; the province-wide one emptied a province of the charter its ground was
-made for.
-
-**And the scarce must claim before the common.** «Найдите минимум 20 локаций с
-болотами и зарезервируйте их под железо.» The tier ladder is back inside every
-band; it had been moved to the last band alone on 2026-09-02 to buy passes, and
-that was the wrong thing to sell.
+**Settled 2026-09-03, and the confusion was the session's, not his.** «Равномерно»
+is *how many* — the quota, rooms ÷ goods — and specialisation is *where those
+land*, which nothing in the quota resists. Two divisors did resist it and both are
+gone: one halved a good's second building in a province, the other made the
+charters' ranges disjoint. What that cost and what he said about it is in
+[`../archive/plan_formula_evenly.md`](../archive/plan_formula_evenly.md).
 
 **The problem he cannot solve by hand is the one the formula exists for.** Doing
 it province by province maximises each province in isolation, and the goods that

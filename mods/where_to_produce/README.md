@@ -135,14 +135,31 @@ at a time, under a cap per location.
    top fifth exactly as one that reaches 1000 does. Rounds until one adds
    nothing, so nothing the ground can feed is left empty.
 
-**And one term that is yours, not the formula's.** Tick a good in the goods list
-and press «Важнее» or «Менее важно»: one step moves it one band up or down *and*
-allows it one more building or one fewer. It is for the disagreements a formula
-cannot settle — you want iron in every bog, or you are tired of looking at naval
-supplies. **It can never take a good's last building**, whatever you set: every
-good the ground can produce is placed before any weight is read. Weights survive
-the plan, the save and the ground; «Сбросить важности» clears them, and with all
-of them at nought the plan is the formula's alone.
+## Editing a finished plan
+
+**A plan is not a picture, it is state on the map, and the editor changes it one
+building at a time.** For the disagreements a formula cannot settle — you want
+iron in every bog, or you are tired of looking at naval supplies.
+
+- **Its own good picker**, three dropdowns rather than the goods list the ranking
+  uses, so choosing a good to edit does not throw the ranking's answer away.
+- **«+1 домик»** asks every location what one more of that good would cost there:
+  nothing where a room is free, otherwise the gain of the cheapest building that
+  would have to come out. The cheapest wins, one building moves, the rest of the
+  plan stays exactly where it was.
+- **Two buildings are never taken out.** A good's last on the whole ground — so
+  no amount of editing can break «все товары должны производиться» — and one
+  belonging to the bundle of the charter granted in that town, which would leave
+  the town holding a charter for something it no longer makes.
+- **«−1 домик»** takes the good's worst placement and hands the room to whichever
+  good suits it best.
+- **«Сохранить план» and «Вернуть сохранённое».** A fresh plan saves itself, so
+  it is its own baseline; saving again re-bases wherever the editing has got to.
+- **«Показать изменения»** writes only the locations that differ from the save —
+  after one edit that is two lines. `mods.bat → 8` takes it out.
+
+**Pressing «Пересчитать» throws every edit away**, because that rebuilds the plan
+from the formula. That is what the save slot is for.
 
 - **Every building is one the game says may stand there.** `can_build_building`
   in the location's scope — terrain, rank, `location_potential`, and never an
