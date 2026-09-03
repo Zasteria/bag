@@ -38,6 +38,36 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-03 — `where_to_produce`, the provinces specialised, and the probe named
+the last fault.** «Провинции действительно сильно специализировались… мне
+нравится куда стремится мод.» One province alone gave five towns five different
+rights and every building из прав matched them.
+
+- **Goslar, at last, with numbers.** `WTP RQ` on the «на конец» plan: **books
+  984, jewelry 909**, tooling 925 on «сейчас». So the mod *does* see the silver —
+  jewelry scoring 909 is near its best anywhere — and it lost honestly, by 75 and
+  by 16 out of 1000. No bug in the rights themselves.
+- **But the numbers it lost to were inflated, and that is a real fault.** `gain`
+  was `bonus ÷ the chosen recipe's own ceiling`. A `fine_cloth_guild` running the
+  plain base with a fur trim has one raw input and a ceiling of **2.86%**, so a
+  province with fur and nothing else fed it whole and it scored **1000** — the
+  same as a perfect wool province — for 2.86% on an output of 0.7. That is why
+  fine cloth stood in Goslar: «там ничего для него нет, только мех для
+  улучшения».
+- **117 of 241 methods were inflated this way, across 21 of the 47 goods**, and
+  `paper` is among the worst: `paper_guild_cloth_maintenance` is 1.66% of paper's
+  10% and was scoring 1000. Paper is one third of the book charter, and the book
+  charter is what took Goslar.
+- **The divisor is the good's best ceiling in the game now**, not the recipe's
+  own. The fur recipe reads 286 and a wool province 833, which is his order. The
+  reason to normalize at all is untouched: a good whose *best* recipe tops out at
+  5% still competes with one that reaches 10%.
+- **His scarcity point is not built and deliberately so.** Jewelry can be *made*
+  in all 416 locations (`ng=416`), so the tier ladder — which counts where a good
+  can stand — treats it as common; what is scarce is where the ground *pays* for
+  it. That wants a band-relative count and it is a second change; the gain fix
+  moves all three of Goslar's rivals, so it goes first and alone.
+
 **2026-09-03 — `where_to_produce`, the probe came back thirteen zeroes, and the
 level rights work.** Goslar took tooling on «сейчас» and books on «на конец»,
 again. «Понятия не имею где конкретно искать строку Гослара.»

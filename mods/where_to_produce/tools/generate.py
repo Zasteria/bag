@@ -929,6 +929,23 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     never supply tools, but tools still carry their weight, which is why a method
     can top out well below {max:g}%.
     """
+    # **What a good's gain is measured against: the best any recipe of that good
+    # could ever earn, and not the recipe's own ceiling.** Dividing by its own was
+    # the fault of 2026-09-03: a `fine_cloth_guild` running the plain base with a
+    # fur trim has one raw input, fur, and a ceiling of 2.86% -- so a province
+    # with fur and nothing else fed it whole and it scored **1000**, the same as a
+    # perfect wool province, for 2.86% on an output of 0.7. «Туда встало тонкое
+    # сукно... но там ничего для него нет, только мех для улучшения.»
+    #
+    # Against the good's best (10% for fine cloth) the same recipe reads 286 and a
+    # wool province reads 833, which is the order he expects. **The reason to
+    # normalize at all is untouched**: it is so a good whose *best* recipe tops
+    # out at 5% still competes with one that reaches 10%, and that divisor is the
+    # good's, not the method's.
+    best_ceiling: dict[str, float] = {}
+    for method in rows:
+        best_ceiling[method.produced] = max(best_ceiling.get(method.produced, 0.0),
+                                            method.ceiling(game.raw_goods))
     out = [HEADER, f"""#
 # `{MOD_ID}_m<n>` ranks -- effective output. `{MOD_ID}_b<n>` is the bonus the row
 # prints. Nothing reads `_b` until a method has won a row, so it costs nothing
@@ -952,7 +969,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         shares = {good: share for good, share in method.shares().items()
                   if good in game.raw_goods}
         out.append(f"\n# {method.building} / {method.key} -> {method.produced}, "
-                   f"output {method.output:g}, ceiling {ceiling:.2f}% "
+                   f"output {method.output:g}, ceiling {ceiling:.2f}% of the "
+                   f"good's {best_ceiling.get(method.produced, 0.0):.2f}% "
                    f"-> at best {method.output * (1 + ceiling / 100):.4f}\n")
         out.append(f"# Scope: location\n{MOD_ID}_m{index} = {{\n"
                    f"\tvalue = {method.output * RANK_SCALE:.4f}\n")
@@ -972,18 +990,19 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
         out.append("}\n")
         # **What the plan deals the ground by**: how much of the bonus this
-        # recipe could ever earn, it earns here. A raw bonus does not compare
-        # across goods -- the ceilings run from 2% to 10% and five goods are
-        # capped under five -- and a `worth` normalized to the good's own best on
-        # this ground compares even worse, squeezing everything into 0.909-1.000.
-        # The fraction of a recipe's own ceiling is the one currency that is the
-        # same question for every good: `docs/investigations/plan_formula.md`.
-        if ceiling > 0:
+        # *good* could ever earn, this recipe earns here. A raw bonus does not
+        # compare across goods -- the ceilings run from 2% to 10% and five goods
+        # are capped under five -- and a `worth` normalized to the good's own best
+        # on this ground compares even worse, squeezing everything into
+        # 0.909-1.000. The divisor is the good's best ceiling in the game, for the
+        # reason written where `best_ceiling` is built.
+        divisor = best_ceiling.get(method.produced, 0.0)
+        if divisor > 0:
             out.append(f"# Scope: location\n{MOD_ID}_g{index} = {{\n\tvalue = 0\n")
             for good, share in sorted(shares.items()):
                 out.append(f"""\tif = {{
 \t\tlimit = {{ province_definition = {{ any_location_in_province_definition = {{ raw_material = goods:{good} }} }} }}
-\t\tadd = {share * RANK_SCALE / ceiling:.4f}
+\t\tadd = {share * RANK_SCALE / divisor:.4f}
 \t}}
 """)
             out.append("}\n")
