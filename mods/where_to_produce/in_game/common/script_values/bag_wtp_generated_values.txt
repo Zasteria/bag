@@ -8992,20 +8992,10 @@ bag_wtp_r_score = {
 # Scope: location
 bag_wtp_ord1 = {
 	value = var:bag_wtp_p1
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp1
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr1 = {
 	value = var:bag_wtp_pr1
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp1
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9033,20 +9023,10 @@ bag_wtp_ordmax1 = {
 # Scope: location
 bag_wtp_ord2 = {
 	value = var:bag_wtp_p2
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp2
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr2 = {
 	value = var:bag_wtp_pr2
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp2
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9074,20 +9054,10 @@ bag_wtp_ordmax2 = {
 # Scope: location
 bag_wtp_ord3 = {
 	value = var:bag_wtp_p3
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp3
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr3 = {
 	value = var:bag_wtp_pr3
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp3
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9115,20 +9085,10 @@ bag_wtp_ordmax3 = {
 # Scope: location
 bag_wtp_ord4 = {
 	value = var:bag_wtp_p4
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp4
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr4 = {
 	value = var:bag_wtp_pr4
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp4
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9156,20 +9116,10 @@ bag_wtp_ordmax4 = {
 # Scope: location
 bag_wtp_ord5 = {
 	value = var:bag_wtp_p5
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp5
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr5 = {
 	value = var:bag_wtp_pr5
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp5
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9197,20 +9147,10 @@ bag_wtp_ordmax5 = {
 # Scope: location
 bag_wtp_ord6 = {
 	value = var:bag_wtp_p6
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp6
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr6 = {
 	value = var:bag_wtp_pr6
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp6
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9238,20 +9178,10 @@ bag_wtp_ordmax6 = {
 # Scope: location
 bag_wtp_ord7 = {
 	value = var:bag_wtp_p7
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp7
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr7 = {
 	value = var:bag_wtp_pr7
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp7
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9279,20 +9209,10 @@ bag_wtp_ordmax7 = {
 # Scope: location
 bag_wtp_ord8 = {
 	value = var:bag_wtp_p8
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp8
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr8 = {
 	value = var:bag_wtp_pr8
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp8
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9320,20 +9240,10 @@ bag_wtp_ordmax8 = {
 # Scope: location
 bag_wtp_ord9 = {
 	value = var:bag_wtp_p9
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp9
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr9 = {
 	value = var:bag_wtp_pr9
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp9
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9361,20 +9271,10 @@ bag_wtp_ordmax9 = {
 # Scope: location
 bag_wtp_ord10 = {
 	value = var:bag_wtp_p10
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp10
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr10 = {
 	value = var:bag_wtp_pr10
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp10
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9402,20 +9302,10 @@ bag_wtp_ordmax10 = {
 # Scope: location
 bag_wtp_ord11 = {
 	value = var:bag_wtp_p11
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp11
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr11 = {
 	value = var:bag_wtp_pr11
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp11
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9443,20 +9333,10 @@ bag_wtp_ordmax11 = {
 # Scope: location
 bag_wtp_ord12 = {
 	value = var:bag_wtp_p12
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp12
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr12 = {
 	value = var:bag_wtp_pr12
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp12
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9484,20 +9364,10 @@ bag_wtp_ordmax12 = {
 # Scope: location
 bag_wtp_ord13 = {
 	value = var:bag_wtp_p13
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp13
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr13 = {
 	value = var:bag_wtp_pr13
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp13
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9525,20 +9395,10 @@ bag_wtp_ordmax13 = {
 # Scope: location
 bag_wtp_ord14 = {
 	value = var:bag_wtp_p14
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp14
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr14 = {
 	value = var:bag_wtp_pr14
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp14
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9566,20 +9426,10 @@ bag_wtp_ordmax14 = {
 # Scope: location
 bag_wtp_ord15 = {
 	value = var:bag_wtp_p15
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp15
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr15 = {
 	value = var:bag_wtp_pr15
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp15
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9607,20 +9457,10 @@ bag_wtp_ordmax15 = {
 # Scope: location
 bag_wtp_ord16 = {
 	value = var:bag_wtp_p16
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp16
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr16 = {
 	value = var:bag_wtp_pr16
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp16
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9648,20 +9488,10 @@ bag_wtp_ordmax16 = {
 # Scope: location
 bag_wtp_ord17 = {
 	value = var:bag_wtp_p17
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp17
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr17 = {
 	value = var:bag_wtp_pr17
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp17
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9689,20 +9519,10 @@ bag_wtp_ordmax17 = {
 # Scope: location
 bag_wtp_ord18 = {
 	value = var:bag_wtp_p18
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp18
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr18 = {
 	value = var:bag_wtp_pr18
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp18
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9730,20 +9550,10 @@ bag_wtp_ordmax18 = {
 # Scope: location
 bag_wtp_ord19 = {
 	value = var:bag_wtp_p19
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp19
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr19 = {
 	value = var:bag_wtp_pr19
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp19
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9771,20 +9581,10 @@ bag_wtp_ordmax19 = {
 # Scope: location
 bag_wtp_ord20 = {
 	value = var:bag_wtp_p20
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp20
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr20 = {
 	value = var:bag_wtp_pr20
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp20
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9812,20 +9612,10 @@ bag_wtp_ordmax20 = {
 # Scope: location
 bag_wtp_ord21 = {
 	value = var:bag_wtp_p21
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp21
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr21 = {
 	value = var:bag_wtp_pr21
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp21
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9853,20 +9643,10 @@ bag_wtp_ordmax21 = {
 # Scope: location
 bag_wtp_ord22 = {
 	value = var:bag_wtp_p22
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp22
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr22 = {
 	value = var:bag_wtp_pr22
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp22
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9894,20 +9674,10 @@ bag_wtp_ordmax22 = {
 # Scope: location
 bag_wtp_ord23 = {
 	value = var:bag_wtp_p23
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp23
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr23 = {
 	value = var:bag_wtp_pr23
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp23
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9935,20 +9705,10 @@ bag_wtp_ordmax23 = {
 # Scope: location
 bag_wtp_ord24 = {
 	value = var:bag_wtp_p24
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp24
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr24 = {
 	value = var:bag_wtp_pr24
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp24
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -9976,20 +9736,10 @@ bag_wtp_ordmax24 = {
 # Scope: location
 bag_wtp_ord25 = {
 	value = var:bag_wtp_p25
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp25
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr25 = {
 	value = var:bag_wtp_pr25
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp25
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10017,20 +9767,10 @@ bag_wtp_ordmax25 = {
 # Scope: location
 bag_wtp_ord26 = {
 	value = var:bag_wtp_p26
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp26
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr26 = {
 	value = var:bag_wtp_pr26
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp26
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10058,20 +9798,10 @@ bag_wtp_ordmax26 = {
 # Scope: location
 bag_wtp_ord27 = {
 	value = var:bag_wtp_p27
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp27
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr27 = {
 	value = var:bag_wtp_pr27
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp27
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10099,20 +9829,10 @@ bag_wtp_ordmax27 = {
 # Scope: location
 bag_wtp_ord28 = {
 	value = var:bag_wtp_p28
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp28
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr28 = {
 	value = var:bag_wtp_pr28
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp28
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10140,20 +9860,10 @@ bag_wtp_ordmax28 = {
 # Scope: location
 bag_wtp_ord29 = {
 	value = var:bag_wtp_p29
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp29
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr29 = {
 	value = var:bag_wtp_pr29
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp29
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10181,20 +9891,10 @@ bag_wtp_ordmax29 = {
 # Scope: location
 bag_wtp_ord30 = {
 	value = var:bag_wtp_p30
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp30
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr30 = {
 	value = var:bag_wtp_pr30
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp30
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10222,20 +9922,10 @@ bag_wtp_ordmax30 = {
 # Scope: location
 bag_wtp_ord31 = {
 	value = var:bag_wtp_p31
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp31
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr31 = {
 	value = var:bag_wtp_pr31
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp31
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10263,20 +9953,10 @@ bag_wtp_ordmax31 = {
 # Scope: location
 bag_wtp_ord32 = {
 	value = var:bag_wtp_p32
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp32
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr32 = {
 	value = var:bag_wtp_pr32
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp32
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10304,20 +9984,10 @@ bag_wtp_ordmax32 = {
 # Scope: location
 bag_wtp_ord33 = {
 	value = var:bag_wtp_p33
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp33
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr33 = {
 	value = var:bag_wtp_pr33
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp33
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10345,20 +10015,10 @@ bag_wtp_ordmax33 = {
 # Scope: location
 bag_wtp_ord34 = {
 	value = var:bag_wtp_p34
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp34
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr34 = {
 	value = var:bag_wtp_pr34
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp34
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10386,20 +10046,10 @@ bag_wtp_ordmax34 = {
 # Scope: location
 bag_wtp_ord35 = {
 	value = var:bag_wtp_p35
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp35
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr35 = {
 	value = var:bag_wtp_pr35
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp35
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10427,20 +10077,10 @@ bag_wtp_ordmax35 = {
 # Scope: location
 bag_wtp_ord36 = {
 	value = var:bag_wtp_p36
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp36
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr36 = {
 	value = var:bag_wtp_pr36
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp36
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10468,20 +10108,10 @@ bag_wtp_ordmax36 = {
 # Scope: location
 bag_wtp_ord37 = {
 	value = var:bag_wtp_p37
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp37
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr37 = {
 	value = var:bag_wtp_pr37
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp37
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10509,20 +10139,10 @@ bag_wtp_ordmax37 = {
 # Scope: location
 bag_wtp_ord38 = {
 	value = var:bag_wtp_p38
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp38
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr38 = {
 	value = var:bag_wtp_pr38
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp38
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10550,20 +10170,10 @@ bag_wtp_ordmax38 = {
 # Scope: location
 bag_wtp_ord39 = {
 	value = var:bag_wtp_p39
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp39
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr39 = {
 	value = var:bag_wtp_pr39
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp39
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10591,20 +10201,10 @@ bag_wtp_ordmax39 = {
 # Scope: location
 bag_wtp_ord40 = {
 	value = var:bag_wtp_p40
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp40
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr40 = {
 	value = var:bag_wtp_pr40
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp40
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10632,20 +10232,10 @@ bag_wtp_ordmax40 = {
 # Scope: location
 bag_wtp_ord41 = {
 	value = var:bag_wtp_p41
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp41
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr41 = {
 	value = var:bag_wtp_pr41
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp41
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10673,20 +10263,10 @@ bag_wtp_ordmax41 = {
 # Scope: location
 bag_wtp_ord42 = {
 	value = var:bag_wtp_p42
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp42
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr42 = {
 	value = var:bag_wtp_pr42
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp42
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10714,20 +10294,10 @@ bag_wtp_ordmax42 = {
 # Scope: location
 bag_wtp_ord43 = {
 	value = var:bag_wtp_p43
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp43
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr43 = {
 	value = var:bag_wtp_pr43
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp43
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10755,20 +10325,10 @@ bag_wtp_ordmax43 = {
 # Scope: location
 bag_wtp_ord44 = {
 	value = var:bag_wtp_p44
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp44
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr44 = {
 	value = var:bag_wtp_pr44
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp44
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10796,20 +10356,10 @@ bag_wtp_ordmax44 = {
 # Scope: location
 bag_wtp_ord45 = {
 	value = var:bag_wtp_p45
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp45
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr45 = {
 	value = var:bag_wtp_pr45
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp45
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10837,20 +10387,10 @@ bag_wtp_ordmax45 = {
 # Scope: location
 bag_wtp_ord46 = {
 	value = var:bag_wtp_p46
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp46
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr46 = {
 	value = var:bag_wtp_pr46
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp46
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10878,20 +10418,10 @@ bag_wtp_ordmax46 = {
 # Scope: location
 bag_wtp_ord47 = {
 	value = var:bag_wtp_p47
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp47
-		min = 1
-	}
 }
 # Scope: location
 bag_wtp_ordr47 = {
 	value = var:bag_wtp_pr47
-	divide = {
-		value = 1
-		add = var:bag_wtp_pp47
-		min = 1
-	}
 }
 # The undecayed pair, which is what the good is normalized by and what counts
 # its candidates: the divisor is about where the next building goes, never about
@@ -10907,82 +10437,36 @@ bag_wtp_ordmax47 = {
 
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp1`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq1 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
-		add = 2000
-		add = var:bag_wtp_p29
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_18 = yes }
-		add = 2000
-		add = var:bag_wtp_p18
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp1
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf1 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
-		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
-		add = 2000
 		add = var:bag_wtp_p30
 	}
 	if = {
 		limit = { var:bag_wtp_pm18 > 0 }
-		add = 2000
 		add = var:bag_wtp_p18
 	}
 	divide = 3
@@ -10990,72 +10474,32 @@ bag_wtp_rqf1 = {
 
 # flemish_cloth_industries_right: cloth, fine_cloth.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp2`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq2 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
-		add = 2000
-		add = var:bag_wtp_p29
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	divide = 2
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp2
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf2 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
-		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
-		add = 2000
 		add = var:bag_wtp_p30
 	}
 	divide = 2
@@ -11063,82 +10507,36 @@ bag_wtp_rqf2 = {
 
 # royal_artisan_rights: furniture, leather, pottery.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp3`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq3 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_32 = yes }
-		add = 2000
-		add = var:bag_wtp_p32
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_36 = yes }
-		add = 2000
-		add = var:bag_wtp_p36
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_42 = yes }
-		add = 2000
-		add = var:bag_wtp_p42
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp3
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf3 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm32 > 0 }
-		add = 2000
 		add = var:bag_wtp_p32
 	}
 	if = {
 		limit = { var:bag_wtp_pm36 > 0 }
-		add = 2000
 		add = var:bag_wtp_p36
 	}
 	if = {
 		limit = { var:bag_wtp_pm42 > 0 }
-		add = 2000
 		add = var:bag_wtp_p42
 	}
 	divide = 3
@@ -11146,82 +10544,36 @@ bag_wtp_rqf3 = {
 
 # royal_book_rights: books, dyes, paper.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp4`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq4 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_27 = yes }
-		add = 2000
-		add = var:bag_wtp_p27
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
-		add = 2000
-		add = var:bag_wtp_p4
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_40 = yes }
-		add = 2000
-		add = var:bag_wtp_p40
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp4
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf4 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm27 > 0 }
-		add = 2000
 		add = var:bag_wtp_p27
 	}
 	if = {
 		limit = { var:bag_wtp_pm4 > 0 }
-		add = 2000
 		add = var:bag_wtp_p4
 	}
 	if = {
 		limit = { var:bag_wtp_pm40 > 0 }
-		add = 2000
 		add = var:bag_wtp_p40
 	}
 	divide = 3
@@ -11229,82 +10581,36 @@ bag_wtp_rqf4 = {
 
 # royal_brewing_rights: beer, liquor, wine.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp5`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq5 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_26 = yes }
-		add = 2000
-		add = var:bag_wtp_p26
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_37 = yes }
-		add = 2000
-		add = var:bag_wtp_p37
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_24 = yes }
-		add = 2000
-		add = var:bag_wtp_p24
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp5
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf5 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm26 > 0 }
-		add = 2000
 		add = var:bag_wtp_p26
 	}
 	if = {
 		limit = { var:bag_wtp_pm37 > 0 }
-		add = 2000
 		add = var:bag_wtp_p37
 	}
 	if = {
 		limit = { var:bag_wtp_pm24 > 0 }
-		add = 2000
 		add = var:bag_wtp_p24
 	}
 	divide = 3
@@ -11312,62 +10618,28 @@ bag_wtp_rqf5 = {
 
 # royal_jewelry_rights: jewelry.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp6`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq6 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_34 = yes }
-		add = 2000
-		add = var:bag_wtp_p34
-	}
-	divide = 1
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp6
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf6 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm34 > 0 }
-		add = 2000
 		add = var:bag_wtp_p34
 	}
 	divide = 1
@@ -11375,72 +10647,32 @@ bag_wtp_rqf6 = {
 
 # royal_masonry_rights: glass, masonry.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp7`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq7 = {
 	value = 0
 	if = {
-		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
-		add = 2000
-		add = var:bag_wtp_p33
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_38 = yes }
-		add = 2000
-		add = var:bag_wtp_p38
-	}
-	divide = 2
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp7
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf7 = {
-	value = 0
-	if = {
 		limit = { OR = { var:bag_wtp_pm33 > 0 var:bag_wtp_pm17 > 0 } }
-		add = 2000
 		add = var:bag_wtp_p33
 	}
 	if = {
 		limit = { var:bag_wtp_pm38 > 0 }
-		add = 2000
 		add = var:bag_wtp_p38
 	}
 	divide = 2
@@ -11448,72 +10680,32 @@ bag_wtp_rqf7 = {
 
 # royal_naval_rights: naval_supplies, tar.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp8`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq8 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
-		add = 2000
-		add = var:bag_wtp_p39
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
-		add = 2000
-		add = var:bag_wtp_p45
-	}
-	divide = 2
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp8
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf8 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm39 > 0 }
-		add = 2000
 		add = var:bag_wtp_p39
 	}
 	if = {
 		limit = { var:bag_wtp_pm45 > 0 }
-		add = 2000
 		add = var:bag_wtp_p45
 	}
 	divide = 2
@@ -11521,82 +10713,36 @@ bag_wtp_rqf8 = {
 
 # royal_textile_rights: cloth, dyes, fine_cloth.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp9`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq9 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
-		add = 2000
-		add = var:bag_wtp_p29
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
-		add = 2000
-		add = var:bag_wtp_p4
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
-		add = 2000
-		add = var:bag_wtp_p30
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp9
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf9 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm29 > 0 }
-		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
 		limit = { var:bag_wtp_pm4 > 0 }
-		add = 2000
 		add = var:bag_wtp_p4
 	}
 	if = {
 		limit = { var:bag_wtp_pm30 > 0 }
-		add = 2000
 		add = var:bag_wtp_p30
 	}
 	divide = 3
@@ -11604,62 +10750,28 @@ bag_wtp_rqf9 = {
 
 # royal_tooling_rights: tools.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp10`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq10 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
-		add = 2000
-		add = var:bag_wtp_p46
-	}
-	divide = 1
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp10
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf10 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm46 > 0 }
-		add = 2000
 		add = var:bag_wtp_p46
 	}
 	divide = 1
@@ -11667,82 +10779,36 @@ bag_wtp_rqf10 = {
 
 # royal_weaponry_rights: cannons, firearms, weaponry.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp11`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq11 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_28 = yes }
-		add = 2000
-		add = var:bag_wtp_p28
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_31 = yes }
-		add = 2000
-		add = var:bag_wtp_p31
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_47 = yes }
-		add = 2000
-		add = var:bag_wtp_p47
-	}
-	divide = 3
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp11
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf11 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm28 > 0 }
-		add = 2000
 		add = var:bag_wtp_p28
 	}
 	if = {
 		limit = { var:bag_wtp_pm31 > 0 }
-		add = 2000
 		add = var:bag_wtp_p31
 	}
 	if = {
 		limit = { var:bag_wtp_pm47 > 0 }
-		add = 2000
 		add = var:bag_wtp_p47
 	}
 	divide = 3
@@ -11750,62 +10816,28 @@ bag_wtp_rqf11 = {
 
 # scandinavian_bergslag_privileges: tools.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp12`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq12 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
-		add = 2000
-		add = var:bag_wtp_p46
-	}
-	divide = 1
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp12
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf12 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm46 > 0 }
-		add = 2000
 		add = var:bag_wtp_p46
 	}
 	divide = 1
@@ -11813,72 +10845,32 @@ bag_wtp_rqf12 = {
 
 # scandinavian_tar_privileges: naval_supplies, tar.
 #
-# **What a town can actually finish, first; how good it would be, second.**
-# A bundle good this town cannot build adds nothing at all, and the total is
-# divided by the bundle's size, so the number is "how much of this right would
-# really go up here" and only then "how well". The thirty-seventh run is why:
-# forty-eight towns of Westphalia all took the masonry and glass charter, and not
-# one of them got glass. That is the game's answer, not the plan's -- at the
-# start the only unlocked glass building is the guild and it wants sand in the
-# local market -- but handing out a bundle that cannot be finished, forty-eight
-# times, was the plan's. Six other charters are wholly age-0 buildable.
+# **How much this ground would pay for this whole charter**, out of 1000,
+# and nothing else in it. No divisor of any kind: **a right is a bundle of goods
+# bound to a town and obeys the same rules a good does** (the owner, 2026-09-03),
+# so what limits it is a quota over the whole ground -- `_rquota` in
+# `_plan_place_rights` -- and never a penalty for having been granted next door.
 #
-# **Then divided by how often this right has already been granted in this
-# province** -- `_rp13`, exactly the shape of a good's `_pp<n>` and built for
-# exactly the same fault: every town of a province scores identically, so
-# undivided the five towns of Münsterland all took the masonry charter and then
-# held the same buildings. **That fault is inside one province, and so is this
-# divisor now.**
+# Both divisors it carried are gone and both were faults. Counting the **map**
+# made the ranges disjoint -- a right granted once could never again win on merit
+# -- so the rights were dealt round robin. Counting the **province** was the
+# other end of the same mistake: it emptied a province of the one charter its
+# ground was made for. «Где драг металы — ювелиркой всё затыкано.»
 #
-# **Counting the map instead was a fault of its own, and arithmetic rather than
-# opinion.** A bundle is worth 2000 a reachable good plus a gain of at
-# most 1000, so a right never granted scores 2000--3000
-# and one granted once scores at most 1500. The two
-# ranges do not overlap, so against a global counter **a right granted anywhere
-# could never again win on merit**: the rights were dealt round robin and the
-# ground only broke ties within one turn. Goslar showed it -- the single town of
-# a province with silver took the tooling charter, because tooling's turn had
-# come up and jewelry, the one recipe silver feeds, had been spent elsewhere
-# (`docs/TESTLOG.md`, 2026-09-02).
+# **It asks `_pm<n>`, the scoring fact, and not `_plan_can_town_<n>`.** That one
+# is a placement gate -- it also asks whether the town still has room -- and at
+# grant time the town is empty, so the two agree; but the diagnosis reads this
+# same value after the plan, when every town is full, and the gate would answer
+# zero for all thirteen. It did, on 2026-09-03.
 # Scope: location
 bag_wtp_rq13 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
-		add = 2000
-		add = var:bag_wtp_p39
-	}
-	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
-		add = 2000
-		add = var:bag_wtp_p45
-	}
-	divide = 2
-	divide = {
-		value = 1
-		add = var:bag_wtp_rp13
-		min = 1
-	}
-}
-
-# The same number before the province divisor: **how well this ground suits this
-# right**, which is the question a player asks of a row and the one the dump has
-# to print. Read by nothing else, so it costs a script value and no pass.
-#
-# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
-# over `adds_seen` in the generator: the gate is shut on every town by the time
-# the dump runs.
-# Scope: location
-bag_wtp_rqf13 = {
-	value = 0
-	if = {
 		limit = { var:bag_wtp_pm39 > 0 }
-		add = 2000
 		add = var:bag_wtp_p39
 	}
 	if = {
 		limit = { var:bag_wtp_pm45 > 0 }
-		add = 2000
 		add = var:bag_wtp_p45
 	}
 	divide = 2
@@ -11887,6 +10879,9 @@ bag_wtp_rqf13 = {
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
+# How many rights this country could grant at all, which the rights' own
+# quota divides by. Counted once a plan, in country scope.
+bag_wtp_rgrant_value = { value = global_var:bag_wtp_rgrant }
 
 # How the plan's provinces are ordered: by how much of it landed in each, read
 # off the one location that stands in for the province. Under the province model
@@ -11903,6 +10898,23 @@ bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
 # one figure would run to five digits, and where the engine's fixed point ends is
 # not knowable from here -- `RIGHT_SCALE` is in the generator for the same
 # reason.
+#
+# **`_ord<n>` is the gain and nothing else now.** It used to be divided by
+# `_pp<n>`, how many of that good already stood in the province, and that one
+# multiplier was the whole of the smear the owner reported on 2026-09-03: a
+# good's second building in a province scored half, its third a third, so a
+# province that suited a good perfectly took two of it and gave the other
+# fifteen rooms to whatever had not been there yet.
+#
+# **The quota and the concentration answer different questions, and confusing
+# them was mine.** «Равномерно» is *how many* -- `_plan_quota`, 34 rooms a good
+# on his ground -- and it is untouched. *Where* those 34 land is this value, and
+# a province is 17.7 rooms, so a good can own two provinces outright without
+# costing any other good a single room. His arithmetic, 2026-09-03, and it is
+# right: «на всей общей земле от этого не пострадает ни один другой товар».
+#
+# `_pp<n>` is still counted -- it is the honest «how much of this good is in this
+# province» and the report wants it -- it just no longer decides anything.
 # Scope: location
 bag_wtp_plan_order = {
 	value = 0

@@ -206,18 +206,35 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven1 value = 0 }
+	set_global_variable = { name = bag_wtp_rn1 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven2 value = 0 }
+	set_global_variable = { name = bag_wtp_rn2 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven3 value = 0 }
+	set_global_variable = { name = bag_wtp_rn3 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven4 value = 0 }
+	set_global_variable = { name = bag_wtp_rn4 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven5 value = 0 }
+	set_global_variable = { name = bag_wtp_rn5 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven6 value = 0 }
+	set_global_variable = { name = bag_wtp_rn6 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven7 value = 0 }
+	set_global_variable = { name = bag_wtp_rn7 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven8 value = 0 }
+	set_global_variable = { name = bag_wtp_rn8 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven9 value = 0 }
+	set_global_variable = { name = bag_wtp_rn9 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven10 value = 0 }
+	set_global_variable = { name = bag_wtp_rn10 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven11 value = 0 }
+	set_global_variable = { name = bag_wtp_rn11 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven12 value = 0 }
+	set_global_variable = { name = bag_wtp_rn12 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven13 value = 0 }
+	set_global_variable = { name = bag_wtp_rn13 value = 0 }
+	set_global_variable = { name = bag_wtp_rband value = 0 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	set_global_variable = { name = bag_wtp_rquota value = 1 }
+	set_global_variable = { name = bag_wtp_rgrant value = 0 }
 	set_global_variable = { name = bag_wtp_passsw1 value = 0 }
 	set_global_variable = { name = bag_wtp_passpl1 value = 0 }
 	set_global_variable = { name = bag_wtp_passsw2 value = 0 }
@@ -242,6 +259,46 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_passpl11 value = 0 }
 	set_global_variable = { name = bag_wtp_passsw12 value = 0 }
 	set_global_variable = { name = bag_wtp_passpl12 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw13 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl13 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw14 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl14 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw15 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl15 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw16 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl16 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw17 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl17 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw18 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl18 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw19 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl19 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw20 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl20 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw21 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl21 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw22 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl22 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw23 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl23 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw24 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl24 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw25 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl25 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw26 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl26 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw27 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl27 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw28 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl28 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw29 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl29 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw30 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl30 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw31 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl31 value = 0 }
+	set_global_variable = { name = bag_wtp_passsw32 value = 0 }
+	set_global_variable = { name = bag_wtp_passpl32 value = 0 }
 
 	# Every candidate made ready. **Every counter a `limit` reads has to exist
 	# before the first round**: a comparison against a variable that is not there
@@ -255,22 +312,6 @@ bag_wtp_plan_prepare = {
 		set_variable = { name = bag_wtp_load value = 0 }
 		set_variable = { name = bag_wtp_plan_prank value = 9999 }
 		remove_variable = bag_wtp_plan_right
-		# **How many towns of this province already hold each right**, which
-		# `_rq<k>` divides by. One write a candidate a right, once a plan, against
-		# a score read once a town: the counter is the cheap half.
-		set_variable = { name = bag_wtp_rp1 value = 0 }
-		set_variable = { name = bag_wtp_rp2 value = 0 }
-		set_variable = { name = bag_wtp_rp3 value = 0 }
-		set_variable = { name = bag_wtp_rp4 value = 0 }
-		set_variable = { name = bag_wtp_rp5 value = 0 }
-		set_variable = { name = bag_wtp_rp6 value = 0 }
-		set_variable = { name = bag_wtp_rp7 value = 0 }
-		set_variable = { name = bag_wtp_rp8 value = 0 }
-		set_variable = { name = bag_wtp_rp9 value = 0 }
-		set_variable = { name = bag_wtp_rp10 value = 0 }
-		set_variable = { name = bag_wtp_rp11 value = 0 }
-		set_variable = { name = bag_wtp_rp12 value = 0 }
-		set_variable = { name = bag_wtp_rp13 value = 0 }
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
 		add_to_global_variable_list = { name = bag_wtp_plan_touched target = this }
@@ -10580,23 +10621,117 @@ bag_wtp_plan_try_rural_47 = {
 
 # Urban rights, before any good is placed and only in towns.
 #
-# **A right is chosen per town, not by rights taking turns.** There are 13 of
-# them and rarely that many towns in a plan, so an order over rights would decide
-# the outcome by its own arbitrariness. Asked the other way round -- which right
-# does this ground suit best -- every town gets the answer that is true about it.
+# **A right is a bundle of goods bound to a town, and obeys the rules a good
+# obeys.** The owner, 2026-09-03: «права это просто связка товара, которая
+# заложена в город. В остальном она подчиняется абсолютно тем же вещам что и
+# простой товар.» So it is dealt exactly as a good is: **a quota over the whole
+# ground says how many towns a right may take, and descending bands of gain say
+# which towns those are.**
+#
+# **The quota is the "равномерно" half and it is the only limit.** Neither
+# divisor this ever carried survives: the map-wide one made the ranges disjoint,
+# so a right granted once could never again win on merit and they went round
+# robin; the province-wide one emptied a province of the charter its ground was
+# made for. The quota limits the count and leaves the placement to the ground,
+# which is the whole distinction the owner drew.
+#
+# **The bands are what put a scarce charter where it belongs.** A town takes a
+# right only where the ground pays at least the band, so the two towns on the map
+# with silver under them are reached by the jewelry charter in band 800, before
+# any town is handed a charter it merely tolerates. The last pass lifts the quota
+# and the band together, so no town is left without one.
 #
 # **And a right is granted whether or not the whole bundle fits**, since
 # 2026-09-01: «Оно БУДЕТ выдано ОБЯЗАТЕЛЬНО. И каждый такой город обязательно
 # получит все здания из его бонуса.» The bundle's buildings go in before any
 # ordinary good touches the town, and where the urban cap is smaller than the
-# bundle the town simply runs out of room -- which is the thing the owner wants
-# to see, at caps of 3, 4 and 5. Under the old all-or-nothing rule the
-# thirty-fourth run granted one right across six towns.
-#
-# `bag_wtp_rq<k>` is the bundle's own normalized scores added up, which costs no
-# pass -- the goods were scored anyway.
+# bundle the town simply runs out of room.
 # Scope: country
 bag_wtp_plan_place_rights = {
+	# How many rights this country could grant at all. The quota is towns divided
+	# by that, so a country with three rights available spreads over three and not
+	# over the 13 the game defines.
+	set_global_variable = { name = bag_wtp_rgrant value = 0 }
+	if = {
+		limit = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	if = {
+		limit = { culture = { has_culture_group = culture_group:netherlandish_group } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	if = {
+		limit = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	if = {
+		limit = { NOT = { culture = { has_culture_group = culture_group:netherlandish_group } } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	if = {
+		limit = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	if = {
+		limit = { culture = { has_culture_group = culture_group:scandinavian_group } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	if = {
+		limit = { culture = { has_culture_group = culture_group:scandinavian_group } }
+		change_global_variable = { name = bag_wtp_rgrant add = 1 }
+	}
+	set_global_variable = { name = bag_wtp_rquota value = global_var:bag_wtp_plan_towns }
+	if = {
+		limit = { global_var:bag_wtp_rgrant > 0 }
+		change_global_variable = { name = bag_wtp_rquota divide = bag_wtp_rgrant_value }
+	}
+	# `max` is the floor on a variable operation -- `_plan_quota` above depends on
+	# the same and says so. A ground with fewer towns than rights still gives every
+	# charter one town to want.
+	change_global_variable = { name = bag_wtp_rquota max = 1 }
+	set_global_variable = { name = bag_wtp_rn1 value = 0 }
+	set_global_variable = { name = bag_wtp_rn2 value = 0 }
+	set_global_variable = { name = bag_wtp_rn3 value = 0 }
+	set_global_variable = { name = bag_wtp_rn4 value = 0 }
+	set_global_variable = { name = bag_wtp_rn5 value = 0 }
+	set_global_variable = { name = bag_wtp_rn6 value = 0 }
+	set_global_variable = { name = bag_wtp_rn7 value = 0 }
+	set_global_variable = { name = bag_wtp_rn8 value = 0 }
+	set_global_variable = { name = bag_wtp_rn9 value = 0 }
+	set_global_variable = { name = bag_wtp_rn10 value = 0 }
+	set_global_variable = { name = bag_wtp_rn11 value = 0 }
+	set_global_variable = { name = bag_wtp_rn12 value = 0 }
+	set_global_variable = { name = bag_wtp_rn13 value = 0 }
+	set_global_variable = { name = bag_wtp_rband value = 800 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 600 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 400 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 200 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 0 }
+	set_global_variable = { name = bag_wtp_ropen value = 0 }
+	bag_wtp_plan_grant_pass = yes
+	set_global_variable = { name = bag_wtp_rband value = 0 }
+	set_global_variable = { name = bag_wtp_ropen value = 1 }
+	bag_wtp_plan_grant_pass = yes
+}
+
+# One pass of the rights round: every town still empty takes the best right the
+# ground pays `_rband` for and whose quota is not spent.
+# Scope: country
+bag_wtp_plan_grant_pass = {
 	every_in_global_list = {
 		variable = bag_wtp_candidates
 		limit = {
@@ -10611,6 +10746,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_1 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn1 < global_var:bag_wtp_rquota
+				}
 				scope:bag_wtp_country = { AND = { OR = { has_or_had_tag = BYZ has_or_had_tag = ROM } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -10622,6 +10766,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_2 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn2 < global_var:bag_wtp_rquota
+				}
 				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:netherlandish_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -10633,6 +10786,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_3 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn3 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 3 }
@@ -10643,6 +10805,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_4 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn4 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 4 }
@@ -10653,6 +10824,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_5 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn5 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 5 }
@@ -10663,6 +10843,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_6 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn6 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 6 }
@@ -10673,6 +10862,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_7 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn7 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 7 }
@@ -10683,6 +10881,16 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_8 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn8 < global_var:bag_wtp_rquota
+				}
+				scope:bag_wtp_country = { AND = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 8 }
@@ -10693,6 +10901,16 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_9 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn9 < global_var:bag_wtp_rquota
+				}
+				scope:bag_wtp_country = { AND = { NOT = { culture = { has_culture_group = culture_group:netherlandish_group } } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 9 }
@@ -10703,6 +10921,16 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_10 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn10 < global_var:bag_wtp_rquota
+				}
+				scope:bag_wtp_country = { AND = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 10 }
@@ -10713,6 +10941,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_11 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn11 < global_var:bag_wtp_rquota
+				}
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
 			set_variable = { name = bag_wtp_rbest_k value = 11 }
@@ -10723,6 +10960,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_12 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn12 < global_var:bag_wtp_rquota
+				}
 				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -10734,6 +10980,15 @@ bag_wtp_plan_place_rights = {
 			limit = {
 				var:bag_wtp_rtry > var:bag_wtp_rbest
 				bag_wtp_plan_right_fits_13 = yes
+				# The band: what this ground has to pay before the charter is taken
+				# here at all. The open pass sets it to 0.
+				var:bag_wtp_rtry >= global_var:bag_wtp_rband
+				# And the quota, which the open pass lifts instead of raising: a
+				# town with no charter at all is worse than an uneven count.
+				OR = {
+					global_var:bag_wtp_ropen = 1
+					global_var:bag_wtp_rn13 < global_var:bag_wtp_rquota
+				}
 				scope:bag_wtp_country = { AND = { culture = { has_culture_group = culture_group:scandinavian_group } } }
 			}
 			set_variable = { name = bag_wtp_rbest value = var:bag_wtp_rtry }
@@ -10745,16 +11000,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_30 = yes
 			bag_wtp_plan_try_town_18 = yes
 			set_variable = { name = bag_wtp_plan_right value = 1 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp1 }
-					change_variable = { name = bag_wtp_rp1 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn1 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven1 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10763,16 +11012,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_29 = yes
 			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 2 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp2 }
-					change_variable = { name = bag_wtp_rp2 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn2 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven2 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10782,16 +11025,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_36 = yes
 			bag_wtp_plan_try_town_42 = yes
 			set_variable = { name = bag_wtp_plan_right value = 3 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp3 }
-					change_variable = { name = bag_wtp_rp3 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn3 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven3 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10801,16 +11038,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_40 = yes
 			set_variable = { name = bag_wtp_plan_right value = 4 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp4 }
-					change_variable = { name = bag_wtp_rp4 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn4 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven4 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10820,16 +11051,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_37 = yes
 			bag_wtp_plan_try_town_24 = yes
 			set_variable = { name = bag_wtp_plan_right value = 5 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp5 }
-					change_variable = { name = bag_wtp_rp5 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn5 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven5 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10837,16 +11062,10 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 6 }
 			bag_wtp_plan_try_town_34 = yes
 			set_variable = { name = bag_wtp_plan_right value = 6 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp6 }
-					change_variable = { name = bag_wtp_rp6 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn6 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven6 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10862,16 +11081,10 @@ bag_wtp_plan_place_rights = {
 			}
 			bag_wtp_plan_try_town_38 = yes
 			set_variable = { name = bag_wtp_plan_right value = 7 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp7 }
-					change_variable = { name = bag_wtp_rp7 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn7 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven7 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10880,16 +11093,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 8 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp8 }
-					change_variable = { name = bag_wtp_rp8 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn8 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven8 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10899,16 +11106,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_4 = yes
 			bag_wtp_plan_try_town_30 = yes
 			set_variable = { name = bag_wtp_plan_right value = 9 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp9 }
-					change_variable = { name = bag_wtp_rp9 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn9 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven9 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10916,16 +11117,10 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 10 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 10 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp10 }
-					change_variable = { name = bag_wtp_rp10 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn10 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven10 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10935,16 +11130,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_31 = yes
 			bag_wtp_plan_try_town_47 = yes
 			set_variable = { name = bag_wtp_plan_right value = 11 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp11 }
-					change_variable = { name = bag_wtp_rp11 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn11 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven11 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10952,16 +11141,10 @@ bag_wtp_plan_place_rights = {
 			limit = { var:bag_wtp_rbest_k = 12 }
 			bag_wtp_plan_try_town_46 = yes
 			set_variable = { name = bag_wtp_plan_right value = 12 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp12 }
-					change_variable = { name = bag_wtp_rp12 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn12 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven12 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -10970,16 +11153,10 @@ bag_wtp_plan_place_rights = {
 			bag_wtp_plan_try_town_39 = yes
 			bag_wtp_plan_try_town_45 = yes
 			set_variable = { name = bag_wtp_plan_right value = 13 }
-			# **The province is told, not the map.** Every location of it carries the
-			# count, because a walk over a province cannot write back to the town that
-			# started it and the next town of the same province is the one that has to
-			# read it. The same shape as a good's `_pp<n>` two hundred lines up.
-			province_definition = {
-				every_location_in_province_definition = {
-					limit = { has_variable = bag_wtp_rp13 }
-					change_variable = { name = bag_wtp_rp13 add = 1 }
-				}
-			}
+			# **One counter, over the whole ground.** `_rn<k>` is what the quota reads;
+			# `_rgiven<k>` is the same number for the dump, kept apart so that changing
+			# what the plan counts never quietly changes what the report prints.
+			change_global_variable = { name = bag_wtp_rn13 add = 1 }
 			change_global_variable = { name = bag_wtp_rgiven13 add = 1 }
 			change_global_variable = { name = bag_wtp_plan_rightn add = 1 }
 		}
@@ -11166,7 +11343,7 @@ bag_wtp_plan_set_quota = {
 bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
-	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per tier and not across them.** It was one counter for all
 	# 6 of them for one load, and the thirty-third run spent it on the scarce
@@ -11239,6 +11416,756 @@ bag_wtp_plan_allocate = {
 	# one fault in here that leaves no other trace.
 	set_global_variable = { name = bag_wtp_passsw1 value = global_var:bag_wtp_plan_tsweeps }
 	set_global_variable = { name = bag_wtp_passpl1 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 800 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw2 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl2 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 800 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw3 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl3 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 800 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw4 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl4 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 800 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw5 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl5 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 800 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw6 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl6 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 600 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw7 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl7 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 600 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw8 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl8 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 600 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw9 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl9 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 600 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw10 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl10 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 600 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw11 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl11 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11312,8 +12239,383 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw2 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl2 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw12 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl12 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 400 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw13 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl13 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 400 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw14 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl14 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 400 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw15 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl15 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 400 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw16 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl16 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 400 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw17 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl17 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11387,8 +12689,383 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw3 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl3 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw18 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl18 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 200 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw19 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl19 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 200 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw20 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl20 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 200 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw21 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl21 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 200 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw22 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl22 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_plan_band value = 200 }
+	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
+	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_go value = 1 }
+	# **The guard is per tier and not across them.** It was one counter for all
+	# 6 of them for one load, and the thirty-third run spent it on the scarce
+	# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
+	# and forty-four places, most locations holding one thing. The last tier --
+	# the one that fills the ground -- never ran at all.
+	set_global_variable = { name = bag_wtp_plan_tsweeps value = 0 }
+	while = {
+		limit = {
+			global_var:bag_wtp_plan_go = 1
+			global_var:bag_wtp_plan_tsweeps < 50
+		}
+		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
+		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
+		set_global_variable = { name = bag_wtp_plan_added value = 0 }
+		bag_wtp_plan_pick_1 = yes
+		bag_wtp_plan_pick_2 = yes
+		bag_wtp_plan_pick_3 = yes
+		bag_wtp_plan_pick_4 = yes
+		bag_wtp_plan_pick_5 = yes
+		bag_wtp_plan_pick_6 = yes
+		bag_wtp_plan_pick_7 = yes
+		bag_wtp_plan_pick_8 = yes
+		bag_wtp_plan_pick_9 = yes
+		bag_wtp_plan_pick_10 = yes
+		bag_wtp_plan_pick_11 = yes
+		bag_wtp_plan_pick_12 = yes
+		bag_wtp_plan_pick_13 = yes
+		bag_wtp_plan_pick_14 = yes
+		bag_wtp_plan_pick_15 = yes
+		bag_wtp_plan_pick_16 = yes
+		bag_wtp_plan_pick_17 = yes
+		bag_wtp_plan_pick_18 = yes
+		bag_wtp_plan_pick_19 = yes
+		bag_wtp_plan_pick_20 = yes
+		bag_wtp_plan_pick_21 = yes
+		bag_wtp_plan_pick_22 = yes
+		bag_wtp_plan_pick_23 = yes
+		bag_wtp_plan_pick_24 = yes
+		bag_wtp_plan_pick_25 = yes
+		bag_wtp_plan_pick_26 = yes
+		bag_wtp_plan_pick_27 = yes
+		bag_wtp_plan_pick_28 = yes
+		bag_wtp_plan_pick_29 = yes
+		bag_wtp_plan_pick_30 = yes
+		bag_wtp_plan_pick_31 = yes
+		bag_wtp_plan_pick_32 = yes
+		bag_wtp_plan_pick_33 = yes
+		bag_wtp_plan_pick_34 = yes
+		bag_wtp_plan_pick_35 = yes
+		bag_wtp_plan_pick_36 = yes
+		bag_wtp_plan_pick_37 = yes
+		bag_wtp_plan_pick_38 = yes
+		bag_wtp_plan_pick_39 = yes
+		bag_wtp_plan_pick_40 = yes
+		bag_wtp_plan_pick_41 = yes
+		bag_wtp_plan_pick_42 = yes
+		bag_wtp_plan_pick_43 = yes
+		bag_wtp_plan_pick_44 = yes
+		bag_wtp_plan_pick_45 = yes
+		bag_wtp_plan_pick_46 = yes
+		bag_wtp_plan_pick_47 = yes
+		if = {
+			limit = { global_var:bag_wtp_plan_added = 0 }
+			set_global_variable = { name = bag_wtp_plan_go value = 0 }
+		}
+	}
+	# What this pass cost and what it had by the end of it. `_passsw` at
+	# 50 is a pass the guard cut off with work still to do, which is the
+	# one fault in here that leaves no other trace.
+	set_global_variable = { name = bag_wtp_passsw23 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl23 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11462,8 +13139,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw4 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl4 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw24 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl24 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
@@ -11537,8 +13214,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw5 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl5 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw25 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl25 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
@@ -11612,8 +13289,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw6 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl6 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw26 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl26 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
@@ -11687,8 +13364,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw7 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl7 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw27 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl27 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
@@ -11762,8 +13439,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw8 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl8 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw28 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl28 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
@@ -11837,8 +13514,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw9 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl9 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw29 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl29 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -11912,8 +13589,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw10 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl10 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw30 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl30 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 1 }
 	# **Every good the ground can produce is produced.** The owner's first
@@ -11993,8 +13670,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw11 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl11 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw31 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl31 value = global_var:bag_wtp_plan_placed }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_tier value = 0 }
@@ -12115,8 +13792,8 @@ bag_wtp_plan_allocate = {
 	# What this pass cost and what it had by the end of it. `_passsw` at
 	# 50 is a pass the guard cut off with work still to do, which is the
 	# one fault in here that leaves no other trace.
-	set_global_variable = { name = bag_wtp_passsw12 value = global_var:bag_wtp_plan_tsweeps }
-	set_global_variable = { name = bag_wtp_passpl12 value = global_var:bag_wtp_plan_placed }
+	set_global_variable = { name = bag_wtp_passsw32 value = global_var:bag_wtp_plan_tsweeps }
+	set_global_variable = { name = bag_wtp_passpl32 value = global_var:bag_wtp_plan_placed }
 }
 
 # clay takes the one location each side of it suits best, or neither.
