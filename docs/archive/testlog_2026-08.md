@@ -2421,3 +2421,46 @@ eats and silver is what a jewelry guild eats.
   unfed divisor's removal cannot be read off this: it is the «на конец» plan and
   the run before it was «сейчас».
 
+### 2026-09-02 — `where_to_produce`, the first Münster run
+
+Moved out of the live log when it tripped its budget. The three fixes it
+confirmed are long settled; what it is still quoted for is the 95% figure —
+a building that earns anything captures 948 of 1000 of its ceiling.
+
+**2026-09-02 — `where_to_produce`, Münster and all of northern Germany. The three
+fixes work, and the number the mod exists for is 95%.** «Вроде как всё
+заполняется хорошо… как будто бы основные функции мод теперь выполняет как надо.»
+416 locations, 74 provinces, 61 towns, no ticks set anywhere.
+
+- **All three fixes confirmed in one press.** 1309 buildings in 1309 rooms —
+  100%, against 970 of 1312 on the same ground before. **No pass came near the
+  guard**: the worst was 31 of 50, and the twelve passes are the ones the
+  generator lists. The page bar and the removed province ceiling were on screen
+  and neither drew a remark.
+- **Selection quality, and it is the answer to «идеально ли он работает».**
+  `GAIN fed=968 of placed=1309 gain_total=918033`. 74% of placed buildings earn
+  a bonus where they stand — but **the ones that do capture 948 of 1000 of their
+  own recipe's ceiling** (918033÷968). The 26% that earn nothing are the price of
+  the covering constraint and of filling the ground, both of which he asked for.
+  The overall 70.1% is those two numbers mixed, and is the less useful of them.
+- **The distribution is the ground's arithmetic, not the formula's.** 355 of 416
+  locations are villages and only 23 goods have a village side at all, so the ten
+  goods makeable in all 355 take ~66 each and half the ground between them, while
+  town-only goods share 244 slots of which the rights claim ~135. Town slots came
+  out exactly 244 = 61×4 and village 1065 = 355×3, so nothing was left on the
+  table anywhere.
+- **Rights: 61 grants over 61 towns, 9 distinct, the largest 8.** No charter
+  spam. `constantinopolitan_silk` (no silk here) and both Scandinavian ones went
+  to 0, correctly.
+- **Two faults this run makes visible, neither of them new.**
+  `royal_weaponry_rights` was granted twice on a ground where cannons and
+  firearms have no advance, so those towns carry a charter that delivers one good
+  of three and the location-wide penalty for all of it — the rescored bundle
+  (2000 a makeable good, −1000 a gap) is the fix and is one of the things still
+  out of the tree. And **the mod page still says a right is all-or-nothing**,
+  which stopped being true on 2026-09-01 at his own word: `plan_right_fits_<k>`
+  is an `OR`.
+- **Nine goods scored 0 for want of an advance** — lumber, silk, silver, sugar,
+  tobacco, cotton, incense, ivory, wild game — so «сейчас» covers 32 of 47. That
+  is the age and not the plan; «В конце» is the button that answers for them.
+

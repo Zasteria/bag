@@ -2040,6 +2040,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # counter is: a `limit` that reads a global which is not there fails silently.
     out.append(f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
+               f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rquota value = 1 }}\n"
                f"\tset_global_variable = {{ name = {MOD_ID}_rgrant value = 0 }}\n")
     # **What each pass of the allocator did, kept so the dump can print it.** Two
@@ -2298,6 +2299,25 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     grant_zeroes = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
         for k in range(1, len(rights) + 1))
+    # **Every charter the country could grant is granted somewhere.** The goods
+    # have had this since 2026-09-01 -- «все товары которые можно произвести на
+    # выбранной земле должны производиться, все» -- and the owner asked for the
+    # rights to obey the same rules, 2026-09-03: «какое-то количество оружейных
+    # прав должно было выделиться каким-то городам обязательно». They did not:
+    # over 48 towns of Westphalia the weaponry charter scored 163 everywhere --
+    # cannons 136, firearms 166, weaponry 187, averaged over the bundle -- against
+    # 200 to 624 for every rival, so it never won a town and no rule made it. Nor
+    # did jewelry.
+    #
+    # **The covering ladder runs the bands again, admitting only charters with
+    # nothing anywhere.** A ladder rather than one sweep so that the town the
+    # ground suits best gets it, instead of whichever town the walk reaches first.
+    grant_cover = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
+        f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 1 }}\n"
+        f"\t{MOD_ID}_plan_grant_pass = yes\n"
+        for band in PLAN_BANDS)
     # **The quota binds only while the ground is paying, and `PLAN_BANDS[:-1]` is
     # what says so.** Its last band is 0, which admits anything at all -- and a
     # pass that admits anything while the quota is still on is the one that did
@@ -2314,8 +2334,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
         f"\t{MOD_ID}_plan_grant_pass = yes\n"
         for band in PLAN_BANDS[:-1])
+    grant_passes = "".join(
+        line if "_ropen value" not in line else
+        line + f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
+        for line in grant_passes.splitlines(keepends=True))
+    grant_passes += grant_cover
     grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
+                     f"\tset_global_variable = {{ name = {MOD_ID}_rcover value = 0 }}\n"
                      f"\t{MOD_ID}_plan_grant_pass = yes\n")
     out.append(f"""
 # Urban rights, before any good is placed and only in towns.
@@ -2393,6 +2419,11 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tOR = {{
 \t\t\t\t\tglobal_var:{MOD_ID}_ropen = 1
 \t\t\t\t\tglobal_var:{MOD_ID}_rn{k} < global_var:{MOD_ID}_rquota
+\t\t\t\t}}
+\t\t\t\t# The covering ladder admits only a charter that has nothing anywhere.
+\t\t\t\tOR = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_rcover = 0
+\t\t\t\t\tglobal_var:{MOD_ID}_rn{k} = 0
 \t\t\t\t}}
 {gate}\t\t\t}}
 \t\t\tset_variable = {{ name = {MOD_ID}_rbest value = var:{MOD_ID}_rtry }}
