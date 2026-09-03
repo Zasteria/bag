@@ -221,7 +221,7 @@ bag_wtp_refresh_rights = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_common item = 5 }
 	}
 	if = {
-		limit = { AND = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } } }
+		limit = { always = yes }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_common item = 6 }
 	}
 	else = {
@@ -235,7 +235,7 @@ bag_wtp_refresh_rights = {
 		cmm_hide_list_item = { mod_id = bag_wtp setting_id = right_common item = 7 }
 	}
 	if = {
-		limit = { AND = { NOT = { culture = { has_culture_group = culture_group:scandinavian_group } } } }
+		limit = { always = yes }
 		cmm_show_list_item = { mod_id = bag_wtp setting_id = right_common item = 8 }
 	}
 	else = {

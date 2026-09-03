@@ -166,22 +166,60 @@ def right_legend(lines: list[str]) -> dict[int, str]:
     return out
 
 
-def render_rq(line: str, names: dict[int, str], granted: int | None) -> str:
+def grantable_rights(lines: list[str]) -> set[int] | None:
+    """Номера прав, которые эта держава вообще может выдать, или `None`.
+
+    **Оценка есть у всякого права, а выдать можно не всякое.** `RQ` печатает то,
+    что земля заплатила бы за связку, и печатает это для всех тринадцати -- в том
+    числе для шёлковой монополии Константинополя и для скандинавских привилегий,
+    которых у Мюнстера не будет никогда. Строка `RIGHT` знает разницу
+    (`grantable=`), и без неё «текстильные 620» в списке читается как право,
+    которое почему-то не досталось городу, а не как чужое.
+
+    `None` -- отчёт старее этого поля. **Читалка, которая на старом отчёте
+    объявляет чужими все права разом, хуже, чем читалка без этой пометки**: это
+    ровно тот предохранитель, который срабатывает всегда
+    (`docs/pitfalls/diagnosis.md`).
+    """
+    out = set()
+    seen = False
+    for line in lines:
+        if not line.startswith("WTP RIGHT "):
+            continue
+        number = re.match(r"WTP RIGHT (\d+)", line)
+        state = field(line, "grantable")
+        if number is None or state is None:
+            continue
+        seen = True
+        if state:
+            out.add(int(number.group(1)))
+    return out if seen else None
+
+
+def render_rq(line: str, names: dict[int, str], granted: int | None,
+              grantable: set[int] | None) -> str:
     """Строка `RQ` по-человечески: права по убыванию оценки, выданное помечено.
 
     Владелец, 2026-09-03: «Понятия не имею где конкретно искать строку Гослара».
     Числа в отчёте были, но `1=0 2=0 3=0` -- это не ответ на вопрос «почему этот
     город получил именно это право», а сырьё для ответа. Ответ -- вот эта строка.
+
+    Права, которых держава выдать не может, идут в конце и помечены: их оценка
+    объясняет не выбор города, а только то, чего он лишён по происхождению.
     """
     scores = [(int(k), int(float(v))) for k, v in re.findall(r"(\d+)=(-?[\d.]+)", line)]
     scores = [(k, v) for k, v in scores if v > 0]
     if not scores:
         return "    права: ни одно право здесь ничего не набрало"
-    scores.sort(key=lambda kv: -kv[1])
+    ours = (lambda number: True) if grantable is None else grantable.__contains__
+    scores.sort(key=lambda kv: (not ours(kv[0]), -kv[1]))
     parts = []
     for number, value in scores:
         name = names.get(number, str(number))
-        parts.append(f"{name} {value}" + (" ← выдано" if number == granted else ""))
+        if not ours(number):
+            parts.append(f"{name} {value} (не для этой державы)")
+        else:
+            parts.append(f"{name} {value}" + (" ← выдано" if number == granted else ""))
     return "    права: " + " | ".join(parts)
 
 
@@ -192,8 +230,16 @@ def fold(lines: list[str]) -> list[str]:
     идут её числа, потом по строке на каждый поставленный товар. Читать это
     подряд невозможно, а сложенное -- можно: одна строка на локацию, и в ней
     сразу видно, что город получил, а что досталось селу.
+
+    **Имя берётся одно, даже если движок назвал локацию дважды.** Отчёты до
+    2026-09-03 звали `debug_log_scopes` и перед `L`, и перед `RQ`, и каждая
+    строка начиная со второй уносила имя предыдущей: «WTP L Район Липпштадт
+    (980) Район Зост (981) rank=2». Лишний вызов убран в самом моде, но читалка
+    не должна снова разъехаться молча, если он вернётся, — а свести две подписи
+    к одной она может и без него.
     """
     names = right_legend(lines)
+    grantable = grantable_rights(lines)
     out: list[str] = []
     pending: list[str] = []          # строки без метки WTP: имя локации от игры
     goods: list[str] = []
@@ -203,12 +249,17 @@ def fold(lines: list[str]) -> list[str]:
     def flush() -> None:
         nonlocal row, goods, rq
         if row is None:
+            # Оценки прав без своей локации: такого быть не должно, и если стало
+            # -- это видно, а не съедено.
+            if rq:
+                out.append("~ " + rq)
+                rq = None
             return
         out.append(row + (" | " + ", ".join(goods) if goods else " | -- пусто"))
         if rq:
             match = re.search(r"\bright=(\d+)", row)
             granted = int(match.group(1)) if match and match.group(1) != "0" else None
-            out.append(render_rq(rq, names, granted))
+            out.append(render_rq(rq, names, granted, grantable))
         row, goods, rq = None, [], None
 
     for line in lines:
@@ -221,12 +272,25 @@ def fold(lines: list[str]) -> list[str]:
         # приходит внутри блока города, между `L` и `LG`, и без этой ветки
         # `flush` сработал бы раньше товаров: строка локации ушла бы «пустой», а
         # товары повисли бы ни на чём.
-        if line.startswith("WTP RQ "):
+        #
+        # **`RQ legend` -- не она.** Это подпись под номерами, одна на отчёт, и
+        # `startswith("WTP RQ ")` ловил её тоже: в отчётах до 2026-09-03 она
+        # приходила после `LOCS`, когда никакой локации уже не открыто, и
+        # `flush` выбрасывал её молча -- в отчёте владельца легенды нет ни в
+        # одном из трёх нажатий. Приди она на строку раньше, она бы затёрла
+        # оценки последнего города.
+        if re.match(r"WTP RQ \d", line):
             rq = line
             continue
         if line.startswith("WTP L "):
             flush()
-            name = " ".join(pending).strip()
+            # **Имя -- последняя подпись перед строкой, а не все они склеенные.**
+            # Движок называет текущую область на каждый `debug_log_scopes`, и
+            # подпись, пришедшая раньше внутри предыдущего блока, называет
+            # предыдущую локацию. Ближайшая к строке -- её собственная.
+            named = [part for part in (p.strip() for p in pending) if part]
+            name = named[-1] if named else ""
+            out.extend("~ " + stray for stray in named[:-1])
             pending = []
             row = ("WTP L " + (name + " " if name else "") + line[len("WTP L "):])
             continue

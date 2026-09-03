@@ -8978,17 +8978,19 @@ bag_wtp_r_score = {
 }
 
 
-# clay. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# clay: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord1 = {
 	value = var:bag_wtp_p1
@@ -8997,29 +8999,20 @@ bag_wtp_ord1 = {
 bag_wtp_ordr1 = {
 	value = var:bag_wtp_pr1
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax1 = {
-	value = var:bag_wtp_p1
-	if = {
-		limit = { var:bag_wtp_pr1 > var:bag_wtp_p1 }
-		value = var:bag_wtp_pr1
-	}
-}
 
-# coal. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# coal: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord2 = {
 	value = var:bag_wtp_p2
@@ -9028,29 +9021,20 @@ bag_wtp_ord2 = {
 bag_wtp_ordr2 = {
 	value = var:bag_wtp_pr2
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax2 = {
-	value = var:bag_wtp_p2
-	if = {
-		limit = { var:bag_wtp_pr2 > var:bag_wtp_p2 }
-		value = var:bag_wtp_pr2
-	}
-}
 
-# cotton. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# cotton: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord3 = {
 	value = var:bag_wtp_p3
@@ -9059,29 +9043,20 @@ bag_wtp_ord3 = {
 bag_wtp_ordr3 = {
 	value = var:bag_wtp_pr3
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax3 = {
-	value = var:bag_wtp_p3
-	if = {
-		limit = { var:bag_wtp_pr3 > var:bag_wtp_p3 }
-		value = var:bag_wtp_pr3
-	}
-}
 
-# dyes. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# dyes: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord4 = {
 	value = var:bag_wtp_p4
@@ -9090,29 +9065,20 @@ bag_wtp_ord4 = {
 bag_wtp_ordr4 = {
 	value = var:bag_wtp_pr4
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax4 = {
-	value = var:bag_wtp_p4
-	if = {
-		limit = { var:bag_wtp_pr4 > var:bag_wtp_p4 }
-		value = var:bag_wtp_pr4
-	}
-}
 
-# fiber_crops. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# fiber_crops: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord5 = {
 	value = var:bag_wtp_p5
@@ -9121,29 +9087,20 @@ bag_wtp_ord5 = {
 bag_wtp_ordr5 = {
 	value = var:bag_wtp_pr5
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax5 = {
-	value = var:bag_wtp_p5
-	if = {
-		limit = { var:bag_wtp_pr5 > var:bag_wtp_p5 }
-		value = var:bag_wtp_pr5
-	}
-}
 
-# fish. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# fish: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord6 = {
 	value = var:bag_wtp_p6
@@ -9152,29 +9109,20 @@ bag_wtp_ord6 = {
 bag_wtp_ordr6 = {
 	value = var:bag_wtp_pr6
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax6 = {
-	value = var:bag_wtp_p6
-	if = {
-		limit = { var:bag_wtp_pr6 > var:bag_wtp_p6 }
-		value = var:bag_wtp_pr6
-	}
-}
 
-# fruit. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# fruit: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord7 = {
 	value = var:bag_wtp_p7
@@ -9183,29 +9131,20 @@ bag_wtp_ord7 = {
 bag_wtp_ordr7 = {
 	value = var:bag_wtp_pr7
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax7 = {
-	value = var:bag_wtp_p7
-	if = {
-		limit = { var:bag_wtp_pr7 > var:bag_wtp_p7 }
-		value = var:bag_wtp_pr7
-	}
-}
 
-# horses. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# horses: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord8 = {
 	value = var:bag_wtp_p8
@@ -9214,29 +9153,20 @@ bag_wtp_ord8 = {
 bag_wtp_ordr8 = {
 	value = var:bag_wtp_pr8
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax8 = {
-	value = var:bag_wtp_p8
-	if = {
-		limit = { var:bag_wtp_pr8 > var:bag_wtp_p8 }
-		value = var:bag_wtp_pr8
-	}
-}
 
-# incense. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# incense: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord9 = {
 	value = var:bag_wtp_p9
@@ -9245,29 +9175,20 @@ bag_wtp_ord9 = {
 bag_wtp_ordr9 = {
 	value = var:bag_wtp_pr9
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax9 = {
-	value = var:bag_wtp_p9
-	if = {
-		limit = { var:bag_wtp_pr9 > var:bag_wtp_p9 }
-		value = var:bag_wtp_pr9
-	}
-}
 
-# iron. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# iron: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord10 = {
 	value = var:bag_wtp_p10
@@ -9276,29 +9197,20 @@ bag_wtp_ord10 = {
 bag_wtp_ordr10 = {
 	value = var:bag_wtp_pr10
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax10 = {
-	value = var:bag_wtp_p10
-	if = {
-		limit = { var:bag_wtp_pr10 > var:bag_wtp_p10 }
-		value = var:bag_wtp_pr10
-	}
-}
 
-# ivory. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# ivory: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord11 = {
 	value = var:bag_wtp_p11
@@ -9307,29 +9219,20 @@ bag_wtp_ord11 = {
 bag_wtp_ordr11 = {
 	value = var:bag_wtp_pr11
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax11 = {
-	value = var:bag_wtp_p11
-	if = {
-		limit = { var:bag_wtp_pr11 > var:bag_wtp_p11 }
-		value = var:bag_wtp_pr11
-	}
-}
 
-# livestock. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# livestock: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord12 = {
 	value = var:bag_wtp_p12
@@ -9338,29 +9241,20 @@ bag_wtp_ord12 = {
 bag_wtp_ordr12 = {
 	value = var:bag_wtp_pr12
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax12 = {
-	value = var:bag_wtp_p12
-	if = {
-		limit = { var:bag_wtp_pr12 > var:bag_wtp_p12 }
-		value = var:bag_wtp_pr12
-	}
-}
 
-# lumber. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# lumber: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord13 = {
 	value = var:bag_wtp_p13
@@ -9369,29 +9263,20 @@ bag_wtp_ord13 = {
 bag_wtp_ordr13 = {
 	value = var:bag_wtp_pr13
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax13 = {
-	value = var:bag_wtp_p13
-	if = {
-		limit = { var:bag_wtp_pr13 > var:bag_wtp_p13 }
-		value = var:bag_wtp_pr13
-	}
-}
 
-# medicaments. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# medicaments: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord14 = {
 	value = var:bag_wtp_p14
@@ -9400,29 +9285,20 @@ bag_wtp_ord14 = {
 bag_wtp_ordr14 = {
 	value = var:bag_wtp_pr14
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax14 = {
-	value = var:bag_wtp_p14
-	if = {
-		limit = { var:bag_wtp_pr14 > var:bag_wtp_p14 }
-		value = var:bag_wtp_pr14
-	}
-}
 
-# salt. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# salt: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord15 = {
 	value = var:bag_wtp_p15
@@ -9431,29 +9307,20 @@ bag_wtp_ord15 = {
 bag_wtp_ordr15 = {
 	value = var:bag_wtp_pr15
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax15 = {
-	value = var:bag_wtp_p15
-	if = {
-		limit = { var:bag_wtp_pr15 > var:bag_wtp_p15 }
-		value = var:bag_wtp_pr15
-	}
-}
 
-# saltpeter. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# saltpeter: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord16 = {
 	value = var:bag_wtp_p16
@@ -9462,29 +9329,20 @@ bag_wtp_ord16 = {
 bag_wtp_ordr16 = {
 	value = var:bag_wtp_pr16
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax16 = {
-	value = var:bag_wtp_p16
-	if = {
-		limit = { var:bag_wtp_pr16 > var:bag_wtp_p16 }
-		value = var:bag_wtp_pr16
-	}
-}
 
-# sand. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# sand: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord17 = {
 	value = var:bag_wtp_p17
@@ -9493,29 +9351,20 @@ bag_wtp_ord17 = {
 bag_wtp_ordr17 = {
 	value = var:bag_wtp_pr17
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax17 = {
-	value = var:bag_wtp_p17
-	if = {
-		limit = { var:bag_wtp_pr17 > var:bag_wtp_p17 }
-		value = var:bag_wtp_pr17
-	}
-}
 
-# silk. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# silk: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord18 = {
 	value = var:bag_wtp_p18
@@ -9524,29 +9373,20 @@ bag_wtp_ord18 = {
 bag_wtp_ordr18 = {
 	value = var:bag_wtp_pr18
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax18 = {
-	value = var:bag_wtp_p18
-	if = {
-		limit = { var:bag_wtp_pr18 > var:bag_wtp_p18 }
-		value = var:bag_wtp_pr18
-	}
-}
 
-# silver. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# silver: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord19 = {
 	value = var:bag_wtp_p19
@@ -9555,29 +9395,20 @@ bag_wtp_ord19 = {
 bag_wtp_ordr19 = {
 	value = var:bag_wtp_pr19
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax19 = {
-	value = var:bag_wtp_p19
-	if = {
-		limit = { var:bag_wtp_pr19 > var:bag_wtp_p19 }
-		value = var:bag_wtp_pr19
-	}
-}
 
-# stone. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# stone: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord20 = {
 	value = var:bag_wtp_p20
@@ -9586,29 +9417,20 @@ bag_wtp_ord20 = {
 bag_wtp_ordr20 = {
 	value = var:bag_wtp_pr20
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax20 = {
-	value = var:bag_wtp_p20
-	if = {
-		limit = { var:bag_wtp_pr20 > var:bag_wtp_p20 }
-		value = var:bag_wtp_pr20
-	}
-}
 
-# sugar. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# sugar: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord21 = {
 	value = var:bag_wtp_p21
@@ -9617,29 +9439,20 @@ bag_wtp_ord21 = {
 bag_wtp_ordr21 = {
 	value = var:bag_wtp_pr21
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax21 = {
-	value = var:bag_wtp_p21
-	if = {
-		limit = { var:bag_wtp_pr21 > var:bag_wtp_p21 }
-		value = var:bag_wtp_pr21
-	}
-}
 
-# tobacco. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# tobacco: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord22 = {
 	value = var:bag_wtp_p22
@@ -9648,29 +9461,20 @@ bag_wtp_ord22 = {
 bag_wtp_ordr22 = {
 	value = var:bag_wtp_pr22
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax22 = {
-	value = var:bag_wtp_p22
-	if = {
-		limit = { var:bag_wtp_pr22 > var:bag_wtp_p22 }
-		value = var:bag_wtp_pr22
-	}
-}
 
-# wild_game. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# wild_game: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord23 = {
 	value = var:bag_wtp_p23
@@ -9679,29 +9483,20 @@ bag_wtp_ord23 = {
 bag_wtp_ordr23 = {
 	value = var:bag_wtp_pr23
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax23 = {
-	value = var:bag_wtp_p23
-	if = {
-		limit = { var:bag_wtp_pr23 > var:bag_wtp_p23 }
-		value = var:bag_wtp_pr23
-	}
-}
 
-# wine. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# wine: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord24 = {
 	value = var:bag_wtp_p24
@@ -9710,29 +9505,20 @@ bag_wtp_ord24 = {
 bag_wtp_ordr24 = {
 	value = var:bag_wtp_pr24
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax24 = {
-	value = var:bag_wtp_p24
-	if = {
-		limit = { var:bag_wtp_pr24 > var:bag_wtp_p24 }
-		value = var:bag_wtp_pr24
-	}
-}
 
-# wool. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# wool: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord25 = {
 	value = var:bag_wtp_p25
@@ -9741,29 +9527,20 @@ bag_wtp_ord25 = {
 bag_wtp_ordr25 = {
 	value = var:bag_wtp_pr25
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax25 = {
-	value = var:bag_wtp_p25
-	if = {
-		limit = { var:bag_wtp_pr25 > var:bag_wtp_p25 }
-		value = var:bag_wtp_pr25
-	}
-}
 
-# beer. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# beer: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord26 = {
 	value = var:bag_wtp_p26
@@ -9772,29 +9549,20 @@ bag_wtp_ord26 = {
 bag_wtp_ordr26 = {
 	value = var:bag_wtp_pr26
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax26 = {
-	value = var:bag_wtp_p26
-	if = {
-		limit = { var:bag_wtp_pr26 > var:bag_wtp_p26 }
-		value = var:bag_wtp_pr26
-	}
-}
 
-# books. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# books: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord27 = {
 	value = var:bag_wtp_p27
@@ -9803,29 +9571,20 @@ bag_wtp_ord27 = {
 bag_wtp_ordr27 = {
 	value = var:bag_wtp_pr27
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax27 = {
-	value = var:bag_wtp_p27
-	if = {
-		limit = { var:bag_wtp_pr27 > var:bag_wtp_p27 }
-		value = var:bag_wtp_pr27
-	}
-}
 
-# cannons. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# cannons: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord28 = {
 	value = var:bag_wtp_p28
@@ -9834,29 +9593,20 @@ bag_wtp_ord28 = {
 bag_wtp_ordr28 = {
 	value = var:bag_wtp_pr28
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax28 = {
-	value = var:bag_wtp_p28
-	if = {
-		limit = { var:bag_wtp_pr28 > var:bag_wtp_p28 }
-		value = var:bag_wtp_pr28
-	}
-}
 
-# cloth. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# cloth: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord29 = {
 	value = var:bag_wtp_p29
@@ -9865,29 +9615,20 @@ bag_wtp_ord29 = {
 bag_wtp_ordr29 = {
 	value = var:bag_wtp_pr29
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax29 = {
-	value = var:bag_wtp_p29
-	if = {
-		limit = { var:bag_wtp_pr29 > var:bag_wtp_p29 }
-		value = var:bag_wtp_pr29
-	}
-}
 
-# fine_cloth. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# fine_cloth: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord30 = {
 	value = var:bag_wtp_p30
@@ -9896,29 +9637,20 @@ bag_wtp_ord30 = {
 bag_wtp_ordr30 = {
 	value = var:bag_wtp_pr30
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax30 = {
-	value = var:bag_wtp_p30
-	if = {
-		limit = { var:bag_wtp_pr30 > var:bag_wtp_p30 }
-		value = var:bag_wtp_pr30
-	}
-}
 
-# firearms. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# firearms: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord31 = {
 	value = var:bag_wtp_p31
@@ -9927,29 +9659,20 @@ bag_wtp_ord31 = {
 bag_wtp_ordr31 = {
 	value = var:bag_wtp_pr31
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax31 = {
-	value = var:bag_wtp_p31
-	if = {
-		limit = { var:bag_wtp_pr31 > var:bag_wtp_p31 }
-		value = var:bag_wtp_pr31
-	}
-}
 
-# furniture. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# furniture: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord32 = {
 	value = var:bag_wtp_p32
@@ -9958,29 +9681,20 @@ bag_wtp_ord32 = {
 bag_wtp_ordr32 = {
 	value = var:bag_wtp_pr32
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax32 = {
-	value = var:bag_wtp_p32
-	if = {
-		limit = { var:bag_wtp_pr32 > var:bag_wtp_p32 }
-		value = var:bag_wtp_pr32
-	}
-}
 
-# glass. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# glass: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord33 = {
 	value = var:bag_wtp_p33
@@ -9989,29 +9703,20 @@ bag_wtp_ord33 = {
 bag_wtp_ordr33 = {
 	value = var:bag_wtp_pr33
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax33 = {
-	value = var:bag_wtp_p33
-	if = {
-		limit = { var:bag_wtp_pr33 > var:bag_wtp_p33 }
-		value = var:bag_wtp_pr33
-	}
-}
 
-# jewelry. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# jewelry: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord34 = {
 	value = var:bag_wtp_p34
@@ -10020,29 +9725,20 @@ bag_wtp_ord34 = {
 bag_wtp_ordr34 = {
 	value = var:bag_wtp_pr34
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax34 = {
-	value = var:bag_wtp_p34
-	if = {
-		limit = { var:bag_wtp_pr34 > var:bag_wtp_p34 }
-		value = var:bag_wtp_pr34
-	}
-}
 
-# lacquerware. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# lacquerware: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord35 = {
 	value = var:bag_wtp_p35
@@ -10051,29 +9747,20 @@ bag_wtp_ord35 = {
 bag_wtp_ordr35 = {
 	value = var:bag_wtp_pr35
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax35 = {
-	value = var:bag_wtp_p35
-	if = {
-		limit = { var:bag_wtp_pr35 > var:bag_wtp_p35 }
-		value = var:bag_wtp_pr35
-	}
-}
 
-# leather. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# leather: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord36 = {
 	value = var:bag_wtp_p36
@@ -10082,29 +9769,20 @@ bag_wtp_ord36 = {
 bag_wtp_ordr36 = {
 	value = var:bag_wtp_pr36
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax36 = {
-	value = var:bag_wtp_p36
-	if = {
-		limit = { var:bag_wtp_pr36 > var:bag_wtp_p36 }
-		value = var:bag_wtp_pr36
-	}
-}
 
-# liquor. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# liquor: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord37 = {
 	value = var:bag_wtp_p37
@@ -10113,29 +9791,20 @@ bag_wtp_ord37 = {
 bag_wtp_ordr37 = {
 	value = var:bag_wtp_pr37
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax37 = {
-	value = var:bag_wtp_p37
-	if = {
-		limit = { var:bag_wtp_pr37 > var:bag_wtp_p37 }
-		value = var:bag_wtp_pr37
-	}
-}
 
-# masonry. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# masonry: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord38 = {
 	value = var:bag_wtp_p38
@@ -10144,29 +9813,20 @@ bag_wtp_ord38 = {
 bag_wtp_ordr38 = {
 	value = var:bag_wtp_pr38
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax38 = {
-	value = var:bag_wtp_p38
-	if = {
-		limit = { var:bag_wtp_pr38 > var:bag_wtp_p38 }
-		value = var:bag_wtp_pr38
-	}
-}
 
-# naval_supplies. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# naval_supplies: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord39 = {
 	value = var:bag_wtp_p39
@@ -10175,29 +9835,20 @@ bag_wtp_ord39 = {
 bag_wtp_ordr39 = {
 	value = var:bag_wtp_pr39
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax39 = {
-	value = var:bag_wtp_p39
-	if = {
-		limit = { var:bag_wtp_pr39 > var:bag_wtp_p39 }
-		value = var:bag_wtp_pr39
-	}
-}
 
-# paper. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# paper: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord40 = {
 	value = var:bag_wtp_p40
@@ -10206,29 +9857,20 @@ bag_wtp_ord40 = {
 bag_wtp_ordr40 = {
 	value = var:bag_wtp_pr40
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax40 = {
-	value = var:bag_wtp_p40
-	if = {
-		limit = { var:bag_wtp_pr40 > var:bag_wtp_p40 }
-		value = var:bag_wtp_pr40
-	}
-}
 
-# porcelain. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# porcelain: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord41 = {
 	value = var:bag_wtp_p41
@@ -10237,29 +9879,20 @@ bag_wtp_ord41 = {
 bag_wtp_ordr41 = {
 	value = var:bag_wtp_pr41
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax41 = {
-	value = var:bag_wtp_p41
-	if = {
-		limit = { var:bag_wtp_pr41 > var:bag_wtp_p41 }
-		value = var:bag_wtp_pr41
-	}
-}
 
-# pottery. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# pottery: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord42 = {
 	value = var:bag_wtp_p42
@@ -10268,29 +9901,20 @@ bag_wtp_ord42 = {
 bag_wtp_ordr42 = {
 	value = var:bag_wtp_pr42
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax42 = {
-	value = var:bag_wtp_p42
-	if = {
-		limit = { var:bag_wtp_pr42 > var:bag_wtp_p42 }
-		value = var:bag_wtp_pr42
-	}
-}
 
-# slaves_goods. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# slaves_goods: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord43 = {
 	value = var:bag_wtp_p43
@@ -10299,29 +9923,20 @@ bag_wtp_ord43 = {
 bag_wtp_ordr43 = {
 	value = var:bag_wtp_pr43
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax43 = {
-	value = var:bag_wtp_p43
-	if = {
-		limit = { var:bag_wtp_pr43 > var:bag_wtp_p43 }
-		value = var:bag_wtp_pr43
-	}
-}
 
-# steel. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# steel: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord44 = {
 	value = var:bag_wtp_p44
@@ -10330,29 +9945,20 @@ bag_wtp_ord44 = {
 bag_wtp_ordr44 = {
 	value = var:bag_wtp_pr44
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax44 = {
-	value = var:bag_wtp_p44
-	if = {
-		limit = { var:bag_wtp_pr44 > var:bag_wtp_p44 }
-		value = var:bag_wtp_pr44
-	}
-}
 
-# tar. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# tar: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord45 = {
 	value = var:bag_wtp_p45
@@ -10361,29 +9967,20 @@ bag_wtp_ord45 = {
 bag_wtp_ordr45 = {
 	value = var:bag_wtp_pr45
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax45 = {
-	value = var:bag_wtp_p45
-	if = {
-		limit = { var:bag_wtp_pr45 > var:bag_wtp_p45 }
-		value = var:bag_wtp_pr45
-	}
-}
 
-# tools. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# tools: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord46 = {
 	value = var:bag_wtp_p46
@@ -10392,29 +9989,20 @@ bag_wtp_ord46 = {
 bag_wtp_ordr46 = {
 	value = var:bag_wtp_pr46
 }
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax46 = {
-	value = var:bag_wtp_p46
-	if = {
-		limit = { var:bag_wtp_pr46 > var:bag_wtp_p46 }
-		value = var:bag_wtp_pr46
-	}
-}
 
-# weaponry. **Divided by how much of it this province already has**, which is the
-# whole of what keeps a province's locations from coming out identical: every
-# location of a province is worth exactly the same to a good -- the bonus is a
-# `province_definition`'s property -- so undivided, a good takes all of its best
-# province before it looks at its second. And nothing is ever twice as good: the
-# bonus is a ten per cent band (`docs/investigations/plan_formula.md`), so
-# halving is decisive. `_pp<n>` is that count, kept on every location of the
-# province so the ordering can read it without leaving the location's scope.
-# The divisor is written inline rather than as a value of its own: a `divide`
-# with a `value`/`min` block inside is the shape vanilla uses (`byz_values.txt`),
-# and `divide = <a named script value>` bare has no precedent in the game.
+# weaponry: what this ground pays this good here, one side each. **The gain and
+# nothing else** -- the fraction of this recipe's own ceiling the province feeds,
+# out of 1000. `order_by` takes a script value and never a variable, which is the
+# only reason these exist at all; the harvest puts the number on the location and
+# this hands it to the walk.
+#
+# **Nothing divides it any more.** It used to be divided by `_pp<n>`, how many of
+# that good already stood in the province, and that multiplier was the whole of
+# the smear the owner reported on 2026-09-03: the second building of a good in a
+# province scored half and the third a third, so a province that suited a good
+# perfectly took two of it and handed its other fifteen rooms to whatever had not
+# been there yet. Removed with the counter behind it,
+# `docs/investigations/plan_formula.md`.
 # Scope: location
 bag_wtp_ord47 = {
 	value = var:bag_wtp_p47
@@ -10422,17 +10010,6 @@ bag_wtp_ord47 = {
 # Scope: location
 bag_wtp_ordr47 = {
 	value = var:bag_wtp_pr47
-}
-# The undecayed pair, which is what the good is normalized by and what counts
-# its candidates: the divisor is about where the next building goes, never about
-# whether this ground can hold the good at all.
-# Scope: location
-bag_wtp_ordmax47 = {
-	value = var:bag_wtp_p47
-	if = {
-		limit = { var:bag_wtp_pr47 > var:bag_wtp_p47 }
-		value = var:bag_wtp_pr47
-	}
 }
 
 # constantinopolitan_silk_monopoly_rights: cloth, fine_cloth, silk.
@@ -10913,8 +10490,10 @@ bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
 # costing any other good a single room. His arithmetic, 2026-09-03, and it is
 # right: «на всей общей земле от этого не пострадает ни один другой товар».
 #
-# `_pp<n>` is still counted -- it is the honest «how much of this good is in this
-# province» and the report wants it -- it just no longer decides anything.
+# **`_pp<n>` is gone with it.** It was still being written -- once per good per
+# candidate to zero it, and a walk over every location of the province on every
+# placement to raise it -- for a report that never read it. Nothing has read it
+# since the divisor went, so nothing writes it either.
 # Scope: location
 bag_wtp_plan_order = {
 	value = 0

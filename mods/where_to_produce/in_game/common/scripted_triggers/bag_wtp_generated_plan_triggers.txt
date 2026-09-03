@@ -2220,3 +2220,90 @@ bag_wtp_plan_right_fits_13 = {
 		bag_wtp_plan_can_town_45 = yes
 	}
 }
+
+# **Who may grant which charter, and when.** One trigger a right, asked by the
+# grant pass, by the quota that divides the towns between them and by the dump --
+# three places that used to carry three copies of the same condition, one of
+# which (the dump's) was not asked at all and printed charters nobody could have.
+
+# constantinopolitan_silk_monopoly_rights
+# Scope: country
+bag_wtp_plan_right_gate_1 = {
+	OR = { has_or_had_tag = BYZ has_or_had_tag = ROM }
+}
+
+# flemish_cloth_industries_right: flemish_cloth_making
+# Scope: country
+bag_wtp_plan_right_gate_2 = {
+	culture = { has_culture_group = culture_group:netherlandish_group }
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = flemish_cloth_making }
+}
+
+# royal_artisan_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_3 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_book_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_4 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_brewing_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_5 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_jewelry_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_6 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_masonry_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_7 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_naval_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_8 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_textile_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_9 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	NOT = { AND = { culture = { has_culture_group = culture_group:netherlandish_group } OR = { has_global_variable = bag_wtp_plan_by_end has_advance = flemish_cloth_making } } }
+}
+
+# royal_tooling_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_10 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# royal_weaponry_rights: town_rights_enable
+# Scope: country
+bag_wtp_plan_right_gate_11 = {
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+}
+
+# scandinavian_bergslag_privileges: scandinavian_bergslag_privileges_advance
+# Scope: country
+bag_wtp_plan_right_gate_12 = {
+	culture = { has_culture_group = culture_group:scandinavian_group }
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = scandinavian_bergslag_privileges_advance }
+}
+
+# scandinavian_tar_privileges: scandinavian_tar_privileges_advance
+# Scope: country
+bag_wtp_plan_right_gate_13 = {
+	culture = { has_culture_group = culture_group:scandinavian_group }
+	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = scandinavian_tar_privileges_advance }
+}
