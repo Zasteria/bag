@@ -7,6 +7,30 @@ game, and none of them raises an error you would notice.
 Ask for one rather than reading the file: `python3 tools/kb.py <words>`.
 
 
+**A control you have to discover by clicking is a control that is not there.**
+The plan editor's first working build showed the goods as bare icons; clicking
+one added a row elsewhere, and «−1» and «+1» appeared on that row. He opened the
+window and reported there was no way to edit anything — «там только их иконки и
+ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек +1 или
+-1» — which was true of everything he could see. The buttons went into the picker
+rows themselves and the second list was deleted.
+
+**And when a press does nothing, say whether it arrived.** A button that never
+reaches its effect and a rule that refuses look identical on screen. The editor
+keeps `_edit_reached` beside `_edit_done` for exactly that: the label reads
+«кнопка не донесла товар» when the scope never came through, and «правило не
+дало» only when it did. Both of this window's earlier failures were diagnosed as
+the wrong one of those.
+
+**`tools/check_script.py` resolves every name a window says** — a `text` or
+`tooltip` key against the mod's own localization, a `Custom()` against
+`customizable_localization/`, a `GetScriptedGui()` against `scripted_guis/`, a
+datamodel's list against anything in `scripted_effects/` that writes it, and
+english against russian because he plays in Russian. All five are tested by
+breaking them on purpose. It is scoped to the prefix a majority of the mod's own
+keys share, because a mod reuses vanilla keys freely and vanilla's localization
+is not all in `reference/`.
+
 **A window the engine is not told about is never created, and logs nothing at
 all.** A `window = { name = "x" }` in a mod's `.gui` does not exist because the
 file exists: it exists because a line in `in_game/gui/scripted_widgets/*.txt`

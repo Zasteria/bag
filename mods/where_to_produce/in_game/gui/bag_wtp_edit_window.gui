@@ -29,60 +29,49 @@
 
 types BagWtpEditTypes {
 
-	# One good the ground can make, as a clickable icon. Clicking it puts the good
-	# in the list below; clicking it again takes the row away.
+	# One good the ground can make, with its controls in place: «−1», its icon,
+	# «+1», and its name.
 	#
-	# **A goods icon is a texticon and the button carries it as `raw_text`**, the
-	# same way `bag_wtp_plan_goods_entry` does: `Goods.GetIcon` returns a `CString`,
-	# so an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all
+	# **Nothing is hidden behind a first click.** The build before this one had a
+	# picker of bare icons: clicking one added a row elsewhere and the buttons
+	# appeared there. He opened the window and found no way in -- «там только их
+	# иконки и ничего больше, что могло бы дать мне инструмент влияния, никаких
+	# кнопочек +1 или -1» -- and he was right: a control you have to discover is
+	# not a control. So the row is the picker, and there is no second list.
+	#
+	# **A goods icon is a texticon and is drawn as `raw_text`**, the same way
+	# `bag_wtp_plan_goods_entry` does it: `Goods.GetIcon` returns a `CString`, so
+	# an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all
 	# (`docs/pitfalls/interface.md`, and the thirty-second load).
-	type bag_wtp_edit_pool_entry = widget {
-		size = { 34 34 }
-
-		button_regular = {
-			size = { 32 32 }
-			parentanchor = center
-			widgetanchor = center
-			tooltip = "[Goods.GetName]"
-			onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-
-			text_single = {
-				parentanchor = center
-				widgetanchor = center
-				autoresize = yes
-				fontsize = 17
-				raw_text = "[Goods.GetIcon]"
-			}
-		}
-	}
-
-	# One good under adjustment: «−1», the icon, «+1», and the button that takes
-	# the row away again. His layout, and in his order: «Слева и справа от иконки
-	# кнопочки +1 и -1 и кнопочка удалить товар рядом.»
 	#
-	# **The delete button removes the row and not the buildings.** A good taken out
-	# of this list keeps whatever the plan gave it; the row is a handle, not a
-	# state. Anything else would make «удалить товар» destroy work silently.
-	type bag_wtp_edit_pick_entry = hbox {
-		size = { 300 40 }
+	# The nesting is the plan row's rank button exactly -- a `widget` of a fixed
+	# size holding a centred `button_regular` -- because that one is drawn every
+	# frame and pressed every session.
+	type bag_wtp_edit_pool_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 34 }
 		spacing = 4
-		using = bg_number_container_bckg
 
-		button_regular = {
-			size = { 34 32 }
-			tooltip = "bag_wtp_edit_minus_tt"
-			onclick = "[GetScriptedGui('bag_wtp_edit_minus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-			text_single = {
+		widget = {
+			size = { 40 34 }
+			button_regular = {
+				size = { 36 28 }
 				parentanchor = center
 				widgetanchor = center
-				autoresize = yes
-				fontsize = 15
-				text = "bag_wtp_edit_minus"
+				tooltip = "bag_wtp_edit_minus_tt"
+				onclick = "[GetScriptedGui('bag_wtp_edit_minus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 15
+					text = "bag_wtp_edit_minus"
+				}
 			}
 		}
 
 		widget = {
-			size = { 34 34 }
+			size = { 32 34 }
 			alwaystransparent = no
 			tooltip = "[Goods.GetName]"
 			text_single = {
@@ -94,40 +83,32 @@ types BagWtpEditTypes {
 			}
 		}
 
-		button_regular = {
-			size = { 34 32 }
-			tooltip = "bag_wtp_edit_plus_tt"
-			onclick = "[GetScriptedGui('bag_wtp_edit_plus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-			text_single = {
+		widget = {
+			size = { 40 34 }
+			button_regular = {
+				size = { 36 28 }
 				parentanchor = center
 				widgetanchor = center
-				autoresize = yes
-				fontsize = 15
-				text = "bag_wtp_edit_plus"
+				tooltip = "bag_wtp_edit_plus_tt"
+				onclick = "[GetScriptedGui('bag_wtp_edit_plus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 15
+					text = "bag_wtp_edit_plus"
+				}
 			}
 		}
 
 		text_single = {
-			size = { 150 32 }
+			size = { 170 34 }
 			autoresize = no
-			maximumsize = { 150 32 }
+			maximumsize = { 170 34 }
 			align = left|vcenter
 			fontsize = 13
 			elide = right
 			text = "[Goods.GetName]"
-		}
-
-		button_regular = {
-			size = { 32 32 }
-			tooltip = "bag_wtp_edit_forget_tt"
-			onclick = "[GetScriptedGui('bag_wtp_edit_pick').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-			text_single = {
-				parentanchor = center
-				widgetanchor = center
-				autoresize = yes
-				fontsize = 13
-				text = "bag_wtp_edit_forget"
-			}
 		}
 	}
 }
@@ -380,70 +361,31 @@ window = {
 					widget = { layoutpolicy_horizontal = expanding size = { -1 40 } }
 				}
 
-				# The picker: every good this ground can make, and only those. Raw on
-				# one line, made on the next -- 25 icons of 34 and 22 of 34 both fit
-				# 1130 with room over, which is why no wrapping widget is needed.
-				text_single = {
-					size = { 1130 22 }
-					autoresize = no
-					align = left|vcenter
-					fontsize = 13
-					elide = right
-					text = "bag_wtp_edit_pool_head"
-					tooltip = "bag_wtp_edit_pool_tt"
-				}
-
-				text_multi = {
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = { 1130 40 }
-					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool_raw')))]"
-					text = "bag_wtp_edit_pool_empty"
-				}
-
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 2
-					ignoreinvisible = yes
-					datamodel = "[GetGlobalList('bag_wtp_edit_pool_raw')]"
-					item = {
-						bag_wtp_edit_pool_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
-				}
-
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 2
-					ignoreinvisible = yes
-					datamodel = "[GetGlobalList('bag_wtp_edit_pool_made')]"
-					item = {
-						bag_wtp_edit_pool_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
-				}
-
-				# The goods he is adjusting, one row each.
+				# The picker, and the whole of the editing: every good this ground
+				# can make, one row each, «−1» and «+1» in place. A scrolling `vbox`
+				# over a datamodel is the shape this mod has drawn since its first
+				# window, and 47 rows of it need no wrapping widget.
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 8
 
 					text_single = {
-						size = { 300 24 }
+						size = { 420 24 }
 						autoresize = no
 						align = left|vcenter
 						fontsize = 13
 						elide = right
-						text = "bag_wtp_edit_picked_head"
+						text = "bag_wtp_edit_pool_head"
+						tooltip = "bag_wtp_edit_pool_tt"
 					}
 
+					# **What the last press did, and whether it arrived at all.** An
+					# effect that merely does nothing logs nothing, and a button that
+					# never reaches its effect looks exactly like a rule refusing.
 					text_single = {
-						size = { 560 24 }
+						size = { 470 24 }
 						autoresize = no
-						maximumsize = { 560 24 }
+						maximumsize = { 470 24 }
 						align = left|vcenter
 						fontsize = 13
 						elide = right
@@ -453,9 +395,6 @@ window = {
 
 					widget = { layoutpolicy_horizontal = expanding size = { -1 24 } }
 
-					# «Показать изменения», in a window of its own, which is what he
-					# asked for: «кнопка показать список изменений, которое откроет ещё
-					# одно окно уже для своих целей».
 					button_regular = {
 						size = { 210 34 }
 						tooltip = "bag_wtp_edit_changes_tt"
@@ -480,21 +419,27 @@ window = {
 					autoresize = yes
 					maximumsize = { 1130 30 }
 					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_picked')))]"
-					text = "bag_wtp_edit_picked_empty"
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool')))]"
+					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# A row per picked good, stacked. A `vbox` over a datamodel is the one
-				# shape this mod has drawn since the first window.
-				vbox = {
+				scrollbox = {
 					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = preferred
-					spacing = 3
-					ignoreinvisible = yes
-					datamodel = "[GetGlobalList('bag_wtp_edit_picked')]"
-					item = {
-						bag_wtp_edit_pick_entry = {
-							datacontext = "[Scope.GetGoods]"
+					size = { -1 210 }
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 4 }
+							margin_right = 20
+							spacing = 2
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
+							item = {
+								bag_wtp_edit_pool_entry = {
+									datacontext = "[Scope.GetGoods]"
+								}
+							}
 						}
 					}
 				}

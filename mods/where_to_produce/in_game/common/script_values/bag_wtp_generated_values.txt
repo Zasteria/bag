@@ -10899,6 +10899,8 @@ bag_wtp_show_edit_saved = { value = global_var:bag_wtp_save_n }
 # Scope: country
 bag_wtp_show_edit_done = { value = global_var:bag_wtp_edit_done }
 # Scope: country
+bag_wtp_show_edit_reached = { value = global_var:bag_wtp_edit_reached }
+# Scope: country
 bag_wtp_show_edit_slot1 = { value = global_var:bag_wtp_sl1_n }
 # Scope: country
 bag_wtp_show_edit_slot1_locs = { value = global_var:bag_wtp_sl1_locn }

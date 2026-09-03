@@ -10144,7 +10144,1624 @@ bag_wtp_plan_rows = {
 		clear_variable_list = bag_wtp_row_goods
 		clear_variable_list = bag_wtp_row_builds
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 1 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 40
+						var:bag_wtp_pm29 = 41
+						var:bag_wtp_pm29 = 42
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 43
+						var:bag_wtp_pm29 = 44
+						var:bag_wtp_pm29 = 45
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 46
+						var:bag_wtp_pm29 = 47
+						var:bag_wtp_pm29 = 48
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 52
+						var:bag_wtp_pm29 = 53
+						var:bag_wtp_pm29 = 54
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:textile_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm29 = 49
+						var:bag_wtp_prm29 = 50
+						var:bag_wtp_prm29 = 51
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:rural_clothmaker }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 65
+						var:bag_wtp_pm30 = 66
+						var:bag_wtp_pm30 = 67
+						var:bag_wtp_pm30 = 68
+						var:bag_wtp_pm30 = 69
+						var:bag_wtp_pm30 = 70
+						var:bag_wtp_pm30 = 71
+						var:bag_wtp_pm30 = 72
+						var:bag_wtp_pm30 = 73
+						var:bag_wtp_pm30 = 74
+						var:bag_wtp_pm30 = 75
+						var:bag_wtp_pm30 = 76
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 77
+						var:bag_wtp_pm30 = 78
+						var:bag_wtp_pm30 = 79
+						var:bag_wtp_pm30 = 80
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 81
+						var:bag_wtp_pm30 = 82
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 83
+						var:bag_wtp_pm30 = 84
+						var:bag_wtp_pm30 = 85
+						var:bag_wtp_pm30 = 86
+						var:bag_wtp_pm30 = 87
+						var:bag_wtp_pm30 = 88
+						var:bag_wtp_pm30 = 89
+						var:bag_wtp_pm30 = 90
+						var:bag_wtp_pm30 = 91
+						var:bag_wtp_pm30 = 92
+						var:bag_wtp_pm30 = 93
+						var:bag_wtp_pm30 = 94
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_workshop }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:silk } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:silk }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm18 = 205
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:ablaq_palace }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm18 = 206
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:lucca_silk_production_guild }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 2 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 40
+						var:bag_wtp_pm29 = 41
+						var:bag_wtp_pm29 = 42
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 43
+						var:bag_wtp_pm29 = 44
+						var:bag_wtp_pm29 = 45
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 46
+						var:bag_wtp_pm29 = 47
+						var:bag_wtp_pm29 = 48
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 52
+						var:bag_wtp_pm29 = 53
+						var:bag_wtp_pm29 = 54
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:textile_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm29 = 49
+						var:bag_wtp_prm29 = 50
+						var:bag_wtp_prm29 = 51
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:rural_clothmaker }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 65
+						var:bag_wtp_pm30 = 66
+						var:bag_wtp_pm30 = 67
+						var:bag_wtp_pm30 = 68
+						var:bag_wtp_pm30 = 69
+						var:bag_wtp_pm30 = 70
+						var:bag_wtp_pm30 = 71
+						var:bag_wtp_pm30 = 72
+						var:bag_wtp_pm30 = 73
+						var:bag_wtp_pm30 = 74
+						var:bag_wtp_pm30 = 75
+						var:bag_wtp_pm30 = 76
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 77
+						var:bag_wtp_pm30 = 78
+						var:bag_wtp_pm30 = 79
+						var:bag_wtp_pm30 = 80
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 81
+						var:bag_wtp_pm30 = 82
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 83
+						var:bag_wtp_pm30 = 84
+						var:bag_wtp_pm30 = 85
+						var:bag_wtp_pm30 = 86
+						var:bag_wtp_pm30 = 87
+						var:bag_wtp_pm30 = 88
+						var:bag_wtp_pm30 = 89
+						var:bag_wtp_pm30 = 90
+						var:bag_wtp_pm30 = 91
+						var:bag_wtp_pm30 = 92
+						var:bag_wtp_pm30 = 93
+						var:bag_wtp_pm30 = 94
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_workshop }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 3 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:furniture } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:furniture }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm32 = 111
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:furniture_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm32 = 112
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:furniture_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm32 = 113
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:furniture_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm32 = 114
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:furniture_workshop }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:leather } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:leather }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm36 = 143
+						var:bag_wtp_pm36 = 144
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tannery }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm36 = 145
+						var:bag_wtp_pm36 = 146
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tannery_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm36 = 147
+						var:bag_wtp_pm36 = 148
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tannery_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm36 = 149
+						var:bag_wtp_pm36 = 150
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tanning_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm36 = 142
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:forest_village }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:pottery } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:pottery }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm42 = 195
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pottery_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm42 = 196
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pottery_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm42 = 197
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pottery_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm42 = 198
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pottery_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm42 = 193
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fishing_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm42 = 194
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 4 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:books } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:books }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm27 = 18
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:printing_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm27 = 19
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:printing_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm27 = 20
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:printing_press_shop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm27 = 21
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:scriptorium }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:dyes } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:dyes }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 58
+						var:bag_wtp_pm4 = 59
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 60
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 61
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 62
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyesworks }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:paper } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:paper }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm40 = 183
+						var:bag_wtp_pm40 = 184
+						var:bag_wtp_pm40 = 185
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:paper_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm40 = 186
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:paper_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm40 = 187
+						var:bag_wtp_pm40 = 188
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:paper_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm40 = 189
+						var:bag_wtp_pm40 = 190
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:paper_workshop }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 5 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:beer } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:beer }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm26 = 1
+						var:bag_wtp_pm26 = 2
+						var:bag_wtp_pm26 = 3
+						var:bag_wtp_pm26 = 4
+						var:bag_wtp_pm26 = 5
+						var:bag_wtp_pm26 = 6
+						var:bag_wtp_pm26 = 7
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:beer_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm26 = 8
+						var:bag_wtp_pm26 = 9
+						var:bag_wtp_pm26 = 10
+						var:bag_wtp_pm26 = 11
+						var:bag_wtp_pm26 = 12
+						var:bag_wtp_pm26 = 13
+						var:bag_wtp_pm26 = 14
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:brewery }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm26 = 15
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:brewery_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm26 = 16
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:brewery_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm26 = 17
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:liquor } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:liquor }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm37 = 151
+						var:bag_wtp_pm37 = 152
+						var:bag_wtp_pm37 = 153
+						var:bag_wtp_pm37 = 154
+						var:bag_wtp_pm37 = 155
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:distiller_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm37 = 156
+						var:bag_wtp_pm37 = 157
+						var:bag_wtp_pm37 = 158
+						var:bag_wtp_pm37 = 159
+						var:bag_wtp_pm37 = 160
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:distiller_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm37 = 161
+						var:bag_wtp_pm37 = 162
+						var:bag_wtp_pm37 = 163
+						var:bag_wtp_pm37 = 164
+						var:bag_wtp_pm37 = 165
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:distillers_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm37 = 166
+						var:bag_wtp_pm37 = 167
+						var:bag_wtp_pm37 = 168
+						var:bag_wtp_pm37 = 169
+						var:bag_wtp_pm37 = 170
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:distillers_workshop }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:wine } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:wine }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm24 = 235
+						var:bag_wtp_pm24 = 236
+						var:bag_wtp_pm24 = 237
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:winery }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm24 = 238
+						var:bag_wtp_pm24 = 239
+						var:bag_wtp_pm24 = 240
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:winery_manufactory }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 6 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:jewelry } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:jewelry }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm34 = 126
+						var:bag_wtp_pm34 = 127
+						var:bag_wtp_pm34 = 128
+						var:bag_wtp_pm34 = 129
+						var:bag_wtp_pm34 = 130
+						var:bag_wtp_pm34 = 131
+						var:bag_wtp_pm34 = 132
+						var:bag_wtp_pm34 = 133
+						var:bag_wtp_pm34 = 134
+						var:bag_wtp_pm34 = 135
+						var:bag_wtp_pm34 = 136
+						var:bag_wtp_pm34 = 137
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:jewelry_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm34 = 139
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pounamou_carver }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm34 = 138
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm34 = 139
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:pounamou_carver }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 7 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:glass } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:glass }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm33 = 115
+						var:bag_wtp_pm33 = 116
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:glass_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm33 = 117
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:glass_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm33 = 118
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:glass_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm33 = 119
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:glassworks }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm33 = 120
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:rural_glassmaker }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:masonry } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:masonry }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm38 = 173
+						var:bag_wtp_pm38 = 174
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:mason }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm38 = 175
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:shoen }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm38 = 173
+						var:bag_wtp_prm38 = 174
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:mason }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm38 = 175
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:shoen }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 8 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 179
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 180
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 181
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 182
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm39 = 178
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fishing_village }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tar } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:tar }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm45 = 213
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tar_kiln }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm45 = 213
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tar_kiln }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 9 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 40
+						var:bag_wtp_pm29 = 41
+						var:bag_wtp_pm29 = 42
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 43
+						var:bag_wtp_pm29 = 44
+						var:bag_wtp_pm29 = 45
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 46
+						var:bag_wtp_pm29 = 47
+						var:bag_wtp_pm29 = 48
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cloth_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm29 = 52
+						var:bag_wtp_pm29 = 53
+						var:bag_wtp_pm29 = 54
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:textile_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm29 = 49
+						var:bag_wtp_prm29 = 50
+						var:bag_wtp_prm29 = 51
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:rural_clothmaker }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:dyes } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:dyes }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 58
+						var:bag_wtp_pm4 = 59
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 60
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 61
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyes_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm4 = 62
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:dyesworks }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 65
+						var:bag_wtp_pm30 = 66
+						var:bag_wtp_pm30 = 67
+						var:bag_wtp_pm30 = 68
+						var:bag_wtp_pm30 = 69
+						var:bag_wtp_pm30 = 70
+						var:bag_wtp_pm30 = 71
+						var:bag_wtp_pm30 = 72
+						var:bag_wtp_pm30 = 73
+						var:bag_wtp_pm30 = 74
+						var:bag_wtp_pm30 = 75
+						var:bag_wtp_pm30 = 76
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 77
+						var:bag_wtp_pm30 = 78
+						var:bag_wtp_pm30 = 79
+						var:bag_wtp_pm30 = 80
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 81
+						var:bag_wtp_pm30 = 82
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm30 = 83
+						var:bag_wtp_pm30 = 84
+						var:bag_wtp_pm30 = 85
+						var:bag_wtp_pm30 = 86
+						var:bag_wtp_pm30 = 87
+						var:bag_wtp_pm30 = 88
+						var:bag_wtp_pm30 = 89
+						var:bag_wtp_pm30 = 90
+						var:bag_wtp_pm30 = 91
+						var:bag_wtp_pm30 = 92
+						var:bag_wtp_pm30 = 93
+						var:bag_wtp_pm30 = 94
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fine_cloth_workshop }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 10 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tools } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:tools }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 216
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:iron_foundry }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 217
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:iron_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 219
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 220
+						var:bag_wtp_pm46 = 221
+						var:bag_wtp_pm46 = 222
+						var:bag_wtp_pm46 = 223
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tools_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 224
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tools_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 215
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:forest_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 218
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 219
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 11 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cannons } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:cannons }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm28 = 22
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cannon_foundry }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm28 = 23
+						var:bag_wtp_pm28 = 24
+						var:bag_wtp_pm28 = 25
+						var:bag_wtp_pm28 = 26
+						var:bag_wtp_pm28 = 27
+						var:bag_wtp_pm28 = 28
+						var:bag_wtp_pm28 = 29
+						var:bag_wtp_pm28 = 30
+						var:bag_wtp_pm28 = 31
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cannon_maker }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm28 = 32
+						var:bag_wtp_pm28 = 33
+						var:bag_wtp_pm28 = 34
+						var:bag_wtp_pm28 = 35
+						var:bag_wtp_pm28 = 36
+						var:bag_wtp_pm28 = 37
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cannon_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm28 = 38
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:cannons_factory }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:firearms } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:firearms }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm31 = 95
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:firearms_factory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm31 = 96
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:firearms_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm31 = 97
+						var:bag_wtp_pm31 = 98
+						var:bag_wtp_pm31 = 99
+						var:bag_wtp_pm31 = 100
+						var:bag_wtp_pm31 = 101
+						var:bag_wtp_pm31 = 102
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:gun_smith }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm31 = 103
+						var:bag_wtp_pm31 = 104
+						var:bag_wtp_pm31 = 105
+						var:bag_wtp_pm31 = 106
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:guns_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm31 = 107
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:hand_cannon_guild }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:weaponry } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:weaponry }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm47 = 227
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm47 = 228
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:weapon_factory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm47 = 229
+						var:bag_wtp_pm47 = 230
+						var:bag_wtp_pm47 = 231
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:weapon_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm47 = 232
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:weapon_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm47 = 233
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:weapon_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm47 = 225
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:forest_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm47 = 226
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm47 = 227
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 12 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tools } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:tools }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 216
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:iron_foundry }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 217
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:iron_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 219
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 220
+						var:bag_wtp_pm46 = 221
+						var:bag_wtp_pm46 = 222
+						var:bag_wtp_pm46 = 223
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tools_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm46 = 224
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tools_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 215
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:forest_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 218
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:market_village }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm46 = 219
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tatara }
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = bag_wtp_plan_right var:bag_wtp_plan_right = 13 }
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 179
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_guild }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 180
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_manufactory }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 181
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_mill }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm39 = 182
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:naval_supplies_workshop }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm39 = 178
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:fishing_village }
+				}
+			}
+			if = {
+				limit = {
+					is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+					NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tar } }
+				}
+				add_to_variable_list = { name = bag_wtp_row_goods target = goods:tar }
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = yes
+						OR = {
+						var:bag_wtp_pm45 = 213
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tar_kiln }
+				}
+				if = {
+					limit = {
+						bag_wtp_plan_is_town = no
+						OR = {
+						var:bag_wtp_prm45 = 213
+						}
+					}
+					add_to_variable_list = { name = bag_wtp_row_builds target = building_type:tar_kiln }
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:clay } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:clay }
 			if = {
 				limit = {
@@ -10166,7 +11783,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:coal } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:coal }
 			if = {
 				limit = {
@@ -10197,7 +11817,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cotton } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:cotton }
 			if = {
 				limit = {
@@ -10219,7 +11842,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:dyes } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:dyes }
 			if = {
 				limit = {
@@ -10260,7 +11886,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fiber_crops } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:fiber_crops }
 			if = {
 				limit = {
@@ -10300,7 +11929,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fish } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:fish }
 			if = {
 				limit = {
@@ -10314,7 +11946,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fruit } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:fruit }
 			if = {
 				limit = {
@@ -10336,7 +11971,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:horses } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:horses }
 			if = {
 				limit = {
@@ -10358,7 +11996,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:incense } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:incense }
 			if = {
 				limit = {
@@ -10371,7 +12012,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:iron } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:iron }
 			if = {
 				limit = {
@@ -10411,7 +12055,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:ivory } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:ivory }
 			if = {
 				limit = {
@@ -10424,7 +12071,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:livestock } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:livestock }
 			if = {
 				limit = {
@@ -10437,7 +12087,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:lumber } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:lumber }
 			if = {
 				limit = {
@@ -10459,7 +12112,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:medicaments } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:medicaments }
 			if = {
 				limit = {
@@ -10473,7 +12129,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:salt } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:salt }
 			if = {
 				limit = {
@@ -10495,7 +12154,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:saltpeter } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:saltpeter }
 			if = {
 				limit = {
@@ -10535,7 +12197,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:sand } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:sand }
 			if = {
 				limit = {
@@ -10557,7 +12222,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:silk } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:silk }
 			if = {
 				limit = {
@@ -10579,7 +12247,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:silver } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:silver }
 			if = {
 				limit = {
@@ -10601,7 +12272,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:stone } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:stone }
 			if = {
 				limit = {
@@ -10625,7 +12299,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:sugar } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:sugar }
 			if = {
 				limit = {
@@ -10647,7 +12324,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tobacco } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:tobacco }
 			if = {
 				limit = {
@@ -10669,7 +12349,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:wild_game } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:wild_game }
 			if = {
 				limit = {
@@ -10682,7 +12365,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:wine } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:wine }
 			if = {
 				limit = {
@@ -10708,7 +12394,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:wool } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:wool }
 			if = {
 				limit = {
@@ -10721,7 +12410,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:beer } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:beer }
 			if = {
 				limit = {
@@ -10782,7 +12474,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:books } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:books }
 			if = {
 				limit = {
@@ -10822,7 +12517,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cannons } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:cannons }
 			if = {
 				limit = {
@@ -10875,7 +12573,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:cloth } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:cloth }
 			if = {
 				limit = {
@@ -10934,7 +12635,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:fine_cloth }
 			if = {
 				limit = {
@@ -11000,7 +12704,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:firearms } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:firearms }
 			if = {
 				limit = {
@@ -11057,7 +12764,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:furniture } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:furniture }
 			if = {
 				limit = {
@@ -11097,7 +12807,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:glass } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:glass }
 			if = {
 				limit = {
@@ -11147,7 +12860,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:jewelry } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:jewelry }
 			if = {
 				limit = {
@@ -11198,7 +12914,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:lacquerware } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:lacquerware }
 			if = {
 				limit = {
@@ -11220,7 +12939,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:leather } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:leather }
 			if = {
 				limit = {
@@ -11273,7 +12995,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:liquor } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:liquor }
 			if = {
 				limit = {
@@ -11329,7 +13054,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:masonry } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:masonry }
 			if = {
 				limit = {
@@ -11371,7 +13099,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:naval_supplies }
 			if = {
 				limit = {
@@ -11420,7 +13151,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:paper } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:paper }
 			if = {
 				limit = {
@@ -11464,7 +13198,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:porcelain } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:porcelain }
 			if = {
 				limit = {
@@ -11486,7 +13223,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:pottery } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:pottery }
 			if = {
 				limit = {
@@ -11544,7 +13284,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:slaves_goods } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:slaves_goods }
 			if = {
 				limit = {
@@ -11566,7 +13309,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:steel } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:steel }
 			if = {
 				limit = {
@@ -11579,7 +13325,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tar } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:tar }
 			if = {
 				limit = {
@@ -11601,7 +13350,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:tools } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:tools }
 			if = {
 				limit = {
@@ -11680,7 +13432,10 @@ bag_wtp_plan_rows = {
 			}
 		}
 		if = {
-			limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
+			limit = {
+				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
+				NOT = { is_target_in_variable_list = { name = bag_wtp_row_goods target = goods:weaponry } }
+			}
 			add_to_variable_list = { name = bag_wtp_row_goods target = goods:weaponry }
 			if = {
 				limit = {

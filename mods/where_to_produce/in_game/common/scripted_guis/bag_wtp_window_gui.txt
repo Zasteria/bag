@@ -269,21 +269,10 @@ bag_wtp_close_edit_window = {
 	}
 }
 
-# One good in or out of the editor's own row list. The good arrives as a scope
-# from the icon that was clicked -- `Goods.MakeScope` -- and `scope:x = goods:y`
-# is how script asks which one it is.
-bag_wtp_edit_pick = {
-	scope = country
-	saved_scopes = { bag_wtp_good }
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		bag_wtp_edit_pick_toggle = yes
-	}
-}
+# **There was a third bridge here and it is gone with the list it fed.** A good's
+# icon used to be a button that put the good into a second list, where «−1» and
+# «+1» then appeared; he opened the window and found no controls at all. The row
+# in the picker carries them now, so nothing has to be clicked to reveal them.
 
 # «+1»: one more building of this good, in the location where it costs least.
 # **Nothing else on the map moves**, which is the whole of what he asked for:

@@ -16,17 +16,16 @@ outlives a save** (`docs/SETTLED.md`).
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the bar
 is `generate.fed_floor` — but **the plan must never use it as a gate**. **The bonus
-counts RGOs only** (`docs/research/engine.md`), and **a building runs one method
-per slot**: [`production_ladder.md`](../../docs/investigations/production_ladder.md).
+counts RGOs only**, and **a building runs one method per slot**:
+[`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own; in the
 plan every town gets one and its whole bundle goes up — **108 rooms of 192 on a
 small ground, which is where most of its shape comes from**. **The charter ladder
 raises its ceiling one town at a time and runs every band at each height**; a
 ceiling alone spreads nothing. That lands **84% of the best placement with those
-counts, and charter-first and finer bands both measure worse**. **A right's gate
-is its own `potential`, never `has_advance`**, and **the exclusion between two
-rights is a town's rule, not a country's**.
+counts**. **A right's gate is its own `potential`, never `has_advance`**, and
+**the exclusion between two rights is a town's rule, not a country's**.
 [`town_rights.md`](../../docs/investigations/town_rights.md).
 
 **The plan is an optimisation with a covering constraint** — maximise the bonus
@@ -45,25 +44,27 @@ at 8 and iron at 1, and he did that arithmetic himself.
 
 **An entry is a building and a location holds one of each**, and every condition is
 a location variable — **a `province_definition` holds none**
-([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
+([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)). **A row draws
+`_row_goods`, not `_plan_goods`**: the charter's own goods first, then the rest by
+number, so the order is the same however the plan got there.
 
 **A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` changes
 a finished plan in place: one building a press, into the location where it costs
 least, and nothing else moves. **A good's last building and a charter bundle's
-buildings are never the victim.** A weight fed into a re-plan was built first and
-moved 42 locations of 48 — that is the thing not to build again.
+buildings are never the victim.** A weight fed into a re-plan moved 42 locations
+of 48 — that is the thing not to build again.
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
-three save slots, the ground's goods as icons, «−1» / «+1» beside each one picked;
+three save slots, then every good the ground can make with «−1» and «+1» in place;
 `bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
-`in_game/gui/scripted_widgets/` names it** — two builds of the editor drew nothing
-because of that one missing line, with no error anywhere;
-`check_script.py` refuses it now.
+`in_game/gui/scripted_widgets/` names it**, and **a control behind a first click
+is a control he will not find** — both cost a build.
+`check_script.py` now resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
-of our own, gating charters on their advance, spreading charters inside a province,
+of our own, gating charters on their advance, spreading them inside a province,
 answering a preference with a re-plan, the editor on the settings page, granting
-charters charter-first, and finer bands.
+charters charter-first, finer bands.
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md).
 
 **The answer lives on the location**, and **four things are settled and not to be

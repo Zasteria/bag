@@ -157,18 +157,29 @@ def find_game(given: str | None) -> Path:
     raise SystemExit(2)
 
 
-def copy_tree(source: Path, target: Path) -> tuple[int, int]:
-    """Copy source over target, keeping layout. Returns (files, bytes)."""
-    files = size = 0
+def copy_tree(source: Path, target: Path) -> tuple[int, int, int]:
+    """Copy source over target, keeping layout. Returns (files, bytes, changed).
+
+    **`changed` is the number that matters and it was not reported.** On
+    2026-09-03 the extraction said «1098 files, 13.2 MB» and GitHub Desktop then
+    said there was nothing to commit, which read like the commit failing. It had
+    not: every one of those files was already in the repository, byte for byte.
+    A copy is not a change, and a tool that counts copies cannot tell the two
+    apart for him.
+    """
+    files = size = changed = 0
     for path in sorted(source.rglob("*")):
         if not path.is_file():
             continue
         destination = target / path.relative_to(source)
+        before = destination.read_bytes() if destination.is_file() else None
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, destination)
         files += 1
         size += path.stat().st_size
-    return files, size
+        if before != path.read_bytes():
+            changed += 1
+    return files, size, changed
 
 
 def elsewhere(game: Path, relative: str) -> Path | None:
@@ -234,7 +245,7 @@ def main(argv: list[str]) -> int:
     print("out:    %s" % out)
     print()
 
-    total_files = total_size = 0
+    total_files = total_size = total_changed = 0
     missing: list[str] = []
     copied: set[Path] = set()
     for relative, reason in manifest().items():
@@ -247,11 +258,14 @@ def main(argv: list[str]) -> int:
                 continue
             source = moved
             found_at = str(moved.relative_to(game)).replace(os.sep, "/")
-        files, size = copy_tree(source, out / found_at)
+        files, size, changed = copy_tree(source, out / found_at)
         copied.update(p for p in source.rglob("*") if p.is_file())
         total_files += files
         total_size += size
+        total_changed += changed
         note = "" if found_at == relative else "   <- found at %s" % found_at
+        if changed:
+            note = ("   %d new or changed" % changed) + note
         print("  %-46s %4d file%s %9s%s"
               % (relative, files, " " if files == 1 else "s", human(size), note))
 
@@ -272,11 +286,16 @@ def main(argv: list[str]) -> int:
               "content sweep above catches the ones that matter. A folder that "
               "matters and is missing from both is worth saying so.")
 
-    print("\n%d files, %s." % (total_files, human(total_size)))
+    print("\n%d files, %s — %d of them new or changed."
+          % (total_files, human(total_size), total_changed))
     # **No git here.** He commits through GitHub Desktop and asked that nothing
     # in this repository's tooling write the working tree behind him.
-    print("\nIn reference/game/ now. Commit it in GitHub Desktop — until it is "
-          "committed and pushed, a session cannot see any of it.")
+    if total_changed:
+        print("\nIn %s now. Commit it in GitHub Desktop — until it is committed "
+              "and pushed, a session cannot see any of it." % out.name)
+    else:
+        print("\nNothing differs from what the repository already has, so there "
+              "is nothing to commit. That is the answer, not a failure.")
     return 0
 
 

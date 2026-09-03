@@ -110,13 +110,20 @@ bag_wtp_edit_slot3_label = {
 # nothing logs nothing at all**, and both of them have rules that refuse: a good
 # fitting nowhere on this ground, a good down to its last building, a building
 # belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
-# to 1 by the walk, so the two branches are «сделано» and «правило не дало».
+# to 1 by the walk. **Three branches and not two**: «сделано», «кнопка не донесла
+# товар» when the scope never arrived at all, and «правило не дало» otherwise.
+# The middle one is there because the first two builds of this window were both
+# diagnosed as the wrong one of those.
 # Scope: country
 bag_wtp_edit_last_label = {
 	type = country
 	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 }
 		localization_key = bag_wtp_edit_last_done
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_reached = 0 }
+		localization_key = bag_wtp_edit_last_lost
 	}
 	text = {
 		fallback = yes

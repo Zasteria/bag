@@ -1527,6 +1527,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_show_edit_done = {{ value = global_var:{MOD_ID}_edit_done }}
 # Scope: country
+{MOD_ID}_show_edit_reached = {{ value = global_var:{MOD_ID}_edit_reached }}
+# Scope: country
 {MOD_ID}_show_edit_slot1 = {{ value = global_var:{MOD_ID}_sl1_n }}
 # Scope: country
 {MOD_ID}_show_edit_slot1_locs = {{ value = global_var:{MOD_ID}_sl1_locn }}
@@ -2136,13 +2138,20 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # nothing logs nothing at all**, and both of them have rules that refuse: a good
 # fitting nowhere on this ground, a good down to its last building, a building
 # belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
-# to 1 by the walk, so the two branches are «сделано» and «правило не дало».
+# to 1 by the walk. **Three branches and not two**: «сделано», «кнопка не донесла
+# товар» when the scope never arrived at all, and «правило не дало» otherwise.
+# The middle one is there because the first two builds of this window were both
+# diagnosed as the wrong one of those.
 # Scope: country
 {MOD_ID}_edit_last_label = {{
 \ttype = country
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_done
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_reached = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_lost
 \t}}
 \ttext = {{
 \t\tfallback = yes
@@ -2555,35 +2564,63 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # **The building is re-derived from `_pm<n>` rather than copied.** That is the
     # same read the placement makes, and the scoring pass is the only thing that
     # writes it — no edit touches it — so the answer is the one that was placed.
-    rows = []
-    for index, good in enumerate(order, start=1):
+    def row_entry(index: int, good: str, tab: str) -> str:
+        """One good's cell: the good, then the building the method chose.
+
+        **The side is asked, and it has to be.** The scoring pass writes both
+        `_pm<n>` and `_prm<n>` on every candidate -- a location is scored as a
+        town and as a village whatever it is now -- so a good whose town and
+        village buildings run the same method number would be added twice
+        without this. `_plan_try_*` asks the same question through
+        `_plan_can_*`; here it is asked directly, because the room is not.
+        """
         branches = ""
-        # **The side is asked, and it has to be.** The scoring pass writes both
-        # `_pm<n>` and `_prm<n>` on every candidate — a location is scored as a
-        # town and as a village whatever it is now — so a good whose town and
-        # village buildings run the same method number would be added twice
-        # without this. `_plan_try_*` asks the same question through
-        # `_plan_can_*`; here it is asked directly, because the room is not.
         for side, method_var, rank in (("t", "pm", "yes"), ("r", "prm", "no")):
             for building, mis in sorted(groups.get((good, side), {}).items()):
                 tests = "".join(
-                    "\t\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                    "%s\t\t\tvar:%s_%s%d = %d\n" % (tab, MOD_ID, method_var, index, mi)
                     for mi in sorted(mis))
-                branches += (f"\t\t\tif = {{\n\t\t\t\tlimit = {{\n"
-                             f"\t\t\t\t\t{MOD_ID}_plan_is_town = {rank}\n"
-                             f"\t\t\t\t\tOR = {{\n{tests}\t\t\t\t\t}}\n"
-                             f"\t\t\t\t}}\n"
-                             f"\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_builds "
-                             f"target = building_type:{building} }}\n\t\t\t}}\n")
+                branches += (f"{tab}\tif = {{\n{tab}\t\tlimit = {{\n"
+                             f"{tab}\t\t\t{MOD_ID}_plan_is_town = {rank}\n"
+                             f"{tab}\t\t\tOR = {{\n{tests}{tab}\t\t\t}}\n"
+                             f"{tab}\t\t}}\n"
+                             f"{tab}\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_builds "
+                             f"target = building_type:{building} }}\n{tab}\t}}\n")
         if not branches:
+            return ""
+        return (f"{tab}if = {{\n"
+                f"{tab}\tlimit = {{\n"
+                f"{tab}\t\tis_target_in_variable_list = "
+                f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }}\n"
+                f"{tab}\t\tNOT = {{ is_target_in_variable_list = "
+                f"{{ name = {MOD_ID}_row_goods target = goods:{good} }} }}\n"
+                f"{tab}\t}}\n"
+                f"{tab}\tadd_to_variable_list = {{ name = {MOD_ID}_row_goods "
+                f"target = goods:{good} }}\n"
+                f"{branches}{tab}}}\n")
+
+    # **The charter's own goods go first, and that is the whole of the order he
+    # asked for.** 2026-09-03, after the rows were made reproducible: «я привык
+    # видеть например городские права на локации стекло и кладка -- дальше домики
+    # в списке у локации обязательно сначала шли стекольный дом, каменный дом, а
+    # потом товар x, товар y… Короче, красота опять попортилась, но уже в другом
+    # месте.» The bundle is why the town has the charter, so it reads first; the
+    # rest follow in the goods' own numbering, which is what makes the order the
+    # same however the plan got there.
+    #
+    # **The second pass skips what the first already took**, through the `NOT` on
+    # `_row_goods` -- a bundle good would otherwise be listed twice.
+    bundles = ""
+    for k, right in enumerate(output_rights(rows, game), start=1):
+        inside = "".join(
+            row_entry(order.index(good) + 1, good, "\t\t\t")
+            for good in sorted(right.output) if good in order)
+        if not inside:
             continue
-        rows.append(
-            f"\t\tif = {{\n"
-            f"\t\t\tlimit = {{ is_target_in_variable_list = "
-            f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}\n"
-            f"\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_goods "
-            f"target = goods:{good} }}\n"
-            f"{branches}\t\t}}\n")
+        bundles += (f"\t\tif = {{\n\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_right "
+                    f"var:{MOD_ID}_plan_right = {k} }}\n{inside}\t\t}}\n")
+    rest = "".join(row_entry(index, good, "\t\t")
+                   for index, good in enumerate(order, start=1))
     out.append(f"""
 # What a row draws, in an order that is the same however the plan got there.
 # Scope: country
@@ -2592,7 +2629,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_row_goods
 \t\tclear_variable_list = {MOD_ID}_row_builds
-{"".join(rows)}\t}}
+{bundles}{rest}\t}}
 }}
 
 """)
@@ -3382,7 +3419,18 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_set_good = {{
 \tset_variable = {{ name = {MOD_ID}_edit_good value = 0 }}
-{picks}}}
+{picks}\t# **Whether the press arrived at all, kept apart from whether it did
+\t# anything.** A button that never reaches its effect and a rule that refuses
+\t# look identical on screen, and telling them apart used to cost a log and a
+\t# round trip. `_edit_reached` is 0 when the good never came through the scope,
+\t# so `{MOD_ID}_edit_last_label` can say «кнопка не донесла товар» instead of
+\t# blaming a rule.
+\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 0 }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
+\t}}
+}}
 """
 
 )
@@ -3833,53 +3881,38 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---- the editor window's own two lists ----------------------------------
     #
-    # **The picker offers what this ground can make and nothing else.** 47 icons
-    # of which half are impossible here is a worse picker than 20 that are all
-    # real, and `_ng<n>` -- how many candidates can make the good, counted by the
-    # plan's own scan -- is the number that says which.
+    # **The picker offers what this ground can make and nothing else, and every
+    # row of it carries its own «−1» and «+1».** 47 icons of which half are
+    # impossible here is a worse picker than 20 that are all real, and `_ng<n>` --
+    # how many candidates can make the good, counted by the plan's own scan -- is
+    # the number that says which.
     #
-    # **Two lists and not one, because the window has no wrapping row.** A
-    # `flowcontainer` would wrap, and vanilla uses one, but nothing in this mod
-    # has ever drawn one and a `.gui` that fails takes its whole window with it.
-    # An `hbox` over a datamodel is what `bag_wtp_plan_entry` already draws every
-    # frame, so the picker is two of those -- raw goods on one line, made goods on
-    # the next -- and 25 icons of 34 fit a 1130-wide window with room over.
-    pools = "".join(
+    # **There is no second list of «goods being worked on» any more.** There was,
+    # and clicking a good's icon put it there with the buttons beside it; he
+    # opened the window and found no way in, 2026-09-03: «там только их иконки и
+    # ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек
+    # +1 или -1». Controls you have to discover by clicking are controls that are
+    # not there. Now every good the ground can make has its buttons in place, one
+    # row each, and nothing is hidden behind a first click.
+    #
+    # **`has_global_variable` before the comparison.** `_ng<n>` is written by the
+    # scoring pass and by nothing else, so before the first plan of a save it does
+    # not exist -- and a `limit` reading a global that is not there is the failure
+    # this repository names first. Here the wrong answer and the right one happen
+    # to agree (no plan, nothing to edit), which is how such a thing survives.
+    pool = "".join(
         f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
         f"global_var:{MOD_ID}_ng{i} > 0 }} "
-        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool_{kind} "
+        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool "
         f"target = goods:{good} }} }}\n"
-        for kind in ("raw", "made")
-        for i, good in enumerate(order, start=1) if good in split[kind])
+        for i, good in enumerate(order, start=1))
     out.append(f"""
 # The goods the editor offers, rebuilt whenever its window opens.
-#
-# **`has_global_variable` before the comparison.** `_ng<n>` is written by the
-# scoring pass and by nothing else, so before the first plan of a save it does
-# not exist -- and a `limit` reading a global that is not there is the failure
-# this repository names first. Here the wrong answer and the right one happen to
-# agree (no plan, nothing to edit), which is exactly how such a thing survives a
-# review.
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
-\tclear_global_variable_list = {MOD_ID}_edit_pool_raw
-\tclear_global_variable_list = {MOD_ID}_edit_pool_made
-{pools}}}
+\tclear_global_variable_list = {MOD_ID}_edit_pool
+{pool}}}
 
-# A good in or out of the editor's own row list -- the icons with «+1» and «−1»
-# beside them. **It is a list and not one choice** because he asked for one:
-# «этот товар добавляет иконой тоже где-то в этом окне… и кнопочка удалить товар
-# рядом», which only means anything if more than one can be there at once.
-# Scope: country
-{MOD_ID}_edit_pick_toggle = {{
-\tif = {{
-\t\tlimit = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }} }}
-\t\tremove_list_global_variable = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }}
-\t}}
-\telse = {{
-\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_picked target = scope:{MOD_ID}_good }}
-\t}}
-}}
 """)
 
     # ---- what the editing changed ------------------------------------------
@@ -3969,8 +4002,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # the slots without losing the one plan it had.
 # Scope: country
 {MOD_ID}_edit_init_slots = {{
-{inits}\t# `_edit_done` is read by `{MOD_ID}_edit_last_label` every frame the editor
-\t# is open, and the two lists are read by its datamodels. A list is created by
+{inits}\t# `_edit_done` and `_edit_good` are read by `{MOD_ID}_edit_last_label` every
+\t# frame the editor is open, and the pool is read by its datamodel. A list is created by
 \t# clearing it, and it must be cleared only once ever: doing it on every open
 \t# would throw away the goods he had picked.
 \tif = {{
@@ -3978,16 +4011,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \t}}
 \tif = {{
-\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool_raw }} }}
-\t\tclear_global_variable_list = {MOD_ID}_edit_pool_raw
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_reached }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 0 }}
 \t}}
 \tif = {{
-\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool_made }} }}
-\t\tclear_global_variable_list = {MOD_ID}_edit_pool_made
-\t}}
-\tif = {{
-\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_picked }} }}
-\t\tclear_global_variable_list = {MOD_ID}_edit_picked
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_pool
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_chg_locs }} }}

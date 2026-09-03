@@ -37,6 +37,7 @@ effect or trigger in the engine's own dumps.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -245,6 +246,118 @@ def problems(root: Path) -> list[str]:
     return found
 
 
+def unresolved_interface(root: Path) -> list[str]:
+    """Every name a window says, checked against the thing that has to define it.
+
+    Five kinds of name, and each one fails the same silent way -- the window
+    draws, the cell is empty or the button does nothing, and no log says which:
+
+    - a `text` or `tooltip` key with no localization behind it;
+    - a `Custom('x')` with no `customizable_localization` of that name;
+    - a `GetScriptedGui('x')` with no scripted GUI of that name;
+    - a `GetList` / `GetGlobalList` nothing in `scripted_effects/` ever writes;
+    - a key in one language and not the other -- the owner plays in Russian, so
+      a key missing there shows on screen as the raw key.
+
+    **This was done by hand three times in one day and caught something every
+    time**, the last of them a `\\n` that stayed a backslash and glued two
+    localization keys onto one line.
+    """
+    gui_dir = root / "in_game/gui"
+    if not gui_dir.is_dir():
+        return []
+
+    def slurp(pattern: str) -> str:
+        return "".join(path.read_text(encoding="utf-8-sig")
+                       for path in sorted(root.glob(pattern)))
+
+    languages: dict[str, set[str]] = {}
+    for folder in sorted((root / "main_menu/localization").glob("*")):
+        if not folder.is_dir():
+            continue
+        keys = set()
+        for path in sorted(folder.glob("*.yml")):
+            for line in path.read_text(encoding="utf-8-sig").split("\n"):
+                match = re.match(r"\s+([A-Za-z0-9_]+):", line)
+                if match:
+                    keys.add(match.group(1))
+        languages[folder.name] = keys
+    if not languages:
+        return []
+    known = set().union(*languages.values())
+
+    # **Only the keys this mod invents.** A mod reuses vanilla keys freely --
+    # `rgo_bonus_filter` prints `game_concept_province`, `ru_loc_fix` is nothing
+    # but vanilla keys -- and vanilla's own localization is not all in
+    # `reference/`, so a name this file cannot find is usually the game's and
+    # not a fault. The mod's own prefix is what its keys agree on: `bag_wtp_` for
+    # `where_to_produce`. A mod whose keys agree on nothing is a mod that invents
+    # none, and there is nothing here to check in it.
+    # **The prefix most of the keys share, not the one all of them do.** The
+    # common prefix of every key is empty the moment a mod defines one key that
+    # does not fit -- `where_to_produce` has `mapmode_bag_wtp_*` beside its 345
+    # `bag_wtp_*` -- and this returned nothing at all for it, which is the exact
+    # failure this file exists to catch. So: the leading segment a majority of
+    # the keys agree on, and no check at all when they agree on nothing.
+    heads: dict[str, int] = {}
+    for key in known:
+        head = key.split("_")[0]
+        heads[head] = heads.get(head, 0) + 1
+    head, count = max(heads.items(), key=lambda pair: pair[1]) if heads else ("", 0)
+    if len(head) < 2 or count * 2 < len(known):
+        return []
+    prefix = head + "_"
+    mine = {key for key in known if key.startswith(prefix)}
+
+    custom = set(re.findall(r"^(\w+) = \{",
+                            slurp("in_game/common/customizable_localization/*.txt"), re.M))
+    guis = set(re.findall(r"^(\w+) = \{",
+                          slurp("in_game/common/scripted_guis/*.txt"), re.M))
+    effects = slurp("in_game/common/scripted_effects/*.txt")
+
+    found = []
+    for path in sorted(gui_dir.glob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        where = path.relative_to(REPO)
+        for name in sorted(set(re.findall(
+                r'(?:text|tooltip)\s*=\s*"([a-z][A-Za-z0-9_]*)"', text))):
+            if name.startswith(prefix) and name not in mine:
+                found.append(f"{where}: `{name}` on a widget, and no localization "
+                             f"defines it — the key itself draws on screen")
+        for name in sorted(set(re.findall(r"Custom\('(\w+)'\)", text))):
+            if name not in custom:
+                found.append(f"{where}: `Custom('{name}')`, and no "
+                             f"customizable_localization of that name — the cell "
+                             f"comes out empty")
+        for name in sorted(set(re.findall(r"GetScriptedGui\('(\w+)'\)", text))):
+            if name not in guis:
+                found.append(f"{where}: `GetScriptedGui('{name}')`, and no "
+                             f"scripted GUI of that name — the button does nothing")
+        for name in sorted(set(re.findall(r"Get(?:Global)?List\('(\w+)'\)", text))):
+            if name not in effects:
+                found.append(f"{where}: the datamodel reads `{name}`, and nothing "
+                             f"in scripted_effects/ ever writes it — the list is "
+                             f"always empty")
+    # Custom localizations point at keys of their own.
+    for name in sorted(set(re.findall(r"localization_key = (\S+)",
+                                      slurp("in_game/common/customizable_localization/*.txt")))):
+        if name.startswith(prefix) and name not in mine:
+            found.append(f"{root.name}: a customizable_localization points at "
+                         f"`{name}`, and no localization defines it")
+    # **English against Russian, and no other pair.** He plays in Russian, and
+    # `CLAUDE.md` says what that costs: a key missing there shows on screen as
+    # the raw key. Every other language a mod ships is somebody else's promise --
+    # `glorpui_hints` carries seven and translates into some of them partly, and
+    # comparing all pairs turned that into 7 560 findings that are not faults.
+    english, russian = languages.get("english"), languages.get("russian")
+    if english and russian:
+        for name in sorted((english - russian) & mine):
+            found.append(f"{root.name}: `{name}` is in english and not in "
+                         f"russian — a missing key draws as itself on screen, "
+                         f"and he plays in Russian")
+    return found
+
+
 def unregistered_windows(root: Path) -> list[str]:
     """A `window` in a .gui that no `scripted_widgets` file names.
 
@@ -304,7 +417,7 @@ def main(argv: list[str]) -> int:
             continue
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
-                 + unregistered_windows(root))
+                 + unregistered_windows(root) + unresolved_interface(root))
         total += len(found)
         for line in found:
             print(line)
