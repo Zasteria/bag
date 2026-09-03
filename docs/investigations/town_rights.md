@@ -55,16 +55,14 @@ not dyes. So «where do I put Printing Rights» is a real question with a
 different answer from «where do I make books», and it is the only question here
 worth a pass.
 
-**2. Adding a bundle's goods needs their prices.** Four books a level and 0.3
-masonry a level are not addable; that is the same mistake as ranking a forest
-village above a weapon guild, which cost the ninth run. `common/goods` carries
-`default_market_price` — books 3, paper 2, fine cloth 6, masonry 1, glass 3 —
-and the bundle's score is
-
-    Σ over the bundle:  price × output × (1 + right_output) × (1 + rgo_bonus/100)
-
-`right_output` is in there for completeness; being constant it changes no order,
-and it is what makes the number readable as "what this ground would earn".
+**2. Adding a bundle's goods needs a common unit, and the mod's is the gain.**
+Four books a level and 0.3 masonry a level are not addable; that is the same
+mistake as ranking a forest village above a weapon guild, which cost the ninth
+run. What the plan adds is each bundle good's **gain** — the fraction of that
+good's own ceiling this ground pays — divided by the whole bundle, so a charter
+delivering one good of three is worth a third of one delivering all three. The
+price-weighted sum written here before is what the *single-right window* scores
+on; the plan never used it.
 
 **3. A level right is a different unit, and the mod refuses to add it to the
 others.** Settled 2026-09-02: score a right by *which goods it favours* and never
@@ -78,42 +76,13 @@ still decides Flemish cloth against royal textile.
 
 The output half is in — the plan grants a charter to every town and puts its
 whole bundle up, and the owner has seen it: «города получают права и домики из
-прав». It is a third list on the Goods tab, exclusive with the two
-goods lists, and **a second window** rather than a third line on the first --
-the owner's call, and the right one, since a bundle is a different question in a
-different unit. `bag_wtp_generated_rights.txt` holds the list, the per-right
-pass and the slot storage; `bag_wtp_right_window.gui` holds the window, which
-redeclares nothing the results window already declares.
+прав». A third list on the Goods tab, exclusive with the two goods lists, and **a
+second window** rather than a third line on the first: a bundle is a different
+question in a different unit, and that was his call.
 
-Three things it does that are worth knowing before reading the code:
-
-- **The pass reuses the per-good scorers.** For each good of the bundle it runs
-  that good's existing `bag_wtp_score_<n>`, keeps the better of the built-up and
-  village answers in a slot, and adds `price × (1 + right)` of it to a total.
-  The dispatch that turns a winning method into a building, a bonus and a goods
-  list runs only for the fifty provinces that take a row -- 218 methods wide is
-  far too much per candidate.
-- **Three fixed slots, because three is the widest bundle in the game.** Script
-  has no list of tuples and the answers are flat variables on the location, so a
-  row holds a fixed number of them; an empty slot hides itself on `_r_bt_<k>`.
-- **`RIGHT_SCALE` is a tenth of `RANK_SCALE`.** A bundle's total is a sum of
-  scaled outputs times prices and runs an order of magnitude higher than a
-  single good's -- textile rights with every input present reach 64 680 against
-  a method's 4 950 -- and whether the engine's fixed point ends at 21 474 is not
-  knowable from here. At a tenth the worst case is 6 468 and the smallest
-  difference the bonus can make is still about 4.6.
-
-Each window draws its own global list, filled only for the question that was
-asked. Both are scripted widgets and neither ever comes down, so pointing both
-at one list would keep fifty rows of each alive at all times; as it stands the
-closed one's datamodel is empty and the two come to 315 static widgets between
-them.
-
-**The one guess in it** is `town_rights_type:<key>` as a value a CMM list item
-can hold. The game's own script writes `has_town_rights =
-town_rights_type:flemish_cloth_industries_right` and the engine dump lists
-`town_rights_type` as an event target, so it should store; if it does not, the
-list registration is where `error.log` will say so.
+How the window is put together — the pass reusing the per-good scorers, the three
+fixed slots, `RIGHT_SCALE`, and the one guess in the list registration — is in
+[`../archive/town_rights_window.md`](../archive/town_rights_window.md).
 
 ## Five things read off the files on 2026-09-02
 
@@ -196,16 +165,25 @@ a cannon maker because the country had not taken *its* advance — two different
 moments inside one answer: rights as though it were age 3, buildings as though it
 were today.
 
-**Decided 2026-09-03, and the rights are gated on the advance.** A plan is an
-answer about a moment, and «В конце» is the button that says otherwise; so
-`bag_wtp_plan_right_gate_<k>` asks the right's own `potential` always and
-`has_advance` unless `_plan_by_end` is set. A country before the Discovery age
-now gets a «сейчас» plan with no charters at all, which is the true answer.
+**Decided 2026-09-03: the plan does not ask the advance, and the deciding was
+done by a run rather than by an argument.** The gate was built first — the plan
+asking `has_advance` unless `_plan_by_end` — and it made the answer worse in a
+way no reasoning had predicted. Münster holds `flemish_cloth_making` and not
+`town_rights_enable`, so the gate left it **one** grantable charter of thirteen,
+and «every town gets one» then handed that charter to all forty-eight towns:
+cloth stood in 48 locations of 192 and the plan produced 30 goods instead of 35.
 
-**This does not touch the rule above it.** «A right's gate is its `potential`,
-never `has_advance`» is about the **list** in the window, which plans ahead and
-must not hide a charter you will hold in two ages. The plan for today is the
-opposite question and takes the opposite answer.
+**The rule above it was right and the reason generalises.** A building you cannot
+build today is not an answer to «what do I build»; **a charter is not something
+you build**. It is a property of a town saying which buildings belong in it,
+every country receives the nine general ones at one fixed age, and a plan is a
+target to build towards. So the plan uses `potential`, exactly as the window
+does.
+
+**And the question the gate was meant to answer is answered in the report
+instead.** `WTP RIGHT` prints `unlocked=` beside `grantable=`, and `tools/diag.py`
+names the charters the plan is counting on that cannot be granted yet — which
+costs one flag rather than a quarter of the ground.
 
 **One correction to his wording, not to his point.** «Первый уровень» is not free
 by default: `hand_cannon_guild` needs an age-1 advance exactly as `weapon_guild`

@@ -61,6 +61,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_plan_provn value = 0 }
 	set_global_variable = { name = bag_wtp_plan_rightn value = 0 }
 	set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
+	set_global_variable = { name = bag_wtp_plan_opensw value = 0 }
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	set_global_variable = { name = bag_wtp_plan_quota value = 1 }
@@ -12657,6 +12658,7 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pq47 add = 1 }
+		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes
@@ -12779,6 +12781,7 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pq47 add = 1 }
+		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes
@@ -12901,6 +12904,7 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pq47 add = 1 }
+		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes
@@ -13023,6 +13027,7 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pq47 add = 1 }
+		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes
@@ -13145,6 +13150,7 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_pq45 add = 1 }
 		change_global_variable = { name = bag_wtp_pq46 add = 1 }
 		change_global_variable = { name = bag_wtp_pq47 add = 1 }
+		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
 		bag_wtp_plan_pick_3 = yes

@@ -38,6 +38,46 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-03 — `where_to_produce`, два нажатия по чек-листу: три починки
+подтверждены, одна оказалась регрессией, а ярусы редкости держит не лестница, а
+квота.** Вестфалия / Мюнстер, 48 локаций все городами, 192 места из 192, 8
+провинций. Нажатие 1 — «сейчас», нажатие 2 — «на конец».
+
+- **Подтверждено:** `ordered_provs=8` вместо вечного нуля; каждая строка `WTP L`
+  названа **одним** именем; `RQ legend` на месте, перед блоком локаций;
+  `grantable=` различает «не досталось» и «не для этой державы» — на «в конце» 9
+  единиц и 4 нуля, ровно те четыре (Византия, текстильные, две скандинавских).
+- **Цена лестницы приемлема.** Кругов 73 («сейчас») и 61 («на конец») против 57;
+  ни один проход не упёрся в лимит.
+- **Полосатая открытая лестница работает.** На «сейчас» `P36 open800` поставил
+  11 зданий и `P37 open600` ещё 2 — тринадцать мест, которые прошлая сборка
+  раздавала одним проходом на полосе 0, то есть по порядку списка.
+- **Регрессия, и она моя.** Возрастной гейт грамот на «сейчас» оставил Мюнстеру
+  **одну** грамоту из тринадцати: у него есть `flemish_cloth_making` и нет
+  `town_rights_enable`. Правило «каждый город обязательно получит право» отдало
+  эту одну грамоту **всем 48 городам**: сукно встало в 48 локациях из 192, а
+  товаров план поставил 30 вместо 35. **Откачено** — план снова считает по
+  `potential`, как и список в окне, а открытие печатается в отчёте отдельным
+  полем `unlocked=`.
+- **Ярусы редкости снова поставили 3 здания из 69 — и порядок проходов тут ни
+  при чём.** `P26..P30` (полоса 0, ярусы) при 66 свободных местах поставили
+  **ноль**. Держит квота: у семи сырьевых товаров она равна 1, потому что
+  область уже добывает это сырьё сама, и ковровая лестница этот единственный
+  домик уже израсходовала. `clay` 2 РГО, `coal` 3, `fiber_crops` 3, `iron` 2,
+  `salt` 3, `sand` 2, `stone` 3 — при базовой квоте 2.4. **Это правило
+  владельца, работающее ровно как он его сформулировал** («там уже есть 2 рго
+  глины — тебе нужно всего 3 домика»), а не поломка. Вопрос B закрыт окончательно
+  и в третий раз переоткрывать его не надо.
+- **План «на конец» вышел числом в число такой же, как у прошлой сборки**:
+  192 здания, `fed=143`, `gain_total=112304`, те же строки проходов. То есть
+  перестановка лестниц на этой земле не изменила ничего — её проверять надо на
+  большой области, где открытый проход раньше ставил 271 здание из 770.
+- **Модель квоты сверена на всех товарах обоих отчётов и сходится точно:**
+  `q = max(1, PASS quota + что поставили грамоты этому товару − rgo) +
+  число кругов открытой лестницы`. Последнее слагаемое теперь печатается как
+  `open_sweeps`, а `diag.py` вычитает его сам и называет товары, которых мало
+  из-за собственного РГО.
+
 **2026-09-03 — `where_to_produce`, три нажатия после переноса ковровой лестницы
 вперёд: гарантия держится, ярусы редкости — нет.** Вестфалия / Мюнстер, 48
 локаций, 8 провинций. Нажатия 1 и 2 — все локации городами (192 места из 192),
@@ -79,34 +119,6 @@ a filter that filters: the screenshot already says it.
   одиночного ранжирования и стоял в нуле на всех трёх нажатиях; локация в блоке
   называлась дважды, и `diag.py` подписывал каждую строку начиная со второй
   двумя именами; строка `RQ legend` терялась целиком. Всё три исправлены.
-
-**2026-09-03 — not a run: the owner asked where a copper tools recipe came from,
-and three faults came out of the answer.** «У моей нации был только 1 рецепт, тот
-что с оловом… этого метода не должно было быть как кандидата в принципе.»
-
-- **He is right about the recipe, and right about the numbers.** `copper_tools_guild_maintenance`
-  is unlocked by `copperworking`, whose `potential` is `is_capital_mesoamerica`.
-  What the plan actually chose in Goslar was `bronze_tools_guild_maintenance` —
-  copper **and tin**, tin missing, 9.26% of 10 → **926**, which is the 925 in the
-  report. My «copper feeds it whole» was wrong; his reading was right.
-- **Fault one: a paired method escapes its advance.** A pair's key is
-  `base+improvement` and `copperworking` says `unlock_production_method =
-  copper_base`, so the lookup missed all four `copper_base+*` jewelry recipes.
-  Münster was being offered a Mesoamerican recipe **in the «сейчас» plan**.
-- **Fault two: «на конец» assumed every advance is eventually in.** 45 of the 181
-  advances that unlock a building or a method are locked to a tag, a culture
-  group or a region, and 13 of the mod's 241 methods sit behind one. That is how
-  **five porcelain guilds landed in northern Germany** — the kiln wants an
-  east-Asian capital. `_reach_<n>` asks the advance's own `potential` now.
-- **Fault three, mine, from 2026-09-02.** `hand_cannon_guild` went into
-  `ALWAYS_AVAILABLE` as «the first firearms building»; its advance wants an
-  east-Asian capital, so that handed a Chinese building to everyone. It is
-  `gun_smith` — age 2, no `potential` — and **his original «огнестрел во второй
-  эпохе» was right all along.**
-- **And the enhancement question, closed by him.** Base is 9.09 of the 10 points
-  and the trim is 0.91, so the coincidence he wanted to chase is worth under one
-  per cent: «нет смысла рвать задницу ради ~1%». The 10% split is the game's own
-  arithmetic and the mod keeps matching it.
 
 **2026-09-03 — `where_to_produce`, the gain fix held and the quota was caught
 handing out a charter worth 90.** «Тонкое сукно ушло из Гослара.» 992 of 1309
@@ -238,9 +250,11 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
-- ~~**`where_to_produce`'s «В конце» plan.**~~ **Run 2026-09-03**, twice, and it
-  is the entry above. What is still never run is the «В конце» plan's *charters*:
-  they are gated on the unlocking advance from this session on, so «Сейчас» on a
-  country before the Discovery age should now hand out none at all.
+- ~~**`where_to_produce`'s «В конце» plan.**~~ **Run 2026-09-03**, three times.
+  What is still never run is **the whole plan on a large ground since the
+  ladders were rebuilt**: Westphalia is 48 locations and its answer came back
+  identical to the old build's, so nothing there tests the change. The press
+  that would is the one of the earlier report — northern Germany, 233 locations,
+  where the open pass used to place 271 buildings of 770.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

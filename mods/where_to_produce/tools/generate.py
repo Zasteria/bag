@@ -1829,54 +1829,48 @@ def plan_groups(rows, split, game):
 
 def plan_right_gates(rows: list[eu5data.Method],
                      game: eu5data.Game) -> list[str]:
-    """Per urban right, the country condition **the plan** grants it under.
+    """Per urban right, the country condition the plan grants it under.
 
-    Not the same question the rights *window* asks, and the difference is the age.
+    **The right's own `potential`, and never its unlocking advance.** Which is
+    the same rule the rights *window* uses, and it was arrived at the hard way.
 
-    The window offers every right the country could ever hold, advance or no --
-    hiding one because age three has not arrived is hiding the plan from the
-    planner (`rights_file`). **A plan is an answer about a moment**, and «Сейчас»
-    already refuses a cannon maker whose advance the country has not taken. Until
-    now it handed out urban rights in the same breath without asking theirs, so
-    one answer was dated two ways at once: rights as though it were the Discovery
-    age, buildings as though it were today. `docs/investigations/town_rights.md`
-    named it and left the choice open; this is that choice made, and it is the
-    one that leaves «Сейчас» meaning one thing.
+    On 2026-09-03 this asked `has_advance` on «Сейчас», on the argument that a
+    plan is an answer about a moment and that refusing a cannon maker for want of
+    an advance while handing out Discovery-age charters dated one answer two
+    ways. **The run of the same day settled it, against that argument.** Münster
+    holds `flemish_cloth_making` and not `town_rights_enable`, so the gate left
+    it **one** grantable charter of thirteen -- and the rule every town gets one
+    then gave the same charter to all forty-eight. Cloth stood in 48 locations of
+    192, a quarter of the ground in one good, and the number of goods the plan
+    produced fell from 35 to 30. Ungated, the same ground takes nine charters and
+    spreads them.
 
-    So: the right's own `potential` always, and its unlocking advance **unless
-    the plan is being drawn for the end of the game**, when every advance is in
-    by definition. `_plan_by_end` is a global the settings write, so one pair of
-    triggers serves both modes and nothing is generated twice.
+    **The two are gated differently because they are different kinds of thing.**
+    A building you cannot build today is not an answer to «what do I build»; a
+    charter is not something you build. It is a property of a town that says
+    which buildings belong in it, every country receives the nine general ones at
+    one fixed age, and a plan is a target to build towards. That is exactly the
+    reason already settled for the window -- «hiding them until age three would
+    leave an empty list where the answer belongs» -- and it holds here for the
+    same reason.
 
-    `PREFERRED_RIGHT` is asked at the same age. `royal_textile_rights` stands
-    aside for Flemish cloth -- the owner's ruling -- but a Netherlandish country
-    that has not yet taken `flemish_cloth_making` cannot grant Flemish cloth
-    either, and standing aside for a charter nobody has yet would leave its towns
-    with neither.
+    **The advance is not lost, it is reported.** `WTP RIGHT` prints `unlocked=`
+    beside `grantable=`, so the report says «the plan wants naval charters in
+    Sauerland and you cannot grant one until Discovery» without the plan
+    degrading into a monoculture to say it.
     """
     by_key = {r.key: r for r in game.town_rights}
-
-    def age(right: eu5data.TownRight) -> str:
-        if not right.advance:
-            return ""
-        return (f"OR = {{ has_global_variable = {MOD_ID}_plan_by_end "
-                f"has_advance = {right.advance} }}")
-
-    def can_grant(right: eu5data.TownRight) -> list[str]:
-        return [part for part in (right.potential, age(right)) if part]
-
     bodies = []
     for right in output_rights(rows, game):
-        parts = can_grant(by_key[right.key])
+        parts = [p for p in (by_key[right.key].potential,) if p]
         winner = by_key.get(PREFERRED_RIGHT.get(right.key, ""))
         if winner is not None:
-            preferred = can_grant(winner)
             # A preferred right with no gate at all would be preferred always,
             # and the one it displaces would never be granted by anybody. Today
-            # Flemish cloth carries both a culture and an advance; a silent
-            # `always = no` is the worst way to learn that it had lost them.
-            assert preferred, f"{winner.key} would displace {right.key} everywhere"
-            parts.append("NOT = { AND = { %s } }" % " ".join(preferred))
+            # Flemish cloth carries a culture group; a silent `always = no` is
+            # the worst way to learn that it had lost it.
+            assert winner.potential, f"{winner.key} would displace {right.key} everywhere"
+            parts.append("NOT = { %s }" % winner.potential)
         bodies.append("\n".join(f"\t{part}" for part in parts) or "\talways = yes")
     return bodies
 
@@ -2133,6 +2127,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_rightn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_sweeps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_plan_opensw value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_band value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_cover value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_quota value = 1 }}
@@ -2704,9 +2699,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # the band still on, the layer goes where the ground pays for it.
         raise_all = ""
         if tier is OPEN_TIER:
+            # **And the count of those raises, because without it `q` in the
+            # report cannot be read.** `_pq<n>` is dumped after the plan, so it
+            # carries every layer this ladder added; the quota the allocator
+            # actually enforced is `q` minus this number. Two reports of
+            # 2026-09-03 were mis-read for want of it -- `clay q=2 rgo=2` beside
+            # `PASS quota=2` looks like the RGO discount doing nothing, and is
+            # the discount working and the open ladder adding one back.
             raise_all = "".join(
                 f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
                 for i in range(1, len(order) + 1))
+            raise_all += f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}\n"
             tier = 0
         out.append(f"""\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = {tier} }}
 \tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
@@ -3777,6 +3780,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     groups = plan_groups(rows, split, game)
     last = endgame(rows, game)
     rights = output_rights(rows, game)
+    # The unmerged rights, for the advance each one carries. `output_rights`
+    # rewrites `potential` and the advance is not on its side of that.
+    by_key = {r.key: r for r in game.town_rights}
 
     def read(slot: int) -> str:
         """One number, as the string sees it."""
@@ -3940,11 +3946,13 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_rooms", f"{MOD_ID}_plan_found",
             f"{MOD_ID}_plan_shown", f"{MOD_ID}_plan_towns", f"{MOD_ID}_plan_provn",
             f"{MOD_ID}_plan_scored", f"{MOD_ID}_plan_quota", f"{MOD_ID}_plan_rightn",
-            f"{MOD_ID}_plan_sweeps", f"{MOD_ID}_plan_prov_n"), start=1):
+            f"{MOD_ID}_plan_sweeps", f"{MOD_ID}_plan_prov_n",
+            f"{MOD_ID}_plan_opensw"), start=1):
         out.append(park(slot, source))
     out.append(say("PASS placed=%s rooms=%s used_locs=%s drawn=%s towns=%s provs=%s "
-                   "goods_scored=%s quota=%s rights_given=%s sweeps=%s ordered_provs=%s"
-                   % tuple(read(i) for i in range(1, 12))))
+                   "goods_scored=%s quota=%s rights_given=%s sweeps=%s "
+                   "ordered_provs=%s open_sweeps=%s"
+                   % tuple(read(i) for i in range(1, 13))))
     # **What the ground actually pays**, and it is the owner's own question:
     # «какой процент из них получит выгоду от своего положения на карте».
     # `fed` is how many placed buildings earn any bonus at all; `gain` is the
@@ -4085,8 +4093,10 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # RGO discount doing nothing and is the open ladder having added one back.
     out.append(say("GOODS reading q: it is `PASS quota` + what the charters "
                    "placed for this good - `rgo`, floored at 1, and then + 1 for "
-                   "each sweep the open ladder ran. So q above `PASS quota` on a "
-                   "good no charter favours is the open ladder, not the quota."))
+                   "each sweep of the open ladder -- which is `PASS open_sweeps`. "
+                   "So the quota the allocator enforced is q - open_sweeps, and a "
+                   "good with n at that number was stopped by its quota and not "
+                   "by the ground."))
     out.append(say("GOODS reading it: the first zero left to right is the stage. "
                    "w>0 r=0 -- the ground filled up. w>0 r>0 g=0 -- the good or "
                    "its building is already in every place that has room. "
@@ -4192,15 +4202,23 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # про локализацию.
         goods = ", ".join(sorted(right.output))
         out.append(park(1, f"{MOD_ID}_rgiven{number}"))
-        # **`given=0` has two meanings and they are not the same fault.** A
+        # **`given=0` had two meanings and they are not the same fault.** A
         # charter this country may grant and did not is the allocator's problem;
-        # one it may never grant -- somebody else's tag, somebody else's culture,
-        # or an advance it has not taken and the plan is drawn for today -- is
-        # not a problem at all. Four of the thirteen read `given=0` on every
+        # one it may never grant -- somebody else's tag, somebody else's culture
+        # -- is not a problem at all. Four of the thirteen read `given=0` on every
         # report of 2026-09-03 and the report could not tell them apart.
         out.append(flag(2, f"{MOD_ID}_plan_right_gate_{number} = yes"))
+        # **And `unlocked=` is the advance, which the plan deliberately ignores.**
+        # The plan grants every charter the country could ever hold, because it is
+        # a target to build towards and the nine general ones arrive at one fixed
+        # age (`plan_right_gates`). That leaves a real question the owner can only
+        # answer from here: *may I grant this today?* Gating the plan on it was
+        # tried on 2026-09-03 and cost the plan a quarter of its ground; printing
+        # it costs one flag.
+        advance = by_key[right.key].advance
+        out.append(flag(3, f"has_advance = {advance}" if advance else "always = yes"))
         out.append(say(f"RIGHT {number} {right.key} ({goods}) "
-                       f"given={read(1)} grantable={read(2)}"))
+                       f"given={read(1)} grantable={read(2)} unlocked={read(3)}"))
     out.append("}\n")
 
     # ------------------------------------------------------------ the locations

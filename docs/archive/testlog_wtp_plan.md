@@ -4,6 +4,34 @@ Split out of [`../TESTLOG.md`](../TESTLOG.md) on 2026-09-03, at its budget. Thes
 are superseded: what they say about the **game** stands, what they say about our
 code was rewritten by the runs that followed. `tools/kb.py` still searches them.
 
+**2026-09-03 — not a run: the owner asked where a copper tools recipe came from,
+and three faults came out of the answer.** «У моей нации был только 1 рецепт, тот
+что с оловом… этого метода не должно было быть как кандидата в принципе.»
+
+- **He is right about the recipe, and right about the numbers.** `copper_tools_guild_maintenance`
+  is unlocked by `copperworking`, whose `potential` is `is_capital_mesoamerica`.
+  What the plan actually chose in Goslar was `bronze_tools_guild_maintenance` —
+  copper **and tin**, tin missing, 9.26% of 10 → **926**, which is the 925 in the
+  report. My «copper feeds it whole» was wrong; his reading was right.
+- **Fault one: a paired method escapes its advance.** A pair's key is
+  `base+improvement` and `copperworking` says `unlock_production_method =
+  copper_base`, so the lookup missed all four `copper_base+*` jewelry recipes.
+  Münster was being offered a Mesoamerican recipe **in the «сейчас» plan**.
+- **Fault two: «на конец» assumed every advance is eventually in.** 45 of the 181
+  advances that unlock a building or a method are locked to a tag, a culture
+  group or a region, and 13 of the mod's 241 methods sit behind one. That is how
+  **five porcelain guilds landed in northern Germany** — the kiln wants an
+  east-Asian capital. `_reach_<n>` asks the advance's own `potential` now.
+- **Fault three, mine, from 2026-09-02.** `hand_cannon_guild` went into
+  `ALWAYS_AVAILABLE` as «the first firearms building»; its advance wants an
+  east-Asian capital, so that handed a Chinese building to everyone. It is
+  `gun_smith` — age 2, no `potential` — and **his original «огнестрел во второй
+  эпохе» was right all along.**
+- **And the enhancement question, closed by him.** Base is 9.09 of the 10 points
+  and the trim is 0.91, so the coincidence he wanted to chase is worth under one
+  per cent: «нет смысла рвать задницу ради ~1%». The 10% split is the game's own
+  arithmetic and the mod keeps matching it.
+
 **2026-09-03 — `where_to_produce`, пять нажатий, и в них видно, что ковровый
 проход не ставил ничего.** Вестфалия / Мюнстер, 48 локаций все городами, «на
 конец» (нажатия 1, 3, 5), «сейчас» (2), и одно нажатие по большой области — 233

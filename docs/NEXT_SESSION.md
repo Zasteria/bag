@@ -17,16 +17,16 @@ This file is the part that is live. What has already been settled is in
 субъективные запросы.» That session is done and the answer is in the tree.
 
 **Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
-nothing else.** Eight faults now, all closed: A, E and F confirmed by his runs; C
-answered by the game's own tooltip and D by a measurement the report was already
-printing, neither needing a run; B, G and H fixed and **never once in the game**.
+nothing else.** Eight faults, all closed; the runs of 2026-09-03 settled seven in
+game. Two results to carry before touching anything: **a scarce good with one
+building is the RGO discount and not a fault** (his own rule, now re-derived three
+times), and **charters are gated on `potential` and never on the advance** — the
+other way was built, run, and cost the plan a quarter of its ground.
 
-**One run is owed and it closes those three at once.** Вестфалия / Мюнстер, all
-48 locations ticked to towns — once «на конец» and once «сейчас», because the
-charter age gate is what «сейчас» now behaves differently under. What each press
-has to show is the last section of `plan_gaps.md`. **Nothing else is worth asking
-him for until that comes back**: every remaining question about the plan is a
-question about numbers this run produces.
+**One press is still owed, and it is about size, not formula.** Both ladder
+rebuilds were made for a large ground, and Westphalia's 48 locations returned an
+answer identical to the old build's. Северная Германия, 233 locations, «на конец»;
+what to read off it is the last section of `plan_gaps.md`.
 
 **Do not spend his run on a guess.** Every fault in that file was found by
 counting in his log, not by theorising, and the four-theories rule
@@ -63,22 +63,25 @@ menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
 ## `where_to_produce`: what is settled and not in `plan_gaps.md`
 
-**The plan does what it was meant to and he has seen it** — «на первый взгляд
-работает как надо, города получают права и домики из прав», 2026-09-02. The tick
-is the rank (`SETTLED.md`), the charter spam is gone, the window pages, and the
-province ceiling and `plan_max` are removed at his word. The 2026-09-02 detail is
-in [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).
-
+**The plan does what it was meant to and he has seen it** — «города получают
+права и домики из прав». The tick is the rank (`SETTLED.md`), the window pages,
+and the province ceiling and `plan_max` are gone at his word. The 2026-09-02
+detail is in [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).
 **The single-good side** has faults he has seen and set aside without naming.
 
-**And the dead weight is out**: `_pp<n>` (a province walk on every placement, for
-a divisor removed a day earlier), 47 `_ordmax<n>` values and 228 `_reach_<n>`
-triggers reading `always = yes`. If the plan is measurably faster on the next run,
-that is where it came from.
+**The dead weight is out** — `_pp<n>` (a province walk on every placement, for a
+divisor removed the day before), 47 `_ordmax<n>` values, 228 `_reach_<n>` triggers
+reading `always = yes`. Sweeps went 57 → 61 on the same ground, so the four extra
+passes cost about what that saved.
 
-**The diagnosis comes out when the work does.** `bag_wtp_diag*`, the `_f*` and
-`_pass*` counters, two buttons; `pitfalls/diagnosis.md` has what it prints, and
-`tools/diag.py` draws the conclusions so he does not have to.
+**One cheap optimisation is measured and deliberately not built.** The 25 scarce
+passes cost 25 sweeps of 61 and place three buildings; a pass no good qualifies
+for could be skipped by 47 comparisons rather than a whole sweep. Nothing has hit
+the round guard since and nobody has complained about speed, so it is a number
+written down, not a change.
+
+**The diagnosis comes out when the work does.** `pitfalls/diagnosis.md` has what
+it prints; `tools/diag.py` draws the conclusions so he does not have to.
 
 ## Then `glorpui_hints` goes out
 

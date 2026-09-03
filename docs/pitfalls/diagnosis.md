@@ -221,6 +221,33 @@ adding one back. An hour went into re-deriving that from three reports before th
 line was made to say it. **A report that is read against itself has to say which
 of its numbers were taken when.**
 
+### A fix that follows from consistency is still a guess
+
+**2026-09-03, and it cost a quarter of a plan.** The «Сейчас» plan refused a
+building whose advance the country had not taken and, in the same answer, handed
+out charters from an age it had not reached. That is a genuine inconsistency, it
+was named in an investigation, and closing it needed no measurement to justify —
+which is exactly why it went in without one.
+
+The run: Münster holds one of the thirteen charters' advances, so the gate left
+it one grantable charter, and «every town gets one» gave that charter to all
+forty-eight towns. Cloth in 48 locations of 192; goods produced down from 35 to
+30. Reverted the same day.
+
+**The rule this repository already had was «a cause you cannot name is not a
+cause — measure it».** This is its other half: **an argument about the shape of
+the code is not a measurement about the answer**. The gate was consistent,
+defensible, passed every checker, and made the output worse — because the rule it
+collided with («каждый город обязательно получит право») was written when nine
+charters were available and degenerates at one.
+
+**What it does not mean is «change nothing without a run».** The same session
+also removed dead work, corrected a scope misreading and rebuilt the pass order,
+and all of those held. The distinction is what the change is *for*: repairing
+something measured, versus tidying something that merely reads wrong. The second
+kind is where a run is owed **before** the change ships, or where the change
+should be a report field instead — which is what the advance became.
+
 ## The report is not for the player, so the tool has to read it
 
 **2026-09-02, his second press.** «Проверить насколько всё идеально и выгодно

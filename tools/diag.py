@@ -312,6 +312,23 @@ def fold(lines: list[str]) -> list[str]:
     return out
 
 
+def plural(count: int, one: str, few: str, many: str) -> str:
+    """«1 домик», «2 домика», «5 домиков» -- строка для человека, а не для лога.
+
+    Отчёт для сессии может быть каким угодно; сводка «коротко» существует ровно
+    затем, чтобы её читал владелец, и «1 домик(ов)» в ней -- это тот же
+    неготовый инструмент, что и сырой лог вместо укладки.
+    """
+    tail, hundred = count % 10, count % 100
+    if tail == 1 and hundred != 11:
+        word = one
+    elif 2 <= tail <= 4 and not 12 <= hundred <= 14:
+        word = few
+    else:
+        word = many
+    return f"{count} {word}"
+
+
 def field(line: str, name: str) -> int | None:
     """Число из `name=<число>` в строке отчёта."""
     found = re.search(r"\b%s=(-?\d+)" % re.escape(name), line)
@@ -373,9 +390,57 @@ def digest(lines: list[str]) -> list[str]:
               if line.startswith("WTP RIGHT")]
     taken = [(k, v) for k, v in rights if v]
     if taken:
-        out.append("Права: выдано %d, разных %d, больше всего у «%s» (%d)"
-                   % (sum(v for _, v in taken), len(taken),
+        can = sum(1 for line in lines
+                  if line.startswith("WTP RIGHT") and field(line, "grantable"))
+        out.append("Права: выдано %d, разных %d из %d возможных этой державе, "
+                   "больше всего у «%s» (%d)"
+                   % (sum(v for _, v in taken), len(taken), can or len(taken),
                       *max(taken, key=lambda kv: kv[1])))
+    # **Какие грамоты план предполагает, а выдать сегодня нельзя.** План
+    # намеренно считает по `potential`, а не по открытию: это цель, к которой
+    # строят, и девять общих грамот приходят в третью эпоху всем сразу
+    # (`generate.plan_right_gates`). Вопрос «а могу ли я её выдать прямо сейчас»
+    # от этого не исчезает, и отвечает на него только эта строка.
+    locked = [line.split()[3] for line in lines
+              if line.startswith("WTP RIGHT") and field(line, "given")
+              and field(line, "unlocked") == 0]
+    if locked:
+        out.append("Из них ещё не открыты (план на них рассчитывает, выдать "
+                   "сегодня нельзя): " + ", ".join(RIGHT_NAMES.get(k, k) for k in locked))
+
+    # **Почему у товара ровно столько домиков.** Это вопрос, который владелец
+    # задаёт чаще всех остальных вместе взятых -- «где хоть одна печка болотного
+    # железа» -- и до 2026-09-03 отчёт на него не отвечал: `q` печатается после
+    # плана и несёт всё, что добавила открытая лестница, так что «квота 2» на
+    # экране могла означать квоту 1. `open_sweeps` -- то, что надо вычесть.
+    #
+    # **Печатается один случай, и он однозначен**: товар поставил *ровно* свою
+    # квоту, и квота мала потому, что область уже добывает это сырьё сама. Это
+    # правило владельца, 2026-09-01 («там уже есть 2 рго глины — тебе нужно
+    # всего 3 домика»), и единственное место, где его видно в работе. Общее
+    # «упёрлись в квоту» сюда не идёт: на заполненной земле в квоту упирается
+    # всё подряд, и строка из двадцати товаров ничего не отвечает.
+    opensw = field(pas, "open_sweeps")
+    if opensw is not None:
+        capped = []
+        for line in lines:
+            # `WTP GOODS legend` тоже начинается с «WTP G» и тоже несёт « | ng=»;
+            # строка самого товара -- та, где после G стоит номер.
+            if not re.match(r"WTP G\d+ ", line) or " | ng=" not in line:
+                continue
+            tail = line.split("| ng=")[1]
+            ng = field("ng=" + tail, "ng")
+            q, n, rgo = (field(tail, k) for k in ("q", "n", "rgo"))
+            if not ng or not n or q is None or not rgo:
+                continue
+            if n == q - opensw and n < ng:
+                capped.append("%s: %s при %d РГО, мест было %d"
+                              % (line.split()[2], plural(n, "домик", "домика",
+                                                         "домиков"), rgo, ng))
+        if capped:
+            out.append("Мало домиков потому, что сырьё уже добывается на месте "
+                       "(1 РГО = 1 домик, квота на столько же меньше): "
+                       + "; ".join(capped))
 
     cut = [line.split()[1] for line in lines
            if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]

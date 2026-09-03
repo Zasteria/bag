@@ -2236,74 +2236,70 @@ bag_wtp_plan_right_gate_1 = {
 # Scope: country
 bag_wtp_plan_right_gate_2 = {
 	culture = { has_culture_group = culture_group:netherlandish_group }
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = flemish_cloth_making }
 }
 
 # royal_artisan_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_3 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_book_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_4 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_brewing_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_5 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_jewelry_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_6 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_masonry_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_7 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_naval_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_8 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_textile_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_9 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
-	NOT = { AND = { culture = { has_culture_group = culture_group:netherlandish_group } OR = { has_global_variable = bag_wtp_plan_by_end has_advance = flemish_cloth_making } } }
+	NOT = { culture = { has_culture_group = culture_group:netherlandish_group } }
 }
 
 # royal_tooling_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_10 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # royal_weaponry_rights: town_rights_enable
 # Scope: country
 bag_wtp_plan_right_gate_11 = {
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = town_rights_enable }
+	always = yes
 }
 
 # scandinavian_bergslag_privileges: scandinavian_bergslag_privileges_advance
 # Scope: country
 bag_wtp_plan_right_gate_12 = {
 	culture = { has_culture_group = culture_group:scandinavian_group }
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = scandinavian_bergslag_privileges_advance }
 }
 
 # scandinavian_tar_privileges: scandinavian_tar_privileges_advance
 # Scope: country
 bag_wtp_plan_right_gate_13 = {
 	culture = { has_culture_group = culture_group:scandinavian_group }
-	OR = { has_global_variable = bag_wtp_plan_by_end has_advance = scandinavian_tar_privileges_advance }
 }
