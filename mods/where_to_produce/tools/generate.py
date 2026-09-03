@@ -1054,8 +1054,31 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                         f"{MOD_ID}_plan_can_town_{j} = yes }}")
             return f"{MOD_ID}_plan_can_town_{i} = yes"
 
+        # **The same question asked of the score and not of the gate.**
+        # `_plan_can_town_<i>` is a *placement* gate: it also asks whether the
+        # town still has room and whether this good is already standing there.
+        # At grant time the town is empty, so the gate reduces to exactly this --
+        # but the dump runs after the plan, when every town is full, and the
+        # first `WTP RQ` line came back as thirteen zeroes because of it
+        # (2026-09-03). The twin has to read what was true when the grant was
+        # made, which is «a town method for this good won here».
+        def _won(good: str) -> str:
+            i = order.index(good) + 1
+            feeder = market_inputs(game).get(good)
+            j = order.index(feeder) + 1 if feeder in order else 0
+            if j and plan_groups(rows, split, game).get((feeder, "t")):
+                return (f"OR = {{ var:{MOD_ID}_pm{i} > 0 "
+                        f"var:{MOD_ID}_pm{j} > 0 }}")
+            return f"var:{MOD_ID}_pm{i} > 0"
+
         adds = "".join(f"""\tif = {{
 \t\tlimit = {{ {_reach(g)} }}
+\t\tadd = {RIGHT_FIT}
+\t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
+\t}}
+""" for g in bundle)
+        adds_seen = "".join(f"""\tif = {{
+\t\tlimit = {{ {_won(g)} }}
 \t\tadd = {RIGHT_FIT}
 \t\tadd = var:{MOD_ID}_p{order.index(g) + 1}
 \t}}
@@ -1104,10 +1127,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 {MOD_ID}_rqf{k} = {{
 \tvalue = 0
-{adds}\tdivide = {len(bundle)}
+{adds_seen}\tdivide = {len(bundle)}
 }}
 """)
     plan_values = "".join(plan_values)

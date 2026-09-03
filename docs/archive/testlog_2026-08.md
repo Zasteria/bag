@@ -2198,3 +2198,77 @@ honestly print **cap before → cap after**, which the mod could never do for
 building slots (`mods/where_to_produce/CLAUDE.md`: the game exposes no slot count
 at all — that stays true, a level cap is a different thing).
 
+### 2026-09-02 — `where_to_produce`, the tick runs and the rank simulation
+
+Moved out of the live log when it tripped its budget. Both entries are the
+day the tick was settled as the rank; the rows they closed are in
+`../SETTLED.md`.
+
+**2026-09-02 — `where_to_produce`, three presses in one log, and the tick never
+reverted.** He ran the two-press test written the same day and it answered on the
+first reading. «Тумблеры не переключились никуда… потом я нажал пересчитать — и
+тогда они переключились снова на города.»
+
+- **The ticks he cleared stayed cleared.** Presses one and two walked the same 44
+  locations of Wallachia — `ticks now set: town=0 village=0` both times, and
+  `towns=3` live where the plan before them had counted 17. The clicks land and
+  they hold; closing the window and changing the map area do nothing to them.
+- **The third press walked 127 locations, and the fourteen ticks in it are not
+  the ones he cleared.** They are Марошвашархей, Кездивашархей, Ковасна,
+  Секейкерестур, Дьердьосентмиклош, Гёргеньсентимре, Секейудвархей,
+  Шепшисентдьёрдь, Чиксереда, Бырлад, Аджуд, Кудалби, Фокшаны, Галац — every one
+  of them outside the 44 he had on screen, ticked earlier in the session and
+  never cleared. Widening the ground brought them into the plan for the first
+  time; four slots each put them at the top of the window; and that is
+  indistinguishable from a revert. **Wallachia's own rows all read
+  `forced_town=0` in the same report.**
+- **So it is not a fault, and the window is what should have said so.** A tick is
+  a location variable and it outlives a save, so «clear the rows I can see» was
+  never «clear them». A button was added the same day: «Сбросить пометки
+  город/село», all five continents in one press, printing how many it cleared.
+- **And the number he asked for, at last.** `GAIN` in all three presses: **79%,
+  76% and 82% of placed buildings earn a bonus where they stand**, and the
+  average building captures **73%, 74% and 78% of the ceiling its own recipe
+  could ever reach.** The largest ground, the one with the ticks in it, is the
+  best of the three on both counts — the rank simulation costs nothing in
+  quality.
+- **The ticks also make more of the ground**: 44 locations gave 149 rooms with
+  them and 135 without, 17 towns against 3, 17 rights against 3.
+
+**2026-09-02 — `where_to_produce`, the rank simulation, and it works.** «Открыл
+план — на первый взгляд работает как надо. Города получают права и домики из
+прав.» Transylvania and Wallachia together: 127 locations, 22 towns of which 8
+are of town rank and 14 ticked, 19 provinces, 403 buildings in 403 rooms.
+
+- **Both predictions from the previous entry came back right.** Glass `T … w`
+  went from 3 of 17 to **22 of 22**; every made good now wins a town method in
+  every town. And the charter spam is gone: 22 rights over **nine different
+  ones**, the largest holding 3 towns where masonry held 9 of 17 before.
+- **No pass came near the sweep guard** — the worst was 11 of 12, on the open
+  pass. `RIGHT`, `ROOM` and the location rows all read cleanly with the round
+  brackets.
+- **The distribution, which he asked to have read for him.** 36 goods of the 38
+  the ground can make got something, from 1 building to 20. **Nine goods take 20
+  each and that is 45% of the ground**: coal, sand, beer, cloth, glass, jewelry,
+  leather, masonry, pottery — every one of them makeable in all 127 locations, so
+  every one reaches the quota. Twenty goods took 7 or fewer, all of them
+  town-only, competing for 88 town slots the rights have first call on. **That is
+  the formula working as written**; `plan_max`, his own per-good ceiling, is the
+  lever and it is 0.
+- **How much of it earns anything, and why the answer is not in this report.**
+  `o=0` on a side means every placement there earns nothing, and those alone are
+  38 buildings of 403 — a floor, not the figure, because `o` is a maximum. Two
+  counters were added for it the same day (`GAIN fed=… gain_total=…`), one `if`
+  a placement.
+- **One bug he found and it is not diagnosed.** Toggles cleared to auto, replan,
+  «всё вроде бы было окей» — then he left the window or changed the map area and
+  **the ticks were back on the towns**. Nothing in the mod writes
+  `bag_wtp_force_town` except the button on the row, so this is not guessable
+  from the source. The `ROOM` line now counts both ticks over every walked
+  location and reads them live, so one press of «Диагностика» — with no plan —
+  separates «the variable came back» from «the window is drawing a stale state».
+- **`Important assertion failed: (Getting player in synchronous state, likely to
+  cause a desync)`** appears once, at the first `[…GetPlayer…]` the dump reads.
+  It is how the dump reads every number, and it matters in multiplayer rather
+  than here — recorded so the next session does not chase it.
+

@@ -199,6 +199,13 @@ answered on 2026-09-02 when he asked for them by name:**
   localizations and its gate in the allocator: «я не представляю ситуацию, когда
   бы я мог захотеть сменить значение этой строки с 0». Under this formula the
   quota does that job and is derived rather than typed. Not run;
+- **the scarce claim first only in the last band now**, and he named the cost on
+  2026-09-03: «если всем товарам мод попытается выделить по 20 мест, он должен
+  проверить хватит ли болотных локаций для железа, прежде чем забивать эти
+  локации чем-то другим». Moving the tier ladder into band 0 bought the round
+  guard twelve passes instead of thirty-three, and it spent exactly this. **The
+  rights have no such ladder at all** — they are dealt town by town in walk
+  order, so a right only two towns on the map can serve has no claim on them;
 - **a one-off spike and a short hitch on «Пересчитать»** over that ground,
   reported without complaint: thirty-three passes and ninety-eight sweeps a plan.
   The pass count is twelve now and the guard is what grew, so this wants watching

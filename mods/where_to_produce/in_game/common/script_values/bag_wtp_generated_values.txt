@@ -10963,21 +10963,25 @@ bag_wtp_rq1 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf1 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
+		limit = { var:bag_wtp_pm29 > 0 }
 		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
+		limit = { var:bag_wtp_pm30 > 0 }
 		add = 2000
 		add = var:bag_wtp_p30
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_18 = yes }
+		limit = { var:bag_wtp_pm18 > 0 }
 		add = 2000
 		add = var:bag_wtp_p18
 	}
@@ -11037,16 +11041,20 @@ bag_wtp_rq2 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf2 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
+		limit = { var:bag_wtp_pm29 > 0 }
 		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
+		limit = { var:bag_wtp_pm30 > 0 }
 		add = 2000
 		add = var:bag_wtp_p30
 	}
@@ -11111,21 +11119,25 @@ bag_wtp_rq3 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf3 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_32 = yes }
+		limit = { var:bag_wtp_pm32 > 0 }
 		add = 2000
 		add = var:bag_wtp_p32
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_36 = yes }
+		limit = { var:bag_wtp_pm36 > 0 }
 		add = 2000
 		add = var:bag_wtp_p36
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_42 = yes }
+		limit = { var:bag_wtp_pm42 > 0 }
 		add = 2000
 		add = var:bag_wtp_p42
 	}
@@ -11190,21 +11202,25 @@ bag_wtp_rq4 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf4 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_27 = yes }
+		limit = { var:bag_wtp_pm27 > 0 }
 		add = 2000
 		add = var:bag_wtp_p27
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
+		limit = { var:bag_wtp_pm4 > 0 }
 		add = 2000
 		add = var:bag_wtp_p4
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_40 = yes }
+		limit = { var:bag_wtp_pm40 > 0 }
 		add = 2000
 		add = var:bag_wtp_p40
 	}
@@ -11269,21 +11285,25 @@ bag_wtp_rq5 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf5 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_26 = yes }
+		limit = { var:bag_wtp_pm26 > 0 }
 		add = 2000
 		add = var:bag_wtp_p26
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_37 = yes }
+		limit = { var:bag_wtp_pm37 > 0 }
 		add = 2000
 		add = var:bag_wtp_p37
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_24 = yes }
+		limit = { var:bag_wtp_pm24 > 0 }
 		add = 2000
 		add = var:bag_wtp_p24
 	}
@@ -11338,11 +11358,15 @@ bag_wtp_rq6 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf6 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_34 = yes }
+		limit = { var:bag_wtp_pm34 > 0 }
 		add = 2000
 		add = var:bag_wtp_p34
 	}
@@ -11402,16 +11426,20 @@ bag_wtp_rq7 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf7 = {
 	value = 0
 	if = {
-		limit = { OR = { bag_wtp_plan_can_town_33 = yes bag_wtp_plan_can_town_17 = yes } }
+		limit = { OR = { var:bag_wtp_pm33 > 0 var:bag_wtp_pm17 > 0 } }
 		add = 2000
 		add = var:bag_wtp_p33
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_38 = yes }
+		limit = { var:bag_wtp_pm38 > 0 }
 		add = 2000
 		add = var:bag_wtp_p38
 	}
@@ -11471,16 +11499,20 @@ bag_wtp_rq8 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf8 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
+		limit = { var:bag_wtp_pm39 > 0 }
 		add = 2000
 		add = var:bag_wtp_p39
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
+		limit = { var:bag_wtp_pm45 > 0 }
 		add = 2000
 		add = var:bag_wtp_p45
 	}
@@ -11545,21 +11577,25 @@ bag_wtp_rq9 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf9 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_29 = yes }
+		limit = { var:bag_wtp_pm29 > 0 }
 		add = 2000
 		add = var:bag_wtp_p29
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_4 = yes }
+		limit = { var:bag_wtp_pm4 > 0 }
 		add = 2000
 		add = var:bag_wtp_p4
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_30 = yes }
+		limit = { var:bag_wtp_pm30 > 0 }
 		add = 2000
 		add = var:bag_wtp_p30
 	}
@@ -11614,11 +11650,15 @@ bag_wtp_rq10 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf10 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
+		limit = { var:bag_wtp_pm46 > 0 }
 		add = 2000
 		add = var:bag_wtp_p46
 	}
@@ -11683,21 +11723,25 @@ bag_wtp_rq11 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf11 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_28 = yes }
+		limit = { var:bag_wtp_pm28 > 0 }
 		add = 2000
 		add = var:bag_wtp_p28
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_31 = yes }
+		limit = { var:bag_wtp_pm31 > 0 }
 		add = 2000
 		add = var:bag_wtp_p31
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_47 = yes }
+		limit = { var:bag_wtp_pm47 > 0 }
 		add = 2000
 		add = var:bag_wtp_p47
 	}
@@ -11752,11 +11796,15 @@ bag_wtp_rq12 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf12 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_46 = yes }
+		limit = { var:bag_wtp_pm46 > 0 }
 		add = 2000
 		add = var:bag_wtp_p46
 	}
@@ -11816,16 +11864,20 @@ bag_wtp_rq13 = {
 # The same number before the province divisor: **how well this ground suits this
 # right**, which is the question a player asks of a row and the one the dump has
 # to print. Read by nothing else, so it costs a script value and no pass.
+#
+# **And it asks `_pm<n>` rather than the placement gate**, for the reason written
+# over `adds_seen` in the generator: the gate is shut on every town by the time
+# the dump runs.
 # Scope: location
 bag_wtp_rqf13 = {
 	value = 0
 	if = {
-		limit = { bag_wtp_plan_can_town_39 = yes }
+		limit = { var:bag_wtp_pm39 > 0 }
 		add = 2000
 		add = var:bag_wtp_p39
 	}
 	if = {
-		limit = { bag_wtp_plan_can_town_45 = yes }
+		limit = { var:bag_wtp_pm45 > 0 }
 		add = 2000
 		add = var:bag_wtp_p45
 	}
