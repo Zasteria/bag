@@ -7,6 +7,26 @@ game, and none of them raises an error you would notice.
 Ask for one rather than reading the file: `python3 tools/kb.py <words>`.
 
 
+**A window the engine is not told about is never created, and logs nothing at
+all.** A `window = { name = "x" }` in a mod's `.gui` does not exist because the
+file exists: it exists because a line in `in_game/gui/scripted_widgets/*.txt`
+says `gui/<file>.gui = x`. Without that line the game parses the file, registers
+its `types`, reports no error of any kind — and never builds the widget.
+
+**The symptom is the worst one in this repository: everything works and nothing
+happens.** 2026-09-03, two new windows shipped after a full session of work. The
+button's effect logged that it ran. `error.log` had no line for the file,
+`gui.log` had no type clash, the braces balanced, every localization key and
+scripted GUI and script value it named resolved, and the owner pressed the button
+three times to nothing. Two rounds went into the wrong question — whether some
+widget type was unavailable — while the registry sat in the same folder, three
+lines long, listing the three windows that did work.
+
+**`tools/check_script.py` now refuses a window that no `scripted_widgets` line
+names, and a line whose name does not match the window's own `name`** — the
+engine looks the widget up by that name, so a typo there fails the same silent
+way. Both halves are tested by breaking the registry on purpose.
+
 **View objects only resolve inside their own panel.** Reading
 `LocationProductionView.GetSelectedLocation` from a scripted widget returns null
 and logs once per frame. Vanilla never reads a `*View` outside its own file;

@@ -9479,14 +9479,13 @@ bag_wtp_edit_init_slots = {
 # scored and shows whatever the plan holds now.
 # Scope: country
 bag_wtp_open_edit_window_effect = {
-	# **A line in the log on every press, and it is here to answer one question.**
-	# The first build of this window never appeared -- pressed from the mod page and
-	# from the plan window alike, and nothing on screen either way. Two things look
-	# identical from the outside: the button never reaching this effect, and this
-	# effect running while the window fails to draw. `error.log` names the file and
-	# the line for a `.gui` that will not parse, so a line here plus that log
-	# separates them, and neither costs a second press.
-	error_log = "WTP edit window: the open effect ran and bag_wtp_edit_open is set. If no window appeared, the fault is in bag_wtp_edit_window.gui and this log names it above."
+	# **The probe that lived here is gone and `check_script.py` holds its answer.**
+	# It logged one line a press, to separate "the button never reached the effect"
+	# from "the effect ran and the window did not draw". The log said the effect
+	# ran, the `.gui` had no error of any kind, and the window still did not exist:
+	# nothing had registered it in `gui/scripted_widgets/`, and the engine creates
+	# only what is registered there. That is a rule a checker can enforce, so it
+	# does, and a line in `error.log` on every press is noise once the answer is in.
 	bag_wtp_edit_init_slots = yes
 	bag_wtp_edit_fill_pool = yes
 	bag_wtp_plan_show = yes

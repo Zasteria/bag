@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Three ways a mod file fails at load, all findable from here.
 
 Every other checker in this tree answers a question about one mod's meaning.
@@ -245,6 +245,56 @@ def problems(root: Path) -> list[str]:
     return found
 
 
+def unregistered_windows(root: Path) -> list[str]:
+    """A `window` in a .gui that no `scripted_widgets` file names.
+
+    **The game does not create a window because it is there.** It creates the
+    ones a `gui/scripted_widgets/*.txt` line points at, `gui/<file>.gui = <name>`,
+    and it says nothing at all about the rest: no parse error, no missing type,
+    no line in `error.log` — the file simply is not asked for. That cost a whole
+    round trip on 2026-09-03. Two new windows were written, checked, localized,
+    wired to their buttons and shipped; the button's effect logged that it ran,
+    the .gui had no error of any kind, and nothing appeared. The registry was in
+    the same folder the whole time.
+
+    The name in the registry has to match the window's own `name`, because that
+    is what the engine looks the widget up by.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    registered: dict[str, str] = {}
+    for path in sorted((gui / "scripted_widgets").glob("*.txt")):
+        for line in path.read_text(encoding="utf-8-sig").split("\n"):
+            line = line.split("#")[0].strip()
+            if "=" not in line:
+                continue
+            where, name = (part.strip() for part in line.split("=", 1))
+            registered[where] = name
+    found = []
+    for path in sorted(gui.glob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        # A top-level `window = {` and its `name`. Only the first is asked for:
+        # every window in this repository is one file, and a second in the same
+        # file could not be registered separately anyway.
+        if not re.search(r"^window = \{", text, re.M):
+            continue
+        match = re.search(r'^window = \{[^}]*?name = "([^"]+)"', text, re.M | re.S)
+        name = match.group(1) if match else None
+        key = f"gui/{path.name}"
+        where = f"{path.relative_to(REPO)}"
+        if key not in registered:
+            found.append(f"{where}: a window nothing registers — add "
+                         f"`{key} = {name or path.stem}` to "
+                         f"in_game/gui/scripted_widgets/, or the game never "
+                         f"creates it and says so nowhere")
+        elif name and registered[key] != name:
+            found.append(f"{where}: registered as `{registered[key]}` but the "
+                         f"window is named `{name}` — the engine looks it up by "
+                         f"the name and finds nothing")
+    return found
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
@@ -253,7 +303,8 @@ def main(argv: list[str]) -> int:
         if not root.is_dir():
             continue
         root = root if root.is_absolute() else REPO / root
-        found = problems(root) + unresolved(root, known) + unwritten(root)
+        found = (problems(root) + unresolved(root, known) + unwritten(root)
+                 + unregistered_windows(root))
         total += len(found)
         for line in found:
             print(line)

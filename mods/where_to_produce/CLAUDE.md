@@ -55,10 +55,10 @@ moved 42 locations of 48 — that is the thing not to build again.
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
 three save slots, the ground's goods as icons, «−1» / «+1» beside each one picked;
-`bag_wtp_changes_window.gui` is «показать изменения». **The first build of it never
-drew at all and the cause is still unnamed** — no base widget type is in
-`reference/`, so nothing here can check a `.gui` statically; `error.log` is the
-only thing that can say why.
+`bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
+`in_game/gui/scripted_widgets/` names it** — two builds of the editor drew nothing
+because of that one missing line, with no error anywhere;
+`check_script.py` refuses it now.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
 of our own, gating charters on their advance, spreading charters inside a province,

@@ -3938,14 +3938,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # scored and shows whatever the plan holds now.
 # Scope: country
 {MOD_ID}_open_edit_window_effect = {{
-\t# **A line in the log on every press, and it is here to answer one question.**
-\t# The first build of this window never appeared -- pressed from the mod page and
-\t# from the plan window alike, and nothing on screen either way. Two things look
-\t# identical from the outside: the button never reaching this effect, and this
-\t# effect running while the window fails to draw. `error.log` names the file and
-\t# the line for a `.gui` that will not parse, so a line here plus that log
-\t# separates them, and neither costs a second press.
-\terror_log = "WTP edit window: the open effect ran and bag_wtp_edit_open is set. If no window appeared, the fault is in bag_wtp_edit_window.gui and this log names it above."
+\t# **The probe that lived here is gone and `check_script.py` holds its answer.**
+\t# It logged one line a press, to separate "the button never reached the effect"
+\t# from "the effect ran and the window did not draw". The log said the effect
+\t# ran, the `.gui` had no error of any kind, and the window still did not exist:
+\t# nothing had registered it in `gui/scripted_widgets/`, and the engine creates
+\t# only what is registered there. That is a rule a checker can enforce, so it
+\t# does, and a line in `error.log` on every press is noise once the answer is in.
 \t{MOD_ID}_edit_init_slots = yes
 \t{MOD_ID}_edit_fill_pool = yes
 \t{MOD_ID}_plan_show = yes
