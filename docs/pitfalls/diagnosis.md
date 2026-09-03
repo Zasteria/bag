@@ -278,3 +278,17 @@ a datamodel over every building type in the game, so what lives is that subtree
 465 times over, with two more datamodels nested per row. Whenever a count is
 about cost rather than about files, check what the window repeats over first —
 `guicost.py --drivers` prints it.
+
+**A budget subtracted from the pool and again from each share charges twice.**
+2026-09-03. `where_to_produce`'s plan spends the ground in two phases: the town
+charters go in first, then the goods fill what is left. `_plan_quota` is
+`(rooms − what the charters spent) ÷ goods`, which is right — every good pays for
+the charters once, together. But `_pn<n>`, the good's own counter that the
+allocator reads against that share, is incremented by the very effect the charter
+round calls to place a building, and nothing cleared it. So a good the charters
+favoured arrived at the allocator already over its share and was frozen out of the
+ground it is best at — `tools` at `_pn = 6` against a cap of **2**, unable to take
+a free room paying it 799 out of 1000. **The symptom is a good that has exactly as
+many buildings as some other phase gave it and none of its own**, and it looks
+like a scoring fault, which is where three theories went first. When two phases
+share a counter, say in one place which of them the budget is for.

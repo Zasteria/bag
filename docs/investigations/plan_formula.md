@@ -102,7 +102,8 @@ Two dampers keep a pass from stacking:
 
 ```
 priority(g, L)  =  gain(g, L) ÷ (1 + already(g, province of L))
-quota(g)        =  max(1, capacity ÷ |goods| − rgo(g))
+quota(g)        =  max(1, free ÷ |goods| + charters(g) − rgo(g))
+free            =  capacity − everything the charter round already placed
 ```
 
 The divisor is because **every location of a province is worth the same to a
@@ -110,6 +111,14 @@ good** — the bonus is the province's — so undivided, a good takes its best
 province whole. The quota is «равномерно» and is scale-free: three provinces give
 a quota under one, so everything is covered once and mixed; a large realm gives a
 quota of twenty-odd, so each good takes its best twenty-odd places and stops.
+
+**`charters(g)` is there because the charters are paid for twice otherwise.**
+`free` already has them out of it, so every good pays for them once and together;
+adding a good's own charter buildings back gives it a share of the *free* rooms on
+top of what a charter built for it, instead of a share it has already overspent.
+Without that term a good the charters favoured could not place one building of its
+own — 2026-09-03, `tools` at six charter buildings against a cap of two, locked
+out of a province paying it 799 of 1000.
 
 ## Urban rights, and why they are their own pass
 

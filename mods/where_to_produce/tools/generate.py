@@ -2490,8 +2490,27 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # It is counted over the ground the rights have already taken their share of,
     # because a right is not optional and its buildings are not the quota's to
     # give away.
+    #
+    # **And what a charter already built is added back to that good's own cap,
+    # because otherwise the same buildings are charged twice.** `_plan_placed` is
+    # subtracted from the numerator, so every good pays for the charters once,
+    # together; `_pn<n>` then still holds what the charters put down for this good
+    # in particular, and the allocator reads that against the cap. The
+    # thirty-eighth run is the proof: six tooling charters landed in the Ruhr,
+    # where tooling pays 200, because Sauerland's towns had taken the naval
+    # charter at 1000 -- and `tools` walked into the allocator at `_pn = 6`
+    # against a quota of **2**, so it could not take one of Sauerland's free rooms
+    # at a gain of **799**. It ended the plan with exactly the six buildings the
+    # charters gave it and none of its own. Every good a charter favours was
+    # frozen out of the ground it is best at, which is the opposite of what a
+    # charter means.
+    #
+    # `_pn<n>` is the rights' count and nothing else at this moment: `_plan_run`
+    # calls this between `_plan_place_rights` and `_plan_allocate`, and nothing
+    # else in the plan writes it.
     quota_lines = "".join(
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
+\tchange_global_variable = {{ name = {MOD_ID}_pq{index} add = global_var:{MOD_ID}_pn{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
 """
