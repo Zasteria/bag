@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generate everything `where_to_produce` cannot write by hand.
 
 The mod answers one question: **for this good, where is the best place to make
@@ -2539,6 +2539,64 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 """)
 
+    # ---- the row, in an order that does not move -----------------------------
+    #
+    # **`_plan_goods` is in placement order and that order is not reproducible.**
+    # A plan appends a good the round it places it, so a location reads «пиво,
+    # вино, спирт»; a slot restored appends in the goods' own numbering and the
+    # same location reads «спирт, вино, пиво». Nothing about the plan differs —
+    # the owner, 2026-09-03: «Одно и то же, но визуально сбивает с толку.»
+    #
+    # So the rows read a pair of their own, rebuilt in the goods' own order after
+    # every plan, load and edit. `_plan_goods` stays the plan's working list,
+    # where order means nothing; `_row_goods` and `_row_builds` are what a window
+    # repeats over, and they line up because they are written in one step.
+    #
+    # **The building is re-derived from `_pm<n>` rather than copied.** That is the
+    # same read the placement makes, and the scoring pass is the only thing that
+    # writes it — no edit touches it — so the answer is the one that was placed.
+    rows = []
+    for index, good in enumerate(order, start=1):
+        branches = ""
+        # **The side is asked, and it has to be.** The scoring pass writes both
+        # `_pm<n>` and `_prm<n>` on every candidate — a location is scored as a
+        # town and as a village whatever it is now — so a good whose town and
+        # village buildings run the same method number would be added twice
+        # without this. `_plan_try_*` asks the same question through
+        # `_plan_can_*`; here it is asked directly, because the room is not.
+        for side, method_var, rank in (("t", "pm", "yes"), ("r", "prm", "no")):
+            for building, mis in sorted(groups.get((good, side), {}).items()):
+                tests = "".join(
+                    "\t\t\t\t\tvar:%s_%s%d = %d\n" % (MOD_ID, method_var, index, mi)
+                    for mi in sorted(mis))
+                branches += (f"\t\t\tif = {{\n\t\t\t\tlimit = {{\n"
+                             f"\t\t\t\t\t{MOD_ID}_plan_is_town = {rank}\n"
+                             f"\t\t\t\t\tOR = {{\n{tests}\t\t\t\t\t}}\n"
+                             f"\t\t\t\t}}\n"
+                             f"\t\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_builds "
+                             f"target = building_type:{building} }}\n\t\t\t}}\n")
+        if not branches:
+            continue
+        rows.append(
+            f"\t\tif = {{\n"
+            f"\t\t\tlimit = {{ is_target_in_variable_list = "
+            f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}\n"
+            f"\t\t\tadd_to_variable_list = {{ name = {MOD_ID}_row_goods "
+            f"target = goods:{good} }}\n"
+            f"{branches}\t\t}}\n")
+    out.append(f"""
+# What a row draws, in an order that is the same however the plan got there.
+# Scope: country
+{MOD_ID}_plan_rows = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_plan_touched
+\t\tclear_variable_list = {MOD_ID}_row_goods
+\t\tclear_variable_list = {MOD_ID}_row_builds
+{"".join(rows)}\t}}
+}}
+
+""")
+
     # ---- the rights round --------------------------------------------------
     #
     # A right the country cannot grant must not shrink the others' quota, so the
@@ -3042,6 +3100,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # locations cannot write back to the scope that started it.
 # Scope: country
 {MOD_ID}_plan_rank = {{
+	# **The rows first, and from here rather than from each caller.** Everything
+	# that changes the plan ranks it afterwards -- the plan itself, a slot load,
+	# «+1», «−1» -- so one call here is the whole of it, and no path can forget.
+	{MOD_ID}_plan_rows = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_prov_locs
 \t\tset_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
@@ -3853,7 +3915,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 #
 # **It fills a window and writes the same report to the log.** The window is what
 # he asked for -- «кнопка показать список изменений, которое откроет ещё одно
-# окно» -- and the log line stays because `mods.bat -> 8` and `tools/diag.py`
+# окно» -- and the log line stays because `mods.bat -> «Забрать диагностику из игры»` and `tools/diag.py`
 # already fold a location's `LD` lines into «изменено: убрано X; добавлено Y»,
 # which is how a change gets into a session without a screenshot.
 #
@@ -3868,7 +3930,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_moved value = 0 }}
 \tclear_global_variable_list = {MOD_ID}_chg_locs
 \tdebug_log_date = yes
-\terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> 8 takes it out."
+\terror_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> «Забрать диагностику из игры» takes it out."
 \tdebug_log = "WTP ==== BEGIN v{DIAG_VERSION} ==== the plan against the saved one"
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
@@ -4846,9 +4908,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(f"\tchange_global_variable = {{ name = {MOD_ID}_diag_runs add = 1 }}\n")
     out.append("\tdebug_log_date = yes\n")
     out.append(f'\terror_log = "WTP the report is in debug.log, tag WTP, '
-               f'version {DIAG_VERSION}. mods.bat -> 8 takes it out."\n')
+               f'version {DIAG_VERSION}. mods.bat -> «Забрать диагностику из игры» takes it out."\n')
     out.append(say(f"==== BEGIN v{DIAG_VERSION} ==== everything to the next END is one "
-                   "press. Take it out with mods.bat -> 8, or tools/diag.py."))
+                   "press. Take it out with mods.bat -> «Забрать диагностику из игры», or tools/diag.py."))
     out.append(f"""\t{MOD_ID}_diag_build = yes
 \t{MOD_ID}_diag_state = yes
 \t{MOD_ID}_diag_scan = yes

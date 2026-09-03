@@ -1071,54 +1071,12 @@ def screen_install(configured: dict) -> None:
         say("обновления подхватываются сами, папка та же.")
 
 
-# ------------------------------------------------------------------ git at the end
-
-
-def repository_dirty() -> list[str]:
-    done = workshop.git("status", "--porcelain", check=False)
-    return [line for line in done.stdout.splitlines() if line.strip()]
-
-
-def commit_and_push() -> None:
-    changed = repository_dirty()
-    if not changed:
-        say("в репозитории нечего коммитить — всё уже отправлено.")
-        return
-    say()
-    say("Изменения (%d):" % len(changed))
-    for line in changed[:20]:
-        say("  " + line)
-    if len(changed) > 20:
-        say("  ... и ещё %d" % (len(changed) - 20))
-
-    say()
-    default = "reference: обновление модов из мастерской"
-    message = ask("Сообщение коммита [%s]: " % default, default)
-    branch = workshop.git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
-    target = ask("В какую ветку пушить [%s]: " % branch, branch)
-
-    if target != branch:
-        if yes("Переключиться на %s?" % target):
-            switch = workshop.git("checkout", target, check=False)
-            if switch.returncode != 0:
-                say((switch.stdout + switch.stderr).strip())
-                return
-        else:
-            return
-
-    workshop.git("add", "-A")
-    workshop.git("commit", "-m", message)
-    say("коммит сделан.")
-    for wait in (2, 4, 8, 16, 0):
-        done = workshop.git("push", "-u", "origin", target, check=False)
-        if done.returncode == 0:
-            say("запушено в %s." % target)
-            return
-        say((done.stdout + done.stderr).strip())
-        if wait:
-            say("не вышло, пробую снова через %d с" % wait)
-            time.sleep(wait)
-    say("пуш не удался — попробуй `git push` руками.")
+# **Nothing here commits or pushes, and that is his rule.** 2026-09-03: «на самом
+# деле модс.бат не должен ничего комитить и пушить. Комичу и пушу любые изменения
+# в папке репозитория я через соответствующее десктопное приложение гитхаба.»
+# A menu item that did it was removed rather than left as a second way in --
+# two things writing the same working tree is how a half-finished change gets
+# pushed by the one that was not looking.
 
 
 # ---------------------------------------------------------------------- screens
@@ -1382,8 +1340,8 @@ def screen_from_game() -> None:
             say()
             run_python("tools/extract_game_files.py")
             say()
-            say("Что изменилось — видно в пункте 6 «Коммит и пуш». Пока не")
-            say("закоммичено, сессия этих файлов не видит.")
+            say("Скопировано в reference/game/. Пока это не закоммичено —")
+            say("в GitHub Desktop — сессия этих файлов не видит.")
             say()
             ask("Enter — назад ")
         elif choice == "2":
@@ -1474,11 +1432,12 @@ def menu(configured: dict) -> int:
         say("  3  Мои моды: список, что где лежит, перенос между ними")
         say("  4  Поставить наши моды в игру")
         say("  5  Готов ли наш мод к мастерской")
-        say("  6  Коммит и пуш")
-        say("  7  Перечитать всё заново")
-        say("  8  Забрать диагностику из игры")
-        say("  9  Забрать из игры файлы или логи")
+        say("  6  Забрать диагностику из игры")
+        say("  7  Забрать из игры файлы или логи")
+        say("  8  Перечитать всё заново")
         say("  0  Выход")
+        say()
+        say("  Коммит и пуш — в GitHub Desktop; отсюда репозиторий не пишется.")
         choice = ask("> ")
 
         if choice == "1":
@@ -1494,13 +1453,11 @@ def menu(configured: dict) -> int:
         elif choice == "5":
             screen_publish()
         elif choice == "6":
-            commit_and_push()
-        elif choice == "7":
-            world = gather(configured)
-        elif choice == "8":
             screen_diag()
-        elif choice == "9":
+        elif choice == "7":
             screen_from_game()
+        elif choice == "8":
+            world = gather(configured)
         elif choice in {"0", "q", "в", "выход"}:
             return 0
 

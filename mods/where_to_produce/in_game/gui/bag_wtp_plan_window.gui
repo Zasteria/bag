@@ -223,9 +223,16 @@ types BagWtpPlanTypes {
 				parentanchor = left|vcenter
 				spacing = 0
 
+				# **`_row_*` and not `_plan_*`.** The plan's own lists are in the
+				# order the pass placed things, and that order is not
+				# reproducible: a slot restored puts the same four goods in a
+				# location in the goods' own numbering instead, so a row read
+				# «пиво, вино, спирт» and after a load «спирт, вино, пиво».
+				# Nothing had moved. `bag_wtp_plan_rows` rebuilds this pair in
+				# one fixed order after every plan, load and edit.
 				hbox = {
 					spacing = 6
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_goods')]"
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_goods')]"
 					item = {
 						bag_wtp_plan_goods_entry = {
 							datacontext = "[Scope.GetGoods]"
@@ -235,7 +242,7 @@ types BagWtpPlanTypes {
 
 				hbox = {
 					spacing = 6
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_plan_builds')]"
+					datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
 					item = {
 						bag_wtp_plan_building_entry = {
 							datacontext = "[Scope.GetBuildingType]"

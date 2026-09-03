@@ -8921,7 +8921,7 @@ bag_wtp_edit_pick_toggle = {
 #
 # **It fills a window and writes the same report to the log.** The window is what
 # he asked for -- «кнопка показать список изменений, которое откроет ещё одно
-# окно» -- and the log line stays because `mods.bat -> 8` and `tools/diag.py`
+# окно» -- and the log line stays because `mods.bat -> «Забрать диагностику из игры»` and `tools/diag.py`
 # already fold a location's `LD` lines into «изменено: убрано X; добавлено Y»,
 # which is how a change gets into a session without a screenshot.
 #
@@ -8936,7 +8936,7 @@ bag_wtp_edit_changes = {
 	set_global_variable = { name = bag_wtp_edit_moved value = 0 }
 	clear_global_variable_list = bag_wtp_chg_locs
 	debug_log_date = yes
-	error_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> 8 takes it out."
+	error_log = "WTP the changes list is in debug.log, tag WTP. mods.bat -> «Забрать диагностику из игры» takes it out."
 	debug_log = "WTP ==== BEGIN v5 ==== the plan against the saved one"
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched

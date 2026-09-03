@@ -98,7 +98,7 @@ carry. Three readings have different owners:
 
 **Both caps print what they left out**, so a cap is never silently the answer.
 
-**How the text gets out of the game:** `mods.bat → 8`, or
+**How the text gets out of the game:** `mods.bat → «Забрать диагностику из игры»`, or
 `python3 tools/diag.py`. It finds the game's `logs`, takes the last report,
 strips the log prefixes, folds each location's goods back onto its own line and
 copies the result to the clipboard. `--raw` keeps the log's own shape; `--all`

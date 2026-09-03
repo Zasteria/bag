@@ -27,8 +27,8 @@ bag_wtp_diag = {
 	if = { limit = { NOT = { has_global_variable = bag_wtp_diag_runs } } set_global_variable = { name = bag_wtp_diag_runs value = 0 } }
 	change_global_variable = { name = bag_wtp_diag_runs add = 1 }
 	debug_log_date = yes
-	error_log = "WTP the report is in debug.log, tag WTP, version 5. mods.bat -> 8 takes it out."
-	debug_log = "WTP ==== BEGIN v5 ==== everything to the next END is one press. Take it out with mods.bat -> 8, or tools/diag.py."
+	error_log = "WTP the report is in debug.log, tag WTP, version 5. mods.bat -> «Забрать диагностику из игры» takes it out."
+	debug_log = "WTP ==== BEGIN v5 ==== everything to the next END is one press. Take it out with mods.bat -> «Забрать диагностику из игры», or tools/diag.py."
 	bag_wtp_diag_build = yes
 	bag_wtp_diag_state = yes
 	bag_wtp_diag_scan = yes

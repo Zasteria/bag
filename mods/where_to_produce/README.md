@@ -1,4 +1,4 @@
-# Where To Produce
+﻿# Where To Produce
 
 A planning tool for Europa Universalis V, in the Community Mod Framework's Mod
 Menu. It does not build anything and does not automate anything: it answers one
@@ -156,7 +156,7 @@ iron in every bog, or you are tired of looking at naval supplies.
 - **«Сохранить план» and «Вернуть сохранённое».** A fresh plan saves itself, so
   it is its own baseline; saving again re-bases wherever the editing has got to.
 - **«Показать изменения»** writes only the locations that differ from the save —
-  after one edit that is two lines. `mods.bat → 8` takes it out.
+  after one edit that is two lines. `mods.bat → «Забрать диагностику из игры»` takes it out.
 
 **Pressing «Пересчитать» throws every edit away**, because that rebuilds the plan
 from the formula. That is what the save slot is for.
