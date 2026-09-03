@@ -4,6 +4,74 @@ Split out of [`../TESTLOG.md`](../TESTLOG.md) on 2026-09-03, at its budget. Thes
 are superseded: what they say about the **game** stands, what they say about our
 code was rewritten by the runs that followed. `tools/kb.py` still searches them.
 
+**2026-09-03 — `where_to_produce`, пять нажатий, и в них видно, что ковровый
+проход не ставил ничего.** Вестфалия / Мюнстер, 48 локаций все городами, «на
+конец» (нажатия 1, 3, 5), «сейчас» (2), и одно нажатие по большой области — 233
+локации, 41 провинция, квота 16 (4). Разбор целиком в
+[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
+
+- **`P31 cover` поставил 0 и `P32 open` поставил 0**, потому что `P30
+  band0/tierall` уже добил землю до 192 из 192. Гарантия «все товары
+  производятся» не выполнялась: `stone` кончил план с `ng=6 w=6 n=0` — ноль
+  зданий там, где шесть локаций его могут сделать.
+- **Ни одной печки болотного железа.** `iron ng=4 o=0 q=2 n=1`: выигрыш ноль
+  везде (у добывающего здания нет входов-товаров), поэтому железо входит только
+  на полосе 0, а к ней его четыре локации заняты.
+- **Оружейная грамота одна на всю область и в пустом месте.** В шести городах
+  Зауэрлэнда корабельная платит **1000**, оружейная **163**; корабельная взяла
+  все шесть в полосе 800, и ковровая лестница грамот, идущая после полос, отдала
+  оружейную Эльсфлету, где та стоит **0**. Ювелирная — то же самое, 1 штука.
+- **Ярусы редкости не работают:** все ярусные проходы вместе поставили **5
+  зданий из 84**, остальные 79 сделали пять проходов `tierall`. Полоса стоит
+  снаружи яруса, у редких товаров выигрыш низкий, и до полосы 0 они не ходят.
+- **Оценка выданных прав, измеренная:** Зауэрлэнд — корабельная 1000, смоляная
+  1000, книжная 896, инструментальная 799, фламандская 454, оружейная 163,
+  ювелирная 0. Грамот доступно 9, городов 48, `_rquota = 48 ÷ 9 = 5.33` → по 6
+  на грамоту; фламандская взяла 10 (6 + 4 в открытом проходе).
+- **Квота грамот теперь честная**, фикс двойного счёта виден: `cloth q=13 n=13`,
+  `dyes q=9 n=9` — квота 2 плюс то, что дали грамоты.
+- **`diag.py` всё это время отдавал сырой лог.** `render_rq` печатает строку без
+  метки `WTP`, предохранитель считал её потерей и срабатывал на каждом отчёте, а
+  «коротко» складывалось по всем пяти нажатиям сразу («выдано 263»). Исправлено
+  и проверено на этом же файле.
+- **Сделано по итогам, ни одно не проверено в игре:** ковровая лестница у товаров
+  и у грамот перенесена в начало, до полос.
+
+
+**2026-09-03 — `where_to_produce`, the covering ladder placed the weaponry charter
+and could not place jewelry, and the quota collapsed to 2.** Westphalia, all 48
+locations ticked to towns, «на конец».
+
+- **Weaponry went from 0 to 1**, so the covering ladder works. **Jewelry stayed at
+  0**, and the cause is one comparison: the winner is taken with `rtry > rbest`
+  and `rbest` started at **0**, so a charter the ground pays exactly nothing for
+  could never win even when it was the only one left. Westphalia has no precious
+  metal, jewelry scored 0 in all 48 towns. `rbest` starts at -1 now.
+- **Flemish took 11 against everyone else's 6, and it is not double counted.**
+  `fine_cloth` scores 0 on this ground, cloth 908, so flemish is `(908+0)/2 = 454`
+  and royal textile `(908+0+0)/3 = 303`. The same cloth, divided by a smaller
+  bundle. That is «все права равны», working as he asked for it.
+- **The bonus is counted once a province, not once a location.** He asked
+  directly; `_b<n>` reads `any_location_in_province_definition`, which is a
+  boolean. Five coal locations pay exactly what one pays.
+- **The weaponry charter landed in Dortmund at 62 and not in Sauerland at 163**
+  because by the covering ladder's last band the Sauerland towns were already
+  full — they had taken the naval charter, which scores 1000 there.
+- **And the quota fell to 2 — but the fault was not the quota, it was double
+  counting.** 48 towns all took a charter and the charters ate 109 of the 192
+  rooms, so `(rooms − rights) ÷ 35 goods` came out at **2**. That subtraction is
+  correct and every good pays it once. What was wrong is that `_pn<n>` — the
+  good's own counter, which the allocator reads against that cap — **was never
+  cleared of what the charters had put down**, so the same 109 buildings were
+  charged a second time, good by good. `tools` entered the allocator at `_pn = 6`
+  (all six from the six tooling charters, which landed in the Ruhr at 200 because
+  Sauerland's towns had taken the naval charter at 1000) against a cap of 2, and
+  could not take a single free room in Sauerland at **799**. It finished the plan
+  with the charters' six and none of its own. **Fixed:** `_plan_set_quota` adds
+  `_pn<n>` back into `_pq<n>`, so the cap is the good's share of the *free* rooms
+  on top of what its charters already built. Not run.
+
+
 **2026-09-03 — `where_to_produce`, the probe came back thirteen zeroes, and the
 level rights work.** Goslar took tooling on «сейчас» and books on «на конец»,
 again. «Понятия не имею где конкретно искать строку Гослара.»

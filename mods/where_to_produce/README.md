@@ -81,25 +81,37 @@ The fourth group on the Answer tab, and a second question rather than a bigger
 version of the first: **every good at once over the chosen ground**, one building
 at a time, under a cap per location.
 
-**Six steps, and the «План» button prints them too:**
+**Seven steps, and the «План» button prints them too:**
 
 1. **Score every good in every location** — the best method whose building may
    actually stand there, that the ground feeds, and that you could run: output
    times the bonus its raw materials earn.
-2. **Divide each good by its own best in this ground**, one divisor for both
-   sides, so a good that tops out at 5% compares fairly with one that tops out at
-   10%. Without it the biggest recipe takes every contested location.
+2. **Read it as a fraction of what that good could ever earn.** The gain is
+   `bonus ÷ the best ceiling any recipe of that good reaches in the game`, so
+   1000 means "this ground feeds the recipe whole" for every good alike — and a
+   good capped at 2% compares fairly with one that can reach 10% without the
+   biggest recipe taking every contested location.
 3. **Grant urban rights**, in towns only and one per town: a town takes the
    right its ground suits best among those the country could grant and of which
-   it can make at least one good. A bundle good that cannot stand there does not
-   go up, and its slot falls to an ordinary good.
-4. **Then the rest, in rounds, the scarce goods first.** A good only a couple of
-   locations can hold takes its place before a common one takes a second — the
-   sweeps run in tiers of 1, 2, 4, 8, 16 candidate locations, then everything.
-5. **A location holds one building of a type**, so a good whose building already
-   stands there is not offered again — but the next location may take that
-   building running another method.
-6. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
+   it can make at least one good. On «Сейчас» that means a charter whose
+   unlocking advance the country has actually taken; on «В конце», any it could
+   ever hold. A bundle good that cannot stand there does not go up, and its slot
+   falls to the raw material that would let it.
+4. **Every good the ground can produce takes one location, before anything
+   else** — its own best, in descending bands of gain. That is the hard
+   constraint: «все товары которые можно произвести на выбранной земле должны
+   производиться, все».
+5. **Then the scarce finish their share, before the common start theirs.** A
+   good only a couple of locations can hold takes them while they are still
+   free — the tiers are 1, 2, 4, 8, 16 candidate locations, five bands of gain
+   inside each. Iron is the case: without an RGO it comes from one building,
+   which wants wetlands or a lake.
+6. **Then everything, and then what is left** — two more ladders of five bands,
+   the second raising every good's quota a layer a round. **A location holds one
+   building of a type**, so a good whose building already stands there is not
+   offered again — but the next location may take that building running another
+   method.
+7. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
 
 - **Every building is one the game says may stand there.** `can_build_building`
   in the location's scope — terrain, rank, `location_potential`, and never an

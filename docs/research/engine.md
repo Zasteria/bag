@@ -152,6 +152,31 @@ would pick the bonus up.
 These are GUI data functions. There is no script-side counterpart in
 `common/scripted_triggers/`, so a filter `trigger` cannot call them directly.
 
+**Only the RGO feeds it, and a building next door does not.** Asked on
+2026-09-03 because a whole class of recipes scores near nothing in
+`where_to_produce`'s plan — cannons, firearms, jewelry, steel — and every one of
+them is fed by *made* goods, which the plan itself would be putting in the same
+province. If the engine counted a neighbour's output the plan would be blind to
+its own work and the formula would need a second pass. It does not, and the game
+says so in its own tooltip:
+
+```
+PROD_METHOD_BONUS_ACTIVE: "This [building] has increased [production_efficiency]
+because some of its inputs are produced by the [rgo_with_icon] of the
+@province! [province]."
+```
+
+«…поскольку часть потребляемых им товаров **добывается** в провинции» in the
+Russian. The bonus is the province's raw materials and nothing else, which is
+what its own name says and what `raw_material` is. **Read off
+`interfaces_l_english.yml` and its Russian twin, not measured in play** — but it
+is the string the game shows for this exact bonus, and no reading of it leaves
+room for a workshop's output.
+
+So a deep recipe scoring low is the truth about the ground and not a fault in the
+formula. The player reasons «дерево и свинец — вот оно» because he knows the
+chain will be local; the engine pays him for the lead and not for the chain.
+
 ## The interface
 
 Everything about windows, lists, view objects, scripted widgets and the map's own

@@ -38,71 +38,47 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
-**2026-09-03 — `where_to_produce`, пять нажатий, и в них видно, что ковровый
-проход не ставил ничего.** Вестфалия / Мюнстер, 48 локаций все городами, «на
-конец» (нажатия 1, 3, 5), «сейчас» (2), и одно нажатие по большой области — 233
-локации, 41 провинция, квота 16 (4). Разбор целиком в
-[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
+**2026-09-03 — `where_to_produce`, три нажатия после переноса ковровой лестницы
+вперёд: гарантия держится, ярусы редкости — нет.** Вестфалия / Мюнстер, 48
+локаций, 8 провинций. Нажатия 1 и 2 — все локации городами (192 места из 192),
+«на конец» и «сейчас»; нажатие 3 — тумблеры сброшены, 6 настоящих городов, 150
+мест. **Это первый прогон «В конце»**, который до сих пор стоял в «никогда не
+запускалось».
 
-- **`P31 cover` поставил 0 и `P32 open` поставил 0**, потому что `P30
-  band0/tierall` уже добил землю до 192 из 192. Гарантия «все товары
-  производятся» не выполнялась: `stone` кончил план с `ng=6 w=6 n=0` — ноль
-  зданий там, где шесть локаций его могут сделать.
-- **Ни одной печки болотного железа.** `iron ng=4 o=0 q=2 n=1`: выигрыш ноль
-  везде (у добывающего здания нет входов-товаров), поэтому железо входит только
-  на полосе 0, а к ней его четыре локации заняты.
-- **Оружейная грамота одна на всю область и в пустом месте.** В шести городах
-  Зауэрлэнда корабельная платит **1000**, оружейная **163**; корабельная взяла
-  все шесть в полосе 800, и ковровая лестница грамот, идущая после полос, отдала
-  оружейную Эльсфлету, где та стоит **0**. Ювелирная — то же самое, 1 штука.
-- **Ярусы редкости не работают:** все ярусные проходы вместе поставили **5
-  зданий из 84**, остальные 79 сделали пять проходов `tierall`. Полоса стоит
-  снаружи яруса, у редких товаров выигрыш низкий, и до полосы 0 они не ходят.
-- **Оценка выданных прав, измеренная:** Зауэрлэнд — корабельная 1000, смоляная
-  1000, книжная 896, инструментальная 799, фламандская 454, оружейная 163,
-  ювелирная 0. Грамот доступно 9, городов 48, `_rquota = 48 ÷ 9 = 5.33` → по 6
-  на грамоту; фламандская взяла 10 (6 + 4 в открытом проходе).
-- **Квота грамот теперь честная**, фикс двойного счёта виден: `cloth q=13 n=13`,
-  `dyes q=9 n=9` — квота 2 плюс то, что дали грамоты.
-- **`diag.py` всё это время отдавал сырой лог.** `render_rq` печатает строку без
-  метки `WTP`, предохранитель считал её потерей и срабатывал на каждом отчёте, а
-  «коротко» складывалось по всем пяти нажатиям сразу («выдано 263»). Исправлено
-  и проверено на этом же файле.
-- **Сделано по итогам, ни одно не проверено в игре:** ковровая лестница у товаров
-  и у грамот перенесена в начало, до полос.
-
-**2026-09-03 — `where_to_produce`, the covering ladder placed the weaponry charter
-and could not place jewelry, and the quota collapsed to 2.** Westphalia, all 48
-locations ticked to towns, «на конец».
-
-- **Weaponry went from 0 to 1**, so the covering ladder works. **Jewelry stayed at
-  0**, and the cause is one comparison: the winner is taken with `rtry > rbest`
-  and `rbest` started at **0**, so a charter the ground pays exactly nothing for
-  could never win even when it was the only one left. Westphalia has no precious
-  metal, jewelry scored 0 in all 48 towns. `rbest` starts at -1 now.
-- **Flemish took 11 against everyone else's 6, and it is not double counted.**
-  `fine_cloth` scores 0 on this ground, cloth 908, so flemish is `(908+0)/2 = 454`
-  and royal textile `(908+0+0)/3 = 303`. The same cloth, divided by a smaller
-  bundle. That is «все права равны», working as he asked for it.
-- **The bonus is counted once a province, not once a location.** He asked
-  directly; `_b<n>` reads `any_location_in_province_definition`, which is a
-  boolean. Five coal locations pay exactly what one pays.
-- **The weaponry charter landed in Dortmund at 62 and not in Sauerland at 163**
-  because by the covering ladder's last band the Sauerland towns were already
-  full — they had taken the naval charter, which scores 1000 there.
-- **And the quota fell to 2 — but the fault was not the quota, it was double
-  counting.** 48 towns all took a charter and the charters ate 109 of the 192
-  rooms, so `(rooms − rights) ÷ 35 goods` came out at **2**. That subtraction is
-  correct and every good pays it once. What was wrong is that `_pn<n>` — the
-  good's own counter, which the allocator reads against that cap — **was never
-  cleared of what the charters had put down**, so the same 109 buildings were
-  charged a second time, good by good. `tools` entered the allocator at `_pn = 6`
-  (all six from the six tooling charters, which landed in the Ruhr at 200 because
-  Sauerland's towns had taken the naval charter at 1000) against a cap of 2, and
-  could not take a single free room in Sauerland at **799**. It finished the plan
-  with the charters' six and none of its own. **Fixed:** `_plan_set_quota` adds
-  `_pn<n>` back into `_pq<n>`, so the cap is the good's share of the *free* rooms
-  on top of what its charters already built. Not run.
+- **Ковровая лестница работает.** `P1..P5 cover800..cover0` поставили 116 → 123,
+  и ни один товар не кончил план с нулём: `stone` получил здание там, где в
+  прошлый раз не получил ни одного, оружейная и ювелирная грамоты — по городу
+  каждая, а не ноль. Гарантия «все товары производятся» выполняется.
+- **Ярусы редкости по-прежнему не работают, и теперь измерено, насколько.** Из
+  69 зданий, поставленных полосами, ярусные проходы дали **3**; всё остальное —
+  пять проходов `tierall`. Причина названа в `plan_gaps.md` (B) и подтверждается
+  строкой `o`: у 16 товаров из 35 лучший выигрыш на всей земле ниже 800, то есть
+  в верхнюю полосу они не входят нигде — `tools 799`, `stone 372`, `weaponry 187`,
+  `cannons 136`, а `iron`, `salt`, `incense`, `jewelry` и `fine_cloth` — ровно 0.
+  Так что редкий товар не может обогнать обычный внутри полосы: полосы для него
+  нет. **Исправлено в этой сессии** — ярусы стали отдельной фазой до общих
+  товаров; в игре не проверено.
+- **Открытый проход на этой земле не понадобился** (`P36 open` 192 → 192): её
+  добили квоты. На большой области прошлого прогона он ставил 271 здание из 770,
+  и там это треть плана без участия выгоды. **Тоже исправлено, тоже не
+  проверено.**
+- **Грамоты съедают 108 мест из 192** — 48 городов, у каждого связка из 1–3
+  зданий. Это ровно то, о чём он просил («каждый такой город обязательно получит
+  все здания из его бонуса»), и это же объясняет, почему квота вышла 2.4: делится
+  то, что осталось.
+- **Четыре грамоты из тринадцати кончили с `given=0`, и отчёт не мог сказать,
+  почему.** Три из них Мюнстеру недоступны по происхождению (Византия,
+  Скандинавия ×2), а `royal_textile` уступает фламандской: **вестфальские
+  культуры входят в `netherlandish_group`** — прочитано в
+  `cultures/german.txt`, не вспомнено. Строка `RIGHT` печатает теперь
+  `grantable=`.
+- **`fed=143 из 192` (74%), средний выигрыш 58.5% от потолка рецепта.** На
+  нажатии 3, где земля вдвое просторнее на здание, — 72% и 65.5%: меньше зданий
+  кормится, но те, что кормятся, стоят лучше.
+- **Найдено в самом отчёте, не в игре:** `ranked_provs` печатал счётчик
+  одиночного ранжирования и стоял в нуле на всех трёх нажатиях; локация в блоке
+  называлась дважды, и `diag.py` подписывал каждую строку начиная со второй
+  двумя именами; строка `RQ legend` терялась целиком. Всё три исправлены.
 
 **2026-09-03 — not a run: the owner asked where a copper tools recipe came from,
 and three faults came out of the answer.** «У моей нации был только 1 рецепт, тот
@@ -262,8 +238,9 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
-- **`where_to_produce`'s «В конце» plan.** Every run so far has been «сейчас»,
-  and on Münster nine goods scored 0 for want of an advance — which is exactly
-  the case the second button exists for.
+- ~~**`where_to_produce`'s «В конце» plan.**~~ **Run 2026-09-03**, twice, and it
+  is the entry above. What is still never run is the «В конце» plan's *charters*:
+  they are gated on the unlocking advance from this session on, so «Сейчас» on a
+  country before the Discovery age should now hand out none at all.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

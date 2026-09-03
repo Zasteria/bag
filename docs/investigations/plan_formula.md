@@ -89,28 +89,48 @@ Three things the owner asked for fall out of it without a rule of their own:
 | --- | --- | --- |
 | 0 | **what the owner weighted by hand** | his knob; not built |
 | 1 | **urban rights**, every town, whole bundle | the largest number in the game — see below |
-| 2 | **the bands**, 1.0 down to 0.0, scarcest good first inside each | the objective |
-| 3 | **coverage**, any good still at zero takes any free slot | constraint 1, guaranteed |
-| 4 | **surplus**, quotas raised a layer a round until nothing is added | fills the ground evenly |
+| 2 | **coverage**, five bands: every good takes one location, its own best | constraint 1, guaranteed |
+| 3 | **the scarce**, tiers of 1/2/4/8/16 candidates, five bands inside each | «зарезервируйте их под железо» |
+| 4 | **everything**, five bands | the objective, and the bulk of the plan |
+| 5 | **surplus**, five bands, quotas raised a layer a round | fills what is left, still by gain |
 
-**Pass 3 is the guarantee and it is not optional.** A good that lost every band —
-because rights took the towns, or because it gains nothing and the ground filled
-— still gets one building. Until this exists the plan does not meet his first
-requirement.
+**Pass 2 is the guarantee and it is not optional, and it runs before the bands
+rather than after them.** A good that would lose every band — because rights took
+the towns, or because it gains nothing and the ground filled — takes its own best
+location first. It was pass 31 of 32 for one day and placed **nothing**: the
+ground was 192 of 192 full by the time it ran.
 
-Two dampers keep a pass from stacking:
+**Pass 3 is a phase and not a rung inside every band, and that is the correction
+of 2026-09-03.** A scarce good could only claim a location where its gain cleared
+the band it was under — and a scarce good's gain is usually low, because scarcity
+and a poor recipe have the same cause. Measured: the tier rungs of all five bands
+placed three buildings of sixty-nine. Reserving means finishing before the common
+goods start; the bands inside the phase keep gain deciding between two scarce
+goods, so the rule is weakened only across that one boundary.
+
+**Every ladder is banded, the last included.** It was one pass at band 0, where
+gain does not enter at all, and on a large ground that one pass placed 271
+buildings of 770 — more than a third of the plan decided without the objective.
+
+One damper keeps a pass from stacking, and it is the quota:
 
 ```
-priority(g, L)  =  gain(g, L) ÷ (1 + already(g, province of L))
-quota(g)        =  max(1, free ÷ |goods| + charters(g) − rgo(g))
-free            =  capacity − everything the charter round already placed
+quota(g)  =  max(1, free ÷ |goods| + charters(g) − rgo(g))
+free      =  capacity − everything the charter round already placed
 ```
 
-The divisor is because **every location of a province is worth the same to a
-good** — the bonus is the province's — so undivided, a good takes its best
-province whole. The quota is «равномерно» and is scale-free: three provinces give
-a quota under one, so everything is covered once and mixed; a large realm gives a
-quota of twenty-odd, so each good takes its best twenty-odd places and stops.
+It is «равномерно» and it is scale-free: three provinces give a quota under one,
+so everything is covered once and mixed; a large realm gives a quota of
+twenty-odd, so each good takes its best twenty-odd places and stops.
+
+**There was a second, `gain ÷ (1 + already in this province)`, and it is gone** —
+removed 2026-09-03, for the reason under «Равномерно and specialisation» below.
+Nothing divides the gain now, and the counter behind that divisor is not written
+either.
+
+**Read `q` in the report against this and not against `PASS quota`.** It is read
+back after the plan, so it carries the layer the surplus ladder added to it — one
+per sweep — on top of the number above.
 
 **`charters(g)` is there because the charters are paid for twice otherwise.**
 `free` already has them out of it, so every good pays for them once and together;

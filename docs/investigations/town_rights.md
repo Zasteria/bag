@@ -66,37 +66,19 @@ and the bundle's score is
 `right_output` is in there for completeness; being constant it changes no order,
 and it is what makes the number readable as "what this ground would earn".
 
-**3. A level right is a different unit and must not be added to the others.**
-`flemish_cloth_industries_right` grants no efficiency at all: +5 levels of cloth
-guild and +5 of fine cloth. An output right multiplies what you would have built
-anyway; a level right adds levels. One is a ratio, the other a quantity, and a
-score that sums them is the village-above-the-guild error in a new suit.
+**3. A level right is a different unit, and the mod refuses to add it to the
+others.** Settled 2026-09-02: score a right by *which goods it favours* and never
+by the size or the kind of the favour, because a building's level cap moves as a
+location grows. The arithmetic that was written for the other answer — five levels
+against +20%, and the owner's worry about a cap of 3 against a cap of 15 — is in
+[`../archive/town_rights_levels.md`](../archive/town_rights_levels.md); it is what
+still decides Flemish cloth against royal textile.
 
-Score a level right on its own terms: **added levels × the value of one level
-there**, which is the number the mod already computes.
+## Built 2026-08-31, and running since 2026-09-03
 
-### The owner's worry, and where it lands
-
-> *"в локации где лимит будет 3 и он получит бонус +5 очевидно будет выгодней,
-> чем в локации где можно поставить 15 и он получит +5"*
-
-In **absolute** terms it is the other way round or equal: five levels produce
-five levels' worth in both, and what differs is the value of one level — the
-RGO bonus, which the mod already ranks on. In **proportional** terms he is
-right: +5 on a cap of 3 is +167% and on 15 is +33%.
-
-Neither is the whole answer, because the term neither of us can see is
-**whether the levels can be filled** — levels want pops to employ, and a cap-3
-location is small precisely because its development and population are small.
-The mod does not model employment and should not pretend to.
-
-So: rank on the absolute gain, print the cap before and after beside it, and let
-the proportion be read off the two numbers rather than ranked on. That is the
-one place in this design where the mod hands the judgement back.
-
-## Built, 2026-08-31, and never loaded
-
-The output half is in: a third list on the Goods tab, exclusive with the two
+The output half is in — the plan grants a charter to every town and puts its
+whole bundle up, and the owner has seen it: «города получают права и домики из
+прав». It is a third list on the Goods tab, exclusive with the two
 goods lists, and **a second window** rather than a third line on the first --
 the owner's call, and the right one, since a bundle is a different question in a
 different unit. `bag_wtp_generated_rights.txt` holds the list, the per-right
@@ -148,9 +130,16 @@ game and not believed: «я могу ошибаться и в целом раб�
   ground you conquer is gone the moment it is yours. You can grant it again if
   you pass its `potential`, which is what the plan already checks.
 - **Flemish cloth and `royal_textile_rights` are mutually exclusive**, and the
-  game says so itself: the flemish `allow` is `NOT = { has_town_rights =
-  royal_textile_rights }`. So «which of them has priority» is not a question the
-  game answers — it only forbids the pair, and the choice is the player's.
+  game says so itself — both `allow` blocks name the other. So «which of them has
+  priority» is not a question the game answers; it only forbids the pair **in one
+  town**, and the choice is the player's. **`scope:target` there is the town and
+  not the country, and reading it as a country rule cost two charters.** Eight
+  pairs in the game carry such an `allow`; derived as «the country grants the
+  excluder instead», it took `royal_naval_rights` and `royal_tooling_rights` away
+  from every Scandinavian country — in both the window and the plan — in favour of
+  the privileges that exclude them, at +20%/+20% and +10% against +30%. Fixed
+  2026-09-03: the plan grants a town one right, so no pair can bind on it, and the
+  single preference the mod holds is written down as one (`PREFERRED_RIGHT`).
 - **The per-location limit is a modifier, `local_possible_town_rights`**
   («Определяет, сколько городских прав может быть у района»). **Nothing in
   `reference/` pushes it**, so the base and any per-rank steps are not knowable
@@ -201,13 +190,22 @@ an age or more. His words, and the files agree: «невозможно, чтоб
 сценарий, когда ты выдал права на оружие городу, а в нём невозможно поставить
 пушки или огнестрел».
 
-**But the plan can still produce it, and that is a fault of its own.** The «сейчас»
-plan hands out rights without asking `town_rights_enable` — a right's gate is its
-`potential`, never an advance — while refusing a cannon maker because the country
-has not taken *its* advance. Two different moments inside one answer: rights as
-though it were age 3, buildings as though it were today. **Undecided which way to
-make it consistent**, and it is his call: judge the whole plan at the rights' own
-age, or gate the rights on the advance like everything else.
+**But the plan could still produce it, and that was a fault of its own.** The
+«сейчас» plan handed out rights without asking `town_rights_enable` while refusing
+a cannon maker because the country had not taken *its* advance — two different
+moments inside one answer: rights as though it were age 3, buildings as though it
+were today.
+
+**Decided 2026-09-03, and the rights are gated on the advance.** A plan is an
+answer about a moment, and «В конце» is the button that says otherwise; so
+`bag_wtp_plan_right_gate_<k>` asks the right's own `potential` always and
+`has_advance` unless `_plan_by_end` is set. A country before the Discovery age
+now gets a «сейчас» plan with no charters at all, which is the true answer.
+
+**This does not touch the rule above it.** «A right's gate is its `potential`,
+never `has_advance`» is about the **list** in the window, which plans ahead and
+must not hide a charter you will hold in two ages. The plan for today is the
+opposite question and takes the opposite answer.
 
 **One correction to his wording, not to his point.** «Первый уровень» is not free
 by default: `hand_cannon_guild` needs an age-1 advance exactly as `weapon_guild`
@@ -243,7 +241,10 @@ today, because it scores no level right at all.
   сукно» — and the merge admits exactly one, flemish cloth, because the only
   other level rights grant marketplace levels and no method produces a
   marketplace. Its own `potential` (Netherlandish culture group) is what keeps it
-  off everyone else, so no advance gate was needed.
+  off everyone else — **and Westphalian is in that group**, read off
+  `cultures/german.txt` on 2026-09-03, which is why Münster's towns take Flemish
+  cloth and never royal textile. The advance gate came later and for a different
+  reason: «Сейчас» asks it, «В конце» does not.
 - **Whether a town that suits no right at all should still get one.** The plan
   grants a right where the town can make at least one of its goods; if none of
   the twelve passes, the town gets none. It has not happened on any ground run so
