@@ -183,6 +183,44 @@ report is too long to read on screen and is not for him. The button's own
 description now prints what the last collect saw, the same way «Считать» prints
 its three numbers — so the press is never indistinguishable from a dead button.
 
+### Three more, found in the same reader on 2026-09-03
+
+All three had been in every report the owner sent, and none of them logged
+anything. They are the second half of the rules above, stated as failures.
+
+**A prefix is not a key.** `line.startswith("WTP RQ ")` was meant for a town's
+charter scores and also matched `WTP RQ legend`, the one line that explains the
+numbers. The legend arrives after the last location, when no row is open, so the
+fold threw it away in silence: it is in **none** of the three reports of
+2026-09-03, and nobody noticed because a legend's absence looks like a legend that
+was never written. Had it arrived one line earlier it would have overwritten the
+last town's scores instead. `re.match(r"WTP RQ \d", line)` now, and the legend is
+printed *before* the rows rather than under two hundred of them.
+
+**A row took every name it had been handed, and the mod handed it two.**
+`debug_log_scopes` writes one line naming the current scope; the location block
+called it before its `L` line **and again** before its `RQ` line, so the log held
+each location's name twice and the fold gave every row from the second onwards
+the previous location's name as well as its own — «WTP L Район Липпштадт (980)
+Район Зост (981) rank=2». The owner, looking for one town in it: «Понятия не имею
+где конкретно искать строку Гослара.» The second call is gone; the reader takes
+the *nearest* name and marks the rest rather than joining them.
+
+**A number can be labelled with another number's name.** `ranked_provs` in the
+`PASS` line printed `_found`, which is the single-good ranking's province count,
+and read `0` on every plan ever dumped. Nothing about a zero says it is the wrong
+variable. **A field that is always zero deserves the same suspicion as a
+safeguard that always fires**: check what it is reading before believing what it
+says.
+
+**And the one number that is honest and still misleads.** `q` in the goods line
+is read back after the plan, so it carries the layer the open ladder added — one
+per sweep — on top of the quota. `PASS quota=2` beside `clay q=2 rgo=2` reads as
+the RGO discount doing nothing, and is the discount working and the open ladder
+adding one back. An hour went into re-deriving that from three reports before the
+line was made to say it. **A report that is read against itself has to say which
+of its numbers were taken when.**
+
 ## The report is not for the player, so the tool has to read it
 
 **2026-09-02, his second press.** «Проверить насколько всё идеально и выгодно

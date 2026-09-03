@@ -184,6 +184,29 @@ selection is in [`interface.md`](interface.md) — same entries, moved when this
 file outgrew its budget rather than trimmed. Ask for one:
 `python3 tools/kb.py <words>`.
 
+## A condition read out of the game's files is answered in a scope
+
+**And the scope is half the rule.** 2026-09-03, `where_to_produce`: the town
+rights that forbid one another were read out of their `allow` blocks and turned
+into a country rule — "a country that can grant the excluder never sees the
+excluded one". The block says
+
+```
+allow = { scope:target = { NOT = { has_town_rights = town_rights_type:royal_textile_rights } } }
+```
+
+and `scope:target` in a town right is **the town**. The rule is "one town does
+not hold both" and it says nothing whatever about a country. Eight pairs in the
+game carry one. Read a scope too wide and it cost every Scandinavian country its
+two best charters, in the plan and in the window alike, with no error anywhere:
+the derived condition was valid script and simply meant something else.
+
+**So when a rule is derived from a file rather than typed, name the scope it was
+read in and check that the mod asks it in the same one.** A derived rule is
+better than a typed list — it survives a patch — but only where the derivation
+keeps the scope. The generator now asserts the pair it still relies on is still
+in the game, so a patch that drops it is a build error and not a wrong answer.
+
 ## What gates a production method
 
 `common/advances/` is in the tree now, which answers what

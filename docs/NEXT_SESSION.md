@@ -12,16 +12,21 @@ This file is the part that is live. What has already been settled is in
 вещи, которые делают так плохо. У меня столько планов на этот мод, а я всё вожусь
 с этой формулой который день.»
 
-**Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
-nothing else.** It is the whole brief: five findings, each with the measurement
-from his log, the named cause, and what would settle it. Three are fixed and
-waiting on one run; two (B — the scarcity tiers are inert because the band is the
-outer loop; C — a deep recipe cannot score anywhere, by construction) are his
-decision to make and must not be changed unasked.
+**He then handed the whole thing over, 2026-09-03:** «Я даю тебе полную свободу
+действий… перебери весь мод и сделай как должно быть на твой взгляд, а не мои
+субъективные запросы.» That session is done and the answer is in the tree.
 
-**One run is owed** and it answers everything already done: Вестфалия / Мюнстер /
-«на конец», 48 locations all towns. What it has to show is in the TESTLOG entry
-of 2026-09-03 and at the end of `plan_gaps.md`.
+**Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
+nothing else.** Eight faults now, all closed: A, E and F confirmed by his runs; C
+answered by the game's own tooltip and D by a measurement the report was already
+printing, neither needing a run; B, G and H fixed and **never once in the game**.
+
+**One run is owed and it closes those three at once.** Вестфалия / Мюнстер, all
+48 locations ticked to towns — once «на конец» and once «сейчас», because the
+charter age gate is what «сейчас» now behaves differently under. What each press
+has to show is the last section of `plan_gaps.md`. **Nothing else is worth asking
+him for until that comes back**: every remaining question about the plan is a
+question about numbers this run produces.
 
 **Do not spend his run on a guess.** Every fault in that file was found by
 counting in his log, not by theorising, and the four-theories rule
@@ -65,6 +70,11 @@ province ceiling and `plan_max` are removed at his word. The 2026-09-02 detail i
 in [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).
 
 **The single-good side** has faults he has seen and set aside without naming.
+
+**And the dead weight is out**: `_pp<n>` (a province walk on every placement, for
+a divisor removed a day earlier), 47 `_ordmax<n>` values and 228 `_reach_<n>`
+triggers reading `always = yes`. If the plan is measurably faster on the next run,
+that is where it came from.
 
 **The diagnosis comes out when the work does.** `bag_wtp_diag*`, the `_f*` and
 `_pass*` counters, two buttons; `pitfalls/diagnosis.md` has what it prints, and
