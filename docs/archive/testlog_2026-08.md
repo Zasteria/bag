@@ -2359,3 +2359,65 @@ answered on 2026-09-02 when he asked for them by name:**
   the input substitution (sand planted where a charter wanted glass, which spammed
   a realm with charters), the rescored rights, and `UNFED_PENALTY`'s own removal.
 
+### 2026-09-02 — `where_to_produce`, the two runs the province divisor cost
+
+Moved out of the live log when it tripped its budget. Both are superseded:
+the province divisor they diagnose was removed whole on 2026-09-03, and the
+rule that replaced it is in `../investigations/plan_formula.md`.
+
+**2026-09-02 — `where_to_produce`, the province divisor in game. It works, and
+Goslar still says no.** Same 416 locations, «на конец», plus a second press over
+one province with every location ticked to a town.
+
+- **The divisor does what it was changed for.** The rights came out
+  18/12/10/10/4/3/2/1/1 where they had been 8/8/7/7/7/6/6/6/6 — the ground
+  deciding instead of a round robin. And the one-province press gave **five towns
+  five different rights**, which is the Münsterland fault it was built for, held.
+  1309 of 1309 rooms, no pass near the guard.
+- **Goslar took `royal_book_rights` instead of the jewelry it should have.** Harz
+  has one town, so its divisor is 1 and the ground decides alone — which means
+  the score itself now says books beat jewelry there. The report cannot say why:
+  it prints the winner and never the field it beat. `paper o=1000, dyes o=952,
+  books o=615` against `jewelry o=909`, and a three-good bundle is averaged, so
+  the two land within a hundred of each other — **but those are bests over the
+  whole ground, not Harz's numbers.**
+- **So the probe, not a fifth theory.** `WTP RQ` prints every right's bundle
+  score for each town, before the province divisor, and `tools/diag.py` folds it
+  under that town's own line. A one-good right reads as `2000 + that good's
+  gain`, so the line gives jewelry's gain in Harz directly. One press answers it.
+- **Two of his rulings are in the build with it.** `hand_cannon_guild` and
+  `cannon_maker` are always available (`generate.ALWAYS_AVAILABLE`) — both carry
+  only rank gates in the game files, so nothing else is being waved through — and
+  a right that grants guild *levels* is now scored on the goods it favours like
+  any other, which admits `flemish_cloth_industries_right` and nothing else.
+
+**2026-09-02 — `where_to_produce`, the same ground planned «на конец», and one
+town of it named the fault the numbers had been hiding.** «В этот самый город мод
+выделил права на инструменты. Почему?» Goslar, the only town of Harz — a province
+with silver in it — took `royal_tooling_rights`, where iron is what a tools mill
+eats and silver is what a jewelry guild eats.
+
+- **He is right and the cause is arithmetic, not a guess.** A right scores
+  `(2000 a reachable good + its gain, gain ≤ 1000) ÷ bundle size ÷ (1 + times
+  already granted)`, and the divisor counted **the whole map**. A right never
+  granted scores 2000–3000; granted once, at most 1500. **The ranges do not
+  overlap**, so a right handed out anywhere could never again win on merit. The
+  rights were dealt round robin and the ground only broke ties inside one turn.
+- **The distribution is the fingerprint of it**: 8, 8, 7, 7, 7, 6, 6, 6, 6 over
+  61 towns and 9 rights, on both this run and the «сейчас» one. Too even to be
+  the ground.
+- **The fix is the divisor the goods already have**: `_rp<k>` counts the grants
+  **in this province**. The fault it was built for — five towns of Münsterland
+  all taking the masonry charter — is inside one province, and so is the divisor
+  now. Harz has one town, so its divisor is always 1 and the ground decides
+  alone. Not run.
+- **Jewelry really is what silver feeds.** All twelve `jewelry_guild` methods are
+  a base of gold, silver or copper plus one enhancement; a province with silver
+  and no gems pays 8.7% of a 10% ceiling. Tools' best anywhere on this ground was
+  `o=399`. Nothing about Harz suited tooling.
+- **The end-game plan itself is sound**: 1309 buildings in 1309 rooms, 36 of 38
+  goods placed, no pass near the guard, 113 sweeps.
+- **`GAIN fed=952 gain_total=900864`** — 73%, and among the fed 946 of 1000. The
+  unfed divisor's removal cannot be read off this: it is the «на конец» plan and
+  the run before it was «сейчас».
+

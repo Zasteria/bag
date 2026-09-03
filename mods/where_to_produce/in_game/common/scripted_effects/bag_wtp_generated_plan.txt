@@ -10721,9 +10721,6 @@ bag_wtp_plan_place_rights = {
 	set_global_variable = { name = bag_wtp_ropen value = 0 }
 	bag_wtp_plan_grant_pass = yes
 	set_global_variable = { name = bag_wtp_rband value = 0 }
-	set_global_variable = { name = bag_wtp_ropen value = 0 }
-	bag_wtp_plan_grant_pass = yes
-	set_global_variable = { name = bag_wtp_rband value = 0 }
 	set_global_variable = { name = bag_wtp_ropen value = 1 }
 	bag_wtp_plan_grant_pass = yes
 }

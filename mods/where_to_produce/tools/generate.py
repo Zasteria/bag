@@ -2191,13 +2191,22 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     grant_zeroes = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
         for k in range(1, len(rights) + 1))
-    # The bands, then one pass with the quota and the band both lifted so that no
-    # town is left without a charter. `_ropen` is what lifts them.
+    # **The quota binds only while the ground is paying, and `PLAN_BANDS[:-1]` is
+    # what says so.** Its last band is 0, which admits anything at all -- and a
+    # pass that admits anything while the quota is still on is the one that did
+    # the damage on 2026-09-03: both towns of Vorpommern took the jewelry charter,
+    # which their ground pays **90** for, while the artisan charter at **316** sat
+    # beside it blocked by nothing but an even-spread rule. Amber is the only
+    # thing there and amber is a trim, not a base.
+    #
+    # So the bands above 0 spread the charters, and the open pass -- band 0 with
+    # the quota lifted -- lets the ground decide alone. A town whose best charter
+    # is worth under 200 now waits for that pass and takes its real best.
     grant_passes = "".join(
         f"\tset_global_variable = {{ name = {MOD_ID}_rband value = {band} }}\n"
         f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 0 }}\n"
         f"\t{MOD_ID}_plan_grant_pass = yes\n"
-        for band in PLAN_BANDS)
+        for band in PLAN_BANDS[:-1])
     grant_passes += (f"\tset_global_variable = {{ name = {MOD_ID}_rband value = 0 }}\n"
                      f"\tset_global_variable = {{ name = {MOD_ID}_ropen value = 1 }}\n"
                      f"\t{MOD_ID}_plan_grant_pass = yes\n")

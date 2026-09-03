@@ -38,6 +38,32 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
+**2026-09-03 — `where_to_produce`, the gain fix held and the quota was caught
+handing out a charter worth 90.** «Тонкое сукно ушло из Гослара.» 992 of 1309
+buildings now earn something, up from 966.
+
+- **Goslar is arithmetic, not a fault, and his reading of it is right.** «Сейчас»:
+  tooling **925** against jewelry **909** — a genuine near-tie, copper feeding
+  `copper_tools_guild_maintenance` whole. «На конец»: tooling **0** and jewelry
+  909, so the jewelry charter takes it. His own words for why, and the numbers
+  agree: «в конце инструментам в целом нахер не нужна медь». The end-game tools
+  recipe is the iron mill, which wants iron and coal and has no copper option.
+- **The book charter fell from 984 to 710**, which is the paper inflation gone.
+  Predicted and confirmed.
+- **But Vorpommern is a plain fault and he found it.** Both its towns took the
+  **jewelry** charter, which their ground pays **90** for, while the artisan
+  charter at **316** stood beside it. Amber is all that province has and amber is
+  a trim, not a base — so the score was right and the grant was not.
+- **The cause is the quota in the last band.** The passes were 800, 600, 400,
+  200, 0 with the quota on, then band 0 with it lifted. **A pass that admits
+  anything at all while the quota is still on** is what granted jewelry at 90:
+  artisan, masonry, tooling and flemish were each already at the quota of
+  61 towns ÷ 9 grantable rights ≈ 6, and jewelry was not. Brewing ended on 14, so
+  the quota did not even buy evenness — it only misallocated at the bottom.
+- **Fixed by dropping that pass**: the bands above 0 spread the charters, and the
+  open pass lets the ground decide alone. A town whose best charter is worth
+  under 200 waits for it and takes its real best. Not run.
+
 **2026-09-03 — `where_to_produce`, the provinces specialised, and the probe named
 the last fault.** «Провинции действительно сильно специализировались… мне
 нравится куда стремится мод.» One province alone gave five towns five different
@@ -102,62 +128,6 @@ again. «Понятия не имею где конкретно искать с�
   on 2026-09-02 to pay for the round guard**: the ladder now runs in the last band
   only, so in bands 800–200 a common good takes a scarce one's ground with no
   contest. Both are open.
-
-**2026-09-02 — `where_to_produce`, the province divisor in game. It works, and
-Goslar still says no.** Same 416 locations, «на конец», plus a second press over
-one province with every location ticked to a town.
-
-- **The divisor does what it was changed for.** The rights came out
-  18/12/10/10/4/3/2/1/1 where they had been 8/8/7/7/7/6/6/6/6 — the ground
-  deciding instead of a round robin. And the one-province press gave **five towns
-  five different rights**, which is the Münsterland fault it was built for, held.
-  1309 of 1309 rooms, no pass near the guard.
-- **Goslar took `royal_book_rights` instead of the jewelry it should have.** Harz
-  has one town, so its divisor is 1 and the ground decides alone — which means
-  the score itself now says books beat jewelry there. The report cannot say why:
-  it prints the winner and never the field it beat. `paper o=1000, dyes o=952,
-  books o=615` against `jewelry o=909`, and a three-good bundle is averaged, so
-  the two land within a hundred of each other — **but those are bests over the
-  whole ground, not Harz's numbers.**
-- **So the probe, not a fifth theory.** `WTP RQ` prints every right's bundle
-  score for each town, before the province divisor, and `tools/diag.py` folds it
-  under that town's own line. A one-good right reads as `2000 + that good's
-  gain`, so the line gives jewelry's gain in Harz directly. One press answers it.
-- **Two of his rulings are in the build with it.** `hand_cannon_guild` and
-  `cannon_maker` are always available (`generate.ALWAYS_AVAILABLE`) — both carry
-  only rank gates in the game files, so nothing else is being waved through — and
-  a right that grants guild *levels* is now scored on the goods it favours like
-  any other, which admits `flemish_cloth_industries_right` and nothing else.
-
-**2026-09-02 — `where_to_produce`, the same ground planned «на конец», and one
-town of it named the fault the numbers had been hiding.** «В этот самый город мод
-выделил права на инструменты. Почему?» Goslar, the only town of Harz — a province
-with silver in it — took `royal_tooling_rights`, where iron is what a tools mill
-eats and silver is what a jewelry guild eats.
-
-- **He is right and the cause is arithmetic, not a guess.** A right scores
-  `(2000 a reachable good + its gain, gain ≤ 1000) ÷ bundle size ÷ (1 + times
-  already granted)`, and the divisor counted **the whole map**. A right never
-  granted scores 2000–3000; granted once, at most 1500. **The ranges do not
-  overlap**, so a right handed out anywhere could never again win on merit. The
-  rights were dealt round robin and the ground only broke ties inside one turn.
-- **The distribution is the fingerprint of it**: 8, 8, 7, 7, 7, 6, 6, 6, 6 over
-  61 towns and 9 rights, on both this run and the «сейчас» one. Too even to be
-  the ground.
-- **The fix is the divisor the goods already have**: `_rp<k>` counts the grants
-  **in this province**. The fault it was built for — five towns of Münsterland
-  all taking the masonry charter — is inside one province, and so is the divisor
-  now. Harz has one town, so its divisor is always 1 and the ground decides
-  alone. Not run.
-- **Jewelry really is what silver feeds.** All twelve `jewelry_guild` methods are
-  a base of gold, silver or copper plus one enhancement; a province with silver
-  and no gems pays 8.7% of a 10% ceiling. Tools' best anywhere on this ground was
-  `o=399`. Nothing about Harz suited tooling.
-- **The end-game plan itself is sound**: 1309 buildings in 1309 rooms, 36 of 38
-  goods placed, no pass near the guard, 113 sweeps.
-- **`GAIN fed=952 gain_total=900864`** — 73%, and among the fed 946 of 1000. The
-  unfed divisor's removal cannot be read off this: it is the «на конец» plan and
-  the run before it was «сейчас».
 
 **2026-09-02 — `where_to_produce`, Münster and all of northern Germany. The three
 fixes work, and the number the mod exists for is 95%.** «Вроде как всё
