@@ -43,7 +43,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -142,7 +143,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -241,7 +243,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -340,7 +343,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -439,7 +443,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -538,7 +543,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -637,7 +643,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -736,7 +743,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -835,7 +843,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -934,7 +943,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1038,7 +1048,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1137,7 +1148,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1236,7 +1248,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1335,7 +1348,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1434,7 +1448,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1533,7 +1548,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1632,7 +1648,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1731,7 +1748,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1830,7 +1848,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1929,7 +1948,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2033,7 +2053,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2132,7 +2153,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2231,7 +2253,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2330,7 +2353,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2429,7 +2453,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2528,7 +2553,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2627,7 +2653,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2726,7 +2753,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2825,7 +2853,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2924,7 +2953,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3028,7 +3058,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3127,7 +3158,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3226,7 +3258,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3325,7 +3358,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3424,7 +3458,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3523,7 +3558,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3622,7 +3658,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3721,7 +3758,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3820,7 +3858,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3919,7 +3958,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4023,7 +4063,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4122,7 +4163,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4221,7 +4263,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4320,7 +4363,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4419,7 +4463,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4518,7 +4563,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -4617,7 +4663,8 @@ types BagWtpEditCells {
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no

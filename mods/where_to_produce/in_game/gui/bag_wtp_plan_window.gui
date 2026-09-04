@@ -76,8 +76,12 @@ types BagWtpPlanTypes {
 		#
 		# **One word and no icon.** The first build drew the game's rank icon in
 		# the button, which of course never changed however the override was set,
-		# and coloured the word with `§Y...§!`, which this widget prints
-		# literally. The location's own rank icon is beside its name instead,
+		# and coloured the word with `§Y...§!`, which prints literally -- **not a
+		# quirk of this widget, which is how this note read until 2026-09-05:**
+		# `§` is the previous engine's markup and this game uses `#Y ...#!`
+		# everywhere. Left here as a comment, the rule was re-broken 100 times
+		# over; it is `check_script.py` -> `localization_markup` now.
+		# The location's own rank icon is beside its name instead,
 		# where it says what the game thinks rather than what the plan does.
 		widget = {
 			size = { 92 42 }

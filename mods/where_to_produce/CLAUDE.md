@@ -56,8 +56,8 @@ and **the plan reads it too** — `_pq<n>` held at 1, the open ladder skipping i
 
 **The editor is a window, never the settings page.** Three slots, then every
 good as a cell of «−1, count, +1, не нужен». **A window exists only if
-`in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses is a
-glyph it cannot draw** — take its widget; **a control behind a first click is one
+`in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses may not be in
+the font** — take a texture, and colour with `#Y …#!`, never `§`; **a control behind a first click is one
 he will not find**; and **the picker is 47 cells in fixed columns**, because a
 datamodel row carries a goods scope and a scope reaches no numbered `_pn<n>`
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).

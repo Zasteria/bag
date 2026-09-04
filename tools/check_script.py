@@ -534,6 +534,50 @@ def scope_mixed_variables(root: Path) -> list[str]:
     return found
 
 
+def localization_markup(root: Path) -> list[str]:
+    """Markup and glyphs in a localization value that this game cannot draw.
+
+    **Two of these have already reached his screen.** A `✔` came back an empty
+    box, and every `§Y…§!` in the mod was the previous engine's colour markup —
+    100 of them, including the yellow that marks a pinned good. Neither is an
+    error: the game draws the box, or prints the marker literally, and the run
+    that finds it is his.
+
+    The rule is measured, not guessed. **This game's own Russian localization
+    uses `#Y …#!` 660 times and `#!` 37 259 times, and contains no `§` at all**;
+    it also contains `×` and `−`, which is exactly why those two render in the
+    picker's buttons. So: `§` is always wrong, and a character the game never
+    uses anywhere is a gamble that costs a round trip.
+
+    **A checkmark is not unavailable — it is a texture.** The game's own context
+    menus draw one with `gfx/interface/buttons/flats/accept.dds`, its checkboxes
+    with `gfx/interface/buttons/checkbox_round.dds` and `frame_grid = { 2 1 }`,
+    and any mod may declare a `texticon` over a texture the way Glorp UI and
+    Construction Manager both do. Reach for one of those rather than a third
+    character.
+    """
+    GLYPHS = "✔✓√☑✗✘☒●■▪◆★☆♦♣♠♥•‣▶◀"
+    found = []
+    for path in sorted(root.rglob("main_menu/localization/*/*.yml")):
+        for number, line in enumerate(
+                path.read_text(encoding="utf-8-sig").split("\n"), start=1):
+            if "§" in line:
+                found.append(
+                    f"{path.relative_to(REPO)}:{number}: `§` is the previous "
+                    f"engine's markup — this game uses `#Y …#!` (660 times in "
+                    f"its own Russian localization, and not one `§`), so this "
+                    f"prints literally; docs/pitfalls/localization.md")
+            bad = [c for c in GLYPHS if c in line]
+            if bad:
+                found.append(
+                    f"{path.relative_to(REPO)}:{number}: {''.join(bad)} — the "
+                    f"game's own localization never uses these and `✔` came "
+                    f"back an empty box in game. A check or a cross is a "
+                    f"texture (`buttons/flats/accept.dds`) or a widget, not a "
+                    f"character; docs/pitfalls/localization.md")
+    return found
+
+
 def overflowing_windows(root: Path) -> list[str]:
     """A window whose widest row is wider than the box the window declares.
 
@@ -762,7 +806,8 @@ def main(argv: list[str]) -> int:
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
                  + scope_mixed_variables(root)
-                 + overflowing_windows(root))
+                 + overflowing_windows(root)
+                 + localization_markup(root))
         total += len(found)
         for line in found:
             print(line)

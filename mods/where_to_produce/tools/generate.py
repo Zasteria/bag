@@ -3578,7 +3578,8 @@ def edit_cells_file(order: list[str]) -> str:
 			# Two labels in one slot, the same trick the flag used before it
 			# became a checkbox: identical text, one of them coloured, each
 			# visible under the opposite reading of `_lock<n>`. No new glyph --
-			# `§Y…§!` is the game's own markup and this mod already prints it.
+			# `#Y …#!` is the game's markup -- `§Y…§!` is the previous engine's
+			# and prints literally, which cost this mod 100 keys on 2026-09-05.
 			widget = {{
 				size = {{ 42 28 }}
 				alwaystransparent = no
@@ -5727,8 +5728,8 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         # The same cell once the good is pinned. Only the colour differs, so a
         # pinned good reads as pinned at a glance and nothing else moves.
         out.append(f" {MOD_ID}_cell_pin_{i}: "
-                   f'"@{good}! §Y[GuiScope.SetRoot(GetPlayer.MakeScope)'
-                   f".ScriptValue('{MOD_ID}_show_pn{i}')|0]§!\"\n")
+                   f'"@{good}! #Y [GuiScope.SetRoot(GetPlayer.MakeScope)'
+                   f".ScriptValue('{MOD_ID}_show_pn{i}')|0]#!\"\n")
 
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.
