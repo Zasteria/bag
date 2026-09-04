@@ -484,6 +484,56 @@ def flowcontainer_datamodels(root: Path) -> list[str]:
     return found
 
 
+def scope_mixed_variables(root: Path) -> list[str]:
+    """A name written as a global and read as a location's own, or the reverse.
+
+    **This is what three builds of the plan editor died on.** `_edit_good` was
+    written with `set_variable` in a country-scoped effect and read with `var:`
+    twice: once at country scope, where it worked, and once inside
+    `ordered_in_global_list`, where the scope is the location the walk stands on
+    and the variable simply is not there. Every «+1» evicted a building, failed
+    to place, and put the victim back -- and nothing said why until the numbers
+    went into the report: `evicted=1 room=1 | placed_before=191 placed_after=192`
+    with `done=0 fail=1`.
+
+    Reading a variable that is not on the scope is not an error the game raises.
+    It is a condition that is quietly false, forever, which is the failure this
+    repository names first.
+
+    So: a name only ever written globally must never be read as `var:`, and a
+    name only ever written on a scope must never be read as `global_var:`. A name
+    written both ways is deliberate (the plan keeps a few) and is left alone.
+    """
+    written_global: dict[str, str] = {}
+    written_local: dict[str, str] = {}
+    read_global: dict[str, str] = {}
+    read_local: dict[str, str] = {}
+    for path in sorted((root / "in_game/common").rglob("*.txt")):
+        where = f"{path.relative_to(REPO)}"
+        for n, line in enumerate(path.read_text(encoding="utf-8-sig").split("\n"), 1):
+            code = line.split("#")[0]
+            for m in re.finditer(r"(set|change)_global_variable\s*=\s*\{\s*name\s*=\s*(\w+)", code):
+                written_global.setdefault(m.group(2), f"{where}:{n}")
+            for m in re.finditer(r"(?<!global_)(?:set|change)_variable\s*=\s*\{\s*name\s*=\s*(\w+)", code):
+                written_local.setdefault(m.group(1), f"{where}:{n}")
+            for m in re.finditer(r"global_var:(\w+)", code):
+                read_global.setdefault(m.group(1), f"{where}:{n}")
+            for m in re.finditer(r"(?<![_a-z])var:(\w+)", code):
+                read_local.setdefault(m.group(1), f"{where}:{n}")
+    found = []
+    for name, at in sorted(read_local.items()):
+        if name in written_global and name not in written_local:
+            found.append(f"{at}: `var:{name}` reads as the scope's own, but "
+                         f"{name} is only ever written with set_global_variable "
+                         f"({written_global[name]}) — the read is silently false")
+    for name, at in sorted(read_global.items()):
+        if name in written_local and name not in written_global:
+            found.append(f"{at}: `global_var:{name}` reads a global, but {name} "
+                         f"is only ever written on a scope "
+                         f"({written_local[name]}) — the read is silently false")
+    return found
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
@@ -494,7 +544,8 @@ def main(argv: list[str]) -> int:
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
                  + unregistered_windows(root) + unresolved_interface(root)
-                 + flowcontainer_datamodels(root))
+                 + flowcontainer_datamodels(root)
+                 + scope_mixed_variables(root))
         total += len(found)
         for line in found:
             print(line)

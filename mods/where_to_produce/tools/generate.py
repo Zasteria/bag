@@ -3604,6 +3604,18 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---- which good the editor is pointed at -------------------------------
     #
+    # **It is a global, and the day it was a country variable cost three builds.**
+    # `_edit_add` reads it in two scopes: at the top, where the scope is the
+    # country, and again inside `ordered_in_global_list`, where the scope is the
+    # **location** the walk stands on. A `var:` read there asks the location for
+    # a variable only the country has, so `add_dispatch` matched nothing, ever --
+    # the walk evicted a building, failed to place, and put the victim back. His
+    # own report, 2026-09-04: `evicted=1 room=1 | placed_before=191
+    # placed_after=192` with `done=0 fail=1`. Every «+1» and «−1» he pressed for
+    # three builds died there.
+    #
+    # **A number the editor carries across scopes is a global. No exceptions.**
+    #
     # **It is a number, and the buttons write it themselves.** An effect stood
     # here that took the good as a saved scope and walked 47 comparisons to turn
     # it into the plan's index, because every counter the plan keeps is numbered
@@ -3798,11 +3810,11 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---- the two operations -------------------------------------------------
     scan_dispatch = "".join(
-        f"\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} {MOD_ID}_edit_scan_{i} = yes }}\n"
+        f"\t\tif = {{ limit = {{ global_var:{MOD_ID}_edit_good = {i} }} {MOD_ID}_edit_scan_{i} = yes }}\n"
         for i in range(1, len(order) + 1))
     # How many locations could hold this good at all, room and victims aside.
     fit_dispatch = "".join(
-        f"\t\tif = {{\n\t\t\tlimit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\tif = {{\n\t\t\tlimit = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
         f"\t\t\tevery_in_global_list = {{\n"
         f"\t\t\t\tvariable = {MOD_ID}_candidates\n"
         f"\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
@@ -3815,7 +3827,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     add_dispatch = "".join(
-        f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\t\t\tif = {{ limit = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
         f"{call('edit_place', i, chr(9) * 5)}\t\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     # The victim put back where it stood, keyed by `_esg` rather than by the
@@ -3826,7 +3838,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"{call('edit_place', i, chr(9) * 6)}\t\t\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     held = "".join(
-        f"\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} "
+        f"\tif = {{ limit = {{ global_var:{MOD_ID}_edit_good = {i} }} "
         f"set_global_variable = {{ name = {MOD_ID}_edit_fitn "
         f"value = global_var:{MOD_ID}_pn{i} }} }}\n"
         for i in range(1, len(order) + 1))
@@ -3888,7 +3900,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
-\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
+\t\tlimit = {{ global_var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
@@ -4010,7 +4022,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t{MOD_ID}_edit_count_held = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
-\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
+\t\tlimit = {{ global_var:{MOD_ID}_edit_good > 0 }}
 \t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
 \t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
@@ -4019,7 +4031,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
     for index, good in enumerate(order, start=1):
         out.append(f"""\t\tif = {{
-\t\t\tlimit = {{ var:{MOD_ID}_edit_good = {index} global_var:{MOD_ID}_pn{index} > 1 }}
+\t\t\tlimit = {{ global_var:{MOD_ID}_edit_good = {index} global_var:{MOD_ID}_pn{index} > 1 }}
 \t\t\tevery_in_global_list = {{
 \t\t\t\tvariable = {MOD_ID}_candidates
 \t\t\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
@@ -4036,7 +4048,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 """)
     drop_dispatch = "".join(
-        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\t\tif = {{ limit = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
         f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     fill = "".join(
@@ -4047,7 +4059,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # without this «−1» removes a building and hands the room straight back
         # to the same good. The press then reports «сделано» and nothing on the
         # map has changed, which is what he saw on 2026-09-04.
-        f"\t\t\t\t\tNOT = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
         f"\t\t\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
         f"\t\t\t\t\tOR = {{\n"
         f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes var:{MOD_ID}_p{i} > var:{MOD_ID}_esw }}\n"
@@ -4154,7 +4166,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # «+1» for {good}.
 # Scope: country
 {MOD_ID}_edit_plus_{i} = {{
-\tset_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_add = yes
 }}
@@ -4162,7 +4174,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # «−1» for {good}.
 # Scope: country
 {MOD_ID}_edit_minus_{i} = {{
-\tset_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_drop = yes
 }}

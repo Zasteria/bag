@@ -71,6 +71,22 @@ layout can be decided in script, decide it in script**: an `hbox` with a
 datamodel has never once come out wrong here, and both widgets that would have
 saved the five lists failed on their first load.
 
+**A variable read on the wrong scope is a condition that is quietly false, for
+ever.** The plan editor's `_edit_good` was written with `set_variable` in a
+country-scoped effect and read with `var:` in two places: at the top of the
+effect, where the scope is the country and it worked, and inside
+`ordered_in_global_list`, where the scope is **the location the walk stands on**
+and the variable is not there. So the dispatch that places the building matched
+nothing, ever — three builds of «+1» evicting a building, failing to place, and
+putting the victim back, with nothing on screen able to tell that from a rule
+refusing. **A number carried across scopes is a global, no exceptions**, and
+`check_script.py` now refuses a name written only globally and read as `var:`.
+
+**And it was named the first time the numbers were in the report**, not the
+fourth: `evicted=1 room=1 | placed_before=191 placed_after=192` with `done=0
+fail=1` says the whole story in one line. **Instrument the thing before the
+third guess, not after the fourth.**
+
 **A shape is only proven for what it was proven doing.** `hbox` + `datamodel` +
 `datacontext = "[Scope.GetGoods]"` draws every location's goods in the plan
 window and has never come out wrong — but its cell is a `text_single`. **A

@@ -5656,53 +5656,53 @@ bag_wtp_edit_remove_rural_47 = {
 # Scope: country
 bag_wtp_edit_count_held = {
 	set_global_variable = { name = bag_wtp_edit_fitn value = 0 }
-	if = { limit = { var:bag_wtp_edit_good = 1 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn1 } }
-	if = { limit = { var:bag_wtp_edit_good = 2 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn2 } }
-	if = { limit = { var:bag_wtp_edit_good = 3 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn3 } }
-	if = { limit = { var:bag_wtp_edit_good = 4 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn4 } }
-	if = { limit = { var:bag_wtp_edit_good = 5 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn5 } }
-	if = { limit = { var:bag_wtp_edit_good = 6 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn6 } }
-	if = { limit = { var:bag_wtp_edit_good = 7 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn7 } }
-	if = { limit = { var:bag_wtp_edit_good = 8 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn8 } }
-	if = { limit = { var:bag_wtp_edit_good = 9 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn9 } }
-	if = { limit = { var:bag_wtp_edit_good = 10 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn10 } }
-	if = { limit = { var:bag_wtp_edit_good = 11 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn11 } }
-	if = { limit = { var:bag_wtp_edit_good = 12 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn12 } }
-	if = { limit = { var:bag_wtp_edit_good = 13 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn13 } }
-	if = { limit = { var:bag_wtp_edit_good = 14 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn14 } }
-	if = { limit = { var:bag_wtp_edit_good = 15 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn15 } }
-	if = { limit = { var:bag_wtp_edit_good = 16 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn16 } }
-	if = { limit = { var:bag_wtp_edit_good = 17 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn17 } }
-	if = { limit = { var:bag_wtp_edit_good = 18 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn18 } }
-	if = { limit = { var:bag_wtp_edit_good = 19 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn19 } }
-	if = { limit = { var:bag_wtp_edit_good = 20 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn20 } }
-	if = { limit = { var:bag_wtp_edit_good = 21 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn21 } }
-	if = { limit = { var:bag_wtp_edit_good = 22 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn22 } }
-	if = { limit = { var:bag_wtp_edit_good = 23 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn23 } }
-	if = { limit = { var:bag_wtp_edit_good = 24 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn24 } }
-	if = { limit = { var:bag_wtp_edit_good = 25 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn25 } }
-	if = { limit = { var:bag_wtp_edit_good = 26 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn26 } }
-	if = { limit = { var:bag_wtp_edit_good = 27 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn27 } }
-	if = { limit = { var:bag_wtp_edit_good = 28 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn28 } }
-	if = { limit = { var:bag_wtp_edit_good = 29 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn29 } }
-	if = { limit = { var:bag_wtp_edit_good = 30 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn30 } }
-	if = { limit = { var:bag_wtp_edit_good = 31 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn31 } }
-	if = { limit = { var:bag_wtp_edit_good = 32 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn32 } }
-	if = { limit = { var:bag_wtp_edit_good = 33 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn33 } }
-	if = { limit = { var:bag_wtp_edit_good = 34 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn34 } }
-	if = { limit = { var:bag_wtp_edit_good = 35 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn35 } }
-	if = { limit = { var:bag_wtp_edit_good = 36 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn36 } }
-	if = { limit = { var:bag_wtp_edit_good = 37 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn37 } }
-	if = { limit = { var:bag_wtp_edit_good = 38 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn38 } }
-	if = { limit = { var:bag_wtp_edit_good = 39 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn39 } }
-	if = { limit = { var:bag_wtp_edit_good = 40 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn40 } }
-	if = { limit = { var:bag_wtp_edit_good = 41 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn41 } }
-	if = { limit = { var:bag_wtp_edit_good = 42 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn42 } }
-	if = { limit = { var:bag_wtp_edit_good = 43 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn43 } }
-	if = { limit = { var:bag_wtp_edit_good = 44 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn44 } }
-	if = { limit = { var:bag_wtp_edit_good = 45 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn45 } }
-	if = { limit = { var:bag_wtp_edit_good = 46 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn46 } }
-	if = { limit = { var:bag_wtp_edit_good = 47 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn47 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 1 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn1 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 2 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn2 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 3 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn3 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 4 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn4 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 5 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn5 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 6 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn6 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 7 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn7 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 8 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn8 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 9 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn9 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 10 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn10 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 11 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn11 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 12 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn12 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 13 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn13 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 14 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn14 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 15 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn15 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 16 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn16 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 17 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn17 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 18 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn18 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 19 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn19 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 20 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn20 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 21 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn21 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 22 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn22 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 23 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn23 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 24 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn24 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 25 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn25 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 26 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn26 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 27 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn27 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 28 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn28 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 29 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn29 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 30 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn30 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 31 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn31 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 32 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn32 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 33 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn33 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 34 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn34 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 35 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn35 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 36 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn36 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 37 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn37 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 38 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn38 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 39 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn39 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 40 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn40 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 41 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn41 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 42 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn42 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 43 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn43 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 44 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn44 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 45 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn45 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 46 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn46 } }
+	if = { limit = { global_var:bag_wtp_edit_good = 47 } set_global_variable = { name = bag_wtp_edit_fitn value = global_var:bag_wtp_pn47 } }
 }
 
 
@@ -5750,7 +5750,7 @@ bag_wtp_edit_add = {
 	set_global_variable = { name = bag_wtp_edit_fitn value = 0 }
 	set_global_variable = { name = bag_wtp_edit_cands value = 0 }
 	if = {
-		limit = { var:bag_wtp_edit_good > 0 }
+		limit = { global_var:bag_wtp_edit_good > 0 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			set_variable = { name = bag_wtp_esc value = 0 }
@@ -5758,7 +5758,7 @@ bag_wtp_edit_add = {
 			bag_wtp_edit_worst = yes
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 1 }
+			limit = { global_var:bag_wtp_edit_good = 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_1 = yes bag_wtp_edit_fits_rural_1 = yes } }
@@ -5766,7 +5766,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 2 }
+			limit = { global_var:bag_wtp_edit_good = 2 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_2 = yes bag_wtp_edit_fits_rural_2 = yes } }
@@ -5774,7 +5774,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 3 }
+			limit = { global_var:bag_wtp_edit_good = 3 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_3 = yes bag_wtp_edit_fits_rural_3 = yes } }
@@ -5782,7 +5782,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 4 }
+			limit = { global_var:bag_wtp_edit_good = 4 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_4 = yes bag_wtp_edit_fits_rural_4 = yes } }
@@ -5790,7 +5790,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 5 }
+			limit = { global_var:bag_wtp_edit_good = 5 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_5 = yes bag_wtp_edit_fits_rural_5 = yes } }
@@ -5798,7 +5798,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 6 }
+			limit = { global_var:bag_wtp_edit_good = 6 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_6 = yes bag_wtp_edit_fits_rural_6 = yes } }
@@ -5806,7 +5806,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 7 }
+			limit = { global_var:bag_wtp_edit_good = 7 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_7 = yes bag_wtp_edit_fits_rural_7 = yes } }
@@ -5814,7 +5814,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 8 }
+			limit = { global_var:bag_wtp_edit_good = 8 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_8 = yes bag_wtp_edit_fits_rural_8 = yes } }
@@ -5822,7 +5822,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 9 }
+			limit = { global_var:bag_wtp_edit_good = 9 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_9 = yes bag_wtp_edit_fits_rural_9 = yes } }
@@ -5830,7 +5830,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 10 }
+			limit = { global_var:bag_wtp_edit_good = 10 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_10 = yes bag_wtp_edit_fits_rural_10 = yes } }
@@ -5838,7 +5838,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 11 }
+			limit = { global_var:bag_wtp_edit_good = 11 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_11 = yes bag_wtp_edit_fits_rural_11 = yes } }
@@ -5846,7 +5846,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 12 }
+			limit = { global_var:bag_wtp_edit_good = 12 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_12 = yes bag_wtp_edit_fits_rural_12 = yes } }
@@ -5854,7 +5854,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 13 }
+			limit = { global_var:bag_wtp_edit_good = 13 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_13 = yes bag_wtp_edit_fits_rural_13 = yes } }
@@ -5862,7 +5862,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 14 }
+			limit = { global_var:bag_wtp_edit_good = 14 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_14 = yes bag_wtp_edit_fits_rural_14 = yes } }
@@ -5870,7 +5870,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 15 }
+			limit = { global_var:bag_wtp_edit_good = 15 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_15 = yes bag_wtp_edit_fits_rural_15 = yes } }
@@ -5878,7 +5878,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 16 }
+			limit = { global_var:bag_wtp_edit_good = 16 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_16 = yes bag_wtp_edit_fits_rural_16 = yes } }
@@ -5886,7 +5886,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 17 }
+			limit = { global_var:bag_wtp_edit_good = 17 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_17 = yes bag_wtp_edit_fits_rural_17 = yes } }
@@ -5894,7 +5894,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 18 }
+			limit = { global_var:bag_wtp_edit_good = 18 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_18 = yes bag_wtp_edit_fits_rural_18 = yes } }
@@ -5902,7 +5902,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 19 }
+			limit = { global_var:bag_wtp_edit_good = 19 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_19 = yes bag_wtp_edit_fits_rural_19 = yes } }
@@ -5910,7 +5910,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 20 }
+			limit = { global_var:bag_wtp_edit_good = 20 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_20 = yes bag_wtp_edit_fits_rural_20 = yes } }
@@ -5918,7 +5918,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 21 }
+			limit = { global_var:bag_wtp_edit_good = 21 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_21 = yes bag_wtp_edit_fits_rural_21 = yes } }
@@ -5926,7 +5926,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 22 }
+			limit = { global_var:bag_wtp_edit_good = 22 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_22 = yes bag_wtp_edit_fits_rural_22 = yes } }
@@ -5934,7 +5934,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 23 }
+			limit = { global_var:bag_wtp_edit_good = 23 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_23 = yes bag_wtp_edit_fits_rural_23 = yes } }
@@ -5942,7 +5942,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 24 }
+			limit = { global_var:bag_wtp_edit_good = 24 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_24 = yes bag_wtp_edit_fits_rural_24 = yes } }
@@ -5950,7 +5950,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 25 }
+			limit = { global_var:bag_wtp_edit_good = 25 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_25 = yes bag_wtp_edit_fits_rural_25 = yes } }
@@ -5958,7 +5958,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 26 }
+			limit = { global_var:bag_wtp_edit_good = 26 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_26 = yes bag_wtp_edit_fits_rural_26 = yes } }
@@ -5966,7 +5966,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 27 }
+			limit = { global_var:bag_wtp_edit_good = 27 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_27 = yes bag_wtp_edit_fits_rural_27 = yes } }
@@ -5974,7 +5974,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 28 }
+			limit = { global_var:bag_wtp_edit_good = 28 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_28 = yes bag_wtp_edit_fits_rural_28 = yes } }
@@ -5982,7 +5982,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 29 }
+			limit = { global_var:bag_wtp_edit_good = 29 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_29 = yes bag_wtp_edit_fits_rural_29 = yes } }
@@ -5990,7 +5990,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 30 }
+			limit = { global_var:bag_wtp_edit_good = 30 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_30 = yes bag_wtp_edit_fits_rural_30 = yes } }
@@ -5998,7 +5998,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 31 }
+			limit = { global_var:bag_wtp_edit_good = 31 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_31 = yes bag_wtp_edit_fits_rural_31 = yes } }
@@ -6006,7 +6006,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 32 }
+			limit = { global_var:bag_wtp_edit_good = 32 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_32 = yes bag_wtp_edit_fits_rural_32 = yes } }
@@ -6014,7 +6014,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 33 }
+			limit = { global_var:bag_wtp_edit_good = 33 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_33 = yes bag_wtp_edit_fits_rural_33 = yes } }
@@ -6022,7 +6022,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 34 }
+			limit = { global_var:bag_wtp_edit_good = 34 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_34 = yes bag_wtp_edit_fits_rural_34 = yes } }
@@ -6030,7 +6030,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 35 }
+			limit = { global_var:bag_wtp_edit_good = 35 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_35 = yes bag_wtp_edit_fits_rural_35 = yes } }
@@ -6038,7 +6038,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 36 }
+			limit = { global_var:bag_wtp_edit_good = 36 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_36 = yes bag_wtp_edit_fits_rural_36 = yes } }
@@ -6046,7 +6046,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 37 }
+			limit = { global_var:bag_wtp_edit_good = 37 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_37 = yes bag_wtp_edit_fits_rural_37 = yes } }
@@ -6054,7 +6054,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 38 }
+			limit = { global_var:bag_wtp_edit_good = 38 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_38 = yes bag_wtp_edit_fits_rural_38 = yes } }
@@ -6062,7 +6062,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 39 }
+			limit = { global_var:bag_wtp_edit_good = 39 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_39 = yes bag_wtp_edit_fits_rural_39 = yes } }
@@ -6070,7 +6070,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 40 }
+			limit = { global_var:bag_wtp_edit_good = 40 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_40 = yes bag_wtp_edit_fits_rural_40 = yes } }
@@ -6078,7 +6078,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 41 }
+			limit = { global_var:bag_wtp_edit_good = 41 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_41 = yes bag_wtp_edit_fits_rural_41 = yes } }
@@ -6086,7 +6086,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 42 }
+			limit = { global_var:bag_wtp_edit_good = 42 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_42 = yes bag_wtp_edit_fits_rural_42 = yes } }
@@ -6094,7 +6094,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 43 }
+			limit = { global_var:bag_wtp_edit_good = 43 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_43 = yes bag_wtp_edit_fits_rural_43 = yes } }
@@ -6102,7 +6102,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 44 }
+			limit = { global_var:bag_wtp_edit_good = 44 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_44 = yes bag_wtp_edit_fits_rural_44 = yes } }
@@ -6110,7 +6110,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 45 }
+			limit = { global_var:bag_wtp_edit_good = 45 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_45 = yes bag_wtp_edit_fits_rural_45 = yes } }
@@ -6118,7 +6118,7 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 46 }
+			limit = { global_var:bag_wtp_edit_good = 46 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_46 = yes bag_wtp_edit_fits_rural_46 = yes } }
@@ -6126,60 +6126,60 @@ bag_wtp_edit_add = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 47 }
+			limit = { global_var:bag_wtp_edit_good = 47 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { OR = { bag_wtp_edit_fits_town_47 = yes bag_wtp_edit_fits_rural_47 = yes } }
 				change_global_variable = { name = bag_wtp_edit_fitn add = 1 }
 			}
 		}
-		if = { limit = { var:bag_wtp_edit_good = 1 } bag_wtp_edit_scan_1 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 2 } bag_wtp_edit_scan_2 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 3 } bag_wtp_edit_scan_3 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 4 } bag_wtp_edit_scan_4 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 5 } bag_wtp_edit_scan_5 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 6 } bag_wtp_edit_scan_6 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 7 } bag_wtp_edit_scan_7 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 8 } bag_wtp_edit_scan_8 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 9 } bag_wtp_edit_scan_9 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 10 } bag_wtp_edit_scan_10 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 11 } bag_wtp_edit_scan_11 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 12 } bag_wtp_edit_scan_12 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 13 } bag_wtp_edit_scan_13 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 14 } bag_wtp_edit_scan_14 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 15 } bag_wtp_edit_scan_15 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 16 } bag_wtp_edit_scan_16 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 17 } bag_wtp_edit_scan_17 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 18 } bag_wtp_edit_scan_18 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 19 } bag_wtp_edit_scan_19 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 20 } bag_wtp_edit_scan_20 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 21 } bag_wtp_edit_scan_21 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 22 } bag_wtp_edit_scan_22 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 23 } bag_wtp_edit_scan_23 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 24 } bag_wtp_edit_scan_24 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 25 } bag_wtp_edit_scan_25 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 26 } bag_wtp_edit_scan_26 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 27 } bag_wtp_edit_scan_27 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 28 } bag_wtp_edit_scan_28 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 29 } bag_wtp_edit_scan_29 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 30 } bag_wtp_edit_scan_30 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 31 } bag_wtp_edit_scan_31 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 32 } bag_wtp_edit_scan_32 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 33 } bag_wtp_edit_scan_33 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 34 } bag_wtp_edit_scan_34 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 35 } bag_wtp_edit_scan_35 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 36 } bag_wtp_edit_scan_36 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 37 } bag_wtp_edit_scan_37 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 38 } bag_wtp_edit_scan_38 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 39 } bag_wtp_edit_scan_39 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 40 } bag_wtp_edit_scan_40 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 41 } bag_wtp_edit_scan_41 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 42 } bag_wtp_edit_scan_42 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 43 } bag_wtp_edit_scan_43 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 44 } bag_wtp_edit_scan_44 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 45 } bag_wtp_edit_scan_45 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 46 } bag_wtp_edit_scan_46 = yes }
-		if = { limit = { var:bag_wtp_edit_good = 47 } bag_wtp_edit_scan_47 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 1 } bag_wtp_edit_scan_1 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 2 } bag_wtp_edit_scan_2 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 3 } bag_wtp_edit_scan_3 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 4 } bag_wtp_edit_scan_4 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 5 } bag_wtp_edit_scan_5 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 6 } bag_wtp_edit_scan_6 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 7 } bag_wtp_edit_scan_7 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 8 } bag_wtp_edit_scan_8 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 9 } bag_wtp_edit_scan_9 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 10 } bag_wtp_edit_scan_10 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 11 } bag_wtp_edit_scan_11 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 12 } bag_wtp_edit_scan_12 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 13 } bag_wtp_edit_scan_13 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 14 } bag_wtp_edit_scan_14 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 15 } bag_wtp_edit_scan_15 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 16 } bag_wtp_edit_scan_16 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 17 } bag_wtp_edit_scan_17 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 18 } bag_wtp_edit_scan_18 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 19 } bag_wtp_edit_scan_19 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 20 } bag_wtp_edit_scan_20 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 21 } bag_wtp_edit_scan_21 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 22 } bag_wtp_edit_scan_22 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 23 } bag_wtp_edit_scan_23 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 24 } bag_wtp_edit_scan_24 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 25 } bag_wtp_edit_scan_25 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 26 } bag_wtp_edit_scan_26 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 27 } bag_wtp_edit_scan_27 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 28 } bag_wtp_edit_scan_28 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 29 } bag_wtp_edit_scan_29 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 30 } bag_wtp_edit_scan_30 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 31 } bag_wtp_edit_scan_31 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 32 } bag_wtp_edit_scan_32 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 33 } bag_wtp_edit_scan_33 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 34 } bag_wtp_edit_scan_34 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 35 } bag_wtp_edit_scan_35 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 36 } bag_wtp_edit_scan_36 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 37 } bag_wtp_edit_scan_37 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 38 } bag_wtp_edit_scan_38 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 39 } bag_wtp_edit_scan_39 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 40 } bag_wtp_edit_scan_40 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 41 } bag_wtp_edit_scan_41 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 42 } bag_wtp_edit_scan_42 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 43 } bag_wtp_edit_scan_43 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 44 } bag_wtp_edit_scan_44 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 45 } bag_wtp_edit_scan_45 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 46 } bag_wtp_edit_scan_46 = yes }
+		if = { limit = { global_var:bag_wtp_edit_good = 47 } bag_wtp_edit_scan_47 = yes }
 		# **Two counts, because two different things read as «не дало правило».**
 		# `_edit_fitn` is how many locations could hold this good at all -- the
 		# ground's own answer, and 0 means it already stands everywhere this land
@@ -6423,170 +6423,170 @@ bag_wtp_edit_add = {
 			set_global_variable = { name = bag_wtp_edit_mark value = global_var:bag_wtp_plan_placed }
 			if = {
 				limit = { global_var:bag_wtp_edit_room = 1 }
-				if = { limit = { var:bag_wtp_edit_good = 1 }
+				if = { limit = { global_var:bag_wtp_edit_good = 1 }
 					bag_wtp_edit_place_town_1 = yes
 					bag_wtp_edit_place_rural_1 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 2 }
+				if = { limit = { global_var:bag_wtp_edit_good = 2 }
 					bag_wtp_edit_place_town_2 = yes
 					bag_wtp_edit_place_rural_2 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 3 }
+				if = { limit = { global_var:bag_wtp_edit_good = 3 }
 					bag_wtp_edit_place_town_3 = yes
 					bag_wtp_edit_place_rural_3 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 4 }
+				if = { limit = { global_var:bag_wtp_edit_good = 4 }
 					bag_wtp_edit_place_town_4 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 5 }
+				if = { limit = { global_var:bag_wtp_edit_good = 5 }
 					bag_wtp_edit_place_town_5 = yes
 					bag_wtp_edit_place_rural_5 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 6 }
+				if = { limit = { global_var:bag_wtp_edit_good = 6 }
 					bag_wtp_edit_place_rural_6 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 7 }
+				if = { limit = { global_var:bag_wtp_edit_good = 7 }
 					bag_wtp_edit_place_town_7 = yes
 					bag_wtp_edit_place_rural_7 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 8 }
+				if = { limit = { global_var:bag_wtp_edit_good = 8 }
 					bag_wtp_edit_place_town_8 = yes
 					bag_wtp_edit_place_rural_8 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 9 }
+				if = { limit = { global_var:bag_wtp_edit_good = 9 }
 					bag_wtp_edit_place_town_9 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 10 }
+				if = { limit = { global_var:bag_wtp_edit_good = 10 }
 					bag_wtp_edit_place_town_10 = yes
 					bag_wtp_edit_place_rural_10 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 11 }
+				if = { limit = { global_var:bag_wtp_edit_good = 11 }
 					bag_wtp_edit_place_rural_11 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 12 }
+				if = { limit = { global_var:bag_wtp_edit_good = 12 }
 					bag_wtp_edit_place_rural_12 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 13 }
+				if = { limit = { global_var:bag_wtp_edit_good = 13 }
 					bag_wtp_edit_place_town_13 = yes
 					bag_wtp_edit_place_rural_13 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 14 }
+				if = { limit = { global_var:bag_wtp_edit_good = 14 }
 					bag_wtp_edit_place_town_14 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 15 }
+				if = { limit = { global_var:bag_wtp_edit_good = 15 }
 					bag_wtp_edit_place_town_15 = yes
 					bag_wtp_edit_place_rural_15 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 16 }
+				if = { limit = { global_var:bag_wtp_edit_good = 16 }
 					bag_wtp_edit_place_town_16 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 17 }
+				if = { limit = { global_var:bag_wtp_edit_good = 17 }
 					bag_wtp_edit_place_town_17 = yes
 					bag_wtp_edit_place_rural_17 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 18 }
+				if = { limit = { global_var:bag_wtp_edit_good = 18 }
 					bag_wtp_edit_place_town_18 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 19 }
+				if = { limit = { global_var:bag_wtp_edit_good = 19 }
 					bag_wtp_edit_place_town_19 = yes
 					bag_wtp_edit_place_rural_19 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 20 }
+				if = { limit = { global_var:bag_wtp_edit_good = 20 }
 					bag_wtp_edit_place_town_20 = yes
 					bag_wtp_edit_place_rural_20 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 21 }
+				if = { limit = { global_var:bag_wtp_edit_good = 21 }
 					bag_wtp_edit_place_town_21 = yes
 					bag_wtp_edit_place_rural_21 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 22 }
+				if = { limit = { global_var:bag_wtp_edit_good = 22 }
 					bag_wtp_edit_place_town_22 = yes
 					bag_wtp_edit_place_rural_22 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 23 }
+				if = { limit = { global_var:bag_wtp_edit_good = 23 }
 					bag_wtp_edit_place_rural_23 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 24 }
+				if = { limit = { global_var:bag_wtp_edit_good = 24 }
 					bag_wtp_edit_place_town_24 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 25 }
+				if = { limit = { global_var:bag_wtp_edit_good = 25 }
 					bag_wtp_edit_place_rural_25 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 26 }
+				if = { limit = { global_var:bag_wtp_edit_good = 26 }
 					bag_wtp_edit_place_town_26 = yes
 					bag_wtp_edit_place_rural_26 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 27 }
+				if = { limit = { global_var:bag_wtp_edit_good = 27 }
 					bag_wtp_edit_place_town_27 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 28 }
+				if = { limit = { global_var:bag_wtp_edit_good = 28 }
 					bag_wtp_edit_place_town_28 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 29 }
+				if = { limit = { global_var:bag_wtp_edit_good = 29 }
 					bag_wtp_edit_place_town_29 = yes
 					bag_wtp_edit_place_rural_29 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 30 }
+				if = { limit = { global_var:bag_wtp_edit_good = 30 }
 					bag_wtp_edit_place_town_30 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 31 }
+				if = { limit = { global_var:bag_wtp_edit_good = 31 }
 					bag_wtp_edit_place_town_31 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 32 }
+				if = { limit = { global_var:bag_wtp_edit_good = 32 }
 					bag_wtp_edit_place_town_32 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 33 }
+				if = { limit = { global_var:bag_wtp_edit_good = 33 }
 					bag_wtp_edit_place_town_33 = yes
 					bag_wtp_edit_place_rural_33 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 34 }
+				if = { limit = { global_var:bag_wtp_edit_good = 34 }
 					bag_wtp_edit_place_town_34 = yes
 					bag_wtp_edit_place_rural_34 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 35 }
+				if = { limit = { global_var:bag_wtp_edit_good = 35 }
 					bag_wtp_edit_place_town_35 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 36 }
+				if = { limit = { global_var:bag_wtp_edit_good = 36 }
 					bag_wtp_edit_place_town_36 = yes
 					bag_wtp_edit_place_rural_36 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 37 }
+				if = { limit = { global_var:bag_wtp_edit_good = 37 }
 					bag_wtp_edit_place_town_37 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 38 }
+				if = { limit = { global_var:bag_wtp_edit_good = 38 }
 					bag_wtp_edit_place_town_38 = yes
 					bag_wtp_edit_place_rural_38 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 39 }
+				if = { limit = { global_var:bag_wtp_edit_good = 39 }
 					bag_wtp_edit_place_town_39 = yes
 					bag_wtp_edit_place_rural_39 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 40 }
+				if = { limit = { global_var:bag_wtp_edit_good = 40 }
 					bag_wtp_edit_place_town_40 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 41 }
+				if = { limit = { global_var:bag_wtp_edit_good = 41 }
 					bag_wtp_edit_place_town_41 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 42 }
+				if = { limit = { global_var:bag_wtp_edit_good = 42 }
 					bag_wtp_edit_place_town_42 = yes
 					bag_wtp_edit_place_rural_42 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 43 }
+				if = { limit = { global_var:bag_wtp_edit_good = 43 }
 					bag_wtp_edit_place_town_43 = yes
 					bag_wtp_edit_place_rural_43 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 44 }
+				if = { limit = { global_var:bag_wtp_edit_good = 44 }
 					bag_wtp_edit_place_town_44 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 45 }
+				if = { limit = { global_var:bag_wtp_edit_good = 45 }
 					bag_wtp_edit_place_town_45 = yes
 					bag_wtp_edit_place_rural_45 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 46 }
+				if = { limit = { global_var:bag_wtp_edit_good = 46 }
 					bag_wtp_edit_place_town_46 = yes
 					bag_wtp_edit_place_rural_46 = yes
 				}
-				if = { limit = { var:bag_wtp_edit_good = 47 }
+				if = { limit = { global_var:bag_wtp_edit_good = 47 }
 					bag_wtp_edit_place_town_47 = yes
 					bag_wtp_edit_place_rural_47 = yes
 				}
@@ -6796,14 +6796,14 @@ bag_wtp_edit_drop = {
 	bag_wtp_edit_count_held = yes
 	set_global_variable = { name = bag_wtp_edit_cands value = 0 }
 	if = {
-		limit = { var:bag_wtp_edit_good > 0 }
+		limit = { global_var:bag_wtp_edit_good > 0 }
 		every_in_global_list = {
 			variable = bag_wtp_candidates
 			set_variable = { name = bag_wtp_esc value = 0 }
 			set_variable = { name = bag_wtp_esv value = 0 }
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 1 global_var:bag_wtp_pn1 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 1 global_var:bag_wtp_pn1 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } }
@@ -6819,7 +6819,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 2 global_var:bag_wtp_pn2 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 2 global_var:bag_wtp_pn2 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } }
@@ -6835,7 +6835,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 3 global_var:bag_wtp_pn3 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 3 global_var:bag_wtp_pn3 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } }
@@ -6851,7 +6851,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 4 global_var:bag_wtp_pn4 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 4 global_var:bag_wtp_pn4 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } }
@@ -6867,7 +6867,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 5 global_var:bag_wtp_pn5 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 5 global_var:bag_wtp_pn5 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } }
@@ -6883,7 +6883,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 6 global_var:bag_wtp_pn6 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 6 global_var:bag_wtp_pn6 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } }
@@ -6899,7 +6899,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 7 global_var:bag_wtp_pn7 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 7 global_var:bag_wtp_pn7 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } }
@@ -6915,7 +6915,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 8 global_var:bag_wtp_pn8 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 8 global_var:bag_wtp_pn8 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } }
@@ -6931,7 +6931,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 9 global_var:bag_wtp_pn9 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 9 global_var:bag_wtp_pn9 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } }
@@ -6947,7 +6947,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 10 global_var:bag_wtp_pn10 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 10 global_var:bag_wtp_pn10 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } }
@@ -6963,7 +6963,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 11 global_var:bag_wtp_pn11 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 11 global_var:bag_wtp_pn11 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } }
@@ -6979,7 +6979,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 12 global_var:bag_wtp_pn12 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 12 global_var:bag_wtp_pn12 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } }
@@ -6995,7 +6995,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 13 global_var:bag_wtp_pn13 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 13 global_var:bag_wtp_pn13 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } }
@@ -7011,7 +7011,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 14 global_var:bag_wtp_pn14 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 14 global_var:bag_wtp_pn14 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } }
@@ -7027,7 +7027,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 15 global_var:bag_wtp_pn15 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 15 global_var:bag_wtp_pn15 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } }
@@ -7043,7 +7043,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 16 global_var:bag_wtp_pn16 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 16 global_var:bag_wtp_pn16 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } }
@@ -7059,7 +7059,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 17 global_var:bag_wtp_pn17 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 17 global_var:bag_wtp_pn17 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } }
@@ -7075,7 +7075,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 18 global_var:bag_wtp_pn18 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 18 global_var:bag_wtp_pn18 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } }
@@ -7091,7 +7091,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 19 global_var:bag_wtp_pn19 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 19 global_var:bag_wtp_pn19 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } }
@@ -7107,7 +7107,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 20 global_var:bag_wtp_pn20 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 20 global_var:bag_wtp_pn20 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } }
@@ -7123,7 +7123,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 21 global_var:bag_wtp_pn21 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 21 global_var:bag_wtp_pn21 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } }
@@ -7139,7 +7139,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 22 global_var:bag_wtp_pn22 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 22 global_var:bag_wtp_pn22 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } }
@@ -7155,7 +7155,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 23 global_var:bag_wtp_pn23 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 23 global_var:bag_wtp_pn23 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } }
@@ -7171,7 +7171,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 24 global_var:bag_wtp_pn24 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 24 global_var:bag_wtp_pn24 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } }
@@ -7187,7 +7187,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 25 global_var:bag_wtp_pn25 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 25 global_var:bag_wtp_pn25 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } }
@@ -7203,7 +7203,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 26 global_var:bag_wtp_pn26 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 26 global_var:bag_wtp_pn26 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } }
@@ -7219,7 +7219,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 27 global_var:bag_wtp_pn27 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 27 global_var:bag_wtp_pn27 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } }
@@ -7235,7 +7235,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 28 global_var:bag_wtp_pn28 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 28 global_var:bag_wtp_pn28 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } }
@@ -7251,7 +7251,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 29 global_var:bag_wtp_pn29 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 29 global_var:bag_wtp_pn29 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } }
@@ -7267,7 +7267,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 30 global_var:bag_wtp_pn30 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 30 global_var:bag_wtp_pn30 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } }
@@ -7283,7 +7283,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 31 global_var:bag_wtp_pn31 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 31 global_var:bag_wtp_pn31 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } }
@@ -7299,7 +7299,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 32 global_var:bag_wtp_pn32 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 32 global_var:bag_wtp_pn32 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } }
@@ -7315,7 +7315,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 33 global_var:bag_wtp_pn33 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 33 global_var:bag_wtp_pn33 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } }
@@ -7331,7 +7331,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 34 global_var:bag_wtp_pn34 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 34 global_var:bag_wtp_pn34 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } }
@@ -7347,7 +7347,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 35 global_var:bag_wtp_pn35 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 35 global_var:bag_wtp_pn35 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } }
@@ -7363,7 +7363,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 36 global_var:bag_wtp_pn36 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 36 global_var:bag_wtp_pn36 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } }
@@ -7379,7 +7379,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 37 global_var:bag_wtp_pn37 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 37 global_var:bag_wtp_pn37 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } }
@@ -7395,7 +7395,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 38 global_var:bag_wtp_pn38 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 38 global_var:bag_wtp_pn38 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } }
@@ -7411,7 +7411,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 39 global_var:bag_wtp_pn39 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 39 global_var:bag_wtp_pn39 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } }
@@ -7427,7 +7427,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 40 global_var:bag_wtp_pn40 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 40 global_var:bag_wtp_pn40 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } }
@@ -7443,7 +7443,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 41 global_var:bag_wtp_pn41 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 41 global_var:bag_wtp_pn41 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } }
@@ -7459,7 +7459,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 42 global_var:bag_wtp_pn42 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 42 global_var:bag_wtp_pn42 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } }
@@ -7475,7 +7475,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 43 global_var:bag_wtp_pn43 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 43 global_var:bag_wtp_pn43 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } }
@@ -7491,7 +7491,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 44 global_var:bag_wtp_pn44 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 44 global_var:bag_wtp_pn44 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } }
@@ -7507,7 +7507,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 45 global_var:bag_wtp_pn45 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 45 global_var:bag_wtp_pn45 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } }
@@ -7523,7 +7523,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 46 global_var:bag_wtp_pn46 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 46 global_var:bag_wtp_pn46 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } }
@@ -7539,7 +7539,7 @@ bag_wtp_edit_drop = {
 			}
 		}
 		if = {
-			limit = { var:bag_wtp_edit_good = 47 global_var:bag_wtp_pn47 > 1 }
+			limit = { global_var:bag_wtp_edit_good = 47 global_var:bag_wtp_pn47 > 1 }
 			every_in_global_list = {
 				variable = bag_wtp_candidates
 				limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } }
@@ -7565,170 +7565,170 @@ bag_wtp_edit_drop = {
 			order_by = bag_wtp_edit_order
 			max = 1
 			check_range_bounds = no
-			if = { limit = { var:bag_wtp_edit_good = 1 }
+			if = { limit = { global_var:bag_wtp_edit_good = 1 }
 				bag_wtp_edit_remove_town_1 = yes
 				bag_wtp_edit_remove_rural_1 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 2 }
+			if = { limit = { global_var:bag_wtp_edit_good = 2 }
 				bag_wtp_edit_remove_town_2 = yes
 				bag_wtp_edit_remove_rural_2 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 3 }
+			if = { limit = { global_var:bag_wtp_edit_good = 3 }
 				bag_wtp_edit_remove_town_3 = yes
 				bag_wtp_edit_remove_rural_3 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 4 }
+			if = { limit = { global_var:bag_wtp_edit_good = 4 }
 				bag_wtp_edit_remove_town_4 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 5 }
+			if = { limit = { global_var:bag_wtp_edit_good = 5 }
 				bag_wtp_edit_remove_town_5 = yes
 				bag_wtp_edit_remove_rural_5 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 6 }
+			if = { limit = { global_var:bag_wtp_edit_good = 6 }
 				bag_wtp_edit_remove_rural_6 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 7 }
+			if = { limit = { global_var:bag_wtp_edit_good = 7 }
 				bag_wtp_edit_remove_town_7 = yes
 				bag_wtp_edit_remove_rural_7 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 8 }
+			if = { limit = { global_var:bag_wtp_edit_good = 8 }
 				bag_wtp_edit_remove_town_8 = yes
 				bag_wtp_edit_remove_rural_8 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 9 }
+			if = { limit = { global_var:bag_wtp_edit_good = 9 }
 				bag_wtp_edit_remove_town_9 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 10 }
+			if = { limit = { global_var:bag_wtp_edit_good = 10 }
 				bag_wtp_edit_remove_town_10 = yes
 				bag_wtp_edit_remove_rural_10 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 11 }
+			if = { limit = { global_var:bag_wtp_edit_good = 11 }
 				bag_wtp_edit_remove_rural_11 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 12 }
+			if = { limit = { global_var:bag_wtp_edit_good = 12 }
 				bag_wtp_edit_remove_rural_12 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 13 }
+			if = { limit = { global_var:bag_wtp_edit_good = 13 }
 				bag_wtp_edit_remove_town_13 = yes
 				bag_wtp_edit_remove_rural_13 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 14 }
+			if = { limit = { global_var:bag_wtp_edit_good = 14 }
 				bag_wtp_edit_remove_town_14 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 15 }
+			if = { limit = { global_var:bag_wtp_edit_good = 15 }
 				bag_wtp_edit_remove_town_15 = yes
 				bag_wtp_edit_remove_rural_15 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 16 }
+			if = { limit = { global_var:bag_wtp_edit_good = 16 }
 				bag_wtp_edit_remove_town_16 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 17 }
+			if = { limit = { global_var:bag_wtp_edit_good = 17 }
 				bag_wtp_edit_remove_town_17 = yes
 				bag_wtp_edit_remove_rural_17 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 18 }
+			if = { limit = { global_var:bag_wtp_edit_good = 18 }
 				bag_wtp_edit_remove_town_18 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 19 }
+			if = { limit = { global_var:bag_wtp_edit_good = 19 }
 				bag_wtp_edit_remove_town_19 = yes
 				bag_wtp_edit_remove_rural_19 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 20 }
+			if = { limit = { global_var:bag_wtp_edit_good = 20 }
 				bag_wtp_edit_remove_town_20 = yes
 				bag_wtp_edit_remove_rural_20 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 21 }
+			if = { limit = { global_var:bag_wtp_edit_good = 21 }
 				bag_wtp_edit_remove_town_21 = yes
 				bag_wtp_edit_remove_rural_21 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 22 }
+			if = { limit = { global_var:bag_wtp_edit_good = 22 }
 				bag_wtp_edit_remove_town_22 = yes
 				bag_wtp_edit_remove_rural_22 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 23 }
+			if = { limit = { global_var:bag_wtp_edit_good = 23 }
 				bag_wtp_edit_remove_rural_23 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 24 }
+			if = { limit = { global_var:bag_wtp_edit_good = 24 }
 				bag_wtp_edit_remove_town_24 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 25 }
+			if = { limit = { global_var:bag_wtp_edit_good = 25 }
 				bag_wtp_edit_remove_rural_25 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 26 }
+			if = { limit = { global_var:bag_wtp_edit_good = 26 }
 				bag_wtp_edit_remove_town_26 = yes
 				bag_wtp_edit_remove_rural_26 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 27 }
+			if = { limit = { global_var:bag_wtp_edit_good = 27 }
 				bag_wtp_edit_remove_town_27 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 28 }
+			if = { limit = { global_var:bag_wtp_edit_good = 28 }
 				bag_wtp_edit_remove_town_28 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 29 }
+			if = { limit = { global_var:bag_wtp_edit_good = 29 }
 				bag_wtp_edit_remove_town_29 = yes
 				bag_wtp_edit_remove_rural_29 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 30 }
+			if = { limit = { global_var:bag_wtp_edit_good = 30 }
 				bag_wtp_edit_remove_town_30 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 31 }
+			if = { limit = { global_var:bag_wtp_edit_good = 31 }
 				bag_wtp_edit_remove_town_31 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 32 }
+			if = { limit = { global_var:bag_wtp_edit_good = 32 }
 				bag_wtp_edit_remove_town_32 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 33 }
+			if = { limit = { global_var:bag_wtp_edit_good = 33 }
 				bag_wtp_edit_remove_town_33 = yes
 				bag_wtp_edit_remove_rural_33 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 34 }
+			if = { limit = { global_var:bag_wtp_edit_good = 34 }
 				bag_wtp_edit_remove_town_34 = yes
 				bag_wtp_edit_remove_rural_34 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 35 }
+			if = { limit = { global_var:bag_wtp_edit_good = 35 }
 				bag_wtp_edit_remove_town_35 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 36 }
+			if = { limit = { global_var:bag_wtp_edit_good = 36 }
 				bag_wtp_edit_remove_town_36 = yes
 				bag_wtp_edit_remove_rural_36 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 37 }
+			if = { limit = { global_var:bag_wtp_edit_good = 37 }
 				bag_wtp_edit_remove_town_37 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 38 }
+			if = { limit = { global_var:bag_wtp_edit_good = 38 }
 				bag_wtp_edit_remove_town_38 = yes
 				bag_wtp_edit_remove_rural_38 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 39 }
+			if = { limit = { global_var:bag_wtp_edit_good = 39 }
 				bag_wtp_edit_remove_town_39 = yes
 				bag_wtp_edit_remove_rural_39 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 40 }
+			if = { limit = { global_var:bag_wtp_edit_good = 40 }
 				bag_wtp_edit_remove_town_40 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 41 }
+			if = { limit = { global_var:bag_wtp_edit_good = 41 }
 				bag_wtp_edit_remove_town_41 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 42 }
+			if = { limit = { global_var:bag_wtp_edit_good = 42 }
 				bag_wtp_edit_remove_town_42 = yes
 				bag_wtp_edit_remove_rural_42 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 43 }
+			if = { limit = { global_var:bag_wtp_edit_good = 43 }
 				bag_wtp_edit_remove_town_43 = yes
 				bag_wtp_edit_remove_rural_43 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 44 }
+			if = { limit = { global_var:bag_wtp_edit_good = 44 }
 				bag_wtp_edit_remove_town_44 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 45 }
+			if = { limit = { global_var:bag_wtp_edit_good = 45 }
 				bag_wtp_edit_remove_town_45 = yes
 				bag_wtp_edit_remove_rural_45 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 46 }
+			if = { limit = { global_var:bag_wtp_edit_good = 46 }
 				bag_wtp_edit_remove_town_46 = yes
 				bag_wtp_edit_remove_rural_46 = yes
 			}
-			if = { limit = { var:bag_wtp_edit_good = 47 }
+			if = { limit = { global_var:bag_wtp_edit_good = 47 }
 				bag_wtp_edit_remove_town_47 = yes
 				bag_wtp_edit_remove_rural_47 = yes
 			}
@@ -7737,7 +7737,7 @@ bag_wtp_edit_drop = {
 			set_variable = { name = bag_wtp_esg value = 0 }
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 1 }
+					NOT = { global_var:bag_wtp_edit_good = 1 }
 					OR = { bag_wtp_edit_fits_town_1 = yes bag_wtp_edit_fits_rural_1 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p1 > var:bag_wtp_esw }
@@ -7751,7 +7751,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 2 }
+					NOT = { global_var:bag_wtp_edit_good = 2 }
 					OR = { bag_wtp_edit_fits_town_2 = yes bag_wtp_edit_fits_rural_2 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p2 > var:bag_wtp_esw }
@@ -7765,7 +7765,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 3 }
+					NOT = { global_var:bag_wtp_edit_good = 3 }
 					OR = { bag_wtp_edit_fits_town_3 = yes bag_wtp_edit_fits_rural_3 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p3 > var:bag_wtp_esw }
@@ -7779,7 +7779,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 4 }
+					NOT = { global_var:bag_wtp_edit_good = 4 }
 					OR = { bag_wtp_edit_fits_town_4 = yes bag_wtp_edit_fits_rural_4 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p4 > var:bag_wtp_esw }
@@ -7793,7 +7793,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 5 }
+					NOT = { global_var:bag_wtp_edit_good = 5 }
 					OR = { bag_wtp_edit_fits_town_5 = yes bag_wtp_edit_fits_rural_5 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p5 > var:bag_wtp_esw }
@@ -7807,7 +7807,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 6 }
+					NOT = { global_var:bag_wtp_edit_good = 6 }
 					OR = { bag_wtp_edit_fits_town_6 = yes bag_wtp_edit_fits_rural_6 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p6 > var:bag_wtp_esw }
@@ -7821,7 +7821,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 7 }
+					NOT = { global_var:bag_wtp_edit_good = 7 }
 					OR = { bag_wtp_edit_fits_town_7 = yes bag_wtp_edit_fits_rural_7 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p7 > var:bag_wtp_esw }
@@ -7835,7 +7835,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 8 }
+					NOT = { global_var:bag_wtp_edit_good = 8 }
 					OR = { bag_wtp_edit_fits_town_8 = yes bag_wtp_edit_fits_rural_8 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p8 > var:bag_wtp_esw }
@@ -7849,7 +7849,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 9 }
+					NOT = { global_var:bag_wtp_edit_good = 9 }
 					OR = { bag_wtp_edit_fits_town_9 = yes bag_wtp_edit_fits_rural_9 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p9 > var:bag_wtp_esw }
@@ -7863,7 +7863,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 10 }
+					NOT = { global_var:bag_wtp_edit_good = 10 }
 					OR = { bag_wtp_edit_fits_town_10 = yes bag_wtp_edit_fits_rural_10 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p10 > var:bag_wtp_esw }
@@ -7877,7 +7877,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 11 }
+					NOT = { global_var:bag_wtp_edit_good = 11 }
 					OR = { bag_wtp_edit_fits_town_11 = yes bag_wtp_edit_fits_rural_11 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p11 > var:bag_wtp_esw }
@@ -7891,7 +7891,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 12 }
+					NOT = { global_var:bag_wtp_edit_good = 12 }
 					OR = { bag_wtp_edit_fits_town_12 = yes bag_wtp_edit_fits_rural_12 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p12 > var:bag_wtp_esw }
@@ -7905,7 +7905,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 13 }
+					NOT = { global_var:bag_wtp_edit_good = 13 }
 					OR = { bag_wtp_edit_fits_town_13 = yes bag_wtp_edit_fits_rural_13 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p13 > var:bag_wtp_esw }
@@ -7919,7 +7919,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 14 }
+					NOT = { global_var:bag_wtp_edit_good = 14 }
 					OR = { bag_wtp_edit_fits_town_14 = yes bag_wtp_edit_fits_rural_14 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p14 > var:bag_wtp_esw }
@@ -7933,7 +7933,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 15 }
+					NOT = { global_var:bag_wtp_edit_good = 15 }
 					OR = { bag_wtp_edit_fits_town_15 = yes bag_wtp_edit_fits_rural_15 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p15 > var:bag_wtp_esw }
@@ -7947,7 +7947,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 16 }
+					NOT = { global_var:bag_wtp_edit_good = 16 }
 					OR = { bag_wtp_edit_fits_town_16 = yes bag_wtp_edit_fits_rural_16 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p16 > var:bag_wtp_esw }
@@ -7961,7 +7961,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 17 }
+					NOT = { global_var:bag_wtp_edit_good = 17 }
 					OR = { bag_wtp_edit_fits_town_17 = yes bag_wtp_edit_fits_rural_17 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p17 > var:bag_wtp_esw }
@@ -7975,7 +7975,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 18 }
+					NOT = { global_var:bag_wtp_edit_good = 18 }
 					OR = { bag_wtp_edit_fits_town_18 = yes bag_wtp_edit_fits_rural_18 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p18 > var:bag_wtp_esw }
@@ -7989,7 +7989,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 19 }
+					NOT = { global_var:bag_wtp_edit_good = 19 }
 					OR = { bag_wtp_edit_fits_town_19 = yes bag_wtp_edit_fits_rural_19 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p19 > var:bag_wtp_esw }
@@ -8003,7 +8003,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 20 }
+					NOT = { global_var:bag_wtp_edit_good = 20 }
 					OR = { bag_wtp_edit_fits_town_20 = yes bag_wtp_edit_fits_rural_20 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p20 > var:bag_wtp_esw }
@@ -8017,7 +8017,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 21 }
+					NOT = { global_var:bag_wtp_edit_good = 21 }
 					OR = { bag_wtp_edit_fits_town_21 = yes bag_wtp_edit_fits_rural_21 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p21 > var:bag_wtp_esw }
@@ -8031,7 +8031,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 22 }
+					NOT = { global_var:bag_wtp_edit_good = 22 }
 					OR = { bag_wtp_edit_fits_town_22 = yes bag_wtp_edit_fits_rural_22 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p22 > var:bag_wtp_esw }
@@ -8045,7 +8045,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 23 }
+					NOT = { global_var:bag_wtp_edit_good = 23 }
 					OR = { bag_wtp_edit_fits_town_23 = yes bag_wtp_edit_fits_rural_23 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p23 > var:bag_wtp_esw }
@@ -8059,7 +8059,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 24 }
+					NOT = { global_var:bag_wtp_edit_good = 24 }
 					OR = { bag_wtp_edit_fits_town_24 = yes bag_wtp_edit_fits_rural_24 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p24 > var:bag_wtp_esw }
@@ -8073,7 +8073,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 25 }
+					NOT = { global_var:bag_wtp_edit_good = 25 }
 					OR = { bag_wtp_edit_fits_town_25 = yes bag_wtp_edit_fits_rural_25 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p25 > var:bag_wtp_esw }
@@ -8087,7 +8087,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 26 }
+					NOT = { global_var:bag_wtp_edit_good = 26 }
 					OR = { bag_wtp_edit_fits_town_26 = yes bag_wtp_edit_fits_rural_26 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p26 > var:bag_wtp_esw }
@@ -8101,7 +8101,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 27 }
+					NOT = { global_var:bag_wtp_edit_good = 27 }
 					OR = { bag_wtp_edit_fits_town_27 = yes bag_wtp_edit_fits_rural_27 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p27 > var:bag_wtp_esw }
@@ -8115,7 +8115,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 28 }
+					NOT = { global_var:bag_wtp_edit_good = 28 }
 					OR = { bag_wtp_edit_fits_town_28 = yes bag_wtp_edit_fits_rural_28 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p28 > var:bag_wtp_esw }
@@ -8129,7 +8129,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 29 }
+					NOT = { global_var:bag_wtp_edit_good = 29 }
 					OR = { bag_wtp_edit_fits_town_29 = yes bag_wtp_edit_fits_rural_29 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p29 > var:bag_wtp_esw }
@@ -8143,7 +8143,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 30 }
+					NOT = { global_var:bag_wtp_edit_good = 30 }
 					OR = { bag_wtp_edit_fits_town_30 = yes bag_wtp_edit_fits_rural_30 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p30 > var:bag_wtp_esw }
@@ -8157,7 +8157,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 31 }
+					NOT = { global_var:bag_wtp_edit_good = 31 }
 					OR = { bag_wtp_edit_fits_town_31 = yes bag_wtp_edit_fits_rural_31 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p31 > var:bag_wtp_esw }
@@ -8171,7 +8171,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 32 }
+					NOT = { global_var:bag_wtp_edit_good = 32 }
 					OR = { bag_wtp_edit_fits_town_32 = yes bag_wtp_edit_fits_rural_32 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p32 > var:bag_wtp_esw }
@@ -8185,7 +8185,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 33 }
+					NOT = { global_var:bag_wtp_edit_good = 33 }
 					OR = { bag_wtp_edit_fits_town_33 = yes bag_wtp_edit_fits_rural_33 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p33 > var:bag_wtp_esw }
@@ -8199,7 +8199,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 34 }
+					NOT = { global_var:bag_wtp_edit_good = 34 }
 					OR = { bag_wtp_edit_fits_town_34 = yes bag_wtp_edit_fits_rural_34 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p34 > var:bag_wtp_esw }
@@ -8213,7 +8213,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 35 }
+					NOT = { global_var:bag_wtp_edit_good = 35 }
 					OR = { bag_wtp_edit_fits_town_35 = yes bag_wtp_edit_fits_rural_35 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p35 > var:bag_wtp_esw }
@@ -8227,7 +8227,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 36 }
+					NOT = { global_var:bag_wtp_edit_good = 36 }
 					OR = { bag_wtp_edit_fits_town_36 = yes bag_wtp_edit_fits_rural_36 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p36 > var:bag_wtp_esw }
@@ -8241,7 +8241,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 37 }
+					NOT = { global_var:bag_wtp_edit_good = 37 }
 					OR = { bag_wtp_edit_fits_town_37 = yes bag_wtp_edit_fits_rural_37 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p37 > var:bag_wtp_esw }
@@ -8255,7 +8255,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 38 }
+					NOT = { global_var:bag_wtp_edit_good = 38 }
 					OR = { bag_wtp_edit_fits_town_38 = yes bag_wtp_edit_fits_rural_38 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p38 > var:bag_wtp_esw }
@@ -8269,7 +8269,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 39 }
+					NOT = { global_var:bag_wtp_edit_good = 39 }
 					OR = { bag_wtp_edit_fits_town_39 = yes bag_wtp_edit_fits_rural_39 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p39 > var:bag_wtp_esw }
@@ -8283,7 +8283,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 40 }
+					NOT = { global_var:bag_wtp_edit_good = 40 }
 					OR = { bag_wtp_edit_fits_town_40 = yes bag_wtp_edit_fits_rural_40 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p40 > var:bag_wtp_esw }
@@ -8297,7 +8297,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 41 }
+					NOT = { global_var:bag_wtp_edit_good = 41 }
 					OR = { bag_wtp_edit_fits_town_41 = yes bag_wtp_edit_fits_rural_41 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p41 > var:bag_wtp_esw }
@@ -8311,7 +8311,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 42 }
+					NOT = { global_var:bag_wtp_edit_good = 42 }
 					OR = { bag_wtp_edit_fits_town_42 = yes bag_wtp_edit_fits_rural_42 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p42 > var:bag_wtp_esw }
@@ -8325,7 +8325,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 43 }
+					NOT = { global_var:bag_wtp_edit_good = 43 }
 					OR = { bag_wtp_edit_fits_town_43 = yes bag_wtp_edit_fits_rural_43 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p43 > var:bag_wtp_esw }
@@ -8339,7 +8339,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 44 }
+					NOT = { global_var:bag_wtp_edit_good = 44 }
 					OR = { bag_wtp_edit_fits_town_44 = yes bag_wtp_edit_fits_rural_44 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p44 > var:bag_wtp_esw }
@@ -8353,7 +8353,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 45 }
+					NOT = { global_var:bag_wtp_edit_good = 45 }
 					OR = { bag_wtp_edit_fits_town_45 = yes bag_wtp_edit_fits_rural_45 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p45 > var:bag_wtp_esw }
@@ -8367,7 +8367,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 46 }
+					NOT = { global_var:bag_wtp_edit_good = 46 }
 					OR = { bag_wtp_edit_fits_town_46 = yes bag_wtp_edit_fits_rural_46 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p46 > var:bag_wtp_esw }
@@ -8381,7 +8381,7 @@ bag_wtp_edit_drop = {
 			}
 			if = {
 				limit = {
-					NOT = { var:bag_wtp_edit_good = 47 }
+					NOT = { global_var:bag_wtp_edit_good = 47 }
 					OR = { bag_wtp_edit_fits_town_47 = yes bag_wtp_edit_fits_rural_47 = yes }
 					OR = {
 						AND = { bag_wtp_plan_is_town = yes var:bag_wtp_p47 > var:bag_wtp_esw }
@@ -8658,7 +8658,7 @@ bag_wtp_edit_save = {
 # «+1» for clay.
 # Scope: country
 bag_wtp_edit_plus_1 = {
-	set_variable = { name = bag_wtp_edit_good value = 1 }
+	set_global_variable = { name = bag_wtp_edit_good value = 1 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8666,7 +8666,7 @@ bag_wtp_edit_plus_1 = {
 # «−1» for clay.
 # Scope: country
 bag_wtp_edit_minus_1 = {
-	set_variable = { name = bag_wtp_edit_good value = 1 }
+	set_global_variable = { name = bag_wtp_edit_good value = 1 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8674,7 +8674,7 @@ bag_wtp_edit_minus_1 = {
 # «+1» for coal.
 # Scope: country
 bag_wtp_edit_plus_2 = {
-	set_variable = { name = bag_wtp_edit_good value = 2 }
+	set_global_variable = { name = bag_wtp_edit_good value = 2 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8682,7 +8682,7 @@ bag_wtp_edit_plus_2 = {
 # «−1» for coal.
 # Scope: country
 bag_wtp_edit_minus_2 = {
-	set_variable = { name = bag_wtp_edit_good value = 2 }
+	set_global_variable = { name = bag_wtp_edit_good value = 2 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8690,7 +8690,7 @@ bag_wtp_edit_minus_2 = {
 # «+1» for cotton.
 # Scope: country
 bag_wtp_edit_plus_3 = {
-	set_variable = { name = bag_wtp_edit_good value = 3 }
+	set_global_variable = { name = bag_wtp_edit_good value = 3 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8698,7 +8698,7 @@ bag_wtp_edit_plus_3 = {
 # «−1» for cotton.
 # Scope: country
 bag_wtp_edit_minus_3 = {
-	set_variable = { name = bag_wtp_edit_good value = 3 }
+	set_global_variable = { name = bag_wtp_edit_good value = 3 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8706,7 +8706,7 @@ bag_wtp_edit_minus_3 = {
 # «+1» for dyes.
 # Scope: country
 bag_wtp_edit_plus_4 = {
-	set_variable = { name = bag_wtp_edit_good value = 4 }
+	set_global_variable = { name = bag_wtp_edit_good value = 4 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8714,7 +8714,7 @@ bag_wtp_edit_plus_4 = {
 # «−1» for dyes.
 # Scope: country
 bag_wtp_edit_minus_4 = {
-	set_variable = { name = bag_wtp_edit_good value = 4 }
+	set_global_variable = { name = bag_wtp_edit_good value = 4 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8722,7 +8722,7 @@ bag_wtp_edit_minus_4 = {
 # «+1» for fiber_crops.
 # Scope: country
 bag_wtp_edit_plus_5 = {
-	set_variable = { name = bag_wtp_edit_good value = 5 }
+	set_global_variable = { name = bag_wtp_edit_good value = 5 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8730,7 +8730,7 @@ bag_wtp_edit_plus_5 = {
 # «−1» for fiber_crops.
 # Scope: country
 bag_wtp_edit_minus_5 = {
-	set_variable = { name = bag_wtp_edit_good value = 5 }
+	set_global_variable = { name = bag_wtp_edit_good value = 5 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8738,7 +8738,7 @@ bag_wtp_edit_minus_5 = {
 # «+1» for fish.
 # Scope: country
 bag_wtp_edit_plus_6 = {
-	set_variable = { name = bag_wtp_edit_good value = 6 }
+	set_global_variable = { name = bag_wtp_edit_good value = 6 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8746,7 +8746,7 @@ bag_wtp_edit_plus_6 = {
 # «−1» for fish.
 # Scope: country
 bag_wtp_edit_minus_6 = {
-	set_variable = { name = bag_wtp_edit_good value = 6 }
+	set_global_variable = { name = bag_wtp_edit_good value = 6 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8754,7 +8754,7 @@ bag_wtp_edit_minus_6 = {
 # «+1» for fruit.
 # Scope: country
 bag_wtp_edit_plus_7 = {
-	set_variable = { name = bag_wtp_edit_good value = 7 }
+	set_global_variable = { name = bag_wtp_edit_good value = 7 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8762,7 +8762,7 @@ bag_wtp_edit_plus_7 = {
 # «−1» for fruit.
 # Scope: country
 bag_wtp_edit_minus_7 = {
-	set_variable = { name = bag_wtp_edit_good value = 7 }
+	set_global_variable = { name = bag_wtp_edit_good value = 7 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8770,7 +8770,7 @@ bag_wtp_edit_minus_7 = {
 # «+1» for horses.
 # Scope: country
 bag_wtp_edit_plus_8 = {
-	set_variable = { name = bag_wtp_edit_good value = 8 }
+	set_global_variable = { name = bag_wtp_edit_good value = 8 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8778,7 +8778,7 @@ bag_wtp_edit_plus_8 = {
 # «−1» for horses.
 # Scope: country
 bag_wtp_edit_minus_8 = {
-	set_variable = { name = bag_wtp_edit_good value = 8 }
+	set_global_variable = { name = bag_wtp_edit_good value = 8 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8786,7 +8786,7 @@ bag_wtp_edit_minus_8 = {
 # «+1» for incense.
 # Scope: country
 bag_wtp_edit_plus_9 = {
-	set_variable = { name = bag_wtp_edit_good value = 9 }
+	set_global_variable = { name = bag_wtp_edit_good value = 9 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8794,7 +8794,7 @@ bag_wtp_edit_plus_9 = {
 # «−1» for incense.
 # Scope: country
 bag_wtp_edit_minus_9 = {
-	set_variable = { name = bag_wtp_edit_good value = 9 }
+	set_global_variable = { name = bag_wtp_edit_good value = 9 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8802,7 +8802,7 @@ bag_wtp_edit_minus_9 = {
 # «+1» for iron.
 # Scope: country
 bag_wtp_edit_plus_10 = {
-	set_variable = { name = bag_wtp_edit_good value = 10 }
+	set_global_variable = { name = bag_wtp_edit_good value = 10 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8810,7 +8810,7 @@ bag_wtp_edit_plus_10 = {
 # «−1» for iron.
 # Scope: country
 bag_wtp_edit_minus_10 = {
-	set_variable = { name = bag_wtp_edit_good value = 10 }
+	set_global_variable = { name = bag_wtp_edit_good value = 10 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8818,7 +8818,7 @@ bag_wtp_edit_minus_10 = {
 # «+1» for ivory.
 # Scope: country
 bag_wtp_edit_plus_11 = {
-	set_variable = { name = bag_wtp_edit_good value = 11 }
+	set_global_variable = { name = bag_wtp_edit_good value = 11 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8826,7 +8826,7 @@ bag_wtp_edit_plus_11 = {
 # «−1» for ivory.
 # Scope: country
 bag_wtp_edit_minus_11 = {
-	set_variable = { name = bag_wtp_edit_good value = 11 }
+	set_global_variable = { name = bag_wtp_edit_good value = 11 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8834,7 +8834,7 @@ bag_wtp_edit_minus_11 = {
 # «+1» for livestock.
 # Scope: country
 bag_wtp_edit_plus_12 = {
-	set_variable = { name = bag_wtp_edit_good value = 12 }
+	set_global_variable = { name = bag_wtp_edit_good value = 12 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8842,7 +8842,7 @@ bag_wtp_edit_plus_12 = {
 # «−1» for livestock.
 # Scope: country
 bag_wtp_edit_minus_12 = {
-	set_variable = { name = bag_wtp_edit_good value = 12 }
+	set_global_variable = { name = bag_wtp_edit_good value = 12 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8850,7 +8850,7 @@ bag_wtp_edit_minus_12 = {
 # «+1» for lumber.
 # Scope: country
 bag_wtp_edit_plus_13 = {
-	set_variable = { name = bag_wtp_edit_good value = 13 }
+	set_global_variable = { name = bag_wtp_edit_good value = 13 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8858,7 +8858,7 @@ bag_wtp_edit_plus_13 = {
 # «−1» for lumber.
 # Scope: country
 bag_wtp_edit_minus_13 = {
-	set_variable = { name = bag_wtp_edit_good value = 13 }
+	set_global_variable = { name = bag_wtp_edit_good value = 13 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8866,7 +8866,7 @@ bag_wtp_edit_minus_13 = {
 # «+1» for medicaments.
 # Scope: country
 bag_wtp_edit_plus_14 = {
-	set_variable = { name = bag_wtp_edit_good value = 14 }
+	set_global_variable = { name = bag_wtp_edit_good value = 14 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8874,7 +8874,7 @@ bag_wtp_edit_plus_14 = {
 # «−1» for medicaments.
 # Scope: country
 bag_wtp_edit_minus_14 = {
-	set_variable = { name = bag_wtp_edit_good value = 14 }
+	set_global_variable = { name = bag_wtp_edit_good value = 14 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8882,7 +8882,7 @@ bag_wtp_edit_minus_14 = {
 # «+1» for salt.
 # Scope: country
 bag_wtp_edit_plus_15 = {
-	set_variable = { name = bag_wtp_edit_good value = 15 }
+	set_global_variable = { name = bag_wtp_edit_good value = 15 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8890,7 +8890,7 @@ bag_wtp_edit_plus_15 = {
 # «−1» for salt.
 # Scope: country
 bag_wtp_edit_minus_15 = {
-	set_variable = { name = bag_wtp_edit_good value = 15 }
+	set_global_variable = { name = bag_wtp_edit_good value = 15 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8898,7 +8898,7 @@ bag_wtp_edit_minus_15 = {
 # «+1» for saltpeter.
 # Scope: country
 bag_wtp_edit_plus_16 = {
-	set_variable = { name = bag_wtp_edit_good value = 16 }
+	set_global_variable = { name = bag_wtp_edit_good value = 16 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8906,7 +8906,7 @@ bag_wtp_edit_plus_16 = {
 # «−1» for saltpeter.
 # Scope: country
 bag_wtp_edit_minus_16 = {
-	set_variable = { name = bag_wtp_edit_good value = 16 }
+	set_global_variable = { name = bag_wtp_edit_good value = 16 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8914,7 +8914,7 @@ bag_wtp_edit_minus_16 = {
 # «+1» for sand.
 # Scope: country
 bag_wtp_edit_plus_17 = {
-	set_variable = { name = bag_wtp_edit_good value = 17 }
+	set_global_variable = { name = bag_wtp_edit_good value = 17 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8922,7 +8922,7 @@ bag_wtp_edit_plus_17 = {
 # «−1» for sand.
 # Scope: country
 bag_wtp_edit_minus_17 = {
-	set_variable = { name = bag_wtp_edit_good value = 17 }
+	set_global_variable = { name = bag_wtp_edit_good value = 17 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8930,7 +8930,7 @@ bag_wtp_edit_minus_17 = {
 # «+1» for silk.
 # Scope: country
 bag_wtp_edit_plus_18 = {
-	set_variable = { name = bag_wtp_edit_good value = 18 }
+	set_global_variable = { name = bag_wtp_edit_good value = 18 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8938,7 +8938,7 @@ bag_wtp_edit_plus_18 = {
 # «−1» for silk.
 # Scope: country
 bag_wtp_edit_minus_18 = {
-	set_variable = { name = bag_wtp_edit_good value = 18 }
+	set_global_variable = { name = bag_wtp_edit_good value = 18 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8946,7 +8946,7 @@ bag_wtp_edit_minus_18 = {
 # «+1» for silver.
 # Scope: country
 bag_wtp_edit_plus_19 = {
-	set_variable = { name = bag_wtp_edit_good value = 19 }
+	set_global_variable = { name = bag_wtp_edit_good value = 19 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8954,7 +8954,7 @@ bag_wtp_edit_plus_19 = {
 # «−1» for silver.
 # Scope: country
 bag_wtp_edit_minus_19 = {
-	set_variable = { name = bag_wtp_edit_good value = 19 }
+	set_global_variable = { name = bag_wtp_edit_good value = 19 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8962,7 +8962,7 @@ bag_wtp_edit_minus_19 = {
 # «+1» for stone.
 # Scope: country
 bag_wtp_edit_plus_20 = {
-	set_variable = { name = bag_wtp_edit_good value = 20 }
+	set_global_variable = { name = bag_wtp_edit_good value = 20 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8970,7 +8970,7 @@ bag_wtp_edit_plus_20 = {
 # «−1» for stone.
 # Scope: country
 bag_wtp_edit_minus_20 = {
-	set_variable = { name = bag_wtp_edit_good value = 20 }
+	set_global_variable = { name = bag_wtp_edit_good value = 20 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8978,7 +8978,7 @@ bag_wtp_edit_minus_20 = {
 # «+1» for sugar.
 # Scope: country
 bag_wtp_edit_plus_21 = {
-	set_variable = { name = bag_wtp_edit_good value = 21 }
+	set_global_variable = { name = bag_wtp_edit_good value = 21 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8986,7 +8986,7 @@ bag_wtp_edit_plus_21 = {
 # «−1» for sugar.
 # Scope: country
 bag_wtp_edit_minus_21 = {
-	set_variable = { name = bag_wtp_edit_good value = 21 }
+	set_global_variable = { name = bag_wtp_edit_good value = 21 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8994,7 +8994,7 @@ bag_wtp_edit_minus_21 = {
 # «+1» for tobacco.
 # Scope: country
 bag_wtp_edit_plus_22 = {
-	set_variable = { name = bag_wtp_edit_good value = 22 }
+	set_global_variable = { name = bag_wtp_edit_good value = 22 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9002,7 +9002,7 @@ bag_wtp_edit_plus_22 = {
 # «−1» for tobacco.
 # Scope: country
 bag_wtp_edit_minus_22 = {
-	set_variable = { name = bag_wtp_edit_good value = 22 }
+	set_global_variable = { name = bag_wtp_edit_good value = 22 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9010,7 +9010,7 @@ bag_wtp_edit_minus_22 = {
 # «+1» for wild_game.
 # Scope: country
 bag_wtp_edit_plus_23 = {
-	set_variable = { name = bag_wtp_edit_good value = 23 }
+	set_global_variable = { name = bag_wtp_edit_good value = 23 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9018,7 +9018,7 @@ bag_wtp_edit_plus_23 = {
 # «−1» for wild_game.
 # Scope: country
 bag_wtp_edit_minus_23 = {
-	set_variable = { name = bag_wtp_edit_good value = 23 }
+	set_global_variable = { name = bag_wtp_edit_good value = 23 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9026,7 +9026,7 @@ bag_wtp_edit_minus_23 = {
 # «+1» for wine.
 # Scope: country
 bag_wtp_edit_plus_24 = {
-	set_variable = { name = bag_wtp_edit_good value = 24 }
+	set_global_variable = { name = bag_wtp_edit_good value = 24 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9034,7 +9034,7 @@ bag_wtp_edit_plus_24 = {
 # «−1» for wine.
 # Scope: country
 bag_wtp_edit_minus_24 = {
-	set_variable = { name = bag_wtp_edit_good value = 24 }
+	set_global_variable = { name = bag_wtp_edit_good value = 24 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9042,7 +9042,7 @@ bag_wtp_edit_minus_24 = {
 # «+1» for wool.
 # Scope: country
 bag_wtp_edit_plus_25 = {
-	set_variable = { name = bag_wtp_edit_good value = 25 }
+	set_global_variable = { name = bag_wtp_edit_good value = 25 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9050,7 +9050,7 @@ bag_wtp_edit_plus_25 = {
 # «−1» for wool.
 # Scope: country
 bag_wtp_edit_minus_25 = {
-	set_variable = { name = bag_wtp_edit_good value = 25 }
+	set_global_variable = { name = bag_wtp_edit_good value = 25 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9058,7 +9058,7 @@ bag_wtp_edit_minus_25 = {
 # «+1» for beer.
 # Scope: country
 bag_wtp_edit_plus_26 = {
-	set_variable = { name = bag_wtp_edit_good value = 26 }
+	set_global_variable = { name = bag_wtp_edit_good value = 26 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9066,7 +9066,7 @@ bag_wtp_edit_plus_26 = {
 # «−1» for beer.
 # Scope: country
 bag_wtp_edit_minus_26 = {
-	set_variable = { name = bag_wtp_edit_good value = 26 }
+	set_global_variable = { name = bag_wtp_edit_good value = 26 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9074,7 +9074,7 @@ bag_wtp_edit_minus_26 = {
 # «+1» for books.
 # Scope: country
 bag_wtp_edit_plus_27 = {
-	set_variable = { name = bag_wtp_edit_good value = 27 }
+	set_global_variable = { name = bag_wtp_edit_good value = 27 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9082,7 +9082,7 @@ bag_wtp_edit_plus_27 = {
 # «−1» for books.
 # Scope: country
 bag_wtp_edit_minus_27 = {
-	set_variable = { name = bag_wtp_edit_good value = 27 }
+	set_global_variable = { name = bag_wtp_edit_good value = 27 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9090,7 +9090,7 @@ bag_wtp_edit_minus_27 = {
 # «+1» for cannons.
 # Scope: country
 bag_wtp_edit_plus_28 = {
-	set_variable = { name = bag_wtp_edit_good value = 28 }
+	set_global_variable = { name = bag_wtp_edit_good value = 28 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9098,7 +9098,7 @@ bag_wtp_edit_plus_28 = {
 # «−1» for cannons.
 # Scope: country
 bag_wtp_edit_minus_28 = {
-	set_variable = { name = bag_wtp_edit_good value = 28 }
+	set_global_variable = { name = bag_wtp_edit_good value = 28 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9106,7 +9106,7 @@ bag_wtp_edit_minus_28 = {
 # «+1» for cloth.
 # Scope: country
 bag_wtp_edit_plus_29 = {
-	set_variable = { name = bag_wtp_edit_good value = 29 }
+	set_global_variable = { name = bag_wtp_edit_good value = 29 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9114,7 +9114,7 @@ bag_wtp_edit_plus_29 = {
 # «−1» for cloth.
 # Scope: country
 bag_wtp_edit_minus_29 = {
-	set_variable = { name = bag_wtp_edit_good value = 29 }
+	set_global_variable = { name = bag_wtp_edit_good value = 29 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9122,7 +9122,7 @@ bag_wtp_edit_minus_29 = {
 # «+1» for fine_cloth.
 # Scope: country
 bag_wtp_edit_plus_30 = {
-	set_variable = { name = bag_wtp_edit_good value = 30 }
+	set_global_variable = { name = bag_wtp_edit_good value = 30 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9130,7 +9130,7 @@ bag_wtp_edit_plus_30 = {
 # «−1» for fine_cloth.
 # Scope: country
 bag_wtp_edit_minus_30 = {
-	set_variable = { name = bag_wtp_edit_good value = 30 }
+	set_global_variable = { name = bag_wtp_edit_good value = 30 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9138,7 +9138,7 @@ bag_wtp_edit_minus_30 = {
 # «+1» for firearms.
 # Scope: country
 bag_wtp_edit_plus_31 = {
-	set_variable = { name = bag_wtp_edit_good value = 31 }
+	set_global_variable = { name = bag_wtp_edit_good value = 31 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9146,7 +9146,7 @@ bag_wtp_edit_plus_31 = {
 # «−1» for firearms.
 # Scope: country
 bag_wtp_edit_minus_31 = {
-	set_variable = { name = bag_wtp_edit_good value = 31 }
+	set_global_variable = { name = bag_wtp_edit_good value = 31 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9154,7 +9154,7 @@ bag_wtp_edit_minus_31 = {
 # «+1» for furniture.
 # Scope: country
 bag_wtp_edit_plus_32 = {
-	set_variable = { name = bag_wtp_edit_good value = 32 }
+	set_global_variable = { name = bag_wtp_edit_good value = 32 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9162,7 +9162,7 @@ bag_wtp_edit_plus_32 = {
 # «−1» for furniture.
 # Scope: country
 bag_wtp_edit_minus_32 = {
-	set_variable = { name = bag_wtp_edit_good value = 32 }
+	set_global_variable = { name = bag_wtp_edit_good value = 32 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9170,7 +9170,7 @@ bag_wtp_edit_minus_32 = {
 # «+1» for glass.
 # Scope: country
 bag_wtp_edit_plus_33 = {
-	set_variable = { name = bag_wtp_edit_good value = 33 }
+	set_global_variable = { name = bag_wtp_edit_good value = 33 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9178,7 +9178,7 @@ bag_wtp_edit_plus_33 = {
 # «−1» for glass.
 # Scope: country
 bag_wtp_edit_minus_33 = {
-	set_variable = { name = bag_wtp_edit_good value = 33 }
+	set_global_variable = { name = bag_wtp_edit_good value = 33 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9186,7 +9186,7 @@ bag_wtp_edit_minus_33 = {
 # «+1» for jewelry.
 # Scope: country
 bag_wtp_edit_plus_34 = {
-	set_variable = { name = bag_wtp_edit_good value = 34 }
+	set_global_variable = { name = bag_wtp_edit_good value = 34 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9194,7 +9194,7 @@ bag_wtp_edit_plus_34 = {
 # «−1» for jewelry.
 # Scope: country
 bag_wtp_edit_minus_34 = {
-	set_variable = { name = bag_wtp_edit_good value = 34 }
+	set_global_variable = { name = bag_wtp_edit_good value = 34 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9202,7 +9202,7 @@ bag_wtp_edit_minus_34 = {
 # «+1» for lacquerware.
 # Scope: country
 bag_wtp_edit_plus_35 = {
-	set_variable = { name = bag_wtp_edit_good value = 35 }
+	set_global_variable = { name = bag_wtp_edit_good value = 35 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9210,7 +9210,7 @@ bag_wtp_edit_plus_35 = {
 # «−1» for lacquerware.
 # Scope: country
 bag_wtp_edit_minus_35 = {
-	set_variable = { name = bag_wtp_edit_good value = 35 }
+	set_global_variable = { name = bag_wtp_edit_good value = 35 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9218,7 +9218,7 @@ bag_wtp_edit_minus_35 = {
 # «+1» for leather.
 # Scope: country
 bag_wtp_edit_plus_36 = {
-	set_variable = { name = bag_wtp_edit_good value = 36 }
+	set_global_variable = { name = bag_wtp_edit_good value = 36 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9226,7 +9226,7 @@ bag_wtp_edit_plus_36 = {
 # «−1» for leather.
 # Scope: country
 bag_wtp_edit_minus_36 = {
-	set_variable = { name = bag_wtp_edit_good value = 36 }
+	set_global_variable = { name = bag_wtp_edit_good value = 36 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9234,7 +9234,7 @@ bag_wtp_edit_minus_36 = {
 # «+1» for liquor.
 # Scope: country
 bag_wtp_edit_plus_37 = {
-	set_variable = { name = bag_wtp_edit_good value = 37 }
+	set_global_variable = { name = bag_wtp_edit_good value = 37 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9242,7 +9242,7 @@ bag_wtp_edit_plus_37 = {
 # «−1» for liquor.
 # Scope: country
 bag_wtp_edit_minus_37 = {
-	set_variable = { name = bag_wtp_edit_good value = 37 }
+	set_global_variable = { name = bag_wtp_edit_good value = 37 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9250,7 +9250,7 @@ bag_wtp_edit_minus_37 = {
 # «+1» for masonry.
 # Scope: country
 bag_wtp_edit_plus_38 = {
-	set_variable = { name = bag_wtp_edit_good value = 38 }
+	set_global_variable = { name = bag_wtp_edit_good value = 38 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9258,7 +9258,7 @@ bag_wtp_edit_plus_38 = {
 # «−1» for masonry.
 # Scope: country
 bag_wtp_edit_minus_38 = {
-	set_variable = { name = bag_wtp_edit_good value = 38 }
+	set_global_variable = { name = bag_wtp_edit_good value = 38 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9266,7 +9266,7 @@ bag_wtp_edit_minus_38 = {
 # «+1» for naval_supplies.
 # Scope: country
 bag_wtp_edit_plus_39 = {
-	set_variable = { name = bag_wtp_edit_good value = 39 }
+	set_global_variable = { name = bag_wtp_edit_good value = 39 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9274,7 +9274,7 @@ bag_wtp_edit_plus_39 = {
 # «−1» for naval_supplies.
 # Scope: country
 bag_wtp_edit_minus_39 = {
-	set_variable = { name = bag_wtp_edit_good value = 39 }
+	set_global_variable = { name = bag_wtp_edit_good value = 39 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9282,7 +9282,7 @@ bag_wtp_edit_minus_39 = {
 # «+1» for paper.
 # Scope: country
 bag_wtp_edit_plus_40 = {
-	set_variable = { name = bag_wtp_edit_good value = 40 }
+	set_global_variable = { name = bag_wtp_edit_good value = 40 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9290,7 +9290,7 @@ bag_wtp_edit_plus_40 = {
 # «−1» for paper.
 # Scope: country
 bag_wtp_edit_minus_40 = {
-	set_variable = { name = bag_wtp_edit_good value = 40 }
+	set_global_variable = { name = bag_wtp_edit_good value = 40 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9298,7 +9298,7 @@ bag_wtp_edit_minus_40 = {
 # «+1» for porcelain.
 # Scope: country
 bag_wtp_edit_plus_41 = {
-	set_variable = { name = bag_wtp_edit_good value = 41 }
+	set_global_variable = { name = bag_wtp_edit_good value = 41 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9306,7 +9306,7 @@ bag_wtp_edit_plus_41 = {
 # «−1» for porcelain.
 # Scope: country
 bag_wtp_edit_minus_41 = {
-	set_variable = { name = bag_wtp_edit_good value = 41 }
+	set_global_variable = { name = bag_wtp_edit_good value = 41 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9314,7 +9314,7 @@ bag_wtp_edit_minus_41 = {
 # «+1» for pottery.
 # Scope: country
 bag_wtp_edit_plus_42 = {
-	set_variable = { name = bag_wtp_edit_good value = 42 }
+	set_global_variable = { name = bag_wtp_edit_good value = 42 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9322,7 +9322,7 @@ bag_wtp_edit_plus_42 = {
 # «−1» for pottery.
 # Scope: country
 bag_wtp_edit_minus_42 = {
-	set_variable = { name = bag_wtp_edit_good value = 42 }
+	set_global_variable = { name = bag_wtp_edit_good value = 42 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9330,7 +9330,7 @@ bag_wtp_edit_minus_42 = {
 # «+1» for slaves_goods.
 # Scope: country
 bag_wtp_edit_plus_43 = {
-	set_variable = { name = bag_wtp_edit_good value = 43 }
+	set_global_variable = { name = bag_wtp_edit_good value = 43 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9338,7 +9338,7 @@ bag_wtp_edit_plus_43 = {
 # «−1» for slaves_goods.
 # Scope: country
 bag_wtp_edit_minus_43 = {
-	set_variable = { name = bag_wtp_edit_good value = 43 }
+	set_global_variable = { name = bag_wtp_edit_good value = 43 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9346,7 +9346,7 @@ bag_wtp_edit_minus_43 = {
 # «+1» for steel.
 # Scope: country
 bag_wtp_edit_plus_44 = {
-	set_variable = { name = bag_wtp_edit_good value = 44 }
+	set_global_variable = { name = bag_wtp_edit_good value = 44 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9354,7 +9354,7 @@ bag_wtp_edit_plus_44 = {
 # «−1» for steel.
 # Scope: country
 bag_wtp_edit_minus_44 = {
-	set_variable = { name = bag_wtp_edit_good value = 44 }
+	set_global_variable = { name = bag_wtp_edit_good value = 44 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9362,7 +9362,7 @@ bag_wtp_edit_minus_44 = {
 # «+1» for tar.
 # Scope: country
 bag_wtp_edit_plus_45 = {
-	set_variable = { name = bag_wtp_edit_good value = 45 }
+	set_global_variable = { name = bag_wtp_edit_good value = 45 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9370,7 +9370,7 @@ bag_wtp_edit_plus_45 = {
 # «−1» for tar.
 # Scope: country
 bag_wtp_edit_minus_45 = {
-	set_variable = { name = bag_wtp_edit_good value = 45 }
+	set_global_variable = { name = bag_wtp_edit_good value = 45 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9378,7 +9378,7 @@ bag_wtp_edit_minus_45 = {
 # «+1» for tools.
 # Scope: country
 bag_wtp_edit_plus_46 = {
-	set_variable = { name = bag_wtp_edit_good value = 46 }
+	set_global_variable = { name = bag_wtp_edit_good value = 46 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9386,7 +9386,7 @@ bag_wtp_edit_plus_46 = {
 # «−1» for tools.
 # Scope: country
 bag_wtp_edit_minus_46 = {
-	set_variable = { name = bag_wtp_edit_good value = 46 }
+	set_global_variable = { name = bag_wtp_edit_good value = 46 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9394,7 +9394,7 @@ bag_wtp_edit_minus_46 = {
 # «+1» for weaponry.
 # Scope: country
 bag_wtp_edit_plus_47 = {
-	set_variable = { name = bag_wtp_edit_good value = 47 }
+	set_global_variable = { name = bag_wtp_edit_good value = 47 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9402,7 +9402,7 @@ bag_wtp_edit_plus_47 = {
 # «−1» for weaponry.
 # Scope: country
 bag_wtp_edit_minus_47 = {
-	set_variable = { name = bag_wtp_edit_good value = 47 }
+	set_global_variable = { name = bag_wtp_edit_good value = 47 }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
