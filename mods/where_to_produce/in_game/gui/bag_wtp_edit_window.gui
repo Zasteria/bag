@@ -19,33 +19,22 @@
 # «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
 # менее болезненно удалить для наилучшей установки туда товара Y».
 #
-# **Types here derive from `widget` or `hbox` and hold a `button_regular` inside**,
-# the way `bag_wtp_plan_goods_entry` holds a `text_single` -- the shapes this mod
-# draws every frame. The one thing it had never drawn is the `flowcontainer` the
-# picker wraps on, and that is vanilla's own way (`agenda_view.gui`): 35 goods
-# one to a row took half the window, which is not a layout anybody would use.
+# **Every widget in this file is one this mod or vanilla already draws.** Types
+# derive from `widget` or `hbox` and hold a `button_regular` inside, the way
+# `bag_wtp_plan_goods_entry` holds a `text_single`. The picker wraps on a
+# `fixedgridbox`, which is what the game itself uses for a wrapping grid of a
+# datamodel -- and **not** on a `flowcontainer`, which killed four builds in a
+# row before the run history said so. See the picker below.
 
 types BagWtpEditTypes {
 
-	# One good the ground can make, with its controls in place: «−1», its icon,
-	# «+1», and its name.
-	#
-	# **Nothing is hidden behind a first click.** The build before this one had a
-	# picker of bare icons: clicking one added a row elsewhere and the buttons
-	# appeared there. He opened the window and found no way in -- «там только их
-	# иконки и ничего больше, что могло бы дать мне инструмент влияния, никаких
-	# кнопочек +1 или -1» -- and he was right: a control you have to discover is
-	# not a control. So the row is the picker, and there is no second list.
-	#
-	# **A goods icon is a texticon and is drawn as `raw_text`**, the same way
-	# `bag_wtp_plan_goods_entry` does it: `Goods.GetIcon` returns a `CString`, so
-	# an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all
-	# (`docs/pitfalls/interface.md`, and the thirty-second load).
-	#
-	# The nesting is the plan row's rank button exactly -- a `widget` of a fixed
-	# size holding a centred `button_regular` -- because that one is drawn every
-	# frame and pressed every session.
 	# One good the ground can make: «−1», its icon, «+1». Nothing else.
+	#
+	# **Nothing is hidden behind a first click.** An earlier build had a picker of
+	# bare icons: clicking one added a row elsewhere and the buttons appeared
+	# there. He opened the window and found no way in -- «там только их иконки и
+	# ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек +1
+	# или -1» -- and he was right: a control you have to discover is not a control.
 	#
 	# **No name beside it, and the cell is as narrow as it can be.** A row each
 	# and a name each took half the window, 2026-09-04: «Иконки достаточно для
@@ -428,15 +417,31 @@ window = {
 					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# **A wrapping row, ten cells wide.** `flowcontainer` wraps on a count
-				# of items, which is how vanilla uses it (`agenda_view.gui`); a
-				# `maximumsize` on it wraps nothing and the row runs off the window.
-				# Ten cells of 104 with 2 between them is 1060 of the 1130 there are,
-				# and 35 goods come to four lines instead of thirty-five.
-				flowcontainer = {
-					wrap_count = 10
-					spacing = 2
-					ignoreinvisible = yes
+				# **A wrapping grid, ten cells wide, and it is a `fixedgridbox`.**
+				#
+				# **This is the widget that cost four crashes.** It was a
+				# `flowcontainer` with `wrap_count` and a `datamodel` on it, and every
+				# build that carried one died: two on opening the window, one on
+				# opening it with a switch that could not save it, one on loading the
+				# game. Every build without one opened. Nothing was ever logged,
+				# because a native layout failure writes nothing.
+				#
+				# **Vanilla never puts a `datamodel` on a `flowcontainer`.** Its two
+				# `wrap_count` pickers (`agenda_view.gui`, `multiplayer_lobby.gui`)
+				# hold literal children, and where they do give a flowcontainer a
+				# datamodel it is `DataModelRepeatedItem(N)` -- a counter, not a list.
+				# A wrapping grid *of a real list* is a `fixedgridbox` every one of
+				# the 138 times the game draws one, and this is its exact shape:
+				# `addcolumn`/`addrow` for the cell, `datamodel_wrap` for the width,
+				# `flipdirection = yes` to fill along the row.
+				#
+				# Ten cells of 104 plus 2 is 1060 of the 1130 there are, so the goods
+				# come to five lines rather than forty-seven.
+				fixedgridbox = {
+					addcolumn = 106
+					addrow = 34
+					datamodel_wrap = 10
+					flipdirection = yes
 					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
 					item = {
 						bag_wtp_edit_pool_entry = {

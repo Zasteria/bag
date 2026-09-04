@@ -17,39 +17,58 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
-**Four builds tried to put a per-good number into the editor's picker. All four
-crashed the game.** Nothing else in this repository has cost as much, and the
-one thing they share is the number, not the mechanism:
+**A `flowcontainer` with a `datamodel` of its own crashes the game.** Silently,
+natively, with nothing in `error.log`, `gui.log` or `debug.log`. It cost four
+builds, five of the owner's runs and four sessions, because each of those
+sessions went looking at what was *inside* the window instead of at the widget
+holding it. The run history settles it on its own:
 
-| # | how the number was to reach the row | how it died |
+| build | `flowcontainer` widget | what the game did |
 | --- | --- | --- |
-| 1 | variable map keyed by `goods:clay`, read with `Goods.MakeScope` | краш при открытии окна, дважды |
-| 2 | the same map keyed by a flag from `Goods.GetKey`, `.IsSet` guards, a CMM switch | краш при открытии, **и с тумблером, и без** |
-| 3 | — | — |
-| 4 | no map at all: 47 written-out cells, each with `ScriptValue('bag_wtp_show_pn<n>')` in its own localization key | **краш на загрузке**, до входа в игру |
+| `59e1c61` | 0 | окно открылось |
+| `8808561` | 0 | окно открылось |
+| `c14aa0f` | **1** | never loaded — the next build was stacked on it |
+| `cc6064d` | **1** | краш при открытии, дважды |
+| `feded5f` | **1** | краш при открытии, с тумблером и без |
+| `92a8af4` | **1**, with 47 written-out children | **краш на загрузке** |
+| `a55e14b` | **1** | краш при открытии |
 
-**So the variable map was never established as the cause.** The fourth build
-holds no map of any kind and crashed earlier than the others; whatever kills it
-is common to all four, and the only thing that is, is a number per good arriving
-in the interface.
+Zero for zero, one for one. **The variable map, the flag key, the `ScriptValue`
+in a localization value and the texticon were all innocent** — three of them were
+reverted for nothing, and the fourth build removed every map in the mod and still
+died, harder, because static children are built when the window is created rather
+than when the list fills.
 
-**`And(...)` in a GUI expression is eager**, which is separately proven: build 2's
-CMM switch was asked first in a `visible` and the crash came with it off. A
-`visible` cannot protect a sub-expression from being evaluated, so a guard is not
-a safety valve and must not be sold as one.
+**The game's own files say it plainly, and nobody asked them.** There is no
+`flowcontainer` with a real datamodel anywhere in vanilla. Its two `wrap_count`
+pickers (`agenda_view.gui`, `multiplayer_lobby.gui`) hold literal children, and
+where a flowcontainer does take a `datamodel` it is `DataModelRepeatedItem(N)` — a
+counter, not a list. **A wrapping grid of a list is a `fixedgridbox`**, all 138
+times the game draws one:
 
-**No log says anything, in any of the four.** `error.log` and `gui.log` on the
-fourth run reach the in-game country header and stop; `gui.log` never mentions the
-mod's `.gui` at all, so the file parses. Checked offline and all clean: every
-`GetScriptedGui` name defined, every localization key present in both languages,
-every `ScriptValue` defined, braces balanced, `check_script`/`check_cmm` clean.
-**A cause that leaves no evidence is not one to build a fifth guess on.**
+    fixedgridbox = {
+        addcolumn = 106        # cell width  + spacing
+        addrow = 34            # cell height + spacing
+        datamodel_wrap = 10    # cells to a row
+        flipdirection = yes    # fill along the row, not down the column
+        datamodel = "[...]"
+        item = { ... }
+    }
 
-**What has not been tried is a picker with no number in it.** «+» / «✖» as a
-plain localization value with no data function inside it, `visible` on a country
-variable — the exact shape `bag_wtp_edit_plus: "+1"` already draws — and the
-count read from the plan's own rows, which have never crashed anything. That is
-the next thing to load, and it is one new mechanism rather than four.
+**`check_script.py` refuses the pairing now** — a `flowcontainer` whose own block
+carries a datamodel that is not `DataModelRepeatedItem`. A flowcontainer of
+literal children is fine and stays fine.
+
+**And the lesson under the lesson: a build that was never loaded is not a
+baseline.** `c14aa0f` introduced the flowcontainer and was never run; every
+session after it read «the last build opened fine» from the *previous* one and
+looked for the fault in whatever it had added since. **Before blaming a change,
+check that the thing it was added to was ever in the game.**
+
+**`And(...)` in a GUI expression is eager**, which one of those runs proved
+separately: build `feded5f` asked a CMM switch first in a `visible` and crashed
+with it off. A `visible` cannot stop a sub-expression being evaluated, so a guard
+is not a safety valve and must not be sold as one.
 
 **`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
 inside a localization value, both, because a map read only from localization

@@ -56,15 +56,15 @@ buildings are never the victim.**
 three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
 `bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **a per-good number in the picker crashed the game four
-times out of four, four mechanisms, no line in any log**
+he will not find**; and **a `flowcontainer` with a `datamodel` crashes the game
+silently** — a wrapping grid of a list is a `fixedgridbox`
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
 `check_script.py` resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
 of our own, gating charters on their advance, spreading them inside a province,
 answering a preference with a re-plan, the editor on the settings page, granting
-charters charter-first, finer bands, a number per good in the picker.
+charters charter-first, finer bands, a `flowcontainer` with a datamodel.
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md).
 
 **The answer lives on the location**, and **four things are settled and not to be

@@ -426,6 +426,64 @@ def unregistered_windows(root: Path) -> list[str]:
     return found
 
 
+def flowcontainer_datamodels(root: Path) -> list[str]:
+    """A `flowcontainer` that carries a `datamodel` of its own.
+
+    **This is the widget that cost four crashes and five of the owner's runs.**
+    The editor's picker wrapped on a `flowcontainer` with `wrap_count` and
+    `datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"`. Every build that had
+    one died — two on opening the window, one on opening it with a CMM switch
+    that was supposed to save it, one on loading the game at all — and every
+    build without one opened. Nothing was ever written to `error.log`, `gui.log`
+    or `debug.log`: a native layout failure logs nothing, so four sessions went
+    to four different theories about the *contents* of the window instead.
+
+    **The game's own files say it plainly.** Search vanilla for a `flowcontainer`
+    with a real datamodel on it and there is none. The two `wrap_count` pickers
+    (`agenda_view.gui`, `multiplayer_lobby.gui`) hold literal children, and where
+    a flowcontainer does get a `datamodel` it is `DataModelRepeatedItem(N)` — a
+    counter, not a list. A wrapping grid **of a list** is a `fixedgridbox`, all
+    138 times the game draws one: `addcolumn`, `addrow`, `datamodel_wrap`,
+    `flipdirection = yes`.
+
+    So this refuses the pairing rather than the widget. A `flowcontainer` of
+    literal children is fine and stays fine.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    found = []
+    for path in sorted(gui.rglob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        # Walk to the matching brace so a datamodel in a *child* widget does not
+        # count: only the flowcontainer's own block is asked about.
+        for match in re.finditer(r"\bflowcontainer\s*=\s*\{", text):
+            depth, i = 0, match.end() - 1
+            while i < len(text):
+                if text[i] == "{":
+                    depth += 1
+                elif text[i] == "}":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                i += 1
+            block = text[match.end():i]
+            own = re.sub(r"\{[^{}]*\}", "", block)
+            for _ in range(8):
+                own = re.sub(r"\{[^{}]*\}", "", own)
+            model = re.search(r'datamodel\s*=\s*"([^"]*)"', own)
+            if not model or "DataModelRepeatedItem" in model.group(1):
+                continue
+            line = text[:match.start()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: a `flowcontainer` with a "
+                f"datamodel of its own — the game has none and four builds of "
+                f"this repository crashed on one, silently. A wrapping grid of "
+                f"a list is a `fixedgridbox` (addcolumn/addrow/datamodel_wrap/"
+                f"flipdirection); docs/pitfalls/interface.md")
+    return found
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
@@ -435,7 +493,8 @@ def main(argv: list[str]) -> int:
             continue
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
-                 + unregistered_windows(root) + unresolved_interface(root))
+                 + unregistered_windows(root) + unresolved_interface(root)
+                 + flowcontainer_datamodels(root))
         total += len(found)
         for line in found:
             print(line)

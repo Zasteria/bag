@@ -1,20 +1,23 @@
 ﻿# `where_to_produce` — what has been tried and must not be tried again
 
-**A number per good in the editor's picker, 2026-09-04, four builds, four
-crashes.** Keyed by `goods:clay` (crash on opening, twice); keyed by a flag from
-`Goods.GetKey` with `.IsSet` guards and a CMM switch (crash on opening, with the
-switch on and off, because `And(...)` in a GUI expression is eager); and with no
-map at all — 47 cells written into the `.gui`, each holding
-`ScriptValue('bag_wtp_show_pn<n>')` in its own localization key — **which crashed
-on loading**, before the game could be entered. Not one of the four left a line
-in any log. Everything resolves offline: names, keys, script values, braces,
-every checker.
+**A `flowcontainer` carrying a `datamodel`, 2026-09-04 — four builds, four
+crashes, five of his runs.** The editor's picker wrapped on one. Every build with
+it died (twice on opening, once on opening with a switch that could not help,
+once on loading the game); both builds without it opened. Nothing was ever
+logged. Vanilla has no such widget anywhere — a wrapping grid of a list is a
+`fixedgridbox`. `check_script.py` refuses the pairing now.
+`../pitfalls/interface.md`.
 
-**Do not build a fifth bridge.** What the four share is the number reaching the
-interface, not the mechanism carrying it, so the next attempt is a picker with
-**no number and no data function in it at all** — «+» / «✖» as a plain
-localization value, the count read from the plan's own rows. The 47-cell build is
-kept whole at `92a8af4` if it is ever worth bisecting. `../pitfalls/interface.md`.
+**The three things reverted while chasing it were innocent**: a variable map
+keyed by `goods:clay`, the same map keyed by a flag from `Goods.GetKey`, and 47
+written-out cells with `ScriptValue` in their localization. The count per good in
+the picker is **not** on this list — it was never shown to be the problem, and it
+can be built again once the picker is known to open.
+
+**And the process failure that made it cost four sessions instead of one:**
+`c14aa0f` introduced the flowcontainer and **was never loaded**. Each session
+after it took «the last build worked» from the run before that one and hunted in
+what it had added since. **A build nobody ran is not a baseline.**
 
 Split out of [`../../mods/where_to_produce/CLAUDE.md`](../../mods/where_to_produce/CLAUDE.md)
 on 2026-09-03, at its budget. Every line here is a thing that was built, run and
