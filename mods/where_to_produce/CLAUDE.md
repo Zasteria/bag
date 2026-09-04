@@ -45,19 +45,20 @@ a location variable — **a `province_definition` holds none**
 `_row_goods`, not `_plan_goods`**: the charter's own goods first, then the rest by
 number, so the order is the same however the plan got there.
 
-**A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` changes
-a finished plan in place: one building a press, into the location where it costs
-least, and nothing else moves. **A good's last building and a charter bundle's
-buildings are never the victim** — and **nothing is evicted while the location
-still has a free room, nor left evicted if the placement then refuses.**
+**A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` moves
+one building a press, into the location where it costs least, and nothing else.
+**The editor has exactly one rule of its own** —
+a good never loses its last building on the whole ground; the charter lock was
+mine and he struck it out. **It places through `_edit_place_*`, never
+`_plan_try_*`**: the scan and the placement must be one predicate or they
+disagree and nothing can say why. Nothing is evicted while a room is free, nor
+left evicted if the placement refuses.
 
-**The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
-three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
-`bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
+**The editor is a window and never the settings page.** Three save slots, then
+every good as a cell of «−1, icon with its count, +1». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **the picker is 47 written-out cells** — a datamodel row
-carries a goods scope and a scope reaches no numbered `_pn<n>`, so only a written
-cell can print the count he asked for
+he will not find**; and **the picker is 47 written-out cells**, because a
+datamodel row carries a goods scope and a scope reaches no numbered `_pn<n>`
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
 `check_script.py` resolves every name a window says.
 

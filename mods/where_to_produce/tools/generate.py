@@ -2603,6 +2603,26 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tlimit = {{ {MOD_ID}_plan_can_{listname}_{index} = yes }}
 {branches}\t}}
 }}
+
+# {good}, {"town" if side == "t" else "village"} side, **for the editor**.
+#
+# **The same placement, asked a different question.** `_plan_can_*` is the plan's
+# gate and it asks for a free room; the editor frees the room itself, an eviction
+# at a time, so it asks `_edit_fits_*` -- the identical test with the room clause
+# taken out. **The scan and the placement are then one predicate**, and cannot
+# disagree: the walk chose this location *because* `_edit_fits_*` said yes, so a
+# placement that then refuses is impossible by construction.
+#
+# The owner, 2026-09-04, after «поставить не удалось, и всё осталось как было»:
+# «Там не должно быть вообще никаких ограничений и правил, кроме как что 1 домика
+# не может быть меньше 1 и собственно самих правил наивыгоднейшей
+# установки/удаления.» This is that, and the room is the walk's business.
+# Scope: location
+{MOD_ID}_edit_place_{listname}_{index} = {{
+\tif = {{
+\t\tlimit = {{ {MOD_ID}_edit_fits_{listname}_{index} = yes }}
+{branches}\t}}
+}}
 """)
 
     # ---- the row, in an order that does not move -----------------------------
@@ -3616,24 +3636,21 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 """)
 
-    # ---- a bundle good of the charter granted here --------------------------
-    for index, good in enumerate(order, start=1):
-        holders = [k for k, right in enumerate(rights, start=1) if good in right.output]
-        if not holders:
-            gate.append(f"\n# Scope: location\n"
-                        f"{MOD_ID}_edit_locked_{index} = {{ always = no }}\n")
-            continue
-        tests = "".join(f"\t\tvar:{MOD_ID}_plan_right = {k}\n" for k in holders)
-        gate.append(f"""
-# {good} is in the bundle of the charter granted here, so the editor may not take
-# it out: the town would keep a charter for something it no longer makes.
-# Scope: location
-{MOD_ID}_edit_locked_{index} = {{
-\thas_variable = {MOD_ID}_plan_right
-\tOR = {{
-{tests}\t}}
-}}
-"""  )
+    # ---- the charter lock is gone, and that was his call ---------------------
+    #
+    # A `{MOD_ID}_edit_locked_<n>` stood here and refused to let the editor take
+    # out a building belonging to the charter granted in that town. It was a rule
+    # of my own, not one he asked for, and on 2026-09-04 he struck it out:
+    # «Там не должно быть вообще никаких ограничений и правил, кроме как что 1
+    # домика не может быть меньше 1 и собственно самих правил наивыгоднейшей
+    # установки/удаления. В том числе городские права и их домики — не должны
+    # быть жёстко зарезервированы в этот момент.»
+    #
+    # It also mattered more than it looked: every town on his ground holds a
+    # charter, so two or three of its four buildings were untouchable and «+1»
+    # had one or two legal victims a town. **The editor now has exactly one rule
+    # of its own** -- a good never loses its last building on the whole ground --
+    # and everything else is the placement arithmetic.
 
     # ---- the cheapest building this location could give up -----------------
     #
@@ -3646,7 +3663,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{
 \t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 \t\t\t\tglobal_var:{MOD_ID}_pn{index} > 1
-\t\t\t\tNOT = {{ {MOD_ID}_edit_locked_{index} = yes }}
 \t\t\t\tOR = {{
 \t\t\t\t\tvar:{MOD_ID}_esw = -1
 \t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
@@ -3693,7 +3709,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_esv add = {RANK_SCALE} }}
 \t\t\t}}
 \t\t\telse_if = {{
-\t\t\t\tlimit = {{ var:{MOD_ID}_esw >= 0 }}
+\t\t\t\tlimit = {{ var:{MOD_ID}_esw >= 0 var:{MOD_ID}_esg > 0 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 1 }}
 \t\t\t\tset_variable = {{ name = {MOD_ID}_esv value = var:{MOD_ID}_{gain_var}{index} }}
 \t\t\t\tchange_variable = {{ name = {MOD_ID}_esv subtract = var:{MOD_ID}_esw }}
@@ -3769,15 +3785,15 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"{call('edit_remove', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     add_dispatch = "".join(
-        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
-        f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
+        f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
+        f"{call('edit_place', i, chr(9) * 5)}\t\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     # The victim put back where it stood, keyed by `_esg` rather than by the
     # good the press asked for. Same effects: a building that stood here a
     # moment ago passes `_plan_can_*` again by construction.
     restore_dispatch = "".join(
-        f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
-        f"{call('plan_try', i, chr(9) * 5)}\t\t\t\t}}\n"
+        f"\t\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('edit_place', i, chr(9) * 6)}\t\t\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     held = "".join(
         f"\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} "
@@ -3846,31 +3862,51 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\torder_by = {MOD_ID}_edit_order
 \t\t\tmax = 1
 \t\t\tcheck_range_bounds = no
-\t\t\t# **The eviction happens only when there is no room**, and this is the
-\t\t\t# bug that cost him two buildings on 2026-09-04. `{MOD_ID}_edit_worst`
-\t\t\t# names a victim on *every* candidate, free room or not -- `_edit_state`
-\t\t\t# needs it that way -- and the walk used to evict unconditionally. The
-\t\t\t# scan prices a free room at «costs nothing» and then the walk charged a
-\t\t\t# building for it: «Хорстмар · ушло: благовония, лекарства · встало: —».
+\t\t\t# **One rule, and the walk owns the room.**
+\t\t\t#
+\t\t\t# The editor no longer asks the plan whether a building may stand here.
+\t\t\t# `_plan_can_*` wants a free room; the editor makes the room itself, so it
+\t\t\t# asks `_edit_fits_*` -- the same test with that clause removed -- and
+\t\t\t# **the scan and the placement are then the same predicate**. They used to
+\t\t\t# be two, and the day they disagreed the window said «поставить не
+\t\t\t# удалось, и всё осталось как было» with nothing able to say why.
+\t\t\t#
+\t\t\t# So: evict when the location is full and has a victim, then place if the
+\t\t\t# room is actually free. `_edit_worst` names a victim on every candidate
+\t\t\t# -- the picker's markers need that -- so «full» and «has a victim» are
+\t\t\t# asked here rather than assumed.
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{
+\t\t\t\t\tvar:{MOD_ID}_esg > 0
+\t\t\t\t\tOR = {{
+\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes
+\t\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_urban }}
+\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no
+\t\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_rural }}
+\t\t\t\t\t}}
+\t\t\t\t}}
+{remove_dispatch}\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 1 }}
+\t\t\t}}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ OR = {{
 \t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes
-\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_urban }}
+\t\t\t\t\t\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban }}
 \t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no
-\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_rural }}
+\t\t\t\t\t\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural }}
 \t\t\t\t}} }}
-{remove_dispatch}\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 1 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 1 }}
 \t\t\t}}
-\t\t\t# **And nothing is lost if the placement then refuses.** The count is
-\t\t\t# taken after the eviction, so one number answers both cases: the plan
-\t\t\t# grew or it did not. It did not means the good could not stand here
-\t\t\t# after all -- the scan and `_plan_can_*` disagreed about something --
-\t\t\t# and the victim goes straight back. A press that cannot do what it says
-\t\t\t# must cost nothing, and `_edit_fail` is what makes the window say so
-\t\t\t# instead of «сделано».
+\t\t\t# **And nothing is ever lost.** The count is taken after the eviction, so
+\t\t\t# one comparison answers both cases: the plan grew, or it did not and the
+\t\t\t# victim goes straight back. A press that cannot do what it says must cost
+\t\t\t# nothing, and `_edit_fail` is what makes the window say so.
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_mark value = global_var:{MOD_ID}_plan_placed }}
-{add_dispatch}\t\t\tif = {{
+\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_edit_room = 1 }}
+{add_dispatch}\t\t\t}}
+\t\t\tif = {{
 \t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_placed > global_var:{MOD_ID}_edit_mark }}
 \t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
 \t\t\t}}
@@ -3938,6 +3974,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     fill = "".join(
         f"\t\t\tif = {{\n"
         f"\t\t\t\tlimit = {{\n"
+        # **Never the good that just left.** It fits by construction -- it stood
+        # here a moment ago -- and it is almost always the best fit as well, so
+        # without this «−1» removes a building and hands the room straight back
+        # to the same good. The press then reports «сделано» and nothing on the
+        # map has changed, which is what he saw on 2026-09-04.
+        f"\t\t\t\t\tNOT = {{ var:{MOD_ID}_edit_good = {i} }}\n"
         f"\t\t\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
         f"\t\t\t\t\tOR = {{\n"
         f"\t\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes var:{MOD_ID}_p{i} > var:{MOD_ID}_esw }}\n"
@@ -3952,7 +3994,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         for i in range(1, len(order) + 1))
     fill_dispatch = "".join(
         f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
-        f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
+        f"{call('edit_place', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
     out.append(f"""\t\tevery_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
@@ -4339,6 +4381,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_presses }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_presses value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_fail }} }}
