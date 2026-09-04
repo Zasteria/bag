@@ -268,10 +268,6 @@ ROWS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rows.txt"
 VALUES_OUT = MOD / "in_game/common/script_values/bag_wtp_generated_values.txt"
 TRIGGERS_OUT = MOD / "in_game/common/scripted_triggers/bag_wtp_generated_triggers.txt"
 GUIS_OUT = MOD / "in_game/common/scripted_guis/bag_wtp_generated_scripted_gui.txt"
-# **The editor window is generated because its picker is.** 47 cells written
-# out by name is the only way a per-good number reaches the screen here, and
-# hand-editing 47 of anything is how they drift apart.
-EDIT_WINDOW_OUT = MOD / "in_game/gui/bag_wtp_edit_window.gui"
 LAYOUT_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_layout.txt"
 RIGHTS_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_rights.txt"
 PLAN_OUT = MOD / "in_game/common/scripted_effects/bag_wtp_generated_plan.txt"
@@ -1530,15 +1526,6 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_edit_saved = {{ value = global_var:{MOD_ID}_save_n }}
 # Scope: country
 {MOD_ID}_show_edit_done = {{ value = global_var:{MOD_ID}_edit_done }}
-""")
-    # **One per good, because the picker is 47 cells and each names its own.**
-    # A localization key reads a number only through a script value, and a script
-    # value cannot be chosen at runtime -- so the cell that prints iron's count
-    # is written out as iron's cell and names `_show_pn10`.
-    out.append("".join(
-        f"# Scope: country\n{MOD_ID}_show_pn{i} = {{ value = global_var:{MOD_ID}_pn{i} }}\n"
-        for i in range(1, len(order) + 1)))
-    out.append(f"""
 # Scope: country
 {MOD_ID}_show_edit_reached = {{ value = global_var:{MOD_ID}_edit_reached }}
 # **How many goods the picker was filled with.** On screen beside the list, and
@@ -3405,10 +3392,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     first build put the picker and the buttons in the Mod Menu and he refused to
     open it, 2026-09-03: «Сейчас окно настроек мода - стало засраным и неудобным.
     Более того это именно что окно настроек и основных функций, я не хочу делать
-    подобные вещи там.» So the picker is written out a good at a time in
-    `bag_wtp_edit_window.gui` -- icon, «−1», «+1» and the count in place -- and
-    each cell reaches its own numbered `{MOD_ID}_edit_plus_<n>` here. Nothing
-    carries a goods scope any more; see `picker_cells` for why it cannot.
+    подобные вещи там.» So the goods are icons in `bag_wtp_edit_window.gui`, each
+    chosen one gets a row with `-1`, its icon and `+1`, and the effects here are
+    reached from those buttons through `{MOD_ID}_edit_set_good`, which takes the
+    good as a scope instead of reading a dropdown.
     """
     order = [good for kind in ("raw", "made") for good in split[kind]]
     groups = plan_groups(rows, split, game)
@@ -3436,16 +3423,41 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # same rule every other scripted trigger here obeys.
 """]
 
-    # ---- which good the editor is pointed at -------------------------------
-    #
-    # **It is a number now, and the buttons write it themselves.** There was an
-    # effect here that took the good as a saved scope and walked 47 comparisons
-    # to turn it into the plan's index, because every counter the plan keeps is
-    # numbered -- `_pn<n>`, `_p<n>`, `_pm<n>` -- and a scope indexes none of them.
-    # The picker stopped carrying scopes when it became written-out cells, so
-    # `_edit_plus_<n>` sets `_edit_good` to its own `n` and the bridge is gone.
-    # `_edit_reached` stays: it is what tells «кнопка не донесла товар» apart
-    # from a rule refusing, and the numbered effects set it.
+    # ---- which good the editor is working on -------------------------------
+    picks = "".join(
+        f"\tif = {{ limit = {{ scope:{MOD_ID}_good = goods:{good} }} "
+        f"set_variable = {{ name = {MOD_ID}_edit_good value = {i} }} }}\n"
+        for i, good in enumerate(order, start=1))
+    out.append(f"""
+# Which good the editor is pointed at, taken from the button that was pressed.
+#
+# **The good arrives as a scope and is turned into the plan's own index here.**
+# Every counter the plan keeps is numbered -- `_pn<n>`, `_p<n>`, `_pm<n>` -- and
+# a scope cannot index them, so this is the one place the two meet. It was three
+# CMM dropdowns read out of a global variable map; a window of icons needs none
+# of that, and `scope:x = goods:y` is the game's own way of asking (its
+# `situation_triggers.txt` compares saved goods scopes exactly so).
+#
+# `_edit_good` at 0 means the scope named a good this ground has no plan for,
+# and every caller checks it.
+# Scope: country
+{MOD_ID}_edit_set_good = {{
+\tset_variable = {{ name = {MOD_ID}_edit_good value = 0 }}
+{picks}\t# **Whether the press arrived at all, kept apart from whether it did
+\t# anything.** A button that never reaches its effect and a rule that refuses
+\t# look identical on screen, and telling them apart used to cost a log and a
+\t# round trip. `_edit_reached` is 0 when the good never came through the scope,
+\t# so `{MOD_ID}_edit_last_label` can say «кнопка не донесла товар» instead of
+\t# blaming a rule.
+\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 0 }}
+\tif = {{
+\t\tlimit = {{ var:{MOD_ID}_edit_good > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
+\t}}
+}}
+"""
+
+)
 
     # ---- may this good stand here, room aside ------------------------------
     #
@@ -3654,102 +3666,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 """)
 
-    # ---- what the picker shows before anything is pressed --------------------
-    #
-    # **Plain flags on the player, and not a variable map.** The map was tried
-    # twice -- keyed by the goods object, then by a flag, both with `.IsSet`
-    # guards -- and the game crashed on opening the window every time, with
-    # nothing in any log. It is not the way in, and the third attempt is not
-    # going to be a third map.
-    #
-    # A flag per good is what a `visible` already reads everywhere in this mod:
-    # `GetPlayer.MakeScope.GetVariable('bag_wtp_can10').IsSet`. It needs the
-    # picker to be 47 cells written out by name rather than a datamodel of
-    # goods, which is the other half of this change -- and that turned out to be
-    # possible only because a good's icon is a texticon, `@iron!`, printable
-    # with no scope at all (vanilla's own `hint_eco_hint_text_2` does it).
-    #
-    # **`_edit_worst` runs once per location and not once per good.** The
-    # cheapest building that may be evicted is a property of the location, not of
-    # the good going in, so the whole answer costs one walk.
-    zero = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_fitn{i} value = 0 }}\n"
-        f"\tset_global_variable = {{ name = {MOD_ID}_cann{i} value = 0 }}\n"
-        for i in range(1, len(order) + 1))
-    count = "".join(
-        f"\t\tif = {{\n"
-        f"\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
-        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
-        f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_fitn{i} add = 1 }}\n"
-        f"\t\t\tif = {{\n"
-        f"\t\t\t\tlimit = {{ OR = {{\n"
-        f"\t\t\t\t\tAND = {{ {MOD_ID}_edit_fits_town_{i} = yes OR = {{ "
-        f"var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_urban "
-        f"var:{MOD_ID}_esw >= 0 }} }}\n"
-        f"\t\t\t\t\tAND = {{ {MOD_ID}_edit_fits_rural_{i} = yes OR = {{ "
-        f"var:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_rural "
-        f"var:{MOD_ID}_esw >= 0 }} }}\n"
-        f"\t\t\t\t}} }}\n"
-        f"\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_cann{i} add = 1 }}\n"
-        f"\t\t\t}}\n\t\t}}\n"
-        for i in range(1, len(order) + 1))
-    flags = "".join(
-        f"\tif = {{\n"
-        f"\t\tlimit = {{ has_global_variable = {MOD_ID}_ng{i} "
-        f"global_var:{MOD_ID}_ng{i} > 0 }}\n"
-        f"\t\tset_variable = {{ name = {MOD_ID}_pool{i} value = 1 }}\n"
-        f"\t\tchange_global_variable = {{ name = {MOD_ID}_edit_pooln add = 1 }}\n"
-        f"\t}}\n\telse = {{ remove_variable = {MOD_ID}_pool{i} }}\n"
-        f"\tif = {{\n"
-        f"\t\tlimit = {{ global_var:{MOD_ID}_cann{i} > 0 }}\n"
-        f"\t\tset_variable = {{ name = {MOD_ID}_can{i} value = 1 }}\n"
-        f"\t}}\n\telse = {{ remove_variable = {MOD_ID}_can{i} }}\n"
-        f"\tif = {{\n"
-        f"\t\tlimit = {{ global_var:{MOD_ID}_fitn{i} = 0 }}\n"
-        f"\t\tset_variable = {{ name = {MOD_ID}_now{i} value = 1 }}\n"
-        f"\t}}\n\telse = {{ remove_variable = {MOD_ID}_now{i} }}\n"
-        for i in range(1, len(order) + 1))
-    out.append(f"""
-# What the picker prints beside every good.
-#
-# **Run on every open and after every press.** The counts in the cells are
-# `_pn<n>` and read live, but the markers are these flags, and a marker that
-# still says «+1 is possible» after the press that used the last room is worse
-# than no marker.
-#
-# Three flags a `visible` can ask: `_pool<n>` (this ground can make it at all),
-# `_can<n>` (another building would go somewhere), `_now<n>` (it stands in every
-# location that could hold it). Not-can and not-now together is the third case:
-# there is room to be had, but everything in it is a last building or a charter's.
-#
-# **`_pool<n>` is what keeps the picker honest.** 47 icons of which half are
-# impossible on this ground is a worse picker than 20 that are all real, and
-# `_ng<n>` -- how many candidates can make the good, counted by the plan's own
-# scan -- is the number that says which. `has_global_variable` before the
-# comparison, because before the first plan of a save `_ng<n>` does not exist and
-# a `limit` reading a global that is not there is the failure this repository
-# names first. Here the wrong answer and the right one happen to agree (no plan,
-# nothing to edit), which is how such a thing survives.
-# Scope: country
-{MOD_ID}_edit_state = {{
-{zero}\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
-\tevery_in_global_list = {{
-\t\tvariable = {MOD_ID}_candidates
-\t\t{MOD_ID}_edit_worst = yes
-{count}\t}}
-{flags}\t# **Whether the picker has anything in it at all**, as a flag rather than as
-\t# `DataModelHasItems` over a list -- the list is gone, and the empty state has
-\t# to be able to say so. A picker that was never filled and one that was filled
-\t# and does not draw look identical on screen; the goods vanished once already.
-\tif = {{
-\t\tlimit = {{ global_var:{MOD_ID}_edit_pooln = 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_edit_none value = 1 }}
-\t}}
-\telse = {{ remove_variable = {MOD_ID}_edit_none }}
-}}
-
-""")
-
     out.append(f"""
 # **One more building of the chosen good, and exactly one.**
 #
@@ -3800,11 +3716,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# it; the goods already in a row read live off the location, so without this
 \t# an edit is half-visible, which is the worst of the three states.
 \t{MOD_ID}_plan_show = yes
-\t# **And the markers on the picker.** `_pn<n>` beside a good is a live global
-\t# and updates itself; `_can<n>` and `_now<n>` are written once by
-\t# `{MOD_ID}_edit_state` and would otherwise still be answering the question
-\t# asked before the press -- «+1 возможен» on the very room this press took.
-\t{MOD_ID}_edit_state = yes
 }}
 
 # **One building of the chosen good taken out, and the room given to whatever
@@ -3891,11 +3802,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# it; the goods already in a row read live off the location, so without this
 \t# an edit is half-visible, which is the worst of the three states.
 \t{MOD_ID}_plan_show = yes
-\t# **And the markers on the picker.** `_pn<n>` beside a good is a live global
-\t# and updates itself; `_can<n>` and `_now<n>` are written once by
-\t# `{MOD_ID}_edit_state` and would otherwise still be answering the question
-\t# asked before the press -- «+1 возможен» on the very room this press took.
-\t{MOD_ID}_edit_state = yes
 }}
 """)
 
@@ -3941,35 +3847,6 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # is restoring, and there are three of them. The baseline `_save_*` stays --
     # it is what «показать изменения» counts against -- but nothing puts it back
     # on the map, so the effect that did was removed rather than left unreachable.
-
-    # ---- one pair of buttons per good ---------------------------------------
-    #
-    # **The good is named, not carried.** A scope from the interface works -- it
-    # is how the picker's own buttons reach these -- but a named effect per good
-    # is what lets the picker be 47 cells written out rather than a datamodel,
-    # and the cells are what let a `visible` and a localization key say anything
-    # per good at all. Everything the interface has to know is then a flag and a
-    # script value, which is what every other window here already reads.
-    numbered = "".join(
-        f"""
-# «+1» for {good}.
-# Scope: country
-{MOD_ID}_edit_plus_{i} = {{
-\tset_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
-\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
-\t{MOD_ID}_edit_add = yes
-}}
-
-# «−1» for {good}.
-# Scope: country
-{MOD_ID}_edit_minus_{i} = {{
-\tset_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
-\tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
-\t{MOD_ID}_edit_drop = yes
-}}
-"""
-        for i, good in enumerate(order, start=1))
-    out.append(numbered)
 
     # ---- the numbered slots -------------------------------------------------
     #
@@ -4078,6 +3955,44 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {zero_counts}}}
 """)
 
+    # ---- the editor window's own two lists ----------------------------------
+    #
+    # **The picker offers what this ground can make and nothing else, and every
+    # row of it carries its own «−1» and «+1».** 47 icons of which half are
+    # impossible here is a worse picker than 20 that are all real, and `_ng<n>` --
+    # how many candidates can make the good, counted by the plan's own scan -- is
+    # the number that says which.
+    #
+    # **There is no second list of «goods being worked on» any more.** There was,
+    # and clicking a good's icon put it there with the buttons beside it; he
+    # opened the window and found no way in, 2026-09-03: «там только их иконки и
+    # ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек
+    # +1 или -1». Controls you have to discover by clicking are controls that are
+    # not there. Now every good the ground can make has its buttons in place, one
+    # row each, and nothing is hidden behind a first click.
+    #
+    # **`has_global_variable` before the comparison.** `_ng<n>` is written by the
+    # scoring pass and by nothing else, so before the first plan of a save it does
+    # not exist -- and a `limit` reading a global that is not there is the failure
+    # this repository names first. Here the wrong answer and the right one happen
+    # to agree (no plan, nothing to edit), which is how such a thing survives.
+    pool = "".join(
+        f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
+        f"global_var:{MOD_ID}_ng{i} > 0 }} "
+        f"change_global_variable = {{ name = {MOD_ID}_edit_pooln add = 1 }} "
+        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool "
+        f"target = goods:{good} }} }}\n"
+        for i, good in enumerate(order, start=1))
+    out.append(f"""
+# The goods the editor offers, rebuilt whenever its window opens.
+# Scope: country
+{MOD_ID}_edit_fill_pool = {{
+\tclear_global_variable_list = {MOD_ID}_edit_pool
+\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
+{pool}}}
+
+""")
+
     # ---- what the editing changed ------------------------------------------
     changed = "".join(
         f"\t\t\t\tAND = {{ is_target_in_variable_list = {{ name = {MOD_ID}_save_goods target = goods:{good} }} "
@@ -4166,9 +4081,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_init_slots = {{
 {inits}\t# `_edit_done` and `_edit_good` are read by `{MOD_ID}_edit_last_label` every
-\t# frame the editor is open, so both must exist before the first press. A list
-\t# is created by clearing it, and `_chg_locs` must be cleared only here: doing
-\t# it on every open would empty «показать изменения» before he read it.
+\t# frame the editor is open, and the pool is read by its datamodel. A list is created by
+\t# clearing it, and it must be cleared only once ever: doing it on every open
+\t# would throw away the goods he had picked.
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_done }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
@@ -4186,6 +4101,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_op value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\t}}
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
+\t\tclear_global_variable_list = {MOD_ID}_edit_pool
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_chg_locs }} }}
@@ -4206,7 +4125,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# only what is registered there. That is a rule a checker can enforce, so it
 \t# does, and a line in `error.log` on every press is noise once the answer is in.
 \t{MOD_ID}_edit_init_slots = yes
-\t{MOD_ID}_edit_state = yes
+\t{MOD_ID}_edit_fill_pool = yes
 \t{MOD_ID}_plan_show = yes
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
@@ -4936,520 +4855,6 @@ def layout_file(by_continent) -> str:
     return "".join(out)
 
 
-def picker_guis(order: list[str]) -> str:
-    """«+1» and «−1» for each good, as a bridge of its own.
-
-    **The picker names its goods rather than carrying them**, so the cell can be
-    written out and a `visible` and a localization key can say something per good.
-    That costs one scripted GUI a button a good and buys the count on screen.
-    """
-    out = []
-    for i, good in enumerate(order, start=1):
-        for what, effect in (("plus", "add"), ("minus", "drop")):
-            out.append(f"""
-{MOD_ID}_pick_{what}_{i} = {{
-\tscope = country
-
-\tis_shown = {{
-\t\talways = yes
-\t}}
-
-\teffect = {{
-\t\t{MOD_ID}_edit_{what}_{i} = yes
-\t\t{MOD_ID}_recompute_live = yes
-\t}}
-}}
-""")
-    return "".join(out)
-
-
-def picker_cells(order: list[str]) -> str:
-    """The picker, one cell per good, written out.
-
-    **Every part of a cell is a thing this mod already draws.** A `visible` on a
-    country variable, a localization key with a `ScriptValue` in it, a
-    `button_regular` in a fixed `widget`, and the good's icon as the texticon
-    `@<key>!` -- which vanilla's own `hint_eco_hint_text_2` prints, and which is
-    why a cell needs no goods scope at all.
-
-    A datamodel of goods cannot do this. It carries a scope, and a scope reaches
-    no numbered counter: `Goods.Custom` does not exist, no global returns a good
-    by key, and the variable map that would have bridged them crashed the game
-    twice. `docs/pitfalls/interface.md`.
-    """
-    out = []
-    for i, good in enumerate(order, start=1):
-        states = "".join(f"""
-\t\t\ttext_single = {{
-\t\t\t\tparentanchor = left|vcenter
-\t\t\t\tautoresize = yes
-\t\t\t\tfontsize = 15
-\t\t\t\tvisible = "{cond}"
-\t\t\t\ttext = "{MOD_ID}_cell_{state}_{i}"
-\t\t\t\ttooltip = "{MOD_ID}_cell_{state}_tt"
-\t\t\t}}"""
-            for state, cond in (
-                ("ok", f"[GetPlayer.MakeScope.GetVariable('{MOD_ID}_can{i}').IsSet]"),
-                ("now", f"[And(Not(GetPlayer.MakeScope.GetVariable('{MOD_ID}_can{i}').IsSet), "
-                        f"GetPlayer.MakeScope.GetVariable('{MOD_ID}_now{i}').IsSet)]"),
-                ("nov", f"[And(Not(GetPlayer.MakeScope.GetVariable('{MOD_ID}_can{i}').IsSet), "
-                        f"Not(GetPlayer.MakeScope.GetVariable('{MOD_ID}_now{i}').IsSet))]")))
-        out.append(f"""
-\t\thbox = {{
-\t\t\tsize = {{ 138 30 }}
-\t\t\tspacing = 1
-\t\t\tvisible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
-
-\t\t\twidget = {{
-\t\t\t\tsize = {{ 30 30 }}
-\t\t\t\tbutton_regular = {{
-\t\t\t\t\tsize = {{ 28 26 }}
-\t\t\t\t\tparentanchor = center
-\t\t\t\t\twidgetanchor = center
-\t\t\t\t\ttooltip = "{MOD_ID}_edit_minus_tt"
-\t\t\t\t\tonclick = "[GetScriptedGui('{MOD_ID}_pick_minus_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\tparentanchor = center
-\t\t\t\t\t\twidgetanchor = center
-\t\t\t\t\t\tautoresize = yes
-\t\t\t\t\t\tfontsize = 14
-\t\t\t\t\t\ttext = "{MOD_ID}_edit_minus"
-\t\t\t\t\t}}
-\t\t\t\t}}
-\t\t\t}}
-
-\t\t\twidget = {{
-\t\t\t\tsize = {{ 30 30 }}
-\t\t\t\tbutton_regular = {{
-\t\t\t\t\tsize = {{ 28 26 }}
-\t\t\t\t\tparentanchor = center
-\t\t\t\t\twidgetanchor = center
-\t\t\t\t\ttooltip = "{MOD_ID}_edit_plus_tt"
-\t\t\t\t\tonclick = "[GetScriptedGui('{MOD_ID}_pick_plus_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-\t\t\t\t\ttext_single = {{
-\t\t\t\t\t\tparentanchor = center
-\t\t\t\t\t\twidgetanchor = center
-\t\t\t\t\t\tautoresize = yes
-\t\t\t\t\t\tfontsize = 14
-\t\t\t\t\t\ttext = "{MOD_ID}_edit_plus"
-\t\t\t\t\t}}
-\t\t\t\t}}
-\t\t\t}}
-
-\t\t\twidget = {{
-\t\t\t\tsize = {{ 74 30 }}
-\t\t\t\talwaystransparent = no
-{states}
-\t\t\t}}
-\t\t}}
-""")
-    return "".join(out)
-
-
-def edit_window_file(order: list[str]) -> str:
-    """The editor window, with its picker written out a good at a time."""
-    cells = picker_cells(order)
-    return f"""# The plan editor: a window, and its own window, because he would not use it
-# anywhere else.
-#
-# The owner, 2026-09-03, after the first build put the picker and the buttons on
-# the mod's settings page: «Сейчас окно настроек мода - стало засраным и
-# неудобным. Более того это именно что окно настроек и основных функций, я не
-# хочу делать подобные вещи там. … Редактор - должен быть полностью отдельно
-# открывающимся окном. Я открываю окно и загружаю сохранённый план. План
-# загружается примерно в том же виде, в каком он показывается в окне "где
-# производить - общий план".»
-#
-# So: three slots along the top, the goods this ground can make as icons, a row
-# per good he picks with «−1», its icon and «+1», and the plan itself in the
-# rows the plan window draws -- `bag_wtp_plan_entry`, reused rather than copied,
-# so the two windows can never drift apart.
-#
-# **Nothing in here re-plans.** `bag_wtp_plan_run` is the only thing that does,
-# and every button here changes the plan on the map one building at a time:
-# «Мод не пересобирает весь план с 0, он просто точечно выбирает какой товар X
-# менее болезненно удалить для наилучшей установки туда товара Y».
-#
-# **Generated, because the picker is 47 cells written out by name.** A datamodel
-# of goods cannot show a per-good number: the row carries a scope, and a scope
-# reaches no numbered counter -- `Goods.Custom` does not exist, no global returns
-# a good by key, and the variable map that would have bridged them crashed the
-# game twice (`docs/pitfalls/interface.md`). A cell that names its good needs no
-# scope at all: the icon is the texticon `@<key>!`, which vanilla prints in its
-# own hints, and the count is a `ScriptValue` in a localization key, which this
-# mod prints in every window it has.
-#
-# Edit `tools/generate.py`, not this file.
-
-window = {{
-	name = "bag_wtp_edit_window"
-	datacontext = "[GetPlayer]"
-	allow_outside = yes
-	alwaystransparent = no
-	parentanchor = center
-	widgetanchor = center
-	position = {{ 0 0 }}
-	movable = yes
-	size = {{ 1180 780 }}
-
-	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
-	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
-
-	widget = {{
-		size = {{ 1180 780 }}
-		using = bg_window_default_alt
-		allow_outside = yes
-
-		widget = {{
-			parentanchor = right
-			position = {{ -5 5 }}
-			size = {{ 40 40 }}
-			ui_direction_button_holder_right = {{}}
-			button_close_alt = {{
-				blockoverride "close_on_action" {{
-					on_action = "[GetScriptedGui('bag_wtp_close_edit_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}}
-			}}
-		}}
-
-		vbox = {{
-			using = window_margin_alt
-
-			window_header_alt = {{
-				blockoverride "header_text" {{ text = "bag_wtp_edit_window_title" }}
-				blockoverride "window_header_alt_color_texture" {{ using = color_production_texture }}
-			}}
-
-			vbox = {{
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				using = bg_secondary_inner_alt
-				margin = {{ 12 12 }}
-				spacing = 6
-
-				text_multi = {{
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = {{ 1130 60 }}
-					align = center
-					text = "bag_wtp_edit_window_desc"
-				}}
-
-				# The slots. Three of them, and the reason is his: «я проебу свой
-				# сохранённый план, если захочу посмотреть какой-то план на другой
-				# земле… Слотов для планов должно быть минимум 3.»
-				#
-				# Each shows what it holds, so «загрузить» is never a guess. The label
-				# is a `customizable_localization` of the mod's own because a plain key
-				# can read a number but cannot choose between two sentences, and an
-				# empty slot must not read «0 зданий в 0 локациях».
-				hbox = {{
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					text_single = {{
-						size = {{ 90 34 }}
-						autoresize = no
-						align = left|vcenter
-						fontsize = 14
-						text = "bag_wtp_edit_slots_head"
-					}}
-
-					widget = {{
-						size = {{ 330 40 }}
-						using = bg_number_container_bckg
-
-						hbox = {{
-							parentanchor = left|vcenter
-							spacing = 4
-
-							text_single = {{
-								size = {{ 160 32 }}
-								autoresize = no
-								maximumsize = {{ 160 32 }}
-								align = left|vcenter
-								fontsize = 13
-								elide = right
-								text = "[GetPlayer.Custom('bag_wtp_edit_slot1_label')]"
-								tooltip = "bag_wtp_edit_slot_tt"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_store_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_store"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_recall_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_recall"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-						}}
-					}}
-
-					widget = {{
-						size = {{ 330 40 }}
-						using = bg_number_container_bckg
-
-						hbox = {{
-							parentanchor = left|vcenter
-							spacing = 4
-
-							text_single = {{
-								size = {{ 160 32 }}
-								autoresize = no
-								maximumsize = {{ 160 32 }}
-								align = left|vcenter
-								fontsize = 13
-								elide = right
-								text = "[GetPlayer.Custom('bag_wtp_edit_slot2_label')]"
-								tooltip = "bag_wtp_edit_slot_tt"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_store_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_store"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_recall_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_recall"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-						}}
-					}}
-
-					widget = {{
-						size = {{ 330 40 }}
-						using = bg_number_container_bckg
-
-						hbox = {{
-							parentanchor = left|vcenter
-							spacing = 4
-
-							text_single = {{
-								size = {{ 160 32 }}
-								autoresize = no
-								maximumsize = {{ 160 32 }}
-								align = left|vcenter
-								fontsize = 13
-								elide = right
-								text = "[GetPlayer.Custom('bag_wtp_edit_slot3_label')]"
-								tooltip = "bag_wtp_edit_slot_tt"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_store_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_store"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-
-							button_regular = {{
-								size = {{ 78 32 }}
-								tooltip = "bag_wtp_edit_recall_tt"
-								text_single = {{
-									size = {{ 70 24 }}
-									parentanchor = center
-									widgetanchor = center
-									autoresize = no
-									maximumsize = {{ 70 24 }}
-									fontsize = 12
-									fontsize_min = 9
-									align = center|nobaseline
-									elide = right
-									text = "bag_wtp_edit_recall"
-								}}
-								onclick = "[GetScriptedGui('bag_wtp_edit_slot_load_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							}}
-						}}
-					}}
-
-					widget = {{ layoutpolicy_horizontal = expanding size = {{ -1 40 }} }}
-				}}
-
-				# The head of the picker: what it holds, and what the last press did.
-				hbox = {{
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					# **The head carries the count.** A picker that was never filled and
-					# one that was filled and does not draw look identical, and the goods
-					# vanished once already. A number here says which without a log.
-					text_single = {{
-						size = {{ 420 24 }}
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						elide = right
-						text = "bag_wtp_edit_pool_head"
-						tooltip = "bag_wtp_edit_pool_tt"
-					}}
-
-					# **What the last press did, and whether it arrived at all.** An
-					# effect that merely does nothing logs nothing, and a button that
-					# never reaches its effect looks exactly like a rule refusing.
-					text_single = {{
-						size = {{ 470 24 }}
-						autoresize = no
-						maximumsize = {{ 470 24 }}
-						align = left|vcenter
-						fontsize = 13
-						elide = right
-						text = "[GetPlayer.Custom('bag_wtp_edit_last_label')]"
-						tooltip = "bag_wtp_edit_last_tt"
-					}}
-
-					widget = {{ layoutpolicy_horizontal = expanding size = {{ -1 24 }} }}
-
-					button_regular = {{
-						size = {{ 210 34 }}
-						tooltip = "bag_wtp_edit_changes_tt"
-						text_single = {{
-							size = {{ 196 26 }}
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							maximumsize = {{ 196 26 }}
-							fontsize = 13
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_edit_changes"
-						}}
-						onclick = "[GetScriptedGui('bag_wtp_open_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					}}
-				}}
-
-				text_multi = {{
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = {{ 1130 30 }}
-					align = center
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_none').IsSet]"
-					text = "bag_wtp_edit_pool_empty"
-				}}
-
-				# **A wrapping row.** `flowcontainer` wraps on a count of items, which
-				# is how vanilla uses it (`agenda_view.gui`); a `maximumsize` on it wraps
-				# nothing and the row runs off the window. Eight cells of 138 with 2
-				# between them is 1120 of the 1130 there are, and 35 goods come to five
-				# lines. `ignoreinvisible` is what keeps the goods this ground cannot
-				# make out of the count.
-				flowcontainer = {{
-					wrap_count = 8
-					spacing = 2
-					ignoreinvisible = yes
-{cells}				}}
-
-				# The plan as it stands, in the plan window's own rows.
-				text_single = {{
-					size = {{ 1130 22 }}
-					autoresize = no
-					align = left|vcenter
-					fontsize = 13
-					elide = right
-					text = "bag_wtp_plan_pass_summary"
-					tooltip = "bag_wtp_plan_pass_tt"
-				}}
-
-				text_multi = {{
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = {{ 1130 40 }}
-					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
-					text = "bag_wtp_edit_no_plan"
-				}}
-
-				scrollbox = {{
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					blockoverride "scrollbox_content" {{
-						vbox = {{
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = preferred
-							margin = {{ 10 8 }}
-							margin_right = 20
-							spacing = 3
-							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_plan_results')]"
-							item = {{
-								bag_wtp_plan_entry = {{
-									datacontext = "[Scope.GetLocation]"
-								}}
-							}}
-						}}
-					}}
-				}}
-			}}
-		}}
-	}}
-}}
-"""
-
-
 def guis_file(by_continent) -> str:
     """One `_on_changed` per list, and they are not optional.
 
@@ -5501,19 +4906,6 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         for good in split[kind]:
             out.append(f" {MOD_ID}_good_{good}: "
                        f'"@{good}! [ShowGoodsName(\'{good}\')]"\n')
-
-    # **The picker's cells, three to a good.** The icon is the texticon `@<key>!`
-    # -- the same one the line above prints, and vanilla's own hints print -- so
-    # a cell needs no goods scope; the count is a script value, which is how
-    # every number in this mod reaches a screen. The symbol after it is the state,
-    # and it is a symbol rather than a colour because that is what he asked for
-    # after `§G…§!` in a plain `text_single` had never been drawn here.
-    order = [good for kind in ("raw", "made") for good in split[kind]]
-    for i, good in enumerate(order, start=1):
-        count = (f"[GuiScope.SetRoot(GetPlayer.MakeScope)"
-                 f".ScriptValue('{MOD_ID}_show_pn{i}')|0]")
-        for state, mark in (("ok", "+"), ("now", "✖"), ("nov", "✖")):
-            out.append(f' {MOD_ID}_cell_{state}_{i}: "@{good}! {count} {mark}"\n')
 
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.
@@ -6183,9 +5575,7 @@ def main() -> int:
     write(VALUES_OUT, values_file(rows, split, game))
     write(SCORE_OUT, score_file(rows, split, game))
     write(ROWS_OUT, rows_file())
-    goods_order = [good for kind in ("raw", "made") for good in split[kind]]
-    write(GUIS_OUT, guis_file(by_continent) + picker_guis(goods_order))
-    write(EDIT_WINDOW_OUT, edit_window_file(goods_order))
+    write(GUIS_OUT, guis_file(by_continent))
     write(LAYOUT_OUT, layout_file(by_continent))
     write(RIGHTS_OUT, rights_file(rows, split, game))
     write(PLAN_OUT, plan_file(rows, split, game))

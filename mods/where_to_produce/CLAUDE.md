@@ -53,18 +53,18 @@ least, and nothing else moves. **A good's last building and a charter bundle's
 buildings are never the victim.**
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
-three save slots, then every good the ground can make as a cell of «−1, icon, +1»
-with its count and a «+»/«✖» for whether one more would go anywhere;
+three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
 `bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **the cells are generated, one a good**
+he will not find**; and **a per-good number in the picker crashed the game four
+times out of four, four mechanisms, no line in any log**
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
 `check_script.py` resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
 of our own, gating charters on their advance, spreading them inside a province,
 answering a preference with a re-plan, the editor on the settings page, granting
-charters charter-first, finer bands, a variable map to reach the count.
+charters charter-first, finer bands, a number per good in the picker.
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md).
 
 **The answer lives on the location**, and **four things are settled and not to be

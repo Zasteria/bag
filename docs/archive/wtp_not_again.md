@@ -1,19 +1,20 @@
 ﻿# `where_to_produce` — what has been tried and must not be tried again
 
-**A global variable map keyed by a database object, 2026-09-04.** Built to get a
-per-good number into a picker row — `add_to_global_variable_map = { key =
-goods:clay }` and `GetVariableFromGlobalVariableMap(…, Goods.MakeScope)` — and it
-crashed the game on opening the window, twice, with nothing in any log.
+**A number per good in the editor's picker, 2026-09-04, four builds, four
+crashes.** Keyed by `goods:clay` (crash on opening, twice); keyed by a flag from
+`Goods.GetKey` with `.IsSet` guards and a CMM switch (crash on opening, with the
+switch on and off, because `And(...)` in a GUI expression is eager); and with no
+map at all — 47 cells written into the `.gui`, each holding
+`ScriptValue('bag_wtp_show_pn<n>')` in its own localization key — **which crashed
+on loading**, before the game could be entered. Not one of the four left a line
+in any log. Everything resolves offline: names, keys, script values, braces,
+every checker.
 
-**And keyed by a flag, CMF's own way, it crashed too**, same day: `key =
-flag:clay` written from `MakeScopeFlag(Goods.GetKey)`, `.IsSet` before every
-`.GetValue`, `GetValueWithDefault` in localization, and a CMM bool to switch the
-whole thing off from a page that does not open the window. His words: «Вылетает и
-с галочкой и без галочки» — because **`And(...)` in a GUI expression is eager**
-and a `visible` guard evaluates what it is guarding. Three crashes, no cause
-namable from any log, and no fourth attempt: the mod holds no variable map at
-all now, and the picker is 47 cells `generate.py` writes into the window, one a
-good. `../pitfalls/interface.md`.
+**Do not build a fifth bridge.** What the four share is the number reaching the
+interface, not the mechanism carrying it, so the next attempt is a picker with
+**no number and no data function in it at all** — «+» / «✖» as a plain
+localization value, the count read from the plan's own rows. The 47-cell build is
+kept whole at `92a8af4` if it is ever worth bisecting. `../pitfalls/interface.md`.
 
 Split out of [`../../mods/where_to_produce/CLAUDE.md`](../../mods/where_to_produce/CLAUDE.md)
 on 2026-09-03, at its budget. Every line here is a thing that was built, run and

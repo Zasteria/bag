@@ -17,42 +17,43 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
-**A script value cannot be indexed by the scope a datamodel row carries**, and
-**the bridge that would do it does not exist.** The plan's counters are numbered
-— `_pn<n>` — and a picker row holds `goods:iron`; nothing gets from one to the
-other. `Goods.Custom` is not in the dump, no global returns a good by its key,
-and a **global variable map keyed by a database object crashes the game**:
-2026-09-04, twice, on opening the window, with no line in `error.log` or
-`gui.log` — the logs simply stop.
+**Four builds tried to put a per-good number into the editor's picker. All four
+crashed the game.** Nothing else in this repository has cost as much, and the
+one thing they share is the number, not the mechanism:
 
-**Keying it by a flag instead, CMF's own way, crashed it too.** Every map CMM
-keeps is written `key = scope:setting` from `MakeScopeFlag(SettingKey)` and read
-back with `GetVariableFromGlobalVariableMap(…).GetValue`, so the build made the
-flag from `Goods.GetKey`, guarded every read with `.IsSet` and
-`GetValueWithDefault`, and shipped a CMM bool to turn the whole thing off from a
-page that does not open the window. It crashed **with the toggle on and with it
-off** — because **`And(...)` in a GUI expression is eager**: a `visible` guard
-evaluates the sub-expression it is guarding, so a switch cannot protect a read
-that crashes. Whatever the third cause is, it is not reachable from any log the
-game writes, and this repository does not build on a cause it cannot name.
+| # | how the number was to reach the row | how it died |
+| --- | --- | --- |
+| 1 | variable map keyed by `goods:clay`, read with `Goods.MakeScope` | краш при открытии окна, дважды |
+| 2 | the same map keyed by a flag from `Goods.GetKey`, `.IsSet` guards, a CMM switch | краш при открытии, **и с тумблером, и без** |
+| 3 | — | — |
+| 4 | no map at all: 47 written-out cells, each with `ScriptValue('bag_wtp_show_pn<n>')` in its own localization key | **краш на загрузке**, до входа в игру |
 
-**The route is closed and no map is left in the mod.** The picker is 47 cells
-written into `bag_wtp_edit_window.gui` by `generate.py`, one a good: a
-`button_regular` pair calling numbered scripted GUIs, a `visible` on a country
-variable, and a localization key holding the good's texticon and
-`ScriptValue('bag_wtp_show_pn<n>')`. Every part of that was already drawn by
-another window here. **A generated cell per good is the way to reach a numbered
-counter from the interface** — the datamodel is what cannot.
+**So the variable map was never established as the cause.** The fourth build
+holds no map of any kind and crashed earlier than the others; whatever kills it
+is common to all four, and the only thing that is, is a number per good arriving
+in the interface.
+
+**`And(...)` in a GUI expression is eager**, which is separately proven: build 2's
+CMM switch was asked first in a `visible` and the crash came with it off. A
+`visible` cannot protect a sub-expression from being evaluated, so a guard is not
+a safety valve and must not be sold as one.
+
+**No log says anything, in any of the four.** `error.log` and `gui.log` on the
+fourth run reach the in-game country header and stop; `gui.log` never mentions the
+mod's `.gui` at all, so the file parses. Checked offline and all clean: every
+`GetScriptedGui` name defined, every localization key present in both languages,
+every `ScriptValue` defined, braces balanced, `check_script`/`check_cmm` clean.
+**A cause that leaves no evidence is not one to build a fifth guess on.**
+
+**What has not been tried is a picker with no number in it.** «+» / «✖» as a
+plain localization value with no data function inside it, `visible` on a country
+variable — the exact shape `bag_wtp_edit_plus: "+1"` already draws — and the
+count read from the plan's own rows, which have never crashed anything. That is
+the next thing to load, and it is one new mechanism rather than four.
 
 **`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
 inside a localization value, both, because a map read only from localization
 would be missed by looking in the `.gui` alone.
-
-**A marker written once is a marker that lies after the next press.** The count
-beside a good is a live global and updates itself; «+»/«✖» is a country variable
-`bag_wtp_edit_state` writes, so the effect that edits the plan has to call it
-again at the end — otherwise the cell still says «+1 возможен» about the very
-room that press just took.
 
 **A window that says «a rule refused it, or there was nowhere» has said
 nothing.** Those are two different answers and the reader takes the first. The

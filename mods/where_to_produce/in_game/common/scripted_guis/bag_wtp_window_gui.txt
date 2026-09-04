@@ -269,13 +269,44 @@ bag_wtp_close_edit_window = {
 	}
 }
 
-# **The scope-passing bridges are gone with the datamodel that fed them.**
-# Three of them stood here: an icon that put a good into a second list, and
-# «+1»/«−1» that took the good as a saved scope. The picker is 47 written-out
-# cells now (`bag_wtp_edit_window.gui`), each with its own numbered pair in
-# `bag_wtp_generated_scripted_gui.txt`, because a scope reaches no numbered
-# counter and the count beside the good is what he asked for. A bridge nothing
-# calls is worse than no bridge: it reads as the way in.
+# **There was a third bridge here and it is gone with the list it fed.** A good's
+# icon used to be a button that put the good into a second list, where «−1» and
+# «+1» then appeared; he opened the window and found no controls at all. The row
+# in the picker carries them now, so nothing has to be clicked to reveal them.
+
+# «+1»: one more building of this good, in the location where it costs least.
+# **Nothing else on the map moves**, which is the whole of what he asked for:
+# «без полномасштабного смещения всех товаров и прав».
+bag_wtp_edit_plus = {
+	scope = country
+	saved_scopes = { bag_wtp_good }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_set_good = yes
+		bag_wtp_edit_add = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «−1»: one building of this good out, and the room to whatever suits it best.
+bag_wtp_edit_minus = {
+	scope = country
+	saved_scopes = { bag_wtp_good }
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_set_good = yes
+		bag_wtp_edit_drop = yes
+		bag_wtp_recompute_live = yes
+	}
+}
 
 # The changes list, in a window of its own.
 bag_wtp_open_changes_window = {
