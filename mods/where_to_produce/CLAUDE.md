@@ -50,7 +50,8 @@ building, and a charter's go whole or not at all** («забирать цели�
 право+его домики» — that edit is owed). Nothing is evicted while a room is free,
 nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
 itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
-lines in the report** — a press is otherwise invisible to it.
+lines in the report** — a press is otherwise invisible to it. **Presses work,
+confirmed 2026-09-04; the «+1»/«−1» round trip is no undo** (`docs/TESTLOG.md`).
 
 **The editor is a window and never the settings page.** Three save slots, then
 every good as a cell of «−1, icon with its count, +1». **A window exists only if

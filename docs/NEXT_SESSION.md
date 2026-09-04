@@ -17,10 +17,16 @@ charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
 relative open ladder, which does not engage on 48 locations and wants a large
 ground.
 
-**The editor's window opens, the picker draws, the presses arrive.** Everything
-in that sentence cost a run to establish. What is **not** confirmed is the one
-thing it exists for: **no «+1» or «−1» has ever been seen to change the plan.**
-The last build fixed the reason and has not been loaded.
+**The editor works, end to end, confirmed 2026-09-04.** A press changes the
+plan. That was the one thing it existed for and it took five silent faults to
+get there.
+
+**What the same report opened: «+1» and «−1» are not each other's undo.** «+1» X
+displaces Y; «−1» X gives the room to Z. Both steps are correct on their own —
+the walks ask opposite questions and pick different locations — but the round
+trip leaves Y one down and Z one up, invisibly. **The editor has no undo at all;
+loading a slot is the only one.** The reasoning is in `TESTLOG.md`; what to do
+about it is the open design question.
 
 ### Five silent faults, and all five are written down
 
