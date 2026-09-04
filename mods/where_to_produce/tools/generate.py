@@ -2150,9 +2150,19 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 # and iron stood in all four, so there was nowhere for a fifth. The editor has
 # only the two rules he agreed to -- never a good's last building, never a
 # charter bundle's -- and it reads no quota of the plan's at all.
+#
+# **`_edit_fail` is the branch that had to exist and did not.** The walk used to
+# say «сделано» whenever it found a location, whether or not a building actually
+# went in, so a press that evicted something and then failed to place read as a
+# success. It cannot happen now -- the victim goes back -- but the window must
+# still say that the press did nothing, and why.
 # Scope: country
 {MOD_ID}_edit_last_label = {{
 \ttype = country
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_norefill = 1 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_empty
+\t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_done
@@ -2160,6 +2170,10 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_reached = 0 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_lost
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_fail = 1 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_refill
 \t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_op = 1 global_var:{MOD_ID}_edit_fitn = 0 }}
@@ -3353,6 +3367,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # at all for a slot never written.
 EDIT_SLOTS = 3
 
+# **The picker is rows, and the rows are cut here.** Ten cells of 104 plus their
+# spacing is 1060 of the 1130 the window has; five rows hold the 47 goods this
+# game has, and a ground that makes fewer simply leaves the last rows empty.
+# Both wrapping widgets that would have made this one list are gone:
+# `flowcontainer` crashed the game and `fixedgridbox` drew the cells on top of
+# one another. `docs/pitfalls/interface.md`.
+EDIT_ROW = 10
+EDIT_ROWS = 5
+
 
 def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 game: eu5data.Game) -> tuple[str, str]:
@@ -3648,6 +3671,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }}\n"
         f"{call('plan_try', i, chr(9) * 4)}\t\t\t}}\n"
         for i in range(1, len(order) + 1))
+    # The victim put back where it stood, keyed by `_esg` rather than by the
+    # good the press asked for. Same effects: a building that stood here a
+    # moment ago passes `_plan_can_*` again by construction.
+    restore_dispatch = "".join(
+        f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"{call('plan_try', i, chr(9) * 5)}\t\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
     held = "".join(
         f"\tif = {{ limit = {{ var:{MOD_ID}_edit_good = {i} }} "
         f"set_global_variable = {{ name = {MOD_ID}_edit_fitn "
@@ -3677,6 +3707,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_add = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_op value = 1 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
@@ -3707,7 +3739,40 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\torder_by = {MOD_ID}_edit_order
 \t\t\tmax = 1
 \t\t\tcheck_range_bounds = no
-{remove_dispatch}{add_dispatch}\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t\t# **The eviction happens only when there is no room**, and this is the
+\t\t\t# bug that cost him two buildings on 2026-09-04. `{MOD_ID}_edit_worst`
+\t\t\t# names a victim on *every* candidate, free room or not -- `_edit_state`
+\t\t\t# needs it that way -- and the walk used to evict unconditionally. The
+\t\t\t# scan prices a free room at «costs nothing» and then the walk charged a
+\t\t\t# building for it: «Хорстмар · ушло: благовония, лекарства · встало: —».
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ OR = {{
+\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = yes
+\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_urban }}
+\t\t\t\t\tAND = {{ {MOD_ID}_plan_is_town = no
+\t\t\t\t\t\tvar:{MOD_ID}_load >= global_var:{MOD_ID}_plan_cap_rural }}
+\t\t\t\t}} }}
+{remove_dispatch}\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 1 }}
+\t\t\t}}
+\t\t\t# **And nothing is lost if the placement then refuses.** The count is
+\t\t\t# taken after the eviction, so one number answers both cases: the plan
+\t\t\t# grew or it did not. It did not means the good could not stand here
+\t\t\t# after all -- the scan and `_plan_can_*` disagreed about something --
+\t\t\t# and the victim goes straight back. A press that cannot do what it says
+\t\t\t# must cost nothing, and `_edit_fail` is what makes the window say so
+\t\t\t# instead of «сделано».
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_mark value = global_var:{MOD_ID}_plan_placed }}
+{add_dispatch}\t\t\tif = {{
+\t\t\t\tlimit = {{ global_var:{MOD_ID}_plan_placed > global_var:{MOD_ID}_edit_mark }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+\t\t\t}}
+\t\t\telse = {{
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 1 }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_edit_evicted = 1 }}
+{restore_dispatch}\t\t\t\t}}
+\t\t\t}}
 \t\t}}
 \t}}
 \t{MOD_ID}_plan_rank = yes
@@ -3727,6 +3792,8 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_drop = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_op value = 2 }}
 \t{MOD_ID}_edit_count_held = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
@@ -3793,7 +3860,15 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {drop_dispatch}\t\t\t# The room is free now; the best good that may stand here takes it.
 \t\t\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
-{fill}{fill_dispatch}\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
+{fill}{fill_dispatch}\t\t\t# **Whether anything took the room.** «−1» has done its job either way --
+\t\t\t# the building is out, which is what was asked -- but «освободилось и
+\t\t\t# занять нечем» and «освободилось, встал такой-то» are different answers
+\t\t\t# and the window has to give the right one.
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_esg = 0 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 1 }}
+\t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
 \t\t}}
 \t}}
 \t{MOD_ID}_plan_rank = yes
@@ -3976,20 +4051,50 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # not exist -- and a `limit` reading a global that is not there is the failure
     # this repository names first. Here the wrong answer and the right one happen
     # to agree (no plan, nothing to edit), which is how such a thing survives.
-    pool = "".join(
-        f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_ng{i} "
-        f"global_var:{MOD_ID}_ng{i} > 0 }} "
-        f"change_global_variable = {{ name = {MOD_ID}_edit_pooln add = 1 }} "
-        f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool "
-        f"target = goods:{good} }} }}\n"
-        for i, good in enumerate(order, start=1))
+    # **The picker is dealt into rows here, in script, and not by the window.**
+    # `EDIT_ROW` goods to a row, `EDIT_ROWS` rows, each its own list. That is
+    # what lets the window draw the picker with an `hbox` over a datamodel --
+    # the one horizontal list this mod has drawn correctly since its first
+    # build, in every location's goods row -- instead of a wrapping widget.
+    #
+    # Two wrapping widgets were tried and both failed on their first load. A
+    # `flowcontainer` with a datamodel killed the game outright, four builds
+    # running, silently (`docs/pitfalls/interface.md`). A `fixedgridbox` did not
+    # crash but laid the cells out wrong -- some past the window's right edge,
+    # some underneath each other -- and its `addcolumn`/`addrow` are a pitch or
+    # an increment depending on who you ask. **A row is a row.**
+    rows = ""
+    for i, good in enumerate(order, start=1):
+        picks = "".join(
+            f"\t\t{'if' if r == 1 else 'else_if'} = {{ "
+            f"limit = {{ global_var:{MOD_ID}_edit_pooln <= {r * EDIT_ROW} }} "
+            f"add_to_global_variable_list = {{ name = {MOD_ID}_edit_pool{r} "
+            f"target = goods:{good} }} }}\n"
+            for r in range(1, EDIT_ROWS + 1))
+        rows += (
+            f"\tif = {{\n"
+            f"\t\tlimit = {{ has_global_variable = {MOD_ID}_ng{i} "
+            f"global_var:{MOD_ID}_ng{i} > 0 }}\n"
+            f"\t\tchange_global_variable = {{ name = {MOD_ID}_edit_pooln add = 1 }}\n"
+            f"\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_pool "
+            f"target = goods:{good} }}\n"
+            f"{picks}\t}}\n")
+    clears = "".join(
+        f"\tclear_global_variable_list = {MOD_ID}_edit_pool{r}\n"
+        for r in range(1, EDIT_ROWS + 1))
     out.append(f"""
 # The goods the editor offers, rebuilt whenever its window opens.
+#
+# `_edit_pool` is the whole of them, for the count and the empty state;
+# `_edit_pool1..{EDIT_ROWS}` are the same goods dealt {EDIT_ROW} to a row, which is
+# what the window draws. The order is the plan's own, so a good does not move
+# between rows when the ground changes -- it moves when the *ground* changes,
+# which is the only time it should.
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
 \tclear_global_variable_list = {MOD_ID}_edit_pool
-\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
-{pool}}}
+{clears}\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
+{rows}}}
 
 """)
 
@@ -4063,6 +4168,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 )
 
     # ---- the windows, and the counters they read ---------------------------
+    row_inits = "".join(
+        f"\t\tclear_global_variable_list = {MOD_ID}_edit_pool{r}\n"
+        for r in range(1, EDIT_ROWS + 1))
     inits = "".join(
         f"\tif = {{\n"
         f"\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_sl{n}_n }} }}\n"
@@ -4103,9 +4211,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \t}}
 \tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_fail }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
+\t}}
+\tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_edit_pool }} }}
 \t\tclear_global_variable_list = {MOD_ID}_edit_pool
-\t}}
+{row_inits}\t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable_list = {MOD_ID}_chg_locs }} }}
 \t\tclear_global_variable_list = {MOD_ID}_chg_locs

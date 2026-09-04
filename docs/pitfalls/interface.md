@@ -59,6 +59,18 @@ times the game draws one:
 carries a datamodel that is not `DataModelRepeatedItem`. A flowcontainer of
 literal children is fine and stays fine.
 
+**And the `fixedgridbox` that replaced it laid the cells out wrong on its first
+load**: some past the window's right edge, some drawn underneath each other.
+`addcolumn`/`addrow` did not behave as either a pitch or an item size at
+104×32 with `datamodel_wrap = 10`. **So the picker does not wrap at all now.**
+The rows are cut in script — `bag_wtp_edit_fill_pool` deals the goods into
+`_edit_pool1..5`, ten each — and the window draws five `hbox` datamodels, which
+is the one horizontal list this mod has drawn correctly since its first build
+(every location's goods in the plan window is exactly that shape). **Where a
+layout can be decided in script, decide it in script**: an `hbox` with a
+datamodel has never once come out wrong here, and both widgets that would have
+saved the five lists failed on their first load.
+
 **And the lesson under the lesson: a build that was never loaded is not a
 baseline.** `c14aa0f` introduced the flowcontainer and was never run; every
 session after it read «the last build opened fine» from the *previous* one and

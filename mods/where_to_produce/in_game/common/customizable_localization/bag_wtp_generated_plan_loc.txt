@@ -116,9 +116,19 @@ bag_wtp_edit_slot3_label = {
 # and iron stood in all four, so there was nowhere for a fifth. The editor has
 # only the two rules he agreed to -- never a good's last building, never a
 # charter bundle's -- and it reads no quota of the plan's at all.
+#
+# **`_edit_fail` is the branch that had to exist and did not.** The walk used to
+# say «сделано» whenever it found a location, whether or not a building actually
+# went in, so a press that evicted something and then failed to place read as a
+# success. It cannot happen now -- the victim goes back -- but the window must
+# still say that the press did nothing, and why.
 # Scope: country
 bag_wtp_edit_last_label = {
 	type = country
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_norefill = 1 }
+		localization_key = bag_wtp_edit_last_empty
+	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 }
 		localization_key = bag_wtp_edit_last_done
@@ -126,6 +136,10 @@ bag_wtp_edit_last_label = {
 	text = {
 		trigger = { global_var:bag_wtp_edit_reached = 0 }
 		localization_key = bag_wtp_edit_last_lost
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_fail = 1 }
+		localization_key = bag_wtp_edit_last_refill
 	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_op = 1 global_var:bag_wtp_edit_fitn = 0 }

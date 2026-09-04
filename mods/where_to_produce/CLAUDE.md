@@ -15,7 +15,7 @@ end is what the next press has to show.
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the bar
 is `generate.fed_floor` — but **the plan must never use it as a gate**. **The bonus
-counts RGOs only**, and **a building runs one method per slot**:
+counts RGOs only**; **a building runs one method per slot**:
 [`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
 **Urban rights** are two lists on the Goods tab and a window of their own; in the
@@ -37,9 +37,7 @@ order between them is the design**. **The last ladder's band is each good's own
 best**: the share goes on gain, the leftovers on fit.
 
 **A good's share is the whole ground divided by the goods, less one per RGO, and
-a charter's buildings are spent out of it.** It used to be the rooms the charters
-*left*, with a good's own charters added back — 2 on Westphalia, so wine walked in
-at 8 and iron at 1, and he did that arithmetic himself.
+a charter's buildings are spent out of it.**
 
 **An entry is a building and a location holds one of each**, and every condition is
 a location variable — **a `province_definition` holds none**
@@ -50,21 +48,22 @@ number, so the order is the same however the plan got there.
 **A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` changes
 a finished plan in place: one building a press, into the location where it costs
 least, and nothing else moves. **A good's last building and a charter bundle's
-buildings are never the victim.**
+buildings are never the victim** — and **nothing is evicted while the location
+still has a free room, nor left evicted if the placement then refuses.**
 
 **The editor is a window and never the settings page.** `bag_wtp_edit_window.gui`:
 three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
 `bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **a `flowcontainer` with a `datamodel` crashes the game
-silently** — a wrapping grid of a list is a `fixedgridbox`
+he will not find**; and **both wrapping widgets failed on their first load**, so
+**the picker's rows are cut in script and drawn as `hbox` datamodels**
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
 `check_script.py` resolves every name a window says.
 
 **Not to be attempted again**, all built or measured and rejected: a geography tree
 of our own, gating charters on their advance, spreading them inside a province,
 answering a preference with a re-plan, the editor on the settings page, granting
-charters charter-first, finer bands, a `flowcontainer` with a datamodel.
+charters charter-first, finer bands, a wrapping widget in the picker.
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md).
 
 **The answer lives on the location**, and **four things are settled and not to be

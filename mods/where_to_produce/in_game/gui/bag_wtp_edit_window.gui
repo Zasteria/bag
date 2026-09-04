@@ -417,35 +417,78 @@ window = {
 					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# **A wrapping grid, ten cells wide, and it is a `fixedgridbox`.**
+				# **The picker: five rows of ten, and each row is an `hbox` over a
+				# datamodel.**
 				#
-				# **This is the widget that cost four crashes.** It was a
-				# `flowcontainer` with `wrap_count` and a `datamodel` on it, and every
-				# build that carried one died: two on opening the window, one on
-				# opening it with a switch that could not save it, one on loading the
-				# game. Every build without one opened. Nothing was ever logged,
-				# because a native layout failure writes nothing.
+				# **That is the one horizontal list this mod has drawn correctly since
+				# its first build** -- every location's goods in the plan window is
+				# exactly this, `hbox` + `datamodel` + `datacontext = "[Scope.GetGoods]"`,
+				# and it has never once come out wrong. The rows are cut in script
+				# (`bag_wtp_edit_fill_pool`), so the window does no wrapping at all.
 				#
-				# **Vanilla never puts a `datamodel` on a `flowcontainer`.** Its two
-				# `wrap_count` pickers (`agenda_view.gui`, `multiplayer_lobby.gui`)
-				# hold literal children, and where they do give a flowcontainer a
-				# datamodel it is `DataModelRepeatedItem(N)` -- a counter, not a list.
-				# A wrapping grid *of a real list* is a `fixedgridbox` every one of
-				# the 138 times the game draws one, and this is its exact shape:
-				# `addcolumn`/`addrow` for the cell, `datamodel_wrap` for the width,
-				# `flipdirection = yes` to fill along the row.
-				#
-				# Ten cells of 104 plus 2 is 1060 of the 1130 there are, so the goods
-				# come to five lines rather than forty-seven.
-				fixedgridbox = {
-					addcolumn = 106
-					addrow = 34
-					datamodel_wrap = 10
-					flipdirection = yes
-					datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"
-					item = {
-						bag_wtp_edit_pool_entry = {
-							datacontext = "[Scope.GetGoods]"
+				# **Two wrapping widgets were tried and both failed on their first
+				# load.** A `flowcontainer` with a datamodel killed the game outright,
+				# four builds running, with nothing in any log. A `fixedgridbox` did
+				# not crash but drew the cells wrong -- some past the right edge of the
+				# window, some underneath each other. Whatever `addcolumn` and
+				# `addrow` mean exactly, this needs neither of them.
+				# `docs/pitfalls/interface.md`.
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 2
+
+					hbox = {
+						parentanchor = left
+						spacing = 2
+						datamodel = "[GetGlobalList('bag_wtp_edit_pool1')]"
+						item = {
+							bag_wtp_edit_pool_entry = {
+								datacontext = "[Scope.GetGoods]"
+							}
+						}
+					}
+
+					hbox = {
+						parentanchor = left
+						spacing = 2
+						datamodel = "[GetGlobalList('bag_wtp_edit_pool2')]"
+						item = {
+							bag_wtp_edit_pool_entry = {
+								datacontext = "[Scope.GetGoods]"
+							}
+						}
+					}
+
+					hbox = {
+						parentanchor = left
+						spacing = 2
+						datamodel = "[GetGlobalList('bag_wtp_edit_pool3')]"
+						item = {
+							bag_wtp_edit_pool_entry = {
+								datacontext = "[Scope.GetGoods]"
+							}
+						}
+					}
+
+					hbox = {
+						parentanchor = left
+						spacing = 2
+						datamodel = "[GetGlobalList('bag_wtp_edit_pool4')]"
+						item = {
+							bag_wtp_edit_pool_entry = {
+								datacontext = "[Scope.GetGoods]"
+							}
+						}
+					}
+
+					hbox = {
+						parentanchor = left
+						spacing = 2
+						datamodel = "[GetGlobalList('bag_wtp_edit_pool5')]"
+						item = {
+							bag_wtp_edit_pool_entry = {
+								datacontext = "[Scope.GetGoods]"
+							}
 						}
 					}
 				}
