@@ -11,10 +11,16 @@ on every turn afterwards, because the context is resent each time. So:
 
     python3 tools/kb.py <words>            which section answers this, and what it costs
     python3 tools/kb.py --show FILE:LINE   read exactly that section
-    python3 tools/kb.py --map              every document, every section, with sizes
 
-**Open a whole document only when `kb.py` says the answer fills it.** Grep is
-the same instinct: `grep -rn` over `reference/` beats reading a game file.
+**The code is larger than the documents — ask it the same way.** One
+`generate.py` is 85 000 tokens:
+
+    python3 tools/code.py <words>          which effect or function, and its cost
+    python3 tools/code.py --show FILE:LINE read exactly that block
+
+**Open a whole document or function only when the index says the answer fills
+it.** Both take `--map`, which lists everything and costs ~1 400 tokens: a last
+resort, not a first move. `grep -rn` over `reference/` beats reading a game file.
 
 ## Start of a task
 
@@ -55,18 +61,15 @@ for the reference tree and the rebuild loop,
   cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
   after touching any CMM call.
 - **A cause you cannot name is not a cause. Do not guess it — measure it.**
-  Settled by the owner on 2026-09-01, after four theories in a row about one
-  symptom, three fixes built on them, and four of his runs spent: «гадать НИКОГДА
-  не нужно… делаем вещи для выяснения причины точно. Зонды, счётчики, проверки».
-  A run is the scarcest thing here, and a fix aimed at a guess spends one and
-  proves nothing. Build the probe first — a counter per stage, a `cmf_log`, a
-  number on the window — and let one run say where the thing actually breaks.
+  The owner, 2026-09-01, after four theories about one symptom, three fixes built
+  on them and four of his runs spent: «гадать НИКОГДА не нужно… Зонды, счётчики,
+  проверки». Build the probe first — a counter per stage, a `cmf_log`, a number
+  on the window — and let one run say where the thing actually breaks.
 - **Effects that merely do nothing log nothing.** `error.log` names the file and
   line for GUI and script failures; an effect that never runs is invisible. Add
   a `cmf_log` and have the player look, rather than guessing twice.
-- **A `building_type` filter receives `root` and nothing else** — not
-  `scope:target`, whatever vanilla's comment says. Reading it logs an error every
-  pass.
+- **A `building_type` filter receives `root` and nothing else**, whatever
+  vanilla's comment says. Reading `scope:target` logs an error every pass.
 - **A `customizable_localization` cannot be overridden.** First definition wins;
   later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
   another mod's rule is to take over the localization key it prints.
@@ -77,8 +80,7 @@ for the reference tree and the rebuild loop,
   texticon like `@good!`, and `_color` must name one of CMF's palette entries or
   the button is invisible in the bottom bars.
 - **Script and localization files carry a UTF-8 BOM**, and localization keys
-  take one leading space. The player plays in Russian: a key missing there shows
-  as the raw key on screen.
+  take one leading space. He plays in Russian: a key missing there shows raw.
 
 ## Ask the game whether something exists
 
@@ -91,8 +93,8 @@ behaviour verify against `reference/`, never from memory — **the owner's
 included**, at his own word, 2026-09-02: «я работаю из условностей
 воспоминаний». Say plainly when something is unproven.
 
-Do not hardcode a reference folder's name and do not trust a version written in
-prose: `python3 tools/refs.py`, or `refs.known("cmf")` in a tool.
+Do not hardcode a reference folder's name or trust a version written in prose:
+`python3 tools/refs.py`.
 
 ## Rebuilding
 

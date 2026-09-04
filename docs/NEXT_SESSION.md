@@ -17,57 +17,48 @@ charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
 relative open ladder, which does not engage on 48 locations and wants a large
 ground.
 
-**The editor's window opens, the picker draws, the presses arrive.** Everything
-in that sentence cost a run to establish. What is **not** confirmed is the one
-thing it exists for: **no «+1» or «−1» has ever been seen to change the plan.**
-The last build fixed the reason and has not been loaded.
+**The editor works, end to end, confirmed 2026-09-04.** A press changes the
+plan. That was the one thing it existed for and it took five silent faults to
+get there.
+
+**What the same report opened: «+1» and «−1» are not each other's undo.** «+1» X
+displaces Y; «−1» X gives the room to Z. Both steps are correct on their own —
+the walks ask opposite questions and pick different locations — but the round
+trip leaves Y one down and Z one up, invisibly. **The editor has no undo at all;
+loading a slot is the only one.** The reasoning is in `TESTLOG.md`; what to do
+about it is the open design question.
+
+### The plan for the practical sessions
+
+**[`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
+is the order, the files and what to ask him for.** Do not re-derive it. The
+rules each step implements are
+[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
+
+0. **`tools/code.py`** — done 2026-09-04, no run needed.
+1. **The editor's window: the press line, the width, the frame.** *Do this
+   first: it is the instrument the next two are checked with.*
+2. **Share, `_lock<n>`, and the «не нужен» flag.**
+3. **Even eviction on «+1»** — two passes, never a packed number.
+4. **Provinces fold in the two plan windows.**
+5. **Charters: «+1»/«−1» and whole-bundle eviction.**
+6. **New ground fitted to a finished plan.**
+7. **The plan shown in the location panel**, inside Glorp UI's interface.
+8. **The plan stamped onto Construction Manager**, gated on CM being present.
 
 ### Five silent faults, and all five are written down
 
-Nothing in any log for any of them. **The table is in
-[`pitfalls/interface.md`](pitfalls/interface.md)** — a `flowcontainer` with a
-`datamodel` (four crashes), a `fixedgridbox` that overlapped its cells, a build
-nobody ran treated as a baseline, a global surviving a save and lying about the
-present, and `_edit_good` read on the wrong scope. Two are checkers now.
+Nothing in any log for any of them, and **the table that names them is
+[`pitfalls/interface.md`](pitfalls/interface.md)** — it is not repeated here.
+The lesson that outlives them: **instrument before the third theory**
+(`pitfalls/diagnosis.md`).
 
-**The last was named by the first report that carried the editor's numbers**, not
-by the fourth guess, and that is worth more than the fix: **instrument before the
-third theory** (`pitfalls/diagnosis.md`).
+### Answered elsewhere, not here
 
-### What the next press has to show
-
-One press of «+1» on any good with room, then «Показать изменения». **A row with
-both `ушло:` and `встало:`.** If it misses, «Диагностика» → the `EDIT` lines say
-which stage failed, and no theorising is needed or wanted.
-
-### What he asked for and is owed, in his order
-
-1. **«+1»/«−1» for urban rights, and eviction of a whole bundle.** «Я бы
-   предпочёл не забирать домики по частям у городских прав. Я бы скорее предпочёл
-   забирать у города целиком всю связку право+его домики.» The charter lock is
-   back meanwhile, so a town keeps the buildings its charter is for.
-2. **The two plan windows should fold by province.** 48 locations in a flat list
-   is noise; the single-good search already folds and is the model to copy.
-3. **A good may take a charter's slot, last of all** — his idea, unevaluated:
-   only where the charter's own good earns nothing from that ground, and the
-   claimant earns more than the 5% a broken bundle costs.
-4. **The editor should share nothing with the plan but load and save.** Largely
-   done — it places through `_edit_place_*` and asks `_edit_fits_*` — but the
-   scan, the walk and the counters still live in `bag_wtp_generated_editor.txt`
-   beside the plan's, and `_plan_rank`/`_plan_show` are called after every press.
-
-### Answered but not measured
-
-**Why «выгода от места» fell from 80–95% to 64%**: different questions. The old
-number ranked locations for **one** good, where the top rows are fed by
-definition; the plan places **35**, and Westphalia has RGOs for eleven, so 24
-goods have `rgo=0` and nothing here feeds their recipes. **A bigger ground should
-raise it — a prediction, not a measurement**, and one northern-Germany run
-settles it.
-
-**And the mistake the editor replaces**: a hand weight fed into a re-plan moved
-42 locations of 48 with a knob meant to move one. **A preference is an edit, not
-a term in the objective.**
+**Why «выгода от места» fell from 80–95% to 64%** is a row in
+[`SETTLED.md`](SETTLED.md) — a bigger ground raising it is a prediction, and one
+northern-Germany run settles it. **Why a preference is an edit and never a term
+in the objective** is [`investigations/plan_formula.md`](investigations/plan_formula.md).
 
 **Do not spend his run on a guess.** Every fault above was found by counting in
 his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is
