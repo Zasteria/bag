@@ -33,6 +33,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -43,7 +54,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock1').IsSet)]"
 					text = "bag_wtp_cell_1"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock1').IsSet]"
+					text = "bag_wtp_cell_pin_1"
 				}
 			}
 
@@ -112,6 +132,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -122,7 +153,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock2').IsSet)]"
 					text = "bag_wtp_cell_2"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock2').IsSet]"
+					text = "bag_wtp_cell_pin_2"
 				}
 			}
 
@@ -191,6 +231,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -201,7 +252,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock3').IsSet)]"
 					text = "bag_wtp_cell_3"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock3').IsSet]"
+					text = "bag_wtp_cell_pin_3"
 				}
 			}
 
@@ -270,6 +330,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -280,7 +351,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock4').IsSet)]"
 					text = "bag_wtp_cell_4"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock4').IsSet]"
+					text = "bag_wtp_cell_pin_4"
 				}
 			}
 
@@ -349,6 +429,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -359,7 +450,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock5').IsSet)]"
 					text = "bag_wtp_cell_5"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock5').IsSet]"
+					text = "bag_wtp_cell_pin_5"
 				}
 			}
 
@@ -428,6 +528,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -438,7 +549,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock6').IsSet)]"
 					text = "bag_wtp_cell_6"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock6').IsSet]"
+					text = "bag_wtp_cell_pin_6"
 				}
 			}
 
@@ -507,6 +627,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -517,7 +648,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock7').IsSet)]"
 					text = "bag_wtp_cell_7"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock7').IsSet]"
+					text = "bag_wtp_cell_pin_7"
 				}
 			}
 
@@ -586,6 +726,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -596,7 +747,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock8').IsSet)]"
 					text = "bag_wtp_cell_8"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock8').IsSet]"
+					text = "bag_wtp_cell_pin_8"
 				}
 			}
 
@@ -665,6 +825,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -675,7 +846,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock9').IsSet)]"
 					text = "bag_wtp_cell_9"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock9').IsSet]"
+					text = "bag_wtp_cell_pin_9"
 				}
 			}
 
@@ -744,6 +924,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -754,7 +945,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock10').IsSet)]"
 					text = "bag_wtp_cell_10"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock10').IsSet]"
+					text = "bag_wtp_cell_pin_10"
 				}
 			}
 
@@ -828,6 +1028,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -838,7 +1049,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock11').IsSet)]"
 					text = "bag_wtp_cell_11"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock11').IsSet]"
+					text = "bag_wtp_cell_pin_11"
 				}
 			}
 
@@ -907,6 +1127,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -917,7 +1148,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock12').IsSet)]"
 					text = "bag_wtp_cell_12"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock12').IsSet]"
+					text = "bag_wtp_cell_pin_12"
 				}
 			}
 
@@ -986,6 +1226,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -996,7 +1247,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock13').IsSet)]"
 					text = "bag_wtp_cell_13"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock13').IsSet]"
+					text = "bag_wtp_cell_pin_13"
 				}
 			}
 
@@ -1065,6 +1325,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1075,7 +1346,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock14').IsSet)]"
 					text = "bag_wtp_cell_14"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock14').IsSet]"
+					text = "bag_wtp_cell_pin_14"
 				}
 			}
 
@@ -1144,6 +1424,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1154,7 +1445,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock15').IsSet)]"
 					text = "bag_wtp_cell_15"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock15').IsSet]"
+					text = "bag_wtp_cell_pin_15"
 				}
 			}
 
@@ -1223,6 +1523,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1233,7 +1544,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock16').IsSet)]"
 					text = "bag_wtp_cell_16"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock16').IsSet]"
+					text = "bag_wtp_cell_pin_16"
 				}
 			}
 
@@ -1302,6 +1622,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1312,7 +1643,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock17').IsSet)]"
 					text = "bag_wtp_cell_17"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock17').IsSet]"
+					text = "bag_wtp_cell_pin_17"
 				}
 			}
 
@@ -1381,6 +1721,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1391,7 +1742,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock18').IsSet)]"
 					text = "bag_wtp_cell_18"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock18').IsSet]"
+					text = "bag_wtp_cell_pin_18"
 				}
 			}
 
@@ -1460,6 +1820,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1470,7 +1841,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock19').IsSet)]"
 					text = "bag_wtp_cell_19"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock19').IsSet]"
+					text = "bag_wtp_cell_pin_19"
 				}
 			}
 
@@ -1539,6 +1919,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1549,7 +1940,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock20').IsSet)]"
 					text = "bag_wtp_cell_20"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock20').IsSet]"
+					text = "bag_wtp_cell_pin_20"
 				}
 			}
 
@@ -1623,6 +2023,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1633,7 +2044,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock21').IsSet)]"
 					text = "bag_wtp_cell_21"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock21').IsSet]"
+					text = "bag_wtp_cell_pin_21"
 				}
 			}
 
@@ -1702,6 +2122,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1712,7 +2143,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock22').IsSet)]"
 					text = "bag_wtp_cell_22"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock22').IsSet]"
+					text = "bag_wtp_cell_pin_22"
 				}
 			}
 
@@ -1781,6 +2221,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1791,7 +2242,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock23').IsSet)]"
 					text = "bag_wtp_cell_23"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock23').IsSet]"
+					text = "bag_wtp_cell_pin_23"
 				}
 			}
 
@@ -1860,6 +2320,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1870,7 +2341,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock24').IsSet)]"
 					text = "bag_wtp_cell_24"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock24').IsSet]"
+					text = "bag_wtp_cell_pin_24"
 				}
 			}
 
@@ -1939,6 +2419,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -1949,7 +2440,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock25').IsSet)]"
 					text = "bag_wtp_cell_25"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock25').IsSet]"
+					text = "bag_wtp_cell_pin_25"
 				}
 			}
 
@@ -2018,6 +2518,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2028,7 +2539,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock26').IsSet)]"
 					text = "bag_wtp_cell_26"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock26').IsSet]"
+					text = "bag_wtp_cell_pin_26"
 				}
 			}
 
@@ -2097,6 +2617,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2107,7 +2638,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock27').IsSet)]"
 					text = "bag_wtp_cell_27"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock27').IsSet]"
+					text = "bag_wtp_cell_pin_27"
 				}
 			}
 
@@ -2176,6 +2716,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2186,7 +2737,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock28').IsSet)]"
 					text = "bag_wtp_cell_28"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock28').IsSet]"
+					text = "bag_wtp_cell_pin_28"
 				}
 			}
 
@@ -2255,6 +2815,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2265,7 +2836,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock29').IsSet)]"
 					text = "bag_wtp_cell_29"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock29').IsSet]"
+					text = "bag_wtp_cell_pin_29"
 				}
 			}
 
@@ -2334,6 +2914,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2344,7 +2935,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock30').IsSet)]"
 					text = "bag_wtp_cell_30"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock30').IsSet]"
+					text = "bag_wtp_cell_pin_30"
 				}
 			}
 
@@ -2418,6 +3018,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2428,7 +3039,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock31').IsSet)]"
 					text = "bag_wtp_cell_31"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock31').IsSet]"
+					text = "bag_wtp_cell_pin_31"
 				}
 			}
 
@@ -2497,6 +3117,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2507,7 +3138,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock32').IsSet)]"
 					text = "bag_wtp_cell_32"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock32').IsSet]"
+					text = "bag_wtp_cell_pin_32"
 				}
 			}
 
@@ -2576,6 +3216,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2586,7 +3237,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock33').IsSet)]"
 					text = "bag_wtp_cell_33"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock33').IsSet]"
+					text = "bag_wtp_cell_pin_33"
 				}
 			}
 
@@ -2655,6 +3315,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2665,7 +3336,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock34').IsSet)]"
 					text = "bag_wtp_cell_34"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock34').IsSet]"
+					text = "bag_wtp_cell_pin_34"
 				}
 			}
 
@@ -2734,6 +3414,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2744,7 +3435,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock35').IsSet)]"
 					text = "bag_wtp_cell_35"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock35').IsSet]"
+					text = "bag_wtp_cell_pin_35"
 				}
 			}
 
@@ -2813,6 +3513,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2823,7 +3534,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock36').IsSet)]"
 					text = "bag_wtp_cell_36"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock36').IsSet]"
+					text = "bag_wtp_cell_pin_36"
 				}
 			}
 
@@ -2892,6 +3612,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2902,7 +3633,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock37').IsSet)]"
 					text = "bag_wtp_cell_37"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock37').IsSet]"
+					text = "bag_wtp_cell_pin_37"
 				}
 			}
 
@@ -2971,6 +3711,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -2981,7 +3732,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock38').IsSet)]"
 					text = "bag_wtp_cell_38"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock38').IsSet]"
+					text = "bag_wtp_cell_pin_38"
 				}
 			}
 
@@ -3050,6 +3810,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3060,7 +3831,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock39').IsSet)]"
 					text = "bag_wtp_cell_39"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock39').IsSet]"
+					text = "bag_wtp_cell_pin_39"
 				}
 			}
 
@@ -3129,6 +3909,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3139,7 +3930,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock40').IsSet)]"
 					text = "bag_wtp_cell_40"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock40').IsSet]"
+					text = "bag_wtp_cell_pin_40"
 				}
 			}
 
@@ -3213,6 +4013,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3223,7 +4034,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock41').IsSet)]"
 					text = "bag_wtp_cell_41"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock41').IsSet]"
+					text = "bag_wtp_cell_pin_41"
 				}
 			}
 
@@ -3292,6 +4112,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3302,7 +4133,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock42').IsSet)]"
 					text = "bag_wtp_cell_42"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock42').IsSet]"
+					text = "bag_wtp_cell_pin_42"
 				}
 			}
 
@@ -3371,6 +4211,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3381,7 +4232,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock43').IsSet)]"
 					text = "bag_wtp_cell_43"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock43').IsSet]"
+					text = "bag_wtp_cell_pin_43"
 				}
 			}
 
@@ -3450,6 +4310,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3460,7 +4331,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock44').IsSet)]"
 					text = "bag_wtp_cell_44"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock44').IsSet]"
+					text = "bag_wtp_cell_pin_44"
 				}
 			}
 
@@ -3529,6 +4409,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3539,7 +4430,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock45').IsSet)]"
 					text = "bag_wtp_cell_45"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock45').IsSet]"
+					text = "bag_wtp_cell_pin_45"
 				}
 			}
 
@@ -3608,6 +4508,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3618,7 +4529,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock46').IsSet)]"
 					text = "bag_wtp_cell_46"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock46').IsSet]"
+					text = "bag_wtp_cell_pin_46"
 				}
 			}
 
@@ -3687,6 +4607,17 @@ types BagWtpEditCells {
 				}
 			}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
@@ -3697,7 +4628,16 @@ types BagWtpEditCells {
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('bag_wtp_lock47').IsSet)]"
 					text = "bag_wtp_cell_47"
+				}
+				text_single = {
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('bag_wtp_lock47').IsSet]"
+					text = "bag_wtp_cell_pin_47"
 				}
 			}
 

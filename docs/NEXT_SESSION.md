@@ -43,11 +43,14 @@ rules each step implements are
 2. **Share, `_lock<n>`, and the «не нужен» flag** — **the share and the lock are
    confirmed in game 2026-09-05, by numbers**: `quota=3 free=19 pool_rooms=66`
    on a 192-room ground, and a fill won by a good with gain 0, i.e. on shortfall.
-   **The flag was rebuilt after that run and is owed one**: it drew as an empty
-   box (no checkmark exists in the game's fonts *or* its localization — it is
-   `checkbutton_round_alt` now), and it changed nothing in practice because the
-   plan never read it. It now caps `_pq<n>` at 1, the open ladder skips it, and
-   «+1» on a flagged good clears the flag.
+   **Both marks were rebuilt after that run and are owed one.** «Не нужен» drew
+   as an empty box (no checkmark exists in the game's fonts *or* its
+   localization — it is `checkbutton_round_alt` now) and changed nothing in
+   practice because the plan never read it; it now caps `_pq<n>` at 1, the open
+   ladder skips it, and «+1» clears it. **The pin was invisible too** — he said
+   so plainly when asked — so it is drawn yellow, «Снять закрепления» releases
+   pins without touching the plan, and **a slot stores and restores both**,
+   which was his call.
 2а. **Reshuffle the buildings a fill placed** — his ask, 2026-09-05, and a real
    flaw in the order: the fill chooses *which* good by shortfall but *where* by
    the accident of press order. Scope is strictly the buildings the fill placed
@@ -61,12 +64,12 @@ rules each step implements are
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
 
-### Five silent faults, and all five are written down
+### Two lessons that outlive the faults
 
-Nothing in any log for any of them, and **the table that names them is
-[`pitfalls/interface.md`](pitfalls/interface.md)** — it is not repeated here.
-The lesson that outlives them: **instrument before the third theory**
-(`pitfalls/diagnosis.md`).
+**Instrument before the third theory**, and **state the player cannot see or
+clear is the mod's fault** — both in [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
+The five silent GUI faults are named in
+[`pitfalls/interface.md`](pitfalls/interface.md).
 
 ### Answered elsewhere, not here
 
@@ -81,37 +84,15 @@ what this mod has already cost him.
 
 ## The job: `mods.bat`, and one run to confirm it
 
-**`glorpui_hints` is finished and confirmed** — the splice passed in game on
-2026-08-30 (`TESTLOG.md`). It only passed because the owner installed the build
-by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
--old copy, and workshop mods were never refreshed either.
-
-**Both halves are repaired, and neither has been run on his machine.** That is
-the whole of the next job: one pass through the menu, and read what it says.
-
-**Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed — so an
-unfinished login copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code read, and **only a mod whose
-copy actually changed is copied onward**.
-
-**Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
-landed. The install is **read back off disk** now, and the screen names the
-branch and commit installed.
-
-**And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's commit.
+**Both halves are repaired and neither has been run on his machine.** A failed
+steamcmd run looked exactly like a successful one, and our own install was never
+read back off disk; both are fixed, fingerprinted and reported now. The whole
+diagnosis is in
+[`archive/mods_bat_repair.md`](archive/mods_bat_repair.md).
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
-the output of all three. If a mod still reads «отличается» after installing,
-the message names the folder. The logs from whatever run follows go
-through `python3 tools/which_build.py <logs folder>` first, as always now. No
-menu entry runs `tools/extract_game_files.py` yet, and which should is open.
-
-**What is settled about `where_to_produce` and not in `plan_gaps.md`** — the
-single-good side's known faults, the scarce-pass optimisation measured and left
-unbuilt, and where the diagnosis lives — is in
-[`archive/wtp_settled_asides.md`](archive/wtp_settled_asides.md).
+the output of all three. Logs from whatever run follows go through
+`python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## Then `glorpui_hints` goes out
 

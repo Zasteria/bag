@@ -5,11 +5,9 @@ method and ranks the locations by what that method would earn from the raw
 materials the province works.
 
 **Read before touching any `_plan_*`:
-[`plan_gaps.md`](../../docs/investigations/plan_gaps.md)** — the checklist at its
-end is what the next press has to show.
-
-**State: the plan works and he has seen it.** Numbers live in `docs/TESTLOG.md`.
-**The tick is the rank** and **outlives a save** (`docs/SETTLED.md`).
+[`plan_gaps.md`](../../docs/investigations/plan_gaps.md).** Numbers live in
+`docs/TESTLOG.md`. **The tick is the rank** and **outlives a save**
+(`docs/SETTLED.md`).
 
 ## Where it stands
 
@@ -20,7 +18,7 @@ counts RGOs only**; **one method per slot**:
 
 **Urban rights** are two lists on the Goods tab and a window of their own; every
 town gets one and its whole bundle goes up — **108 rooms of 192 on a small
-ground, which is where most of its shape comes from**. **The charter ladder
+ground**. **The charter ladder
 raises its ceiling one town at a time and runs every band at each height**; a
 ceiling alone spreads nothing. **A right's gate is its own `potential`, never `has_advance`**, and
 **an exclusion between two rights is a town's rule, not a country's**.
@@ -35,8 +33,8 @@ between them are the design; the last band is each good's own best.
 **A good's share is the whole ground divided by the goods, less one per RGO, and
 a charter's buildings are spent out of it.**
 
-**An entry is a building and a location holds one of each**, and every condition is
-a location variable — **a `province_definition` holds none**
+**An entry is a building and a location holds one of each**, and every condition
+is a location variable — **a `province_definition` holds none**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)). **A row draws
 `_row_goods`, not `_plan_goods`**, so its order never moves.
 
@@ -45,18 +43,19 @@ one building a press, where it costs least. **Two rules: a good keeps its last
 building, and a charter's go whole or not at all.** Nothing is evicted while a room is free,
 nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
 itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
-lines in the report**, and the window names what a press did; **the round trip
-is no undo** (`docs/TESTLOG.md`).
+lines in the report**; **the round trip is no undo** (`docs/TESTLOG.md`).
 
-**A press pins its good** — `_lock<n>`, cleared by a fresh plan — and a freed
-room goes to the good **furthest below its share**; without the pin that rule
-undoes his presses. **`_skip<n>` («не нужен») outlives a plan**,
-is an existence flag, and **the plan reads it too** — `_pq<n>` held at 1, the
-open ladder skipping it — or a replan hands the good its share straight back.
+**A press pins its good** — `_lock<n>` — and a freed room goes to the good
+**furthest below its share**; without the pin that rule undoes his presses.
+**A pin is §Yyellow§! in the cell and released by its own button**: state he
+cannot see or clear is the mod's fault, twice paid for. **`_skip<n>` («не нужен») outlives a plan**
+and **the plan reads it too** — `_pq<n>` held at 1, the open ladder skipping it.
+**Both are existence flags, and a slot stores and restores both**: his rule,
+2026-09-05, that loading a plan must not carry what came after saving it.
 **`_edit_locked_<n>` is the charter's bundle, not the player's pin.**
 
-**The editor is a window and never the settings page.** Three save slots, then
-every good as a cell of «−1, count, +1, не нужен». **A window exists only if
+**The editor is a window, never the settings page.** Three slots, then every
+good as a cell of «−1, count, +1, не нужен». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses is a
 glyph it cannot draw** — take its widget; **a control behind a first click is one
 he will not find**; and **the picker is 47 cells in fixed columns**, because a

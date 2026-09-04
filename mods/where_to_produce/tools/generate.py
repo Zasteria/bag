@@ -2393,7 +2393,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pth{index} value = 0 }}\n"
-                   f"\tset_global_variable = {{ name = {MOD_ID}_lock{index} value = 0 }}\n"
+                   f"\tremove_global_variable = {MOD_ID}_lock{index}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_esh{index} value = 0 }}\n"
                    )
     # How many towns each right has been given. **The global is the dump's now
@@ -3568,6 +3568,17 @@ def edit_cells_file(order: list[str]) -> str:
 				}}
 			}}
 
+			# **The pin has to be visible, and it was not.** «+1» and «−1» pin
+			# the good they are pressed on -- that is what keeps the fill from
+			# undoing his own presses -- and until 2026-09-05 nothing on screen
+			# said so. His words when asked about it: «я вообще не ебу что за
+			# замки, как они работают, могу ли я ими управлять». A mechanism the
+			# player cannot see or steer is the mod's fault, not his.
+			#
+			# Two labels in one slot, the same trick the flag used before it
+			# became a checkbox: identical text, one of them coloured, each
+			# visible under the opposite reading of `_lock<n>`. No new glyph --
+			# `§Y…§!` is the game's own markup and this mod already prints it.
 			widget = {{
 				size = {{ 42 28 }}
 				alwaystransparent = no
@@ -3578,7 +3589,16 @@ def edit_cells_file(order: list[str]) -> str:
 					widgetanchor = center
 					autoresize = yes
 					fontsize = 16
+					visible = "[Not(GetGlobalVariable('{MOD_ID}_lock{i}').IsSet)]"
 					text = "{MOD_ID}_cell_{i}"
+				}}
+				text_single = {{
+					parentanchor = center
+					widgetanchor = center
+					autoresize = yes
+					fontsize = 16
+					visible = "[GetGlobalVariable('{MOD_ID}_lock{i}').IsSet]"
+					text = "{MOD_ID}_cell_pin_{i}"
 				}}
 			}}
 
@@ -3824,7 +3844,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# is `_lock<n>` and not `_skip<n>`: «не нужен» says «never fill this
 \t\t\t\t# past its minimum», which makes its buildings *better* candidates to
 \t\t\t\t# give up, not protected ones.
-\t\t\t\tglobal_var:{MOD_ID}_lock{index} = 0
+\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{index} }}
 \t\t\t\tOR = {{
 \t\t\t\t\tvar:{MOD_ID}_esw = -1
 \t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
@@ -4001,11 +4021,14 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # each free good sits -- computed here so the fill can read one global and
     # compare, rather than doing arithmetic inside a `limit`, which script
     # cannot do.
+    unpin = "".join(
+        f"\tremove_global_variable = {MOD_ID}_lock{i}\n"
+        for i in range(1, len(order) + 1))
     quota_scan = "".join(
         f"""\tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_ng{i} > 0 }}
 \t\tif = {{
-\t\t\tlimit = {{ OR = {{ global_var:{MOD_ID}_lock{i} > 0 has_global_variable = {MOD_ID}_skip{i} }} }}
+\t\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_lock{i} has_global_variable = {MOD_ID}_skip{i} }} }}
 \t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_pool_rooms subtract = global_var:{MOD_ID}_pn{i} }}
 \t\t}}
 \t\telse = {{
@@ -4019,7 +4042,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{
 \t\t\tglobal_var:{MOD_ID}_ng{i} > 0
-\t\t\tglobal_var:{MOD_ID}_lock{i} = 0
+\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}
 \t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}
 \t\t\tglobal_var:{MOD_ID}_pn{i} < global_var:{MOD_ID}_edit_quota
 \t\t}}
@@ -4029,6 +4052,22 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """
         for i in range(1, len(order) + 1))
     out.append(f"""
+# Every pin released, and nothing else touched.
+#
+# **The pin needed a way out.** It is written by every «+1» and «−1», so a few
+# minutes of editing pins most of the ground -- his 192 presses left 16 goods
+# pinned holding 126 of 192 rooms -- and until this button the only way back was
+# «Пересчитать» on the mod's page, which throws the edited plan away as well.
+# This releases the pins and leaves the plan exactly where it stands: the shares
+# are recomputed over all the goods again, and the next «−1» fills by them.
+#
+# The «не нужен» flags are not touched. They are a different statement and have
+# their own control.
+# Scope: country
+{MOD_ID}_edit_unpin_all = {{
+{unpin}	{MOD_ID}_edit_set_quota = yes
+}}
+
 # The share a good still free is entitled to, and how far each one is below it.
 #
 # Recomputed at the top of every press, because a press can pin a good and the
@@ -4319,7 +4358,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         # map has changed, which is what he saw on 2026-09-04.
         f"\t\t\t\t\tNOT = {{ global_var:{MOD_ID}_edit_good = {i} }}\n"
         # Pinned by a press, or flagged «не нужен»: stands where it was put.
-        f"\t\t\t\t\tglobal_var:{MOD_ID}_lock{i} = 0\n"
+        f"\t\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{i} }}\n"
         f"\t\t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_skip{i} }}\n"
         f"\t\t\t\t\tOR = {{ {MOD_ID}_edit_fits_town_{i} = yes {MOD_ID}_edit_fits_rural_{i} = yes }}\n"
         f"\t\t\t\t\tOR = {{\n"
@@ -4476,7 +4515,25 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# not spoken about and this one keeps what it was given. Written after the
 \t# operation and unconditionally: a press that was refused still says «I want
 \t# this good here», and pinning it where it stands is the honest reading.
-\tset_global_variable = {{ name = {MOD_ID}_lock{i} value = global_var:{MOD_ID}_pn{i} }}
+\t{MOD_ID}_edit_pin_{i} = yes
+}}
+
+# {good} pinned where the press left it, or released if it stands nowhere.
+#
+# **Set or absent, never zero.** The pin is drawn in the picker by
+# `GetGlobalVariable(...).IsSet`, the same form the game uses for its own flags,
+# and a variable holding 0 is «set» to that reader. It still carries the count it
+# was pinned at, for the day a new ground has to ask whether the share has
+# outgrown it.
+# Scope: country
+{MOD_ID}_edit_pin_{i} = {{
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_pn{i} > 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_lock{i} value = global_var:{MOD_ID}_pn{i} }}
+\t}}
+\telse = {{
+\t\tremove_global_variable = {MOD_ID}_lock{i}
+\t}}
 }}
 
 # «не нужен» for {good}: the standing instruction, toggled.
@@ -4509,7 +4566,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_good_s value = goods:{good} }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_drop = yes
-\tset_global_variable = {{ name = {MOD_ID}_lock{i} value = global_var:{MOD_ID}_pn{i} }}
+\t{MOD_ID}_edit_pin_{i} = yes
 }}
 """
         for i, good in enumerate(order, start=1)))
@@ -4536,6 +4593,36 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             f"{{ name = {MOD_ID}_plan_goods target = goods:{good} }} }} "
             f"add_to_variable_list = {{ name = {MOD_ID}_sl{slot}_goods target = goods:{good} }} }}\n"
             for good in order)
+        # **A slot keeps what was said as well as what was built.** His rule,
+        # 2026-09-05: «в загрузке сохранённого плана точно не должно быть того,
+        # что было сделано после сохранения плана». The «не нужен» flags are his
+        # own choice -- he chose that the slot remember them -- and the pins get
+        # the same treatment, because they are the other half of the same
+        # sentence and he had no reason to hold an opinion about a mechanism
+        # nothing on screen had ever shown him.
+        #
+        # Absent stays absent: both are existence flags, so the slot stores
+        # «there was one» and the load sets or removes to match. A slot never
+        # written holds neither, and loading it releases everything -- which is
+        # the honest reading of «this plan was saved before any of that».
+        keep_marks = "".join(
+            f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_skip{i} }}\n"
+            f"\t\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_skip{i} value = 1 }} }}\n"
+            f"\telse = {{ remove_global_variable = {MOD_ID}_sl{slot}_skip{i} }}\n"
+            f"\tif = {{ limit = {{ has_global_variable = {MOD_ID}_lock{i} }}\n"
+            f"\t\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_lock{i} "
+            f"value = global_var:{MOD_ID}_lock{i} }} }}\n"
+            f"\telse = {{ remove_global_variable = {MOD_ID}_sl{slot}_lock{i} }}\n"
+            for i in range(1, len(order) + 1))
+        load_marks = "".join(
+            f"\t\tif = {{ limit = {{ has_global_variable = {MOD_ID}_sl{slot}_skip{i} }}\n"
+            f"\t\t\tset_global_variable = {{ name = {MOD_ID}_skip{i} value = 1 }} }}\n"
+            f"\t\telse = {{ remove_global_variable = {MOD_ID}_skip{i} }}\n"
+            f"\t\tif = {{ limit = {{ has_global_variable = {MOD_ID}_sl{slot}_lock{i} }}\n"
+            f"\t\t\tset_global_variable = {{ name = {MOD_ID}_lock{i} "
+            f"value = global_var:{MOD_ID}_sl{slot}_lock{i} }} }}\n"
+            f"\t\telse = {{ remove_global_variable = {MOD_ID}_lock{i} }}\n"
+            for i in range(1, len(order) + 1))
         given = "".join(
             f"\t\t\t\tif = {{ limit = {{ var:{MOD_ID}_sl{slot}_right = {k} }} "
             f"change_global_variable = {{ name = {MOD_ID}_rgiven{k} add = 1 }} }}\n"
@@ -4561,7 +4648,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t\tadd_to_global_variable_list = {{ name = {MOD_ID}_sl{slot}_locs target = this }}
 \t}}
-\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_n value = global_var:{MOD_ID}_plan_placed }}
+{keep_marks}\tset_global_variable = {{ name = {MOD_ID}_sl{slot}_n value = global_var:{MOD_ID}_plan_placed }}
 \tset_global_variable = {{ name = {MOD_ID}_sl{slot}_locn value = global_var:{MOD_ID}_plan_shown }}
 \t# The saved plan is what the next «показать изменения» is measured against.
 \t{MOD_ID}_edit_save = yes
@@ -4587,8 +4674,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rightn add = 1 }}
 {given}\t\t\t}}
 {put}\t\t}}
-\t\t{MOD_ID}_plan_rank = yes
+{load_marks}\t\t{MOD_ID}_plan_rank = yes
 \t\t{MOD_ID}_plan_show = yes
+\t\t# The share follows the pins and the flags, and both just changed.
+\t\t{MOD_ID}_edit_set_quota = yes
 \t\t# The loaded plan is the baseline, so the changes list starts empty here.
 \t\t{MOD_ID}_edit_save = yes
 \t}}
@@ -5635,6 +5724,11 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         out.append(f" {MOD_ID}_cell_{i}: "
                    f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
                    f".ScriptValue('{MOD_ID}_show_pn{i}')|0]\"\n")
+        # The same cell once the good is pinned. Only the colour differs, so a
+        # pinned good reads as pinned at a glance and nothing else moves.
+        out.append(f" {MOD_ID}_cell_pin_{i}: "
+                   f'"@{good}! §Y[GuiScope.SetRoot(GetPlayer.MakeScope)'
+                   f".ScriptValue('{MOD_ID}_show_pn{i}')|0]§!\"\n")
 
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.
