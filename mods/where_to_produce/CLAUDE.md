@@ -13,8 +13,8 @@ end is what the next press has to show.
 
 ## Where it stands
 
-**A recipe the province mostly cannot feed is no answer to the ranking** — the bar
-is `generate.fed_floor` — but **the plan must never use it as a gate**. **The bonus
+**A recipe the province mostly cannot feed is no answer to the ranking** —
+`generate.fed_floor` — but **the plan must never gate on it**. **The bonus
 counts RGOs only**; **one method per slot**:
 [`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
@@ -22,8 +22,7 @@ counts RGOs only**; **one method per slot**:
 town gets one and its whole bundle goes up — **108 rooms of 192 on a small
 ground, which is where most of its shape comes from**. **The charter ladder
 raises its ceiling one town at a time and runs every band at each height**; a
-ceiling alone spreads nothing. That lands **84% of the best placement with those
-counts**. **A right's gate is its own `potential`, never `has_advance`**, and
+ceiling alone spreads nothing. **A right's gate is its own `potential`, never `has_advance`**, and
 **an exclusion between two rights is a town's rule, not a country's**.
 [`town_rights.md`](../../docs/investigations/town_rights.md).
 
@@ -43,28 +42,28 @@ a location variable — **a `province_definition` holds none**
 
 **A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` moves
 one building a press, where it costs least. **Two rules: a good keeps its last
-building, and a charter's go whole or not at all** («забирать целиком всю связку
-право+его домики»). Nothing is evicted while a room is free,
+building, and a charter's go whole or not at all.** Nothing is evicted while a room is free,
 nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
 itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
 lines in the report**, and the window names what a press did; **the round trip
 is no undo** (`docs/TESTLOG.md`).
 
 **A press pins its good** — `_lock<n>`, cleared by a fresh plan — and a freed
-room goes to the good **furthest below its share**, not the richest; without the
-pin that rule undoes his own presses. **`_skip<n>` («не нужен») outlives a plan**
-and is an existence flag. **`_edit_locked_<n>` is the charter's bundle, not the
-player's pin.** Built 2026-09-05, unrun.
+room goes to the good **furthest below its share**; without the pin that rule
+undoes his presses. **`_skip<n>` («не нужен») outlives a plan**,
+is an existence flag, and **the plan reads it too** — `_pq<n>` held at 1, the
+open ladder skipping it — or a replan hands the good its share straight back.
+**`_edit_locked_<n>` is the charter's bundle, not the player's pin.**
 
 **The editor is a window and never the settings page.** Three save slots, then
 every good as a cell of «−1, count, +1, не нужен». **A window exists only if
-`in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **the picker is 47 written-out cells**, because a
+`in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses is a
+glyph it cannot draw** — take its widget; **a control behind a first click is one
+he will not find**; and **the picker is 47 cells in fixed columns**, because a
 datamodel row carries a goods scope and a scope reaches no numbered `_pn<n>`
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
-`check_script.py` resolves every name a window says and **measures its box
-against its widest row**; `allow_outside` stays, the close button hangs outside
-on purpose.
+`check_script.py` resolves every name a window says **except a widget type**, and
+**measures the box against its widest row**; `allow_outside` stays.
 
 **Not to be attempted again**: eight, built or measured and rejected — among
 them a geography tree of our own and a wrapping widget in the picker.

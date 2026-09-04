@@ -11451,6 +11451,16 @@ bag_wtp_edit_save = {
 # «+1» for clay.
 # Scope: country
 bag_wtp_edit_plus_1 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip1 }
+		remove_global_variable = bag_wtp_skip1
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 1 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11502,6 +11512,16 @@ bag_wtp_edit_minus_1 = {
 # «+1» for coal.
 # Scope: country
 bag_wtp_edit_plus_2 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip2 }
+		remove_global_variable = bag_wtp_skip2
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 2 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11553,6 +11573,16 @@ bag_wtp_edit_minus_2 = {
 # «+1» for cotton.
 # Scope: country
 bag_wtp_edit_plus_3 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip3 }
+		remove_global_variable = bag_wtp_skip3
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 3 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11604,6 +11634,16 @@ bag_wtp_edit_minus_3 = {
 # «+1» for dyes.
 # Scope: country
 bag_wtp_edit_plus_4 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip4 }
+		remove_global_variable = bag_wtp_skip4
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 4 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11655,6 +11695,16 @@ bag_wtp_edit_minus_4 = {
 # «+1» for fiber_crops.
 # Scope: country
 bag_wtp_edit_plus_5 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip5 }
+		remove_global_variable = bag_wtp_skip5
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 5 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11706,6 +11756,16 @@ bag_wtp_edit_minus_5 = {
 # «+1» for fish.
 # Scope: country
 bag_wtp_edit_plus_6 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip6 }
+		remove_global_variable = bag_wtp_skip6
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 6 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11757,6 +11817,16 @@ bag_wtp_edit_minus_6 = {
 # «+1» for fruit.
 # Scope: country
 bag_wtp_edit_plus_7 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip7 }
+		remove_global_variable = bag_wtp_skip7
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 7 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11808,6 +11878,16 @@ bag_wtp_edit_minus_7 = {
 # «+1» for horses.
 # Scope: country
 bag_wtp_edit_plus_8 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip8 }
+		remove_global_variable = bag_wtp_skip8
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 8 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11859,6 +11939,16 @@ bag_wtp_edit_minus_8 = {
 # «+1» for incense.
 # Scope: country
 bag_wtp_edit_plus_9 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip9 }
+		remove_global_variable = bag_wtp_skip9
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 9 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11910,6 +12000,16 @@ bag_wtp_edit_minus_9 = {
 # «+1» for iron.
 # Scope: country
 bag_wtp_edit_plus_10 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip10 }
+		remove_global_variable = bag_wtp_skip10
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 10 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -11961,6 +12061,16 @@ bag_wtp_edit_minus_10 = {
 # «+1» for ivory.
 # Scope: country
 bag_wtp_edit_plus_11 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip11 }
+		remove_global_variable = bag_wtp_skip11
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 11 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12012,6 +12122,16 @@ bag_wtp_edit_minus_11 = {
 # «+1» for livestock.
 # Scope: country
 bag_wtp_edit_plus_12 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip12 }
+		remove_global_variable = bag_wtp_skip12
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 12 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12063,6 +12183,16 @@ bag_wtp_edit_minus_12 = {
 # «+1» for lumber.
 # Scope: country
 bag_wtp_edit_plus_13 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip13 }
+		remove_global_variable = bag_wtp_skip13
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 13 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12114,6 +12244,16 @@ bag_wtp_edit_minus_13 = {
 # «+1» for medicaments.
 # Scope: country
 bag_wtp_edit_plus_14 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip14 }
+		remove_global_variable = bag_wtp_skip14
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 14 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12165,6 +12305,16 @@ bag_wtp_edit_minus_14 = {
 # «+1» for salt.
 # Scope: country
 bag_wtp_edit_plus_15 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip15 }
+		remove_global_variable = bag_wtp_skip15
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 15 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12216,6 +12366,16 @@ bag_wtp_edit_minus_15 = {
 # «+1» for saltpeter.
 # Scope: country
 bag_wtp_edit_plus_16 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip16 }
+		remove_global_variable = bag_wtp_skip16
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 16 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12267,6 +12427,16 @@ bag_wtp_edit_minus_16 = {
 # «+1» for sand.
 # Scope: country
 bag_wtp_edit_plus_17 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip17 }
+		remove_global_variable = bag_wtp_skip17
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 17 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12318,6 +12488,16 @@ bag_wtp_edit_minus_17 = {
 # «+1» for silk.
 # Scope: country
 bag_wtp_edit_plus_18 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip18 }
+		remove_global_variable = bag_wtp_skip18
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 18 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12369,6 +12549,16 @@ bag_wtp_edit_minus_18 = {
 # «+1» for silver.
 # Scope: country
 bag_wtp_edit_plus_19 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip19 }
+		remove_global_variable = bag_wtp_skip19
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 19 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12420,6 +12610,16 @@ bag_wtp_edit_minus_19 = {
 # «+1» for stone.
 # Scope: country
 bag_wtp_edit_plus_20 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip20 }
+		remove_global_variable = bag_wtp_skip20
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 20 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12471,6 +12671,16 @@ bag_wtp_edit_minus_20 = {
 # «+1» for sugar.
 # Scope: country
 bag_wtp_edit_plus_21 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip21 }
+		remove_global_variable = bag_wtp_skip21
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 21 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12522,6 +12732,16 @@ bag_wtp_edit_minus_21 = {
 # «+1» for tobacco.
 # Scope: country
 bag_wtp_edit_plus_22 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip22 }
+		remove_global_variable = bag_wtp_skip22
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 22 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12573,6 +12793,16 @@ bag_wtp_edit_minus_22 = {
 # «+1» for wild_game.
 # Scope: country
 bag_wtp_edit_plus_23 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip23 }
+		remove_global_variable = bag_wtp_skip23
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 23 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12624,6 +12854,16 @@ bag_wtp_edit_minus_23 = {
 # «+1» for wine.
 # Scope: country
 bag_wtp_edit_plus_24 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip24 }
+		remove_global_variable = bag_wtp_skip24
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 24 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12675,6 +12915,16 @@ bag_wtp_edit_minus_24 = {
 # «+1» for wool.
 # Scope: country
 bag_wtp_edit_plus_25 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip25 }
+		remove_global_variable = bag_wtp_skip25
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 25 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12726,6 +12976,16 @@ bag_wtp_edit_minus_25 = {
 # «+1» for beer.
 # Scope: country
 bag_wtp_edit_plus_26 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip26 }
+		remove_global_variable = bag_wtp_skip26
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 26 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12777,6 +13037,16 @@ bag_wtp_edit_minus_26 = {
 # «+1» for books.
 # Scope: country
 bag_wtp_edit_plus_27 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip27 }
+		remove_global_variable = bag_wtp_skip27
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 27 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12828,6 +13098,16 @@ bag_wtp_edit_minus_27 = {
 # «+1» for cannons.
 # Scope: country
 bag_wtp_edit_plus_28 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip28 }
+		remove_global_variable = bag_wtp_skip28
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 28 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12879,6 +13159,16 @@ bag_wtp_edit_minus_28 = {
 # «+1» for cloth.
 # Scope: country
 bag_wtp_edit_plus_29 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip29 }
+		remove_global_variable = bag_wtp_skip29
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 29 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12930,6 +13220,16 @@ bag_wtp_edit_minus_29 = {
 # «+1» for fine_cloth.
 # Scope: country
 bag_wtp_edit_plus_30 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip30 }
+		remove_global_variable = bag_wtp_skip30
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 30 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -12981,6 +13281,16 @@ bag_wtp_edit_minus_30 = {
 # «+1» for firearms.
 # Scope: country
 bag_wtp_edit_plus_31 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip31 }
+		remove_global_variable = bag_wtp_skip31
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 31 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13032,6 +13342,16 @@ bag_wtp_edit_minus_31 = {
 # «+1» for furniture.
 # Scope: country
 bag_wtp_edit_plus_32 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip32 }
+		remove_global_variable = bag_wtp_skip32
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 32 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13083,6 +13403,16 @@ bag_wtp_edit_minus_32 = {
 # «+1» for glass.
 # Scope: country
 bag_wtp_edit_plus_33 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip33 }
+		remove_global_variable = bag_wtp_skip33
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 33 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13134,6 +13464,16 @@ bag_wtp_edit_minus_33 = {
 # «+1» for jewelry.
 # Scope: country
 bag_wtp_edit_plus_34 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip34 }
+		remove_global_variable = bag_wtp_skip34
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 34 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13185,6 +13525,16 @@ bag_wtp_edit_minus_34 = {
 # «+1» for lacquerware.
 # Scope: country
 bag_wtp_edit_plus_35 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip35 }
+		remove_global_variable = bag_wtp_skip35
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 35 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13236,6 +13586,16 @@ bag_wtp_edit_minus_35 = {
 # «+1» for leather.
 # Scope: country
 bag_wtp_edit_plus_36 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip36 }
+		remove_global_variable = bag_wtp_skip36
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 36 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13287,6 +13647,16 @@ bag_wtp_edit_minus_36 = {
 # «+1» for liquor.
 # Scope: country
 bag_wtp_edit_plus_37 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip37 }
+		remove_global_variable = bag_wtp_skip37
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 37 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13338,6 +13708,16 @@ bag_wtp_edit_minus_37 = {
 # «+1» for masonry.
 # Scope: country
 bag_wtp_edit_plus_38 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip38 }
+		remove_global_variable = bag_wtp_skip38
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 38 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13389,6 +13769,16 @@ bag_wtp_edit_minus_38 = {
 # «+1» for naval_supplies.
 # Scope: country
 bag_wtp_edit_plus_39 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip39 }
+		remove_global_variable = bag_wtp_skip39
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 39 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13440,6 +13830,16 @@ bag_wtp_edit_minus_39 = {
 # «+1» for paper.
 # Scope: country
 bag_wtp_edit_plus_40 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip40 }
+		remove_global_variable = bag_wtp_skip40
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 40 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13491,6 +13891,16 @@ bag_wtp_edit_minus_40 = {
 # «+1» for porcelain.
 # Scope: country
 bag_wtp_edit_plus_41 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip41 }
+		remove_global_variable = bag_wtp_skip41
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 41 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13542,6 +13952,16 @@ bag_wtp_edit_minus_41 = {
 # «+1» for pottery.
 # Scope: country
 bag_wtp_edit_plus_42 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip42 }
+		remove_global_variable = bag_wtp_skip42
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 42 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13593,6 +14013,16 @@ bag_wtp_edit_minus_42 = {
 # «+1» for slaves_goods.
 # Scope: country
 bag_wtp_edit_plus_43 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip43 }
+		remove_global_variable = bag_wtp_skip43
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 43 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13644,6 +14074,16 @@ bag_wtp_edit_minus_43 = {
 # «+1» for steel.
 # Scope: country
 bag_wtp_edit_plus_44 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip44 }
+		remove_global_variable = bag_wtp_skip44
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 44 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13695,6 +14135,16 @@ bag_wtp_edit_minus_44 = {
 # «+1» for tar.
 # Scope: country
 bag_wtp_edit_plus_45 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip45 }
+		remove_global_variable = bag_wtp_skip45
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 45 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13746,6 +14196,16 @@ bag_wtp_edit_minus_45 = {
 # «+1» for tools.
 # Scope: country
 bag_wtp_edit_plus_46 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip46 }
+		remove_global_variable = bag_wtp_skip46
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 46 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -13797,6 +14257,16 @@ bag_wtp_edit_minus_46 = {
 # «+1» for weaponry.
 # Scope: country
 bag_wtp_edit_plus_47 = {
+	# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+	# The alternative is a «+1» that silently refuses, and a button that does
+	# nothing is the thing this mod has already paid for twice. He reported the
+	# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+	# and this is the honest reading of the two presses together: the last one
+	# wins, and it is visible because the checkbox clears.
+	if = {
+		limit = { has_global_variable = bag_wtp_skip47 }
+		remove_global_variable = bag_wtp_skip47
+	}
 	set_global_variable = { name = bag_wtp_edit_good value = 47 }
 	# The same good as a scope, because the press line has to name it and a
 	# number has no name. Here it is free: the cell is written out per good, so
@@ -14758,6 +15228,9 @@ bag_wtp_edit_clear_plan = {
 # A cell whose flag is unset is invisible and its row closes the gap.
 # Scope: country
 bag_wtp_edit_fill_pool = {
+	# The header prints the share, so it has to be current before the window is
+	# drawn and not only after the first press.
+	bag_wtp_edit_set_quota = yes
 	clear_global_variable_list = bag_wtp_edit_pool
 	set_global_variable = { name = bag_wtp_edit_pooln value = 0 }
 	if = {

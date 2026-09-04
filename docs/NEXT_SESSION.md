@@ -40,13 +40,18 @@ rules each step implements are
    confirmed in game 2026-09-05.** All three lines read back; the windows are as
    wide as their content. `allow_outside` **stays**: the close button hangs
    outside on purpose, exactly as vanilla's does.
-2. **Share, `_lock<n>`, and the «не нужен» flag** — **built 2026-09-05, and one
-   run is owed on it.** A press now pins the good it was pressed on; the freed
-   room after «−1» goes to the good furthest below its share rather than the
-   richest; «не нужен» is a standing flag that survives a replan. **The lock is
-   not decoration — it is what stops the new fill rule from undoing his own
-   presses**, and the run of 2026-09-05 is the baseline it must not break. What
-   to ask him for is at the end of that step in `wtp_practice_plan.md`.
+2. **Share, `_lock<n>`, and the «не нужен» flag** — **the share and the lock are
+   confirmed in game 2026-09-05, by numbers**: `quota=3 free=19 pool_rooms=66`
+   on a 192-room ground, and a fill won by a good with gain 0, i.e. on shortfall.
+   **The flag was rebuilt after that run and is owed one**: it drew as an empty
+   box (no checkmark exists in the game's fonts *or* its localization — it is
+   `checkbutton_round_alt` now), and it changed nothing in practice because the
+   plan never read it. It now caps `_pq<n>` at 1, the open ladder skips it, and
+   «+1» on a flagged good clears the flag.
+2а. **Reshuffle the buildings a fill placed** — his ask, 2026-09-05, and a real
+   flaw in the order: the fill chooses *which* good by shortfall but *where* by
+   the accident of press order. Scope is strictly the buildings the fill placed
+   and their own locations, so no count changes. Not built.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.

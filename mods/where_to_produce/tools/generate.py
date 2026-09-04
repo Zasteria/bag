@@ -1552,6 +1552,19 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # move, the press never reached the effect at all.
 # Scope: country
 {MOD_ID}_show_edit_presses = {{ value = global_var:{MOD_ID}_edit_presses }}
+# **The editor's own share, on the editor's own header.** The plan window says
+# «норма 5» and means `_plan_quota`, the whole ground over every good it can
+# make; the editor has been using a different number since the lock arrived, and
+# on 2026-09-05 his ground read 5 on screen while the fill was working to 3.
+# «Как увеличить общий лимит» is answerable the moment the three numbers it is
+# made of are visible: rooms still in the pool, goods still free, and the
+# quotient.
+# Scope: country
+{MOD_ID}_show_edit_quota = {{ value = global_var:{MOD_ID}_edit_quota }}
+# Scope: country
+{MOD_ID}_show_edit_free = {{ value = global_var:{MOD_ID}_edit_free }}
+# Scope: country
+{MOD_ID}_show_edit_pool_rooms = {{ value = global_var:{MOD_ID}_edit_pool_rooms }}
 # Scope: country
 {MOD_ID}_show_edit_slot1 = {{ value = global_var:{MOD_ID}_sl1_n }}
 # Scope: country
@@ -3014,6 +3027,16 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
+\t# **«Не нужен» is the plan's business too, and it was not.** The flag says
+\t# «never top this good up, on any ground», and while only the editor read it
+\t# the next plan handed the good its full share back -- which is «кликать их в
+\t# минус при каждом добавлении земли», the exact thing the flag exists to
+\t# save. One building is the floor the covering constraint needs and the
+\t# minimum the flag promises, so they are the same number.
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_skip{index} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}
+\t}}
 """
         for index, good in enumerate(order, start=1))
     out.append(f"""
@@ -3156,8 +3179,12 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # 2026-09-03 were mis-read for want of it -- `clay q=2 rgo=2` beside
             # `PASS quota=2` looks like the RGO discount doing nothing, and is
             # the discount working and the open ladder adding one back.
+            # A flagged good is skipped here as well. The open ladder lifts every
+            # good's quota by one a round, so without this it walks a «не нужен»
+            # good straight back up and the flag holds for exactly one pass.
             raise_all = "".join(
-                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
+                f"\t\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_skip{i} }} }}\n"
+                f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }} }}\n"
                 for i in range(1, len(order) + 1))
             raise_all += f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}\n"
             tier = 0
@@ -3496,9 +3523,18 @@ def edit_cells_file(order: list[str]) -> str:
     the cells on top of each other. `ignoreinvisible` keeps the goods this ground
     cannot make from leaving holes.
 
-    **The cell is 131 wide since the «не нужен» flag joined it** -- 30 + 42 + 30
-    + 26 and three gaps of one -- so a row of ten is 1328 with the row's own
-    spacing, and `bag_wtp_edit_window` is 1400 to hold it. **That sum is checked:**
+    **Every cell keeps its column, whether or not this ground can make the good.**
+    The row used to carry `ignoreinvisible = yes` and the cell its own `visible`,
+    so 35 goods of 47 drew as five ragged centred rows of different lengths --
+    «на каждой строке их разное количество… они должны быть ровненькими по
+    столбикам», his words on 2026-09-05. Now the cell is always there and its
+    four controls answer for themselves, so an unmakeable good leaves an aligned
+    gap and the columns line up down the block. It costs no height: five rows
+    either way.
+
+    **The cell is 127 wide** -- 28 + 42 + 28 + 26 and three gaps of one -- so a
+    row of ten is 1324 with the row's spacing of six, and `bag_wtp_edit_window`
+    is 1400 to hold it. **That sum is checked:**
     `check_script.py` → `overflowing_windows` resolves a type drawn inside a
     window to the width the type declares, so adding a control here and leaving
     the window alone is a failure and not a surprise. It did not resolve types
@@ -3510,14 +3546,14 @@ def edit_cells_file(order: list[str]) -> str:
         for i in range(r * EDIT_ROW + 1, min((r + 1) * EDIT_ROW, len(order)) + 1):
             cells += f"""
 		hbox = {{
-			size = {{ 131 32 }}
+			size = {{ 127 28 }}
 			spacing = 1
-			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 
 			widget = {{
-				size = {{ 30 32 }}
+				size = {{ 28 28 }}
+				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
-					size = {{ 28 26 }}
+					size = {{ 26 26 }}
 					parentanchor = center
 					widgetanchor = center
 					tooltip = "{MOD_ID}_edit_minus_tt"
@@ -3533,8 +3569,9 @@ def edit_cells_file(order: list[str]) -> str:
 			}}
 
 			widget = {{
-				size = {{ 42 32 }}
+				size = {{ 42 28 }}
 				alwaystransparent = no
+				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				tooltip = "{MOD_ID}_cell_tt"
 				text_single = {{
 					parentanchor = center
@@ -3546,9 +3583,10 @@ def edit_cells_file(order: list[str]) -> str:
 			}}
 
 			widget = {{
-				size = {{ 30 32 }}
+				size = {{ 28 28 }}
+				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
-					size = {{ 28 26 }}
+					size = {{ 26 26 }}
 					parentanchor = center
 					widgetanchor = center
 					tooltip = "{MOD_ID}_edit_plus_tt"
@@ -3563,44 +3601,25 @@ def edit_cells_file(order: list[str]) -> str:
 				}}
 			}}
 
-			# **«не нужен», and its state is the button rather than a mark
-			# somewhere else.** A flag the player cannot see is one he will press
-			# twice; two buttons in one slot, each visible under the opposite
-			# reading of `_skip<n>`, means the cell always says which way it is
-			# set and one click flips it. `IsSet` on a global is the game's own
-			# form for this (`chinese_treasure_voyage_running`), and it is why
-			# the flag is an existence flag: there is no «0» to draw wrongly.
+			# **«не нужен» is the game's own checkbox, and that is not a
+			# decoration.** It was two buttons carrying «×» and «✔», and the
+			# second rendered as an empty box: the game's fonts have no
+			# checkmark, and its own localization uses no such character
+			# anywhere -- so picking a different glyph would have been another
+			# guess. `checkbutton_round_alt` draws both states from a texture
+			# (`upframe` / `downframe`) and takes the state from `down`, which
+			# is how the outliner's own category toggles work. One control, no
+			# glyph, and the state is legible.
 			widget = {{
-				size = {{ 26 32 }}
-				button_regular = {{
-					size = {{ 24 26 }}
+				size = {{ 26 28 }}
+				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
+				checkbutton_round_alt = {{
+					size = {{ 24 24 }}
 					parentanchor = center
 					widgetanchor = center
-					visible = "[Not(GetGlobalVariable('{MOD_ID}_skip{i}').IsSet)]"
+					down = "[GetGlobalVariable('{MOD_ID}_skip{i}').IsSet]"
 					tooltip = "{MOD_ID}_edit_skip_tt"
 					onclick = "[GetScriptedGui('{MOD_ID}_pick_skip_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					text_single = {{
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 14
-						text = "{MOD_ID}_edit_skip_off"
-					}}
-				}}
-				button_regular = {{
-					size = {{ 24 26 }}
-					parentanchor = center
-					widgetanchor = center
-					visible = "[GetGlobalVariable('{MOD_ID}_skip{i}').IsSet]"
-					tooltip = "{MOD_ID}_edit_skip_on_tt"
-					onclick = "[GetScriptedGui('{MOD_ID}_pick_skip_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					text_single = {{
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 14
-						text = "{MOD_ID}_edit_skip_on"
-					}}
 				}}
 			}}
 		}}
@@ -3608,8 +3627,7 @@ def edit_cells_file(order: list[str]) -> str:
         rows.append(f"""
 	# Goods {r * EDIT_ROW + 1}..{min((r + 1) * EDIT_ROW, len(order))} of the plan's own order.
 	type {MOD_ID}_edit_row{r + 1} = hbox {{
-		spacing = 2
-		ignoreinvisible = yes
+		spacing = 6
 {cells}	}}
 """)
     return (HEADER + f"""#
@@ -4436,6 +4454,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # «+1» for {good}.
 # Scope: country
 {MOD_ID}_edit_plus_{i} = {{
+\t# **Asking for more of a good contradicts «не нужен», so the flag goes.**
+\t# The alternative is a «+1» that silently refuses, and a button that does
+\t# nothing is the thing this mod has already paid for twice. He reported the
+\t# opposite defect on 2026-09-05 -- the flag set and the good still growing --
+\t# and this is the honest reading of the two presses together: the last one
+\t# wins, and it is visible because the checkbox clears.
+\tif = {{
+\t\tlimit = {{ has_global_variable = {MOD_ID}_skip{i} }}
+\t\tremove_global_variable = {MOD_ID}_skip{i}
+\t}}
 \tset_global_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
 \t# The same good as a scope, because the press line has to name it and a
 \t# number has no name. Here it is free: the cell is written out per good, so
@@ -4647,6 +4675,9 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # A cell whose flag is unset is invisible and its row closes the gap.
 # Scope: country
 {MOD_ID}_edit_fill_pool = {{
+\t# The header prints the share, so it has to be current before the window is
+\t# drawn and not only after the first press.
+\t{MOD_ID}_edit_set_quota = yes
 \tclear_global_variable_list = {MOD_ID}_edit_pool
 {clears}\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
 {rows}}}
