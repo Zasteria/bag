@@ -28,27 +28,30 @@ trip leaves Y one down and Z one up, invisibly. **The editor has no undo at all;
 loading a slot is the only one.** The reasoning is in `TESTLOG.md`; what to do
 about it is the open design question.
 
+### The plan for the practical sessions
+
+**[`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
+is the order, the files and what to ask him for.** Do not re-derive it. The
+rules each step implements are
+[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
+
+0. **`tools/code.py`** — done 2026-09-04, no run needed.
+1. **The editor's window: the press line, the width, the frame.** *Do this
+   first: it is the instrument the next two are checked with.*
+2. **Share, `_lock<n>`, and the «не нужен» flag.**
+3. **Even eviction on «+1»** — two passes, never a packed number.
+4. **Provinces fold in the two plan windows.**
+5. **Charters: «+1»/«−1» and whole-bundle eviction.**
+6. **New ground fitted to a finished plan.**
+7. **The plan shown in the location panel**, inside Glorp UI's interface.
+8. **The plan stamped onto Construction Manager**, gated on CM being present.
+
 ### Five silent faults, and all five are written down
 
 Nothing in any log for any of them, and **the table that names them is
 [`pitfalls/interface.md`](pitfalls/interface.md)** — it is not repeated here.
 The lesson that outlives them: **instrument before the third theory**
-(`pitfalls/diagnosis.md`). The last fault was named by the first report that
-carried the editor's numbers, not by the fourth guess.
-
-### What was agreed about the editor, and what is still open
-
-**[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md),
-2026-09-04.** The whole of it is there and is not restated here. In one line
-each: the refill after «−1» goes by shortfall against the fair share rather
-than by gain; «+1» and «−1» are independent tools and no undo is wanted; a
-target count per good is rejected; the press must say what it did; the editor's
-window widens and its frame stops sliding; provinces fold; charters get their
-bundle edit; and new ground is fitted to a finished plan without disturbing it.
-
-**Three questions are open in that file and none of them is a session's to
-settle alone** — the location panel against `construct_building`, the order
-within a shortfall, and whether «+1» should prefer a victim above its share.
+(`pitfalls/diagnosis.md`).
 
 ### Answered elsewhere, not here
 
