@@ -170,6 +170,17 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv7 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_cap_rural } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_plan_cap_rural } }
 	debug_log = "WTP EDIT walk evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | placed_before=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] placed_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | load_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | cap_urban=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] cap_rural=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_quota } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_quota } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_free } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_free } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_pool_rooms } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_edit_pool_rooms } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_rooms } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_plan_rooms } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_quota } }
+	debug_log = "WTP EDIT share quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] free=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] pool_rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] plan_quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0]"
 }
 
 # The funnel. One walk, and the plan pays nothing for it: everything here is

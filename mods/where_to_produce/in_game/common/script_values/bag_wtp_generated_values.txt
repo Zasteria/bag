@@ -10785,6 +10785,9 @@ bag_wtp_rq13 = {
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
+# And the editor's own divisor: how many goods are still free of a lock and of
+# the «не нужен» flag. Same shape and the same caller-side guard.
+bag_wtp_edit_free_value = { value = global_var:bag_wtp_edit_free }
 # The band as a fraction of `RANK_SCALE`, for the open ladder's relative
 # threshold. A `multiply` takes a script value, not a variable, which is why this
 # has a name of its own -- the same shape `_plan_scored_value` has.

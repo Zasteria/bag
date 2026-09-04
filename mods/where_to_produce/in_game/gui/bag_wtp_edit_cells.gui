@@ -12,7 +12,7 @@ types BagWtpEditCells {
 		ignoreinvisible = yes
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 
@@ -64,10 +64,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip1').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip1').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 
@@ -119,10 +160,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip2').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip2').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 
@@ -174,10 +256,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip3').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip3').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 
@@ -229,10 +352,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip4').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip4').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 
@@ -284,10 +448,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip5').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip5').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 
@@ -339,10 +544,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip6').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip6').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 
@@ -394,10 +640,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip7').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip7').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 
@@ -449,10 +736,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip8').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip8').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 
@@ -504,10 +832,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip9').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip9').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 
@@ -559,6 +928,47 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip10').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip10').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 	}
 
@@ -568,7 +978,7 @@ types BagWtpEditCells {
 		ignoreinvisible = yes
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 
@@ -620,10 +1030,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip11').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip11').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 
@@ -675,10 +1126,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip12').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip12').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 
@@ -730,10 +1222,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip13').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip13').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 
@@ -785,10 +1318,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip14').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_14').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip14').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_14').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 
@@ -840,10 +1414,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip15').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_15').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip15').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_15').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 
@@ -895,10 +1510,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip16').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_16').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip16').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_16').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 
@@ -950,10 +1606,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip17').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_17').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip17').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_17').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 
@@ -1005,10 +1702,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip18').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_18').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip18').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_18').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 
@@ -1060,10 +1798,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip19').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_19').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip19').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_19').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 
@@ -1115,6 +1894,47 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip20').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_20').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip20').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_20').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 	}
 
@@ -1124,7 +1944,7 @@ types BagWtpEditCells {
 		ignoreinvisible = yes
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 
@@ -1176,10 +1996,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip21').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_21').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip21').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_21').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 
@@ -1231,10 +2092,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip22').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_22').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip22').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_22').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 
@@ -1286,10 +2188,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip23').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_23').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip23').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_23').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 
@@ -1341,10 +2284,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip24').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_24').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip24').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_24').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 
@@ -1396,10 +2380,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip25').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_25').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip25').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_25').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 
@@ -1451,10 +2476,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip26').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_26').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip26').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_26').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 
@@ -1506,10 +2572,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip27').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_27').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip27').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_27').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 
@@ -1561,10 +2668,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip28').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_28').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip28').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_28').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 
@@ -1616,10 +2764,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip29').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_29').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip29').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_29').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 
@@ -1671,6 +2860,47 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip30').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_30').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip30').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_30').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 	}
 
@@ -1680,7 +2910,7 @@ types BagWtpEditCells {
 		ignoreinvisible = yes
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 
@@ -1732,10 +2962,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip31').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_31').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip31').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_31').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 
@@ -1787,10 +3058,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip32').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_32').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip32').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_32').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 
@@ -1842,10 +3154,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip33').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_33').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip33').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_33').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 
@@ -1897,10 +3250,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip34').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_34').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip34').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_34').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 
@@ -1952,10 +3346,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip35').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_35').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip35').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_35').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 
@@ -2007,10 +3442,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip36').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_36').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip36').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_36').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 
@@ -2062,10 +3538,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip37').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_37').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip37').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_37').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 
@@ -2117,10 +3634,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip38').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_38').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip38').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_38').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 
@@ -2172,10 +3730,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip39').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_39').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip39').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_39').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 
@@ -2227,6 +3826,47 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip40').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_40').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip40').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_40').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 	}
 
@@ -2236,7 +3876,7 @@ types BagWtpEditCells {
 		ignoreinvisible = yes
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 
@@ -2288,10 +3928,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip41').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_41').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip41').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_41').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 
@@ -2343,10 +4024,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip42').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_42').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip42').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_42').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 
@@ -2398,10 +4120,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip43').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_43').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip43').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_43').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 
@@ -2453,10 +4216,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip44').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_44').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip44').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_44').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 
@@ -2508,10 +4312,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip45').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_45').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip45').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_45').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 
@@ -2563,10 +4408,51 @@ types BagWtpEditCells {
 					}
 				}
 			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip46').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_46').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip46').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_46').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
+					}
+				}
+			}
 		}
 
 		hbox = {
-			size = { 104 32 }
+			size = { 131 32 }
 			spacing = 1
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 
@@ -2615,6 +4501,47 @@ types BagWtpEditCells {
 						autoresize = yes
 						fontsize = 14
 						text = "bag_wtp_edit_plus"
+					}
+				}
+			}
+
+			# **«не нужен», and its state is the button rather than a mark
+			# somewhere else.** A flag the player cannot see is one he will press
+			# twice; two buttons in one slot, each visible under the opposite
+			# reading of `_skip<n>`, means the cell always says which way it is
+			# set and one click flips it. `IsSet` on a global is the game's own
+			# form for this (`chinese_treasure_voyage_running`), and it is why
+			# the flag is an existence flag: there is no «0» to draw wrongly.
+			widget = {
+				size = { 26 32 }
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[Not(GetGlobalVariable('bag_wtp_skip47').IsSet)]"
+					tooltip = "bag_wtp_edit_skip_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_47').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_off"
+					}
+				}
+				button_regular = {
+					size = { 24 26 }
+					parentanchor = center
+					widgetanchor = center
+					visible = "[GetGlobalVariable('bag_wtp_skip47').IsSet]"
+					tooltip = "bag_wtp_edit_skip_on_tt"
+					onclick = "[GetScriptedGui('bag_wtp_pick_skip_47').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 14
+						text = "bag_wtp_edit_skip_on"
 					}
 				}
 			}

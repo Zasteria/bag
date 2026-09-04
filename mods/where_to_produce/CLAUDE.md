@@ -30,11 +30,8 @@ counts**. **A right's gate is its own `potential`, never `has_advance`**, and
 **The plan is an optimisation with a covering constraint** — maximise the bonus
 captured, subject to every good the ground can produce being produced. **Read
 [`plan_formula.md`](../../docs/investigations/plan_formula.md) before changing any
-of it.** The currency is **`gain = bonus ÷ the best ceiling any recipe of that
-*good* reaches in the game`**; the ground is dealt in **four ladders of five
-descending bands** — coverage, the scarce, everything, the leftovers — and **the
-order between them is the design**. **The last ladder's band is each good's own
-best**: the share goes on gain, the leftovers on fit.
+of it.** The currency, the **four ladders of five descending bands** and the order
+between them are the design; the last band is each good's own best.
 
 **A good's share is the whole ground divided by the goods, less one per RGO, and
 a charter's buildings are spent out of it.**
@@ -47,15 +44,20 @@ a location variable — **a `province_definition` holds none**
 **A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` moves
 one building a press, where it costs least. **Two rules: a good keeps its last
 building, and a charter's go whole or not at all** («забирать целиком всю связку
-право+его домики» — that edit is owed). Nothing is evicted while a room is free,
+право+его домики»). Nothing is evicted while a room is free,
 nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
 itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
-lines in the report**, both ops since 2026-09-04, and **the window names what a
-press did** — good, location, what moved — from scopes in globals; unrun.
-**Presses work; the round trip is no undo** (`docs/TESTLOG.md`).
+lines in the report**, and the window names what a press did; **the round trip
+is no undo** (`docs/TESTLOG.md`).
+
+**A press pins its good** — `_lock<n>`, cleared by a fresh plan — and a freed
+room goes to the good **furthest below its share**, not the richest; without the
+pin that rule undoes his own presses. **`_skip<n>` («не нужен») outlives a plan**
+and is an existence flag. **`_edit_locked_<n>` is the charter's bundle, not the
+player's pin.** Built 2026-09-05, unrun.
 
 **The editor is a window and never the settings page.** Three save slots, then
-every good as a cell of «−1, icon with its count, +1». **A window exists only if
+every good as a cell of «−1, count, +1, не нужен». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
 he will not find**; and **the picker is 47 written-out cells**, because a
 datamodel row carries a goods scope and a scope reaches no numbered `_pn<n>`

@@ -568,6 +568,7 @@ def overflowing_windows(root: Path) -> list[str]:
     gui = root / "in_game/gui"
     if not gui.is_dir():
         return []
+    types = _gui_types(gui)
     found = []
     for path in sorted(gui.rglob("*.gui")):
         text = _gui_text(path)
@@ -596,7 +597,7 @@ def overflowing_windows(root: Path) -> list[str]:
                     f"size = {{ {width} ... }} but its background widget is "
                     f"{{ {inner.group(1)} ... }} — the frame and what is drawn "
                     f"in it must be one number; docs/pitfalls/interface.md")
-            rows = _widest_rows(body)
+            rows = _widest_rows(body, known=types)
             if not rows:
                 continue
             worst, line_off = max(rows)
@@ -655,6 +656,42 @@ def _gui_children(block: str) -> list[tuple[str, str, int]]:
     return out
 
 
+def _gui_types(gui: Path) -> dict[str, int]:
+    """Every `type <name> = ...` a mod declares, and how wide it draws.
+
+    **A window's row can be a type from another file, and then the window's own
+    text says nothing about its width.** `bag_wtp_edit_window` draws five
+    `bag_wtp_edit_row<n>`, each declared in `bag_wtp_edit_cells.gui`; adding one
+    control to a cell widened those rows by 270 and the window's `.gui` did not
+    change by a character. Without this the overflow check reads such a row as
+    zero and passes a window a fifth too small -- the same silent overflow it
+    exists to catch, arriving through the one door left open.
+
+    A type built on an `hbox` measures as a row; any other measures by the size
+    it declares. Types that draw types settle over a few passes, capped, so a
+    cycle cannot hang the check.
+    """
+    declared: dict[str, tuple[str, str]] = {}
+    for path in sorted(gui.rglob("*.gui")):
+        text = _gui_text(path)
+        for match in re.finditer(r"\btype\s+(\w+)\s*=\s*(\w+)\s*\{", text):
+            declared[match.group(1)] = (
+                match.group(2), text[match.end():_brace_end(text, match.end() - 1)])
+    known: dict[str, int] = {}
+    for _ in range(4):
+        for name, (kind, body) in declared.items():
+            if kind == "hbox":
+                # Wrapped as an `hbox` so the type's own body is summed as a
+                # row: wrapping it under any other keyword measures only the
+                # rows *inside* it, which read the picker's 1328-wide row as one
+                # 128-wide cell and let a window 160 too small pass.
+                rows = _widest_rows("hbox = {%s}" % body, known=known)
+                known[name] = max((w for w, _ in rows), default=0)
+            else:
+                known[name] = _declared_width(body)
+    return known
+
+
 def _declared_width(body: str) -> int:
     """What a child says it is wide, reading nothing from its own children.
 
@@ -685,19 +722,31 @@ def _declared_width(body: str) -> int:
     return max(best, 0)
 
 
-def _widest_rows(block: str, base: int = 0) -> list[tuple[int, int]]:
-    """Every `hbox`'s summed width, with the offset it sits at."""
+def _widest_rows(block: str, base: int = 0,
+                 known: dict[str, int] | None = None) -> list[tuple[int, int]]:
+    """Every `hbox`'s summed width, with the offset it sits at.
+
+    A child that sizes itself is taken at its word; one that does not, but names
+    a type the mod declares, is taken at that type's width.
+    """
+    known = known or {}
     rows = []
     for keyword, body, offset in _gui_children(block):
+        # **A type is a row wherever it is drawn, not only inside an `hbox`.**
+        # The picker's five rows are `bag_wtp_edit_row<n> = {}` in a `vbox`, so
+        # nothing sums them and their width is the type's own. Missing this let
+        # a window 160 too narrow pass the check that exists for exactly that.
+        if keyword in known and not _declared_width(body):
+            rows.append((known[keyword], offset))
         if keyword == "hbox":
             kids = _gui_children(body)
-            total = sum(_declared_width(b) for _, b, _ in kids)
+            total = sum(_declared_width(b) or known.get(k, 0) for k, b, _ in kids)
             gap = re.search(r"spacing\s*=\s*(\d+)", body[:body.find("{")]
                             if "{" in body else body)
             if gap and len(kids) > 1:
                 total += int(gap.group(1)) * (len(kids) - 1)
             rows.append((total, base + offset))
-        rows.extend(_widest_rows(body, base + offset))
+        rows.extend(_widest_rows(body, base + offset, known))
     return rows
 
 
