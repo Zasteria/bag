@@ -55,8 +55,9 @@ still has a free room, nor left evicted if the placement then refuses.**
 three save slots, then every good the ground can make as a cell of «−1, icon, +1»;
 `bag_wtp_changes_window.gui` is «показать изменения». **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a control behind a first click is one
-he will not find**; and **both wrapping widgets failed on their first load**, so
-**the picker's rows are cut in script and drawn as `hbox` datamodels**
+he will not find**; and **the picker is 47 written-out cells** — a datamodel row
+carries a goods scope and a scope reaches no numbered `_pn<n>`, so only a written
+cell can print the count he asked for
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
 `check_script.py` resolves every name a window says.
 

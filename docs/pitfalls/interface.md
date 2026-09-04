@@ -71,6 +71,21 @@ layout can be decided in script, decide it in script**: an `hbox` with a
 datamodel has never once come out wrong here, and both widgets that would have
 saved the five lists failed on their first load.
 
+**A shape is only proven for what it was proven doing.** `hbox` + `datamodel` +
+`datacontext = "[Scope.GetGoods]"` draws every location's goods in the plan
+window and has never come out wrong — but its cell is a `text_single`. **A
+clickable cell in one was never tested**, and when the picker became one, 15
+presses did nothing at all. Say what a shape is proven for, not that it is
+proven.
+
+**And a global that survives a save will lie about the present.** The editor's
+«Последнее нажатие: сделано» came from an `_edit_done` set an hour earlier, and
+because that branch is tested first it hid the branch that says the press never
+arrived. Worse, it read as *evidence the press worked*. **A window that opens
+has taken no presses: reset what it reports, and put a counter on it** — a press
+counter separates «the button is not wired» from «a rule refused» at a glance,
+which is two runs' worth of question answered without a log.
+
 **And the lesson under the lesson: a build that was never loaded is not a
 baseline.** `c14aa0f` introduced the flowcontainer and was never run; every
 session after it read «the last build opened fine» from the *previous* one and

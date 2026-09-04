@@ -126,6 +126,10 @@ bag_wtp_edit_slot3_label = {
 bag_wtp_edit_last_label = {
 	type = country
 	text = {
+		trigger = { global_var:bag_wtp_edit_op = 0 }
+		localization_key = bag_wtp_edit_last_none
+	}
+	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_norefill = 1 }
 		localization_key = bag_wtp_edit_last_empty
 	}

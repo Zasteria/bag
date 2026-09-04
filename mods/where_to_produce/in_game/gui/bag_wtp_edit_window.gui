@@ -26,83 +26,10 @@
 # datamodel -- and **not** on a `flowcontainer`, which killed four builds in a
 # row before the run history said so. See the picker below.
 
-types BagWtpEditTypes {
-
-	# One good the ground can make: «−1», its icon, «+1». Nothing else.
-	#
-	# **Nothing is hidden behind a first click.** An earlier build had a picker of
-	# bare icons: clicking one added a row elsewhere and the buttons appeared
-	# there. He opened the window and found no way in -- «там только их иконки и
-	# ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек +1
-	# или -1» -- and he was right: a control you have to discover is not a control.
-	#
-	# **No name beside it, and the cell is as narrow as it can be.** A row each
-	# and a name each took half the window, 2026-09-04: «Иконки достаточно для
-	# понимания что это за товар — не нужно справа ещё дописывать название и
-	# тратить на это место… На 1 строку поместится таких наборов штук 5-10.» The
-	# icon carries the name in its tooltip, which is where it was already.
-	#
-	# **A goods icon is a texticon and is drawn as `raw_text`**, the same way
-	# `bag_wtp_plan_goods_entry` does it: `Goods.GetIcon` returns a `CString`, so
-	# an `icon` with `texture = "[Goods.GetIcon]"` draws nothing at all.
-	#
-	# The button nesting is the plan row's rank button exactly -- a `widget` of a
-	# fixed size holding a centred `button_regular` -- because that one is drawn
-	# every frame and pressed every session.
-	type bag_wtp_edit_pool_entry = hbox {
-		size = { 104 32 }
-		spacing = 1
-
-		widget = {
-			size = { 32 32 }
-			button_regular = {
-				size = { 30 28 }
-				parentanchor = center
-				widgetanchor = center
-				tooltip = "bag_wtp_edit_minus_tt"
-				onclick = "[GetScriptedGui('bag_wtp_edit_minus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-				text_single = {
-					parentanchor = center
-					widgetanchor = center
-					autoresize = yes
-					fontsize = 14
-					text = "bag_wtp_edit_minus"
-				}
-			}
-		}
-
-		widget = {
-			size = { 32 32 }
-			alwaystransparent = no
-			tooltip = "[Goods.GetName]"
-			text_single = {
-				parentanchor = center
-				widgetanchor = center
-				autoresize = yes
-				fontsize = 18
-				raw_text = "[Goods.GetIcon]"
-			}
-		}
-
-		widget = {
-			size = { 32 32 }
-			button_regular = {
-				size = { 30 28 }
-				parentanchor = center
-				widgetanchor = center
-				tooltip = "bag_wtp_edit_plus_tt"
-				onclick = "[GetScriptedGui('bag_wtp_edit_plus').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('bag_wtp_good', Goods.MakeScope).End)]"
-				text_single = {
-					parentanchor = center
-					widgetanchor = center
-					autoresize = yes
-					fontsize = 14
-					text = "bag_wtp_edit_plus"
-				}
-			}
-		}
-	}
-}
+# **The picker's type lives in `bag_wtp_edit_cells.gui` now**, written out a
+# good at a time, because only a written cell can print `_pn<n>` beside the
+# good. The datamodel entry that stood here is gone with the scope bridge it
+# reached its effect through -- one press, one path.
 
 window = {
 	name = "bag_wtp_edit_window"
@@ -417,80 +344,27 @@ window = {
 					text = "bag_wtp_edit_pool_empty"
 				}
 
-				# **The picker: five rows of ten, and each row is an `hbox` over a
-				# datamodel.**
+				# **The picker: five rows of ten cells, and every cell is written
+				# out** in `bag_wtp_edit_cells.gui`. A cell is «−1», the good's icon
+				# with how many buildings of it the plan holds, and «+1».
 				#
-				# **That is the one horizontal list this mod has drawn correctly since
-				# its first build** -- every location's goods in the plan window is
-				# exactly this, `hbox` + `datamodel` + `datacontext = "[Scope.GetGoods]"`,
-				# and it has never once come out wrong. The rows are cut in script
-				# (`bag_wtp_edit_fill_pool`), so the window does no wrapping at all.
+				# **The number is why the cells are not a datamodel.** `_pn<n>` is
+				# numbered and a datamodel row carries a goods scope; nothing gets
+				# from one to the other. He asked for the count three times.
 				#
-				# **Two wrapping widgets were tried and both failed on their first
-				# load.** A `flowcontainer` with a datamodel killed the game outright,
-				# four builds running, with nothing in any log. A `fixedgridbox` did
-				# not crash but drew the cells wrong -- some past the right edge of the
-				# window, some underneath each other. Whatever `addcolumn` and
-				# `addrow` mean exactly, this needs neither of them.
-				# `docs/pitfalls/interface.md`.
+				# **And nothing wraps.** `flowcontainer` with a datamodel crashed the
+				# game four builds running; `fixedgridbox` drew the cells on top of
+				# each other. These are static children of a plain `hbox`, which is as
+				# simple as this interface gets. `docs/pitfalls/interface.md`.
 				vbox = {
 					layoutpolicy_horizontal = expanding
 					spacing = 2
 
-					hbox = {
-						parentanchor = left
-						spacing = 2
-						datamodel = "[GetGlobalList('bag_wtp_edit_pool1')]"
-						item = {
-							bag_wtp_edit_pool_entry = {
-								datacontext = "[Scope.GetGoods]"
-							}
-						}
-					}
-
-					hbox = {
-						parentanchor = left
-						spacing = 2
-						datamodel = "[GetGlobalList('bag_wtp_edit_pool2')]"
-						item = {
-							bag_wtp_edit_pool_entry = {
-								datacontext = "[Scope.GetGoods]"
-							}
-						}
-					}
-
-					hbox = {
-						parentanchor = left
-						spacing = 2
-						datamodel = "[GetGlobalList('bag_wtp_edit_pool3')]"
-						item = {
-							bag_wtp_edit_pool_entry = {
-								datacontext = "[Scope.GetGoods]"
-							}
-						}
-					}
-
-					hbox = {
-						parentanchor = left
-						spacing = 2
-						datamodel = "[GetGlobalList('bag_wtp_edit_pool4')]"
-						item = {
-							bag_wtp_edit_pool_entry = {
-								datacontext = "[Scope.GetGoods]"
-							}
-						}
-					}
-
-					hbox = {
-						parentanchor = left
-						spacing = 2
-						datamodel = "[GetGlobalList('bag_wtp_edit_pool5')]"
-						item = {
-							bag_wtp_edit_pool_entry = {
-								datacontext = "[Scope.GetGoods]"
-							}
-						}
-					}
+					bag_wtp_edit_row1 = {}
+					bag_wtp_edit_row2 = {}
+					bag_wtp_edit_row3 = {}
+					bag_wtp_edit_row4 = {}
+					bag_wtp_edit_row5 = {}
 				}
 
 				# The plan as it stands, in the plan window's own rows.
