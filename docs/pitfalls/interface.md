@@ -17,35 +17,42 @@ that have drawn correctly since the first build. Reaching for that line to expla
 a window that came out empty on 2026-09-04 was a guess, and it did not survive
 the scan that tested it.
 
-**A script value cannot be indexed by the scope a datamodel row carries.** The
-plan's counters are numbered — `_pn<n>` — and a picker row holds `goods:iron`; no
-localization or `visible` gets from one to the other on its own. A global variable
-map is the bridge, and **its key must be a flag, not a database object.**
+**A script value cannot be indexed by the scope a datamodel row carries**, and
+**the bridge that would do it does not exist.** The plan's counters are numbered
+— `_pn<n>` — and a picker row holds `goods:iron`; nothing gets from one to the
+other. `Goods.Custom` is not in the dump, no global returns a good by its key,
+and a **global variable map keyed by a database object crashes the game**:
+2026-09-04, twice, on opening the window, with no line in `error.log` or
+`gui.log` — the logs simply stop.
 
-**Keying one by `goods:iron` crashed the game outright**, 2026-09-04, twice, on
-opening the window — no error in `error.log`, none in `gui.log`, the logs simply
-stop. Reverted whole rather than repaired, because a crash leaves nothing to
-diagnose and the build had three new mechanisms in it at once.
+**Keying it by a flag instead, CMF's own way, crashed it too.** Every map CMM
+keeps is written `key = scope:setting` from `MakeScopeFlag(SettingKey)` and read
+back with `GetVariableFromGlobalVariableMap(…).GetValue`, so the build made the
+flag from `Goods.GetKey`, guarded every read with `.IsSet` and
+`GetValueWithDefault`, and shipped a CMM bool to turn the whole thing off from a
+page that does not open the window. It crashed **with the toggle on and with it
+off** — because **`And(...)` in a GUI expression is eager**: a `visible` guard
+evaluates the sub-expression it is guarding, so a switch cannot protect a read
+that crashes. Whatever the third cause is, it is not reachable from any log the
+game writes, and this repository does not build on a cause it cannot name.
 
-**The shape that is proven is CMF's, and it is flags on both sides.** Every map
-CMM keeps is written `key = scope:setting`, where that scope came from
-`MakeScopeFlag(SettingKey)`, and read back as
-`GetVariableFromGlobalVariableMap('name', MakeScopeFlag(…)).GetValue`. Not once
-does it key one by a database object. `Goods.GetKey` exists, so the flag can be
-made from the row — that is the way in, and it is the only difference between
-what crashed and what CMM does every frame.
-
-**Built that way on 2026-09-04, with two guards and a switch.** `.IsSet` before
-every `.GetValue` and `GetValueWithDefault` in localization, because a method on
-an entry that is not there is the other thing that could have crashed it; and a
-CMM bool, «показывать число домиков», that the cells' `visible` asks first. **A
-change that has already crashed the game twice should ship with the way to turn
-it off from a page that does not open the window** — otherwise a third crash
-costs a reinstall and a session rather than one click.
+**The route is closed and no map is left in the mod.** The picker is 47 cells
+written into `bag_wtp_edit_window.gui` by `generate.py`, one a good: a
+`button_regular` pair calling numbered scripted GUIs, a `visible` on a country
+variable, and a localization key holding the good's texticon and
+`ScriptValue('bag_wtp_show_pn<n>')`. Every part of that was already drawn by
+another window here. **A generated cell per good is the way to reach a numbered
+counter from the interface** — the datamodel is what cannot.
 
 **`check_script.py` refuses a map nothing writes** — read from a `.gui` or from
 inside a localization value, both, because a map read only from localization
 would be missed by looking in the `.gui` alone.
+
+**A marker written once is a marker that lies after the next press.** The count
+beside a good is a live global and updates itself; «+»/«✖» is a country variable
+`bag_wtp_edit_state` writes, so the effect that edits the plan has to call it
+again at the end — otherwise the cell still says «+1 возможен» about the very
+room that press just took.
 
 **A window that says «a rule refused it, or there was nowhere» has said
 nothing.** Those are two different answers and the reader takes the first. The

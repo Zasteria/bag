@@ -153,3 +153,1225 @@ bag_wtp__right_unique_on_changed = {
 		bag_wtp_right_changed = yes
 	}
 }
+
+bag_wtp_pick_plus_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_1 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_1 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_2 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_2 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_3 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_3 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_4 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_4 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_5 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_5 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_6 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_6 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_7 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_7 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_8 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_8 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_9 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_9 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_10 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_10 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_11 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_11 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_12 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_12 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_13 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_13 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_14 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_14 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_14 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_14 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_15 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_15 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_15 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_15 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_16 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_16 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_16 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_16 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_17 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_17 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_17 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_17 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_18 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_18 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_18 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_18 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_19 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_19 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_19 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_19 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_20 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_20 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_20 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_20 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_21 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_21 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_21 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_21 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_22 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_22 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_22 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_22 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_23 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_23 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_23 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_23 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_24 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_24 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_24 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_24 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_25 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_25 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_25 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_25 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_26 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_26 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_26 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_26 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_27 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_27 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_27 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_27 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_28 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_28 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_28 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_28 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_29 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_29 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_29 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_29 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_30 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_30 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_30 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_30 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_31 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_31 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_31 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_31 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_32 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_32 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_32 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_32 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_33 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_33 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_33 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_33 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_34 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_34 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_34 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_34 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_35 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_35 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_35 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_35 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_36 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_36 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_36 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_36 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_37 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_37 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_37 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_37 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_38 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_38 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_38 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_38 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_39 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_39 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_39 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_39 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_40 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_40 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_40 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_40 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_41 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_41 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_41 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_41 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_42 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_42 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_42 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_42 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_43 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_43 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_43 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_43 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_44 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_44 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_44 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_44 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_45 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_45 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_45 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_45 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_46 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_46 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_46 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_46 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_plus_47 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_plus_47 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_pick_minus_47 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_minus_47 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
