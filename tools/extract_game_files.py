@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Pull the game files this repository needs out of an EU5 install.
 
 `reference/game/` deliberately holds only part of EU5 — the parts the mods here
@@ -44,10 +44,16 @@ MANIFEST_FILE = Path(__file__).resolve().parent / "game_files_manifest.txt"
 def manifest() -> dict[str, str]:
     """Directory under the game root -> what needs it."""
     wanted: dict[str, str] = {}
-    for line in MANIFEST_FILE.read_text(encoding="utf-8").splitlines():
-        if not line.strip() or line.lstrip().startswith("#"):
-            continue
+    # **`utf-8-sig`, and a second guard after the split.** Read as plain
+    # `utf-8` the first line keeps its BOM, so `lstrip().startswith("#")` is
+    # false for the file's own header and it became an entry with an empty path
+    # -- printed on 2026-09-03 at the top of "not in this install" as a blank
+    # name and the header's own words as its reason. A path that is empty after
+    # the split is a comment however it got here.
+    for line in MANIFEST_FILE.read_text(encoding="utf-8-sig").splitlines():
         path, _, reason = line.partition("#")
+        if not path.strip():
+            continue
         wanted[path.strip()] = reason.strip()
     return wanted
 
@@ -78,43 +84,102 @@ CANDIDATES = {
     ],
 }
 
-# The install root has the game files either at the top or one level down.
-INSIDE = ("", "game")
+# Where under an install the mounts may sit. Tried in order, first hit wins.
+INSIDE = ("", "game", "game/game")
+
+# **What proves a folder is the one.** `in_game/` alone does not: on 2026-09-03
+# it matched `…/Europa Universalis V/game`, and not one manifest entry was under
+# it -- 0 files copied, every entry reported missing, and nothing in the output
+# said what the folder actually held. A mount root has script data in it, so the
+# landmark is a directory the repository already carries a copy of.
+LANDMARKS = ("in_game/common/goods", "in_game/common/production_methods",
+             "in_game/common/building_types")
+
+
+def looks_like_root(path: Path) -> bool:
+    return any((path / mark).is_dir() for mark in LANDMARKS)
+
+
+def show_tree(path: Path, depth: int = 2, indent: str = "    ") -> None:
+    """What is actually there, so a failure can be read rather than guessed at."""
+    if not path.is_dir():
+        print("%s%s — not a directory" % (indent, path), file=sys.stderr)
+        return
+    try:
+        entries = sorted(path.iterdir())
+    except OSError as problem:
+        print("%s%s — %s" % (indent, path, problem), file=sys.stderr)
+        return
+    for entry in entries[:40]:
+        mark = "/" if entry.is_dir() else ""
+        print("%s%s%s" % (indent, entry.name, mark), file=sys.stderr)
+        if entry.is_dir() and depth > 1:
+            show_tree(entry, depth - 1, indent + "    ")
+    if len(entries) > 40:
+        print("%s… and %d more" % (indent, len(entries) - 40), file=sys.stderr)
 
 
 def find_game(given: str | None) -> Path:
-    """The folder that directly contains `in_game/`, or a failure that says why."""
+    """The folder the mounts sit in, or a failure that says what was there instead."""
     tried: list[Path] = []
     roots = [Path(given).expanduser()] if given else [
         Path(p).expanduser() for p in CANDIDATES.get(sys.platform, CANDIDATES["linux"])]
+    fallback: Path | None = None
     for root in roots:
         for inside in INSIDE:
             candidate = root / inside if inside else root
             tried.append(candidate)
-            if (candidate / "in_game").is_dir():
+            if looks_like_root(candidate):
                 return candidate
-    print("no EU5 game files found. Looked for an `in_game/` folder in:",
+            if fallback is None and (candidate / "in_game").is_dir():
+                fallback = candidate
+    print("no EU5 script data found. A folder counts as the root when one of",
           file=sys.stderr)
+    for mark in LANDMARKS:
+        print("  %s" % mark, file=sys.stderr)
+    print("is a directory inside it. Looked in:", file=sys.stderr)
     for path in tried:
-        print("  %s" % path, file=sys.stderr)
-    print("\nPass the install folder explicitly:\n"
-          "  python3 tools/extract_game_files.py --game \"<path to Europa Universalis V>\"",
+        print("  %-70s %s" % (path, "exists" if path.is_dir() else "no"),
+              file=sys.stderr)
+    if fallback is not None:
+        print("\n`%s` has an `in_game/` but none of the landmarks. What is in it:"
+              % fallback, file=sys.stderr)
+        show_tree(fallback)
+    else:
+        for root in roots:
+            if root.is_dir():
+                print("\n`%s` exists. What is in it:" % root, file=sys.stderr)
+                show_tree(root, depth=1)
+                break
+    print("\nPaste that back, or pass the folder explicitly:\n"
+          "  python3 tools/extract_game_files.py --game \"<path>\"",
           file=sys.stderr)
     raise SystemExit(2)
 
 
-def copy_tree(source: Path, target: Path) -> tuple[int, int]:
-    """Copy source over target, keeping layout. Returns (files, bytes)."""
-    files = size = 0
+def copy_tree(source: Path, target: Path) -> tuple[int, int, int]:
+    """Copy source over target, keeping layout. Returns (files, bytes, changed).
+
+    **`changed` is the number that matters and it was not reported.** On
+    2026-09-03 the extraction said «1098 files, 13.2 MB» and GitHub Desktop then
+    said there was nothing to commit, which read like the commit failing. It had
+    not: every one of those files was already in the repository, byte for byte.
+    A copy is not a change, and a tool that counts copies cannot tell the two
+    apart for him.
+    """
+    files = size = changed = 0
     for path in sorted(source.rglob("*")):
         if not path.is_file():
             continue
         destination = target / path.relative_to(source)
+        before = destination.read_bytes() if destination.is_file() else None
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, destination)
         files += 1
         size += path.stat().st_size
-    return files, size
+        if before != path.read_bytes():
+            changed += 1
+    return files, size, changed
 
 
 def elsewhere(game: Path, relative: str) -> Path | None:
@@ -180,7 +245,7 @@ def main(argv: list[str]) -> int:
     print("out:    %s" % out)
     print()
 
-    total_files = total_size = 0
+    total_files = total_size = total_changed = 0
     missing: list[str] = []
     copied: set[Path] = set()
     for relative, reason in manifest().items():
@@ -193,11 +258,14 @@ def main(argv: list[str]) -> int:
                 continue
             source = moved
             found_at = str(moved.relative_to(game)).replace(os.sep, "/")
-        files, size = copy_tree(source, out / found_at)
+        files, size, changed = copy_tree(source, out / found_at)
         copied.update(p for p in source.rglob("*") if p.is_file())
         total_files += files
         total_size += size
+        total_changed += changed
         note = "" if found_at == relative else "   <- found at %s" % found_at
+        if changed:
+            note = ("   %d new or changed" % changed) + note
         print("  %-46s %4d file%s %9s%s"
               % (relative, files, " " if files == 1 else "s", human(size), note))
 
@@ -218,10 +286,16 @@ def main(argv: list[str]) -> int:
               "content sweep above catches the ones that matter. A folder that "
               "matters and is missing from both is worth saying so.")
 
-    print("\n%d files, %s." % (total_files, human(total_size)))
-    print("\nNext:\n  git status          # what the install brought\n"
-          "  git add reference/game && git commit -m \"reference: game files\" "
-          "&& git push")
+    print("\n%d files, %s — %d of them new or changed."
+          % (total_files, human(total_size), total_changed))
+    # **No git here.** He commits through GitHub Desktop and asked that nothing
+    # in this repository's tooling write the working tree behind him.
+    if total_changed:
+        print("\nIn %s now. Commit it in GitHub Desktop — until it is committed "
+              "and pushed, a session cannot see any of it." % out.name)
+    else:
+        print("\nNothing differs from what the repository already has, so there "
+              "is nothing to commit. That is the answer, not a failure.")
     return 0
 
 

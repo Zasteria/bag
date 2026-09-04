@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """The mod manager: the workshop, the game's own copies, and this repository.
 
 Everything the owner has to do by hand for a mod update, in one place and with
@@ -1071,54 +1071,12 @@ def screen_install(configured: dict) -> None:
         say("обновления подхватываются сами, папка та же.")
 
 
-# ------------------------------------------------------------------ git at the end
-
-
-def repository_dirty() -> list[str]:
-    done = workshop.git("status", "--porcelain", check=False)
-    return [line for line in done.stdout.splitlines() if line.strip()]
-
-
-def commit_and_push() -> None:
-    changed = repository_dirty()
-    if not changed:
-        say("в репозитории нечего коммитить — всё уже отправлено.")
-        return
-    say()
-    say("Изменения (%d):" % len(changed))
-    for line in changed[:20]:
-        say("  " + line)
-    if len(changed) > 20:
-        say("  ... и ещё %d" % (len(changed) - 20))
-
-    say()
-    default = "reference: обновление модов из мастерской"
-    message = ask("Сообщение коммита [%s]: " % default, default)
-    branch = workshop.git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
-    target = ask("В какую ветку пушить [%s]: " % branch, branch)
-
-    if target != branch:
-        if yes("Переключиться на %s?" % target):
-            switch = workshop.git("checkout", target, check=False)
-            if switch.returncode != 0:
-                say((switch.stdout + switch.stderr).strip())
-                return
-        else:
-            return
-
-    workshop.git("add", "-A")
-    workshop.git("commit", "-m", message)
-    say("коммит сделан.")
-    for wait in (2, 4, 8, 16, 0):
-        done = workshop.git("push", "-u", "origin", target, check=False)
-        if done.returncode == 0:
-            say("запушено в %s." % target)
-            return
-        say((done.stdout + done.stderr).strip())
-        if wait:
-            say("не вышло, пробую снова через %d с" % wait)
-            time.sleep(wait)
-    say("пуш не удался — попробуй `git push` руками.")
+# **Nothing here commits or pushes, and that is his rule.** 2026-09-03: «на самом
+# деле модс.бат не должен ничего комитить и пушить. Комичу и пушу любые изменения
+# в папке репозитория я через соответствующее десктопное приложение гитхаба.»
+# A menu item that did it was removed rather than left as a second way in --
+# two things writing the same working tree is how a half-finished change gets
+# pushed by the one that was not looking.
 
 
 # ---------------------------------------------------------------------- screens
@@ -1356,6 +1314,106 @@ def screen_diag() -> None:
     ask("Enter — назад ")
 
 
+def screen_from_game() -> None:
+    """Забрать из установленной игры то, чего нет в репозитории.
+
+    **Существует потому, что сессия не видит игру, а видит только репозиторий.**
+    Она читает то, что закоммичено, и то, что приложено к сообщению — больше
+    ничего. Пока файла нет ни там, ни там, любой вопрос про него сессия может
+    только угадать, и 2026-09-03 это стоило двух кругов: окно мода не
+    открывалось, потому что его надо назвать в `gui/scripted_widgets/`, а всей
+    этой папки в `reference/game/` не было — `in_game/gui` никто не выкачивал.
+
+    Две половины, и они попадают к сессии по-разному:
+
+    - **файлы игры** ложатся в `reference/game/` и уезжают коммитом;
+    - **логи** весят слишком много для репозитория, поэтому они собираются в
+      маленький архив, который остаётся приложить к сообщению.
+    """
+    while True:
+        say()
+        say("  1  Файлы игры → reference/game/  (по списку tools/game_files_manifest.txt)")
+        say("  2  Логи игры → маленький архив, который можно приложить в чат")
+        say("  0  назад")
+        choice = ask("> ")
+        if choice == "1":
+            say()
+            run_python("tools/extract_game_files.py")
+            say()
+            say("Скопировано в reference/game/. Пока это не закоммичено —")
+            say("в GitHub Desktop — сессия этих файлов не видит.")
+            say()
+            ask("Enter — назад ")
+        elif choice == "2":
+            screen_logs()
+        elif choice in {"0", "q", "в", "назад"}:
+            return
+
+
+# Что кладётся в архив логов, и почему именно это. `game.log` и `data_types/`
+# намеренно не берутся: вместе они мегабайт шесть, а отвечают на вопросы,
+# которые и так закрыты дампами в `reference/`. Хвост `debug.log` берётся
+# целиком — там лежит отчёт «Диагностика».
+LOG_FILES = ("error.log", "gui.log", "warning.log", "database_conflicts.log",
+             "system.log")
+DEBUG_TAIL_MB = 4
+
+
+def screen_logs() -> None:
+    """Собрать логи игры в один небольшой архив рядом с репозиторием.
+
+    **Папку логов ищет `diag.py`, а не этот файл.** `GAME_FOLDER` здесь
+    кончается на `/mod` -- это папка модов, а логи лежат рядом с ней, — и второй
+    экземпляр той же догадки разошёлся бы с первым в тот день, когда Paradox
+    что-нибудь переименует.
+    """
+    from datetime import datetime
+    import diag
+
+    say()
+    folder = diag.logs_folder()
+    if folder is None:
+        say("Не нашёл папку логов игры. Обычно она здесь:")
+        say(r"  C:\Users\<ты>\Documents\Paradox Interactive\Europa Universalis V\logs")
+        say()
+        ask("Enter — назад ")
+        return
+
+    out = refs.REPO / ("eu5-logs-%s.zip" % datetime.now().strftime("%m%d-%H%M"))
+    written = []
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name in LOG_FILES:
+            path = folder / name
+            if path.is_file():
+                archive.write(path, name)
+                written.append("%s — %s" % (name, workshop.human(path.stat().st_size)))
+        debug = folder / "debug.log"
+        if debug.is_file():
+            # Только хвост: лог копит между запусками, а нужен последний прогон.
+            size = debug.stat().st_size
+            with io.open(debug, "rb") as handle:
+                if size > DEBUG_TAIL_MB * 1024 * 1024:
+                    handle.seek(size - DEBUG_TAIL_MB * 1024 * 1024)
+                    handle.readline()
+                data = handle.read()
+            archive.writestr("debug.log", data)
+            written.append("debug.log — последние %s" % workshop.human(len(data)))
+    if not written:
+        out.unlink(missing_ok=True)
+        say("В папке логов нет ни одного нужного файла: %s" % folder)
+        say()
+        ask("Enter — назад ")
+        return
+    say("Собрано в %s — %s" % (out.name, workshop.human(out.stat().st_size)))
+    for line in written:
+        say("  " + line)
+    say()
+    say("Лежит в корне репозитория. Приложи его к сообщению: в git он не поедет,")
+    say("он в .gitignore, и весит слишком много для репозитория.")
+    say()
+    ask("Enter — назад ")
+
+
 def menu(configured: dict) -> int:
     world = gather(configured)
     while True:
@@ -1374,10 +1432,12 @@ def menu(configured: dict) -> int:
         say("  3  Мои моды: список, что где лежит, перенос между ними")
         say("  4  Поставить наши моды в игру")
         say("  5  Готов ли наш мод к мастерской")
-        say("  6  Коммит и пуш")
-        say("  7  Перечитать всё заново")
-        say("  8  Забрать диагностику из игры")
+        say("  6  Забрать диагностику из игры")
+        say("  7  Забрать из игры файлы или логи")
+        say("  8  Перечитать всё заново")
         say("  0  Выход")
+        say()
+        say("  Коммит и пуш — в GitHub Desktop; отсюда репозиторий не пишется.")
         choice = ask("> ")
 
         if choice == "1":
@@ -1393,11 +1453,11 @@ def menu(configured: dict) -> int:
         elif choice == "5":
             screen_publish()
         elif choice == "6":
-            commit_and_push()
-        elif choice == "7":
-            world = gather(configured)
-        elif choice == "8":
             screen_diag()
+        elif choice == "7":
+            screen_from_game()
+        elif choice == "8":
+            world = gather(configured)
         elif choice in {"0", "q", "в", "выход"}:
             return 0
 

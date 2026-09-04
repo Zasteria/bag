@@ -1,4 +1,4 @@
-# Where To Produce
+﻿# Where To Produce
 
 A planning tool for Europa Universalis V, in the Community Mod Framework's Mod
 Menu. It does not build anything and does not automate anything: it answers one
@@ -75,31 +75,91 @@ about it surprise people:
   engine's own bonus counts the same way is an open question with a one-hover
   test in `docs/research/engine.md`.
 
+## Settled, and not to be re-litigated
+
+Moved here from the mod's `CLAUDE.md` on 2026-09-03, at its budget. Each of these
+cost a run or a redesign; none of them is a live question.
+
+- **A window's datamodel is what costs**: a scripted widget never comes down, so
+  only the list it repeats over decides the row count — `PLAN_ROWS` is one page
+  and `PLAN_RANKED` the answer.
+- **The bonus is province-level** — hence a row is a `province_definition`: the
+  whole ground, not one owner's piece; what would separate its locations is
+  building slots, which the game hides.
+- **The selection is recorded twice**, only `bag_wtp_pick` / `_drop` writes it;
+  **every column is a fixed width** (`docs/pitfalls/interface.md`); **the buildable
+  tick is the location's** (`docs/SETTLED.md`).
+
+
 ## The whole plan
 
 The fourth group on the Answer tab, and a second question rather than a bigger
 version of the first: **every good at once over the chosen ground**, one building
 at a time, under a cap per location.
 
-**Six steps, and the «План» button prints them too:**
+**Seven steps, and the «План» button prints them too:**
 
 1. **Score every good in every location** — the best method whose building may
    actually stand there, that the ground feeds, and that you could run: output
    times the bonus its raw materials earn.
-2. **Divide each good by its own best in this ground**, one divisor for both
-   sides, so a good that tops out at 5% compares fairly with one that tops out at
-   10%. Without it the biggest recipe takes every contested location.
+2. **Read it as a fraction of what that good could ever earn.** The gain is
+   `bonus ÷ the best ceiling any recipe of that good reaches in the game`, so
+   1000 means "this ground feeds the recipe whole" for every good alike — and a
+   good capped at 2% compares fairly with one that can reach 10% without the
+   biggest recipe taking every contested location.
 3. **Grant urban rights**, in towns only and one per town: a town takes the
-   right its ground suits best among those the country could grant and of which
-   it can make at least one good. A bundle good that cannot stand there does not
-   go up, and its slot falls to an ordinary good.
-4. **Then the rest, in rounds, the scarce goods first.** A good only a couple of
-   locations can hold takes its place before a common one takes a second — the
-   sweeps run in tiers of 1, 2, 4, 8, 16 candidate locations, then everything.
-5. **A location holds one building of a type**, so a good whose building already
-   stands there is not offered again — but the next location may take that
-   building running another method.
-6. **Rounds until one adds nothing**, so nothing the ground can feed is empty.
+   right its ground suits best among those the country could ever grant — the
+   right's own `potential`, and never the advance that unlocks it, because a plan
+   is a target to build towards and the nine general charters arrive at one fixed
+   age. A bundle good that cannot stand there does not go up, and its slot falls
+   to the raw material that would let it. On a small ground this round places
+   more than half the plan.
+4. **Every good the ground can produce takes one location, before anything
+   else** — its own best, in descending bands of gain. That is the hard
+   constraint: «все товары которые можно произвести на выбранной земле должны
+   производиться, все».
+5. **Then the scarce finish their share, before the common start theirs.** A
+   good only a couple of locations can hold takes them while they are still
+   free — the tiers are 1, 2, 4, 8, 16 candidate locations, five bands of gain
+   inside each. Iron is the case: without an RGO it comes from one building,
+   which wants wetlands or a lake.
+6. **Then everything**, five bands, and this is where the bulk of a plan is
+   placed. **A location holds one building of a type**, so a good whose building
+   already stands there is not offered again — but the next location may take
+   that building running another method.
+7. **Then what is left, dealt by each good's own best rather than by the
+   absolute band.** Once every good has had its share, handing every leftover
+   room to the good with the largest ceiling is not opportunity cost but
+   concentration: on 416 locations it put 108 cloth buildings on the map against
+   2 cannon. Here a good whose best on this ground pays 362 competes for its own
+   top fifth exactly as one that reaches 1000 does. Rounds until one adds
+   nothing, so nothing the ground can feed is left empty.
+
+## Editing a finished plan
+
+**A plan is not a picture, it is state on the map, and the editor changes it one
+building at a time.** For the disagreements a formula cannot settle — you want
+iron in every bog, or you are tired of looking at naval supplies.
+
+- **Its own good picker**, three dropdowns rather than the goods list the ranking
+  uses, so choosing a good to edit does not throw the ranking's answer away.
+- **«+1 домик»** asks every location what one more of that good would cost there:
+  nothing where a room is free, otherwise the gain of the cheapest building that
+  would have to come out. The cheapest wins, one building moves, the rest of the
+  plan stays exactly where it was.
+- **Two buildings are never taken out.** A good's last on the whole ground — so
+  no amount of editing can break «все товары должны производиться» — and one
+  belonging to the bundle of the charter granted in that town, which would leave
+  the town holding a charter for something it no longer makes.
+- **«−1 домик»** takes the good's worst placement and hands the room to whichever
+  good suits it best.
+- **«Сохранить план» and «Вернуть сохранённое».** A fresh plan saves itself, so
+  it is its own baseline; saving again re-bases wherever the editing has got to.
+- **«Показать изменения»** writes only the locations that differ from the save —
+  after one edit that is two lines. `mods.bat → «Забрать диагностику из игры»` takes it out.
+
+**Pressing «Пересчитать» throws every edit away**, because that rebuilds the plan
+from the formula. That is what the save slot is for.
 
 - **Every building is one the game says may stand there.** `can_build_building`
   in the location's scope — terrain, rank, `location_potential`, and never an

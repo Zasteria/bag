@@ -1,0 +1,205 @@
+﻿# «Показать изменения»: where the plan differs from the one that was saved, and
+# nothing else on the map.
+#
+# The owner asked for exactly this, 2026-09-03, as step 7 of nine: «Нажимаю
+# кнопку "Показать изменения", отдельно вижу где и какой товар ушёл, а какой туда
+# встал. Ожидаю увидеть там точечно небольшое количество изменения, а не
+# полностью сдвинутый план по всей земле.»
+#
+# **The comparing is done in script and this window only draws it.** A datamodel
+# cannot ask two variable lists to differ, so `bag_wtp_edit_changes` walks the
+# plan, leaves `bag_wtp_chg_out` and `bag_wtp_chg_in` on each location that moved
+# and lists those locations in `bag_wtp_chg_locs` -- which is also why the window
+# is empty rather than wrong when nothing has been edited.
+
+types BagWtpChangesTypes {
+
+	# One good, as a texticon. Two of these lists per row: what left, what arrived.
+	type bag_wtp_chg_goods_entry = widget {
+		size = { 30 24 }
+		text_single = {
+			parentanchor = center
+			autoresize = yes
+			fontsize = 16
+			raw_text = "[Goods.GetIcon]"
+			tooltip = "[Goods.GetName]"
+		}
+	}
+
+	# One location the editing moved: its name, what went out, what came in.
+	type bag_wtp_chg_entry = hbox {
+		layoutpolicy_horizontal = expanding
+		size = { -1 34 }
+		spacing = 6
+		using = bg_number_container_bckg
+
+		# The map answers the row, the same way a plan row does.
+		onmousehierarchyenter = "[PdxGuiWidget.SetHighlightLocation(Location.Self)]"
+
+		text_single = {
+			size = { 200 34 }
+			autoresize = no
+			maximumsize = { 200 34 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "[Location.GetName]"
+		}
+
+		text_single = {
+			size = { 160 34 }
+			autoresize = no
+			maximumsize = { 160 34 }
+			align = left|vcenter
+			fontsize = 13
+			elide = right
+			text = "[Location.GetProvinceDefinition.GetName]"
+		}
+
+		text_single = {
+			size = { 70 34 }
+			autoresize = no
+			align = right|vcenter
+			fontsize = 13
+			text = "bag_wtp_chg_head_out"
+		}
+
+		widget = {
+			size = { 250 34 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_chg_out_tt"
+
+			hbox = {
+				parentanchor = left|vcenter
+				spacing = 4
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_chg_out')]"
+				item = {
+					bag_wtp_chg_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		text_single = {
+			size = { 70 34 }
+			autoresize = no
+			align = right|vcenter
+			fontsize = 13
+			text = "bag_wtp_chg_head_in"
+		}
+
+		widget = {
+			size = { 250 34 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_chg_in_tt"
+
+			hbox = {
+				parentanchor = left|vcenter
+				spacing = 4
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_chg_in')]"
+				item = {
+					bag_wtp_chg_goods_entry = {
+						datacontext = "[Scope.GetGoods]"
+					}
+				}
+			}
+		}
+
+		widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+	}
+}
+
+window = {
+	name = "bag_wtp_changes_window"
+	datacontext = "[GetPlayer]"
+	allow_outside = yes
+	alwaystransparent = no
+	parentanchor = center
+	widgetanchor = center
+	position = { 60 60 }
+	movable = yes
+	size = { 1120 560 }
+
+	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
+	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
+
+	widget = {
+		size = { 1120 560 }
+		using = bg_window_default_alt
+		allow_outside = yes
+
+		widget = {
+			parentanchor = right
+			position = { -5 5 }
+			size = { 40 40 }
+			ui_direction_button_holder_right = {}
+			button_close_alt = {
+				blockoverride "close_on_action" {
+					on_action = "[GetScriptedGui('bag_wtp_close_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+
+		vbox = {
+			using = window_margin_alt
+
+			window_header_alt = {
+				blockoverride "header_text" { text = "bag_wtp_chg_window_title" }
+				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			}
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				using = bg_secondary_inner_alt
+				margin = { 12 12 }
+				spacing = 6
+
+				# How many locations moved, printed rather than counted by eye. **It is
+				# the measurement that condemned the last build**: a weight fed into a
+				# re-plan moved 42 locations of 48 on one press, and this line is where
+				# that would have been obvious without a log.
+				text_single = {
+					size = { 1070 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 14
+					elide = right
+					text = "bag_wtp_chg_moved"
+					tooltip = "bag_wtp_chg_moved_tt"
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					autoresize = yes
+					maximumsize = { 1070 60 }
+					align = center
+					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_chg_locs')))]"
+					text = "bag_wtp_chg_window_empty"
+				}
+
+				scrollbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					blockoverride "scrollbox_content" {
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = preferred
+							margin = { 10 8 }
+							margin_right = 20
+							spacing = 3
+							ignoreinvisible = yes
+							datamodel = "[GetGlobalList('bag_wtp_chg_locs')]"
+							item = {
+								bag_wtp_chg_entry = {
+									datacontext = "[Scope.GetLocation]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -136,6 +136,15 @@ bag_wtp_on_button = {
 		bag_wtp_clear_ticks = yes
 	}
 
+	# The plan editor: the settings page only opens its window. Everything the
+	# editor does is a button inside `bag_wtp_edit_window.gui` and goes through
+	# `bag_wtp_window_gui.txt`, because the good it works on arrives as a scope
+	# from the icon that was clicked and a Mod Menu button cannot carry one.
+	if = {
+		limit = { var:cmf_callback = flag:bag_wtp__edit_open }
+		bag_wtp_open_edit_window_effect = yes
+	}
+
 	# The diagnosis. Nothing of the mod's own state is touched by it -- it reads
 	# what the last pass left and writes only its own scratch globals -- so the
 	# window is deliberately not opened and not refreshed: pressing this must

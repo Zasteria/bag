@@ -152,12 +152,60 @@ would pick the bonus up.
 These are GUI data functions. There is no script-side counterpart in
 `common/scripted_triggers/`, so a filter `trigger` cannot call them directly.
 
+**Only the RGO feeds it, and a building next door does not.** Asked on
+2026-09-03 because a whole class of recipes scores near nothing in
+`where_to_produce`'s plan — cannons, firearms, jewelry, steel — and every one of
+them is fed by *made* goods, which the plan itself would be putting in the same
+province. If the engine counted a neighbour's output the plan would be blind to
+its own work and the formula would need a second pass. It does not, and the game
+says so in its own tooltip:
+
+```
+PROD_METHOD_BONUS_ACTIVE: "This [building] has increased [production_efficiency]
+because some of its inputs are produced by the [rgo_with_icon] of the
+@province! [province]."
+```
+
+«…поскольку часть потребляемых им товаров **добывается** в провинции» in the
+Russian. The bonus is the province's raw materials and nothing else, which is
+what its own name says and what `raw_material` is. **Read off
+`interfaces_l_english.yml` and its Russian twin, not measured in play** — but it
+is the string the game shows for this exact bonus, and no reading of it leaves
+room for a workshop's output.
+
+So a deep recipe scoring low is the truth about the ground and not a fault in the
+formula. The player reasons «дерево и свинец — вот оно» because he knows the
+chain will be local; the engine pays him for the lead and not for the chain.
+
 ## The interface
 
 Everything about windows, lists, view objects, scripted widgets and the map's own
 selection is in [`interface.md`](interface.md) — same entries, moved when this
 file outgrew its budget rather than trimmed. Ask for one:
 `python3 tools/kb.py <words>`.
+
+## A condition read out of the game's files is answered in a scope
+
+**And the scope is half the rule.** 2026-09-03, `where_to_produce`: the town
+rights that forbid one another were read out of their `allow` blocks and turned
+into a country rule — "a country that can grant the excluder never sees the
+excluded one". The block says
+
+```
+allow = { scope:target = { NOT = { has_town_rights = town_rights_type:royal_textile_rights } } }
+```
+
+and `scope:target` in a town right is **the town**. The rule is "one town does
+not hold both" and it says nothing whatever about a country. Eight pairs in the
+game carry one. Read a scope too wide and it cost every Scandinavian country its
+two best charters, in the plan and in the window alike, with no error anywhere:
+the derived condition was valid script and simply meant something else.
+
+**So when a rule is derived from a file rather than typed, name the scope it was
+read in and check that the mod asks it in the same one.** A derived rule is
+better than a typed list — it survives a patch — but only where the derivation
+keeps the scope. The generator now asserts the pair it still relies on is still
+in the game, so a patch that drops it is a build error and not a wrong answer.
 
 ## What gates a production method
 

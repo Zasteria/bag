@@ -38,158 +38,112 @@ a filter that filters: the screenshot already says it.
 
 ## Runs
 
-**2026-09-03 — `where_to_produce`, пять нажатий, и в них видно, что ковровый
-проход не ставил ничего.** Вестфалия / Мюнстер, 48 локаций все городами, «на
-конец» (нажатия 1, 3, 5), «сейчас» (2), и одно нажатие по большой области — 233
-локации, 41 провинция, квота 16 (4). Разбор целиком в
-[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
+**2026-09-04 — `where_to_produce`, отчёт назвал причину с первой попытки.**
+40 нажатий, диагностика.
 
-- **`P31 cover` поставил 0 и `P32 open` поставил 0**, потому что `P30
-  band0/tierall` уже добил землю до 192 из 192. Гарантия «все товары
-  производятся» не выполнялась: `stone` кончил план с `ng=6 w=6 n=0` — ноль
-  зданий там, где шесть локаций его могут сделать.
-- **Ни одной печки болотного железа.** `iron ng=4 o=0 q=2 n=1`: выигрыш ноль
-  везде (у добывающего здания нет входов-товаров), поэтому железо входит только
-  на полосе 0, а к ней его четыре локации заняты.
-- **Оружейная грамота одна на всю область и в пустом месте.** В шести городах
-  Зауэрлэнда корабельная платит **1000**, оружейная **163**; корабельная взяла
-  все шесть в полосе 800, и ковровая лестница грамот, идущая после полос, отдала
-  оружейную Эльсфлету, где та стоит **0**. Ювелирная — то же самое, 1 штука.
-- **Ярусы редкости не работают:** все ярусные проходы вместе поставили **5
-  зданий из 84**, остальные 79 сделали пять проходов `tierall`. Полоса стоит
-  снаружи яруса, у редких товаров выигрыш низкий, и до полосы 0 они не ходят.
-- **Оценка выданных прав, измеренная:** Зауэрлэнд — корабельная 1000, смоляная
-  1000, книжная 896, инструментальная 799, фламандская 454, оружейная 163,
-  ювелирная 0. Грамот доступно 9, городов 48, `_rquota = 48 ÷ 9 = 5.33` → по 6
-  на грамоту; фламандская взяла 10 (6 + 4 в открытом проходе).
-- **Квота грамот теперь честная**, фикс двойного счёта виден: `cloth q=13 n=13`,
-  `dyes q=9 n=9` — квота 2 плюс то, что дали грамоты.
-- **`diag.py` всё это время отдавал сырой лог.** `render_rq` печатает строку без
-  метки `WTP`, предохранитель считал её потерей и срабатывал на каждом отчёте, а
-  «коротко» складывалось по всем пяти нажатиям сразу («выдано 263»). Исправлено
-  и проверено на этом же файле.
-- **Сделано по итогам, ни одно не проверено в игре:** ковровая лестница у товаров
-  и у грамот перенесена в начало, до полос.
+- **Строки `WTP EDIT` окупились сразу.** `evicted=1 room=1 | placed_before=191
+  placed_after=192` при `done=0 fail=1`: выселение прошло, место было, поставить
+  не удалось, жертву вернули. Всё это без единой догадки.
+- **Причина: `_edit_good` был переменной страны, а читался в области локации.**
+  `bag_wtp_edit_add` читает его дважды — сверху, где область это страна (и там
+  всё работало: `fitn=42 cands=42`), и внутри `ordered_in_global_list`, где
+  область это **локация**. `var:` там спрашивает у локации переменную, которой у
+  неё нет, поэтому `add_dispatch` не совпадал никогда. То же самое в
+  `drop_dispatch` и в исключении товара из заливки — **все три внутри обхода**.
+  Отсюда: «+1» выселяет и возвращает, «−1» говорит «сделано» и не делает ничего.
+  Одна ошибка на три сборки.
+- **Исправлено: `_edit_good` — глобальная.** Число, которое редактор несёт через
+  области, глобальное, без исключений.
+- **`check_script.py` теперь ловит этот класс**: имя, которое пишут только
+  `set_global_variable`, а читают голым `var:` (и наоборот). Проверено поломкой
+  нарочно.
+- **Отдельно из этого же отчёта, на его вопрос про 64%:** земля кормит 123 здания
+  из 192. Это не алгоритм — это Вестфалия. РГО тут есть только у 11 товаров
+  (`livestock 6, wool 6, coal/fiber_crops/salt/stone 3, clay/iron/lumber/sand 2,
+  fish 1`), а план обязан поставить 35 товаров. У 24 из них `rgo=0`, и на этой
+  земле их рецепты не может накормить ничто. 80–95% были у поиска **одного**
+  товара, где верхние строки списка по определению накормлены.
 
-**2026-09-03 — `where_to_produce`, the covering ladder placed the weaponry charter
-and could not place jewelry, and the quota collapsed to 2.** Westphalia, all 48
-locations ticked to towns, «на конец».
+**2026-09-04 — `where_to_produce`, правка ставит домики сверх лимита и ничего не
+убирает.** 49 нажатий, диагностика и два скриншота.
 
-- **Weaponry went from 0 to 1**, so the covering ladder works. **Jewelry stayed at
-  0**, and the cause is one comparison: the winner is taken with `rtry > rbest`
-  and `rbest` started at **0**, so a charter the ground pays exactly nothing for
-  could never win even when it was the only one left. Westphalia has no precious
-  metal, jewelry scored 0 in all 48 towns. `rbest` starts at -1 now.
-- **Flemish took 11 against everyone else's 6, and it is not double counted.**
-  `fine_cloth` scores 0 on this ground, cloth 908, so flemish is `(908+0)/2 = 454`
-  and royal textile `(908+0+0)/3 = 303`. The same cloth, divided by a smaller
-  bundle. That is «все права равны», working as he asked for it.
-- **The bonus is counted once a province, not once a location.** He asked
-  directly; `_b<n>` reads `any_location_in_province_definition`, which is a
-  boolean. Five coal locations pay exactly what one pays.
-- **The weaponry charter landed in Dortmund at 62 and not in Sauerland at 163**
-  because by the covering ladder's last band the Sauerland towns were already
-  full — they had taken the naval charter, which scores 1000 there.
-- **And the quota fell to 2 — but the fault was not the quota, it was double
-  counting.** 48 towns all took a charter and the charters ate 109 of the 192
-  rooms, so `(rooms − rights) ÷ 35 goods` came out at **2**. That subtraction is
-  correct and every good pays it once. What was wrong is that `_pn<n>` — the
-  good's own counter, which the allocator reads against that cap — **was never
-  cleared of what the charters had put down**, so the same 109 buildings were
-  charged a second time, good by good. `tools` entered the allocator at `_pn = 6`
-  (all six from the six tooling charters, which landed in the Ruhr at 200 because
-  Sauerland's towns had taken the naval charter at 1000) against a cap of 2, and
-  could not take a single free room in Sauerland at **799**. It finished the plan
-  with the charters' six and none of its own. **Fixed:** `_plan_set_quota` adds
-  `_pn<n>` back into `_pq<n>`, so the cap is the good's share of the *free* rooms
-  on top of what its charters already built. Not run.
+- **Сверх лимита.** 219 зданий вместо 192, Фризойте — 18 при `cap_urban=4`.
+  В списке изменений четыре локации, у всех «ушло: пусто» и длинный «встало».
+  **Ни одного выселения за 49 нажатий.**
+- **Причину назвать нечем.** Обход выселяет при `_esg > 0` и полной локации, а
+  ставит только при `_edit_room = 1`, то есть `load < cap`. Оба условия читают те
+  же переменные, что и план, который сам ровно 192 и не переполняет. Прочитано
+  всё: `_edit_worst`, `_edit_scan`, `_edit_place`, `_plan_is_town`, `_plan_can`.
+  Расхождения в тексте нет.
+- **Поэтому — измерение, и он попросил его сам**: «Добавляй скан информации для
+  себя в диагностике на функцию редактора». В отчёте три строки `WTP EDIT`:
+  что нажали, что нашёл скан, и что обход увидел там, где встал — `hit`, `town`,
+  `load`, `esg`, `esw`, `evicted`, `room`, `placed` до и после, оба лимита.
+  Числа локации паркуются в глобальные прямо в обходе: `debug_log` не достаёт до
+  элемента, на котором стоит walk. `tools/diag.py` печатает их в «коротко».
+- **И предохранитель: `_edit_place_*` снова спрашивает лимит.** Причина не в
+  том, что я знаю ответ, а в том, что **постановка, которая не умеет сказать
+  «нет», портит план**. Теперь она откажет, а отчёт скажет, кто из двух ошибся.
+- **Замок грамот вернулся, по его второму слову.** «Я бы предпочёл не забирать
+  домики по частям у городских прав. Я бы скорее предпочёл забирать у города
+  целиком всю связку право+его домики.» Целая связка — то, что надо строить;
+  до тех пор домики грамоты не трогаются.
 
-**2026-09-03 — not a run: the owner asked where a copper tools recipe came from,
-and three faults came out of the answer.** «У моей нации был только 1 рецепт, тот
-что с оловом… этого метода не должно было быть как кандидата в принципе.»
+**2026-09-04 — `where_to_produce`, нажатия дошли, и это назвало два бага.**
+Вестфалия, план сохранён в слот 1.
 
-- **He is right about the recipe, and right about the numbers.** `copper_tools_guild_maintenance`
-  is unlocked by `copperworking`, whose `potential` is `is_capital_mesoamerica`.
-  What the plan actually chose in Goslar was `bronze_tools_guild_maintenance` —
-  copper **and tin**, tin missing, 9.26% of 10 → **926**, which is the 925 in the
-  report. My «copper feeds it whole» was wrong; his reading was right.
-- **Fault one: a paired method escapes its advance.** A pair's key is
-  `base+improvement` and `copperworking` says `unlock_production_method =
-  copper_base`, so the lookup missed all four `copper_base+*` jewelry recipes.
-  Münster was being offered a Mesoamerican recipe **in the «сейчас» plan**.
-- **Fault two: «на конец» assumed every advance is eventually in.** 45 of the 181
-  advances that unlock a building or a method are locked to a tag, a culture
-  group or a region, and 13 of the mod's 241 methods sit behind one. That is how
-  **five porcelain guilds landed in northern Germany** — the kiln wants an
-  east-Asian capital. `_reach_<n>` asks the advance's own `potential` now.
-- **Fault three, mine, from 2026-09-02.** `hand_cannon_guild` went into
-  `ALWAYS_AVAILABLE` as «the first firearms building»; its advance wants an
-  east-Asian capital, so that handed a Chinese building to everyone. It is
-  `gun_smith` — age 2, no `potential` — and **his original «огнестрел во второй
-  эпохе» was right all along.**
-- **And the enhancement question, closed by him.** Base is 9.09 of the 10 points
-  and the trim is 0.91, so the coincidence he wanted to chase is worth under one
-  per cent: «нет смысла рвать задницу ради ~1%». The 10% split is the game's own
-  arithmetic and the mod keeps matching it.
+- **Счётчик и подписи сработали как задумано.** Железо → «стоит уже везде, где
+  эта земля умеет» (верно: `ng=4 n=4`). Текстиль → **«поставить не удалось, и всё
+  осталось как было»** — то есть нажатие дошло, место освободилось, постановка
+  отказала. Это та самая ветка, ради которой она делалась.
+- **Баг 1: скан и постановка спрашивали разное.** Скан выбирал локацию по
+  `_edit_fits_*` (без комнаты), а ставил `_plan_try_*` через `_plan_can_*`,
+  который комнату требует. Два предиката вместо одного — и в день, когда они
+  разошлись, окно не могло сказать почему. **Теперь предикат один**:
+  `_edit_place_*` — то же самое размещение под `_edit_fits_*`, а комнату
+  освобождает и проверяет сам обход.
+- **Баг 2: «−1» отдавала место обратно тому же товару.** Он в заливке подходит по
+  построению — только что там стоял — и почти всегда лучший. Отсюда «нажатие
+  сделано» и ноль изменений. Заливка теперь его исключает.
+- **Замок грамот снят, по его слову.** «В том числе городские права и их домики —
+  не должны быть жёстко зарезервированы в этот момент.» Это была моя выдумка, и
+  она стоила дорого: грамота есть у каждого города и запирала 2–3 из 4 домиков,
+  так что у «+1» была одна-две законные жертвы на город. **У редактора осталось
+  ровно одно своё правило** — последний домик товара на земле не забирается.
+- **Не сделано и названо: «+1»/«−1» для городских прав.** Грамота сажает свою
+  связку через ту же машину размещения, которая до этой сборки отказывала, — её
+  надо увидеть работающей раньше.
 
-**2026-09-03 — `where_to_produce`, the gain fix held and the quota was caught
-handing out a charter worth 90.** «Тонкое сукно ушло из Гослара.» 992 of 1309
-buildings now earn something, up from 966.
+**2026-09-03 — `where_to_produce`, окно открылось и оказалось без органов
+управления; выкачка файлов ничего не изменила, и это был верный ответ.**
 
-- **Goslar is arithmetic, not a fault, and his reading of it is right.** «Сейчас»:
-  tooling **925** against jewelry **909** — a genuine near-tie, copper feeding
-  `copper_tools_guild_maintenance` whole. «На конец»: tooling **0** and jewelry
-  909, so the jewelry charter takes it. His own words for why, and the numbers
-  agree: «в конце инструментам в целом нахер не нужна медь». The end-game tools
-  recipe is the iron mill, which wants iron and coal and has no copper option.
-- **The book charter fell from 984 to 710**, which is the paper inflation gone.
-  Predicted and confirmed.
-- **But Vorpommern is a plain fault and he found it.** Both its towns took the
-  **jewelry** charter, which their ground pays **90** for, while the artisan
-  charter at **316** stood beside it. Amber is all that province has and amber is
-  a trim, not a base — so the score was right and the grant was not.
-- **The cause is the quota in the last band.** The passes were 800, 600, 400,
-  200, 0 with the quota on, then band 0 with it lifted. **A pass that admits
-  anything at all while the quota is still on** is what granted jewelry at 90:
-  artisan, masonry, tooling and flemish were each already at the quota of
-  61 towns ÷ 9 grantable rights ≈ 6, and jewelry was not. Brewing ended on 14, so
-  the quota did not even buy evenness — it only misallocated at the bottom.
-- **Fixed by dropping that pass**: the bands above 0 spread the charters, and the
-  open pass lets the ground decide alone. A town whose best charter is worth
-  under 200 waits for it and takes its real best. Not run.
+- **В редакторе не было кнопок, потому что они появлялись только после клика по
+  иконке.** Владелец: «там только их иконки и ничего больше… никаких кнопочек +1
+  или -1». Второй список убран целиком: «−1» и «+1» теперь стоят у каждого товара
+  в самом списке. Плюс на экране появилась третья ветка «последнего нажатия» —
+  «товар не дошёл до эффекта», чтобы сломанная кнопка больше никогда не читалась
+  как отказ правила.
+- **Порядок домиков в строке снова не тот, но в другую сторону.** Канонический
+  порядок по номеру товара разбил привычную группировку: связка грамоты стояла
+  первой, теперь перемешана. «Красота опять попортилась, но уже в другом месте.»
+  Теперь первыми идут товары связки той грамоты, что выдана этому городу, потом
+  остальные по номеру.
+- **`git ls-files reference/game/in_game/gui` = 408, и выкачка скопировала ровно
+  408.** GitHub Desktop сказал «нет изменений» и был прав: `in_game/gui` лежал в
+  репозитории целиком с самого начала. **Моя прошлая фраза «его не просил
+  манифест» была неверной** — папка была, просто попала туда не через манифест. И
+  `gui/scripted_widgets/` там нет и быть не могло: у ванили такой папки нет
+  вообще, это механизм только для модов.
+- **Инструмент теперь считает не скопированное, а изменённое.** «1098 файлов»
+  ничего не говорило; теперь «1085 файлов, 0 из них новых или изменённых» и
+  прямая строка о том, что коммитить нечего и это ответ, а не сбой. Проверено
+  двумя прогонами подряд.
 
-**2026-09-03 — `where_to_produce`, the provinces specialised, and the probe named
-the last fault.** «Провинции действительно сильно специализировались… мне
-нравится куда стремится мод.» One province alone gave five towns five different
-rights and every building из прав matched them.
-
-- **Goslar, at last, with numbers.** `WTP RQ` on the «на конец» plan: **books
-  984, jewelry 909**, tooling 925 on «сейчас». So the mod *does* see the silver —
-  jewelry scoring 909 is near its best anywhere — and it lost honestly, by 75 and
-  by 16 out of 1000. No bug in the rights themselves.
-- **But the numbers it lost to were inflated, and that is a real fault.** `gain`
-  was `bonus ÷ the chosen recipe's own ceiling`. A `fine_cloth_guild` running the
-  plain base with a fur trim has one raw input and a ceiling of **2.86%**, so a
-  province with fur and nothing else fed it whole and it scored **1000** — the
-  same as a perfect wool province — for 2.86% on an output of 0.7. That is why
-  fine cloth stood in Goslar: «там ничего для него нет, только мех для
-  улучшения».
-- **117 of 241 methods were inflated this way, across 21 of the 47 goods**, and
-  `paper` is among the worst: `paper_guild_cloth_maintenance` is 1.66% of paper's
-  10% and was scoring 1000. Paper is one third of the book charter, and the book
-  charter is what took Goslar.
-- **The divisor is the good's best ceiling in the game now**, not the recipe's
-  own. The fur recipe reads 286 and a wool province 833, which is his order. The
-  reason to normalize at all is untouched: a good whose *best* recipe tops out at
-  5% still competes with one that reaches 10%.
-- **His scarcity point is not built and deliberately so.** Jewelry can be *made*
-  in all 416 locations (`ng=416`), so the tier ladder — which counts where a good
-  can stand — treats it as common; what is scarce is where the ground *pays* for
-  it. That wants a band-relative count and it is a second change; the gain fix
-  moves all three of Goslar's rivals, so it goes first and alone.
-
-**Older `where_to_produce` runs — the thirteen-zero probe, the level rights, and
-the roll-back to the thirty-eighth load — are in
+**Older `where_to_produce` runs — the window that first opened, the first
+levelling press, the relative ladder,
+the large ground, the gain fix, the charter worth 90, the specialised provinces,
+the thirteen-zero probe, the level rights and the roll-back to the thirty-eighth
+load — are in
 [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).** Superseded by the
 runs above; kept because what they measured about the game stands.
 
@@ -262,8 +216,11 @@ Kept here so it is one list rather than scattered through prose:
 - whether anything in `goods_target` runs on a monthly pulse. Its lists,
   readings and ticks are confirmed on screen; nothing periodic is.
 - `rgo_bonus_filter`'s build-panel chip.
-- **`where_to_produce`'s «В конце» plan.** Every run so far has been «сейчас»,
-  and on Münster nine goods scored 0 for want of an advance — which is exactly
-  the case the second button exists for.
+- ~~**`where_to_produce`'s «В конце» plan.**~~ **Run 2026-09-03**, three times.
+  What is still never run is **the whole plan on a large ground since the
+  ladders were rebuilt**: Westphalia is 48 locations and its answer came back
+  identical to the old build's, so nothing there tests the change. The press
+  that would is the one of the earlier report — northern Germany, 233 locations,
+  where the open pass used to place 271 buildings of 770.
 - Everything `nd_ru` has translated apart from Westphalia — 3 600 keys that have
   never been on screen.

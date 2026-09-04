@@ -174,28 +174,32 @@ on 2026-09-01. **Not built besides:** the hand weight (his «+1 этому то�
 which is also the exception for wood, glass, masonry and stone — under the quota
 it is a multiplier on one good's share, one CMF numeric field and no new round),
 regret ordering inside a tier, and choosing which goods to plan — the plan always
-plans all 47. **And terrain is asked but the country is not**: `can_build_building` in
-location scope deliberately ignores advances, so the plan will offer a building
-whose advance is a century away. For «На конец» that is right; for «Сейчас» it is
-not, and the ranking's own `bag_wtp_avail_<n>` is the fix when it matters.
+plans all 47.
+
+**The country is asked now, and on both sides.** «Сейчас» scores a method only
+inside `bag_wtp_avail_<n>`, so it will not offer a building whose advance is a
+century away; «В конце» asks `bag_wtp_reach_<n>` instead, which is the advance's
+own `potential` — what no country of this shape can ever take. Since 2026-09-03
+the **charters** obey the same split: `_plan_right_gate_<k>` adds `has_advance`
+unless the plan is being drawn for the end.
 
 ## Still open
 
 - Whether the RGO count is over the planned ground only or the country too.
   Default proposed: both, since «наша территория» was his phrase.
-- **Within a tier the goods are still served in a fixed order.** The tiers deal
-  with the case that matters — a good with nowhere else to go — and inside one
-  tier the order is the goods list's. The province divisor takes most of the
-  sting out of it, since a good that has just placed drops behind the ones that
-  have not; whether regret (`best − second best`) adds anything on top is a
-  question for after the first run with the divisor in.
-- **Iron went from offered-everywhere to offered-nowhere.** The gate is right,
-  but whether a wetland location in Westphalia is among the candidates and simply
-  lost its slot, or is being refused for another reason, is not knowable from
-  here. `bog_iron_smelter` also carries `NOT = { raw_material = goods:iron }`.
-- Which right a province was given is not shown; the bundle's icons are the only
-  sign of it. A name would want a `customizable_localization` switching on the
-  index.
+- **Within a pass the goods are still served in a fixed order**, and the province
+  divisor that used to soften it is gone (removed 2026-09-03, and for good
+  reason). What softens it now is the band: two goods only tie on list order when
+  both clear the same 200-wide band in the same location. Whether narrower bands
+  or regret (`best − second best`) buys anything is a question for after a run,
+  and a band costs a sweep.
+- ~~**Iron went from offered-everywhere to offered-nowhere.**~~ **Answered by
+  the run of 2026-09-03**: `iron ng=4` on Westphalia, so four locations do host a
+  bog iron smelter and the gate is right. What it lost was its slot, and to
+  common goods — which is fault B in `plan_gaps.md`.
+- ~~Which right a province was given is not shown.~~ **Built**:
+  `bag_wtp_plan_right_label`, a `customizable_localization` of the mod's own
+  switching on the index the plan parked on the location.
 
 ## The trap this must not walk into
 

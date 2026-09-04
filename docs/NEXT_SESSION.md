@@ -4,28 +4,74 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `where_to_produce`, the plan formula
-
-**2026-09-03, the owner's own framing:** «Основная задача будет полностью
-проанализировать весь мод и решить, насколько он точен и оптимизирован, почему он
-работает одновременно и так хорошо и одновременно из него выпадают очевидные
-вещи, которые делают так плохо. У меня столько планов на этот мод, а я всё вожусь
-с этой формулой который день.»
+## The job: `where_to_produce`, the plan editor
 
 **Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
-nothing else.** It is the whole brief: five findings, each with the measurement
-from his log, the named cause, and what would settle it. Three are fixed and
-waiting on one run; two (B — the scarcity tiers are inert because the band is the
-outer loop; C — a deep recipe cannot score anywhere, by construction) are his
-decision to make and must not be changed unasked.
+nothing else.** The plan itself is finished and confirmed in game; the editor is
+what is live.
 
-**One run is owed** and it answers everything already done: Вестфалия / Мюнстер /
-«на конец», 48 locations all towns. What it has to show is in the TESTLOG entry
-of 2026-09-03 and at the end of `plan_gaps.md`.
+### Where it stands, 2026-09-04
 
-**Do not spend his run on a guess.** Every fault in that file was found by
-counting in his log, not by theorising, and the four-theories rule
-(`pitfalls/diagnosis.md`) is what this mod cost him already.
+**The plan works and he has seen it.** 192 buildings in 192 rooms on Westphalia,
+charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
+relative open ladder, which does not engage on 48 locations and wants a large
+ground.
+
+**The editor's window opens, the picker draws, the presses arrive.** Everything
+in that sentence cost a run to establish. What is **not** confirmed is the one
+thing it exists for: **no «+1» or «−1» has ever been seen to change the plan.**
+The last build fixed the reason and has not been loaded.
+
+### Five silent faults, and all five are written down
+
+Nothing in any log for any of them. **The table is in
+[`pitfalls/interface.md`](pitfalls/interface.md)** — a `flowcontainer` with a
+`datamodel` (four crashes), a `fixedgridbox` that overlapped its cells, a build
+nobody ran treated as a baseline, a global surviving a save and lying about the
+present, and `_edit_good` read on the wrong scope. Two are checkers now.
+
+**The last was named by the first report that carried the editor's numbers**, not
+by the fourth guess, and that is worth more than the fix: **instrument before the
+third theory** (`pitfalls/diagnosis.md`).
+
+### What the next press has to show
+
+One press of «+1» on any good with room, then «Показать изменения». **A row with
+both `ушло:` and `встало:`.** If it misses, «Диагностика» → the `EDIT` lines say
+which stage failed, and no theorising is needed or wanted.
+
+### What he asked for and is owed, in his order
+
+1. **«+1»/«−1» for urban rights, and eviction of a whole bundle.** «Я бы
+   предпочёл не забирать домики по частям у городских прав. Я бы скорее предпочёл
+   забирать у города целиком всю связку право+его домики.» The charter lock is
+   back meanwhile, so a town keeps the buildings its charter is for.
+2. **The two plan windows should fold by province.** 48 locations in a flat list
+   is noise; the single-good search already folds and is the model to copy.
+3. **A good may take a charter's slot, last of all** — his idea, unevaluated:
+   only where the charter's own good earns nothing from that ground, and the
+   claimant earns more than the 5% a broken bundle costs.
+4. **The editor should share nothing with the plan but load and save.** Largely
+   done — it places through `_edit_place_*` and asks `_edit_fits_*` — but the
+   scan, the walk and the counters still live in `bag_wtp_generated_editor.txt`
+   beside the plan's, and `_plan_rank`/`_plan_show` are called after every press.
+
+### Answered but not measured
+
+**Why «выгода от места» fell from 80–95% to 64%**: different questions. The old
+number ranked locations for **one** good, where the top rows are fed by
+definition; the plan places **35**, and Westphalia has RGOs for eleven, so 24
+goods have `rgo=0` and nothing here feeds their recipes. **A bigger ground should
+raise it — a prediction, not a measurement**, and one northern-Germany run
+settles it.
+
+**And the mistake the editor replaces**: a hand weight fed into a re-plan moved
+42 locations of 48 with a knob meant to move one. **A preference is an edit, not
+a term in the objective.**
+
+**Do not spend his run on a guess.** Every fault above was found by counting in
+his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is
+what this mod has already cost him.
 
 ## The job: `mods.bat`, and one run to confirm it
 
@@ -56,48 +102,18 @@ the message names the folder. The logs from whatever run follows go
 through `python3 tools/which_build.py <logs folder>` first, as always now. No
 menu entry runs `tools/extract_game_files.py` yet, and which should is open.
 
-## `where_to_produce`: what is settled and not in `plan_gaps.md`
-
-**The plan does what it was meant to and he has seen it** — «на первый взгляд
-работает как надо, города получают права и домики из прав», 2026-09-02. The tick
-is the rank (`SETTLED.md`), the charter spam is gone, the window pages, and the
-province ceiling and `plan_max` are removed at his word. The 2026-09-02 detail is
-in [`archive/testlog_wtp_plan.md`](archive/testlog_wtp_plan.md).
-
-**The single-good side** has faults he has seen and set aside without naming.
-
-**The diagnosis comes out when the work does.** `bag_wtp_diag*`, the `_f*` and
-`_pass*` counters, two buttons; `pitfalls/diagnosis.md` has what it prints, and
-`tools/diag.py` draws the conclusions so he does not have to.
+**What is settled about `where_to_produce` and not in `plan_gaps.md`** — the
+single-good side's known faults, the scarce-pass optimisation measured and left
+unbuilt, and where the diagnosis lives — is in
+[`archive/wtp_settled_asides.md`](archive/wtp_settled_asides.md).
 
 ## Then `glorpui_hints` goes out
 
-Nothing about the mod is outstanding. Riding along on whatever load comes next,
-none of it needing a protocol:
-
-- the five advance-gated privileges. Playing anyone but England, Morocco or the
-  Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be offered,
-  and `error.log` must not carry `svx_unlock_`;
-- `error.log` must no longer carry `Inconsistent trigger scopes` — a building's
-  `allow` was being copied into country scope. Clean on 2026-08-30, but on an
-  axis Wallachia does not have, so it is still open;
-- nine of the eleven languages, a console switch each. **A hot switch does not
-  re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
-- the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care. **If still not visible next time, offer to drop
-  them** — another mod's interface, and outside this mod's stated scope.
-
-### Then publish
-
-`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready, and the
-five steps — merge, load, Mod Tools, check the page, Required Items by hand —
-are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
-
-### Deliberately not done
-
-A thumbnail for the other five mods — `make_thumbnail.py` draws one when a second
-goes out — and reviewing the ten new translations with somebody who speaks them,
-where a correction goes in `languages.py` and never in a generated `.yml`.
+Nothing about the mod is outstanding; four things ride along on whatever load
+comes next, and publishing is five steps in
+[`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order). Both lists, and
+what is deliberately not done, are in
+[`archive/next_glorpui_publish.md`](archive/next_glorpui_publish.md).
 
 ## Also waiting on the owner, all of it cheap
 

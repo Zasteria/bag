@@ -33,37 +33,44 @@ the silent classes — a missing localization key, an effect never called, a val
 never read. Two of the four faults in `goods_target` were identified from the
 logs plus `reference/` in one pass, without a further run.
 
+## Instrument before the third theory
+
+**2026-09-04, the plan editor.** Four sessions and eleven of his runs went on a
+part of the mod the report could not see. Every press was invisible: «ничего не
+изменилось» covered a button that never fired, a rule that refused, a placement
+that silently failed and a walk that evicted and restored. Each session picked a
+theory, built a fix, and spent a run on it.
+
+**He ended it himself**: «Добавляй скан информации для себя в диагностике на
+функцию редактора, чтобы ты видел чё там происходит.» Three lines went into the
+report — what was asked, what the scan found, what the walk saw where it stood —
+and **the very next press named the cause**, which no amount of reading the code
+had:
+
+    EDIT asked  presses=40 op=1 good=… reached=1 | outcome done=0 fail=1
+    EDIT scan   fitn=42 cands=42 | walk hit=1 town=1 load=4 esg=9 esw=0
+    EDIT walk   evicted=1 room=1 | placed_before=191 placed_after=192
+
+Evicted, room found, placement refused, victim restored — `_edit_good` was a
+country variable being read in a location's scope. **The rule: the second time a
+part of the mod cannot be seen from the report, stop fixing and instrument it.**
+Not the fourth.
+
+**Three things make an instrumented press readable.** A counter that separates
+«the button never fired» from «a rule refused». State reset when the window
+opens, or a global from an hour ago reads as this press's result. And a `hit`
+flag, because 0 and «no walk happened» must not look alike.
+
+**A `debug_log` string cannot reach the item a walk stands on** — park the
+location's numbers into globals inside the walk, and print those.
+
 ## Four theories, three fixes, and the cause still unknown
 
-**2026-09-01, and it is why `CLAUDE.md` now forbids guessing.** One symptom —
-`where_to_produce`'s plan would not put glass in a town — drew four explanations
-out of a session in a row, each stated with more confidence than it had earned:
-
-1. *the ground has no sand* → wrong; the owner's screenshots showed the game
-   offering him a glass guild;
-2. *`can_build_building` refuses it, so glass is impossible in Westphalia* →
-   wrong, and it went into `SETTLED.md` before he disproved it;
-3. *the charter is granted where the bundle cannot be finished* → real, but not
-   the cause; fixing it changed nothing;
-4. *sand is in the market but not **produced** there* → unfalsifiable from here,
-   and the same run refuted it: **`glass_guild` and `rural_glassmaker` carry the
-   identical gate, and glass appears in the villages while never appearing in the
-   towns.** One condition cannot be true and false in one market.
-
-Each theory cost a fix and a run. **The run is the scarce thing** — only the
-owner can make one — and none of the four spent one on finding out.
-
-**And the shape of the mistake is the same every time: a condition was read out
-of `reference/` and then treated as a fact about the ground.** The tree says what
-a condition *is*, never whether it *holds* — market contents, RGOs and buildings
-are save state, and nothing here can see them. A `location_potential` explains why
-a good *might* be missing; only a run says whether it is. Say which of the two
-you have.
-
-What should have been built after the first miss is a probe: a counter per stage
-of the funnel, for one good, reported on the window. Availability, then
-buildability, then a method won, then the placement gate, then placed. One run
-reads it and the cause has nowhere left to hide.
+**The episode this whole instrument came out of**, and the rule it produced is in
+the root `CLAUDE.md`: *a cause you cannot name is not a cause — do not guess it,
+measure it.* Four of the owner's runs went on four theories about one symptom and
+none on a measurement. The narrative, and what each theory cost, is in
+[`../archive/diagnosis_four_theories.md`](../archive/diagnosis_four_theories.md).
 
 ## «Диагностика»: one press, everything, as text
 
@@ -101,6 +108,7 @@ which is itself the answer to «did the pass run at all».
 | `SELFTEST` | four lines that prove the dump itself, below |
 | `PICK` / `SET` / `PASS` | everything chosen, both caps, which question was asked, and the totals the header line shows |
 | `G<n>` | **one line per good, town and village apart**: `m` methods, `a` unlocked, `w` a method won, `r` of those with room left, `g` the gate would still open, `p` placed, `o` the best ordering it ever had — plus `ng`, the quota, the placements and the RGOs |
+| `EDIT` | **the last press of the editor, in three lines** — what was asked (presses, op, good, reached, done/fail/norefill), what the scan found (fitn, cands), and what the walk saw where it stood (hit, town, load, esg, esw, evicted, room, placed before and after, load after, both caps). The location's numbers are parked into globals inside the walk, because a `debug_log` cannot reach the item a walk is on |
 | `ROOM` | how many towns and villages still had room when the plan stopped |
 | `P<n>` | what each of the 32 allocation passes did: sweeps used out of the guard, and the running total after it |
 | `RIGHT <k>` | how many towns each urban right was granted in, and what it grants |
@@ -122,7 +130,7 @@ carry. Three readings have different owners:
 
 **Both caps print what they left out**, so a cap is never silently the answer.
 
-**How the text gets out of the game:** `mods.bat → 8`, or
+**How the text gets out of the game:** `mods.bat → «Забрать диагностику из игры»`, or
 `python3 tools/diag.py`. It finds the game's `logs`, takes the last report,
 strips the log prefixes, folds each location's goods back onto its own line and
 copies the result to the clipboard. `--raw` keeps the log's own shape; `--all`
@@ -158,30 +166,12 @@ records the probe finding the fault in the probe: `[glass, masonry]` in a
 
 ## A reader that guesses a format loses the run it was built for
 
-**2026-09-02, the first press.** The mod's half worked on the first load — button,
-callback, effect and `debug_log` all — and the owner got a file of **zero bytes**,
-because `tools/diag.py` cut the game's log prefix with a regex written against a
-*guessed* shape. Nothing matched, so no line came out starting with `WTP`, and the
-fold dropped every line it did not recognise.
-
-Three rules came out of it, and they are about any reader of anybody else's
-output:
-
-- **Cut at what you wrote, not at what they wrote.** `WTP` is in every line of
-  ours and in nothing else, so `line.find("WTP ")` is an answer where a regex
-  over the prefix is a prediction.
-- **Never drop what you do not recognise.** An unknown line goes through with a
-  mark on it. A reader that silently discards is indistinguishable from a mod
-  that never ran — which is exactly the confusion the whole instrument exists to
-  remove.
-- **Refuse to hand back nothing.** If the fold keeps less than half of what the
-  log held, the raw block is written instead and the tool says so. An empty file
-  is worse than no file: it looks like an answer.
-
-**And a press has to be visible where it was pressed.** He expected a window; the
-report is too long to read on screen and is not for him. The button's own
-description now prints what the last collect saw, the same way «Считать» prints
-its three numbers — so the press is never indistinguishable from a dead button.
+**Closed, and the whole episode is in**
+[`../archive/diagnosis_reader.md`](../archive/diagnosis_reader.md): `tools/diag.py`
+guessed at the report's shape, five presses were summed into one «коротко», and
+the run it was built for was spent reading a summary of the wrong thing. The rule
+it produced: **the reader and the writer are generated from one description, or
+the reader is a second guess about the first.**
 
 ## The report is not for the player, so the tool has to read it
 

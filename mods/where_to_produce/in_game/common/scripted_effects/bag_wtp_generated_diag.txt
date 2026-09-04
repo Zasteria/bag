@@ -27,8 +27,8 @@ bag_wtp_diag = {
 	if = { limit = { NOT = { has_global_variable = bag_wtp_diag_runs } } set_global_variable = { name = bag_wtp_diag_runs value = 0 } }
 	change_global_variable = { name = bag_wtp_diag_runs add = 1 }
 	debug_log_date = yes
-	error_log = "WTP the report is in debug.log, tag WTP, version 5. mods.bat -> 8 takes it out."
-	debug_log = "WTP ==== BEGIN v5 ==== everything to the next END is one press. Take it out with mods.bat -> 8, or tools/diag.py."
+	error_log = "WTP the report is in debug.log, tag WTP, version 5. mods.bat -> «Забрать диагностику из игры» takes it out."
+	debug_log = "WTP ==== BEGIN v5 ==== everything to the next END is one press. Take it out with mods.bat -> «Забрать диагностику из игры», or tools/diag.py."
 	bag_wtp_diag_build = yes
 	bag_wtp_diag_state = yes
 	bag_wtp_diag_scan = yes
@@ -45,8 +45,8 @@ bag_wtp_diag = {
 # Scope: country
 bag_wtp_diag_build = {
 	debug_log = "WTP BUILD methods=241 rural=13 goods=47 raw=25 made=22 rights=13 gated=10"
-	debug_log = "WTP BUILD rounds=50 passes=36 bands=800/600/400/200/0 tiers=1/2/4/8/16/0 rows=150 ranked=1500 result_rows=50 right_fit=2000 rank_scale=1000 right_slots=3"
-	debug_log = "WTP BUILD passes in order: 1=cover800, 2=cover600, 3=cover400, 4=cover200, 5=cover0, 6=band800/tier1, 7=band800/tier2, 8=band800/tier4, 9=band800/tier8, 10=band800/tier16, 11=band800/tierall, 12=band600/tier1, 13=band600/tier2, 14=band600/tier4, 15=band600/tier8, 16=band600/tier16, 17=band600/tierall, 18=band400/tier1, 19=band400/tier2, 20=band400/tier4, 21=band400/tier8, 22=band400/tier16, 23=band400/tierall, 24=band200/tier1, 25=band200/tier2, 26=band200/tier4, 27=band200/tier8, 28=band200/tier16, 29=band200/tierall, 30=band0/tier1, 31=band0/tier2, 32=band0/tier4, 33=band0/tier8, 34=band0/tier16, 35=band0/tierall, 36=open"
+	debug_log = "WTP BUILD rounds=150 passes=40 bands=800/600/400/200/0 tiers=1/2/4/8/16 rows=150 ranked=1500 result_rows=50 rank_scale=1000 right_slots=3"
+	debug_log = "WTP BUILD passes in order: 1=cover800, 2=cover600, 3=cover400, 4=cover200, 5=cover0, 6=band800/tier1, 7=band800/tier2, 8=band800/tier4, 9=band800/tier8, 10=band800/tier16, 11=band600/tier1, 12=band600/tier2, 13=band600/tier4, 14=band600/tier8, 15=band600/tier16, 16=band400/tier1, 17=band400/tier2, 18=band400/tier4, 19=band400/tier8, 20=band400/tier16, 21=band200/tier1, 22=band200/tier2, 23=band200/tier4, 24=band200/tier8, 25=band200/tier16, 26=band0/tier1, 27=band0/tier2, 28=band0/tier4, 29=band0/tier8, 30=band0/tier16, 31=band800/tierall, 32=band600/tierall, 33=band400/tierall, 34=band200/tierall, 35=band0/tierall, 36=open800, 37=open600, 38=open400, 39=open200, 40=open0"
 	set_global_variable = { name = bag_wtp_dv1 value = 12345 }
 	debug_log = "WTP SELFTEST 1 global-through-player=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] (expect 12345; anything else and every number below is wrong)"
 	debug_log_scopes = no
@@ -109,8 +109,14 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv10 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_sweeps } set_global_variable = { name = bag_wtp_dv10 value = global_var:bag_wtp_plan_sweeps } }
 	set_global_variable = { name = bag_wtp_dv11 value = 0 }
-	if = { limit = { has_global_variable = bag_wtp_found } set_global_variable = { name = bag_wtp_dv11 value = global_var:bag_wtp_found } }
-	debug_log = "WTP PASS placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] used_locs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] drawn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] goods_scored=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] rights_given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] ranked_provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0]"
+	if = { limit = { has_global_variable = bag_wtp_plan_prov_n } set_global_variable = { name = bag_wtp_dv11 value = global_var:bag_wtp_plan_prov_n } }
+	set_global_variable = { name = bag_wtp_dv12 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_opensw } set_global_variable = { name = bag_wtp_dv12 value = global_var:bag_wtp_plan_opensw } }
+	set_global_variable = { name = bag_wtp_dv13 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rquota } set_global_variable = { name = bag_wtp_dv13 value = global_var:bag_wtp_rquota } }
+	set_global_variable = { name = bag_wtp_dv14 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rlevel } set_global_variable = { name = bag_wtp_dv14 value = global_var:bag_wtp_rlevel } }
+	debug_log = "WTP PASS placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] used_locs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] drawn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] goods_scored=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] rights_given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] ordered_provs=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0] open_sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg12')|0] rquota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg13')|0] rlevels=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg14')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_fed } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_plan_fed } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
@@ -118,6 +124,52 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv3 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_plan_placed } }
 	debug_log = "WTP GAIN fed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | gain_total=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] out of 1000 a building -- fed is how many earn any bonus where they stand, gain is what they earn in all"
+	debug_log = "WTP EDIT legend: one press, three stages. asked -> scan -> walk. op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk found no candidate at all, so load/esg/esw below are stale. esg is the good the walk would evict (0 = none), esw its gain."
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_presses } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_presses } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_op } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_op } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_good } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_edit_good } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_reached } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_edit_reached } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_done } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_edit_done } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_fail } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_edit_fail } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_norefill } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_edit_norefill } }
+	debug_log = "WTP EDIT asked presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] reached=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | outcome done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_fitn } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_fitn } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_cands } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_cands } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_hit } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_ev_hit } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_town } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_ev_town } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_load } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_ev_load } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_esg } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_ev_esg } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_esw } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_ev_esw } }
+	debug_log = "WTP EDIT scan fitn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cands=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | walk hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] esw=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_evicted } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_evicted } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_room } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_room } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_mark } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_edit_mark } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_load2 } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_ev_load2 } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_placed } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_cap_urban } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_plan_cap_urban } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_cap_rural } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_plan_cap_rural } }
+	debug_log = "WTP EDIT walk evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | placed_before=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] placed_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | load_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | cap_urban=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] cap_rural=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
 }
 
 # The funnel. One walk, and the plan pays nothing for it: everything here is
@@ -135,6 +187,7 @@ bag_wtp_diag_scan = {
 	set_global_variable = { name = bag_wtp_diag_realt value = 0 }
 	set_global_variable = { name = bag_wtp_diag_forced value = 0 }
 	set_global_variable = { name = bag_wtp_diag_forcedr value = 0 }
+	set_global_variable = { name = bag_wtp_diag_moved value = 0 }
 	set_global_variable = { name = bag_wtp_fwt1 value = 0 }
 	set_global_variable = { name = bag_wtp_frt1 value = 0 }
 	set_global_variable = { name = bag_wtp_fgt1 value = 0 }
@@ -608,6 +661,106 @@ bag_wtp_diag_scan = {
 	every_in_global_list = {
 		variable = bag_wtp_plan_touched
 		change_global_variable = { name = bag_wtp_diag_locs add = 1 }
+		if = {
+			limit = { OR = {
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } }
+				AND = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } } }
+			} }
+			change_global_variable = { name = bag_wtp_diag_moved add = 1 }
+		}
+
 		# **Тумблеры считаются здесь, до разделения на стороны**, и это
 		# сознательно: 2026-09-02 он сбросил их в «авто», а окно показало города
 		# снова. Счёт по обеим сторонам различает «переменная вернулась» и «окно
@@ -1499,6 +1652,7 @@ bag_wtp_diag_scan = {
 # Scope: country
 bag_wtp_diag_goods = {
 	debug_log = "WTP GOODS legend: T=town R=village | m=methods(of them last-age) a=country has the advance w=a method won here r=of those, still has room g=the gate would still open p=placed o=best ordering it ever had (a band admits >= its own number) | ng=candidates that can make it q=quota n=placed both sides rgo=locations already yielding it as an RGO"
+	debug_log = "WTP GOODS reading q: it is `PASS quota` + what the charters placed for this good - `rgo`, floored at 1, and then + 1 for each sweep of the open ladder -- which is `PASS open_sweeps`. So the quota the allocator enforced is q - open_sweeps, and a good with n at that number was stopped by its quota and not by the ground."
 	debug_log = "WTP GOODS reading it: the first zero left to right is the stage. w>0 r=0 -- the ground filled up. w>0 r>0 g=0 -- the good or its building is already in every place that has room. g>0 p=0 -- the allocator never gave it a turn, so look at q, ng against the tiers, and o against the bands."
 	bag_wtp_diag_good_1 = yes
 	bag_wtp_diag_good_2 = yes
@@ -1568,7 +1722,9 @@ bag_wtp_diag_free = {
 	if = { limit = { has_global_variable = bag_wtp_diag_forced } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_diag_forced } }
 	set_global_variable = { name = bag_wtp_dv7 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_diag_forcedr } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_diag_forcedr } }
-	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ticks now set: town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] -- read live, so this says what the ticks are at this moment and not what the last plan saw"
+	set_global_variable = { name = bag_wtp_dv8 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_diag_moved } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_diag_moved } }
+	debug_log = "WTP ROOM walked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] towns=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] towns_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] villages_with_room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | town rank or above=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | ticks now set: town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] village=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] -- read live, so this says what the ticks are at this moment and not what the last plan saw | moved=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] locations differ from the plan before this one"
 }
 
 # Scope: country
@@ -3289,7 +3445,7 @@ bag_wtp_diag_good_47 = {
 	debug_log = "WTP G47 weaponry made | T m=7(2) a=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg13')|0] w=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] r=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg15')|0] g=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] p=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] o=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | R m=3(3) a=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg14')|0] w=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] r=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg16')|0] g=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] p=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] o=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] | ng=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] q=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] n=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0] rgo=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg12')|0]"
 }
 
-# What each pass of the allocator did. `sweeps=50` is a pass the guard
+# What each pass of the allocator did. `sweeps=150` is a pass the guard
 # cut off -- it wanted more rounds and was not given them -- and `placed` is the
 # running total at the end of that pass, so the difference between two lines is
 # what the second one put down.
@@ -3299,182 +3455,202 @@ bag_wtp_diag_passes = {
 	if = { limit = { has_global_variable = bag_wtp_passsw1 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw1 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl1 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl1 } }
-	debug_log = "WTP P1 cover800 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P1 cover800 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw2 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw2 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl2 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl2 } }
-	debug_log = "WTP P2 cover600 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P2 cover600 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw3 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw3 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl3 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl3 } }
-	debug_log = "WTP P3 cover400 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P3 cover400 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw4 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw4 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl4 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl4 } }
-	debug_log = "WTP P4 cover200 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P4 cover200 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw5 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw5 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl5 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl5 } }
-	debug_log = "WTP P5 cover0 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P5 cover0 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw6 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw6 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl6 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl6 } }
-	debug_log = "WTP P6 band800/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P6 band800/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw7 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw7 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl7 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl7 } }
-	debug_log = "WTP P7 band800/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P7 band800/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw8 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw8 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl8 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl8 } }
-	debug_log = "WTP P8 band800/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P8 band800/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw9 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw9 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl9 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl9 } }
-	debug_log = "WTP P9 band800/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P9 band800/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw10 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw10 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl10 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl10 } }
-	debug_log = "WTP P10 band800/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P10 band800/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw11 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw11 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl11 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl11 } }
-	debug_log = "WTP P11 band800/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P11 band600/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw12 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw12 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl12 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl12 } }
-	debug_log = "WTP P12 band600/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P12 band600/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw13 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw13 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl13 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl13 } }
-	debug_log = "WTP P13 band600/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P13 band600/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw14 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw14 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl14 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl14 } }
-	debug_log = "WTP P14 band600/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P14 band600/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw15 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw15 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl15 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl15 } }
-	debug_log = "WTP P15 band600/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P15 band600/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw16 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw16 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl16 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl16 } }
-	debug_log = "WTP P16 band600/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P16 band400/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw17 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw17 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl17 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl17 } }
-	debug_log = "WTP P17 band600/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P17 band400/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw18 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw18 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl18 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl18 } }
-	debug_log = "WTP P18 band400/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P18 band400/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw19 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw19 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl19 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl19 } }
-	debug_log = "WTP P19 band400/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P19 band400/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw20 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw20 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl20 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl20 } }
-	debug_log = "WTP P20 band400/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P20 band400/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw21 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw21 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl21 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl21 } }
-	debug_log = "WTP P21 band400/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P21 band200/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw22 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw22 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl22 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl22 } }
-	debug_log = "WTP P22 band400/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P22 band200/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw23 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw23 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl23 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl23 } }
-	debug_log = "WTP P23 band400/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P23 band200/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw24 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw24 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl24 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl24 } }
-	debug_log = "WTP P24 band200/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P24 band200/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw25 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw25 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl25 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl25 } }
-	debug_log = "WTP P25 band200/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P25 band200/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw26 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw26 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl26 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl26 } }
-	debug_log = "WTP P26 band200/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P26 band0/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw27 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw27 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl27 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl27 } }
-	debug_log = "WTP P27 band200/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P27 band0/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw28 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw28 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl28 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl28 } }
-	debug_log = "WTP P28 band200/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P28 band0/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw29 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw29 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl29 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl29 } }
-	debug_log = "WTP P29 band200/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P29 band0/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw30 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw30 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl30 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl30 } }
-	debug_log = "WTP P30 band0/tier1 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P30 band0/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw31 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw31 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl31 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl31 } }
-	debug_log = "WTP P31 band0/tier2 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P31 band800/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw32 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw32 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl32 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl32 } }
-	debug_log = "WTP P32 band0/tier4 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P32 band600/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw33 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw33 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl33 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl33 } }
-	debug_log = "WTP P33 band0/tier8 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P33 band400/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw34 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw34 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl34 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl34 } }
-	debug_log = "WTP P34 band0/tier16 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P34 band200/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw35 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw35 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl35 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl35 } }
-	debug_log = "WTP P35 band0/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P35 band0/tierall sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passsw36 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw36 } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_passpl36 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl36 } }
-	debug_log = "WTP P36 open sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/50 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	debug_log = "WTP P36 open800 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passsw37 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw37 } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passpl37 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl37 } }
+	debug_log = "WTP P37 open600 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passsw38 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw38 } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passpl38 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl38 } }
+	debug_log = "WTP P38 open400 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passsw39 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw39 } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passpl39 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl39 } }
+	debug_log = "WTP P39 open200 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passsw40 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_passsw40 } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_passpl40 } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_passpl40 } }
+	debug_log = "WTP P40 open0 sweeps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]/150 placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0]"
 }
 
 # How many towns each urban right was granted in, and what it grants. A charter
@@ -3484,43 +3660,95 @@ bag_wtp_diag_passes = {
 bag_wtp_diag_rights = {
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven1 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven1 } }
-	debug_log = "WTP RIGHT 1 constantinopolitan_silk_monopoly_rights (cloth, fine_cloth, silk) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_1 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { always = yes } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 1 constantinopolitan_silk_monopoly_rights (cloth, fine_cloth, silk) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven2 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven2 } }
-	debug_log = "WTP RIGHT 2 flemish_cloth_industries_right (cloth, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_2 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = flemish_cloth_making } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 2 flemish_cloth_industries_right (cloth, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven3 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven3 } }
-	debug_log = "WTP RIGHT 3 royal_artisan_rights (furniture, leather, pottery) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_3 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 3 royal_artisan_rights (furniture, leather, pottery) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven4 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven4 } }
-	debug_log = "WTP RIGHT 4 royal_book_rights (books, dyes, paper) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_4 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 4 royal_book_rights (books, dyes, paper) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven5 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven5 } }
-	debug_log = "WTP RIGHT 5 royal_brewing_rights (beer, liquor, wine) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_5 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 5 royal_brewing_rights (beer, liquor, wine) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven6 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven6 } }
-	debug_log = "WTP RIGHT 6 royal_jewelry_rights (jewelry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_6 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 6 royal_jewelry_rights (jewelry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven7 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven7 } }
-	debug_log = "WTP RIGHT 7 royal_masonry_rights (glass, masonry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_7 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 7 royal_masonry_rights (glass, masonry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven8 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven8 } }
-	debug_log = "WTP RIGHT 8 royal_naval_rights (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_8 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 8 royal_naval_rights (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven9 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven9 } }
-	debug_log = "WTP RIGHT 9 royal_textile_rights (cloth, dyes, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_9 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 9 royal_textile_rights (cloth, dyes, fine_cloth) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven10 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven10 } }
-	debug_log = "WTP RIGHT 10 royal_tooling_rights (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_10 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 10 royal_tooling_rights (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven11 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven11 } }
-	debug_log = "WTP RIGHT 11 royal_weaponry_rights (cannons, firearms, weaponry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_11 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = town_rights_enable } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 11 royal_weaponry_rights (cannons, firearms, weaponry) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven12 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven12 } }
-	debug_log = "WTP RIGHT 12 scandinavian_bergslag_privileges (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_12 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = scandinavian_bergslag_privileges_advance } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 12 scandinavian_bergslag_privileges (tools) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rgiven13 } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rgiven13 } }
-	debug_log = "WTP RIGHT 13 scandinavian_tar_privileges (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0]"
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { bag_wtp_plan_right_gate_13 = yes } set_global_variable = { name = bag_wtp_dv2 value = 1 } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_advance = scandinavian_tar_privileges_advance } set_global_variable = { name = bag_wtp_dv3 value = 1 } }
+	debug_log = "WTP RIGHT 13 scandinavian_tar_privileges (naval_supplies, tar) given=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] grantable=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] unlocked=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 }
 
 # One block per location the plan filled, best first. The line above each block
@@ -3530,6 +3758,7 @@ bag_wtp_diag_rights = {
 # Scope: country
 bag_wtp_diag_locations = {
 	set_global_variable = { name = bag_wtp_diag_n value = 0 }
+	debug_log = "WTP RQ legend: what the ground would pay for each charter in that town, out of 1000 -- 1=constantinopolitan_silk_monopoly_rights, 2=flemish_cloth_industries_right, 3=royal_artisan_rights, 4=royal_book_rights, 5=royal_brewing_rights, 6=royal_jewelry_rights, 7=royal_masonry_rights, 8=royal_naval_rights, 9=royal_textile_rights, 10=royal_tooling_rights, 11=royal_weaponry_rights, 12=scandinavian_bergslag_privileges, 13=scandinavian_tar_privileges. Each bundle good the town can make adds its own gain, each it cannot adds nothing, and the sum is divided by the whole bundle. The largest is the one the town took, unless its quota was already spent."
 	ordered_in_global_list = {
 		variable = bag_wtp_plan_ranked
 		order_by = bag_wtp_plan_rank_order
@@ -3584,7 +3813,6 @@ bag_wtp_diag_locations = {
 			change_global_variable = { name = bag_wtp_dv12 add = bag_wtp_rq12 }
 			set_global_variable = { name = bag_wtp_dv13 value = 0 }
 			change_global_variable = { name = bag_wtp_dv13 add = bag_wtp_rq13 }
-			debug_log_scopes = no
 			debug_log = "WTP RQ 1=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] 2=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] 3=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] 4=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] 5=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] 6=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] 7=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] 8=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] 9=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0] 10=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg10')|0] 11=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg11')|0] 12=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg12')|0] 13=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg13')|0]"
 		}
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } debug_log = "WTP LG clay" }
@@ -3634,13 +3862,106 @@ bag_wtp_diag_locations = {
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } debug_log = "WTP LG tar" }
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } debug_log = "WTP LG tools" }
 		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } debug_log = "WTP LG weaponry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } } } debug_log = "WTP LD -clay" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:clay } } } debug_log = "WTP LD +clay" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } } } debug_log = "WTP LD -coal" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:coal } } } debug_log = "WTP LD +coal" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } } } debug_log = "WTP LD -cotton" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cotton } } } debug_log = "WTP LD +cotton" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } } } debug_log = "WTP LD -dyes" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:dyes } } } debug_log = "WTP LD +dyes" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } } } debug_log = "WTP LD -fiber_crops" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fiber_crops } } } debug_log = "WTP LD +fiber_crops" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } } } debug_log = "WTP LD -fish" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fish } } } debug_log = "WTP LD +fish" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } } } debug_log = "WTP LD -fruit" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fruit } } } debug_log = "WTP LD +fruit" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } } } debug_log = "WTP LD -horses" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:horses } } } debug_log = "WTP LD +horses" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } } } debug_log = "WTP LD -incense" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:incense } } } debug_log = "WTP LD +incense" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } } } debug_log = "WTP LD -iron" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:iron } } } debug_log = "WTP LD +iron" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } } } debug_log = "WTP LD -ivory" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:ivory } } } debug_log = "WTP LD +ivory" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } } } debug_log = "WTP LD -livestock" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:livestock } } } debug_log = "WTP LD +livestock" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } } } debug_log = "WTP LD -lumber" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lumber } } } debug_log = "WTP LD +lumber" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } } } debug_log = "WTP LD -medicaments" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:medicaments } } } debug_log = "WTP LD +medicaments" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } } } debug_log = "WTP LD -salt" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:salt } } } debug_log = "WTP LD +salt" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } } } debug_log = "WTP LD -saltpeter" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:saltpeter } } } debug_log = "WTP LD +saltpeter" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } } } debug_log = "WTP LD -sand" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sand } } } debug_log = "WTP LD +sand" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } } } debug_log = "WTP LD -silk" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silk } } } debug_log = "WTP LD +silk" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } } } debug_log = "WTP LD -silver" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:silver } } } debug_log = "WTP LD +silver" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } } } debug_log = "WTP LD -stone" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:stone } } } debug_log = "WTP LD +stone" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } } } debug_log = "WTP LD -sugar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:sugar } } } debug_log = "WTP LD +sugar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } } } debug_log = "WTP LD -tobacco" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tobacco } } } debug_log = "WTP LD +tobacco" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } } } debug_log = "WTP LD -wild_game" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wild_game } } } debug_log = "WTP LD +wild_game" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } } } debug_log = "WTP LD -wine" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wine } } } debug_log = "WTP LD +wine" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } } } debug_log = "WTP LD -wool" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:wool } } } debug_log = "WTP LD +wool" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } } } debug_log = "WTP LD -beer" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:beer } } } debug_log = "WTP LD +beer" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } } } debug_log = "WTP LD -books" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:books } } } debug_log = "WTP LD +books" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } } } debug_log = "WTP LD -cannons" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cannons } } } debug_log = "WTP LD +cannons" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } } } debug_log = "WTP LD -cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:cloth } } } debug_log = "WTP LD +cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } } } debug_log = "WTP LD -fine_cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:fine_cloth } } } debug_log = "WTP LD +fine_cloth" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } } } debug_log = "WTP LD -firearms" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:firearms } } } debug_log = "WTP LD +firearms" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } } } debug_log = "WTP LD -furniture" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:furniture } } } debug_log = "WTP LD +furniture" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } } } debug_log = "WTP LD -glass" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:glass } } } debug_log = "WTP LD +glass" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } } } debug_log = "WTP LD -jewelry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:jewelry } } } debug_log = "WTP LD +jewelry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } } } debug_log = "WTP LD -lacquerware" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:lacquerware } } } debug_log = "WTP LD +lacquerware" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } } } debug_log = "WTP LD -leather" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:leather } } } debug_log = "WTP LD +leather" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } } } debug_log = "WTP LD -liquor" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:liquor } } } debug_log = "WTP LD +liquor" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } } } debug_log = "WTP LD -masonry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:masonry } } } debug_log = "WTP LD +masonry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } } } debug_log = "WTP LD -naval_supplies" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:naval_supplies } } } debug_log = "WTP LD +naval_supplies" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } } } debug_log = "WTP LD -paper" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:paper } } } debug_log = "WTP LD +paper" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } } } debug_log = "WTP LD -porcelain" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:porcelain } } } debug_log = "WTP LD +porcelain" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } } } debug_log = "WTP LD -pottery" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:pottery } } } debug_log = "WTP LD +pottery" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } } } debug_log = "WTP LD -slaves_goods" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:slaves_goods } } } debug_log = "WTP LD +slaves_goods" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } } } debug_log = "WTP LD -steel" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:steel } } } debug_log = "WTP LD +steel" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } } } debug_log = "WTP LD -tar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tar } } } debug_log = "WTP LD +tar" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } } } debug_log = "WTP LD -tools" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:tools } } } debug_log = "WTP LD +tools" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } } } debug_log = "WTP LD -weaponry" }
+		if = { limit = { is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry } NOT = { is_target_in_variable_list = { name = bag_wtp_save_goods target = goods:weaponry } } } debug_log = "WTP LD +weaponry" }
 	}
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_diag_n } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_diag_n } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_found } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_plan_found } }
 	debug_log = "WTP LOCS printed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] cap=200 -- a cap is never silently the answer"
-	debug_log = "WTP RQ legend: what the ground would pay for each charter in that town, out of 1000 -- 1=constantinopolitan_silk_monopoly_rights, 2=flemish_cloth_industries_right, 3=royal_artisan_rights, 4=royal_book_rights, 5=royal_brewing_rights, 6=royal_jewelry_rights, 7=royal_masonry_rights, 8=royal_naval_rights, 9=royal_textile_rights, 10=royal_tooling_rights, 11=royal_weaponry_rights, 12=scandinavian_bergslag_privileges, 13=scandinavian_tar_privileges. Each bundle good the town can make adds its own gain, each it cannot adds nothing, and the sum is divided by the whole bundle. The largest is the one the town took, unless its quota was already spent."
 }
 
 # The single-good ranking's own answer, for the case where the plan is right and

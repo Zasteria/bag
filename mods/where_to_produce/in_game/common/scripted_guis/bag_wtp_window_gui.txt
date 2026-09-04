@@ -236,3 +236,150 @@ bag_wtp_plan_refresh = {
 		bag_wtp_plan_show = yes
 	}
 }
+
+# ---------------------------------------------------------------- the editor
+#
+# **Everything the editor does is here and nothing of it is on the settings
+# page.** He would not use it there, 2026-09-03: «это именно что окно настроек и
+# основных функций, я не хочу делать подобные вещи там». A Mod Menu button is a
+# script effect and cannot carry the good that was clicked; a window's button
+# can, which is the other half of the reason.
+
+bag_wtp_open_edit_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_open_edit_window_effect = yes
+	}
+}
+
+bag_wtp_close_edit_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_close_edit_window_effect = yes
+	}
+}
+
+# **There was a third bridge here and it is gone with the list it fed.** A good's
+# icon used to be a button that put the good into a second list, where «−1» and
+# «+1» then appeared; he opened the window and found no controls at all. The row
+# in the picker carries them now, so nothing has to be clicked to reveal them.
+
+# **The scope-passing bridges are gone with the datamodel that fed them.**
+# «+1» and «−1» used to take the good as a saved scope from a picker row. The
+# picker is written-out cells now (`bag_wtp_edit_cells.gui`), each calling its
+# own `bag_wtp_pick_plus_<n>`, because a scope reaches no numbered counter and
+# the count beside the good is what he asked for three times. Two ways into the
+# same effect is one way too many when the question is «did the press arrive».
+
+# The changes list, in a window of its own.
+bag_wtp_open_changes_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_open_changes_window_effect = yes
+	}
+}
+
+bag_wtp_close_changes_window = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_close_changes_window_effect = yes
+	}
+}
+
+# The three slots, two bridges each. **Named apart from the effects they call**
+# -- `_slot_save_1` here, `_edit_store_1` there -- so that a scripted GUI and a
+# scripted effect never share a name, however separate the two databases are.
+bag_wtp_edit_slot_save_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_store_1 = yes
+	}
+}
+
+bag_wtp_edit_slot_load_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_load_1 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_edit_slot_save_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_store_2 = yes
+	}
+}
+
+bag_wtp_edit_slot_load_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_load_2 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+bag_wtp_edit_slot_save_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_store_3 = yes
+	}
+}
+
+bag_wtp_edit_slot_load_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_load_3 = yes
+		bag_wtp_recompute_live = yes
+	}
+}

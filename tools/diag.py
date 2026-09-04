@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Забрать диагностику `where_to_produce` из логов игры.
 
 Мод пишет отчёт в `debug.log` одним куском между `WTP ==== BEGIN` и
@@ -166,22 +166,60 @@ def right_legend(lines: list[str]) -> dict[int, str]:
     return out
 
 
-def render_rq(line: str, names: dict[int, str], granted: int | None) -> str:
+def grantable_rights(lines: list[str]) -> set[int] | None:
+    """Номера прав, которые эта держава вообще может выдать, или `None`.
+
+    **Оценка есть у всякого права, а выдать можно не всякое.** `RQ` печатает то,
+    что земля заплатила бы за связку, и печатает это для всех тринадцати -- в том
+    числе для шёлковой монополии Константинополя и для скандинавских привилегий,
+    которых у Мюнстера не будет никогда. Строка `RIGHT` знает разницу
+    (`grantable=`), и без неё «текстильные 620» в списке читается как право,
+    которое почему-то не досталось городу, а не как чужое.
+
+    `None` -- отчёт старее этого поля. **Читалка, которая на старом отчёте
+    объявляет чужими все права разом, хуже, чем читалка без этой пометки**: это
+    ровно тот предохранитель, который срабатывает всегда
+    (`docs/pitfalls/diagnosis.md`).
+    """
+    out = set()
+    seen = False
+    for line in lines:
+        if not line.startswith("WTP RIGHT "):
+            continue
+        number = re.match(r"WTP RIGHT (\d+)", line)
+        state = field(line, "grantable")
+        if number is None or state is None:
+            continue
+        seen = True
+        if state:
+            out.add(int(number.group(1)))
+    return out if seen else None
+
+
+def render_rq(line: str, names: dict[int, str], granted: int | None,
+              grantable: set[int] | None) -> str:
     """Строка `RQ` по-человечески: права по убыванию оценки, выданное помечено.
 
     Владелец, 2026-09-03: «Понятия не имею где конкретно искать строку Гослара».
     Числа в отчёте были, но `1=0 2=0 3=0` -- это не ответ на вопрос «почему этот
     город получил именно это право», а сырьё для ответа. Ответ -- вот эта строка.
+
+    Права, которых держава выдать не может, идут в конце и помечены: их оценка
+    объясняет не выбор города, а только то, чего он лишён по происхождению.
     """
     scores = [(int(k), int(float(v))) for k, v in re.findall(r"(\d+)=(-?[\d.]+)", line)]
     scores = [(k, v) for k, v in scores if v > 0]
     if not scores:
         return "    права: ни одно право здесь ничего не набрало"
-    scores.sort(key=lambda kv: -kv[1])
+    ours = (lambda number: True) if grantable is None else grantable.__contains__
+    scores.sort(key=lambda kv: (not ours(kv[0]), -kv[1]))
     parts = []
     for number, value in scores:
         name = names.get(number, str(number))
-        parts.append(f"{name} {value}" + (" ← выдано" if number == granted else ""))
+        if not ours(number):
+            parts.append(f"{name} {value} (не для этой державы)")
+        else:
+            parts.append(f"{name} {value}" + (" ← выдано" if number == granted else ""))
     return "    права: " + " | ".join(parts)
 
 
@@ -192,24 +230,49 @@ def fold(lines: list[str]) -> list[str]:
     идут её числа, потом по строке на каждый поставленный товар. Читать это
     подряд невозможно, а сложенное -- можно: одна строка на локацию, и в ней
     сразу видно, что город получил, а что досталось селу.
+
+    **Имя берётся одно, даже если движок назвал локацию дважды.** Отчёты до
+    2026-09-03 звали `debug_log_scopes` и перед `L`, и перед `RQ`, и каждая
+    строка начиная со второй уносила имя предыдущей: «WTP L Район Липпштадт
+    (980) Район Зост (981) rank=2». Лишний вызов убран в самом моде, но читалка
+    не должна снова разъехаться молча, если он вернётся, — а свести две подписи
+    к одной она может и без него.
     """
     names = right_legend(lines)
+    grantable = grantable_rights(lines)
     out: list[str] = []
     pending: list[str] = []          # строки без метки WTP: имя локации от игры
     goods: list[str] = []
+    moved: list[str] = []            # что этот план изменил против прошлого
     row: str | None = None
     rq: str | None = None            # оценки прав города, идут внутри его блока
 
     def flush() -> None:
-        nonlocal row, goods, rq
+        nonlocal row, goods, rq, moved
         if row is None:
+            # Оценки прав без своей локации: такого быть не должно, и если стало
+            # -- это видно, а не съедено.
+            if rq:
+                out.append("~ " + rq)
+                rq = None
             return
         out.append(row + (" | " + ", ".join(goods) if goods else " | -- пусто"))
+        # **Что этот план изменил здесь против прошлого.** Ровно то, о чём
+        # владелец просил 2026-09-03: «"локация" -- убрано X добавлено Y».
+        if moved:
+            gone = [g[1:] for g in moved if g.startswith("-")]
+            came = [g[1:] for g in moved if g.startswith("+")]
+            parts = []
+            if gone:
+                parts.append("убрано " + ", ".join(gone))
+            if came:
+                parts.append("добавлено " + ", ".join(came))
+            out.append("    изменено: " + "; ".join(parts))
         if rq:
             match = re.search(r"\bright=(\d+)", row)
             granted = int(match.group(1)) if match and match.group(1) != "0" else None
-            out.append(render_rq(rq, names, granted))
-        row, goods, rq = None, [], None
+            out.append(render_rq(rq, names, granted, grantable))
+        row, goods, rq, moved = None, [], None, []
 
     for line in lines:
         if not line:
@@ -217,16 +280,32 @@ def fold(lines: list[str]) -> list[str]:
         if line.startswith("WTP LG "):
             goods.append(line[len("WTP LG "):])
             continue
+        if line.startswith("WTP LD "):
+            moved.append(line[len("WTP LD "):])
+            continue
         # **`RQ` принадлежит своей локации и не должна её закрывать.** Она
         # приходит внутри блока города, между `L` и `LG`, и без этой ветки
         # `flush` сработал бы раньше товаров: строка локации ушла бы «пустой», а
         # товары повисли бы ни на чём.
-        if line.startswith("WTP RQ "):
+        #
+        # **`RQ legend` -- не она.** Это подпись под номерами, одна на отчёт, и
+        # `startswith("WTP RQ ")` ловил её тоже: в отчётах до 2026-09-03 она
+        # приходила после `LOCS`, когда никакой локации уже не открыто, и
+        # `flush` выбрасывал её молча -- в отчёте владельца легенды нет ни в
+        # одном из трёх нажатий. Приди она на строку раньше, она бы затёрла
+        # оценки последнего города.
+        if re.match(r"WTP RQ \d", line):
             rq = line
             continue
         if line.startswith("WTP L "):
             flush()
-            name = " ".join(pending).strip()
+            # **Имя -- последняя подпись перед строкой, а не все они склеенные.**
+            # Движок называет текущую область на каждый `debug_log_scopes`, и
+            # подпись, пришедшая раньше внутри предыдущего блока, называет
+            # предыдущую локацию. Ближайшая к строке -- её собственная.
+            named = [part for part in (p.strip() for p in pending) if part]
+            name = named[-1] if named else ""
+            out.extend("~ " + stray for stray in named[:-1])
             pending = []
             row = ("WTP L " + (name + " " if name else "") + line[len("WTP L "):])
             continue
@@ -246,6 +325,23 @@ def fold(lines: list[str]) -> list[str]:
     flush()
     out.extend("~ " + stray for stray in pending)
     return out
+
+
+def plural(count: int, one: str, few: str, many: str) -> str:
+    """«1 домик», «2 домика», «5 домиков» -- строка для человека, а не для лога.
+
+    Отчёт для сессии может быть каким угодно; сводка «коротко» существует ровно
+    затем, чтобы её читал владелец, и «1 домик(ов)» в ней -- это тот же
+    неготовый инструмент, что и сырой лог вместо укладки.
+    """
+    tail, hundred = count % 10, count % 100
+    if tail == 1 and hundred != 11:
+        word = one
+    elif 2 <= tail <= 4 and not 12 <= hundred <= 14:
+        word = few
+    else:
+        word = many
+    return f"{count} {word}"
 
 
 def field(line: str, name: str) -> int | None:
@@ -287,6 +383,20 @@ def digest(lines: list[str]) -> list[str]:
                    % (field(room, "town"), field(room, "village"),
                       field(room, "towns"), field(room, "rank or above")))
 
+    # **Ручные веса, если они выставлены.** Вес переживает план, сохранение и
+    # смену области, поэтому забытый вес неотличим от формулы, которая сошла с
+    # ума. Печатается только то, что не ноль.
+    weights = [(l.split()[2], field(l, "weight"), field(l, "band")) for l in lines
+               if l.startswith("WTP WEIGHT ")]
+    weights = [(g, w, b) for g, w, b in weights if w]
+    if weights:
+        out.append("Ручные веса (одна полоса = %d): " % (weights[0][2] or 200)
+                   + ", ".join("%s %+d" % (g, w) for g, w, _ in weights))
+    moved = field(room, "moved")
+    if moved is not None:
+        out.append("Против прошлого плана изменилось локаций: %d%s"
+                   % (moved, "" if moved else " — ни одной"))
+
     counts = {}
     for line in lines:
         if line.startswith("WTP G") and " | ng=" in line:
@@ -309,9 +419,115 @@ def digest(lines: list[str]) -> list[str]:
               if line.startswith("WTP RIGHT")]
     taken = [(k, v) for k, v in rights if v]
     if taken:
-        out.append("Права: выдано %d, разных %d, больше всего у «%s» (%d)"
-                   % (sum(v for _, v in taken), len(taken),
-                      *max(taken, key=lambda kv: kv[1])))
+        can = sum(1 for line in lines
+                  if line.startswith("WTP RIGHT") and field(line, "grantable"))
+        out.append("Права: выдано %d, разных %d из %d возможных этой державе, "
+                   "больше всего у «%s» (%d)"
+                   % (sum(v for _, v in taken), len(taken), can or len(taken),
+                      RIGHT_NAMES.get(max(taken, key=lambda kv: kv[1])[0],
+                                      max(taken, key=lambda kv: kv[1])[0]),
+                      max(taken, key=lambda kv: kv[1])[1]))
+        # **Ровно ли легли грамоты** -- вопрос, который владелец задавал трижды:
+        # «я не буду удовлетворён пока не увижу в вестфалии относительно
+        # одинаковое количество каждого городского права». Лестница уровней
+        # поднимает потолок по одному городу, так что разброс между самой частой
+        # и самой редкой грамотой должен быть 1, самое большее 2. Больше --
+        # значит, какую-то грамоту земля не пускает вовсе, и это видно в «RQ».
+        grantable = [line.split()[3] for line in lines
+                     if line.startswith("WTP RIGHT") and field(line, "grantable")]
+        spread = sorted((dict(rights).get(k, 0), k) for k in grantable)
+        if len(spread) > 1:
+            low, high = spread[0], spread[-1]
+            out.append("  разброс: от %d («%s») до %d («%s»)%s"
+                       % (low[0], RIGHT_NAMES.get(low[1], low[1]),
+                          high[0], RIGHT_NAMES.get(high[1], high[1]),
+                          "" if high[0] - low[0] <= 2 else
+                          " -- перекос, смотри «RQ» у редкой"))
+    # **Какие грамоты план предполагает, а выдать сегодня нельзя.** План
+    # намеренно считает по `potential`, а не по открытию: это цель, к которой
+    # строят, и девять общих грамот приходят в третью эпоху всем сразу
+    # (`generate.plan_right_gates`). Вопрос «а могу ли я её выдать прямо сейчас»
+    # от этого не исчезает, и отвечает на него только эта строка.
+    locked = [line.split()[3] for line in lines
+              if line.startswith("WTP RIGHT") and field(line, "given")
+              and field(line, "unlocked") == 0]
+    if locked:
+        out.append("Из них ещё не открыты (план на них рассчитывает, выдать "
+                   "сегодня нельзя): " + ", ".join(RIGHT_NAMES.get(k, k) for k in locked))
+
+    # **Почему у товара ровно столько домиков.** Это вопрос, который владелец
+    # задаёт чаще всех остальных вместе взятых -- «где хоть одна печка болотного
+    # железа» -- и до 2026-09-03 отчёт на него не отвечал: `q` печатается после
+    # плана и несёт всё, что добавила открытая лестница, так что «квота 2» на
+    # экране могла означать квоту 1. `open_sweeps` -- то, что надо вычесть.
+    #
+    # **Печатается один случай, и он однозначен**: товар поставил *ровно* свою
+    # квоту, и квота мала потому, что область уже добывает это сырьё сама. Это
+    # правило владельца, 2026-09-01 («там уже есть 2 рго глины — тебе нужно
+    # всего 3 домика»), и единственное место, где его видно в работе. Общее
+    # «упёрлись в квоту» сюда не идёт: на заполненной земле в квоту упирается
+    # всё подряд, и строка из двадцати товаров ничего не отвечает.
+    opensw = field(pas, "open_sweeps")
+    if opensw is not None:
+        capped = []
+        for line in lines:
+            # `WTP GOODS legend` тоже начинается с «WTP G» и тоже несёт « | ng=»;
+            # строка самого товара -- та, где после G стоит номер.
+            if not re.match(r"WTP G\d+ ", line) or " | ng=" not in line:
+                continue
+            tail = line.split("| ng=")[1]
+            ng = field("ng=" + tail, "ng")
+            q, n, rgo = (field(tail, k) for k in ("q", "n", "rgo"))
+            if not ng or not n or q is None or not rgo:
+                continue
+            if n == q - opensw and n < ng:
+                capped.append("%s: %s при %d РГО и своей доле %d, мест на земле %d"
+                              % (line.split()[2], plural(n, "домик", "домика",
+                                                         "домиков"), rgo,
+                                 q - opensw, ng))
+        if capped:
+            # **Строка называет всю арифметику, а не одно РГО.** Она говорила
+            # «1 РГО = 1 домик, квота на столько же меньше» — и владелец поймал её
+            # на этом 2026-09-03: у железа 1 домик при 2 РГО, что по этому правилу
+            # должно давать 3, а не 1. Правило было верным, а доля, из которой
+            # вычитали, — нет: она считалась от мест, оставшихся после грамот, и
+            # выходила 2, так что два РГО забирали её целиком. Теперь на экране
+            # обе цифры, и такой вопрос больше не стоит прогона.
+            base = field(pas, "quota")
+            out.append("Упёрлись в свою долю (доля земли %s на товар, минус одно "
+                       "за каждое своё РГО, но не ниже 1): %s"
+                       % (base if base is not None else "?", "; ".join(capped)))
+
+    # **Правка плана — своей строкой.** Она была невидима для отчёта до
+    # 2026-09-04, и это стоило прогона, в котором 27 домиков встали сверх лимита,
+    # а сказать почему было нечем. Владелец: «Добавляй скан информации для себя в
+    # диагностике на функцию редактора, чтобы ты видел чё там происходит.»
+    asked, scan, walk = (first("WTP EDIT asked"), first("WTP EDIT scan"),
+                         first("WTP EDIT walk"))
+    presses = field(asked, "presses")
+    if presses:
+        op = {1: "«+1»", 2: "«−1»"}.get(field(asked, "op"), "ничего")
+        done, fail = field(asked, "done"), field(asked, "fail")
+        got = ("поставлено" if done else
+               "отказано, всё возвращено" if fail else "ничего не сделано")
+        out.append("Правка: нажатий %d, последнее — %s по товару №%s: %s"
+                   % (presses, op, field(asked, "good"), got))
+        if field(scan, "hit"):
+            out.append("  обход встал на локацию: %s, домиков %s из %s, жертва "
+                       "№%s (выгода %s) — выселено: %s, место было: %s, "
+                       "домиков стало %s"
+                       % ("город" if field(scan, "town") else "село",
+                          field(scan, "load"),
+                          field(walk, "cap_urban") if field(scan, "town")
+                          else field(walk, "cap_rural"),
+                          field(scan, "esg"), field(scan, "esw"),
+                          "да" if field(walk, "evicted") else "нет",
+                          "да" if field(walk, "room") else "нет",
+                          field(walk, "load_after")))
+        else:
+            out.append("  обход не нашёл ни одной локации: подходящих %s, из них "
+                       "с местом или жертвой %s"
+                       % (field(scan, "fitn"), field(scan, "cands")))
 
     cut = [line.split()[1] for line in lines
            if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]
@@ -323,7 +539,8 @@ def digest(lines: list[str]) -> list[str]:
 def headline(lines: list[str]) -> list[str]:
     """Несколько строк, по которым сразу видно, что отчёт настоящий."""
     wanted = ("WTP BUILD methods", "WTP SELFTEST 1", "WTP PICK", "WTP PASS",
-              "WTP GAIN", "WTP ROOM")
+              "WTP GAIN", "WTP ROOM", "WTP EDIT asked", "WTP EDIT scan",
+              "WTP EDIT walk")
     return [line for line in lines if line.startswith(wanted)]
 
 
@@ -401,10 +618,15 @@ def main(argv: list[str]) -> int:
         # and `digest(raw)` then summed **all five presses into one** «коротко» --
         # 263 charters granted over 48 towns. A safety net that always fires is a
         # broken tool, not a careful one.
+        # **Every line the fold consumes on purpose has to be listed here, and
+        # forgetting one fires the net on every report.** It has happened twice:
+        # `WTP RQ` in the morning of 2026-09-03 and `WTP LD` the same evening.
+        # The rule to carry: a line folded into another line is not a lost line,
+        # and the safeguard is about lines that vanish without a trace.
+        folded = ("WTP LG ", "WTP RQ ", "WTP LD ")
         must = sum(1 for line in raw
                    if line.startswith(TAG)
-                   and not line.startswith("WTP LG ")
-                   and not line.startswith("WTP RQ "))
+                   and not line.startswith(folded))
         kept = sum(1 for line in body if line.startswith(TAG))
         if kept < must:
             print("Укладка потеряла %d строк из %d -- отдаю как есть."

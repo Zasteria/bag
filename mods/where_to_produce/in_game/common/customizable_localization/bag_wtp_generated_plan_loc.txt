@@ -63,3 +63,106 @@ bag_wtp_plan_right_label = {
 		localization_key = bag_wtp_plan_no_right
 	}
 }
+
+# Slot 1: what it holds, or that it holds nothing.
+# Scope: country
+bag_wtp_edit_slot1_label = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_sl1_n > 0 }
+		localization_key = bag_wtp_edit_slot1_full
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_slot1_empty
+	}
+}
+
+# Slot 2: what it holds, or that it holds nothing.
+# Scope: country
+bag_wtp_edit_slot2_label = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_sl2_n > 0 }
+		localization_key = bag_wtp_edit_slot2_full
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_slot2_empty
+	}
+}
+
+# Slot 3: what it holds, or that it holds nothing.
+# Scope: country
+bag_wtp_edit_slot3_label = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_sl3_n > 0 }
+		localization_key = bag_wtp_edit_slot3_full
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_slot3_empty
+	}
+}
+
+# Whether the last «+1» or «−1» did anything. **An effect that merely does
+# nothing logs nothing at all**, and both of them have rules that refuse: a good
+# fitting nowhere on this ground, a good down to its last building, a building
+# belonging to a charter's bundle. `_edit_done` is set to 0 before the walk and
+# to 1 by the walk. **The branches name the cause, and they exist because a
+# single «не дало правило» was read as the mod being stubborn when it was the
+# ground.** He pressed «+1» on iron: four locations of Westphalia can make iron
+# and iron stood in all four, so there was nowhere for a fifth. The editor has
+# only the two rules he agreed to -- never a good's last building, never a
+# charter bundle's -- and it reads no quota of the plan's at all.
+#
+# **`_edit_fail` is the branch that had to exist and did not.** The walk used to
+# say «сделано» whenever it found a location, whether or not a building actually
+# went in, so a press that evicted something and then failed to place read as a
+# success. It cannot happen now -- the victim goes back -- but the window must
+# still say that the press did nothing, and why.
+# Scope: country
+bag_wtp_edit_last_label = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 0 }
+		localization_key = bag_wtp_edit_last_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_norefill = 1 }
+		localization_key = bag_wtp_edit_last_empty
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 }
+		localization_key = bag_wtp_edit_last_done
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_reached = 0 }
+		localization_key = bag_wtp_edit_last_lost
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_fail = 1 }
+		localization_key = bag_wtp_edit_last_refill
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 1 global_var:bag_wtp_edit_fitn = 0 }
+		localization_key = bag_wtp_edit_last_nowhere
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 1 global_var:bag_wtp_edit_cands = 0 }
+		localization_key = bag_wtp_edit_last_novictim
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 2 global_var:bag_wtp_edit_fitn < 2 }
+		localization_key = bag_wtp_edit_last_lastone
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 2 global_var:bag_wtp_edit_cands = 0 }
+		localization_key = bag_wtp_edit_last_allcharter
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_last_refused
+	}
+}

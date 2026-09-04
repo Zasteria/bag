@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Three ways a mod file fails at load, all findable from here.
 
 Every other checker in this tree answers a question about one mod's meaning.
@@ -37,6 +37,7 @@ effect or trigger in the engine's own dumps.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -245,6 +246,294 @@ def problems(root: Path) -> list[str]:
     return found
 
 
+def unresolved_interface(root: Path) -> list[str]:
+    """Every name a window says, checked against the thing that has to define it.
+
+    Five kinds of name, and each one fails the same silent way -- the window
+    draws, the cell is empty or the button does nothing, and no log says which:
+
+    - a `text` or `tooltip` key with no localization behind it;
+    - a `Custom('x')` with no `customizable_localization` of that name;
+    - a `GetScriptedGui('x')` with no scripted GUI of that name;
+    - a `GetList` / `GetGlobalList` nothing in `scripted_effects/` ever writes;
+    - a key in one language and not the other -- the owner plays in Russian, so
+      a key missing there shows on screen as the raw key.
+
+    **This was done by hand three times in one day and caught something every
+    time**, the last of them a `\\n` that stayed a backslash and glued two
+    localization keys onto one line.
+    """
+    gui_dir = root / "in_game/gui"
+    if not gui_dir.is_dir():
+        return []
+
+    def slurp(pattern: str) -> str:
+        return "".join(path.read_text(encoding="utf-8-sig")
+                       for path in sorted(root.glob(pattern)))
+
+    languages: dict[str, set[str]] = {}
+    for folder in sorted((root / "main_menu/localization").glob("*")):
+        if not folder.is_dir():
+            continue
+        keys = set()
+        for path in sorted(folder.glob("*.yml")):
+            for line in path.read_text(encoding="utf-8-sig").split("\n"):
+                match = re.match(r"\s+([A-Za-z0-9_]+):", line)
+                if match:
+                    keys.add(match.group(1))
+        languages[folder.name] = keys
+    if not languages:
+        return []
+    known = set().union(*languages.values())
+
+    # **Only the keys this mod invents.** A mod reuses vanilla keys freely --
+    # `rgo_bonus_filter` prints `game_concept_province`, `ru_loc_fix` is nothing
+    # but vanilla keys -- and vanilla's own localization is not all in
+    # `reference/`, so a name this file cannot find is usually the game's and
+    # not a fault. The mod's own prefix is what its keys agree on: `bag_wtp_` for
+    # `where_to_produce`. A mod whose keys agree on nothing is a mod that invents
+    # none, and there is nothing here to check in it.
+    # **The prefix most of the keys share, not the one all of them do.** The
+    # common prefix of every key is empty the moment a mod defines one key that
+    # does not fit -- `where_to_produce` has `mapmode_bag_wtp_*` beside its 345
+    # `bag_wtp_*` -- and this returned nothing at all for it, which is the exact
+    # failure this file exists to catch. So: the leading segment a majority of
+    # the keys agree on, and no check at all when they agree on nothing.
+    heads: dict[str, int] = {}
+    for key in known:
+        head = key.split("_")[0]
+        heads[head] = heads.get(head, 0) + 1
+    head, count = max(heads.items(), key=lambda pair: pair[1]) if heads else ("", 0)
+    if len(head) < 2 or count * 2 < len(known):
+        return []
+    prefix = head + "_"
+    mine = {key for key in known if key.startswith(prefix)}
+
+    custom = set(re.findall(r"^(\w+) = \{",
+                            slurp("in_game/common/customizable_localization/*.txt"), re.M))
+    guis = set(re.findall(r"^(\w+) = \{",
+                          slurp("in_game/common/scripted_guis/*.txt"), re.M))
+    effects = slurp("in_game/common/scripted_effects/*.txt")
+
+    found = []
+    for path in sorted(gui_dir.glob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        where = path.relative_to(REPO)
+        for name in sorted(set(re.findall(
+                r'(?:text|tooltip)\s*=\s*"([a-z][A-Za-z0-9_]*)"', text))):
+            if name.startswith(prefix) and name not in mine:
+                found.append(f"{where}: `{name}` on a widget, and no localization "
+                             f"defines it — the key itself draws on screen")
+        for name in sorted(set(re.findall(r"Custom\('(\w+)'\)", text))):
+            if name not in custom:
+                found.append(f"{where}: `Custom('{name}')`, and no "
+                             f"customizable_localization of that name — the cell "
+                             f"comes out empty")
+        for name in sorted(set(re.findall(r"GetScriptedGui\('(\w+)'\)", text))):
+            if name not in guis:
+                found.append(f"{where}: `GetScriptedGui('{name}')`, and no "
+                             f"scripted GUI of that name — the button does nothing")
+        for name in sorted(set(re.findall(r"Get(?:Global)?List\('(\w+)'\)", text))):
+            if name not in effects:
+                found.append(f"{where}: the datamodel reads `{name}`, and nothing "
+                             f"in scripted_effects/ ever writes it — the list is "
+                             f"always empty")
+    # **A global variable map nothing writes.** The interface reads one through
+    # `GetVariableFromGlobalVariableMap('name', ...)`, in a `.gui` or inside a
+    # localization value, and a name nothing ever writes returns an unset scope:
+    # the number comes out blank and the `visible` that reads it is false for
+    # ever. `bag_wtp_held` is read only from localization, so looking in the
+    # `.gui` alone would have missed it.
+    written_maps = set(re.findall(r"name = (\w+) key = ", effects))
+    for where, text in ([(path.relative_to(REPO), path.read_text(encoding="utf-8-sig"))
+                         for path in sorted(gui_dir.glob("*.gui"))]
+                        + [(path.relative_to(REPO), path.read_text(encoding="utf-8-sig"))
+                           for path in sorted((root / "main_menu/localization").glob("*/*.yml"))]):
+        for name in sorted(set(re.findall(
+                r"GetVariableFromGlobalVariableMap\('(\w+)'", text))):
+            if name.startswith(prefix) and name not in written_maps:
+                found.append(f"{where}: reads the variable map `{name}`, and "
+                             f"nothing in scripted_effects/ ever writes it — the "
+                             f"value comes back unset every time")
+
+    # Custom localizations point at keys of their own.
+    for name in sorted(set(re.findall(r"localization_key = (\S+)",
+                                      slurp("in_game/common/customizable_localization/*.txt")))):
+        if name.startswith(prefix) and name not in mine:
+            found.append(f"{root.name}: a customizable_localization points at "
+                         f"`{name}`, and no localization defines it")
+    # **English against Russian, and no other pair.** He plays in Russian, and
+    # `CLAUDE.md` says what that costs: a key missing there shows on screen as
+    # the raw key. Every other language a mod ships is somebody else's promise --
+    # `glorpui_hints` carries seven and translates into some of them partly, and
+    # comparing all pairs turned that into 7 560 findings that are not faults.
+    english, russian = languages.get("english"), languages.get("russian")
+    if english and russian:
+        for name in sorted((english - russian) & mine):
+            found.append(f"{root.name}: `{name}` is in english and not in "
+                         f"russian — a missing key draws as itself on screen, "
+                         f"and he plays in Russian")
+    return found
+
+
+def unregistered_windows(root: Path) -> list[str]:
+    """A `window` in a .gui that no `scripted_widgets` file names.
+
+    **The game does not create a window because it is there.** It creates the
+    ones a `gui/scripted_widgets/*.txt` line points at, `gui/<file>.gui = <name>`,
+    and it says nothing at all about the rest: no parse error, no missing type,
+    no line in `error.log` — the file simply is not asked for. That cost a whole
+    round trip on 2026-09-03. Two new windows were written, checked, localized,
+    wired to their buttons and shipped; the button's effect logged that it ran,
+    the .gui had no error of any kind, and nothing appeared. The registry was in
+    the same folder the whole time.
+
+    The name in the registry has to match the window's own `name`, because that
+    is what the engine looks the widget up by.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    registered: dict[str, str] = {}
+    for path in sorted((gui / "scripted_widgets").glob("*.txt")):
+        for line in path.read_text(encoding="utf-8-sig").split("\n"):
+            line = line.split("#")[0].strip()
+            if "=" not in line:
+                continue
+            where, name = (part.strip() for part in line.split("=", 1))
+            registered[where] = name
+    found = []
+    for path in sorted(gui.glob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        # A top-level `window = {` and its `name`. Only the first is asked for:
+        # every window in this repository is one file, and a second in the same
+        # file could not be registered separately anyway.
+        if not re.search(r"^window = \{", text, re.M):
+            continue
+        match = re.search(r'^window = \{[^}]*?name = "([^"]+)"', text, re.M | re.S)
+        name = match.group(1) if match else None
+        key = f"gui/{path.name}"
+        where = f"{path.relative_to(REPO)}"
+        if key not in registered:
+            found.append(f"{where}: a window nothing registers — add "
+                         f"`{key} = {name or path.stem}` to "
+                         f"in_game/gui/scripted_widgets/, or the game never "
+                         f"creates it and says so nowhere")
+        elif name and registered[key] != name:
+            found.append(f"{where}: registered as `{registered[key]}` but the "
+                         f"window is named `{name}` — the engine looks it up by "
+                         f"the name and finds nothing")
+    return found
+
+
+def flowcontainer_datamodels(root: Path) -> list[str]:
+    """A `flowcontainer` that carries a `datamodel` of its own.
+
+    **This is the widget that cost four crashes and five of the owner's runs.**
+    The editor's picker wrapped on a `flowcontainer` with `wrap_count` and
+    `datamodel = "[GetGlobalList('bag_wtp_edit_pool')]"`. Every build that had
+    one died — two on opening the window, one on opening it with a CMM switch
+    that was supposed to save it, one on loading the game at all — and every
+    build without one opened. Nothing was ever written to `error.log`, `gui.log`
+    or `debug.log`: a native layout failure logs nothing, so four sessions went
+    to four different theories about the *contents* of the window instead.
+
+    **The game's own files say it plainly.** Search vanilla for a `flowcontainer`
+    with a real datamodel on it and there is none. The two `wrap_count` pickers
+    (`agenda_view.gui`, `multiplayer_lobby.gui`) hold literal children, and where
+    a flowcontainer does get a `datamodel` it is `DataModelRepeatedItem(N)` — a
+    counter, not a list. A wrapping grid **of a list** is a `fixedgridbox`, all
+    138 times the game draws one: `addcolumn`, `addrow`, `datamodel_wrap`,
+    `flipdirection = yes`.
+
+    So this refuses the pairing rather than the widget. A `flowcontainer` of
+    literal children is fine and stays fine.
+    """
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    found = []
+    for path in sorted(gui.rglob("*.gui")):
+        text = path.read_text(encoding="utf-8-sig")
+        # Walk to the matching brace so a datamodel in a *child* widget does not
+        # count: only the flowcontainer's own block is asked about.
+        for match in re.finditer(r"\bflowcontainer\s*=\s*\{", text):
+            depth, i = 0, match.end() - 1
+            while i < len(text):
+                if text[i] == "{":
+                    depth += 1
+                elif text[i] == "}":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                i += 1
+            block = text[match.end():i]
+            own = re.sub(r"\{[^{}]*\}", "", block)
+            for _ in range(8):
+                own = re.sub(r"\{[^{}]*\}", "", own)
+            model = re.search(r'datamodel\s*=\s*"([^"]*)"', own)
+            if not model or "DataModelRepeatedItem" in model.group(1):
+                continue
+            line = text[:match.start()].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: a `flowcontainer` with a "
+                f"datamodel of its own — the game has none and four builds of "
+                f"this repository crashed on one, silently. A wrapping grid of "
+                f"a list is a `fixedgridbox` (addcolumn/addrow/datamodel_wrap/"
+                f"flipdirection); docs/pitfalls/interface.md")
+    return found
+
+
+def scope_mixed_variables(root: Path) -> list[str]:
+    """A name written as a global and read as a location's own, or the reverse.
+
+    **This is what three builds of the plan editor died on.** `_edit_good` was
+    written with `set_variable` in a country-scoped effect and read with `var:`
+    twice: once at country scope, where it worked, and once inside
+    `ordered_in_global_list`, where the scope is the location the walk stands on
+    and the variable simply is not there. Every «+1» evicted a building, failed
+    to place, and put the victim back -- and nothing said why until the numbers
+    went into the report: `evicted=1 room=1 | placed_before=191 placed_after=192`
+    with `done=0 fail=1`.
+
+    Reading a variable that is not on the scope is not an error the game raises.
+    It is a condition that is quietly false, forever, which is the failure this
+    repository names first.
+
+    So: a name only ever written globally must never be read as `var:`, and a
+    name only ever written on a scope must never be read as `global_var:`. A name
+    written both ways is deliberate (the plan keeps a few) and is left alone.
+    """
+    written_global: dict[str, str] = {}
+    written_local: dict[str, str] = {}
+    read_global: dict[str, str] = {}
+    read_local: dict[str, str] = {}
+    for path in sorted((root / "in_game/common").rglob("*.txt")):
+        where = f"{path.relative_to(REPO)}"
+        for n, line in enumerate(path.read_text(encoding="utf-8-sig").split("\n"), 1):
+            code = line.split("#")[0]
+            for m in re.finditer(r"(set|change)_global_variable\s*=\s*\{\s*name\s*=\s*(\w+)", code):
+                written_global.setdefault(m.group(2), f"{where}:{n}")
+            for m in re.finditer(r"(?<!global_)(?:set|change)_variable\s*=\s*\{\s*name\s*=\s*(\w+)", code):
+                written_local.setdefault(m.group(1), f"{where}:{n}")
+            for m in re.finditer(r"global_var:(\w+)", code):
+                read_global.setdefault(m.group(1), f"{where}:{n}")
+            for m in re.finditer(r"(?<![_a-z])var:(\w+)", code):
+                read_local.setdefault(m.group(1), f"{where}:{n}")
+    found = []
+    for name, at in sorted(read_local.items()):
+        if name in written_global and name not in written_local:
+            found.append(f"{at}: `var:{name}` reads as the scope's own, but "
+                         f"{name} is only ever written with set_global_variable "
+                         f"({written_global[name]}) — the read is silently false")
+    for name, at in sorted(read_global.items()):
+        if name in written_local and name not in written_global:
+            found.append(f"{at}: `global_var:{name}` reads a global, but {name} "
+                         f"is only ever written on a scope "
+                         f"({written_local[name]}) — the read is silently false")
+    return found
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
@@ -253,7 +542,10 @@ def main(argv: list[str]) -> int:
         if not root.is_dir():
             continue
         root = root if root.is_absolute() else REPO / root
-        found = problems(root) + unresolved(root, known) + unwritten(root)
+        found = (problems(root) + unresolved(root, known) + unwritten(root)
+                 + unregistered_windows(root) + unresolved_interface(root)
+                 + flowcontainer_datamodels(root)
+                 + scope_mixed_variables(root))
         total += len(found)
         for line in found:
             print(line)

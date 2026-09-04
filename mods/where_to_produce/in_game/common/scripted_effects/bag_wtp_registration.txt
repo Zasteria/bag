@@ -151,6 +151,20 @@ bag_wtp_register = {
 		group_id = plan
 	}
 
+	# **The plan editor is a window and this is the door to it.** It was nine
+	# settings on this page -- three dropdowns and five buttons -- and he refused
+	# to use them, 2026-09-03: «Сейчас окно настроек мода - стало засраным и
+	# неудобным. Более того это именно что окно настроек и основных функций, я не
+	# хочу делать подобные вещи там.» So one button, and everything else lives in
+	# `bag_wtp_edit_window.gui`: the three slots, the goods as icons, «+1» and
+	# «−1» beside each, and the changes list in a window of its own.
+	cmm_register_button_setting = {
+		mod_id = bag_wtp
+		setting_id = edit_open
+		tab_id = plan
+		group_id = plan
+	}
+
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
 	# the headline of it into `error.log` besides.
 	#
@@ -184,6 +198,22 @@ bag_wtp_register = {
 	# Seven region lists and two goods lists all open is a page to scroll rather
 	# than a page to read; after this the player's own folding is his.
 	bag_wtp_fold_pickers = yes
+
+	# The editor's counters, created before anything can read them: a script
+	# value reading a global that is not there is the failure that logs nothing,
+	# and these two are printed on buttons from the moment the page opens.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_edit_moved } }
+		set_global_variable = { name = bag_wtp_edit_moved value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_save_n } }
+		set_global_variable = { name = bag_wtp_save_n value = 0 }
+	}
+	# And one pair per slot. `_sl<n>_n` is what «загрузить» tests before it throws
+	# the plan on the map away, so a slot whose counter does not exist would read
+	# as empty for ever -- or, worse, clear a good plan for nothing.
+	bag_wtp_edit_init_slots = yes
 
 	bag_wtp_init_counters = yes
 	bag_wtp_sync = yes

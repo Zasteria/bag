@@ -55,83 +55,34 @@ not dyes. So «where do I put Printing Rights» is a real question with a
 different answer from «where do I make books», and it is the only question here
 worth a pass.
 
-**2. Adding a bundle's goods needs their prices.** Four books a level and 0.3
-masonry a level are not addable; that is the same mistake as ranking a forest
-village above a weapon guild, which cost the ninth run. `common/goods` carries
-`default_market_price` — books 3, paper 2, fine cloth 6, masonry 1, glass 3 —
-and the bundle's score is
+**2. Adding a bundle's goods needs a common unit, and the mod's is the gain.**
+Four books a level and 0.3 masonry a level are not addable; that is the same
+mistake as ranking a forest village above a weapon guild, which cost the ninth
+run. What the plan adds is each bundle good's **gain** — the fraction of that
+good's own ceiling this ground pays — divided by the whole bundle, so a charter
+delivering one good of three is worth a third of one delivering all three. The
+price-weighted sum written here before is what the *single-right window* scores
+on; the plan never used it.
 
-    Σ over the bundle:  price × output × (1 + right_output) × (1 + rgo_bonus/100)
+**3. A level right is a different unit, and the mod refuses to add it to the
+others.** Settled 2026-09-02: score a right by *which goods it favours* and never
+by the size or the kind of the favour, because a building's level cap moves as a
+location grows. The arithmetic that was written for the other answer — five levels
+against +20%, and the owner's worry about a cap of 3 against a cap of 15 — is in
+[`../archive/town_rights_levels.md`](../archive/town_rights_levels.md); it is what
+still decides Flemish cloth against royal textile.
 
-`right_output` is in there for completeness; being constant it changes no order,
-and it is what makes the number readable as "what this ground would earn".
+## Built 2026-08-31, and running since 2026-09-03
 
-**3. A level right is a different unit and must not be added to the others.**
-`flemish_cloth_industries_right` grants no efficiency at all: +5 levels of cloth
-guild and +5 of fine cloth. An output right multiplies what you would have built
-anyway; a level right adds levels. One is a ratio, the other a quantity, and a
-score that sums them is the village-above-the-guild error in a new suit.
+The output half is in — the plan grants a charter to every town and puts its
+whole bundle up, and the owner has seen it: «города получают права и домики из
+прав». A third list on the Goods tab, exclusive with the two goods lists, and **a
+second window** rather than a third line on the first: a bundle is a different
+question in a different unit, and that was his call.
 
-Score a level right on its own terms: **added levels × the value of one level
-there**, which is the number the mod already computes.
-
-### The owner's worry, and where it lands
-
-> *"в локации где лимит будет 3 и он получит бонус +5 очевидно будет выгодней,
-> чем в локации где можно поставить 15 и он получит +5"*
-
-In **absolute** terms it is the other way round or equal: five levels produce
-five levels' worth in both, and what differs is the value of one level — the
-RGO bonus, which the mod already ranks on. In **proportional** terms he is
-right: +5 on a cap of 3 is +167% and on 15 is +33%.
-
-Neither is the whole answer, because the term neither of us can see is
-**whether the levels can be filled** — levels want pops to employ, and a cap-3
-location is small precisely because its development and population are small.
-The mod does not model employment and should not pretend to.
-
-So: rank on the absolute gain, print the cap before and after beside it, and let
-the proportion be read off the two numbers rather than ranked on. That is the
-one place in this design where the mod hands the judgement back.
-
-## Built, 2026-08-31, and never loaded
-
-The output half is in: a third list on the Goods tab, exclusive with the two
-goods lists, and **a second window** rather than a third line on the first --
-the owner's call, and the right one, since a bundle is a different question in a
-different unit. `bag_wtp_generated_rights.txt` holds the list, the per-right
-pass and the slot storage; `bag_wtp_right_window.gui` holds the window, which
-redeclares nothing the results window already declares.
-
-Three things it does that are worth knowing before reading the code:
-
-- **The pass reuses the per-good scorers.** For each good of the bundle it runs
-  that good's existing `bag_wtp_score_<n>`, keeps the better of the built-up and
-  village answers in a slot, and adds `price × (1 + right)` of it to a total.
-  The dispatch that turns a winning method into a building, a bonus and a goods
-  list runs only for the fifty provinces that take a row -- 218 methods wide is
-  far too much per candidate.
-- **Three fixed slots, because three is the widest bundle in the game.** Script
-  has no list of tuples and the answers are flat variables on the location, so a
-  row holds a fixed number of them; an empty slot hides itself on `_r_bt_<k>`.
-- **`RIGHT_SCALE` is a tenth of `RANK_SCALE`.** A bundle's total is a sum of
-  scaled outputs times prices and runs an order of magnitude higher than a
-  single good's -- textile rights with every input present reach 64 680 against
-  a method's 4 950 -- and whether the engine's fixed point ends at 21 474 is not
-  knowable from here. At a tenth the worst case is 6 468 and the smallest
-  difference the bonus can make is still about 4.6.
-
-Each window draws its own global list, filled only for the question that was
-asked. Both are scripted widgets and neither ever comes down, so pointing both
-at one list would keep fifty rows of each alive at all times; as it stands the
-closed one's datamodel is empty and the two come to 315 static widgets between
-them.
-
-**The one guess in it** is `town_rights_type:<key>` as a value a CMM list item
-can hold. The game's own script writes `has_town_rights =
-town_rights_type:flemish_cloth_industries_right` and the engine dump lists
-`town_rights_type` as an event target, so it should store; if it does not, the
-list registration is where `error.log` will say so.
+How the window is put together — the pass reusing the per-good scorers, the three
+fixed slots, `RIGHT_SCALE`, and the one guess in the list registration — is in
+[`../archive/town_rights_window.md`](../archive/town_rights_window.md).
 
 ## Five things read off the files on 2026-09-02
 
@@ -148,9 +99,16 @@ game and not believed: «я могу ошибаться и в целом раб�
   ground you conquer is gone the moment it is yours. You can grant it again if
   you pass its `potential`, which is what the plan already checks.
 - **Flemish cloth and `royal_textile_rights` are mutually exclusive**, and the
-  game says so itself: the flemish `allow` is `NOT = { has_town_rights =
-  royal_textile_rights }`. So «which of them has priority» is not a question the
-  game answers — it only forbids the pair, and the choice is the player's.
+  game says so itself — both `allow` blocks name the other. So «which of them has
+  priority» is not a question the game answers; it only forbids the pair **in one
+  town**, and the choice is the player's. **`scope:target` there is the town and
+  not the country, and reading it as a country rule cost two charters.** Eight
+  pairs in the game carry such an `allow`; derived as «the country grants the
+  excluder instead», it took `royal_naval_rights` and `royal_tooling_rights` away
+  from every Scandinavian country — in both the window and the plan — in favour of
+  the privileges that exclude them, at +20%/+20% and +10% against +30%. Fixed
+  2026-09-03: the plan grants a town one right, so no pair can bind on it, and the
+  single preference the mod holds is written down as one (`PREFERRED_RIGHT`).
 - **The per-location limit is a modifier, `local_possible_town_rights`**
   («Определяет, сколько городских прав может быть у района»). **Nothing in
   `reference/` pushes it**, so the base and any per-rank steps are not knowable
@@ -183,58 +141,87 @@ goods it favours, whatever kind of bonus it gives** — a level right for cloth 
 fine cloth is scored on cloth and fine cloth, exactly like an output right, and
 never on the levels. Undecided and his to call.
 
-## The ages, read off the advances on 2026-09-02
+**The ages, and flemish cloth against royal textile** — which advance opens what,
+why «a weaponry charter where cannons cannot be built» cannot happen in play, why
+the plan does not gate on `has_advance` after all, and the computation he asked
+for on the two cloth charters — are in
+[`../archive/town_rights_ages.md`](../archive/town_rights_ages.md). All settled,
+one of them by a run that made the answer worse.
 
-They settle a question that had been answered from memory, and the owner's
-reading of it was right:
+## How the charters are spread, settled 2026-09-03 over three runs
 
-| what | advance | age |
-| --- | --- | --- |
-| all nine general rights | `town_rights_enable` | **3, Discovery** |
-| first firearms building, `hand_cannon_guild` | `hand_cannon_guild_advance` | 1, Traditions |
-| first cannons building, `cannon_maker` | `cannon_maker_advance` | 2, Renaissance |
-| flemish cloth right | `flemish_cloth_making` | 1, Traditions |
+**The rule the owner set is evenness, and he set it twice.** «Я не буду
+удовлетворён пока не увижу в вестфалии относительно одинаковое количество
+каждого городского права… и мне похуй что там в формулах», then, when seven of
+nine came out at six and two at three: «у пушек ювелирки по 3 … но вот с пушками
+я на такое не согласен, им есть чё взять».
 
-**So «a weaponry right granted where cannons cannot be built» cannot happen in
-play**: by the age the rights exist at all, both buildings have been available for
-an age or more. His words, and the files agree: «невозможно, чтобы произошёл
-сценарий, когда ты выдал права на оружие городу, а в нём невозможно поставить
-пушки или огнестрел».
+**A quota is a ceiling and a ceiling does not spread anything.** The pass walks
+towns; each town takes the best charter that still has room. A charter the ground
+pays 62 for is never any town's best while a rival at 441 has room left, so it
+gets only the towns nobody else wanted — three of forty-eight in Westphalia,
+against a quota of six. Both runs that measured this are in
+[`../TESTLOG.md`](../TESTLOG.md); the second is the one that named the cause,
+because `RQ` prints each town's whole valuation and weaponry is last in every one
+of them.
 
-**But the plan can still produce it, and that is a fault of its own.** The «сейчас»
-plan hands out rights without asking `town_rights_enable` — a right's gate is its
-`potential`, never an advance — while refusing a cannon maker because the country
-has not taken *its* advance. Two different moments inside one answer: rights as
-though it were age 3, buildings as though it were today. **Undecided which way to
-make it consistent**, and it is his call: judge the whole plan at the rights' own
-age, or gate the rights on the advance like everything else.
+**So the ceiling climbs by one and the whole ladder of bands runs at each
+height.** `_rlevel` goes 1, 2, 3 …, and at each height the five bands run in
+descending order; a charter may hold at most `_rlevel` towns. **No charter takes
+an Nth town until every charter has had the chance of its Nth**, which is the
+evenness; the bands inside a level decide *which* town, which is the merit.
+Level 1 is exactly the covering ladder that used to be a special case with a flag
+of its own — `_rn<k> < 1` is `_rn<k> = 0` — so that case and its flag are gone.
 
-**One correction to his wording, not to his point.** «Первый уровень» is not free
-by default: `hand_cannon_guild` needs an age-1 advance exactly as `weapon_guild`
-does, and most production buildings carry one too. What his save shows is a
-country that simply had not taken that particular age-1 advance.
+- **The ceiling it climbs to** is `_rquota`, towns ÷ grantable charters, floored
+  at 1. On 48 towns and 9 charters that is 5.33, so the ladder runs six levels
+  and every charter ends on five or six.
+- **The guard is `RIGHT_LEVELS`**, twelve, because `_rquota` on a large ground
+  with two grantable charters would otherwise walk the whole ground a hundred
+  times. Past it the ladder runs once more at the full quota. `WTP PASS` prints
+  `rquota` and `rlevels`, and the two differing is the guard having bitten — the
+  only trace it leaves.
+- **The open pass after all of it** lifts the ceiling and the band together, so a
+  town no charter fits on merit still ends with one.
+- **The price is a town that would rather have had another charter**, and the
+  owner set that price himself. It is the same objection that was raised against
+  the band-0 pass on 2026-09-03 and overruled the same day.
 
-## Flemish cloth against royal textile, which he asked to have computed
+**Run 2026-09-03, and it came out as predicted**: five or six at every charter,
+`rquota=5 rlevels=6`.
 
-They are mutually exclusive by the game's own `allow`, so it is a real choice.
+**How good is the placement? 84.3% of the best possible, and that is measured.**
+`_rq<k>` is a static script value -- the bundle's gains added and divided by the
+bundle -- so the numbers the dump prints are the numbers the pass used, and the
+assignment problem can be solved exactly afterwards from a press's own report.
+The plan gave **21246**; the best assignment with the same counts is **25189**.
+`tools/` has no solver in it: this was one throwaway script over the report, and
+the method is a note here rather than a tool because it answers a question that
+is now answered.
 
-- `royal_textile_rights`: **cloth +20%, fine cloth +20%, dyes +20%.** Age 3.
-- `flemish_cloth_industries_right`: **cloth guild +5 levels, fine cloth guild +5
-  levels**, plus `local_trades_per_burgher +0.25` and merchant capacity +0.25,
-  which are trade and not production. Age 1, Dutch culture.
+**Two alternatives were measured on those numbers and both are worse.**
 
-`guild_max_level = 1 + development × 0.1 + population × 0.05 + 5 if city + 10 if
-megalopolis`, so **five levels are worth `5 ÷ cap` in output** and the crossover
-is exact: **+5 levels beats +20% while the guild's cap is under 25 levels.**
+- **Walking charters instead of towns** -- each charter takes its best free town
+  in its band -- gives **18526**. A charter early in the order takes a town a
+  later one needed more; letting each town state its own preference beats it.
+- **Finer bands.** Averaged over 40 random walk orders: 5 bands 22969, 10 bands
+  21927, 20 bands 21370, 50 bands 21889. Mellower granularity is not better here,
+  it is worse, because a coarse band lets more towns compete inside it.
 
-- a plain town, cap around 10: flemish is +50% against +20% — **flemish, by far**;
-- a city, cap 20-25: they meet;
-- a megalopolis, cap well over 25: **royal textile**, and it also carries dyes,
-  which flemish does not touch at all.
+**What would close the gap is a swap pass**, and it is not built. After the
+ladder, two towns exchange charters whenever the sum rises: on these numbers +8%
+and **97.8% of the optimum**, in about twelve swaps, with the counts preserved by
+construction. It needs the grant split in two -- the ladder deciding `_plan_right`
+without planting, then one walk planting every bundle -- because a swap after the
+buildings are down would leave them behind.
 
-And flemish is available two whole ages earlier. **The general answer is flemish
-in a town, royal textile in a great city** — but the mod cannot pick between them
-today, because it scores no level right at all.
+**And the cost of evenness is now measured too**: 141 of 192 buildings earned a
+bonus before the levelling ladder and 128 after, 73% against 67%. Ровные грамоты
+стоят земле примерно шестую часть бонуса.
+
+**Not run.** The ladder is arithmetic on the same numbers the last press printed,
+so the prediction is exact — weaponry and jewelry at five, nothing else below
+five — but nothing here has been in the game.
 
 ## What is undecided
 
@@ -243,7 +230,10 @@ today, because it scores no level right at all.
   сукно» — and the merge admits exactly one, flemish cloth, because the only
   other level rights grant marketplace levels and no method produces a
   marketplace. Its own `potential` (Netherlandish culture group) is what keeps it
-  off everyone else, so no advance gate was needed.
+  off everyone else — **and Westphalian is in that group**, read off
+  `cultures/german.txt` on 2026-09-03, which is why Münster's towns take Flemish
+  cloth and never royal textile. The advance gate came later and for a different
+  reason: «Сейчас» asks it, «В конце» does not.
 - **Whether a town that suits no right at all should still get one.** The plan
   grants a right where the town can make at least one of its goods; if none of
   the twelve passes, the town gets none. It has not happened on any ground run so
