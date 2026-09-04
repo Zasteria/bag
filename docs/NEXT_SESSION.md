@@ -30,50 +30,32 @@ about it is the open design question.
 
 ### Five silent faults, and all five are written down
 
-Nothing in any log for any of them. **The table is in
-[`pitfalls/interface.md`](pitfalls/interface.md)** — a `flowcontainer` with a
-`datamodel` (four crashes), a `fixedgridbox` that overlapped its cells, a build
-nobody ran treated as a baseline, a global surviving a save and lying about the
-present, and `_edit_good` read on the wrong scope. Two are checkers now.
+Nothing in any log for any of them, and **the table that names them is
+[`pitfalls/interface.md`](pitfalls/interface.md)** — it is not repeated here.
+The lesson that outlives them: **instrument before the third theory**
+(`pitfalls/diagnosis.md`). The last fault was named by the first report that
+carried the editor's numbers, not by the fourth guess.
 
-**The last was named by the first report that carried the editor's numbers**, not
-by the fourth guess, and that is worth more than the fix: **instrument before the
-third theory** (`pitfalls/diagnosis.md`).
+### What was agreed about the editor, and what is still open
 
-### What the next press has to show
+**[`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md),
+2026-09-04.** The whole of it is there and is not restated here. In one line
+each: the refill after «−1» goes by shortfall against the fair share rather
+than by gain; «+1» and «−1» are independent tools and no undo is wanted; a
+target count per good is rejected; the press must say what it did; the editor's
+window widens and its frame stops sliding; provinces fold; charters get their
+bundle edit; and new ground is fitted to a finished plan without disturbing it.
 
-One press of «+1» on any good with room, then «Показать изменения». **A row with
-both `ушло:` and `встало:`.** If it misses, «Диагностика» → the `EDIT` lines say
-which stage failed, and no theorising is needed or wanted.
+**Three questions are open in that file and none of them is a session's to
+settle alone** — the location panel against `construct_building`, the order
+within a shortfall, and whether «+1» should prefer a victim above its share.
 
-### What he asked for and is owed, in his order
+### Answered elsewhere, not here
 
-1. **«+1»/«−1» for urban rights, and eviction of a whole bundle.** «Я бы
-   предпочёл не забирать домики по частям у городских прав. Я бы скорее предпочёл
-   забирать у города целиком всю связку право+его домики.» The charter lock is
-   back meanwhile, so a town keeps the buildings its charter is for.
-2. **The two plan windows should fold by province.** 48 locations in a flat list
-   is noise; the single-good search already folds and is the model to copy.
-3. **A good may take a charter's slot, last of all** — his idea, unevaluated:
-   only where the charter's own good earns nothing from that ground, and the
-   claimant earns more than the 5% a broken bundle costs.
-4. **The editor should share nothing with the plan but load and save.** Largely
-   done — it places through `_edit_place_*` and asks `_edit_fits_*` — but the
-   scan, the walk and the counters still live in `bag_wtp_generated_editor.txt`
-   beside the plan's, and `_plan_rank`/`_plan_show` are called after every press.
-
-### Answered but not measured
-
-**Why «выгода от места» fell from 80–95% to 64%**: different questions. The old
-number ranked locations for **one** good, where the top rows are fed by
-definition; the plan places **35**, and Westphalia has RGOs for eleven, so 24
-goods have `rgo=0` and nothing here feeds their recipes. **A bigger ground should
-raise it — a prediction, not a measurement**, and one northern-Germany run
-settles it.
-
-**And the mistake the editor replaces**: a hand weight fed into a re-plan moved
-42 locations of 48 with a knob meant to move one. **A preference is an edit, not
-a term in the objective.**
+**Why «выгода от места» fell from 80–95% to 64%** is a row in
+[`SETTLED.md`](SETTLED.md) — a bigger ground raising it is a prediction, and one
+northern-Germany run settles it. **Why a preference is an edit and never a term
+in the objective** is [`investigations/plan_formula.md`](investigations/plan_formula.md).
 
 **Do not spend his run on a guess.** Every fault above was found by counting in
 his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is
