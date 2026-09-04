@@ -45,14 +45,12 @@ a location variable — **a `province_definition` holds none**
 `_row_goods`, not `_plan_goods`**, so its order never moves.
 
 **A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` moves
-one building a press, into the location where it costs least, and nothing else.
-**Two rules: a good never loses its last building on the ground, and a charter's
-buildings go whole or not at all** («забирать у города целиком всю связку
-право+его домики» — the whole-bundle edit is what is owed). Nothing is evicted
-while a room is free, nor left evicted if the placement refuses, and
-**`_edit_place_*` asks the cap itself**: a placement that cannot say no corrupts
-the plan. **The diagnostics carry three `WTP EDIT` lines** — a press is otherwise
-the one thing the report cannot see.
+one building a press, where it costs least. **Two rules: a good keeps its last
+building, and a charter's go whole or not at all** («забирать целиком всю связку
+право+его домики» — that edit is owed). Nothing is evicted while a room is free,
+nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
+itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
+lines in the report** — a press is otherwise invisible to it.
 
 **The editor is a window and never the settings page.** Three save slots, then
 every good as a cell of «−1, icon with its count, +1». **A window exists only if
