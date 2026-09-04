@@ -124,7 +124,7 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv3 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_plan_placed } }
 	debug_log = "WTP GAIN fed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | gain_total=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] out of 1000 a building -- fed is how many earn any bonus where they stand, gain is what they earn in all"
-	debug_log = "WTP EDIT legend: one press, three stages. asked -> scan -> walk. op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk found no candidate at all, so load/esg/esw below are stale. esg is the good the walk would evict (0 = none), esw its gain."
+	debug_log = "WTP EDIT legend: one press, three stages. asked -> scan -> walk. op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk found no candidate at all, so load/esg/esw below are stale. esg is the good that moved and esw its gain — on «+1» the one evicted, on «−1» the one that took the freed room (0 = none)."
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_edit_presses } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_presses } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }

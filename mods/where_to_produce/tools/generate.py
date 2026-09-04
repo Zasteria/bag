@@ -2182,6 +2182,31 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_norefill = 1 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_empty
 \t}}
+\t# **What the press actually did, and this is the instrument.** «Сделано» is
+\t# true and useless: it cannot tell a «+1» that landed in a free room from one
+\t# that took a building off another good, and every rule from here on is a rule
+\t# about which of those happened. The four branches below name the good, the
+\t# location and the good that moved, off the scopes the walk parked.
+\t#
+\t# `_edit_last_done` stays as the last of them. Nothing should reach it -- a
+\t# finished press is op 1 or op 2 -- and if the window ever prints it, the
+\t# press did something these branches do not describe.
+\ttext = {{
+\t\ttrigger = {{
+\t\t\tglobal_var:{MOD_ID}_edit_done = 1
+\t\t\tglobal_var:{MOD_ID}_edit_op = 1
+\t\t\tglobal_var:{MOD_ID}_edit_evicted = 1
+\t\t}}
+\t\tlocalization_key = {MOD_ID}_edit_last_add_over
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 1 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_add_free
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 global_var:{MOD_ID}_edit_op = 2 }}
+\t\tlocalization_key = {MOD_ID}_edit_last_drop_refill
+\t}}
 \ttext = {{
 \t\ttrigger = {{ global_var:{MOD_ID}_edit_done = 1 }}
 \t\tlocalization_key = {MOD_ID}_edit_last_done
@@ -3855,6 +3880,35 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
 """)
 
+    # ---- what the walk stood on, in words ------------------------------------
+    #
+    # The trace above is numbers, which the diagnostics read and the window
+    # cannot. **The press line names three things** -- the good pressed, the
+    # location, and the good that gave way -- and two of them are indices at the
+    # moment the walk knows them. A number cannot be turned into a name in
+    # localization, so the scope itself is parked in a global and the label
+    # reads `GetGlobalVariable(...).GetGoods.GetName` off it: the same trick the
+    # location panel's `_r_good_<n>` rows already use, one scope up.
+    #
+    # `_esg` is the victim on «+1» and the good that took the room on «−1» --
+    # the same variable, both walks -- so one dispatch serves both.
+    name_esg = "".join(
+        f"\tif = {{ limit = {{ var:{MOD_ID}_esg = {i} }}\n"
+        f"\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg_s value = goods:{good} }} }}\n"
+        for i, good in enumerate(order, start=1))
+    out.append(f"""
+# The good `_esg` names, parked as a scope so the press line can print it.
+#
+# Called from inside both ordered walks, standing on the location: `_esg` is a
+# location variable and there is nowhere else to read it. It is only meaningful
+# where the walk set it -- `> 0` -- and the global is removed rather than zeroed
+# before every press, so «ничего не вытеснено» leaves nothing behind to print.
+# Scope: location
+{MOD_ID}_edit_name_esg = {{
+{name_esg}}}
+
+""")
+
     out.append(f"""
 # The walk's trace, cleared before every press.
 #
@@ -3872,6 +3926,12 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ev_esg value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_ev_esw value = 0 }}
+\t# **The three the press line is written from, and they are scopes, not
+\t# numbers.** A scope variable has no zero to be set to, so it is removed
+\t# instead -- and it must be, because the line names what it finds: a stale
+\t# location left over from the previous press would be read as this one's.
+\tremove_global_variable = {MOD_ID}_ev_loc
+\tremove_global_variable = {MOD_ID}_ev_esg_s
 \tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
@@ -3953,6 +4013,13 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = var:{MOD_ID}_esg }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esw value = var:{MOD_ID}_esw }}
+\t\t\t# **And the same two in words, for the window.** The report reads the
+\t\t\t# numbers above; the press line cannot, so the location the walk chose and
+\t\t\t# the good it would evict are parked as scopes here as well. This is the
+\t\t\t# only point in the press where both are in hand.
+\t\t\t{MOD_ID}_edit_name_esg = yes
+\t\t\tsave_scope_as = {MOD_ID}_ev_where
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \t\t\tif = {{
@@ -4087,10 +4154,27 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\torder_by = {MOD_ID}_edit_order
 \t\t\tmax = 1
 \t\t\tcheck_range_bounds = no
+\t\t\t# **The same trace «+1» keeps, and «−1» kept none of it.** The report
+\t\t\t# printed zeros for every «−1» press and read as «the walk found nothing»,
+\t\t\t# which is the one thing it must never say by accident.
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_hit value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 0 }}
+\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 1 }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
+\t\t\tsave_scope_as = {MOD_ID}_ev_where
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_loc value = scope:{MOD_ID}_ev_where }}
 {drop_dispatch}\t\t\t# The room is free now; the best good that may stand here takes it.
 \t\t\tset_variable = {{ name = {MOD_ID}_esw value = -1 }}
 \t\t\tset_variable = {{ name = {MOD_ID}_esg value = 0 }}
-{fill}{fill_dispatch}\t\t\t# **Whether anything took the room.** «−1» has done its job either way --
+{fill}{fill_dispatch}\t\t\t# **Who took it, for the report and for the press line.** On «−1» `_esg` is
+\t\t\t# the good that moved in rather than a victim, and both readings are the
+\t\t\t# walk's answer to «what changed here», so they share the globals.
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = var:{MOD_ID}_esg }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esw value = var:{MOD_ID}_esw }}
+\t\t\t{MOD_ID}_edit_name_esg = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
+\t\t\t# **Whether anything took the room.** «−1» has done its job either way --
 \t\t\t# the building is out, which is what was asked -- but «освободилось и
 \t\t\t# занять нечем» and «освободилось, встал такой-то» are different answers
 \t\t\t# and the window has to give the right one.
@@ -4167,6 +4251,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_plus_{i} = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
+\t# The same good as a scope, because the press line has to name it and a
+\t# number has no name. Here it is free: the cell is written out per good, so
+\t# the good is known without a dispatch.
+\tset_global_variable = {{ name = {MOD_ID}_edit_good_s value = goods:{good} }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_add = yes
 }}
@@ -4175,6 +4263,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_minus_{i} = {{
 \tset_global_variable = {{ name = {MOD_ID}_edit_good value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_good_s value = goods:{good} }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_drop = yes
 }}
@@ -5549,7 +5638,8 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT legend: one press, three stages. asked -> scan -> walk. "
                    "op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk "
                    "found no candidate at all, so load/esg/esw below are stale. "
-                   "esg is the good the walk would evict (0 = none), esw its gain."))
+                   "esg is the good that moved and esw its gain — on «+1» the one "
+                   "evicted, on «−1» the one that took the freed room (0 = none)."))
     for slot, source in enumerate((f"{MOD_ID}_edit_presses", f"{MOD_ID}_edit_op",
                                    f"{MOD_ID}_edit_good", f"{MOD_ID}_edit_reached",
                                    f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",

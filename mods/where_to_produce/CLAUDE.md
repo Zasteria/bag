@@ -50,8 +50,9 @@ building, and a charter's go whole or not at all** («забирать цели�
 право+его домики» — that edit is owed). Nothing is evicted while a room is free,
 nor left evicted if the placement refuses, and **`_edit_place_*` asks the cap
 itself**: a placement that cannot say no corrupts the plan. **Three `WTP EDIT`
-lines in the report** — a press is otherwise invisible to it. **Presses work,
-confirmed 2026-09-04; the «+1»/«−1» round trip is no undo** (`docs/TESTLOG.md`).
+lines in the report**, both ops since 2026-09-04, and **the window names what a
+press did** — good, location, what moved — from scopes in globals; unrun.
+**Presses work; the round trip is no undo** (`docs/TESTLOG.md`).
 
 **The editor is a window and never the settings page.** Three save slots, then
 every good as a cell of «−1, icon with its count, +1». **A window exists only if
@@ -59,16 +60,16 @@ every good as a cell of «−1, icon with its count, +1». **A window exists onl
 he will not find**; and **the picker is 47 written-out cells**, because a
 datamodel row carries a goods scope and a scope reaches no numbered `_pn<n>`
 ([`pitfalls/interface.md`](../../docs/pitfalls/interface.md)).
-`check_script.py` resolves every name a window says.
+`check_script.py` resolves every name a window says and **measures its box
+against its widest row**; `allow_outside` stays, the close button hangs outside
+on purpose.
 
-**Not to be attempted again**, all built or measured and rejected: a geography tree
-of our own, gating charters on their advance, spreading them inside a province,
-answering a preference with a re-plan, the editor on the settings page, granting
-charters charter-first, finer bands, a wrapping widget in the picker.
+**Not to be attempted again**: eight, built or measured and rejected — among
+them a geography tree of our own and a wrapping widget in the picker.
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md).
 
 **The answer lives on the location**, and **four things are settled and not to be
 re-litigated**: [`README.md`](README.md).
 
-**Built by** `generate.py`, from `tools/refresh.py`. Depth:
-[`README.md`](README.md). Anything else: `python3 tools/kb.py <words>`.
+**Built by** `generate.py`, from `tools/refresh.py`. Anything else:
+`python3 tools/kb.py <words>`.

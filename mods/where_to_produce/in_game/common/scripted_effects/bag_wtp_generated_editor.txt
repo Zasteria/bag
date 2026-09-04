@@ -5706,6 +5706,111 @@ bag_wtp_edit_count_held = {
 }
 
 
+# The good `_esg` names, parked as a scope so the press line can print it.
+#
+# Called from inside both ordered walks, standing on the location: `_esg` is a
+# location variable and there is nowhere else to read it. It is only meaningful
+# where the walk set it -- `> 0` -- and the global is removed rather than zeroed
+# before every press, so «ничего не вытеснено» leaves nothing behind to print.
+# Scope: location
+bag_wtp_edit_name_esg = {
+	if = { limit = { var:bag_wtp_esg = 1 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:clay } }
+	if = { limit = { var:bag_wtp_esg = 2 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:coal } }
+	if = { limit = { var:bag_wtp_esg = 3 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:cotton } }
+	if = { limit = { var:bag_wtp_esg = 4 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:dyes } }
+	if = { limit = { var:bag_wtp_esg = 5 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:fiber_crops } }
+	if = { limit = { var:bag_wtp_esg = 6 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:fish } }
+	if = { limit = { var:bag_wtp_esg = 7 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:fruit } }
+	if = { limit = { var:bag_wtp_esg = 8 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:horses } }
+	if = { limit = { var:bag_wtp_esg = 9 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:incense } }
+	if = { limit = { var:bag_wtp_esg = 10 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:iron } }
+	if = { limit = { var:bag_wtp_esg = 11 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:ivory } }
+	if = { limit = { var:bag_wtp_esg = 12 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:livestock } }
+	if = { limit = { var:bag_wtp_esg = 13 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:lumber } }
+	if = { limit = { var:bag_wtp_esg = 14 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:medicaments } }
+	if = { limit = { var:bag_wtp_esg = 15 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:salt } }
+	if = { limit = { var:bag_wtp_esg = 16 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:saltpeter } }
+	if = { limit = { var:bag_wtp_esg = 17 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:sand } }
+	if = { limit = { var:bag_wtp_esg = 18 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:silk } }
+	if = { limit = { var:bag_wtp_esg = 19 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:silver } }
+	if = { limit = { var:bag_wtp_esg = 20 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:stone } }
+	if = { limit = { var:bag_wtp_esg = 21 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:sugar } }
+	if = { limit = { var:bag_wtp_esg = 22 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:tobacco } }
+	if = { limit = { var:bag_wtp_esg = 23 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:wild_game } }
+	if = { limit = { var:bag_wtp_esg = 24 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:wine } }
+	if = { limit = { var:bag_wtp_esg = 25 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:wool } }
+	if = { limit = { var:bag_wtp_esg = 26 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:beer } }
+	if = { limit = { var:bag_wtp_esg = 27 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:books } }
+	if = { limit = { var:bag_wtp_esg = 28 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:cannons } }
+	if = { limit = { var:bag_wtp_esg = 29 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:cloth } }
+	if = { limit = { var:bag_wtp_esg = 30 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:fine_cloth } }
+	if = { limit = { var:bag_wtp_esg = 31 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:firearms } }
+	if = { limit = { var:bag_wtp_esg = 32 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:furniture } }
+	if = { limit = { var:bag_wtp_esg = 33 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:glass } }
+	if = { limit = { var:bag_wtp_esg = 34 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:jewelry } }
+	if = { limit = { var:bag_wtp_esg = 35 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:lacquerware } }
+	if = { limit = { var:bag_wtp_esg = 36 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:leather } }
+	if = { limit = { var:bag_wtp_esg = 37 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:liquor } }
+	if = { limit = { var:bag_wtp_esg = 38 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:masonry } }
+	if = { limit = { var:bag_wtp_esg = 39 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:naval_supplies } }
+	if = { limit = { var:bag_wtp_esg = 40 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:paper } }
+	if = { limit = { var:bag_wtp_esg = 41 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:porcelain } }
+	if = { limit = { var:bag_wtp_esg = 42 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:pottery } }
+	if = { limit = { var:bag_wtp_esg = 43 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:slaves_goods } }
+	if = { limit = { var:bag_wtp_esg = 44 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:steel } }
+	if = { limit = { var:bag_wtp_esg = 45 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:tar } }
+	if = { limit = { var:bag_wtp_esg = 46 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:tools } }
+	if = { limit = { var:bag_wtp_esg = 47 }
+		set_global_variable = { name = bag_wtp_ev_esg_s value = goods:weaponry } }
+}
+
+
 # The walk's trace, cleared before every press.
 #
 # **Zero and «no walk happened» must not look alike.** `_ev_hit` is 0 when the
@@ -5722,6 +5827,12 @@ bag_wtp_edit_clear_trace = {
 	set_global_variable = { name = bag_wtp_ev_load2 value = 0 }
 	set_global_variable = { name = bag_wtp_ev_esg value = 0 }
 	set_global_variable = { name = bag_wtp_ev_esw value = 0 }
+	# **The three the press line is written from, and they are scopes, not
+	# numbers.** A scope variable has no zero to be set to, so it is removed
+	# instead -- and it must be, because the line names what it finds: a stale
+	# location left over from the previous press would be read as this one's.
+	remove_global_variable = bag_wtp_ev_loc
+	remove_global_variable = bag_wtp_ev_esg_s
 	set_global_variable = { name = bag_wtp_edit_evicted value = 0 }
 	set_global_variable = { name = bag_wtp_edit_room value = 0 }
 	set_global_variable = { name = bag_wtp_edit_mark value = 0 }
@@ -6226,6 +6337,13 @@ bag_wtp_edit_add = {
 			set_global_variable = { name = bag_wtp_ev_load value = var:bag_wtp_load }
 			set_global_variable = { name = bag_wtp_ev_esg value = var:bag_wtp_esg }
 			set_global_variable = { name = bag_wtp_ev_esw value = var:bag_wtp_esw }
+			# **And the same two in words, for the window.** The report reads the
+			# numbers above; the press line cannot, so the location the walk chose and
+			# the good it would evict are parked as scopes here as well. This is the
+			# only point in the press where both are in hand.
+			bag_wtp_edit_name_esg = yes
+			save_scope_as = bag_wtp_ev_where
+			set_global_variable = { name = bag_wtp_ev_loc value = scope:bag_wtp_ev_where }
 			set_global_variable = { name = bag_wtp_edit_evicted value = 0 }
 			set_global_variable = { name = bag_wtp_edit_room value = 0 }
 			if = {
@@ -7565,6 +7683,16 @@ bag_wtp_edit_drop = {
 			order_by = bag_wtp_edit_order
 			max = 1
 			check_range_bounds = no
+			# **The same trace «+1» keeps, and «−1» kept none of it.** The report
+			# printed zeros for every «−1» press and read as «the walk found nothing»,
+			# which is the one thing it must never say by accident.
+			set_global_variable = { name = bag_wtp_ev_hit value = 1 }
+			set_global_variable = { name = bag_wtp_ev_town value = 0 }
+			if = { limit = { bag_wtp_plan_is_town = yes }
+				set_global_variable = { name = bag_wtp_ev_town value = 1 } }
+			set_global_variable = { name = bag_wtp_ev_load value = var:bag_wtp_load }
+			save_scope_as = bag_wtp_ev_where
+			set_global_variable = { name = bag_wtp_ev_loc value = scope:bag_wtp_ev_where }
 			if = { limit = { global_var:bag_wtp_edit_good = 1 }
 				bag_wtp_edit_remove_town_1 = yes
 				bag_wtp_edit_remove_rural_1 = yes
@@ -8560,6 +8688,13 @@ bag_wtp_edit_drop = {
 				bag_wtp_edit_place_town_47 = yes
 				bag_wtp_edit_place_rural_47 = yes
 			}
+			# **Who took it, for the report and for the press line.** On «−1» `_esg` is
+			# the good that moved in rather than a victim, and both readings are the
+			# walk's answer to «what changed here», so they share the globals.
+			set_global_variable = { name = bag_wtp_ev_esg value = var:bag_wtp_esg }
+			set_global_variable = { name = bag_wtp_ev_esw value = var:bag_wtp_esw }
+			bag_wtp_edit_name_esg = yes
+			set_global_variable = { name = bag_wtp_ev_load2 value = var:bag_wtp_load }
 			# **Whether anything took the room.** «−1» has done its job either way --
 			# the building is out, which is what was asked -- but «освободилось и
 			# занять нечем» and «освободилось, встал такой-то» are different answers
@@ -8659,6 +8794,10 @@ bag_wtp_edit_save = {
 # Scope: country
 bag_wtp_edit_plus_1 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 1 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:clay }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8667,6 +8806,7 @@ bag_wtp_edit_plus_1 = {
 # Scope: country
 bag_wtp_edit_minus_1 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 1 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:clay }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8675,6 +8815,10 @@ bag_wtp_edit_minus_1 = {
 # Scope: country
 bag_wtp_edit_plus_2 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 2 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:coal }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8683,6 +8827,7 @@ bag_wtp_edit_plus_2 = {
 # Scope: country
 bag_wtp_edit_minus_2 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 2 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:coal }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8691,6 +8836,10 @@ bag_wtp_edit_minus_2 = {
 # Scope: country
 bag_wtp_edit_plus_3 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 3 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cotton }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8699,6 +8848,7 @@ bag_wtp_edit_plus_3 = {
 # Scope: country
 bag_wtp_edit_minus_3 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 3 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cotton }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8707,6 +8857,10 @@ bag_wtp_edit_minus_3 = {
 # Scope: country
 bag_wtp_edit_plus_4 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 4 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:dyes }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8715,6 +8869,7 @@ bag_wtp_edit_plus_4 = {
 # Scope: country
 bag_wtp_edit_minus_4 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 4 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:dyes }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8723,6 +8878,10 @@ bag_wtp_edit_minus_4 = {
 # Scope: country
 bag_wtp_edit_plus_5 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 5 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fiber_crops }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8731,6 +8890,7 @@ bag_wtp_edit_plus_5 = {
 # Scope: country
 bag_wtp_edit_minus_5 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 5 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fiber_crops }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8739,6 +8899,10 @@ bag_wtp_edit_minus_5 = {
 # Scope: country
 bag_wtp_edit_plus_6 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 6 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fish }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8747,6 +8911,7 @@ bag_wtp_edit_plus_6 = {
 # Scope: country
 bag_wtp_edit_minus_6 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 6 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fish }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8755,6 +8920,10 @@ bag_wtp_edit_minus_6 = {
 # Scope: country
 bag_wtp_edit_plus_7 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 7 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fruit }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8763,6 +8932,7 @@ bag_wtp_edit_plus_7 = {
 # Scope: country
 bag_wtp_edit_minus_7 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 7 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fruit }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8771,6 +8941,10 @@ bag_wtp_edit_minus_7 = {
 # Scope: country
 bag_wtp_edit_plus_8 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 8 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:horses }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8779,6 +8953,7 @@ bag_wtp_edit_plus_8 = {
 # Scope: country
 bag_wtp_edit_minus_8 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 8 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:horses }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8787,6 +8962,10 @@ bag_wtp_edit_minus_8 = {
 # Scope: country
 bag_wtp_edit_plus_9 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 9 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:incense }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8795,6 +8974,7 @@ bag_wtp_edit_plus_9 = {
 # Scope: country
 bag_wtp_edit_minus_9 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 9 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:incense }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8803,6 +8983,10 @@ bag_wtp_edit_minus_9 = {
 # Scope: country
 bag_wtp_edit_plus_10 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 10 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:iron }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8811,6 +8995,7 @@ bag_wtp_edit_plus_10 = {
 # Scope: country
 bag_wtp_edit_minus_10 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 10 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:iron }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8819,6 +9004,10 @@ bag_wtp_edit_minus_10 = {
 # Scope: country
 bag_wtp_edit_plus_11 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 11 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:ivory }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8827,6 +9016,7 @@ bag_wtp_edit_plus_11 = {
 # Scope: country
 bag_wtp_edit_minus_11 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 11 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:ivory }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8835,6 +9025,10 @@ bag_wtp_edit_minus_11 = {
 # Scope: country
 bag_wtp_edit_plus_12 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 12 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:livestock }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8843,6 +9037,7 @@ bag_wtp_edit_plus_12 = {
 # Scope: country
 bag_wtp_edit_minus_12 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 12 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:livestock }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8851,6 +9046,10 @@ bag_wtp_edit_minus_12 = {
 # Scope: country
 bag_wtp_edit_plus_13 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 13 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:lumber }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8859,6 +9058,7 @@ bag_wtp_edit_plus_13 = {
 # Scope: country
 bag_wtp_edit_minus_13 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 13 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:lumber }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8867,6 +9067,10 @@ bag_wtp_edit_minus_13 = {
 # Scope: country
 bag_wtp_edit_plus_14 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 14 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:medicaments }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8875,6 +9079,7 @@ bag_wtp_edit_plus_14 = {
 # Scope: country
 bag_wtp_edit_minus_14 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 14 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:medicaments }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8883,6 +9088,10 @@ bag_wtp_edit_minus_14 = {
 # Scope: country
 bag_wtp_edit_plus_15 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 15 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:salt }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8891,6 +9100,7 @@ bag_wtp_edit_plus_15 = {
 # Scope: country
 bag_wtp_edit_minus_15 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 15 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:salt }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8899,6 +9109,10 @@ bag_wtp_edit_minus_15 = {
 # Scope: country
 bag_wtp_edit_plus_16 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 16 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:saltpeter }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8907,6 +9121,7 @@ bag_wtp_edit_plus_16 = {
 # Scope: country
 bag_wtp_edit_minus_16 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 16 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:saltpeter }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8915,6 +9130,10 @@ bag_wtp_edit_minus_16 = {
 # Scope: country
 bag_wtp_edit_plus_17 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 17 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:sand }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8923,6 +9142,7 @@ bag_wtp_edit_plus_17 = {
 # Scope: country
 bag_wtp_edit_minus_17 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 17 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:sand }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8931,6 +9151,10 @@ bag_wtp_edit_minus_17 = {
 # Scope: country
 bag_wtp_edit_plus_18 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 18 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:silk }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8939,6 +9163,7 @@ bag_wtp_edit_plus_18 = {
 # Scope: country
 bag_wtp_edit_minus_18 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 18 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:silk }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8947,6 +9172,10 @@ bag_wtp_edit_minus_18 = {
 # Scope: country
 bag_wtp_edit_plus_19 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 19 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:silver }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8955,6 +9184,7 @@ bag_wtp_edit_plus_19 = {
 # Scope: country
 bag_wtp_edit_minus_19 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 19 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:silver }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8963,6 +9193,10 @@ bag_wtp_edit_minus_19 = {
 # Scope: country
 bag_wtp_edit_plus_20 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 20 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:stone }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8971,6 +9205,7 @@ bag_wtp_edit_plus_20 = {
 # Scope: country
 bag_wtp_edit_minus_20 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 20 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:stone }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8979,6 +9214,10 @@ bag_wtp_edit_minus_20 = {
 # Scope: country
 bag_wtp_edit_plus_21 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 21 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:sugar }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -8987,6 +9226,7 @@ bag_wtp_edit_plus_21 = {
 # Scope: country
 bag_wtp_edit_minus_21 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 21 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:sugar }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -8995,6 +9235,10 @@ bag_wtp_edit_minus_21 = {
 # Scope: country
 bag_wtp_edit_plus_22 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 22 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tobacco }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9003,6 +9247,7 @@ bag_wtp_edit_plus_22 = {
 # Scope: country
 bag_wtp_edit_minus_22 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 22 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tobacco }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9011,6 +9256,10 @@ bag_wtp_edit_minus_22 = {
 # Scope: country
 bag_wtp_edit_plus_23 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 23 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wild_game }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9019,6 +9268,7 @@ bag_wtp_edit_plus_23 = {
 # Scope: country
 bag_wtp_edit_minus_23 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 23 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wild_game }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9027,6 +9277,10 @@ bag_wtp_edit_minus_23 = {
 # Scope: country
 bag_wtp_edit_plus_24 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 24 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wine }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9035,6 +9289,7 @@ bag_wtp_edit_plus_24 = {
 # Scope: country
 bag_wtp_edit_minus_24 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 24 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wine }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9043,6 +9298,10 @@ bag_wtp_edit_minus_24 = {
 # Scope: country
 bag_wtp_edit_plus_25 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 25 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wool }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9051,6 +9310,7 @@ bag_wtp_edit_plus_25 = {
 # Scope: country
 bag_wtp_edit_minus_25 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 25 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:wool }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9059,6 +9319,10 @@ bag_wtp_edit_minus_25 = {
 # Scope: country
 bag_wtp_edit_plus_26 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 26 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:beer }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9067,6 +9331,7 @@ bag_wtp_edit_plus_26 = {
 # Scope: country
 bag_wtp_edit_minus_26 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 26 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:beer }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9075,6 +9340,10 @@ bag_wtp_edit_minus_26 = {
 # Scope: country
 bag_wtp_edit_plus_27 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 27 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:books }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9083,6 +9352,7 @@ bag_wtp_edit_plus_27 = {
 # Scope: country
 bag_wtp_edit_minus_27 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 27 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:books }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9091,6 +9361,10 @@ bag_wtp_edit_minus_27 = {
 # Scope: country
 bag_wtp_edit_plus_28 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 28 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cannons }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9099,6 +9373,7 @@ bag_wtp_edit_plus_28 = {
 # Scope: country
 bag_wtp_edit_minus_28 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 28 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cannons }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9107,6 +9382,10 @@ bag_wtp_edit_minus_28 = {
 # Scope: country
 bag_wtp_edit_plus_29 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 29 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cloth }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9115,6 +9394,7 @@ bag_wtp_edit_plus_29 = {
 # Scope: country
 bag_wtp_edit_minus_29 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 29 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:cloth }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9123,6 +9403,10 @@ bag_wtp_edit_minus_29 = {
 # Scope: country
 bag_wtp_edit_plus_30 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 30 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fine_cloth }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9131,6 +9415,7 @@ bag_wtp_edit_plus_30 = {
 # Scope: country
 bag_wtp_edit_minus_30 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 30 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:fine_cloth }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9139,6 +9424,10 @@ bag_wtp_edit_minus_30 = {
 # Scope: country
 bag_wtp_edit_plus_31 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 31 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:firearms }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9147,6 +9436,7 @@ bag_wtp_edit_plus_31 = {
 # Scope: country
 bag_wtp_edit_minus_31 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 31 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:firearms }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9155,6 +9445,10 @@ bag_wtp_edit_minus_31 = {
 # Scope: country
 bag_wtp_edit_plus_32 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 32 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:furniture }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9163,6 +9457,7 @@ bag_wtp_edit_plus_32 = {
 # Scope: country
 bag_wtp_edit_minus_32 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 32 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:furniture }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9171,6 +9466,10 @@ bag_wtp_edit_minus_32 = {
 # Scope: country
 bag_wtp_edit_plus_33 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 33 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:glass }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9179,6 +9478,7 @@ bag_wtp_edit_plus_33 = {
 # Scope: country
 bag_wtp_edit_minus_33 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 33 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:glass }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9187,6 +9487,10 @@ bag_wtp_edit_minus_33 = {
 # Scope: country
 bag_wtp_edit_plus_34 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 34 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:jewelry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9195,6 +9499,7 @@ bag_wtp_edit_plus_34 = {
 # Scope: country
 bag_wtp_edit_minus_34 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 34 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:jewelry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9203,6 +9508,10 @@ bag_wtp_edit_minus_34 = {
 # Scope: country
 bag_wtp_edit_plus_35 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 35 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:lacquerware }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9211,6 +9520,7 @@ bag_wtp_edit_plus_35 = {
 # Scope: country
 bag_wtp_edit_minus_35 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 35 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:lacquerware }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9219,6 +9529,10 @@ bag_wtp_edit_minus_35 = {
 # Scope: country
 bag_wtp_edit_plus_36 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 36 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:leather }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9227,6 +9541,7 @@ bag_wtp_edit_plus_36 = {
 # Scope: country
 bag_wtp_edit_minus_36 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 36 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:leather }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9235,6 +9550,10 @@ bag_wtp_edit_minus_36 = {
 # Scope: country
 bag_wtp_edit_plus_37 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 37 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:liquor }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9243,6 +9562,7 @@ bag_wtp_edit_plus_37 = {
 # Scope: country
 bag_wtp_edit_minus_37 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 37 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:liquor }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9251,6 +9571,10 @@ bag_wtp_edit_minus_37 = {
 # Scope: country
 bag_wtp_edit_plus_38 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 38 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:masonry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9259,6 +9583,7 @@ bag_wtp_edit_plus_38 = {
 # Scope: country
 bag_wtp_edit_minus_38 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 38 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:masonry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9267,6 +9592,10 @@ bag_wtp_edit_minus_38 = {
 # Scope: country
 bag_wtp_edit_plus_39 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 39 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:naval_supplies }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9275,6 +9604,7 @@ bag_wtp_edit_plus_39 = {
 # Scope: country
 bag_wtp_edit_minus_39 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 39 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:naval_supplies }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9283,6 +9613,10 @@ bag_wtp_edit_minus_39 = {
 # Scope: country
 bag_wtp_edit_plus_40 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 40 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:paper }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9291,6 +9625,7 @@ bag_wtp_edit_plus_40 = {
 # Scope: country
 bag_wtp_edit_minus_40 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 40 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:paper }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9299,6 +9634,10 @@ bag_wtp_edit_minus_40 = {
 # Scope: country
 bag_wtp_edit_plus_41 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 41 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:porcelain }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9307,6 +9646,7 @@ bag_wtp_edit_plus_41 = {
 # Scope: country
 bag_wtp_edit_minus_41 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 41 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:porcelain }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9315,6 +9655,10 @@ bag_wtp_edit_minus_41 = {
 # Scope: country
 bag_wtp_edit_plus_42 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 42 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:pottery }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9323,6 +9667,7 @@ bag_wtp_edit_plus_42 = {
 # Scope: country
 bag_wtp_edit_minus_42 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 42 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:pottery }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9331,6 +9676,10 @@ bag_wtp_edit_minus_42 = {
 # Scope: country
 bag_wtp_edit_plus_43 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 43 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:slaves_goods }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9339,6 +9688,7 @@ bag_wtp_edit_plus_43 = {
 # Scope: country
 bag_wtp_edit_minus_43 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 43 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:slaves_goods }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9347,6 +9697,10 @@ bag_wtp_edit_minus_43 = {
 # Scope: country
 bag_wtp_edit_plus_44 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 44 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:steel }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9355,6 +9709,7 @@ bag_wtp_edit_plus_44 = {
 # Scope: country
 bag_wtp_edit_minus_44 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 44 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:steel }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9363,6 +9718,10 @@ bag_wtp_edit_minus_44 = {
 # Scope: country
 bag_wtp_edit_plus_45 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 45 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tar }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9371,6 +9730,7 @@ bag_wtp_edit_plus_45 = {
 # Scope: country
 bag_wtp_edit_minus_45 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 45 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tar }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9379,6 +9739,10 @@ bag_wtp_edit_minus_45 = {
 # Scope: country
 bag_wtp_edit_plus_46 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 46 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tools }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9387,6 +9751,7 @@ bag_wtp_edit_plus_46 = {
 # Scope: country
 bag_wtp_edit_minus_46 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 46 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:tools }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }
@@ -9395,6 +9760,10 @@ bag_wtp_edit_minus_46 = {
 # Scope: country
 bag_wtp_edit_plus_47 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 47 }
+	# The same good as a scope, because the press line has to name it and a
+	# number has no name. Here it is free: the cell is written out per good, so
+	# the good is known without a dispatch.
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:weaponry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_add = yes
 }
@@ -9403,6 +9772,7 @@ bag_wtp_edit_plus_47 = {
 # Scope: country
 bag_wtp_edit_minus_47 = {
 	set_global_variable = { name = bag_wtp_edit_good value = 47 }
+	set_global_variable = { name = bag_wtp_edit_good_s value = goods:weaponry }
 	set_global_variable = { name = bag_wtp_edit_reached value = 1 }
 	bag_wtp_edit_drop = yes
 }

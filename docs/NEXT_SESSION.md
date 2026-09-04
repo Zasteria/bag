@@ -36,9 +36,16 @@ rules each step implements are
 [`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
 
 0. **`tools/code.py`** — done 2026-09-04, no run needed.
-1. **The editor's window: the press line, the width, the frame.** *Do this
-   first: it is the instrument the next two are checked with.*
-2. **Share, `_lock<n>`, and the «не нужен» flag.**
+1. **The editor's window: the press line, the width, the frame** — **built
+   2026-09-04, and one run is owed on it.** The press line names the good, the
+   location and the good that moved, off scopes the walk parks in globals; «−1»
+   now keeps the same trace «+1» did, which it never had; the three windows are
+   1640 / 1260 / 1240 against a widest row of 1524 / 1144 / 1124. `allow_outside`
+   **stays** — the close button hangs outside on purpose, exactly as vanilla's
+   does, and that was the question the pitfall left open. What to ask him for is
+   at the end of that step in `wtp_practice_plan.md`.
+2. **Share, `_lock<n>`, and the «не нужен» flag** — *next, and it is checked with
+   the press line above, so the run comes first.*
 3. **Even eviction on «+1»** — two passes, never a packed number.
 4. **Provinces fold in the two plan windows.**
 5. **Charters: «+1»/«−1» and whole-bundle eviction.**

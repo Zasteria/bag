@@ -211,6 +211,17 @@ of these shape the file that is built now.
   per reader per row, and the bracket is echoed literally into the log. **Park a
   per-row number in a scratch global and print that**; `debug_log_scopes = no`
   logs the current scope, which is what names the row.
+- **And a scope parks in a global just as a number does**, which is what lets a
+  label say «+1 сукно → Мюнстер» instead of «сделано». `set_global_variable =
+  { name = x value = scope:y }` after a `save_scope_as` inside the walk, then
+  `[GetGlobalVariable('x').GetLocation.GetName]` in the localization —
+  `GetGlobalVariable` is a global promote returning a `Scope`, so the same cast
+  chain works on it that `mods/where_to_produce` already uses one scope down
+  (`[Location.MakeScope.GetVariable('bag_wtp_r_good_1').GetGoods.GetName]`), and
+  that CMF's own log uses for `cmf_log_loc`. **A number has no name**: an index
+  in a global can only be turned into words by a `customizable_localization`
+  with a branch per value, so park the scope where the name is wanted and the
+  number where the report is. Built 2026-09-04, not yet seen in game.
 - **And one script-value form reads zero in silence.** `value = 0` with
   `if = { limit = { has_global_variable = x } add = global_var:x }` returned 0
   for every reader, with nothing in any log — on a plan that had just placed 417

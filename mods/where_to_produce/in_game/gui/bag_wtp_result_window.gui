@@ -752,13 +752,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1180 720 }
+	size = { 1260 720 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_result_open').IsSet]"
 
 	widget = {
-		size = { 1180 720 }
+		size = { 1260 720 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -796,7 +796,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 80 }
+					maximumsize = { 1210 80 }
 					align = center
 					text = "bag_wtp_result_window_desc"
 				}
@@ -958,7 +958,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 60 }
+					maximumsize = { 1210 60 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_results')))]"
 					text = "bag_wtp_result_window_empty"
