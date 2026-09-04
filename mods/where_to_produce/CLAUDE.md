@@ -15,16 +15,16 @@ end is what the next press has to show.
 
 **A recipe the province mostly cannot feed is no answer to the ranking** — the bar
 is `generate.fed_floor` — but **the plan must never use it as a gate**. **The bonus
-counts RGOs only**; **a building runs one method per slot**:
+counts RGOs only**; **one method per slot**:
 [`production_ladder.md`](../../docs/investigations/production_ladder.md).
 
-**Urban rights** are two lists on the Goods tab and a window of their own; in the
-plan every town gets one and its whole bundle goes up — **108 rooms of 192 on a
-small ground, which is where most of its shape comes from**. **The charter ladder
+**Urban rights** are two lists on the Goods tab and a window of their own; every
+town gets one and its whole bundle goes up — **108 rooms of 192 on a small
+ground, which is where most of its shape comes from**. **The charter ladder
 raises its ceiling one town at a time and runs every band at each height**; a
 ceiling alone spreads nothing. That lands **84% of the best placement with those
 counts**. **A right's gate is its own `potential`, never `has_advance`**, and
-**the exclusion between two rights is a town's rule, not a country's**.
+**an exclusion between two rights is a town's rule, not a country's**.
 [`town_rights.md`](../../docs/investigations/town_rights.md).
 
 **The plan is an optimisation with a covering constraint** — maximise the bonus
