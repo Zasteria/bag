@@ -4,51 +4,74 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `where_to_produce`, the plan formula
+## The job: `where_to_produce`, the plan editor
 
 **Read [`investigations/plan_gaps.md`](investigations/plan_gaps.md) first and
-nothing else.** Nine faults, all closed, five runs behind them. Three results to
-carry before touching anything:
+nothing else.** The plan itself is finished and confirmed in game; the editor is
+what is live.
 
-- **The formula has two regimes.** On 48 locations the quota binds and the bands
-  barely matter; on 416 the quota binds nothing and the band is the whole
-  allocator. Fault D was closed on the small ground and had to be reopened on the
-  large one — **a measurement answers the ground it was taken on**
-  (`pitfalls/diagnosis.md`).
-- **A scarce good with one building is the RGO discount and not a fault** — his
-  own rule, now re-derived three times.
-- **Charters use `potential` and never the advance.** The other way was built,
-  run, and cost the plan a quarter of its ground.
+### Where it stands, 2026-09-04
 
-**Three presses are owed and none has been in the game.** On Westphalia: the
-charter ladder now climbs its ceiling one town at a time and runs every band at
-each height, so the nine charters should come back **five or six each** instead of
-6·7 + 3 + 3. That is the thing he said the plan is worthless without, and the two
-runs behind it are the newest in [`TESTLOG.md`](TESTLOG.md). On a large ground:
-the relative open ladder, which does not engage at all on 48 locations because
-the quota fills them first. And the editor's windows, below.
+**The plan works and he has seen it.** 192 buildings in 192 rooms on Westphalia,
+charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
+relative open ladder, which does not engage on 48 locations and wants a large
+ground.
 
-**The editor is a window of its own now, and none of it has been loaded.** He
-refused the first build outright — it was nine settings on the mod's page and
-«окно настроек мода - стало засраным и неудобным… я не хочу делать подобные вещи
-там». So: `bag_wtp_edit_window.gui`, three save slots, the goods this ground can
-make as icons, «−1» and «+1» flanking each one he picks, and
-`bag_wtp_changes_window.gui` for «показать изменения». The save buttons are in the
-plan window as well, where he asked for them.
+**The editor's window opens, the picker draws, the presses arrive.** Everything
+in that sentence cost a run to establish. What is **not** confirmed is the one
+thing it exists for: **no «+1» or «−1» has ever been seen to change the plan.**
+The last build fixed the reason and has not been loaded.
 
-**Three GUI files have never been drawn.** That is the whole risk in this build:
-script failures name their file and line in `error.log`, and a `.gui` that does
-not parse takes its window with it silently. The first load should be «Открыть
-план → Редактор», and if the window does not appear the log will say why.
+### Five silent faults, and all five are written down
 
-**The mistake the editor replaces is worth carrying**: a hand weight fed back into
-a full re-plan, which measured at 42 locations of 48 moved by a knob meant to move
-one. A preference is an edit, not a term in the objective. The checklist is the
-last section of `plan_gaps.md`.
+Nothing in any log for any of them. **The table is in
+[`pitfalls/interface.md`](pitfalls/interface.md)** — a `flowcontainer` with a
+`datamodel` (four crashes), a `fixedgridbox` that overlapped its cells, a build
+nobody ran treated as a baseline, a global surviving a save and lying about the
+present, and `_edit_good` read on the wrong scope. Two are checkers now.
 
-**Do not spend his run on a guess.** Every fault in that file was found by
-counting in his log, not by theorising, and the four-theories rule
-(`pitfalls/diagnosis.md`) is what this mod cost him already.
+**The last was named by the first report that carried the editor's numbers**, not
+by the fourth guess, and that is worth more than the fix: **instrument before the
+third theory** (`pitfalls/diagnosis.md`).
+
+### What the next press has to show
+
+One press of «+1» on any good with room, then «Показать изменения». **A row with
+both `ушло:` and `встало:`.** If it misses, «Диагностика» → the `EDIT` lines say
+which stage failed, and no theorising is needed or wanted.
+
+### What he asked for and is owed, in his order
+
+1. **«+1»/«−1» for urban rights, and eviction of a whole bundle.** «Я бы
+   предпочёл не забирать домики по частям у городских прав. Я бы скорее предпочёл
+   забирать у города целиком всю связку право+его домики.» The charter lock is
+   back meanwhile, so a town keeps the buildings its charter is for.
+2. **The two plan windows should fold by province.** 48 locations in a flat list
+   is noise; the single-good search already folds and is the model to copy.
+3. **A good may take a charter's slot, last of all** — his idea, unevaluated:
+   only where the charter's own good earns nothing from that ground, and the
+   claimant earns more than the 5% a broken bundle costs.
+4. **The editor should share nothing with the plan but load and save.** Largely
+   done — it places through `_edit_place_*` and asks `_edit_fits_*` — but the
+   scan, the walk and the counters still live in `bag_wtp_generated_editor.txt`
+   beside the plan's, and `_plan_rank`/`_plan_show` are called after every press.
+
+### Answered but not measured
+
+**Why «выгода от места» fell from 80–95% to 64%**: different questions. The old
+number ranked locations for **one** good, where the top rows are fed by
+definition; the plan places **35**, and Westphalia has RGOs for eleven, so 24
+goods have `rgo=0` and nothing here feeds their recipes. **A bigger ground should
+raise it — a prediction, not a measurement**, and one northern-Germany run
+settles it.
+
+**And the mistake the editor replaces**: a hand weight fed into a re-plan moved
+42 locations of 48 with a knob meant to move one. **A preference is an edit, not
+a term in the objective.**
+
+**Do not spend his run on a guess.** Every fault above was found by counting in
+his log or his report, and the four-theories rule (`pitfalls/diagnosis.md`) is
+what this mod has already cost him.
 
 ## The job: `mods.bat`, and one run to confirm it
 
@@ -86,32 +109,11 @@ unbuilt, and where the diagnosis lives — is in
 
 ## Then `glorpui_hints` goes out
 
-Nothing about the mod is outstanding. Riding along on whatever load comes next,
-none of it needing a protocol:
-
-- the five advance-gated privileges. Playing anyone but England, Morocco or the
-  Ottomans, `Yeomanry` / `Jaysh Armies` / `Ghazi` / `Ayans` must not be offered,
-  and `error.log` must not carry `svx_unlock_`;
-- `error.log` must no longer carry `Inconsistent trigger scopes` — a building's
-  `allow` was being copied into country scope. Clean on 2026-08-30, but on an
-  axis Wallachia does not have, so it is still open;
-- nine of the eleven languages, a console switch each. **A hot switch does not
-  re-resolve vanilla strings**, only the mod's, so a real check wants a restart;
-- the four repaired Glorp UI interface keys. The player could not find those map
-  modes and does not care. **If still not visible next time, offer to drop
-  them** — another mod's interface, and outside this mod's stated scope.
-
-### Then publish
-
-`python3 tools/publish.py glorpui_hints` says `ok`; everything is ready, and the
-five steps — merge, load, Mod Tools, check the page, Required Items by hand —
-are in [`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order).
-
-### Deliberately not done
-
-A thumbnail for the other five mods — `make_thumbnail.py` draws one when a second
-goes out — and reviewing the ten new translations with somebody who speaks them,
-where a correction goes in `languages.py` and never in a generated `.yml`.
+Nothing about the mod is outstanding; four things ride along on whatever load
+comes next, and publishing is five steps in
+[`WORKSHOP.md`](WORKSHOP.md#putting-glorpui_hints-out-in-order). Both lists, and
+what is deliberately not done, are in
+[`archive/next_glorpui_publish.md`](archive/next_glorpui_publish.md).
 
 ## Also waiting on the owner, all of it cheap
 
