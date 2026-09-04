@@ -498,6 +498,37 @@ def digest(lines: list[str]) -> list[str]:
                        "за каждое своё РГО, но не ниже 1): %s"
                        % (base if base is not None else "?", "; ".join(capped)))
 
+    # **Правка плана — своей строкой.** Она была невидима для отчёта до
+    # 2026-09-04, и это стоило прогона, в котором 27 домиков встали сверх лимита,
+    # а сказать почему было нечем. Владелец: «Добавляй скан информации для себя в
+    # диагностике на функцию редактора, чтобы ты видел чё там происходит.»
+    asked, scan, walk = (first("WTP EDIT asked"), first("WTP EDIT scan"),
+                         first("WTP EDIT walk"))
+    presses = field(asked, "presses")
+    if presses:
+        op = {1: "«+1»", 2: "«−1»"}.get(field(asked, "op"), "ничего")
+        done, fail = field(asked, "done"), field(asked, "fail")
+        got = ("поставлено" if done else
+               "отказано, всё возвращено" if fail else "ничего не сделано")
+        out.append("Правка: нажатий %d, последнее — %s по товару №%s: %s"
+                   % (presses, op, field(asked, "good"), got))
+        if field(scan, "hit"):
+            out.append("  обход встал на локацию: %s, домиков %s из %s, жертва "
+                       "№%s (выгода %s) — выселено: %s, место было: %s, "
+                       "домиков стало %s"
+                       % ("город" if field(scan, "town") else "село",
+                          field(scan, "load"),
+                          field(walk, "cap_urban") if field(scan, "town")
+                          else field(walk, "cap_rural"),
+                          field(scan, "esg"), field(scan, "esw"),
+                          "да" if field(walk, "evicted") else "нет",
+                          "да" if field(walk, "room") else "нет",
+                          field(walk, "load_after")))
+        else:
+            out.append("  обход не нашёл ни одной локации: подходящих %s, из них "
+                       "с местом или жертвой %s"
+                       % (field(scan, "fitn"), field(scan, "cands")))
+
     cut = [line.split()[1] for line in lines
            if line.startswith("WTP P") and re.search(r"sweeps=(\d+)/\1\b", line)]
     out.append("Проходы, упёршиеся в лимит кругов: " + (", ".join(cut) if cut else "нет"))
@@ -508,7 +539,8 @@ def digest(lines: list[str]) -> list[str]:
 def headline(lines: list[str]) -> list[str]:
     """Несколько строк, по которым сразу видно, что отчёт настоящий."""
     wanted = ("WTP BUILD methods", "WTP SELFTEST 1", "WTP PICK", "WTP PASS",
-              "WTP GAIN", "WTP ROOM")
+              "WTP GAIN", "WTP ROOM", "WTP EDIT asked", "WTP EDIT scan",
+              "WTP EDIT walk")
     return [line for line in lines if line.startswith(wanted)]
 
 

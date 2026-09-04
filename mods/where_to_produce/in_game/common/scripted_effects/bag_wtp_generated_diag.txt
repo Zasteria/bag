@@ -124,6 +124,52 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv3 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_plan_placed } }
 	debug_log = "WTP GAIN fed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] of placed=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | gain_total=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] out of 1000 a building -- fed is how many earn any bonus where they stand, gain is what they earn in all"
+	debug_log = "WTP EDIT legend: one press, three stages. asked -> scan -> walk. op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk found no candidate at all, so load/esg/esw below are stale. esg is the good the walk would evict (0 = none), esw its gain."
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_presses } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_presses } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_op } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_op } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_good } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_edit_good } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_reached } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_edit_reached } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_done } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_edit_done } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_fail } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_edit_fail } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_norefill } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_edit_norefill } }
+	debug_log = "WTP EDIT asked presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] reached=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | outcome done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_fitn } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_fitn } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_cands } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_cands } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_hit } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_ev_hit } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_town } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_ev_town } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_load } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_ev_load } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_esg } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_ev_esg } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_esw } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_ev_esw } }
+	debug_log = "WTP EDIT scan fitn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cands=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | walk hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] esw=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_evicted } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_evicted } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_room } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_edit_room } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_mark } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_edit_mark } }
+	set_global_variable = { name = bag_wtp_dv4 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_ev_load2 } set_global_variable = { name = bag_wtp_dv4 value = global_var:bag_wtp_ev_load2 } }
+	set_global_variable = { name = bag_wtp_dv5 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_placed } }
+	set_global_variable = { name = bag_wtp_dv6 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_cap_urban } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_plan_cap_urban } }
+	set_global_variable = { name = bag_wtp_dv7 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_plan_cap_rural } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_plan_cap_rural } }
+	debug_log = "WTP EDIT walk evicted=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] room=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | placed_before=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] placed_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] | load_after=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | cap_urban=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] cap_rural=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
 }
 
 # The funnel. One walk, and the plan pays nothing for it: everything here is

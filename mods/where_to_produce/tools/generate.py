@@ -2562,8 +2562,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # can only hold one of. Which building it is comes off the method the harvest
 # kept.
 """)
-    for side, listname, method_var, gain_var in (("t", "town", "pm", "p"),
-                                                ("r", "rural", "prm", "pr")):
+    for side, listname, method_var, gain_var, cap in (("t", "town", "pm", "p", "urban"),
+                                                     ("r", "rural", "prm", "pr", "rural")):
         for index, good in enumerate(order, start=1):
             by_building = groups.get((good, side), {})
             if not by_building:
@@ -2620,7 +2620,17 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_edit_place_{listname}_{index} = {{
 \tif = {{
-\t\tlimit = {{ {MOD_ID}_edit_fits_{listname}_{index} = yes }}
+\t\tlimit = {{
+\t\t\t{MOD_ID}_edit_fits_{listname}_{index} = yes
+\t\t\t# **The one invariant, asked again at the last moment.** A location holds
+\t\t\t# `cap` buildings and no more. The walk frees the room before it places,
+\t\t\t# so this passes by the time it is read -- and on 2026-09-04 it did not:
+\t\t\t# 27 buildings went in over the cap, one location reaching 18 of 4, with
+\t\t\t# nothing evicted at all. Whatever the walk got wrong, **a placement that
+\t\t\t# cannot say no is a plan that can be corrupted**, and the diagnostics'
+\t\t\t# `EDIT walk` line says which of the two failed.
+\t\t\tvar:{MOD_ID}_load < global_var:{MOD_ID}_plan_cap_{cap}
+\t\t}}
 {branches}\t}}
 }}
 """)
@@ -3636,21 +3646,40 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 }}
 """)
 
-    # ---- the charter lock is gone, and that was his call ---------------------
+    # ---- a bundle good of the charter granted here --------------------------
     #
-    # A `{MOD_ID}_edit_locked_<n>` stood here and refused to let the editor take
-    # out a building belonging to the charter granted in that town. It was a rule
-    # of my own, not one he asked for, and on 2026-09-04 he struck it out:
-    # «Там не должно быть вообще никаких ограничений и правил, кроме как что 1
-    # домика не может быть меньше 1 и собственно самих правил наивыгоднейшей
-    # установки/удаления. В том числе городские права и их домики — не должны
-    # быть жёстко зарезервированы в этот момент.»
+    # **A charter's buildings are taken whole or not at all**, and this is the
+    # second thing he said about them. On 2026-09-04 he struck the lock out --
+    # «городские права и их домики не должны быть жёстко зарезервированы» -- and
+    # then, having seen what that does, drew the line properly:
     #
-    # It also mattered more than it looked: every town on his ground holds a
-    # charter, so two or three of its four buildings were untouchable and «+1»
-    # had one or two legal victims a town. **The editor now has exactly one rule
-    # of its own** -- a good never loses its last building on the whole ground --
-    # and everything else is the placement arithmetic.
+    #   «Не должно происходить ситуации, когда в городе у которого допустим
+    #    ремесленные права — он теряет все свои бонусные дома… Я бы предпочёл не
+    #    забирать домики по частям у городских прав. Я бы скорее предпочёл
+    #    забирать у города целиком всю связку право+его домики.»
+    #
+    # So piecemeal eviction is off again, and **taking the whole bundle is the
+    # thing to build** -- «+1»/«−1» for the charters themselves, which he asked
+    # for in the same breath. Until that exists this lock is the honest state:
+    # a town keeps the buildings its charter is for.
+    for index, good in enumerate(order, start=1):
+        holders = [k for k, right in enumerate(rights, start=1) if good in right.output]
+        if not holders:
+            gate.append(f"\n# Scope: location\n"
+                        f"{MOD_ID}_edit_locked_{index} = {{ always = no }}\n")
+            continue
+        tests = "".join(f"\t\tvar:{MOD_ID}_plan_right = {k}\n" for k in holders)
+        gate.append(f"""
+# {good} is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+{MOD_ID}_edit_locked_{index} = {{
+\thas_variable = {MOD_ID}_plan_right
+\tOR = {{
+{tests}\t}}
+}}
+"""  )
+
 
     # ---- the cheapest building this location could give up -----------------
     #
@@ -3663,6 +3692,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tlimit = {{
 \t\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 \t\t\t\tglobal_var:{MOD_ID}_pn{index} > 1
+\t\t\t\tNOT = {{ {MOD_ID}_edit_locked_{index} = yes }}
 \t\t\t\tOR = {{
 \t\t\t\t\tvar:{MOD_ID}_esw = -1
 \t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
@@ -3814,6 +3844,27 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 """)
 
     out.append(f"""
+# The walk's trace, cleared before every press.
+#
+# **Zero and «no walk happened» must not look alike.** `_ev_hit` is 0 when the
+# ordered walk found no candidate at all, and 1 when it stood somewhere -- and
+# then the rest of these say what it saw there. The diagnostics print them; that
+# is the whole reason they exist. The owner, 2026-09-04: «Добавляй скан
+# информации для себя в диагностике на функцию редактора, чтобы ты видел чё там
+# происходит.»
+# Scope: country
+{MOD_ID}_edit_clear_trace = {{
+\tset_global_variable = {{ name = {MOD_ID}_ev_hit value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ev_load value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ev_esw value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
+}}
+
 # **One more building of the chosen good, and exactly one.**
 #
 # The ordered walk is the whole of the choice: `_esv` is what each candidate
@@ -3829,6 +3880,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t# two runs. The window prints this number, so one look answers it: click five
 \t# times, the number does not move, the button is not wired.
 \tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\t{MOD_ID}_edit_clear_trace = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
@@ -3875,6 +3927,20 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# room is actually free. `_edit_worst` names a victim on every candidate
 \t\t\t# -- the picker's markers need that -- so «full» and «has a victim» are
 \t\t\t# asked here rather than assumed.
+\t\t\t# **What the walk stood on, parked for the report.** A `debug_log` string
+\t\t\t# cannot reach the item a walk is standing on, so the numbers that decide
+\t\t\t# everything here -- the location's load, its victim, whether it counts as
+\t\t\t# a town -- have to be copied into globals as they are read. Without this
+\t\t\t# the editor is the one part of the mod the diagnostics cannot see, and
+\t\t\t# 2026-09-04 is what that costs: 27 buildings over the cap and four
+\t\t\t# theories about why.
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_hit value = 1 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 0 }}
+\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_town value = 1 }} }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load value = var:{MOD_ID}_load }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = var:{MOD_ID}_esg }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esw value = var:{MOD_ID}_esw }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_evicted value = 0 }}
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
 \t\t\tif = {{
@@ -3916,6 +3982,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t\tlimit = {{ global_var:{MOD_ID}_edit_evicted = 1 }}
 {restore_dispatch}\t\t\t\t}}
 \t\t\t}}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ev_load2 value = var:{MOD_ID}_load }}
 \t\t}}
 \t}}
 \t{MOD_ID}_plan_rank = yes
@@ -3935,6 +4002,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_edit_drop = {{
 \tchange_global_variable = {{ name = {MOD_ID}_edit_presses add = 1 }}
+\t{MOD_ID}_edit_clear_trace = yes
 \tset_global_variable = {{ name = {MOD_ID}_edit_done value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
@@ -4381,7 +4449,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_presses }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_presses value = 0 }}
-\t\tset_global_variable = {{ name = {MOD_ID}_edit_room value = 0 }}
+\t\t{MOD_ID}_edit_clear_trace = yes
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_fail }} }}
@@ -5457,6 +5525,46 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("GAIN fed=%s of placed=%s | gain_total=%s out of %d a building "
                    "-- fed is how many earn any bonus where they stand, gain is "
                    "what they earn in all" % (read(1), read(3), read(2), RANK_SCALE)))
+
+    # **The editor, in three lines**, and it is here because he asked for it
+    # after a session where 27 buildings went in over the cap and nothing in the
+    # report could say how: «Добавляй скан информации для себя в диагностике на
+    # функцию редактора, чтобы ты видел чё там происходит.»
+    #
+    # The three lines are the three stages of a press: what was asked, what the
+    # scan found, and what the walk did where it stood. `_ev_*` are parked by the
+    # walk itself, because a `debug_log` cannot reach the item a walk is on.
+    out.append(say("EDIT legend: one press, three stages. asked -> scan -> walk. "
+                   "op 1=«+1» 2=«−1» 0=nothing pressed yet. hit=0 means the walk "
+                   "found no candidate at all, so load/esg/esw below are stale. "
+                   "esg is the good the walk would evict (0 = none), esw its gain."))
+    for slot, source in enumerate((f"{MOD_ID}_edit_presses", f"{MOD_ID}_edit_op",
+                                   f"{MOD_ID}_edit_good", f"{MOD_ID}_edit_reached",
+                                   f"{MOD_ID}_edit_done", f"{MOD_ID}_edit_fail",
+                                   f"{MOD_ID}_edit_norefill"), start=1):
+        out.append(park(slot, source))
+    out.append(say("EDIT asked presses=%s op=%s good=%s reached=%s | outcome "
+                   "done=%s fail=%s norefill=%s"
+                   % tuple(read(i) for i in range(1, 8))))
+    for slot, source in enumerate((f"{MOD_ID}_edit_fitn", f"{MOD_ID}_edit_cands",
+                                   f"{MOD_ID}_ev_hit", f"{MOD_ID}_ev_town",
+                                   f"{MOD_ID}_ev_load", f"{MOD_ID}_ev_esg",
+                                   f"{MOD_ID}_ev_esw"), start=1):
+        out.append(park(slot, source))
+    out.append(say("EDIT scan fitn=%s cands=%s | walk hit=%s town=%s load=%s "
+                   "esg=%s esw=%s"
+                   % tuple(read(i) for i in range(1, 8))))
+    for slot, source in enumerate((f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_room",
+                                   f"{MOD_ID}_edit_mark", f"{MOD_ID}_ev_load2",
+                                   f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_cap_urban",
+                                   f"{MOD_ID}_plan_cap_rural"), start=1):
+        out.append(park(slot, source))
+    # Field names have to be unique across the whole line: `tools/diag.py` reads
+    # them by name, and a bare `after=` matched the wrong one first time out.
+    out.append(say("EDIT walk evicted=%s room=%s | placed_before=%s placed_after=%s | "
+                   "load_after=%s | cap_urban=%s cap_rural=%s"
+                   % (read(1), read(2), read(3), read(5), read(4),
+                      read(6), read(7))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan

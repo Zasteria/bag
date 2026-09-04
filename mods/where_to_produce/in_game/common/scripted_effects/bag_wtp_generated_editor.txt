@@ -21,6 +21,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 				global_var:bag_wtp_pn1 > 1
+				NOT = { bag_wtp_edit_locked_1 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p1 < var:bag_wtp_esw
@@ -33,6 +34,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 				global_var:bag_wtp_pn2 > 1
+				NOT = { bag_wtp_edit_locked_2 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p2 < var:bag_wtp_esw
@@ -45,6 +47,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 				global_var:bag_wtp_pn3 > 1
+				NOT = { bag_wtp_edit_locked_3 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p3 < var:bag_wtp_esw
@@ -57,6 +60,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 				global_var:bag_wtp_pn4 > 1
+				NOT = { bag_wtp_edit_locked_4 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p4 < var:bag_wtp_esw
@@ -69,6 +73,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 				global_var:bag_wtp_pn5 > 1
+				NOT = { bag_wtp_edit_locked_5 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p5 < var:bag_wtp_esw
@@ -81,6 +86,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
 				global_var:bag_wtp_pn6 > 1
+				NOT = { bag_wtp_edit_locked_6 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p6 < var:bag_wtp_esw
@@ -93,6 +99,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 				global_var:bag_wtp_pn7 > 1
+				NOT = { bag_wtp_edit_locked_7 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p7 < var:bag_wtp_esw
@@ -105,6 +112,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 				global_var:bag_wtp_pn8 > 1
+				NOT = { bag_wtp_edit_locked_8 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p8 < var:bag_wtp_esw
@@ -117,6 +125,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
 				global_var:bag_wtp_pn9 > 1
+				NOT = { bag_wtp_edit_locked_9 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p9 < var:bag_wtp_esw
@@ -129,6 +138,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 				global_var:bag_wtp_pn10 > 1
+				NOT = { bag_wtp_edit_locked_10 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p10 < var:bag_wtp_esw
@@ -141,6 +151,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
 				global_var:bag_wtp_pn11 > 1
+				NOT = { bag_wtp_edit_locked_11 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p11 < var:bag_wtp_esw
@@ -153,6 +164,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
 				global_var:bag_wtp_pn12 > 1
+				NOT = { bag_wtp_edit_locked_12 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p12 < var:bag_wtp_esw
@@ -165,6 +177,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 				global_var:bag_wtp_pn13 > 1
+				NOT = { bag_wtp_edit_locked_13 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p13 < var:bag_wtp_esw
@@ -177,6 +190,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
 				global_var:bag_wtp_pn14 > 1
+				NOT = { bag_wtp_edit_locked_14 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p14 < var:bag_wtp_esw
@@ -189,6 +203,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 				global_var:bag_wtp_pn15 > 1
+				NOT = { bag_wtp_edit_locked_15 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p15 < var:bag_wtp_esw
@@ -201,6 +216,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 				global_var:bag_wtp_pn16 > 1
+				NOT = { bag_wtp_edit_locked_16 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p16 < var:bag_wtp_esw
@@ -213,6 +229,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 				global_var:bag_wtp_pn17 > 1
+				NOT = { bag_wtp_edit_locked_17 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p17 < var:bag_wtp_esw
@@ -225,6 +242,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 				global_var:bag_wtp_pn18 > 1
+				NOT = { bag_wtp_edit_locked_18 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p18 < var:bag_wtp_esw
@@ -237,6 +255,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 				global_var:bag_wtp_pn19 > 1
+				NOT = { bag_wtp_edit_locked_19 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p19 < var:bag_wtp_esw
@@ -249,6 +268,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 				global_var:bag_wtp_pn20 > 1
+				NOT = { bag_wtp_edit_locked_20 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p20 < var:bag_wtp_esw
@@ -261,6 +281,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 				global_var:bag_wtp_pn21 > 1
+				NOT = { bag_wtp_edit_locked_21 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p21 < var:bag_wtp_esw
@@ -273,6 +294,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 				global_var:bag_wtp_pn22 > 1
+				NOT = { bag_wtp_edit_locked_22 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p22 < var:bag_wtp_esw
@@ -285,6 +307,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
 				global_var:bag_wtp_pn23 > 1
+				NOT = { bag_wtp_edit_locked_23 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p23 < var:bag_wtp_esw
@@ -297,6 +320,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 				global_var:bag_wtp_pn24 > 1
+				NOT = { bag_wtp_edit_locked_24 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p24 < var:bag_wtp_esw
@@ -309,6 +333,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
 				global_var:bag_wtp_pn25 > 1
+				NOT = { bag_wtp_edit_locked_25 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p25 < var:bag_wtp_esw
@@ -321,6 +346,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 				global_var:bag_wtp_pn26 > 1
+				NOT = { bag_wtp_edit_locked_26 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p26 < var:bag_wtp_esw
@@ -333,6 +359,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 				global_var:bag_wtp_pn27 > 1
+				NOT = { bag_wtp_edit_locked_27 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p27 < var:bag_wtp_esw
@@ -345,6 +372,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 				global_var:bag_wtp_pn28 > 1
+				NOT = { bag_wtp_edit_locked_28 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p28 < var:bag_wtp_esw
@@ -357,6 +385,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 				global_var:bag_wtp_pn29 > 1
+				NOT = { bag_wtp_edit_locked_29 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p29 < var:bag_wtp_esw
@@ -369,6 +398,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 				global_var:bag_wtp_pn30 > 1
+				NOT = { bag_wtp_edit_locked_30 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p30 < var:bag_wtp_esw
@@ -381,6 +411,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 				global_var:bag_wtp_pn31 > 1
+				NOT = { bag_wtp_edit_locked_31 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p31 < var:bag_wtp_esw
@@ -393,6 +424,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 				global_var:bag_wtp_pn32 > 1
+				NOT = { bag_wtp_edit_locked_32 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p32 < var:bag_wtp_esw
@@ -405,6 +437,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 				global_var:bag_wtp_pn33 > 1
+				NOT = { bag_wtp_edit_locked_33 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p33 < var:bag_wtp_esw
@@ -417,6 +450,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 				global_var:bag_wtp_pn34 > 1
+				NOT = { bag_wtp_edit_locked_34 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p34 < var:bag_wtp_esw
@@ -429,6 +463,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 				global_var:bag_wtp_pn35 > 1
+				NOT = { bag_wtp_edit_locked_35 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p35 < var:bag_wtp_esw
@@ -441,6 +476,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 				global_var:bag_wtp_pn36 > 1
+				NOT = { bag_wtp_edit_locked_36 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p36 < var:bag_wtp_esw
@@ -453,6 +489,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 				global_var:bag_wtp_pn37 > 1
+				NOT = { bag_wtp_edit_locked_37 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p37 < var:bag_wtp_esw
@@ -465,6 +502,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 				global_var:bag_wtp_pn38 > 1
+				NOT = { bag_wtp_edit_locked_38 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p38 < var:bag_wtp_esw
@@ -477,6 +515,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 				global_var:bag_wtp_pn39 > 1
+				NOT = { bag_wtp_edit_locked_39 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p39 < var:bag_wtp_esw
@@ -489,6 +528,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 				global_var:bag_wtp_pn40 > 1
+				NOT = { bag_wtp_edit_locked_40 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p40 < var:bag_wtp_esw
@@ -501,6 +541,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 				global_var:bag_wtp_pn41 > 1
+				NOT = { bag_wtp_edit_locked_41 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p41 < var:bag_wtp_esw
@@ -513,6 +554,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 				global_var:bag_wtp_pn42 > 1
+				NOT = { bag_wtp_edit_locked_42 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p42 < var:bag_wtp_esw
@@ -525,6 +567,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 				global_var:bag_wtp_pn43 > 1
+				NOT = { bag_wtp_edit_locked_43 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p43 < var:bag_wtp_esw
@@ -537,6 +580,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
 				global_var:bag_wtp_pn44 > 1
+				NOT = { bag_wtp_edit_locked_44 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p44 < var:bag_wtp_esw
@@ -549,6 +593,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 				global_var:bag_wtp_pn45 > 1
+				NOT = { bag_wtp_edit_locked_45 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p45 < var:bag_wtp_esw
@@ -561,6 +606,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 				global_var:bag_wtp_pn46 > 1
+				NOT = { bag_wtp_edit_locked_46 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p46 < var:bag_wtp_esw
@@ -573,6 +619,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 				global_var:bag_wtp_pn47 > 1
+				NOT = { bag_wtp_edit_locked_47 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p47 < var:bag_wtp_esw
@@ -587,6 +634,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:clay }
 				global_var:bag_wtp_pn1 > 1
+				NOT = { bag_wtp_edit_locked_1 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr1 < var:bag_wtp_esw
@@ -599,6 +647,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:coal }
 				global_var:bag_wtp_pn2 > 1
+				NOT = { bag_wtp_edit_locked_2 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr2 < var:bag_wtp_esw
@@ -611,6 +660,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cotton }
 				global_var:bag_wtp_pn3 > 1
+				NOT = { bag_wtp_edit_locked_3 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr3 < var:bag_wtp_esw
@@ -623,6 +673,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:dyes }
 				global_var:bag_wtp_pn4 > 1
+				NOT = { bag_wtp_edit_locked_4 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr4 < var:bag_wtp_esw
@@ -635,6 +686,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fiber_crops }
 				global_var:bag_wtp_pn5 > 1
+				NOT = { bag_wtp_edit_locked_5 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr5 < var:bag_wtp_esw
@@ -647,6 +699,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fish }
 				global_var:bag_wtp_pn6 > 1
+				NOT = { bag_wtp_edit_locked_6 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr6 < var:bag_wtp_esw
@@ -659,6 +712,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fruit }
 				global_var:bag_wtp_pn7 > 1
+				NOT = { bag_wtp_edit_locked_7 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr7 < var:bag_wtp_esw
@@ -671,6 +725,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:horses }
 				global_var:bag_wtp_pn8 > 1
+				NOT = { bag_wtp_edit_locked_8 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr8 < var:bag_wtp_esw
@@ -683,6 +738,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:incense }
 				global_var:bag_wtp_pn9 > 1
+				NOT = { bag_wtp_edit_locked_9 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr9 < var:bag_wtp_esw
@@ -695,6 +751,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:iron }
 				global_var:bag_wtp_pn10 > 1
+				NOT = { bag_wtp_edit_locked_10 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr10 < var:bag_wtp_esw
@@ -707,6 +764,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:ivory }
 				global_var:bag_wtp_pn11 > 1
+				NOT = { bag_wtp_edit_locked_11 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr11 < var:bag_wtp_esw
@@ -719,6 +777,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:livestock }
 				global_var:bag_wtp_pn12 > 1
+				NOT = { bag_wtp_edit_locked_12 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr12 < var:bag_wtp_esw
@@ -731,6 +790,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lumber }
 				global_var:bag_wtp_pn13 > 1
+				NOT = { bag_wtp_edit_locked_13 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr13 < var:bag_wtp_esw
@@ -743,6 +803,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:medicaments }
 				global_var:bag_wtp_pn14 > 1
+				NOT = { bag_wtp_edit_locked_14 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr14 < var:bag_wtp_esw
@@ -755,6 +816,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:salt }
 				global_var:bag_wtp_pn15 > 1
+				NOT = { bag_wtp_edit_locked_15 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr15 < var:bag_wtp_esw
@@ -767,6 +829,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:saltpeter }
 				global_var:bag_wtp_pn16 > 1
+				NOT = { bag_wtp_edit_locked_16 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr16 < var:bag_wtp_esw
@@ -779,6 +842,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sand }
 				global_var:bag_wtp_pn17 > 1
+				NOT = { bag_wtp_edit_locked_17 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr17 < var:bag_wtp_esw
@@ -791,6 +855,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silk }
 				global_var:bag_wtp_pn18 > 1
+				NOT = { bag_wtp_edit_locked_18 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr18 < var:bag_wtp_esw
@@ -803,6 +868,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:silver }
 				global_var:bag_wtp_pn19 > 1
+				NOT = { bag_wtp_edit_locked_19 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr19 < var:bag_wtp_esw
@@ -815,6 +881,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:stone }
 				global_var:bag_wtp_pn20 > 1
+				NOT = { bag_wtp_edit_locked_20 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr20 < var:bag_wtp_esw
@@ -827,6 +894,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:sugar }
 				global_var:bag_wtp_pn21 > 1
+				NOT = { bag_wtp_edit_locked_21 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr21 < var:bag_wtp_esw
@@ -839,6 +907,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tobacco }
 				global_var:bag_wtp_pn22 > 1
+				NOT = { bag_wtp_edit_locked_22 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr22 < var:bag_wtp_esw
@@ -851,6 +920,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wild_game }
 				global_var:bag_wtp_pn23 > 1
+				NOT = { bag_wtp_edit_locked_23 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr23 < var:bag_wtp_esw
@@ -863,6 +933,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wine }
 				global_var:bag_wtp_pn24 > 1
+				NOT = { bag_wtp_edit_locked_24 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr24 < var:bag_wtp_esw
@@ -875,6 +946,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:wool }
 				global_var:bag_wtp_pn25 > 1
+				NOT = { bag_wtp_edit_locked_25 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr25 < var:bag_wtp_esw
@@ -887,6 +959,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:beer }
 				global_var:bag_wtp_pn26 > 1
+				NOT = { bag_wtp_edit_locked_26 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr26 < var:bag_wtp_esw
@@ -899,6 +972,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:books }
 				global_var:bag_wtp_pn27 > 1
+				NOT = { bag_wtp_edit_locked_27 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr27 < var:bag_wtp_esw
@@ -911,6 +985,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cannons }
 				global_var:bag_wtp_pn28 > 1
+				NOT = { bag_wtp_edit_locked_28 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr28 < var:bag_wtp_esw
@@ -923,6 +998,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:cloth }
 				global_var:bag_wtp_pn29 > 1
+				NOT = { bag_wtp_edit_locked_29 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr29 < var:bag_wtp_esw
@@ -935,6 +1011,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:fine_cloth }
 				global_var:bag_wtp_pn30 > 1
+				NOT = { bag_wtp_edit_locked_30 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr30 < var:bag_wtp_esw
@@ -947,6 +1024,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:firearms }
 				global_var:bag_wtp_pn31 > 1
+				NOT = { bag_wtp_edit_locked_31 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr31 < var:bag_wtp_esw
@@ -959,6 +1037,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:furniture }
 				global_var:bag_wtp_pn32 > 1
+				NOT = { bag_wtp_edit_locked_32 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr32 < var:bag_wtp_esw
@@ -971,6 +1050,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:glass }
 				global_var:bag_wtp_pn33 > 1
+				NOT = { bag_wtp_edit_locked_33 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr33 < var:bag_wtp_esw
@@ -983,6 +1063,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:jewelry }
 				global_var:bag_wtp_pn34 > 1
+				NOT = { bag_wtp_edit_locked_34 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr34 < var:bag_wtp_esw
@@ -995,6 +1076,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:lacquerware }
 				global_var:bag_wtp_pn35 > 1
+				NOT = { bag_wtp_edit_locked_35 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr35 < var:bag_wtp_esw
@@ -1007,6 +1089,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:leather }
 				global_var:bag_wtp_pn36 > 1
+				NOT = { bag_wtp_edit_locked_36 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr36 < var:bag_wtp_esw
@@ -1019,6 +1102,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:liquor }
 				global_var:bag_wtp_pn37 > 1
+				NOT = { bag_wtp_edit_locked_37 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr37 < var:bag_wtp_esw
@@ -1031,6 +1115,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:masonry }
 				global_var:bag_wtp_pn38 > 1
+				NOT = { bag_wtp_edit_locked_38 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr38 < var:bag_wtp_esw
@@ -1043,6 +1128,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:naval_supplies }
 				global_var:bag_wtp_pn39 > 1
+				NOT = { bag_wtp_edit_locked_39 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr39 < var:bag_wtp_esw
@@ -1055,6 +1141,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:paper }
 				global_var:bag_wtp_pn40 > 1
+				NOT = { bag_wtp_edit_locked_40 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr40 < var:bag_wtp_esw
@@ -1067,6 +1154,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:porcelain }
 				global_var:bag_wtp_pn41 > 1
+				NOT = { bag_wtp_edit_locked_41 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr41 < var:bag_wtp_esw
@@ -1079,6 +1167,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:pottery }
 				global_var:bag_wtp_pn42 > 1
+				NOT = { bag_wtp_edit_locked_42 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr42 < var:bag_wtp_esw
@@ -1091,6 +1180,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:slaves_goods }
 				global_var:bag_wtp_pn43 > 1
+				NOT = { bag_wtp_edit_locked_43 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr43 < var:bag_wtp_esw
@@ -1103,6 +1193,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:steel }
 				global_var:bag_wtp_pn44 > 1
+				NOT = { bag_wtp_edit_locked_44 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr44 < var:bag_wtp_esw
@@ -1115,6 +1206,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tar }
 				global_var:bag_wtp_pn45 > 1
+				NOT = { bag_wtp_edit_locked_45 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr45 < var:bag_wtp_esw
@@ -1127,6 +1219,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:tools }
 				global_var:bag_wtp_pn46 > 1
+				NOT = { bag_wtp_edit_locked_46 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr46 < var:bag_wtp_esw
@@ -1139,6 +1232,7 @@ bag_wtp_edit_worst = {
 			limit = {
 				is_target_in_variable_list = { name = bag_wtp_plan_goods target = goods:weaponry }
 				global_var:bag_wtp_pn47 > 1
+				NOT = { bag_wtp_edit_locked_47 = yes }
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr47 < var:bag_wtp_esw
@@ -5612,6 +5706,27 @@ bag_wtp_edit_count_held = {
 }
 
 
+# The walk's trace, cleared before every press.
+#
+# **Zero and «no walk happened» must not look alike.** `_ev_hit` is 0 when the
+# ordered walk found no candidate at all, and 1 when it stood somewhere -- and
+# then the rest of these say what it saw there. The diagnostics print them; that
+# is the whole reason they exist. The owner, 2026-09-04: «Добавляй скан
+# информации для себя в диагностике на функцию редактора, чтобы ты видел чё там
+# происходит.»
+# Scope: country
+bag_wtp_edit_clear_trace = {
+	set_global_variable = { name = bag_wtp_ev_hit value = 0 }
+	set_global_variable = { name = bag_wtp_ev_town value = 0 }
+	set_global_variable = { name = bag_wtp_ev_load value = 0 }
+	set_global_variable = { name = bag_wtp_ev_load2 value = 0 }
+	set_global_variable = { name = bag_wtp_ev_esg value = 0 }
+	set_global_variable = { name = bag_wtp_ev_esw value = 0 }
+	set_global_variable = { name = bag_wtp_edit_evicted value = 0 }
+	set_global_variable = { name = bag_wtp_edit_room value = 0 }
+	set_global_variable = { name = bag_wtp_edit_mark value = 0 }
+}
+
 # **One more building of the chosen good, and exactly one.**
 #
 # The ordered walk is the whole of the choice: `_esv` is what each candidate
@@ -5627,6 +5742,7 @@ bag_wtp_edit_add = {
 	# two runs. The window prints this number, so one look answers it: click five
 	# times, the number does not move, the button is not wired.
 	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
+	bag_wtp_edit_clear_trace = yes
 	set_global_variable = { name = bag_wtp_edit_done value = 0 }
 	set_global_variable = { name = bag_wtp_edit_fail value = 0 }
 	set_global_variable = { name = bag_wtp_edit_norefill value = 0 }
@@ -6096,6 +6212,20 @@ bag_wtp_edit_add = {
 			# room is actually free. `_edit_worst` names a victim on every candidate
 			# -- the picker's markers need that -- so «full» and «has a victim» are
 			# asked here rather than assumed.
+			# **What the walk stood on, parked for the report.** A `debug_log` string
+			# cannot reach the item a walk is standing on, so the numbers that decide
+			# everything here -- the location's load, its victim, whether it counts as
+			# a town -- have to be copied into globals as they are read. Without this
+			# the editor is the one part of the mod the diagnostics cannot see, and
+			# 2026-09-04 is what that costs: 27 buildings over the cap and four
+			# theories about why.
+			set_global_variable = { name = bag_wtp_ev_hit value = 1 }
+			set_global_variable = { name = bag_wtp_ev_town value = 0 }
+			if = { limit = { bag_wtp_plan_is_town = yes }
+				set_global_variable = { name = bag_wtp_ev_town value = 1 } }
+			set_global_variable = { name = bag_wtp_ev_load value = var:bag_wtp_load }
+			set_global_variable = { name = bag_wtp_ev_esg value = var:bag_wtp_esg }
+			set_global_variable = { name = bag_wtp_ev_esw value = var:bag_wtp_esw }
 			set_global_variable = { name = bag_wtp_edit_evicted value = 0 }
 			set_global_variable = { name = bag_wtp_edit_room value = 0 }
 			if = {
@@ -6638,6 +6768,7 @@ bag_wtp_edit_add = {
 					}
 				}
 			}
+			set_global_variable = { name = bag_wtp_ev_load2 value = var:bag_wtp_load }
 		}
 	}
 	bag_wtp_plan_rank = yes
@@ -6657,6 +6788,7 @@ bag_wtp_edit_add = {
 # Scope: country
 bag_wtp_edit_drop = {
 	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
+	bag_wtp_edit_clear_trace = yes
 	set_global_variable = { name = bag_wtp_edit_done value = 0 }
 	set_global_variable = { name = bag_wtp_edit_fail value = 0 }
 	set_global_variable = { name = bag_wtp_edit_norefill value = 0 }
@@ -11079,7 +11211,7 @@ bag_wtp_edit_init_slots = {
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_edit_presses } }
 		set_global_variable = { name = bag_wtp_edit_presses value = 0 }
-		set_global_variable = { name = bag_wtp_edit_room value = 0 }
+		bag_wtp_edit_clear_trace = yes
 	}
 	if = {
 		limit = { NOT = { has_global_variable = bag_wtp_edit_fail } }

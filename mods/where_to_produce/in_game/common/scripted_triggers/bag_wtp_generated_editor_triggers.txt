@@ -1786,3 +1786,299 @@ bag_wtp_edit_fits_rural_47 = {
 		}
 	}
 }
+
+# Scope: location
+bag_wtp_edit_locked_1 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_2 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_3 = { always = no }
+
+# dyes is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_4 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 4
+		var:bag_wtp_plan_right = 9
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_5 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_6 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_7 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_8 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_9 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_10 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_11 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_12 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_13 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_14 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_15 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_16 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_17 = { always = no }
+
+# silk is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_18 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 1
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_19 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_20 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_21 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_22 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_23 = { always = no }
+
+# wine is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_24 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 5
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_25 = { always = no }
+
+# beer is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_26 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 5
+	}
+}
+
+# books is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_27 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 4
+	}
+}
+
+# cannons is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_28 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 11
+	}
+}
+
+# cloth is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_29 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 1
+		var:bag_wtp_plan_right = 2
+		var:bag_wtp_plan_right = 9
+	}
+}
+
+# fine_cloth is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_30 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 1
+		var:bag_wtp_plan_right = 2
+		var:bag_wtp_plan_right = 9
+	}
+}
+
+# firearms is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_31 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 11
+	}
+}
+
+# furniture is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_32 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 3
+	}
+}
+
+# glass is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_33 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 7
+	}
+}
+
+# jewelry is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_34 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 6
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_35 = { always = no }
+
+# leather is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_36 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 3
+	}
+}
+
+# liquor is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_37 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 5
+	}
+}
+
+# masonry is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_38 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 7
+	}
+}
+
+# naval_supplies is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_39 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 8
+		var:bag_wtp_plan_right = 13
+	}
+}
+
+# paper is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_40 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 4
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_41 = { always = no }
+
+# pottery is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_42 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 3
+	}
+}
+
+# Scope: location
+bag_wtp_edit_locked_43 = { always = no }
+
+# Scope: location
+bag_wtp_edit_locked_44 = { always = no }
+
+# tar is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_45 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 8
+		var:bag_wtp_plan_right = 13
+	}
+}
+
+# tools is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_46 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 10
+		var:bag_wtp_plan_right = 12
+	}
+}
+
+# weaponry is in the bundle of the charter granted here, so the editor takes it out
+# only with the charter itself -- never on its own.
+# Scope: location
+bag_wtp_edit_locked_47 = {
+	has_variable = bag_wtp_plan_right
+	OR = {
+		var:bag_wtp_plan_right = 11
+	}
+}

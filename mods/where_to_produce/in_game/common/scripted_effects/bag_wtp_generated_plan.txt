@@ -6215,7 +6215,17 @@ bag_wtp_plan_try_town_1 = {
 # Scope: location
 bag_wtp_edit_place_town_1 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_1 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_1 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm1 = 39
@@ -6288,7 +6298,17 @@ bag_wtp_plan_try_town_2 = {
 # Scope: location
 bag_wtp_edit_place_town_2 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_2 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_2 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm2 = 56
@@ -6361,7 +6381,17 @@ bag_wtp_plan_try_town_3 = {
 # Scope: location
 bag_wtp_edit_place_town_3 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_3 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_3 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm3 = 57
@@ -6504,7 +6534,17 @@ bag_wtp_plan_try_town_4 = {
 # Scope: location
 bag_wtp_edit_place_town_4 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_4 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_4 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm4 = 58
@@ -6670,7 +6710,17 @@ bag_wtp_plan_try_town_5 = {
 # Scope: location
 bag_wtp_edit_place_town_5 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_5 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_5 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm5 = 63
@@ -6766,7 +6816,17 @@ bag_wtp_plan_try_town_7 = {
 # Scope: location
 bag_wtp_edit_place_town_7 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_7 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_7 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm7 = 110
@@ -6839,7 +6899,17 @@ bag_wtp_plan_try_town_8 = {
 # Scope: location
 bag_wtp_edit_place_town_8 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_8 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_8 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm8 = 121
@@ -6912,7 +6982,17 @@ bag_wtp_plan_try_town_9 = {
 # Scope: location
 bag_wtp_edit_place_town_9 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_9 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_9 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm9 = 122
@@ -7008,7 +7088,17 @@ bag_wtp_plan_try_town_10 = {
 # Scope: location
 bag_wtp_edit_place_town_10 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_10 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_10 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm10 = 123
@@ -7104,7 +7194,17 @@ bag_wtp_plan_try_town_13 = {
 # Scope: location
 bag_wtp_edit_place_town_13 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_13 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_13 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm13 = 172
@@ -7178,7 +7278,17 @@ bag_wtp_plan_try_town_14 = {
 # Scope: location
 bag_wtp_edit_place_town_14 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_14 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_14 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm14 = 176
@@ -7252,7 +7362,17 @@ bag_wtp_plan_try_town_15 = {
 # Scope: location
 bag_wtp_edit_place_town_15 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_15 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_15 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm15 = 199
@@ -7394,7 +7514,17 @@ bag_wtp_plan_try_town_16 = {
 # Scope: location
 bag_wtp_edit_place_town_16 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_16 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_16 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm16 = 200
@@ -7536,7 +7666,17 @@ bag_wtp_plan_try_town_17 = {
 # Scope: location
 bag_wtp_edit_place_town_17 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_17 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_17 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm17 = 204
@@ -7632,7 +7772,17 @@ bag_wtp_plan_try_town_18 = {
 # Scope: location
 bag_wtp_edit_place_town_18 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_18 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_18 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm18 = 205
@@ -7728,7 +7878,17 @@ bag_wtp_plan_try_town_19 = {
 # Scope: location
 bag_wtp_edit_place_town_19 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_19 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_19 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm19 = 207
@@ -7802,7 +7962,17 @@ bag_wtp_plan_try_town_20 = {
 # Scope: location
 bag_wtp_edit_place_town_20 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_20 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_20 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm20 = 210
@@ -7876,7 +8046,17 @@ bag_wtp_plan_try_town_21 = {
 # Scope: location
 bag_wtp_edit_place_town_21 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_21 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_21 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm21 = 212
@@ -7949,7 +8129,17 @@ bag_wtp_plan_try_town_22 = {
 # Scope: location
 bag_wtp_edit_place_town_22 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_22 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_22 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm22 = 214
@@ -8049,7 +8239,17 @@ bag_wtp_plan_try_town_24 = {
 # Scope: location
 bag_wtp_edit_place_town_24 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_24 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_24 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm24 = 235
@@ -8230,7 +8430,17 @@ bag_wtp_plan_try_town_26 = {
 # Scope: location
 bag_wtp_edit_place_town_26 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_26 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_26 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm26 = 1
@@ -8453,7 +8663,17 @@ bag_wtp_plan_try_town_27 = {
 # Scope: location
 bag_wtp_edit_place_town_27 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_27 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_27 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm27 = 18
@@ -8677,7 +8897,17 @@ bag_wtp_plan_try_town_28 = {
 # Scope: location
 bag_wtp_edit_place_town_28 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_28 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_28 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm28 = 22
@@ -8909,7 +9139,17 @@ bag_wtp_plan_try_town_29 = {
 # Scope: location
 bag_wtp_edit_place_town_29 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_29 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_29 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm29 = 40
@@ -9154,7 +9394,17 @@ bag_wtp_plan_try_town_30 = {
 # Scope: location
 bag_wtp_edit_place_town_30 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_30 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_30 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm30 = 65
@@ -9422,7 +9672,17 @@ bag_wtp_plan_try_town_31 = {
 # Scope: location
 bag_wtp_edit_place_town_31 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_31 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_31 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm31 = 95
@@ -9664,7 +9924,17 @@ bag_wtp_plan_try_town_32 = {
 # Scope: location
 bag_wtp_edit_place_town_32 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_32 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_32 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm32 = 111
@@ -9876,7 +10146,17 @@ bag_wtp_plan_try_town_33 = {
 # Scope: location
 bag_wtp_edit_place_town_33 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_33 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_33 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm33 = 115
@@ -10053,7 +10333,17 @@ bag_wtp_plan_try_town_34 = {
 # Scope: location
 bag_wtp_edit_place_town_34 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_34 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_34 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm34 = 126
@@ -10183,7 +10473,17 @@ bag_wtp_plan_try_town_35 = {
 # Scope: location
 bag_wtp_edit_place_town_35 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_35 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_35 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm35 = 140
@@ -10352,7 +10652,17 @@ bag_wtp_plan_try_town_36 = {
 # Scope: location
 bag_wtp_edit_place_town_36 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_36 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_36 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm36 = 143
@@ -10583,7 +10893,17 @@ bag_wtp_plan_try_town_37 = {
 # Scope: location
 bag_wtp_edit_place_town_37 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_37 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_37 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm37 = 151
@@ -10765,7 +11085,17 @@ bag_wtp_plan_try_town_38 = {
 # Scope: location
 bag_wtp_edit_place_town_38 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_38 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_38 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm38 = 173
@@ -10931,7 +11261,17 @@ bag_wtp_plan_try_town_39 = {
 # Scope: location
 bag_wtp_edit_place_town_39 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_39 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_39 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm39 = 179
@@ -11146,7 +11486,17 @@ bag_wtp_plan_try_town_40 = {
 # Scope: location
 bag_wtp_edit_place_town_40 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_40 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_40 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm40 = 183
@@ -11315,7 +11665,17 @@ bag_wtp_plan_try_town_41 = {
 # Scope: location
 bag_wtp_edit_place_town_41 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_41 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_41 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm41 = 191
@@ -11480,7 +11840,17 @@ bag_wtp_plan_try_town_42 = {
 # Scope: location
 bag_wtp_edit_place_town_42 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_42 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_42 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm42 = 195
@@ -11622,7 +11992,17 @@ bag_wtp_plan_try_town_43 = {
 # Scope: location
 bag_wtp_edit_place_town_43 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_43 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_43 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm43 = 208
@@ -11695,7 +12075,17 @@ bag_wtp_plan_try_town_44 = {
 # Scope: location
 bag_wtp_edit_place_town_44 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_44 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_44 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm44 = 209
@@ -11768,7 +12158,17 @@ bag_wtp_plan_try_town_45 = {
 # Scope: location
 bag_wtp_edit_place_town_45 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_45 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_45 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm45 = 213
@@ -11936,7 +12336,17 @@ bag_wtp_plan_try_town_46 = {
 # Scope: location
 bag_wtp_edit_place_town_46 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_46 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_46 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm46 = 216
@@ -12198,7 +12608,17 @@ bag_wtp_plan_try_town_47 = {
 # Scope: location
 bag_wtp_edit_place_town_47 = {
 	if = {
-		limit = { bag_wtp_edit_fits_town_47 = yes }
+		limit = {
+			bag_wtp_edit_fits_town_47 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_urban
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_pm47 = 227
@@ -12365,7 +12785,17 @@ bag_wtp_plan_try_rural_1 = {
 # Scope: location
 bag_wtp_edit_place_rural_1 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_1 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_1 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm1 = 39
@@ -12461,7 +12891,17 @@ bag_wtp_plan_try_rural_2 = {
 # Scope: location
 bag_wtp_edit_place_rural_2 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_2 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_2 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm2 = 55
@@ -12557,7 +12997,17 @@ bag_wtp_plan_try_rural_3 = {
 # Scope: location
 bag_wtp_edit_place_rural_3 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_3 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_3 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm3 = 57
@@ -12653,7 +13103,17 @@ bag_wtp_plan_try_rural_5 = {
 # Scope: location
 bag_wtp_edit_place_rural_5 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_5 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_5 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm5 = 63
@@ -12750,7 +13210,17 @@ bag_wtp_plan_try_rural_6 = {
 # Scope: location
 bag_wtp_edit_place_rural_6 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_6 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_6 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm6 = 108
@@ -12824,7 +13294,17 @@ bag_wtp_plan_try_rural_7 = {
 # Scope: location
 bag_wtp_edit_place_rural_7 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_7 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_7 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm7 = 110
@@ -12897,7 +13377,17 @@ bag_wtp_plan_try_rural_8 = {
 # Scope: location
 bag_wtp_edit_place_rural_8 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_8 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_8 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm8 = 121
@@ -12993,7 +13483,17 @@ bag_wtp_plan_try_rural_10 = {
 # Scope: location
 bag_wtp_edit_place_rural_10 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_10 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_10 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm10 = 123
@@ -13089,7 +13589,17 @@ bag_wtp_plan_try_rural_11 = {
 # Scope: location
 bag_wtp_edit_place_rural_11 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_11 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_11 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm11 = 125
@@ -13162,7 +13672,17 @@ bag_wtp_plan_try_rural_12 = {
 # Scope: location
 bag_wtp_edit_place_rural_12 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_12 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_12 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm12 = 171
@@ -13235,7 +13755,17 @@ bag_wtp_plan_try_rural_13 = {
 # Scope: location
 bag_wtp_edit_place_rural_13 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_13 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_13 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm13 = 172
@@ -13308,7 +13838,17 @@ bag_wtp_plan_try_rural_15 = {
 # Scope: location
 bag_wtp_edit_place_rural_15 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_15 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_15 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm15 = 199
@@ -13381,7 +13921,17 @@ bag_wtp_plan_try_rural_17 = {
 # Scope: location
 bag_wtp_edit_place_rural_17 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_17 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_17 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm17 = 204
@@ -13454,7 +14004,17 @@ bag_wtp_plan_try_rural_19 = {
 # Scope: location
 bag_wtp_edit_place_rural_19 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_19 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_19 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm19 = 207
@@ -13528,7 +14088,17 @@ bag_wtp_plan_try_rural_20 = {
 # Scope: location
 bag_wtp_edit_place_rural_20 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_20 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_20 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm20 = 210
@@ -13602,7 +14172,17 @@ bag_wtp_plan_try_rural_21 = {
 # Scope: location
 bag_wtp_edit_place_rural_21 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_21 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_21 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm21 = 212
@@ -13675,7 +14255,17 @@ bag_wtp_plan_try_rural_22 = {
 # Scope: location
 bag_wtp_edit_place_rural_22 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_22 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_22 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm22 = 214
@@ -13748,7 +14338,17 @@ bag_wtp_plan_try_rural_23 = {
 # Scope: location
 bag_wtp_edit_place_rural_23 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_23 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_23 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm23 = 234
@@ -13821,7 +14421,17 @@ bag_wtp_plan_try_rural_25 = {
 # Scope: location
 bag_wtp_edit_place_rural_25 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_25 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_25 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm25 = 241
@@ -13894,7 +14504,17 @@ bag_wtp_plan_try_rural_26 = {
 # Scope: location
 bag_wtp_edit_place_rural_26 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_26 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_26 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm26 = 17
@@ -13969,7 +14589,17 @@ bag_wtp_plan_try_rural_29 = {
 # Scope: location
 bag_wtp_edit_place_rural_29 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_29 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_29 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm29 = 49
@@ -14044,7 +14674,17 @@ bag_wtp_plan_try_rural_33 = {
 # Scope: location
 bag_wtp_edit_place_rural_33 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_33 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_33 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm33 = 120
@@ -14140,7 +14780,17 @@ bag_wtp_plan_try_rural_34 = {
 # Scope: location
 bag_wtp_edit_place_rural_34 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_34 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_34 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm34 = 138
@@ -14236,7 +14886,17 @@ bag_wtp_plan_try_rural_36 = {
 # Scope: location
 bag_wtp_edit_place_rural_36 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_36 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_36 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm36 = 142
@@ -14333,7 +14993,17 @@ bag_wtp_plan_try_rural_38 = {
 # Scope: location
 bag_wtp_edit_place_rural_38 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_38 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_38 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm38 = 173
@@ -14430,7 +15100,17 @@ bag_wtp_plan_try_rural_39 = {
 # Scope: location
 bag_wtp_edit_place_rural_39 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_39 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_39 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm39 = 178
@@ -14526,7 +15206,17 @@ bag_wtp_plan_try_rural_42 = {
 # Scope: location
 bag_wtp_edit_place_rural_42 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_42 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_42 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm42 = 193
@@ -14622,7 +15312,17 @@ bag_wtp_plan_try_rural_43 = {
 # Scope: location
 bag_wtp_edit_place_rural_43 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_43 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_43 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm43 = 208
@@ -14695,7 +15395,17 @@ bag_wtp_plan_try_rural_45 = {
 # Scope: location
 bag_wtp_edit_place_rural_45 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_45 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_45 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm45 = 213
@@ -14814,7 +15524,17 @@ bag_wtp_plan_try_rural_46 = {
 # Scope: location
 bag_wtp_edit_place_rural_46 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_46 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_46 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm46 = 215
@@ -14979,7 +15699,17 @@ bag_wtp_plan_try_rural_47 = {
 # Scope: location
 bag_wtp_edit_place_rural_47 = {
 	if = {
-		limit = { bag_wtp_edit_fits_rural_47 = yes }
+		limit = {
+			bag_wtp_edit_fits_rural_47 = yes
+			# **The one invariant, asked again at the last moment.** A location holds
+			# `cap` buildings and no more. The walk frees the room before it places,
+			# so this passes by the time it is read -- and on 2026-09-04 it did not:
+			# 27 buildings went in over the cap, one location reaching 18 of 4, with
+			# nothing evicted at all. Whatever the walk got wrong, **a placement that
+			# cannot say no is a plan that can be corrupted**, and the diagnostics'
+			# `EDIT walk` line says which of the two failed.
+			var:bag_wtp_load < global_var:bag_wtp_plan_cap_rural
+		}
 		if = {
 			limit = { OR = {
 				var:bag_wtp_prm47 = 225
