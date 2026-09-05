@@ -46,10 +46,10 @@ report**; **the round trip is no undo** (`docs/TESTLOG.md`).
 **A press pins its good** — `_lock<n>` — and a freed room goes to the good
 **furthest below its share**; without the pin that rule undoes his presses.
 **A pin is a star after the count, released by its own button**: state he cannot
-see or clear is the mod's fault. **He asks for symbols, not colours.** **`_skip<n>` («не нужен») outlives a plan**
-and **the plan reads it** — `_pq<n>` held at 1, the open ladder skipping it.
-**Both are existence flags, and a slot stores and restores both** — his rule:
-loading a plan must not carry what came after saving it.
+see or clear is the mod's fault. **He asks for symbols, not colours.** **Everything the editor holds — pins, flags, the
+share, the star — is the editor's alone. «План» gives a fresh plan and reads
+none of it**; teaching `_pq<n>` otherwise was a fault, 2026-09-06.
+Both are existence flags a slot stores and restores.
 **`_edit_locked_<n>` is the charter's bundle, not the player's pin.**
 
 **The editor is a window, never the settings page.** Three slots, then every

@@ -3028,16 +3028,6 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"""\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = global_var:{MOD_ID}_plan_quota }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} subtract = global_var:{MOD_ID}_nrgo{index} }}
 \tchange_global_variable = {{ name = {MOD_ID}_pq{index} max = 1 }}
-\t# **«Не нужен» is the plan's business too, and it was not.** The flag says
-\t# «never top this good up, on any ground», and while only the editor read it
-\t# the next plan handed the good its full share back -- which is «кликать их в
-\t# минус при каждом добавлении земли», the exact thing the flag exists to
-\t# save. One building is the floor the covering constraint needs and the
-\t# minimum the flag promises, so they are the same number.
-\tif = {{
-\t\tlimit = {{ has_global_variable = {MOD_ID}_skip{index} }}
-\t\tset_global_variable = {{ name = {MOD_ID}_pq{index} value = 1 }}
-\t}}
 """
         for index, good in enumerate(order, start=1))
     out.append(f"""
@@ -3180,12 +3170,8 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
             # 2026-09-03 were mis-read for want of it -- `clay q=2 rgo=2` beside
             # `PASS quota=2` looks like the RGO discount doing nothing, and is
             # the discount working and the open ladder adding one back.
-            # A flagged good is skipped here as well. The open ladder lifts every
-            # good's quota by one a round, so without this it walks a «не нужен»
-            # good straight back up and the flag holds for exactly one pass.
             raise_all = "".join(
-                f"\t\tif = {{ limit = {{ NOT = {{ has_global_variable = {MOD_ID}_skip{i} }} }}\n"
-                f"\t\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }} }}\n"
+                f"\t\tchange_global_variable = {{ name = {MOD_ID}_pq{i} add = 1 }}\n"
                 for i in range(1, len(order) + 1))
             raise_all += f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}\n"
             tier = 0
@@ -4105,6 +4091,19 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_edit_unpin_all = {{
 {unpin}	{MOD_ID}_edit_set_quota = yes
 }}
+
+# **Where the editor ends.** `_lock<n>`, `_skip<n>`, the share below, the star in
+# a cell -- **all of it belongs to the editor window and to nothing else.**
+# Pressing «План» on the mod's page gives a fresh plan, full stop: it does not
+# read a pin, a flag, or anything the editor did. That was crossed on
+# 2026-09-05, when `_pq<n>` was held at 1 for a flagged good and the open ladder
+# was taught to skip it -- so a click in the editor quietly steered the next
+# global plan. His words, 2026-09-06: «слава богу я получаю просто новый план, а
+# не план в котором какой-то домик закреплён на лимите 1».
+#
+# The flag's real scope is «never top this good up **while editing**», on this
+# ground and the next. It survives a replan because it is the player's standing
+# preference for the editor -- not because the plan owes it anything.
 
 # The share a good still free is entitled to, and how far each one is below it.
 #

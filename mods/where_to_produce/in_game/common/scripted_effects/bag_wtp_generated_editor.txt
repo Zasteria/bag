@@ -6991,6 +6991,19 @@ bag_wtp_edit_unpin_all = {
 	bag_wtp_edit_set_quota = yes
 }
 
+# **Where the editor ends.** `_lock<n>`, `_skip<n>`, the share below, the star in
+# a cell -- **all of it belongs to the editor window and to nothing else.**
+# Pressing «План» on the mod's page gives a fresh plan, full stop: it does not
+# read a pin, a flag, or anything the editor did. That was crossed on
+# 2026-09-05, when `_pq<n>` was held at 1 for a flagged good and the open ladder
+# was taught to skip it -- so a click in the editor quietly steered the next
+# global plan. His words, 2026-09-06: «слава богу я получаю просто новый план, а
+# не план в котором какой-то домик закреплён на лимите 1».
+#
+# The flag's real scope is «never top this good up **while editing**», on this
+# ground and the next. It survives a replan because it is the player's standing
+# preference for the editor -- not because the plan owes it anything.
+
 # The share a good still free is entitled to, and how far each one is below it.
 #
 # Recomputed at the top of every press, because a press can pin a good and the

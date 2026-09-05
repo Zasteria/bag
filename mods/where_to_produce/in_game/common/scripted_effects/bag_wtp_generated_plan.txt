@@ -19919,614 +19919,144 @@ bag_wtp_plan_set_quota = {
 	set_global_variable = { name = bag_wtp_pq1 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq1 subtract = global_var:bag_wtp_nrgo1 }
 	change_global_variable = { name = bag_wtp_pq1 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip1 }
-		set_global_variable = { name = bag_wtp_pq1 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq2 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq2 subtract = global_var:bag_wtp_nrgo2 }
 	change_global_variable = { name = bag_wtp_pq2 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip2 }
-		set_global_variable = { name = bag_wtp_pq2 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq3 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq3 subtract = global_var:bag_wtp_nrgo3 }
 	change_global_variable = { name = bag_wtp_pq3 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip3 }
-		set_global_variable = { name = bag_wtp_pq3 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq4 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq4 subtract = global_var:bag_wtp_nrgo4 }
 	change_global_variable = { name = bag_wtp_pq4 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip4 }
-		set_global_variable = { name = bag_wtp_pq4 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq5 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq5 subtract = global_var:bag_wtp_nrgo5 }
 	change_global_variable = { name = bag_wtp_pq5 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip5 }
-		set_global_variable = { name = bag_wtp_pq5 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq6 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq6 subtract = global_var:bag_wtp_nrgo6 }
 	change_global_variable = { name = bag_wtp_pq6 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip6 }
-		set_global_variable = { name = bag_wtp_pq6 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq7 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq7 subtract = global_var:bag_wtp_nrgo7 }
 	change_global_variable = { name = bag_wtp_pq7 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip7 }
-		set_global_variable = { name = bag_wtp_pq7 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq8 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq8 subtract = global_var:bag_wtp_nrgo8 }
 	change_global_variable = { name = bag_wtp_pq8 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip8 }
-		set_global_variable = { name = bag_wtp_pq8 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq9 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq9 subtract = global_var:bag_wtp_nrgo9 }
 	change_global_variable = { name = bag_wtp_pq9 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip9 }
-		set_global_variable = { name = bag_wtp_pq9 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq10 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq10 subtract = global_var:bag_wtp_nrgo10 }
 	change_global_variable = { name = bag_wtp_pq10 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip10 }
-		set_global_variable = { name = bag_wtp_pq10 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq11 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq11 subtract = global_var:bag_wtp_nrgo11 }
 	change_global_variable = { name = bag_wtp_pq11 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip11 }
-		set_global_variable = { name = bag_wtp_pq11 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq12 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq12 subtract = global_var:bag_wtp_nrgo12 }
 	change_global_variable = { name = bag_wtp_pq12 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip12 }
-		set_global_variable = { name = bag_wtp_pq12 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq13 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq13 subtract = global_var:bag_wtp_nrgo13 }
 	change_global_variable = { name = bag_wtp_pq13 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip13 }
-		set_global_variable = { name = bag_wtp_pq13 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq14 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq14 subtract = global_var:bag_wtp_nrgo14 }
 	change_global_variable = { name = bag_wtp_pq14 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip14 }
-		set_global_variable = { name = bag_wtp_pq14 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq15 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq15 subtract = global_var:bag_wtp_nrgo15 }
 	change_global_variable = { name = bag_wtp_pq15 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip15 }
-		set_global_variable = { name = bag_wtp_pq15 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq16 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq16 subtract = global_var:bag_wtp_nrgo16 }
 	change_global_variable = { name = bag_wtp_pq16 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip16 }
-		set_global_variable = { name = bag_wtp_pq16 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq17 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq17 subtract = global_var:bag_wtp_nrgo17 }
 	change_global_variable = { name = bag_wtp_pq17 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip17 }
-		set_global_variable = { name = bag_wtp_pq17 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq18 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq18 subtract = global_var:bag_wtp_nrgo18 }
 	change_global_variable = { name = bag_wtp_pq18 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip18 }
-		set_global_variable = { name = bag_wtp_pq18 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq19 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq19 subtract = global_var:bag_wtp_nrgo19 }
 	change_global_variable = { name = bag_wtp_pq19 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip19 }
-		set_global_variable = { name = bag_wtp_pq19 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq20 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq20 subtract = global_var:bag_wtp_nrgo20 }
 	change_global_variable = { name = bag_wtp_pq20 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip20 }
-		set_global_variable = { name = bag_wtp_pq20 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq21 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq21 subtract = global_var:bag_wtp_nrgo21 }
 	change_global_variable = { name = bag_wtp_pq21 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip21 }
-		set_global_variable = { name = bag_wtp_pq21 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq22 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq22 subtract = global_var:bag_wtp_nrgo22 }
 	change_global_variable = { name = bag_wtp_pq22 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip22 }
-		set_global_variable = { name = bag_wtp_pq22 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq23 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq23 subtract = global_var:bag_wtp_nrgo23 }
 	change_global_variable = { name = bag_wtp_pq23 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip23 }
-		set_global_variable = { name = bag_wtp_pq23 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq24 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq24 subtract = global_var:bag_wtp_nrgo24 }
 	change_global_variable = { name = bag_wtp_pq24 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip24 }
-		set_global_variable = { name = bag_wtp_pq24 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq25 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq25 subtract = global_var:bag_wtp_nrgo25 }
 	change_global_variable = { name = bag_wtp_pq25 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip25 }
-		set_global_variable = { name = bag_wtp_pq25 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq26 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq26 subtract = global_var:bag_wtp_nrgo26 }
 	change_global_variable = { name = bag_wtp_pq26 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip26 }
-		set_global_variable = { name = bag_wtp_pq26 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq27 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq27 subtract = global_var:bag_wtp_nrgo27 }
 	change_global_variable = { name = bag_wtp_pq27 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip27 }
-		set_global_variable = { name = bag_wtp_pq27 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq28 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq28 subtract = global_var:bag_wtp_nrgo28 }
 	change_global_variable = { name = bag_wtp_pq28 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip28 }
-		set_global_variable = { name = bag_wtp_pq28 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq29 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq29 subtract = global_var:bag_wtp_nrgo29 }
 	change_global_variable = { name = bag_wtp_pq29 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip29 }
-		set_global_variable = { name = bag_wtp_pq29 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq30 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq30 subtract = global_var:bag_wtp_nrgo30 }
 	change_global_variable = { name = bag_wtp_pq30 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip30 }
-		set_global_variable = { name = bag_wtp_pq30 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq31 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq31 subtract = global_var:bag_wtp_nrgo31 }
 	change_global_variable = { name = bag_wtp_pq31 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip31 }
-		set_global_variable = { name = bag_wtp_pq31 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq32 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq32 subtract = global_var:bag_wtp_nrgo32 }
 	change_global_variable = { name = bag_wtp_pq32 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip32 }
-		set_global_variable = { name = bag_wtp_pq32 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq33 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq33 subtract = global_var:bag_wtp_nrgo33 }
 	change_global_variable = { name = bag_wtp_pq33 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip33 }
-		set_global_variable = { name = bag_wtp_pq33 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq34 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq34 subtract = global_var:bag_wtp_nrgo34 }
 	change_global_variable = { name = bag_wtp_pq34 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip34 }
-		set_global_variable = { name = bag_wtp_pq34 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq35 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq35 subtract = global_var:bag_wtp_nrgo35 }
 	change_global_variable = { name = bag_wtp_pq35 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip35 }
-		set_global_variable = { name = bag_wtp_pq35 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq36 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq36 subtract = global_var:bag_wtp_nrgo36 }
 	change_global_variable = { name = bag_wtp_pq36 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip36 }
-		set_global_variable = { name = bag_wtp_pq36 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq37 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq37 subtract = global_var:bag_wtp_nrgo37 }
 	change_global_variable = { name = bag_wtp_pq37 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip37 }
-		set_global_variable = { name = bag_wtp_pq37 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq38 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq38 subtract = global_var:bag_wtp_nrgo38 }
 	change_global_variable = { name = bag_wtp_pq38 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip38 }
-		set_global_variable = { name = bag_wtp_pq38 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq39 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq39 subtract = global_var:bag_wtp_nrgo39 }
 	change_global_variable = { name = bag_wtp_pq39 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip39 }
-		set_global_variable = { name = bag_wtp_pq39 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq40 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq40 subtract = global_var:bag_wtp_nrgo40 }
 	change_global_variable = { name = bag_wtp_pq40 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip40 }
-		set_global_variable = { name = bag_wtp_pq40 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq41 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq41 subtract = global_var:bag_wtp_nrgo41 }
 	change_global_variable = { name = bag_wtp_pq41 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip41 }
-		set_global_variable = { name = bag_wtp_pq41 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq42 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq42 subtract = global_var:bag_wtp_nrgo42 }
 	change_global_variable = { name = bag_wtp_pq42 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip42 }
-		set_global_variable = { name = bag_wtp_pq42 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq43 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq43 subtract = global_var:bag_wtp_nrgo43 }
 	change_global_variable = { name = bag_wtp_pq43 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip43 }
-		set_global_variable = { name = bag_wtp_pq43 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq44 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq44 subtract = global_var:bag_wtp_nrgo44 }
 	change_global_variable = { name = bag_wtp_pq44 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip44 }
-		set_global_variable = { name = bag_wtp_pq44 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq45 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq45 subtract = global_var:bag_wtp_nrgo45 }
 	change_global_variable = { name = bag_wtp_pq45 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip45 }
-		set_global_variable = { name = bag_wtp_pq45 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq46 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq46 subtract = global_var:bag_wtp_nrgo46 }
 	change_global_variable = { name = bag_wtp_pq46 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip46 }
-		set_global_variable = { name = bag_wtp_pq46 value = 1 }
-	}
 	set_global_variable = { name = bag_wtp_pq47 value = global_var:bag_wtp_plan_quota }
 	change_global_variable = { name = bag_wtp_pq47 subtract = global_var:bag_wtp_nrgo47 }
 	change_global_variable = { name = bag_wtp_pq47 max = 1 }
-	# **«Не нужен» is the plan's business too, and it was not.** The flag says
-	# «never top this good up, on any ground», and while only the editor read it
-	# the next plan handed the good its full share back -- which is «кликать их в
-	# минус при каждом добавлении земли», the exact thing the flag exists to
-	# save. One building is the floor the covering constraint needs and the
-	# minimum the flag promises, so they are the same number.
-	if = {
-		limit = { has_global_variable = bag_wtp_skip47 }
-		set_global_variable = { name = bag_wtp_pq47 value = 1 }
-	}
 }
 
 # What a good has to reach to be placed in this pass, one global per good.
@@ -23413,100 +22943,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip1 } }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip2 } }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip3 } }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip4 } }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip5 } }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip6 } }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip7 } }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip8 } }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip9 } }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip10 } }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip11 } }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip12 } }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip13 } }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip14 } }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip15 } }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip16 } }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip17 } }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip18 } }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip19 } }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip20 } }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip21 } }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip22 } }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip23 } }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip24 } }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip25 } }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip26 } }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip27 } }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip28 } }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip29 } }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip30 } }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip31 } }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip32 } }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip33 } }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip34 } }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip35 } }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip36 } }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip37 } }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip38 } }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip39 } }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip40 } }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip41 } }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip42 } }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip43 } }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip44 } }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip45 } }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip46 } }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip47 } }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 } }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
@@ -23585,100 +23068,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip1 } }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip2 } }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip3 } }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip4 } }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip5 } }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip6 } }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip7 } }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip8 } }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip9 } }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip10 } }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip11 } }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip12 } }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip13 } }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip14 } }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip15 } }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip16 } }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip17 } }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip18 } }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip19 } }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip20 } }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip21 } }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip22 } }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip23 } }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip24 } }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip25 } }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip26 } }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip27 } }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip28 } }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip29 } }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip30 } }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip31 } }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip32 } }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip33 } }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip34 } }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip35 } }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip36 } }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip37 } }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip38 } }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip39 } }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip40 } }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip41 } }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip42 } }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip43 } }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip44 } }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip45 } }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip46 } }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip47 } }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 } }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
@@ -23757,100 +23193,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip1 } }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip2 } }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip3 } }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip4 } }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip5 } }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip6 } }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip7 } }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip8 } }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip9 } }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip10 } }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip11 } }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip12 } }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip13 } }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip14 } }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip15 } }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip16 } }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip17 } }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip18 } }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip19 } }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip20 } }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip21 } }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip22 } }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip23 } }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip24 } }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip25 } }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip26 } }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip27 } }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip28 } }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip29 } }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip30 } }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip31 } }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip32 } }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip33 } }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip34 } }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip35 } }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip36 } }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip37 } }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip38 } }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip39 } }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip40 } }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip41 } }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip42 } }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip43 } }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip44 } }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip45 } }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip46 } }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip47 } }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 } }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
@@ -23929,100 +23318,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip1 } }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip2 } }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip3 } }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip4 } }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip5 } }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip6 } }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip7 } }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip8 } }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip9 } }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip10 } }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip11 } }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip12 } }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip13 } }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip14 } }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip15 } }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip16 } }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip17 } }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip18 } }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip19 } }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip20 } }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip21 } }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip22 } }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip23 } }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip24 } }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip25 } }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip26 } }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip27 } }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip28 } }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip29 } }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip30 } }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip31 } }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip32 } }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip33 } }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip34 } }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip35 } }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip36 } }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip37 } }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip38 } }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip39 } }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip40 } }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip41 } }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip42 } }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip43 } }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip44 } }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip45 } }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip46 } }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip47 } }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 } }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
@@ -24101,100 +23443,53 @@ bag_wtp_plan_allocate = {
 		change_global_variable = { name = bag_wtp_plan_tsweeps add = 1 }
 		change_global_variable = { name = bag_wtp_plan_sweeps add = 1 }
 		set_global_variable = { name = bag_wtp_plan_added value = 0 }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip1 } }
-			change_global_variable = { name = bag_wtp_pq1 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip2 } }
-			change_global_variable = { name = bag_wtp_pq2 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip3 } }
-			change_global_variable = { name = bag_wtp_pq3 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip4 } }
-			change_global_variable = { name = bag_wtp_pq4 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip5 } }
-			change_global_variable = { name = bag_wtp_pq5 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip6 } }
-			change_global_variable = { name = bag_wtp_pq6 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip7 } }
-			change_global_variable = { name = bag_wtp_pq7 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip8 } }
-			change_global_variable = { name = bag_wtp_pq8 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip9 } }
-			change_global_variable = { name = bag_wtp_pq9 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip10 } }
-			change_global_variable = { name = bag_wtp_pq10 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip11 } }
-			change_global_variable = { name = bag_wtp_pq11 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip12 } }
-			change_global_variable = { name = bag_wtp_pq12 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip13 } }
-			change_global_variable = { name = bag_wtp_pq13 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip14 } }
-			change_global_variable = { name = bag_wtp_pq14 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip15 } }
-			change_global_variable = { name = bag_wtp_pq15 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip16 } }
-			change_global_variable = { name = bag_wtp_pq16 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip17 } }
-			change_global_variable = { name = bag_wtp_pq17 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip18 } }
-			change_global_variable = { name = bag_wtp_pq18 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip19 } }
-			change_global_variable = { name = bag_wtp_pq19 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip20 } }
-			change_global_variable = { name = bag_wtp_pq20 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip21 } }
-			change_global_variable = { name = bag_wtp_pq21 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip22 } }
-			change_global_variable = { name = bag_wtp_pq22 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip23 } }
-			change_global_variable = { name = bag_wtp_pq23 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip24 } }
-			change_global_variable = { name = bag_wtp_pq24 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip25 } }
-			change_global_variable = { name = bag_wtp_pq25 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip26 } }
-			change_global_variable = { name = bag_wtp_pq26 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip27 } }
-			change_global_variable = { name = bag_wtp_pq27 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip28 } }
-			change_global_variable = { name = bag_wtp_pq28 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip29 } }
-			change_global_variable = { name = bag_wtp_pq29 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip30 } }
-			change_global_variable = { name = bag_wtp_pq30 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip31 } }
-			change_global_variable = { name = bag_wtp_pq31 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip32 } }
-			change_global_variable = { name = bag_wtp_pq32 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip33 } }
-			change_global_variable = { name = bag_wtp_pq33 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip34 } }
-			change_global_variable = { name = bag_wtp_pq34 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip35 } }
-			change_global_variable = { name = bag_wtp_pq35 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip36 } }
-			change_global_variable = { name = bag_wtp_pq36 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip37 } }
-			change_global_variable = { name = bag_wtp_pq37 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip38 } }
-			change_global_variable = { name = bag_wtp_pq38 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip39 } }
-			change_global_variable = { name = bag_wtp_pq39 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip40 } }
-			change_global_variable = { name = bag_wtp_pq40 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip41 } }
-			change_global_variable = { name = bag_wtp_pq41 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip42 } }
-			change_global_variable = { name = bag_wtp_pq42 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip43 } }
-			change_global_variable = { name = bag_wtp_pq43 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip44 } }
-			change_global_variable = { name = bag_wtp_pq44 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip45 } }
-			change_global_variable = { name = bag_wtp_pq45 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip46 } }
-			change_global_variable = { name = bag_wtp_pq46 add = 1 } }
-		if = { limit = { NOT = { has_global_variable = bag_wtp_skip47 } }
-			change_global_variable = { name = bag_wtp_pq47 add = 1 } }
+		change_global_variable = { name = bag_wtp_pq1 add = 1 }
+		change_global_variable = { name = bag_wtp_pq2 add = 1 }
+		change_global_variable = { name = bag_wtp_pq3 add = 1 }
+		change_global_variable = { name = bag_wtp_pq4 add = 1 }
+		change_global_variable = { name = bag_wtp_pq5 add = 1 }
+		change_global_variable = { name = bag_wtp_pq6 add = 1 }
+		change_global_variable = { name = bag_wtp_pq7 add = 1 }
+		change_global_variable = { name = bag_wtp_pq8 add = 1 }
+		change_global_variable = { name = bag_wtp_pq9 add = 1 }
+		change_global_variable = { name = bag_wtp_pq10 add = 1 }
+		change_global_variable = { name = bag_wtp_pq11 add = 1 }
+		change_global_variable = { name = bag_wtp_pq12 add = 1 }
+		change_global_variable = { name = bag_wtp_pq13 add = 1 }
+		change_global_variable = { name = bag_wtp_pq14 add = 1 }
+		change_global_variable = { name = bag_wtp_pq15 add = 1 }
+		change_global_variable = { name = bag_wtp_pq16 add = 1 }
+		change_global_variable = { name = bag_wtp_pq17 add = 1 }
+		change_global_variable = { name = bag_wtp_pq18 add = 1 }
+		change_global_variable = { name = bag_wtp_pq19 add = 1 }
+		change_global_variable = { name = bag_wtp_pq20 add = 1 }
+		change_global_variable = { name = bag_wtp_pq21 add = 1 }
+		change_global_variable = { name = bag_wtp_pq22 add = 1 }
+		change_global_variable = { name = bag_wtp_pq23 add = 1 }
+		change_global_variable = { name = bag_wtp_pq24 add = 1 }
+		change_global_variable = { name = bag_wtp_pq25 add = 1 }
+		change_global_variable = { name = bag_wtp_pq26 add = 1 }
+		change_global_variable = { name = bag_wtp_pq27 add = 1 }
+		change_global_variable = { name = bag_wtp_pq28 add = 1 }
+		change_global_variable = { name = bag_wtp_pq29 add = 1 }
+		change_global_variable = { name = bag_wtp_pq30 add = 1 }
+		change_global_variable = { name = bag_wtp_pq31 add = 1 }
+		change_global_variable = { name = bag_wtp_pq32 add = 1 }
+		change_global_variable = { name = bag_wtp_pq33 add = 1 }
+		change_global_variable = { name = bag_wtp_pq34 add = 1 }
+		change_global_variable = { name = bag_wtp_pq35 add = 1 }
+		change_global_variable = { name = bag_wtp_pq36 add = 1 }
+		change_global_variable = { name = bag_wtp_pq37 add = 1 }
+		change_global_variable = { name = bag_wtp_pq38 add = 1 }
+		change_global_variable = { name = bag_wtp_pq39 add = 1 }
+		change_global_variable = { name = bag_wtp_pq40 add = 1 }
+		change_global_variable = { name = bag_wtp_pq41 add = 1 }
+		change_global_variable = { name = bag_wtp_pq42 add = 1 }
+		change_global_variable = { name = bag_wtp_pq43 add = 1 }
+		change_global_variable = { name = bag_wtp_pq44 add = 1 }
+		change_global_variable = { name = bag_wtp_pq45 add = 1 }
+		change_global_variable = { name = bag_wtp_pq46 add = 1 }
+		change_global_variable = { name = bag_wtp_pq47 add = 1 }
 		change_global_variable = { name = bag_wtp_plan_opensw add = 1 }
 		bag_wtp_plan_pick_1 = yes
 		bag_wtp_plan_pick_2 = yes
