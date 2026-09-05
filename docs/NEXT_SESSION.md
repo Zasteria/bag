@@ -40,24 +40,24 @@ rules each step implements are
    confirmed in game 2026-09-05.** All three lines read back; the windows are as
    wide as their content. `allow_outside` **stays**: the close button hangs
    outside on purpose, exactly as vanilla's does.
-2. **Share, `_lock<n>`, and the «не нужен» flag** — **share and lock confirmed in
-   game by numbers** (`quota=3 free=19 pool_rooms=66` on 192 rooms, a fill won on
-   shortfall with gain 0). **Both marks were rebuilt after that run and one run
-   is still owed**: «не нужен» is the game's checkbox and the plan reads it at
-   last, the pin is visible and releasable, and a slot stores and restores both.
-   What changed and why: [`archive/wtp_practice_done.md`](archive/wtp_practice_done.md).
+2. **Share, `_lock<n>`, and the «не нужен» flag** — **not closed, and three of
+   its five checks have never been run.** Confirmed: the share and the lock by
+   numbers (`quota=3 free=19 pool_rooms=66`), «+1» clearing the flag, a slot
+   saved before a flag clearing it on load, the picker's rows and the pin's star.
+   **Never run: «Снять закрепления»; a slot saved *with* marks restoring them;
+   and «не нужен» surviving a re-plan — which is the whole reason the flag was
+   rebuilt.** Start the next session by asking for those three.
 2а. **Reshuffle the buildings a fill placed** — his ask, 2026-09-05, and a real
    flaw in the order: the fill chooses *which* good by shortfall but *where* by
    the accident of press order. Scope is strictly the buildings the fill placed
    and their own locations, so no count changes. **Not built**, and he asked
    about it directly at the session's end — say so plainly rather than let it
    read as done.
-2б. **A packed picker.** The columns line up now, but 12 of 47 slots are empty
-   on a ground that makes 35 goods: «если их грамотно упорядочить — места они
-   станут занимать раза в 2 меньше». Alignment and packing are exclusive while
-   the cells are written out per good. **The way out is a scope-keyed global
-   variable map** (`research/interface.md`) — and it starts with one question to
-   the game, not with a build: can a map's value be a number?
+2б. **A packed picker** — **and he took it off the table himself**, 2026-09-06:
+   «в целом похер, что там дырки». Recorded, not urgent. The way out is that a
+   good is its own scope (`every_goods`, `Goods.MakeScope`), so the count can sit
+   on it and the picker becomes a datamodel — `research/interface.md` has the
+   order of checks, and the first is cheap.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.

@@ -45,17 +45,17 @@ report**; **the round trip is no undo** (`docs/TESTLOG.md`).
 
 **A press pins its good** — `_lock<n>` — and a freed room goes to the good
 **furthest below its share**; without the pin that rule undoes his presses.
-**A pin is yellow in the cell and released by its own button**: state he cannot
-see or clear is the mod's fault, twice paid for. **`_skip<n>` («не нужен») outlives a plan**
-and **the plan reads it too** — `_pq<n>` held at 1, the open ladder skipping it.
-**Both are existence flags, and a slot stores and restores both**: his rule,
-2026-09-05, that loading a plan must not carry what came after saving it.
+**A pin is a star after the count, released by its own button**: state he cannot
+see or clear is the mod's fault. **He asks for symbols, not colours.** **`_skip<n>` («не нужен») outlives a plan**
+and **the plan reads it** — `_pq<n>` held at 1, the open ladder skipping it.
+**Both are existence flags, and a slot stores and restores both** — his rule:
+loading a plan must not carry what came after saving it.
 **`_edit_locked_<n>` is the charter's bundle, not the player's pin.**
 
 **The editor is a window, never the settings page.** Three slots, then every
 good as a cell of «−1, count, +1, не нужен». **Its header prints a build stamp** — ask
 for it before believing a fix failed.
-**The editor has no re-plan button**: «План»/«На конец» are on the mod's page,
+**No re-plan button in the editor**: «План»/«На конец» on the mod's page,
 «Пересчитать» in the results window. **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses may not be in
 the font** — take a texture, and colour with `#Y …#!`, never `§`; **a control behind a first click is one
