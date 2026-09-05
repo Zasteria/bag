@@ -40,21 +40,24 @@ rules each step implements are
    confirmed in game 2026-09-05.** All three lines read back; the windows are as
    wide as their content. `allow_outside` **stays**: the close button hangs
    outside on purpose, exactly as vanilla's does.
-2. **Share, `_lock<n>`, and the «не нужен» flag** — **the share and the lock are
-   confirmed in game 2026-09-05, by numbers**: `quota=3 free=19 pool_rooms=66`
-   on a 192-room ground, and a fill won by a good with gain 0, i.e. on shortfall.
-   **Both marks were rebuilt after that run and are owed one.** «Не нужен» drew
-   as an empty box (no checkmark exists in the game's fonts *or* its
-   localization — it is `checkbutton_round_alt` now) and changed nothing in
-   practice because the plan never read it; it now caps `_pq<n>` at 1, the open
-   ladder skips it, and «+1» clears it. **The pin was invisible too** — he said
-   so plainly when asked — so it is drawn yellow, «Снять закрепления» releases
-   pins without touching the plan, and **a slot stores and restores both**,
-   which was his call.
+2. **Share, `_lock<n>`, and the «не нужен» flag** — **share and lock confirmed in
+   game by numbers** (`quota=3 free=19 pool_rooms=66` on 192 rooms, a fill won on
+   shortfall with gain 0). **Both marks were rebuilt after that run and one run
+   is still owed**: «не нужен» is the game's checkbox and the plan reads it at
+   last, the pin is visible and releasable, and a slot stores and restores both.
+   What changed and why: [`archive/wtp_practice_done.md`](archive/wtp_practice_done.md).
 2а. **Reshuffle the buildings a fill placed** — his ask, 2026-09-05, and a real
    flaw in the order: the fill chooses *which* good by shortfall but *where* by
    the accident of press order. Scope is strictly the buildings the fill placed
-   and their own locations, so no count changes. Not built.
+   and their own locations, so no count changes. **Not built**, and he asked
+   about it directly at the session's end — say so plainly rather than let it
+   read as done.
+2б. **A packed picker.** The columns line up now, but 12 of 47 slots are empty
+   on a ground that makes 35 goods: «если их грамотно упорядочить — места они
+   станут занимать раза в 2 меньше». Alignment and packing are exclusive while
+   the cells are written out per good. **The way out is a scope-keyed global
+   variable map** (`research/interface.md`) — and it starts with one question to
+   the game, not with a build: can a map's value be a number?
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.
@@ -63,6 +66,19 @@ rules each step implements are
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
+
+### Waiting on him, cheap
+
+**Two mods for `reference/`, which he offered and which are worth taking**:
+`cheatmenu` (a catalogue of effects *in use*, and a large interface with live
+`fixedgridbox` datamodels — exactly what step 2б needs) and a proper look at
+Advanced Auto Build's interface. Why, in
+[`CONVENTIONS.md`](CONVENTIONS.md).
+
+**And one thing to settle with him, not for him:** he does not want coloured
+markers — «не нужны всякие там жёлтые, красные буквы цифры» — while the yellow
+count is the only thing that shows a pin, and an invisible pin is a fault
+already paid for. The pin must stay visible; the form is his call.
 
 ### Two lessons that outlive the faults
 

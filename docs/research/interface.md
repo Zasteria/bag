@@ -1,4 +1,4 @@
-# The interface
+﻿# The interface
 
 Split out of [`engine.md`](engine.md) when it outgrew its budget: which panel is
 which, how a list filter is scoped, what a view object can and cannot be read
@@ -312,3 +312,37 @@ reads the real one out of the mount table in his `debug.log`. It was
 written for the question *why does a panel open instantly in vanilla and with a
 hitch under the playset*; the answer it gives is in
 [`../investigations/panel_hitch.md`](../investigations/panel_hitch.md).
+
+## Карта глобалок с ключом-скоупом — и почему это зацепка для пикера
+
+**Найдено 2026-09-05, не проверено в игре.** Движок держит полноценные
+*variable maps*: `add_to_global_variable_map = { name = X key = Y value = Z }`,
+`remove_from_global_variable_map`, `clear_global_variable_map`, обходы
+`every_key_in_…` / `ordered_key_in_…` / `random_key_in_…`, триггеры
+`is_key_in_…`, `is_value_in_…`, `global_variable_map_size`,
+`has_global_variable_map`. Со стороны интерфейса ключ читается
+`GetVariableFromGlobalVariableMap('имя', <скоуп>)` — так CMF печатает свой лог
+(`cmf_log_loc`).
+
+**Зачем это `where_to_produce`.** Пикер редактора расписан по товару — 47 ячеек
+руками — **потому что строка datamodel несёт скоуп товара, а скоуп не достаёт до
+нумерованной глобалки `_pn<n>`**. Из-за этого ячейки стоят на фиксированных
+местах, и на земле, которая умеет 35 товаров из 47, в сетке двенадцать дыр:
+владелец, 2026-09-05, «если их грамотно упорядочить — места они станут занимать
+раза в 2 меньше».
+
+**Карта снимает ровно это ограничение**, если её значением может быть число:
+`_pn` кладётся в карту с ключом `goods:X`, и строка datamodel читает свой
+счётчик через `GetVariableFromGlobalVariableMap`. Тогда пикер становится
+datamodel'ом — то есть упакованным, — и вопрос выравнивания исчезает вместе с
+дырами.
+
+**Что не проверено, и проверять это первым.** Документация эффекта говорит «Y и
+Z — event targets», тогда как `set_variable` принимает «any event target, bool,
+value, script value or flag». **Может ли значением карты быть число — не
+установлено**, и без этого вся конструкция не нужна. Вторым идёт `fixedgridbox`:
+это то, чем игра рисует сетку по datamodel во всех 138 случаях, а единственная
+здешняя попытка нарисовала ячейки друг на друге — вероятнее всего от нехватки
+`addcolumn`/`addrow`/`datamodel_wrap`/`flipdirection`, а не потому что виджет не
+годится. `flowcontainer` с datamodel — тот, что ронял игру, — сюда не годится
+и проверять его снова не нужно.
