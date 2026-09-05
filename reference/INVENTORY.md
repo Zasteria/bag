@@ -26,11 +26,13 @@ compiles from them.
 
 | Folder | Mod id | Version | Mounts |
 | --- | --- | --- | --- |
+| `3600272327_sakuya` | `sakuya` | 1.6.0 | docs, in_game, main_menu |
 | `3633816300_ogasoptimized` | `ogasoptimized` | 20260627 | in_game, main_menu |
 | `3662193478_faster_universalis` | `faster.universalis` | 1.8.2 | in_game, loading_screen, main_menu |
 | `3662933683_fusm_daily_tick` | `fusm.daily.tick` | 1.3.2 | in_game, loading_screen, main_menu |
 | `3662938575_fusm_hourly_tick` | `fusm.hourly.tick` | 1.3.2 | in_game, loading_screen, main_menu |
 | `3677315887_fusm_halfday_tick` | `fusm.halfday.tick` | 1.3.2 | in_game, loading_screen, main_menu |
+| `3680208976_sakuya_afterburner` | `sakuya_afterburner` | 1.6.0 | in_game, main_menu |
 | `3696243603_autonomous_diplomats` | `autonomous_diplomats` | 1.5.0 | in_game, main_menu |
 | `3721516330_integration_hotfix` | `Integration Hotfix` | 0.7 | in_game, loading_screen, main_menu |
 | `3779064076_rexbert_buymyart` | `rexbert.buymyart` | 1.0 | in_game |
