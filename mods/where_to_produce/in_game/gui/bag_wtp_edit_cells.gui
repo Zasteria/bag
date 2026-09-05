@@ -8,7 +8,9 @@ types BagWtpEditCells {
 
 	# Goods 1..10 of the plan's own order.
 	type bag_wtp_edit_row1 = hbox {
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = 14
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
@@ -1139,7 +1141,9 @@ types BagWtpEditCells {
 
 	# Goods 11..20 of the plan's own order.
 	type bag_wtp_edit_row2 = hbox {
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = 14
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
@@ -2270,7 +2274,9 @@ types BagWtpEditCells {
 
 	# Goods 21..30 of the plan's own order.
 	type bag_wtp_edit_row3 = hbox {
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = 14
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
@@ -3401,7 +3407,9 @@ types BagWtpEditCells {
 
 	# Goods 31..40 of the plan's own order.
 	type bag_wtp_edit_row4 = hbox {
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = 14
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
@@ -4532,7 +4540,9 @@ types BagWtpEditCells {
 
 	# Goods 41..47 of the plan's own order.
 	type bag_wtp_edit_row5 = hbox {
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = 14
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
@@ -5323,5 +5333,11 @@ types BagWtpEditCells {
 			}
 			}
 		}
+
+		widget = { size = { 127 28 } }
+
+		widget = { size = { 127 28 } }
+
+		widget = { size = { 127 28 } }
 	}
 }

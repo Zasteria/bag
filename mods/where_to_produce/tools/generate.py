@@ -3493,6 +3493,11 @@ EDIT_SLOTS = 3
 # one another. `docs/pitfalls/interface.md`.
 EDIT_ROW = 10
 EDIT_ROWS = 5
+# The picker's cell, in one place: «−1», the count, «+1», «не нужен», and the
+# gap between two goods. `CELL_GAP` is what keeps one good's buttons off the
+# next good's; the window is sized from these, and `check_script.py` measures
+# the result against it on every build.
+CELL_W, CELL_H, CELL_GAP = 127, 28, 14
 
 
 # The picker's cells, generated into a `.gui` of types only.
@@ -3557,7 +3562,7 @@ def edit_cells_file(order: list[str]) -> str:
 		# ragged again exactly as it was before the fix. He reported it
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {{
-			size = {{ 127 28 }}
+			size = {{ {CELL_W} {CELL_H} }}
 			hbox = {{
 			spacing = 1
 
@@ -3658,17 +3663,30 @@ def edit_cells_file(order: list[str]) -> str:
 			}}
 		}}
 """
+        # **The last row is padded to full width or it drifts.** 47 goods over
+        # five rows leaves the fifth with seven cells; a shorter `hbox` inside a
+        # centred parent sits in a different place, and he reported exactly that
+        # — «в столбики встали только первые три строчки, четвёртая съехала».
+        # The pad is empty widgets of a cell's width, so every row measures the
+        # same and every column lands under the one above.
+        pad = "".join(f"""
+		widget = {{ size = {{ {CELL_W} {CELL_H} }} }}
+"""
+            for _ in range(EDIT_ROW - (min((r + 1) * EDIT_ROW, len(order))
+                                       - r * EDIT_ROW)))
         rows.append(f"""
 	# Goods {r * EDIT_ROW + 1}..{min((r + 1) * EDIT_ROW, len(order))} of the plan's own order.
 	type {MOD_ID}_edit_row{r + 1} = hbox {{
-		spacing = 6
+		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
+		# буквально через миллиметр от другого инструмента другого товара».
+		spacing = {CELL_GAP}
 		# **Said out loud, because the default is not verifiable from here.**
 		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
 		# cell holding its column; the game writes `= no` explicitly five times
 		# of its own accord, so whatever the default is, relying on it was the
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
-{cells}	}}
+{cells}{pad}	}}
 """)
     return (HEADER + f"""#
 # The plan editor's picker, a cell a good. `{MOD_ID}_edit_window.gui` draws the
@@ -5744,11 +5762,16 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         out.append(f" {MOD_ID}_cell_{i}: "
                    f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
                    f".ScriptValue('{MOD_ID}_show_pn{i}')|0]\"\n")
-        # The same cell once the good is pinned. Only the colour differs, so a
-        # pinned good reads as pinned at a glance and nothing else moves.
+        # **The same cell once the good is pinned, marked with a character and
+        # not a colour.** It was `#Y …#!` and he had already said what he
+        # wanted: «добавлять какой-то символ к цифре и всё, он будет мне виден
+        # и понятен, есть там замок или нет» — twice, before and after the
+        # colour went in. A `*` is ASCII, so unlike `✔` there is no question
+        # whether the font has it, and unlike a colour it survives being
+        # printed, screenshotted and looked at sideways.
         out.append(f" {MOD_ID}_cell_pin_{i}: "
-                   f'"@{good}! #Y [GuiScope.SetRoot(GetPlayer.MakeScope)'
-                   f".ScriptValue('{MOD_ID}_show_pn{i}')|0]#!\"\n")
+                   f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
+                   f".ScriptValue('{MOD_ID}_show_pn{i}')|0]*\"\n")
 
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.

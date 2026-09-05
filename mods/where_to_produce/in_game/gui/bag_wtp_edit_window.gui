@@ -40,13 +40,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1440 780 }
+	size = { 1500 780 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 
 	widget = {
-		size = { 1440 780 }
+		size = { 1500 780 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -80,7 +80,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1390 60 }
+					maximumsize = { 1450 60 }
 					align = center
 					text = "bag_wtp_edit_window_desc"
 				}
@@ -362,7 +362,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1390 30 }
+					maximumsize = { 1450 30 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_edit_pool')))]"
 					text = "bag_wtp_edit_pool_empty"
@@ -405,7 +405,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1390 40 }
+					maximumsize = { 1450 40 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
 					text = "bag_wtp_edit_no_plan"
