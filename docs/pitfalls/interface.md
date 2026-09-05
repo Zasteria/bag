@@ -27,36 +27,13 @@ died, harder, because static children are built when the window is created rathe
 than when the list fills.
 
 **The game's own files say it plainly, and nobody asked them.** There is no
-`flowcontainer` with a real datamodel anywhere in vanilla. Its two `wrap_count`
-pickers (`agenda_view.gui`, `multiplayer_lobby.gui`) hold literal children, and
-where a flowcontainer does take a `datamodel` it is `DataModelRepeatedItem(N)` — a
-counter, not a list. **A wrapping grid of a list is a `fixedgridbox`**, all 138
-times the game draws one:
-
-    fixedgridbox = {
-        addcolumn = 106        # cell width  + spacing
-        addrow = 34            # cell height + spacing
-        datamodel_wrap = 10    # cells to a row
-        flipdirection = yes    # fill along the row, not down the column
-        datamodel = "[...]"
-        item = { ... }
-    }
-
-**`check_script.py` refuses the pairing now** — a `flowcontainer` whose own block
-carries a datamodel that is not `DataModelRepeatedItem`. A flowcontainer of
-literal children is fine and stays fine.
-
-**And the `fixedgridbox` that replaced it laid the cells out wrong on its first
-load**: some past the window's right edge, some drawn underneath each other.
-`addcolumn`/`addrow` did not behave as either a pitch or an item size at
-104×32 with `datamodel_wrap = 10`. **So the picker does not wrap at all now.**
-The rows are cut in script — `bag_wtp_edit_fill_pool` deals the goods into
-`_edit_pool1..5`, ten each — and the window draws five `hbox` datamodels, which
-is the one horizontal list this mod has drawn correctly since its first build
-(every location's goods in the plan window is exactly that shape). **Where a
-layout can be decided in script, decide it in script**: an `hbox` with a
-datamodel has never once come out wrong here, and both widgets that would have
-saved the five lists failed on their first load.
+`flowcontainer` with a real datamodel anywhere in vanilla; a wrapping grid of a
+list is a `fixedgridbox`, all 138 times the game draws one. **`check_script.py`
+refuses the pairing now.** And **the `fixedgridbox` that replaced it laid the
+cells out wrong on its first load** — some past the window's edge, some drawn
+underneath each other — so **the picker does not wrap at all**: the rows are cut
+in the generator and the window draws five of them. **Where a layout can be
+decided in script, decide it in script.**
 
 **A variable read on the wrong scope is a condition that is quietly false, for
 ever.** The plan editor's `_edit_good` was written with `set_variable` in a
@@ -105,31 +82,23 @@ inside a localization value, both, because a map read only from localization
 would be missed by looking in the `.gui` alone.
 
 **A window that says «a rule refused it, or there was nowhere» has said
-nothing.** Those are two different answers and the reader takes the first. The
-plan editor told him a rule had refused a «+1» on iron; iron can be made in four
-locations of Westphalia and stood in all four, so the true answer was the second.
-An «or» in a failure message is a failure message that has not been written yet —
-count the thing that decides, and say which.
+nothing.** Those are two answers and the reader takes the first. An «or» in a
+failure message is a message that has not been written yet — count the thing that
+decides, and say which.
 
 **One good to a row with its name beside it is half a window.** 35 goods came to
-35 rows and he could not use it. A `flowcontainer` with `wrap_count` is vanilla's
-own wrapping row (`agenda_view.gui`), and the icon's tooltip already carries the
-name, so the cell is «−1, icon, +1» and nothing else.
+35 rows and he could not use it; the icon's tooltip already carries the name, so
+the cell is «−1, icon, +1» and nothing else.
 
 **A control you have to discover by clicking is a control that is not there.**
-The plan editor's first working build showed the goods as bare icons; clicking
-one added a row elsewhere, and «−1» and «+1» appeared on that row. He opened the
-window and reported there was no way to edit anything — «там только их иконки и
-ничего больше, что могло бы дать мне инструмент влияния, никаких кнопочек +1 или
--1» — which was true of everything he could see. The buttons went into the picker
-rows themselves and the second list was deleted.
+The editor's first working build showed bare icons; clicking one made «−1» and
+«+1» appear on a row elsewhere, and he reported there was no way to edit anything
+— true of everything he could see. The buttons went into the cells themselves.
 
 **And when a press does nothing, say whether it arrived.** A button that never
-reaches its effect and a rule that refuses look identical on screen. The editor
-keeps `_edit_reached` beside `_edit_done` for exactly that: the label reads
-«кнопка не донесла товар» when the scope never came through, and «правило не
-дало» only when it did. Both of this window's earlier failures were diagnosed as
-the wrong one of those.
+reaches its effect and a rule that refuses look identical on screen; the editor
+keeps `_edit_reached` beside `_edit_done` so the label can tell them apart. Both
+of this window's earlier failures were diagnosed as the wrong one.
 
 **`tools/check_script.py` resolves every name a window says** — a `text` or
 `tooltip` key against the mod's own localization, a `Custom()` against
@@ -290,6 +259,23 @@ with a size of its own, size the children too.
   метод» (`hbox` в 394 с `ignoreinvisible = yes` мерился в 262, и «Из чего» с
   «Подходит» уезжали на 132 пикселя влево от своих заголовков). **Каждый раз
   правило уже было записано в этом файле и не применено.**
+- **Коробка, которой дали больше места, чем нужно её детям, раздаёт разницу
+  между ними.** Не прижимает к краю, не оставляет пустоту в конце — **делит
+  поровну**. Владелец описал это точнее любого предположения: «список городских
+  прав во втором столбце вообще решил поделить территорию на равные части, а не
+  встать списком». Числа сходятся: три права по 30 в коробке 210 — по 60 между
+  ними; шесть прав — по 6, и колонка выглядит почти как список, поэтому одна
+  половина беды две сессии выглядела здоровой. **Лечится растягивающимся ребёнком
+  в конце** (`widget = { layoutpolicy_vertical = expanding size = { W -1 } }`),
+  который забирает весь остаток. То же по горизонтали — так счётчик и иконки
+  разъезжались внутри столбца «Из чего».
+- **В коробку с `datamodel` статических детей не класть.** Ровно эта форма
+  роняла игру на `flowcontainer` четыре сборки подряд. Если растянутой коробке
+  нужен упор, он ставится снаружи datamodel, а не рядом с ним.
+- **Две разные вещи в одном столбце — это будущая беда.** Счётчик «1/2» и иконки
+  сырья жили в одной коробке в 110; **его собственное решение оказалось лучше
+  любой раскладки**: «просто символам 1/2 нужен свой столбик и тогда проблем не
+  возникнет». 110 = 44 + 4 + 62, сумма та же, соседние столбцы не сдвинулись.
 - **Столбец таблицы сверяется с заголовком сложением, и сложение врёт, если
   где-то стоит `hbox` с размером.** Суммы ширин шапки и строки могут совпадать
   до пикселя, а на экране расходиться. Первое, что надо искать при расхождении, —

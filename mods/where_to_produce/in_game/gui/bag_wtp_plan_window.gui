@@ -736,6 +736,13 @@ window = {
 								}
 								onclick = "[GetScriptedGui('bag_wtp_edit_slot_save_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 							}
+							
+							# **The slack goes here, not between the children.** A box given
+							# more room than its children need spreads the difference across
+							# them: the count and the icons drifted apart until the icon sat
+							# between two columns — «куда-то между столбцами воткнулась иконка
+							# товара», 2026-09-06. An expanding child takes it all instead.
+							widget = { layoutpolicy_horizontal = expanding size = { -1 42 } }
 						}
 					}
 

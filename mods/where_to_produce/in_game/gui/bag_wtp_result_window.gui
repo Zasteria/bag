@@ -358,6 +358,13 @@ types BagWtpResultTypes {
 					text = "bag_wtp_result_method2_value_end"
 					tooltip = "bag_wtp_result_end_tt"
 				}
+				
+				# **The slack goes here, not between the children.** A box given
+				# more room than its children need spreads the difference across
+				# them: the count and the icons drifted apart until the icon sat
+				# between two columns — «куда-то между столбцами воткнулась иконка
+				# товара», 2026-09-06. An expanding child takes it all instead.
+				widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 			}
 		}
 
@@ -371,56 +378,65 @@ types BagWtpResultTypes {
 		# puts its children where their anchor says and nowhere else, and an anchor
 		# is allowed here precisely because the parent is not a layout.
 		widget = {
-			size = { 110 28 }
+			size = { 44 28 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
+				text = "bag_wtp_result_goods_count"
+			}
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
+				text = "bag_wtp_result_goods_count_end"
+			}
+		}
+
+		widget = { size = { 4 28 } }
+
+		widget = {
+			size = { 62 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_result_goods_count"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 
-			# The raw materials the *last* method wants, which are not always the
-			# ones today's does: bronze cannons want copper and tin and the cannon
-			# factory that replaces them wants lead and saltpetre.
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_result_goods_count_end"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 		}
@@ -570,6 +586,13 @@ types BagWtpResultTypes {
 					text = "bag_wtp_result_method2_value_end_rural"
 					tooltip = "bag_wtp_result_end_tt_rural"
 				}
+				
+				# **The slack goes here, not between the children.** A box given
+				# more room than its children need spreads the difference across
+				# them: the count and the icons drifted apart until the icon sat
+				# between two columns — «куда-то между столбцами воткнулась иконка
+				# товара», 2026-09-06. An expanding child takes it all instead.
+				widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
 			}
 		}
 
@@ -583,56 +606,65 @@ types BagWtpResultTypes {
 		# puts its children where their anchor says and nowhere else, and an anchor
 		# is allowed here precisely because the parent is not a layout.
 		widget = {
-			size = { 110 28 }
+			size = { 44 28 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
+				text = "bag_wtp_result_goods_count_rural"
+			}
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
+				text = "bag_wtp_result_goods_count_end_rural"
+			}
+		}
+
+		widget = { size = { 4 28 } }
+
+		widget = {
+			size = { 62 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
 				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_result_goods_count_rural"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_goods_rural')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 
-			# The raw materials the *last* method wants, which are not always the
-			# ones today's does: bronze cannons want copper and tin and the cannon
-			# factory that replaces them wants lead and saltpetre.
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
 				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_result_goods_count_end_rural"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods_rural')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_end_goods_rural')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 		}
@@ -1010,7 +1042,7 @@ window = {
 					spacing = 8
 
 					widget = {
-						size = { 656 236 }
+						size = { 746 236 }
 
 						vbox = {
 							parentanchor = top|left
@@ -1018,9 +1050,9 @@ window = {
 							spacing = 2
 
 							text_single = {
-								size = { 656 20 }
+								size = { 746 20 }
 								autoresize = no
-								maximumsize = { 656 20 }
+								maximumsize = { 746 20 }
 								align = left|vcenter
 								fontsize = 13
 								elide = right
@@ -1033,6 +1065,9 @@ window = {
 							bag_wtp_pick_row3 = {}
 							bag_wtp_pick_row4 = {}
 							bag_wtp_pick_row5 = {}
+
+							# The slack goes here, not between the rows.
+							widget = { layoutpolicy_vertical = expanding size = { 746 -1 } }
 						}
 					}
 
@@ -1082,6 +1117,9 @@ window = {
 									}
 								}
 							}
+
+							# The slack goes here, not between the blocks.
+							widget = { layoutpolicy_vertical = expanding size = { 504 -1 } }
 						}
 					}
 
@@ -1242,12 +1280,32 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
+					# **The count has a column of its own, and that was his fix**,
+					# 2026-09-06: «просто символам 1/2 нужен свой столбик и тогда
+					# проблем не возникнет». Two things sharing one column is what
+					# let the icon wander into the gap between columns.
 					text_single = {
-						size = { 110 24 }
+						size = { 44 24 }
 						autoresize = no
+						maximumsize = { 44 24 }
 						align = left|vcenter
 						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_result_head_supply"
+						tooltip = "bag_wtp_result_goods_tt"
+					}
+					widget = { size = { 4 24 } }
+					text_single = {
+						size = { 62 24 }
+						autoresize = no
+						maximumsize = { 62 24 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
 						text = "bag_wtp_result_head_goods"
+						tooltip = "bag_wtp_result_goods_tt"
 					}
 					widget = { size = { 4 24 } }
 					text_single = {

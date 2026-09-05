@@ -46,12 +46,11 @@ rules each step implements are
    window. **Two rounds of fixes followed and the second is not run**: the
    buildable tick deleted, «Выбрать мою землю» added, the stamp and the essays
    out of the windows, and four layout faults — chief among them an `hbox`
-   carrying a written width and measuring 132 short. **The editor's picker is
-   all 47 goods now**: aligned left holes in the middle, packed left rows of
-   three beside rows of nine, and both read to him as «страшный набор
-   столбиков». **One column drift in the rights window has no cause I could
-   find** — the sums match to the pixel, and the `scrollbox` template is not in
-   `reference/` — so it is left unguessed. Both tables:
+   carrying a written width and measuring 132 short. **The editor's picker is all 47 goods now** and accepted. **The cause of every column that would not sit still was
+   named by his own screenshot, third round**: a box given more room than its
+   children need divides the difference between them. An expanding child at the
+   end takes it instead — and the counter got a column of its own, which was his
+   fix and better than mine. Both tables:
    [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
 
    **Two interface rules he set with that report, and they outrank the steps

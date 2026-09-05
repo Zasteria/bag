@@ -71,29 +71,38 @@ types BagWtpRightTypes {
 		# places its children where their anchor says, and the hbox inside it has
 		# no width of its own, so it hugs what it holds.
 		widget = {
-			size = { 110 28 }
+			size = { 44 28 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				text = "bag_wtp_right_goods_count_1"
+			}
+		}
+
+		widget = { size = { 4 28 } }
+
+		widget = {
+			size = { 62 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_right_goods_count_1"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_1')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_1')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 		}
@@ -157,29 +166,38 @@ types BagWtpRightTypes {
 		# places its children where their anchor says, and the hbox inside it has
 		# no width of its own, so it hugs what it holds.
 		widget = {
-			size = { 110 28 }
+			size = { 44 28 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				text = "bag_wtp_right_goods_count_2"
+			}
+		}
+
+		widget = { size = { 4 28 } }
+
+		widget = {
+			size = { 62 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_right_goods_count_2"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_2')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_2')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 		}
@@ -243,29 +261,38 @@ types BagWtpRightTypes {
 		# places its children where their anchor says, and the hbox inside it has
 		# no width of its own, so it hugs what it holds.
 		widget = {
-			size = { 110 28 }
+			size = { 44 28 }
+			alwaystransparent = no
+			tooltip = "bag_wtp_result_goods_tt"
+
+			text_single = {
+				size = { 40 28 }
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				autoresize = no
+				maximumsize = { 40 28 }
+				align = left|vcenter
+				fontsize = 13
+				text = "bag_wtp_right_goods_count_3"
+			}
+		}
+
+		widget = { size = { 4 28 } }
+
+		widget = {
+			size = { 62 28 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_result_goods_tt"
 
 			hbox = {
 				parentanchor = left|vcenter
 				widgetanchor = left|vcenter
-				spacing = 4
-
-				text_single = {
-					autoresize = yes
-					fontsize = 13
-					text = "bag_wtp_right_goods_count_3"
+				spacing = 1
+				datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_3')]"
+				item = {
+				bag_wtp_result_goods_entry = {
+				datacontext = "[Scope.GetGoods]"
 				}
-
-				hbox = {
-					spacing = 1
-					datamodel = "[Location.MakeScope.GetList('bag_wtp_r_goods_3')]"
-					item = {
-						bag_wtp_result_goods_entry = {
-							datacontext = "[Scope.GetGoods]"
-						}
-					}
 				}
 			}
 		}
@@ -626,7 +653,7 @@ window = {
 					spacing = 8
 
 					widget = {
-						size = { 656 236 }
+						size = { 746 236 }
 
 						vbox = {
 							parentanchor = top|left
@@ -634,9 +661,9 @@ window = {
 							spacing = 2
 
 							text_single = {
-								size = { 656 20 }
+								size = { 746 20 }
 								autoresize = no
-								maximumsize = { 656 20 }
+								maximumsize = { 746 20 }
 								align = left|vcenter
 								fontsize = 13
 								elide = right
@@ -649,6 +676,9 @@ window = {
 							bag_wtp_pick_row3 = {}
 							bag_wtp_pick_row4 = {}
 							bag_wtp_pick_row5 = {}
+
+							# The slack goes here, not between the rows.
+							widget = { layoutpolicy_vertical = expanding size = { 746 -1 } }
 						}
 					}
 
@@ -698,6 +728,9 @@ window = {
 									}
 								}
 							}
+
+							# The slack goes here, not between the blocks.
+							widget = { layoutpolicy_vertical = expanding size = { 504 -1 } }
 						}
 					}
 
@@ -846,12 +879,32 @@ window = {
 						fontsize = 13
 						text = "bag_wtp_result_head_method"
 					}
+					# **The count has a column of its own, and that was his fix**,
+					# 2026-09-06: «просто символам 1/2 нужен свой столбик и тогда
+					# проблем не возникнет». Two things sharing one column is what
+					# let the icon wander into the gap between columns.
 					text_single = {
-						size = { 110 24 }
+						size = { 44 24 }
 						autoresize = no
+						maximumsize = { 44 24 }
 						align = left|vcenter
 						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_result_head_supply"
+						tooltip = "bag_wtp_result_goods_tt"
+					}
+					widget = { size = { 4 24 } }
+					text_single = {
+						size = { 62 24 }
+						autoresize = no
+						maximumsize = { 62 24 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
 						text = "bag_wtp_result_head_goods"
+						tooltip = "bag_wtp_result_goods_tt"
 					}
 					widget = { size = { 12 24 } }
 					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }

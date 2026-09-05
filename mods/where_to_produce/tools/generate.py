@@ -3603,9 +3603,14 @@ types BagWtpEditCells {{
 # rights share their icons with the goods they favour, so an icon alone would
 # not tell two of them apart -- and 47 goods with their names beside them would
 # be four times the window wide. The tooltip carries the good's name.
+# **The gap between cells is bigger than the gap inside one, and that is the
+# whole point of it.** A circle two pixels from its own icon and four from the
+# next good's reads as one row of loose parts: «они все в куче и не всегда
+# понимаешь сразу на какую галочку нужно нажать — правую или левую от товара»,
+# 2026-09-06. The editor learnt the same thing on 2026-09-05 and its gap is 14.
 PICK_ROW = 10
 PICK_ROWS = 5
-PICK_W, PICK_H, PICK_GAP = 62, 28, 4
+PICK_W, PICK_H, PICK_GAP = 62, 28, 14
 RIGHT_PICK_COL = 7
 RIGHT_PICK_COLS = 2
 RIGHT_PICK_W = 250
@@ -3751,7 +3756,14 @@ types BagWtpPickCells {{
 	type {MOD_ID}_pick_right_col{c + 1} = vbox {{
 		spacing = 2
 		ignoreinvisible = yes
-{cells}	}}
+{cells}
+		# **The slack goes here and not between the rights.** Drawn in a box
+		# taller than the rights it has, this `vbox` shared the difference out
+		# between them — «список городских прав во втором столбце вообще решил
+		# поделить территорию на равные части, а не встать списком», 2026-09-06.
+		# An expanding child takes it all, and the list stays a list.
+		widget = {{ layoutpolicy_vertical = expanding size = {{ {RIGHT_PICK_W} -1 }} }}
+	}}
 """)
     out.append("}\n")
     return "".join(out)

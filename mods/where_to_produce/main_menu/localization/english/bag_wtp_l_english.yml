@@ -107,6 +107,7 @@
  bag_wtp_result_head_mid: "On the way"
  bag_wtp_result_head_mid_tt: "The best this ground ever feeds — in any age, whether the building is unlocked for you or not — and the last age it can still be built in.\n\nThis is the column that decides a plan when «At the end» is 0.00% everywhere. Fine cloth is the case: from wool it stops at the workshop, because the manufactory and the mill take only silk or cloth. A wool province is then ten percent until the fifth age and nothing after it, and «5» is what that says.\n\n«Calculate for the end of the game» orders the table by «At the end» and breaks its ties on this column, so the first row is the province that ends best and, of those, does best on the way there."
  bag_wtp_result_head_method: "Building and method (× per level)"
+ bag_wtp_result_head_supply: "Inputs"
  bag_wtp_result_head_goods: "Made of"
 
  bag_wtp_result_rank_value: "[Location.MakeScope.GetVariable('bag_wtp_rank').GetValue|0]"

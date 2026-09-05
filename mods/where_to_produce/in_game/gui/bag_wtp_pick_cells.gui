@@ -10,7 +10,7 @@ types BagWtpPickCells {
 
 	# Goods 1..10 of the plan's own order.
 	type bag_wtp_pick_row1 = hbox {
-		spacing = 4
+		spacing = 14
 		ignoreinvisible = no
 
 		widget = {
@@ -336,7 +336,7 @@ types BagWtpPickCells {
 
 	# Goods 11..20 of the plan's own order.
 	type bag_wtp_pick_row2 = hbox {
-		spacing = 4
+		spacing = 14
 		ignoreinvisible = no
 
 		widget = {
@@ -662,7 +662,7 @@ types BagWtpPickCells {
 
 	# Goods 21..30 of the plan's own order.
 	type bag_wtp_pick_row3 = hbox {
-		spacing = 4
+		spacing = 14
 		ignoreinvisible = no
 
 		widget = {
@@ -988,7 +988,7 @@ types BagWtpPickCells {
 
 	# Goods 31..40 of the plan's own order.
 	type bag_wtp_pick_row4 = hbox {
-		spacing = 4
+		spacing = 14
 		ignoreinvisible = no
 
 		widget = {
@@ -1314,7 +1314,7 @@ types BagWtpPickCells {
 
 	# Goods 41..47 of the plan's own order.
 	type bag_wtp_pick_row5 = hbox {
-		spacing = 4
+		spacing = 14
 		ignoreinvisible = no
 
 		widget = {
@@ -1816,6 +1816,13 @@ types BagWtpPickCells {
 				}
 			}
 		}
+
+		# **The slack goes here and not between the rights.** Drawn in a box
+		# taller than the rights it has, this `vbox` shared the difference out
+		# between them — «список городских прав во втором столбце вообще решил
+		# поделить территорию на равные части, а не встать списком», 2026-09-06.
+		# An expanding child takes it all, and the list stays a list.
+		widget = { layoutpolicy_vertical = expanding size = { 250 -1 } }
 	}
 
 	# Urban rights 8..13, packed upward: a right this country cannot
@@ -2051,5 +2058,12 @@ types BagWtpPickCells {
 				}
 			}
 		}
+
+		# **The slack goes here and not between the rights.** Drawn in a box
+		# taller than the rights it has, this `vbox` shared the difference out
+		# between them — «список городских прав во втором столбце вообще решил
+		# поделить территорию на равные части, а не встать списком», 2026-09-06.
+		# An expanding child takes it all, and the list stays a list.
+		widget = { layoutpolicy_vertical = expanding size = { 250 -1 } }
 	}
 }
