@@ -16,8 +16,19 @@ types BagWtpEditCells {
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -114,10 +125,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -214,10 +237,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -314,10 +349,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -414,10 +461,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -514,10 +573,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -614,10 +685,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -714,10 +797,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -814,10 +909,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -914,10 +1021,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1014,6 +1133,7 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 	}
 
@@ -1027,8 +1147,19 @@ types BagWtpEditCells {
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1125,10 +1256,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1225,10 +1368,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1325,10 +1480,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1425,10 +1592,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_14').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1525,10 +1704,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_15').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1625,10 +1816,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_16').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1725,10 +1928,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_17').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1825,10 +2040,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_18').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -1925,10 +2152,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_19').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2025,6 +2264,7 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_20').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 	}
 
@@ -2038,8 +2278,19 @@ types BagWtpEditCells {
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2136,10 +2387,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_21').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2236,10 +2499,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_22').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2336,10 +2611,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_23').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2436,10 +2723,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_24').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2536,10 +2835,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_25').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2636,10 +2947,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_26').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2736,10 +3059,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_27').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2836,10 +3171,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_28').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -2936,10 +3283,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_29').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3036,6 +3395,7 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_30').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 	}
 
@@ -3049,8 +3409,19 @@ types BagWtpEditCells {
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3147,10 +3518,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_31').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3247,10 +3630,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_32').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3347,10 +3742,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_33').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3447,10 +3854,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_34').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3547,10 +3966,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_35').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3647,10 +4078,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_36').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3747,10 +4190,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_37').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3847,10 +4302,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_38').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -3947,10 +4414,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_39').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4047,6 +4526,7 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_40').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 	}
 
@@ -4060,8 +4540,19 @@ types BagWtpEditCells {
 		# guess. A cell this ground cannot use keeps its place either way now.
 		ignoreinvisible = no
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4158,10 +4649,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_41').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4258,10 +4761,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_42').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4358,10 +4873,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_43').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4458,10 +4985,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_44').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4558,10 +5097,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_45').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4658,10 +5209,22 @@ types BagWtpEditCells {
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_46').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 			}
+			}
 		}
 
-		hbox = {
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {
 			size = { 127 28 }
+			hbox = {
 			spacing = 1
 
 			widget = {
@@ -4757,6 +5320,7 @@ types BagWtpEditCells {
 					tooltip = "bag_wtp_edit_skip_tt"
 					onclick = "[GetScriptedGui('bag_wtp_pick_skip_47').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
+			}
 			}
 		}
 	}

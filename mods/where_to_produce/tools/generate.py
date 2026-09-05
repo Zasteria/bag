@@ -3546,8 +3546,19 @@ def edit_cells_file(order: list[str]) -> str:
         cells = ""
         for i in range(r * EDIT_ROW + 1, min((r + 1) * EDIT_ROW, len(order)) + 1):
             cells += f"""
-		hbox = {{
+		# **A plain `widget` holds the column; the `hbox` inside only lays the
+		# controls out.** This file already carried the rule and it was not
+		# applied: «an hbox sizes itself to its children, so anything after a
+		# datamodel moves with it — fixed positions inside a plain `widget` are
+		# what hold a column still» (`docs/pitfalls/interface.md`). The cell was
+		# an `hbox` with a size written on it, and a declared size
+		# does not hold an hbox: on a ground that cannot make the good all four
+		# controls go invisible, the hbox collapses to nothing, and the row is
+		# ragged again exactly as it was before the fix. He reported it
+		# unchanged twice, 2026-09-05, and he was right both times.
+		widget = {{
 			size = {{ 127 28 }}
+			hbox = {{
 			spacing = 1
 
 			widget = {{
@@ -3643,6 +3654,7 @@ def edit_cells_file(order: list[str]) -> str:
 					tooltip = "{MOD_ID}_edit_skip_tt"
 					onclick = "[GetScriptedGui('{MOD_ID}_pick_skip_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}}
+			}}
 			}}
 		}}
 """

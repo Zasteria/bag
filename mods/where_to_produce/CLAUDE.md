@@ -55,7 +55,8 @@ and **the plan reads it too** — `_pq<n>` held at 1, the open ladder skipping i
 **The editor is a window, never the settings page.** Three slots, then every
 good as a cell of «−1, count, +1, не нужен». **Its header prints a build stamp** — ask
 for it before believing a fix failed.
-**The re-plan buttons are «План» and «На конец»; no «Пересчитать» exists.** **A window exists only if
+**The editor has no re-plan button**: «План»/«На конец» are on the mod's page,
+«Пересчитать» in the results window. **A window exists only if
 `in_game/gui/scripted_widgets/` names it**; **a glyph the game never uses may not be in
 the font** — take a texture, and colour with `#Y …#!`, never `§`; **a control behind a first click is one
 he will not find**; and **the picker is 47 cells in fixed columns**, because a
