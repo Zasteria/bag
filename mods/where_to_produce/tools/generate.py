@@ -3416,7 +3416,7 @@ EDIT_CELLS_OUT = MOD / "in_game/gui/bag_wtp_edit_cells.gui"
 def edit_cells_file(order: list[str]) -> str:
     """Five rows of ten cells: «−1», the good's icon with its count, «+1».
 
-    **Every cell is a static child of a plain `hbox`.** Both widgets that would
+    **All 47, not the ground's 38.** Every cell is a static child of a plain `hbox`. Both widgets that would
     have wrapped one list -- `flowcontainer`, `fixedgridbox` -- failed on their
     first load, one by crashing the game four builds running and one by drawing
     the cells on top of each other. `ignoreinvisible` keeps the goods this ground
@@ -3456,7 +3456,6 @@ def edit_cells_file(order: list[str]) -> str:
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {{
 			size = {{ {CELL_W} {CELL_H} }}
-			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 			hbox = {{
 			spacing = 1
 
@@ -3570,16 +3569,20 @@ def edit_cells_file(order: list[str]) -> str:
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = {CELL_GAP}
-		# **The row packs to the left, and the pads hold its width.** It was
-		# `ignoreinvisible = no` for one build, so a good this ground cannot make
-		# left a hole where it sat and the 38 usable goods came out scattered
-		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
-		# an unusable cell takes no space and the usable ones close up; the empty
-		# widgets after them keep every row the same width, so the block stays
-		# still and the gaps are all at the ends. **The cell carries the
-		# `visible`, not its four controls** — collapsing needs the child the row
-		# lays out to be the thing that disappears.
-		ignoreinvisible = yes
+		# **Every good is here and every cell is identical**, which is the whole
+		# of what he asked for twice: «точно такое же удобное расположение
+		# товаров как это было реализовано в поиске по 1 товару/праву». Two
+		# builds tried to draw only the goods this ground can make — first
+		# aligned, which left holes scattered through the block, then packed,
+		# which left rows of three beside rows of nine. Both were «страшный набор
+		# столбиков». A full grid has neither, and a good this ground cannot make
+		# is not a lie on screen: «+1» on it walks the ground, finds nowhere, and
+		# says so in the press line (`_edit_last_nowhere`).
+		#
+		# **`ignoreinvisible = no` is what keeps the columns still**: the pads at
+		# the end of the last row are empty widgets, and they have to hold their
+		# width or the short row centres itself somewhere else.
+		ignoreinvisible = no
 {cells}{pad}	}}
 """)
     return (HEADER + f"""#

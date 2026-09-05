@@ -292,61 +292,72 @@ types BagWtpResultTypes {
 		# after it landed somewhere else in the two, and «Из чего» is where you
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
-		hbox = {
+		# **A `widget` holds the column and the `hbox` inside only lays the two
+		# texts out.** It was an `hbox` carrying `size = { 394 28 }`, and **a
+		# declared size does not hold an `hbox`** — this file's own rule, paid
+		# for twice already. With `ignoreinvisible = yes` and only the method
+		# visible, that hbox measured 262 instead of 394, and every column after
+		# it — «Из чего» and «Подходит» — sat 132 pixels left of its own header.
+		# He reported it twice, 2026-09-06, and both times he was right.
+		widget = {
 			size = { 394 28 }
-			maximumsize = { 394 28 }
-			spacing = 0
-			ignoreinvisible = yes
 
-			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
-			# inside an hbox that has a size of its own leaves the child at zero
-			# width, and a text at zero width elides to nothing: the twenty-fourth
-			# run had rows whose building had no name and no «×», with only the
-			# autoresized «+ улучшение» beside it to prove the row was there.
-			text_single = {
-				size = { 262 28 }
-				autoresize = no
-				maximumsize = { 262 28 }
-				align = left|vcenter
-				elide = right
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
-				text = "bag_wtp_result_method_value"
-				tooltip = "bag_wtp_result_method_tt"
-			}
+			hbox = {
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				spacing = 0
+				ignoreinvisible = yes
 
-			text_single = {
-				size = { 132 28 }
-				autoresize = no
-				maximumsize = { 132 28 }
-				align = left|vcenter
-				elide = right
-				fontsize = 12
-				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
-				text = "bag_wtp_result_method2_value"
-				tooltip = "bag_wtp_result_method_tt"
-			}
+				# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+				# inside an hbox that has a size of its own leaves the child at zero
+				# width, and a text at zero width elides to nothing: the twenty-fourth
+				# run had rows whose building had no name and no «×», with only the
+				# autoresized «+ улучшение» beside it to prove the row was there.
+				text_single = {
+					size = { 262 28 }
+					autoresize = no
+					maximumsize = { 262 28 }
+					align = left|vcenter
+					elide = right
+					visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)]"
+					text = "bag_wtp_result_method_value"
+					tooltip = "bag_wtp_result_method_tt"
+				}
 
-			text_single = {
-				size = { 262 28 }
-				autoresize = no
-				maximumsize = { 262 28 }
-				align = left|vcenter
-				elide = right
-				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
-				text = "bag_wtp_result_method_value_end"
-				tooltip = "bag_wtp_result_end_tt"
-			}
+				text_single = {
+					size = { 132 28 }
+					autoresize = no
+					maximumsize = { 132 28 }
+					align = left|vcenter
+					elide = right
+					fontsize = 12
+					visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2').IsSet)]"
+					text = "bag_wtp_result_method2_value"
+					tooltip = "bag_wtp_result_method_tt"
+				}
 
-			text_single = {
-				size = { 132 28 }
-				autoresize = no
-				maximumsize = { 132 28 }
-				align = left|vcenter
-				elide = right
-				fontsize = 12
-				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
-				text = "bag_wtp_result_method2_value_end"
-				tooltip = "bag_wtp_result_end_tt"
+				text_single = {
+					size = { 262 28 }
+					autoresize = no
+					maximumsize = { 262 28 }
+					align = left|vcenter
+					elide = right
+					visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet)))]"
+					text = "bag_wtp_result_method_value_end"
+					tooltip = "bag_wtp_result_end_tt"
+				}
+
+				text_single = {
+					size = { 132 28 }
+					autoresize = no
+					maximumsize = { 132 28 }
+					align = left|vcenter
+					elide = right
+					fontsize = 12
+					visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2').IsSet)]"
+					text = "bag_wtp_result_method2_value_end"
+					tooltip = "bag_wtp_result_end_tt"
+				}
 			}
 		}
 
@@ -499,61 +510,66 @@ types BagWtpResultTypes {
 		# after it landed somewhere else in the two, and «Из чего» is where you
 		# see it. The slack goes to a spacer at the far right, where nothing has
 		# to line up against anything.
-		hbox = {
+		# The same as above: a `widget` for the column, an `hbox` for the layout.
+		widget = {
 			size = { 394 28 }
-			maximumsize = { 394 28 }
-			spacing = 0
-			ignoreinvisible = yes
 
-			# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
-			# inside an hbox that has a size of its own leaves the child at zero
-			# width, and a text at zero width elides to nothing: the twenty-fourth
-			# run had rows whose building had no name and no «×», with only the
-			# autoresized «+ улучшение» beside it to prove the row was there.
-			text_single = {
-				size = { 262 28 }
-				autoresize = no
-				maximumsize = { 262 28 }
-				align = left|vcenter
-				elide = right
-				visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
-				text = "bag_wtp_result_method_value_rural"
-				tooltip = "bag_wtp_result_method_tt"
-			}
+			hbox = {
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
+				spacing = 0
+				ignoreinvisible = yes
 
-			text_single = {
-				size = { 132 28 }
-				autoresize = no
-				maximumsize = { 132 28 }
-				align = left|vcenter
-				elide = right
-				fontsize = 12
-				visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
-				text = "bag_wtp_result_method2_value_rural"
-				tooltip = "bag_wtp_result_method_tt"
-			}
+				# **Fixed, not expanding.** `layoutpolicy_horizontal = expanding`
+				# inside an hbox that has a size of its own leaves the child at zero
+				# width, and a text at zero width elides to nothing: the twenty-fourth
+				# run had rows whose building had no name and no «×», with only the
+				# autoresized «+ улучшение» beside it to prove the row was there.
+				text_single = {
+					size = { 262 28 }
+					autoresize = no
+					maximumsize = { 262 28 }
+					align = left|vcenter
+					elide = right
+					visible = "[And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)]"
+					text = "bag_wtp_result_method_value_rural"
+					tooltip = "bag_wtp_result_method_tt"
+				}
 
-			text_single = {
-				size = { 262 28 }
-				autoresize = no
-				maximumsize = { 262 28 }
-				align = left|vcenter
-				elide = right
-				visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
-				text = "bag_wtp_result_method_value_end_rural"
-				tooltip = "bag_wtp_result_end_tt_rural"
-			}
+				text_single = {
+					size = { 132 28 }
+					autoresize = no
+					maximumsize = { 132 28 }
+					align = left|vcenter
+					elide = right
+					fontsize = 12
+					visible = "[And(And(Not(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet), Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet), Location.MakeScope.GetVariable('bag_wtp_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
+					text = "bag_wtp_result_method2_value_rural"
+					tooltip = "bag_wtp_result_method_tt"
+				}
 
-			text_single = {
-				size = { 132 28 }
-				autoresize = no
-				maximumsize = { 132 28 }
-				align = left|vcenter
-				elide = right
-				fontsize = 12
-				visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
-				text = "bag_wtp_result_method2_value_end_rural"
-				tooltip = "bag_wtp_result_end_tt_rural"
+				text_single = {
+					size = { 262 28 }
+					autoresize = no
+					maximumsize = { 262 28 }
+					align = left|vcenter
+					elide = right
+					visible = "[And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet)))]"
+					text = "bag_wtp_result_method_value_end_rural"
+					tooltip = "bag_wtp_result_end_tt_rural"
+				}
+
+				text_single = {
+					size = { 132 28 }
+					autoresize = no
+					maximumsize = { 132 28 }
+					align = left|vcenter
+					elide = right
+					fontsize = 12
+					visible = "[And(And(Location.MakeScope.GetVariable('bag_wtp_end_bt_rural').IsSet, Or(Location.MakeScope.GetVariable('bag_wtp_row_end').IsSet, Not(Location.MakeScope.GetVariable('bag_wtp_bt_rural').IsSet))), Location.MakeScope.GetVariable('bag_wtp_end_pm2_rural').IsSet)]"  # check-script: never set — no two-part method may stand in a rural settlement (all eight are town and above), so this half of the row is always hidden, which is correct
+					text = "bag_wtp_result_method2_value_end_rural"
+					tooltip = "bag_wtp_result_end_tt_rural"
+				}
 			}
 		}
 
@@ -1039,14 +1055,32 @@ window = {
 								tooltip = "bag_wtp_pick_rights_tt"
 							}
 
-							# Two columns, each packing upward: a right this
-							# country cannot hold takes no space rather than
-							# leaving a hole in the middle of the block.
+							# **Two columns, each packing upward and each pinned to
+							# the top.** An `hbox` centres its children on one
+							# another, so a column of three sat a row and a half
+							# below a column of six — «во втором столбце прав
+							# пропуск в 1 строке, вместо например 2 пропусков в
+							# конце», 2026-09-06. A plain `widget` of a fixed
+							# height with the column anchored top is what puts
+							# every gap at the bottom, where he wants them.
 							hbox = {
 								spacing = 4
 
-								bag_wtp_pick_right_col1 = {}
-								bag_wtp_pick_right_col2 = {}
+								widget = {
+									size = { 250 210 }
+									bag_wtp_pick_right_col1 = {
+										parentanchor = top|left
+										widgetanchor = top|left
+									}
+								}
+
+								widget = {
+									size = { 250 210 }
+									bag_wtp_pick_right_col2 = {
+										parentanchor = top|left
+										widgetanchor = top|left
+									}
+								}
 							}
 						}
 					}

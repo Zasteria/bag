@@ -671,14 +671,32 @@ window = {
 								tooltip = "bag_wtp_pick_rights_tt"
 							}
 
-							# Two columns, each packing upward: a right this
-							# country cannot hold takes no space rather than
-							# leaving a hole in the middle of the block.
+							# **Two columns, each packing upward and each pinned to
+							# the top.** An `hbox` centres its children on one
+							# another, so a column of three sat a row and a half
+							# below a column of six — «во втором столбце прав
+							# пропуск в 1 строке, вместо например 2 пропусков в
+							# конце», 2026-09-06. A plain `widget` of a fixed
+							# height with the column anchored top is what puts
+							# every gap at the bottom, where he wants them.
 							hbox = {
 								spacing = 4
 
-								bag_wtp_pick_right_col1 = {}
-								bag_wtp_pick_right_col2 = {}
+								widget = {
+									size = { 250 210 }
+									bag_wtp_pick_right_col1 = {
+										parentanchor = top|left
+										widgetanchor = top|left
+									}
+								}
+
+								widget = {
+									size = { 250 210 }
+									bag_wtp_pick_right_col2 = {
+										parentanchor = top|left
+										widgetanchor = top|left
+									}
+								}
 							}
 						}
 					}

@@ -7,33 +7,20 @@ game, and none of them raises an error you would notice.
 Ask for one rather than reading the file: `python3 tools/kb.py <words>`.
 
 
-**«An expanding child in a sized parent» is about the child, not the parent.**
-The line further down this file says a fixed width beats an expanding one because
-an expanding child inside a parent that has a size of its own comes out at zero.
-That is true and it is about the *child*. A widget that has both an expanding
-policy and a size **of its own** is a different thing and is not fatal: three of
-them are in `bag_wtp_result_window.gui` and `bag_wtp_right_window.gui`, in windows
-that have drawn correctly since the first build. Reaching for that line to explain
-a window that came out empty on 2026-09-04 was a guess, and it did not survive
-the scan that tested it.
+**«An expanding child in a sized parent» is about the child, not the parent.** An
+expanding child inside a sized parent comes out at zero; a widget that has both
+an expanding policy **and a size of its own** is a different thing and is not
+fatal — three of them have drawn correctly since the first build. Reaching for
+that line to explain an empty window on 2026-09-04 was a guess and did not
+survive the scan that tested it.
 
 **A `flowcontainer` with a `datamodel` of its own crashes the game.** Silently,
 natively, with nothing in `error.log`, `gui.log` or `debug.log`. It cost four
 builds, five of the owner's runs and four sessions, because each of those
-sessions went looking at what was *inside* the window instead of at the widget
-holding it. The run history settles it on its own:
-
-| build | `flowcontainer` widget | what the game did |
-| --- | --- | --- |
-| `59e1c61` | 0 | окно открылось |
-| `8808561` | 0 | окно открылось |
-| `c14aa0f` | **1** | never loaded — the next build was stacked on it |
-| `cc6064d` | **1** | краш при открытии, дважды |
-| `feded5f` | **1** | краш при открытии, с тумблером и без |
-| `92a8af4` | **1**, with 47 written-out children | **краш на загрузке** |
-| `a55e14b` | **1** | краш при открытии |
-
-Zero for zero, one for one. **The variable map, the flag key, the `ScriptValue`
+sessions looked at what was *inside* the window instead of at the widget holding
+it. **Seven builds settle it zero for zero and one for one**: the three without
+the widget opened, the four with it crashed — one of them on loading, with 47
+written-out children instead of a datamodel. **The variable map, the flag key, the `ScriptValue`
 in a localization value and the texticon were all innocent** — three of them were
 reverted for nothing, and the fourth build removed every map in the mod and still
 died, harder, because static children are built when the window is created rather
@@ -291,18 +278,22 @@ with a size of its own, size the children too.
 - **Ширину мерить, а не прикидывать**, и `check_script.py` →
   `overflowing_windows` делает это на каждой сборке: сумма ширин детей `hbox` со
   `spacing` против коробки, плюс сверка числа на окне с числом на его фоне.
-  **Тип, нарисованный внутри окна, разрешается к своей ширине** — и считается
-  строкой везде, где нарисован, а не только внутри `hbox`.
+  **Тип, нарисованный внутри окна, разрешается к своей ширине.**
 - **Проверка, которая не может сработать, хуже отсутствующей.** Две её версии
-  молчали: одна мерила ширину до первой `{`, а `size = { 128 34 }` открывает
-  скобку сам; вторая не видела типов из чужого файла. Обе половины проверены на
-  подломленном файле — и любую новую надо проверять так же.
-- **Объявленный `size` на `hbox` не держит, когда органы внутри скрыты**: hbox
-  схлопывается в ноль вместе с ним, и строка становится рваной. **Ячейка —
-  `widget` с размером, и только внутри него `hbox`.** Это случилось 2026-09-05,
-  при том что правило про «fixed positions inside a plain `widget`» уже стояло
-  абзацем выше в этом же файле: **второй раз за сессию правило было записано и
-  не применено** (первым был `§` в локализации). Оба раза стоило прогона.
+  молчали: одна мерила ширину до первой `{`, вторая не видела типов из чужого
+  файла. Обе проверены на подломленном файле — и любую новую надо так же.
+- **Объявленный `size` на `hbox` не держит — ни ячейку, ни столбец.** hbox
+  меряется по детям; со скрытыми детьми он схлопывается вместе со своим
+  объявленным размером. **Ширину держит `widget`, а `hbox` внутри только
+  раскладывает.** Это правило стоило трёх прогонов подряд: 2026-09-05 ячейка
+  редактора (все органы скрыты — строка рваная), 2026-09-06 столбец «Здание и
+  метод» (`hbox` в 394 с `ignoreinvisible = yes` мерился в 262, и «Из чего» с
+  «Подходит» уезжали на 132 пикселя влево от своих заголовков). **Каждый раз
+  правило уже было записано в этом файле и не применено.**
+- **Столбец таблицы сверяется с заголовком сложением, и сложение врёт, если
+  где-то стоит `hbox` с размером.** Суммы ширин шапки и строки могут совпадать
+  до пикселя, а на экране расходиться. Первое, что надо искать при расхождении, —
+  не отступы, а `hbox`, которому написали ширину.
 - **Якорь без `widgetanchor` — это умолчание, а умолчание отсюда не
   проверяемо.** `parentanchor = left|vcenter` на `hbox` внутри `widget`
   описывает только точку родителя; чем к ней прижимается сам ребёнок, решает
@@ -316,14 +307,18 @@ with a size of its own, size the children too.
   обратное** — «`widget` и не `hbox`, чтобы строки прижимались влево», — и был
   верен ровно до `vbox` внутри. Две `hbox` с якорями `left|top` и `left|bottom`
   прямо в `widget`: `hbox` без собственной ширины обнимает содержимое.
-- **Упаковать ячейки всё-таки можно, и datamodel для этого не нужен.**
-  `ignoreinvisible = yes` плюс `visible` **на самой ячейке** (а не на её
-  органах) убирает её из раскладки целиком, и соседи смыкаются. Строку держат
-  пустые ячейки-добивки в конце — они видимы, поэтому ширина строки не гуляет и
-  блок не съезжает. Так упакованы и товары редактора (`ignoreinvisible = yes` на
-  строке), и городские права в окне расчёта (**колонки-`vbox`**, потому что в
-  строке из двух ячеек упаковывать нечего). **Это не отменяет правила выше**:
-  ячейка по-прежнему `widget` с размером, `hbox` внутри.
+- **Упаковать ячейки можно, и datamodel для этого не нужен:**
+  `ignoreinvisible = yes` плюс `visible` **на самой ячейке** (а не на её органах)
+  убирает её из раскладки, и соседи смыкаются. **Но упаковка по строкам — не
+  всегда то, что нужно.** В редакторе она дала ряды по три рядом с рядами по
+  девять, и владелец назвал это тем же «страшным набором столбиков», что и дыры
+  до неё. **Полная сетка без дыр вообще — лучший из трёх вариантов**, когда
+  ячейку, которой нечего делать, можно оставить честной (в редакторе «+1» по
+  такому товару обходит землю, не находит места и говорит это). Упаковка
+  осталась там, где ячейку нарисовать нельзя: городские права, которых страна не
+  получит, — **колонки-`vbox`**, потому что в строке из двух ячеек упаковывать
+  нечего. **Пустые ячейки-добивки держат ширину строки только при
+  `ignoreinvisible = no`.**
 - **`hbox` центрует детей друг относительно друга по вертикали.** Два блока
   разной высоты рядом — и их заголовки оказываются на разных строках, что он и
   увидел. Каждый блок кладётся в `widget` фиксированной высоты с якорем

@@ -41,14 +41,18 @@ rules each step implements are
 2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
    shortfall but *where* by the accident of press order. Scope is strictly the
    buildings it placed and their own locations, so no count changes. Not built.
-2в. **Rebuild the mod's menu** — **built, run and accepted 2026-09-06**: «в
-   целом — очень круто, почти идеально». Three tabs, four buttons, the good and
-   the right picked in the ranking window, the caps and both switches in the
-   plan's. **Ten fixes from his report went in the same day and none of them has
-   been run**: the buildable tick deleted, «Выбрать мою землю» added, both
-   pickers packed, three anchor faults fixed, the build stamp moved to the
-   technical tab, four window essays deleted. Table of what he asked and what
-   was done: [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
+2в. **Rebuild the mod's menu** — **built, run and accepted 2026-09-06**: «почти
+   идеально». Three tabs, four buttons, every setting inside its function's
+   window. **Two rounds of fixes followed and the second is not run**: the
+   buildable tick deleted, «Выбрать мою землю» added, the stamp and the essays
+   out of the windows, and four layout faults — chief among them an `hbox`
+   carrying a written width and measuring 132 short. **The editor's picker is
+   all 47 goods now**: aligned left holes in the middle, packed left rows of
+   three beside rows of nine, and both read to him as «страшный набор
+   столбиков». **One column drift in the rights window has no cause I could
+   find** — the sums match to the pixel, and the `scrollbox` template is not in
+   `reference/` — so it is left unguessed. Both tables:
+   [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
 
    **Two interface rules he set with that report, and they outrank the steps
    below**: no descriptive text in a window's header — it belongs in the
@@ -58,10 +62,8 @@ rules each step implements are
    что там дырки». The way out is that a good is its own scope (`every_goods`,
    `Goods.MakeScope`), so the count can sit on it and the picker becomes a
    datamodel — `research/interface.md` has the order of checks.
-2г. **He asked for urban rights in the editor** — «добавить в том числе туда
-   редактирование по городским правам». That is step 5 below, not a layout
-   change, so **the order of the remaining steps is now his to pick**: 2а, 3 or
-   5. Ask before starting one.
+2г. **He asked for urban rights in the editor** — that is step 5 below, not a
+   layout change, so **the order of what is left is his to pick**: 2а, 3 or 5.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.
