@@ -66,16 +66,14 @@ for the reference tree and the rebuild loop,
   проверки». Build the probe first — a counter per stage, a `cmf_log`, a number
   on the window — and let one run say where the thing actually breaks.
 - **Effects that merely do nothing log nothing.** `error.log` names the file and
-  line for GUI and script failures; an effect that never runs is invisible. Add
-  a `cmf_log` and have the player look, rather than guessing twice.
+  line for GUI and script failures; an effect that never runs is invisible.
 - **A `building_type` filter receives `root` and nothing else**, whatever
   vanilla's comment says.
 - **A `customizable_localization` cannot be overridden.** First definition wins;
   later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
   another mod's rule is to take over the localization key it prints.
 - **Square brackets in a localization value are data function syntax**, so a
-  plain `[debug]` in a label renders as `ERROR:`. The same syntax is what lets a
-  row label read a global variable back.
+  plain `[debug]` renders as `ERROR:` — one key includes another as `$key$`.
 - **A CMF action bar element is drawn from localization**: `_icon` takes a
   texticon like `@good!`, and `_color` must name one of CMF's palette entries or
   the button is invisible in the bottom bars.
@@ -86,12 +84,13 @@ for the reference tree and the rebuild loop,
 
     python3 tools/api.py set_subsidized      an effect, trigger, target or GUI function
     python3 tools/api.py --find subsid       substring, across every dump
+    python3 tools/api.py --says «Пересчитать» which key holds this text, and what draws it
+    python3 tools/api.py --where checkbox    every file naming it
 
-**Never conclude from "no mod here uses it" that the engine lacks it** — that
-mistake cost a redesign. The dumps say what exists, not how it behaves; for
-behaviour verify against `reference/`, never from memory — **the owner's
-included**, at his own word, 2026-09-02: «я работаю из условностей
-воспоминаний». Say plainly when something is unproven.
+**Never state what the player sees, or what the game lacks, from memory** —
+both cost a round trip on 2026-09-05. Every `api.py` answer ends with what it
+did **not** search: `reference/` is partial. **An empty result is a fact about
+the tree, never about the game.** Say plainly when something is unproven.
 
 Do not hardcode a reference folder's name or trust a version written in prose:
 `python3 tools/refs.py`.
