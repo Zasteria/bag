@@ -94,66 +94,6 @@ bag_wtp__continent_on_changed = {
 	}
 }
 
-bag_wtp__good_raw_on_changed = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		cmm_apply_list_change = {
-			setting = bag_wtp__good_raw
-		}
-		bag_wtp_good_changed = yes
-	}
-}
-
-bag_wtp__good_made_on_changed = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		cmm_apply_list_change = {
-			setting = bag_wtp__good_made
-		}
-		bag_wtp_good_changed = yes
-	}
-}
-
-bag_wtp__right_common_on_changed = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		cmm_apply_list_change = {
-			setting = bag_wtp__right_common
-		}
-		bag_wtp_right_changed = yes
-	}
-}
-
-bag_wtp__right_unique_on_changed = {
-	scope = country
-
-	is_shown = {
-		always = yes
-	}
-
-	effect = {
-		cmm_apply_list_change = {
-			setting = bag_wtp__right_unique
-		}
-		bag_wtp_right_changed = yes
-	}
-}
-
 # «{'plus': '+1', 'minus': '−1'}.get(what, 'не нужен')» for clay, from the picker's own cell.
 #
 # **No saved scope.** The cell is written out and knows its number, so the
@@ -2689,5 +2629,785 @@ bag_wtp_pick_skip_47 = {
 	effect = {
 		bag_wtp_edit_skip_47 = yes
 		bag_wtp_recompute_live = yes
+	}
+}
+
+# clay in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_1 = yes
+	}
+}
+
+# coal in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_2 = yes
+	}
+}
+
+# cotton in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_3 = yes
+	}
+}
+
+# dyes in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_4 = yes
+	}
+}
+
+# fiber_crops in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_5 = yes
+	}
+}
+
+# fish in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_6 = yes
+	}
+}
+
+# fruit in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_7 = yes
+	}
+}
+
+# horses in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_8 = yes
+	}
+}
+
+# incense in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_9 = yes
+	}
+}
+
+# iron in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_10 = yes
+	}
+}
+
+# ivory in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_11 = yes
+	}
+}
+
+# livestock in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_12 = yes
+	}
+}
+
+# lumber in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_13 = yes
+	}
+}
+
+# medicaments in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_14 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_14 = yes
+	}
+}
+
+# salt in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_15 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_15 = yes
+	}
+}
+
+# saltpeter in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_16 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_16 = yes
+	}
+}
+
+# sand in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_17 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_17 = yes
+	}
+}
+
+# silk in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_18 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_18 = yes
+	}
+}
+
+# silver in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_19 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_19 = yes
+	}
+}
+
+# stone in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_20 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_20 = yes
+	}
+}
+
+# sugar in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_21 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_21 = yes
+	}
+}
+
+# tobacco in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_22 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_22 = yes
+	}
+}
+
+# wild_game in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_23 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_23 = yes
+	}
+}
+
+# wine in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_24 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_24 = yes
+	}
+}
+
+# wool in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_25 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_25 = yes
+	}
+}
+
+# beer in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_26 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_26 = yes
+	}
+}
+
+# books in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_27 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_27 = yes
+	}
+}
+
+# cannons in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_28 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_28 = yes
+	}
+}
+
+# cloth in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_29 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_29 = yes
+	}
+}
+
+# fine_cloth in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_30 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_30 = yes
+	}
+}
+
+# firearms in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_31 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_31 = yes
+	}
+}
+
+# furniture in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_32 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_32 = yes
+	}
+}
+
+# glass in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_33 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_33 = yes
+	}
+}
+
+# jewelry in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_34 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_34 = yes
+	}
+}
+
+# lacquerware in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_35 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_35 = yes
+	}
+}
+
+# leather in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_36 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_36 = yes
+	}
+}
+
+# liquor in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_37 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_37 = yes
+	}
+}
+
+# masonry in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_38 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_38 = yes
+	}
+}
+
+# naval_supplies in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_39 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_39 = yes
+	}
+}
+
+# paper in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_40 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_40 = yes
+	}
+}
+
+# porcelain in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_41 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_41 = yes
+	}
+}
+
+# pottery in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_42 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_42 = yes
+	}
+}
+
+# slaves_goods in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_43 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_43 = yes
+	}
+}
+
+# steel in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_44 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_44 = yes
+	}
+}
+
+# tar in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_45 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_45 = yes
+	}
+}
+
+# tools in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_46 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_46 = yes
+	}
+}
+
+# weaponry in the ranking window's picker. One circle, one number.
+bag_wtp_pick_good_47 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_good_47 = yes
+	}
+}
+
+# constantinopolitan_silk_monopoly_rights in the ranking window's picker.
+bag_wtp_pick_right_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_1 = yes
+	}
+}
+
+# flemish_cloth_industries_right in the ranking window's picker.
+bag_wtp_pick_right_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_2 = yes
+	}
+}
+
+# royal_artisan_rights in the ranking window's picker.
+bag_wtp_pick_right_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_3 = yes
+	}
+}
+
+# royal_book_rights in the ranking window's picker.
+bag_wtp_pick_right_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_4 = yes
+	}
+}
+
+# royal_brewing_rights in the ranking window's picker.
+bag_wtp_pick_right_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_5 = yes
+	}
+}
+
+# royal_jewelry_rights in the ranking window's picker.
+bag_wtp_pick_right_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_6 = yes
+	}
+}
+
+# royal_masonry_rights in the ranking window's picker.
+bag_wtp_pick_right_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_7 = yes
+	}
+}
+
+# royal_naval_rights in the ranking window's picker.
+bag_wtp_pick_right_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_8 = yes
+	}
+}
+
+# royal_textile_rights in the ranking window's picker.
+bag_wtp_pick_right_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_9 = yes
+	}
+}
+
+# royal_tooling_rights in the ranking window's picker.
+bag_wtp_pick_right_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_10 = yes
+	}
+}
+
+# royal_weaponry_rights in the ranking window's picker.
+bag_wtp_pick_right_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_11 = yes
+	}
+}
+
+# scandinavian_bergslag_privileges in the ranking window's picker.
+bag_wtp_pick_right_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_12 = yes
+	}
+}
+
+# scandinavian_tar_privileges in the ranking window's picker.
+bag_wtp_pick_right_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_set_right_13 = yes
 	}
 }

@@ -397,3 +397,217 @@ bag_wtp_edit_slot_load_3 = {
 		bag_wtp_recompute_live = yes
 	}
 }
+
+
+# ------------------------------------------------- the settings, in the windows
+#
+# **Everything below was a setting on the mod's page until 2026-09-06.** His
+# words: «мод внутри стал довольно громоздким и неудобным», and the rule --
+# у функции на странице мода одна кнопка «открыть», всё остальное живёт внутри
+# её окна. What CMM gave for free and has to be written here instead is small:
+# a bool is a global to flip, a numeric is a pair of buttons with a clamp, and
+# every one of them writes the same global the pass already read.
+
+# «Считать на конец игры», in the two ranking windows.
+#
+# **It re-ranks on the spot.** It was two buttons -- «Считать» and «Считать на
+# конец» -- and pressing one ran the pass; a switch that only changed what the
+# *next* press would answer would be a switch that looks broken. The window is
+# open, or this control is not on screen, so `bag_wtp_recompute_live` always
+# has something to redraw.
+bag_wtp_toggle_by_end = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_global_variable = bag_wtp_rank_by_end }
+			remove_global_variable = bag_wtp_rank_by_end
+		}
+		else = {
+			set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
+		}
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «Только там, где здание вообще может стоять».
+#
+# Off by default, and deliberately: the player plans for land he does not own
+# yet, and `can_build_building` answers for the location as it stands today --
+# an unowned location fails it. Leaving this off means the table ranks the
+# ground rather than the current border.
+#
+# **And it re-ranks, because it changes which provinces are candidates at all.**
+# The twenty-fifth run had to close the window and open it again to see the
+# filter take.
+bag_wtp_toggle_buildable = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_global_variable = bag_wtp_only_buildable }
+			remove_global_variable = bag_wtp_only_buildable
+		}
+		else = {
+			set_global_variable = { name = bag_wtp_only_buildable value = 1 }
+		}
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «Искать локации» — the ranking pass, from the window that chose what to rank.
+#
+# It opens the answer as well, because the answer may belong to the other
+# window: a good and an urban right draw different rows, and
+# `bag_wtp_open_result_window_effect` is what decides which of the two is on
+# screen.
+bag_wtp_search_run = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_compute = yes
+		bag_wtp_open_result_window_effect = yes
+	}
+}
+
+# «Считать на конец игры», in the plan window.
+#
+# **This one does not re-plan and the ranking's twin does.** The plan pass costs
+# about fifty times a ranking and he may flip this, the rights tick and a
+# hundred town markers before he wants an answer -- «Пересчитать» is the moment,
+# and it is his. The same reason the town/village tick does not re-plan.
+bag_wtp_toggle_plan_end = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_global_variable = bag_wtp_plan_by_end }
+			remove_global_variable = bag_wtp_plan_by_end
+		}
+		else = {
+			set_global_variable = { name = bag_wtp_plan_by_end value = 1 }
+		}
+	}
+}
+
+# «Городские права в плане». A right is a bundle of two or three goods, which is
+# the shape of a town's list, so it does not compete with goods for slots -- it
+# takes the whole list, and it takes it before any good is placed.
+bag_wtp_toggle_plan_rights = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { has_global_variable = bag_wtp_plan_rights }
+			remove_global_variable = bag_wtp_plan_rights
+		}
+		else = {
+			set_global_variable = { name = bag_wtp_plan_rights value = 1 }
+		}
+	}
+}
+
+# The two caps, a press a step.
+#
+# **Three and four are the owner's own figures and cannot be derived.** The game
+# has no building-slot count anywhere; what a cap is worth is only visible in
+# what it buys. The bounds are CMM's old `min_value`/`max_value` written out:
+# nothing else clamps them now, and a cap of zero is a plan of nothing.
+bag_wtp_cap_urban_up = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { global_var:bag_wtp_plan_cap_urban < 8 }
+			change_global_variable = { name = bag_wtp_plan_cap_urban add = 1 }
+		}
+	}
+}
+
+bag_wtp_cap_urban_down = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { global_var:bag_wtp_plan_cap_urban > 1 }
+			change_global_variable = { name = bag_wtp_plan_cap_urban subtract = 1 }
+		}
+	}
+}
+
+bag_wtp_cap_rural_up = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { global_var:bag_wtp_plan_cap_rural < 8 }
+			change_global_variable = { name = bag_wtp_plan_cap_rural add = 1 }
+		}
+	}
+}
+
+bag_wtp_cap_rural_down = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		if = {
+			limit = { global_var:bag_wtp_plan_cap_rural > 1 }
+			change_global_variable = { name = bag_wtp_plan_cap_rural subtract = 1 }
+		}
+	}
+}
+
+# «Сбросить пометки город/село», everywhere at once.
+#
+# **The tick is a location variable and it outlives a save.** Clearing the rows
+# on screen is not clearing them: 2026-09-02 he cleared the fourteen he could
+# see, widened the ground, and fourteen others came into the plan looking
+# exactly like a revert. One button, the whole world, and the count it cleared
+# printed on itself. **No re-plan follows it**, for the reason above.
+bag_wtp_plan_clear_ticks = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_clear_ticks = yes
+	}
+}

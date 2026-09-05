@@ -1,170 +1,82 @@
 ﻿# Settings, registered on CMF's mod registration hook.
 #
-# Everything the player touches is here; everything that depends on the game's
-# own data -- which goods exist, which buildings make them, what each method is
-# worth -- is generated beside it, so a patch that adds any of those is picked up
-# by a rebuild rather than by an edit.
+# **Three tabs and four buttons, and that is the whole of the page.** His words,
+# 2026-09-06: «мод внутри стал довольно громоздким и неудобным», and the rule he
+# gave with them -- у функции на странице мода одна кнопка «открыть», всё
+# остальное живёт внутри её окна. So the goods, the rights, the two «Считать»
+# buttons, the two «План» buttons, the caps, the rights tick and the town/village
+# reset are all controls inside the windows they belong to now, and what is left
+# here opens those windows. `docs/investigations/wtp_menu_rebuild.md` is the
+# whole move, with what went where.
+#
+# Everything that depends on the game's own data -- which goods exist, which
+# buildings make them, what each method is worth -- is generated beside this, so
+# a patch that adds any of those is picked up by a rebuild rather than by an
+# edit.
+#
+# **A tab exists because a setting names it**, in the order the settings are
+# registered (`_cmm_register_tab`, CMF 2.4.1): the zone lists come first and
+# «Земля» is the tab the page opens on.
 #
 # Scope: country
 bag_wtp_register = {
 	cmf_register_mod = { mod_id = bag_wtp }
 
-	# What you want made, in the two piles goods come in. Lists rather than
-	# dropdowns: CMF handles a dropdown option click through
-	# `CMM_MarkDropdownSelection_<index>` and defines exactly twenty of them, so
-	# the twenty-first option onwards silently keeps the old selection.
-	bag_wtp_register_good_raw_list = yes
-	bag_wtp_register_good_made_list = yes
-
-	# And the third way of naming what you want made: an urban right, which is a
-	# bundle of two or three goods rather than one. It answers a different
-	# question and it answers it in a window of its own -- a right's own
-	# percentage is the same everywhere and re-ranks nothing, so only the bundle
-	# is worth a pass. `docs/investigations/town_rights.md` has the whole of it.
-	bag_wtp_register_right_common_list = yes
-	bag_wtp_register_right_unique_list = yes
-
+	# ---- «Земля» -----------------------------------------------------------
+	#
 	# Where to look. Continents rather than the world's seventy-seven regions:
 	# the fine choosing happens on the map afterwards, and a region list six
-	# groups deep was a worse way to say "Europe".
+	# groups deep was a worse way to say "Europe". **This tab is untouched by
+	# the rebuild** -- it was already one job on one page.
 	bag_wtp_register_zone_list = yes
 	bag_wtp_register_region_lists = yes
 
-	# Off by default, and deliberately. The player plans for land he does not own
-	# yet, and `can_build_building` answers for the location as it stands today --
-	# an unowned location fails it. Leaving this off means the table ranks the
-	# ground rather than the current border.
-	cmm_register_global_bool_setting = {
-		mod_id = bag_wtp
-		setting_id = buildable_only
-		tab_id = plan
-		group_id = what
-		default_value = 0
-	}
-
-	# Two buttons, and they are the whole of the mod's two questions. «Считать
-	# сейчас» ranks by what you could build today -- the fast answer. «Считать на
-	# конец игры» ranks by what the ground gives once every advance is in, and
-	# breaks the ties that leaves (0.00% everywhere, when a ladder ends early) by
-	# what it gives on the way there.
+	# ---- «Расчёты» — three functions, three doors --------------------------
 	#
-	# Both fill the same three columns; only the order differs. Sorting used to
-	# be three buttons in the results window's header, and the twenty-first run's
-	# verdict was that this is the place for it and two is the number.
+	# **Each of these only opens a window.** «как "расчёт" отдельно стоит от
+	# "общий план", так и "редактор" должен иметь свою область» -- so the editor
+	# stands beside the plan here rather than being a button inside it.
+
+	# The ranking for one good or one urban right: which of the chosen ground
+	# ranks best for it. The good, the right, «на сейчас»/«на конец» and the
+	# buildable filter are all in the window, and «Искать локации» there is what
+	# runs the pass. This button opens whichever of the two ranking windows
+	# matches what is chosen -- they are two windows because a row draws one
+	# method for a good and one per good of a right's bundle.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
-		setting_id = run
+		setting_id = show
 		tab_id = plan
-		group_id = what
+		group_id = open
 	}
 
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = run_end
-		tab_id = plan
-		group_id = what
-	}
-
-	# The whole-map plan, and the three numbers it is made of. Global settings on
-	# purpose: `bag_wtp_plan_has_room` is asked in a location's own scope, and a
-	# location-scoped trigger cannot read a country variable -- the same reason
-	# `buildable_only` above is global.
-	#
-	# **Three and four are the owner's own figures and cannot be derived.** The
-	# game has no building-slot count anywhere; what a cap is worth is only
-	# visible in what it buys, which is why the button below prints the capacity
-	# of the chosen ground beside the number of goods asking for it.
-	cmm_register_global_numeric_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_cap_rural
-		tab_id = plan
-		group_id = plan
-		default_value = 3
-		min_value = 1
-		max_value = 8
-		step_value = 1
-	}
-
-	cmm_register_global_numeric_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_cap_urban
-		tab_id = plan
-		group_id = plan
-		default_value = 4
-		min_value = 1
-		max_value = 8
-		step_value = 1
-	}
-
-	# Urban rights in the plan, and on by default. A right is a bundle of two or
-	# three goods, which is the shape of a town's list, so a right does not
-	# compete with goods for slots -- it takes the whole list, and it takes it
-	# before any good is placed.
-	cmm_register_global_bool_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_rights
-		tab_id = plan
-		group_id = plan
-		default_value = 1
-	}
-
-	# `plan_run` and not `plan`: a setting's name key is `<mod>__<setting>_name`
-	# and the tab's is the same shape, so a setting named after its own tab would
-	# take the tab's heading for its label.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_run
-		tab_id = plan
-		group_id = plan
-	}
-
-	# The same pair the ranking has: what you could build now, and what stands
-	# once every advance is in. Along the game's ladder a recipe's *inputs* move,
-	# not merely its output, so for a third of the goods the province that suits
-	# the guild is not the one that suits the mill — and a plan is exactly the
-	# thing that should be made for the second.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_run_end
-		tab_id = plan
-		group_id = plan
-	}
-
+	# The whole-map plan: every good at once over the same ground, one building
+	# at a time, under a cap per location. Its window carries the caps, the
+	# «на конец» switch, the urban-rights tick, the town/village reset and
+	# «Пересчитать», which is what runs it.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = plan_show
 		tab_id = plan
-		group_id = plan
-	}
-
-	# «Сбросить пометки город/село», everywhere at once.
-	#
-	# **The tick is a location variable and it outlives a save.** Clearing the
-	# rows on screen is not clearing them: 2026-09-02 he cleared the fourteen he
-	# could see, widened the ground, and fourteen others came into the plan
-	# looking exactly like a revert. One button, the whole world, and the count
-	# it cleared printed on itself.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = plan_ticks
-		tab_id = plan
-		group_id = plan
+		group_id = open
 	}
 
 	# **The plan editor is a window and this is the door to it.** It was nine
 	# settings on this page -- three dropdowns and five buttons -- and he refused
 	# to use them, 2026-09-03: «Сейчас окно настроек мода - стало засраным и
 	# неудобным. Более того это именно что окно настроек и основных функций, я не
-	# хочу делать подобные вещи там.» So one button, and everything else lives in
+	# хочу делать подобные вещи там.» One button, and everything else lives in
 	# `bag_wtp_edit_window.gui`: the three slots, the goods as icons, «+1» and
 	# «−1» beside each, and the changes list in a window of its own.
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = edit_open
 		tab_id = plan
-		group_id = plan
+		group_id = open
 	}
 
+	# ---- «Техническая» -----------------------------------------------------
+	#
 	# «Диагностика». One press, everything the mod knows, into `debug.log` and
 	# the headline of it into `error.log` besides.
 	#
@@ -180,23 +92,13 @@ bag_wtp_register = {
 	cmm_register_button_setting = {
 		mod_id = bag_wtp
 		setting_id = diag
-		tab_id = plan
-		group_id = plan
-	}
-
-	# The answer in a window of the mod's own: one row per province, expandable
-	# into its locations, naming the method and the raw materials the bonus is
-	# made of. The button reopens it; pressing "run" opens it anyway.
-	cmm_register_button_setting = {
-		mod_id = bag_wtp
-		setting_id = show
-		tab_id = plan
-		group_id = what
+		tab_id = tech
+		group_id = tech
 	}
 
 	# Every picker folded shut, once, the first time this player sees the page.
-	# Seven region lists and two goods lists all open is a page to scroll rather
-	# than a page to read; after this the player's own folding is his.
+	# Five region lists and the continent list all open is a page to scroll
+	# rather than a page to read; after this the player's own folding is his.
 	bag_wtp_fold_pickers = yes
 
 	# The editor's counters, created before anything can read them: a script
@@ -216,11 +118,17 @@ bag_wtp_register = {
 	bag_wtp_edit_init_slots = yes
 
 	bag_wtp_init_counters = yes
-	bag_wtp_sync = yes
 	bag_wtp_rebuild_zone = yes
 	bag_wtp_rebuild_regions = yes
-	bag_wtp_refresh_goods = yes
+	# Which urban rights this country may ever hold, as one variable per right:
+	# a `visible` in a window cannot ask a trigger, and a unique right nobody
+	# can take is a cell that must not be there to click.
 	bag_wtp_refresh_rights = yes
+	# And the circle under the good or right that is already chosen. `_sel<n>` is
+	# newer than the answer it draws: a save made before 2026-09-06 carries the
+	# index and no circle, and a chosen good the player cannot see is the fault
+	# this mod has paid for twice.
+	bag_wtp_sync_sel = yes
 
 	# **Nothing here throws the answer away.** This runs on CMF's registration
 	# hook, and the fifteenth run showed that hook firing again every time the
@@ -231,21 +139,9 @@ bag_wtp_register = {
 	# `bag_wtp_init_counters` makes the numbers exist and the lists start empty.
 }
 
-# Copy the tick CMM keeps in its own variable map out to a plain global variable,
-# which is what a location-scoped trigger can read.
-# Scope: country
-bag_wtp_sync = {
-	cmm_sync_bool_alias = { setting = bag_wtp__buildable_only alias = bag_wtp_only_buildable }
-	# The plan's three numbers, copied out of CMM's variable map into globals a
-	# location-scoped trigger can read. A numeric setting applies itself when the
-	# player presses its +/- and calls nothing back, so these are re-read at the
-	# top of every plan run rather than only here.
-	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_rural alias = bag_wtp_plan_cap_rural }
-	cmm_sync_setting_alias = { setting = bag_wtp__plan_cap_urban alias = bag_wtp_plan_cap_urban }
-	cmm_sync_bool_alias = { setting = bag_wtp__plan_rights alias = bag_wtp_plan_rights }
-	# `bag_wtp_rank_by_end` is not synced from anything: the two «Считать»
-	# buttons set and clear it themselves, so no CMM setting has to agree with it.
-	# It was a tick on this page for one load and three buttons in the results
-	# window's header for another; a button that already says "calculate" is the
-	# honest place for "calculate for what".
-}
+# **`bag_wtp_sync` is gone with the settings it copied.** It carried
+# `buildable_only`, the two caps and the urban-rights tick out of CMM's variable
+# map into globals a location-scoped trigger can read; every one of those is a
+# control in a window now and writes its own global directly, so there is
+# nothing left to copy and nothing that can be one press out of date.
+

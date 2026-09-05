@@ -387,13 +387,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1320 760 }
+	size = { 1320 940 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 
 	widget = {
-		size = { 1320 760 }
+		size = { 1320 940 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -583,6 +583,156 @@ window = {
 							text = "bag_wtp_clear_all"
 						}
 						onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				# ---- what to rank: one good, or one urban right ------------
+				#
+				# **This was the «Товар» tab of the mod's own settings page until
+				# 2026-09-06**, four CMM lists of it, and he asked for it here:
+				# «просто добавишь в окно расчёта иконки товаров и прав как ты это
+				# сделал в редакторе и поставишь каждому кружочек для активации
+				# нужного, далее кнопку искать локации, всё».
+				#
+				# **Both ranking windows draw the same rows**, declared once in
+				# `bag_wtp_pick_cells.gui`, so the two can never come to offer
+				# different goods -- and a press in either lands in the other,
+				# because choosing a right is choosing the other window.
+				#
+				# A right carries its name and a good does not: thirteen rights
+				# share their icons with the goods they favour, and 47 named goods
+				# would be four windows wide. The name is the tooltip.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					vbox = {
+						spacing = 2
+
+						text_single = {
+							size = { 656 20 }
+							autoresize = no
+							maximumsize = { 656 20 }
+							align = left|vcenter
+							fontsize = 13
+							elide = right
+							text = "bag_wtp_pick_goods_head"
+							tooltip = "bag_wtp_pick_goods_tt"
+						}
+
+						bag_wtp_pick_row1 = {}
+						bag_wtp_pick_row2 = {}
+						bag_wtp_pick_row3 = {}
+						bag_wtp_pick_row4 = {}
+						bag_wtp_pick_row5 = {}
+					}
+
+					vbox = {
+						spacing = 2
+
+						text_single = {
+							size = { 504 20 }
+							autoresize = no
+							maximumsize = { 504 20 }
+							align = left|vcenter
+							fontsize = 13
+							elide = right
+							text = "bag_wtp_pick_rights_head"
+							tooltip = "bag_wtp_pick_rights_tt"
+						}
+
+						bag_wtp_pick_right_row1 = {}
+						bag_wtp_pick_right_row2 = {}
+						bag_wtp_pick_right_row3 = {}
+						bag_wtp_pick_right_row4 = {}
+						bag_wtp_pick_right_row5 = {}
+						bag_wtp_pick_right_row6 = {}
+						bag_wtp_pick_right_row7 = {}
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 20 } }
+				}
+
+				# ---- how to rank it, and the press that does ----------------
+				#
+				# **«на сейчас» / «на конец» was two buttons on the mod page.** A
+				# switch here re-ranks on the spot: this control is only on screen
+				# while the window is open, so there is always something to redraw,
+				# and a switch that changed only what the *next* press answers
+				# would look broken.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					widget = {
+						size = { 28 34 }
+						checkbutton_round_alt = {
+							size = { 24 24 }
+							parentanchor = center
+							widgetanchor = center
+							down = "[GetGlobalVariable('bag_wtp_rank_by_end').IsSet]"
+							tooltip = "bag_wtp_search_by_end_tt"
+							onclick = "[GetScriptedGui('bag_wtp_toggle_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+					}
+
+					text_single = {
+						size = { 210 34 }
+						autoresize = no
+						maximumsize = { 210 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_search_by_end"
+						tooltip = "bag_wtp_search_by_end_tt"
+					}
+
+					widget = {
+						size = { 28 34 }
+						checkbutton_round_alt = {
+							size = { 24 24 }
+							parentanchor = center
+							widgetanchor = center
+							down = "[GetGlobalVariable('bag_wtp_only_buildable').IsSet]"
+							tooltip = "bag_wtp_search_buildable_tt"
+							onclick = "[GetScriptedGui('bag_wtp_toggle_buildable').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+					}
+
+					text_single = {
+						size = { 330 34 }
+						autoresize = no
+						maximumsize = { 330 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_search_buildable"
+						tooltip = "bag_wtp_search_buildable_tt"
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+					# The pass itself. It opens the answer as well, because the
+					# answer may belong to the other window: a good and a right
+					# draw different rows.
+					button_regular = {
+						size = { 220 38 }
+						tooltip = "bag_wtp_search_run_tt"
+						text_single = {
+							size = { 206 28 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 206 28 }
+							fontsize = 14
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_search_run"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_search_run').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 					}
 				}
 

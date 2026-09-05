@@ -10,7 +10,7 @@ This file is the part that is live. What has already been settled is in
 nothing else.** The plan itself is finished and confirmed in game; the editor is
 what is live.
 
-### Where it stands, 2026-09-04
+### Where it stands, 2026-09-06
 
 **The plan works and he has seen it.** 192 buildings in 192 rooms on Westphalia,
 charters 5–6 each, goods 3–6 each. Nothing about the plan is owed except the
@@ -18,15 +18,12 @@ relative open ladder, which does not engage on 48 locations and wants a large
 ground.
 
 **The editor works, end to end, confirmed 2026-09-04.** A press changes the
-plan. That was the one thing it existed for and it took five silent faults to
-get there.
+plan, which is the one thing it existed for.
 
-**What the same report opened: «+1» and «−1» are not each other's undo.** «+1» X
-displaces Y; «−1» X gives the room to Z. Both steps are correct on their own —
-the walks ask opposite questions and pick different locations — but the round
-trip leaves Y one down and Z one up, invisibly. **The editor has no undo at all;
-loading a slot is the only one.** The reasoning is in `TESTLOG.md`; what to do
-about it is the open design question.
+**And «+1» and «−1» are not each other's undo** — «+1» X displaces Y, «−1» X
+gives the room to Z, both correct alone and the round trip leaves two other
+goods moved. **The editor has no undo but loading a slot.** Reasoning in
+`TESTLOG.md`; what to do about it is the open design question.
 
 ### The plan for the practical sessions
 
@@ -48,14 +45,15 @@ rules each step implements are
 2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
    shortfall but *where* by the accident of press order. Scope is strictly the
    buildings it placed and their own locations, so no count changes. Not built.
-2в. **Rebuild the mod's menu** — his ask, 2026-09-06, and he called it urgent.
-   Three tabs (Земля, Расчёты, Техническая), **one «open» button per function on
-   the mod page** and every setting moved inside its own window; the editor gets
-   its own button beside the plan's rather than sitting inside it. Full spec:
-   [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
-   **It is a copy of the editor's picker, not new work**: the whole CMM tick
-   machinery exists to set one number, `bag_wtp_good_index`, and a window can
-   set it directly.
+2в. **Rebuild the mod's menu** — **built 2026-09-06 and not run once.** Three
+   tabs (Земля, Расчёты, Техническая), one «open» button per function on the mod
+   page, every setting inside its own window: the good and the right are circles
+   in the ranking window now, the caps and the two switches are in the plan's.
+   **The mod has no CMM list left but the zone ones**, and `bag_wtp_sync` is
+   gone with them. **What to ask him for is five numbered presses** at the foot
+   of [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md);
+   **do not start another step until that run comes back**, because half the mod
+   now hangs on a circle nobody has pressed.
 2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
    что там дырки». The way out is that a good is its own scope (`every_goods`,
    `Goods.MakeScope`), so the count can sit on it and the picker becomes a

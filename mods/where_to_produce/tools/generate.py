@@ -254,10 +254,13 @@ DIAG_SCRATCH = 16
 CONTINENTS = ("europe", "asia", "africa", "america", "oceania")
 
 # One tab per job. A CMM tab is just a `tab_id` on the settings under it, so this
-# costs nothing but the three localization keys -- and the first build had five
-# groups stacked on one tab, which meant scrolling past the goods to reach the
-# answer.
-TAB_GOODS = "goods"
+# costs nothing but the localization keys -- and the first build had five groups
+# stacked on one tab, which meant scrolling past the goods to reach the answer.
+#
+# **«Товар» is gone, 2026-09-06.** Its four lists were the only way to choose a
+# good or a right, and both are chosen in the ranking window now; what is left
+# on the mod page is «Земля», three «open» buttons under «Расчёты» and the
+# technical tab. `docs/investigations/wtp_menu_rebuild.md`.
 TAB_ZONE = "zone"
 TAB_PLAN = "plan"
 
@@ -938,140 +941,81 @@ def triggers_file(rows, split, game) -> str:
 
 
 def picker_file(split: dict[str, list[str]], rows: list[eu5data.Method]) -> str:
-    """The good picker: two lists, and only one tick standing across both."""
-    out = [HEADER, """#
-# Two lists rather than a dropdown, and not by preference: CMF handles a dropdown
-# option click through `CMM_MarkDropdownSelection_<index>` and defines exactly
-# twenty of them, so the twenty-first option onwards renders, scrolls, and
-# silently keeps the old selection.
-#
-# One answer across both lists. Ticking a second row anywhere leaves two ticks
-# standing for the instant between the click and the callback; the tick that is
-# not the stored answer wins and everything else is forced off, so the tick
-# visibly moves to one row and stays there.
-#
-# The `root`s below are safe and are the only ones left in this mod: everything
-# here is reached from a CMM callback, where `root` is the country. Nothing on
-# this page is reachable from a generic action, which is where `root` is not --
-# see the header of `{MOD_ID}_generated_score.txt`.
-"""]
+    """The good the search answers for, set straight from the window's own cell.
 
-    order = [(kind, good) for kind in ("raw", "made") for good in split[kind]]
-    index_of = {good: i for i, (_, good) in enumerate(order, start=1)}
-    by_good_index: dict[str, list[int]] = {}
-    for i, method in enumerate(rows, start=1):
-        by_good_index.setdefault(method.produced, []).append(i)
+    **This was 47 branches of tick-parsing and it is four lines a good now.**
+    Until 2026-09-06 the good was chosen on the mod's settings page, in two CMM
+    lists, and everything here existed to turn a tick into one number:
+    `cmm_build_list_bool_list` handed back the ticked goods as scopes,
+    `if = { limit = { this = goods:clay } }` turned a scope into an index, and
+    a second pass forced every other row off. His words, 2026-09-06: «просто
+    добавишь в окно расчёта иконки товаров и прав как ты это сделал в редакторе
+    и поставишь каждому кружочек для активации нужного, далее кнопку искать
+    локации, всё» -- and he was right, because the whole machine only ever
+    produced `bag_wtp_good_index`, which a window can write itself.
 
-    for kind in ("raw", "made"):
-        goods = split[kind]
-        out.append(f"""
+    So a cell in `bag_wtp_pick_cells.gui` calls the effect for its own number.
+    **The selection is also a flag per good**, `_sel<n>`, because that is what
+    the cell's circle reads: a checkbutton's `down` takes a boolean, and
+    `.IsSet` on a variable is the one this mod has already proved on screen.
+    """
+    order = goods_order(split)
+    out = [HEADER, f"""#
+# One good at a time, and a right is the other answer to the same question --
+# so setting either clears the other. `{MOD_ID}_good_index` is what the ranking
+# pass reads; `_sel<n>` is what the circle in the window draws itself from.
+#
+# The `root`s that used to be here are gone with the CMM callbacks that made
+# them safe: every effect below is called from a scripted GUI in the country's
+# own scope.
+
+# Every good's circle off. One press writes one on again.
 # Scope: country
-{MOD_ID}_register_good_{kind}_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good_{kind}
-\t\ttab_id = {TAB_GOODS}
-\t\titem_count = {len(goods)}
-\t\tis_ordered = 0
-\t}}
+{MOD_ID}_clear_good_sel = {{
+"""]
+    for i in range(1, len(order) + 1):
+        out.append(f"\tremove_global_variable = {MOD_ID}_sel{i}\n")
+    out.append("}\n")
 
+    # **The circle and the stored answer, made to agree.** `_good_index` outlives
+    # a save and `_sel<n>` was only invented on 2026-09-06, so the first load
+    # after this build would otherwise show a chosen good with no circle on it --
+    # and state the player can neither see nor clear is this mod's own fault
+    # twice over (`docs/pitfalls/diagnosis.md`). Run from the registration hook,
+    # which fires on load; a press writes both anyway.
+    out.append(f"""
+# Scope: country
+{MOD_ID}_sync_sel = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
 """)
-        for row, good in enumerate(goods, start=1):
-            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                       f"setting_id = good_{kind} item = {row} value = goods:{good} }}\n")
-        out.append("\n")
-        for row, good in enumerate(goods, start=1):
-            out.append(f"\tset_variable = {{ name = {MOD_ID}__good_{kind}_i{row}_name "
-                       f"value = flag:{MOD_ID}_good_{good} }}\n")
+    for i in range(1, len(order) + 1):
+        keyword = "if" if i == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {i} }} "
+                   f"set_global_variable = {{ name = {MOD_ID}_sel{i} value = 1 }} }}\n")
+    out.append(f"\t{MOD_ID}_sync_right_sel = yes\n}}\n")
+
+    for i, good in enumerate(order, start=1):
         out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = good_{kind}
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
+# {good}
+# Scope: country
+{MOD_ID}_set_good_{i} = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
+\tset_variable = {{ name = {MOD_ID}_good_index value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_good_index value = {i} }}
+\tset_global_variable = {{ name = {MOD_ID}_good value = goods:{good} }}
+\tset_global_variable = {{ name = {MOD_ID}_sel{i} value = 1 }}
+
+\t# A right and a good are two answers to one question.
+\tset_variable = {{ name = {MOD_ID}_right_index value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_right_index value = 0 }}
+
+\t# The table on screen answered for the good before this one. Clearing it is
+\t# the honest state: «Искать локации» is what fills it again.
+\t{MOD_ID}_clear_rows = yes
 }}
 """)
-
-    out.append(f"""
-# Read both lists and settle on one good.
-# Scope: country
-{MOD_ID}_read_good = {{
-\tset_variable = {{ name = {MOD_ID}_good_new value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_tick_count value = 0 }}
-""")
-    for kind in ("raw", "made"):
-        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__good_{kind} field_slot = 1 list_name = {MOD_ID}_good_{kind}_ticks }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_good_{kind}_ticks
-\t\troot = {{ change_variable = {{ name = {MOD_ID}_tick_count add = 1 }} }}
-""")
-        for good in split[kind]:
-            index = index_of[good]
-            out.append(f"\t\tif = {{ limit = {{ this = goods:{good} }} root = {{ "
-                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_good_index = {index} }} }} "
-                       f"set_variable = {{ name = {MOD_ID}_good_new value = {index} }} }} }} }}\n")
-        out.append("\t}\n")
-    out.append(f"""
-\t# A tick that is not the stored answer is the new answer. Nothing new ticked
-\t# means the player unticked the old one, and the answer goes with it.
-\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_good_new > 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_new }}
-\t}}
-\telse_if = {{
-\t\tlimit = {{ var:{MOD_ID}_tick_count = 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
-\t}}
-
-\t# The same number as a global. `{MOD_ID}_can_build_something` is asked in a
-\t# location's own scope, where a country variable is not reachable, and it was
-\t# reading a global nothing ever wrote -- so every branch missed, the trigger
-\t# came back true, and "only where it can be built today" filtered nothing.
-\tset_global_variable = {{ name = {MOD_ID}_good_index value = var:{MOD_ID}_good_index }}
-
-""")
-    for good, index in ((g, index_of[g]) for _, g in order):
-        keyword = "if" if index == 1 else "else_if"
-        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_good_index = {index} }} "
-                   f"set_global_variable = {{ name = {MOD_ID}_good value = goods:{good} }} }}\n")
-    out.append("}\n")
-
-    out.append(f"""
-# Force every row but the answer off.
-# Scope: country
-{MOD_ID}_only_one_good = {{
-""")
-    for kind in ("raw", "made"):
-        for row, good in enumerate(split[kind], start=1):
-            out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_good_index = {index_of[good]} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = good_{kind} field_id = pick item = {row} value = 0 }}
-\t}}
-""")
-    out.append("}\n")
-
-    out.append(f"""
-# Every good stays on the list, whatever age this country is in.
-#
-# Until the eighteenth run a good whose every recipe was still behind an advance
-# was hidden here, and the owner went looking for cannons and firearms in the
-# second age and found neither. Hiding was the right answer when a row could
-# only say what you can build today; it is the wrong one now that a row also
-# says what the ground gives at the end of the game, which is the same whatever
-# age you are in -- and it was always the wrong one for a good another mod adds
-# a building for.
-#
-# What is still not offered is a good no building makes at all: `goods_split`
-# only ever lists what some method produces, so a pure RGO material is absent
-# because there is nothing to choose, not because it is hidden.
-# Scope: country
-{MOD_ID}_refresh_goods = {{
-""")
-    for kind in ("raw", "made"):
-        for row, _ in enumerate(split[kind], start=1):
-            out.append(f"\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = good_{kind} item = {row} }}\n")
-    out.append("}\n")
     return "".join(out)
 
 
@@ -2305,7 +2249,10 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: country
 {MOD_ID}_plan_run = {{
 \tsave_scope_as = {MOD_ID}_country
-\t{MOD_ID}_sync = yes
+\t# **Nothing is re-read from CMM here any more.** The caps, the rights tick and
+\t# «на конец» were settings on the mod page and had to be copied into globals
+\t# at the top of every run; they are controls in the plan\'s own window now and
+\t# write their globals themselves.
 \t{MOD_ID}_collect_candidates = yes
 \t{MOD_ID}_rebuild_browse = yes
 \t{MOD_ID}_plan_prepare = yes
@@ -3682,6 +3629,160 @@ def edit_cells_file(order: list[str]) -> str:
 types BagWtpEditCells {{
 {"".join(rows)}}}
 """)
+
+
+# The search picker's cells, in the same shape and for the same reason as the
+# editor's: a cell knows its own number, so nothing has to carry a scope from
+# the press to the effect.
+#
+# **A good is a circle and an icon; a right is a circle and its name.** Thirteen
+# rights share their icons with the goods they favour, so an icon alone would
+# not tell two of them apart -- and 47 goods with their names beside them would
+# be four times the window wide. The tooltip carries the good's name.
+PICK_ROW = 10
+PICK_ROWS = 5
+PICK_W, PICK_H, PICK_GAP = 62, 28, 4
+RIGHT_PICK_ROW = 2
+RIGHT_PICK_ROWS = 7
+RIGHT_PICK_W = 250
+PICK_CELLS_OUT = MOD / "in_game/gui/bag_wtp_pick_cells.gui"
+
+
+def pick_cells_file(order: list[str], rights: list[eu5data.TownRight]) -> str:
+    """Which good, or which right, the ranking answers for -- picked in the window.
+
+    **The mod page had four lists for this and now has none.** His words,
+    2026-09-06: «мод внутри стал довольно громоздким и неудобным» and «просто
+    добавишь в окно расчёта иконки товаров и прав как ты это сделал в редакторе
+    и поставишь каждому кружочек для активации нужного, далее кнопку искать
+    локации, всё». So the cells are the editor's cells with the counters taken
+    off: a `checkbutton_round_alt` whose `down` reads `_sel<n>` and whose
+    `onclick` calls the effect for that number.
+
+    **Every cell is a static child of a plain `hbox` and keeps its column**,
+    both rules paid for in `docs/pitfalls/interface.md`: `flowcontainer` crashed
+    the game, `fixedgridbox` drew cells on top of each other, and a declared
+    size does not hold an `hbox` whose children go invisible -- which is why a
+    cell is a `widget` with a size and the `hbox` is inside it.
+
+    A row of goods is 10 cells of 62 -- 656 with its spacing -- and a row of
+    rights two of 250; both windows that draw them are wide enough for the pair
+    side by side, and `check_script.py` measures that rather than trusting it.
+    """
+    out = [HEADER, f"""#
+# The ranking windows' picker, a cell a good and a cell a right. Neither window
+# declares these: `{MOD_ID}_result_window.gui` and `{MOD_ID}_right_window.gui`
+# both draw the same rows, so the two can never offer different goods.
+#
+# This file has no `window` and needs no line in `gui/scripted_widgets/`.
+
+types BagWtpPickCells {{
+"""]
+
+    for r in range(PICK_ROWS):
+        first, last = r * PICK_ROW + 1, min((r + 1) * PICK_ROW, len(order))
+        cells = ""
+        for i in range(first, last + 1):
+            good = order[i - 1]
+            cells += f"""
+		widget = {{
+			size = {{ {PICK_W} {PICK_H} }}
+			hbox = {{
+				spacing = 2
+
+				widget = {{
+					size = {{ 26 {PICK_H} }}
+					checkbutton_round_alt = {{
+						size = {{ 24 24 }}
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('{MOD_ID}_sel{i}').IsSet]"
+						tooltip = "{MOD_ID}_good_{good}"
+						onclick = "[GetScriptedGui('{MOD_ID}_pick_good_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}}
+				}}
+
+				widget = {{
+					size = {{ 34 {PICK_H} }}
+					alwaystransparent = no
+					tooltip = "{MOD_ID}_good_{good}"
+					text_single = {{
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 16
+						text = "{MOD_ID}_pick_{i}"
+					}}
+				}}
+			}}
+		}}
+"""
+        pad = "".join(f"		widget = {{ size = {{ {PICK_W} {PICK_H} }} }}\n"
+                      for _ in range(PICK_ROW - (last - first + 1)))
+        out.append(f"""
+	# Goods {first}..{last} of the plan's own order.
+	type {MOD_ID}_pick_row{r + 1} = hbox {{
+		spacing = {PICK_GAP}
+		ignoreinvisible = no
+{cells}{pad}	}}
+""")
+
+    for r in range(RIGHT_PICK_ROWS):
+        first, last = r * RIGHT_PICK_ROW + 1, min((r + 1) * RIGHT_PICK_ROW, len(rights))
+        cells = ""
+        for i in range(first, last + 1):
+            right = rights[i - 1]
+            cells += f"""
+		widget = {{
+			size = {{ {RIGHT_PICK_W} {PICK_H} }}
+			hbox = {{
+				spacing = 2
+
+				widget = {{
+					size = {{ 26 {PICK_H} }}
+					visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
+					checkbutton_round_alt = {{
+						size = {{ 24 24 }}
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('{MOD_ID}_rsel{i}').IsSet]"
+						tooltip = "{MOD_ID}_right_{right.key}"
+						onclick = "[GetScriptedGui('{MOD_ID}_pick_right_{i}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}}
+				}}
+
+				widget = {{
+					size = {{ {RIGHT_PICK_W - 28} {PICK_H} }}
+					alwaystransparent = no
+					visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
+					tooltip = "{MOD_ID}_right_{right.key}"
+					text_single = {{
+						size = {{ {RIGHT_PICK_W - 32} 26 }}
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = {{ {RIGHT_PICK_W - 32} 26 }}
+						fontsize = 14
+						fontsize_min = 10
+						align = left|vcenter
+						elide = right
+						text = "{MOD_ID}_right_{right.key}"
+					}}
+				}}
+			}}
+		}}
+"""
+        pad = "".join(f"		widget = {{ size = {{ {RIGHT_PICK_W} {PICK_H} }} }}\n"
+                      for _ in range(RIGHT_PICK_ROW - max(last - first + 1, 0)))
+        out.append(f"""
+	# Urban rights {max(first, 0)}..{last}.
+	type {MOD_ID}_pick_right_row{r + 1} = hbox {{
+		spacing = {PICK_GAP}
+		ignoreinvisible = no
+{cells}{pad}	}}
+""")
+    out.append("}\n")
+    return "".join(out)
 
 
 def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
@@ -5282,12 +5383,11 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     dispatch over 218 methods is far too wide to run per candidate.
     """
     rights = output_rights(rows, game)
-    # Two lists, because the owner asked for two: everybody's nine, which one
-    # age-3 advance unlocks, and the country-specific ones. What makes the split
-    # data rather than opinion is `unlock_town_rights` -- a right the general
-    # advance names is general and anything else is not.
-    kinds = {"common": [r for r in rights if r.general],
-             "unique": [r for r in rights if not r.general]}
+    # **The split into «everybody's» and «this country's» was two CMM lists and
+    # is now one number a cell reads**, `_right_ok<n>`: the window draws every
+    # right this country may ever hold, in one block, and `unlock_town_rights`
+    # is no longer what decides which list a right lands in -- `potential` is
+    # what decides whether it is drawn at all.
     index_of_right = {r.key: i for i, r in enumerate(rights, start=1)}
     order = [good for kind in ("raw", "made") for good in split[kind]]
     index_of = {good: i for i, good in enumerate(order, start=1)}
@@ -5297,119 +5397,92 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     slots = range(1, RIGHT_SLOTS + 1)
 
     out = [HEADER, """#
-# Two lists rather than one: the nine an age-3 advance gives everybody, and the
-# handful that belong to one country or culture. Ticking either is one answer,
-# the way the two goods lists are.
+# The right the search answers for, and which rights this country is offered.
+#
+# **This was two CMM lists and their tick-parsing until 2026-09-06.** Both are
+# gone with the mod page's «Товар» tab: a right is picked in the ranking window
+# now, on a cell that knows its own number, exactly as a good is. What survived
+# the move is the one thing the lists did that a cell cannot -- deciding whether
+# this country may be shown a unique right at all -- and it is a variable per
+# right now, because a window can read a variable and cannot ask a trigger.
 """]
-    for kind, group in kinds.items():
-        out.append(f"""
-# Scope: country
-{MOD_ID}_register_right_{kind}_list = {{
-\tcmm_register_settings_list = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = right_{kind}
-\t\ttab_id = {TAB_GOODS}
-\t\titem_count = {max(len(group), 1)}
-\t\tis_ordered = 0
-\t}}
 
+    # Every right's circle off. One press writes one on again.
+    out.append(f"""
+# Scope: country
+{MOD_ID}_clear_right_sel = {{
 """)
-        for row, right in enumerate(group, start=1):
-            out.append(f"\tcmm_set_list_item_value = {{ mod_id = {MOD_ID} "
-                       f"setting_id = right_{kind} item = {row} "
-                       f"value = town_rights_type:{right.key} }}\n")
-        out.append("\n")
-        for row, right in enumerate(group, start=1):
-            out.append(f"\tset_variable = {{ name = {MOD_ID}__right_{kind}_i{row}_name "
-                       f"value = flag:{MOD_ID}_right_{right.key} }}\n")
+    for i in range(1, len(rights) + 1):
+        out.append(f"\tremove_global_variable = {MOD_ID}_rsel{i}\n")
+    out.append("}\n")
+
+    for right in rights:
+        index = index_of_right[right.key]
         out.append(f"""
-\tcmm_register_list_bool_field = {{
-\t\tmod_id = {MOD_ID}
-\t\tsetting_id = right_{kind}
-\t\tfield_id = pick
-\t\tdefault_value = 0
-\t}}
+# {right.key}
+# Scope: country
+{MOD_ID}_set_right_{index} = {{
+\t{MOD_ID}_clear_good_sel = yes
+\t{MOD_ID}_clear_right_sel = yes
+\tset_variable = {{ name = {MOD_ID}_right_index value = {index} }}
+\tset_global_variable = {{ name = {MOD_ID}_right_index value = {index} }}
+\tset_global_variable = {{ name = {MOD_ID}_rsel{index} value = 1 }}
+
+\t# A good and a right are two answers to one question.
+\tset_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_good_index value = 0 }}
+
+\t{MOD_ID}_clear_rows = yes
 }}
 """)
+
     out.append(f"""
-
-# Which right is ticked, settled exactly as the good is: a tick that is not the
-# stored answer is the new answer, and nothing ticked at all means the player
-# unticked the one that was.
+# The right's circle from the stored answer, for the first load after the cells
+# replaced the lists. Called by `{MOD_ID}_sync_sel`, which clears both blocks
+# first, so this only ever writes the one that is chosen.
 # Scope: country
-{MOD_ID}_read_right = {{
-\tset_variable = {{ name = {MOD_ID}_right_new value = 0 }}
-\tset_variable = {{ name = {MOD_ID}_right_ticks value = 0 }}
+{MOD_ID}_sync_right_sel = {{
 """)
-    for kind, group in kinds.items():
-        out.append(f"""\tcmm_build_list_bool_list = {{ setting = {MOD_ID}__right_{kind} field_slot = 1 list_name = {MOD_ID}_right_ticked }}
-\tevery_in_list = {{
-\t\tvariable = {MOD_ID}_right_ticked
-\t\troot = {{ change_variable = {{ name = {MOD_ID}_right_ticks add = 1 }} }}
-""")
-        for right in group:
-            index = index_of_right[right.key]
-            out.append(f"\t\tif = {{ limit = {{ this = town_rights_type:{right.key} }} root = {{ "
-                       f"if = {{ limit = {{ NOT = {{ var:{MOD_ID}_right_index = {index} }} }} "
-                       f"set_variable = {{ name = {MOD_ID}_right_new value = {index} }} }} }} }}\n")
-        out.append("\t}\n")
-    out.append(f"""
-
-\tif = {{
-\t\tlimit = {{ var:{MOD_ID}_right_new > 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_new }}
-\t}}
-\telse_if = {{
-\t\tlimit = {{ var:{MOD_ID}_right_ticks = 0 }}
-\t\tset_variable = {{ name = {MOD_ID}_right_index value = 0 }}
-\t}}
-
-\t# Readable from a location's own scope, where a country variable is not.
-\tset_global_variable = {{ name = {MOD_ID}_right_index value = var:{MOD_ID}_right_index }}
-}}
-
-# Force every row but the answer off.
-# Scope: country
-{MOD_ID}_only_one_right = {{
-""")
-    for kind, group in kinds.items():
-        for row, right in enumerate(group, start=1):
-            out.append(f"""\tif = {{
-\t\tlimit = {{ NOT = {{ var:{MOD_ID}_right_index = {index_of_right[right.key]} }} }}
-\t\tcmm_set_list_data_value = {{ mod_id = {MOD_ID} setting_id = right_{kind} field_id = pick item = {row} value = 0 }}
-\t}}
-""")
+    for right in rights:
+        index = index_of_right[right.key]
+        keyword = "if" if index == 1 else "else_if"
+        out.append(f"\t{keyword} = {{ limit = {{ var:{MOD_ID}_right_index = {index} }} "
+                   f"set_global_variable = {{ name = {MOD_ID}_rsel{index} value = 1 }} }}\n")
     out.append("}\n")
 
     out.append(f"""
-# What this country is offered.
+# What this country is offered, as one variable a cell can read.
 #
-# The nine general ones stay on the page whatever the age: they are everybody's,
-# one advance away, and this mod is for planning ahead -- hiding them until age
-# three would leave an empty list where the answer belongs. **A unique right is
-# another matter.** Wallachia has no business being shown Constantinople's silk
-# monopoly, and the game already says so: the monopoly carries
-# `potential = {{ OR = {{ has_or_had_tag = BYZ has_or_had_tag = ROM }} }}` and the
-# Scandinavian privileges carry an advance nobody else takes. Both are asked
-# here, and neither is this mod's opinion about who owns what.
+# The nine general ones stay whatever the age: they are everybody's, one advance
+# away, and this mod is for planning ahead -- hiding them until age three would
+# leave a gap where the answer belongs. **A unique right is another matter.**
+# Wallachia has no business being shown Constantinople's silk monopoly, and the
+# game already says so: the monopoly carries
+# `potential = {{ OR = {{ has_or_had_tag = BYZ has_or_had_tag = ROM }} }}`. That
+# is asked here, and it is not this mod's opinion about who owns what.
+#
+# **A `visible` in a window cannot call a scripted trigger**, which is why this
+# is an effect leaving a flag rather than a trigger the cell asks. It runs on
+# the registration hook, which fires on load and again every time the mod page
+# is opened.
 # Scope: country
 {MOD_ID}_refresh_rights = {{
 """)
-    for kind, group in kinds.items():
-        for row, right in enumerate(group, start=1):
-            # `potential` only, and never the unlocking advance. Whether a
-            # right *could ever* be yours is a fact about the country -- a tag,
-            # a religion -- and hiding one because you have not taken its
-            # advance yet is hiding the plan from the planner, the same mistake
-            # the goods list made until the eighteenth run.
-            shown = ("always = yes" if not right.potential
-                     else "AND = { %s }" % right.potential)
-            out.append(f"""\tif = {{
+    for right in rights:
+        index = index_of_right[right.key]
+        shown = ("always = yes" if not right.potential
+                 else "AND = { %s }" % right.potential)
+        out.append(f"""\tif = {{
 \t\tlimit = {{ {shown} }}
-\t\tcmm_show_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
+\t\tset_variable = {{ name = {MOD_ID}_right_ok{index} value = 1 }}
 \t}}
 \telse = {{
-\t\tcmm_hide_list_item = {{ mod_id = {MOD_ID} setting_id = right_{kind} item = {row} }}
+\t\tremove_variable = {MOD_ID}_right_ok{index}
+\t\t# A right that is no longer offered is no longer the answer either.
+\t\tif = {{
+\t\t\tlimit = {{ var:{MOD_ID}_right_index = {index} }}
+\t\t\t{MOD_ID}_drop_right = yes
+\t\t}}
 \t}}
 """)
     out.append("}\n")
@@ -5656,11 +5729,7 @@ def list_settings(by_continent) -> list[tuple[str, str, str]]:
     other is the kind of omission nothing reports.
     """
     return ([("zone", f"region_{c}", f"{MOD_ID}_zone_changed = yes") for c in by_continent]
-            + [("zone", "continent", f"{MOD_ID}_zone_changed = yes"),
-               ("goods", "good_raw", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "good_made", f"{MOD_ID}_good_changed = yes"),
-               ("goods", "right_common", f"{MOD_ID}_right_changed = yes"),
-               ("goods", "right_unique", f"{MOD_ID}_right_changed = yes")])
+            + [("zone", "continent", f"{MOD_ID}_zone_changed = yes")])
 
 
 def layout_file(by_continent) -> str:
@@ -5771,6 +5840,12 @@ def loc_file(language: str, rows: list[eu5data.Method], split: dict[str, list[st
         out.append(f" {MOD_ID}_cell_pin_{i}: "
                    f'"@{good}! [GuiScope.SetRoot(GetPlayer.MakeScope)'
                    f".ScriptValue('{MOD_ID}_show_pn{i}')|0]*\"\n")
+
+    # **The search picker's cell: the good's icon and nothing else.** Forty-seven
+    # names side by side would be four windows wide, so the name is the tooltip
+    # and `{MOD_ID}_good_<good>` above is what it draws.
+    for i, good in enumerate(goods_order(split), start=1):
+        out.append(f" {MOD_ID}_pick_{i}: \"@{good}!\"\n")
 
     # A right is named by the game and iconed by the first good it favours, so
     # this needs no translating either.
@@ -6483,6 +6558,18 @@ def main() -> int:
     assert len(split["raw"]) + len(split["made"]) <= LIST_CAP, (
         f"{len(split['raw']) + len(split['made'])} goods against a list of "
         f"{LIST_CAP}: CMM handles a row click to fifty and no further")
+    # **The two pickers are rows of a fixed count and the windows name them one
+    # by one**, so a game with more goods or more rights than the rows hold
+    # would simply stop drawing the extra ones -- silently, since a cell that is
+    # never written is a cell nothing complains about.
+    assert len(goods_order(split)) <= PICK_ROW * PICK_ROWS, (
+        f"{len(goods_order(split))} goods and only {PICK_ROW * PICK_ROWS} cells "
+        f"in the search picker: raise `PICK_ROWS` and add the row to both "
+        f"ranking windows")
+    assert len(rights) <= RIGHT_PICK_ROW * RIGHT_PICK_ROWS, (
+        f"{len(rights)} urban rights and only "
+        f"{RIGHT_PICK_ROW * RIGHT_PICK_ROWS} cells in the search picker: raise "
+        f"`RIGHT_PICK_ROWS` and add the row to both ranking windows")
     assert max(len(r.output) for r in rights) <= RIGHT_SLOTS, (
         f"a charter favours more than {RIGHT_SLOTS} goods the mod can make; a row "
         f"holds a fixed number of answers, so raise `RIGHT_SLOTS`")
@@ -6522,7 +6609,37 @@ def main() -> int:
 }}
 """
         for i, good in enumerate(goods_order(split), start=1)
-        for what in ("plus", "minus", "skip")))
+        for what in ("plus", "minus", "skip")) + "".join(
+        f"""
+# {good} in the ranking window's picker. One circle, one number.
+{MOD_ID}_pick_good_{i} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\t{MOD_ID}_set_good_{i} = yes
+\t}}
+}}
+"""
+        for i, good in enumerate(goods_order(split), start=1)) + "".join(
+        f"""
+# {right.key} in the ranking window's picker.
+{MOD_ID}_pick_right_{i} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+\t\t{MOD_ID}_set_right_{i} = yes
+\t}}
+}}
+"""
+        for i, right in enumerate(output_rights(rows, game), start=1)))
     write(LAYOUT_OUT, layout_file(by_continent))
     write(RIGHTS_OUT, rights_file(rows, split, game))
     write(PLAN_OUT, plan_file(rows, split, game))
@@ -6533,6 +6650,7 @@ def main() -> int:
     write(EDITOR_OUT, effects)
     write(EDITOR_TRIGGERS_OUT, triggers)
     write(EDIT_CELLS_OUT, edit_cells_file(goods_order(split)))
+    write(PICK_CELLS_OUT, pick_cells_file(goods_order(split), rights))
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))

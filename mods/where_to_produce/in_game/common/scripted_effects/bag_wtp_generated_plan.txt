@@ -3,7 +3,10 @@
 # Scope: country
 bag_wtp_plan_run = {
 	save_scope_as = bag_wtp_country
-	bag_wtp_sync = yes
+	# **Nothing is re-read from CMM here any more.** The caps, the rights tick and
+	# «на конец» were settings on the mod page and had to be copied into globals
+	# at the top of every run; they are controls in the plan's own window now and
+	# write their globals themselves.
 	bag_wtp_collect_candidates = yes
 	bag_wtp_rebuild_browse = yes
 	bag_wtp_plan_prepare = yes

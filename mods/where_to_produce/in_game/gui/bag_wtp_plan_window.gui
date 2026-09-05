@@ -269,13 +269,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1640 720 }
+	size = { 1640 780 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
 
 	widget = {
-		size = { 1640 720 }
+		size = { 1640 780 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -312,6 +312,195 @@ window = {
 					maximumsize = { 1590 80 }
 					align = center
 					text = "bag_wtp_plan_window_desc"
+				}
+
+				# ---- the plan's own settings, which were the mod page's ----
+				#
+				# **Five settings moved here on 2026-09-06**: «План» and «На конец»
+				# were two buttons on the page and are one switch and «Пересчитать»
+				# now, and the caps, the urban-rights tick and the town/village
+				# reset came with them. His rule: у функции на странице мода одна
+				# кнопка «открыть», всё остальное внутри её окна.
+				#
+				# **Nothing here re-plans.** The pass costs about fifty times a
+				# ranking's and he may flip a hundred town markers before he wants
+				# an answer, so «Пересчитать» above is the moment and it is his.
+				# That is why the switch behaves differently from its twin in the
+				# ranking window, where a press does re-rank.
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 8
+
+					widget = {
+						size = { 28 34 }
+						checkbutton_round_alt = {
+							size = { 24 24 }
+							parentanchor = center
+							widgetanchor = center
+							down = "[GetGlobalVariable('bag_wtp_plan_by_end').IsSet]"
+							tooltip = "bag_wtp_plan_by_end_tt"
+							onclick = "[GetScriptedGui('bag_wtp_toggle_plan_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+					}
+
+					text_single = {
+						size = { 210 34 }
+						autoresize = no
+						maximumsize = { 210 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_plan_by_end"
+						tooltip = "bag_wtp_plan_by_end_tt"
+					}
+
+					widget = {
+						size = { 28 34 }
+						checkbutton_round_alt = {
+							size = { 24 24 }
+							parentanchor = center
+							widgetanchor = center
+							down = "[GetGlobalVariable('bag_wtp_plan_rights').IsSet]"
+							tooltip = "bag_wtp_plan_rights_tt"
+							onclick = "[GetScriptedGui('bag_wtp_toggle_plan_rights').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+					}
+
+					text_single = {
+						size = { 210 34 }
+						autoresize = no
+						maximumsize = { 210 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_plan_rights"
+						tooltip = "bag_wtp_plan_rights_tt"
+					}
+
+
+					text_single = {
+						size = { 150 34 }
+						autoresize = no
+						maximumsize = { 150 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_cap_urban"
+						tooltip = "bag_wtp_cap_urban_tt"
+					}
+
+					button_regular = {
+						size = { 28 30 }
+						tooltip = "bag_wtp_cap_urban_tt"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_minus"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_cap_urban_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					text_single = {
+						size = { 30 34 }
+						autoresize = no
+						maximumsize = { 30 34 }
+						align = center|vcenter
+						fontsize = 15
+						text = "bag_wtp_cap_urban_value"
+						tooltip = "bag_wtp_cap_urban_tt"
+					}
+
+					button_regular = {
+						size = { 28 30 }
+						tooltip = "bag_wtp_cap_urban_tt"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_plus"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_cap_urban_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+
+					text_single = {
+						size = { 150 34 }
+						autoresize = no
+						maximumsize = { 150 34 }
+						align = left|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_cap_rural"
+						tooltip = "bag_wtp_cap_rural_tt"
+					}
+
+					button_regular = {
+						size = { 28 30 }
+						tooltip = "bag_wtp_cap_rural_tt"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_minus"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_cap_rural_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					text_single = {
+						size = { 30 34 }
+						autoresize = no
+						maximumsize = { 30 34 }
+						align = center|vcenter
+						fontsize = 15
+						text = "bag_wtp_cap_rural_value"
+						tooltip = "bag_wtp_cap_rural_tt"
+					}
+
+					button_regular = {
+						size = { 28 30 }
+						tooltip = "bag_wtp_cap_rural_tt"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 14
+							text = "bag_wtp_edit_plus"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_cap_rural_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+
+					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+					# **The tick is a location variable and it outlives a save**,
+					# so clearing the rows on screen is not clearing them: on
+					# 2026-09-02 he cleared the fourteen he could see, widened the
+					# ground, and fourteen others came into the plan looking
+					# exactly like a revert. One button, the whole world.
+					button_regular = {
+						size = { 260 34 }
+						tooltip = "bag_wtp_plan_ticks_tt"
+						text_single = {
+							size = { 246 26 }
+							parentanchor = center
+							widgetanchor = center
+							autoresize = no
+							maximumsize = { 246 26 }
+							fontsize = 13
+							fontsize_min = 10
+							align = center|nobaseline
+							elide = right
+							text = "bag_wtp_plan_ticks"
+						}
+						onclick = "[GetScriptedGui('bag_wtp_plan_clear_ticks').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
 				}
 
 				# The borders, the same four buttons the ranking window carries.

@@ -75,51 +75,21 @@ bag_wtp_collect_candidates = {
 	}
 }
 
+# The mod page has four buttons and every one of them only opens a window.
+#
+# **It had thirteen settings until 2026-09-06**, and the two «Считать», the two
+# «План», the caps, the ticks and the goods lists are all controls inside the
+# windows they belong to now: «мод внутри стал довольно громоздким и неудобным»,
+# and the rule he gave with it was one «open» button a function.
+# `docs/investigations/wtp_menu_rebuild.md`.
+#
 # Scope: country
 bag_wtp_on_button = {
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__run }
-		remove_global_variable = bag_wtp_rank_by_end
-		bag_wtp_compute = yes
-		# Straight into the answer: the window is the only place it is shown.
-		bag_wtp_open_result_window_effect = yes
-	}
-
-	# The same pass, ordered by the last age instead -- and by what the ground
-	# gives on the way there wherever the last age cannot tell two provinces
-	# apart. The flag stays set, so a pick on the map re-ranks the same way.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__run_end }
-		set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
-		bag_wtp_compute = yes
-		bag_wtp_open_result_window_effect = yes
-	}
-
+	# Whichever of the two ranking windows answers the question that is chosen.
+	# The pass itself is «Искать локации», inside the window.
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__show }
 		bag_wtp_open_result_window_effect = yes
-	}
-
-	# The whole-map plan: every good at once over the same ground, one building at
-	# a time, under a cap per location. A pass of its own and a window of its own,
-	# because it answers a different question from the two above -- «where does
-	# everything go» rather than «where does this go» -- and because it costs
-	# about fifty times as much. The settings are re-read first: a numeric setting
-	# applies itself on its own +/- and calls nothing back.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_run }
-		remove_global_variable = bag_wtp_plan_by_end
-		bag_wtp_plan_run = yes
-		bag_wtp_open_plan_window_effect = yes
-	}
-
-	# The same pass aimed at the last age instead. The flag stays set, so
-	# «Пересчитать» in the window keeps answering the same question.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_run_end }
-		set_global_variable = { name = bag_wtp_plan_by_end value = 1 }
-		bag_wtp_plan_run = yes
-		bag_wtp_open_plan_window_effect = yes
 	}
 
 	if = {
@@ -127,19 +97,10 @@ bag_wtp_on_button = {
 		bag_wtp_open_plan_window_effect = yes
 	}
 
-	# Clearing the town/village ticks, everywhere. **No re-plan follows it**, for
-	# the same reason the tick itself does not re-plan: the pass reads every
-	# recipe on every location, and he may want to clear a hundred before he
-	# wants an answer. The next «Пересчитать» is what makes it true.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__plan_ticks }
-		bag_wtp_clear_ticks = yes
-	}
-
-	# The plan editor: the settings page only opens its window. Everything the
-	# editor does is a button inside `bag_wtp_edit_window.gui` and goes through
-	# `bag_wtp_window_gui.txt`, because the good it works on arrives as a scope
-	# from the icon that was clicked and a Mod Menu button cannot carry one.
+	# The plan editor: everything it does is a button inside
+	# `bag_wtp_edit_window.gui` and goes through `bag_wtp_window_gui.txt`,
+	# because the good it works on arrives as a number from the cell that was
+	# clicked and a Mod Menu button cannot carry one.
 	if = {
 		limit = { var:cmf_callback = flag:bag_wtp__edit_open }
 		bag_wtp_open_edit_window_effect = yes
@@ -153,24 +114,6 @@ bag_wtp_on_button = {
 		limit = { var:cmf_callback = flag:bag_wtp__diag }
 		bag_wtp_diag = yes
 	}
-
-	# The tick auto-applies and arrives here; the lists do not, because a list
-	# reaches nothing but its own `_on_changed`.
-	#
-	# **And it re-ranks, because it changes which provinces are candidates at
-	# all.** Every other tick here only decides what the *next* press answers;
-	# this one drops provinces out of the table that is already on screen, and
-	# the twenty-fifth run had to close the window and open it again to see the
-	# filter take. `bag_wtp_recompute_live` costs nothing against a closed
-	# window -- it is the same guard the map pickers go through.
-	if = {
-		limit = { var:cmf_callback = flag:bag_wtp__buildable_only }
-		bag_wtp_sync = yes
-		bag_wtp_refresh_goods = yes
-		bag_wtp_refresh_rights = yes
-		bag_wtp_recompute_live = yes
-	}
-
 }
 
 # Every change of the borders re-ranks, so the window answers as the plan is
