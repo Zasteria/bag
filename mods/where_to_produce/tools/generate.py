@@ -36,6 +36,7 @@ in-game tooltips at 1.3.10. See `docs/research/engine.md`.
 
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -3649,6 +3650,12 @@ def edit_cells_file(order: list[str]) -> str:
 	# Goods {r * EDIT_ROW + 1}..{min((r + 1) * EDIT_ROW, len(order))} of the plan's own order.
 	type {MOD_ID}_edit_row{r + 1} = hbox {{
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 {cells}	}}
 """)
     return (HEADER + f"""#
@@ -6495,6 +6502,35 @@ def main() -> int:
     for language in LOC_LANGUAGES:
         write(Path(str(LOC_OUT) % (language, language)),
               loc_file(language, rows, split, game))
+
+    # ---- the build stamp, and it is a probe before it is a nicety -----------
+    #
+    # **«Правка не работает» and «он запускал прошлую сборку» look identical
+    # from here**, and on 2026-09-05 two reports could not be told apart: the
+    # aligned columns and the yellow pin were correct in the tree and absent on
+    # his screen. Asking him to prove which build he ran costs him a round trip
+    # every time; a stamp on the window costs nothing and every screenshot
+    # carries it.
+    #
+    # **Hashed from the built files, not from git.** A commit id would change on
+    # every commit and make `refresh.py` report a change that means nothing; a
+    # content hash moves only when the mod itself does, which is exactly the
+    # question. The stamp's own file is written after the hash is taken, so it
+    # cannot hash itself.
+    stamped = sorted(
+        q for q in list((MOD / "in_game").rglob("*"))
+        + list((MOD / "main_menu").rglob("*"))
+        if q.is_file() and q.suffix in (".txt", ".gui", ".yml")
+        and not q.name.startswith(f"{MOD_ID}_build"))
+    digest = hashlib.sha256()
+    for q in stamped:
+        digest.update(q.relative_to(MOD).as_posix().encode())
+        digest.update(q.read_bytes())
+    stamp = digest.hexdigest()[:6]
+    for language in LOC_LANGUAGES:
+        write(MOD / f"main_menu/localization/{language}/{MOD_ID}_build_l_{language}.yml",
+              f"l_{language}:\n {MOD_ID}_build: \"{stamp}\"\n")
+    print(f"build {stamp}, hashed from {len(stamped)} files")
 
     print(f"{sum(len(v) for v in by_continent.values())} regions in "
           f"{len(by_continent)} lists, {len(UNLOCKS)} methods gated by an advance")

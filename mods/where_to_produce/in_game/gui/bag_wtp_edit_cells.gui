@@ -9,6 +9,12 @@ types BagWtpEditCells {
 	# Goods 1..10 of the plan's own order.
 	type bag_wtp_edit_row1 = hbox {
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 
 		hbox = {
 			size = { 127 28 }
@@ -1014,6 +1020,12 @@ types BagWtpEditCells {
 	# Goods 11..20 of the plan's own order.
 	type bag_wtp_edit_row2 = hbox {
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 
 		hbox = {
 			size = { 127 28 }
@@ -2019,6 +2031,12 @@ types BagWtpEditCells {
 	# Goods 21..30 of the plan's own order.
 	type bag_wtp_edit_row3 = hbox {
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 
 		hbox = {
 			size = { 127 28 }
@@ -3024,6 +3042,12 @@ types BagWtpEditCells {
 	# Goods 31..40 of the plan's own order.
 	type bag_wtp_edit_row4 = hbox {
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 
 		hbox = {
 			size = { 127 28 }
@@ -4029,6 +4053,12 @@ types BagWtpEditCells {
 	# Goods 41..47 of the plan's own order.
 	type bag_wtp_edit_row5 = hbox {
 		spacing = 6
+		# **Said out loud, because the default is not verifiable from here.**
+		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
+		# cell holding its column; the game writes `= no` explicitly five times
+		# of its own accord, so whatever the default is, relying on it was the
+		# guess. A cell this ground cannot use keeps its place either way now.
+		ignoreinvisible = no
 
 		hbox = {
 			size = { 127 28 }
