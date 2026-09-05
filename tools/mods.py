@@ -1006,7 +1006,14 @@ def screen_install(configured: dict) -> None:
 
     mods = our_mods()
     say()
-    say("  %-3s %-22s %-10s %-12s %s" % ("#", "мод", "версия", "в игре", "что это"))
+    # **«версия» and «в игре» are not the same question, and the pair read as one
+    # on 2026-09-06**: he took «отличается» for a version mismatch and asked why
+    # the version had changed. It had not — the column is the number in this
+    # repository's `.metadata`, and the one beside it compares the *files* that
+    # would be installed, byte for byte. Saying so in the headings is cheaper
+    # than saying it again.
+    say("  %-3s %-22s %-10s %-12s %s"
+        % ("#", "мод", "версия тут", "файлы в игре", "что это"))
     for number, mod in enumerate(mods, 1):
         state = installed_state(mod, target)
         say("  %-3d %-22s %-10s %-12s %s"
