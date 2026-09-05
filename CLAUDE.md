@@ -1,4 +1,4 @@
-# Working in this repository
+﻿# Working in this repository
 
 Mods for Europa Universalis V. Six of them, in [`mods/`](mods/), plus the game's
 own files to grep and the tooling that rebuilds everything.
@@ -12,15 +12,16 @@ on every turn afterwards, because the context is resent each time. So:
     python3 tools/kb.py <words>            which section answers this, and what it costs
     python3 tools/kb.py --show FILE:LINE   read exactly that section
 
-**The code is larger than the documents — ask it the same way.** One
-`generate.py` is 85 000 tokens:
+**The code is larger than the documents — ask it the same way**, and that
+includes **the hand-written windows**: `code.py` indexes the comments in
+`in_game/gui/*.gui`, where the interface keeps what its runs cost.
 
-    python3 tools/code.py <words>          which effect or function, and its cost
+    python3 tools/code.py <words>          which effect, window or rule, and its cost
     python3 tools/code.py --show FILE:LINE read exactly that block
 
 **Open a whole document or function only when the index says the answer fills
-it.** Both take `--map`, which lists everything and costs ~1 400 tokens: a last
-resort, not a first move. `grep -rn` over `reference/` beats reading a game file.
+it.** `--map` is **not cheap — 4 000 tokens for `kb.py`, 13 000 for `code.py`**:
+a last resort. `grep -rn` over `reference/` beats reading a game file.
 
 ## Start of a task
 
@@ -57,9 +58,8 @@ for the reference tree and the rebuild loop,
   one is owed, name the ground, the presses and what a right answer looks like;
   «протестируй» is not a check.
 - **A CMM macro called with an argument CMF does not declare fails silently**
-  and takes the rest of its effect with it. One `step` instead of `step_value`
-  cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
-  after touching any CMM call.
+  and takes the rest of its effect with it. `python3 tools/check_cmm.py
+  mods/<mod>/in_game/common` after touching any CMM call.
 - **A cause you cannot name is not a cause. Do not guess it — measure it.**
   The owner, 2026-09-01, after four theories about one symptom, three fixes built
   on them and four of his runs spent: «гадать НИКОГДА не нужно… Зонды, счётчики,
@@ -69,7 +69,7 @@ for the reference tree and the rebuild loop,
   line for GUI and script failures; an effect that never runs is invisible. Add
   a `cmf_log` and have the player look, rather than guessing twice.
 - **A `building_type` filter receives `root` and nothing else**, whatever
-  vanilla's comment says. Reading `scope:target` logs an error every pass.
+  vanilla's comment says.
 - **A `customizable_localization` cannot be overridden.** First definition wins;
   later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
   another mod's rule is to take over the localization key it prints.
