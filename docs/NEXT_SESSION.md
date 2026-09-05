@@ -53,8 +53,9 @@ rules each step implements are
    the mod page** and every setting moved inside its own window; the editor gets
    its own button beside the plan's rather than sitting inside it. Full spec:
    [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
-   **Starts with one question to CMF**: can a `cmm_*` setting be read and written
-   from our own window, or does its value move into a global of ours?
+   **It is a copy of the editor's picker, not new work**: the whole CMM tick
+   machinery exists to set one number, `bag_wtp_good_index`, and a window can
+   set it directly.
 2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
    что там дырки». The way out is that a good is its own scope (`every_goods`,
    `Goods.MakeScope`), so the count can sit on it and the picker becomes a
