@@ -45,17 +45,20 @@ rules each step implements are
    hold `_pq<n>` at 1 in the global plan, and that crosses a line —
    **pins, flags, the share and the star belong to the editor window alone, and
    «План» gives a fresh plan reading none of them.**
-2а. **Reshuffle the buildings a fill placed** — his ask, 2026-09-05, and a real
-   flaw in the order: the fill chooses *which* good by shortfall but *where* by
-   the accident of press order. Scope is strictly the buildings the fill placed
-   and their own locations, so no count changes. **Not built**, and he asked
-   about it directly at the session's end — say so plainly rather than let it
-   read as done.
-2б. **A packed picker** — **and he took it off the table himself**, 2026-09-06:
-   «в целом похер, что там дырки». Recorded, not urgent. The way out is that a
-   good is its own scope (`every_goods`, `Goods.MakeScope`), so the count can sit
-   on it and the picker becomes a datamodel — `research/interface.md` has the
-   order of checks, and the first is cheap.
+2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
+   shortfall but *where* by the accident of press order. Scope is strictly the
+   buildings it placed and their own locations, so no count changes. Not built.
+2в. **Rebuild the mod's menu** — his ask, 2026-09-06, and he called it urgent.
+   Three tabs (Земля, Расчёты, Техническая), **one «open» button per function on
+   the mod page** and every setting moved inside its own window; the editor gets
+   its own button beside the plan's rather than sitting inside it. Full spec:
+   [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
+   **Starts with one question to CMF**: can a `cmm_*` setting be read and written
+   from our own window, or does its value move into a global of ours?
+2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
+   что там дырки». The way out is that a good is its own scope (`every_goods`,
+   `Goods.MakeScope`), so the count can sit on it and the picker becomes a
+   datamodel — `research/interface.md` has the order of checks.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.
