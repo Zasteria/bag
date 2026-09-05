@@ -783,54 +783,14 @@ def triggers_file(rows, split, game) -> str:
 """)
     out.append("\t}\n}\n")
 
-    # "Only where it can be built today", per good. `can_build_building` is the
-    # documented trigger and takes a literal building type, so the alternative --
-    # walking `any_building_type` and asking what it produces -- would have needed
-    # a trigger that does not exist.
+    # **«Только там, где здание может стоять» is gone, 2026-09-06, and its
+    # triggers with it.** It was a tick on the mod page, then a circle in the
+    # ranking window, and he threw it out with three reasons at once: «её
+    # название не даёт смысл того, что она действительно делает», it did not
+    # work, and «она вообще не нужна». What he wanted in its place is «Выбрать
+    # мою землю», which is a button and needs none of this. `_stands_<building>`
+    # stays -- the scorer asks it per method, which is the honest place for it.
     order = [good for kind in ("raw", "made") for good in split[kind]]
-    by_good: dict[str, list[str]] = {}
-    for method in rows:
-        by_good.setdefault(method.produced, [])
-        if method.building not in by_good[method.produced]:
-            by_good[method.produced].append(method.building)
-
-    out.append(f"""
-# **`trigger_if`, not `if`.** A trigger has its own conditional: `if` is an
-# effect and `else_if` is nothing at all, which the game says once per line at
-# load -- `Unknown trigger type: else_if` -- and the whole of this then came
-# back true, so "only where it can be built today" filtered nothing whatever it
-# was set to, for as long as the tick has existed.
-#
-# Scope: location
-{MOD_ID}_can_build_something = {{
-""")
-    first = True
-    for index, right in enumerate(output_rights(rows, game), start=1):
-        keyword = "trigger_if" if first else "trigger_else_if"
-        first = False
-        inner = " ".join(f"{MOD_ID}_can_build_{order.index(g) + 1} = yes"
-                         for g in sorted(right.output) if g in order)
-        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_right_index = {index} }} "
-                   f"OR = {{ {inner} }} }}\n")
-    for index, good in enumerate(order, start=1):
-        keyword = "trigger_if" if first else "trigger_else_if"
-        first = False
-        out.append(f"\t{keyword} = {{ limit = {{ global_var:{MOD_ID}_good_index = {index} }} "
-                   f"{MOD_ID}_can_build_{index} = yes }}\n")
-    # **A `trigger_if` chain has to end in a `trigger_else`.** Without one the
-    # game logs `PostValidate of trigger 'trigger_else_if' returned false` at the
-    # last link and the whole trigger is void -- which is the twenty-third run's
-    # one real line in `error.log`. Nothing ticked means nothing to build.
-    out.append("\ttrigger_else = { always = no }\n")
-    out.append("}\n")
-
-    for index, good in enumerate(order, start=1):
-        out.append(f"\n# {good}\n# Scope: location\n{MOD_ID}_can_build_{index} = {{\n\tOR = {{\n")
-        # The same trigger the scoring uses, so the buildable tick and the plan
-        # cannot disagree about a location the player has ticked into a town.
-        for building in sorted(by_good.get(good, [])):
-            out.append(f"\t\t{MOD_ID}_stands_{building} = yes\n")
-        out.append("\t}\n}\n")
 
     # Which methods this country may actually run.
     #
@@ -3496,12 +3456,12 @@ def edit_cells_file(order: list[str]) -> str:
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {{
 			size = {{ {CELL_W} {CELL_H} }}
+			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 			hbox = {{
 			spacing = 1
 
 			widget = {{
 				size = {{ 28 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
 					size = {{ 26 26 }}
 					parentanchor = center
@@ -3533,7 +3493,6 @@ def edit_cells_file(order: list[str]) -> str:
 			widget = {{
 				size = {{ 42 28 }}
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				tooltip = "{MOD_ID}_cell_tt"
 				text_single = {{
 					parentanchor = center
@@ -3555,7 +3514,6 @@ def edit_cells_file(order: list[str]) -> str:
 
 			widget = {{
 				size = {{ 28 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				button_regular = {{
 					size = {{ 26 26 }}
 					parentanchor = center
@@ -3583,7 +3541,6 @@ def edit_cells_file(order: list[str]) -> str:
 			# glyph, and the state is legible.
 			widget = {{
 				size = {{ 26 28 }}
-				visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_pool{i}').IsSet]"
 				checkbutton_round_alt = {{
 					size = {{ 24 24 }}
 					parentanchor = center
@@ -3613,12 +3570,16 @@ def edit_cells_file(order: list[str]) -> str:
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = {CELL_GAP}
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 {cells}{pad}	}}
 """)
     return (HEADER + f"""#
@@ -3642,8 +3603,8 @@ types BagWtpEditCells {{
 PICK_ROW = 10
 PICK_ROWS = 5
 PICK_W, PICK_H, PICK_GAP = 62, 28, 4
-RIGHT_PICK_ROW = 2
-RIGHT_PICK_ROWS = 7
+RIGHT_PICK_COL = 7
+RIGHT_PICK_COLS = 2
 RIGHT_PICK_W = 250
 PICK_CELLS_OUT = MOD / "in_game/gui/bag_wtp_pick_cells.gui"
 
@@ -3665,9 +3626,9 @@ def pick_cells_file(order: list[str], rights: list[eu5data.TownRight]) -> str:
     size does not hold an `hbox` whose children go invisible -- which is why a
     cell is a `widget` with a size and the `hbox` is inside it.
 
-    A row of goods is 10 cells of 62 -- 656 with its spacing -- and a row of
-    rights two of 250; both windows that draw them are wide enough for the pair
-    side by side, and `check_script.py` measures that rather than trusting it.
+    A row of goods is 10 cells of 62 -- 656 with its spacing -- and the rights
+    are two columns of 250 beside it; both windows that draw them are wide enough
+    for the pair, and `check_script.py` measures that rather than trusting it.
     """
     out = [HEADER, f"""#
 # The ranking windows' picker, a cell a good and a cell a right. Neither window
@@ -3727,20 +3688,30 @@ types BagWtpPickCells {{
 {cells}{pad}	}}
 """)
 
-    for r in range(RIGHT_PICK_ROWS):
-        first, last = r * RIGHT_PICK_ROW + 1, min((r + 1) * RIGHT_PICK_ROW, len(rights))
+    # **The rights are two columns that pack upward, not rows that leave holes.**
+    # A country is offered nine or ten of the thirteen, and on 2026-09-06 the
+    # missing ones left gaps scattered through the block: «нужно сделать, чтобы
+    # городские права справа вставали примерно по такому же принципу, аккуратно
+    # и без пробелов». Two rows of two cannot pack -- half a row is a hole
+    # wherever it falls -- but a column can, so each column is a `vbox` with
+    # `ignoreinvisible = yes` and the cell itself carries the `visible`. What is
+    # left over is a short second column, which is a gap at the end and the shape
+    # he approved on the goods.
+    for c in range(RIGHT_PICK_COLS):
+        first = c * RIGHT_PICK_COL + 1
+        last = min((c + 1) * RIGHT_PICK_COL, len(rights))
         cells = ""
         for i in range(first, last + 1):
             right = rights[i - 1]
             cells += f"""
 		widget = {{
 			size = {{ {RIGHT_PICK_W} {PICK_H} }}
+			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
 			hbox = {{
 				spacing = 2
 
 				widget = {{
 					size = {{ 26 {PICK_H} }}
-					visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
 					checkbutton_round_alt = {{
 						size = {{ 24 24 }}
 						parentanchor = center
@@ -3754,7 +3725,6 @@ types BagWtpPickCells {{
 				widget = {{
 					size = {{ {RIGHT_PICK_W - 28} {PICK_H} }}
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{i}').IsSet]"
 					tooltip = "{MOD_ID}_right_{right.key}"
 					text_single = {{
 						size = {{ {RIGHT_PICK_W - 32} 26 }}
@@ -3772,14 +3742,13 @@ types BagWtpPickCells {{
 			}}
 		}}
 """
-        pad = "".join(f"		widget = {{ size = {{ {RIGHT_PICK_W} {PICK_H} }} }}\n"
-                      for _ in range(RIGHT_PICK_ROW - max(last - first + 1, 0)))
         out.append(f"""
-	# Urban rights {max(first, 0)}..{last}.
-	type {MOD_ID}_pick_right_row{r + 1} = hbox {{
-		spacing = {PICK_GAP}
-		ignoreinvisible = no
-{cells}{pad}	}}
+	# Urban rights {first}..{last}, packed upward: a right this country cannot
+	# hold takes no space at all.
+	type {MOD_ID}_pick_right_col{c + 1} = vbox {{
+		spacing = 2
+		ignoreinvisible = yes
+{cells}	}}
 """)
     out.append("}\n")
     return "".join(out)
@@ -6048,10 +6017,11 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(flag(3, f"has_global_variable = {MOD_ID}_plan_rights"))
     out.append(flag(4, f"has_global_variable = {MOD_ID}_plan_by_end"))
     out.append(flag(5, f"has_global_variable = {MOD_ID}_rank_by_end"))
-    out.append(flag(6, f"has_global_variable = {MOD_ID}_only_buildable"))
+    # `buildable_only` was the sixth of these and is gone with the tick itself,
+    # 2026-09-06.
     out.append(say("SET cap_rural=%s cap_urban=%s rights=%s "
-                   "plan_by_end=%s rank_by_end=%s buildable_only=%s"
-                   % tuple(read(i) for i in range(1, 7))))
+                   "plan_by_end=%s rank_by_end=%s"
+                   % tuple(read(i) for i in range(1, 6))))
     # **`ranked_provs` read `{MOD_ID}_found` for three builds**, which is the
     # single-good *ranking*'s province count and has nothing to do with a plan:
     # every report of 2026-09-03 printed `ranked_provs=0` beside `provs=8`,
@@ -6566,10 +6536,10 @@ def main() -> int:
         f"{len(goods_order(split))} goods and only {PICK_ROW * PICK_ROWS} cells "
         f"in the search picker: raise `PICK_ROWS` and add the row to both "
         f"ranking windows")
-    assert len(rights) <= RIGHT_PICK_ROW * RIGHT_PICK_ROWS, (
+    assert len(rights) <= RIGHT_PICK_COL * RIGHT_PICK_COLS, (
         f"{len(rights)} urban rights and only "
-        f"{RIGHT_PICK_ROW * RIGHT_PICK_ROWS} cells in the search picker: raise "
-        f"`RIGHT_PICK_ROWS` and add the row to both ranking windows")
+        f"{RIGHT_PICK_COL * RIGHT_PICK_COLS} cells in the search picker: raise "
+        f"`RIGHT_PICK_COL` and make both ranking windows taller")
     assert max(len(r.output) for r in rights) <= RIGHT_SLOTS, (
         f"a charter favours more than {RIGHT_SLOTS} goods the mod can make; a row "
         f"holds a fixed number of answers, so raise `RIGHT_SLOTS`")

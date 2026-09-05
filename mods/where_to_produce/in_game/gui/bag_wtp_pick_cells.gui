@@ -1545,19 +1545,20 @@ types BagWtpPickCells {
 		widget = { size = { 62 28 } }
 	}
 
-	# Urban rights 1..2.
-	type bag_wtp_pick_right_row1 = hbox {
-		spacing = 4
-		ignoreinvisible = no
+	# Urban rights 1..7, packed upward: a right this country cannot
+	# hold takes no space at all.
+	type bag_wtp_pick_right_col1 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1571,7 +1572,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
 					tooltip = "bag_wtp_right_constantinopolitan_silk_monopoly_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1591,12 +1591,12 @@ types BagWtpPickCells {
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1610,7 +1610,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
 					tooltip = "bag_wtp_right_flemish_cloth_industries_right"
 					text_single = {
 						size = { 218 26 }
@@ -1627,21 +1626,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 3..4.
-	type bag_wtp_pick_right_row2 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1655,7 +1648,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
 					tooltip = "bag_wtp_right_royal_artisan_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1675,12 +1667,12 @@ types BagWtpPickCells {
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1694,7 +1686,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
 					tooltip = "bag_wtp_right_royal_book_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1711,21 +1702,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 5..6.
-	type bag_wtp_pick_right_row3 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1739,7 +1724,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
 					tooltip = "bag_wtp_right_royal_brewing_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1759,12 +1743,12 @@ types BagWtpPickCells {
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1778,7 +1762,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
 					tooltip = "bag_wtp_right_royal_jewelry_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1795,21 +1778,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 7..8.
-	type bag_wtp_pick_right_row4 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1823,7 +1800,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
 					tooltip = "bag_wtp_right_royal_masonry_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1840,15 +1816,22 @@ types BagWtpPickCells {
 				}
 			}
 		}
+	}
+
+	# Urban rights 8..13, packed upward: a right this country cannot
+	# hold takes no space at all.
+	type bag_wtp_pick_right_col2 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1862,7 +1845,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
 					tooltip = "bag_wtp_right_royal_naval_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1879,21 +1861,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 9..10.
-	type bag_wtp_pick_right_row5 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1907,7 +1883,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
 					tooltip = "bag_wtp_right_royal_textile_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1927,12 +1902,12 @@ types BagWtpPickCells {
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1946,7 +1921,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
 					tooltip = "bag_wtp_right_royal_tooling_rights"
 					text_single = {
 						size = { 218 26 }
@@ -1963,21 +1937,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 11..12.
-	type bag_wtp_pick_right_row6 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -1991,7 +1959,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
 					tooltip = "bag_wtp_right_royal_weaponry_rights"
 					text_single = {
 						size = { 218 26 }
@@ -2011,12 +1978,12 @@ types BagWtpPickCells {
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -2030,7 +1997,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
 					tooltip = "bag_wtp_right_scandinavian_bergslag_privileges"
 					text_single = {
 						size = { 218 26 }
@@ -2047,21 +2013,15 @@ types BagWtpPickCells {
 				}
 			}
 		}
-	}
-
-	# Urban rights 13..13.
-	type bag_wtp_pick_right_row7 = hbox {
-		spacing = 4
-		ignoreinvisible = no
 
 		widget = {
 			size = { 250 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
 			hbox = {
 				spacing = 2
 
 				widget = {
 					size = { 26 28 }
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
 					checkbutton_round_alt = {
 						size = { 24 24 }
 						parentanchor = center
@@ -2075,7 +2035,6 @@ types BagWtpPickCells {
 				widget = {
 					size = { 222 28 }
 					alwaystransparent = no
-					visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
 					tooltip = "bag_wtp_right_scandinavian_tar_privileges"
 					text_single = {
 						size = { 218 26 }
@@ -2092,6 +2051,5 @@ types BagWtpPickCells {
 				}
 			}
 		}
-		widget = { size = { 250 28 } }
 	}
 }

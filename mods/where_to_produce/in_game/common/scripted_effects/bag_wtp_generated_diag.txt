@@ -85,9 +85,7 @@ bag_wtp_diag_state = {
 	if = { limit = { has_global_variable = bag_wtp_plan_by_end } set_global_variable = { name = bag_wtp_dv4 value = 1 } }
 	set_global_variable = { name = bag_wtp_dv5 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_rank_by_end } set_global_variable = { name = bag_wtp_dv5 value = 1 } }
-	set_global_variable = { name = bag_wtp_dv6 value = 0 }
-	if = { limit = { has_global_variable = bag_wtp_only_buildable } set_global_variable = { name = bag_wtp_dv6 value = 1 } }
-	debug_log = "WTP SET cap_rural=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cap_urban=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] rights=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] plan_by_end=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] rank_by_end=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] buildable_only=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0]"
+	debug_log = "WTP SET cap_rural=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cap_urban=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] rights=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] plan_by_end=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] rank_by_end=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_placed } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_plan_placed } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }

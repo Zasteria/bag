@@ -1,7 +1,6 @@
 ﻿# Which locations the mod is willing to consider at all.
 #
-# `bag_wtp_in_zone` and `bag_wtp_can_build_something` are generated beside this,
-# from the continent list and from which buildings make which good.
+# `bag_wtp_in_zone` is generated beside this, from the continent list.
 #
 # Scope: location
 bag_wtp_is_candidate = {
@@ -13,17 +12,12 @@ bag_wtp_is_candidate = {
 
 	bag_wtp_in_zone = yes
 
-	OR = {
-		# The default. The player is planning for ground he does not hold yet, and
-		# `can_build_building` answers for the location as it stands -- an unowned
-		# one fails it, which would empty the table for exactly the case the mod
-		# exists to serve.
-		NOT = { has_global_variable = bag_wtp_only_buildable }
-
-		# With the tick on, something producing the chosen good has to be startable
-		# here today.
-		bag_wtp_can_build_something = yes
-	}
+	# **And nothing else.** «Только там, где здание вообще может стоять» filtered
+	# here until 2026-09-06 and is gone: the player is planning for ground he
+	# does not hold yet, `can_build_building` answers for the location as it
+	# stands, and an unowned one fails it -- so the tick emptied the table for
+	# exactly the case the mod exists to serve. «Выбрать мою землю» is what he
+	# actually wanted from it and it is a button in the window now.
 }
 
 # Whether a province has earned a row at all.

@@ -11,12 +11,16 @@ types BagWtpEditCells {
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = 14
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 
 		# **A plain `widget` holds the column; the `hbox` inside only lays the
 		# controls out.** This file already carried the rule and it was not
@@ -30,12 +34,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -67,7 +71,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -89,7 +92,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -117,7 +119,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool1').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -142,12 +143,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -179,7 +180,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -201,7 +201,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -229,7 +228,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool2').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -254,12 +252,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -291,7 +289,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -313,7 +310,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -341,7 +337,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool3').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -366,12 +361,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -403,7 +398,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -425,7 +419,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -453,7 +446,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool4').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -478,12 +470,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -515,7 +507,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -537,7 +528,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -565,7 +555,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool5').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -590,12 +579,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -627,7 +616,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -649,7 +637,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -677,7 +664,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool6').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -702,12 +688,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -739,7 +725,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -761,7 +746,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -789,7 +773,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool7').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -814,12 +797,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -851,7 +834,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -873,7 +855,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -901,7 +882,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool8').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -926,12 +906,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -963,7 +943,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -985,7 +964,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1013,7 +991,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool9').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1038,12 +1015,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1075,7 +1052,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1097,7 +1073,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1125,7 +1100,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool10').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1144,12 +1118,16 @@ types BagWtpEditCells {
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = 14
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 
 		# **A plain `widget` holds the column; the `hbox` inside only lays the
 		# controls out.** This file already carried the rule and it was not
@@ -1163,12 +1141,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1200,7 +1178,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1222,7 +1199,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1250,7 +1226,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool11').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1275,12 +1250,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1312,7 +1287,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1334,7 +1308,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1362,7 +1335,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool12').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1387,12 +1359,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1424,7 +1396,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1446,7 +1417,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1474,7 +1444,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool13').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1499,12 +1468,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1536,7 +1505,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1558,7 +1526,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1586,7 +1553,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool14').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1611,12 +1577,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1648,7 +1614,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1670,7 +1635,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1698,7 +1662,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool15').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1723,12 +1686,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1760,7 +1723,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1782,7 +1744,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1810,7 +1771,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool16').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1835,12 +1795,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1872,7 +1832,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -1894,7 +1853,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1922,7 +1880,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool17').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -1947,12 +1904,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -1984,7 +1941,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2006,7 +1962,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2034,7 +1989,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool18').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2059,12 +2013,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2096,7 +2050,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2118,7 +2071,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2146,7 +2098,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool19').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2171,12 +2122,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2208,7 +2159,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2230,7 +2180,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2258,7 +2207,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool20').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2277,12 +2225,16 @@ types BagWtpEditCells {
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = 14
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 
 		# **A plain `widget` holds the column; the `hbox` inside only lays the
 		# controls out.** This file already carried the rule and it was not
@@ -2296,12 +2248,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2333,7 +2285,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2355,7 +2306,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2383,7 +2333,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool21').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2408,12 +2357,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2445,7 +2394,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2467,7 +2415,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2495,7 +2442,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool22').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2520,12 +2466,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2557,7 +2503,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2579,7 +2524,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2607,7 +2551,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool23').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2632,12 +2575,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2669,7 +2612,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2691,7 +2633,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2719,7 +2660,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool24').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2744,12 +2684,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2781,7 +2721,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2803,7 +2742,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2831,7 +2769,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool25').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2856,12 +2793,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2893,7 +2830,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -2915,7 +2851,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -2943,7 +2878,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool26').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -2968,12 +2902,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3005,7 +2939,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3027,7 +2960,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3055,7 +2987,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool27').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3080,12 +3011,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3117,7 +3048,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3139,7 +3069,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3167,7 +3096,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool28').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3192,12 +3120,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3229,7 +3157,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3251,7 +3178,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3279,7 +3205,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool29').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3304,12 +3229,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3341,7 +3266,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3363,7 +3287,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3391,7 +3314,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool30').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3410,12 +3332,16 @@ types BagWtpEditCells {
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = 14
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 
 		# **A plain `widget` holds the column; the `hbox` inside only lays the
 		# controls out.** This file already carried the rule and it was not
@@ -3429,12 +3355,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3466,7 +3392,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3488,7 +3413,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3516,7 +3440,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool31').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3541,12 +3464,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3578,7 +3501,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3600,7 +3522,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3628,7 +3549,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool32').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3653,12 +3573,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3690,7 +3610,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3712,7 +3631,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3740,7 +3658,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool33').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3765,12 +3682,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3802,7 +3719,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3824,7 +3740,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3852,7 +3767,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool34').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3877,12 +3791,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3914,7 +3828,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -3936,7 +3849,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -3964,7 +3876,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool35').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -3989,12 +3900,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4026,7 +3937,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4048,7 +3958,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4076,7 +3985,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool36').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4101,12 +4009,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4138,7 +4046,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4160,7 +4067,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4188,7 +4094,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool37').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4213,12 +4118,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4250,7 +4155,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4272,7 +4176,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4300,7 +4203,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool38').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4325,12 +4227,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4362,7 +4264,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4384,7 +4285,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4412,7 +4312,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool39').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4437,12 +4336,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4474,7 +4373,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4496,7 +4394,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4524,7 +4421,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool40').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4543,12 +4439,16 @@ types BagWtpEditCells {
 		# His words, 2026-09-05: «я не хочу, чтобы инструмент 1 товара был
 		# буквально через миллиметр от другого инструмента другого товара».
 		spacing = 14
-		# **Said out loud, because the default is not verifiable from here.**
-		# Dropping `ignoreinvisible = yes` was supposed to leave an invisible
-		# cell holding its column; the game writes `= no` explicitly five times
-		# of its own accord, so whatever the default is, relying on it was the
-		# guess. A cell this ground cannot use keeps its place either way now.
-		ignoreinvisible = no
+		# **The row packs to the left, and the pads hold its width.** It was
+		# `ignoreinvisible = no` for one build, so a good this ground cannot make
+		# left a hole where it sat and the 38 usable goods came out scattered
+		# across five rows — «верхняя часть выглядит так себе», 2026-09-06. Now
+		# an unusable cell takes no space and the usable ones close up; the empty
+		# widgets after them keep every row the same width, so the block stays
+		# still and the gaps are all at the ends. **The cell carries the
+		# `visible`, not its four controls** — collapsing needs the child the row
+		# lays out to be the thing that disappears.
+		ignoreinvisible = yes
 
 		# **A plain `widget` holds the column; the `hbox` inside only lays the
 		# controls out.** This file already carried the rule and it was not
@@ -4562,12 +4462,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4599,7 +4499,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4621,7 +4520,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4649,7 +4547,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool41').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4674,12 +4571,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4711,7 +4608,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4733,7 +4629,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4761,7 +4656,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool42').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4786,12 +4680,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4823,7 +4717,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4845,7 +4738,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4873,7 +4765,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool43').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -4898,12 +4789,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4935,7 +4826,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -4957,7 +4847,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -4985,7 +4874,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool44').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -5010,12 +4898,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5047,7 +4935,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -5069,7 +4956,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5097,7 +4983,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool45').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -5122,12 +5007,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5159,7 +5044,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -5181,7 +5065,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5209,7 +5092,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool46').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center
@@ -5234,12 +5116,12 @@ types BagWtpEditCells {
 		# unchanged twice, 2026-09-05, and he was right both times.
 		widget = {
 			size = { 127 28 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 			hbox = {
 			spacing = 1
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5271,7 +5153,6 @@ types BagWtpEditCells {
 			widget = {
 				size = { 42 28 }
 				alwaystransparent = no
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 				tooltip = "bag_wtp_cell_tt"
 				text_single = {
 					parentanchor = center
@@ -5293,7 +5174,6 @@ types BagWtpEditCells {
 
 			widget = {
 				size = { 28 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 				button_regular = {
 					size = { 26 26 }
 					parentanchor = center
@@ -5321,7 +5201,6 @@ types BagWtpEditCells {
 			# glyph, and the state is legible.
 			widget = {
 				size = { 26 28 }
-				visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_pool47').IsSet]"
 				checkbutton_round_alt = {
 					size = { 24 24 }
 					parentanchor = center

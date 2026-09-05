@@ -71,6 +71,7 @@ types BagWtpChangesTypes {
 
 			hbox = {
 				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
 				spacing = 4
 				datamodel = "[Location.MakeScope.GetList('bag_wtp_chg_out')]"
 				item = {
@@ -96,6 +97,7 @@ types BagWtpChangesTypes {
 
 			hbox = {
 				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
 				spacing = 4
 				datamodel = "[Location.MakeScope.GetList('bag_wtp_chg_in')]"
 				item = {

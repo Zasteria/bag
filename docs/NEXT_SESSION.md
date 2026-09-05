@@ -34,30 +34,34 @@ rules each step implements are
 
 0. **`tools/code.py`** — done 2026-09-04, no run needed.
 1. **The editor's window: the press line, the width, the frame** — **done and
-   confirmed in game 2026-09-05.** All three lines read back; the windows are as
-   wide as their content. `allow_outside` **stays**: the close button hangs
-   outside on purpose, exactly as vanilla's does.
+   confirmed 2026-09-05.**
 2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
-   2026-09-06.** One change was reverted with it: the flag had been taught to
-   hold `_pq<n>` at 1 in the global plan, and that crosses a line —
-   **pins, flags, the share and the star belong to the editor window alone, and
-   «План» gives a fresh plan reading none of them.**
+   2026-09-06**, with one change reverted: **pins, flags, the share and the star
+   belong to the editor window alone, and a fresh plan reads none of them.**
 2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
    shortfall but *where* by the accident of press order. Scope is strictly the
    buildings it placed and their own locations, so no count changes. Not built.
-2в. **Rebuild the mod's menu** — **built 2026-09-06 and not run once.** Three
-   tabs (Земля, Расчёты, Техническая), one «open» button per function on the mod
-   page, every setting inside its own window: the good and the right are circles
-   in the ranking window now, the caps and the two switches are in the plan's.
-   **The mod has no CMM list left but the zone ones**, and `bag_wtp_sync` is
-   gone with them. **What to ask him for is five numbered presses** at the foot
-   of [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md);
-   **do not start another step until that run comes back**, because half the mod
-   now hangs on a circle nobody has pressed.
+2в. **Rebuild the mod's menu** — **built, run and accepted 2026-09-06**: «в
+   целом — очень круто, почти идеально». Three tabs, four buttons, the good and
+   the right picked in the ranking window, the caps and both switches in the
+   plan's. **Ten fixes from his report went in the same day and none of them has
+   been run**: the buildable tick deleted, «Выбрать мою землю» added, both
+   pickers packed, three anchor faults fixed, the build stamp moved to the
+   technical tab, four window essays deleted. Table of what he asked and what
+   was done: [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
+
+   **Two interface rules he set with that report, and they outrank the steps
+   below**: no descriptive text in a window's header — it belongs in the
+   tooltips — and anything technical or observational goes on the «Техническая»
+   tab. `investigations/wtp_editor_design.md`.
 2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
    что там дырки». The way out is that a good is its own scope (`every_goods`,
    `Goods.MakeScope`), so the count can sit on it and the picker becomes a
    datamodel — `research/interface.md` has the order of checks.
+2г. **He asked for urban rights in the editor** — «добавить в том числе туда
+   редактирование по городским правам». That is step 5 below, not a layout
+   change, so **the order of the remaining steps is now his to pick**: 2а, 3 or
+   5. Ask before starting one.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
    the per-good shortfall step 2 built, is the marker it needs; it is computed
    already and nothing on the «+1» side reads it yet.
@@ -69,16 +73,9 @@ rules each step implements are
 
 ### Waiting on him, cheap
 
-**Two mods for `reference/`, which he offered and which are worth taking**:
-`cheatmenu` (a catalogue of effects *in use*, and a large interface with live
-`fixedgridbox` datamodels — exactly what step 2б needs) and a proper look at
-Advanced Auto Build's interface. Why, in
-[`CONVENTIONS.md`](CONVENTIONS.md).
-
-**And one thing to settle with him, not for him:** he does not want coloured
-markers — «не нужны всякие там жёлтые, красные буквы цифры» — while the yellow
-count is the only thing that shows a pin, and an invisible pin is a fault
-already paid for. The pin must stay visible; the form is his call.
+**Two mods for `reference/`, which he offered**: `cheatmenu` (a catalogue of
+effects *in use*, and a large interface with live `fixedgridbox` datamodels) and
+Advanced Auto Build's interface. Why, in [`CONVENTIONS.md`](CONVENTIONS.md).
 
 ### Two lessons that outlive the faults
 

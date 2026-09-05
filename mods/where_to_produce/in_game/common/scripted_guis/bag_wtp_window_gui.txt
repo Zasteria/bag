@@ -410,11 +410,11 @@ bag_wtp_edit_slot_load_3 = {
 
 # «Считать на конец игры», in the two ranking windows.
 #
-# **It re-ranks on the spot.** It was two buttons -- «Считать» and «Считать на
-# конец» -- and pressing one ran the pass; a switch that only changed what the
-# *next* press would answer would be a switch that looks broken. The window is
-# open, or this control is not on screen, so `bag_wtp_recompute_live` always
-# has something to redraw.
+# **It re-ranked on the spot for one build and he said not to.** 2026-09-06:
+# «снимаю галочку — жму пересчитать — получаю результат… я считаю так и должно
+# быть. Не нужно, чтобы план сразу менялся, когда я жму эту галочку.» So it sets
+# the flag and stops, exactly like the plan window's twin, and «Искать локации»
+# is the moment.
 bag_wtp_toggle_by_end = {
 	scope = country
 
@@ -430,21 +430,20 @@ bag_wtp_toggle_by_end = {
 		else = {
 			set_global_variable = { name = bag_wtp_rank_by_end value = 1 }
 		}
-		bag_wtp_recompute_live = yes
 	}
 }
 
-# «Только там, где здание вообще может стоять».
+# «Выбрать мою землю» — every location the country owns, into the selection.
 #
-# Off by default, and deliberately: the player plans for land he does not own
-# yet, and `can_build_building` answers for the location as it stands today --
-# an unowned location fails it. Leaving this off means the table ranks the
-# ground rather than the current border.
+# **It replaces the «только там, где здание вообще может стоять» tick**, which
+# he threw out on 2026-09-06 for three reasons at once: «её название не даёт
+# смысл того, что она действительно делает», it did not work, and «она вообще не
+# нужна». What he wanted in its place was this — a fifth way of choosing ground,
+# beside area, province, location and market.
 #
-# **And it re-ranks, because it changes which provinces are candidates at all.**
-# The twenty-fifth run had to close the window and open it again to see the
-# filter take.
-bag_wtp_toggle_buildable = {
+# It adds and never removes: «Очистить выбор» is the undo, and a button that
+# toggled would be unreadable on ground half of which is already picked.
+bag_wtp_pick_my_land = {
 	scope = country
 
 	is_shown = {
@@ -452,13 +451,10 @@ bag_wtp_toggle_buildable = {
 	}
 
 	effect = {
-		if = {
-			limit = { has_global_variable = bag_wtp_only_buildable }
-			remove_global_variable = bag_wtp_only_buildable
+		every_owned_location = {
+			bag_wtp_pick = yes
 		}
-		else = {
-			set_global_variable = { name = bag_wtp_only_buildable value = 1 }
-		}
+		bag_wtp_rebuild_browse = yes
 		bag_wtp_recompute_live = yes
 	}
 }
