@@ -75,236 +75,330 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest1 value = 0 }
 	set_global_variable = { name = bag_wtp_pth1 value = 0 }
+	remove_global_variable = bag_wtp_lock1
+	set_global_variable = { name = bag_wtp_esh1 value = 0 }
 	set_global_variable = { name = bag_wtp_pn2 value = 0 }
 	set_global_variable = { name = bag_wtp_pq2 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest2 value = 0 }
 	set_global_variable = { name = bag_wtp_pth2 value = 0 }
+	remove_global_variable = bag_wtp_lock2
+	set_global_variable = { name = bag_wtp_esh2 value = 0 }
 	set_global_variable = { name = bag_wtp_pn3 value = 0 }
 	set_global_variable = { name = bag_wtp_pq3 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest3 value = 0 }
 	set_global_variable = { name = bag_wtp_pth3 value = 0 }
+	remove_global_variable = bag_wtp_lock3
+	set_global_variable = { name = bag_wtp_esh3 value = 0 }
 	set_global_variable = { name = bag_wtp_pn4 value = 0 }
 	set_global_variable = { name = bag_wtp_pq4 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest4 value = 0 }
 	set_global_variable = { name = bag_wtp_pth4 value = 0 }
+	remove_global_variable = bag_wtp_lock4
+	set_global_variable = { name = bag_wtp_esh4 value = 0 }
 	set_global_variable = { name = bag_wtp_pn5 value = 0 }
 	set_global_variable = { name = bag_wtp_pq5 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest5 value = 0 }
 	set_global_variable = { name = bag_wtp_pth5 value = 0 }
+	remove_global_variable = bag_wtp_lock5
+	set_global_variable = { name = bag_wtp_esh5 value = 0 }
 	set_global_variable = { name = bag_wtp_pn6 value = 0 }
 	set_global_variable = { name = bag_wtp_pq6 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest6 value = 0 }
 	set_global_variable = { name = bag_wtp_pth6 value = 0 }
+	remove_global_variable = bag_wtp_lock6
+	set_global_variable = { name = bag_wtp_esh6 value = 0 }
 	set_global_variable = { name = bag_wtp_pn7 value = 0 }
 	set_global_variable = { name = bag_wtp_pq7 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest7 value = 0 }
 	set_global_variable = { name = bag_wtp_pth7 value = 0 }
+	remove_global_variable = bag_wtp_lock7
+	set_global_variable = { name = bag_wtp_esh7 value = 0 }
 	set_global_variable = { name = bag_wtp_pn8 value = 0 }
 	set_global_variable = { name = bag_wtp_pq8 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest8 value = 0 }
 	set_global_variable = { name = bag_wtp_pth8 value = 0 }
+	remove_global_variable = bag_wtp_lock8
+	set_global_variable = { name = bag_wtp_esh8 value = 0 }
 	set_global_variable = { name = bag_wtp_pn9 value = 0 }
 	set_global_variable = { name = bag_wtp_pq9 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest9 value = 0 }
 	set_global_variable = { name = bag_wtp_pth9 value = 0 }
+	remove_global_variable = bag_wtp_lock9
+	set_global_variable = { name = bag_wtp_esh9 value = 0 }
 	set_global_variable = { name = bag_wtp_pn10 value = 0 }
 	set_global_variable = { name = bag_wtp_pq10 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest10 value = 0 }
 	set_global_variable = { name = bag_wtp_pth10 value = 0 }
+	remove_global_variable = bag_wtp_lock10
+	set_global_variable = { name = bag_wtp_esh10 value = 0 }
 	set_global_variable = { name = bag_wtp_pn11 value = 0 }
 	set_global_variable = { name = bag_wtp_pq11 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest11 value = 0 }
 	set_global_variable = { name = bag_wtp_pth11 value = 0 }
+	remove_global_variable = bag_wtp_lock11
+	set_global_variable = { name = bag_wtp_esh11 value = 0 }
 	set_global_variable = { name = bag_wtp_pn12 value = 0 }
 	set_global_variable = { name = bag_wtp_pq12 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest12 value = 0 }
 	set_global_variable = { name = bag_wtp_pth12 value = 0 }
+	remove_global_variable = bag_wtp_lock12
+	set_global_variable = { name = bag_wtp_esh12 value = 0 }
 	set_global_variable = { name = bag_wtp_pn13 value = 0 }
 	set_global_variable = { name = bag_wtp_pq13 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest13 value = 0 }
 	set_global_variable = { name = bag_wtp_pth13 value = 0 }
+	remove_global_variable = bag_wtp_lock13
+	set_global_variable = { name = bag_wtp_esh13 value = 0 }
 	set_global_variable = { name = bag_wtp_pn14 value = 0 }
 	set_global_variable = { name = bag_wtp_pq14 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest14 value = 0 }
 	set_global_variable = { name = bag_wtp_pth14 value = 0 }
+	remove_global_variable = bag_wtp_lock14
+	set_global_variable = { name = bag_wtp_esh14 value = 0 }
 	set_global_variable = { name = bag_wtp_pn15 value = 0 }
 	set_global_variable = { name = bag_wtp_pq15 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest15 value = 0 }
 	set_global_variable = { name = bag_wtp_pth15 value = 0 }
+	remove_global_variable = bag_wtp_lock15
+	set_global_variable = { name = bag_wtp_esh15 value = 0 }
 	set_global_variable = { name = bag_wtp_pn16 value = 0 }
 	set_global_variable = { name = bag_wtp_pq16 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest16 value = 0 }
 	set_global_variable = { name = bag_wtp_pth16 value = 0 }
+	remove_global_variable = bag_wtp_lock16
+	set_global_variable = { name = bag_wtp_esh16 value = 0 }
 	set_global_variable = { name = bag_wtp_pn17 value = 0 }
 	set_global_variable = { name = bag_wtp_pq17 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest17 value = 0 }
 	set_global_variable = { name = bag_wtp_pth17 value = 0 }
+	remove_global_variable = bag_wtp_lock17
+	set_global_variable = { name = bag_wtp_esh17 value = 0 }
 	set_global_variable = { name = bag_wtp_pn18 value = 0 }
 	set_global_variable = { name = bag_wtp_pq18 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest18 value = 0 }
 	set_global_variable = { name = bag_wtp_pth18 value = 0 }
+	remove_global_variable = bag_wtp_lock18
+	set_global_variable = { name = bag_wtp_esh18 value = 0 }
 	set_global_variable = { name = bag_wtp_pn19 value = 0 }
 	set_global_variable = { name = bag_wtp_pq19 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest19 value = 0 }
 	set_global_variable = { name = bag_wtp_pth19 value = 0 }
+	remove_global_variable = bag_wtp_lock19
+	set_global_variable = { name = bag_wtp_esh19 value = 0 }
 	set_global_variable = { name = bag_wtp_pn20 value = 0 }
 	set_global_variable = { name = bag_wtp_pq20 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest20 value = 0 }
 	set_global_variable = { name = bag_wtp_pth20 value = 0 }
+	remove_global_variable = bag_wtp_lock20
+	set_global_variable = { name = bag_wtp_esh20 value = 0 }
 	set_global_variable = { name = bag_wtp_pn21 value = 0 }
 	set_global_variable = { name = bag_wtp_pq21 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest21 value = 0 }
 	set_global_variable = { name = bag_wtp_pth21 value = 0 }
+	remove_global_variable = bag_wtp_lock21
+	set_global_variable = { name = bag_wtp_esh21 value = 0 }
 	set_global_variable = { name = bag_wtp_pn22 value = 0 }
 	set_global_variable = { name = bag_wtp_pq22 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest22 value = 0 }
 	set_global_variable = { name = bag_wtp_pth22 value = 0 }
+	remove_global_variable = bag_wtp_lock22
+	set_global_variable = { name = bag_wtp_esh22 value = 0 }
 	set_global_variable = { name = bag_wtp_pn23 value = 0 }
 	set_global_variable = { name = bag_wtp_pq23 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest23 value = 0 }
 	set_global_variable = { name = bag_wtp_pth23 value = 0 }
+	remove_global_variable = bag_wtp_lock23
+	set_global_variable = { name = bag_wtp_esh23 value = 0 }
 	set_global_variable = { name = bag_wtp_pn24 value = 0 }
 	set_global_variable = { name = bag_wtp_pq24 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest24 value = 0 }
 	set_global_variable = { name = bag_wtp_pth24 value = 0 }
+	remove_global_variable = bag_wtp_lock24
+	set_global_variable = { name = bag_wtp_esh24 value = 0 }
 	set_global_variable = { name = bag_wtp_pn25 value = 0 }
 	set_global_variable = { name = bag_wtp_pq25 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest25 value = 0 }
 	set_global_variable = { name = bag_wtp_pth25 value = 0 }
+	remove_global_variable = bag_wtp_lock25
+	set_global_variable = { name = bag_wtp_esh25 value = 0 }
 	set_global_variable = { name = bag_wtp_pn26 value = 0 }
 	set_global_variable = { name = bag_wtp_pq26 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest26 value = 0 }
 	set_global_variable = { name = bag_wtp_pth26 value = 0 }
+	remove_global_variable = bag_wtp_lock26
+	set_global_variable = { name = bag_wtp_esh26 value = 0 }
 	set_global_variable = { name = bag_wtp_pn27 value = 0 }
 	set_global_variable = { name = bag_wtp_pq27 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest27 value = 0 }
 	set_global_variable = { name = bag_wtp_pth27 value = 0 }
+	remove_global_variable = bag_wtp_lock27
+	set_global_variable = { name = bag_wtp_esh27 value = 0 }
 	set_global_variable = { name = bag_wtp_pn28 value = 0 }
 	set_global_variable = { name = bag_wtp_pq28 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest28 value = 0 }
 	set_global_variable = { name = bag_wtp_pth28 value = 0 }
+	remove_global_variable = bag_wtp_lock28
+	set_global_variable = { name = bag_wtp_esh28 value = 0 }
 	set_global_variable = { name = bag_wtp_pn29 value = 0 }
 	set_global_variable = { name = bag_wtp_pq29 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest29 value = 0 }
 	set_global_variable = { name = bag_wtp_pth29 value = 0 }
+	remove_global_variable = bag_wtp_lock29
+	set_global_variable = { name = bag_wtp_esh29 value = 0 }
 	set_global_variable = { name = bag_wtp_pn30 value = 0 }
 	set_global_variable = { name = bag_wtp_pq30 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest30 value = 0 }
 	set_global_variable = { name = bag_wtp_pth30 value = 0 }
+	remove_global_variable = bag_wtp_lock30
+	set_global_variable = { name = bag_wtp_esh30 value = 0 }
 	set_global_variable = { name = bag_wtp_pn31 value = 0 }
 	set_global_variable = { name = bag_wtp_pq31 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest31 value = 0 }
 	set_global_variable = { name = bag_wtp_pth31 value = 0 }
+	remove_global_variable = bag_wtp_lock31
+	set_global_variable = { name = bag_wtp_esh31 value = 0 }
 	set_global_variable = { name = bag_wtp_pn32 value = 0 }
 	set_global_variable = { name = bag_wtp_pq32 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest32 value = 0 }
 	set_global_variable = { name = bag_wtp_pth32 value = 0 }
+	remove_global_variable = bag_wtp_lock32
+	set_global_variable = { name = bag_wtp_esh32 value = 0 }
 	set_global_variable = { name = bag_wtp_pn33 value = 0 }
 	set_global_variable = { name = bag_wtp_pq33 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest33 value = 0 }
 	set_global_variable = { name = bag_wtp_pth33 value = 0 }
+	remove_global_variable = bag_wtp_lock33
+	set_global_variable = { name = bag_wtp_esh33 value = 0 }
 	set_global_variable = { name = bag_wtp_pn34 value = 0 }
 	set_global_variable = { name = bag_wtp_pq34 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest34 value = 0 }
 	set_global_variable = { name = bag_wtp_pth34 value = 0 }
+	remove_global_variable = bag_wtp_lock34
+	set_global_variable = { name = bag_wtp_esh34 value = 0 }
 	set_global_variable = { name = bag_wtp_pn35 value = 0 }
 	set_global_variable = { name = bag_wtp_pq35 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest35 value = 0 }
 	set_global_variable = { name = bag_wtp_pth35 value = 0 }
+	remove_global_variable = bag_wtp_lock35
+	set_global_variable = { name = bag_wtp_esh35 value = 0 }
 	set_global_variable = { name = bag_wtp_pn36 value = 0 }
 	set_global_variable = { name = bag_wtp_pq36 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest36 value = 0 }
 	set_global_variable = { name = bag_wtp_pth36 value = 0 }
+	remove_global_variable = bag_wtp_lock36
+	set_global_variable = { name = bag_wtp_esh36 value = 0 }
 	set_global_variable = { name = bag_wtp_pn37 value = 0 }
 	set_global_variable = { name = bag_wtp_pq37 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest37 value = 0 }
 	set_global_variable = { name = bag_wtp_pth37 value = 0 }
+	remove_global_variable = bag_wtp_lock37
+	set_global_variable = { name = bag_wtp_esh37 value = 0 }
 	set_global_variable = { name = bag_wtp_pn38 value = 0 }
 	set_global_variable = { name = bag_wtp_pq38 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest38 value = 0 }
 	set_global_variable = { name = bag_wtp_pth38 value = 0 }
+	remove_global_variable = bag_wtp_lock38
+	set_global_variable = { name = bag_wtp_esh38 value = 0 }
 	set_global_variable = { name = bag_wtp_pn39 value = 0 }
 	set_global_variable = { name = bag_wtp_pq39 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest39 value = 0 }
 	set_global_variable = { name = bag_wtp_pth39 value = 0 }
+	remove_global_variable = bag_wtp_lock39
+	set_global_variable = { name = bag_wtp_esh39 value = 0 }
 	set_global_variable = { name = bag_wtp_pn40 value = 0 }
 	set_global_variable = { name = bag_wtp_pq40 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest40 value = 0 }
 	set_global_variable = { name = bag_wtp_pth40 value = 0 }
+	remove_global_variable = bag_wtp_lock40
+	set_global_variable = { name = bag_wtp_esh40 value = 0 }
 	set_global_variable = { name = bag_wtp_pn41 value = 0 }
 	set_global_variable = { name = bag_wtp_pq41 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest41 value = 0 }
 	set_global_variable = { name = bag_wtp_pth41 value = 0 }
+	remove_global_variable = bag_wtp_lock41
+	set_global_variable = { name = bag_wtp_esh41 value = 0 }
 	set_global_variable = { name = bag_wtp_pn42 value = 0 }
 	set_global_variable = { name = bag_wtp_pq42 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest42 value = 0 }
 	set_global_variable = { name = bag_wtp_pth42 value = 0 }
+	remove_global_variable = bag_wtp_lock42
+	set_global_variable = { name = bag_wtp_esh42 value = 0 }
 	set_global_variable = { name = bag_wtp_pn43 value = 0 }
 	set_global_variable = { name = bag_wtp_pq43 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest43 value = 0 }
 	set_global_variable = { name = bag_wtp_pth43 value = 0 }
+	remove_global_variable = bag_wtp_lock43
+	set_global_variable = { name = bag_wtp_esh43 value = 0 }
 	set_global_variable = { name = bag_wtp_pn44 value = 0 }
 	set_global_variable = { name = bag_wtp_pq44 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest44 value = 0 }
 	set_global_variable = { name = bag_wtp_pth44 value = 0 }
+	remove_global_variable = bag_wtp_lock44
+	set_global_variable = { name = bag_wtp_esh44 value = 0 }
 	set_global_variable = { name = bag_wtp_pn45 value = 0 }
 	set_global_variable = { name = bag_wtp_pq45 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest45 value = 0 }
 	set_global_variable = { name = bag_wtp_pth45 value = 0 }
+	remove_global_variable = bag_wtp_lock45
+	set_global_variable = { name = bag_wtp_esh45 value = 0 }
 	set_global_variable = { name = bag_wtp_pn46 value = 0 }
 	set_global_variable = { name = bag_wtp_pq46 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest46 value = 0 }
 	set_global_variable = { name = bag_wtp_pth46 value = 0 }
+	remove_global_variable = bag_wtp_lock46
+	set_global_variable = { name = bag_wtp_esh46 value = 0 }
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
 	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
 	set_global_variable = { name = bag_wtp_pbest47 value = 0 }
 	set_global_variable = { name = bag_wtp_pth47 value = 0 }
+	remove_global_variable = bag_wtp_lock47
+	set_global_variable = { name = bag_wtp_esh47 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven1 value = 0 }
 	set_global_variable = { name = bag_wtp_rn1 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven2 value = 0 }

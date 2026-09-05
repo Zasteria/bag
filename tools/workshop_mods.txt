@@ -21,3 +21,5 @@
 3668193813  national_destinies    # nd_ru translates it; its English file moving is what breaks the generator
 3781437488  auto_build            # auto_build_ru translates it
 3784988919  glorp_ui_small_fix     # Сравнение
+3600272327  cheat_menu_pro         # ref feat
+3680208976  cheat_menu_pro_afterburner # addon cheat menu pro

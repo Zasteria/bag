@@ -36,22 +36,58 @@ rules each step implements are
 [`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
 
 0. **`tools/code.py`** — done 2026-09-04, no run needed.
-1. **The editor's window: the press line, the width, the frame.** *Do this
-   first: it is the instrument the next two are checked with.*
-2. **Share, `_lock<n>`, and the «не нужен» flag.**
-3. **Even eviction on «+1»** — two passes, never a packed number.
+1. **The editor's window: the press line, the width, the frame** — **done and
+   confirmed in game 2026-09-05.** All three lines read back; the windows are as
+   wide as their content. `allow_outside` **stays**: the close button hangs
+   outside on purpose, exactly as vanilla's does.
+2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
+   2026-09-06.** One change was reverted with it: the flag had been taught to
+   hold `_pq<n>` at 1 in the global plan, and that crosses a line —
+   **pins, flags, the share and the star belong to the editor window alone, and
+   «План» gives a fresh plan reading none of them.**
+2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
+   shortfall but *where* by the accident of press order. Scope is strictly the
+   buildings it placed and their own locations, so no count changes. Not built.
+2в. **Rebuild the mod's menu** — his ask, 2026-09-06, and he called it urgent.
+   Three tabs (Земля, Расчёты, Техническая), **one «open» button per function on
+   the mod page** and every setting moved inside its own window; the editor gets
+   its own button beside the plan's rather than sitting inside it. Full spec:
+   [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
+   **It is a copy of the editor's picker, not new work**: the whole CMM tick
+   machinery exists to set one number, `bag_wtp_good_index`, and a window can
+   set it directly.
+2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
+   что там дырки». The way out is that a good is its own scope (`every_goods`,
+   `Goods.MakeScope`), so the count can sit on it and the picker becomes a
+   datamodel — `research/interface.md` has the order of checks.
+3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
+   the per-good shortfall step 2 built, is the marker it needs; it is computed
+   already and nothing on the «+1» side reads it yet.
 4. **Provinces fold in the two plan windows.**
 5. **Charters: «+1»/«−1» and whole-bundle eviction.**
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
 
-### Five silent faults, and all five are written down
+### Waiting on him, cheap
 
-Nothing in any log for any of them, and **the table that names them is
-[`pitfalls/interface.md`](pitfalls/interface.md)** — it is not repeated here.
-The lesson that outlives them: **instrument before the third theory**
-(`pitfalls/diagnosis.md`).
+**Two mods for `reference/`, which he offered and which are worth taking**:
+`cheatmenu` (a catalogue of effects *in use*, and a large interface with live
+`fixedgridbox` datamodels — exactly what step 2б needs) and a proper look at
+Advanced Auto Build's interface. Why, in
+[`CONVENTIONS.md`](CONVENTIONS.md).
+
+**And one thing to settle with him, not for him:** he does not want coloured
+markers — «не нужны всякие там жёлтые, красные буквы цифры» — while the yellow
+count is the only thing that shows a pin, and an invisible pin is a fault
+already paid for. The pin must stay visible; the form is his call.
+
+### Two lessons that outlive the faults
+
+**Instrument before the third theory**, and **state the player cannot see or
+clear is the mod's fault** — both in [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md).
+The five silent GUI faults are named in
+[`pitfalls/interface.md`](pitfalls/interface.md).
 
 ### Answered elsewhere, not here
 
@@ -66,37 +102,15 @@ what this mod has already cost him.
 
 ## The job: `mods.bat`, and one run to confirm it
 
-**`glorpui_hints` is finished and confirmed** — the splice passed in game on
-2026-08-30 (`TESTLOG.md`). It only passed because the owner installed the build
-by hand: `mods.bat` printed `ok` twice and the game went on loading a five-day
--old copy, and workshop mods were never refreshed either.
-
-**Both halves are repaired, and neither has been run on his machine.** That is
-the whole of the next job: one pass through the menu, and read what it says.
-
-**Пункт 1, the workshop.** A failed steamcmd run looked exactly like a
-successful one — it asked only whether the item's folder existed — so an
-unfinished login copied last week's files over the workshop folder. The folder is
-fingerprinted before and after now, the exit code read, and **only a mod whose
-copy actually changed is copied onward**.
-
-**Пункт 4, our own mods.** The copy loop was sound; nothing checked that it
-landed. The install is **read back off disk** now, and the screen names the
-branch and commit installed.
-
-**And `mods.bat check` answers it without the menu**, printing each of our mods
-against the game's folder and the repository's commit.
+**Both halves are repaired and neither has been run on his machine.** A failed
+steamcmd run looked exactly like a successful one, and our own install was never
+read back off disk; both are fixed, fingerprinted and reported now. The whole
+diagnosis is in
+[`archive/mods_bat_repair.md`](archive/mods_bat_repair.md).
 
 **What to ask him for:** `mods.bat → 1`, then `→ 4`, then `mods.bat check`, and
-the output of all three. If a mod still reads «отличается» after installing,
-the message names the folder. The logs from whatever run follows go
-through `python3 tools/which_build.py <logs folder>` first, as always now. No
-menu entry runs `tools/extract_game_files.py` yet, and which should is open.
-
-**What is settled about `where_to_produce` and not in `plan_gaps.md`** — the
-single-good side's known faults, the scarce-pass optimisation measured and left
-unbuilt, and where the diagnosis lives — is in
-[`archive/wtp_settled_asides.md`](archive/wtp_settled_asides.md).
+the output of all three. Logs from whatever run follows go through
+`python3 tools/which_build.py <logs folder>` first, as always now.
 
 ## Then `glorpui_hints` goes out
 

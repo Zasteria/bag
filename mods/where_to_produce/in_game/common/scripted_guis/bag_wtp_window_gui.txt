@@ -282,6 +282,20 @@ bag_wtp_close_edit_window = {
 # same effect is one way too many when the question is «did the press arrive».
 
 # The changes list, in a window of its own.
+# Release every pin the presses left, leaving the plan itself alone.
+bag_wtp_edit_unpin = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_unpin_all = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
 bag_wtp_open_changes_window = {
 	scope = country
 

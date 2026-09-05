@@ -276,3 +276,38 @@ confirmed; the ranking by output, the two-line row and the pickers moving into
 that window are not. See [`CLAUDE.md`](CLAUDE.md). See
 [`CLAUDE.md`](CLAUDE.md) for what the next run has to answer and what is known
 to be unproven.
+
+## Права
+
+**Urban rights** are two lists on the Goods tab and a window of their own; every
+town gets one and its whole bundle goes up — **108 rooms of 192 on a small
+ground**. **The charter ladder raises its ceiling one town at a time, running
+every band at each height**; a ceiling alone spreads nothing. **A right's gate is its own `potential`, never `has_advance`**, and
+**an exclusion between two rights is a town's rule, not a country's**.
+[`town_rights.md`](../../docs/investigations/town_rights.md).
+
+## Формула плана и доля
+
+**The plan is an optimisation with a covering constraint** — maximise the bonus
+captured, subject to every good the ground can produce being produced. **Read
+[`plan_formula.md`](../../docs/investigations/plan_formula.md) before changing any
+of it.** The currency, the **four ladders of five descending bands** and the order
+between them are the design; the last band is each good's own best.
+
+**A good's share is the ground divided by the goods, less one per RGO; a
+charter's buildings are spent out of it.**
+
+## Из брифа, вынесено по бюджету
+
+**A recipe the province mostly cannot feed is no answer to the ranking** —
+`generate.fed_floor` — but **never gate the plan on it**. **The bonus counts
+RGOs only**; **one method per slot**:
+[`production_ladder.md`](../../docs/investigations/production_ladder.md).
+**An entry is a building and a location holds one of each**, and every condition
+is a location variable — **a `province_definition` holds none**
+([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)). **A row draws `_row_goods`, not
+`_plan_goods`**, so its order never moves.
+**A preference is an edit, not a term in the objective.** `bag_wtp_edit_*` moves
+one building a press, where it costs least; a good keeps its last building and a
+charter's go whole or not at all. Nothing is evicted while a room is free, nor left
+evicted if the placement refuses, and **`_edit_place_*` asks the cap itself**.

@@ -76,8 +76,12 @@ types BagWtpPlanTypes {
 		#
 		# **One word and no icon.** The first build drew the game's rank icon in
 		# the button, which of course never changed however the override was set,
-		# and coloured the word with `§Y...§!`, which this widget prints
-		# literally. The location's own rank icon is beside its name instead,
+		# and coloured the word with `§Y...§!`, which prints literally -- **not a
+		# quirk of this widget, which is how this note read until 2026-09-05:**
+		# `§` is the previous engine's markup and this game uses `#Y ...#!`
+		# everywhere. Left here as a comment, the rule was re-broken 100 times
+		# over; it is `check_script.py` -> `localization_markup` now.
+		# The location's own rank icon is beside its name instead,
 		# where it says what the game thinks rather than what the plan does.
 		widget = {
 			size = { 92 42 }
@@ -265,13 +269,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1180 720 }
+	size = { 1640 720 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_plan_open').IsSet]"
 
 	widget = {
-		size = { 1180 720 }
+		size = { 1640 720 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -305,7 +309,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 80 }
+					maximumsize = { 1590 80 }
 					align = center
 					text = "bag_wtp_plan_window_desc"
 				}
@@ -571,7 +575,7 @@ window = {
 				# (`docs/pitfalls/interface.md`).
 				text_single = {
 					size = { 1130 22 }
-					maximumsize = { 1130 22 }
+					maximumsize = { 1590 22 }
 					autoresize = no
 					align = left|vcenter
 					fontsize = 13
@@ -583,7 +587,7 @@ window = {
 				text_multi = {
 					layoutpolicy_horizontal = expanding
 					autoresize = yes
-					maximumsize = { 1130 60 }
+					maximumsize = { 1590 60 }
 					align = center
 					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_plan_results')))]"
 					text = "bag_wtp_plan_window_empty"

@@ -15,12 +15,20 @@ answering one question about `_edit_drop`.
 
 The generators are already cut the right way — a function per generated file,
 and every emitted script name carries a comment above it — so the index is
-mechanical. Two kinds of entry are indexed:
+mechanical. Four kinds of entry are indexed:
 
   * a Python `def`, which is what writes a file;
   * an emitted script name, `{MOD_ID}_<name> = {{` inside an f-string, which is
     what the game calls. This is the one a session usually wants, because an
-    error log names the script and never the generator.
+    error log names the script and never the generator;
+  * a `window` or a `type` in a hand-written `.gui`;
+  * **a comment block in a hand-written `.gui`**, which is where that half of
+    the repository keeps what its runs cost. A window is four thousand tokens
+    and nobody reads one to find a rule; the paragraph above the widget is the
+    rule, and until 2026-09-05 nothing indexed it. `bag_wtp_plan_window.gui`
+    had carried «coloured the word with `§Y...§!`, which this widget prints
+    literally» since the first build, and the session that needed it put `§`
+    into a hundred keys instead.
 
 Sizes are estimated the same way `kb.py` estimates them, and mean the same
 thing: what asking for that block will cost.
@@ -35,15 +43,35 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# The generators, and nothing else. A mod's `in_game/` is generated output —
-# greppable, never worth indexing — and this file's own siblings are tools a
-# session reads whole or not at all.
-SOURCES = ("mods/*/tools/*.py",)
+# The generators **and the hand-written interface files**, which is the half this
+# index used to miss.
+#
+# The line here read «a mod's `in_game/` is generated output — greppable, never
+# worth indexing», and that was wrong about the windows: five of the six `.gui`
+# in `where_to_produce` are written by hand and carry 516 lines of comment
+# between them, every line of it something a run paid for. **Nothing indexed
+# them.** `kb.py` covers `docs/`, this covered the generators, and the rules
+# living in a window's comments were reachable only by knowing they were there.
+#
+# It cost a whole round trip on 2026-09-05. `bag_wtp_plan_window.gui` had
+# carried, since the first build, «coloured the word with `§Y...§!`, which this
+# widget prints literally» — correct, and invisible to every tool. The same
+# session put `§` into a hundred keys.
+#
+# Generated files are skipped by their own banner, so a file that says it was
+# generated is never indexed twice.
+SOURCES = ("mods/*/tools/*.py", "mods/*/in_game/gui/*.gui")
+
+GENERATED = "Do not edit by hand"
 
 DEF = re.compile(r"^def\s+(\w+)")
 # `{MOD_ID}_edit_drop = {{` and friends, at the start of a line inside an
 # f-string. The trailing brace is doubled because the generator is writing one.
 EMIT = re.compile(r"^\{MOD_ID\}_(\w+)\s*=\s*\{\{")
+# A window is indexed by the `name` it registers itself under, because that is
+# what `scripted_widgets/` and every error names. A `type` by its own name.
+GUI_TYPE = re.compile(r"^\s*type\s+(\w+)\s*=")
+GUI_WINDOW = re.compile(r'^\s*name\s*=\s*"([^"]+)"')
 
 
 def estimate(text: str) -> int:
@@ -72,8 +100,21 @@ class Block:
 def generators() -> list[Path]:
     seen: list[Path] = []
     for pattern in SOURCES:
-        seen.extend(sorted(ROOT.glob(pattern)))
+        for path in sorted(ROOT.glob(pattern)):
+            if GENERATED in path.read_text(encoding="utf-8-sig")[:400]:
+                continue
+            seen.append(path)
     return seen
+
+
+def _slug(note: str) -> str:
+    """A short handle for a comment block, from its own opening words.
+
+    Search scores the name first and the note second, so the handle only has to
+    be recognisable in a list; the sentence beside it is what actually matches.
+    """
+    words = re.findall(r"[\w`]+", note.strip("* "))[:4]
+    return "_".join(w.strip("`").lower() for w in words if w) or "note"
 
 
 def note_above(lines: list[str], i: int) -> str:
@@ -115,10 +156,48 @@ def docstring_of(lines: list[str], i: int) -> str:
 def index() -> list[Block]:
     blocks: list[Block] = []
     for path in generators():
-        lines = path.read_text(encoding="utf-8").splitlines()
+        lines = path.read_text(encoding="utf-8-sig").splitlines()
         here: list[Block] = []
         for i, line in enumerate(lines):
-            if m := DEF.match(line):
+            if path.suffix == ".gui":
+                # **A comment block is the unit worth indexing here**, not the
+                # window. A window is one four-thousand-token block: knowing it
+                # exists helps nobody. What a session needs is the paragraph
+                # that says *why* a widget is shaped the way it is, and those
+                # are exactly the notes runs were spent on. The rule that cost
+                # 2026-09-05 was one of them, sitting unreachable inside a
+                # `window` nobody could afford to read.
+                if (line.lstrip().startswith("#")
+                        and (i == 0 or not lines[i - 1].lstrip().startswith("#"))):
+                    run = []
+                    j = i
+                    while j < len(lines) and lines[j].lstrip().startswith("#"):
+                        text = lines[j].lstrip().lstrip("#").strip()
+                        if text and not set(text) <= set("-=# "):
+                            run.append(text)
+                        j += 1
+                    if len(run) >= 2:
+                        note = " ".join(run)
+                        here.append(Block(path, i + 1, "note",
+                                          _slug(note), note))
+                    continue
+                # A window's own `name` sits a line or two inside its block, so
+                # the comment to quote is the one above the `window = {`.
+                if m := GUI_WINDOW.match(line):
+                    # Walk back to the `window = {` line: the comment worth
+                    # quoting stands above it, not above the `name`.
+                    start = i
+                    while start > 0 and not lines[start].lstrip().startswith("window"):
+                        start -= 1
+                        if i - start > 4:
+                            start = i
+                            break
+                    here.append(Block(path, i + 1, "window", m.group(1),
+                                      note_above(lines, start)))
+                elif m := GUI_TYPE.match(line):
+                    here.append(Block(path, i + 1, "type", m.group(1),
+                                      note_above(lines, i)))
+            elif m := DEF.match(line):
                 here.append(Block(path, i + 1, "def", m.group(1), docstring_of(lines, i)))
             elif m := EMIT.match(line):
                 here.append(Block(path, i + 1, "script", m.group(1), note_above(lines, i)))
@@ -141,9 +220,15 @@ def score(block: Block, terms: list[str]) -> tuple[int, int]:
 
 
 def render(block: Block) -> str:
-    kind = "  " if block.kind == "def" else "· "
+    kind = {"def": "  ", "script": "· ", "window": "▣ ", "type": "▢ ",
+            "note": "¶ "}.get(block.kind, "· ")
+    # **Scored whole, shown short.** The note is what a search actually matches
+    # -- a rule is remembered by its middle, not its opening words -- so it is
+    # kept entire on the block and cut only here. Truncating it at index time
+    # hid the `§` rule from the very search written to find it.
+    head = block.note if len(block.note) <= 150 else block.note[:147] + "…"
     return f"{block.where:<46} ~{block.cost()}t  {kind}{block.name}" + (
-        f"  — {block.note}" if block.note else "")
+        f"  — {head}" if head else "")
 
 
 def search(terms: list[str], limit: int) -> int:
@@ -179,13 +264,25 @@ def show(where: str) -> int:
 
 
 def show_map() -> int:
+    """Every block, named and priced — **and the notes cut short here.**
+
+    `--map` is the last resort and has to stay affordable. Indexing the
+    hand-written windows added a hundred comment blocks whose whole text is
+    searchable, and printing all of it took the map from a page to seventeen
+    thousand tokens. The map's job is to say what exists and what it costs; the
+    sentence that explains a block is what `code.py <words>` prints.
+    """
     current = None
     for b in index():
         path = b.path.relative_to(ROOT).as_posix()
         if path != current:
             current = path
             print(f"\n{path}")
-        print("  " + render(b))
+        head = b.note if len(b.note) <= 60 else b.note[:57] + "…"
+        kind = {"def": "  ", "script": "· ", "window": "▣ ", "type": "▢ ",
+                "note": "¶ "}.get(b.kind, "· ")
+        print(f"  {b.where:<46} ~{b.cost()}t  {kind}{b.name}"
+              + (f"  — {head}" if head else ""))
     return 0
 
 

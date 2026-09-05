@@ -1,4 +1,4 @@
-# Working in this repository
+﻿# Working in this repository
 
 Mods for Europa Universalis V. Six of them, in [`mods/`](mods/), plus the game's
 own files to grep and the tooling that rebuilds everything.
@@ -12,15 +12,16 @@ on every turn afterwards, because the context is resent each time. So:
     python3 tools/kb.py <words>            which section answers this, and what it costs
     python3 tools/kb.py --show FILE:LINE   read exactly that section
 
-**The code is larger than the documents — ask it the same way.** One
-`generate.py` is 85 000 tokens:
+**The code is larger than the documents — ask it the same way**, and that
+includes **the hand-written windows**: `code.py` indexes the comments in
+`in_game/gui/*.gui`, where the interface keeps what its runs cost.
 
-    python3 tools/code.py <words>          which effect or function, and its cost
+    python3 tools/code.py <words>          which effect, window or rule, and its cost
     python3 tools/code.py --show FILE:LINE read exactly that block
 
 **Open a whole document or function only when the index says the answer fills
-it.** Both take `--map`, which lists everything and costs ~1 400 tokens: a last
-resort, not a first move. `grep -rn` over `reference/` beats reading a game file.
+it.** `--map` is **not cheap — 4 000 tokens for `kb.py`, 13 000 for `code.py`**:
+a last resort. `grep -rn` over `reference/` beats reading a game file.
 
 ## Start of a task
 
@@ -57,25 +58,22 @@ for the reference tree and the rebuild loop,
   one is owed, name the ground, the presses and what a right answer looks like;
   «протестируй» is not a check.
 - **A CMM macro called with an argument CMF does not declare fails silently**
-  and takes the rest of its effect with it. One `step` instead of `step_value`
-  cost a full round trip. `python3 tools/check_cmm.py mods/<mod>/in_game/common`
-  after touching any CMM call.
+  and takes the rest of its effect with it. `python3 tools/check_cmm.py
+  mods/<mod>/in_game/common` after touching any CMM call.
 - **A cause you cannot name is not a cause. Do not guess it — measure it.**
   The owner, 2026-09-01, after four theories about one symptom, three fixes built
   on them and four of his runs spent: «гадать НИКОГДА не нужно… Зонды, счётчики,
   проверки». Build the probe first — a counter per stage, a `cmf_log`, a number
   on the window — and let one run say where the thing actually breaks.
 - **Effects that merely do nothing log nothing.** `error.log` names the file and
-  line for GUI and script failures; an effect that never runs is invisible. Add
-  a `cmf_log` and have the player look, rather than guessing twice.
+  line for GUI and script failures; an effect that never runs is invisible.
 - **A `building_type` filter receives `root` and nothing else**, whatever
-  vanilla's comment says. Reading `scope:target` logs an error every pass.
+  vanilla's comment says.
 - **A `customizable_localization` cannot be overridden.** First definition wins;
   later ones are dropped with `gamedatabase.h: Duplicated key`. The way round
   another mod's rule is to take over the localization key it prints.
 - **Square brackets in a localization value are data function syntax**, so a
-  plain `[debug]` in a label renders as `ERROR:`. The same syntax is what lets a
-  row label read a global variable back.
+  plain `[debug]` renders as `ERROR:` — one key includes another as `$key$`.
 - **A CMF action bar element is drawn from localization**: `_icon` takes a
   texticon like `@good!`, and `_color` must name one of CMF's palette entries or
   the button is invisible in the bottom bars.
@@ -86,12 +84,13 @@ for the reference tree and the rebuild loop,
 
     python3 tools/api.py set_subsidized      an effect, trigger, target or GUI function
     python3 tools/api.py --find subsid       substring, across every dump
+    python3 tools/api.py --says «Пересчитать» which key holds this text, and what draws it
+    python3 tools/api.py --where checkbox    every file naming it
 
-**Never conclude from "no mod here uses it" that the engine lacks it** — that
-mistake cost a redesign. The dumps say what exists, not how it behaves; for
-behaviour verify against `reference/`, never from memory — **the owner's
-included**, at his own word, 2026-09-02: «я работаю из условностей
-воспоминаний». Say plainly when something is unproven.
+**Never state what the player sees, or what the game lacks, from memory** —
+both cost a round trip on 2026-09-05. Every `api.py` answer ends with what it
+did **not** search: `reference/` is partial. **An empty result is a fact about
+the tree, never about the game.** Say plainly when something is unproven.
 
 Do not hardcode a reference folder's name or trust a version written in prose:
 `python3 tools/refs.py`.

@@ -133,6 +133,31 @@ bag_wtp_edit_last_label = {
 		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_norefill = 1 }
 		localization_key = bag_wtp_edit_last_empty
 	}
+	# **What the press actually did, and this is the instrument.** «Сделано» is
+	# true and useless: it cannot tell a «+1» that landed in a free room from one
+	# that took a building off another good, and every rule from here on is a rule
+	# about which of those happened. The four branches below name the good, the
+	# location and the good that moved, off the scopes the walk parked.
+	#
+	# `_edit_last_done` stays as the last of them. Nothing should reach it -- a
+	# finished press is op 1 or op 2 -- and if the window ever prints it, the
+	# press did something these branches do not describe.
+	text = {
+		trigger = {
+			global_var:bag_wtp_edit_done = 1
+			global_var:bag_wtp_edit_op = 1
+			global_var:bag_wtp_edit_evicted = 1
+		}
+		localization_key = bag_wtp_edit_last_add_over
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 1 }
+		localization_key = bag_wtp_edit_last_add_free
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 2 }
+		localization_key = bag_wtp_edit_last_drop_refill
+	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 }
 		localization_key = bag_wtp_edit_last_done

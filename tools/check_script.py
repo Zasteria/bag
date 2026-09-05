@@ -534,6 +534,266 @@ def scope_mixed_variables(root: Path) -> list[str]:
     return found
 
 
+def localization_markup(root: Path) -> list[str]:
+    """Markup and glyphs in a localization value that this game cannot draw.
+
+    **Two of these have already reached his screen.** A `✔` came back an empty
+    box, and every `§Y…§!` in the mod was the previous engine's colour markup —
+    100 of them, including the yellow that marks a pinned good. Neither is an
+    error: the game draws the box, or prints the marker literally, and the run
+    that finds it is his.
+
+    The rule is measured, not guessed. **This game's own Russian localization
+    uses `#Y …#!` 660 times and `#!` 37 259 times, and contains no `§` at all**;
+    it also contains `×` and `−`, which is exactly why those two render in the
+    picker's buttons. So: `§` is always wrong, and a character the game never
+    uses anywhere is a gamble that costs a round trip.
+
+    **A checkmark is not unavailable — it is a texture.** The game's own context
+    menus draw one with `gfx/interface/buttons/flats/accept.dds`, its checkboxes
+    with `gfx/interface/buttons/checkbox_round.dds` and `frame_grid = { 2 1 }`,
+    and any mod may declare a `texticon` over a texture the way Glorp UI and
+    Construction Manager both do. Reach for one of those rather than a third
+    character.
+    """
+    GLYPHS = "✔✓√☑✗✘☒●■▪◆★☆♦♣♠♥•‣▶◀"
+    found = []
+    for path in sorted(root.rglob("main_menu/localization/*/*.yml")):
+        for number, line in enumerate(
+                path.read_text(encoding="utf-8-sig").split("\n"), start=1):
+            if "§" in line:
+                found.append(
+                    f"{path.relative_to(REPO)}:{number}: `§` is the previous "
+                    f"engine's markup — this game uses `#Y …#!` (660 times in "
+                    f"its own Russian localization, and not one `§`), so this "
+                    f"prints literally; docs/pitfalls/localization.md")
+            bad = [c for c in GLYPHS if c in line]
+            if bad:
+                found.append(
+                    f"{path.relative_to(REPO)}:{number}: {''.join(bad)} — the "
+                    f"game's own localization never uses these and `✔` came "
+                    f"back an empty box in game. A check or a cross is a "
+                    f"texture (`buttons/flats/accept.dds`) or a widget, not a "
+                    f"character; docs/pitfalls/localization.md")
+    return found
+
+
+def overflowing_windows(root: Path) -> list[str]:
+    """A window whose widest row is wider than the box the window declares.
+
+    **This is the fault the owner reported as «шапка не растягивается».** She
+    does not lag: the header, the background and the close button are the only
+    things still drawn at the declared size, and everything else has grown past
+    it. `allow_outside = yes` on the window's background is what lets the rest
+    spill -- and it cannot simply be removed, because the close button is placed
+    at `parentanchor = right` with `position = { -5 5 }` and hangs 35px outside
+    the frame *on purpose*, exactly as the game's own `lateralview_topbuttons`
+    does. So the box has to grow to the content instead.
+
+    It had drifted five times before anyone measured it. `bag_wtp_plan_window`
+    declared 1180 and its button row summed to 1524 -- four 128px buttons, a
+    190px readout, three 150px buttons, a 300px save block and eight 8px gaps --
+    which is the third the screenshot showed. Nothing logs any of this: a child
+    drawn outside its parent is not an error, it is a layout.
+
+    So the number is checked rather than remembered. **The measurement is a
+    lower bound**: a child whose width comes from a type defined elsewhere
+    counts as zero, so a row can be wider than this says and never narrower. A
+    box that clears the bound can still be too small; a box that does not is
+    certainly too small, and that is the half worth failing on.
+
+    `SLACK` is what the window's own margin and its scrollbar are allowed to
+    take. `window_margin_alt` is a game template this repository has no copy of,
+    so the figure is an allowance and not a measurement -- and it is deliberately
+    generous, because this check exists to catch a row a third too wide, not to
+    argue about twenty pixels.
+    """
+    SLACK = 60
+    gui = root / "in_game/gui"
+    if not gui.is_dir():
+        return []
+    types = _gui_types(gui)
+    found = []
+    for path in sorted(gui.rglob("*.gui")):
+        text = _gui_text(path)
+        for match in re.finditer(r"^window\s*=\s*\{", text, re.M):
+            body = text[match.end():_brace_end(text, match.end() - 1)]
+            name = re.search(r'name\s*=\s*"([^"]+)"', body)
+            box = re.search(r"size\s*=\s*\{\s*(\d+)\s+(\d+)", body)
+            if not box:
+                continue
+            width = int(box.group(1))
+            # **The same number is typed twice in every one of these windows**:
+            # once on the window and once on the background widget that carries
+            # `bg_window_default_alt`. They are the frame and the thing drawn in
+            # it, and when they disagree the window is one size and its
+            # background another -- which reads on screen as the header being
+            # the wrong width, the very complaint this check was written for.
+            sizes = [int(m.group(1)) for m in
+                     re.finditer(r"size\s*=\s*\{\s*(\d+)\s+\d+\s*\}", body)]
+            inner = re.search(r"widget\s*=\s*\{[^{}]*size\s*=\s*\{\s*(\d+)\s+\d+\s*\}"
+                              r"[^{}]*using\s*=\s*bg_window_", body)
+            if inner and int(inner.group(1)) != width:
+                line = text[:match.end()].count("\n") + 1
+                found.append(
+                    f"{path.relative_to(REPO)}:{line}: "
+                    f"{name.group(1) if name else 'window'} is "
+                    f"size = {{ {width} ... }} but its background widget is "
+                    f"{{ {inner.group(1)} ... }} — the frame and what is drawn "
+                    f"in it must be one number; docs/pitfalls/interface.md")
+            rows = _widest_rows(body, known=types)
+            if not rows:
+                continue
+            worst, line_off = max(rows)
+            if worst <= width + SLACK:
+                continue
+            line = text[:match.end() + line_off].count("\n") + 1
+            found.append(
+                f"{path.relative_to(REPO)}:{line}: "
+                f"{name.group(1) if name else 'window'} declares "
+                f"size = {{ {width} ... }} and holds a row at least {worst} wide "
+                f"— the content spills past the frame through `allow_outside` "
+                f"and only the header, the background and the close button stay "
+                f"at the declared size. Widen the box; "
+                f"docs/pitfalls/interface.md")
+    return found
+
+
+def _gui_text(path: Path) -> str:
+    """The file with its comments removed, so a `#` note never reads as script."""
+    out = []
+    for line in path.read_text(encoding="utf-8-sig").split("\n"):
+        quoted = False
+        for i, ch in enumerate(line):
+            if ch == '"':
+                quoted = not quoted
+            elif ch == "#" and not quoted:
+                line = line[:i]
+                break
+        out.append(line)
+    return "\n".join(out)
+
+
+def _brace_end(text: str, start: int) -> int:
+    depth, i = 0, start
+    while i < len(text):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+            if depth == 0:
+                return i
+        i += 1
+    return len(text)
+
+
+def _gui_children(block: str) -> list[tuple[str, str, int]]:
+    """Every `keyword = { ... }` one level down, with its offset in `block`."""
+    out, i = [], 0
+    while i < len(block):
+        match = re.compile(r"(\w+)\s*=\s*\{").search(block, i)
+        if not match:
+            break
+        end = _brace_end(block, match.end() - 1)
+        out.append((match.group(1), block[match.end():end], match.start()))
+        i = end + 1
+    return out
+
+
+def _gui_types(gui: Path) -> dict[str, int]:
+    """Every `type <name> = ...` a mod declares, and how wide it draws.
+
+    **A window's row can be a type from another file, and then the window's own
+    text says nothing about its width.** `bag_wtp_edit_window` draws five
+    `bag_wtp_edit_row<n>`, each declared in `bag_wtp_edit_cells.gui`; adding one
+    control to a cell widened those rows by 270 and the window's `.gui` did not
+    change by a character. Without this the overflow check reads such a row as
+    zero and passes a window a fifth too small -- the same silent overflow it
+    exists to catch, arriving through the one door left open.
+
+    A type built on an `hbox` measures as a row; any other measures by the size
+    it declares. Types that draw types settle over a few passes, capped, so a
+    cycle cannot hang the check.
+    """
+    declared: dict[str, tuple[str, str]] = {}
+    for path in sorted(gui.rglob("*.gui")):
+        text = _gui_text(path)
+        for match in re.finditer(r"\btype\s+(\w+)\s*=\s*(\w+)\s*\{", text):
+            declared[match.group(1)] = (
+                match.group(2), text[match.end():_brace_end(text, match.end() - 1)])
+    known: dict[str, int] = {}
+    for _ in range(4):
+        for name, (kind, body) in declared.items():
+            if kind == "hbox":
+                # Wrapped as an `hbox` so the type's own body is summed as a
+                # row: wrapping it under any other keyword measures only the
+                # rows *inside* it, which read the picker's 1328-wide row as one
+                # 128-wide cell and let a window 160 too small pass.
+                rows = _widest_rows("hbox = {%s}" % body, known=known)
+                known[name] = max((w for w, _ in rows), default=0)
+            else:
+                known[name] = _declared_width(body)
+    return known
+
+
+def _declared_width(body: str) -> int:
+    """What a child says it is wide, reading nothing from its own children.
+
+    Only a `size` or `minimumsize` at the child's own brace depth counts;
+    the same words inside a descendant are that descendant's business. Depth is
+    counted rather than cut at the first `{`, because `size = { 128 34 }` opens
+    a brace itself -- reading up to it measured every widget in the mod as zero
+    the first time this was written, and the check passed a window whose row was
+    a third too wide.
+
+    A width of `-1` is «take whatever is left», which in a row that is already
+    overfull is nothing, so it counts as zero.
+    """
+    depth, i, best = 0, 0, 0
+    while i < len(body):
+        ch = body[i]
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        elif depth == 0:
+            match = re.compile(r"(size|minimumsize)\s*=\s*\{\s*(-?\d+)").match(body, i)
+            if match:
+                best = max(best, int(match.group(2)))
+                i = match.end()
+                continue
+        i += 1
+    return max(best, 0)
+
+
+def _widest_rows(block: str, base: int = 0,
+                 known: dict[str, int] | None = None) -> list[tuple[int, int]]:
+    """Every `hbox`'s summed width, with the offset it sits at.
+
+    A child that sizes itself is taken at its word; one that does not, but names
+    a type the mod declares, is taken at that type's width.
+    """
+    known = known or {}
+    rows = []
+    for keyword, body, offset in _gui_children(block):
+        # **A type is a row wherever it is drawn, not only inside an `hbox`.**
+        # The picker's five rows are `bag_wtp_edit_row<n> = {}` in a `vbox`, so
+        # nothing sums them and their width is the type's own. Missing this let
+        # a window 160 too narrow pass the check that exists for exactly that.
+        if keyword in known and not _declared_width(body):
+            rows.append((known[keyword], offset))
+        if keyword == "hbox":
+            kids = _gui_children(body)
+            total = sum(_declared_width(b) or known.get(k, 0) for k, b, _ in kids)
+            gap = re.search(r"spacing\s*=\s*(\d+)", body[:body.find("{")]
+                            if "{" in body else body)
+            if gap and len(kids) > 1:
+                total += int(gap.group(1)) * (len(kids) - 1)
+            rows.append((total, base + offset))
+        rows.extend(_widest_rows(body, base + offset, known))
+    return rows
+
+
 def main(argv: list[str]) -> int:
     roots = [Path(a) for a in argv[1:]] or sorted((REPO / "mods").iterdir())
     known = known_names()
@@ -545,7 +805,9 @@ def main(argv: list[str]) -> int:
         found = (problems(root) + unresolved(root, known) + unwritten(root)
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
-                 + scope_mixed_variables(root))
+                 + scope_mixed_variables(root)
+                 + overflowing_windows(root)
+                 + localization_markup(root))
         total += len(found)
         for line in found:
             print(line)

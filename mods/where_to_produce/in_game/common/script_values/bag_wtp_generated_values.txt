@@ -10785,6 +10785,9 @@ bag_wtp_rq13 = {
 # The same, for the quota: how many goods this ground can make at all. Divided by
 # only under a `limit` that it is above zero, so the guard is the caller's.
 bag_wtp_plan_scored_value = { value = global_var:bag_wtp_plan_scored }
+# And the editor's own divisor: how many goods are still free of a lock and of
+# the «не нужен» flag. Same shape and the same caller-side guard.
+bag_wtp_edit_free_value = { value = global_var:bag_wtp_edit_free }
 # The band as a fraction of `RANK_SCALE`, for the open ladder's relative
 # threshold. A `multiply` takes a script value, not a variable, which is why this
 # has a name of its own -- the same shape `_plan_scored_value` has.
@@ -10911,6 +10914,19 @@ bag_wtp_show_edit_pooln = { value = global_var:bag_wtp_edit_pooln }
 # move, the press never reached the effect at all.
 # Scope: country
 bag_wtp_show_edit_presses = { value = global_var:bag_wtp_edit_presses }
+# **The editor's own share, on the editor's own header.** The plan window says
+# «норма 5» and means `_plan_quota`, the whole ground over every good it can
+# make; the editor has been using a different number since the lock arrived, and
+# on 2026-09-05 his ground read 5 on screen while the fill was working to 3.
+# «Как увеличить общий лимит» is answerable the moment the three numbers it is
+# made of are visible: rooms still in the pool, goods still free, and the
+# quotient.
+# Scope: country
+bag_wtp_show_edit_quota = { value = global_var:bag_wtp_edit_quota }
+# Scope: country
+bag_wtp_show_edit_free = { value = global_var:bag_wtp_edit_free }
+# Scope: country
+bag_wtp_show_edit_pool_rooms = { value = global_var:bag_wtp_edit_pool_rooms }
 # Scope: country
 bag_wtp_show_edit_slot1 = { value = global_var:bag_wtp_sl1_n }
 # Scope: country

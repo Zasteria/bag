@@ -10,6 +10,8 @@ and has never been loaded; the level half is deferred. `common/town_rights` is i
 `reference/` since 2026-08-31 — the owner copied it in by hand after `mods.bat
 → 2` turned out not to re-extract the game.
 
+**Даёт 84% лучшего размещения при тех же лимитах** (замер, из брифа мода).
+
 ## What the seventeen production rights actually do
 
 `python3 tools/api.py --find town_rights` for the engine side;
