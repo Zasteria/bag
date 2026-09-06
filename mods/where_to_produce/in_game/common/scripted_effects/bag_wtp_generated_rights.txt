@@ -426,6 +426,932 @@ bag_wtp_refresh_rights = {
 			bag_wtp_drop_right = yes
 		}
 	}
+	# Места пересобираются целиком: грамота, которую держава потеряла,
+	# не должна оставить за собой дыру.
+	set_global_variable = { name = bag_wtp_rslot1 value = 0 }
+	remove_variable = bag_wtp_rslotok1
+	set_global_variable = { name = bag_wtp_rslot2 value = 0 }
+	remove_variable = bag_wtp_rslotok2
+	set_global_variable = { name = bag_wtp_rslot3 value = 0 }
+	remove_variable = bag_wtp_rslotok3
+	set_global_variable = { name = bag_wtp_rslot4 value = 0 }
+	remove_variable = bag_wtp_rslotok4
+	set_global_variable = { name = bag_wtp_rslot5 value = 0 }
+	remove_variable = bag_wtp_rslotok5
+	set_global_variable = { name = bag_wtp_rslot6 value = 0 }
+	remove_variable = bag_wtp_rslotok6
+	set_global_variable = { name = bag_wtp_rslot7 value = 0 }
+	remove_variable = bag_wtp_rslotok7
+	set_global_variable = { name = bag_wtp_rslot8 value = 0 }
+	remove_variable = bag_wtp_rslotok8
+	set_global_variable = { name = bag_wtp_rslot9 value = 0 }
+	remove_variable = bag_wtp_rslotok9
+	set_global_variable = { name = bag_wtp_rslot10 value = 0 }
+	remove_variable = bag_wtp_rslotok10
+	set_global_variable = { name = bag_wtp_rslot11 value = 0 }
+	remove_variable = bag_wtp_rslotok11
+	set_global_variable = { name = bag_wtp_rslot12 value = 0 }
+	remove_variable = bag_wtp_rslotok12
+	set_global_variable = { name = bag_wtp_rslot13 value = 0 }
+	remove_variable = bag_wtp_rslotok13
+	set_global_variable = { name = bag_wtp_rslotn value = 0 }
+	if = {
+		limit = { has_variable = bag_wtp_right_ok1 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 1 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 1 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 1 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 1 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 1 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 1 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 1 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 1 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 1 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 1 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 1 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 1 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 1 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok2 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 2 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 2 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 2 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 2 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 2 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 2 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 2 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 2 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 2 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 2 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 2 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 2 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 2 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok3 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 3 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 3 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 3 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 3 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 3 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 3 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 3 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 3 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 3 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 3 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 3 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 3 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 3 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok4 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 4 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 4 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 4 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 4 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 4 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 4 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 4 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 4 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 4 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 4 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 4 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 4 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 4 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok5 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 5 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 5 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 5 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 5 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 5 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 5 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 5 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 5 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 5 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 5 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 5 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 5 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 5 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok6 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 6 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 6 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 6 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 6 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 6 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 6 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 6 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 6 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 6 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 6 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 6 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 6 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 6 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok7 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 7 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 7 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 7 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 7 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 7 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 7 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 7 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 7 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 7 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 7 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 7 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 7 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 7 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok8 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 8 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 8 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 8 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 8 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 8 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 8 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 8 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 8 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 8 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 8 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 8 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 8 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 8 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok9 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 9 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 9 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 9 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 9 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 9 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 9 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 9 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 9 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 9 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 9 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 9 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 9 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 9 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok10 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 10 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 10 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 10 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 10 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 10 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 10 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 10 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 10 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 10 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 10 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 10 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 10 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 10 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok11 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 11 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 11 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 11 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 11 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 11 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 11 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 11 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 11 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 11 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 11 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 11 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 11 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 11 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok12 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 12 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 12 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 12 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 12 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 12 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 12 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 12 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 12 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 12 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 12 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 12 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 12 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 12 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
+	if = {
+		limit = { has_variable = bag_wtp_right_ok13 }
+		change_global_variable = { name = bag_wtp_rslotn add = 1 }
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 1 }
+			set_global_variable = { name = bag_wtp_rslot1 value = 13 }
+			set_variable = { name = bag_wtp_rslotok1 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 2 }
+			set_global_variable = { name = bag_wtp_rslot2 value = 13 }
+			set_variable = { name = bag_wtp_rslotok2 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 3 }
+			set_global_variable = { name = bag_wtp_rslot3 value = 13 }
+			set_variable = { name = bag_wtp_rslotok3 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 4 }
+			set_global_variable = { name = bag_wtp_rslot4 value = 13 }
+			set_variable = { name = bag_wtp_rslotok4 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 5 }
+			set_global_variable = { name = bag_wtp_rslot5 value = 13 }
+			set_variable = { name = bag_wtp_rslotok5 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 6 }
+			set_global_variable = { name = bag_wtp_rslot6 value = 13 }
+			set_variable = { name = bag_wtp_rslotok6 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 7 }
+			set_global_variable = { name = bag_wtp_rslot7 value = 13 }
+			set_variable = { name = bag_wtp_rslotok7 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 8 }
+			set_global_variable = { name = bag_wtp_rslot8 value = 13 }
+			set_variable = { name = bag_wtp_rslotok8 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 9 }
+			set_global_variable = { name = bag_wtp_rslot9 value = 13 }
+			set_variable = { name = bag_wtp_rslotok9 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 10 }
+			set_global_variable = { name = bag_wtp_rslot10 value = 13 }
+			set_variable = { name = bag_wtp_rslotok10 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 11 }
+			set_global_variable = { name = bag_wtp_rslot11 value = 13 }
+			set_variable = { name = bag_wtp_rslotok11 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 12 }
+			set_global_variable = { name = bag_wtp_rslot12 value = 13 }
+			set_variable = { name = bag_wtp_rslotok12 value = 1 }
+		}
+		if = {
+			limit = { global_var:bag_wtp_rslotn = 13 }
+			set_global_variable = { name = bag_wtp_rslot13 value = 13 }
+			set_variable = { name = bag_wtp_rslotok13 value = 1 }
+		}
+	}
 }
 
 # Score every candidate for the ticked right.

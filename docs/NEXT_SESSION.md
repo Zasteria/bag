@@ -52,8 +52,11 @@ rules each step implements are
 4. **Provinces fold in the two plan windows** — **confirmed 2026-09-06**, with
    three fixes after it: provinces sort inside their areas (a walk inside a walk,
    never a packed `order_by`), the fold is on by default, and
-   `layoutpolicy_horizontal = expanding` went onto `window_header_alt` in all five
-   windows — the header had never stretched and he had said so three times.
+   the extra `widget` between `window` and `vbox` came out of all five windows —
+   the header had never stretched, he had said so three times, and the shape is
+   copied from `ai_settings_menu.gui` rather than guessed at. **Charter cells are
+   written per *place*, not per charter** (`_rslot<p>`), so an unavailable charter
+   leaves no hole.
 5. **Charters in the editor** — **closed 2026-09-06.** A charter is not a
    building: every town holds exactly one, so a press is a *move*, bundle and
    all, and a town never ends without one. **Two faults found by his runs, both

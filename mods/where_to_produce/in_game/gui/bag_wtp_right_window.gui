@@ -26,6 +26,7 @@ types BagWtpRightTypes {
 	type bag_wtp_right_slot_1 = hbox {
 		layoutpolicy_horizontal = expanding
 		size = { -1 28 }
+	using = bg_window_default_alt
 		spacing = 0
 		visible = "[Location.MakeScope.GetVariable('bag_wtp_r_bt_1').IsSet]"
 
@@ -422,518 +423,522 @@ window = {
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_open').IsSet]"
 
-	widget = {
-		size = { 1380 900 }
-		using = bg_window_default_alt
-		allow_outside = yes
+	# **Форма окна взята у самой игры, а не придумана.** `ai_settings_menu.gui` —
+	# свободное окно ровно этого вида: `size` и `using = bg_window_default_alt`
+	# стоят **на самом `window`**, а `vbox` лежит в нём напрямую. У нас между ними
+	# был лишний `widget` со своим размером, и шапка, оказавшись внутри него,
+	# держала ширину своего типа, что бы ни делало окно. «Злоебучая шапка окна
+	# снова не расширилась вместе с окном» — 2026-09-06, и это третий раз.
+	#
+	# **Тип `window_header_alt` не объявлен нигде в `reference/`**, так что читать,
+	# что держит его ширину, отсюда нечем. Поэтому здесь не догадка о шапке, а
+	# копия структуры окна, которое в игре работает.
 
-		widget = {
-			parentanchor = right
-			position = { -5 5 }
-			size = { 40 40 }
-			ui_direction_button_holder_right = {}
-			button_close_alt = {
-				blockoverride "close_on_action" {
-					on_action = "[GetScriptedGui('bag_wtp_close_result_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
+	widget = {
+		parentanchor = right
+		position = { -5 5 }
+		size = { 40 40 }
+		ui_direction_button_holder_right = {}
+		button_close_alt = {
+			blockoverride "close_on_action" {
+				on_action = "[GetScriptedGui('bag_wtp_close_result_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 			}
+		}
+	}
+
+	vbox = {
+		using = window_margin_alt
+
+		# **`layoutpolicy_horizontal = expanding` on the header, and every window
+		# of this mod was missing it.** «Злоебучая шапка окна снова не
+		# расширилась вместе с окном» — 2026-09-06, and the third time he has
+		# said it. The game's own windows all carry this line on their
+		# `window_header_alt` (`multiplayer_lobby.gui`,
+		# `automation_lateralview.gui`); without it the header keeps the type's
+		# own width whatever the window does.
+		window_header_alt = {
+			blockoverride "header_text" { text = "bag_wtp_right_window_title" }
+			blockoverride "window_header_alt_color_texture" { using = color_production_texture }
 		}
 
 		vbox = {
-			using = window_margin_alt
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			using = bg_secondary_inner_alt
+			margin = { 12 12 }
+			spacing = 6
 
-			# **`layoutpolicy_horizontal = expanding` on the header, and every window
-			# of this mod was missing it.** «Злоебучая шапка окна снова не
-			# расширилась вместе с окном» — 2026-09-06, and the third time he has
-			# said it. The game's own windows all carry this line on their
-			# `window_header_alt` (`multiplayer_lobby.gui`,
-			# `automation_lateralview.gui`); without it the header keeps the type's
-			# own width whatever the window does.
-			window_header_alt = {
+
+			# The borders, picked here rather than in a window of their own. Each
+			# button hands the game one of this mod's generic actions and the
+			# game answers with its own target panel: a searchable list, the map
+			# highlighted, and a click on the map picking the same thing a row
+			# does. The actions toggle, so clicking is cumulative -- and every
+			# pick re-ranks, so the table under these buttons is the answer for
+			# the borders as they stand.
+			hbox = {
 				layoutpolicy_horizontal = expanding
-				blockoverride "header_text" { text = "bag_wtp_right_window_title" }
-				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+				spacing = 8
+
+				action_button_regular = {
+					size = { 138 34 }
+					title = "bag_wtp_map_pick_area"
+					description = "bag_wtp_map_pick_area_desc"
+					actor = "[Player]"
+					left_action = { action_name = "bag_wtp_select_area" }
+					tooltip = "bag_wtp_map_pick_area_desc"
+					text_single = {
+						size = { 130 30 }
+						parentanchor = center
+						autoresize = no
+						maximumsize = { 130 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_map_pick_area"
+					}
+				}
+
+				action_button_regular = {
+					size = { 138 34 }
+					title = "bag_wtp_map_pick_province"
+					description = "bag_wtp_map_pick_province_desc"
+					actor = "[Player]"
+					left_action = { action_name = "bag_wtp_select_province" }
+					tooltip = "bag_wtp_map_pick_province_desc"
+					text_single = {
+						size = { 130 30 }
+						parentanchor = center
+						autoresize = no
+						maximumsize = { 130 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_map_pick_province"
+					}
+				}
+
+				action_button_regular = {
+					size = { 138 34 }
+					title = "bag_wtp_map_pick_location"
+					description = "bag_wtp_map_pick_location_desc"
+					actor = "[Player]"
+					left_action = { action_name = "bag_wtp_select_location" }
+					tooltip = "bag_wtp_map_pick_location_desc"
+					text_single = {
+						size = { 130 30 }
+						parentanchor = center
+						autoresize = no
+						maximumsize = { 130 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_map_pick_location"
+					}
+				}
+
+				action_button_regular = {
+					size = { 138 34 }
+					title = "bag_wtp_map_pick_market"
+					description = "bag_wtp_map_pick_market_desc"
+					actor = "[Player]"
+					left_action = { action_name = "bag_wtp_select_market" }
+					tooltip = "bag_wtp_map_pick_market_desc"
+					text_single = {
+						size = { 130 30 }
+						parentanchor = center
+						autoresize = no
+						maximumsize = { 130 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_map_pick_market"
+					}
+				}
+
+				# **«Выбрать мою землю» — his ask, 2026-09-06**, in the place of
+				# the «только там, где здание может стоять» tick, which named
+				# one thing and did another. This one says what it does: every
+				# location the country owns, added to the selection. It is a
+				# plain button and not a map action, because there is nothing
+				# to click on the map — the answer is already known.
+				button_regular = {
+					size = { 138 34 }
+					tooltip = "bag_wtp_pick_my_land_tt"
+					text_single = {
+						size = { 130 30 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 130 30 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_pick_my_land"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_pick_my_land').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+				# Two lines, and the lower one is a diagnostic on purpose: it
+				# says how many locations the last pass walked, how many rows it
+				# found, and how many times a pick has re-ranked since the game
+				# loaded. A pick that does not move the third number never
+				# reached the country's scope at all -- which is a failure that
+				# writes nothing anywhere else.
+				# 260, which is what the one line it replaces was: the three
+				# buttons, this and «Очистить» already fill the row, and a
+				# widget wider than the row it is in pushes the rest out of the
+				# window rather than wrapping.
+				vbox = {
+					size = { 260 34 }
+					spacing = 0
+
+					text_single = {
+						size = { 260 17 }
+						autoresize = no
+						maximumsize = { 260 17 }
+						align = right|vcenter
+						fontsize = 13
+						fontsize_min = 10
+						elide = right
+						text = "bag_wtp_select_summary"
+					}
+
+					text_single = {
+						size = { 260 17 }
+						autoresize = no
+						maximumsize = { 260 17 }
+						align = right|vcenter
+						fontsize = 12
+						fontsize_min = 9
+						elide = right
+						text = "bag_wtp_result_pass_summary"
+						tooltip = "bag_wtp_result_pass_tt"
+					}
+				}
+
+				button_regular = {
+					size = { 150 30 }
+					tooltip = "bag_wtp_clear_all_tt"
+					text_single = {
+						size = { 142 26 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 142 26 }
+						fontsize = 13
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_clear_all"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
 			}
 
-			vbox = {
+			# ---- what to rank: one good, or one urban right ------------
+			#
+			# **This was the «Товар» tab of the mod's own settings page until
+			# 2026-09-06**, four CMM lists of it: «просто добавишь в окно
+			# расчёта иконки товаров и прав как ты это сделал в редакторе и
+			# поставишь каждому кружочек для активации нужного, далее кнопку
+			# искать локации, всё».
+			#
+			# **Both ranking windows draw the same rows**, declared once in
+			# `bag_wtp_pick_cells.gui`, so the two can never come to offer
+			# different goods -- and a press in either lands in the other,
+			# because choosing a right is choosing the other window.
+			#
+			# **Each block is a `vbox` pinned to the top of a plain `widget`.**
+			# An hbox centres its children on one another, so the shorter
+			# block's heading sat above the taller one's and the two titles
+			# were on different lines — he reported exactly that, 2026-09-06.
+			# A fixed box with a top anchor holds both headings on one line
+			# whatever the blocks weigh.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 8
+
+				widget = {
+					size = { 746 236 }
+
+					vbox = {
+						parentanchor = top|left
+						widgetanchor = top|left
+						spacing = 2
+
+						text_single = {
+							size = { 746 20 }
+							autoresize = no
+							maximumsize = { 746 20 }
+							align = left|vcenter
+							fontsize = 13
+							elide = right
+							text = "bag_wtp_pick_goods_head"
+							tooltip = "bag_wtp_pick_goods_tt"
+						}
+
+						bag_wtp_pick_row1 = {}
+						bag_wtp_pick_row2 = {}
+						bag_wtp_pick_row3 = {}
+						bag_wtp_pick_row4 = {}
+						bag_wtp_pick_row5 = {}
+
+						# The slack goes here, not between the rows.
+						widget = { layoutpolicy_vertical = expanding size = { 746 -1 } }
+					}
+				}
+
+				widget = {
+					size = { 504 236 }
+
+					vbox = {
+						parentanchor = top|left
+						widgetanchor = top|left
+						spacing = 2
+
+						text_single = {
+							size = { 504 20 }
+							autoresize = no
+							maximumsize = { 504 20 }
+							align = left|vcenter
+							fontsize = 13
+							elide = right
+							text = "bag_wtp_pick_rights_head"
+							tooltip = "bag_wtp_pick_rights_tt"
+						}
+
+						# **Two columns, each packing upward and each pinned to
+						# the top.** An `hbox` centres its children on one
+						# another, so a column of three sat a row and a half
+						# below a column of six — «во втором столбце прав
+						# пропуск в 1 строке, вместо например 2 пропусков в
+						# конце», 2026-09-06. A plain `widget` of a fixed
+						# height with the column anchored top is what puts
+						# every gap at the bottom, where he wants them.
+						hbox = {
+							spacing = 4
+
+							widget = {
+								size = { 250 210 }
+								bag_wtp_pick_right_col1 = {
+									parentanchor = top|left
+									widgetanchor = top|left
+								}
+							}
+
+							widget = {
+								size = { 250 210 }
+								bag_wtp_pick_right_col2 = {
+									parentanchor = top|left
+									widgetanchor = top|left
+								}
+							}
+						}
+
+						# The slack goes here, not between the blocks.
+						widget = { layoutpolicy_vertical = expanding size = { 504 -1 } }
+					}
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 20 } }
+			}
+
+			# ---- how to rank it, and the press that does ----------------
+			#
+			# **The switch does not re-rank by itself.** It did for one
+			# build, and his verdict was that it should not: «снимаю галочку
+			# — жму пересчитать — получаю результат… я считаю так и должно
+			# быть». So this only decides what the next «Искать локации»
+			# answers, exactly like the plan window's twin.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 8
+
+				widget = {
+					size = { 28 34 }
+					checkbutton_round_alt = {
+						size = { 24 24 }
+						parentanchor = center
+						widgetanchor = center
+						down = "[GetGlobalVariable('bag_wtp_rank_by_end').IsSet]"
+						tooltip = "bag_wtp_search_by_end_tt"
+						onclick = "[GetScriptedGui('bag_wtp_toggle_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+
+				text_single = {
+					size = { 210 34 }
+					autoresize = no
+					maximumsize = { 210 34 }
+					align = left|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					text = "bag_wtp_search_by_end"
+					tooltip = "bag_wtp_search_by_end_tt"
+				}
+
+				widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
+
+				# The pass itself. It opens the answer as well, because the
+				# answer may belong to the other window: a good and a right
+				# draw different rows.
+				button_regular = {
+					size = { 220 38 }
+					tooltip = "bag_wtp_search_run_tt"
+					text_single = {
+						size = { 206 28 }
+						parentanchor = center
+						widgetanchor = center
+						autoresize = no
+						maximumsize = { 206 28 }
+						fontsize = 14
+						fontsize_min = 10
+						align = center|nobaseline
+						elide = right
+						text = "bag_wtp_search_run"
+					}
+					onclick = "[GetScriptedGui('bag_wtp_search_run').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+
+			# Nothing computed yet, or nothing survived the filters. Without this
+			# the window is an empty box and says nothing about why.
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				maximumsize = { 1270 60 }
+				align = center
+				visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_right_results')))]"
+				text = "bag_wtp_right_window_empty"
+			}
+
+			# 48, not 38: the rows below sit inside a scrollbox whose content
+			# carries a 10px margin, and the header does not.
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin_left = 10
+				spacing = 0
+				visible = "[DataModelHasItems(GetGlobalList('bag_wtp_right_results'))]"
+
+				# The column the +/- buttons live in. It had no heading and the
+				# empty corner read as a column out of line rather than as a
+				# column without a name. `margin_left` drops from 48 to 10 --
+				# the scrollbox's own content margin -- and this 38 makes the
+				# difference back up, so «№» has not moved a pixel.
+				text_single = {
+					size = { 38 24 }
+					autoresize = no
+					align = center|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_expand"
+				}
+				text_single = {
+					size = { 34 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_rank"
+				}
+				text_single = {
+					size = { 160 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_province"
+				}
+				text_single = {
+					size = { 110 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_area"
+				}
+				text_single = {
+					size = { 78 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_right_head_total"
+				}
+				widget = { size = { 10 24 } }
+				text_single = {
+					size = { 118 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_right_head_good"
+				}
+				text_single = {
+					size = { 70 24 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_bonus"
+				}
+				widget = { size = { 10 24 } }
+				text_single = {
+					size = { 470 24 }
+					autoresize = no
+					maximumsize = { 470 24 }
+					align = left|vcenter
+					fontsize = 13
+					text = "bag_wtp_result_head_method"
+				}
+				# **The count has a column of its own, and that was his fix**,
+				# 2026-09-06: «просто символам 1/2 нужен свой столбик и тогда
+				# проблем не возникнет». Two things sharing one column is what
+				# let the icon wander into the gap between columns.
+				text_single = {
+					size = { 44 24 }
+					autoresize = no
+					maximumsize = { 44 24 }
+					align = left|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					text = "bag_wtp_result_head_supply"
+					tooltip = "bag_wtp_result_goods_tt"
+				}
+				widget = { size = { 4 24 } }
+				text_single = {
+					size = { 62 24 }
+					autoresize = no
+					maximumsize = { 62 24 }
+					align = left|vcenter
+					fontsize = 13
+					fontsize_min = 10
+					elide = right
+					text = "bag_wtp_result_head_goods"
+					tooltip = "bag_wtp_result_goods_tt"
+				}
+				widget = { size = { 12 24 } }
+				widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
+			}
+
+			scrollbox = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
-				using = bg_secondary_inner_alt
-				margin = { 12 12 }
-				spacing = 6
-
-
-				# The borders, picked here rather than in a window of their own. Each
-				# button hands the game one of this mod's generic actions and the
-				# game answers with its own target panel: a searchable list, the map
-				# highlighted, and a click on the map picking the same thing a row
-				# does. The actions toggle, so clicking is cumulative -- and every
-				# pick re-ranks, so the table under these buttons is the answer for
-				# the borders as they stand.
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					action_button_regular = {
-						size = { 138 34 }
-						title = "bag_wtp_map_pick_area"
-						description = "bag_wtp_map_pick_area_desc"
-						actor = "[Player]"
-						left_action = { action_name = "bag_wtp_select_area" }
-						tooltip = "bag_wtp_map_pick_area_desc"
-						text_single = {
-							size = { 130 30 }
-							parentanchor = center
-							autoresize = no
-							maximumsize = { 130 30 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_map_pick_area"
-						}
-					}
-
-					action_button_regular = {
-						size = { 138 34 }
-						title = "bag_wtp_map_pick_province"
-						description = "bag_wtp_map_pick_province_desc"
-						actor = "[Player]"
-						left_action = { action_name = "bag_wtp_select_province" }
-						tooltip = "bag_wtp_map_pick_province_desc"
-						text_single = {
-							size = { 130 30 }
-							parentanchor = center
-							autoresize = no
-							maximumsize = { 130 30 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_map_pick_province"
-						}
-					}
-
-					action_button_regular = {
-						size = { 138 34 }
-						title = "bag_wtp_map_pick_location"
-						description = "bag_wtp_map_pick_location_desc"
-						actor = "[Player]"
-						left_action = { action_name = "bag_wtp_select_location" }
-						tooltip = "bag_wtp_map_pick_location_desc"
-						text_single = {
-							size = { 130 30 }
-							parentanchor = center
-							autoresize = no
-							maximumsize = { 130 30 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_map_pick_location"
-						}
-					}
-
-					action_button_regular = {
-						size = { 138 34 }
-						title = "bag_wtp_map_pick_market"
-						description = "bag_wtp_map_pick_market_desc"
-						actor = "[Player]"
-						left_action = { action_name = "bag_wtp_select_market" }
-						tooltip = "bag_wtp_map_pick_market_desc"
-						text_single = {
-							size = { 130 30 }
-							parentanchor = center
-							autoresize = no
-							maximumsize = { 130 30 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_map_pick_market"
-						}
-					}
-
-					# **«Выбрать мою землю» — his ask, 2026-09-06**, in the place of
-					# the «только там, где здание может стоять» tick, which named
-					# one thing and did another. This one says what it does: every
-					# location the country owns, added to the selection. It is a
-					# plain button and not a map action, because there is nothing
-					# to click on the map — the answer is already known.
-					button_regular = {
-						size = { 138 34 }
-						tooltip = "bag_wtp_pick_my_land_tt"
-						text_single = {
-							size = { 130 30 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							maximumsize = { 130 30 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_pick_my_land"
-						}
-						onclick = "[GetScriptedGui('bag_wtp_pick_my_land').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					}
-
-					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
-
-					# Two lines, and the lower one is a diagnostic on purpose: it
-					# says how many locations the last pass walked, how many rows it
-					# found, and how many times a pick has re-ranked since the game
-					# loaded. A pick that does not move the third number never
-					# reached the country's scope at all -- which is a failure that
-					# writes nothing anywhere else.
-					# 260, which is what the one line it replaces was: the three
-					# buttons, this and «Очистить» already fill the row, and a
-					# widget wider than the row it is in pushes the rest out of the
-					# window rather than wrapping.
+				blockoverride "scrollbox_content" {
 					vbox = {
-						size = { 260 34 }
-						spacing = 0
-
-						text_single = {
-							size = { 260 17 }
-							autoresize = no
-							maximumsize = { 260 17 }
-							align = right|vcenter
-							fontsize = 13
-							fontsize_min = 10
-							elide = right
-							text = "bag_wtp_select_summary"
-						}
-
-						text_single = {
-							size = { 260 17 }
-							autoresize = no
-							maximumsize = { 260 17 }
-							align = right|vcenter
-							fontsize = 12
-							fontsize_min = 9
-							elide = right
-							text = "bag_wtp_result_pass_summary"
-							tooltip = "bag_wtp_result_pass_tt"
-						}
-					}
-
-					button_regular = {
-						size = { 150 30 }
-						tooltip = "bag_wtp_clear_all_tt"
-						text_single = {
-							size = { 142 26 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							maximumsize = { 142 26 }
-							fontsize = 13
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_clear_all"
-						}
-						onclick = "[GetScriptedGui('bag_wtp_clear_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					}
-				}
-
-				# ---- what to rank: one good, or one urban right ------------
-				#
-				# **This was the «Товар» tab of the mod's own settings page until
-				# 2026-09-06**, four CMM lists of it: «просто добавишь в окно
-				# расчёта иконки товаров и прав как ты это сделал в редакторе и
-				# поставишь каждому кружочек для активации нужного, далее кнопку
-				# искать локации, всё».
-				#
-				# **Both ranking windows draw the same rows**, declared once in
-				# `bag_wtp_pick_cells.gui`, so the two can never come to offer
-				# different goods -- and a press in either lands in the other,
-				# because choosing a right is choosing the other window.
-				#
-				# **Each block is a `vbox` pinned to the top of a plain `widget`.**
-				# An hbox centres its children on one another, so the shorter
-				# block's heading sat above the taller one's and the two titles
-				# were on different lines — he reported exactly that, 2026-09-06.
-				# A fixed box with a top anchor holds both headings on one line
-				# whatever the blocks weigh.
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					widget = {
-						size = { 746 236 }
-
-						vbox = {
-							parentanchor = top|left
-							widgetanchor = top|left
-							spacing = 2
-
-							text_single = {
-								size = { 746 20 }
-								autoresize = no
-								maximumsize = { 746 20 }
-								align = left|vcenter
-								fontsize = 13
-								elide = right
-								text = "bag_wtp_pick_goods_head"
-								tooltip = "bag_wtp_pick_goods_tt"
-							}
-
-							bag_wtp_pick_row1 = {}
-							bag_wtp_pick_row2 = {}
-							bag_wtp_pick_row3 = {}
-							bag_wtp_pick_row4 = {}
-							bag_wtp_pick_row5 = {}
-
-							# The slack goes here, not between the rows.
-							widget = { layoutpolicy_vertical = expanding size = { 746 -1 } }
-						}
-					}
-
-					widget = {
-						size = { 504 236 }
-
-						vbox = {
-							parentanchor = top|left
-							widgetanchor = top|left
-							spacing = 2
-
-							text_single = {
-								size = { 504 20 }
-								autoresize = no
-								maximumsize = { 504 20 }
-								align = left|vcenter
-								fontsize = 13
-								elide = right
-								text = "bag_wtp_pick_rights_head"
-								tooltip = "bag_wtp_pick_rights_tt"
-							}
-
-							# **Two columns, each packing upward and each pinned to
-							# the top.** An `hbox` centres its children on one
-							# another, so a column of three sat a row and a half
-							# below a column of six — «во втором столбце прав
-							# пропуск в 1 строке, вместо например 2 пропусков в
-							# конце», 2026-09-06. A plain `widget` of a fixed
-							# height with the column anchored top is what puts
-							# every gap at the bottom, where he wants them.
-							hbox = {
-								spacing = 4
-
-								widget = {
-									size = { 250 210 }
-									bag_wtp_pick_right_col1 = {
-										parentanchor = top|left
-										widgetanchor = top|left
-									}
-								}
-
-								widget = {
-									size = { 250 210 }
-									bag_wtp_pick_right_col2 = {
-										parentanchor = top|left
-										widgetanchor = top|left
-									}
-								}
-							}
-
-							# The slack goes here, not between the blocks.
-							widget = { layoutpolicy_vertical = expanding size = { 504 -1 } }
-						}
-					}
-
-					widget = { layoutpolicy_horizontal = expanding size = { -1 20 } }
-				}
-
-				# ---- how to rank it, and the press that does ----------------
-				#
-				# **The switch does not re-rank by itself.** It did for one
-				# build, and his verdict was that it should not: «снимаю галочку
-				# — жму пересчитать — получаю результат… я считаю так и должно
-				# быть». So this only decides what the next «Искать локации»
-				# answers, exactly like the plan window's twin.
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 8
-
-					widget = {
-						size = { 28 34 }
-						checkbutton_round_alt = {
-							size = { 24 24 }
-							parentanchor = center
-							widgetanchor = center
-							down = "[GetGlobalVariable('bag_wtp_rank_by_end').IsSet]"
-							tooltip = "bag_wtp_search_by_end_tt"
-							onclick = "[GetScriptedGui('bag_wtp_toggle_by_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-					}
-
-					text_single = {
-						size = { 210 34 }
-						autoresize = no
-						maximumsize = { 210 34 }
-						align = left|vcenter
-						fontsize = 13
-						fontsize_min = 10
-						elide = right
-						text = "bag_wtp_search_by_end"
-						tooltip = "bag_wtp_search_by_end_tt"
-					}
-
-					widget = { layoutpolicy_horizontal = expanding size = { -1 34 } }
-
-					# The pass itself. It opens the answer as well, because the
-					# answer may belong to the other window: a good and a right
-					# draw different rows.
-					button_regular = {
-						size = { 220 38 }
-						tooltip = "bag_wtp_search_run_tt"
-						text_single = {
-							size = { 206 28 }
-							parentanchor = center
-							widgetanchor = center
-							autoresize = no
-							maximumsize = { 206 28 }
-							fontsize = 14
-							fontsize_min = 10
-							align = center|nobaseline
-							elide = right
-							text = "bag_wtp_search_run"
-						}
-						onclick = "[GetScriptedGui('bag_wtp_search_run').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					}
-				}
-
-				# Nothing computed yet, or nothing survived the filters. Without this
-				# the window is an empty box and says nothing about why.
-				text_multi = {
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = { 1270 60 }
-					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_right_results')))]"
-					text = "bag_wtp_right_window_empty"
-				}
-
-				# 48, not 38: the rows below sit inside a scrollbox whose content
-				# carries a 10px margin, and the header does not.
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					margin_left = 10
-					spacing = 0
-					visible = "[DataModelHasItems(GetGlobalList('bag_wtp_right_results'))]"
-
-					# The column the +/- buttons live in. It had no heading and the
-					# empty corner read as a column out of line rather than as a
-					# column without a name. `margin_left` drops from 48 to 10 --
-					# the scrollbox's own content margin -- and this 38 makes the
-					# difference back up, so «№» has not moved a pixel.
-					text_single = {
-						size = { 38 24 }
-						autoresize = no
-						align = center|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_expand"
-					}
-					text_single = {
-						size = { 34 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_rank"
-					}
-					text_single = {
-						size = { 160 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_province"
-					}
-					text_single = {
-						size = { 110 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_area"
-					}
-					text_single = {
-						size = { 78 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_right_head_total"
-					}
-					widget = { size = { 10 24 } }
-					text_single = {
-						size = { 118 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_right_head_good"
-					}
-					text_single = {
-						size = { 70 24 }
-						autoresize = no
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_bonus"
-					}
-					widget = { size = { 10 24 } }
-					text_single = {
-						size = { 470 24 }
-						autoresize = no
-						maximumsize = { 470 24 }
-						align = left|vcenter
-						fontsize = 13
-						text = "bag_wtp_result_head_method"
-					}
-					# **The count has a column of its own, and that was his fix**,
-					# 2026-09-06: «просто символам 1/2 нужен свой столбик и тогда
-					# проблем не возникнет». Two things sharing one column is what
-					# let the icon wander into the gap between columns.
-					text_single = {
-						size = { 44 24 }
-						autoresize = no
-						maximumsize = { 44 24 }
-						align = left|vcenter
-						fontsize = 13
-						fontsize_min = 10
-						elide = right
-						text = "bag_wtp_result_head_supply"
-						tooltip = "bag_wtp_result_goods_tt"
-					}
-					widget = { size = { 4 24 } }
-					text_single = {
-						size = { 62 24 }
-						autoresize = no
-						maximumsize = { 62 24 }
-						align = left|vcenter
-						fontsize = 13
-						fontsize_min = 10
-						elide = right
-						text = "bag_wtp_result_head_goods"
-						tooltip = "bag_wtp_result_goods_tt"
-					}
-					widget = { size = { 12 24 } }
-					widget = { layoutpolicy_horizontal = expanding size = { -1 28 } }
-				}
-
-				scrollbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					blockoverride "scrollbox_content" {
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = preferred
-							margin = { 10 8 }
-							margin_right = 20
-							spacing = 3
-							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_right_results')]"
-							item = {
-								bag_wtp_right_province_entry = {
-									datacontext = "[Scope.GetLocation]"
-								}
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = preferred
+						margin = { 10 8 }
+						margin_right = 20
+						spacing = 3
+						ignoreinvisible = yes
+						datamodel = "[GetGlobalList('bag_wtp_right_results')]"
+						item = {
+							bag_wtp_right_province_entry = {
+								datacontext = "[Scope.GetLocation]"
 							}
 						}
 					}

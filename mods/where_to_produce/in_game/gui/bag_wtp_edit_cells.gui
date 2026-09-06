@@ -5194,15 +5194,19 @@ types BagWtpEditCells {
 		widget = { size = { 127 28 } }
 	}
 
-	# Charters 1..3, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col1 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
+	# Места 1..5: какая грамота на каком, решает `_rslot<p>`.
+	#
+	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
+	# что ряд пуст тогда и только тогда, когда пусто его первое место -- а `hbox`,
+	# у которого невидимы все дети, сам остаётся видимым и держит свои 32 пикселя.
+	type bag_wtp_edit_right_row1 = hbox {
+		spacing = 14
+		ignoreinvisible = no
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok1').IsSet]"
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok1').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5213,7 +5217,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5233,7 +5237,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_1"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_1')]"
 					}
 				}
 
@@ -5244,7 +5248,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5258,7 +5262,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_constantinopolitan_silk_monopoly_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_1')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5269,15 +5273,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_constantinopolitan_silk_monopoly_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_1')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok2').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5288,7 +5292,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5308,7 +5312,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_2"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_2')]"
 					}
 				}
 
@@ -5319,7 +5323,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5333,7 +5337,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_flemish_cloth_industries_right"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_2')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5344,15 +5348,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_flemish_cloth_industries_right"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_2')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok3').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5363,7 +5367,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5383,7 +5387,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_3"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_3')]"
 					}
 				}
 
@@ -5394,7 +5398,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5408,7 +5412,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_artisan_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_3')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5419,25 +5423,176 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_artisan_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_3')]"
 					}
 				}
 			}
 		}
 
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+		widget = {
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok4').IsSet]"
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_minus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 32 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_edit_right_count_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 18
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_4')]"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_plus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 173 32 }
+					alwaystransparent = no
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_4')]"
+					text_single = {
+						size = { 169 30 }
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
+						align = left|vcenter
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_4')]"
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok5').IsSet]"
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_minus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 32 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_edit_right_count_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 18
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_5')]"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_plus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 173 32 }
+					alwaystransparent = no
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_5')]"
+					text_single = {
+						size = { 169 30 }
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
+						align = left|vcenter
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_5')]"
+					}
+				}
+			}
+		}
 	}
 
-	# Charters 4..6, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col2 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
+	# Места 6..10: какая грамота на каком, решает `_rslot<p>`.
+	#
+	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
+	# что ряд пуст тогда и только тогда, когда пусто его первое место -- а `hbox`,
+	# у которого невидимы все дети, сам остаётся видимым и держит свои 32 пикселя.
+	type bag_wtp_edit_right_row2 = hbox {
+		spacing = 14
+		ignoreinvisible = no
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok6').IsSet]"
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok6').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5448,7 +5603,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5468,7 +5623,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_4"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_6')]"
 					}
 				}
 
@@ -5479,7 +5634,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_4').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5493,7 +5648,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_book_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_6')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5504,15 +5659,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_book_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_6')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok7').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5523,7 +5678,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5543,7 +5698,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_5"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_7')]"
 					}
 				}
 
@@ -5554,7 +5709,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5568,7 +5723,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_brewing_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_7')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5579,15 +5734,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_brewing_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_7')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok8').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5598,7 +5753,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5618,7 +5773,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_6"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_8')]"
 					}
 				}
 
@@ -5629,7 +5784,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_6').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5643,7 +5798,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_jewelry_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_8')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5654,25 +5809,176 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_jewelry_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_8')]"
 					}
 				}
 			}
 		}
 
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+		widget = {
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok9').IsSet]"
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_minus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 32 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_edit_right_count_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 18
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_9')]"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_plus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 173 32 }
+					alwaystransparent = no
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_9')]"
+					text_single = {
+						size = { 169 30 }
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
+						align = left|vcenter
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_9')]"
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok10').IsSet]"
+			hbox = {
+				spacing = 1
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_minus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_minus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 32 32 }
+					alwaystransparent = no
+					tooltip = "bag_wtp_edit_right_count_tt"
+					text_single = {
+						parentanchor = center
+						widgetanchor = center
+						autoresize = yes
+						fontsize = 18
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_10')]"
+					}
+				}
+
+				widget = {
+					size = { 28 32 }
+					button_regular = {
+						size = { 26 26 }
+						parentanchor = center
+						widgetanchor = center
+						tooltip = "bag_wtp_edit_right_plus_tt"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text_single = {
+							parentanchor = center
+							widgetanchor = center
+							autoresize = yes
+							fontsize = 16
+							text = "bag_wtp_edit_plus"
+						}
+					}
+				}
+
+				widget = {
+					size = { 173 32 }
+					alwaystransparent = no
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_10')]"
+					text_single = {
+						size = { 169 30 }
+						parentanchor = left|vcenter
+						widgetanchor = left|vcenter
+						autoresize = no
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
+						align = left|vcenter
+						elide = right
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_10')]"
+					}
+				}
+			}
+		}
 	}
 
-	# Charters 7..9, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col3 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
+	# Места 11..13: какая грамота на каком, решает `_rslot<p>`.
+	#
+	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
+	# что ряд пуст тогда и только тогда, когда пусто его первое место -- а `hbox`,
+	# у которого невидимы все дети, сам остаётся видимым и держит свои 32 пикселя.
+	type bag_wtp_edit_right_row3 = hbox {
+		spacing = 14
+		ignoreinvisible = no
+		visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok11').IsSet]"
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok11').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5683,7 +5989,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5703,7 +6009,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_7"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_11')]"
 					}
 				}
 
@@ -5714,7 +6020,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_7').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5728,7 +6034,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_masonry_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_11')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5739,15 +6045,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_masonry_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_11')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok12').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5758,7 +6064,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5778,7 +6084,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_8"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_12')]"
 					}
 				}
 
@@ -5789,7 +6095,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_8').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5803,7 +6109,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_naval_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_12')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5814,15 +6120,15 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_naval_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_12')]"
 					}
 				}
 			}
 		}
 
 		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
+			size = { 264 32 }
+			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_rslotok13').IsSet]"
 			hbox = {
 				spacing = 1
 
@@ -5833,7 +6139,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_minus_slot_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5853,7 +6159,7 @@ types BagWtpEditCells {
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "bag_wtp_edit_rcount_9"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_count_13')]"
 					}
 				}
 
@@ -5864,7 +6170,7 @@ types BagWtpEditCells {
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_9').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('bag_wtp_right_plus_slot_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {
 							parentanchor = center
 							widgetanchor = center
@@ -5878,7 +6184,7 @@ types BagWtpEditCells {
 				widget = {
 					size = { 173 32 }
 					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_textile_rights"
+					tooltip = "[GetPlayer.Custom('bag_wtp_rslot_name_13')]"
 					text_single = {
 						size = { 169 30 }
 						parentanchor = left|vcenter
@@ -5889,333 +6195,12 @@ types BagWtpEditCells {
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "bag_wtp_right_royal_textile_rights"
+						text = "[GetPlayer.Custom('bag_wtp_rslot_name_13')]"
 					}
 				}
 			}
 		}
-
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
-	}
-
-	# Charters 10..12, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col4 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
-
-		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
-			hbox = {
-				spacing = 1
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_minus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 32 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_edit_right_count_tt"
-					text_single = {
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 18
-						text = "bag_wtp_edit_rcount_10"
-					}
-				}
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_10').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_plus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 173 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_tooling_rights"
-					text_single = {
-						size = { 169 30 }
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						autoresize = no
-						maximumsize = { 169 30 }
-						fontsize = 16
-						fontsize_min = 12
-						align = left|vcenter
-						elide = right
-						text = "bag_wtp_right_royal_tooling_rights"
-					}
-				}
-			}
-		}
-
-		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
-			hbox = {
-				spacing = 1
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_minus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 32 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_edit_right_count_tt"
-					text_single = {
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 18
-						text = "bag_wtp_edit_rcount_11"
-					}
-				}
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_11').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_plus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 173 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_right_royal_weaponry_rights"
-					text_single = {
-						size = { 169 30 }
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						autoresize = no
-						maximumsize = { 169 30 }
-						fontsize = 16
-						fontsize_min = 12
-						align = left|vcenter
-						elide = right
-						text = "bag_wtp_right_royal_weaponry_rights"
-					}
-				}
-			}
-		}
-
-		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
-			hbox = {
-				spacing = 1
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_minus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 32 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_edit_right_count_tt"
-					text_single = {
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 18
-						text = "bag_wtp_edit_rcount_12"
-					}
-				}
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_12').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_plus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 173 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_right_scandinavian_bergslag_privileges"
-					text_single = {
-						size = { 169 30 }
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						autoresize = no
-						maximumsize = { 169 30 }
-						fontsize = 16
-						fontsize_min = 12
-						align = left|vcenter
-						elide = right
-						text = "bag_wtp_right_scandinavian_bergslag_privileges"
-					}
-				}
-			}
-		}
-
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
-	}
-
-	# Charters 13..13, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col5 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
-
-		widget = {
-			size = { 264 28 }
-			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
-			hbox = {
-				spacing = 1
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_minus_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_minus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 32 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_edit_right_count_tt"
-					text_single = {
-						parentanchor = center
-						widgetanchor = center
-						autoresize = yes
-						fontsize = 18
-						text = "bag_wtp_edit_rcount_13"
-					}
-				}
-
-				widget = {
-					size = { 28 32 }
-					button_regular = {
-						size = { 26 26 }
-						parentanchor = center
-						widgetanchor = center
-						tooltip = "bag_wtp_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('bag_wtp_right_plus_13').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text_single = {
-							parentanchor = center
-							widgetanchor = center
-							autoresize = yes
-							fontsize = 16
-							text = "bag_wtp_edit_plus"
-						}
-					}
-				}
-
-				widget = {
-					size = { 173 32 }
-					alwaystransparent = no
-					tooltip = "bag_wtp_right_scandinavian_tar_privileges"
-					text_single = {
-						size = { 169 30 }
-						parentanchor = left|vcenter
-						widgetanchor = left|vcenter
-						autoresize = no
-						maximumsize = { 169 30 }
-						fontsize = 16
-						fontsize_min = 12
-						align = left|vcenter
-						elide = right
-						text = "bag_wtp_right_scandinavian_tar_privileges"
-					}
-				}
-			}
-		}
-
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+		widget = { size = { 264 32 } }
+		widget = { size = { 264 32 } }
 	}
 }

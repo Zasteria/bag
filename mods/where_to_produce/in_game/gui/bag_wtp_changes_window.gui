@@ -17,6 +17,7 @@ types BagWtpChangesTypes {
 	# One good, as a texticon. Two of these lists per row: what left, what arrived.
 	type bag_wtp_chg_goods_entry = widget {
 		size = { 30 24 }
+	using = bg_window_default_alt
 		text_single = {
 			parentanchor = center
 			autoresize = yes
@@ -189,99 +190,103 @@ window = {
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_chg_open').IsSet]"
 
-	widget = {
-		size = { 1492 560 }
-		using = bg_window_default_alt
-		allow_outside = yes
+	# **Форма окна взята у самой игры, а не придумана.** `ai_settings_menu.gui` —
+	# свободное окно ровно этого вида: `size` и `using = bg_window_default_alt`
+	# стоят **на самом `window`**, а `vbox` лежит в нём напрямую. У нас между ними
+	# был лишний `widget` со своим размером, и шапка, оказавшись внутри него,
+	# держала ширину своего типа, что бы ни делало окно. «Злоебучая шапка окна
+	# снова не расширилась вместе с окном» — 2026-09-06, и это третий раз.
+	#
+	# **Тип `window_header_alt` не объявлен нигде в `reference/`**, так что читать,
+	# что держит его ширину, отсюда нечем. Поэтому здесь не догадка о шапке, а
+	# копия структуры окна, которое в игре работает.
 
-		widget = {
-			parentanchor = right
-			position = { -5 5 }
-			size = { 40 40 }
-			ui_direction_button_holder_right = {}
-			button_close_alt = {
-				blockoverride "close_on_action" {
-					on_action = "[GetScriptedGui('bag_wtp_close_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
+	widget = {
+		parentanchor = right
+		position = { -5 5 }
+		size = { 40 40 }
+		ui_direction_button_holder_right = {}
+		button_close_alt = {
+			blockoverride "close_on_action" {
+				on_action = "[GetScriptedGui('bag_wtp_close_changes_window').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 			}
+		}
+	}
+
+	vbox = {
+		using = window_margin_alt
+
+		# **`layoutpolicy_horizontal = expanding` on the header, and every window
+		# of this mod was missing it.** «Злоебучая шапка окна снова не
+		# расширилась вместе с окном» — 2026-09-06, and the third time he has
+		# said it. The game's own windows all carry this line on their
+		# `window_header_alt` (`multiplayer_lobby.gui`,
+		# `automation_lateralview.gui`); without it the header keeps the type's
+		# own width whatever the window does.
+		window_header_alt = {
+			blockoverride "header_text" { text = "bag_wtp_chg_window_title" }
+			blockoverride "window_header_alt_color_texture" { using = color_production_texture }
 		}
 
 		vbox = {
-			using = window_margin_alt
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			using = bg_secondary_inner_alt
+			margin = { 12 12 }
+			spacing = 6
 
-			# **`layoutpolicy_horizontal = expanding` on the header, and every window
-			# of this mod was missing it.** «Злоебучая шапка окна снова не
-			# расширилась вместе с окном» — 2026-09-06, and the third time he has
-			# said it. The game's own windows all carry this line on their
-			# `window_header_alt` (`multiplayer_lobby.gui`,
-			# `automation_lateralview.gui`); without it the header keeps the type's
-			# own width whatever the window does.
-			window_header_alt = {
-				layoutpolicy_horizontal = expanding
-				blockoverride "header_text" { text = "bag_wtp_chg_window_title" }
-				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
+			# How many locations moved, printed rather than counted by eye. **It is
+			# the measurement that condemned the last build**: a weight fed into a
+			# re-plan moved 42 locations of 48 on one press, and this line is where
+			# that would have been obvious without a log.
+			text_single = {
+				size = { 1442 24 }
+				autoresize = no
+				align = left|vcenter
+				fontsize = 14
+				elide = right
+				text = "bag_wtp_chg_moved"
+				tooltip = "bag_wtp_chg_moved_tt"
 			}
 
-			vbox = {
+			# **The reshuffle's own line, and it is not decoration.** The pass
+			# moves buildings the player never pressed on, so «traded nothing»,
+			# «traded, and it was worth nothing» and «never ran at all» are three
+			# answers that look the same on the map. Two numbers separate them.
+			text_single = {
+				size = { 1442 22 }
+				autoresize = no
+				align = left|vcenter
+				fontsize = 13
+				elide = right
+				text = "bag_wtp_chg_shuffle"
+				tooltip = "bag_wtp_chg_shuffle_tt"
+			}
+
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				maximumsize = { 1442 60 }
+				align = center
+				visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_chg_locs')))]"
+				text = "bag_wtp_chg_window_empty"
+			}
+
+			scrollbox = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
-				using = bg_secondary_inner_alt
-				margin = { 12 12 }
-				spacing = 6
-
-				# How many locations moved, printed rather than counted by eye. **It is
-				# the measurement that condemned the last build**: a weight fed into a
-				# re-plan moved 42 locations of 48 on one press, and this line is where
-				# that would have been obvious without a log.
-				text_single = {
-					size = { 1442 24 }
-					autoresize = no
-					align = left|vcenter
-					fontsize = 14
-					elide = right
-					text = "bag_wtp_chg_moved"
-					tooltip = "bag_wtp_chg_moved_tt"
-				}
-
-				# **The reshuffle's own line, and it is not decoration.** The pass
-				# moves buildings the player never pressed on, so «traded nothing»,
-				# «traded, and it was worth nothing» and «never ran at all» are three
-				# answers that look the same on the map. Two numbers separate them.
-				text_single = {
-					size = { 1442 22 }
-					autoresize = no
-					align = left|vcenter
-					fontsize = 13
-					elide = right
-					text = "bag_wtp_chg_shuffle"
-					tooltip = "bag_wtp_chg_shuffle_tt"
-				}
-
-				text_multi = {
-					layoutpolicy_horizontal = expanding
-					autoresize = yes
-					maximumsize = { 1442 60 }
-					align = center
-					visible = "[Not(DataModelHasItems(GetGlobalList('bag_wtp_chg_locs')))]"
-					text = "bag_wtp_chg_window_empty"
-				}
-
-				scrollbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					blockoverride "scrollbox_content" {
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = preferred
-							margin = { 10 8 }
-							margin_right = 20
-							spacing = 3
-							ignoreinvisible = yes
-							datamodel = "[GetGlobalList('bag_wtp_chg_locs')]"
-							item = {
-								bag_wtp_chg_entry = {
-									datacontext = "[Scope.GetLocation]"
-								}
+				blockoverride "scrollbox_content" {
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = preferred
+						margin = { 10 8 }
+						margin_right = 20
+						spacing = 3
+						ignoreinvisible = yes
+						datamodel = "[GetGlobalList('bag_wtp_chg_locs')]"
+						item = {
+							bag_wtp_chg_entry = {
+								datacontext = "[Scope.GetLocation]"
 							}
 						}
 					}

@@ -64,6 +64,1599 @@ bag_wtp_plan_right_label = {
 	}
 }
 
+# **Какая грамота сидит на месте p, словами и числом.**
+#
+# Ячейка редактора написана под *место*, а не под грамоту: места заполняются
+# подряд, так что дыр в ряду не бывает вовсе. Номер в число и в имя переводит вот
+# этот диспетчер -- по одному на каждое место, тринадцать веток в каждом. Дорого
+# на вид и даром на деле: обе строки рисуются раз в кадр и читают одну глобалку.
+
+# Scope: country
+bag_wtp_rslot_name_1 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_1 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot1 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_2 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_2 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot2 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_3 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_3 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot3 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_4 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_4 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot4 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_5 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_5 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot5 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_6 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_6 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot6 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_7 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_7 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot7 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_8 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_8 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot8 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_9 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_9 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot9 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_10 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_10 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot10 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_11 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_11 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot11 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_12 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_12 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot12 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_name_13 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
+# Scope: country
+bag_wtp_rslot_count_13 = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 1 }
+		localization_key = bag_wtp_edit_rcount_1
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 2 }
+		localization_key = bag_wtp_edit_rcount_2
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 3 }
+		localization_key = bag_wtp_edit_rcount_3
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 4 }
+		localization_key = bag_wtp_edit_rcount_4
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 5 }
+		localization_key = bag_wtp_edit_rcount_5
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 6 }
+		localization_key = bag_wtp_edit_rcount_6
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 7 }
+		localization_key = bag_wtp_edit_rcount_7
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 8 }
+		localization_key = bag_wtp_edit_rcount_8
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 9 }
+		localization_key = bag_wtp_edit_rcount_9
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 10 }
+		localization_key = bag_wtp_edit_rcount_10
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 11 }
+		localization_key = bag_wtp_edit_rcount_11
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 12 }
+		localization_key = bag_wtp_edit_rcount_12
+	}
+	text = {
+		trigger = { global_var:bag_wtp_rslot13 = 13 }
+		localization_key = bag_wtp_edit_rcount_13
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_rslot_empty
+	}
+}
+
 # **The charter this town held in the *saved* plan.** «Показать изменения» lists
 # what left and what arrived, and until 2026-09-06 a charter moving between towns
 # showed only as its buildings: «тогда уж там должна показываться вся связка —

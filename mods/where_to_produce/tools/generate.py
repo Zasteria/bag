@@ -2092,6 +2092,35 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 \t}}
 }}
 
+# **Какая грамота сидит на месте p, словами и числом.**
+#
+# Ячейка редактора написана под *место*, а не под грамоту: места заполняются
+# подряд, так что дыр в ряду не бывает вовсе. Номер в число и в имя переводит вот
+# этот диспетчер -- по одному на каждое место, тринадцать веток в каждом. Дорого
+# на вид и даром на деле: обе строки рисуются раз в кадр и читают одну глобалку.
+""")
+    for p_slot in range(1, len(rights) + 1):
+        for kind, key in (("name", f"{MOD_ID}_right_%s"),
+                          ("count", f"{MOD_ID}_edit_rcount_%s")):
+            out.append(f"""
+# Scope: country
+{MOD_ID}_rslot_{kind}_{p_slot} = {{
+\ttype = country
+""")
+            for k, right in enumerate(rights, start=1):
+                target = key % (right.key if kind == "name" else k)
+                out.append(f"""\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_rslot{p_slot} = {k} }}
+\t\tlocalization_key = {target}
+\t}}
+""")
+            out.append(f"""\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_rslot_empty
+\t}}
+}}
+""")
+    out.append(f"""
 # **The charter this town held in the *saved* plan.** «Показать изменения» lists
 # what left and what arrived, and until 2026-09-06 a charter moving between towns
 # showed only as its buildings: «тогда уж там должна показываться вся связка —
@@ -3649,7 +3678,7 @@ EDIT_CELLS_OUT = MOD / "in_game/gui/bag_wtp_edit_cells.gui"
 # что на его земле пять колонок дают две строки, а на полных тринадцати три.
 EDIT_RIGHT_W = 264
 EDIT_RIGHT_H = 32
-EDIT_RIGHT_COL = 3
+EDIT_RIGHT_ROW = 5
 
 
 def edit_cells_file(order: list[str],
@@ -3825,26 +3854,25 @@ def edit_cells_file(order: list[str],
 		ignoreinvisible = no
 {cells}{pad}	}}
 """)
-    # **The charters, in two columns beside the goods.** He asked for them in the
-    # editor on 2026-09-06 -- «добавить в том числе туда редактирование по
-    # городским правам» -- and the cell is the goods cell with the icon replaced
-    # by the charter's name, because thirteen charters share their icons with the
-    # goods they favour and an icon alone would not tell two of them apart.
+    # **Места, а не грамоты, и это разница, которую он назвал сам.** 2026-09-06:
+    # «мод должен сначала узнать какие грамоты доступны, а потом загружать
+    # доступные в окна». Ячейка, написанная под номер грамоты, держит своё место в
+    # ряду даже невидимой -- девять грамот из тринадцати вставали рваными
+    # столбцами, и «ювелирное производство» оставалось одно на третьей строке.
     #
-    # **A column packs upward, a row cannot.** A country is offered nine or ten
-    # of the thirteen; a missing one in a row is a hole wherever it falls, and in
-    # a `vbox` with `ignoreinvisible = yes` it is nothing at all. The rule and the
-    # run that bought it are in `docs/pitfalls/interface.md`.
-    for c in range((len(rights) + EDIT_RIGHT_COL - 1) // EDIT_RIGHT_COL):
-        first = c * EDIT_RIGHT_COL + 1
-        last = min((c + 1) * EDIT_RIGHT_COL, len(rights))
+    # Здесь ячейка написана под **место**: `_rslot<p>` говорит, какая грамота на
+    # нём сидит, а имя, счётчик и обе кнопки попадают в свою грамоту через
+    # диспетчер. Места заполняются подряд, так что дыр не бывает вовсе, и ряд из
+    # пяти заполнен ровно настолько, сколько грамот держава может выдать.
+    for r in range((len(rights) + EDIT_RIGHT_ROW - 1) // EDIT_RIGHT_ROW):
+        first = r * EDIT_RIGHT_ROW + 1
+        last = min((r + 1) * EDIT_RIGHT_ROW, len(rights))
         cells = ""
-        for k in range(first, last + 1):
-            right = rights[k - 1]
+        for p in range(first, last + 1):
             cells += f"""
 		widget = {{
-			size = {{ {EDIT_RIGHT_W} 28 }}
-			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_right_ok{k}').IsSet]"
+			size = {{ {EDIT_RIGHT_W} {EDIT_RIGHT_H} }}
+			visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_rslotok{p}').IsSet]"
 			hbox = {{
 				spacing = 1
 
@@ -3855,7 +3883,7 @@ def edit_cells_file(order: list[str],
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_minus_tt"
-						onclick = "[GetScriptedGui('{MOD_ID}_right_minus_{k}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('{MOD_ID}_right_minus_slot_{p}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {{
 							parentanchor = center
 							widgetanchor = center
@@ -3875,7 +3903,7 @@ def edit_cells_file(order: list[str],
 						widgetanchor = center
 						autoresize = yes
 						fontsize = 18
-						text = "{MOD_ID}_edit_rcount_{k}"
+						text = "[GetPlayer.Custom('{MOD_ID}_rslot_count_{p}')]"
 					}}
 				}}
 
@@ -3886,7 +3914,7 @@ def edit_cells_file(order: list[str],
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_plus_tt"
-						onclick = "[GetScriptedGui('{MOD_ID}_right_plus_{k}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('{MOD_ID}_right_plus_slot_{p}').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						text_single = {{
 							parentanchor = center
 							widgetanchor = center
@@ -3900,7 +3928,7 @@ def edit_cells_file(order: list[str],
 				widget = {{
 					size = {{ {EDIT_RIGHT_W - 91} {EDIT_RIGHT_H} }}
 					alwaystransparent = no
-					tooltip = "{MOD_ID}_right_{right.key}"
+					tooltip = "[GetPlayer.Custom('{MOD_ID}_rslot_name_{p}')]"
 					text_single = {{
 						size = {{ {EDIT_RIGHT_W - 95} {EDIT_RIGHT_H - 2} }}
 						parentanchor = left|vcenter
@@ -3911,22 +3939,28 @@ def edit_cells_file(order: list[str],
 						fontsize_min = 12
 						align = left|vcenter
 						elide = right
-						text = "{MOD_ID}_right_{right.key}"
+						text = "[GetPlayer.Custom('{MOD_ID}_rslot_name_{p}')]"
 					}}
 				}}
 			}}
 		}}
 """
+        # **`ignoreinvisible = no` и добивка до полного ряда.** Места заполняются
+        # подряд, так что пустыми бывают только последние; короткий `hbox` в
+        # центрирующем родителе уезжает, а пустышка держит его на месте.
+        pad = "".join(f"		widget = {{ size = {{ {EDIT_RIGHT_W} {EDIT_RIGHT_H} }} }}\n"
+                      for _ in range(EDIT_RIGHT_ROW - (last - first + 1)))
         rows.append(f"""
-	# Charters {first}..{last}, packed upward: one this country cannot hold takes
-	# no space at all.
-	type {MOD_ID}_edit_right_col{c + 1} = vbox {{
-		spacing = 2
-		ignoreinvisible = yes
-{cells}
-		# The slack goes here rather than between the charters.
-		widget = {{ layoutpolicy_vertical = expanding size = {{ {EDIT_RIGHT_W} -1 }} }}
-	}}
+	# Места {first}..{last}: какая грамота на каком, решает `_rslot<p>`.
+	#
+	# **Ряд гаснет целиком по своему первому месту.** Места заполняются подряд, так
+	# что ряд пуст тогда и только тогда, когда пусто его первое место -- а `hbox`,
+	# у которого невидимы все дети, сам остаётся видимым и держит свои 32 пикселя.
+	type {MOD_ID}_edit_right_row{r + 1} = hbox {{
+		spacing = 14
+		ignoreinvisible = no
+		visible = "[GetPlayer.MakeScope.GetVariable('{MOD_ID}_rslotok{first}').IsSet]"
+{cells}{pad}	}}
 """)
     return (HEADER + f"""#
 # The plan editor's picker, a cell a good and a cell a charter.
@@ -6871,7 +6905,42 @@ def rights_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t}}
 """)
-    out.append("}\n")
+    # **And the same answer packed into slots, which is what the editor draws.**
+    #
+    # Его слова 2026-09-06: «я не понимаю почему ты вообще не можешь выкинуть
+    # "фантомные" грамоты из окна… мод должен сначала узнать какие грамоты
+    # доступны, а потом загружать доступные в окна». Он прав про механизм: ячейка
+    # написана под номер грамоты, невидимая ячейка держала своё место в колонке, и
+    # девять грамот из тринадцати вставали рваными столбцами.
+    #
+    # **Слот — это место в окне, а не грамота.** `_rslot<p>` говорит, какая грамота
+    # сидит на месте p, и заполняется он подряд, без дыр. Ячейка написана под
+    # *место*: имя, счётчик и обе кнопки спрашивают `_rslot<p>` и попадают в свою
+    # грамоту через диспетчер. Дыр не остаётся вовсе, и строка из пяти мест
+    # заполнена ровно настолько, сколько грамот держава может выдать.
+    slot_reset = "".join(
+        f"\tset_global_variable = {{ name = {MOD_ID}_rslot{p} value = 0 }}\n"
+        f"\tremove_variable = {MOD_ID}_rslotok{p}\n"
+        for p in range(1, len(rights) + 1))
+    fill = "".join(
+        f"\tif = {{\n"
+        f"\t\tlimit = {{ has_variable = {MOD_ID}_right_ok{index_of_right[right.key]} }}\n"
+        f"\t\tchange_global_variable = {{ name = {MOD_ID}_rslotn add = 1 }}\n"
+        + "".join(
+            f"\t\tif = {{\n"
+            f"\t\t\tlimit = {{ global_var:{MOD_ID}_rslotn = {p} }}\n"
+            f"\t\t\tset_global_variable = {{ name = {MOD_ID}_rslot{p} "
+            f"value = {index_of_right[right.key]} }}\n"
+            f"\t\t\tset_variable = {{ name = {MOD_ID}_rslotok{p} value = 1 }}\n"
+            f"\t\t}}\n"
+            for p in range(1, len(rights) + 1))
+        + f"\t}}\n"
+        for right in rights)
+    out.append(f"""\t# Места пересобираются целиком: грамота, которую держава потеряла,
+\t# не должна оставить за собой дыру.
+{slot_reset}\tset_global_variable = {{ name = {MOD_ID}_rslotn value = 0 }}
+{fill}}}
+""")
 
     # ---- the pass -------------------------------------------------------
     out.append(f"""
@@ -8060,6 +8129,29 @@ def main() -> int:
 }}
 """
         for k, right in enumerate(output_rights(rows, game), start=1)
+        for what in ("plus", "minus")) + "".join(
+        f"""
+# «{{'plus': '+1', 'minus': '−1'}}[what]» на месте {p_slot} блока грамот. **Ячейка
+# написана под место, а не под грамоту**: какая грамота на нём сидит, говорит
+# `_rslot{p_slot}`, и диспетчер ниже попадает в её собственный эффект. Без этого
+# невидимая ячейка держала бы своё место в ряду, а девять грамот из тринадцати
+# вставали бы рваными столбцами -- 2026-09-06.
+{MOD_ID}_right_{what}_slot_{p_slot} = {{
+\tscope = country
+
+\tis_shown = {{
+\t\talways = yes
+\t}}
+
+\teffect = {{
+""" + "".join(
+            f"\t\tif = {{ limit = {{ global_var:{MOD_ID}_rslot{p_slot} = {k} }} "
+            f"{MOD_ID}_edit_right_{what}_{k} = yes }}\n"
+            for k in range(1, len(output_rights(rows, game)) + 1)) + f"""\t\t{MOD_ID}_recompute_live = yes
+\t}}
+}}
+"""
+        for p_slot in range(1, len(output_rights(rows, game)) + 1)
         for what in ("plus", "minus")) + "".join(
         f"""
 # {good} in the ranking window's picker. One circle, one number.
