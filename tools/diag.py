@@ -431,6 +431,8 @@ def journal(lines: list[str]) -> list[str]:
     """
     names = good_names(lines)
     name = lambda number: names.get(number or 0, "№%s" % number)
+    charters = right_legend(lines)
+    charter = lambda number: charters.get(number or 0, "грамота №%s" % number)
     out: list[str] = []
     for line in lines:
         if not line.startswith(PRESS):
@@ -458,6 +460,20 @@ def journal(lines: list[str]) -> list[str]:
                 got = "убрано, место занял " + name(esg)
             else:
                 got = "ничего не сделано: убирать нечего"
+        elif op in (3, 4):
+            # **Грамоты: нажатие переставляет её, а не добавляет.** `rfrom` --
+            # чья была локация, `rto` -- чьей стала; на «+1» вторая та, что
+            # нажали, на «−1» первая.
+            src, dst = field(line, "rfrom"), field(line, "rto")
+            what = ("«+1» " + charter(dst)) if op == 3 else ("«−1» " + charter(src))
+            if done and op == 3:
+                got = "город передан, взят у «%s»" % charter(src)
+            elif done:
+                got = "снята, город достался «%s»" % charter(dst)
+            elif fail:
+                got = "отказано: город передать некому"
+            else:
+                got = "ничего не сделано: не нашлось города"
         else:
             continue
         out.append("  %s. %s%s: %s"
@@ -624,12 +640,18 @@ def digest(lines: list[str]) -> list[str]:
                          first("WTP EDIT walk"))
     presses = field(asked, "presses")
     if presses:
-        op = {1: "«+1»", 2: "«−1»"}.get(field(asked, "op"), "ничего")
+        op = {1: "«+1»", 2: "«−1»", 3: "«+1» грамота",
+              4: "«−1» грамота"}.get(field(asked, "op"), "ничего")
         done, fail = field(asked, "done"), field(asked, "fail")
         got = ("поставлено" if done else
                "отказано, всё возвращено" if fail else "ничего не сделано")
-        out.append("Правка: нажатий %d, последнее — %s по товару №%s: %s"
-                   % (presses, op, field(asked, "good"), got))
+        which = (field(asked, "right") if (field(asked, "op") or 0) > 2
+                 else field(asked, "good"))
+        idle = field(asked, "idle")
+        out.append("Правка: нажатий %d%s, последнее — %s №%s: %s"
+                   % (presses,
+                      "" if idle is None else ", из них впустую %d" % idle,
+                      op, which, got))
         if field(scan, "hit"):
             out.append("  обход встал на локацию: %s, домиков %s из %s, жертва "
                        "№%s (выгода %s) — выселено: %s, место было: %s, "

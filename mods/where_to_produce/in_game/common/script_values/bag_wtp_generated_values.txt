@@ -10897,6 +10897,13 @@ bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
 # may not be taken out is exactly such a case.
 # Scope: country
 bag_wtp_show_edit_moved = { value = global_var:bag_wtp_edit_moved }
+# **Нажатие, которое ничего не сделало, тоже нажатие.** Его слова,
+# 2026-09-06: «отсутствие изменений -- тоже изменение… журнал должен
+# регистрировать такие клики». В списке изменений их видно только дырой в
+# нумерации -- она начинается с 3, если первые два нажатия никуда не встали,
+# -- и дыра без подписи читается как потерянная строка.
+bag_wtp_show_edit_presses = { value = global_var:bag_wtp_edit_presses }
+bag_wtp_show_edit_idle = { value = global_var:bag_wtp_edit_idle }
 # **The reshuffle's own two numbers**, and they are on screen because the pass
 # is invisible otherwise: it moves buildings the player did not ask about, and
 # «traded nothing», «traded and it was worth nothing» and «never ran» are three
@@ -11243,3 +11250,42 @@ bag_wtp_show_pn46 = { value = global_var:bag_wtp_pn46 }
 # carries a goods scope and a scope reaches no numbered counter.
 # Scope: country
 bag_wtp_show_pn47 = { value = global_var:bag_wtp_pn47 }
+# How many towns hold constantinopolitan_silk_monopoly_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven1 = { value = global_var:bag_wtp_rgiven1 }
+# How many towns hold flemish_cloth_industries_right right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven2 = { value = global_var:bag_wtp_rgiven2 }
+# How many towns hold royal_artisan_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven3 = { value = global_var:bag_wtp_rgiven3 }
+# How many towns hold royal_book_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven4 = { value = global_var:bag_wtp_rgiven4 }
+# How many towns hold royal_brewing_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven5 = { value = global_var:bag_wtp_rgiven5 }
+# How many towns hold royal_jewelry_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven6 = { value = global_var:bag_wtp_rgiven6 }
+# How many towns hold royal_masonry_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven7 = { value = global_var:bag_wtp_rgiven7 }
+# How many towns hold royal_naval_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven8 = { value = global_var:bag_wtp_rgiven8 }
+# How many towns hold royal_textile_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven9 = { value = global_var:bag_wtp_rgiven9 }
+# How many towns hold royal_tooling_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven10 = { value = global_var:bag_wtp_rgiven10 }
+# How many towns hold royal_weaponry_rights right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven11 = { value = global_var:bag_wtp_rgiven11 }
+# How many towns hold scandinavian_bergslag_privileges right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven12 = { value = global_var:bag_wtp_rgiven12 }
+# How many towns hold scandinavian_tar_privileges right now, printed in its own cell.
+# Scope: country
+bag_wtp_show_rgiven13 = { value = global_var:bag_wtp_rgiven13 }

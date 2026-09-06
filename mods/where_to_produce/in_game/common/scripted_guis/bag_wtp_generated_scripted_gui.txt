@@ -2632,6 +2632,448 @@ bag_wtp_pick_skip_47 = {
 	}
 }
 
+# «{'plus': '+1', 'minus': '−1'}[what]» on the constantinopolitan_silk_monopoly_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_1 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the constantinopolitan_silk_monopoly_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_1 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_1 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the flemish_cloth_industries_right charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_2 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the flemish_cloth_industries_right charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_2 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_2 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_artisan_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_3 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_artisan_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_3 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_3 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_book_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_4 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_book_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_4 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_4 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_brewing_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_5 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_brewing_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_5 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_5 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_jewelry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_6 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_jewelry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_6 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_6 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_masonry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_7 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_masonry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_7 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_7 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_naval_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_8 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_naval_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_8 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_8 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_textile_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_9 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_textile_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_9 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_9 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_tooling_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_10 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_tooling_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_10 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_10 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_weaponry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_11 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the royal_weaponry_rights charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_11 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_11 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the scandinavian_bergslag_privileges charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_12 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the scandinavian_bergslag_privileges charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_12 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_12 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the scandinavian_tar_privileges charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_plus_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_plus_13 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
+# «{'plus': '+1', 'minus': '−1'}[what]» on the scandinavian_tar_privileges charter, from its own
+# cell in the editor. **A charter is moved, never added**: «+1» takes the town
+# where it would earn most away from a charter that has more than its share,
+# «−1» hands its worst town to whichever charter is furthest below its own.
+bag_wtp_right_minus_13 = {
+	scope = country
+
+	is_shown = {
+		always = yes
+	}
+
+	effect = {
+		bag_wtp_edit_right_minus_13 = yes
+		bag_wtp_recompute_live = yes
+	}
+}
+
 # clay in the ranking window's picker. One circle, one number.
 bag_wtp_pick_good_1 = {
 	scope = country

@@ -123,6 +123,132 @@ bag_wtp_edit_slot3_label = {
 # success. It cannot happen now -- the victim goes back -- but the window must
 # still say that the press did nothing, and why.
 # Scope: country
+# The charter `_edit_rfrom` names, in the game's own wording. A number
+# reaches no name in localization, so this is the dispatch that does it.
+# Scope: country
+bag_wtp_edit_rfrom_name = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rfrom = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_right_unnamed
+	}
+}
+
+# The charter `_edit_rto` names, in the game's own wording. A number
+# reaches no name in localization, so this is the dispatch that does it.
+# Scope: country
+bag_wtp_edit_rto_name = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 1 }
+		localization_key = bag_wtp_right_constantinopolitan_silk_monopoly_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 2 }
+		localization_key = bag_wtp_right_flemish_cloth_industries_right
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 3 }
+		localization_key = bag_wtp_right_royal_artisan_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 4 }
+		localization_key = bag_wtp_right_royal_book_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 5 }
+		localization_key = bag_wtp_right_royal_brewing_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 6 }
+		localization_key = bag_wtp_right_royal_jewelry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 7 }
+		localization_key = bag_wtp_right_royal_masonry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 8 }
+		localization_key = bag_wtp_right_royal_naval_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 9 }
+		localization_key = bag_wtp_right_royal_textile_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 10 }
+		localization_key = bag_wtp_right_royal_tooling_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 11 }
+		localization_key = bag_wtp_right_royal_weaponry_rights
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 12 }
+		localization_key = bag_wtp_right_scandinavian_bergslag_privileges
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_rto = 13 }
+		localization_key = bag_wtp_right_scandinavian_tar_privileges
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_right_unnamed
+	}
+}
+
 bag_wtp_edit_last_label = {
 	type = country
 	text = {
@@ -158,6 +284,19 @@ bag_wtp_edit_last_label = {
 		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 2 }
 		localization_key = bag_wtp_edit_last_drop_refill
 	}
+	# **A charter press is a move and its line has to say both ends.**
+	# Which charter left the town and which arrived are numbers, and a
+	# number has no name -- `_edit_rfrom_name` and `_edit_rto_name` are
+	# the thirteen-branch dispatches that turn them into the game's own
+	# wording.
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 3 }
+		localization_key = bag_wtp_edit_last_right_add
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_done = 1 global_var:bag_wtp_edit_op = 4 }
+		localization_key = bag_wtp_edit_last_right_drop
+	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_done = 1 }
 		localization_key = bag_wtp_edit_last_done
@@ -165,6 +304,21 @@ bag_wtp_edit_last_label = {
 	text = {
 		trigger = { global_var:bag_wtp_edit_reached = 0 }
 		localization_key = bag_wtp_edit_last_lost
+	}
+	# **Before the goods' own refusal, because op 4 fails for its own
+	# reason**: the town's charter could go, and no other charter this
+	# country may grant can stand there.
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 4 global_var:bag_wtp_edit_fail = 1 }
+		localization_key = bag_wtp_edit_last_right_noheir
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 3 }
+		localization_key = bag_wtp_edit_last_right_notown
+	}
+	text = {
+		trigger = { global_var:bag_wtp_edit_op = 4 }
+		localization_key = bag_wtp_edit_last_right_none
 	}
 	text = {
 		trigger = { global_var:bag_wtp_edit_fail = 1 }

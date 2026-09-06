@@ -40,13 +40,13 @@ window = {
 	widgetanchor = center
 	position = { 0 0 }
 	movable = yes
-	size = { 1500 780 }
+	size = { 1500 880 }
 
 	visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 	enabled = "[GetPlayer.MakeScope.GetVariable('bag_wtp_edit_open').IsSet]"
 
 	widget = {
-		size = { 1500 780 }
+		size = { 1500 880 }
 		using = bg_window_default_alt
 		allow_outside = yes
 
@@ -385,6 +385,47 @@ window = {
 					bag_wtp_edit_row3 = {}
 					bag_wtp_edit_row4 = {}
 					bag_wtp_edit_row5 = {}
+				}
+
+				# **The charters, and he asked for them here by name**, 2026-09-06:
+				# «можно сделать аналогично, удобно и добавить в том числе туда
+				# редактирование по городским правам». Same cell as a good — «−1»,
+				# the count, «+1» — with the charter's name instead of an icon,
+				# because thirteen charters share their icons with the goods they
+				# favour.
+				#
+				# **Two columns, and the trailing spacer is not decoration.** An
+				# `hbox` with room to spare divides it between its children, so
+				# without a child that takes the slack the two columns drift apart
+				# across the window. `docs/pitfalls/interface.md`.
+				text_single = {
+					size = { 700 22 }
+					autoresize = no
+					align = left|vcenter
+					fontsize = 13
+					elide = right
+					text = "bag_wtp_edit_rights_head"
+					tooltip = "bag_wtp_edit_rights_head_tt"
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 14
+					ignoreinvisible = no
+
+					widget = {
+						size = { 330 150 }
+						bag_wtp_edit_right_col1 = {}
+					}
+					widget = {
+						size = { 330 150 }
+						bag_wtp_edit_right_col2 = {}
+					}
+					widget = {
+						size = { 330 150 }
+						bag_wtp_edit_right_col3 = {}
+					}
+					widget = { layoutpolicy_horizontal = expanding size = { -1 150 } }
 				}
 
 				# The plan as it stands, in the plan window's own rows.

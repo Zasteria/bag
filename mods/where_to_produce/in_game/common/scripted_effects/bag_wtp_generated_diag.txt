@@ -138,7 +138,11 @@ bag_wtp_diag_state = {
 	if = { limit = { has_global_variable = bag_wtp_edit_fail } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_edit_fail } }
 	set_global_variable = { name = bag_wtp_dv7 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_edit_norefill } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_edit_norefill } }
-	debug_log = "WTP EDIT asked presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] reached=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | outcome done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv8 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_right } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_edit_right } }
+	set_global_variable = { name = bag_wtp_dv9 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_idle } set_global_variable = { name = bag_wtp_dv9 value = global_var:bag_wtp_edit_idle } }
+	debug_log = "WTP EDIT asked presses=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] op=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] good=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] right=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] reached=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] | outcome done=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] fail=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] norefill=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0] idle=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg9')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_edit_fitn } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_fitn } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }

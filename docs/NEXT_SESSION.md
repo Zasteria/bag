@@ -33,38 +33,37 @@ rules each step implements are
 [`investigations/wtp_editor_design.md`](investigations/wtp_editor_design.md).
 
 0. **`tools/code.py`** — done 2026-09-04, no run needed.
-1. **The editor's window: the press line, the width, the frame** — **done and
-   confirmed 2026-09-05.**
-2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
-   2026-09-06**, with one change reverted: **pins, flags, the share and the star
-   belong to the editor window alone, and a fresh plan reads none of them.**
-2а. **Reshuffle the buildings a fill placed** — **closed 2026-09-06** by the
-   counters: `rounds=34 swaps=1 gain=749 | pairs=6873 same=186 nofit=1909
-   worse=4777`, and they add up to the pair count exactly. The pass works and
-   there is almost nothing to trade. One fix fell out of it: a removal did not
-   ask town or village and charged the wrong side's gain.
-2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds and all
-   three confirmed on screen. **What it taught outlives the menu**: a box given
-   more room than its children need divides the difference between them, an
-   `hbox` will not hold a written width, and two different things must not share
-   one column — [`pitfalls/interface.md`](pitfalls/interface.md); the move
-   itself, [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
-2д. **The editor's share counts the RGOs now** — his catch, 2026-09-06, and the
-   code agreed at once: the plan subtracts `_nrgo<n>` from every good's share and
-   the editor's fill compared them all against one flat number. `_eq<n> = max(1,
-   _edit_quota − _nrgo<n>)`, read by the fill and by step 3 alike; **confirmed in
-   the diagnosis**, `G2 coal … rgo=3 eq=2` against `quota=5`.
+1, 2, 2а, 2в, 2д. **The window, the share, the reshuffle, the menu and the
+   RGOs** — **all closed and confirmed in game, 2026-09-05 and 2026-09-06.**
+   What survives them in the code: **pins, flags, the share and the star belong
+   to the editor window alone, and a fresh plan reads none of them**; the
+   editor's share subtracts the RGOs exactly as the plan's does; the buildings a
+   fill placed trade locations between themselves while a trade is worth
+   anything. **What the menu taught outlives the menu**: a box given more room
+   than its children need divides the difference between them, an `hbox` will not
+   hold a written width, and two different things must not share one column —
+   [`pitfalls/interface.md`](pitfalls/interface.md).
 3. **Even eviction on «+1»** — **closed 2026-09-06**: ten «+1» on one good
    evicted ten *different* goods, each the most bloated. The victim is the good
    furthest above its share, cheapest building only breaking ties.
-3а. **The press journal, and the changes window ordered by press.** A diff cannot
-   hold chronology — the mod writes `WTP PRESS …` into `debug.log` at press time
-   and `tools/diag.py` renders «Журнал нажатий». **The window itself was sorted
-   by location id**, which is what made it unreadable to him; it is sorted by
-   press number now and carries that number. Why both, in
-   [`pitfalls/diagnosis.md`](pitfalls/diagnosis.md). **Neither is run.**
-4. **Provinces fold in the two plan windows.**
-5. **Charters: «+1»/«−1» and whole-bundle eviction.**
+3а. **The press journal, and the changes window ordered by press** — **both
+   confirmed 2026-09-06.** A diff cannot hold chronology, so the mod writes
+   `WTP PRESS …` into `debug.log` at press time and `tools/diag.py` renders
+   «Журнал нажатий»; the window is sorted by press number and carries it. **The
+   window is a diff and it is correct**: after «+1» then «−1» on one good neither
+   column holds that good, because the two presses displaced two others — that,
+   and not the reshuffle, is what he read as «фарш». Idle presses are counted and
+   printed now, at his word «отсутствие изменений — тоже изменение».
+4. **Provinces fold in the two plan windows.** Pure interface, cheap run.
+5. **Charters in the editor** — **built 2026-09-06, never run.** A charter is not
+   a building: every town of a finished plan holds exactly one, so a press is a
+   *move*. «+1» K takes the town where K earns most from a charter that has more
+   than its share (strict, then open); «−1» K takes it off its worst town and
+   hands that town to the charter furthest below its own — **a town never ends
+   without one**. The bundle moves whole and the load is squared up after: over
+   the cap the worst ordinary building goes, under it the good furthest below its
+   share takes the room. Cells, counts and press line are in the editor window;
+   `op=3/4`, `rfrom=`, `rto=` in the journal.
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
