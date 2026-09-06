@@ -23534,7 +23534,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv1 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23610,7 +23612,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv2 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23686,7 +23690,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv3 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23762,7 +23768,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv4 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23838,7 +23846,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 800 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv5 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23914,7 +23924,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv1 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -23990,7 +24002,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv2 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24066,7 +24080,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv3 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24142,7 +24158,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv4 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24218,7 +24236,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 600 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv5 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24294,7 +24314,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv1 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24370,7 +24392,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv2 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24446,7 +24470,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv3 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24522,7 +24548,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv4 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24598,7 +24626,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 400 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv5 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24674,7 +24704,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv1 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24750,7 +24782,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv2 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24826,7 +24860,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv3 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24902,7 +24938,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv4 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -24978,7 +25016,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 200 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv5 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -25054,7 +25094,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 1 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv1 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 1 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -25130,7 +25172,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 2 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv2 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 2 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -25206,7 +25250,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 4 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv3 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 4 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -25282,7 +25328,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 8 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv4 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 8 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce
@@ -25358,7 +25406,9 @@ bag_wtp_plan_allocate = {
 	set_global_variable = { name = bag_wtp_plan_band value = 0 }
 	set_global_variable = { name = bag_wtp_plan_cover value = 0 }
 	bag_wtp_plan_th_absolute = yes
-	set_global_variable = { name = bag_wtp_plan_tier value = 16 }
+	set_global_variable = { name = bag_wtp_plan_tier value = global_var:bag_wtp_candidate_count }
+	change_global_variable = { name = bag_wtp_plan_tier divide = bag_wtp_tdiv5 }
+	change_global_variable = { name = bag_wtp_plan_tier max = 16 }
 	set_global_variable = { name = bag_wtp_plan_go value = 1 }
 	# **The guard is per pass and not across them.** It was one counter for all
 	# of them for one load, and the thirty-third run spent it on the scarce

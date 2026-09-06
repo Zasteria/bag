@@ -11020,6 +11020,12 @@ bag_wtp_qleft_value = { value = global_var:bag_wtp_qleft }
 bag_wtp_show_prooms_t = { value = global_var:bag_wtp_prooms_t }
 bag_wtp_show_prooms_r = { value = global_var:bag_wtp_prooms_r }
 bag_wtp_show_qrest = { value = global_var:bag_wtp_qrest }
+# Постоянные делители ступеней: 2 %, 4 %, 8 %, 16 %, 32 % земли.
+bag_wtp_tdiv1 = { value = 50 }
+bag_wtp_tdiv2 = { value = 25 }
+bag_wtp_tdiv3 = { value = 12.5 }
+bag_wtp_tdiv4 = { value = 6.25 }
+bag_wtp_tdiv5 = { value = 3.125 }
 bag_wtp_show_plan_scored = { value = global_var:bag_wtp_plan_scored }
 bag_wtp_show_plan_placed = { value = global_var:bag_wtp_plan_placed }
 bag_wtp_show_plan_found = { value = global_var:bag_wtp_plan_found }

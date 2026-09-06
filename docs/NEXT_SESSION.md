@@ -46,12 +46,27 @@ goods binds at 1; the other 23 goods get 5. All fifteen came out at exactly 1,
 where the old one-pool formula promised 3 the towns could never pay. Ground full,
 coverage complete, 80 % of buildings earning something — his best numbers yet.
 
-**The one thing still open, and it is a question for him, not a fix.** Cloth 15,
-masonry 12 against a share of 5: the surplus ladder (`open800…open0`) raises every
-quota a layer a round and lets gain decide, so 22 % of the plan is dealt after all
-quotas are met. Tightening it means «the room goes to whoever has fewest», which
-is the rule the *editor* already uses for a freed room. **It would cost bonus and
-he has not asked for it — put the trade to him before building.**
+**Also open, same shape:** the surplus ladder deals 22 % of the plan after every
+quota is met, by gain alone — cloth 15 against a share of 5. Tightening it means
+«the room goes to whoever has fewest», the rule the editor already uses for a
+freed room. Costs bonus; put the trade to him before building.
+
+### Two questions of his, 2026-09-06 — one closed, one open and his to answer
+
+**Closed: the scarce tiers are a share of the ground now.** They were absolute
+counts, so 16 meant a third of a 48-location ground and 1.5 % of a 1000-location
+one. Now 2/4/8/16/32 % with the old numbers as floors: on 48 candidates they come
+out 1/2/4/8/16 exactly as before, on 1000 they are 20/40/80/160/320, and **iron
+with forty places lands in the second tier** instead of being called common.
+
+**Open, and it needs his word: the two sides inside one good are not counted
+apart.** «15 стекла» may be 13 village + 2 town while «15 текстиля» is 15 town,
+and those are not the same plan. `_pn<n>` is one counter and `_pq<n>` one number
+for both sides. The fix is `_pnt`/`_pnr` and `_pqt`/`_pqr` — a town share and a
+village share, each good held to both. **It doubles the counters through every
+pass, the charters and the RGO discount, and it changes what «равномерно» means
+for the second time in two days**, so it was written up rather than built:
+[`investigations/plan_gaps.md`](investigations/plan_gaps.md).
 
 ### Then 7 and 8, in that order, and not before
 

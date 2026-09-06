@@ -145,7 +145,20 @@ PLAN_PROVS = 600
 # 0, and by the time band 0 came round the four locations in Westphalia that can
 # hold a bog iron smelter had been common goods' for twenty-five passes.
 # `docs/investigations/plan_gaps.md`, fault B.
+# **Ступень — доля земли, а не число локаций.** Владелец, 2026-09-06: «а что
+# если земля настолько большая, что ему будет места 40+, но по отношению к 1000
+# локациям — это совсем мало. Но мод скажет, что 40 это много, железо первым не
+# пойдёт и останется без своих локаций». Он прав: 16 из 48 — треть земли, 16 из
+# 1000 — полтора процента, и одно число значит в этих случаях противоположное.
+#
+# **Поэтому ступень считается от числа кандидатов**, а абсолютные числа остались
+# полом: на маленькой земле проценты дают меньше единицы, и там ступени обязаны
+# работать ровно как работали. Проценты подобраны так, чтобы на его земле в 48
+# локаций выйти в те же 1/2/4/8/15 — не сломать то, что уже проверено прогонами.
+#
+# 2 % / 4 % / 8 % / 16 % / 32 % — делители 50, 25, 12.5, 6.25, 3.125.
 PLAN_TIERS = (1, 2, 4, 8, 16)
+TIER_DIVISORS = (50, 25, 12.5, 6.25, 3.125)
 
 # The gain a placement has to reach to be made in this pass, out of `RANK_SCALE`.
 # Descending, and the last is 0 because a good the ground feeds nothing is still
@@ -1551,6 +1564,12 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 {MOD_ID}_show_prooms_t = {{ value = global_var:{MOD_ID}_prooms_t }}
 {MOD_ID}_show_prooms_r = {{ value = global_var:{MOD_ID}_prooms_r }}
 {MOD_ID}_show_qrest = {{ value = global_var:{MOD_ID}_qrest }}
+# Постоянные делители ступеней: 2 %, 4 %, 8 %, 16 %, 32 % земли.
+{MOD_ID}_tdiv1 = {{ value = 50 }}
+{MOD_ID}_tdiv2 = {{ value = 25 }}
+{MOD_ID}_tdiv3 = {{ value = 12.5 }}
+{MOD_ID}_tdiv4 = {{ value = 6.25 }}
+{MOD_ID}_tdiv5 = {{ value = 3.125 }}
 {MOD_ID}_show_plan_scored = {{ value = global_var:{MOD_ID}_plan_scored }}
 {MOD_ID}_show_plan_placed = {{ value = global_var:{MOD_ID}_plan_placed }}
 {MOD_ID}_show_plan_found = {{ value = global_var:{MOD_ID}_plan_found }}
@@ -3464,8 +3483,20 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                 for i in range(1, len(order) + 1))
             raise_all += f"\t\tchange_global_variable = {{ name = {MOD_ID}_plan_opensw add = 1 }}\n"
             tier = 0
-        out.append(f"""\tset_global_variable = {{ name = {MOD_ID}_plan_tier value = {tier} }}
-\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
+        if tier in PLAN_TIERS:
+            # Ступень как доля выбранной земли, с абсолютным полом.
+            k = PLAN_TIERS.index(tier) + 1
+            tier_line = (
+                f"\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
+                f"value = global_var:{MOD_ID}_candidate_count }}\n"
+                f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                f"divide = {MOD_ID}_tdiv{k} }}\n"
+                f"\tchange_global_variable = {{ name = {MOD_ID}_plan_tier "
+                f"max = {tier} }}\n")
+        else:
+            tier_line = (f"\tset_global_variable = {{ name = {MOD_ID}_plan_tier "
+                         f"value = {tier} }}\n")
+        out.append(tier_line + f"""\tset_global_variable = {{ name = {MOD_ID}_plan_go value = 1 }}
 \t# **The guard is per pass and not across them.** It was one counter for all
 \t# of them for one load, and the thirty-third run spent it on the scarce
 \t# tiers: «кругов 12» on the screen, twenty-eight buildings out of a hundred
@@ -8014,7 +8045,9 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     # the rebuild and the run.
     rural = sum(1 for m in rows if m.building_category in RURAL_CATEGORIES)
     bands = "/".join(str(b) for b in PLAN_BANDS)
-    tiers = "/".join(str(t) for t in PLAN_TIERS)
+    # Ступени печатаются процентами: числа — это пол, а не сама ступень.
+    tiers = "/".join("%g%%" % (100 / d) for d in TIER_DIVISORS) + \
+        " floors " + "/".join(str(t) for t in PLAN_TIERS)
     out.append(f"""
 # The generator's own numbers. Static, so that a reading is never checked
 # against the wrong constant.
