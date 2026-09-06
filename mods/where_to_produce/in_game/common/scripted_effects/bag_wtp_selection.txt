@@ -400,4 +400,12 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_rs_did } }
 		set_global_variable = { name = bag_wtp_rs_did value = 0 }
 	}
+	# Which pass the eviction is on. `bag_wtp_edit_add` sets it before either
+	# scan, but `bag_wtp_edit_worst` reads it in a trigger, and a trigger reading
+	# a global that does not exist is quietly false — which would be the strict
+	# pass, silently, for ever.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_edit_strict } }
+		set_global_variable = { name = bag_wtp_edit_strict value = 0 }
+	}
 }

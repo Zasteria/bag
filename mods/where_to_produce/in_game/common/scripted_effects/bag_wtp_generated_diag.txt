@@ -152,7 +152,9 @@ bag_wtp_diag_state = {
 	if = { limit = { has_global_variable = bag_wtp_ev_esg } set_global_variable = { name = bag_wtp_dv6 value = global_var:bag_wtp_ev_esg } }
 	set_global_variable = { name = bag_wtp_dv7 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_ev_esw } set_global_variable = { name = bag_wtp_dv7 value = global_var:bag_wtp_ev_esw } }
-	debug_log = "WTP EDIT scan fitn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cands=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] | walk hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] esw=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
+	set_global_variable = { name = bag_wtp_dv8 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_edit_strict } set_global_variable = { name = bag_wtp_dv8 value = global_var:bag_wtp_edit_strict } }
+	debug_log = "WTP EDIT scan fitn=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] cands=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] strict=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg8')|0] | walk hit=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] town=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] load=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0] esg=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg6')|0] esw=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg7')|0]"
 	set_global_variable = { name = bag_wtp_dv1 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_edit_evicted } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_edit_evicted } }
 	set_global_variable = { name = bag_wtp_dv2 value = 0 }

@@ -3962,6 +3962,18 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t\t# past its minimum», which makes its buildings *better* candidates to
 \t\t\t\t# give up, not protected ones.
 \t\t\t\tNOT = {{ has_global_variable = {MOD_ID}_lock{index} }}
+\t\t\t\t# **On the strict pass, only a good over its share may give way.**
+\t\t\t\t# Step 3, and it is the eviction side of the rule the fill already
+\t\t\t\t# obeys: «−1» hands a freed room to the good furthest below its
+\t\t\t\t# share, so «+1» must take one from the good furthest above it.
+\t\t\t\t# Without this the same cheap good is evicted press after press,
+\t\t\t\t# which is «по очереди −1» never happening. `{MOD_ID}_edit_add`
+\t\t\t\t# runs the whole scan strict first and repeats it open only if
+\t\t\t\t# nothing qualified, so this narrows the choice and never blocks it.
+\t\t\t\tOR = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_edit_strict = 0
+\t\t\t\t\tglobal_var:{MOD_ID}_pn{index} > global_var:{MOD_ID}_edit_quota
+\t\t\t\t}}
 \t\t\t\tOR = {{
 \t\t\t\t\tvar:{MOD_ID}_esw = -1
 \t\t\t\t\tvar:{MOD_ID}_p{index} < var:{MOD_ID}_esw
@@ -4286,6 +4298,37 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_mark value = 0 }}
 }}
 
+
+# One scan of every candidate: who could hold this good, what it would cost
+# there, and how many qualified. Called twice by `{MOD_ID}_edit_add` — once
+# strict, once open — so the two passes cannot drift apart.
+# Scope: country
+{MOD_ID}_edit_scan_pass = {{
+\tset_global_variable = {{ name = {MOD_ID}_edit_fitn value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
+\t\t{MOD_ID}_edit_worst = yes
+\t}}
+{fit_dispatch}{scan_dispatch}\t# **Two counts, because two different things read as «не дало правило».**
+\t# `_edit_fitn` is how many locations could hold this good at all -- the
+\t# ground's own answer, and 0 means it already stands everywhere this land
+\t# can make it. `_edit_cands` is how many of those had a free room or a
+\t# building that may be taken out. The owner pressed «+1» on iron and was
+\t# told a rule refused it; iron can be made in four locations of Westphalia
+\t# and stood in all four. That is the ground, not a rule, and saying so
+\t# needs the number.
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t}}
+}}
+""")
+
+    out.append(f"""
 # **One more building of the chosen good, and exactly one.**
 #
 # The ordered walk is the whole of the choice: `_esv` is what each candidate
@@ -4311,24 +4354,22 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_cands value = 0 }}
 \tif = {{
 \t\tlimit = {{ global_var:{MOD_ID}_edit_good > 0 }}
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tset_variable = {{ name = {MOD_ID}_esc value = 0 }}
-\t\t\tset_variable = {{ name = {MOD_ID}_esv value = 0 }}
-\t\t\t{MOD_ID}_edit_worst = yes
-\t\t}}
-{fit_dispatch}{scan_dispatch}\t\t# **Two counts, because two different things read as «не дало правило».**
-\t\t# `_edit_fitn` is how many locations could hold this good at all -- the
-\t\t# ground's own answer, and 0 means it already stands everywhere this land
-\t\t# can make it. `_edit_cands` is how many of those had a free room or a
-\t\t# building that may be taken out. The owner pressed «+1» on iron and was
-\t\t# told a rule refused it; iron can be made in four locations of Westphalia
-\t\t# and stood in all four. That is the ground, not a rule, and saying so
-\t\t# needs the number.
-\t\tevery_in_global_list = {{
-\t\t\tvariable = {MOD_ID}_candidates
-\t\t\tlimit = {{ var:{MOD_ID}_esc = 1 }}
-\t\t\tchange_global_variable = {{ name = {MOD_ID}_edit_cands add = 1 }}
+\t\t# **Two passes, and the second only when the first found nobody.**
+\t\t# Strict: the building given up must belong to a good that is over
+\t\t# its share. Open: any building that may be taken out at all. A
+\t\t# location with a free room qualifies on both — it has no victim to
+\t\t# ask about, and a free room outbids every eviction anyway.
+\t\t#
+\t\t# **Not one packed `order_by` number.** `превышение × K + выгода`
+\t\t# was the other way and it is rejected: the engine's fixed-point
+\t\t# limit is not known from here, and the same warning already
+\t\t# stands over `_plan_order`.
+\t\tset_global_variable = {{ name = {MOD_ID}_edit_strict value = 1 }}
+\t\t{MOD_ID}_edit_scan_pass = yes
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_edit_cands = 0 }}
+\t\t\tset_global_variable = {{ name = {MOD_ID}_edit_strict value = 0 }}
+\t\t\t{MOD_ID}_edit_scan_pass = yes
 \t\t}}
 \t\tordered_in_global_list = {{
 \t\t\tvariable = {MOD_ID}_candidates
@@ -6333,14 +6374,20 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT asked presses=%s op=%s good=%s reached=%s | outcome "
                    "done=%s fail=%s norefill=%s"
                    % tuple(read(i) for i in range(1, 8))))
+    # **`strict` says which of «+1»'s two passes chose the victim**, and it is
+    # the one number that separates «the share decided» from «nobody was over
+    # their share, so it fell back to the cheapest». 1 = the strict pass found
+    # candidates, 0 = it did not and the open pass answered.
     for slot, source in enumerate((f"{MOD_ID}_edit_fitn", f"{MOD_ID}_edit_cands",
                                    f"{MOD_ID}_ev_hit", f"{MOD_ID}_ev_town",
                                    f"{MOD_ID}_ev_load", f"{MOD_ID}_ev_esg",
-                                   f"{MOD_ID}_ev_esw"), start=1):
+                                   f"{MOD_ID}_ev_esw", f"{MOD_ID}_edit_strict"),
+                                  start=1):
         out.append(park(slot, source))
-    out.append(say("EDIT scan fitn=%s cands=%s | walk hit=%s town=%s load=%s "
-                   "esg=%s esw=%s"
-                   % tuple(read(i) for i in range(1, 8))))
+    out.append(say("EDIT scan fitn=%s cands=%s strict=%s | walk hit=%s town=%s "
+                   "load=%s esg=%s esw=%s"
+                   % (read(1), read(2), read(8), read(3), read(4),
+                      read(5), read(6), read(7))))
     for slot, source in enumerate((f"{MOD_ID}_edit_evicted", f"{MOD_ID}_edit_room",
                                    f"{MOD_ID}_edit_mark", f"{MOD_ID}_ev_load2",
                                    f"{MOD_ID}_plan_placed", f"{MOD_ID}_plan_cap_urban",

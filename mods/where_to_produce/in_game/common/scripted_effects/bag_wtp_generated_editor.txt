@@ -35,6 +35,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock1 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn1 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p1 < var:bag_wtp_esw
@@ -61,6 +73,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock2 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn2 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p2 < var:bag_wtp_esw
@@ -87,6 +111,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock3 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn3 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p3 < var:bag_wtp_esw
@@ -113,6 +149,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock4 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn4 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p4 < var:bag_wtp_esw
@@ -139,6 +187,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock5 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn5 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p5 < var:bag_wtp_esw
@@ -165,6 +225,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock6 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn6 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p6 < var:bag_wtp_esw
@@ -191,6 +263,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock7 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn7 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p7 < var:bag_wtp_esw
@@ -217,6 +301,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock8 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn8 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p8 < var:bag_wtp_esw
@@ -243,6 +339,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock9 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn9 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p9 < var:bag_wtp_esw
@@ -269,6 +377,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock10 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn10 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p10 < var:bag_wtp_esw
@@ -295,6 +415,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock11 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn11 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p11 < var:bag_wtp_esw
@@ -321,6 +453,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock12 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn12 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p12 < var:bag_wtp_esw
@@ -347,6 +491,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock13 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn13 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p13 < var:bag_wtp_esw
@@ -373,6 +529,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock14 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn14 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p14 < var:bag_wtp_esw
@@ -399,6 +567,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock15 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn15 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p15 < var:bag_wtp_esw
@@ -425,6 +605,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock16 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn16 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p16 < var:bag_wtp_esw
@@ -451,6 +643,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock17 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn17 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p17 < var:bag_wtp_esw
@@ -477,6 +681,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock18 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn18 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p18 < var:bag_wtp_esw
@@ -503,6 +719,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock19 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn19 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p19 < var:bag_wtp_esw
@@ -529,6 +757,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock20 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn20 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p20 < var:bag_wtp_esw
@@ -555,6 +795,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock21 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn21 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p21 < var:bag_wtp_esw
@@ -581,6 +833,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock22 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn22 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p22 < var:bag_wtp_esw
@@ -607,6 +871,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock23 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn23 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p23 < var:bag_wtp_esw
@@ -633,6 +909,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock24 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn24 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p24 < var:bag_wtp_esw
@@ -659,6 +947,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock25 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn25 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p25 < var:bag_wtp_esw
@@ -685,6 +985,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock26 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn26 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p26 < var:bag_wtp_esw
@@ -711,6 +1023,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock27 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn27 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p27 < var:bag_wtp_esw
@@ -737,6 +1061,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock28 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn28 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p28 < var:bag_wtp_esw
@@ -763,6 +1099,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock29 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn29 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p29 < var:bag_wtp_esw
@@ -789,6 +1137,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock30 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn30 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p30 < var:bag_wtp_esw
@@ -815,6 +1175,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock31 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn31 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p31 < var:bag_wtp_esw
@@ -841,6 +1213,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock32 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn32 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p32 < var:bag_wtp_esw
@@ -867,6 +1251,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock33 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn33 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p33 < var:bag_wtp_esw
@@ -893,6 +1289,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock34 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn34 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p34 < var:bag_wtp_esw
@@ -919,6 +1327,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock35 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn35 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p35 < var:bag_wtp_esw
@@ -945,6 +1365,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock36 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn36 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p36 < var:bag_wtp_esw
@@ -971,6 +1403,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock37 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn37 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p37 < var:bag_wtp_esw
@@ -997,6 +1441,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock38 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn38 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p38 < var:bag_wtp_esw
@@ -1023,6 +1479,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock39 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn39 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p39 < var:bag_wtp_esw
@@ -1049,6 +1517,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock40 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn40 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p40 < var:bag_wtp_esw
@@ -1075,6 +1555,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock41 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn41 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p41 < var:bag_wtp_esw
@@ -1101,6 +1593,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock42 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn42 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p42 < var:bag_wtp_esw
@@ -1127,6 +1631,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock43 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn43 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p43 < var:bag_wtp_esw
@@ -1153,6 +1669,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock44 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn44 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p44 < var:bag_wtp_esw
@@ -1179,6 +1707,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock45 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn45 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p45 < var:bag_wtp_esw
@@ -1205,6 +1745,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock46 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn46 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p46 < var:bag_wtp_esw
@@ -1231,6 +1783,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock47 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn47 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_p47 < var:bag_wtp_esw
@@ -1259,6 +1823,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock1 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn1 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr1 < var:bag_wtp_esw
@@ -1285,6 +1861,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock2 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn2 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr2 < var:bag_wtp_esw
@@ -1311,6 +1899,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock3 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn3 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr3 < var:bag_wtp_esw
@@ -1337,6 +1937,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock4 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn4 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr4 < var:bag_wtp_esw
@@ -1363,6 +1975,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock5 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn5 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr5 < var:bag_wtp_esw
@@ -1389,6 +2013,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock6 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn6 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr6 < var:bag_wtp_esw
@@ -1415,6 +2051,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock7 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn7 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr7 < var:bag_wtp_esw
@@ -1441,6 +2089,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock8 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn8 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr8 < var:bag_wtp_esw
@@ -1467,6 +2127,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock9 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn9 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr9 < var:bag_wtp_esw
@@ -1493,6 +2165,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock10 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn10 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr10 < var:bag_wtp_esw
@@ -1519,6 +2203,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock11 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn11 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr11 < var:bag_wtp_esw
@@ -1545,6 +2241,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock12 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn12 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr12 < var:bag_wtp_esw
@@ -1571,6 +2279,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock13 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn13 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr13 < var:bag_wtp_esw
@@ -1597,6 +2317,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock14 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn14 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr14 < var:bag_wtp_esw
@@ -1623,6 +2355,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock15 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn15 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr15 < var:bag_wtp_esw
@@ -1649,6 +2393,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock16 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn16 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr16 < var:bag_wtp_esw
@@ -1675,6 +2431,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock17 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn17 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr17 < var:bag_wtp_esw
@@ -1701,6 +2469,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock18 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn18 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr18 < var:bag_wtp_esw
@@ -1727,6 +2507,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock19 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn19 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr19 < var:bag_wtp_esw
@@ -1753,6 +2545,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock20 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn20 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr20 < var:bag_wtp_esw
@@ -1779,6 +2583,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock21 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn21 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr21 < var:bag_wtp_esw
@@ -1805,6 +2621,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock22 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn22 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr22 < var:bag_wtp_esw
@@ -1831,6 +2659,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock23 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn23 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr23 < var:bag_wtp_esw
@@ -1857,6 +2697,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock24 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn24 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr24 < var:bag_wtp_esw
@@ -1883,6 +2735,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock25 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn25 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr25 < var:bag_wtp_esw
@@ -1909,6 +2773,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock26 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn26 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr26 < var:bag_wtp_esw
@@ -1935,6 +2811,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock27 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn27 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr27 < var:bag_wtp_esw
@@ -1961,6 +2849,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock28 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn28 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr28 < var:bag_wtp_esw
@@ -1987,6 +2887,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock29 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn29 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr29 < var:bag_wtp_esw
@@ -2013,6 +2925,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock30 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn30 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr30 < var:bag_wtp_esw
@@ -2039,6 +2963,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock31 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn31 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr31 < var:bag_wtp_esw
@@ -2065,6 +3001,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock32 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn32 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr32 < var:bag_wtp_esw
@@ -2091,6 +3039,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock33 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn33 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr33 < var:bag_wtp_esw
@@ -2117,6 +3077,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock34 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn34 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr34 < var:bag_wtp_esw
@@ -2143,6 +3115,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock35 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn35 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr35 < var:bag_wtp_esw
@@ -2169,6 +3153,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock36 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn36 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr36 < var:bag_wtp_esw
@@ -2195,6 +3191,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock37 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn37 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr37 < var:bag_wtp_esw
@@ -2221,6 +3229,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock38 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn38 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr38 < var:bag_wtp_esw
@@ -2247,6 +3267,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock39 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn39 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr39 < var:bag_wtp_esw
@@ -2273,6 +3305,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock40 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn40 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr40 < var:bag_wtp_esw
@@ -2299,6 +3343,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock41 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn41 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr41 < var:bag_wtp_esw
@@ -2325,6 +3381,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock42 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn42 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr42 < var:bag_wtp_esw
@@ -2351,6 +3419,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock43 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn43 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr43 < var:bag_wtp_esw
@@ -2377,6 +3457,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock44 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn44 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr44 < var:bag_wtp_esw
@@ -2403,6 +3495,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock45 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn45 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr45 < var:bag_wtp_esw
@@ -2429,6 +3533,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock46 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn46 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr46 < var:bag_wtp_esw
@@ -2455,6 +3571,18 @@ bag_wtp_edit_worst = {
 				# past its minimum», which makes its buildings *better* candidates to
 				# give up, not protected ones.
 				NOT = { has_global_variable = bag_wtp_lock47 }
+				# **On the strict pass, only a good over its share may give way.**
+				# Step 3, and it is the eviction side of the rule the fill already
+				# obeys: «−1» hands a freed room to the good furthest below its
+				# share, so «+1» must take one from the good furthest above it.
+				# Without this the same cheap good is evicted press after press,
+				# which is «по очереди −1» never happening. `bag_wtp_edit_add`
+				# runs the whole scan strict first and repeats it open only if
+				# nothing qualified, so this narrows the choice and never blocks it.
+				OR = {
+					global_var:bag_wtp_edit_strict = 0
+					global_var:bag_wtp_pn47 > global_var:bag_wtp_edit_quota
+				}
 				OR = {
 					var:bag_wtp_esw = -1
 					var:bag_wtp_pr47 < var:bag_wtp_esw
@@ -8801,37 +9929,20 @@ bag_wtp_edit_clear_trace = {
 	set_global_variable = { name = bag_wtp_edit_mark value = 0 }
 }
 
-# **One more building of the chosen good, and exactly one.**
-#
-# The ordered walk is the whole of the choice: `_esv` is what each candidate
-# charges -- a free room charges nothing and outbids everything, an eviction
-# charges the victim's gain -- so the highest is the least painful place, and
-# `max = 1` takes it and stops. Both sides' effects are called and the one whose
-# side the location is not simply does nothing, which is cheaper than asking.
+
+# One scan of every candidate: who could hold this good, what it would cost
+# there, and how many qualified. Called twice by `bag_wtp_edit_add` — once
+# strict, once open — so the two passes cannot drift apart.
 # Scope: country
-bag_wtp_edit_add = {
-	# **The press counter, and it is a probe rather than a nicety.** A press that
-	# never reaches its effect and a press that reaches it and is refused look the
-	# same on screen -- «ничего не изменилось» -- and telling them apart has cost
-	# two runs. The window prints this number, so one look answers it: click five
-	# times, the number does not move, the button is not wired.
-	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
-	bag_wtp_edit_clear_trace = yes
-	set_global_variable = { name = bag_wtp_edit_done value = 0 }
-	set_global_variable = { name = bag_wtp_edit_fail value = 0 }
-	set_global_variable = { name = bag_wtp_edit_norefill value = 0 }
-	set_global_variable = { name = bag_wtp_edit_op value = 1 }
-	bag_wtp_edit_set_quota = yes
+bag_wtp_edit_scan_pass = {
 	set_global_variable = { name = bag_wtp_edit_fitn value = 0 }
 	set_global_variable = { name = bag_wtp_edit_cands value = 0 }
-	if = {
-		limit = { global_var:bag_wtp_edit_good > 0 }
-		every_in_global_list = {
-			variable = bag_wtp_candidates
-			set_variable = { name = bag_wtp_esc value = 0 }
-			set_variable = { name = bag_wtp_esv value = 0 }
-			bag_wtp_edit_worst = yes
-		}
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		set_variable = { name = bag_wtp_esc value = 0 }
+		set_variable = { name = bag_wtp_esv value = 0 }
+		bag_wtp_edit_worst = yes
+	}
 		if = {
 			limit = { global_var:bag_wtp_edit_good = 1 }
 			every_in_global_list = {
@@ -9255,18 +10366,62 @@ bag_wtp_edit_add = {
 		if = { limit = { global_var:bag_wtp_edit_good = 45 } bag_wtp_edit_scan_45 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 46 } bag_wtp_edit_scan_46 = yes }
 		if = { limit = { global_var:bag_wtp_edit_good = 47 } bag_wtp_edit_scan_47 = yes }
-		# **Two counts, because two different things read as «не дало правило».**
-		# `_edit_fitn` is how many locations could hold this good at all -- the
-		# ground's own answer, and 0 means it already stands everywhere this land
-		# can make it. `_edit_cands` is how many of those had a free room or a
-		# building that may be taken out. The owner pressed «+1» on iron and was
-		# told a rule refused it; iron can be made in four locations of Westphalia
-		# and stood in all four. That is the ground, not a rule, and saying so
-		# needs the number.
-		every_in_global_list = {
-			variable = bag_wtp_candidates
-			limit = { var:bag_wtp_esc = 1 }
-			change_global_variable = { name = bag_wtp_edit_cands add = 1 }
+	# **Two counts, because two different things read as «не дало правило».**
+	# `_edit_fitn` is how many locations could hold this good at all -- the
+	# ground's own answer, and 0 means it already stands everywhere this land
+	# can make it. `_edit_cands` is how many of those had a free room or a
+	# building that may be taken out. The owner pressed «+1» on iron and was
+	# told a rule refused it; iron can be made in four locations of Westphalia
+	# and stood in all four. That is the ground, not a rule, and saying so
+	# needs the number.
+	every_in_global_list = {
+		variable = bag_wtp_candidates
+		limit = { var:bag_wtp_esc = 1 }
+		change_global_variable = { name = bag_wtp_edit_cands add = 1 }
+	}
+}
+
+# **One more building of the chosen good, and exactly one.**
+#
+# The ordered walk is the whole of the choice: `_esv` is what each candidate
+# charges -- a free room charges nothing and outbids everything, an eviction
+# charges the victim's gain -- so the highest is the least painful place, and
+# `max = 1` takes it and stops. Both sides' effects are called and the one whose
+# side the location is not simply does nothing, which is cheaper than asking.
+# Scope: country
+bag_wtp_edit_add = {
+	# **The press counter, and it is a probe rather than a nicety.** A press that
+	# never reaches its effect and a press that reaches it and is refused look the
+	# same on screen -- «ничего не изменилось» -- and telling them apart has cost
+	# two runs. The window prints this number, so one look answers it: click five
+	# times, the number does not move, the button is not wired.
+	change_global_variable = { name = bag_wtp_edit_presses add = 1 }
+	bag_wtp_edit_clear_trace = yes
+	set_global_variable = { name = bag_wtp_edit_done value = 0 }
+	set_global_variable = { name = bag_wtp_edit_fail value = 0 }
+	set_global_variable = { name = bag_wtp_edit_norefill value = 0 }
+	set_global_variable = { name = bag_wtp_edit_op value = 1 }
+	bag_wtp_edit_set_quota = yes
+	set_global_variable = { name = bag_wtp_edit_fitn value = 0 }
+	set_global_variable = { name = bag_wtp_edit_cands value = 0 }
+	if = {
+		limit = { global_var:bag_wtp_edit_good > 0 }
+		# **Two passes, and the second only when the first found nobody.**
+		# Strict: the building given up must belong to a good that is over
+		# its share. Open: any building that may be taken out at all. A
+		# location with a free room qualifies on both — it has no victim to
+		# ask about, and a free room outbids every eviction anyway.
+		#
+		# **Not one packed `order_by` number.** `превышение × K + выгода`
+		# was the other way and it is rejected: the engine's fixed-point
+		# limit is not known from here, and the same warning already
+		# stands over `_plan_order`.
+		set_global_variable = { name = bag_wtp_edit_strict value = 1 }
+		bag_wtp_edit_scan_pass = yes
+		if = {
+			limit = { global_var:bag_wtp_edit_cands = 0 }
+			set_global_variable = { name = bag_wtp_edit_strict value = 0 }
+			bag_wtp_edit_scan_pass = yes
 		}
 		ordered_in_global_list = {
 			variable = bag_wtp_candidates

@@ -58,9 +58,12 @@ rules each step implements are
 
 2г. **He asked for urban rights in the editor** — that is step 5 below, not a
    layout change, so **the order of what is left is his to pick**: 2а, 3 or 5.
-3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,
-   the per-good shortfall step 2 built, is the marker it needs; it is computed
-   already and nothing on the «+1» side reads it yet.
+3. **Even eviction on «+1»** — **built 2026-09-06 and never run.** The victim
+   must be a good over its share: the test sits in `_edit_worst`'s own `limit`
+   under `_edit_strict`, the scan is one effect run twice — strict, then open if
+   strict found nobody — and a free room passes both. `EDIT scan strict=` says
+   which pass answered. **Ask for five «+1» in a row on one good**: different
+   goods should give way, each time the most bloated.
 4. **Provinces fold in the two plan windows.**
 5. **Charters: «+1»/«−1» and whole-bundle eviction.**
 6. **New ground fitted to a finished plan.**
