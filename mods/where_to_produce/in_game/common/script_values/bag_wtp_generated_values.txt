@@ -10809,6 +10809,14 @@ bag_wtp_rgrant_value = { value = global_var:bag_wtp_rgrant }
 # -- the «магнит» the feature is named for.
 # Scope: location
 bag_wtp_plan_prov_order = { value = var:bag_wtp_plan_prov_load }
+# И как встают области: по сумме домиков во всех своих провинциях. Провинции
+# упорядочены внутри области, а не поперёк неё — «я не хочу, чтобы провинции
+# разных областей были в перемешку», 2026-09-06.
+# Scope: location
+bag_wtp_plan_area_order = { value = var:bag_wtp_plan_area_load }
+# И тот же порядок наоборот, чтобы свёрнутый список строился по возрастанию:
+# `ordered_in_global_list` читает от большего к меньшему.
+bag_wtp_plan_pseq_order = { value = 9999 subtract = var:bag_wtp_plan_prank }
 
 # And how a location's row is ordered: by its province's place, so a province's
 # locations stay together, with its towns ahead of its villages. Negated because
@@ -10901,8 +10909,8 @@ bag_wtp_show_edit_moved = { value = global_var:bag_wtp_edit_moved }
 # 2026-09-06: «отсутствие изменений -- тоже изменение… журнал должен
 # регистрировать такие клики». В списке изменений их видно только дырой в
 # нумерации -- она начинается с 3, если первые два нажатия никуда не встали,
-# -- и дыра без подписи читается как потерянная строка.
-bag_wtp_show_edit_presses = { value = global_var:bag_wtp_edit_presses }
+# -- и дыра без подписи читается как потерянная строка. Счётчик самих нажатий
+# уже есть ниже, `_show_edit_presses`.
 bag_wtp_show_edit_idle = { value = global_var:bag_wtp_edit_idle }
 # **The reshuffle's own two numbers**, and they are on screen because the pass
 # is invisible otherwise: it moves buildings the player did not ask about, and
@@ -11003,7 +11011,9 @@ bag_wtp_show_plan_cap_urban = { value = global_var:bag_wtp_plan_cap_urban }
 # The window draws one page of 150 at a time; these four are what the page
 # bar above the table prints, so «показано 150» is never read as the size of the
 # plan again.
-bag_wtp_show_plan_provn = { value = global_var:bag_wtp_plan_provn }
+# Сколько провинций план застроил (а `_plan_provn` — сколько их на выбранной
+# земле вообще) и сколько из них поместилось в свёрнутый список.
+bag_wtp_show_plan_provfill = { value = global_var:bag_wtp_plan_provfill }
 bag_wtp_show_plan_provshown = { value = global_var:bag_wtp_plan_provshown }
 # Scope: location
 bag_wtp_show_prov_locn = { value = var:bag_wtp_plan_prov_locn }

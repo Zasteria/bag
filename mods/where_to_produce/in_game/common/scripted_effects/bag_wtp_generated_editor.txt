@@ -27002,6 +27002,10 @@ bag_wtp_edit_init_slots = {
 		limit = { NOT = { has_global_variable = bag_wtp_edit_presses } }
 		set_global_variable = { name = bag_wtp_edit_presses value = 0 }
 		set_global_variable = { name = bag_wtp_edit_idle value = 0 }
+		# **Свёрнутый вид — то, с чего оба окна открываются**, его слова
+		# 2026-09-06. Ставится один раз рядом с остальными умолчаниями, а
+		# не на каждом открытии: снятую галочку надо помнить.
+		set_variable = { name = bag_wtp_plan_folded value = 1 }
 		set_global_variable = { name = bag_wtp_edit_right value = 0 }
 		set_global_variable = { name = bag_wtp_edit_rfrom value = 0 }
 		set_global_variable = { name = bag_wtp_edit_rto value = 0 }

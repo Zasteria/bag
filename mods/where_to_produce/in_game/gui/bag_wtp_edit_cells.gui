@@ -5194,22 +5194,22 @@ types BagWtpEditCells {
 		widget = { size = { 127 28 } }
 	}
 
-	# Charters 1..5, packed upward: one this country cannot hold takes
+	# Charters 1..3, packed upward: one this country cannot hold takes
 	# no space at all.
 	type bag_wtp_edit_right_col1 = vbox {
 		spacing = 2
 		ignoreinvisible = yes
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok1').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5225,7 +5225,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5238,9 +5238,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5256,17 +5256,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_constantinopolitan_silk_monopoly_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_constantinopolitan_silk_monopoly_rights"
@@ -5276,15 +5276,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok2').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5300,7 +5300,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5313,9 +5313,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5331,17 +5331,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_flemish_cloth_industries_right"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_flemish_cloth_industries_right"
@@ -5351,15 +5351,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok3').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5375,7 +5375,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5388,9 +5388,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5406,17 +5406,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_artisan_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_artisan_rights"
@@ -5425,16 +5425,26 @@ types BagWtpEditCells {
 			}
 		}
 
+		# The slack goes here rather than between the charters.
+		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+	}
+
+	# Charters 4..6, packed upward: one this country cannot hold takes
+	# no space at all.
+	type bag_wtp_edit_right_col2 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
+
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok4').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5450,7 +5460,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5463,9 +5473,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5481,17 +5491,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_book_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_book_rights"
@@ -5501,15 +5511,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok5').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5525,7 +5535,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5538,9 +5548,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5556,17 +5566,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_brewing_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_brewing_rights"
@@ -5575,26 +5585,16 @@ types BagWtpEditCells {
 			}
 		}
 
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 360 -1 } }
-	}
-
-	# Charters 6..10, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col2 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
-
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok6').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5610,7 +5610,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5623,9 +5623,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5641,17 +5641,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_jewelry_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_jewelry_rights"
@@ -5660,16 +5660,26 @@ types BagWtpEditCells {
 			}
 		}
 
+		# The slack goes here rather than between the charters.
+		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+	}
+
+	# Charters 7..9, packed upward: one this country cannot hold takes
+	# no space at all.
+	type bag_wtp_edit_right_col3 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
+
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok7').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5685,7 +5695,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5698,9 +5708,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5716,17 +5726,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_masonry_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_masonry_rights"
@@ -5736,15 +5746,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok8').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5760,7 +5770,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5773,9 +5783,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5791,17 +5801,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_naval_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_naval_rights"
@@ -5811,15 +5821,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok9').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5835,7 +5845,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5848,9 +5858,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5866,17 +5876,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_textile_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_textile_rights"
@@ -5885,16 +5895,26 @@ types BagWtpEditCells {
 			}
 		}
 
+		# The slack goes here rather than between the charters.
+		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+	}
+
+	# Charters 10..12, packed upward: one this country cannot hold takes
+	# no space at all.
+	type bag_wtp_edit_right_col4 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
+
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok10').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5910,7 +5930,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -5923,9 +5943,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -5941,17 +5961,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_tooling_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_tooling_rights"
@@ -5960,26 +5980,16 @@ types BagWtpEditCells {
 			}
 		}
 
-		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 360 -1 } }
-	}
-
-	# Charters 11..13, packed upward: one this country cannot hold takes
-	# no space at all.
-	type bag_wtp_edit_right_col3 = vbox {
-		spacing = 2
-		ignoreinvisible = yes
-
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok11').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -5995,7 +6005,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -6008,9 +6018,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -6026,17 +6036,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_royal_weaponry_rights"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_royal_weaponry_rights"
@@ -6046,15 +6056,15 @@ types BagWtpEditCells {
 		}
 
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok12').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -6070,7 +6080,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -6083,9 +6093,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -6101,17 +6111,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_scandinavian_bergslag_privileges"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_scandinavian_bergslag_privileges"
@@ -6120,16 +6130,26 @@ types BagWtpEditCells {
 			}
 		}
 
+		# The slack goes here rather than between the charters.
+		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
+	}
+
+	# Charters 13..13, packed upward: one this country cannot hold takes
+	# no space at all.
+	type bag_wtp_edit_right_col5 = vbox {
+		spacing = 2
+		ignoreinvisible = yes
+
 		widget = {
-			size = { 360 28 }
+			size = { 264 28 }
 			visible = "[GetPlayer.MakeScope.GetVariable('bag_wtp_right_ok13').IsSet]"
 			hbox = {
 				spacing = 1
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_minus_tt"
@@ -6145,7 +6165,7 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 36 32 }
+					size = { 32 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_edit_right_count_tt"
 					text_single = {
@@ -6158,9 +6178,9 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 30 32 }
+					size = { 28 32 }
 					button_regular = {
-						size = { 28 28 }
+						size = { 26 26 }
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "bag_wtp_edit_right_plus_tt"
@@ -6176,17 +6196,17 @@ types BagWtpEditCells {
 				}
 
 				widget = {
-					size = { 254 32 }
+					size = { 173 32 }
 					alwaystransparent = no
 					tooltip = "bag_wtp_right_scandinavian_tar_privileges"
 					text_single = {
-						size = { 250 30 }
+						size = { 169 30 }
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = { 250 30 }
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = { 169 30 }
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "bag_wtp_right_scandinavian_tar_privileges"
@@ -6196,6 +6216,6 @@ types BagWtpEditCells {
 		}
 
 		# The slack goes here rather than between the charters.
-		widget = { layoutpolicy_vertical = expanding size = { 360 -1 } }
+		widget = { layoutpolicy_vertical = expanding size = { 264 -1 } }
 	}
 }

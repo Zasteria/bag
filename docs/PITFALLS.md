@@ -25,6 +25,13 @@ searches like everything else:
 
 ## Script
 
+**Two script values of the same name: the first wins and the second is dropped,
+silently.** The same rule `customizable_localization` obeys, and it costs the
+same way — a value edited in the wrong copy simply has no effect, with nothing on
+screen or in `error.log` to say which copy the game reads. Two shipped in one day
+on 2026-09-06, both from a generator adding a reader that already existed forty
+lines further down. `check_script.py` reports them now.
+
 **A scripted trigger answers the question its first caller needed, not the one
 its name promises.** `bag_wtp_plan_right_fits_<k>` reads as «может ли эта грамота
 тут стоять» and is built out of `_plan_can_town_<n>`, which also demands **a free
@@ -96,30 +103,23 @@ things "never reported" the whole time. The forms are `trigger_if`,
 `trigger_else_if`, `trigger_else`; `tools/check_script.py` refuses the others.
 
 **A file carries one byte order mark, at byte zero.** A second one is a
-character in the text and the interface parser answers `'﻿' is not a valid
-widget/type/property`, then abandons the file — every type in it missing, the
-window never found, and the only symptom in game a button that does nothing.
-Writing a string that already begins with a BOM through `encoding='utf-8-sig'`
-is how it happens, and nothing about the file looks wrong afterwards.
+character in the text: the interface parser answers `'﻿' is not a valid
+widget/type/property` and abandons the file — every type in it missing and the
+only symptom in game a button that does nothing. Writing a string that already
+begins with a BOM through `encoding='utf-8-sig'` is how it happens.
 `tools/check_script.py` counts them.
 
 **A ranking on fractions does not sort.** `where_to_produce` ranked provinces on
-a method's effective output, which for the one book method a 1369 country has
-unlocked runs 0.3000 to 0.3129 across the whole of Europe. The rows came back in
-alphabetical order of the province key — the unordered walk — and `order_by` had
-plainly done nothing. The tell is in the tree: **not one `order_by` anywhere
-sorts on a fraction.** Vanilla ranks on `military_strength`, `country_tax_base`,
-`population`; Advanced Auto Build on a score built out of `add = 12000`. Scale
-until the differences are whole numbers, and keep the scaled value out of
-anything that prints.
+a method's effective output — 0.3000 to 0.3129 across the whole of Europe — and
+the rows came back in alphabetical order of the province key. The tell is in the
+tree: **not one `order_by` anywhere sorts on a fraction.** Scale until the
+differences are whole numbers, and keep the scaled value out of anything that
+prints.
 
 **A scope rule applied to half a mod is not applied.** The `root`s the rule
-below condemns were taken out of `where_to_produce`'s row pass and left in all
-218 places in the scoring pass beside it, which cost the next run too: the
-pickers reached the pass and the pass found no method available anywhere,
-because each availability check was a country trigger asked through `root` from
-inside a walk over locations. Grep the whole mod for the construct in the
-session the rule turns up.
+below condemns were taken out of one pass and left in all 218 places of the pass
+beside it, which cost the next run too. Grep the whole mod for the construct in
+the session the rule turns up.
 
 **A generic action's `effect` does not run in the actor's scope.** The three map
 pickers in `where_to_produce` ended with two scripted effects written for a

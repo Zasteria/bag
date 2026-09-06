@@ -185,6 +185,34 @@ def unresolved_script_values(root: Path) -> list[str]:
     return found
 
 
+def duplicate_definitions(root: Path) -> list[str]:
+    """Two script values of the same name, which the engine resolves silently.
+
+    **The first definition wins and the second is dropped**, the same rule
+    `customizable_localization` obeys (`CLAUDE.md`) -- so a value edited in the
+    wrong copy simply has no effect, and nothing on screen or in `error.log`
+    says which copy the game is reading. Two of these were shipped in one day on
+    2026-09-06, both from a generator adding a reader that already existed
+    forty lines further down.
+    """
+    seen: dict[str, str] = {}
+    found = []
+    for path in sorted((root / "in_game/common/script_values").rglob("*.txt")):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        for match in re.finditer(r"^([a-z0-9_]+) = \{", text, re.M):
+            name = match.group(1)
+            line = text[:match.start()].count("\n") + 1
+            where = f"{path.relative_to(REPO)}:{line}"
+            if name in seen:
+                found.append(
+                    f"{where}: `{name}` is defined twice — first at {seen[name]}, "
+                    f"and the engine keeps the first and drops this one without "
+                    f"saying so")
+            else:
+                seen[name] = where
+    return found
+
+
 def unwritten(root: Path) -> list[str]:
     """Variables this mod reads that nothing in it, and not CMF, ever writes.
 
@@ -844,6 +872,7 @@ def main(argv: list[str]) -> int:
         root = root if root.is_absolute() else REPO / root
         found = (problems(root) + unresolved(root, known) + unwritten(root)
                  + unresolved_script_values(root)
+                 + duplicate_definitions(root)
                  + unregistered_windows(root) + unresolved_interface(root)
                  + flowcontainer_datamodels(root)
                  + scope_mixed_variables(root)

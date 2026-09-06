@@ -49,29 +49,19 @@ rules each step implements are
 3а. **The press journal** — **confirmed 2026-09-06.** A diff cannot hold
    chronology, so the mod writes `WTP PRESS …` into `debug.log` at press time and
    `tools/diag.py` renders «Журнал нажатий».
-4. **Provinces fold in the two plan windows** — **built 2026-09-06, never run.**
-   A switch, not a replacement: the flat list is untouched and the folded view is
-   a second list beside it, because a datamodel item sees one scope. One province
-   a row, its own locations under it from `GetProvinceDefinition.GetLocations`
-   gated on `_plan_rank`, and `bag_wtp_plan_folded` is one variable for both
-   windows.
-5. **Charters in the editor** — **closed 2026-09-06.** A charter is not
-   a building: every town of a finished plan holds exactly one, so a press is a
-   *move*. «+1» K takes the town where K earns most from a charter that has more
-   than its share (strict, then open); «−1» K takes it off its worst town and
-   hands that town to the charter furthest below its own — **a town never ends
-   without one**. The bundle moves whole and the load is squared up after: over
-   the cap the worst ordinary building goes, under it the good furthest below its
-   share takes the room. Cells, counts and press line are in the editor window;
-   `op=3/4`, `right=`, `rfrom=`, `rto=`, `short=` in the journal. **Two faults
-   found and fixed by his runs, both from reusing the plan's own machinery**: the
-   candidate test wanted a free room, so nothing moved at all; and
-   `_edit_place_town_<n>` refuses on a full town, so a bundle bigger than the one
-   it replaced lost a building silently. Room is made *before* the bundle is
-   planted now, and what still did not fit is `_edit_rshort`
-   ([`PITFALLS.md`](PITFALLS.md)). **The changes window is shelved at his own
-   word** — «правок требует много, функциональности несёт мало»; do not touch it
-   until he asks.
+4. **Provinces fold in the two plan windows** — **confirmed 2026-09-06**, with
+   three fixes after it: provinces sort inside their areas (a walk inside a walk,
+   never a packed `order_by`), the fold is on by default, and
+   `layoutpolicy_horizontal = expanding` went onto `window_header_alt` in all five
+   windows — the header had never stretched and he had said so three times.
+5. **Charters in the editor** — **closed 2026-09-06.** A charter is not a
+   building: every town holds exactly one, so a press is a *move*, bundle and
+   all, and a town never ends without one. **Two faults found by his runs, both
+   from reusing the plan's own machinery**: the candidate test wanted a free room,
+   so nothing moved at all; and `_edit_place_town_<n>` refuses on a full town, so
+   a bigger bundle lost a building silently. Room is made *before* the bundle is
+   planted now ([`PITFALLS.md`](PITFALLS.md)). **The changes window is shelved at
+   his own word**; do not touch it until he asks.
 6. **New ground fitted to a finished plan.**
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.

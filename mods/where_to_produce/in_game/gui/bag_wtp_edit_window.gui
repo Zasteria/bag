@@ -65,7 +65,15 @@ window = {
 		vbox = {
 			using = window_margin_alt
 
+			# **`layoutpolicy_horizontal = expanding` on the header, and every window
+			# of this mod was missing it.** «Злоебучая шапка окна снова не
+			# расширилась вместе с окном» — 2026-09-06, and the third time he has
+			# said it. The game's own windows all carry this line on their
+			# `window_header_alt` (`multiplayer_lobby.gui`,
+			# `automation_lateralview.gui`); without it the header keeps the type's
+			# own width whatever the window does.
 			window_header_alt = {
+				layoutpolicy_horizontal = expanding
 				blockoverride "header_text" { text = "bag_wtp_edit_window_title" }
 				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
 			}
@@ -417,18 +425,26 @@ window = {
 					ignoreinvisible = no
 
 					widget = {
-						size = { 360 168 }
+						size = { 264 100 }
 						bag_wtp_edit_right_col1 = {}
 					}
 					widget = {
-						size = { 360 168 }
+						size = { 264 100 }
 						bag_wtp_edit_right_col2 = {}
 					}
 					widget = {
-						size = { 360 168 }
+						size = { 264 100 }
 						bag_wtp_edit_right_col3 = {}
 					}
-					widget = { layoutpolicy_horizontal = expanding size = { -1 168 } }
+					widget = {
+						size = { 264 100 }
+						bag_wtp_edit_right_col4 = {}
+					}
+					widget = {
+						size = { 264 100 }
+						bag_wtp_edit_right_col5 = {}
+					}
+					widget = { layoutpolicy_horizontal = expanding size = { -1 100 } }
 				}
 
 				# The plan as it stands, in the plan window's own rows.

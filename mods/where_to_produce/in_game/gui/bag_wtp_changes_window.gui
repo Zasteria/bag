@@ -209,7 +209,15 @@ window = {
 		vbox = {
 			using = window_margin_alt
 
+			# **`layoutpolicy_horizontal = expanding` on the header, and every window
+			# of this mod was missing it.** «Злоебучая шапка окна снова не
+			# расширилась вместе с окном» — 2026-09-06, and the third time he has
+			# said it. The game's own windows all carry this line on their
+			# `window_header_alt` (`multiplayer_lobby.gui`,
+			# `automation_lateralview.gui`); without it the header keeps the type's
+			# own width whatever the window does.
 			window_header_alt = {
+				layoutpolicy_horizontal = expanding
 				blockoverride "header_text" { text = "bag_wtp_chg_window_title" }
 				blockoverride "window_header_alt_color_texture" { using = color_production_texture }
 			}

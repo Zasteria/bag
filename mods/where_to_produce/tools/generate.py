@@ -1355,6 +1355,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # -- the «магнит» the feature is named for.
 # Scope: location
 {MOD_ID}_plan_prov_order = {{ value = var:{MOD_ID}_plan_prov_load }}
+# И как встают области: по сумме домиков во всех своих провинциях. Провинции
+# упорядочены внутри области, а не поперёк неё — «я не хочу, чтобы провинции
+# разных областей были в перемешку», 2026-09-06.
+# Scope: location
+{MOD_ID}_plan_area_order = {{ value = var:{MOD_ID}_plan_area_load }}
+# И тот же порядок наоборот, чтобы свёрнутый список строился по возрастанию:
+# `ordered_in_global_list` читает от большего к меньшему.
+{MOD_ID}_plan_pseq_order = {{ value = 9999 subtract = var:{MOD_ID}_plan_prank }}
 
 # And how a location's row is ordered: by its province's place, so a province's
 # locations stay together, with its towns ahead of its villages. Negated because
@@ -1447,8 +1455,8 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # 2026-09-06: «отсутствие изменений -- тоже изменение… журнал должен
 # регистрировать такие клики». В списке изменений их видно только дырой в
 # нумерации -- она начинается с 3, если первые два нажатия никуда не встали,
-# -- и дыра без подписи читается как потерянная строка.
-{MOD_ID}_show_edit_presses = {{ value = global_var:{MOD_ID}_edit_presses }}
+# -- и дыра без подписи читается как потерянная строка. Счётчик самих нажатий
+# уже есть ниже, `_show_edit_presses`.
 {MOD_ID}_show_edit_idle = {{ value = global_var:{MOD_ID}_edit_idle }}
 # **The reshuffle's own two numbers**, and they are on screen because the pass
 # is invisible otherwise: it moves buildings the player did not ask about, and
@@ -1533,7 +1541,9 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # The window draws one page of {PLAN_ROWS} at a time; these four are what the page
 # bar above the table prints, so «показано 150» is never read as the size of the
 # plan again.
-{MOD_ID}_show_plan_provn = {{ value = global_var:{MOD_ID}_plan_provn }}
+# Сколько провинций план застроил (а `_plan_provn` — сколько их на выбранной
+# земле вообще) и сколько из них поместилось в свёрнутый список.
+{MOD_ID}_show_plan_provfill = {{ value = global_var:{MOD_ID}_plan_provfill }}
 {MOD_ID}_show_plan_provshown = {{ value = global_var:{MOD_ID}_plan_provshown }}
 # Scope: location
 {MOD_ID}_show_prov_locn = {{ value = var:{MOD_ID}_plan_prov_locn }}
@@ -2371,6 +2381,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_town_row
 \t\tremove_variable = {MOD_ID}_plan_prov_load
 \t\tremove_variable = {MOD_ID}_plan_prov_locn
+\t\tremove_variable = {MOD_ID}_plan_area_load
 \t\tremove_variable = {MOD_ID}_plan_pexp
 \t\tremove_variable = {MOD_ID}_plan_seen
 \t\tclear_variable_list = {MOD_ID}_plan_goods
@@ -2378,6 +2389,7 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_touched
 \tclear_global_variable_list = {MOD_ID}_plan_prov_locs
+\tclear_global_variable_list = {MOD_ID}_plan_area_locs
 \tclear_global_variable_list = {MOD_ID}_plan_ranked
 \tclear_global_variable_list = {MOD_ID}_plan_provs
 \tclear_global_variable_list = {MOD_ID}_plan_results
@@ -3335,20 +3347,71 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t}}
 \t\tset_variable = {{ name = {MOD_ID}_plan_prov_locn value = global_var:{MOD_ID}_plan_count }}
 \t}}
-\tset_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
-\tordered_in_global_list = {{
-\t\tvariable = {MOD_ID}_plan_prov_locs
-\t\torder_by = {MOD_ID}_plan_prov_order
-\t\tmax = {PLAN_PROVS}
-\t\tcheck_range_bounds = no
-\t\tchange_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
-\t\tprovince_definition = {{
-\t\t\tevery_location_in_province_definition = {{
-\t\t\t\tlimit = {{ has_variable = {MOD_ID}_plan_prank }}
-\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = global_var:{MOD_ID}_plan_prov_n }}
-\t\t\t}}
-\t\t}}
-\t}}
+	# **Области сперва, провинции внутри области — и это одно место, а не два.**
+	# Его слова 2026-09-06: «провинции должны идти по списку внутри своих
+	# областей… я не хочу, чтобы провинции разных областей были в перемешку».
+	# Порядок один на оба вида списка: `_plan_prank` несёт его целиком, и плоский
+	# список читает то же число, что свёрнутый.
+	#
+	# **Без упаковки двух ключей в одно число.** Область и загрузка провинции
+	# влезли бы в одно `order_by`, но предел фиксированной точки движка отсюда
+	# неизвестен — предупреждение об этом уже стоит при `_plan_order`. Вместо
+	# этого обход внутри обхода: области по своей загрузке, внутри каждой
+	# провинции по своей, и номер выдаётся по ходу.
+	set_global_variable = {{ name = {MOD_ID}_plan_area_load value = 0 }}
+	clear_global_variable_list = {MOD_ID}_plan_area_locs
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_prov_locs
+		save_scope_as = {MOD_ID}_plan_prov_at
+		# **«Эту область уже видели?» -- через глобалку, потому что внутренний обход
+		# не может писать в скоуп, из которого его позвали.** Список областей короток
+		# (у него шестнадцать провинций на пять областей), так что квадрат здесь
+		# дешевле любого хитрого способа.
+		set_global_variable = {{ name = {MOD_ID}_plan_aseen value = 0 }}
+		every_in_global_list = {{
+			variable = {MOD_ID}_plan_area_locs
+			limit = {{ area = scope:{MOD_ID}_plan_prov_at.area }}
+			set_global_variable = {{ name = {MOD_ID}_plan_aseen value = 1 }}
+		}}
+		if = {{
+			limit = {{ global_var:{MOD_ID}_plan_aseen = 0 }}
+			add_to_global_variable_list = {{ name = {MOD_ID}_plan_area_locs target = this }}
+		}}
+	}}
+	# Сколько домиков во всей области -- по этому числу области и встанут.
+	every_in_global_list = {{
+		variable = {MOD_ID}_plan_area_locs
+		save_scope_as = {MOD_ID}_plan_area_at
+		set_global_variable = {{ name = {MOD_ID}_plan_count value = 0 }}
+		every_in_global_list = {{
+			variable = {MOD_ID}_plan_prov_locs
+			limit = {{ area = scope:{MOD_ID}_plan_area_at.area }}
+			change_global_variable = {{ name = {MOD_ID}_plan_count add = var:{MOD_ID}_plan_prov_load }}
+		}}
+		set_variable = {{ name = {MOD_ID}_plan_area_load value = global_var:{MOD_ID}_plan_count }}
+	}}
+	set_global_variable = {{ name = {MOD_ID}_plan_prov_n value = 0 }}
+	ordered_in_global_list = {{
+		variable = {MOD_ID}_plan_area_locs
+		order_by = {MOD_ID}_plan_area_order
+		max = {PLAN_PROVS}
+		check_range_bounds = no
+		save_scope_as = {MOD_ID}_plan_area_at
+		ordered_in_global_list = {{
+			variable = {MOD_ID}_plan_prov_locs
+			limit = {{ area = scope:{MOD_ID}_plan_area_at.area }}
+			order_by = {MOD_ID}_plan_prov_order
+			max = {PLAN_PROVS}
+			check_range_bounds = no
+			change_global_variable = {{ name = {MOD_ID}_plan_prov_n add = 1 }}
+			province_definition = {{
+				every_location_in_province_definition = {{
+					limit = {{ has_variable = {MOD_ID}_plan_prank }}
+					set_variable = {{ name = {MOD_ID}_plan_prank value = global_var:{MOD_ID}_plan_prov_n }}
+				}}
+			}}
+		}}
+	}}
 \t# Counted before the rows are taken and separately from them: the walk below
 \t# stops at {PLAN_RANKED}, and a count that stopped with it would say the plan
 \t# used exactly as many locations as the window can keep, whatever it really
@@ -3462,18 +3525,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 	# exactly that), ordered by the province's own place, and the province's
 	# locations are drawn under it from `GetProvinceDefinition.GetLocations` --
 	# the same nesting the search window has used since it was built.
-	set_global_variable = {{ name = {MOD_ID}_plan_provn value = 0 }}
+	set_global_variable = {{ name = {MOD_ID}_plan_provfill value = 0 }}
 	set_global_variable = {{ name = {MOD_ID}_plan_provshown value = 0 }}
 	clear_global_variable_list = {MOD_ID}_plan_provs
 	every_in_global_list = {{
 		variable = {MOD_ID}_plan_prov_locs
 		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
-		change_global_variable = {{ name = {MOD_ID}_plan_provn add = 1 }}
+		change_global_variable = {{ name = {MOD_ID}_plan_provfill add = 1 }}
 	}}
 	ordered_in_global_list = {{
 		variable = {MOD_ID}_plan_prov_locs
 		limit = {{ has_variable = {MOD_ID}_plan_prov_locn var:{MOD_ID}_plan_prov_locn > 0 }}
-		order_by = {MOD_ID}_plan_prov_order
+		order_by = {MOD_ID}_plan_pseq_order
 		max = {PLAN_ROWS}
 		check_range_bounds = no
 		change_global_variable = {{ name = {MOD_ID}_plan_provshown add = 1 }}
@@ -3579,9 +3642,14 @@ EDIT_CELLS_OUT = MOD / "in_game/gui/bag_wtp_edit_cells.gui"
 # it on screen: «текст городских прав можно попытаться увеличить… было бы неплохо
 # увеличить шрифт и иконки слегка». The icon is a texticon inside the name's own
 # key, so it grows with the font and nothing else has to change.
-EDIT_RIGHT_W = 360
+# **Пять колонок по три, а не три по пять**, и высота блока — ровно три строки.
+# Его слова 2026-09-06: «инструментарий занимает половину окна… вместо 4 строк они
+# вполне могли бы уместиться в 2 строки по всей ширине». Держава выдаёт девять или
+# десять грамот из тринадцати, невидимая ячейка в колонке места не занимает — так
+# что на его земле пять колонок дают две строки, а на полных тринадцати три.
+EDIT_RIGHT_W = 264
 EDIT_RIGHT_H = 32
-EDIT_RIGHT_COL = 5
+EDIT_RIGHT_COL = 3
 
 
 def edit_cells_file(order: list[str],
@@ -3781,9 +3849,9 @@ def edit_cells_file(order: list[str],
 				spacing = 1
 
 				widget = {{
-					size = {{ 30 {EDIT_RIGHT_H} }}
+					size = {{ 28 {EDIT_RIGHT_H} }}
 					button_regular = {{
-						size = {{ 28 28 }}
+						size = {{ 26 26 }}
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_minus_tt"
@@ -3799,7 +3867,7 @@ def edit_cells_file(order: list[str],
 				}}
 
 				widget = {{
-					size = {{ 36 {EDIT_RIGHT_H} }}
+					size = {{ 32 {EDIT_RIGHT_H} }}
 					alwaystransparent = no
 					tooltip = "{MOD_ID}_edit_right_count_tt"
 					text_single = {{
@@ -3812,9 +3880,9 @@ def edit_cells_file(order: list[str],
 				}}
 
 				widget = {{
-					size = {{ 30 {EDIT_RIGHT_H} }}
+					size = {{ 28 {EDIT_RIGHT_H} }}
 					button_regular = {{
-						size = {{ 28 28 }}
+						size = {{ 26 26 }}
 						parentanchor = center
 						widgetanchor = center
 						tooltip = "{MOD_ID}_edit_right_plus_tt"
@@ -3830,17 +3898,17 @@ def edit_cells_file(order: list[str],
 				}}
 
 				widget = {{
-					size = {{ {EDIT_RIGHT_W - 106} {EDIT_RIGHT_H} }}
+					size = {{ {EDIT_RIGHT_W - 91} {EDIT_RIGHT_H} }}
 					alwaystransparent = no
 					tooltip = "{MOD_ID}_right_{right.key}"
 					text_single = {{
-						size = {{ {EDIT_RIGHT_W - 110} {EDIT_RIGHT_H - 2} }}
+						size = {{ {EDIT_RIGHT_W - 95} {EDIT_RIGHT_H - 2} }}
 						parentanchor = left|vcenter
 						widgetanchor = left|vcenter
 						autoresize = no
-						maximumsize = {{ {EDIT_RIGHT_W - 110} {EDIT_RIGHT_H - 2} }}
-						fontsize = 17
-						fontsize_min = 13
+						maximumsize = {{ {EDIT_RIGHT_W - 95} {EDIT_RIGHT_H - 2} }}
+						fontsize = 16
+						fontsize_min = 12
 						align = left|vcenter
 						elide = right
 						text = "{MOD_ID}_right_{right.key}"
@@ -6333,6 +6401,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_presses }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_presses value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_idle value = 0 }}
+\t\t# **Свёрнутый вид — то, с чего оба окна открываются**, его слова
+\t\t# 2026-09-06. Ставится один раз рядом с остальными умолчаниями, а
+\t\t# не на каждом открытии: снятую галочку надо помнить.
+\t\tset_variable = {{ name = {MOD_ID}_plan_folded value = 1 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_right value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_rfrom value = 0 }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_rto value = 0 }}
