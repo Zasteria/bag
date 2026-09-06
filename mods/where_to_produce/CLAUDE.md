@@ -5,9 +5,7 @@
 «Ты постоянно смешиваешь функции плана и редактирования» — его слова.
 
 **The mod page is three tabs — Земля, Расчёты, Техническая — and four buttons
-that only open windows**, every setting inside the window of its function. A
-circle writes `bag_wtp_good_index` itself; `_right_ok<n>` gates a right's cell,
-because a `visible` cannot ask a trigger. **Two rules of his, above any layout
+that only open windows**, every setting inside the window of its function. **Two rules of his, above any layout
 idea**: **no descriptions in a window header** — that is the control's tooltip —
 and **anything technical belongs on «Техническая»**
 ([`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md)).
@@ -44,17 +42,19 @@ building and a location holds one of each**
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
 one building a press, where it costs least, and **the round trip is no undo**.
-**After a fill, what it placed trades locations between itself** (`_fillg`,
-`_edit_reshuffle`). **The editor's share subtracts the RGOs** — `_eq<n>`. **A
-press pins its good** (`_lock<n>`), a freed room goes to the good furthest below
-its share and **«+1» takes its building from the good furthest above one**; **a
-pin is a star, not a colour**. **The changes window is a diff and holds no
-chronology**, sorted by press number (`_chg_seq`); the journal itself is
-`WTP PRESS` in `debug.log`. **A charter is not a building**: every town holds exactly one, so
-«+1»/«−1» on one *moves* it, bundle and all, and a town never ends without one
-(`_edit_right_swap`, share `_rquota`). `_lock<n>` and `_skip<n>` are existence
+**The editor's share subtracts the RGOs** — `_eq<n>`. **A press pins its good**
+(`_lock<n>`); a freed room goes to the good furthest below its share, «+1» takes
+one from the good furthest above, and what a fill placed then trades locations
+between itself (`_fillg`, `_edit_reshuffle`). **A pin is a star, not a colour.** **The changes window is a diff, not a
+chronology** (`_chg_seq` orders it); the journal is `WTP PRESS` in `debug.log`.
+**A charter is not a building**: every town holds exactly one, so «+1»/«−1»
+*moves* it, bundle and all, and no town ends without one (`_edit_right_swap`,
+`_rquota`). `_lock<n>` and `_skip<n>` are existence
 flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
-not the player's pin.**
+not the player's pin.** **«Расширить» доливает новую землю**: новое = выбранное
+минус `_plan_touched`, старое заморожено, замок спадает, когда простая доля его
+переросла. **Оно сужает `_candidates`, а не пишет второй план. Прогона не
+было.**
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Before

@@ -4,7 +4,7 @@ Six mods, a pile of documents and more history than any session should read.
 This file is the part that is live. What has already been settled is in
 [`SETTLED.md`](SETTLED.md); where each mod stands is [`STATUS.md`](STATUS.md).
 
-## The job: `where_to_produce`, step 6 — new ground added to a finished plan
+## The job: `where_to_produce`, step 6 is built and owes one run
 
 **Read [`investigations/wtp_practice_plan.md`](investigations/wtp_practice_plan.md)
 for the order and what each step cost, and
@@ -16,40 +16,38 @@ the rules it implements. `_plan_*` itself is
 
 The window, the share, the reshuffle, the menu, the RGOs, even eviction on «+1»,
 the press journal, provinces folded inside their areas, and charters that move
-rather than multiply — all confirmed by his runs of 2026-09-05 and 2026-09-06,
-each written up in the practice plan together with the faults it cost.
+rather than multiply — all confirmed by his runs of 2026-09-05 and 2026-09-06.
 **Three things outlive them:**
 
 - **The editor's state is the editor's.** A pin, a «не нужен», the share and the
   star are read by `_edit_*` alone, and a fresh plan reads none of them.
 - **Windows have their own checklist** —
   [`pitfalls/windows.md`](pitfalls/windows.md), read **before** touching any
-  `.gui`. Six builds went into one frame; the checklist is what came out, and
-  `check_script.py` now enforces three of its rules.
+  `.gui`. Six builds went into one frame; `check_script.py` now enforces three
+  of its rules.
 - **The changes window is shelved at his own word** — «правок требует много,
   функциональности несёт мало». Do not touch it until he asks.
 
-**Two things nobody has run and neither is owed a build:** the fold-by-default
-(a save carries its own value, so only a **new game** shows it), and the whole
-plan on a large ground since the ladders were rebuilt — northern Germany, 233
-locations; Westphalia's 48 does not test it.
+### Step 6 — «Расширить» — is built and has never been loaded
 
-### Step 6, the live one
+**He chose the form on 2026-09-06: one button, in the editor, with the ground
+buttons beside it.** New ground is whatever is picked now minus `_plan_touched`;
+the old ground is frozen, the new rooms fill to the new share, and a pin the new
+share outgrew lifts by itself. How it is wired, in one table, is in the
+practice plan — the whole of it is four one-condition edits inside `_plan_*` and
+narrowing `_candidates`.
 
-**One rule covers all three of his examples** — the section is
-«Решение: новая земля» in
-[`wtp_editor_design.md`](investigations/wtp_editor_design.md): a lock freezes
-**what stands on ground X**, and the new rooms on ground Y fill to the new
-share. **A lock lifts when the share outgrows it** — iron pinned at 15 with the
-share at 5 goes to 20 once the bigger ground makes the share 20 — and that
-comparison runs **only when the ground changed**, not on every edit. A good has
-three states and no more: free (follows the share), pinned at N (holds N until
-the share passes N), «не нужен» (one building, always).
+**Nothing about it is verified. It cannot be from here.** The run that closes it
+is written out at the end of that section, and the number that decides is
+**«на старой земле сдвинулось», which must be 0** — on the window under the
+button, and as `WTP EXT` in the diagnosis.
 
-**One thing neither document decides, and it is his to answer, not the engine's:
-how the second ground is named at all.** The ground buttons write one zone; step
-6 needs "the plan I already have" and "this new ground" to exist at once. **Ask
-him before building it** — it is a question about his hands.
+**Two other things nobody has run and neither is owed a build:** the
+fold-by-default (a save carries its own value, so only a **new game** shows it),
+and the whole plan on a large ground since the ladders were rebuilt — northern
+Germany, 233 locations; Westphalia's 48 does not test it. **The extension has
+the same open question**: it re-scores the ground it adds and re-ranks
+everything, so a large second ground is its own measurement.
 
 ### Then 7 and 8, in that order, and not before
 

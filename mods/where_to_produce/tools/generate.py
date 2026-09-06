@@ -1530,6 +1530,16 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # нажатия, вывернутый наизнанку (`order_by` читает от большего к меньшему).
 {MOD_ID}_chg_order = {{ value = var:{MOD_ID}_chg_rank }}
 
+# **Что сделала «Расширить», шестью числами.** Строка под кнопкой -- это проба,
+# а не украшение: «доливка не сработала», «новой земли не оказалось» и «доливка
+# полезла на старую землю» на карте выглядят одинаково, а здесь это три разных
+# числа. `moved` обязан быть нулём.
+{MOD_ID}_show_ext_new = {{ value = global_var:{MOD_ID}_ext_new }}
+{MOD_ID}_show_ext_was = {{ value = global_var:{MOD_ID}_ext_was }}
+{MOD_ID}_show_ext_rooms = {{ value = global_var:{MOD_ID}_ext_rooms }}
+{MOD_ID}_show_ext_added = {{ value = global_var:{MOD_ID}_ext_added }}
+{MOD_ID}_show_ext_moved = {{ value = global_var:{MOD_ID}_ext_moved }}
+{MOD_ID}_show_ext_lifted = {{ value = global_var:{MOD_ID}_ext_lifted }}
 {MOD_ID}_show_plan_scored = {{ value = global_var:{MOD_ID}_plan_scored }}
 {MOD_ID}_show_plan_placed = {{ value = global_var:{MOD_ID}_plan_placed }}
 {MOD_ID}_show_plan_found = {{ value = global_var:{MOD_ID}_plan_found }}
@@ -2217,6 +2227,29 @@ def plan_loc_file(rows: list[eu5data.Method], game: eu5data.Game) -> str:
 	}}
 }}
 
+# Что сделала последняя доливка, тремя ветками.
+#
+# **«Не нажимали» и «нажали, а новой земли не было» -- разные ответы, и оба
+# нужны.** Кнопка, которая ничего не сделала, потому что доливать нечего, и
+# кнопка, которая не дошла до эффекта, на экране выглядят одинаково; строка,
+# молчащая в обоих случаях, -- ровно та немота, из-за которой в этом моде уже
+# терялись прогоны.
+{MOD_ID}_edit_ext_label = {{
+\ttype = country
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_ext_ran = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_ext_none
+\t}}
+\ttext = {{
+\t\ttrigger = {{ global_var:{MOD_ID}_ext_new = 0 }}
+\t\tlocalization_key = {MOD_ID}_edit_ext_empty
+\t}}
+\ttext = {{
+\t\tfallback = yes
+\t\tlocalization_key = {MOD_ID}_edit_ext_done
+\t}}
+}}
+
 {MOD_ID}_edit_last_label = {{
 \ttype = country
 \ttext = {{
@@ -2413,10 +2446,28 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\tremove_variable = {MOD_ID}_plan_area_load
 \t\tremove_variable = {MOD_ID}_plan_pexp
 \t\tremove_variable = {MOD_ID}_plan_seen
+\t\t# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
+\t\t# существует ровно затем, чтобы после доливки посчитать, сколько
+\t\t# домиков на старой земле сдвинулось (ответ обязан быть нулём).
+\t\t# Оставленный от прошлой доливки, он сравнивал бы новую с чужой.
+\t\tremove_variable = {MOD_ID}_ext_load0
+\t\tremove_variable = {MOD_ID}_ext_dl
 \t\tclear_variable_list = {MOD_ID}_plan_goods
 \t\tclear_variable_list = {MOD_ID}_plan_builds
 \t}}
 \tclear_global_variable_list = {MOD_ID}_plan_touched
+\t# **Режим доливки не переживает свежий план.** `_ext` заставляет обход
+\t# наращивать `_ng`/`_nrgo`/`_pbest` вместо того, чтобы обнулять их; свежий
+\t# план считает всё с нуля, и оставленный флаг сложил бы новый счёт со старым.
+\tremove_global_variable = {MOD_ID}_ext
+\tclear_global_variable_list = {MOD_ID}_ext_locs
+\tset_global_variable = {{ name = {MOD_ID}_ext_new value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_rooms value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_added value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_moved value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_lifted value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_was value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_ran value = 0 }}
 \tclear_global_variable_list = {MOD_ID}_plan_prov_locs
 \tclear_global_variable_list = {MOD_ID}_plan_area_locs
 \tclear_global_variable_list = {MOD_ID}_plan_ranked
@@ -2466,6 +2517,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
                    f"\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_pth{index} value = 0 }}\n"
                    f"\tremove_global_variable = {MOD_ID}_lock{index}\n"
+                   # **И заморозка на время доливки, которая не должна пережить
+                   # ничего.** `_frz<n>` держит товар вне раздачи ровно на один
+                   # проход `_plan_allocate`, запущенный «Расширить»;
+                   # `{MOD_ID}_ext_thaw` снимает её сам, а это -- вторая
+                   # страховка на случай, если проход прервали. Свежий план не
+                   # читает состояние редактора вообще, и это единственное
+                   # место, где такое правило можно нарушить молча.
+                   f"\tremove_global_variable = {MOD_ID}_frz{index}\n"
                    f"\tset_global_variable = {{ name = {MOD_ID}_esh{index} value = 0 }}\n"
                    )
     # How many towns each right has been given. **The global is the dump's now
@@ -2618,9 +2677,18 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t}}
 \t\t}}
 \t}}
-\tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}
-\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}
+\t# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+\t# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+\t# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+\t# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+\t# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+\t# сравнение ниже само оставляет больший.
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_ext }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ng{index} value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_nrgo{index} value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pbest{index} value = 0 }}
+\t}}
 \t# **Counted on the side the location actually is**, and not on the better of
 \t# the two: a good whose only buildings are rural would otherwise count as
 \t# makeable on ground that is all towns. The
@@ -2858,9 +2926,15 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
         f"\tif = {{\n\t\tlimit = {{ {MOD_ID}_plan_right_gate_{k} = yes }}\n"
         f"\t\tchange_global_variable = {{ name = {MOD_ID}_rgrant add = 1 }}\n\t}}\n"
         for k in range(1, len(rights) + 1))
-    grant_zeroes = "".join(
-        f"\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
-        for k in range(1, len(rights) + 1))
+    # **И счёт выданных грамот доливка тоже продолжает.** Лестница уровней
+    # («ни одна грамота не берёт N-й город, пока каждая не имела шанса на свой
+    # N-й») читает `_rn<k>`; обнулённый на доливке, он раздал бы новым городам
+    # вторые грамоты тем, у кого их и так больше всех.
+    grant_zeroes = (f"\tif = {{\n\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_ext }} }}\n"
+                    + "".join(
+                        f"\t\tset_global_variable = {{ name = {MOD_ID}_rn{k} value = 0 }}\n"
+                        for k in range(1, len(rights) + 1))
+                    + "\t}\n")
     # **Every charter the country could grant is granted somewhere, and they
     # come out level.** The goods have had the covering rule since 2026-09-01 --
     # «все товары которые можно произвести на выбранной земле должны
@@ -3304,6 +3378,14 @@ def plan_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# round instead, so leftover ground fills in even layers rather than
 \t\t\t# going whole to whichever good the list happens to reach first.
 \t\t\tglobal_var:{MOD_ID}_pn{index} < global_var:{MOD_ID}_pq{index}
+\t\t\t# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+\t\t\t# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+\t\t\t# квота приравнена к тому, что у них есть, но открытая лестница
+\t\t\t# поднимает всякую квоту на единицу за круг, и одного равенства
+\t\t\t# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+\t\t\t# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+\t\t\t# снимает ещё раз -- функция 3 не читает состояние редактора.
+\t\t\tNOT = {{ has_global_variable = {MOD_ID}_frz{index} }}
 \t\t\t# The covering pass admits only a good that has nothing at all.
 \t\t\tOR = {{
 \t\t\t\tglobal_var:{MOD_ID}_plan_cover = 0
@@ -6392,6 +6474,272 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 
     # ---- the windows, and the counters they read ---------------------------
     row_inits = ""
+    # ---- шаг 6: новая земля, долитая к готовому плану -----------------------
+    #
+    # **Одно правило на все три его случая**, и оно написано целиком в
+    # `docs/investigations/wtp_editor_design.md` -> «Решение: новая земля»:
+    # **замок морозит то, что стоит на земле X; новые комнаты земли Y заливаются
+    # под новую долю; замок спадает, когда доля его перерастает.** Сравнение
+    # замка с долей происходит **только когда земля изменилась** -- то есть
+    # ровно здесь, на одно нажатие, а не на каждой правке.
+    #
+    # **Форма -- одна кнопка, и это его выбор, а не догадка.** Земля и так
+    # набирается по клику: `_picked_locations` растёт кнопками карты, которые
+    # теперь стоят и в окне редактора. Значит «вторая земля» не нуждается ни в
+    # каком новом понятии -- она есть то, что выбрано сейчас, минус то, на чём
+    # план уже стоит. Три формы, из которых выбиралось (вторая пара кнопок
+    # земли; слот с заливкой поверх; эта), -- в практическом плане шага 6.
+    #
+    # **Это функция 4, а не 3.** «Пересчитать» сносит все `_lock<n>` и считает с
+    # нуля; доливка их читает. Поэтому кнопка в окне редактора, рядом с тем, что
+    # она уважает, а не рядом с тем, что их стирает.
+    lift = "".join(
+        f"""\tif = {{
+\t\tlimit = {{
+\t\t\thas_global_variable = {MOD_ID}_lock{i}
+\t\t\tglobal_var:{MOD_ID}_pq{i} > global_var:{MOD_ID}_pn{i}
+\t\t}}
+\t\tremove_global_variable = {MOD_ID}_lock{i}
+\t\tchange_global_variable = {{ name = {MOD_ID}_ext_lifted add = 1 }}
+\t}}
+"""
+        for i in range(1, len(order) + 1))
+    freeze = "".join(
+        f"""\tif = {{
+\t\tlimit = {{ OR = {{ has_global_variable = {MOD_ID}_lock{i} has_global_variable = {MOD_ID}_skip{i} }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_frz{i} value = 1 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{i} value = global_var:{MOD_ID}_pn{i} }}
+\t}}
+\telse = {{
+\t\tremove_global_variable = {MOD_ID}_frz{i}
+\t\tset_global_variable = {{ name = {MOD_ID}_pq{i} value = global_var:{MOD_ID}_eq{i} }}
+\t}}
+"""
+        for i in range(1, len(order) + 1))
+    thaw = "".join(f"\tremove_global_variable = {MOD_ID}_frz{i}\n"
+                   for i in range(1, len(order) + 1))
+    out.append(f"""
+# Что из выбранной земли план ещё не видел.
+#
+# **`_plan_touched` -- это и есть «земля X»**: план кладёт туда каждую свою
+# локацию и ничего оттуда не убирает, кроме как на «Пересчитать». Значит
+# «новое» -- это кандидат, которого в этом списке нет, и второго признака
+# заводить не нужно.
+# Scope: country
+{MOD_ID}_ext_split = {{
+\tclear_global_variable_list = {MOD_ID}_ext_locs
+\tset_global_variable = {{ name = {MOD_ID}_ext_new value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_candidates
+\t\tlimit = {{
+\t\t\tNOT = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }} }}
+\t\t}}
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_ext_locs target = this }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_ext_new add = 1 }}
+\t}}
+}}
+
+# Кандидаты -- только новая земля.
+#
+# **Это единственное, что не даёт доливке тронуть старую.** Всё, что ставит
+# здания -- `_plan_grant_pass`, `_plan_pick_<n>` и весь `_plan_allocate` -- ходит
+# по `_candidates` и никуда больше; сузить список значит сузить их все разом, не
+# трогая ни одной их строки. Обратно список собирает `{MOD_ID}_collect_candidates`
+# из того же выбора, из которого собрал бы его план.
+# Scope: country
+{MOD_ID}_ext_only = {{
+\tclear_global_variable_list = {MOD_ID}_candidates
+\tset_global_variable = {{ name = {MOD_ID}_candidate_count value = 0 }}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_ext_locs
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_candidates target = this }}
+\t\tchange_global_variable = {{ name = {MOD_ID}_candidate_count add = 1 }}
+\t}}
+}}
+
+# Новая земля, приведённая в то же состояние, в каком план держит свою.
+#
+# **Ровно тот же блок, что в `{MOD_ID}_plan_prepare`, но по одному списку.** Он
+# не «готовит к плану» -- он вносит локацию в учёт плана: комнаты в
+# `_plan_rooms`, город в `_plan_towns`, провинцию в `_plan_prov_locs`. Без этого
+# доля считалась бы по старой земле, а свёрнутый список не показал бы новых
+# провинций.
+#
+# **`_plan_seen` метит всю провинцию целиком**, поэтому провинция, наполовину
+# бывшая в X, вторым своим куском в список провинций не попадёт -- что и нужно.
+# Scope: country
+{MOD_ID}_ext_prepare = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_ext_locs
+\t\tset_variable = {{ name = {MOD_ID}_load value = 0 }}
+\t\tset_variable = {{ name = {MOD_ID}_plan_prank value = 9999 }}
+\t\tremove_variable = {MOD_ID}_plan_right
+\t\tclear_variable_list = {MOD_ID}_plan_goods
+\t\tclear_variable_list = {MOD_ID}_plan_builds
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_touched target = this }}
+\t\tif = {{
+\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+\t\t\tset_variable = {{ name = {MOD_ID}_plan_town_row value = 1 }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_urban }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_towns add = 1 }}
+\t\t}}
+\t\telse = {{
+\t\t\tremove_variable = {MOD_ID}_plan_town_row
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_rooms add = {MOD_ID}_show_plan_cap_rural }}
+\t\t}}
+\t\tif = {{
+\t\t\tlimit = {{ NOT = {{ has_variable = {MOD_ID}_plan_seen }} }}
+\t\t\tprovince_definition = {{
+\t\t\t\tevery_location_in_province_definition = {{
+\t\t\t\t\tset_variable = {{ name = {MOD_ID}_plan_seen value = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_plan_prov_locs target = this }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_plan_provn add = 1 }}
+\t\t}}
+\t}}
+}}
+
+# Замок, который переросла доля.
+#
+# Его случай целиком: **железо закреплено на 15 при доле 5; земля выросла так,
+# что доля стала 20 -- замок спадает, и железо идёт к 20.** А если новая доля
+# всего 10, замок держится: добирать нечего, товар и так выше доли.
+#
+# **Сравнивается `_pq<n>`, а не `_eq<n>`.** `_pq<n>` только что написан
+# `{MOD_ID}_plan_set_quota` и означает простую долю всей новой земли -- ту самую,
+# «которая переросла». `_eq<n>` -- доля редактора, посчитанная **с вычетом
+# закреплённых**: спрашивать у неё, переросла ли она закрепление, значит
+# спрашивать число, из которого это закрепление вычтено.
+#
+# **И «не нужен» не снимается никогда.** Это не замок, а стоячее распоряжение:
+# «один домик всегда, доля его не поднимает».
+# Scope: country
+{MOD_ID}_ext_lift = {{
+\tset_global_variable = {{ name = {MOD_ID}_ext_lifted value = 0 }}
+{lift}}}
+
+# Квоты на одну доливку: свободным -- доля, замороженным -- то, что у них есть.
+#
+# `_frz<n>` -- ворота в `{MOD_ID}_plan_pick_<n>`, и они нужны отдельно от квоты:
+# открытая лестница поднимает всякую квоту на единицу за круг, так что равенство
+# `_pq = _pn` удержало бы товар ровно один круг.
+# Scope: country
+{MOD_ID}_ext_quotas = {{
+{freeze}}}
+
+# Заморозка снята. **Ничего от доливки не переживает саму доливку.**
+# Scope: country
+{MOD_ID}_ext_thaw = {{
+{thaw}}}
+
+# «Расширить» -- новая земля, долитая к плану, который уже стоит.
+#
+# Порядок здесь -- это и есть правило, и каждый шаг стоит там, где стоит:
+#
+# 1. земля собирается заново из выбора и делится на «уже в плане» и «новое»;
+# 2. новое вносится в учёт плана -- комнаты, города, провинции;
+# 3. **счёт идёт только по новому**, а три числа обо всей земле (`_ng`, `_nrgo`,
+#    `_pbest`) наращиваются: флаг `_ext` снимает обнуление в обходе;
+# 4. грамоты -- новым городам, потому что **город без грамоты нарушает
+#    инвариант**, на котором держится вся их машина: «в каждом городе ровно
+#    одна»;
+# 5. доля считается по **всей** земле, и замок, который она переросла, спадает;
+# 6. заливается **только новая земля**, и это единственное, что не даёт тронуть
+#    старую: всё, что ставит здания, ходит по `_candidates`;
+# 7. считается, что вышло, -- и **сколько домиков на старой земле сдвинулось.
+#    Это число обязано быть нулём**, и оно на экране, а не в рассуждении.
+#
+# **Ничего не делает, пока плана нет.** Без него «новое» -- это вся земля, и
+# кнопка молча превратилась бы в кривой план.
+# Scope: country
+{MOD_ID}_edit_extend = {{
+\tsave_scope_as = {MOD_ID}_country
+\tset_global_variable = {{ name = {MOD_ID}_ext_ran value = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_new value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_rooms value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_added value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_moved value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_lifted value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_ext_was value = 0 }}
+\tif = {{
+\t\tlimit = {{
+\t\t\thas_global_variable = {MOD_ID}_plan_rooms
+\t\t\tglobal_var:{MOD_ID}_plan_rooms > 0
+\t\t}}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_was value = global_var:{MOD_ID}_plan_rooms }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_placed0 value = global_var:{MOD_ID}_plan_placed }}
+\t\t{MOD_ID}_collect_candidates = yes
+\t\t{MOD_ID}_ext_split = yes
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_ext_new > 0 }}
+\t\t\t# **Снимок старой земли, снятый до того, как новая войдёт в список.**
+\t\t\t# Новые локации `_ext_load0` не получают, поэтому обход в конце их и
+\t\t\t# не считает: «сдвинулось» -- вопрос только про X.
+\t\t\tevery_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\tset_variable = {{ name = {MOD_ID}_ext_load0 value = var:{MOD_ID}_load }}
+\t\t\t}}
+\t\t\t{MOD_ID}_ext_prepare = yes
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ext_rooms value = global_var:{MOD_ID}_plan_rooms }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ext_rooms subtract = global_var:{MOD_ID}_ext_was }}
+
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ext value = 1 }}
+\t\t\t{MOD_ID}_ext_only = yes
+\t\t\t# **`_plan_scored` пересчитывается, а не наращивается**: обход
+\t\t\t# прибавляет единицу за товар, у которого `_ng<n> > 0`, а `_ng<n>` к
+\t\t\t# этому моменту уже про всю землю. Наращивание сложило бы товар с
+\t\t\t# самим собой и урезало долю вдвое.
+\t\t\tset_global_variable = {{ name = {MOD_ID}_plan_scored value = 0 }}
+\t\t\t{MOD_ID}_plan_score = yes
+\t\t\tif = {{
+\t\t\t\tlimit = {{ has_global_variable = {MOD_ID}_plan_rights }}
+\t\t\t\t{MOD_ID}_plan_place_rights = yes
+\t\t\t}}
+\t\t\t# Доля -- по всей земле, поэтому список кандидатов на время её счёта
+\t\t\t# снова полный.
+\t\t\t{MOD_ID}_collect_candidates = yes
+\t\t\t{MOD_ID}_plan_set_quota = yes
+\t\t\t{MOD_ID}_ext_lift = yes
+\t\t\t{MOD_ID}_edit_set_quota = yes
+\t\t\t{MOD_ID}_ext_quotas = yes
+\t\t\t{MOD_ID}_ext_only = yes
+\t\t\t{MOD_ID}_plan_allocate = yes
+\t\t\t{MOD_ID}_collect_candidates = yes
+\t\t\tremove_global_variable = {MOD_ID}_ext
+\t\t\t{MOD_ID}_ext_thaw = yes
+
+\t\t\tset_global_variable = {{ name = {MOD_ID}_ext_added value = global_var:{MOD_ID}_plan_placed }}
+\t\t\tchange_global_variable = {{ name = {MOD_ID}_ext_added subtract = global_var:{MOD_ID}_ext_placed0 }}
+\t\t\t# **Проба, ради которой шаг и считается закрытым или нет.** Ноль
+\t\t\t# значит «на старой земле не сдвинулось ничего»; всё, кроме нуля, --
+\t\t\t# что доливка потрогала X, и тогда виновата не догадка, а это число.
+\t\t\t# **Разность, а не сравнение двух переменных.** `var:x = var:y`
+\t\t\t# внутри `limit` эффекта в этом моде нигде не доказано, а
+\t\t\t# `change_variable = {{ subtract = var:y }}` и `var:x = 0` доказаны
+\t\t\t# оба. Проба, которая молча читается ложью, хуже отсутствующей.
+\t\t\tevery_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_plan_touched
+\t\t\t\tlimit = {{ has_variable = {MOD_ID}_ext_load0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_ext_dl value = var:{MOD_ID}_load }}
+\t\t\t\tchange_variable = {{ name = {MOD_ID}_ext_dl subtract = var:{MOD_ID}_ext_load0 }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ NOT = {{ var:{MOD_ID}_ext_dl = 0 }} }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_ext_moved add = 1 }}
+\t\t\t\t}}
+\t\t\t\tremove_variable = {MOD_ID}_ext_dl
+\t\t\t\tremove_variable = {MOD_ID}_ext_load0
+\t\t\t}}
+\t\t\t# Новая земля может уметь то, чего старая не умела: набор товаров в
+\t\t\t# пикере считается из `_ng<n>` и должен быть пересобран.
+\t\t\t{MOD_ID}_edit_fill_pool = yes
+\t\t\t{MOD_ID}_plan_rank = yes
+\t\t}}
+\t}}
+}}
+
+""")
+
     inits = "".join(
         f"\tif = {{\n"
         f"\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_sl{n}_n }} }}\n"
@@ -6424,6 +6772,20 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_pooln }} }}
 \t\tset_global_variable = {{ name = {MOD_ID}_edit_pooln value = 0 }}
+\t}}
+\t# **Шесть чисел доливки, созданные до того, как строка их прочтёт.**
+\t# `{MOD_ID}_edit_ext_label` разбирает ветки по `global_var:`, а глобалка,
+\t# которой нет, читается как ложь молча -- то есть «не нажимали» никогда бы
+\t# не выпало, и окно печатало бы нули как результат.
+\tif = {{
+\t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_ext_ran }} }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_ran value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_new value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_was value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_rooms value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_added value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_moved value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_ext_lifted value = 0 }}
 \t}}
 \tif = {{
 \t\tlimit = {{ NOT = {{ has_global_variable = {MOD_ID}_edit_op }} }}
@@ -6486,6 +6848,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_fail value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
+\t# **И строка доливки тоже начинает пустой**, по той же причине, что строка
+\t# последнего нажатия: «расширение: локаций +48» от прошлого часа встречает
+\t# открытое окно как отчёт о том, чего в нём ещё не делали.
+\tset_global_variable = {{ name = {MOD_ID}_ext_ran value = 0 }}
 \t{MOD_ID}_edit_fill_pool = yes
 \t{MOD_ID}_edit_clear_fillset = yes
 \t{MOD_ID}_plan_show = yes
@@ -7616,6 +7982,20 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT share quota=%s free=%s pool_rooms=%s | rooms=%s "
                    "plan_quota=%s"
                    % tuple(read(i) for i in range(1, 6))))
+    # **Доливка новой земли, и `moved` -- единственное число здесь, у которого
+    # есть неправильное значение.** Ноль значит, что на старой земле не сдвинулся
+    # ни один домик, то есть замок сработал; всё остальное -- что доливка полезла
+    # в X, и тогда виновата не догадка, а это число. `ran=0` -- кнопку не
+    # нажимали, и остальные пять чисел тогда ничего не значат.
+    for slot, source in enumerate((f"{MOD_ID}_ext_ran", f"{MOD_ID}_ext_new",
+                                   f"{MOD_ID}_ext_was", f"{MOD_ID}_ext_rooms",
+                                   f"{MOD_ID}_ext_added", f"{MOD_ID}_ext_moved",
+                                   f"{MOD_ID}_ext_lifted"), start=1):
+        out.append(park(slot, source))
+    out.append(say("EXT ran=%s new_locs=%s rooms_before=%s rooms_added=%s "
+                   "placed=%s moved_on_old=%s pins_lifted=%s "
+                   "-- moved_on_old must be 0"
+                   % tuple(read(i) for i in range(1, 8))))
 
     # **The reshuffle, and it needs three numbers rather than one.** `rounds` at
     # zero says the pass never ran at all — the one failure that looks exactly

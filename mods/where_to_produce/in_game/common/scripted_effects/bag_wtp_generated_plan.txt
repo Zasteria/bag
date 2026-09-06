@@ -48,10 +48,28 @@ bag_wtp_plan_prepare = {
 		remove_variable = bag_wtp_plan_area_load
 		remove_variable = bag_wtp_plan_pexp
 		remove_variable = bag_wtp_plan_seen
+		# **Снимок загрузки, который «Расширить» кладёт перед доливкой.** Он
+		# существует ровно затем, чтобы после доливки посчитать, сколько
+		# домиков на старой земле сдвинулось (ответ обязан быть нулём).
+		# Оставленный от прошлой доливки, он сравнивал бы новую с чужой.
+		remove_variable = bag_wtp_ext_load0
+		remove_variable = bag_wtp_ext_dl
 		clear_variable_list = bag_wtp_plan_goods
 		clear_variable_list = bag_wtp_plan_builds
 	}
 	clear_global_variable_list = bag_wtp_plan_touched
+	# **Режим доливки не переживает свежий план.** `_ext` заставляет обход
+	# наращивать `_ng`/`_nrgo`/`_pbest` вместо того, чтобы обнулять их; свежий
+	# план считает всё с нуля, и оставленный флаг сложил бы новый счёт со старым.
+	remove_global_variable = bag_wtp_ext
+	clear_global_variable_list = bag_wtp_ext_locs
+	set_global_variable = { name = bag_wtp_ext_new value = 0 }
+	set_global_variable = { name = bag_wtp_ext_rooms value = 0 }
+	set_global_variable = { name = bag_wtp_ext_added value = 0 }
+	set_global_variable = { name = bag_wtp_ext_moved value = 0 }
+	set_global_variable = { name = bag_wtp_ext_lifted value = 0 }
+	set_global_variable = { name = bag_wtp_ext_was value = 0 }
+	set_global_variable = { name = bag_wtp_ext_ran value = 0 }
 	clear_global_variable_list = bag_wtp_plan_prov_locs
 	clear_global_variable_list = bag_wtp_plan_area_locs
 	clear_global_variable_list = bag_wtp_plan_ranked
@@ -84,6 +102,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest1 value = 0 }
 	set_global_variable = { name = bag_wtp_pth1 value = 0 }
 	remove_global_variable = bag_wtp_lock1
+	remove_global_variable = bag_wtp_frz1
 	set_global_variable = { name = bag_wtp_esh1 value = 0 }
 	set_global_variable = { name = bag_wtp_pn2 value = 0 }
 	set_global_variable = { name = bag_wtp_pq2 value = 1 }
@@ -91,6 +110,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest2 value = 0 }
 	set_global_variable = { name = bag_wtp_pth2 value = 0 }
 	remove_global_variable = bag_wtp_lock2
+	remove_global_variable = bag_wtp_frz2
 	set_global_variable = { name = bag_wtp_esh2 value = 0 }
 	set_global_variable = { name = bag_wtp_pn3 value = 0 }
 	set_global_variable = { name = bag_wtp_pq3 value = 1 }
@@ -98,6 +118,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest3 value = 0 }
 	set_global_variable = { name = bag_wtp_pth3 value = 0 }
 	remove_global_variable = bag_wtp_lock3
+	remove_global_variable = bag_wtp_frz3
 	set_global_variable = { name = bag_wtp_esh3 value = 0 }
 	set_global_variable = { name = bag_wtp_pn4 value = 0 }
 	set_global_variable = { name = bag_wtp_pq4 value = 1 }
@@ -105,6 +126,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest4 value = 0 }
 	set_global_variable = { name = bag_wtp_pth4 value = 0 }
 	remove_global_variable = bag_wtp_lock4
+	remove_global_variable = bag_wtp_frz4
 	set_global_variable = { name = bag_wtp_esh4 value = 0 }
 	set_global_variable = { name = bag_wtp_pn5 value = 0 }
 	set_global_variable = { name = bag_wtp_pq5 value = 1 }
@@ -112,6 +134,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest5 value = 0 }
 	set_global_variable = { name = bag_wtp_pth5 value = 0 }
 	remove_global_variable = bag_wtp_lock5
+	remove_global_variable = bag_wtp_frz5
 	set_global_variable = { name = bag_wtp_esh5 value = 0 }
 	set_global_variable = { name = bag_wtp_pn6 value = 0 }
 	set_global_variable = { name = bag_wtp_pq6 value = 1 }
@@ -119,6 +142,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest6 value = 0 }
 	set_global_variable = { name = bag_wtp_pth6 value = 0 }
 	remove_global_variable = bag_wtp_lock6
+	remove_global_variable = bag_wtp_frz6
 	set_global_variable = { name = bag_wtp_esh6 value = 0 }
 	set_global_variable = { name = bag_wtp_pn7 value = 0 }
 	set_global_variable = { name = bag_wtp_pq7 value = 1 }
@@ -126,6 +150,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest7 value = 0 }
 	set_global_variable = { name = bag_wtp_pth7 value = 0 }
 	remove_global_variable = bag_wtp_lock7
+	remove_global_variable = bag_wtp_frz7
 	set_global_variable = { name = bag_wtp_esh7 value = 0 }
 	set_global_variable = { name = bag_wtp_pn8 value = 0 }
 	set_global_variable = { name = bag_wtp_pq8 value = 1 }
@@ -133,6 +158,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest8 value = 0 }
 	set_global_variable = { name = bag_wtp_pth8 value = 0 }
 	remove_global_variable = bag_wtp_lock8
+	remove_global_variable = bag_wtp_frz8
 	set_global_variable = { name = bag_wtp_esh8 value = 0 }
 	set_global_variable = { name = bag_wtp_pn9 value = 0 }
 	set_global_variable = { name = bag_wtp_pq9 value = 1 }
@@ -140,6 +166,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest9 value = 0 }
 	set_global_variable = { name = bag_wtp_pth9 value = 0 }
 	remove_global_variable = bag_wtp_lock9
+	remove_global_variable = bag_wtp_frz9
 	set_global_variable = { name = bag_wtp_esh9 value = 0 }
 	set_global_variable = { name = bag_wtp_pn10 value = 0 }
 	set_global_variable = { name = bag_wtp_pq10 value = 1 }
@@ -147,6 +174,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest10 value = 0 }
 	set_global_variable = { name = bag_wtp_pth10 value = 0 }
 	remove_global_variable = bag_wtp_lock10
+	remove_global_variable = bag_wtp_frz10
 	set_global_variable = { name = bag_wtp_esh10 value = 0 }
 	set_global_variable = { name = bag_wtp_pn11 value = 0 }
 	set_global_variable = { name = bag_wtp_pq11 value = 1 }
@@ -154,6 +182,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest11 value = 0 }
 	set_global_variable = { name = bag_wtp_pth11 value = 0 }
 	remove_global_variable = bag_wtp_lock11
+	remove_global_variable = bag_wtp_frz11
 	set_global_variable = { name = bag_wtp_esh11 value = 0 }
 	set_global_variable = { name = bag_wtp_pn12 value = 0 }
 	set_global_variable = { name = bag_wtp_pq12 value = 1 }
@@ -161,6 +190,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest12 value = 0 }
 	set_global_variable = { name = bag_wtp_pth12 value = 0 }
 	remove_global_variable = bag_wtp_lock12
+	remove_global_variable = bag_wtp_frz12
 	set_global_variable = { name = bag_wtp_esh12 value = 0 }
 	set_global_variable = { name = bag_wtp_pn13 value = 0 }
 	set_global_variable = { name = bag_wtp_pq13 value = 1 }
@@ -168,6 +198,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest13 value = 0 }
 	set_global_variable = { name = bag_wtp_pth13 value = 0 }
 	remove_global_variable = bag_wtp_lock13
+	remove_global_variable = bag_wtp_frz13
 	set_global_variable = { name = bag_wtp_esh13 value = 0 }
 	set_global_variable = { name = bag_wtp_pn14 value = 0 }
 	set_global_variable = { name = bag_wtp_pq14 value = 1 }
@@ -175,6 +206,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest14 value = 0 }
 	set_global_variable = { name = bag_wtp_pth14 value = 0 }
 	remove_global_variable = bag_wtp_lock14
+	remove_global_variable = bag_wtp_frz14
 	set_global_variable = { name = bag_wtp_esh14 value = 0 }
 	set_global_variable = { name = bag_wtp_pn15 value = 0 }
 	set_global_variable = { name = bag_wtp_pq15 value = 1 }
@@ -182,6 +214,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest15 value = 0 }
 	set_global_variable = { name = bag_wtp_pth15 value = 0 }
 	remove_global_variable = bag_wtp_lock15
+	remove_global_variable = bag_wtp_frz15
 	set_global_variable = { name = bag_wtp_esh15 value = 0 }
 	set_global_variable = { name = bag_wtp_pn16 value = 0 }
 	set_global_variable = { name = bag_wtp_pq16 value = 1 }
@@ -189,6 +222,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest16 value = 0 }
 	set_global_variable = { name = bag_wtp_pth16 value = 0 }
 	remove_global_variable = bag_wtp_lock16
+	remove_global_variable = bag_wtp_frz16
 	set_global_variable = { name = bag_wtp_esh16 value = 0 }
 	set_global_variable = { name = bag_wtp_pn17 value = 0 }
 	set_global_variable = { name = bag_wtp_pq17 value = 1 }
@@ -196,6 +230,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest17 value = 0 }
 	set_global_variable = { name = bag_wtp_pth17 value = 0 }
 	remove_global_variable = bag_wtp_lock17
+	remove_global_variable = bag_wtp_frz17
 	set_global_variable = { name = bag_wtp_esh17 value = 0 }
 	set_global_variable = { name = bag_wtp_pn18 value = 0 }
 	set_global_variable = { name = bag_wtp_pq18 value = 1 }
@@ -203,6 +238,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest18 value = 0 }
 	set_global_variable = { name = bag_wtp_pth18 value = 0 }
 	remove_global_variable = bag_wtp_lock18
+	remove_global_variable = bag_wtp_frz18
 	set_global_variable = { name = bag_wtp_esh18 value = 0 }
 	set_global_variable = { name = bag_wtp_pn19 value = 0 }
 	set_global_variable = { name = bag_wtp_pq19 value = 1 }
@@ -210,6 +246,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest19 value = 0 }
 	set_global_variable = { name = bag_wtp_pth19 value = 0 }
 	remove_global_variable = bag_wtp_lock19
+	remove_global_variable = bag_wtp_frz19
 	set_global_variable = { name = bag_wtp_esh19 value = 0 }
 	set_global_variable = { name = bag_wtp_pn20 value = 0 }
 	set_global_variable = { name = bag_wtp_pq20 value = 1 }
@@ -217,6 +254,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest20 value = 0 }
 	set_global_variable = { name = bag_wtp_pth20 value = 0 }
 	remove_global_variable = bag_wtp_lock20
+	remove_global_variable = bag_wtp_frz20
 	set_global_variable = { name = bag_wtp_esh20 value = 0 }
 	set_global_variable = { name = bag_wtp_pn21 value = 0 }
 	set_global_variable = { name = bag_wtp_pq21 value = 1 }
@@ -224,6 +262,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest21 value = 0 }
 	set_global_variable = { name = bag_wtp_pth21 value = 0 }
 	remove_global_variable = bag_wtp_lock21
+	remove_global_variable = bag_wtp_frz21
 	set_global_variable = { name = bag_wtp_esh21 value = 0 }
 	set_global_variable = { name = bag_wtp_pn22 value = 0 }
 	set_global_variable = { name = bag_wtp_pq22 value = 1 }
@@ -231,6 +270,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest22 value = 0 }
 	set_global_variable = { name = bag_wtp_pth22 value = 0 }
 	remove_global_variable = bag_wtp_lock22
+	remove_global_variable = bag_wtp_frz22
 	set_global_variable = { name = bag_wtp_esh22 value = 0 }
 	set_global_variable = { name = bag_wtp_pn23 value = 0 }
 	set_global_variable = { name = bag_wtp_pq23 value = 1 }
@@ -238,6 +278,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest23 value = 0 }
 	set_global_variable = { name = bag_wtp_pth23 value = 0 }
 	remove_global_variable = bag_wtp_lock23
+	remove_global_variable = bag_wtp_frz23
 	set_global_variable = { name = bag_wtp_esh23 value = 0 }
 	set_global_variable = { name = bag_wtp_pn24 value = 0 }
 	set_global_variable = { name = bag_wtp_pq24 value = 1 }
@@ -245,6 +286,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest24 value = 0 }
 	set_global_variable = { name = bag_wtp_pth24 value = 0 }
 	remove_global_variable = bag_wtp_lock24
+	remove_global_variable = bag_wtp_frz24
 	set_global_variable = { name = bag_wtp_esh24 value = 0 }
 	set_global_variable = { name = bag_wtp_pn25 value = 0 }
 	set_global_variable = { name = bag_wtp_pq25 value = 1 }
@@ -252,6 +294,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest25 value = 0 }
 	set_global_variable = { name = bag_wtp_pth25 value = 0 }
 	remove_global_variable = bag_wtp_lock25
+	remove_global_variable = bag_wtp_frz25
 	set_global_variable = { name = bag_wtp_esh25 value = 0 }
 	set_global_variable = { name = bag_wtp_pn26 value = 0 }
 	set_global_variable = { name = bag_wtp_pq26 value = 1 }
@@ -259,6 +302,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest26 value = 0 }
 	set_global_variable = { name = bag_wtp_pth26 value = 0 }
 	remove_global_variable = bag_wtp_lock26
+	remove_global_variable = bag_wtp_frz26
 	set_global_variable = { name = bag_wtp_esh26 value = 0 }
 	set_global_variable = { name = bag_wtp_pn27 value = 0 }
 	set_global_variable = { name = bag_wtp_pq27 value = 1 }
@@ -266,6 +310,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest27 value = 0 }
 	set_global_variable = { name = bag_wtp_pth27 value = 0 }
 	remove_global_variable = bag_wtp_lock27
+	remove_global_variable = bag_wtp_frz27
 	set_global_variable = { name = bag_wtp_esh27 value = 0 }
 	set_global_variable = { name = bag_wtp_pn28 value = 0 }
 	set_global_variable = { name = bag_wtp_pq28 value = 1 }
@@ -273,6 +318,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest28 value = 0 }
 	set_global_variable = { name = bag_wtp_pth28 value = 0 }
 	remove_global_variable = bag_wtp_lock28
+	remove_global_variable = bag_wtp_frz28
 	set_global_variable = { name = bag_wtp_esh28 value = 0 }
 	set_global_variable = { name = bag_wtp_pn29 value = 0 }
 	set_global_variable = { name = bag_wtp_pq29 value = 1 }
@@ -280,6 +326,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest29 value = 0 }
 	set_global_variable = { name = bag_wtp_pth29 value = 0 }
 	remove_global_variable = bag_wtp_lock29
+	remove_global_variable = bag_wtp_frz29
 	set_global_variable = { name = bag_wtp_esh29 value = 0 }
 	set_global_variable = { name = bag_wtp_pn30 value = 0 }
 	set_global_variable = { name = bag_wtp_pq30 value = 1 }
@@ -287,6 +334,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest30 value = 0 }
 	set_global_variable = { name = bag_wtp_pth30 value = 0 }
 	remove_global_variable = bag_wtp_lock30
+	remove_global_variable = bag_wtp_frz30
 	set_global_variable = { name = bag_wtp_esh30 value = 0 }
 	set_global_variable = { name = bag_wtp_pn31 value = 0 }
 	set_global_variable = { name = bag_wtp_pq31 value = 1 }
@@ -294,6 +342,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest31 value = 0 }
 	set_global_variable = { name = bag_wtp_pth31 value = 0 }
 	remove_global_variable = bag_wtp_lock31
+	remove_global_variable = bag_wtp_frz31
 	set_global_variable = { name = bag_wtp_esh31 value = 0 }
 	set_global_variable = { name = bag_wtp_pn32 value = 0 }
 	set_global_variable = { name = bag_wtp_pq32 value = 1 }
@@ -301,6 +350,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest32 value = 0 }
 	set_global_variable = { name = bag_wtp_pth32 value = 0 }
 	remove_global_variable = bag_wtp_lock32
+	remove_global_variable = bag_wtp_frz32
 	set_global_variable = { name = bag_wtp_esh32 value = 0 }
 	set_global_variable = { name = bag_wtp_pn33 value = 0 }
 	set_global_variable = { name = bag_wtp_pq33 value = 1 }
@@ -308,6 +358,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest33 value = 0 }
 	set_global_variable = { name = bag_wtp_pth33 value = 0 }
 	remove_global_variable = bag_wtp_lock33
+	remove_global_variable = bag_wtp_frz33
 	set_global_variable = { name = bag_wtp_esh33 value = 0 }
 	set_global_variable = { name = bag_wtp_pn34 value = 0 }
 	set_global_variable = { name = bag_wtp_pq34 value = 1 }
@@ -315,6 +366,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest34 value = 0 }
 	set_global_variable = { name = bag_wtp_pth34 value = 0 }
 	remove_global_variable = bag_wtp_lock34
+	remove_global_variable = bag_wtp_frz34
 	set_global_variable = { name = bag_wtp_esh34 value = 0 }
 	set_global_variable = { name = bag_wtp_pn35 value = 0 }
 	set_global_variable = { name = bag_wtp_pq35 value = 1 }
@@ -322,6 +374,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest35 value = 0 }
 	set_global_variable = { name = bag_wtp_pth35 value = 0 }
 	remove_global_variable = bag_wtp_lock35
+	remove_global_variable = bag_wtp_frz35
 	set_global_variable = { name = bag_wtp_esh35 value = 0 }
 	set_global_variable = { name = bag_wtp_pn36 value = 0 }
 	set_global_variable = { name = bag_wtp_pq36 value = 1 }
@@ -329,6 +382,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest36 value = 0 }
 	set_global_variable = { name = bag_wtp_pth36 value = 0 }
 	remove_global_variable = bag_wtp_lock36
+	remove_global_variable = bag_wtp_frz36
 	set_global_variable = { name = bag_wtp_esh36 value = 0 }
 	set_global_variable = { name = bag_wtp_pn37 value = 0 }
 	set_global_variable = { name = bag_wtp_pq37 value = 1 }
@@ -336,6 +390,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest37 value = 0 }
 	set_global_variable = { name = bag_wtp_pth37 value = 0 }
 	remove_global_variable = bag_wtp_lock37
+	remove_global_variable = bag_wtp_frz37
 	set_global_variable = { name = bag_wtp_esh37 value = 0 }
 	set_global_variable = { name = bag_wtp_pn38 value = 0 }
 	set_global_variable = { name = bag_wtp_pq38 value = 1 }
@@ -343,6 +398,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest38 value = 0 }
 	set_global_variable = { name = bag_wtp_pth38 value = 0 }
 	remove_global_variable = bag_wtp_lock38
+	remove_global_variable = bag_wtp_frz38
 	set_global_variable = { name = bag_wtp_esh38 value = 0 }
 	set_global_variable = { name = bag_wtp_pn39 value = 0 }
 	set_global_variable = { name = bag_wtp_pq39 value = 1 }
@@ -350,6 +406,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest39 value = 0 }
 	set_global_variable = { name = bag_wtp_pth39 value = 0 }
 	remove_global_variable = bag_wtp_lock39
+	remove_global_variable = bag_wtp_frz39
 	set_global_variable = { name = bag_wtp_esh39 value = 0 }
 	set_global_variable = { name = bag_wtp_pn40 value = 0 }
 	set_global_variable = { name = bag_wtp_pq40 value = 1 }
@@ -357,6 +414,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest40 value = 0 }
 	set_global_variable = { name = bag_wtp_pth40 value = 0 }
 	remove_global_variable = bag_wtp_lock40
+	remove_global_variable = bag_wtp_frz40
 	set_global_variable = { name = bag_wtp_esh40 value = 0 }
 	set_global_variable = { name = bag_wtp_pn41 value = 0 }
 	set_global_variable = { name = bag_wtp_pq41 value = 1 }
@@ -364,6 +422,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest41 value = 0 }
 	set_global_variable = { name = bag_wtp_pth41 value = 0 }
 	remove_global_variable = bag_wtp_lock41
+	remove_global_variable = bag_wtp_frz41
 	set_global_variable = { name = bag_wtp_esh41 value = 0 }
 	set_global_variable = { name = bag_wtp_pn42 value = 0 }
 	set_global_variable = { name = bag_wtp_pq42 value = 1 }
@@ -371,6 +430,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest42 value = 0 }
 	set_global_variable = { name = bag_wtp_pth42 value = 0 }
 	remove_global_variable = bag_wtp_lock42
+	remove_global_variable = bag_wtp_frz42
 	set_global_variable = { name = bag_wtp_esh42 value = 0 }
 	set_global_variable = { name = bag_wtp_pn43 value = 0 }
 	set_global_variable = { name = bag_wtp_pq43 value = 1 }
@@ -378,6 +438,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest43 value = 0 }
 	set_global_variable = { name = bag_wtp_pth43 value = 0 }
 	remove_global_variable = bag_wtp_lock43
+	remove_global_variable = bag_wtp_frz43
 	set_global_variable = { name = bag_wtp_esh43 value = 0 }
 	set_global_variable = { name = bag_wtp_pn44 value = 0 }
 	set_global_variable = { name = bag_wtp_pq44 value = 1 }
@@ -385,6 +446,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest44 value = 0 }
 	set_global_variable = { name = bag_wtp_pth44 value = 0 }
 	remove_global_variable = bag_wtp_lock44
+	remove_global_variable = bag_wtp_frz44
 	set_global_variable = { name = bag_wtp_esh44 value = 0 }
 	set_global_variable = { name = bag_wtp_pn45 value = 0 }
 	set_global_variable = { name = bag_wtp_pq45 value = 1 }
@@ -392,6 +454,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest45 value = 0 }
 	set_global_variable = { name = bag_wtp_pth45 value = 0 }
 	remove_global_variable = bag_wtp_lock45
+	remove_global_variable = bag_wtp_frz45
 	set_global_variable = { name = bag_wtp_esh45 value = 0 }
 	set_global_variable = { name = bag_wtp_pn46 value = 0 }
 	set_global_variable = { name = bag_wtp_pq46 value = 1 }
@@ -399,6 +462,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest46 value = 0 }
 	set_global_variable = { name = bag_wtp_pth46 value = 0 }
 	remove_global_variable = bag_wtp_lock46
+	remove_global_variable = bag_wtp_frz46
 	set_global_variable = { name = bag_wtp_esh46 value = 0 }
 	set_global_variable = { name = bag_wtp_pn47 value = 0 }
 	set_global_variable = { name = bag_wtp_pq47 value = 1 }
@@ -406,6 +470,7 @@ bag_wtp_plan_prepare = {
 	set_global_variable = { name = bag_wtp_pbest47 value = 0 }
 	set_global_variable = { name = bag_wtp_pth47 value = 0 }
 	remove_global_variable = bag_wtp_lock47
+	remove_global_variable = bag_wtp_frz47
 	set_global_variable = { name = bag_wtp_esh47 value = 0 }
 	set_global_variable = { name = bag_wtp_rgiven1 value = 0 }
 	set_global_variable = { name = bag_wtp_rn1 value = 0 }
@@ -722,9 +787,18 @@ bag_wtp_plan_harvest_1 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng1 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest1 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng1 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo1 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest1 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -843,9 +917,18 @@ bag_wtp_plan_harvest_2 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng2 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest2 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng2 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo2 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest2 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -964,9 +1047,18 @@ bag_wtp_plan_harvest_3 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng3 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest3 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng3 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo3 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest3 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1085,9 +1177,18 @@ bag_wtp_plan_harvest_4 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng4 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest4 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng4 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo4 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest4 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1206,9 +1307,18 @@ bag_wtp_plan_harvest_5 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng5 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest5 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng5 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo5 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest5 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1327,9 +1437,18 @@ bag_wtp_plan_harvest_6 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng6 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest6 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng6 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo6 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest6 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1448,9 +1567,18 @@ bag_wtp_plan_harvest_7 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng7 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest7 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng7 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo7 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest7 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1569,9 +1697,18 @@ bag_wtp_plan_harvest_8 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng8 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest8 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng8 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo8 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest8 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1690,9 +1827,18 @@ bag_wtp_plan_harvest_9 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng9 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest9 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng9 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo9 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest9 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1811,9 +1957,18 @@ bag_wtp_plan_harvest_10 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng10 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest10 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng10 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo10 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest10 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -1932,9 +2087,18 @@ bag_wtp_plan_harvest_11 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng11 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest11 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng11 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo11 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest11 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2053,9 +2217,18 @@ bag_wtp_plan_harvest_12 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng12 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest12 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng12 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo12 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest12 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2174,9 +2347,18 @@ bag_wtp_plan_harvest_13 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng13 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest13 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng13 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo13 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest13 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2295,9 +2477,18 @@ bag_wtp_plan_harvest_14 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng14 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest14 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng14 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo14 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest14 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2416,9 +2607,18 @@ bag_wtp_plan_harvest_15 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng15 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest15 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng15 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo15 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest15 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2537,9 +2737,18 @@ bag_wtp_plan_harvest_16 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng16 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest16 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng16 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo16 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest16 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2658,9 +2867,18 @@ bag_wtp_plan_harvest_17 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng17 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest17 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng17 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo17 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest17 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2779,9 +2997,18 @@ bag_wtp_plan_harvest_18 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng18 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest18 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng18 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo18 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest18 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -2900,9 +3127,18 @@ bag_wtp_plan_harvest_19 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng19 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest19 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng19 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo19 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest19 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3021,9 +3257,18 @@ bag_wtp_plan_harvest_20 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng20 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest20 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng20 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo20 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest20 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3142,9 +3387,18 @@ bag_wtp_plan_harvest_21 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng21 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest21 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng21 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo21 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest21 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3263,9 +3517,18 @@ bag_wtp_plan_harvest_22 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng22 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest22 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng22 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo22 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest22 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3384,9 +3647,18 @@ bag_wtp_plan_harvest_23 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng23 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest23 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng23 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo23 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest23 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3505,9 +3777,18 @@ bag_wtp_plan_harvest_24 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng24 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest24 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng24 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo24 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest24 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3626,9 +3907,18 @@ bag_wtp_plan_harvest_25 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng25 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest25 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng25 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo25 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest25 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3747,9 +4037,18 @@ bag_wtp_plan_harvest_26 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng26 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest26 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng26 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo26 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest26 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3864,9 +4163,18 @@ bag_wtp_plan_harvest_27 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng27 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest27 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng27 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo27 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest27 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -3981,9 +4289,18 @@ bag_wtp_plan_harvest_28 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng28 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest28 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng28 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo28 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest28 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4098,9 +4415,18 @@ bag_wtp_plan_harvest_29 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng29 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest29 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng29 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo29 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest29 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4215,9 +4541,18 @@ bag_wtp_plan_harvest_30 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng30 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest30 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng30 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo30 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest30 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4332,9 +4667,18 @@ bag_wtp_plan_harvest_31 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng31 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest31 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng31 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo31 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest31 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4449,9 +4793,18 @@ bag_wtp_plan_harvest_32 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng32 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest32 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng32 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo32 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest32 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4566,9 +4919,18 @@ bag_wtp_plan_harvest_33 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng33 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest33 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng33 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo33 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest33 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4683,9 +5045,18 @@ bag_wtp_plan_harvest_34 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng34 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest34 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng34 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo34 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest34 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4800,9 +5171,18 @@ bag_wtp_plan_harvest_35 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng35 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest35 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng35 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo35 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest35 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -4917,9 +5297,18 @@ bag_wtp_plan_harvest_36 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng36 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest36 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng36 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo36 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest36 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5034,9 +5423,18 @@ bag_wtp_plan_harvest_37 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng37 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest37 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng37 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo37 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest37 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5151,9 +5549,18 @@ bag_wtp_plan_harvest_38 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng38 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest38 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng38 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo38 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest38 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5268,9 +5675,18 @@ bag_wtp_plan_harvest_39 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng39 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest39 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng39 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo39 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest39 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5385,9 +5801,18 @@ bag_wtp_plan_harvest_40 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng40 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest40 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng40 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo40 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest40 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5502,9 +5927,18 @@ bag_wtp_plan_harvest_41 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng41 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest41 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng41 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo41 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest41 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5619,9 +6053,18 @@ bag_wtp_plan_harvest_42 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng42 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest42 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng42 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo42 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest42 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5736,9 +6179,18 @@ bag_wtp_plan_harvest_43 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng43 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest43 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng43 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo43 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest43 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5853,9 +6305,18 @@ bag_wtp_plan_harvest_44 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng44 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest44 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng44 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo44 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest44 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -5970,9 +6431,18 @@ bag_wtp_plan_harvest_45 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng45 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest45 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng45 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo45 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest45 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -6087,9 +6557,18 @@ bag_wtp_plan_harvest_46 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng46 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest46 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng46 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo46 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest46 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -6204,9 +6683,18 @@ bag_wtp_plan_harvest_47 = {
 			}
 		}
 	}
-	set_global_variable = { name = bag_wtp_ng47 value = 0 }
-	set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
-	set_global_variable = { name = bag_wtp_pbest47 value = 0 }
+	# **Три числа обо всей земле, и «Расширить» наращивает их, а не считает
+	# заново.** Обходы ниже идут по `_candidates`, а доливка подставляет туда
+	# только новые локации: обнуление здесь стёрло бы вклад старой земли, и
+	# доля вышла бы посчитанной по одной земле Y. `_ng` и `_nrgo` -- счётчики,
+	# так что «не обнулять» и есть «продолжить счёт»; `_pbest` -- максимум, и
+	# сравнение ниже само оставляет больший.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_ng47 value = 0 }
+		set_global_variable = { name = bag_wtp_nrgo47 value = 0 }
+		set_global_variable = { name = bag_wtp_pbest47 value = 0 }
+	}
 	# **Counted on the side the location actually is**, and not on the better of
 	# the two: a good whose only buildings are rural would otherwise count as
 	# makeable on ground that is all towns. The
@@ -19358,19 +19846,22 @@ bag_wtp_plan_place_rights = {
 	# the same and says so. A ground with fewer towns than rights still gives every
 	# charter one town to want.
 	change_global_variable = { name = bag_wtp_rquota max = 1 }
-	set_global_variable = { name = bag_wtp_rn1 value = 0 }
-	set_global_variable = { name = bag_wtp_rn2 value = 0 }
-	set_global_variable = { name = bag_wtp_rn3 value = 0 }
-	set_global_variable = { name = bag_wtp_rn4 value = 0 }
-	set_global_variable = { name = bag_wtp_rn5 value = 0 }
-	set_global_variable = { name = bag_wtp_rn6 value = 0 }
-	set_global_variable = { name = bag_wtp_rn7 value = 0 }
-	set_global_variable = { name = bag_wtp_rn8 value = 0 }
-	set_global_variable = { name = bag_wtp_rn9 value = 0 }
-	set_global_variable = { name = bag_wtp_rn10 value = 0 }
-	set_global_variable = { name = bag_wtp_rn11 value = 0 }
-	set_global_variable = { name = bag_wtp_rn12 value = 0 }
-	set_global_variable = { name = bag_wtp_rn13 value = 0 }
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_ext } }
+		set_global_variable = { name = bag_wtp_rn1 value = 0 }
+		set_global_variable = { name = bag_wtp_rn2 value = 0 }
+		set_global_variable = { name = bag_wtp_rn3 value = 0 }
+		set_global_variable = { name = bag_wtp_rn4 value = 0 }
+		set_global_variable = { name = bag_wtp_rn5 value = 0 }
+		set_global_variable = { name = bag_wtp_rn6 value = 0 }
+		set_global_variable = { name = bag_wtp_rn7 value = 0 }
+		set_global_variable = { name = bag_wtp_rn8 value = 0 }
+		set_global_variable = { name = bag_wtp_rn9 value = 0 }
+		set_global_variable = { name = bag_wtp_rn10 value = 0 }
+		set_global_variable = { name = bag_wtp_rn11 value = 0 }
+		set_global_variable = { name = bag_wtp_rn12 value = 0 }
+		set_global_variable = { name = bag_wtp_rn13 value = 0 }
+	}
 	set_global_variable = { name = bag_wtp_rlevel value = 0 }
 	while = {
 		limit = {
@@ -23575,6 +24066,14 @@ bag_wtp_plan_pick_1 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz1 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23614,6 +24113,14 @@ bag_wtp_plan_pick_1 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn1 < global_var:bag_wtp_pq1
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz1 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23662,6 +24169,14 @@ bag_wtp_plan_pick_2 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz2 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23701,6 +24216,14 @@ bag_wtp_plan_pick_2 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn2 < global_var:bag_wtp_pq2
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz2 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23749,6 +24272,14 @@ bag_wtp_plan_pick_3 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz3 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23788,6 +24319,14 @@ bag_wtp_plan_pick_3 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn3 < global_var:bag_wtp_pq3
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz3 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23836,6 +24375,14 @@ bag_wtp_plan_pick_4 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn4 < global_var:bag_wtp_pq4
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz4 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23884,6 +24431,14 @@ bag_wtp_plan_pick_5 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz5 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23923,6 +24478,14 @@ bag_wtp_plan_pick_5 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn5 < global_var:bag_wtp_pq5
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz5 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -23971,6 +24534,14 @@ bag_wtp_plan_pick_6 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn6 < global_var:bag_wtp_pq6
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz6 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24019,6 +24590,14 @@ bag_wtp_plan_pick_7 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz7 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24058,6 +24637,14 @@ bag_wtp_plan_pick_7 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn7 < global_var:bag_wtp_pq7
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz7 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24106,6 +24693,14 @@ bag_wtp_plan_pick_8 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz8 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24145,6 +24740,14 @@ bag_wtp_plan_pick_8 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn8 < global_var:bag_wtp_pq8
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz8 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24193,6 +24796,14 @@ bag_wtp_plan_pick_9 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn9 < global_var:bag_wtp_pq9
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz9 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24241,6 +24852,14 @@ bag_wtp_plan_pick_10 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz10 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24280,6 +24899,14 @@ bag_wtp_plan_pick_10 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn10 < global_var:bag_wtp_pq10
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz10 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24328,6 +24955,14 @@ bag_wtp_plan_pick_11 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn11 < global_var:bag_wtp_pq11
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz11 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24376,6 +25011,14 @@ bag_wtp_plan_pick_12 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn12 < global_var:bag_wtp_pq12
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz12 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24424,6 +25067,14 @@ bag_wtp_plan_pick_13 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz13 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24463,6 +25114,14 @@ bag_wtp_plan_pick_13 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn13 < global_var:bag_wtp_pq13
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz13 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24511,6 +25170,14 @@ bag_wtp_plan_pick_14 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn14 < global_var:bag_wtp_pq14
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz14 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24559,6 +25226,14 @@ bag_wtp_plan_pick_15 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz15 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24598,6 +25273,14 @@ bag_wtp_plan_pick_15 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn15 < global_var:bag_wtp_pq15
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz15 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24646,6 +25329,14 @@ bag_wtp_plan_pick_16 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn16 < global_var:bag_wtp_pq16
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz16 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24694,6 +25385,14 @@ bag_wtp_plan_pick_17 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz17 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24733,6 +25432,14 @@ bag_wtp_plan_pick_17 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn17 < global_var:bag_wtp_pq17
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz17 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24781,6 +25488,14 @@ bag_wtp_plan_pick_18 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn18 < global_var:bag_wtp_pq18
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz18 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24829,6 +25544,14 @@ bag_wtp_plan_pick_19 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz19 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24868,6 +25591,14 @@ bag_wtp_plan_pick_19 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn19 < global_var:bag_wtp_pq19
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz19 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24916,6 +25647,14 @@ bag_wtp_plan_pick_20 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz20 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -24955,6 +25694,14 @@ bag_wtp_plan_pick_20 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn20 < global_var:bag_wtp_pq20
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz20 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25003,6 +25750,14 @@ bag_wtp_plan_pick_21 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz21 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25042,6 +25797,14 @@ bag_wtp_plan_pick_21 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn21 < global_var:bag_wtp_pq21
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz21 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25090,6 +25853,14 @@ bag_wtp_plan_pick_22 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz22 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25129,6 +25900,14 @@ bag_wtp_plan_pick_22 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn22 < global_var:bag_wtp_pq22
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz22 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25177,6 +25956,14 @@ bag_wtp_plan_pick_23 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn23 < global_var:bag_wtp_pq23
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz23 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25225,6 +26012,14 @@ bag_wtp_plan_pick_24 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn24 < global_var:bag_wtp_pq24
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz24 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25273,6 +26068,14 @@ bag_wtp_plan_pick_25 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn25 < global_var:bag_wtp_pq25
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz25 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25321,6 +26124,14 @@ bag_wtp_plan_pick_26 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz26 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25360,6 +26171,14 @@ bag_wtp_plan_pick_26 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn26 < global_var:bag_wtp_pq26
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz26 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25408,6 +26227,14 @@ bag_wtp_plan_pick_27 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn27 < global_var:bag_wtp_pq27
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz27 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25456,6 +26283,14 @@ bag_wtp_plan_pick_28 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn28 < global_var:bag_wtp_pq28
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz28 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25504,6 +26339,14 @@ bag_wtp_plan_pick_29 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz29 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25543,6 +26386,14 @@ bag_wtp_plan_pick_29 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn29 < global_var:bag_wtp_pq29
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz29 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25591,6 +26442,14 @@ bag_wtp_plan_pick_30 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn30 < global_var:bag_wtp_pq30
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz30 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25639,6 +26498,14 @@ bag_wtp_plan_pick_31 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn31 < global_var:bag_wtp_pq31
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz31 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25687,6 +26554,14 @@ bag_wtp_plan_pick_32 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn32 < global_var:bag_wtp_pq32
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz32 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25735,6 +26610,14 @@ bag_wtp_plan_pick_33 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz33 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25774,6 +26657,14 @@ bag_wtp_plan_pick_33 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn33 < global_var:bag_wtp_pq33
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz33 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25822,6 +26713,14 @@ bag_wtp_plan_pick_34 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz34 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25861,6 +26760,14 @@ bag_wtp_plan_pick_34 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn34 < global_var:bag_wtp_pq34
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz34 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25909,6 +26816,14 @@ bag_wtp_plan_pick_35 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn35 < global_var:bag_wtp_pq35
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz35 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25957,6 +26872,14 @@ bag_wtp_plan_pick_36 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz36 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -25996,6 +26919,14 @@ bag_wtp_plan_pick_36 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn36 < global_var:bag_wtp_pq36
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz36 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26044,6 +26975,14 @@ bag_wtp_plan_pick_37 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn37 < global_var:bag_wtp_pq37
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz37 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26092,6 +27031,14 @@ bag_wtp_plan_pick_38 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz38 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26131,6 +27078,14 @@ bag_wtp_plan_pick_38 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn38 < global_var:bag_wtp_pq38
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz38 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26179,6 +27134,14 @@ bag_wtp_plan_pick_39 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz39 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26218,6 +27181,14 @@ bag_wtp_plan_pick_39 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn39 < global_var:bag_wtp_pq39
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz39 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26266,6 +27237,14 @@ bag_wtp_plan_pick_40 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn40 < global_var:bag_wtp_pq40
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz40 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26314,6 +27293,14 @@ bag_wtp_plan_pick_41 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn41 < global_var:bag_wtp_pq41
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz41 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26362,6 +27349,14 @@ bag_wtp_plan_pick_42 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz42 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26401,6 +27396,14 @@ bag_wtp_plan_pick_42 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn42 < global_var:bag_wtp_pq42
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz42 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26449,6 +27452,14 @@ bag_wtp_plan_pick_43 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz43 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26488,6 +27499,14 @@ bag_wtp_plan_pick_43 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn43 < global_var:bag_wtp_pq43
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz43 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26536,6 +27555,14 @@ bag_wtp_plan_pick_44 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn44 < global_var:bag_wtp_pq44
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz44 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26584,6 +27611,14 @@ bag_wtp_plan_pick_45 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz45 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26623,6 +27658,14 @@ bag_wtp_plan_pick_45 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn45 < global_var:bag_wtp_pq45
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz45 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26671,6 +27714,14 @@ bag_wtp_plan_pick_46 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz46 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26710,6 +27761,14 @@ bag_wtp_plan_pick_46 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn46 < global_var:bag_wtp_pq46
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz46 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26758,6 +27817,14 @@ bag_wtp_plan_pick_47 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz47 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0
@@ -26797,6 +27864,14 @@ bag_wtp_plan_pick_47 = {
 			# round instead, so leftover ground fills in even layers rather than
 			# going whole to whichever good the list happens to reach first.
 			global_var:bag_wtp_pn47 < global_var:bag_wtp_pq47
+			# **Замороженный товар не берёт ничего, и квота его не спасёт.**
+			# «Расширить» ставит `_frz<n>` на закреплённые и на «не нужен»: их
+			# квота приравнена к тому, что у них есть, но открытая лестница
+			# поднимает всякую квоту на единицу за круг, и одного равенства
+			# хватило бы ровно на один круг. **Свежий план сюда не попадает**:
+			# `_frz<n>` ставит только доливка и снимает сама, а `_plan_prepare`
+			# снимает ещё раз -- функция 3 не читает состояние редактора.
+			NOT = { has_global_variable = bag_wtp_frz47 }
 			# The covering pass admits only a good that has nothing at all.
 			OR = {
 				global_var:bag_wtp_plan_cover = 0

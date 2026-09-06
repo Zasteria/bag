@@ -1910,6 +1910,29 @@ bag_wtp_edit_rto_name = {
 	}
 }
 
+# Что сделала последняя доливка, тремя ветками.
+#
+# **«Не нажимали» и «нажали, а новой земли не было» -- разные ответы, и оба
+# нужны.** Кнопка, которая ничего не сделала, потому что доливать нечего, и
+# кнопка, которая не дошла до эффекта, на экране выглядят одинаково; строка,
+# молчащая в обоих случаях, -- ровно та немота, из-за которой в этом моде уже
+# терялись прогоны.
+bag_wtp_edit_ext_label = {
+	type = country
+	text = {
+		trigger = { global_var:bag_wtp_ext_ran = 0 }
+		localization_key = bag_wtp_edit_ext_none
+	}
+	text = {
+		trigger = { global_var:bag_wtp_ext_new = 0 }
+		localization_key = bag_wtp_edit_ext_empty
+	}
+	text = {
+		fallback = yes
+		localization_key = bag_wtp_edit_ext_done
+	}
+}
+
 bag_wtp_edit_last_label = {
 	type = country
 	text = {

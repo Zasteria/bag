@@ -11000,6 +11000,16 @@ bag_wtp_dg17 = { value = global_var:bag_wtp_dv17 }
 # нажатия, вывернутый наизнанку (`order_by` читает от большего к меньшему).
 bag_wtp_chg_order = { value = var:bag_wtp_chg_rank }
 
+# **Что сделала «Расширить», шестью числами.** Строка под кнопкой -- это проба,
+# а не украшение: «доливка не сработала», «новой земли не оказалось» и «доливка
+# полезла на старую землю» на карте выглядят одинаково, а здесь это три разных
+# числа. `moved` обязан быть нулём.
+bag_wtp_show_ext_new = { value = global_var:bag_wtp_ext_new }
+bag_wtp_show_ext_was = { value = global_var:bag_wtp_ext_was }
+bag_wtp_show_ext_rooms = { value = global_var:bag_wtp_ext_rooms }
+bag_wtp_show_ext_added = { value = global_var:bag_wtp_ext_added }
+bag_wtp_show_ext_moved = { value = global_var:bag_wtp_ext_moved }
+bag_wtp_show_ext_lifted = { value = global_var:bag_wtp_ext_lifted }
 bag_wtp_show_plan_scored = { value = global_var:bag_wtp_plan_scored }
 bag_wtp_show_plan_placed = { value = global_var:bag_wtp_plan_placed }
 bag_wtp_show_plan_found = { value = global_var:bag_wtp_plan_found }
