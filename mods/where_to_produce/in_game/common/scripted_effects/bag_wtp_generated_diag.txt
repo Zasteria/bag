@@ -179,6 +179,13 @@ bag_wtp_diag_state = {
 	set_global_variable = { name = bag_wtp_dv5 value = 0 }
 	if = { limit = { has_global_variable = bag_wtp_plan_quota } set_global_variable = { name = bag_wtp_dv5 value = global_var:bag_wtp_plan_quota } }
 	debug_log = "WTP EDIT share quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] free=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] pool_rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0] | rooms=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg4')|0] plan_quota=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg5')|0]"
+	set_global_variable = { name = bag_wtp_dv1 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rs_rounds } set_global_variable = { name = bag_wtp_dv1 value = global_var:bag_wtp_rs_rounds } }
+	set_global_variable = { name = bag_wtp_dv2 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rs_swaps } set_global_variable = { name = bag_wtp_dv2 value = global_var:bag_wtp_rs_swaps } }
+	set_global_variable = { name = bag_wtp_dv3 value = 0 }
+	if = { limit = { has_global_variable = bag_wtp_rs_gain } set_global_variable = { name = bag_wtp_dv3 value = global_var:bag_wtp_rs_gain } }
+	debug_log = "WTP EDIT shuffle rounds=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg1')|0] swaps=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg2')|0] gain=[GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_dg3')|0]"
 }
 
 # The funnel. One walk, and the plan pays nothing for it: everything here is

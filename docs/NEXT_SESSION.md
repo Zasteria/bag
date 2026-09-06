@@ -38,29 +38,24 @@ rules each step implements are
 2. **Share, `_lock<n>`, and the «не нужен» flag** — **done and confirmed
    2026-09-06**, with one change reverted: **pins, flags, the share and the star
    belong to the editor window alone, and a fresh plan reads none of them.**
-2а. **Reshuffle the buildings a fill placed** — the fill chooses *which* good by
-   shortfall but *where* by the accident of press order. Scope is strictly the
-   buildings it placed and their own locations, so no count changes. Not built.
-2в. **Rebuild the mod's menu** — **built, run and accepted 2026-09-06**: «почти
-   идеально». Three tabs, four buttons, every setting inside its function's
-   window. **Two rounds of fixes followed and the second is not run**: the
-   buildable tick deleted, «Выбрать мою землю» added, the stamp and the essays
-   out of the windows, and four layout faults — chief among them an `hbox`
-   carrying a written width and measuring 132 short. **The editor's picker is all 47 goods now** and accepted. **The cause of every column that would not sit still was
-   named by his own screenshot, third round**: a box given more room than its
-   children need divides the difference between them. An expanding child at the
-   end takes it instead — and the counter got a column of its own, which was his
-   fix and better than mine. Both tables:
+2а. **Reshuffle the buildings a fill placed** — **built 2026-09-06 and never
+   run.** The fill decides *which* good by shortfall, which is right, and
+   *where* by the accident of press order, which nothing decides; the buildings
+   it placed now trade locations between themselves while a trade is worth
+   anything. No count changes. **«Показать изменения» prints how many trades and
+   what they bought**, and the diagnosis separates «never ran» from «nothing to
+   trade». One fix fell out of it: a removal did not ask town or village and
+   charged the wrong side's gain.
+2в. **Rebuild the mod's menu** — **closed 2026-09-06**, three rounds of fixes
+   and all three confirmed on screen: «столбцы встали как надо, права встали как
+   надо, пикер стал более читаемым». Three tabs, four buttons, every setting
+   inside its function's window. **What it taught, and it is worth more than the
+   menu**: a box given more room than its children need divides the difference
+   between them, an `hbox` will not hold a written width, and two different
+   things must not share one column. All three in
+   [`pitfalls/interface.md`](pitfalls/interface.md); the whole move in
    [`investigations/wtp_menu_rebuild.md`](investigations/wtp_menu_rebuild.md).
 
-   **Two interface rules he set with that report, and they outrank the steps
-   below**: no descriptive text in a window's header — it belongs in the
-   tooltips — and anything technical or observational goes on the «Техническая»
-   tab. `investigations/wtp_editor_design.md`.
-2б. **A packed picker** — **he took it off the table himself**: «в целом похер,
-   что там дырки». The way out is that a good is its own scope (`every_goods`,
-   `Goods.MakeScope`), so the count can sit on it and the picker becomes a
-   datamodel — `research/interface.md` has the order of checks.
 2г. **He asked for urban rights in the editor** — that is step 5 below, not a
    layout change, so **the order of what is left is his to pick**: 2а, 3 or 5.
 3. **Even eviction on «+1»** — two passes, never a packed number. `_esh<n>`,

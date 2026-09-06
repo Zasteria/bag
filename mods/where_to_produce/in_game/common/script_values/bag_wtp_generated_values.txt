@@ -10897,6 +10897,14 @@ bag_wtp_show_ticks = { value = global_var:bag_wtp_tick_count }
 # may not be taken out is exactly such a case.
 # Scope: country
 bag_wtp_show_edit_moved = { value = global_var:bag_wtp_edit_moved }
+# **The reshuffle's own two numbers**, and they are on screen because the pass
+# is invisible otherwise: it moves buildings the player did not ask about, and
+# «traded nothing», «traded and it was worth nothing» and «never ran» are three
+# different answers that look identical on the map.
+# Scope: country
+bag_wtp_show_rs_swaps = { value = global_var:bag_wtp_rs_swaps }
+# Scope: country
+bag_wtp_show_rs_gain = { value = global_var:bag_wtp_rs_gain }
 # Scope: country
 bag_wtp_show_edit_saved = { value = global_var:bag_wtp_save_n }
 # Scope: country

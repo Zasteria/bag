@@ -222,6 +222,8 @@
  bag_wtp_chg_window_empty: "Nothing has moved since the plan was saved."
  bag_wtp_chg_moved: "Locations changed: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_edit_moved')|0]"
  bag_wtp_chg_moved_tt: "Counted against the saved plan. A plan just made is its own baseline, so this is zero until something is edited — and one «+1» should move one location or two, not the whole ground."
+ bag_wtp_chg_shuffle: "Trades after the fill: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_rs_swaps')|0] · gain they bought: [GuiScope.SetRoot(GetPlayer.MakeScope).ScriptValue('bag_wtp_show_rs_gain')|0]"
+ bag_wtp_chg_shuffle_tt: "After every «−1» the freed room goes to the good furthest below its share, and that is right. But *where* it lands is settled by which press freed which room, and nothing decides that.\n\nSo the buildings the fill placed trade locations between themselves afterwards, while a trade is worth anything. No good's count changes by a single building: only what the fill itself placed is touched, and only its own locations. Charters and everything placed earlier take no part.\n\nThe first number is how many trades have been made since the window opened. The second is the gain they added, in the units the plan counts in.\n\nZero in the first means there was nothing to trade."
  bag_wtp_chg_head_out: "out:"
  bag_wtp_chg_head_in: "in:"
  bag_wtp_chg_out_tt: "What the saved plan had here and the plan now does not."

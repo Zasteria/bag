@@ -7,14 +7,12 @@ His words, after the fourth time: «ты постоянно смешиваешь
 
 **Since 2026-09-06 the mod page is three tabs — Земля, Расчёты, Техническая —
 and four buttons that only open windows**, every setting inside the window of
-its function; **confirmed in game and accepted**. A circle writes
-`bag_wtp_good_index` itself; `_right_ok<n>` says whether a country may be shown
-a right, because a `visible` cannot ask a trigger.
-
-**Two rules of his, above any layout idea**: **no descriptive text in a window
-header** — it goes in the tooltip of the control it describes — and **anything
-technical or observational belongs on «Техническая»**, the build stamp first.
-[`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md).
+its function; confirmed in game. A circle writes `bag_wtp_good_index` itself;
+`_right_ok<n>` says whether a country may be shown a right, because a `visible`
+cannot ask a trigger. **Two rules of his, above any layout idea**: **no
+descriptive text in a window header** — it goes in the control's tooltip — and
+**anything technical belongs on «Техническая»**
+([`wtp_menu_rebuild.md`](../../docs/investigations/wtp_menu_rebuild.md)).
 
 | # | what | where | files |
 | --- | --- | --- | --- |
@@ -50,23 +48,24 @@ any of it**. **An entry is a building and a location holds one of each**
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
 one building a press, where it costs least, and **the round trip is no undo**.
+**After a fill, what it placed trades locations between itself** — `_fillg`,
+`_edit_fillset`, `_edit_reshuffle` — and **no count changes**, which is what
+keeps it clear of the share and the locks.
 **A press pins its good** — `_lock<n>` — and a freed room goes to the good
-furthest below its share; **a pin is a star after the count, because he asks for
-symbols, not colours**. `_lock<n>` and `_skip<n>` are existence flags a slot
-stores and restores; **`_edit_locked_<n>` is the charter's bundle, not the
-player's pin**. Every rule of the editor:
+furthest below its share; **a pin is a star, not a colour**. `_lock<n>` and
+`_skip<n>` are existence flags a slot stores and restores; **`_edit_locked_<n>`
+is the charter's bundle, not the player's pin**. Every rule of the editor:
 [`wtp_editor_design.md`](../../docs/investigations/wtp_editor_design.md).
 
-**The build stamp is on the «Техническая» tab** — ask for it before believing a
-fix failed. **Every window rule this mod has paid for is in
-[`pitfalls/interface.md`](../../docs/pitfalls/interface.md)**: a window exists
-only if `scripted_widgets/` names it; **both anchors are said out loud**, never
-left to a default; a cell is a `widget` with a size and the `hbox` inside it;
-`ignoreinvisible = yes` with the `visible` on the cell is what packs a picker.
-`check_script.py` resolves every name a window says **except a widget type**,
-and **measures the box against its widest row**.
+**The build stamp is on «Техническая»** — ask for it before believing a fix
+failed. **Every window rule this mod has paid for is in
+[`pitfalls/interface.md`](../../docs/pitfalls/interface.md)**: **a box with room
+to spare divides it between its children**, an `hbox` will not hold a written
+width, a window exists only if `scripted_widgets/` names it, and both anchors
+are said out loud. `check_script.py` resolves every name a window says **except
+a widget type**, and **measures the box against its widest row**.
 
 **Not to be attempted again**: eight, rejected —
 [`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md). **The answer
-lives on the location**: [`README.md`](README.md). **Built by** `generate.py`
-from `tools/refresh.py`; anything else, `python3 tools/kb.py <words>`.
+lives on the location** ([`README.md`](README.md)). **Built by** `generate.py`
+from `tools/refresh.py`; anything else, `kb.py`.

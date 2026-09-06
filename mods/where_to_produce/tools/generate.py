@@ -1440,6 +1440,14 @@ def values_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # may not be taken out is exactly such a case.
 # Scope: country
 {MOD_ID}_show_edit_moved = {{ value = global_var:{MOD_ID}_edit_moved }}
+# **The reshuffle's own two numbers**, and they are on screen because the pass
+# is invisible otherwise: it moves buildings the player did not ask about, and
+# «traded nothing», «traded and it was worth nothing» and «never ran» are three
+# different answers that look identical on the map.
+# Scope: country
+{MOD_ID}_show_rs_swaps = {{ value = global_var:{MOD_ID}_rs_swaps }}
+# Scope: country
+{MOD_ID}_show_rs_gain = {{ value = global_var:{MOD_ID}_rs_gain }}
 # Scope: country
 {MOD_ID}_show_edit_saved = {{ value = global_var:{MOD_ID}_save_n }}
 # Scope: country
@@ -4043,7 +4051,16 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # Scope: location
 {MOD_ID}_edit_remove_{listname}_{index} = {{
 \tif = {{
-\t\tlimit = {{ is_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }} }}
+\t\tlimit = {{
+\t\t\tis_target_in_variable_list = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
+\t\t\t# **The side is asked here too, and it was not.** `call()` emits both
+\t\t\t# variants and the town one came first, so a village location had its
+\t\t\t# *town* gain subtracted from `_plan_gain` and its building matched
+\t\t\t# against `_pm<n>` instead of `_prm<n>`. Placement has always asked --
+\t\t\t# `_edit_fits_*` carries `{MOD_ID}_plan_is_town` -- and the two halves
+\t\t\t# of one edit have to agree about what kind of place this is.
+\t\t\t{MOD_ID}_plan_is_town = {"yes" if side == "t" else "no"}
+\t\t}}
 \t\tremove_list_variable = {{ name = {MOD_ID}_plan_goods target = goods:{good} }}
 {branches}\t\tchange_variable = {{ name = {MOD_ID}_load subtract = 1 }}
 \t\tchange_global_variable = {{ name = {MOD_ID}_plan_placed subtract = 1 }}
@@ -4532,7 +4549,20 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\t# Below every shortfall, which is floored at zero, so the first good
 \t\t\t# that fits wins outright and the rest is a comparison between goods.
 \t\t\tset_variable = {{ name = {MOD_ID}_esd value = -1 }}
-{fill}{fill_dispatch}\t\t\t# **Who took it, for the report and for the press line.** On «−1» `_esg` is
+{fill}{fill_dispatch}\t\t\t# **What the fill just put here, remembered for the reshuffle.** Which
+\t\t\t# good takes the room is settled by shortfall, and that is right; *where*
+\t\t\t# it lands is settled by which press freed which room, and that is
+\t\t\t# nobody's decision at all. `{MOD_ID}_edit_reshuffle` trades these
+\t\t\t# buildings between their own locations afterwards.
+\t\t\tif = {{
+\t\t\t\tlimit = {{ var:{MOD_ID}_esg > 0 }}
+\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = var:{MOD_ID}_esg }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{ NOT = {{ is_target_in_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }} }} }}
+\t\t\t\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset target = this }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t\t# **Who took it, for the report and for the press line.** On «−1» `_esg` is
 \t\t\t# the good that moved in rather than a victim, and both readings are the
 \t\t\t# walk's answer to «what changed here», so they share the globals.
 \t\t\tset_global_variable = {{ name = {MOD_ID}_ev_esg value = var:{MOD_ID}_esg }}
@@ -4550,12 +4580,219 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \t\t\tset_global_variable = {{ name = {MOD_ID}_edit_done value = 1 }}
 \t\t}}
 \t}}
+\t{MOD_ID}_edit_reshuffle = yes
 \t{MOD_ID}_plan_rank = yes
 \t# **And the window's rows again.** A location the edit gave its first building
 \t# is not in `_plan_results` and would not appear until something else refilled
 \t# it; the goods already in a row read live off the location, so without this
 \t# an edit is half-visible, which is the worst of the three states.
 \t{MOD_ID}_plan_show = yes
+}}
+""")
+
+    # ---- step 2а: the fill's buildings, traded between their own locations ---
+    #
+    # **His words, 2026-09-05:** «когда я нажимаю "−1" допустим освобождая 9
+    # ячеек — их заполняют по степени лимита и недобора… им не особо важно встают
+    # они в бонус или нет. После такого заполнения все новопоставленные домики
+    # должны переменяться местами в поисках наибольшей выгоды от земли.»
+    #
+    # **He named a real flaw of the order.** The fill puts one building in the
+    # room this press freed: *which* good is decided by shortfall, which is
+    # right, and *where* by the accident of press order, which nothing decides.
+    # Good X can take a room that suits good Y, placed a press later, far better.
+    #
+    # **The scope is strictly the fill's own buildings and their own locations.**
+    # No count changes, so the share, the locks and the covering constraint are
+    # all untouched, and charters and everything placed earlier are not looked
+    # at. That makes it a pure improvement of the gain and nothing else.
+    #
+    # **A round is one pass over pairs, and rounds repeat while one swaps.** The
+    # round is one effect called three times behind a guard rather than a `while`
+    # — the same body, no unrolling, and a bound that cannot run away. A swap is
+    # taken only on a strict improvement, so a pair cannot oscillate.
+    town_of = "\n".join(
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsA{i} value = var:{MOD_ID}_p{i} }}"
+        for i in range(1, len(order) + 1))
+    rural_of = "\n".join(
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsA{i} value = var:{MOD_ID}_pr{i} }}"
+        for i in range(1, len(order) + 1))
+    fits_of = "".join(
+        f"\t\t\tset_global_variable = {{ name = {MOD_ID}_rsF{i} value = 0 }}\n"
+        f"\t\t\tif = {{\n"
+        f"\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
+        f"\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rsF{i} value = 1 }}\n"
+        f"\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    # Is the good the fill left here still standing? A later «−1» may have taken
+    # it out, and a stale marker would trade a building that is not there.
+    still_here = "".join(
+        f"\t\t\tif = {{ limit = {{ var:{MOD_ID}_fillg = {i} is_target_in_variable_list = "
+        f"{{ name = {MOD_ID}_plan_goods target = goods:{order[i - 1]} }} }} "
+        f"set_global_variable = {{ name = {MOD_ID}_rs_ok value = 1 }} }}\n"
+        for i in range(1, len(order) + 1))
+    # B's side of the comparison: what B pays for its own good, what A would pay
+    # for it, and whether A may hold it at all.
+    read_b = "".join(
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ var:{MOD_ID}_fillg = {i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bg value = {i} }}\n"
+        f"\t\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bb value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\t\t\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_rs_bb "
+        f"value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_ab "
+        f"value = global_var:{MOD_ID}_rsA{i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_afit "
+        f"value = global_var:{MOD_ID}_rsF{i} }}\n"
+        f"\t\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+    # A's good, asked of B: what B would pay for it, what A pays now, and whether
+    # B may hold it.
+    read_a = "".join(
+        f"\t\t\t\tif = {{\n"
+        f"\t\t\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ag = {i} }}\n"
+        f"\t\t\t\t\tif = {{ limit = {{ {MOD_ID}_plan_is_town = yes }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_ba value = var:{MOD_ID}_p{i} }} }}\n"
+        f"\t\t\t\t\telse = {{ set_global_variable = {{ name = {MOD_ID}_rs_ba "
+        f"value = var:{MOD_ID}_pr{i} }} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_aa "
+        f"value = global_var:{MOD_ID}_rsA{i} }}\n"
+        f"\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 0 }}\n"
+        f"\t\t\t\t\tif = {{\n"
+        f"\t\t\t\t\t\tlimit = {{ OR = {{ {MOD_ID}_edit_fits_town_{i} = yes "
+        f"{MOD_ID}_edit_fits_rural_{i} = yes }} }}\n"
+        f"\t\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 1 }}\n"
+        f"\t\t\t\t\t}}\n"
+        f"\t\t\t\t}}\n"
+        for i in range(1, len(order) + 1))
+
+    def dispatch(prefix: str, key: str, tab: str) -> str:
+        return "".join(
+            f"{tab}if = {{ limit = {{ {key} = {i} }}\n"
+            f"{call(prefix, i, tab + chr(9))}{tab}}}\n"
+            for i in range(1, len(order) + 1))
+
+    swap_b = (dispatch("edit_remove", f"var:{MOD_ID}_fillg", "\t" * 5)
+              + dispatch("edit_place", f"global_var:{MOD_ID}_rs_ag", "\t" * 5))
+    swap_a = (dispatch("edit_remove", f"global_var:{MOD_ID}_rs_ag", "\t" * 6)
+              + dispatch("edit_place", f"global_var:{MOD_ID}_rs_bg", "\t" * 6))
+
+    out.append(f"""
+# Everything the reshuffle remembers, forgotten. A fresh plan or a loaded slot
+# is a different set of buildings, and a marker left on a location would trade
+# something the fill never put there.
+# Scope: country
+{MOD_ID}_edit_clear_fillset = {{
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tremove_variable = {MOD_ID}_fillg
+\t}}
+\tclear_global_variable_list = {MOD_ID}_edit_fillset
+\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\tset_global_variable = {{ name = {MOD_ID}_rs_swaps value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_rounds value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_gain value = 0 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 0 }}
+}}
+
+# Three rounds at most, and it stops the moment one of them trades nothing.
+# Scope: country
+{MOD_ID}_edit_reshuffle = {{
+\t# **What the trading is worth, kept as one number.** The gain is the
+\t# whole reason this pass exists and nothing on screen showed it, so a
+\t# run could not tell «traded nothing» from «traded and it was worth
+\t# nothing» from «never ran». The changes window prints it.
+\tset_global_variable = {{ name = {MOD_ID}_rs_gain0 value = global_var:{MOD_ID}_plan_gain }}
+\t{MOD_ID}_edit_reshuffle_round = yes
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t}}
+\tif = {{
+\t\tlimit = {{ global_var:{MOD_ID}_rs_did = 1 }}
+\t\t{MOD_ID}_edit_reshuffle_round = yes
+\t}}
+\tchange_global_variable = {{ name = {MOD_ID}_rs_gain add = global_var:{MOD_ID}_plan_gain }}
+\tchange_global_variable = {{ name = {MOD_ID}_rs_gain subtract = global_var:{MOD_ID}_rs_gain0 }}
+}}
+
+# One pass over the pairs. **`_rounds` and `_swaps` are the probe**: a reshuffle
+# that never ran and one that found nothing to trade are the same picture on the
+# map, and the diagnosis prints both.
+# Scope: country
+{MOD_ID}_edit_reshuffle_round = {{
+\tchange_global_variable = {{ name = {MOD_ID}_rs_rounds add = 1 }}
+\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 0 }}
+\t# **The inner walk reads a copy.** Iterating one list inside itself is a
+\t# shape this mod has never proved, and copying it costs one pass over a
+\t# handful of locations.
+\tclear_global_variable_list = {MOD_ID}_edit_fillset2
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tadd_to_global_variable_list = {{ name = {MOD_ID}_edit_fillset2 target = this }}
+\t}}
+\tevery_in_global_list = {{
+\t\tvariable = {MOD_ID}_edit_fillset
+\t\tlimit = {{ has_variable = {MOD_ID}_fillg }}
+\t\tsave_scope_as = {MOD_ID}_rs_a
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_ag value = var:{MOD_ID}_fillg }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 0 }}
+\t\tset_global_variable = {{ name = {MOD_ID}_rs_ok value = 0 }}
+{still_here}\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ok = 0 }}
+\t\t\tremove_variable = {MOD_ID}_fillg
+\t\t}}
+\t\t# **A's whole row, parked before the inner walk.** Two scopes cannot be
+\t\t# read at once, so what A pays for every good and what A may hold go into
+\t\t# globals here, and B compares against them in its own scope.
+\t\tif = {{
+\t\t\tlimit = {{ global_var:{MOD_ID}_rs_ok = 1 }}
+\t\t\tif = {{
+\t\t\t\tlimit = {{ {MOD_ID}_plan_is_town = yes }}
+{town_of}
+\t\t\t}}
+\t\t\telse = {{
+{rural_of}
+\t\t\t}}
+{fits_of}\t\t\tevery_in_global_list = {{
+\t\t\t\tvariable = {MOD_ID}_edit_fillset2
+\t\t\t\tlimit = {{
+\t\t\t\t\tglobal_var:{MOD_ID}_rs_stop = 0
+\t\t\t\t\thas_variable = {MOD_ID}_fillg
+\t\t\t\t\tNOT = {{ this = scope:{MOD_ID}_rs_a }}
+\t\t\t\t}}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bg value = 0 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_afit value = 0 }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_bfit value = 0 }}
+{read_b}{read_a}\t\t\t\t# What the pair is worth now, and what it would be worth traded.
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_now value = global_var:{MOD_ID}_rs_aa }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_now add = global_var:{MOD_ID}_rs_bb }}
+\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_new value = global_var:{MOD_ID}_rs_ab }}
+\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_new add = global_var:{MOD_ID}_rs_ba }}
+\t\t\t\tif = {{
+\t\t\t\t\tlimit = {{
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bg > 0
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_afit = 1
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_bfit = 1
+\t\t\t\t\t\tglobal_var:{MOD_ID}_rs_new > global_var:{MOD_ID}_rs_now
+\t\t\t\t\t}}
+\t\t\t\t\t# **Out before in, on both sides.** The placement asks the cap for
+\t\t\t\t\t# itself, and the room it needs is the one being freed a line above.
+{swap_b}\t\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = global_var:{MOD_ID}_rs_ag }}
+\t\t\t\t\tscope:{MOD_ID}_rs_a = {{
+{swap_a}\t\t\t\t\t\tset_variable = {{ name = {MOD_ID}_fillg value = global_var:{MOD_ID}_rs_bg }}
+\t\t\t\t\t}}
+\t\t\t\t\t# One trade per location per round: A's parked row still holds, but
+\t\t\t\t\t# what A may hold does not — it carries B's good now.
+\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_stop value = 1 }}
+\t\t\t\t\tset_global_variable = {{ name = {MOD_ID}_rs_did value = 1 }}
+\t\t\t\t\tchange_global_variable = {{ name = {MOD_ID}_rs_swaps add = 1 }}
+\t\t\t\t}}
+\t\t\t}}
+\t\t}}
+\t}}
 }}
 """)
 
@@ -4817,6 +5054,10 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 # that shows up as a number rather than as an error.
 # Scope: country
 {MOD_ID}_edit_clear_plan = {{
+\t# **The reshuffle's markers go with the plan they belong to.** A slot
+\t# loaded is a different set of buildings, and a marker left behind would
+\t# trade something the fill never put there.
+\t{MOD_ID}_edit_clear_fillset = yes
 \tevery_in_global_list = {{
 \t\tvariable = {MOD_ID}_plan_touched
 \t\tclear_variable_list = {MOD_ID}_plan_goods
@@ -5052,6 +5293,7 @@ def editor_file(rows: list[eu5data.Method], split: dict[str, list[str]],
 \tset_global_variable = {{ name = {MOD_ID}_edit_norefill value = 0 }}
 \tset_global_variable = {{ name = {MOD_ID}_edit_reached value = 1 }}
 \t{MOD_ID}_edit_fill_pool = yes
+\t{MOD_ID}_edit_clear_fillset = yes
 \t{MOD_ID}_plan_show = yes
 \tremove_variable = {MOD_ID}_result_open
 \tremove_variable = {MOD_ID}_right_open
@@ -6124,6 +6366,15 @@ def diag_file(rows: list[eu5data.Method], split: dict[str, list[str]],
     out.append(say("EDIT share quota=%s free=%s pool_rooms=%s | rooms=%s "
                    "plan_quota=%s"
                    % tuple(read(i) for i in range(1, 6))))
+
+    # **The reshuffle, and it needs three numbers rather than one.** `rounds` at
+    # zero says the pass never ran at all — the one failure that looks exactly
+    # like «there was nothing to trade» on the map and in the window.
+    for slot, source in enumerate((f"{MOD_ID}_rs_rounds", f"{MOD_ID}_rs_swaps",
+                                   f"{MOD_ID}_rs_gain"), start=1):
+        out.append(park(slot, source))
+    out.append(say("EDIT shuffle rounds=%s swaps=%s gain=%s"
+                   % tuple(read(i) for i in range(1, 4))))
     out.append("}\n")
 
     # ----------------------------------------------------------------- the scan

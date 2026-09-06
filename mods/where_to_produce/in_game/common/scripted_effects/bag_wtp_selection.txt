@@ -382,4 +382,22 @@ bag_wtp_init_counters = {
 		limit = { NOT = { has_global_variable = bag_wtp_plan_sweeps } }
 		set_global_variable = { name = bag_wtp_plan_sweeps value = 0 }
 	}
+	# The reshuffle's two counters. The changes window prints both from the
+	# moment it can be opened, which is before anything has ever traded.
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_swaps } }
+		set_global_variable = { name = bag_wtp_rs_swaps value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_gain } }
+		set_global_variable = { name = bag_wtp_rs_gain value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_rounds } }
+		set_global_variable = { name = bag_wtp_rs_rounds value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = bag_wtp_rs_did } }
+		set_global_variable = { name = bag_wtp_rs_did value = 0 }
+	}
 }
