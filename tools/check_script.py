@@ -670,13 +670,21 @@ def overflowing_windows(root: Path) -> list[str]:
     box that clears the bound can still be too small; a box that does not is
     certainly too small, and that is the half worth failing on.
 
-    `SLACK` is what the window's own margin and its scrollbar are allowed to
-    take. `window_margin_alt` is a game template this repository has no copy of,
-    so the figure is an allowance and not a measurement -- and it is deliberately
-    generous, because this check exists to catch a row a third too wide, not to
-    argue about twenty pixels.
+    **`SLACK` is subtracted from the box, not added to it**, and getting that
+    backwards is what let the fault through a sixth time. The window's own margin
+    and its scrollbar take width *away* from what a row may use, so a row is
+    allowed `width - SLACK` and not `width + SLACK`. Under the old direction
+    `bag_wtp_edit_window` sat at 1500 with a 1544 row and passed: the frame ended
+    44px before the sheet, and the owner reported it as the header again --
+    «рамка всего окна вместе с шапкой не увеличивается, а содержимое выходит за
+    пределы рамки в правую сторону», 2026-09-06, which is the first description
+    of it that named the right thing.
+
+    `window_margin_alt` is a game template this repository has no copy of, so the
+    figure is an allowance and not a measurement -- deliberately small, because
+    the margin it stands for is small and the check is now the strict side.
     """
-    SLACK = 60
+    SLACK = 40
     gui = root / "in_game/gui"
     if not gui.is_dir():
         return []
@@ -713,16 +721,17 @@ def overflowing_windows(root: Path) -> list[str]:
             if not rows:
                 continue
             worst, line_off = max(rows)
-            if worst <= width + SLACK:
+            if worst <= width - SLACK:
                 continue
             line = text[:match.end() + line_off].count("\n") + 1
             found.append(
                 f"{path.relative_to(REPO)}:{line}: "
                 f"{name.group(1) if name else 'window'} declares "
                 f"size = {{ {width} ... }} and holds a row at least {worst} wide "
-                f"— the content spills past the frame through `allow_outside` "
-                f"and only the header, the background and the close button stay "
-                f"at the declared size. Widen the box; "
+                f"— with {SLACK} for the margin and the scrollbar a row may use "
+                f"{width - SLACK}. The content spills past the frame through "
+                f"`allow_outside`, and the frame is what stays at the declared "
+                f"size. Widen the box or narrow the row; "
                 f"docs/pitfalls/interface.md")
     return found
 

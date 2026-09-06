@@ -69,6 +69,16 @@ rules each step implements are
 7. **The plan shown in the location panel**, inside Glorp UI's interface.
 8. **The plan stamped onto Construction Manager**, gated on CM being present.
 
+### Two things he asked for and has not seen
+
+**A frame that fits, and rows that fit in it.** The «header» complaint was the
+content overflowing the frame all along — measured at last on 2026-09-06, 1544 in
+a 1500 box — and the check that should have caught it was subtracting the margin
+the wrong way. Both fixed, neither run.
+
+**The plan rows carry building icons only** now, and the space the goods icons
+held is what he wants for the Construction Manager links of step 8.
+
 ### Waiting on him, cheap
 
 **Two mods for `reference/`, which he offered**: `cheatmenu` and Advanced Auto

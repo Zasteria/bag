@@ -37,22 +37,20 @@ and outlives a save.**
 `potential`, never `has_advance`**
 ([`town_rights.md`](../../docs/investigations/town_rights.md)). **The plan is an
 optimisation with a covering constraint** — maximise the bonus captured, subject
-to every good the ground can produce being produced; **read
-[`plan_formula.md`](../../docs/investigations/plan_formula.md) first**. **An entry
-is a building and a location holds one of each**
+to every good the ground can produce being produced
+([`plan_formula.md`](../../docs/investigations/plan_formula.md)). **An entry is a
+building and a location holds one of each**
 ([`whole_map_plan.md`](../../docs/investigations/whole_map_plan.md)).
 
 **A preference is an edit, not a term in the objective**: `bag_wtp_edit_*` moves
 one building a press, where it costs least, and **the round trip is no undo**.
 **After a fill, what it placed trades locations between itself** (`_fillg`,
-`_edit_reshuffle`). **The editor's share subtracts the RGOs** — `_eq<n>`, as
-`_pq<n>` does. **A press pins its
-good** (`_lock<n>`), a freed room goes to the good furthest below its share and
-**«+1» takes its building from the good furthest above one**; **a pin is a star,
-not a colour**. **The changes window is a diff and holds no
-chronology** — one location is one row however many presses touched it, **sorted
-by press number** (`_chg_seq`); the journal itself is `WTP PRESS` in
-`debug.log`. **A charter is not a building**: every town holds exactly one, so
+`_edit_reshuffle`). **The editor's share subtracts the RGOs** — `_eq<n>`. **A
+press pins its good** (`_lock<n>`), a freed room goes to the good furthest below
+its share and **«+1» takes its building from the good furthest above one**; **a
+pin is a star, not a colour**. **The changes window is a diff and holds no
+chronology**, sorted by press number (`_chg_seq`); the journal itself is
+`WTP PRESS` in `debug.log`. **A charter is not a building**: every town holds exactly one, so
 «+1»/«−1» on one *moves* it, bundle and all, and a town never ends without one
 (`_edit_right_swap`, share `_rquota`). `_lock<n>` and `_skip<n>` are existence
 flags a slot stores and restores; **`_edit_locked_<n>` is the charter's bundle,
@@ -61,9 +59,10 @@ not the player's pin.**
 
 **The build stamp is on «Техническая»**, before believing a fix failed. **Every window rule this mod has paid for is in
 [`pitfalls/interface.md`](../../docs/pitfalls/interface.md)**, first among them
-**a box with room to spare divides it between its children**. `check_script.py`
-resolves every name a window or a string says **except a widget type**, and
-measures the box against its widest row.
+**a box with room to spare divides it between its children** and **«шапка не
+растягивается» is the content spilling past the frame, measured not looked at**.
+`check_script.py` resolves every name a window or a string says **except a widget
+type**, and a row may use the box **minus** the margin.
 
 **Not to be attempted again**: eight, rejected
 ([`archive/wtp_not_again.md`](../../docs/archive/wtp_not_again.md)). **The answer

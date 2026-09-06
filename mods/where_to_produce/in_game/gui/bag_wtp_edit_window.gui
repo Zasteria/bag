@@ -113,7 +113,7 @@ window = {
 				}
 
 				widget = {
-					size = { 330 40 }
+					size = { 300 40 }
 					using = bg_number_container_bckg
 
 					hbox = {
@@ -122,9 +122,9 @@ window = {
 						spacing = 4
 
 						text_single = {
-							size = { 160 32 }
+							size = { 130 32 }
 							autoresize = no
-							maximumsize = { 160 32 }
+							maximumsize = { 130 32 }
 							align = left|vcenter
 							fontsize = 13
 							elide = right
@@ -171,7 +171,7 @@ window = {
 				}
 
 				widget = {
-					size = { 330 40 }
+					size = { 300 40 }
 					using = bg_number_container_bckg
 
 					hbox = {
@@ -180,9 +180,9 @@ window = {
 						spacing = 4
 
 						text_single = {
-							size = { 160 32 }
+							size = { 130 32 }
 							autoresize = no
-							maximumsize = { 160 32 }
+							maximumsize = { 130 32 }
 							align = left|vcenter
 							fontsize = 13
 							elide = right
@@ -229,7 +229,7 @@ window = {
 				}
 
 				widget = {
-					size = { 330 40 }
+					size = { 300 40 }
 					using = bg_number_container_bckg
 
 					hbox = {
@@ -238,9 +238,9 @@ window = {
 						spacing = 4
 
 						text_single = {
-							size = { 160 32 }
+							size = { 130 32 }
 							autoresize = no
-							maximumsize = { 160 32 }
+							maximumsize = { 130 32 }
 							align = left|vcenter
 							fontsize = 13
 							elide = right

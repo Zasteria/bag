@@ -16,29 +16,6 @@
 
 types BagWtpPlanTypes {
 
-	# One good the plan put here, and under it the building that would make it.
-	#
-	# **They are two lists and not one**, because a datamodel item sees one scope.
-	# The province's goods and its buildings are written in step and read back in
-	# step, and every cell is the same fixed width, so the two rows line up
-	# without anything linking them. A row of forty-seven possible goods has no
-	# space for words, so both names are tooltips.
-	type bag_wtp_plan_goods_entry = widget {
-		size = { 32 20 }
-	using = bg_window_default_alt
-		text_single = {
-			parentanchor = center
-			autoresize = yes
-			fontsize = 16
-			raw_text = "[Goods.GetIcon]"
-			tooltip = "[Goods.GetName]"
-		}
-	}
-
-	# **A building's icon is a texticon and not a texture.** `BuildingType.GetIcon`
-	# returns a `CString` -- vanilla writes it as `raw_text` beside the name in
-	# `alertmanager.gui` -- so an `icon` with `texture = "[...GetIcon]"` draws
-	# nothing at all, which is what the thirty-second load showed.
 	type bag_wtp_plan_building_entry = widget {
 		size = { 32 20 }
 		text_single = {
@@ -331,42 +308,31 @@ types BagWtpPlanTypes {
 
 		widget = { size = { 6 42 } }
 
-		# The plan itself: the goods over the buildings that would make them. A
-		# `widget` and not an hbox, so the two rows hug the left of the cell
-		# instead of being centred in it.
+		# **Только домики, без иконок товаров над ними.** Его слова, 2026-09-06:
+		# «иконка домика и иконка товара встали друг на друга… пусть там будет
+		# именно только иконка домика, без иконки товара. По домику и так ясно, что
+		# это за товар.» Две строки по 20 в ячейке 42 не пересекались по числам, а
+		# `autoresize = yes` внутри них — пересекались на экране.
+		#
+		# **Это окно и редактор, а не поиск по одному товару.** Там строка отвечает
+		# на другой вопрос и остаётся как была.
+		#
+		# **`_row_builds` и не `_plan_builds`.** Списки самого плана лежат в том
+		# порядке, в каком проход их поставил, и этот порядок невоспроизводим:
+		# слот, загруженный обратно, кладёт те же четыре товара в нумерации самих
+		# товаров. Ничего не двигалось, а строка читалась иначе.
+		#
+		# **`hbox` без своей ширины жмётся к содержимому**, поэтому он лежит в
+		# простом `widget` с якорем: `vbox` брал все 260 и центрировал строку
+		# внутри себя — «иконки товаров немного не в столбике», 2026-09-06.
 		widget = {
 			size = { 260 42 }
 			alwaystransparent = no
 			tooltip = "bag_wtp_plan_goods_tt"
 
-			# **Two `hbox`es anchored to the cell, not a `vbox` holding them.**
-			# The `vbox` took the cell's full 260 and centred both rows inside
-			# itself, so the icons sat about seventy pixels right of the column
-			# they belong to and a row of three started somewhere else from a row
-			# of five — «иконки товаров немного не в столбике», 2026-09-06. An
-			# `hbox` with no width of its own hugs what it holds, and an anchor
-			# inside a plain `widget` is what puts it where the header is.
-			#
-			# **`_row_*` and not `_plan_*`.** The plan's own lists are in the
-			# order the pass placed things, and that order is not reproducible: a
-			# slot restored puts the same four goods in a location in the goods'
-			# own numbering instead, so a row read «пиво, вино, спирт» and after a
-			# load «спирт, вино, пиво». Nothing had moved.
 			hbox = {
-				parentanchor = left|top
-				widgetanchor = left|top
-				spacing = 6
-				datamodel = "[Location.MakeScope.GetList('bag_wtp_row_goods')]"
-				item = {
-					bag_wtp_plan_goods_entry = {
-						datacontext = "[Scope.GetGoods]"
-					}
-				}
-			}
-
-			hbox = {
-				parentanchor = left|bottom
-				widgetanchor = left|bottom
+				parentanchor = left|vcenter
+				widgetanchor = left|vcenter
 				spacing = 6
 				datamodel = "[Location.MakeScope.GetList('bag_wtp_row_builds')]"
 				item = {
